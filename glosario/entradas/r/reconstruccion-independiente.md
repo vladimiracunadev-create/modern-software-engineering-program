@@ -24,13 +24,13 @@ Se reconstruye el artefacto desde la fuente revisada y se compara con el release
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md):
+Caso medido en la sección «Reconstrucción independiente» de [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md):
 
-El equipo de seguridad de la universidad cliente define un procedimiento de aceptación. Los valores esperados (clave pública, nombre del producto, identificador del constructor, repositorio) se obtienen del contrato y de un canal independiente y se guardan en un archivo de configuración versionado; la secuencia más alta se registra en cada aceptación. El verificador recorre las doce comprobaciones y escribe un informe con los tres estados. Para cada release crítico, una segunda persona reconstruye el artefacto desde la fuente revisada en su propio entorno y compara la huella.
+**Cómo leer la figura.** A la izquierda está la reconstrucción y a la derecha tres comparaciones. Las turquesa muestran que reconstruir desde la fuente revisada detecta la manipulación; la coral recuerda que reconstruir desde una fuente maliciosa también coincide: reproducible no equivale a legítimo. **Dónde deja de valer:** exige que exista una «fuente revisada» independiente de la que se usó para el release, que el build sea reproducible (`SE-469`) y que las entradas estén declaradas; un compilador real con entradas no declaradas haría que la coincidencia no ocurriera ni siquiera en el caso legítimo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md)) son:
 
 - **El verificador acepta un release de otro constructor** — causa: valores esperados tomados del documento. Corrección: configuración independiente y fijada de antemano.
 - **Un release antiguo pasa como el último** — causa: sin comprobar la secuencia. Corrección: recordar la mayor secuencia vista y rechazar menores.

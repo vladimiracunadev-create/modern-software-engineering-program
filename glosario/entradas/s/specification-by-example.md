@@ -16,13 +16,13 @@ En [SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../..
 
 ## Cómo funciona
 
-[SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md):
+Caso medido en la sección «Specification by Example: el ejemplo como especificación» de [SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+La práctica que Adzic describe sustituye la especificación en prosa por ejemplos concretos acordados, que se mantienen como documentación ejecutable. La idea de fondo coincide con la de `SE-565`: una frase ambigua admite muchas lecturas y un ejemplo con datos admite una. Con un ejemplo («curso silenciado, faltan 24 horas: no hay aviso») no se puede debatir qué quiso decir la frase. El costo es que los ejemplos deben mantenerse: un ejemplo que deja de ser cierto pero sigue en la suite es peor que ninguno.
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md)) son: Los conjuntos y los mutantes son del autor y los resultados esperados vienen de un modelo; no se midió un proceso de acuerdo con personas. El siguiente paso, `SE-546`, trata las palabras de esos ejemplos: DDD ordena el lenguaje y los contextos donde cada palabra vale, porque «entrega» no significa lo mismo en todas partes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-545 — ATDD y Specification by Example: aceptación ejecutable](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md)) son: Los conjuntos y los mutantes son del autor y los resultados esperados vienen de un modelo; no se midió un proceso de acuerdo con personas. El siguiente paso, `SE-546`, trata las palabras de esos ejemplos: DDD ordena el lenguaje y los contextos donde cada palabra vale, porque «entrega» no significa lo mismo en todas partes.
 
 ## Relación con otros conceptos
 

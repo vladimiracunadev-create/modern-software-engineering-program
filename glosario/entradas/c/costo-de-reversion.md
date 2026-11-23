@@ -28,14 +28,14 @@ En la plataforma, `decision-reversibility.md` tiene una fila por decisión con s
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-142 — Decisiones reversibles e irreversibles](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-142 — Decisiones reversibles e irreversibles](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md)) son:
 
 - **Tras revertir faltan datos** — causa: la inversa recrea estructura, no contenido. Corrección: comparar antes y después y guardar copia verificada.
 - **Un defecto afecta a miles de personas el viernes** — causa: despliegue a todos de golpe. Corrección: desplegar por etapas con detección entre etapas.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-142 — Decisiones reversibles e irreversibles](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo la versión de SQLite (3.45.3 y 3.45.1). No se migró ninguna base real; las pérdidas, las probabilidades, la tasa de reporte y el umbral de detección son supuestos del autor, y los resultados con 10 000 filas no se extrapolan a volúmenes mayores ni a otros motores.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-142 — Decisiones reversibles e irreversibles](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo la versión de SQLite (3.45.3 y 3.45.1). No se migró ninguna base real; las pérdidas, las probabilidades, la tasa de reporte y el umbral de detección son supuestos del autor, y los resultados con 10 000 filas no se extrapolan a volúmenes mayores ni a otros motores.
 
 ## Relación con otros conceptos
 

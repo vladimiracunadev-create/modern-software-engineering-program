@@ -28,7 +28,7 @@ No. La simulación demuestra que las defensas funcionan juntas bajo las fallas i
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md)) son:
 
 - **Duplicados minutos después del original** — causa: ventana de deduplicación menor que el horizonte de reintentos. Corrección: ventana mayor que el horizonte máximo, con la aleatoriedad incluida.
 - **Un solo mensaje detiene el flujo** — causa: no hay cola de mensajes fallidos. Corrección: desviar tras N intentos con alarma y dueño.

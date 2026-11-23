@@ -22,7 +22,7 @@ Anthropic describe el problema de los agentes que abarcan varias ventanas: cada 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 

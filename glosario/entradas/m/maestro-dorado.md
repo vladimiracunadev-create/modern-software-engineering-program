@@ -35,7 +35,7 @@ El fragmento registra un maestro dorado de una función y detecta un cambio. Ant
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son:
 
 - **El refactor pasa las pruebas y rompe a un cliente** — causa: el maestro no incluye entradas de canales antiguos. Corrección: añadir las entradas reales (valores no booleanos, formatos viejos).
 - **No se sabe qué paso cambió el comportamiento** — causa: se hicieron varios pasos antes de comparar. Corrección: comparar tras cada paso y hacer un commit por paso.

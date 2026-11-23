@@ -26,13 +26,13 @@ Un segundo fallo controlado explora el desbordamiento. Serializa en dos bytes si
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md):
+Caso medido en la sección «Máscaras y desplazamientos: banderas sin ambigüedad» de [SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md):
 
-Un encabezado de red fija ancho y orden. El productor que usa orden nativo puede pasar pruebas locales y fallar al interoperar. La solución es contrato explícito y vectores de prueba compartidos, no detectar plataforma en cada extremo.
+Muchos formatos empaquetan varias decisiones en un campo: permisos, estados, opciones. Las operaciones bit a bit permiten leerlas y modificarlas sin tocar el resto. `&` conserva los bits presentes en ambos operandos (útil para *probar* o *borrar* con una máscara), `|` combina (*activar*), `^` invierte los bits indicados, `~` invierte todos y `<<`, `>>` desplazan. Con `0b1010` y `0b0110`: `&` da `0b0010` (2), `|` da `0b1110` (14), `^` da `0b1100` (12), `~0b1010 & 0xF` da `0b0101` (5), `1 << 3` da 8 y `0b1000 >> 2` da 2.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)) son:
 
 - **conversión aprendida de memoria** — causa: falta modelo posicional. Corrección: reconstruye pesos y suma.
 - **overflow no aparece en Python** — causa: entero arbitrario oculta ancho. Corrección: valida rango o usa serialización fija.

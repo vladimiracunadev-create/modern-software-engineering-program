@@ -22,7 +22,7 @@ Decidir pronto evita el coste de la indecisión; decidir tarde permite aprender.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md):
 
 El equipo de la plataforma escribe cuatro ADR (subir archivos por URL firmada, monolito modular, revisión asíncrona con cola, tres instancias de la aplicación) con la plantilla MADR y un comprobador de forma en el CI. Para el de servicios frente a monolito modular ejecuta el análisis de sensibilidad: el monolito gana con los pesos base y con 64,5 % de los pesos al azar, de modo que la decisión se apoya en el escenario de despliegue (un equipo de seis) y no en la suma.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna arquitectura real: los puntajes, los ADR, sus defectos y el modelo de espera son construcciones del autor. La siguiente clase mira a las personas y a los equipos que toman y ejecutan estas decisiones.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna arquitectura real: los puntajes, los ADR, sus defectos y el modelo de espera son construcciones del autor. La siguiente clase mira a las personas y a los equipos que toman y ejecutan estas decisiones.
 
 ## Relación con otros conceptos
 

@@ -24,9 +24,9 @@ La plataforma tiene un costo que se estima con las fórmulas de `SE-370`: bytes 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md):
+Caso medido en la sección «El costo de cada candidato» de [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Medido en el taller y en `SE-282`: una instancia de Wasm con un módulo ya compilado cuesta unos 0,09 ms; cortar un bucle infinito por combustible tardó 27 ms (2 000 000 de unidades) frente a 629 ms con un proceso con límite de 0,5 s. Un proceso nuevo de Python cuesta entre unos 100 y 160 ms solo por arrancar. La consecuencia: Wasm permite una frontera por petición en el camino caliente; el proceso, una por tarea de segundos o minutos.
 
 ## Errores y confusiones comunes
 

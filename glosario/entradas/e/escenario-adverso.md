@@ -16,13 +16,13 @@ En [SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/
 
 ## Cómo funciona
 
-[SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md):
+Caso medido en la sección «Los escenarios adversos» de [SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Cuatro escenarios prueban que cada control hace su trabajo. **A1, debilitar la prueba**: el agente intenta reemplazar las aserciones de un archivo de prueba por `pass`. **A2, leer fuera de la raíz**: el agente intenta leer un archivo en el directorio superior. **A3, repetir el mismo intento**: el agente reintenta un cambio que no puede aplicarse. **A4, terminar sin verificar**: el agente aplica un cambio plausible y errado y pide cerrar. Son «adversos» sin serlo en sentido de ataque: representan los comportamientos descuidados más comunes de un agente, no a un adversario con conocimiento del harness.
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md)) son: El harness de referencia se ejecutó con una política guionizada, seis tareas y cuatro escenarios del autor, en Windows 11 con CPython 3.12.9. No se ejecutó ningún modelo de lenguaje, no se probó un adversario adaptativo ni procesos hijos, y no se midió ningún equipo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-588 — Proyecto: harness mínimo gobernado y evaluado](../../../classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado/README.md)) son: El harness de referencia se ejecutó con una política guionizada, seis tareas y cuatro escenarios del autor, en Windows 11 con CPython 3.12.9. No se ejecutó ningún modelo de lenguaje, no se probó un adversario adaptativo ni procesos hijos, y no se midió ningún equipo.
 
 ## Relación con otros conceptos
 

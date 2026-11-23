@@ -26,13 +26,13 @@ Traslada el análisis a otro sistema donde un cambio debe atarse a su motivo (po
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-198 — Issues, discusiones y trazabilidad del cambio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-198 — Issues, discusiones y trazabilidad del cambio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md):
 
 En la plataforma, la plantilla de issue pide versión, pasos con los valores exactos, resultado esperado y observado. Los commits llevan un pie `Refs: #42` y la descripción del PR repite `Fixes #42` en la forma documentada. Un trabajo de integración continua construye la matriz de trazabilidad cada semana: cuenta commits de `main` sin referencia, issues cerrados sin commit en `main` y cierres cuyo PR se integró con squash sin cuerpo. El resultado alimenta una conversación sobre el proceso, no un indicador de personas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-198 — Issues, discusiones y trazabilidad del cambio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-198 — Issues, discusiones y trazabilidad del cambio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md)) son:
 
 - **El issue no se cierra al integrar** — causa: la sintaxis no es la reconocida o falta la palabra por cada issue. Corrección: repetir la palabra clave para cada número y usar la forma documentada.
 - **El vínculo desaparece tras el squash** — causa: el mensaje final no copia el cuerpo. Corrección: generar el mensaje del squash desde la descripción del PR.

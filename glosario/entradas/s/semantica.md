@@ -26,9 +26,9 @@ Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje r
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md):
+Caso medido en la sección «La semántica cambia aunque la sintaxis se parezca» de [SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md):
 
-El taller ejecuta el mismo archivo de casos en ambas implementaciones y compara JSON canónico. Un documento separa equivalencia funcional, diferencias de tipos, costo y experiencia de mantenimiento. No declara un lenguaje ganador universal.
+Transferir una solución a otro lenguaje no es traducir sintaxis. Seis diferencias concretas separan Python de Rust. Con enteros negativos, Python midió `-7 // 2 = -4` y `-7 % 2 = 1` (cociente hacia menos infinito, resto con el signo del divisor); según la documentación de Rust, `-7 / 2` es `-3` y `-7 % 2` es `-1` (cociente truncado hacia cero). Con enteros grandes, Python permite `2**63 = 9223372036854775808` porque su `int` crece; en Rust, `i64` tiene rango fijo y el desbordamiento provoca un pánico en compilaciones de depuración y una envoltura en las de release.
 
 ## Errores y confusiones comunes
 
@@ -38,7 +38,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md)) son: Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas. El taller no enseña Rust completo ni compara rendimiento con un microbenchmark. El proyecto final integra el recorrido en una CLI Python probada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md)) son: Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas. El taller no enseña Rust completo ni compara rendimiento con un microbenchmark. El proyecto final integra el recorrido en una CLI Python probada.
 
 ## Relación con otros conceptos
 

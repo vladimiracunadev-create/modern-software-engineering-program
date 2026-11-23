@@ -37,7 +37,7 @@ El fragmento calcula el kappa de Cohen de dos personas que clasifican diez incid
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md)) son:
 
 - **Veinte personas opinan y nadie decide** — causa: sin comandante ni roles. Corrección: asignar roles al declarar el incidente.
 - **Quien arregla contesta preguntas** — causa: sin comunicaciones y sin cadencia. Corrección: rol de comunicaciones y actualizaciones periódicas.

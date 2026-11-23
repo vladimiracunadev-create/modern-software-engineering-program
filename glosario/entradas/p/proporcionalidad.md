@@ -22,7 +22,7 @@ Gobernar el desarrollo con agentes es decidir cuánto control reciben distintos 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-586 — AI-DLC, gobierno y vibe coding frente a agentic engineering](../../../classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-586 — AI-DLC, gobierno y vibe coding frente a agentic engineering](../../../classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-586 — AI-DLC, gobierno y vibe coding frente a agentic engineering](../../../classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md)) son: Se clasificaron doce cambios con reglas del autor y se simularon 20 000 con parámetros del autor y semilla 502, en Windows 11 con CPython 3.12.9. No se midió ninguna organización, ni el efecto de AI-DLC, ni la eficacia de ningún marco, ni la productividad. El siguiente paso, `SE-587`, es un taller: diagnosticar seis fallos inyectados en el harness a partir de su traza.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-586 — AI-DLC, gobierno y vibe coding frente a agentic engineering](../../../classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md)) son: Se clasificaron doce cambios con reglas del autor y se simularon 20 000 con parámetros del autor y semilla 502, en Windows 11 con CPython 3.12.9. No se midió ninguna organización, ni el efecto de AI-DLC, ni la eficacia de ningún marco, ni la productividad. El siguiente paso, `SE-587`, es un taller: diagnosticar seis fallos inyectados en el harness a partir de su traza.
 
 ## Relación con otros conceptos
 

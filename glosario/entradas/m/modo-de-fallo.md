@@ -34,14 +34,14 @@ Escenario hipotético, construido para la clase y sin datos reales. El equipo de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md)) son:
 
 - **El control «no hace nada» y no hay error** — causa: falla abierto: el error del gancho no bloquea. Corrección: usar el código de bloqueo para la política y probar la caída.
 - **El agente carga mucho contexto al arrancar** — causa: todas las habilidades completas en memoria. Corrección: cargar descripciones y cuerpos bajo demanda.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos salvo la lectura de reloj: el gancho se ejecuta como proceso real y la comprobación de rutas es código real sobre cadenas; la carga de habilidades usa archivos sintéticos y una selección por palabras clave.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-570 — Skills, plugins, hooks y entornos aislados](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos salvo la lectura de reloj: el gancho se ejecuta como proceso real y la comprobación de rutas es código real sobre cadenas; la carga de habilidades usa archivos sintéticos y una selección por palabras clave.
 
 ## Relación con otros conceptos
 

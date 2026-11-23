@@ -28,7 +28,7 @@ El fragmento calcula cuántas acciones caben en la capacidad de mejora. Antes de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son:
 
 - **Las acciones pendientes crecen cada sprint** — causa: se acuerdan más de las que caben. Corrección: limitar a la capacidad y evaluar antes de agregar.
 - **Se declara fracaso a las dos semanas** — causa: muestra insuficiente para detectar la mejora. Corrección: fijar de antemano el plazo de evaluación según el tamaño del efecto.

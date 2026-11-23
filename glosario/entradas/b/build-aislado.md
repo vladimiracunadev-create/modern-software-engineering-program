@@ -22,20 +22,20 @@ El backend se ejecuta con requisitos de build declarados, evitando depender del 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md):
 
 En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son:
 
 - **`FileNotFoundError` solo tras instalar** — causa: el archivo de datos no está en `package-data`. Corrección: declararlo y comprobar el contenido de la rueda contra una lista esperada.
 - **`import json` devuelve un objeto raro en un directorio concreto** — causa: un `json.py` local tapa la biblioteca estándar. Corrección: renombrar el archivo y ejecutar con `-I` o `-P` para comprobar.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un paquete instalado todavía necesita una interfaz operable y estable. La siguiente clase diseña CLI, configuración, streams y códigos de salida como API pública.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-112 — Paquetes, módulos y publicación](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un paquete instalado todavía necesita una interfaz operable y estable. La siguiente clase diseña CLI, configuración, streams y códigos de salida como API pública.
 
 ## Relación con otros conceptos
 

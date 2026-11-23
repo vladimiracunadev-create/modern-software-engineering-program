@@ -32,7 +32,7 @@ Dibuja cliente → proxy → balanceador → dos backends. Marca en cada enlace 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-044 — Proxies, balanceadores, gateways y CDN](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-044 — Proxies, balanceadores, gateways y CDN](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md)) son:
 
 - **El origen registra IP falsas** — causa: confía en `X-Forwarded-For` que viene del cliente. Corrección: sobrescribir en el borde y aceptar conexiones solo del proxy.
 - **Tráfico a un origen caído tras detectarlo** — causa: sin comprobaciones de salud o con intervalos largos. Corrección: comprobaciones activas y pasivas y reintento hacia otro origen.

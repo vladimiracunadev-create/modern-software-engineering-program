@@ -32,13 +32,13 @@ Reproduce el fallo clásico de la clase: **replicar la base de datos y creer que
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md):
+Caso medido en la sección «Las dimensiones del radio de explosión» de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md):
 
-Supón, como caso hipotético y no como medición, que el equipo escribe la especificación del experimento «almacenamiento con 20 % de errores»: radio de 2 % del tráfico durante 10 minutos, aborto si el grupo experimental falla más de 50 % en 10 s o si el servicio global baja de 99,5 % en 30 s, reversión «quitar la regla del proxy» probada la víspera con un tiempo de 4 s, responsable la guardia de la API, ventana de martes a jueves de 10:00 a 16:00 y nunca en una semana de cierre de plazo.
+El **radio de explosión** es el conjunto de lo que el experimento puede dañar si sale mal. Los principios lo plantean como una responsabilidad: se admite un impacto negativo de corto plazo, pero se debe contener. No es un solo número. Se controla en cinco dimensiones que se combinan: la **fracción del tráfico** afectada; el **alcance** (qué clientes, instancias, zonas o regiones); la **duración**; la **intensidad** de la falla (10 % de errores o 100 %) y la **profundidad** (si afecta solo a la llamada probada o a lo que depende de ella).
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md)) son:
 
 - **El experimento no detecta nada y se declara confirmado** — causa: radio sin potencia suficiente. Corrección: calcular la fracción mínima y declarar el efecto mínimo detectable.
 - **El experimento aborta de inmediato** — causa: condición global consumida por la falla esperada. Corrección: medir el grupo experimental y separar el umbral de aborto del de la hipótesis.

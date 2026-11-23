@@ -26,9 +26,9 @@ El sistema es el mismo y el p99 pasa de 9 071 ms a 232 ms: el generador cerrado 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md):
+Caso medido en la sección «Omisión coordinada» de [SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md):
 
-El equipo prepara el cierre de plazo con un plan de tres pruebas. La de carga reproduce el perfil del cierre anterior con generador abierto, 60 solicitudes por segundo y cinco minutos tras descartar los dos primeros.
+El mismo sistema, con 40 solicitudes por segundo (utilización del 50 %), se detiene por completo 10 segundos entre el 60 y el 70 de una prueba de 180 s. Se mide con tres generadores: uno abierto con llegadas de Poisson y latencia contada desde la hora prevista de llegada; uno cerrado con 8 usuarios virtuales que esperan la respuesta y 0,2 s entre peticiones; y el cerrado con una corrección que rellena las muestras que habrían existido.
 
 ## Errores y confusiones comunes
 
@@ -38,7 +38,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos.
 
 ## Relación con otros conceptos
 

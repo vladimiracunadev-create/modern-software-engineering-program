@@ -38,7 +38,7 @@ El módulo de calificaciones es el caso conductor de la [Parte 43](../../../clas
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md)) son:
 
 - **La prueba pasa y producción cambia** — causa: los ejemplos no cubren los bordes de decisión. Corrección: añadir casos de borde y medir mutantes.
 - **La prueba falla de forma intermitente** — causa: orden de un conjunto, reloj o azar. Corrección: repetir con condiciones distintas y normalizar la fuente.

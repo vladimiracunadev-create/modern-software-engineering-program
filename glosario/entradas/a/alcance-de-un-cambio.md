@@ -28,7 +28,7 @@ Los que permitan responder las preguntas de revisión y de impacto que importan,
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-168 — Proyecto: paquete de especificaciones trazables](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-168 — Proyecto: paquete de especificaciones trazables](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md)) son:
 
 - **Un revisor no sabe qué ejemplo respalda una cláusula** — causa: faltan enlaces entre contrato y ejemplo. Corrección: exigir cobertura en ambos sentidos y comprobarla en integración continua.
 - **Al renombrar un artefacto se rompen enlaces** — causa: los identificadores dependen del título. Corrección: identificadores estables y comprobación de enlaces colgantes.

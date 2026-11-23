@@ -16,24 +16,24 @@ La clase donde se define, [SE-207 — README, instalación y primer éxito](../.
 
 ## Cómo funciona
 
-[SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el portal; no reemplazan las de la documentación de Python y de GitHub enlazadas abajo.
+[SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el portal; no reemplazan las de la documentación de Python y de GitHub enlazadas abajo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md):
 
 El README de la plataforma queda en 70 líneas: dos frases de descripción, un bloque de instalación con los comandos de Windows y de Linux, un bloque «Primer éxito» con `entregas penalizar --nota 80 --horas 30` y la salida esperada `64`, y una lista de cuatro enlaces (guía por tareas, referencia, explicación y cómo contribuir). La integración continua ejecuta el bloque de instalación en un entorno limpio de ambos sistemas, compara las opciones citadas con las del analizador y ejecuta el primer éxito comprobando la salida.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md)) son:
 
 - **La instalación funciona en Windows y falla en Linux** — causa: solo se escribió el comando de activación de un sistema. Corrección: dar ambos comandos y probarlos en la integración continua.
 - **Quien sigue el README instala fuera del entorno** — causa: se omitió la activación y nada lo comprueba. Corrección: añadir un paso de comprobación que muestre la ruta del intérprete.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de la documentación de Python y de GitHub enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se instaló ningún paquete real, no se observó a nadie instalando y el detector usa un atributo no documentado de `argparse`; las probabilidades de fallo son supuestos del autor. La siguiente clase pasa de las páginas que guían al registro de por qué el sistema es como es: las decisiones.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-207 — README, instalación y primer éxito](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de la documentación de Python y de GitHub enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se instaló ningún paquete real, no se observó a nadie instalando y el detector usa un atributo no documentado de `argparse`; las probabilidades de fallo son supuestos del autor. La siguiente clase pasa de las páginas que guían al registro de por qué el sistema es como es: las decisiones.
 
 ## Relación con otros conceptos
 

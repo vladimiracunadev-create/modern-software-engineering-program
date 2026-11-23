@@ -32,7 +32,7 @@ El equipo reproduce el incidente de las 87 calificaciones dobles con el taller. 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-383 — Taller: provocar y contener mensajes duplicados](../../../classes/part-31-integracion-eventos-y-mensajeria/se-383-taller-provocar-y-contener-mensajes-duplicados/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-383 — Taller: provocar y contener mensajes duplicados](../../../classes/part-31-integracion-eventos-y-mensajeria/se-383-taller-provocar-y-contener-mensajes-duplicados/README.md)) son:
 
 - **Efectos que nunca se aplican, sin error** — causa: la clave se guardó antes que el efecto, en otra transacción. Corrección: clave y efecto en una sola transacción.
 - **Efectos duplicados tras una caída** — causa: el efecto se aplicó antes de guardar la clave. Corrección: clave y efecto en una sola transacción.

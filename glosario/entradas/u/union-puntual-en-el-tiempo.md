@@ -16,11 +16,11 @@ La clase donde se define, [SE-602 — Datos de entrenamiento, etiquetas y featur
 
 ## Cómo funciona
 
-[SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md)) son: La fuga, el ruido, la unión y las definiciones alternativas son construcciones del autor sobre datos sintéticos de seis características; los números muestran mecanismos, no la frecuencia ni el costo de estos defectos en ningún sistema real. No se evaluó ningún almacén de características. El siguiente paso, `SE-603`, pregunta si el entrenamiento sobre estos datos se puede repetir y cuánto de la diferencia entre dos corridas es azar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-602 — Datos de entrenamiento, etiquetas y feature stores](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md)) son: La fuga, el ruido, la unión y las definiciones alternativas son construcciones del autor sobre datos sintéticos de seis características; los números muestran mecanismos, no la frecuencia ni el costo de estos defectos en ningún sistema real. No se evaluó ningún almacén de características. El siguiente paso, `SE-603`, pregunta si el entrenamiento sobre estos datos se puede repetir y cuánto de la diferencia entre dos corridas es azar.
 
 ## Relación con otros conceptos
 

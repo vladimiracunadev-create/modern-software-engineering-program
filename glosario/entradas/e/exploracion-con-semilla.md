@@ -22,7 +22,7 @@ Un defecto de concurrencia vive en algunas intercalaciones, y la probabilidad de
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-394 — Caos controlado y pruebas de distribución](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-394 — Caos controlado y pruebas de distribución](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md):
 
 El equipo escribe su primer plan de caos para el cierre de plazo. Estado estable: 99 % de las entregas aceptadas en menos de 800 ms, 0 entregas con acuse y sin registro. Hipótesis: con una réplica de calificaciones caída y el 10 % del tráfico de un curso de prueba, se mantiene el estado estable. Fallo inyectado: detener la réplica. Alcance: un curso interno en preproducción, 30 minutos. Aborto: el percentil 99 supera 2 000 ms durante 60 s o aparece una entrega con acuse sin registro.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-394 — Caos controlado y pruebas de distribución](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ninguna herramienta de caos ni se inyectó un fallo en un sistema real: el cliente, la dependencia, el planificador y las reglas del linter son construcciones del autor. La siguiente clase es un taller: reproducir una carrera y un fallo parcial hasta tener un caso mínimo y una regresión estable.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-394 — Caos controlado y pruebas de distribución](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ninguna herramienta de caos ni se inyectó un fallo en un sistema real: el cliente, la dependencia, el planificador y las reglas del linter son construcciones del autor. La siguiente clase es un taller: reproducir una carrera y un fallo parcial hasta tener un caso mínimo y una regresión estable.
 
 ## Relación con otros conceptos
 

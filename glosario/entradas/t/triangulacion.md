@@ -16,11 +16,11 @@ La clase donde se define, [SE-542 — TDD: ciclo rojo-verde-refactor y diseño e
 
 ## Cómo funciona
 
-[SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md)) son: El ciclo se reconstruyó sobre una función de veinte líneas con 18 mutantes del autor. No se midió el efecto de TDD en el diseño, la calidad o la velocidad de un equipo. El siguiente paso, `SE-543`, compara los dos estilos de prueba que conviven dentro de TDD: el clásico, que comprueba resultados, y el de Londres, que comprueba interacciones.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md)) son: El ciclo se reconstruyó sobre una función de veinte líneas con 18 mutantes del autor. No se midió el efecto de TDD en el diseño, la calidad o la velocidad de un equipo. El siguiente paso, `SE-543`, compara los dos estilos de prueba que conviven dentro de TDD: el clásico, que comprueba resultados, y el de Londres, que comprueba interacciones.
 
 ## Relación con otros conceptos
 

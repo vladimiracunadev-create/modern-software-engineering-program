@@ -24,9 +24,9 @@ Rellenar una columna en 100 000 filas con una sola sentencia mantiene una transa
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md):
+Caso medido en la sección «Relleno por lotes» de [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md):
 
-El equipo de la plataforma documenta el renombrado como cuatro migraciones numeradas, cada una desplegable por separado.
+Rellenar una columna en 100 000 filas con una sola sentencia mantiene una transacción larga: en un motor con bloqueo de escritura, los demás escritores esperan todo ese tiempo; en un motor con versiones, la transacción retiene espacio y retrasa la limpieza. El remedio es dividir en lotes: cada uno es una transacción corta que confirma y libera. El tamaño es un equilibrio: lotes pequeños reducen el bloqueo y aumentan el número de transacciones y la sobrecarga; lotes grandes lo contrario. El relleno debe ser idempotente (cada lote se puede repetir) y reanudable, para sobrevivir a un corte a mitad.
 
 ## Errores y confusiones comunes
 

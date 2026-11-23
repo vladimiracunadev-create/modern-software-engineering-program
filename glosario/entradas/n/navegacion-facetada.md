@@ -22,9 +22,9 @@ Una navegación facetada (filtros combinables) produce una explosión de URLs qu
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-238 — SEO, metadatos y descubribilidad](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/README.md):
+Caso medido en la sección «Cuántas URLs expone una navegación facetada» de [SE-238 — SEO, metadatos y descubribilidad](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/README.md):
 
-La plataforma publica un `robots.txt` que bloquea solo patrones que nunca interesan (`/buscar?`, `/api/`) con los `Allow` más específicos primero y lo comprueba con dos analizadores. Las páginas privadas se protegen con autenticación y devuelven `noindex` en la cabecera, sin estar bloqueadas, para que el rastreador pueda leer esa directiva. La lista de cursos tiene un orden fijo de parámetros, una canónica a la lista base en cada combinación de filtros y enlaces de filtro con `rel="nofollow"`.
+Se tomó una lista con seis filtros de 4, 5, 6, 3, 7 y 4 valores (más «sin filtro»), tres órdenes y veinte páginas. Con los parámetros siempre en el mismo orden hay 5 × 6 × 7 × 4 × 8 × 5 = **33 600** combinaciones de filtros, y con orden y paginación, **2 016 000** URLs. Si los parámetros pueden llegar en cualquier orden, cada subconjunto de filtros activos admite además todas sus permutaciones y el total es **544 467 960**.
 
 ## Errores y confusiones comunes
 

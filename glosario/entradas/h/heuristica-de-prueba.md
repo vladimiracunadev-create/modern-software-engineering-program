@@ -16,24 +16,24 @@ La clase donde se define, [SE-429 — Pruebas exploratorias y sesiones](../../..
 
 ## Cómo funciona
 
-[SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
+[SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md):
 
 Antes de cada cierre de curso, el equipo de la plataforma planifica tres sesiones de 60 minutos con misiones distintas (archivos y adjuntos; sesión, zona horaria y plazo; texto y caracteres especiales) a cargo de personas que no escribieron el código. Cada sesión usa una hoja con la misión, la lista de heurísticas (límites de la especificación, repetir, deshacer, cambiar de contexto) y una sección de registro con hallazgos, preguntas y lo que no se pudo probar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)) son:
 
 - **«Exploramos» y nadie sabe qué se hizo** — causa: sin misión ni registro. Corrección: misión acotada y notas de sesión.
 - **La herramienta de accesibilidad pasa y una persona no puede usar la página** — causa: solo se probó lo que una regla decide. Corrección: revisión manual con tecnologías de apoyo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con agentes simulados, páginas sintéticas y validadores escritos por el autor en Windows y Ubuntu (WSL2) con salidas idénticas. No se midió a ninguna persona exploradora, no se evaluó una página real con tecnologías de apoyo y no se hizo una prueba de seguridad; el explorador heurístico y la lista de sondas conocían los límites de la especificación.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con agentes simulados, páginas sintéticas y validadores escritos por el autor en Windows y Ubuntu (WSL2) con salidas idénticas. No se midió a ninguna persona exploradora, no se evaluó una página real con tecnologías de apoyo y no se hizo una prueba de seguridad; el explorador heurístico y la lista de sondas conocían los límites de la especificación.
 
 ## Relación con otros conceptos
 

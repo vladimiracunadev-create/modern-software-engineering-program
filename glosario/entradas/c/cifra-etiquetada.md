@@ -22,13 +22,13 @@ Se crean, en un directorio temporal, seis variantes de un dossier con siete arch
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo arma el dossier de la decisión de la exportación con los siete archivos requeridos: el índice con ocho afirmaciones, la decisión revisada con el expediente de `SE-539`, los riesgos con el valor esperado de `SE-534`, los costos con el análisis de `SE-537` y la matriz de `SE-535`, la retroalimentación con el acuerdo de mentoría de `SE-532` y el mensaje de decisión de `SE-531`, y los límites.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)) son:
 
 - **La revisora no encuentra la evidencia** — causa: sin tabla afirmación–evidencia. Corrección: construir `claims.csv` con ruta y huella.
 - **La evidencia no coincide con la huella** — causa: se modificó después de calcularla. Corrección: recalcular y registrar el cambio, o restaurar el original.

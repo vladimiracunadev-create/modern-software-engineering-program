@@ -32,7 +32,7 @@ Responden preguntas distintas. Blue-green da un cambio y un retroceso instantán
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)) son:
 
 - **El despliegue se revierte sin defecto** — causa: umbral de decisión única evaluado repetidamente. Corrección: umbral mayor, mínimo de muestra o prueba secuencial.
 - **Un defecto pequeño no se detecta** — causa: canario y ventana insuficientes. Corrección: definir el defecto mínimo relevante y dimensionar para él.

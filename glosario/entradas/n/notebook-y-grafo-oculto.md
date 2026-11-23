@@ -22,20 +22,20 @@ Visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia. S
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md):
 
 En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)) son:
 
 - **El cuaderno da otro resultado en otra máquina** — causa: estado oculto por orden de ejecución. Corrección: reiniciar y ejecutar todo antes de compartir.
 - **El diff es enorme con cambios mínimos** — causa: salidas y metadatos en el archivo. Corrección: limpiar las salidas antes de confirmar.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un proceso limpio aún puede usar otra versión de runtime. La siguiente clase fija instalación y selección del intérprete sin esconder el mecanismo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-101 — REPL, notebooks y desarrollo exploratorio](../../../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un proceso limpio aún puede usar otra versión de runtime. La siguiente clase fija instalación y selección del intérprete sin esconder el mecanismo.
 
 ## Relación con otros conceptos
 

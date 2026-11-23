@@ -22,20 +22,20 @@ Una base de SQLite recibe 200 entregas por día durante 30 días y mantiene un c
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md):
 
 El equipo entrega `paquete-datos/` con una estructura fija. `esquema/` contiene `schema.sql` con cada restricción comentada con su invariante y la prueba que intenta violarla. `migraciones/` contiene las fases numeradas, con sus invariantes de datos y la marca del punto de no retorno. `acceso/` contiene el catálogo de consultas con su plan y el índice que cada una justifica. `distribucion/` fija que se usa una réplica de lectura con la garantía de leer lo propio y define la política de caché por dato con su frescura máxima.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md)) son:
 
 - **El paquete pasa el validador y la restauración falla** — causa: evidencia que no es de este entorno. Corrección: restauración automática con evidencia identificada.
 - **Un invariante figura en el catálogo y no se ejecuta** — causa: lista sin prueba asociada. Corrección: una prueba por invariante que intenta violarla.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md)) son: Las definiciones son operativas para el proyecto. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos y semillas fijas en Windows y Ubuntu (WSL2); las cifras fueron idénticas salvo los bytes comprimidos, que difirieron menos de un 1 % por la versión de zlib.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md)) son: Las definiciones son operativas para el proyecto. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos y semillas fijas en Windows y Ubuntu (WSL2); las cifras fueron idénticas salvo los bytes comprimidos, que difirieron menos de un 1 % por la versión de zlib.
 
 ## Relación con otros conceptos
 

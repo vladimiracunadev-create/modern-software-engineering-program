@@ -16,24 +16,24 @@ La clase donde se define, [SE-305 — Patrones funcionales, reactivos y concurre
 
 ## Cómo funciona
 
-[SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
+[SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md):
 
 El equipo de `tarifas` toma tres decisiones. El cálculo del costo pasa a ser una función pura sobre un registro inmutable (una tupla con nombre), con una prueba de tres niveles que se ejecuta en la suite. La cola de eventos se acota a 200 y la política es descartar lo viejo con un contador de descartes y una alarma si superan 1 % en una hora, porque un pedido antiguo ya tiene un cálculo posterior que lo reemplaza.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md)) son:
 
 - **Una función «pura» deja a su llamador con datos reordenados** — causa: modifica su argumento. Corrección: devolver un valor nuevo y probar con copias.
 - **Las respuestas llegan con horas de retraso en hora punta** — causa: cola sin límite con productor más rápido. Corrección: acotar la cola y elegir una política de desborde.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres modelos y análisis con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ningún hilo real, no se midió ningún tiempo de máquina y las llegadas y servicios exponenciales son un supuesto; las funciones, la cola y los programas de dos hilos son construcciones del autor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-305 — Patrones funcionales, reactivos y concurrentes](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres modelos y análisis con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ningún hilo real, no se midió ningún tiempo de máquina y las llegadas y servicios exponenciales son un supuesto; las funciones, la cola y los programas de dos hilos son construcciones del autor.
 
 ## Relación con otros conceptos
 

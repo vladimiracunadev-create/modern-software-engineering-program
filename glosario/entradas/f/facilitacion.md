@@ -16,24 +16,24 @@ En [SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-4
 
 ## Cómo funciona
 
-[SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
+[SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. La facilitadora convoca una sesión de 45 minutos sobre la adaptación del formato. Antes de la reunión pide a cada una de las seis personas que escriba su estimación de esfuerzo y su mayor preocupación en un documento compartido. En la sesión las muestra a la vez: las estimaciones van de dos a ocho días y la mediana es cuatro.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md)) son:
 
 - **La estimación del grupo repite la de quien habló primero** — causa: se habla en orden y hay jerarquía. Corrección: recoger estimaciones escritas y simultáneas.
 - **Dos equipos recuerdan una decisión distinta** — causa: comunicación oral sin acuse. Corrección: mensaje con cinco campos y acuse.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ninguna reunión, equipo ni conflicto reales; el peso de la influencia, el sesgo del primero, la pérdida por relevo y los pagos son construcciones del autor, y el modelo supone personas con reglas fijas. La siguiente clase pregunta cómo se transfiere conocimiento y se da retroalimentación para que las personas crezcan.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-531 — Comunicación, facilitación y conflicto](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ninguna reunión, equipo ni conflicto reales; el peso de la influencia, el sesgo del primero, la pérdida por relevo y los pagos son construcciones del autor, y el modelo supone personas con reglas fijas. La siguiente clase pregunta cómo se transfiere conocimiento y se da retroalimentación para que las personas crezcan.
 
 ## Relación con otros conceptos
 

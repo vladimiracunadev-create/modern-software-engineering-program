@@ -16,24 +16,24 @@ Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
 
 ## Cómo funciona
 
-[SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md):
 
 En recuperación de cuenta, producto define resultado, UX diseña prueba comprensible, seguridad modela abuso, soporte aporta casos y plataforma implementa identidad. La decisión sobre fricción pertenece al conjunto porque reduce fraude y puede excluir usuarios.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son:
 
 - **el mapa replica cargos** — causa: se modeló estructura, no decisiones. Corrección: parte de decisiones y asigna competencia, autoridad y operación.
 - **todos son “responsables”** — causa: se evitó declarar autoridad. Corrección: nombra quién acepta, detiene y escala cada decisión.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son: La matriz no garantiza buenas decisiones. `SE-006` evalúa la calidad de la evidencia con que se decide.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son: La matriz no garantiza buenas decisiones. `SE-006` evalúa la calidad de la evidencia con que se decide.
 
 ## Relación con otros conceptos
 

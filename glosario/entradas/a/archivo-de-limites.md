@@ -22,13 +22,13 @@ Un paquete se compone de promesas y de evidencia de cada una. Una prueba ejecuta
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md):
 
 El equipo ensambla el paquete. `GARANTIAS.md` declara, por operación, la garantía con su condición (por ejemplo, «el acuse se emite tras confirmar en dos de tres réplicas; sin mayoría se rechaza con un error reintentable») y lo que no garantiza. `PRESUPUESTOS.md` reparte 800 ms entre tres llamadas con un máximo de un reintento de 150 ms solo en la primera, con un máximo de 700 ms comprobado por una prueba.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son:
 
 - **El servicio tarda más que el plazo sin que nadie falle** — causa: tiempos límite que se suman por capa. Corrección: presupuesto de tiempo comprobado con una prueba.
 - **Un estudiante tiene acuse y no entrega** — causa: acuse emitido al encolar sin distinguir estados. Corrección: estados «recibida» y «guardada» en la garantía.

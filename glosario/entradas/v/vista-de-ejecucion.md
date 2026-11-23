@@ -28,7 +28,7 @@ C4 cubre bien la estructura en niveles de zoom. No sustituye la vista de ejecuci
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)) son:
 
 - **El diagrama no responde las preguntas de operaciones** — causa: mezcla módulos, procesos y servidores. Corrección: separar vistas y decir qué pregunta responde cada una.
 - **El código tiene dependencias que nadie dibujó** — causa: la vista lógica declara lo permitido y no se verifica. Corrección: comparar con trazas o con el código en cada cambio.

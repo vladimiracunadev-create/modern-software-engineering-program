@@ -32,7 +32,7 @@ El equipo de la plataforma documenta tres consumidores. **Registro de calificaci
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-376 — Entrega, orden, duplicación y semánticas](../../../classes/part-31-integracion-eventos-y-mensajeria/se-376-entrega-orden-duplicacion-y-semanticas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-376 — Entrega, orden, duplicación y semánticas](../../../classes/part-31-integracion-eventos-y-mensajeria/se-376-entrega-orden-duplicacion-y-semanticas/README.md)) son:
 
 - **Notas o avisos duplicados tras un incidente** — causa: entrega al menos una vez con efecto no idempotente. Corrección: clave de mensaje o forma idempotente del efecto en una transacción.
 - **Mensajes que nunca se aplicaron** — causa: se acusó antes de procesar y el proceso cayó. Corrección: acusar después de procesar y hacer el efecto idempotente.

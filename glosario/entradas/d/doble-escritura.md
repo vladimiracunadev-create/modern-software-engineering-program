@@ -28,7 +28,7 @@ Escenario hipotético, construido para la clase y sin datos reales. El equipo su
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-377 — Outbox, inbox, sagas y compensación](../../../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md)) son:
 
 - **Entregas guardadas sin evento** — causa: se publicó después de confirmar, sin outbox. Corrección: outbox en la misma transacción y relevo.
 - **Eventos de entregas que no existen** — causa: se publicó antes de confirmar la base. Corrección: publicar solo desde el outbox, tras el commit.

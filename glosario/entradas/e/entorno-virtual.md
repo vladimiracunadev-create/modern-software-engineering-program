@@ -22,13 +22,13 @@ Según [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../cl
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md):
+Caso medido en la sección «Cuánto cuesta un entorno virtual y por qué» de [SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md):
 
-En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+Crear un entorno con `python -m venv` tomó 11 344 ms en Windows y dejó 860 archivos y 11 550 KiB. Con `--without-pip` tomó 180 ms, 7 archivos y 557 KiB. Con `uv venv`, 278 ms, 16 archivos y 555 KiB. En Linux (WSL2), `venv --without-pip` tomó 118 ms con 8 archivos y con pip 6 376 ms. Casi todo el costo es instalar pip: 860 archivos frente a 7. En Linux, además, el intérprete del entorno es un enlace simbólico al base; en Windows se copia un lanzador.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-103 — Entornos virtuales y aislamiento de dependencias](../../../classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md)) son:
 
 - **Funciona aquí y no en otra máquina** — causa: dependencia no declarada presente en el sistema. Corrección: probar siempre en un entorno vacío.
 - **El entorno deja de funcionar al moverlo** — causa: rutas absolutas. Corrección: recrearlo desde su definición.

@@ -32,7 +32,7 @@ Imprime `46.3` y `-7.9`: a una tasa del 10 % el proyecto vale 46,3; a una del 25
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-537 — Economía del software y costo total](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-537-economia-del-software-y-costo-total/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-537 — Economía del software y costo total](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-537-economia-del-software-y-costo-total/README.md)) son:
 
 - **Se ejecutan primero las iniciativas más antiguas** — causa: orden por llegada. Corrección: ordenar por costo de demora entre duración.
 - **Se elige el proyecto de mayor suma** — causa: no se descontó el tiempo. Corrección: reportar VAN a varias tasas.

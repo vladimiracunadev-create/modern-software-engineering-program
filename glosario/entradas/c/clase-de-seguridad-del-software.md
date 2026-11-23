@@ -16,11 +16,11 @@ La clase donde se define, [SE-449 — Dispositivos médicos: IEC 62304](../../..
 
 ## Cómo funciona
 
-[SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md)) son: El dispositivo, los módulos, las clases y los pesos son ficticios y del autor; el modelo de error de entrada es de un solo tipo; las normas de pago no se reproducen y no se afirma conformidad regulatoria ni revisión por una autoridad. El siguiente paso, `SE-450`, organiza toda la evidencia de las clases anteriores como un caso de seguridad: un argumento estructurado con trazabilidad.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-449 — Dispositivos médicos: IEC 62304](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md)) son: El dispositivo, los módulos, las clases y los pesos son ficticios y del autor; el modelo de error de entrada es de un solo tipo; las normas de pago no se reproducen y no se afirma conformidad regulatoria ni revisión por una autoridad. El siguiente paso, `SE-450`, organiza toda la evidencia de las clases anteriores como un caso de seguridad: un argumento estructurado con trazabilidad.
 
 ## Relación con otros conceptos
 

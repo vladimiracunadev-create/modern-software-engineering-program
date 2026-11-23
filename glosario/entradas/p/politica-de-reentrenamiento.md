@@ -16,13 +16,13 @@ En [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-mac
 
 ## Cómo funciona
 
-[SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md):
+Caso medido en la sección «Cuatro políticas de reentrenamiento» de [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Se simularon 44 semanas de monitoreo (de la 9 a la 52) con una deriva lineal que combina más carga, menor tasa de lectura y un peso del historial que cae de 1,0 a 0,15; cada semana llegan 3 000 observaciones. El modelo inicial se entrenó con las ocho primeras semanas, con un AUC de referencia de 0,843. Cuatro políticas, con reentrenamiento sobre las siete últimas semanas disponibles:
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md)) son: La deriva, el generador, las políticas y los umbrales son construcciones del autor; la sensibilidad del PSI depende de la variable (un entero con pocos valores) y los umbrales de 0,1 y 0,2 son convenciones. La simulación de 44 semanas usa una deriva lineal y una semilla, y las diferencias entre políticas con reentrenamiento (del orden de 0,001) están dentro del ruido. No se evaluó ninguna herramienta de monitoreo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md)) son: La deriva, el generador, las políticas y los umbrales son construcciones del autor; la sensibilidad del PSI depende de la variable (un entero con pocos valores) y los umbrales de 0,1 y 0,2 son convenciones. La simulación de 44 semanas usa una deriva lineal y una semilla, y las diferencias entre políticas con reentrenamiento (del orden de 0,001) están dentro del ruido. No se evaluó ninguna herramienta de monitoreo.
 
 ## Relación con otros conceptos
 

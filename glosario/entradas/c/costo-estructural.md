@@ -16,11 +16,11 @@ La clase donde se define, [SE-313 — Criterios para usar un catálogo de patron
 
 ## Cómo funciona
 
-[SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md)) son: Las funciones comparadas son del autor y las medidas son estructurales; no se midió comprensión ni productividad de ningún equipo. El siguiente paso, `SE-314`, aplica el criterio a los patrones que crean objetos, donde el costo más frecuente no es el tamaño sino el estado compartido.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-313 — Criterios para usar un catálogo de patrones](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md)) son: Las funciones comparadas son del autor y las medidas son estructurales; no se midió comprensión ni productividad de ningún equipo. El siguiente paso, `SE-314`, aplica el criterio a los patrones que crean objetos, donde el costo más frecuente no es el tamaño sino el estado compartido.
 
 ## Relación con otros conceptos
 

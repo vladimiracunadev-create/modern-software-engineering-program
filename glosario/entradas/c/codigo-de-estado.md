@@ -22,13 +22,13 @@ La documentación suele cubrir el camino feliz. Pero quien integra una API pasa 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-210 — API docs, ejemplos y contratos publicados](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-210-api-docs-ejemplos-y-contratos-publicados/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-210 — API docs, ejemplos y contratos publicados](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-210-api-docs-ejemplos-y-contratos-publicados/README.md):
 
 La plataforma de entregas publica su API con una descripción OpenAPI mantenida junto al código, una referencia generada de ella y una página de errores con los siete códigos que el servidor puede devolver, cada uno con su causa y su remedio. Los diez ejemplos de la documentación se ejecutan en la integración continua contra el servicio de pruebas. La página declara qué rutas son estables (las de entregas), cuáles experimentales (las de importación) y cuáles internas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-210 — API docs, ejemplos y contratos publicados](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-210-api-docs-ejemplos-y-contratos-publicados/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-210 — API docs, ejemplos y contratos publicados](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-210-api-docs-ejemplos-y-contratos-publicados/README.md)) son:
 
 - **El ejemplo de la documentación devuelve algo distinto** — causa: se escribió a mano y no se ejecuta. Corrección: ejecutarlo en la integración continua contra el servicio de pruebas.
 - **Los clientes reciben un código que la página no menciona** — causa: solo se documentó el camino feliz. Corrección: registrar los códigos observados y documentar causa y remedio.

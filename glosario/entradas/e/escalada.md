@@ -40,7 +40,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md)) son: Se simularon cinco reglas sobre 4 000 tareas sintéticas con parámetros del autor y semilla 497, en Windows 11 con CPython 3.12.9. No se midió ningún agente real, ni el costo en dinero, ni el efecto de cambiar de plan en un modelo concreto. El siguiente paso, `SE-582`, trata lo que ocurre cuando, pese a las reglas, el agente hace algo dañino: cómo se acota y se deshace.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-581 — Loops de agentes y criterios de parada](../../../classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada/README.md)) son: Se simularon cinco reglas sobre 4 000 tareas sintéticas con parámetros del autor y semilla 497, en Windows 11 con CPython 3.12.9. No se midió ningún agente real, ni el costo en dinero, ni el efecto de cambiar de plan en un modelo concreto. El siguiente paso, `SE-582`, trata lo que ocurre cuando, pese a las reglas, el agente hace algo dañino: cómo se acota y se deshace.
 
 ## Relación con otros conceptos
 

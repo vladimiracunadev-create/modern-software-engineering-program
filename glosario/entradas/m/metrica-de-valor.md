@@ -22,9 +22,9 @@ Toma el plan de precios de un producto que uses y reconstruye su lógica: cuál 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-415 — Precios, empaquetado y límites por plan](../../../classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md):
+Caso medido en la sección «La métrica de valor es lo que escala con lo que el cliente obtiene» de [SE-415 — Precios, empaquetado y límites por plan](../../../classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados de este ejemplo son supuestos de la narración, no mediciones.*
+Cobrar por algo que no se relaciona con el valor genera fricción: el cliente siente que paga por el hecho de usar, no por obtener. Las métricas habituales son el número de puestos (usuarios con acceso), el volumen de uso (llamadas, mensajes, gigabytes), los resultados (cobros procesados, correos entregados) y la capacidad (entornos, núcleos). Una buena métrica reúne cuatro propiedades: el cliente la entiende, crece cuando el cliente obtiene más valor, se puede medir con exactitud (`SE-413`) y se puede predecir (el cliente sabe más o menos cuánto pagará).
 
 ## Errores y confusiones comunes
 

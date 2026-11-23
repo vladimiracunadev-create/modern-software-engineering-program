@@ -38,7 +38,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-211 — Runbooks, playbooks y documentación operacional](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las guías de manejo de incidentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se operó ningún servicio ni se midió el tiempo de resolución de nadie: el estado es un diccionario, el reparto de incidentes y el 8 % de tipos nuevos son supuestos, y el linter se afinó con los casos que luego se usaron para probarlo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-211 — Runbooks, playbooks y documentación operacional](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las guías de manejo de incidentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se operó ningún servicio ni se midió el tiempo de resolución de nadie: el estado es un diccionario, el reparto de incidentes y el 8 % de tipos nuevos son supuestos, y el linter se afinó con los casos que luego se usaron para probarlo.
 
 ## Relación con otros conceptos
 

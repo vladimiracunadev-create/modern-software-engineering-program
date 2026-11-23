@@ -22,9 +22,9 @@ Un mapa es una estructura de datos del núcleo (arreglo, tabla hash, cola, entre
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-279 — eBPF: observabilidad, red y seguridad en el kernel](../../../classes/part-23-runtimes-y-plataformas-modernas/se-279-ebpf-observabilidad-red-y-seguridad-en-el-kernel/README.md):
+Caso medido en la sección «Los mapas y la comprobación de nulo» de [SE-279 — eBPF: observabilidad, red y seguridad en el kernel](../../../classes/part-23-runtimes-y-plataformas-modernas/se-279-ebpf-observabilidad-red-y-seguridad-en-el-kernel/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Un mapa es una estructura de datos del núcleo (arreglo, tabla hash, cola, entre otras) a la que el programa accede con ayudantes y el espacio de usuario con llamadas de sistema. La búsqueda en un mapa devuelve un puntero al valor *o nulo*. El verificador rastrea ese hecho: tras la búsqueda, `r0` tiene el tipo «valor de mapa o nulo» y cualquier desreferencia antes de compararlo con cero se rechaza. Es el mismo error que, en C, produce una caída en tiempo de ejecución; aquí se convierte en un rechazo en tiempo de carga.
 
 ## Errores y confusiones comunes
 

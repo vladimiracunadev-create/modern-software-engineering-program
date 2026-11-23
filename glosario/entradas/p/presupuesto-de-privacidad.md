@@ -28,14 +28,14 @@ El equipo hace un inventario de 18 datos personales con finalidad, plazo y desti
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-463 — Privacidad por diseño y minimización](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-463 — Privacidad por diseño y minimización](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md)) son:
 
 - **Se reidentifica un conjunto sin nombres** — causa: combinación de cuasi-identificadores única. Corrección: medir unicidad y generalizar o publicar agregados.
 - **Un hash de correo se invierte** — causa: hash sin clave de un dato adivinable. Corrección: HMAC con clave y clave por propósito.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-463 — Privacidad por diseño y minimización](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún dato de personas reales; la población, las comunas, los 100 000 correos candidatos y la escala del ruido son construcciones del autor; la clase no implementa un sistema formal de privacidad diferencial ni da asesoría legal.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-463 — Privacidad por diseño y minimización](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún dato de personas reales; la población, las comunas, los 100 000 correos candidatos y la escala del ruido son construcciones del autor; la clase no implementa un sistema formal de privacidad diferencial ni da asesoría legal.
 
 ## Relación con otros conceptos
 

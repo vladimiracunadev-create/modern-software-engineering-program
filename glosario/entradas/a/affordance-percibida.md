@@ -16,24 +16,24 @@ La clase donde se define, [SE-171 — Interacción, affordances y retroalimentac
 
 ## Cómo funciona
 
-[SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md):
 
 En la plataforma, el contrato de interacción de «Enviar entrega» fija un objetivo de al menos 44 px, una respuesta visible antes de 0,1 s (estado pulsado), un indicador de progreso si pasa de un segundo, una clave de idempotencia generada por el cliente y una ventana de deshacer de 30 s para el retiro de una entrega. Las pruebas comprueban que dos peticiones con la misma clave crean un solo registro y que un reintento tras un fallo de red devuelve el resultado anterior.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md)) son:
 
 - **Entregas duplicadas pese a un botón desactivado** — causa: la protección vive solo en el cliente. Corrección: clave de idempotencia en el servidor.
 - **La gente confirma sin leer** — causa: diálogo genérico usado a menudo. Corrección: deshacer para acciones reversibles y confirmación específica para las irreversibles.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ninguna persona, no se usó ningún dispositivo táctil y las constantes de Fitts, las dispersiones, la latencia, la paciencia y los porcentajes de reflejo son supuestos del autor. La siguiente clase pregunta qué ve la persona cuando no hay datos, cuando se espera o cuando algo falla.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ninguna persona, no se usó ningún dispositivo táctil y las constantes de Fitts, las dispersiones, la latencia, la paciencia y los porcentajes de reflejo son supuestos del autor. La siguiente clase pregunta qué ve la persona cuando no hay datos, cuando se espera o cuando algo falla.
 
 ## Relación con otros conceptos
 

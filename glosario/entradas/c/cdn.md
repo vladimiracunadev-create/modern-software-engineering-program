@@ -22,13 +22,13 @@ Una CDN acerca caché y cómputo al consumidor. El punto de presencia puede resp
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-044 — Proxies, balanceadores, gateways y CDN](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md):
+Caso medido en la sección «Qué se ve y qué queda oculto detrás de una CDN» de [SE-044 — Proxies, balanceadores, gateways y CDN](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md):
 
-La petición observable de extremo a extremo asigna un identificador de correlación en el primer componente confiable y lo propaga. El origen indica si la respuesta vino de caché y qué backend atendió sin exponer topología sensible al público. Los timeouts decrecen hacia dentro para que el gateway pueda responder antes del deadline del cliente.
+Una red de entrega de contenido pone intermediarios entre el cliente y el origen. Desde el cliente se observaron: `Server: cloudflare`, `Age: 3521` (la copia tenía casi una hora), `alt-svc: h3`, un certificado de 90 días emitido por una CA intermedia propia del proveedor y un RTT medio de 146 ms *hasta el nodo que respondió*. No se pudo observar: qué servidor de origen existe y dónde está, si el tramo entre la CDN y el origen va cifrado, en qué nodo de borde cayó la petición ni cuándo fue la última validación con el origen.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-044 — Proxies, balanceadores, gateways y CDN](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-044 — Proxies, balanceadores, gateways y CDN](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md)) son:
 
 - **El origen registra IP falsas** — causa: confía en `X-Forwarded-For` que viene del cliente. Corrección: sobrescribir en el borde y aceptar conexiones solo del proxy.
 - **Tráfico a un origen caído tras detectarlo** — causa: sin comprobaciones de salud o con intervalos largos. Corrección: comprobaciones activas y pasivas y reintento hacia otro origen.

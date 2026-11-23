@@ -16,11 +16,11 @@ La clase donde se define, [SE-362 — Ingesta batch y streaming](../../../classe
 
 ## Cómo funciona
 
-[SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md)) son: La mezcla de retrasos, el 3 % de tardíos y el 2 % de reentregas son construcciones del autor; la simulación procesa los eventos en orden de llegada con ventanas de una hora y no reproduce un motor de flujo con estado, activadores ni ventanas por sesión. No se midió ninguna fuente real ni ningún corredor de mensajes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-362 — Ingesta batch y streaming](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md)) son: La mezcla de retrasos, el 3 % de tardíos y el 2 % de reentregas son construcciones del autor; la simulación procesa los eventos en orden de llegada con ventanas de una hora y no reproduce un motor de flujo con estado, activadores ni ventanas por sesión. No se midió ninguna fuente real ni ningún corredor de mensajes.
 
 ## Relación con otros conceptos
 

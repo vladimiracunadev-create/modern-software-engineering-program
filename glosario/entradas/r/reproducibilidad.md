@@ -28,13 +28,13 @@ Según [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/p
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md):
+Caso medido en la sección «Reproducibilidad entre sistemas» de [SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md):
 
-Supón, como caso hipotético de la plataforma y no como medición, que el equipo construye el paquete `operacion-entregas/` en tres sesiones. Primero migra lo que existe: convierte el documento de runbooks a archivos con la estructura de `SE-499`, define el SLO con el SLI de `SE-497` y escribe la tabla de preguntas y señales (`SE-493`).
+Un paquete es reproducible si otra persona, con otro equipo, obtiene lo mismo. Los resultados que dependen solo de un generador con semilla fija y de aritmética (los de tiempo virtual) son idénticos en cualquier sistema con la misma versión de Python, y se comprueban con una **huella** (un resumen criptográfico del resultado serializado de forma determinista, con claves ordenadas y codificación explícita). Los que tocan el sistema de archivos, la codificación local o los separadores difieren por diseño, y la tarea no es borrar la diferencia sino declararla.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md)) son:
 
 - **El validador da 0 problemas y el ejercicio falla** — causa: solo comprueba existencia y forma. Corrección: añadir coincidencias de significado verificables y mantener el ejercicio.
 - **La huella cambia entre sistemas** — causa: codificación, orden o versión no declarados. Corrección: serializar con claves ordenadas y UTF-8, y declarar las versiones.

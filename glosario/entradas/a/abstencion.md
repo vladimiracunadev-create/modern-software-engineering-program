@@ -26,7 +26,7 @@ Reúne 20 preguntas reales de tu sistema y el documento que las responde. Fragme
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 

@@ -24,7 +24,7 @@ Gobernar el desarrollo con agentes es decidir cuánto control reciben distintos 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-579 — Herramientas, permisos y superficies de acción](../../../classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-579 — Herramientas, permisos y superficies de acción](../../../classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -34,7 +34,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-579 — Herramientas, permisos y superficies de acción](../../../classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion/README.md)) son: Se analizaron treinta comandos del autor con dos políticas de texto, en Windows 11 con CPython 3.12.9, sin ejecutar ninguno. No se midió una política contra un adversario, ni un producto de agentes, ni el desgaste real de la aprobación humana. El siguiente paso, `SE-580`, trata el contexto: qué recuerda el agente cuando la sesión se alarga y qué debe quedar escrito fuera de ella.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-579 — Herramientas, permisos y superficies de acción](../../../classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion/README.md)) son: Se analizaron treinta comandos del autor con dos políticas de texto, en Windows 11 con CPython 3.12.9, sin ejecutar ninguno. No se midió una política contra un adversario, ni un producto de agentes, ni el desgaste real de la aprobación humana. El siguiente paso, `SE-580`, trata el contexto: qué recuerda el agente cuando la sesión se alarga y qué debe quedar escrito fuera de ella.
 
 ## Relación con otros conceptos
 

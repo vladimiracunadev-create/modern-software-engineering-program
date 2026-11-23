@@ -32,9 +32,9 @@ El nombre viene de los mamparos de un barco: una vía de agua llena un compartim
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
+Caso medido en la sección «Mamparos» de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
 
-El equipo hace un mapa de las dependencias de la API de entregas. Para la base de datos (crítica), no hay interruptor con respaldo posible: se reserva un pool propio de trabajadores para entregar tareas y se acota la cola; si la base cae, la API responde con un error claro. Para el servicio de miniaturas (secundario) se pone un interruptor con apertura por cinco fallos seguidos y 10 s abierto, un compartimento de 5 trabajadores y una respuesta degradada (un icono genérico) marcada con una cabecera.
+El nombre viene de los compartimentos estancos de un barco. Un **mamparo** reparte un recurso finito (hilos, conexiones, memoria) en compartimentos, uno por dependencia o por clase de solicitud, de manera que la lentitud de una no pueda consumirlo todo. Si todas las llamadas comparten un único pool de 20 trabajadores y una de las dependencias tarda un segundo en lugar de 50 ms, sus llamadas ocupan los trabajadores mucho más tiempo y dejan sin ellos a las demás. Con pools separados, la dependencia lenta agota su compartimento y las demás siguen.
 
 ## Errores y confusiones comunes
 

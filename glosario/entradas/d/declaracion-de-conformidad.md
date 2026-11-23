@@ -28,14 +28,14 @@ Puedes declarar lo que evaluaste con su alcance y su método, indicando lo no pr
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)) son:
 
 - **La declaración dice «cumple» y falta evidencia de varios criterios** — causa: lo no probado se contó como cumplido. Corrección: política escrita para lo no probado e informe de cuántos quedaron.
 - **El estudio no ve una barrera que luego aparece** — causa: muestra pequeña para una prevalencia baja. Corrección: declarar lo que el plan podría ver y lo que no.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se reclutó a nadie, no se usó ningún escáner de producción ni se evaluó un producto real, y las prevalencias, las cuatro modalidades con igual probabilidad, el 8 % de error y los porcentajes de la política de conformidad son supuestos del autor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se reclutó a nadie, no se usó ningún escáner de producción ni se evaluó un producto real, y las prevalencias, las cuatro modalidades con igual probabilidad, el 8 % de error y los porcentajes de la política de conformidad son supuestos del autor.
 
 ## Relación con otros conceptos
 

@@ -26,7 +26,7 @@ Reproduce el fallo clásico de la clase: **dos construcciones del mismo commit c
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md):
 
 El equipo escribe el script de empaquetado de la API de entregas con cuatro reglas: ordena los nombres, fija la fecha a la del commit etiquetado (la variable `SOURCE_DATE_EPOCH`), fija modo y sistema de creación de cada entrada y excluye cualquier archivo generado que contenga rutas o fechas. Declara sus entradas en un archivo (`build-inputs.md`) con el commit, la versión de Python, la lista de dependencias con huella y el comando exacto.
 

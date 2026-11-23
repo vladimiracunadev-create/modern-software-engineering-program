@@ -22,20 +22,20 @@ Un diagrama escrito en texto (por ejemplo con Mermaid) se revisa en un pull requ
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-209 — Diagramas, modelos y documentación visual](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-209 — Diagramas, modelos y documentación visual](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md):
 
 El portal de la plataforma de entregas guarda un archivo `modelo.json` con servicios y dependencias, un generador que emite tres diagramas (contexto, contenedores y componentes del servicio de cálculo) y un comprobador que compara las aristas con las importaciones del paquete en cada pull request. Cada diagrama lleva una frase «responde a…» y una alternativa textual de tres líneas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-209 — Diagramas, modelos y documentación visual](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-209 — Diagramas, modelos y documentación visual](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md)) son:
 
 - **El diagrama tiene cuarenta cajas y no se entiende** — causa: no tiene pregunta ni nivel. Corrección: escribir la pregunta, dividir por nivel y dejar fuera lo que no la contesta.
 - **Cada regeneración produce un diff enorme** — causa: el generador no ordena su salida. Corrección: ordenar nodos y aristas, y fijar la semilla de hash en la comprobación.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-209 — Diagramas, modelos y documentación visual](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún diagrama real ni la comprensión de ningún lector: los grafos de capas, el modelo de doce servicios y el paquete de diez módulos son construcciones del autor, y el análisis de importaciones solo cubre una forma de importar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-209 — Diagramas, modelos y documentación visual](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún diagrama real ni la comprensión de ningún lector: los grafos de capas, el modelo de doce servicios y el paquete de diez módulos son construcciones del autor, y el análisis de importaciones solo cubre una forma de importar.
 
 ## Relación con otros conceptos
 

@@ -16,7 +16,7 @@ La clase donde se define, [SE-407 — Taller: desplegar y destruir un entorno se
 
 ## Cómo funciona
 
-[SE-407 — Taller: desplegar y destruir un entorno seguro](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. Cada herramienta y cada proveedor usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
+[SE-407 — Taller: desplegar y destruir un entorno seguro](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. Cada herramienta y cada proveedor usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
@@ -26,14 +26,14 @@ La plataforma de entregas es el caso conductor de la [Parte 33](../../../classes
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-407 — Taller: desplegar y destruir un entorno seguro](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-407 — Taller: desplegar y destruir un entorno seguro](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md)) son:
 
 - **Un reintento falla con «ya existe»** — causa: la creación se cortó y el estado no registró lo creado. Corrección: registrar tras cada recurso y reconciliar los sospechosos.
 - **La destrucción reintenta varias veces y tarda** — causa: orden equivocado con dependencias vivas. Corrección: destruir en orden topológico inverso y registrar los rechazos.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-407 — Taller: desplegar y destruir un entorno seguro](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada herramienta y cada proveedor usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos con carpetas locales en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún proveedor, red, credencial ni herramienta de infraestructura: los fallos son excepciones inyectadas, el grafo de doce recursos es del autor y la cobertura de etiquetas y el costo por resto son supuestos. La siguiente clase integra todo en un proyecto: una plataforma mínima y reproducible.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-407 — Taller: desplegar y destruir un entorno seguro](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada herramienta y cada proveedor usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos con carpetas locales en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún proveedor, red, credencial ni herramienta de infraestructura: los fallos son excepciones inyectadas, el grafo de doce recursos es del autor y la cobertura de etiquetas y el costo por resto son supuestos. La siguiente clase integra todo en un proyecto: una plataforma mínima y reproducible.
 
 ## Relación con otros conceptos
 

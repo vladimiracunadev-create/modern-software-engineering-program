@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): conteos idénticos y tiempos distintos. No se usó una biblioteca de validación completa, las fechas se sortearon de forma independiente y no se midió ninguna integración real. La siguiente clase coloca este esquema dentro de contratos de interfaz y de eventos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): conteos idénticos y tiempos distintos. No se usó una biblioteca de validación completa, las fechas se sortearon de forma independiente y no se midió ninguna integración real. La siguiente clase coloca este esquema dentro de contratos de interfaz y de eventos.
 
 ## Relación con otros conceptos
 

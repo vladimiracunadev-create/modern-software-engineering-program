@@ -32,7 +32,7 @@ Para reaccionar mientras se desplaza (barra de progreso, carga diferida) convien
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) son:
 
 - **Los botones de filas nuevas no responden** — causa: manejador registrado por elemento solo en la carga inicial. Corrección: delegar en el contenedor o registrar al crear cada fila.
 - **El manejador delegado ignora clics en el icono** — causa: se compara `target` con el botón en lugar de usar `closest`. Corrección: buscar el ancestro con `closest` y comprobar que pertenece al contenedor.

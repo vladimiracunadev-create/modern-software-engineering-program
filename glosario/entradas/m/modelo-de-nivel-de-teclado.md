@@ -22,13 +22,13 @@ La entrega se descompuso en operadores del modelo de nivel de teclado: por cada 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md):
 
 En la plataforma, el equipo documenta la tarea «entregar una tarea y obtener constancia» con tres escenarios: estudiante con teclado y lector de pantalla, estudiante con teléfono y conexión lenta, y docente que corrige desde un portátil. Cada diseño candidato se descompone en operadores y se estima; el embudo se mide en un piloto con datos anónimos agregados y se compara con el supuesto. La decisión final se acompaña de la etapa que más pierde y de la señal que haría cambiarla.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)) son:
 
 - **«Es largo» sin ninguna cifra** — causa: no se descompuso la tarea en pasos. Corrección: estimar con operadores y comparar diseños.
 - **Un diseño para la persona promedio falla a casi todos** — causa: se consideró una dimensión a la vez. Corrección: definir escenarios que cubran extremos relevantes y permitir ajustes.

@@ -16,24 +16,24 @@ La clase donde se define, [SE-230 — JavaScript, DOM y eventos del navegador](.
 
 ## Cómo funciona
 
-[SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
+[SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md):
 
 La lista de adjuntos de la plataforma se rehace con un único manejador en el contenedor que usa `evento.target.closest("button.borrar")`, comprueba que el botón pertenece a la lista y llama a una función pura que decide qué borrar a partir de `data-id`. El manejador de búsqueda de entregas usa debounce de 300 ms y lanza una única petición por ráfaga.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) son:
 
 - **Los botones de filas nuevas no responden** — causa: manejador registrado por elemento solo en la carga inicial. Corrección: delegar en el contenedor o registrar al crear cada fila.
 - **El manejador delegado ignora clics en el icono** — causa: se compara `target` con el botón en lugar de usar `closest`. Corrección: buscar el ancestro con `closest` y comprobar que pertenece al contenedor.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El motor es V8 en Node, no un navegador; el modelo de DOM es una simplificación del algoritmo y las pulsaciones son construcciones del autor. La siguiente clase pregunta dónde conviene calcular y construir el documento: en el navegador, en un servidor o antes de publicar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El motor es V8 en Node, no un navegador; el modelo de DOM es una simplificación del algoritmo y las pulsaciones son construcciones del autor. La siguiente clase pregunta dónde conviene calcular y construir el documento: en el navegador, en un servidor o antes de publicar.
 
 ## Relación con otros conceptos
 

@@ -26,7 +26,7 @@ Según [SE-593 — Memoria y gestión de estado de agentes](../../../classes/par
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 

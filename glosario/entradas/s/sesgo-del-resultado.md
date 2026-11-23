@@ -22,7 +22,7 @@ El **sesgo del resultado** (Baron y Hershey) es la tendencia a evaluar una decis
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-539 — Taller: conducir una revisión de decisión difícil](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-539 — Taller: conducir una revisión de decisión difícil](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. La facilitadora reúne un expediente fechado de la decisión de contratar el almacenamiento: la matriz de proveedores, el correo de autorización y el plan de ese momento; excluye el informe del incidente. Compone el panel con una persona de operaciones, una de seguridad, una ajena al equipo y la autora de la decisión como observadora.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-539 — Taller: conducir una revisión de decisión difícil](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se revisó ninguna decisión ni persona reales; las probabilidades de calidad y de éxito, la precisión de la auditoría, la detección por dominio, el factor del ejercicio previo al fallo y las confianzas son construcciones del autor, y el modelo supone decisiones y revisoras independientes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-539 — Taller: conducir una revisión de decisión difícil](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se revisó ninguna decisión ni persona reales; las probabilidades de calidad y de éxito, la precisión de la auditoría, la detección por dominio, el factor del ejercicio previo al fallo y las confianzas son construcciones del autor, y el modelo supone decisiones y revisoras independientes.
 
 ## Relación con otros conceptos
 

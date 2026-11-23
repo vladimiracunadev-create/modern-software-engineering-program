@@ -22,7 +22,7 @@ Una prueba de límites numéricos (qué pasa con 72,0 y con 71,999 horas) intere
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-544 — BDD: ejemplos, conversación y lenguaje compartido](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-544 — BDD: ejemplos, conversación y lenguaje compartido](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 

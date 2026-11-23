@@ -32,7 +32,7 @@ El equipo de la plataforma entrega el modelo de fallos del nodo con doce filas. 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-275 — Taller: modelar fallos físicos y digitales](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md)) son:
 
 - **Lecturas plausibles y erróneas durante semanas** — causa: deriva lenta sin referencia independiente. Corrección: comparar con otro sensor o con un modelo del entorno.
 - **Configuración inválida tras un corte** — causa: sobrescritura o una sola copia. Corrección: dos copias alternadas con suma y número de secuencia.

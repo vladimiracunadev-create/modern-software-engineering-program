@@ -22,9 +22,9 @@ El Builder ataca el **constructor telescópico**: muchos argumentos, varios del 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-314 — GoF creacionales: Factory, Builder, Singleton y Prototype](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-314-gof-creacionales-factory-builder-singleton-y-prototype/README.md):
+Caso medido en la sección «Builder: del constructor telescópico a los argumentos con nombre» de [SE-314 — GoF creacionales: Factory, Builder, Singleton y Prototype](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-314-gof-creacionales-factory-builder-singleton-y-prototype/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+El Builder ataca el **constructor telescópico**: muchos argumentos, varios del mismo tipo, algunos opcionales. En el experimento, 500 construcciones de un `Aviso` con asunto y cuerpo intercambiados son aceptadas **las 500** por un constructor posicional, porque ambos son cadenas y nada distingue un orden de otro. Con `dataclass(kw_only=True)` las 500 llamadas posicionales se rechazan: el intercambio exige escribir mal un nombre, y esa falla es visible.
 
 ## Errores y confusiones comunes
 

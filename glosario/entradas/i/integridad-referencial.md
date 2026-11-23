@@ -22,9 +22,9 @@ Volumen: ¿llegaron las filas esperadas? Unicidad: ¿hay claves repetidas? Nulos
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md):
+Caso medido en la sección «Integridad referencial: el defecto que una unión interna esconde» de [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Una unión interna entre hechos y dimensión elimina en silencio las filas sin pareja. Si el 10 % de los pedidos apunta a un cliente que no existe, el informe muestra menos ventas y nada falla. La comprobación es una consulta: contar las filas de hechos cuya clave no está en la dimensión. Una política profesional es no descartar: conservar la fila con una dimensión «desconocida» y contarlas, de modo que el total concilie y el defecto sea visible.
 
 ## Errores y confusiones comunes
 

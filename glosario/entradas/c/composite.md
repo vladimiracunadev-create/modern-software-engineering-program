@@ -22,9 +22,9 @@ Los cinco patrones comparten una estructura: un objeto que **contiene o envuelve
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md):
+Caso medido en la sección «Composite: grupos que contienen grupos» de [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Un compuesto trata a un grupo y a un usuario con la misma interfaz, de modo que `usuarios()` funciona igual en ambos. El defecto es el **ciclo**: el grupo `a` contiene a `b` y `b` contiene a `a`. En el experimento, con la guarda de grupos visitados, el recorrido devuelve `['u1', 'u2', 'u3']`; sin la guarda, el mismo ciclo produce `RecursionError`. La estructura compuesta debe validarse al **construirse** (rechazar el ciclo) o recorrerse con una guarda; confiar en que «nadie lo hará» es esperar al incidente.
 
 ## Errores y confusiones comunes
 

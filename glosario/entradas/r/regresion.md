@@ -2,55 +2,34 @@
 
 [↑ Glosario](../../README.md) · [← Reglas de parada](./reglas-de-parada.md) · [Regresión a la media →](./regresion-a-la-media.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Pérdida de una propiedad previamente satisfecha.
-
-Definición de trabajo de [SE-035 — Taller: preparar y reparar un entorno reproducible](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-567 — Implementación, análisis y convergencia contra SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md): Criterio que estaba cumplido y deja de estarlo tras un cambio.
-- En [SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md): Reaparición de un defecto ya reparado.
-- En [SE-069 — Pruebas tempranas y diseño por ejemplos](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md): Defecto corregido que reaparece.
+Una **regresión** es la pérdida de algo que antes funcionaba. Las clases la definen con el mismo núcleo y distintos objetos: [SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) como la pérdida de una propiedad previamente satisfecha, [SE-069](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) como un defecto corregido que reaparece, [SE-179](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md) como la reaparición de un defecto ya reparado y [SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md) como un criterio que estaba cumplido y deja de estarlo tras un cambio. No hay que confundirla con el defecto original: la regresión es el retroceso tras un cambio.
 
 ## Por qué importa
 
-En [SE-035 — Taller: preparar y reparar un entorno reproducible](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md), el tema «Regresión» importa porque repite contratos vecinos
-
-En [SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md), el tema «Regresión» importa porque evita que un fallo vuelva.
+Cada cambio, incluso una reparación, puede romper algo que no se estaba mirando. [SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) formula la regla: la regresión busca que la corrección no haya roto otro contrato. Una reparación que se comprueba solo en el caso que falló no demuestra que el sistema siga bien.
 
 ## Cómo funciona
 
-Según [SE-035 — Taller: preparar y reparar un entorno reproducible](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md):
-
-La regresión busca que la corrección no haya roto otro contrato. El kit de diagnóstico multiplataforma conserva versiones y matriz de plataforma para que otra persona pueda repetir.
-
-Según [SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md):
-
-El diagnóstico sigue cinco pasos. Reproducir con la misma configuración y las mismas tareas. Leer la traza buscando cuatro cosas: repeticiones del mismo paso, denegaciones, solicitudes de cierre y ausencia de una herramienta esperada. Formular una hipótesis sobre una sola pieza. Cambiar solo esa pieza y volver a ejecutar. Añadir el caso a la regresión. Cambiar dos piezas a la vez impide saber cuál arregló el fallo, y por eso el procedimiento prohíbe el atajo. La hipótesis debe poder refutarse: «si es el contexto, al devolverlo la tarea se resuelve».
+La defensa es conservar y repetir la comprobación. En [SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md), el kit de diagnóstico multiplataforma conserva versiones y una matriz de plataformas para que otra persona pueda repetir la reparación y verificar contratos vecinos. [SE-587](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md) añade el paso final del procedimiento de diagnóstico de un agente: tras reproducir, leer la traza, formular una hipótesis sobre una sola pieza y cambiarla, se añade el caso a la regresión. En los bucles automáticos de [SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md), cada pasada debe ejecutar todos los criterios y detenerse ante una regresión; si no, cada pasada arregla algo y rompe otra cosa. [SE-179](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md) pide un auditor que se ejecute en cada cambio y una lista manual periódica.
 
 ## Ejemplo
 
-Ejemplo de [SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md) (sección «Ejemplo profesional»):
-
-La persona de guardia recibe quince tareas fallidas de la noche. Aplica el procedimiento sin abrir la configuración: agrupa las trazas por patrón y encuentra tres grupos. Nueve repiten lecturas; cuatro piden el cierre dos veces; dos tienen una escritura denegada. Para el primer grupo comprueba el campo de herramientas ofrecidas: la escritura no figura; una actualización del producto había renombrado la herramienta y el harness no la reconocía. Arregla una pieza, repite las nueve tareas, se resuelven; añade la prueba de que la herramienta de escritura está ofrecida al conjunto de regresión.
+En [SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md), un bucle de mejora que en cada pasada ejecuta solo el criterio que acaba de arreglar puede romper otro criterio sin notarlo; con una batería completa en cada pasada, la regresión aparece en la pasada en que ocurre y el bucle se detiene. En [SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md), reparar solo el caso feliz de un entorno deja sin verificar los contratos vecinos; la matriz de regresión adversa los recorre.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se repara solo el caso feliz** — causa: no se verificaron contratos vecinos. Corrección: ejecutar una matriz de regresión adversa. ([SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md))
-- **El bucle no acaba nunca** — causa: no hay condiciones de parada. Corrección: máximo de pasadas, sin progreso, presupuesto y regresión. ([SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md))
-- **Cada pasada arregla algo y rompe otra cosa** — causa: regresiones sin batería de criterios completa. Corrección: ejecutar todos los criterios en cada pasada y detener ante regresión. ([SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md))
+- **Se repara solo el caso feliz.** No se verificaron contratos vecinos; corrección ([SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)): ejecutar una matriz de regresión adversa.
+- **Cada pasada arregla algo y rompe otra cosa.** Regresiones sin batería de criterios completa; corrección ([SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md)): ejecutar todos los criterios en cada pasada y detener ante regresión.
+- **Un cambio rompe lo reparado.** No hay regresión comprobada; corrección ([SE-179](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)): auditor en cada cambio y lista manual periódica.
+- **El bucle no acaba nunca.** Faltan condiciones de parada; corrección: máximo de pasadas, sin progreso, presupuesto y regresión ([SE-567](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La regresión busca que la corrección no haya roto otro contrato. ([SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md))
+Una prueba de regresión solo vigila lo que se escribió: un contrato que nadie convirtió en comprobación puede romperse sin aviso. Las clases sitúan la regresión dentro de contextos concretos (entornos, auditoría de un flujo, bucles de un agente), por lo que lo que cuenta como «lo que antes funcionaba» depende de cada contexto y de qué criterios se conservaron.
 
 ## Relación con otros conceptos
 

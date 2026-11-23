@@ -16,11 +16,11 @@ La clase donde se define, [SE-347 — Taller: seleccionar un estilo con escenari
 
 ## Cómo funciona
 
-[SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md)) son: El modelo, las importancias, la función de utilidad y los dos contextos son construcciones del autor; el número 26 es un resultado del modelo y no una regla. No se evaluó ninguna arquitectura real ni se midió ninguna organización. El siguiente paso, `SE-348`, es el proyecto de la parte: convertir una decisión en un registro de decisión arquitectónica con alternativas, consecuencias negativas, disparador y una prueba que la protege.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-347 — Taller: seleccionar un estilo con escenarios de calidad](../../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md)) son: El modelo, las importancias, la función de utilidad y los dos contextos son construcciones del autor; el número 26 es un resultado del modelo y no una regla. No se evaluó ninguna arquitectura real ni se midió ninguna organización. El siguiente paso, `SE-348`, es el proyecto de la parte: convertir una decisión en un registro de decisión arquitectónica con alternativas, consecuencias negativas, disparador y una prueba que la protege.
 
 ## Relación con otros conceptos
 

@@ -32,7 +32,7 @@ La plataforma de entregas queda con un comportamiento operable: tres sondeos con
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md)) son:
 
 - **Todas las instancias se reinician cuando cae la base de datos** — causa: el sondeo de vida consulta una dependencia externa. Corrección: vida local; dependencias en disponibilidad.
 - **Una instancia recién arrancada responde con errores** — causa: recibe tráfico sin estar lista. Corrección: sondeo de disponibilidad y de arranque.

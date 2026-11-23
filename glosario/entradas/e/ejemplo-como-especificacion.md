@@ -26,20 +26,20 @@ Un ejemplo nombra entrada, acción y resultado observable. Primero se selecciona
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md):
+Caso medido en la sección «Ejemplos como especificación» de [SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md):
 
-En la plataforma, los escenarios viven en el repositorio junto al código de la regla. Cada escenario tiene un título que dice la intención («Una entrega a las 24 horas exactas es de un día»), usa solo vocabulario del dominio y nombra en su `Dado` los datos relevantes y nada más. Las definiciones de pasos están en un módulo único, y un guardián de integración continua falla si hay pasos indefinidos, ambiguos o definiciones sin uso.
+Un ejemplo con valores concretos (30 horas de retraso, nota 80, resultado 72) obliga a decidir los puntos que la frase deja abiertos: cómo se redondea, qué base se usa, qué pasa en el límite. Su fortaleza es que cualquiera lo verifica con una calculadora; su debilidad, que cada ejemplo cubre un punto del dominio y nada más. Un conjunto de ejemplos no es una especificación completa: es un conjunto de puntos que una buena regla debe satisfacer. La pregunta útil no es «¿cuántos ejemplos tengo?» sino «¿qué lecturas distintas de la regla pasarían todos mis ejemplos?».
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)) son:
 
 - **Todos los escenarios pasan y un defecto de frontera llega a producción** — causa: los ejemplos son del camino típico y no separan las lecturas. Corrección: elegir ejemplos por las variantes que matan y añadir fronteras (24 h, 25 h, tope, nota 0).
 - **Cada rediseño de la interfaz rompe veinte escenarios** — causa: los escenarios son imperativos y describen clics. Corrección: reescribirlos en lenguaje de dominio y mover el cómo a las definiciones de pasos.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó Cucumber ni ningún marco de BDD, las once variantes y los fallos de 2 y 3 factores son construcciones del autor y no se midió a ningún equipo. La siguiente clase pregunta qué afirmaciones se cumplen para todos los casos y cómo se comprueban.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó Cucumber ni ningún marco de BDD, las once variantes y los fallos de 2 y 3 factores son construcciones del autor y no se midió a ningún equipo. La siguiente clase pregunta qué afirmaciones se cumplen para todos los casos y cómo se comprueban.
 
 ## Relación con otros conceptos
 

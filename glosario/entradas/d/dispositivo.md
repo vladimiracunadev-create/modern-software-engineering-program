@@ -22,13 +22,13 @@ La CPU obtiene y ejecuta instrucciones; los registros conservan estado inmediato
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md):
 
 Un servicio consume CPU baja y latencia alta. La traza muestra espera de red. Escalar frecuencia de CPU no ataca el mecanismo; reducir rondas, usar concurrencia controlada o mejorar la dependencia sí podrían hacerlo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md)) son:
 
 - **una línea equivale a una instrucción** — causa: se saltaron compilador y runtime. Corrección: traza representaciones intermedias.
 - **CPU y computador se usan como sinónimos** — causa: se omitieron memoria e I/O. Corrección: sigue dato y control por componentes.

@@ -36,7 +36,7 @@ El equipo entrega un expediente con esta estructura. `artefacto/` con el zip y s
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-480 — Proyecto: release firmado y recuperable](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-480 — Proyecto: release firmado y recuperable](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md)) son:
 
 - **El cliente rechaza el retroceso** — causa: se reinstala un bundle de secuencia menor. Corrección: republicar el contenido anterior con secuencia mayor.
 - **Los hashes difieren entre sistemas** — causa: campo de formato dependiente del sistema. Corrección: fijar el sistema de creación y normalizar el build.

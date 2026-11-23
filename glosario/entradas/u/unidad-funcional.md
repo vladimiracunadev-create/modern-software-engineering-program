@@ -32,7 +32,7 @@ Comprimir reduce red y aumenta CPU. En red lenta puede mejorar latencia y energ�
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)) son:
 
 - **una corrida decide** — causa: variación ignorada. Corrección: repite, alterna y reporta distribución.
 - **versión rápida procesa menos** — causa: trabajo útil no verificado. Corrección: compara salida/invariantes antes del tiempo.

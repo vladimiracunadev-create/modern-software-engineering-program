@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-446 — IEC 61508 y niveles de integridad de seguridad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md)) son: Las fórmulas son simplificadas, las tasas y el valor de β son del autor y el texto de la norma no se reproduce; las bandas se describen desde material público y no se verificaron contra la norma. El siguiente paso, `SE-447`, especializa esta lógica para vehículos de carretera, con otro vocabulario y otra forma de asignar el rigor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-446 — IEC 61508 y niveles de integridad de seguridad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md)) son: Las fórmulas son simplificadas, las tasas y el valor de β son del autor y el texto de la norma no se reproduce; las bandas se describen desde material público y no se verificaron contra la norma. El siguiente paso, `SE-447`, especializa esta lógica para vehículos de carretera, con otro vocabulario y otra forma de asignar el rigor.
 
 ## Relación con otros conceptos
 

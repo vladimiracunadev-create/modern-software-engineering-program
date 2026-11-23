@@ -22,9 +22,9 @@ Estima el costo y el p95 de un flujo de tu sistema con tus números de pasos y c
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-598 — Costo, latencia y seguridad en sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md):
+Caso medido en la sección «Seguridad: la regla de las tres condiciones» de [SE-598 — Costo, latencia y seguridad en sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Un modelo trata todo el contexto como texto: una instrucción en un documento tiene la misma forma que una del operador. La inyección de prompt, directa o indirecta, es el riesgo principal de OWASP para estas aplicaciones. Simon Willison propone un marco: un agente es peligroso cuando reúne **tres condiciones**: acceso a **datos privados**, exposición a **contenido no confiable** (correos, páginas, documentos de terceros) y capacidad de **comunicar hacia fuera** (enviar un mensaje, hacer una petición). Con las tres, un texto hostil puede pedir al agente que envíe los datos privados.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-598 — Costo, latencia y seguridad en sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md)) son: Las unidades de costo son supuestos y no precios; la latencia es una distribución sintética; las probabilidades de obediencia, de éxito del atacante y de fatiga humana son supuestos del autor; no se atacó ningún modelo real ni se midió ningún proveedor. El siguiente paso, `SE-599`, es un taller: elegir un patrón agéntico para tareas distintas y degradarlo con un interruptor cuando el proveedor falla.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-598 — Costo, latencia y seguridad en sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md)) son: Las unidades de costo son supuestos y no precios; la latencia es una distribución sintética; las probabilidades de obediencia, de éxito del atacante y de fatiga humana son supuestos del autor; no se atacó ningún modelo real ni se midió ningún proveedor. El siguiente paso, `SE-599`, es un taller: elegir un patrón agéntico para tareas distintas y degradarlo con un interruptor cuando el proveedor falla.
 
 ## Relación con otros conceptos
 

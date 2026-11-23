@@ -22,9 +22,9 @@ Escribe a propósito una afirmación apoyada en una referencia desactualizada, p
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-010 — Cómo leer estándares, documentación y literatura técnica](../../../classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md):
+Caso medido en la sección «Edición, vigencia y cadena de sustitución» de [SE-010 — Cómo leer estándares, documentación y literatura técnica](../../../classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md):
 
-Para decidir semántica de reintento HTTP, se consulta RFC 9110, se localiza método y condición, se revisan actualizaciones y se documenta qué decisión local no prescribe el RFC.
+ISO/IEC 25010:2011 combinaba modelos de producto y calidad en uso. La edición de 2023 sitúa calidad del producto en ISO/IEC 25010 y el modelo de calidad en uso en ISO/IEC 25019. Por eso escribir solo “ISO 25010” puede ocultar qué edición y modelo se usa. De manera semejante, un RFC puede ser actualizado parcialmente por otros; el encabezado y las relaciones forman parte de la lectura.
 
 ## Errores y confusiones comunes
 

@@ -30,20 +30,20 @@ Un hipervisor presenta CPU, memoria y dispositivos virtuales a un sistema invita
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md):
 
 El equipo de la plataforma separa tres piezas con fronteras distintas. La aplicación web y el servicio de informes, del mismo equipo y con código revisado, corren como contenedores con límites de CPU y memoria y un sistema de archivos de solo lectura, en el mismo anfitrión. El corrector de entregas, que ejecuta código de estudiantes, corre cada ejecución en una unidad con su propio núcleo (una microVM o una máquina virtual efímera), sin red y con un tiempo máximo, y se destruye al terminar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)) son:
 
 - **Un contenedor agota la memoria del anfitrión** — causa: se aisló la vista y no se limitó el consumo. Corrección: fijar límite de memoria y de procesos.
 - **Se asume que un contenedor contiene código hostil** — causa: se confunde la vista restringida con una frontera de hardware. Corrección: usar una máquina virtual o microVM para código ajeno.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Los productos usan estos términos con matices (por ejemplo, contenedores que se ejecutan dentro de una máquina virtual ligera) y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en un equipo con Windows y Ubuntu (WSL2) y los tiempos cambiaron entre ejecuciones; el cálculo de densidad es un modelo con sobrecostes supuestos. No se arrancó ninguna máquina virtual ni contenedor, no se probaron cuotas ni cgroups, y no se evaluó ninguna vulnerabilidad de escape. La siguiente clase mira quién decide dónde corre cada unidad y qué hace cuando alguna falla.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Los productos usan estos términos con matices (por ejemplo, contenedores que se ejecutan dentro de una máquina virtual ligera) y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en un equipo con Windows y Ubuntu (WSL2) y los tiempos cambiaron entre ejecuciones; el cálculo de densidad es un modelo con sobrecostes supuestos. No se arrancó ninguna máquina virtual ni contenedor, no se probaron cuotas ni cgroups, y no se evaluó ninguna vulnerabilidad de escape. La siguiente clase mira quién decide dónde corre cada unidad y qué hace cuando alguna falla.
 
 ## Relación con otros conceptos
 

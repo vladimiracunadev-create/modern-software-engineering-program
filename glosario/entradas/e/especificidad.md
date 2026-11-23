@@ -22,9 +22,9 @@ Cuando varias declaraciones compiten, la cascada decide en este orden: origen e 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-229 — Plataforma web, HTML semántico y CSS](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md):
+Caso medido en la sección «La guerra de especificidad» de [SE-229 — Plataforma web, HTML semántico y CSS](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md):
 
-El formulario de entrega del caso conductor se publica con una estructura revisable: un `header` con `nav`, un `main` con un único `h1` («Entregar tarea») y `h2` por bloque, un `form` con dos campos, cada uno con su `label for`, un `button type="submit"` y un mensaje de estado en una región con `role="status"`. Los colores salen de variables CSS con la razón de contraste anotada junto a cada par. La hoja usa `@layer base, componentes, utilidades;` de modo que un ajuste puntual no necesita subir selectores.
+Se implementó una calculadora de especificidad y se verificó con los once ejemplos de la especificación de Selectores (`#s12:not(p)` da (1,0,1), `li.red.level` da (0,2,1), `:where(.a, #b) p` da (0,0,1), `:is(.a, #b) p` da (1,0,1)): acertó los 11. Después se simuló una hoja con 40 elementos en la que cada nueva petición de cambio debe ganar a la regla existente; en la mitad de los casos (supuesto del autor) la regla nueva llega antes y pierde por orden.
 
 ## Errores y confusiones comunes
 

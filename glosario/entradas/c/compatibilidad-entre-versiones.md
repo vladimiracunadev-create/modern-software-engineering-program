@@ -28,20 +28,20 @@ Un cambio es **compatible hacia atrás** si los consumidores existentes siguen f
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md):
 
 El equipo de la plataforma documenta el renombrado como cuatro migraciones numeradas, cada una desplegable por separado.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md)) son:
 
 - **Errores en las instancias viejas durante un despliegue** — causa: cambio incompatible hecho en un solo paso. Corrección: expandir, migrar y contraer en despliegues separados.
 - **El panel se congela al ejecutar una migración** — causa: actualización de muchas filas en una transacción. Corrección: relleno por lotes idempotente y reanudable.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2); la matriz y las filas alteradas fueron idénticas y los pasos de los lotes difirieron un 7 % entre SQLite 3.45.3 y 3.45.1 con la misma proporción.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2); la matriz y las filas alteradas fueron idénticas y los pasos de los lotes difirieron un 7 % entre SQLite 3.45.3 y 3.45.1 con la misma proporción.
 
 ## Relación con otros conceptos
 

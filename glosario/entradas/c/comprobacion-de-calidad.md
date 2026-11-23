@@ -16,11 +16,11 @@ La clase donde se define, [SE-365 — Calidad y observabilidad de datos](../../.
 
 ## Cómo funciona
 
-[SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md)) son: La serie, los incidentes, las variantes defectuosas y los umbrales son construcciones del autor; los tres detectores se evaluaron con cuatro incidentes y un patrón semanal único. No se evaluó ninguna herramienta de calidad de datos ni se midió la tasa de defectos de ninguna organización. El siguiente paso, `SE-366`, formaliza las expectativas como contrato con el productor y estudia la evolución de esquemas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md)) son: La serie, los incidentes, las variantes defectuosas y los umbrales son construcciones del autor; los tres detectores se evaluaron con cuatro incidentes y un patrón semanal único. No se evaluó ninguna herramienta de calidad de datos ni se midió la tasa de defectos de ninguna organización. El siguiente paso, `SE-366`, formaliza las expectativas como contrato con el productor y estudia la evolución de esquemas.
 
 ## Relación con otros conceptos
 

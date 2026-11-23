@@ -35,14 +35,14 @@ El servicio *Avisos* es el caso conductor de la [Parte 47](../../../classes/part
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)) son:
 
 - **El cliente acepta un paquete modificado con su hash correcto** — causa: el hash viaja con el paquete y el atacante lo recalcula. Corrección: firma asimétrica con clave pública en el cliente.
 - **Una ruta con dos puntos lee un archivo de configuración** — causa: se filtró por prefijo en lugar de normalizar. Corrección: normalizar y comparar con la raíz y un separador.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos ficticios en Windows y Ubuntu (WSL2) con resultados idénticos. No se firmó ningún paquete con criptografía asimétrica, no se analizó ningún binario real y las doce rutas no agotan las variantes. La siguiente clase aplica todo esto al adaptar el producto a dos plataformas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-262 — Firma, sandbox y seguridad del cliente](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos ficticios en Windows y Ubuntu (WSL2) con resultados idénticos. No se firmó ningún paquete con criptografía asimétrica, no se analizó ningún binario real y las doce rutas no agotan las variantes. La siguiente clase aplica todo esto al adaptar el producto a dos plataformas.
 
 ## Relación con otros conceptos
 

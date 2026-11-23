@@ -30,13 +30,13 @@ Un buen nombre también puede mentir. Si `cost` dejara de ser un entero de unida
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md):
+Caso medido en la sección «Qué conserva y qué descarta la abstracción» de [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md):
 
-El modelo de decisión diagnóstica representa el diagnóstico como un grafo: nodos de observación, hipótesis y prueba; aristas de dependencia. Una política impide ejecutar una prueba si falta autorización o si otra prueba barata ya descarta su rama. El grafo puede cambiar sin alterar el contrato del informe.
+Abstraer es decidir qué ignorar. El modelo conserva el conjunto cerrado de hipótesis, los costos, la autorización y el presupuesto, y descarta la distribución de latencias, los fallos parciales y las causas simultáneas. La Figura 3 pone el descarte junto al riesgo que introduce. La pregunta de control es: *¿qué descarte podría invalidar la conclusión y cómo me daría cuenta?* Si ninguna observación podría delatar el descarte, la abstracción no es una simplificación sino una apuesta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)) son:
 
 - **El árbol enumera funciones del programa** — causa: se describe la implementación, no el problema. Corrección: reescribir con decisión, hipótesis, pruebas y restricciones.
 - **Una prueba aparece sin resultado bajo alguna hipótesis** — causa: la matriz está incompleta. Corrección: completar cada celda o declarar `unknown` y puntuar en cero.

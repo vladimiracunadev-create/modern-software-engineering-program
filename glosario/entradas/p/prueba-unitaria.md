@@ -22,20 +22,20 @@ Una prueba unitaria llama a una unidad con una entrada conocida y afirma algo so
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md):
 
 El equipo de la plataforma separa la función de cierre en tres: `calcular_nota(bruta, horas)` (pura), `horas_tarde(plazo, ahora)` (aritmética de fechas) y `cerrar(entregas, ahora, guardar, avisar)`, que orquesta. La hora real se lee en un único punto, el controlador que llama a `cerrar`. Para cada regla por tramos, una tabla de casos lista el tramo, la frontera, el valor esperado y la razón de negocio («una entrega a las 24 horas exactas sigue en el primer tramo porque la política dice "hasta 24 horas"»).
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)) son:
 
 - **La cobertura es 100 % y un cambio de operador no rompe ninguna prueba** — causa: casos típicos sin valores en las fronteras. Corrección: tabla de fronteras y medida con mutantes.
 - **Una prueba falla de vez en cuando sin cambios en el código** — causa: depende del reloj, del azar o del orden. Corrección: inyectar la hora y la semilla; ver `SE-428` y `SE-430`.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con una función sintética en Windows y Ubuntu (WSL2) con salidas idénticas. Los mutantes son cambios mecánicos y no defectos humanos; el modelo de pausas de la prueba con reloj real es un supuesto. No se midió tiempo de ejecución ni se usó un marco de pruebas distinto de `assert`.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con una función sintética en Windows y Ubuntu (WSL2) con salidas idénticas. Los mutantes son cambios mecánicos y no defectos humanos; el modelo de pausas de la prueba con reloj real es un supuesto. No se midió tiempo de ejecución ni se usó un marco de pruebas distinto de `assert`.
 
 ## Relación con otros conceptos
 

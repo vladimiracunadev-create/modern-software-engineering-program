@@ -32,7 +32,7 @@ El equipo de la API de entregas redacta su política de GitOps. El repositorio d
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-487 — GitOps y reconciliación](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-487 — GitOps y reconciliación](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md)) son:
 
 - **El número de réplicas oscila** — causa: dos actores gobiernan el mismo campo. Corrección: repartir la propiedad; ignorar el campo en el agente.
 - **Se borró un volumen al reorganizar archivos** — causa: poda activa sin protección. Corrección: anotación de protección; confirmación para borrar recursos con estado.

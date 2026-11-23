@@ -16,11 +16,11 @@ La clase donde se define, [SE-600 — Proyecto: sistema con LLM evaluado y opera
 
 ## Cómo funciona
 
-[SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md)) son: Los cuatro candidatos son configuraciones sintéticas que recombinan medidas de otras clases; no se ejecutó un sistema completo, ni se usó un modelo de lenguaje, un proveedor o un tráfico reales; la puerta es una elección del autor. Una revisión editorial humana independiente de la parte sigue pendiente.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md)) son: Los cuatro candidatos son configuraciones sintéticas que recombinan medidas de otras clases; no se ejecutó un sistema completo, ni se usó un modelo de lenguaje, un proveedor o un tráfico reales; la puerta es una elección del autor. Una revisión editorial humana independiente de la parte sigue pendiente.
 
 ## Relación con otros conceptos
 

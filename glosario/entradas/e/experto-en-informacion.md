@@ -16,11 +16,11 @@ En [SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-2
 
 ## Cómo funciona
 
-[SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md)) son: Los diseños y las métricas son del autor, la cohesión se aproxima con atributos compartidos y la fuente de GRASP es secundaria; no se validó el efecto de GRASP en proyectos reales. El siguiente paso, `SE-318`, aplica la pregunta «¿a quién le toca?» a la persistencia: quién guarda, quién abre la transacción y quién sabe qué consultas se ejecutan.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md)) son: Los diseños y las métricas son del autor, la cohesión se aproxima con atributos compartidos y la fuente de GRASP es secundaria; no se validó el efecto de GRASP en proyectos reales. El siguiente paso, `SE-318`, aplica la pregunta «¿a quién le toca?» a la persistencia: quién guarda, quién abre la transacción y quién sabe qué consultas se ejecutan.
 
 ## Relación con otros conceptos
 

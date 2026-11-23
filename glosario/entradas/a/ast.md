@@ -28,7 +28,7 @@ Ejemplo de [SE-020 — Compilación, interpretación, bytecode y JIT](../../../c
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son:
 
 - **lenguaje clasificado por una palabra** — causa: etapas combinadas ocultas. Corrección: dibuja traducción real de implementación.
 - **bytecode = máquina** — causa: niveles confundidos. Corrección: nombra VM y versión.

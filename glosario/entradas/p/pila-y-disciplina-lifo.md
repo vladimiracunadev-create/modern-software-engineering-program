@@ -22,20 +22,20 @@ Una pila expone `push`, `pop` y `peek`; el último elemento entra primero en sal
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-086 — Pilas, colas, deques y prioridades](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-086 — Pilas, colas, deques y prioridades](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md):
 
 En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-086 — Pilas, colas, deques y prioridades](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-086 — Pilas, colas, deques y prioridades](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md)) son:
 
 - **Dos tareas con igual prioridad salen en orden alfabético** — causa: el desempate recae en el texto de la carga útil. Corrección: añadir un contador monótono como segundo elemento de la tupla.
 - **`TypeError` solo cuando dos prioridades coinciden** — causa: la comparación llega a cargas útiles no ordenables. Corrección: hacer que la tupla sea totalmente ordenable (prioridad, contador, carga).
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-086 — Pilas, colas, deques y prioridades](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una cola responde cuál sale después, no cómo encontrar identidad ni evitar duplicados. La siguiente clase añade mapas y conjuntos con contratos de igualdad y hash.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-086 — Pilas, colas, deques y prioridades](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una cola responde cuál sale después, no cómo encontrar identidad ni evitar duplicados. La siguiente clase añade mapas y conjuntos con contratos de igualdad y hash.
 
 ## Relación con otros conceptos
 

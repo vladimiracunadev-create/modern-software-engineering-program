@@ -24,9 +24,9 @@ Elige una tabla que se cargue periódicamente en tu organización. Ejecuta su tr
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md):
+Caso medido en la sección «El grafo de dependencias dice qué recalcular» de [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Las tareas forman un grafo acíclico dirigido: cada tarea depende de otras. El laboratorio tiene nueve tareas (dos crudas, dos intermedias, una dimensión, un hecho, dos marts y un informe). Un orden topológico válido es: `raw_customers`, `raw_orders`, `stg_customers`, `dim_customer`, `stg_orders`, `fact_sales`, `mart_city`, `mart_daily`, `report_exec`. Si cambia `raw_orders` hay que recalcular 5 tareas; si cambia `raw_customers`, 6; si cambia `fact_sales`, 3. Sin el grafo, la corrección se propaga a mano y se olvida un mart. Un ciclo no tiene orden y se rechaza: un orquestador que lo acepta no termina.
 
 ## Errores y confusiones comunes
 

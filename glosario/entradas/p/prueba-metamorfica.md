@@ -16,24 +16,24 @@ La clase donde se define, [SE-425 — Pruebas basadas en propiedades y modelos](
 
 ## Cómo funciona
 
-[SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
+[SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md):
 
 El equipo de la plataforma añade propiedades a tres funciones: el reparto de entregas (suma, longitud, equilibrio), la normalización de nombres (idempotencia, sin duplicados) y la cola de correcciones (contra un modelo de lista). El generador del reparto destina un tercio de los casos a valores cerca de las fronteras (`n` entre 0 y `2k`, `n` en los límites del rango), y la semilla de cada ejecución se imprime en el informe de la integración continua.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md)) son:
 
 - **La propiedad pasa y la función tiene un defecto conocido** — causa: generador que no llega a la frontera. Corrección: sesgo hacia vacío, límites y combinaciones.
 - **Un fallo aleatorio no se puede reproducir** — causa: no se registró la semilla. Corrección: imprimir la semilla en cada ejecución.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un motor mínimo, defectos inyectados y datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se usó Hypothesis ni QuickCheck, y una variante de normalización resultó equivalente a la original respecto de las propiedades escritas (no se detecta con ninguna). Las propiedades se ajustaron con los mismos defectos que las evalúan.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un motor mínimo, defectos inyectados y datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se usó Hypothesis ni QuickCheck, y una variante de normalización resultó equivalente a la original respecto de las propiedades escritas (no se detecta con ninguna). Las propiedades se ajustaron con los mismos defectos que las evalúan.
 
 ## Relación con otros conceptos
 

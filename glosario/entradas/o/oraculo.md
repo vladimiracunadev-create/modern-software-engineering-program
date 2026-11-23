@@ -2,51 +2,33 @@
 
 [↑ Glosario](../../README.md) · [← Option value](./option-value.md) · [Oráculo y propiedades →](./oraculo-y-propiedades.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-Mecanismo que decide si un resultado es correcto.
-
-Definición de trabajo de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md): Modelo de referencia independiente y más simple que lo probado, con el que se compara el resultado.
-- En [SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md): Mecanismo para determinar el resultado esperado.
-- En [SE-069 — Pruebas tempranas y diseño por ejemplos](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md): Criterio que decide el resultado esperado.
-- En [SE-294 — Fintech, contabilidad e invariantes monetarias](../../../classes/part-24-software-especializado-y-dominios/se-294-fintech-contabilidad-e-invariantes-monetarias/README.md): Modelo de referencia independiente con el que se compara el resultado de una operación.
+Un **oráculo** es el mecanismo que decide si el resultado de una prueba o de una operación es el esperado. Las clases lo definen con ese núcleo: [SE-060](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md) como el mecanismo para determinar el resultado esperado, [SE-069](../../../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) como el criterio que decide el resultado esperado, [SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) como el mecanismo que decide si un resultado es correcto, y [SE-294](../../../classes/part-24-software-especializado-y-dominios/se-294-fintech-contabilidad-e-invariantes-monetarias/README.md) y [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) como un modelo de referencia independiente (y, en [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md), más simple que lo probado) con el que se compara el resultado. Una aserción, un ejemplo acordado, un esquema, un contrato, una especificación ejecutable o una evaluación con umbral son oráculos.
 
 ## Por qué importa
 
-En [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md), el tema «Metodología, práctica y oráculo» importa porque sin separar el nombre de lo que produce, la elección es de gusto.
+Una prueba solo es tan buena como su oráculo: sin una fuente de «lo correcto» independiente de lo que se prueba, la prueba confirma lo que el código ya hace. [SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) lleva la idea al plano de las metodologías: casi toda disputa metodológica es una disputa de oráculo disfrazada de disputa de proceso: quién decide que algo está bien, cuándo y con qué evidencia.
 
 ## Cómo funciona
 
-Según [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
-
-Una **metodología de desarrollo** es un conjunto de prácticas con un orden y una razón. Una **práctica** es una actividad concreta («escribir una prueba que falla antes de escribir el código»). Un **oráculo** es el mecanismo que decide si un resultado es correcto: una aserción, un ejemplo acordado, un esquema, un contrato, una especificación ejecutable, una evaluación con umbral. Casi toda disputa metodológica es una disputa de oráculo disfrazada de disputa de proceso: ¿quién decide que esto está bien, cuándo y con qué información? Poner el oráculo en el centro permite comparar lo comparable. No se compara «TDD frente a BDD» como si fueran equipos rivales; se compara qué oráculo deja cada una, qué cuesta mantenerlo y qué defectos no ve.
-
-Según [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
-
-El equipo de *Avisos* decide el cambio «silenciar un curso». Antes de escribir código rellena una tabla con una fila por práctica candidata: pregunta que responde, oráculo que deja, defectos que no ve y costo de ejecución. Para este cambio, la regla («un curso silenciado conserva solo el aviso de 1 hora») está acordada con las docentes; el riesgo es medio, porque un aviso omitido hace perder una entrega; no hay frontera entre servicios y no hay salida probabilística. La tabla recomienda ocho pruebas de ejemplo con un par de casos en los límites, más un contrato de propiedades sobre estados al azar.
+La causa de que el oráculo importe es la independencia. [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) distingue dos cosas que se complementan: las **invariantes** dicen lo que nunca debe suceder; el **oráculo** es un modelo de referencia independiente que dice qué debe suceder. [SE-294](../../../classes/part-24-software-especializado-y-dominios/se-294-fintech-contabilidad-e-invariantes-monetarias/README.md) mostró que las primeras no bastan: un importe equivocado puede conservar el total, de modo que una invariante de suma no lo detecta y un oráculo que calcula el importe esperado sí. En cada dominio el oráculo toma una forma distinta ([SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)): una suma exacta en ciencia, una tabla ya idempotente en datos, un umbral con línea base en aprendizaje automático, una simulación de paso fino en juegos, una implementación lenta y simple en dinero. Lo que importa es que sea más simple que lo probado, porque un oráculo tan complejo como el sistema reproduce sus mismos errores.
 
 ## Ejemplo
 
-Ejemplo de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* decide el cambio «silenciar un curso». Antes de escribir código rellena una tabla con una fila por práctica candidata: pregunta que responde, oráculo que deja, defectos que no ve y costo de ejecución. Para este cambio, la regla («un curso silenciado conserva solo el aviso de 1 hora») está acordada con las docentes; el riesgo es medio, porque un aviso omitido hace perder una entrega; no hay frontera entre servicios y no hay salida probabilística. La tabla recomienda ocho pruebas de ejemplo con un par de casos en los límites, más un contrato de propiedades sobre estados al azar.
+En [SE-294](../../../classes/part-24-software-especializado-y-dominios/se-294-fintech-contabilidad-e-invariantes-monetarias/README.md), una operación monetaria que reparte mal un importe puede dejar el total correcto. Una invariante («el total se conserva») pasa; un oráculo, una implementación lenta y simple del cálculo de dinero, calcula el reparto esperado y detecta la diferencia. En [SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md), el límite de un menú de compuertas es justamente que una prueba que replica el error escapa: se mitiga con una fuente independiente del oráculo (una especificación, una revisión humana o una evaluación de otro tipo).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Una prueba que replica el error.** El valor esperado se cambió para coincidir con el código incorrecto; corrección ([SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)): una fuente independiente del oráculo.
+- **Tomar las invariantes por oráculo.** Dicen lo que nunca debe pasar, no qué debe suceder ([SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)).
+- **Un oráculo tan complejo como lo probado.** Reproduce los mismos errores; debe ser más simple ([SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- No se compara «TDD frente a BDD» como si fueran equipos rivales; se compara qué oráculo deja cada una, qué cuesta mantenerlo y qué defectos no ve. ([SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md))
-- Aplica el mapa a un cambio real: escribe la pregunta dominante, la práctica que elegirías, el oráculo que deja y el defecto que no vería. ([SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md))
+Un oráculo decide solo lo que su fuente permite decidir: una evaluación con umbral depende de su línea base ([SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)). [SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md) declara que ningún menú lo ve todo y que declarar ese límite es parte del diseño.
 
 ## Relación con otros conceptos
 

@@ -114,3 +114,25 @@ class Composition(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CuratedQuality(unittest.TestCase):
+    """Calidad mínima de las entradas escritas a mano (glosario/curado/)."""
+
+    def test_curated_entries_are_complete_and_long_enough(self) -> None:
+        by_slug = {concept.slug: concept for concept in data.inventory().values()}
+        for slug, sections in gc.load_curated().items():
+            self.assertIn(slug, by_slug, slug)
+            self.assertEqual([], [n for n in gc.DEVELOPED_SECTIONS if n not in sections], slug)
+            total = sum(validate_glossary.words(sections[n]) for n in gc.DEVELOPED_SECTIONS)
+            low, high = validate_glossary.WORDS_TRONCAL if data.tier_of(by_slug[slug]) == "troncal" else validate_glossary.WORDS_APOYO
+            self.assertTrue(low <= total <= high, f"{slug}: {total} words")
+
+    def test_published_curated_entries_link_classes_without_bare_references(self) -> None:
+        import cross_references
+
+        for slug in gc.load_curated():
+            path = next((ROOT / "glosario/entradas").rglob(f"{slug}.md"))
+            text = path.read_text(encoding="utf-8")
+            self.assertEqual([], cross_references.audit_markdown(text), slug)
+            self.assertRegex(text, r"\]\((?:\.\./)+classes/part-\d\d-[^)]*\)", slug)

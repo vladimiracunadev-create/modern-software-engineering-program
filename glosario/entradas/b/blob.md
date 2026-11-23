@@ -32,7 +32,7 @@ El fragmento crea un repositorio temporal, guarda dos archivos con el mismo cont
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-193 — Modelo de objetos y áreas de Git](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-193 — Modelo de objetos y áreas de Git](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md)) son:
 
 - **Se pierde trabajo tras `git restore`** — causa: el cambio estaba solo en el árbol de trabajo. Corrección: agregar o confirmar antes de ejecutar comandos que sobrescriben.
 - **`git diff` aparece vacío pese a haber cambios** — causa: los cambios ya están en el índice. Corrección: usar `git diff --cached` o `git diff HEAD`.

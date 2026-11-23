@@ -22,13 +22,13 @@ El plan define la pregunta, las tareas con criterio de éxito, las modalidades d
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md):
 
 En la plataforma, el paquete del proyecto tiene el prototipo del formulario de entrega (un HTML con sus estados), `accessibility.md` con la tabla de criterios y su política de lo no probado, `usability-notes.md` con el plan de evaluación y sus resultados, y un registro de hallazgos y decisiones. La evaluación con personas usa cuotas por modalidad, consentimiento informado y compensación; el acuerdo entre dos evaluadores se informa con kappa y prevalencia. La declaración dice qué se evaluó, cómo, cuántas personas, qué criterios quedaron sin probar y quién los revisará.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)) son:
 
 - **La declaración dice «cumple» y falta evidencia de varios criterios** — causa: lo no probado se contó como cumplido. Corrección: política escrita para lo no probado e informe de cuántos quedaron.
 - **El estudio no ve una barrera que luego aparece** — causa: muestra pequeña para una prevalencia baja. Corrección: declarar lo que el plan podría ver y lo que no.

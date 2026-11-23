@@ -16,7 +16,7 @@ La clase donde se define, [SE-469 — Build reproducible y hermético](../../../
 
 ## Cómo funciona
 
-[SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
@@ -26,14 +26,14 @@ La API de entregas es el caso conductor de la [Parte 39](../../../classes/part-3
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md)) son:
 
 - **Cada build produce un hash distinto** — causa: fechas, orden o rutas incrustadas. Corrección: normalizar tiempo y orden; eliminar rutas.
 - **El hash cambia solo en otra máquina** — causa: campo del formato dependiente del sistema. Corrección: repetir en otro sistema y fijar el campo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un árbol sintético de 42 archivos, uno de ellos con veinte entornos variados por semilla fija, en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3), con resultados idénticos una vez fijado el campo del sistema. No se construyó ningún proyecto real, no se usó compilador, contenedor ni herramienta de build reproducible, y no se probó macOS.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un árbol sintético de 42 archivos, uno de ellos con veinte entornos variados por semilla fija, en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3), con resultados idénticos una vez fijado el campo del sistema. No se construyó ningún proyecto real, no se usó compilador, contenedor ni herramienta de build reproducible, y no se probó macOS.
 
 ## Relación con otros conceptos
 

@@ -32,7 +32,7 @@ El equipo configura tres comprobaciones en el cambio: un analizador con las tres
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-434 — Revisión, análisis estático y quality gates](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-434-revision-analisis-estatico-y-quality-gates/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-434 — Revisión, análisis estático y quality gates](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-434-revision-analisis-estatico-y-quality-gates/README.md)) son:
 
 - **El pipeline está verde y el defecto llegó a producción** — causa: la regla no ve esa clase de defecto. Corrección: listar lo que no ve cada comprobación y cubrirlo con revisión o pruebas.
 - **Las alertas del analizador se ignoran** — causa: precisión baja. Corrección: medir la precisión, afinar con datos y apartar las reglas ruidosas.

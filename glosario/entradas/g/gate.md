@@ -32,7 +32,7 @@ El equipo de la plataforma versiona `estrategia.json` en el repositorio y lo val
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son:
 
 - **La estrategia es un documento que nadie ejecuta** — causa: no hay validador ni vínculo con la integración continua. Corrección: paquete estructurado y validado en cada cambio.
 - **Un riesgo alto queda sin horas o sin nivel que lo vea** — causa: falta de reglas de coherencia. Corrección: reglas de riesgo en el validador.

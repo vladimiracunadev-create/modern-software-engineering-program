@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md)) son: No se ejecutó Gentle AI ni se midió el efecto de ODD en equipos; los historiales son sintéticos y las reglas son las que la documentación declara. El siguiente paso, `SE-551`, es el taller: el mismo cambio, silenciar un curso, con cinco metodologías, medido con los mismos mutantes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md)) son: No se ejecutó Gentle AI ni se midió el efecto de ODD en equipos; los historiales son sintéticos y las reglas son las que la documentación declara. El siguiente paso, `SE-551`, es el taller: el mismo cambio, silenciar un curso, con cinco metodologías, medido con los mismos mutantes.
 
 ## Relación con otros conceptos
 

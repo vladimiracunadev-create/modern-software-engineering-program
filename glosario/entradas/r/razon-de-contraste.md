@@ -38,7 +38,7 @@ El fragmento calcula la razón de contraste entre texto negro y fondo blanco. An
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md)) son:
 
 - **El laboratorio dice rápido y las personas se quejan** — causa: medición con el mejor dispositivo. Corrección: perfiles de dispositivo y red modestos y datos de campo.
 - **El presupuesto avisa cuando ya es tarde** — causa: solo umbral absoluto. Corrección: añadir compuerta de tendencia.

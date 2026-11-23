@@ -22,9 +22,9 @@ Los doce factores son: una base de código con muchos despliegues; dependencias 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md):
+Caso medido en la sección «Desechabilidad: arranque rápido y parada limpia» de [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Un proceso desechable arranca rápido y termina bien cuando se lo piden. El arranque se midió con procesos Python reales: un intérprete vacío tardó una mediana de 116 ms y uno que importa `sqlite3`, `json`, `http.server` y `hashlib`, 249 ms (diez ejecuciones en una máquina Windows; el valor cambia con el equipo y la caché del sistema). El arranque de una aplicación real incluye conectar a servicios y calentar cachés, y el presupuesto es el que permite sustituir instancias sin que se note.
 
 ## Errores y confusiones comunes
 

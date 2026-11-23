@@ -16,24 +16,24 @@ Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
 
 ## Cómo funciona
 
-[SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
 
 El equipo segmenta errores, detiene lanzamiento automático y propone uso asistido, revisión humana, razones, apelación y umbral de suspensión. Declara que la muestra no representa todos los contextos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son:
 
 - **“es ético porque cumple la ley”** — causa: se confundió mínimo jurídico con deber profesional. Corrección: analiza daño, interés público y alternativas además del cumplimiento.
 - **lista genérica de stakeholders** — causa: no se siguió quién recibe beneficio o carga. Corrección: describe mecanismo, consecuencia y posibilidad de participar o apelar.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son: No reemplaza asesoría jurídica ni investigación con comunidades. `SE-005` distribuye conocimiento y autoridad.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son: No reemplaza asesoría jurídica ni investigación con comunidades. `SE-005` distribuye conocimiento y autoridad.
 
 ## Relación con otros conceptos
 

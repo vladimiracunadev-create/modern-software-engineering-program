@@ -28,7 +28,7 @@ El portal documental de la plataforma de entregas de tareas es el caso conductor
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) son:
 
 - **Nadie encuentra «cómo cambiar el plazo» aunque existe la página** — causa: el título usa el nombre del componente («Módulo de calendario») y no la tarea. Corrección: reescribir el título con verbo y resultado y añadirla al índice de tareas.
 - **Dos páginas dan topes de penalización distintos** — causa: el dato se copió en lugar de enlazarse. Corrección: elegir una fuente, enlazar desde las demás y añadir un comprobador de enlaces.

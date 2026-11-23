@@ -32,14 +32,14 @@ El CI de la API de entregas genera el SBOM a partir del bloqueo y del contenido 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)) son:
 
 - **El SBOM no contiene una pieza que está en el artefacto** — causa: generado desde el manifiesto. Corrección: generar desde el bloqueo y escanear el artefacto final.
 - **Un SBOM válido describe otro artefacto** — causa: sin vínculo por huella. Corrección: sujeto identificado por la huella del artefacto.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos de semilla fija (más un análisis lógico) en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3) con resultados idénticos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos de semilla fija (más un análisis lógico) en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3) con resultados idénticos.
 
 ## Relación con otros conceptos
 

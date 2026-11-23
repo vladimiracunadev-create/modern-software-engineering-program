@@ -22,20 +22,20 @@ El análisis de tipos aproxima valores posibles sin ejecutar todas las rutas. Re
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md):
 
 En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)) son:
 
 - **El código pasa mypy y falla al ejecutar** — causa: `Any` o falta de anotaciones. Corrección: reducir `Any` en las fronteras y probar con datos reales.
 - **El linter pasa pero hay un defecto conocido** — causa: la regla no está activa. Corrección: revisar el conjunto de reglas y activar la relevante.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La señal estática no sustituye experimentación y puede ser ruidosa durante exploración. La siguiente clase diseña REPL y notebooks con una ruta explícita hacia artefactos reproducibles.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-100 — Compiladores, linters, formatters y análisis estático](../../../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La señal estática no sustituye experimentación y puede ser ruidosa durante exploración. La siguiente clase diseña REPL y notebooks con una ruta explícita hacia artefactos reproducibles.
 
 ## Relación con otros conceptos
 

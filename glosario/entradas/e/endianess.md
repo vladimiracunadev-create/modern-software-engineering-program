@@ -16,13 +16,13 @@ En [SE-014 — Bits, bytes, bases numéricas y representación](../../../classes
 
 ## Cómo funciona
 
-[SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md):
+Caso medido en la sección «Endianess ordena bytes, no bits dentro de una explicación informal» de [SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md):
 
-Un encabezado de red fija ancho y orden. El productor que usa orden nativo puede pasar pruebas locales y fallar al interoperar. La solución es contrato explícito y vectores de prueba compartidos, no detectar plataforma en cada extremo.
+**Cómo leer la figura.** Las dos filas guardan *el mismo valor* en las mismas cuatro direcciones; solo cambia cuál byte va primero. La flecha roja muestra el error del problema auténtico: bytes escritos en un orden y leídos en el contrario no se corrompen, pero significan otra cosa. `struct.pack('<I', 1)` produce `01000000` y `struct.pack('>I', 1)` produce `00000001`. **Dónde deja de valer:** el diagrama trata los bytes como indivisibles. Dentro de un byte el orden de los bits es otra cuestión que casi nunca importa en software, pero sí en ciertos buses y protocolos serie; no mezcles ambas preguntas.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)) son: No cubre álgebra booleana ni formatos de archivo completos. `SE-015` asigna texto a secuencias de bytes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-014 — Bits, bytes, bases numéricas y representación](../../../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)) son: No cubre álgebra booleana ni formatos de archivo completos. `SE-015` asigna texto a secuencias de bytes.
 
 ## Relación con otros conceptos
 

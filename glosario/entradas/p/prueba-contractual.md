@@ -16,24 +16,24 @@ La clase donde se define, [SE-166 — Especificaciones ejecutables y pruebas con
 
 ## Cómo funciona
 
-[SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md):
 
 En la plataforma, cada consumidor mantiene su contrato en su repositorio y lo publica en una carpeta compartida con su versión. El proveedor ejecuta todos los contratos publicados en integración continua antes de cada cambio y falla con el nombre del consumidor y del campo. Una carpeta de propiedades ejecuta la deduplicación y la regla de penalización con entradas generadas y reduce los contraejemplos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md)) son:
 
 - **Las pruebas del consumidor pasan y la integración falla** — causa: el doble no se verifica contra el proveedor. Corrección: verificar cada doble contra el proveedor real de forma periódica.
 - **El proveedor despliega un cambio que rompe a un cliente** — causa: solo prueba su propio esquema, generado desde su código. Corrección: ejecutar contratos de consumidor antes de cada cambio.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): matriz y reducción idénticas, latencias distintas y variables entre ejecuciones. No se usó Pact ni Hypothesis, los consumidores y los cambios son construcciones del autor y el servidor es local, sin red. La siguiente clase reúne lo anterior en un taller de extremo a extremo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): matriz y reducción idénticas, latencias distintas y variables entre ejecuciones. No se usó Pact ni Hypothesis, los consumidores y los cambios son construcciones del autor y el servidor es local, sin red. La siguiente clase reúne lo anterior en un taller de extremo a extremo.
 
 ## Relación con otros conceptos
 

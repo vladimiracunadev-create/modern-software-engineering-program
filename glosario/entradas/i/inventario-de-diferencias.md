@@ -28,14 +28,14 @@ El equipo del cliente de entregas hace el taller en cuatro pasos. Primero ejecut
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)) son:
 
 - **Un adjunto no se guarda en una plataforma y sí en otra** — causa: reglas de nombres distintas. Corrección: sanear el nombre en el adaptador y probar en ambas.
 - **Un archivo exportado cambia al abrirlo en otro sistema** — causa: saltos de línea o codificación por defecto distintos. Corrección: fijar codificación y saltos de línea al escribir.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el inventario mostró siete diferencias de siete medidas, y el coste y el contrato dieron salidas idénticas. No se midió ningún teléfono ni macOS, y los estados y costes de las funciones son del autor. La siguiente clase es el proyecto que integra todo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el inventario mostró siete diferencias de siete medidas, y el coste y el contrato dieron salidas idénticas. No se midió ningún teléfono ni macOS, y los estados y costes de las funciones son del autor. La siguiente clase es el proyecto que integra todo.
 
 ## Relación con otros conceptos
 

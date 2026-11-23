@@ -22,13 +22,13 @@ Según [SE-063 — Iteración, recursión y recorridos](../../../classes/part-05
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md):
 
 La CLI diagnóstica recorre un grafo con pila explícita y `visited`. Cada extracción consume un nodo y cada nodo se añade una vez. Un límite de nodos produce `INCOMPLETE` con cursor; no finge resultado completo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md)) son:
 
 - **el resultado cambia según los datos, sin error** — causa: se elimina de la lista que se recorre. Corrección: construir una lista nueva o iterar sobre una copia.
 - **`RuntimeError: dictionary changed size`** — causa: se añaden o quitan claves durante el recorrido. Corrección: recorrer `list(d)` o construir un diccionario nuevo.

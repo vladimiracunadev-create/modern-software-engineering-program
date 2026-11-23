@@ -22,20 +22,20 @@ Trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-106 — Ergonomía, accesibilidad y productividad del entorno](../../../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-106 — Ergonomía, accesibilidad y productividad del entorno](../../../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md):
 
 En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-106 — Ergonomía, accesibilidad y productividad del entorno](../../../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-106 — Ergonomía, accesibilidad y productividad del entorno](../../../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md)) son:
 
 - **Un tema «se ve bien» y no cumple** — causa: se juzga a ojo. Corrección: calcular la razón con la fórmula de WCAG.
 - **Los errores solo se distinguen por el color** — causa: color como único canal. Corrección: añadir símbolo, subrayado o texto.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-106 — Ergonomía, accesibilidad y productividad del entorno](../../../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una checklist básica no sustituye auditoría con personas y tecnologías asistivas. El taller siguiente aplica método y herramientas a un fallo desconocido.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-106 — Ergonomía, accesibilidad y productividad del entorno](../../../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una checklist básica no sustituye auditoría con personas y tecnologías asistivas. El taller siguiente aplica método y herramientas a un fallo desconocido.
 
 ## Relación con otros conceptos
 

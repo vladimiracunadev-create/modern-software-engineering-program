@@ -22,9 +22,9 @@ Cuando el daño ocurre, eliminar la función puede evitar repetición, pero no r
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
+Caso medido en la sección «Escalamiento, parada y reparación» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
 
-El equipo segmenta errores, detiene lanzamiento automático y propone uso asistido, revisión humana, razones, apelación y umbral de suspensión. Declara que la muestra no representa todos los contextos.
+**Cómo leer la figura.** El daño ocurre en un momento (t0) y desde ahí se abren tres acciones diferentes. Suspender la función protege a las personas futuras, pero no corrige el caso de quien ya fue afectada; reparar atiende ese caso y debe ser accesible para ella; aprender rediseña el sistema para que no se repita. **Dónde deja de valer:** el orden y la separación son pedagógicos.
 
 ## Errores y confusiones comunes
 

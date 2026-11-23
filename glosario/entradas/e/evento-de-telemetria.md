@@ -16,24 +16,24 @@ La clase donde se define, [SE-137 — Telemetría de producto y consentimiento](
 
 ## Cómo funciona
 
-[SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
+[SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md):
 
 En la plataforma, `telemetry-plan.md` contiene una fila por evento (nombre, momento, campos permitidos, decisión que informa, retención, base de recolección) y un diagrama de estados del consentimiento. El contrato es que todo campo nuevo exige una decisión asociada y una medición de unicidad antes de entrar al esquema, y que la puerta se prueba con mutantes en integración continua. Esa estructura permite que otra persona vea qué se recoge, por qué y con qué control.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md)) son:
 
 - **Se envían eventos de personas que rechazaron** — causa: la puerta trata «desconocido» como «concedido» o no vacía el búfer. Corrección: probar los tres estados y las transiciones con mutantes.
 - **El conjunto «anónimo» permite reidentificar** — causa: campos acumulados sin medir la unicidad. Corrección: medir grupos y fijar k mínimo; engrosar la granularidad.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se recogió ningún dato real, no se consultó a un especialista legal y los campos, las probabilidades de consentir y los once mutantes son supuestos o elecciones del autor. La siguiente clase usa estos eventos para estudiar experimentos, sesgos y causalidad.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se recogió ningún dato real, no se consultó a un especialista legal y los campos, las probabilidades de consentir y los once mutantes son supuestos o elecciones del autor. La siguiente clase usa estos eventos para estudiar experimentos, sesgos y causalidad.
 
 ## Relación con otros conceptos
 

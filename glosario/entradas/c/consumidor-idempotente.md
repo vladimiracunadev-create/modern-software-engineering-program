@@ -36,7 +36,7 @@ El fragmento muestra un consumidor idempotente y con orden. Antes de ejecutarlo,
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)) son:
 
 - **Contadores mayores que la realidad** — causa: consumidor que suma cada mensaje con entrega al-menos-una-vez. Corrección: idempotencia con identificador de evento.
 - **Un estado antiguo sobrescribe a uno nuevo** — causa: desorden sin secuencia por entidad. Corrección: aplicar solo eventos con secuencia mayor a la vista.

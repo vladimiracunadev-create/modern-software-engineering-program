@@ -32,7 +32,7 @@ Depende de quién debe soportar el costo y el riesgo. Un webhook da baja latenci
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)) son:
 
 - **Alguien crea eventos falsos con una herramienta** — causa: la dirección del webhook no verifica firma. Corrección: firma HMAC con secreto y comparación de tiempo constante.
 - **Se reprocesa una entrega capturada** — causa: firma sin marca de tiempo ni identificador. Corrección: marca de tiempo firmada con tolerancia corta e identificadores vistos.

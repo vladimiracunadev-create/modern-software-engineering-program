@@ -22,20 +22,20 @@ La activación de una función se observa en días; la retención a noventa día
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md):
 
 En la plataforma de entregas, la propuesta conserva la promesa en una frase, el trabajo al que responde, la alternativa actual, los resultados deseados con su métrica, la fecha de la encuesta, el tamaño de la muestra y la estabilidad del ranking. El contrato es que ninguna función entra al plan si no mueve al menos un resultado listado y que cada resultado declara el indicador con el que se sabrá si mejoró y el tiempo que tarda en notarse.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son:
 
 - **El plan lista nueve funciones y ninguna promesa** — causa: se describió la solución, no el progreso. Corrección: redactar la promesa como «cuando… puedo… sin…» y vincular cada función a un resultado.
 - **El orden de prioridades cambia en cada encuesta** — causa: la muestra es pequeña y el ruido reordena los primeros puestos. Corrección: reportar la estabilidad simulada o aumentar la muestra antes de decidir.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se encuestó a nadie, los parámetros son supuestos y el modelo de adopción no se contrastó con comportamiento real. La siguiente clase compara esta propuesta con las alternativas que las personas ya usan, incluida no hacer nada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se encuestó a nadie, los parámetros son supuestos y el modelo de adopción no se contrastó con comportamiento real. La siguiente clase compara esta propuesta con las alternativas que las personas ya usan, incluida no hacer nada.
 
 ## Relación con otros conceptos
 

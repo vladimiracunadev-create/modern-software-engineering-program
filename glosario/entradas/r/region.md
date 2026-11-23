@@ -28,14 +28,14 @@ En la plataforma, cada componente tiene una ficha con su elemento nativo, su nom
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-174 — Semántica, teclado, foco y tecnologías de asistencia](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-174 — Semántica, teclado, foco y tecnologías de asistencia](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)) son:
 
 - **Un control funciona con ratón y no con teclado** — causa: un div con clic sin foco ni teclas. Corrección: usar el elemento nativo o reproducir rol, foco y teclas.
 - **El lector anuncia «botón» sin más** — causa: falta nombre accesible. Corrección: texto visible, etiqueta nativa o `aria-label` si no hay otra opción.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-174 — Semántica, teclado, foco y tecnologías de asistencia](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres modelos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún lector de pantalla, navegador automatizado ni persona usuaria de tecnologías de apoyo, y el modelo de foco, el cálculo de nombre y el analizador son subconjuntos de las especificaciones. La siguiente clase aplica el diseño visual sobre esta estructura.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-174 — Semántica, teclado, foco y tecnologías de asistencia](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres modelos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún lector de pantalla, navegador automatizado ni persona usuaria de tecnologías de apoyo, y el modelo de foco, el cálculo de nombre y el analizador son subconjuntos de las especificaciones. La siguiente clase aplica el diseño visual sobre esta estructura.
 
 ## Relación con otros conceptos
 

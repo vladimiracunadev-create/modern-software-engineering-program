@@ -22,7 +22,7 @@ Los códigos de ACM y de IEEE-CS/ACM no son algoritmos que produzcan una respues
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
 
 El equipo segmenta errores, detiene lanzamiento automático y propone uso asistido, revisión humana, razones, apelación y umbral de suspensión. Declara que la muestra no representa todos los contextos.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son: No reemplaza asesoría jurídica ni investigación con comunidades. `SE-005` distribuye conocimiento y autoridad.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son: No reemplaza asesoría jurídica ni investigación con comunidades. `SE-005` distribuye conocimiento y autoridad.
 
 ## Relación con otros conceptos
 

@@ -16,13 +16,13 @@ En [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/pa
 
 ## Cómo funciona
 
-[SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md):
+Caso medido en la sección «El contexto del inquilino viaja con el trabajo, incluido el asíncrono» de [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados de este ejemplo son supuestos de la narración, no mediciones.*
+Toda política de aislamiento exige saber de qué inquilino es cada pieza de trabajo. En una petición HTTP se obtiene de una credencial firmada y se copia a un contexto al entrar. Se pierde con facilidad en tres sitios: los trabajos de segundo plano (un mensaje en una cola sin el identificador), las cachés (una clave sin el inquilino devuelve datos de otro) y los registros (un log sin inquilino no permite saber quién hizo ruido).
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md)) son: Se simularon ocho clientes sobre una capacidad compartida con semilla 34 y se modeló el costo con parámetros del autor; no se midió ningún proveedor, base de datos ni balanceador, ni se contempló el efecto de los reintentos del cliente sobre la cola. Las magnitudes dependen del modelo; la forma (una cola única contagia, una cuota o una cola justa contienen) es el resultado que se puede reutilizar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-410 — Aislamiento multi-inquilino y vecino ruidoso](../../../classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md)) son: Se simularon ocho clientes sobre una capacidad compartida con semilla 34 y se modeló el costo con parámetros del autor; no se midió ningún proveedor, base de datos ni balanceador, ni se contempló el efecto de los reintentos del cliente sobre la cola. Las magnitudes dependen del modelo; la forma (una cola única contagia, una cuota o una cola justa contienen) es el resultado que se puede reutilizar.
 
 ## Relación con otros conceptos
 

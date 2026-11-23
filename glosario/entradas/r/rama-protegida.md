@@ -28,7 +28,7 @@ El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son:
 
 - **Un commit firmado no verifica** — causa: el archivo de firmantes no contiene la clave. Corrección: añadir la clave al archivo tras verificar la identidad.
 - **Se confía en «verificado» como revisión** — causa: se confunde atribución con aprobación. Corrección: exigir PR y aprobación además de firma.

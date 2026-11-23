@@ -22,20 +22,20 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-350 — Relacional, documental, clave-valor, grafos y series](../../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-350 — Relacional, documental, clave-valor, grafos y series](../../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/README.md):
 
 El equipo de la plataforma mide antes de elegir. Mantiene el modelo relacional para entregas, estudiantes y cursos porque las preguntas son variadas y los datos repetidos cambian (un estudiante renombrado). Para la pantalla «mis entregas», que se pide miles de veces por minuto y siempre igual, construye una vista materializada que repite lo necesario y se regenera cuando cambian los datos de origen, con una prueba que compara la vista con las tablas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-350 — Relacional, documental, clave-valor, grafos y series](../../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-350 — Relacional, documental, clave-valor, grafos y series](../../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/README.md)) son:
 
 - **El mismo dato aparece con valores distintos según la pantalla** — causa: dato embebido actualizado a medias. Corrección: tarea idempotente de propagación y comprobación periódica.
 - **Una entrega no se encuentra por estudiante** — causa: índice secundario manual desincronizado. Corrección: reconstruirlo desde los datos y comprobarlo con una tarea periódica.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-350 — Relacional, documental, clave-valor, grafos y series](../../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún motor documental, de clave-valor ni de grafos: los documentos son diccionarios de Python y los bytes son los del JSON; el fallo del 1 % entre dos escrituras y la estructura del grafo son construcciones del autor. No se midieron series temporales; el apartado correspondiente describe un criterio, no una medida.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-350 — Relacional, documental, clave-valor, grafos y series](../../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún motor documental, de clave-valor ni de grafos: los documentos son diccionarios de Python y los bytes son los del JSON; el fallo del 1 % entre dos escrituras y la estructura del grafo son construcciones del autor. No se midieron series temporales; el apartado correspondiente describe un criterio, no una medida.
 
 ## Relación con otros conceptos
 

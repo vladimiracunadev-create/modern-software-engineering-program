@@ -26,13 +26,13 @@ Según [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md):
 
 El equipo segmenta errores, detiene lanzamiento automático y propone uso asistido, revisión humana, razones, apelación y umbral de suspensión. Declara que la muestra no representa todos los contextos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-004 — Ética, interés público y consecuencias de las decisiones técnicas](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)) son:
 
 - **“es ético porque cumple la ley”** — causa: se confundió mínimo jurídico con deber profesional. Corrección: analiza daño, interés público y alternativas además del cumplimiento.
 - **lista genérica de stakeholders** — causa: no se siguió quién recibe beneficio o carga. Corrección: describe mecanismo, consecuencia y posibilidad de participar o apelar.

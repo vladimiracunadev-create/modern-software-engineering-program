@@ -26,9 +26,9 @@ Reproduce el fallo de la clase: **un sondeo de vida que depende de la base de da
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md):
+Caso medido en la sección «Un sondeo de vida que consulta la base de datos» de [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md):
 
-La plataforma expone tres sondeos: `/salud/viva` (local, sin dependencias, usado para reiniciar), `/salud/lista` (comprueba base de datos, cola y que la caché alcance el 60 % de aciertos, usado para retirar del reparto) y `/salud/arranque` (permite hasta 60 s de inicio). Al recibir la señal de terminación, la instancia se declara no lista, deja de aceptar conexiones, espera hasta 25 s a las solicitudes en curso, devuelve a la cola los trabajos largos y sale con código 0. El plazo de gracia del orquestador es 30 s.
+Se simulan 600 s con sondeos cada 5 s; la base de datos cae entre los 100 s y los 220 s. Una instancia se reinicia tras 3 sondeos de vida fallidos y tarda 20 s en arrancar. En el primer diseño el sondeo de vida consulta la base de datos; en el segundo es local y solo el de disponibilidad la consulta.
 
 ## Errores y confusiones comunes
 

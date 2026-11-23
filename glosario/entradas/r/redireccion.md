@@ -32,7 +32,7 @@ No. Las construcciones (`$(...)`, `&&`, `[[ ]]`, redirecciones) y los modelos de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)) son:
 
 - **Un archivo JSON contiene mensajes de progreso** — causa: stdout y stderr no tienen roles definidos. Corrección: reservar stdout para datos y stderr para diagnóstico.
 - **Una ruta con espacios se divide** — causa: el shell interpretó una cadena sin protección. Corrección: pasar argumentos como colección o citar según el shell.

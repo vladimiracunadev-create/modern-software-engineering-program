@@ -22,7 +22,7 @@ El sobreviviente común (S4) se mata con un solo ejemplo: dos personas en el mis
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 

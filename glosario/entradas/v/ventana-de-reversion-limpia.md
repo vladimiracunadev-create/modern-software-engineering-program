@@ -16,24 +16,24 @@ La clase donde se define, [SE-564 — Proyecto: cambio real con trazabilidad y r
 
 ## Cómo funciona
 
-[SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones ejecuta el proyecto sobre el cambio de las notas ausentes. El `PLAN.md` fija el criterio («una nota ausente lanza `ValueError` con el nombre del alumno y la evaluación; ninguna otra función cambia»), cinco casos derivados del reglamento y el límite de 40 líneas de diff; el flujo es el asistido, con las compuertas de pruebas, análisis y revisión nombrada.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md)) son:
 
 - **No se sabe qué criterio se usó** — causa: el plan se escribió después de la solución. Corrección: criterios por escrito antes de pedir nada.
 - **«Se revisó» sin saber quién ni qué** — causa: aprobación sin nombre ni alcance. Corrección: registro con persona, archivos y comprobaciones.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: una bitácora encadenada real escrita en un directorio temporal y atacada de cinco maneras, una simulación de compuertas independientes con una curva de fatiga y una simulación de reversión con ediciones al azar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-564 — Proyecto: cambio real con trazabilidad y revisión humana](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: una bitácora encadenada real escrita en un directorio temporal y atacada de cinco maneras, una simulación de compuertas independientes con una curva de fatiga y una simulación de reversión con ediciones al azar.
 
 ## Relación con otros conceptos
 

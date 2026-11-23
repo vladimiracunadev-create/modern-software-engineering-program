@@ -26,13 +26,13 @@ WCAG define la relación de contraste a partir de la luminancia relativa de dos 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-258 — Interacción táctil, teclado, mouse y accesibilidad](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-258 — Interacción táctil, teclado, mouse y accesibilidad](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md):
 
 El equipo del cliente escribe una tabla de modos de entrada con una fila por función y una columna por entrada (tacto, teclado, puntero, lector). «Enviar entrega» se activa con un botón de 48 por 48, con la tecla Intro y con el rol de botón; «Reordenar adjuntos» deja de depender del arrastre y ofrece botones de subir y bajar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-258 — Interacción táctil, teclado, mouse y accesibilidad](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-258 — Interacción táctil, teclado, mouse y accesibilidad](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md)) son:
 
 - **Los botones se pulsan mal en el teléfono** — causa: objetivos pequeños o juntos. Corrección: aumentar el tamaño y la separación; medir con usuarios.
 - **El teclado se queda atascado en un control** — causa: trampa de foco. Corrección: permitir salir y añadir un recorrido a las pruebas.

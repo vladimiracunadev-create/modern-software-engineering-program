@@ -38,7 +38,7 @@ El equipo del servicio de entregas cambia el balanceador de turnos a «dos opcio
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son:
 
 - **Algunos servidores saturados y otros ociosos** — causa: balanceo por turnos con tamaños de cola pesada. Corrección: dos opciones al azar o menos conexiones.
 - **Estudiantes con acuse y sin registro tras una conmutación** — causa: replicación asíncrona con acuse previo. Corrección: confirmar con una réplica antes del acuse.

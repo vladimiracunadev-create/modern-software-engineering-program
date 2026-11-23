@@ -22,20 +22,20 @@ Una job story reemplaza el rol por la situación: «Cuando mi sesión expira mie
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md):
 
 El requisito conductor se cuenta con las tres formas, cada una para una pregunta distinta:
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son:
 
 - **Todas las historias empiezan con «Como usuario»** — causa: no se definió el catálogo de actores. Corrección: crear el catálogo con objetivo y contacto y exigir que cada historia nombre uno.
 - **El caso de uso solo describe el camino feliz** — causa: las extensiones se consideraron «detalles». Corrección: enumerar las alternativas por paso y decidir cuáles se prueban.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo, no se comparó la comprensión de personas con cada forma de relato y las capacidades e historias son supuestos del autor. La siguiente clase añade a cada historia los ejemplos concretos que permiten aceptar o rechazar el trabajo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo, no se comparó la comprensión de personas con cada forma de relato y las capacidades e historias son supuestos del autor. La siguiente clase añade a cada historia los ejemplos concretos que permiten aceptar o rechazar el trabajo.
 
 ## Relación con otros conceptos
 

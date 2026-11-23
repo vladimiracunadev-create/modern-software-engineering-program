@@ -37,7 +37,7 @@ La plataforma de entregas y corrección de tareas cierra aquí su recorrido por 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md)) son:
 
 - **El comité pregunta por una caída y no hay respuesta** — causa: documento sin escenarios ni modelo. Corrección: escenarios medibles y un modelo que los evalúa.
 - **Los diagramas se contradicen** — causa: vistas mantenidas a mano. Corrección: generarlas desde un modelo único y validarlas.

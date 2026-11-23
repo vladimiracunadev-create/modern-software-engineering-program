@@ -32,7 +32,7 @@ En la plataforma, el equipo documenta la tarea «entregar una tarea y obtener co
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)) son:
 
 - **«Es largo» sin ninguna cifra** — causa: no se descompuso la tarea en pasos. Corrección: estimar con operadores y comparar diseños.
 - **Un diseño para la persona promedio falla a casi todos** — causa: se consideró una dimensión a la vez. Corrección: definir escenarios que cubran extremos relevantes y permitir ajustes.

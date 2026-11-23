@@ -22,9 +22,9 @@ El refactor ocurre solo con todas las pruebas en verde y se detiene si alguna fa
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md):
+Caso medido en la sección «Verde: el código más simple que pasa» de [SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+La versión mínima puede ser deliberadamente ingenua: devolver una constante, o tratar solo el caso de la prueba. No es pereza; es un método. Cada prueba posterior obliga a generalizar solo lo que la prueba exige, y evita escribir comportamiento que nadie comprobó. En el laboratorio, la versión 1 solo sabe del umbral de 72 horas; la versión 2 recuerda lo enviado; la 5 es la primera que usa la lista de umbrales y calcula el más urgente.
 
 ## Errores y confusiones comunes
 

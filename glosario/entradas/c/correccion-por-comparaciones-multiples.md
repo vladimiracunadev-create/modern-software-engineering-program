@@ -28,7 +28,7 @@ Ambas formas se usan. Un valor fijo (tasa de quejas ≤ 3 %) es simple y exige u
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)) son:
 
 - **La métrica norte sube y el producto empeora** — causa: no hay guardas. Corrección: definir guardas con umbral antes de optimizar.
 - **El equipo ignora las alarmas de las guardas** — causa: hay demasiadas y sin corrección. Corrección: reducir las guardas y corregir las comparaciones múltiples.

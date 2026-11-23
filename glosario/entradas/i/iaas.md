@@ -28,7 +28,7 @@ Con estas cinco capas, el número baja de 5 a 5, 3 y 2: en IaaS no cambia porque
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md)) son:
 
 - **Un depósito o un panel quedan abiertos tras migrar** — causa: se asumió que el proveedor configura lo que solo el cliente puede decidir. Corrección: asignar dueño y revisión a la celda «configuración del servicio».
 - **Un tiempo de ejecución deja de recibir parches y nadie se entera** — causa: PaaS: el proveedor retira la versión y el equipo no sigue el calendario. Corrección: suscribirse a los avisos del proveedor y planificar el cambio de versión.

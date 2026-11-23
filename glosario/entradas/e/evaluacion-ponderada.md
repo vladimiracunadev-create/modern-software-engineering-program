@@ -22,13 +22,13 @@ Una evaluación honesta tiene dos capas. La primera son las **puertas**: requisi
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo define cuatro puertas (cifrado en reposo, almacenamiento en la región acordada, exportación completa con metadatos, evidencia de seguridad revisable); un proveedor queda fuera por la exportación. Con los cuatro restantes construye la matriz ponderada con pesos acordados con la dirección, hace una prueba de concepto con datos sintéticos que imitan las actas y puntúa a partir de ella.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md)) son:
 
 - **El proveedor elegido incumple un requisito legal** — causa: requisito tratado como preferencia. Corrección: convertirlo en puerta con evidencia.
 - **La elección cambia con otro grupo de pesos** — causa: diferencias pequeñas entre opciones. Corrección: prueba de sensibilidad y criterio de desempate.

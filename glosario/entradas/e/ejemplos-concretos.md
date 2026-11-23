@@ -22,20 +22,20 @@ Una regla abstracta («el archivo no debe exceder el límite») admite lecturas 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md):
+Caso medido en la sección «Ejemplos concretos» de [SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md):
 
-Los criterios de H-12 en forma de escenarios, cada uno con su regla de origen:
+Una regla abstracta («el archivo no debe exceder el límite») admite lecturas distintas; un ejemplo la ancla («10,0 MB se acepta; 10,1 MB se rechaza»). Example Mapping organiza la conversación en cuatro tipos de tarjeta: la historia, las reglas, los ejemplos que las ilustran y las preguntas sin respuesta. Si hay muchas preguntas, la historia aún no está lista; si hay muchas reglas, es demasiado grande. Los ejemplos son la parte que sobrevive: se convierten en pruebas y, con los años, en documentación viva.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)) son:
 
 - **Las pruebas pasan y el cliente rechaza la entrega** — causa: el criterio solo cubría ejemplos felices. Corrección: añadir ejemplos en las fronteras y en las clases no válidas.
 - **Dos personas aplican la regla de redondeo de forma distinta** — causa: no hay ejemplo en el empate. Corrección: añadir el ejemplo y registrar quién decidió la regla.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los mutantes, las fallas sembradas y las notas son supuestos del autor, la suite de pares se obtuvo con un algoritmo voraz propio y no se probó ningún sistema real. La siguiente clase ordena el conjunto de historias teniendo en cuenta sus dependencias y las negociaciones entre interesados.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los mutantes, las fallas sembradas y las notas son supuestos del autor, la suite de pares se obtuvo con un algoritmo voraz propio y no se probó ningún sistema real. La siguiente clase ordena el conjunto de historias teniendo en cuenta sus dependencias y las negociaciones entre interesados.
 
 ## Relación con otros conceptos
 

@@ -22,20 +22,20 @@ Un trie comparte prefijos a lo largo de aristas o nodos. Buscar depende de longi
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md):
 
 En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)) son:
 
 - **Inserción lenta y `RecursionError` con datos ordenados** — causa: BST sin balanceo con entrada ordenada. Corrección: equilibrar, barajar o usar una lista ordenada; probar las tres entradas.
 - **El trie consume más memoria que la lista de datos** — causa: un diccionario por carácter paga cabecera por nodo. Corrección: medir con `tracemalloc` y valorar bisect o un trie comprimido.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un árbol representa jerarquía, no dependencias arbitrarias o múltiples rutas. La siguiente clase generaliza a grafos y recorridos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-088 — Árboles, tries y estructuras jerárquicas](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un árbol representa jerarquía, no dependencias arbitrarias o múltiples rutas. La siguiente clase generaliza a grafos y recorridos.
 
 ## Relación con otros conceptos
 

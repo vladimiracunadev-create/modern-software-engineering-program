@@ -22,20 +22,20 @@ Liskov y Wing formalizan cuándo una subclase puede sustituir a su base sin romp
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-159 — Contratos, invariantes y diseño por contrato](../../../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md):
+Caso medido en la sección «Subtipado conductual» de [SE-159 — Contratos, invariantes y diseño por contrato](../../../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md):
 
-En la plataforma, cada operación pública de `Calificacion` documenta su contrato en el docstring (quién debe qué) y lo ejecuta con `assert` en pruebas. Los invariantes viven en un método `inv()` que cada operación llama al terminar. Un módulo de pruebas basadas en un conductor aleatorio ejecuta secuencias válidas y falla si algún contrato salta; un segundo conjunto ejecuta entradas ilegales y comprueba que la precondición correcta rechaza cada una. La política declara qué contratos se mantienen en producción (nota en rango, publicada con nota) y cuáles se retiran.
+Liskov y Wing formalizan cuándo una subclase puede sustituir a su base sin romper a los clientes: **precondición igual o más débil** (acepta al menos lo mismo), **postcondición igual o más fuerte** (garantiza al menos lo mismo) e **invariante preservado**. La herencia sintáctica no basta: una subclase `CalificacionEstricta` que exige `1 ≤ horas ≤ 48` donde la base acepta `0 ≤ horas ≤ 72` compila, hereda y rompe llamadas válidas. El criterio sirve también para versionar servicios: es el mismo principio de «aceptar más, devolver más» que reaparece en `SE-164`.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-159 — Contratos, invariantes y diseño por contrato](../../../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-159 — Contratos, invariantes y diseño por contrato](../../../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md)) son:
 
 - **El invariante falla lejos de donde se corrompió el estado** — causa: se comprueba al final o cada muchas operaciones. Corrección: comprobar en la frontera de cada operación pública, al menos en pruebas.
 - **Una subclase rompe a los clientes de la base pese a compilar** — causa: reforzó una precondición o debilitó una postcondición. Corrección: aplicar la regla: aceptar al menos lo mismo, garantizar al menos lo mismo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-159 — Contratos, invariantes y diseño por contrato](../../../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos. No se usó ninguna biblioteca de contratos, los nueve defectos y la probabilidad de reparación son supuestos del autor y no se midió a ningún equipo. La siguiente clase pregunta qué estructura y qué comportamiento tienen las entidades cuyos contratos se acaban de escribir.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-159 — Contratos, invariantes y diseño por contrato](../../../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos. No se usó ninguna biblioteca de contratos, los nueve defectos y la probabilidad de reparación son supuestos del autor y no se midió a ningún equipo. La siguiente clase pregunta qué estructura y qué comportamiento tienen las entidades cuyos contratos se acaban de escribir.
 
 ## Relación con otros conceptos
 

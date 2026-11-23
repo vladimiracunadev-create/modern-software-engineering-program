@@ -16,24 +16,24 @@ La clase donde se define, [SE-060 — Proyecto: especificación y solución cont
 
 ## Cómo funciona
 
-[SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
+[SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md):
 
 El modelo de decisión diagnóstica ofrece un plan reproducible y una explicación: alternativas consideradas, prueba elegida, costo, hipótesis que separa y restricción aplicada. El proyecto incluye un simulador de papel o pseudocódigo, no requiere producto ejecutable; la [Parte 5](../../../classes/part-05-fundamentos-de-programacion/README.md) implementará el contrato.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)) son:
 
 - **«Pasan todas» se presenta como correcto** — causa: evidencia confundida con garantía. Corrección: declarar qué cubren y qué no cubren las pruebas.
 - **Una prueba se debilita para que pase** — causa: se trata como obstáculo. Corrección: revisar la regla o el modelo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)) son: Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada. La especificación reduce interpretaciones, pero no prueba que las necesidades sean correctas ni que una implementación concreta cumpla. La [Parte 5](../../../classes/part-05-fundamentos-de-programacion/README.md) convierte el modelo de decisión diagnóstica en una herramienta CLI probada llamada la CLI diagnóstica.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-060 — Proyecto: especificación y solución contrastable](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)) son: Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada. La especificación reduce interpretaciones, pero no prueba que las necesidades sean correctas ni que una implementación concreta cumpla. La [Parte 5](../../../classes/part-05-fundamentos-de-programacion/README.md) convierte el modelo de decisión diagnóstica en una herramienta CLI probada llamada la CLI diagnóstica.
 
 ## Relación con otros conceptos
 

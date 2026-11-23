@@ -22,13 +22,13 @@ Reproduce el fallo clásico de la clase: **un calendario fijo de experimentos si
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-513 — Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar](../../../classes/part-42-ingenieria-del-caos/se-513-seguridad-y-gobernanza-de-los-experimentos-abortar-autorizar-y-registrar/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-513 — Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar](../../../classes/part-42-ingenieria-del-caos/se-513-seguridad-y-gobernanza-de-los-experimentos-abortar-autorizar-y-registrar/README.md):
 
 Supón, como caso hipotético y no como medición, que el equipo escribe la política de su programa. Presupuesto: los experimentos nunca consumen más de 10 % del presupuesto mensual y se omiten si queda menos de la mitad. Equidad: selección por petición en producción; por cliente solo con aviso previo y rotación, excluyendo a las instituciones en semana de evaluación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-513 — Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar](../../../classes/part-42-ingenieria-del-caos/se-513-seguridad-y-gobernanza-de-los-experimentos-abortar-autorizar-y-registrar/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-513 — Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar](../../../classes/part-42-ingenieria-del-caos/se-513-seguridad-y-gobernanza-de-los-experimentos-abortar-autorizar-y-registrar/README.md)) son:
 
 - **El presupuesto se agota por experimentos** — causa: calendario fijo sin compuerta. Corrección: compuerta con reserva para incidentes.
 - **Una institución sufre varias veces** — causa: selección por cliente sin regla de rotación. Corrección: seleccionar por petición o rotar con regla visible.

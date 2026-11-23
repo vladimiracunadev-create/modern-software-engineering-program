@@ -16,11 +16,11 @@ La clase donde se define, [SE-585 — Observabilidad y evals del propio harness]
 
 ## Cómo funciona
 
-[SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md)) son: Se calcularon métricas de trazas reales de un harness mínimo con política guionizada y se simuló la comparación de dos versiones con parámetros del autor y semilla 501, en Windows 11 con CPython 3.12.9. No se evaluó ningún harness real ni un modelo, y la simulación supone aciertos independientes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md)) son: Se calcularon métricas de trazas reales de un harness mínimo con política guionizada y se simuló la comparación de dos versiones con parámetros del autor y semilla 501, en Windows 11 con CPython 3.12.9. No se evaluó ningún harness real ni un modelo, y la simulación supone aciertos independientes.
 
 ## Relación con otros conceptos
 

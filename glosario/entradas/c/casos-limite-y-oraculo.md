@@ -22,20 +22,20 @@ Vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus. 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md):
 
 En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)) son:
 
 - **Todas las pruebas pasan y un defecto llega a producción** — causa: pruebas solo con ejemplos. Corrección: añadir un oráculo diferencial con semillas y mutantes.
 - **Dos implementaciones difieren con `lo > hi`** — causa: el contrato no define el caso. Corrección: escribir la regla en el contrato y una prueba nombrada.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La [Parte 8](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md) tomará un fallo y una regresión de la biblioteca de estructuras y algoritmos para construir un entorno de diagnóstico reproducible.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-096 — Proyecto: biblioteca comparada con casos límite](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La [Parte 8](../../../classes/part-08-entornos-herramientas-y-depuracion/README.md) tomará un fallo y una regresión de la biblioteca de estructuras y algoritmos para construir un entorno de diagnóstico reproducible.
 
 ## Relación con otros conceptos
 

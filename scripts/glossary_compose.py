@@ -278,8 +278,8 @@ def _how(concept: Concept, base: str) -> str:
     cls = next(iter(classes_text(concept)), None)
     if cls:
         closing = cls.closing_definitions
-        return (f"{class_link(cls.id, base)} no desarrolla este término en una sección propia. "
-                f"Lo usa como pieza de su tema: {clip(closing, 60) if closing else 'consulta la clase para el mecanismo completo.'}")
+        return (f"{class_link(cls.id, base)} usa este término dentro de otro tema, sin una sección propia. "
+                f"El contexto en que aparece: {clip(closing, 60) if closing else 'consulta la clase para el mecanismo completo.'}")
     return "El mecanismo se desarrolla en las clases enlazadas."
 
 
@@ -290,11 +290,17 @@ def _example(concept: Concept, base: str) -> str:
             for paragraph in paragraphs(block):
                 if has_key(paragraph, concept.keys):
                     return f"Ejemplo de {class_link(cls.id, base)} (sección «{name}»):\n\n{clip(paragraph, 110)}"
+    for cls in classes_text(concept):  # un resultado medido en la sección que titula el concepto
+        for title, body in cls.h3.items():
+            if has_key(title, concept.keys):
+                for paragraph in paragraphs(body):
+                    if re.search(r"\d", paragraph) and len(paragraph.split()) >= 15:
+                        return f"Caso medido en la sección «{title}» de {class_link(cls.id, base)}:\n\n{clip(paragraph, 100)}"
     for cls in classes_text(concept):
         for name in ("Ejemplo profesional", "Ejemplo mínimo"):
             paras = [p for p in paragraphs(cls.sections.get(name, "")) if not p.startswith("Antes de ejecutar")]
             if paras:
-                return (f"La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «{name}» de "
+                return (f"Contexto concreto en el que aparece el término, de la sección «{name}» de "
                         f"{class_link(cls.id, base)}:\n\n{clip(paras[0], 90)}")
     return "Los ejemplos están en las clases enlazadas en «Dónde se enseña»."
 
@@ -312,7 +318,7 @@ def _errors(concept: Concept, base: str) -> str:
         return "\n".join(out)
     cls = next(iter(classes_text(concept)), None)
     if cls and cls.errors:
-        out = [f"Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ({class_link(cls.id, base)}) son:", ""]
+        out = [f"Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ({class_link(cls.id, base)}) son:", ""]
         for symptom, cause, fix in cls.errors[:2]:
             out.append(f"- **{symptom}** — causa: {lower_first(cause.rstrip('.'))}. Corrección: {lower_first(fix.rstrip('.'))}.")
         confusions = [s for c in classes_text(concept) for s in _confusions(c, concept, base)]
@@ -359,7 +365,7 @@ def _limits(concept: Concept, base: str) -> str:
         if limits:
             parts.append(clip(limits[0], 70))
         if parts:
-            return (f"Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ({class_link(cls.id, base)}) son: "
+            return (f"Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ({class_link(cls.id, base)}) son: "
                     + " ".join(parts))
     return "Las clases no declaran límites específicos para este término."
 

@@ -16,24 +16,24 @@ La clase donde se define, [SE-033 — Logs del sistema y diagnóstico de fallos]
 
 ## Cómo funciona
 
-[SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md):
 
 Un servicio presenta latencia y errores coincidentes con presión de disco. El equipo compara operaciones con y sin presión y conserva una hipótesis rival de dependencia externa. La correlación orienta el experimento; no se publica como causalidad cerrada.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)) son:
 
 - **Hay mucho log pero no se relacionan eventos** — causa: faltan identificadores y estructura. Corrección: añadir eventos estables y correlación por operación.
 - **Se culpa al evento anterior** — causa: se confundió proximidad con causalidad. Corrección: formular alternativas y diseñar una prueba discriminante.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)) son: No implementamos una plataforma distribuida de observabilidad ni demostramos causalidad completa. En entornos virtualizados o WSL, una señal puede provenir de otra capa. La siguiente clase delimita qué está aislado y qué sigue compartido.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)) son: No implementamos una plataforma distribuida de observabilidad ni demostramos causalidad completa. En entornos virtualizados o WSL, una señal puede provenir de otra capa. La siguiente clase delimita qué está aislado y qué sigue compartido.
 
 ## Relación con otros conceptos
 

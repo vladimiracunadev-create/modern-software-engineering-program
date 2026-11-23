@@ -36,7 +36,7 @@ Supón, como caso hipotético y no como medición, que el equipo planifica su pr
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-511 — Game days y ejercicios de respuesta a incidentes](../../../classes/part-42-ingenieria-del-caos/se-511-game-days-y-ejercicios-de-respuesta-a-incidentes/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-511 — Game days y ejercicios de respuesta a incidentes](../../../classes/part-42-ingenieria-del-caos/se-511-game-days-y-ejercicios-de-respuesta-a-incidentes/README.md)) son:
 
 - **El ejercicio «sale perfecto» siempre** — causa: escenario conocido o demasiado fácil. Corrección: variar el escenario y ocultar detalles progresivamente.
 - **Los hallazgos no se corrigen** — causa: retrospectiva sin acciones verificables. Corrección: responsable, fecha y verificación en el siguiente ejercicio.

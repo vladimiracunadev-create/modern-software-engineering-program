@@ -22,13 +22,13 @@ En una red **entre pares** no hay un coordinador central: cada nodo habla con ot
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md):
+Caso medido en la sección «Difusión por rumor en una red de pares» de [SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md):
 
-El equipo asigna cada pieza de la plataforma a un estilo con su escenario.
+En una red de 1000 pares, en cada ronda cada par que conoce el rumor lo envía a `f` pares elegidos al azar (fanout). Una fracción de los pares está desconectada y no recibe nada. Se mide en cuántas rondas el rumor llega al 99 % de los pares conectados y cuántos mensajes se envían, con 200 repeticiones.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-331 — Arquitecturas serverless, edge y peer-to-peer](../../../classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer/README.md)) son:
 
 - **Lentitud solo en los primeros segundos de un pico** — causa: arranque en frío concentrado. Corrección: aprovisionar instancias en la ventana crítica o reducir la inicialización.
 - **La factura de funciones supera a un servidor** — causa: tráfico sostenido y alto con función pesada. Corrección: calcular el equilibrio y volver a un servidor.

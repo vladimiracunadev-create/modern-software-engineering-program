@@ -36,14 +36,14 @@ El equipo de la plataforma mantiene un inventario con cada dato personal, su fin
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)) son:
 
 - **El dato borrado aparece en el archivo o en un respaldo** — causa: borrado lógico y copias no tratadas. Corrección: `secure_delete`, `VACUUM` si procede y plazo de expiración de las copias.
 - **La tabla de eventos crece sin parar** — causa: retención sin purga programada. Corrección: trabajo de purga con medida de lo vencido.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia ni con definiciones legales en sinónimos y deben contrastarse con la normativa y con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El análisis de retención es aritmético y su plazo es un supuesto; el de unicidad usa atributos uniformes e independientes; el del borrado es de SQLite y de una cadena fija; y el del diccionario usa correos predecibles.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia ni con definiciones legales en sinónimos y deben contrastarse con la normativa y con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El análisis de retención es aritmético y su plazo es un supuesto; el de unicidad usa atributos uniformes e independientes; el del borrado es de SQLite y de una cadena fija; y el del diccionario usa correos predecibles.
 
 ## Relación con otros conceptos
 

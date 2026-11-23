@@ -22,13 +22,13 @@ La **concurrencia estructurada** exige que toda tarea hija viva dentro de un blo
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-387 — Actores, canales y structured concurrency](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-387-actores-canales-y-structured-concurrency/README.md):
+Caso medido en la sección «Concurrencia estructurada» de [SE-387 — Actores, canales y structured concurrency](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-387-actores-canales-y-structured-concurrency/README.md):
 
-El equipo rediseña el actor «cupo». El buzón se acota a 200 mensajes, el pico esperado de dos segundos de la apertura de inscripción; si se llena, el manejador responde con un error reintentable y una cabecera de espera, en lugar de aceptar. Los mensajes llevan un número de secuencia por estudiante para que el actor descarte reservas duplicadas sin depender del orden entre estudiantes.
+La **concurrencia estructurada** exige que toda tarea hija viva dentro de un bloque que la espera: el bloque no termina hasta que todas terminan, un error de una hija cancela a las hermanas y se propaga al padre. `asyncio.TaskGroup` (Python 3.11) lo ofrece. Frente a ello, lanzar tareas sueltas (`create_task` sin esperarlas, o `gather` que propaga el primer error sin cancelar al resto) deja trabajo huérfano: tareas que siguen escribiendo, con sus efectos, sin dueño que las vea o las espere.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-387 — Actores, canales y structured concurrency](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-387-actores-canales-y-structured-concurrency/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-387 — Actores, canales y structured concurrency](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-387-actores-canales-y-structured-concurrency/README.md)) son:
 
 - **La memoria crece durante una ráfaga y el proceso muere** — causa: buzón sin límite. Corrección: cola acotada con rechazo o espera.
 - **Tareas que escriben después de un error** — causa: tareas sueltas sin dueño. Corrección: `TaskGroup` o un bloque que las espere.

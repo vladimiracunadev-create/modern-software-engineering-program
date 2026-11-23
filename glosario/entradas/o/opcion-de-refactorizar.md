@@ -16,24 +16,24 @@ La clase donde se define, [SE-310 — Deuda técnica, interés y opciones](../..
 
 ## Cómo funciona
 
-[SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
+[SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md):
 
 El equipo de `tarifas` no paga el tablero de 140 elementos. Estima, para los diez candidatos con más actividad en `git log`, tres cosas: la fricción por cambio (medida en una encuesta de tres preguntas al equipo y contrastada con el tiempo de los últimos cambios), la frecuencia de cambio (de la historia del repositorio) y el principal (una estimación en puntos, con rango). Calcula el interés anual y el plazo de recuperación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md)) son:
 
 - **Se dedica un porcentaje fijo a «pagar deuda» sin resultados visibles** — causa: no se estimó el interés de cada elemento. Corrección: estimar interés y principal y ordenar por plazo de recuperación.
 - **Se refactoriza el módulo más feo y el cambio sigue costando lo mismo** — causa: se eligió por complejidad y no por cambios. Corrección: priorizar por complejidad por frecuencia de cambio.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres modelos con parámetros supuestos y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo ni ningún repositorio; la capacidad, el interés, la fricción, la distribución de los cambios y la relación entre complejidad y cambios son construcciones del autor. La siguiente clase es un taller: refactorizar una función heredada sin alterar su comportamiento.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-310 — Deuda técnica, interés y opciones](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres modelos con parámetros supuestos y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo ni ningún repositorio; la capacidad, el interés, la fricción, la distribución de los cambios y la relación entre complejidad y cambios son construcciones del autor. La siguiente clase es un taller: refactorizar una función heredada sin alterar su comportamiento.
 
 ## Relación con otros conceptos
 

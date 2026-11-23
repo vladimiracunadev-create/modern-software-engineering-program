@@ -26,9 +26,9 @@ Elige una función de seguridad de tu entorno (un corte, un bloqueo, una alarma 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-446 — IEC 61508 y niveles de integridad de seguridad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md):
+Caso medido en la sección «Función de seguridad: lo que se protege, no el dispositivo» de [SE-446 — IEC 61508 y niveles de integridad de seguridad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Una función de seguridad es una acción que se realiza para llevar el sistema a un estado seguro o mantenerlo en él cuando ocurre una condición peligrosa. En el horno es «si la temperatura medida supera 250 °C o la puerta se abre, desconectar el calentador en menos de dos segundos». La función incluye el sensor que mide, la lógica que decide y el actuador que corta, y a veces también a la persona que actúa. Su nivel de integridad es el de la cadena completa: el eslabón más débil y las causas comunes entre eslabones deciden.
 
 ## Errores y confusiones comunes
 

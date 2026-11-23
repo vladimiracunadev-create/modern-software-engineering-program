@@ -16,24 +16,24 @@ La clase donde se define, [SE-466 — Cumplimiento, evidencia y límites legales
 
 ## Cómo funciona
 
-[SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md):
 
 El equipo de la plataforma crea en el repositorio un archivo `trazabilidad.csv` con 40 requisitos y las columnas control, prueba, última evidencia (fecha, versión y huella) y responsable. Una tarea de la integración continua ejecuta las pruebas de cada control en cada versión, guarda el resultado con su huella y recalcula el embudo de cobertura, y falla si un requisito crítico pasa de 30 días sin evidencia.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md)) son:
 
 - **Un requisito no tiene control** — causa: sin matriz de trazabilidad. Corrección: matriz versionada con las celdas vacías visibles.
 - **La evidencia es de hace seis meses** — causa: pruebas manuales y esporádicas. Corrección: automatizar y guardar resultado con fecha y huella por versión.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se auditó ninguna organización ni se verificó conformidad con ninguna norma; el embudo, la población de 2 000 eventos y la cadena de 1 000 eventos son construcciones del autor, y la clase no da asesoría legal ni interpreta ninguna ley.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se auditó ninguna organización ni se verificó conformidad con ninguna norma; el embudo, la población de 2 000 eventos y la cadena de 1 000 eventos son construcciones del autor, y la clase no da asesoría legal ni interpreta ninguna ley.
 
 ## Relación con otros conceptos
 

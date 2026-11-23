@@ -30,9 +30,9 @@ Una malla coloca un proxy junto a cada servicio y desvía el tráfico por él. C
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
+Caso medido en la sección «Sidecar y ambassador: políticas fuera de la aplicación» de [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Un **sidecar** es un proceso auxiliar que se despliega junto a la aplicación y le presta servicios (registro, métricas, seguridad); un **ambassador** es un caso concreto: un proxy fuera de proceso que gestiona las conexiones salientes (reintentos, TLS, descubrimiento). La **fuerza** es sacar de la aplicación políticas que se repiten en muchos servicios y lenguajes. El **costo** es un salto de red adicional y una pieza operativa más.
 
 ## Errores y confusiones comunes
 

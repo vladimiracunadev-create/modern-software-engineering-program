@@ -28,7 +28,7 @@ La plataforma de entregas de tareas es el caso conductor de la [Parte 10](../../
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)) son:
 
 - **El tablero prioriza una falla que, al arreglarla, no reduce los tickets** — causa: se contó la frase y no la causa; varias redacciones de una causa quedaron dispersas. Corrección: etiquetar la causa por ticket (con quién y cuándo) y contar por causa, conservando el texto original.
 - **La reunión discute «la solución» durante una hora sin acordar el problema** — causa: la petición original se aceptó como requisito. Corrección: reformular la petición como necesidad («necesito… para…») antes de proponer opciones.

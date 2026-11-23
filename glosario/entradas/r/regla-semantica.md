@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-578 — Instrucciones de repositorio y cumplimiento determinista](../../../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md)) son: Se midió un comprobador de seis reglas sobre diecisiete casos del autor, en Windows 11 con CPython 3.12.9. No se midió el cumplimiento de ningún modelo con reglas en prosa ni el efecto del tamaño del archivo de instrucciones en el comportamiento de un agente real.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-578 — Instrucciones de repositorio y cumplimiento determinista](../../../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md)) son: Se midió un comprobador de seis reglas sobre diecisiete casos del autor, en Windows 11 con CPython 3.12.9. No se midió el cumplimiento de ningún modelo con reglas en prosa ni el efecto del tamaño del archivo de instrucciones en el comportamiento de un agente real.
 
 ## Relación con otros conceptos
 

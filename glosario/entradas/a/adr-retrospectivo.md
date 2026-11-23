@@ -32,7 +32,7 @@ El equipo de la plataforma aplica el taller al valor `TIMEOUT = 30`. Localiza el
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-215 — Taller: reconstruir conocimiento perdido](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-215 — Taller: reconstruir conocimiento perdido](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md)) son:
 
 - **La reconstrucción cuenta una historia coherente y nadie puede comprobarla** — causa: mezcla observación, inferencia e hipótesis. Corrección: clasificar cada afirmación y citar su fuente.
 - **La búsqueda por mensaje no encuentra el cambio** — causa: el mensaje no dice qué cambió. Corrección: buscar por contenido y por archivo, y seguir los renombrados.

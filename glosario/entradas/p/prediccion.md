@@ -16,11 +16,11 @@ En [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](.
 
 ## Cómo funciona
 
-[SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md)) son: El taller probó tres candidatos con seis comportamientos en una máquina Windows; no probó contenedores, microVM, núcleo de aplicación, perfiles de llamadas de sistema ni límites de memoria del sistema operativo, y dos celdas del primer candidato quedaron sin ejecutar. El siguiente paso, `SE-288`, integra los candidatos en una plataforma con validación, límites, evidencia encadenada e informe firmado.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md)) son: El taller probó tres candidatos con seis comportamientos en una máquina Windows; no probó contenedores, microVM, núcleo de aplicación, perfiles de llamadas de sistema ni límites de memoria del sistema operativo, y dos celdas del primer candidato quedaron sin ejecutar. El siguiente paso, `SE-288`, integra los candidatos en una plataforma con validación, límites, evidencia encadenada e informe firmado.
 
 ## Relación con otros conceptos
 

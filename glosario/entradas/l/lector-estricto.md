@@ -28,7 +28,7 @@ El fragmento muestra que agregar un valor de enum rompe a un lector estricto. An
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-164 — Compatibilidad, versionado y evolución de contratos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-164 — Compatibilidad, versionado y evolución de contratos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md)) son:
 
 - **Un cambio «solo agrega» y rompe a un cliente** — causa: el cliente es estricto con campos o valores desconocidos. Corrección: documentar que los consumidores deben tolerar lo desconocido y probar con un valor nuevo.
 - **El número de versión sube y los clientes se rompen igual** — causa: se versionó por intención y no se comprobó la compatibilidad. Corrección: comparar esquemas en integración continua y exigir versión mayor para las rupturas.

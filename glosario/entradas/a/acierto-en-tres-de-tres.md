@@ -32,14 +32,14 @@ Escenario hipotético, construido para la clase y sin datos reales. El equipo de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-575 — Taller: detener, recuperar y evaluar un agente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-575 — Taller: detener, recuperar y evaluar un agente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente/README.md)) son:
 
 - **Un agente trabaja toda la noche sin avanzar** — causa: sin condiciones de parada o solo con un máximo enorme. Corrección: añadir estado repetido y falta de avance con presupuesto por tarea.
 - **La regla de parada detiene tareas buenas** — causa: parámetros globales. Corrección: calibrar por clase de tarea y basar la regla en progreso.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-575 — Taller: detener, recuperar y evaluar un agente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: las reglas de parada y la reanudación son código real sobre máquinas de estados y SQLite en memoria, y la evaluación es una simulación con semilla fija. No se invocó ningún modelo, no se evaluó ningún agente real y los efectos no salen de la base.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-575 — Taller: detener, recuperar y evaluar un agente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: las reglas de parada y la reanudación son código real sobre máquinas de estados y SQLite en memoria, y la evaluación es una simulación con semilla fija. No se invocó ningún modelo, no se evaluó ningún agente real y los efectos no salen de la base.
 
 ## Relación con otros conceptos
 

@@ -22,7 +22,7 @@ Una táctica es una técnica puntual que mueve un atributo: una caché baja la l
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md)) son: La matriz, los pesos y los cuatro contextos son construcciones del autor; los resultados muestran el mecanismo de decisión y no recomiendan ningún estilo para un sistema real. No se midió ningún sistema, equipo ni producto. El siguiente paso, `SE-338`, estudia el primer estilo concreto: el microkernel, que compra extensión por terceros y paga con un contrato que hay que mantener.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md)) son: La matriz, los pesos y los cuatro contextos son construcciones del autor; los resultados muestran el mecanismo de decisión y no recomiendan ningún estilo para un sistema real. No se midió ningún sistema, equipo ni producto. El siguiente paso, `SE-338`, estudia el primer estilo concreto: el microkernel, que compra extensión por terceros y paga con un contrato que hay que mantener.
 
 ## Relación con otros conceptos
 

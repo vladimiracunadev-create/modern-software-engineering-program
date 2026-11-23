@@ -16,24 +16,24 @@ La clase donde se define, [SE-219 — Configuración, flags, archivos y preceden
 
 ## Cómo funciona
 
-[SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md):
 
 `notas` carga el archivo de usuario (`~/.config/notas/config.ini` o el equivalente de Windows), después el del proyecto, lee las variables con prefijo `NOTAS_`, interpreta los booleanos con el analizador estricto y aplica los flags. El comando `notas config --efectiva` imprime cada opción con su valor y su fuente, con los secretos enmascarados. El token se lee de un archivo (`--token-file`) o de la entrada estándar; no existe `--token`.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)) son:
 
 - **`--limite 0` se ignora** — causa: se escribió `if flag:` en lugar de `is not None`. Corrección: distinguir ausencia de valor falso.
 - **`NOTAS_VERBOSE=false` activa el modo detallado** — causa: se aplicó `bool()` a una cadena. Corrección: interpretación estricta con conjunto cerrado.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo el mecanismo de lectura del secreto. Los seis defectos, los valores de cada capa, el conjunto de booleanos aceptados y el secreto falso son supuestos del autor; no se midió ningún despliegue real. La siguiente clase pregunta qué significa para quien invoca que la configuración o la ejecución fallen: los códigos de salida.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo el mecanismo de lectura del secreto. Los seis defectos, los valores de cada capa, el conjunto de booleanos aceptados y el secreto falso son supuestos del autor; no se midió ningún despliegue real. La siguiente clase pregunta qué significa para quien invoca que la configuración o la ejecución fallen: los códigos de salida.
 
 ## Relación con otros conceptos
 

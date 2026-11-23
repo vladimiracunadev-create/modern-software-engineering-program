@@ -16,13 +16,13 @@ La clase donde se define, [SE-552 — Proyecto: política metodológica de equip
 
 ## Cómo funciona
 
-[SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md):
+Caso medido en la sección «Una política metodológica es una tabla de decisión» de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+La elección no se toma una vez para todo el proyecto. Un cambio de bajo riesgo en una función pura se protege bien con pruebas de ejemplo. Un cambio que cruza una frontera entre servicios necesita un contrato. Un cambio cuyo comportamiento acordó negocio necesita ejemplos con el vocabulario de negocio. Un cambio en un componente con salida probabilística necesita una evaluación con umbral. La política del equipo es la tabla que asigna prácticas a clases de cambio, con sus excepciones y con una fecha de revisión. La clase `SE-552` construye una.
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md)) son: La simulación usa supuestos del autor salvo las tasas de detección, y estas salen de una función pequeña con defectos sembrados; no se midió ningún equipo. La [Parte 48](../../../classes/part-48-harness-y-agentic-engineering/README.md) (`SE-577` en adelante) estudia el harness que hace cumplir políticas como esta a un agente: instrucciones de repositorio, herramientas, permisos, contexto y bucles.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md)) son: La simulación usa supuestos del autor salvo las tasas de detección, y estas salen de una función pequeña con defectos sembrados; no se midió ningún equipo. La [Parte 48](../../../classes/part-48-harness-y-agentic-engineering/README.md) (`SE-577` en adelante) estudia el harness que hace cumplir políticas como esta a un agente: instrucciones de repositorio, herramientas, permisos, contexto y bucles.
 
 ## Relación con otros conceptos
 

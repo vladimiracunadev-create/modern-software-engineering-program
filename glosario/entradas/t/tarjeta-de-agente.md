@@ -22,7 +22,7 @@ En A2A, un agente descubre a otro mediante una **tarjeta de agente** (qué hace,
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-595 — Interoperabilidad entre agentes: MCP y A2A](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-595 — Interoperabilidad entre agentes: MCP y A2A](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-595 — Interoperabilidad entre agentes: MCP y A2A](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a/README.md)) son: El servidor es una demostración con nombres de métodos de MCP y no una implementación conforme; no se probó ningún servidor ni cliente de terceros, ni la autorización, los recursos o los transportes por HTTP; la máquina de estados es un subconjunto inspirado en A2A; las doce descripciones las escribió el autor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-595 — Interoperabilidad entre agentes: MCP y A2A](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a/README.md)) son: El servidor es una demostración con nombres de métodos de MCP y no una implementación conforme; no se probó ningún servidor ni cliente de terceros, ni la autorización, los recursos o los transportes por HTTP; la máquina de estados es un subconjunto inspirado en A2A; las doce descripciones las escribió el autor.
 
 ## Relación con otros conceptos
 

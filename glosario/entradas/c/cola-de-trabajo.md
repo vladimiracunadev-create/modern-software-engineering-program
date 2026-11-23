@@ -28,7 +28,7 @@ El equipo asigna cada flujo de la plataforma a una estructura. **Calificar entre
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-375 — Brokers, colas, topics y logs distribuidos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos/README.md)) son:
 
 - **La mitad de los mensajes no llega a un consumidor** — causa: dos consumidores comparten una cola. Corrección: suscripciones separadas para difundir.
 - **Un servicio nuevo no ve datos anteriores** — causa: tópico sin retención. Corrección: un log, o cargar la historia desde otra fuente.

@@ -32,7 +32,7 @@ Escenario hipotético, construido para la clase y sin datos reales. El equipo de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md)) son:
 
 - **El sistema consume mucho más que un solo agente y no mejora** — causa: se delegó una tarea con muchas dependencias. Corrección: medir el reparto y volver a un agente si las partes no son independientes.
 - **El resumen omite un detalle decisivo** — causa: contrato sin lista estructurada ni declaración de lo no hecho. Corrección: exigir hechos con evidencia y lo no comprobado.

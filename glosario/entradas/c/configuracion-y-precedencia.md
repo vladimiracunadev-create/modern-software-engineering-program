@@ -22,20 +22,20 @@ Defaults, archivo, entorno y CLI necesitan orden documentado y opción de explic
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md):
 
 En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md)) son:
 
 - **La CLI imprime bien en la terminal y falla en una tubería de Windows** — causa: la codificación de la tubería no es UTF-8. Corrección: reconfigurar `stdout` o definir `PYTHONUTF8=1` y probar con `subprocess`.
 - **Un `--help` o un error de uso devuelve un código inesperado** — causa: no se documentaron los códigos de salida. Corrección: tabla de códigos en el README y una prueba por cada valor.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una CLI clara puede ejecutar efectos repetidos de forma peligrosa. La siguiente clase diseña scripts idempotentes, precondiciones y recuperación.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Una CLI clara puede ejecutar efectos repetidos de forma peligrosa. La siguiente clase diseña scripts idempotentes, precondiciones y recuperación.
 
 ## Relación con otros conceptos
 

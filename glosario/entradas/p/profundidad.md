@@ -28,7 +28,7 @@ El fragmento calcula la profundidad de cada página con un recorrido en anchura 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-170 — Arquitectura de información y navegación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-170-arquitectura-de-informacion-y-navegacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-170 — Arquitectura de información y navegación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-170-arquitectura-de-informacion-y-navegacion/README.md)) son:
 
 - **La gente pregunta por soporte dónde está algo que existe** — causa: etiqueta propia del equipo o agrupación por organigrama. Corrección: ordenamiento de tarjetas y prueba de hallazgo con etiquetas alternativas.
 - **Una sección desaparece de la navegación tras un cambio** — causa: se movió el contenido sin comprobar alcance. Corrección: comprobar alcance y huérfanas en cada despliegue.

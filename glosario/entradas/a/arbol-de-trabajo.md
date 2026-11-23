@@ -22,9 +22,9 @@ Cada agente trabaja en su propia rama y, si comparten máquina, en su propio ár
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md):
+Caso medido en la sección «Aislamiento por rama y árbol de trabajo» de [SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Cada agente trabaja en su propia rama y, si comparten máquina, en su propio árbol de trabajo (`git worktree`), de modo que los archivos en disco no se pisen mientras trabajan. El aislamiento evita la interferencia en tiempo real; no evita el conflicto en la integración. Es la misma idea que el entorno desechable de `SE-582` aplicada a la coordinación.
 
 ## Errores y confusiones comunes
 

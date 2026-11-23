@@ -16,7 +16,7 @@ La clase donde se define, [SE-424 — End-to-end, aceptación y recorridos crít
 
 ## Cómo funciona
 
-[SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
+[SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
@@ -26,14 +26,14 @@ La plataforma de entregas es el caso conductor. Esta clase deja el cuarto artefa
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md)) son:
 
 - **La suite casi nunca está en verde sin cambios** — causa: demasiados pasos con fallo espurio pequeño. Corrección: calcular \((1-q)^k\) y acortar o dividir los recorridos.
 - **Las instantáneas se aprueban sin leerlas** — causa: casi todas las diferencias son ruido. Corrección: aserciones semánticas y una instantánea solo para salidas pequeñas.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con simulaciones y un registro sintético en Windows y Ubuntu (WSL2) con salidas idénticas. No se usó navegador ni herramienta de automatización; la inestabilidad por paso, la distribución Zipf de las rutas, los impactos y los 16 cambios de HTML son del autor. La comprobación de estilo y de accesibilidad visual queda fuera de lo medido.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con simulaciones y un registro sintético en Windows y Ubuntu (WSL2) con salidas idénticas. No se usó navegador ni herramienta de automatización; la inestabilidad por paso, la distribución Zipf de las rutas, los impactos y los 16 cambios de HTML son del autor. La comprobación de estilo y de accesibilidad visual queda fuera de lo medido.
 
 ## Relación con otros conceptos
 

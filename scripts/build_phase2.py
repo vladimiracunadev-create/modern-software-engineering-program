@@ -644,7 +644,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Rutas profesionales | {ROLE_COUNT} guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las {2 + len(CASES)} de `site/casos/`, las {glossary['total'] + 1} de `site/glosario/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
 | Casos de estudio | {len(CASES)} casos ({count_of('exito')} de éxito y {count_of('fallo')} de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
-| Glosario | {glossary['total']} conceptos ({glossary['troncal']} troncales y {glossary['apoyo']} de apoyo) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
+| Glosario | {glossary['total']} conceptos ({glossary['troncal']} troncales y {glossary['apoyo']} de apoyo; {glossary['desarrolladas']} con entrada desarrollada a mano y el resto compuesto desde las clases) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 

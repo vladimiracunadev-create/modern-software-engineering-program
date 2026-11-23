@@ -2,53 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Interés público](./interes-publico.md) · [Interfaz de secuencia →](./interfaz-de-secuencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Punto en el que un componente expone o consume datos de otro.
+Una **interfaz** es el punto en que dos partes intercambian información, control o responsabilidad. El programa la usa en varias escalas con ese núcleo:
 
-Definición de trabajo de [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md): Punto de intercambio de información, control o responsabilidad.
-- En [SE-068 — Módulos, interfaces y separación de responsabilidades](../../../classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades/README.md): Comportamiento público esperado por consumidores.
-- En [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md): Contrato entre subproblemas.
+- **En la frontera de un sistema** ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)): punto de intercambio de información, control o responsabilidad, que puede ser entre un equipo y un proveedor tanto como entre dos programas.
+- **En la descomposición** ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)): el contrato entre subproblemas.
+- **En módulos** ([SE-068](../../../classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades/README.md)): el comportamiento público esperado por los consumidores, distinto de los nombres internos.
+- **En integración** ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)): el punto en que un componente expone o consume datos de otro (una respuesta JSON, una tabla compartida, una cola).
 
 ## Por qué importa
 
-En [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md), el tema «Qué es una integración» importa porque un defecto de integración vive en la interfaz, no en ninguna de las partes.
+Una interfaz fija qué puede asumir cada parte de la otra, y por eso concentra los defectos de integración. [SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md) lo dice así: cada componente asume algo sobre la otra parte (nombres, tipos, valores posibles, orden, cuántos elementos aparecen por página), y un defecto de integración es una asunción que ya no se cumple; ninguna prueba de una sola parte lo ve, porque cada una se comprueba contra su propia versión de la asunción.
 
 ## Cómo funciona
 
-Según [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md):
-
-Los componentes se comunican a través de interfaces: una respuesta JSON, una tabla compartida, una cola. Cada uno asume algo sobre la otra parte: nombres, tipos, valores posibles, orden, cuántos elementos aparecen por página. Un defecto de integración es una asunción que ya no se cumple. Ninguna prueba de una sola parte lo ve, porque cada una se comprueba contra su propia versión de la asunción. Las pruebas de integración ejecutan dos o más piezas reales juntas y comprueban que la asunción de una coincide con el comportamiento de la otra.
-
-Según [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md):
-
-El equipo del servicio de notas mantiene en su repositorio una carpeta `contratos/` con un archivo por consumidor (`panel.json`, `exportador.json`, `avisos.json`) que lista los campos, tipos y valores que ese consumidor usa y, desde un incidente, el orden de la lista. La integración continua del servicio ejecuta los tres contratos contra su respuesta en cada propuesta de cambio y falla con el nombre del consumidor afectado. Los equipos de los consumidores abren un contrato nuevo cuando empiezan a usar un campo, y retiran las cláusulas que dejaron de usar. Las pruebas de integración del panel ejecutan el panel contra la respuesta real del servicio con una base sembrada, una por interfaz del recorrido; los tres recorridos de extremo a extremo (`SE-424`) quedan para el comportamiento visible.
+El mecanismo es separar lo **público** de lo **interno**. [SE-068](../../../classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades/README.md) lo ilustra con módulos de Python: los consumidores importan nombres internos y se rompen al refactorizar porque no hay una interfaz pública declarada; la corrección es declararla (`__all__`, guion bajo) y probar sobre ella. [SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md) la ve como contrato entre subproblemas: quien resuelve una parte solo necesita saber la interfaz de las demás. En integración ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)), la consecuencia práctica es una prueba por interfaz crítica: ejecutar dos o más piezas reales juntas y comprobar que la asunción de una coincide con la de la otra. En la frontera de un sistema ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)), las interfaces con proveedores deben documentarse con contrato, señal de degradación, respuesta local y escalamiento.
 
 ## Ejemplo
 
-Ejemplo de [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md) (sección «Ejemplo profesional»):
-
-El equipo del servicio de notas mantiene en su repositorio una carpeta `contratos/` con un archivo por consumidor (`panel.json`, `exportador.json`, `avisos.json`) que lista los campos, tipos y valores que ese consumidor usa y, desde un incidente, el orden de la lista. La integración continua del servicio ejecuta los tres contratos contra su respuesta en cada propuesta de cambio y falla con el nombre del consumidor afectado. Los equipos de los consumidores abren un contrato nuevo cuando empiezan a usar un campo, y retiran las cláusulas que dejaron de usar.
+En [SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md), un componente espera una respuesta con cierto orden y cantidad de elementos por página; el otro cambia la paginación. Cada una de las dos partes pasa sus pruebas aisladas, y solo una prueba de integración sobre esa interfaz muestra el defecto. En [SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md), un proveedor externo aparece en el mapa del sistema con su interfaz y su modo de fallo en vez de quedar como una caja sin contrato.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un fallo de extremo a extremo tarda horas en localizarse** — causa: solo hay recorridos completos. Corrección: añadir una prueba por interfaz crítica. ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md))
-- **un proveedor aparece sin interfaz ni fallo** — causa: se trató “externo” como “irrelevante”. Corrección: documenta contrato, señal de degradación, respuesta local y escalamiento. ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md))
-- **todas las cajas pertenecen al equipo** — causa: se omitieron afectados y trabajo invisible. Corrección: incorpora soporte, operación, canales alternativos y personas sin interfaz directa. ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md))
+- **Un fallo de extremo a extremo tarda horas en localizarse.** Solo hay recorridos completos; corrección ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)): añadir una prueba por interfaz crítica.
+- **Un proveedor aparece sin interfaz ni fallo.** Se trató «externo» como «irrelevante»; corrección ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)): documentar contrato, señal de degradación, respuesta local y escalamiento.
+- **Consumidores que importan nombres internos.** No hay interfaz pública declarada ([SE-068](../../../classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con varios recorridos que comparten tramos se puede acotar por intersección, pero no siempre a una interfaz. ([SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md))
+Una interfaz describe lo que se promete, no lo que ocurre dentro: [SE-423](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md) aclara que una prueba de integración comprueba que las asunciones coinciden, no que cada pieza sea correcta. Y la palabra cambia de alcance entre clases (de una función pública a la frontera entre equipos), de modo que al leerla hay que confirmar cuál es.
 
 ## Relación con otros conceptos
 

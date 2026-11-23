@@ -36,7 +36,7 @@ Significa que el servidor procesó la petición y devolvió una representación 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-042 — HTTP, semántica, caché y negociación](../../../classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-042 — HTTP, semántica, caché y negociación](../../../classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion/README.md)) son:
 
 - **Descargar completo un recurso que no cambió** — causa: no se usa validación condicional. Corrección: enviar `If-None-Match` o `If-Modified-Since` y manejar `304`.
 - **Mezclar respuestas comprimidas y no comprimidas en una caché** — causa: falta `Vary: Accept-Encoding`. Corrección: declarar `Vary` en las respuestas que varían.

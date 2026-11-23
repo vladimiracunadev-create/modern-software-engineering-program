@@ -22,13 +22,13 @@ En el **renderizado en cliente**, el servidor entrega un documento mínimo y un 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-231 — Renderizado cliente, servidor, estático e híbrido](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-231 — Renderizado cliente, servidor, estático e híbrido](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/README.md):
 
 La plataforma divide sus páginas por contenido: la portada y la ayuda se generan al publicar; el catálogo de cursos usa regeneración cada hora; la lista de entregas de una persona se renderiza en servidor después de identificarla, con las fechas enviadas como instantes ISO que el cliente formatea en su zona tras hidratar; y el formulario de entrega se hidrata como componente aislado. Cada página declara en el repositorio su estrategia, su caducidad y qué dato obsoleto sería inaceptable.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-231 — Renderizado cliente, servidor, estático e híbrido](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-231 — Renderizado cliente, servidor, estático e híbrido](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/README.md)) son:
 
 - **La página queda en blanco varios segundos en un móvil lento** — causa: todo el contenido depende de un paquete grande y de una petición en cadena. Corrección: enviar el contenido principal en el primer HTML o reducir la cadena.
 - **Aviso de desajuste al hidratar** — causa: valores que dependen de zona, región, reloj o azar. Corrección: pasar el valor desde el servidor o renderizarlo solo en el cliente.

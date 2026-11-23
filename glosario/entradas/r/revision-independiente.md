@@ -37,7 +37,7 @@ Las necesarias para cubrir competencia, autoridad y revisión independiente, no 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son:
 
 - **el mapa replica cargos** — causa: se modeló estructura, no decisiones. Corrección: parte de decisiones y asigna competencia, autoridad y operación.
 - **todos son “responsables”** — causa: se evitó declarar autoridad. Corrección: nombra quién acepta, detiene y escala cada decisión.

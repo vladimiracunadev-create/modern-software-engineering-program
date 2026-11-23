@@ -16,13 +16,13 @@ En [SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../.
 
 ## Cómo funciona
 
-[SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md):
+Caso medido en la sección «Límites y política de falla en ejecución» de [SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Con una petición por regla aceptada (48 horas para vencer, día 3, aviso previo de 72 horas), el resultado fue: la regla estándar devolvió 1 y consumió 8 unidades de combustible; la regla con cálculo devolvió 1 con 3 604; la regla con bucle infinito agotó las 100 000 unidades, falló con `all fuel consumed` y la política devolvió 1; la regla que intenta crecer la memoria devolvió 1 (la memoria quedó en una página, con 54 unidades de combustible, sin trampa: la negativa de crecer es una respuesta del runtime, no un error); la regla que lee fuera de memoria falló con `out of bounds memory access` y la política devolvió 1 con 0 de combustible.
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md)) son: La referencia es una plataforma mínima ejecutada en una máquina: sin autenticación de clientes, sin frontera alrededor del anfitrión, sin hardware seguro, sin almacenamiento durable y con una biblioteca de firma de estudio. Con este proyecto se cierra la [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md).
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-288 — Proyecto: plataforma de ejecución aislada con evidencia](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md)) son: La referencia es una plataforma mínima ejecutada en una máquina: sin autenticación de clientes, sin frontera alrededor del anfitrión, sin hardware seguro, sin almacenamiento durable y con una biblioteca de firma de estudio. Con este proyecto se cierra la [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md).
 
 ## Relación con otros conceptos
 

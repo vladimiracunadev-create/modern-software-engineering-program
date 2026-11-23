@@ -16,24 +16,24 @@ La clase donde se define, [SE-535 — Compras, proveedores y evaluación técnic
 
 ## Cómo funciona
 
-[SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
+[SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo define cuatro puertas (cifrado en reposo, almacenamiento en la región acordada, exportación completa con metadatos, evidencia de seguridad revisable); un proveedor queda fuera por la exportación. Con los cuatro restantes construye la matriz ponderada con pesos acordados con la dirección, hace una prueba de concepto con datos sintéticos que imitan las actas y puntúa a partir de ella.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md)) son:
 
 - **El proveedor elegido incumple un requisito legal** — causa: requisito tratado como preferencia. Corrección: convertirlo en puerta con evidencia.
 - **La elección cambia con otro grupo de pesos** — causa: diferencias pequeñas entre opciones. Corrección: prueba de sensibilidad y criterio de desempate.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún proveedor ni se leyó contrato alguno; los puntajes, los pesos sorteados, las alzas, la probabilidad de descontinuación, los sobrecostos y las disponibilidades son construcciones del autor, y el modelo supone caídas independientes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-535 — Compras, proveedores y evaluación técnica](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún proveedor ni se leyó contrato alguno; los puntajes, los pesos sorteados, las alzas, la probabilidad de descontinuación, los sobrecostos y las disponibilidades son construcciones del autor, y el modelo supone caídas independientes.
 
 ## Relación con otros conceptos
 

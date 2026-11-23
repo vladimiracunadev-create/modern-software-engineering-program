@@ -28,14 +28,14 @@ Compara el caso normal con un nombre con acento combinado, el plural de 21 en ru
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-177 — Internacionalización, localización y formatos culturales](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-177 — Internacionalización, localización y formatos culturales](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md)) son:
 
 - **«1 entregas» o «2 entrega»** — causa: regla de plural de una sola lengua o concatenación. Corrección: mensajes completos con categorías de plural por locale.
 - **Dos nombres iguales se tratan como distintos** — causa: distinta composición Unicode sin normalizar. Corrección: normalizar a NFC al comparar.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-177 — Internacionalización, localización y formatos culturales](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ninguna biblioteca de localización, no se tradujo contenido real y las reglas de plural se aplicaron a mano a enteros de 0 a 120; la expansión del texto es un supuesto del autor. La siguiente clase pregunta cómo medir si las personas logran la tarea con todo esto.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-177 — Internacionalización, localización y formatos culturales](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ninguna biblioteca de localización, no se tradujo contenido real y las reglas de plural se aplicaron a mano a enteros de 0 a 120; la expansión del texto es un supuesto del autor. La siguiente clase pregunta cómo medir si las personas logran la tarea con todo esto.
 
 ## Relación con otros conceptos
 

@@ -16,11 +16,11 @@ La clase donde se define, [SE-420 — Taller y proyecto integrador: producto Saa
 
 ## Cómo funciona
 
-[SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md)) son: El taller usa un producto mínimo en memoria con seis defectos elegidos por el autor, sqlite3, hilos reales y datos sintéticos; no incluye red, identidad, un procesador de pagos ni un despliegue, y la matriz no certifica ningún producto. Con esta clase se cierra la [Parte 34](../../../classes/part-34-saas-y-plataformas-de-producto/README.md).
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md)) son: El taller usa un producto mínimo en memoria con seis defectos elegidos por el autor, sqlite3, hilos reales y datos sintéticos; no incluye red, identidad, un procesador de pagos ni un despliegue, y la matriz no certifica ningún producto. Con esta clase se cierra la [Parte 34](../../../classes/part-34-saas-y-plataformas-de-producto/README.md).
 
 ## Relación con otros conceptos
 

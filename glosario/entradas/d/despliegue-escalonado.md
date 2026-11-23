@@ -22,20 +22,20 @@ Simulación con semilla 5: cada cliente que recibe la versión defectuosa se rom
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md):
 
 La entrega de `notas` publica, para cada versión, un `notas-X.Y.Z.pyz`, un `SHA256SUMS` y su firma en un canal independiente. El cliente que se actualiza descarga a un temporal en el mismo directorio, comprueba la longitud, el SHA-256 contra una lista firmada y la compatibilidad mínima, y solo entonces reemplaza de forma atómica el archivo activo, conservando el anterior como `notas.anterior.pyz`. La versión se compara con tuplas y un formato desconocido es un error.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)) son:
 
 - **Se instala un archivo truncado** — causa: solo se comprobó su existencia. Corrección: descarga a temporal, longitud y SHA-256 antes de reemplazar.
 - **Alguien sustituyó el archivo y su hash** — causa: el hash viaja por el mismo canal. Corrección: firma con clave pública conocida por otro camino.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): detecciones y simulaciones idénticas, velocidades y arranques distintos. No se firmó nada, no se verificó una firma real ni se probó un marco de actualización; los clientes, las tasas de defecto y el umbral son supuestos del autor. La siguiente clase pregunta cómo saber si un lanzamiento funciona sin vigilar a quien lo usa.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): detecciones y simulaciones idénticas, velocidades y arranques distintos. No se firmó nada, no se verificó una firma real ni se probó un marco de actualización; los clientes, las tasas de defecto y el umbral son supuestos del autor. La siguiente clase pregunta cómo saber si un lanzamiento funciona sin vigilar a quien lo usa.
 
 ## Relación con otros conceptos
 

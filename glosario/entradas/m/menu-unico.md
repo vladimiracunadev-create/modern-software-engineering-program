@@ -16,13 +16,13 @@ En [SE-583 — Verificación, gates y menú único de validación](../../../clas
 
 ## Cómo funciona
 
-[SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md):
+Caso medido en la sección «El menú único» de [SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El agente, la persona y la integración continua deben ejecutar exactamente las mismas compuertas con el mismo comando. Si cada cual ejecuta un subconjunto, un cambio puede pasar en la máquina del agente y fallar en integración, o lo contrario, y la confianza en «pasa» se erosiona. El menú es un script con un único punto de entrada (`python scripts/check.py`, `make check`) que lista las compuertas en orden, se detiene en la primera que falla, imprime su nombre y el motivo, y devuelve un código de salida que decide.
 
 ## Errores y confusiones comunes
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)) son: Se ejecutaron cinco compuertas sobre doce cambios del autor en un módulo de siete líneas, en Windows 11 con CPython 3.12.9. Los tiempos son de un equipo concreto. No se evaluó ninguna herramienta de integración continua ni se midió la proporción de defectos reales que atrapa cada compuerta. El siguiente paso, `SE-584`, trata qué ocurre cuando hay más de un agente trabajando sobre el mismo repositorio.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)) son: Se ejecutaron cinco compuertas sobre doce cambios del autor en un módulo de siete líneas, en Windows 11 con CPython 3.12.9. Los tiempos son de un equipo concreto. No se evaluó ninguna herramienta de integración continua ni se midió la proporción de defectos reales que atrapa cada compuerta. El siguiente paso, `SE-584`, trata qué ocurre cuando hay más de un agente trabajando sobre el mismo repositorio.
 
 ## Relación con otros conceptos
 

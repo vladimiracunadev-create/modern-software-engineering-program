@@ -22,9 +22,9 @@ Un sort estable conserva orden relativo entre claves iguales. Permite ordenar po
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md):
+Caso medido en la sección «Trampas del orden: estabilidad, NaN y tipos» de [SE-090 — Búsqueda, ordenamiento y selección](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md):
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+`sorted(registros, key=prioridad)` con registros `[('b',1),('a',1),('c',0),('d',1),('e',0)]` devolvió `['c','e','b','a','d']`: los empates conservaron el orden de llegada (b antes de a), porque el ordenamiento es estable. Esa propiedad permite ordenar por varios criterios aplicando sorts sucesivos, del menos al más significativo. Tres trampas se midieron: `sorted([3.0, nan, 1.0, 2.0])` devolvió `[3.0, nan, 1.0, 2.0]`, es decir, no ordenó nada, porque NaN rompe el orden total (toda comparación con NaN es falsa); `sorted([1, 'a'])` lanza `TypeError`; y `sorted(['Zebra','apple','Árbol','zeta'])` dio `['Zebra','apple','zeta','Árbol']`, orden por punto de código, no alfabético del español.
 
 ## Errores y confusiones comunes
 

@@ -30,9 +30,9 @@ Reproduce el fallo clásico de la clase: **una suite que pasa en el orden en que
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-304 — Patrones creacionales, estructurales y conductuales](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales/README.md):
+Caso medido en la sección «Un singleton y el orden de las pruebas» de [SE-304 — Patrones creacionales, estructurales y conductuales](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales/README.md):
 
-El equipo trata los tres problemas por separado. Para la configuración, deja de usar `Config.get()` y construye un objeto `Configuracion` una vez en el arranque que pasa a los módulos que lo necesitan; la suite pasa en cualquier orden y lo comprueba con una ejecución en orden aleatorio con semilla registrada. Para las notificaciones, mantiene el observador, copia la lista antes de recorrerla, aísla cada observador y registra cada excepción en un contador que sube una alarma.
+La configuración es una clase con una instancia global (`Config.get()`) con un campo `recargo`. Doce pruebas: ocho leen el valor por defecto y esperan 100 al calcular un precio base de 100, cuatro lo cambian a 0,1. Se ejecutan 5000 órdenes aleatorios de semilla fija con tres variantes: el singleton sin reinicio, el singleton reiniciado antes de cada prueba y una configuración pasada como parámetro.
 
 ## Errores y confusiones comunes
 

@@ -22,9 +22,9 @@ Una sugerencia útil debe llegar antes de que la persona continúe escribiendo; 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-556 — Autocompletado, chat, edición y generación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-556-autocompletado-chat-edicion-y-generacion/README.md):
+Caso medido en la sección «Una traza de 467 pulsaciones: el retardo antes de pedir» de [SE-556 — Autocompletado, chat, edición y generación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-556-autocompletado-chat-edicion-y-generacion/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones asigna modo y política a diez tareas. «Cambiar una condición de frontera» va por edición dirigida con parche mínimo y obligación de correr las pruebas antes de aceptar. «Entender cómo se calcula el redondeo» va por chat, con la función en el contexto y la respuesta contrastada con el código.
+Se genera una traza determinista de 467 pulsaciones en 60 «palabras», con pausas de pensamiento entre ellas. Una petición es *útil* si la persona hace una pausa de al menos 0,5 s tras la pulsación, pues solo entonces la sugerencia tiene tiempo de mostrarse. Se cuentan las peticiones que se enviarían con cuatro retardos.
 
 ## Errores y confusiones comunes
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-556 — Autocompletado, chat, edición y generación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-556-autocompletado-chat-edicion-y-generacion/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: una simulación de aceptación, una medición real de diff con `difflib` sobre un archivo generado y una traza de pulsaciones determinista.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-556 — Autocompletado, chat, edición y generación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-556-autocompletado-chat-edicion-y-generacion/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: una simulación de aceptación, una medición real de diff con `difflib` sobre un archivo generado y una traza de pulsaciones determinista.
 
 ## Relación con otros conceptos
 

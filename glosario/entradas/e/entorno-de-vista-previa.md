@@ -28,7 +28,7 @@ El equipo de la API de entregas fija la política de sus entornos de vista previ
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-488 — Entornos preview y datos seguros](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros/README.md)) son:
 
 - **Una persona es identificable en un entorno de pruebas** — causa: cuasi-identificadores sin generalizar. Corrección: medir la unicidad; generalizar y suprimir grupos pequeños.
 - **Las pruebas de integridad fallan con datos enmascarados** — causa: sustitución aleatoria por tabla. Corrección: sustitución determinista con clave protegida.

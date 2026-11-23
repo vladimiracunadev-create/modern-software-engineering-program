@@ -32,7 +32,7 @@ El SLO es un objetivo interno que guía decisiones de ingeniería; el SLA es un 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-497 — SLI, SLO, SLA y presupuestos de error](../../../classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-497 — SLI, SLO, SLA y presupuestos de error](../../../classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error/README.md)) son:
 
 - **El SLO se cumple y hay quejas** — causa: se mide donde no se ve el problema, o se promedia una ventana larga. Corrección: medir cerca de la persona y añadir ventana corta o segmento.
 - **Dos paneles dan consumos opuestos** — causa: uno cuenta peticiones y otro minutos. Corrección: declarar la forma de contar en el SLO.

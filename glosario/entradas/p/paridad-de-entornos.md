@@ -22,20 +22,20 @@ La metodología de las doce factores sostiene que los entornos deben parecerse e
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md):
 
 El equipo de la plataforma crea tres cuentas, una por entorno, administradas desde una organización que fija políticas comunes: ningún usuario puede desactivar el registro, y los depósitos de producción deniegan el borrado masivo. Los cambios llegan a preproducción por promoción automática tras las pruebas y a producción solo con la aprobación de una persona que no escribió el cambio. Un proceso compara cada semana las 72 claves compartidas entre preproducción y producción y abre una incidencia con cada diferencia.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son:
 
 - **Un script de desarrollo afecta producción** — causa: misma cuenta y prefijos como frontera. Corrección: una cuenta por entorno con políticas heredadas.
 - **Preproducción pasa y producción falla** — causa: configuraciones que divergieron. Corrección: promoción periódica y comparación semanal.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada norma usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna organización ni estructura real: los 24 recursos, el 5 % de acciones comodín, la frecuencia de edición manual, los 12 permisos y los 6 pares son supuestos del autor. La siguiente clase mira cuánta capacidad necesita cada entorno y cuánto cuesta: escalado, capacidad y costos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada norma usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna organización ni estructura real: los 24 recursos, el 5 % de acciones comodín, la frecuencia de edición manual, los 12 permisos y los 6 pares son supuestos del autor. La siguiente clase mira cuánta capacidad necesita cada entorno y cuánto cuesta: escalado, capacidad y costos.
 
 ## Relación con otros conceptos
 

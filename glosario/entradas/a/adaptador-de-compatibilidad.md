@@ -16,11 +16,11 @@ La clase donde se define, [SE-338 — Microkernel y arquitecturas de plugins](..
 
 ## Cómo funciona
 
-[SE-338 — Microkernel y arquitecturas de plugins](../../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-338 — Microkernel y arquitecturas de plugins](../../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-338 — Microkernel y arquitecturas de plugins](../../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-338 — Microkernel y arquitecturas de plugins](../../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-338 — Microkernel y arquitecturas de plugins](../../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md)) son: El núcleo, los complementos y los defectos son construcciones del autor y miden el mecanismo, no un ecosistema real. El tiempo de 122 ms es de una máquina y un sistema; no se midió ningún sistema de complementos de producción ni el esfuerzo humano de mantener un contrato.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-338 — Microkernel y arquitecturas de plugins](../../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md)) son: El núcleo, los complementos y los defectos son construcciones del autor y miden el mecanismo, no un ecosistema real. El tiempo de 122 ms es de una máquina y un sistema; no se midió ningún sistema de complementos de producción ni el esfuerzo humano de mantener un contrato.
 
 ## Relación con otros conceptos
 

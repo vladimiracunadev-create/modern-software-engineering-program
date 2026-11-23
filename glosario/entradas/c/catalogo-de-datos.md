@@ -16,11 +16,11 @@ La clase donde se define, [SE-367 — Linaje, catálogo y metadatos](../../../cl
 
 ## Cómo funciona
 
-[SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md)) son: El pipeline, el analizador de expresiones regulares y las perturbaciones son construcciones del autor; las 17 salidas y las 9 columnas de origen son un caso de juguete y la medición solo ve lo que los datos de prueba ejercitan. No se ejecutó ninguna herramienta de linaje ni de catálogo. El siguiente paso, `SE-368`, estudia dónde y cómo se guardan los datos: almacén, lago, lakehouse y formatos columnares.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md)) son: El pipeline, el analizador de expresiones regulares y las perturbaciones son construcciones del autor; las 17 salidas y las 9 columnas de origen son un caso de juguete y la medición solo ve lo que los datos de prueba ejercitan. No se ejecutó ninguna herramienta de linaje ni de catálogo. El siguiente paso, `SE-368`, estudia dónde y cómo se guardan los datos: almacén, lago, lakehouse y formatos columnares.
 
 ## Relación con otros conceptos
 

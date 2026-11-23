@@ -32,7 +32,7 @@ Escenario hipotético, construido para la clase y sin datos reales. El equipo de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-569 — Agentes, herramientas, permisos y límites de autoridad](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-569 — Agentes, herramientas, permisos y límites de autoridad](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad/README.md)) son:
 
 - **El agente ejecuta algo no previsto con una orden permitida** — causa: comprobación por prefijo. Corrección: analizar segmentos y sustituciones antes de decidir.
 - **Lee archivos fuera del proyecto** — causa: rutas sin resolver. Corrección: normalizar y comparar con la ruta del espacio de trabajo, rechazar el byte nulo.

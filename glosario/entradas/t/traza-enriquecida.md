@@ -16,7 +16,7 @@ La clase donde se define, [SE-587 — Taller: diagnosticar el fallo de un harnes
 
 ## Cómo funciona
 
-[SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md)) son: Se inyectaron seis fallos del autor en un harness mínimo con política guionizada y se diagnosticaron 30 ejecuciones, en Windows 11 con CPython 3.12.9. El 30 de 30 es un resultado sobre un conjunto cerrado, conocido por quien escribió el diagnosticador. No se diagnosticó ningún fallo real ni se midió el diagnóstico de una persona. El siguiente paso, `SE-588`, construye el harness mínimo gobernado y lo evalúa contra escenarios adversos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-587 — Taller: diagnosticar el fallo de un harness](../../../classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness/README.md)) son: Se inyectaron seis fallos del autor en un harness mínimo con política guionizada y se diagnosticaron 30 ejecuciones, en Windows 11 con CPython 3.12.9. El 30 de 30 es un resultado sobre un conjunto cerrado, conocido por quien escribió el diagnosticador. No se diagnosticó ningún fallo real ni se midió el diagnóstico de una persona. El siguiente paso, `SE-588`, construye el harness mínimo gobernado y lo evalúa contra escenarios adversos.
 
 ## Relación con otros conceptos
 

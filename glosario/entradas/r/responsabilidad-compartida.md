@@ -22,13 +22,13 @@ El modelo de responsabilidad compartida no es un reparto 50-50 sino una frontera
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md):
+Caso medido en la sección «Responsabilidad compartida» de [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md):
 
-El equipo de la plataforma de entregas decide dónde alojar tres piezas: el servidor de la aplicación web, la base de datos y el servicio de correo de avisos a estudiantes.
+El modelo de responsabilidad compartida no es un reparto 50-50 sino una frontera que cambia con cada servicio. Los documentos de los proveedores coinciden en lo esencial: el proveedor responde de la seguridad **de** la nube (instalaciones, hardware, virtualización) y el cliente de la seguridad **en** la nube (datos, identidades, configuración). Entre ambos hay capas compartidas, como las copias de seguridad o el registro de eventos, donde el proveedor ofrece el mecanismo y el cliente decide si lo activa, qué conserva y quién lo mira.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md)) son:
 
 - **Un depósito o un panel quedan abiertos tras migrar** — causa: se asumió que el proveedor configura lo que solo el cliente puede decidir. Corrección: asignar dueño y revisión a la celda «configuración del servicio».
 - **Un tiempo de ejecución deja de recibir parches y nadie se entera** — causa: PaaS: el proveedor retira la versión y el equipo no sigue el calendario. Corrección: suscribirse a los avisos del proveedor y planificar el cambio de versión.

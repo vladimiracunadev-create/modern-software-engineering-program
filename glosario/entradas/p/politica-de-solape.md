@@ -22,7 +22,7 @@ Traslada el experimento a otro trabajo periódico (por ejemplo, una limpieza noc
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md):
 
 `notas servir` programa tres trabajos: la sincronización cada 60 s con política de **omitir si sigue activa** y un límite de 50 s por ejecución, la exportación nocturna con un candado de archivo para que solo una instancia la ejecute, y un lote de revisiones con tamaño 200. Las consultas a la base se reparten con ocho hilos y los informes con cuatro procesos, que arrancan una vez y se reutilizan.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): las simulaciones fueron idénticas y los tiempos variaron entre ejecuciones. No se usó cron, ningún orquestador ni una cola real; las duraciones, las tasas de fallo y el presupuesto de intentos son supuestos del autor. La siguiente clase pregunta cómo hacer que cada operación pueda repetirse y reanudarse sin duplicar efectos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): las simulaciones fueron idénticas y los tiempos variaron entre ejecuciones. No se usó cron, ningún orquestador ni una cola real; las duraciones, las tasas de fallo y el presupuesto de intentos son supuestos del autor. La siguiente clase pregunta cómo hacer que cada operación pueda repetirse y reanudarse sin duplicar efectos.
 
 ## Relación con otros conceptos
 

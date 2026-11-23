@@ -22,9 +22,9 @@ Un cambio grande se descompone en pasos tales que cada uno se puede revertir sin
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md):
+Caso medido en la sección «Estrangular: una fachada que decide a dónde va cada cosa» de [SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El patrón del estrangulamiento coloca delante del sistema antiguo una fachada que, para cada petición, decide si la atiende el antiguo o el nuevo. Se empieza con todo al antiguo y se desvían rutas, inquilinos o tipos de operación hacia el nuevo, una a una. Cuando el último tramo se ha movido y el antiguo no recibe tráfico, se retira. El nombre viene de una planta que crece alrededor de un árbol hasta reemplazarlo.
 
 ## Errores y confusiones comunes
 

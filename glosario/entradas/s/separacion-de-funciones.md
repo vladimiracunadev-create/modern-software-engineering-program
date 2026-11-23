@@ -28,7 +28,7 @@ La plataforma de entregas es el caso conductor de la [Parte 33](../../../classes
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son:
 
 - **Un script de desarrollo afecta producción** — causa: misma cuenta y prefijos como frontera. Corrección: una cuenta por entorno con políticas heredadas.
 - **Preproducción pasa y producción falla** — causa: configuraciones que divergieron. Corrección: promoción periódica y comparación semanal.

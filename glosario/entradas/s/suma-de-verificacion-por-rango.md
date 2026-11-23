@@ -22,13 +22,13 @@ Un recuento igual de filas solo dice que se copió la misma cantidad; no dice qu
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-523 — Migraciones de datos sin interrupción](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-523 — Migraciones de datos sin interrupción](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo define cinco fases y la condición de cada paso. Expandir: añadir `nota_num` nula (cambio de metadatos). Doble escritura: la aplicación escribe en `texto` y en `nota_num`, con la versión desplegada compatible con las dos formas. Relleno: lotes de 2 000 filas con escritura condicional por versión, 20 ms de pausa y reanudable por identificador; la espera p99 de una escritura queda por debajo de 50 ms.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-523 — Migraciones de datos sin interrupción](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-523 — Migraciones de datos sin interrupción](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md)) son:
 
 - **Las escrituras se detienen durante el relleno** — causa: lote demasiado grande. Corrección: reducir el lote hasta cumplir el objetivo de espera.
 - **Recuentos iguales y datos obsoletos** — causa: relleno sin escritura condicional. Corrección: condicionar por versión o marca de tiempo y repasar las nulas.

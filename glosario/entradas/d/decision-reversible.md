@@ -16,24 +16,24 @@ La clase donde se define, [SE-534 — Gestión de riesgos y decisiones ejecutiva
 
 ## Cómo funciona
 
-[SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
+[SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo prepara una petición para la dirección académica sobre la exportación. Registra doce riesgos con rangos de probabilidad e impacto y calcula el valor esperado de cada uno; tres suman casi dos tercios de la pérdida esperada, y uno de ellos, la pérdida de datos de actas, es un evento de cola que además considera inaceptable por sí mismo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)) son:
 
 - **Se mitigan riesgos que no pesan** — causa: matriz con celdas que agrupan valores muy distintos. Corrección: ordenar por valor esperado con rangos.
 - **El riesgo de cola se ignora** — causa: probabilidad baja domina el color. Corrección: tratar la cola como restricción aparte.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún riesgo ni decisión real; las distribuciones, los cortes de la matriz, el ruido de la prueba, la fracción de decisiones irreversibles y los costos son construcciones del autor, y el modelo supone riesgos independientes y decisiones de todo o nada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-534 — Gestión de riesgos y decisiones ejecutivas](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún riesgo ni decisión real; las distribuciones, los cortes de la matriz, el ruido de la prueba, la fracción de decisiones irreversibles y los costos son construcciones del autor, y el modelo supone riesgos independientes y decisiones de todo o nada.
 
 ## Relación con otros conceptos
 

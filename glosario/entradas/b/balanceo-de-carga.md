@@ -16,24 +16,24 @@ La clase donde se define, [SE-393 — Replicación, sharding y balanceo](../../.
 
 ## Cómo funciona
 
-[SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md):
 
 El equipo del servicio de entregas cambia el balanceador de turnos a «dos opciones al azar» con una métrica de conexiones activas, y fija la cola máxima por servidor para rechazar rápido antes de que la espera crezca (`SE-396`). La base de entregas usa replicación semisíncrona hacia una réplica en el mismo centro de datos, con RPO cero, y asíncrona hacia otra región, con un RPO declarado de 30 segundos; los acuses de recibo solo se emiten tras la confirmación semisíncrona.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son:
 
 - **Algunos servidores saturados y otros ociosos** — causa: balanceo por turnos con tamaños de cola pesada. Corrección: dos opciones al azar o menos conexiones.
 - **Estudiantes con acuse y sin registro tras una conmutación** — causa: replicación asíncrona con acuse previo. Corrección: confirmar con una réplica antes del acuse.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún balanceador, ninguna base replicada ni ninguna red: los tamaños, la carga, los retrasos y los ocho fragmentos son construcciones del autor. La siguiente clase pregunta cómo comprobar que todo esto resiste fallos reales: caos controlado y pruebas de distribución.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún balanceador, ninguna base replicada ni ninguna red: los tamaños, la carga, los retrasos y los ocho fragmentos son construcciones del autor. La siguiente clase pregunta cómo comprobar que todo esto resiste fallos reales: caos controlado y pruebas de distribución.
 
 ## Relación con otros conceptos
 

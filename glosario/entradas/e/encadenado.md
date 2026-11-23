@@ -16,11 +16,11 @@ La clase donde se define, [SE-590 — Encadenado, enrutamiento y paralelización
 
 ## Cómo funciona
 
-[SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md)) son: El éxito por paso, la detección de la puerta, el acierto por muestra y la correlación son parámetros del autor; el enrutador usa cuatro intenciones y plantillas escritas a mano; los tiempos paralelos usan esperas de sueño. No se midió ningún modelo de lenguaje ni ningún proveedor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md)) son: El éxito por paso, la detección de la puerta, el acierto por muestra y la correlación son parámetros del autor; el enrutador usa cuatro intenciones y plantillas escritas a mano; los tiempos paralelos usan esperas de sueño. No se midió ningún modelo de lenguaje ni ningún proveedor.
 
 ## Relación con otros conceptos
 

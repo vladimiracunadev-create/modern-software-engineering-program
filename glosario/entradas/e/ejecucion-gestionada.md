@@ -32,7 +32,7 @@ El equipo de la plataforma clasifica sus piezas. El aviso de recibo, con poco tr
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-400 — Serverless y ejecución gestionada](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-400 — Serverless y ejecución gestionada](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md)) son:
 
 - **La primera petición tras un silencio tarda segundos** — causa: arranque en frío con inicialización pesada. Corrección: reducir dependencias de inicio y medir; reservar capacidad si la latencia importa.
 - **Un correo o un cobro se repite** — causa: manejador no idempotente con entrega al menos una vez. Corrección: guardar el identificador del evento con el efecto.

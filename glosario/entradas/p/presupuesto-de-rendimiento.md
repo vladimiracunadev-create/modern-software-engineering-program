@@ -26,13 +26,13 @@ Un **presupuesto** es un límite medible sobre una magnitud que importa: peso de
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md):
 
 El equipo escribe el presupuesto de experiencia del portal. Peso: 400 KB de recursos críticos, dueño del equipo de interfaz, comprobado en cada cambio con una compuerta de tendencia del +10 % sobre la mediana de las últimas diez fusiones. Tiempo hasta el contenido principal: p75 de campo de 2,5 s y, aparte, p75 del segmento de teléfonos modestos de 4 s, medidos con datos de las cargas reales de las personas que aceptan la medición y revisados cada semana.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md)) son:
 
 - **El laboratorio dice rápido y las personas se quejan** — causa: medición con el mejor dispositivo. Corrección: perfiles de dispositivo y red modestos y datos de campo.
 - **El presupuesto avisa cuando ya es tarde** — causa: solo umbral absoluto. Corrección: añadir compuerta de tendencia.

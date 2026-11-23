@@ -32,7 +32,7 @@ La plataforma de entregas es el caso conductor. Esta clase deja el noveno artefa
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-429 — Pruebas exploratorias y sesiones](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md)) son:
 
 - **«Exploramos» y nadie sabe qué se hizo** — causa: sin misión ni registro. Corrección: misión acotada y notas de sesión.
 - **La herramienta de accesibilidad pasa y una persona no puede usar la página** — causa: solo se probó lo que una regla decide. Corrección: revisión manual con tecnologías de apoyo.

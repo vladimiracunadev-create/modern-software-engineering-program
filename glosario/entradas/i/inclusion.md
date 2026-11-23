@@ -32,14 +32,14 @@ No. La accesibilidad elimina barreras técnicas (teclado, lectores de pantalla, 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son:
 
 - **“digital elimina papel, por tanto es sostenible”** — causa: frontera demasiado estrecha. Corrección: compara ciclo de vida, conducta habilitada y alternativas.
 - **promedio de adopción justifica canal único** — causa: quienes no acceden quedaron fuera de la muestra. Corrección: segmenta, investiga abandono y conserva resultado alternativo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son: Un análisis hipotético no sustituye participación. `SE-010` enseña a leer fuentes normativas sin exagerar su alcance.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son: Un análisis hipotético no sustituye participación. `SE-010` enseña a leer fuentes normativas sin exagerar su alcance.
 
 ## Relación con otros conceptos
 

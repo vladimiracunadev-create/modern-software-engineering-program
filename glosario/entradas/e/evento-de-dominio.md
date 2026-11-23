@@ -16,24 +16,24 @@ En [SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arq
 
 ## Cómo funciona
 
-[SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md):
 
 El equipo de la plataforma publica tres eventos entre contextos (`EntregaRecibida`, `EntregaRevisada`, `EntregaCalificada`) con identificador, identificador de la entrega, secuencia por entrega y marca de tiempo. Los consumidores guardan los identificadores vistos con caducidad de 7 días y aplican solo secuencias mayores. La vista «mis entregas» se alimenta con un proyector cuya capacidad se dimensiona con 1,5 veces el pico previsto (60 por segundo); el cliente guarda la versión que escribió y muestra la entrega de forma optimista hasta que la vista la alcanza.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)) son:
 
 - **Contadores mayores que la realidad** — causa: consumidor que suma cada mensaje con entrega al-menos-una-vez. Corrección: idempotencia con identificador de evento.
 - **Un estado antiguo sobrescribe a uno nuevo** — causa: desorden sin secuencia por entidad. Corrección: aplicar solo eventos con secuencia mayor a la vista.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún agente de mensajería, almacén de eventos ni base de datos; los duplicados, el desorden, el pico y los tiempos de servicio son construcciones del autor. La siguiente clase mira dónde corren los consumidores: serverless, el borde y redes entre pares.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún agente de mensajería, almacén de eventos ni base de datos; los duplicados, el desorden, el pico y los tiempos de servicio son construcciones del autor. La siguiente clase mira dónde corren los consumidores: serverless, el borde y redes entre pares.
 
 ## Relación con otros conceptos
 

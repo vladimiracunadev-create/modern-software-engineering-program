@@ -16,11 +16,11 @@ La clase donde se define, [SE-284 — Computación cuántica para ingenieros de 
 
 ## Cómo funciona
 
-[SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md)) son: Todo se simuló de forma clásica con NumPy; no hubo acceso a hardware cuántico ni se ejecutó ningún SDK; la búsqueda de periodo es la de un número de dos cifras y el modelo de ruido es básico.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md)) son: Todo se simuló de forma clásica con NumPy; no hubo acceso a hardware cuántico ni se ejecutó ningún SDK; la búsqueda de periodo es la de un número de dos cifras y el modelo de ruido es básico.
 
 ## Relación con otros conceptos
 

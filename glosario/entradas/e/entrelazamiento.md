@@ -22,9 +22,9 @@ Aplicar H al primer qubit y después una puerta CNOT (que invierte el segundo si
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md):
+Caso medido en la sección «Entrelazamiento» de [SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Aplicar H al primer qubit y después una puerta CNOT (que invierte el segundo si el primero es 1) produce el estado de Bell: amplitud 0,7071 en `00` y en `11`, y cero en `01` y `10`. En 1 000 mediciones con semilla 48 salió `00` 514 veces y `11` 486; nunca `01` ni `10`. Un estado GHZ de 5 qubits dio `00000` 492 veces y `11111` 508. Cada resultado individual es aleatorio, pero el conjunto está correlacionado de una forma que no se reproduce con valores predefinidos independientes.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md)) son: Todo se simuló de forma clásica con NumPy; no hubo acceso a hardware cuántico ni se ejecutó ningún SDK; la búsqueda de periodo es la de un número de dos cifras y el modelo de ruido es básico.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-284 — Computación cuántica para ingenieros de software](../../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/README.md)) son: Todo se simuló de forma clásica con NumPy; no hubo acceso a hardware cuántico ni se ejecutó ningún SDK; la búsqueda de periodo es la de un número de dos cifras y el modelo de ruido es básico.
 
 ## Relación con otros conceptos
 

@@ -22,20 +22,20 @@ Cada diferencia detectada es una decisión. Algunas rarezas son defectos que nad
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md):
+Caso medido en la sección «Rarezas heredadas» de [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md):
 
-El equipo de `tarifas` ejecuta el taller con un protocolo de cinco pasos escrito antes de tocar el código. Registra el maestro dorado con 3000 entradas de semilla fija más los casos de borde derivados del código, incluidos los valores no booleanos que, según el registro de solicitudes, llegan del cliente antiguo. Hace los cuatro pasos con un commit y una comparación cada uno.
+Cada diferencia detectada es una decisión. Algunas rarezas son defectos que nadie notó (un cupón que da un monto negativo y se corrige a cero por un piso), otras son acuerdos implícitos con clientes (un `urgente` que llega como `2` o como `"si"` y se trata como falso porque la comparación es con `True`). Conservar una rareza la convierte en una regla explícita con una prueba y un nombre; corregirla es un cambio de comportamiento que se anuncia y se programa. No decidir deja la rareza escondida en una simplificación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son:
 
 - **El refactor pasa las pruebas y rompe a un cliente** — causa: el maestro no incluye entradas de canales antiguos. Corrección: añadir las entradas reales (valores no booleanos, formatos viejos).
 - **No se sabe qué paso cambió el comportamiento** — causa: se hicieron varios pasos antes de comparar. Corrección: comparar tras cada paso y hacer un commit por paso.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis sobre una función heredada de ejemplo con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se consultó a ningún cliente real ni se registró un maestro con tráfico real; la función, su dominio de entradas, los valores no booleanos y los 39 mutantes son construcciones del autor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis sobre una función heredada de ejemplo con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se consultó a ningún cliente real ni se registró un maestro con tráfico real; la función, su dominio de entradas, los valores no booleanos y los 39 mutantes son construcciones del autor.
 
 ## Relación con otros conceptos
 

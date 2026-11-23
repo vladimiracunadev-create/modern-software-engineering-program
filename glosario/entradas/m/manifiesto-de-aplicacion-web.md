@@ -16,24 +16,24 @@ La clase donde se define, [SE-240 — Proyecto: aplicación web accesible y offl
 
 ## Cómo funciona
 
-[SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
+[SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md):
 
 La entrega del proyecto es un repositorio con la aplicación y una carpeta `evidence/` que contiene: el manifiesto con su validación, la tabla de estrategias por recurso, la tabla de estados con un escenario por transición, la tabla de URLs con sus redirecciones, el informe de cabeceras generado contra un servidor local, el presupuesto con su comprobador, el informe de accesibilidad con las columnas «lo vio una regla» y «lo vio una persona» y la matriz de pruebas con su cobertura de pares y la lista de casos añadidos a mano.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md)) son:
 
 - **El manifiesto valida pero la aplicación no es instalable** — causa: iconos inexistentes o de tamaño distinto al declarado. Corrección: comprobar que los archivos existen y miden lo declarado.
 - **Una versión nueva no llega a los dispositivos** — causa: `sw.js` servido con caché larga. Corrección: servirlo con `no-cache` y añadir una regla al comprobador.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El manifiesto, el servidor de ocho respuestas y los 60 defectos de tres factores son construcciones del autor; no se instaló la aplicación, no se ejecutó un service worker en un navegador y no se evaluó con personas con discapacidad. Este proyecto cierra la [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md); la siguiente parte del programa cambia de superficie.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El manifiesto, el servidor de ocho respuestas y los 60 defectos de tres factores son construcciones del autor; no se instaló la aplicación, no se ejecutó un service worker en un navegador y no se evaluó con personas con discapacidad. Este proyecto cierra la [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md); la siguiente parte del programa cambia de superficie.
 
 ## Relación con otros conceptos
 

@@ -22,13 +22,13 @@ Verificar una etiqueta es comparar la calculada con la recibida. Una comparació
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-461 — Criptografía aplicada y gestión de claves](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-461 — Criptografía aplicada y gestión de claves](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md):
 
 El equipo define tres usos y su primitiva: adjuntos en reposo con AEAD y clave de datos por archivo envuelta con una clave maestra del servicio de gestión de claves; enlaces de descarga firmados con HMAC-SHA256 con una clave propia de ese propósito, vencimiento incluido en la firma y verificación con `hmac.compare_digest`; tokens de recuperación de cuenta generados con `secrets`, guardados solo como hash y de un solo uso.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-461 — Criptografía aplicada y gestión de claves](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-461 — Criptografía aplicada y gestión de claves](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md)) son:
 
 - **Un mensaje se lee sin la clave** — causa: nonce repetido con la misma clave. Corrección: nonce aleatorio de 96 bits o contador persistente y una clave nueva antes del límite.
 - **Se puede falsificar una firma por red** — causa: comparación con `==`. Corrección: `hmac.compare_digest` y respuesta uniforme.

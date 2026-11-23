@@ -28,7 +28,7 @@ El fragmento mide el tiempo que tarda un cliente con espera de 300 ms en una pet
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-509 — Caos en Kubernetes y en plataformas cloud](../../../classes/part-42-ingenieria-del-caos/se-509-caos-en-kubernetes-y-en-plataformas-cloud/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-509 — Caos en Kubernetes y en plataformas cloud](../../../classes/part-42-ingenieria-del-caos/se-509-caos-en-kubernetes-y-en-plataformas-cloud/README.md)) son:
 
 - **La falla inyectada no produce ningún efecto** — causa: la herramienta actúa en otra capa. Corrección: elegir por capa antes que por catálogo.
 - **La falla no se retira al terminar** — causa: reversión no probada o componente caído. Corrección: verificar el retiro y tener un segundo camino.

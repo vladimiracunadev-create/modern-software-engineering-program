@@ -34,7 +34,7 @@ La plataforma publica `CONTRIBUTING.md` con el entorno, el formato de ramas, la 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md)) son:
 
 - **Las contribuciones externas se quedan sin respuesta** — causa: no hay tiempo objetivo ni responsable. Corrección: fijar un tiempo de primera respuesta y rotar quien lo cumple.
 - **Los PR externos chocan al revisarse** — causa: la copia se quedó atrás. Corrección: pedir sincronización y ofrecer una guía para hacerla.

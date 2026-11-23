@@ -16,11 +16,11 @@ La clase donde se define, [SE-183 — Scrum, Kanban, XP y Shape Up](../../../cla
 
 ## Cómo funciona
 
-[SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md):
 
 El equipo de la plataforma de entregas trabaja con sprints de dos semanas, pero define tres políticas explícitas. La primera reserva el 20 % de la capacidad para urgencias, con una ranura exprés y una definición de «urgente» escrita (afecta a notas o a plazos de entrega de estudiantes). La segunda compromete elementos con el mínimo de los últimos seis sprints y trata el resto como objetivo opcional ordenado por valor.
 
@@ -32,7 +32,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ningún equipo real ni se aplicó ningún marco: los rendimientos, las duraciones y la separabilidad de las piezas son construcciones del autor. La siguiente clase explica con teoría de colas por qué limitar el trabajo en curso y reducir la variabilidad acortan la espera.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ningún equipo real ni se aplicó ningún marco: los rendimientos, las duraciones y la separabilidad de las piezas son construcciones del autor. La siguiente clase explica con teoría de colas por qué limitar el trabajo en curso y reducir la variabilidad acortan la espera.
 
 ## Relación con otros conceptos
 

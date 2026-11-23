@@ -34,7 +34,7 @@ El archivo declara `timeout=10`, el entorno `DIAGNOSTIC_KIT_TIMEOUT=0` y la CLI 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)) son:
 
 - **La especificación está completa y el sistema decepciona a quienes lo usan** — causa: solo se entrevistó a quien paga; el conocimiento tácito no se elicitó. Corrección: añadir observación del trabajo real y validar con la persona usuaria, no solo con el cliente.
 - **Dos equipos discuten una frase durante una hora** — causa: la frase mezcla un requisito y una solución, y los interesados entienden cosas distintas. Corrección: separar necesidad, requisito y supuesto, y registrar el origen de cada uno.

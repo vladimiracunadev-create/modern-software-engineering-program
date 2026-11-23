@@ -22,13 +22,13 @@ Un **sistema** es un conjunto de elementos relacionados que coopera para produci
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md):
 
 En matrícula, «cupos disponibles» proviene de un legado que actualiza cada quince minutos. Mostrarlo como tiempo real genera decisiones erróneas. Las opciones son ocultarlo, declarar antigüedad o crear reserva transaccional. Si el equipo controla solo visualización, explicita la dependencia; si posee el flujo, diseña consistencia y recuperación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)) son:
 
 - **el mapa contiene solo servicios y bases de datos** — causa: se confundió sistema con arquitectura técnica. Corrección: añade personas, reglas, datos, decisiones y el resultado que conecta los elementos.
 - **la frontera coincide exactamente con el organigrama** — causa: se modeló autoridad formal, no causalidad. Corrección: sigue una solicitud real y mueve la frontera según la pregunta que necesitas responder.

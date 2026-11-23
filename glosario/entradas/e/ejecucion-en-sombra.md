@@ -22,7 +22,7 @@ En la ejecución en sombra el candidato recibe una copia de cada petición, calc
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)) son: El candidato, la anomalía de etiquetado, el tráfico y la simulación de potencia son construcciones del autor; los números muestran que el promedio puede aprobar lo que daña a un segmento, que la sombra ve sin etiquetas y que la potencia de un canary pequeño es baja. No se evaluó ninguna plataforma de despliegue y el tiempo de rollback es de archivos locales.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)) son: El candidato, la anomalía de etiquetado, el tráfico y la simulación de potencia son construcciones del autor; los números muestran que el promedio puede aprobar lo que daña a un segmento, que la sombra ve sin etiquetas y que la potencia de un canary pequeño es baja. No se evaluó ninguna plataforma de despliegue y el tiempo de rollback es de archivos locales.
 
 ## Relación con otros conceptos
 

@@ -34,7 +34,7 @@ Ejemplo de [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeni
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)) son:
 
 - **una métrica se presenta como conclusión** — causa: se omitieron inferencia y supuestos. Corrección: separa registro, interpretación y alternativa rival.
 - **benchmark sin configuración** — causa: se perdió trazabilidad. Corrección: fija datos, entorno, versiones, orden y múltiples corridas.

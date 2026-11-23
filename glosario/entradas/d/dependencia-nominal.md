@@ -22,13 +22,13 @@ Un cliente no debe depender de métodos que no usa. Una interfaz ancha obliga a 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-302 — SOLID y sus límites](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-302 — SOLID y sus límites](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites/README.md):
 
 El equipo no aplica los cinco principios a la vez: elige por cambio. Para los descuentos, que marketing añade cada trimestre, introduce el registro de reglas y deja la política de combinación (el máximo) escrita en un solo lugar con una prueba. Para `TarifaExpress`, escribe la prueba de contrato de `Tarifa`, la ejecuta contra todas las subclases y convierte la restricción de 20 kilos en una validación explícita que ningún cliente espera de una `Tarifa` general.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-302 — SOLID y sus límites](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-302 — SOLID y sus límites](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites/README.md)) son:
 
 - **Cada regla nueva reabre la misma función** — causa: cadena de condicionales sin punto de extensión. Corrección: registrar reglas y escribir la política de combinación en un solo sitio.
 - **Una subclase pasa los ejemplos y falla con datos reales** — causa: contrato no escrito como prueba, o probado solo con camino feliz. Corrección: ejecutar una prueba de contrato con azar y bordes contra todas las subclases.

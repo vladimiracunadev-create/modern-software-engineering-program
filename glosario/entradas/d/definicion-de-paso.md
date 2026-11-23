@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-544 — BDD: ejemplos, conversación y lenguaje compartido](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md)) son: El ejecutor es un intérprete mínimo y los escenarios y mutantes son del autor; no se midió ninguna sesión de descubrimiento con personas ni el efecto de BDD en defectos. El siguiente paso, `SE-545`, trata la pregunta que queda: qué ejemplos elegir, porque más ejemplos no es mejor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-544 — BDD: ejemplos, conversación y lenguaje compartido](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md)) son: El ejecutor es un intérprete mínimo y los escenarios y mutantes son del autor; no se midió ninguna sesión de descubrimiento con personas ni el efecto de BDD en defectos. El siguiente paso, `SE-545`, trata la pregunta que queda: qué ejemplos elegir, porque más ejemplos no es mejor.
 
 ## Relación con otros conceptos
 

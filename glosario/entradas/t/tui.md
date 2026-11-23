@@ -32,7 +32,7 @@ Cuando la tarea es exploratoria (revisar una cola, navegar entre decenas de elem
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-221 — TUI, terminales y accesibilidad](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-221 — TUI, terminales y accesibilidad](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md)) son:
 
 - **Aparecen secuencias de escape en un archivo** — causa: el color no depende del destino. Corrección: `isatty()`, `NO_COLOR` y `--color`.
 - **Dos filas distintas parecen iguales** — causa: se truncó por el final un prefijo compartido. Corrección: truncar por el medio o mostrar primero lo distintivo.

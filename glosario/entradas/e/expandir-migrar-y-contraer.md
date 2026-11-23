@@ -22,9 +22,9 @@ Cuando un cambio es incompatible, se divide en pasos que cada lector sobrevive. 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md):
+Caso medido en la sección «Expandir, migrar y contraer» de [SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Cuando un cambio es incompatible, se divide en pasos que cada lector sobrevive. Expandir: añadir lo nuevo sin quitar lo viejo. Migrar: escribir en las dos formas, rellenar lo antiguo y mover a los lectores uno a uno. Contraer: quitar lo viejo cuando ya nadie lo lee. En el experimento, un lector viejo suma `fee_cents` y uno nuevo `amount_cents`. Un renombre de golpe rompe al viejo al instante (`no such column`).
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md)) son: Los esquemas, las reglas de promoción y los registros son construcciones del autor; el verificador es una simplificación y no cubre tipos anidados, enumeraciones ni uniones. No se ejecutó ningún registro de esquemas ni se midió el costo de un cambio incompatible en una organización. El siguiente paso, `SE-367`, construye el linaje y el catálogo que dicen quién consume cada campo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md)) son: Los esquemas, las reglas de promoción y los registros son construcciones del autor; el verificador es una simplificación y no cubre tipos anidados, enumeraciones ni uniones. No se ejecutó ningún registro de esquemas ni se midió el costo de un cambio incompatible en una organización. El siguiente paso, `SE-367`, construye el linaje y el catálogo que dicen quién consume cada campo.
 
 ## Relación con otros conceptos
 

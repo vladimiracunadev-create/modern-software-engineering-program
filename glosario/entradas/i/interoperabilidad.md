@@ -28,14 +28,14 @@ El mensaje de entrega de la plataforma es el caso conductor de la [Parte 36](../
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)) son:
 
 - **Acentos rotos en un sistema y no en otro** — causa: codificación por defecto distinta. Corrección: especificar `encoding="utf-8"` siempre.
 - **Un archivo difiere de bytes y tiene el mismo tamaño** — causa: fin de línea o codificación distintos. Corrección: fijar `newline` y `encoding` y comparar hashes.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)) son: Las definiciones son operativas para el mensaje de entrega de la plataforma. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos, uno de ellos con sondas reales en Windows 11 y Ubuntu 24.04 bajo WSL2 y los otros con datos sintéticos y semillas fijas con resultados idénticos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)) son: Las definiciones son operativas para el mensaje de entrega de la plataforma. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos, uno de ellos con sondas reales en Windows 11 y Ubuntu 24.04 bajo WSL2 y los otros con datos sintéticos y semillas fijas con resultados idénticos.
 
 ## Relación con otros conceptos
 

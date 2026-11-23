@@ -36,7 +36,7 @@ La canalización de la API de entregas es el caso conductor de la [Parte 40](../
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-482 — Pipelines, jobs, matrices y cachés](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-482 — Pipelines, jobs, matrices y cachés](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches/README.md)) son:
 
 - **La canalización no baja de un mínimo al añadir ejecutores** — causa: el camino crítico ya está alcanzado. Corrección: calcular el camino crítico y acortar su eslabón más largo.
 - **Muchos jobs pequeños y la duración sube** — causa: el arranque domina la duración de cada job. Corrección: fundir jobs que comparten preparación.

@@ -16,24 +16,24 @@ La clase donde se define, [SE-467 — Taller: explotar y reparar un control apar
 
 ## Cómo funciona
 
-[SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md):
 
 El equipo de la plataforma organiza el taller como una sesión de tres horas con dos roles: quien ataca escribe una hipótesis por control sin ver la implementación y quien defiende la reparación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md)) son:
 
 - **Un archivo fuera de la carpeta se descarga** — causa: filtro de texto en lugar de comprobar el destino. Corrección: decodificar, resolver y comprobar el prefijo de la raíz.
 - **El límite de intentos no frena a nadie** — causa: se cuenta por una cabecera que escribe el cliente. Corrección: contar por la conexión, por cuenta y por comportamiento.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los cuatro controles son funciones de juguete en memoria, las 5 000 cargas salen de un alfabeto del autor, las rutas se resuelven con módulos de Python y no con un sistema de archivos, y no se atacó ningún servicio ni sistema real.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los cuatro controles son funciones de juguete en memoria, las 5 000 cargas salen de un alfabeto del autor, las rutas se resuelven con módulos de Python y no con un sistema de archivos, y no se atacó ningún servicio ni sistema real.
 
 ## Relación con otros conceptos
 

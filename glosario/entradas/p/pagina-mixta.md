@@ -28,7 +28,7 @@ La penalización de la plataforma de entregas pasa de una página mixta a cuatro
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md)) son:
 
 - **El tutorial tiene una sección «Notas avanzadas» a mitad de los pasos** — causa: se mezcló explicación con guía de aprendizaje. Corrección: mover las notas a una explicación y dejar un enlace de una línea.
 - **La guía práctica empieza con la historia de la política** — causa: se mezcló contexto con procedimiento. Corrección: mover la historia a la explicación y enlazarla desde el primer párrafo.

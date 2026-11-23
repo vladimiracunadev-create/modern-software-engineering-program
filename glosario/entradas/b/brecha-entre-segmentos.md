@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-612 — Proyecto: sistema de ML operable con evidencia](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-612-proyecto-sistema-de-ml-operable-con-evidencia/README.md)) son: El proyecto, las once comprobaciones, las cuatro variantes y los umbrales son construcciones del autor sobre datos sintéticos; la ficha y el runbook del laboratorio son marcadores. La puerta detecta los defectos sembrados y no los que nadie previó. No se evaluó ninguna plataforma de MLOps.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-612 — Proyecto: sistema de ML operable con evidencia](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-612-proyecto-sistema-de-ml-operable-con-evidencia/README.md)) son: El proyecto, las once comprobaciones, las cuatro variantes y los umbrales son construcciones del autor sobre datos sintéticos; la ficha y el runbook del laboratorio son marcadores. La puerta detecta los defectos sembrados y no los que nadie previó. No se evaluó ninguna plataforma de MLOps.
 
 ## Relación con otros conceptos
 

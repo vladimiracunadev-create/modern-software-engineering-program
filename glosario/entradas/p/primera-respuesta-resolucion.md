@@ -16,11 +16,11 @@ La clase donde se define, [SE-419 — SLA por nivel, soporte y operación del pr
 
 ## Cómo funciona
 
-[SE-419 — SLA por nivel, soporte y operación del producto](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-419 — SLA por nivel, soporte y operación del producto](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-419 — SLA por nivel, soporte y operación del producto](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-419 — SLA por nivel, soporte y operación del producto](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-419 — SLA por nivel, soporte y operación del producto](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md)) son: Se calcularon minutos permitidos, una disponibilidad compuesta y una simulación por inquilino con una tasa de fallos sembrada por el autor; los tramos de crédito y los tiempos de soporte son del autor, no hay ningún servicio real medido y el texto no sustituye la revisión legal de un contrato.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-419 — SLA por nivel, soporte y operación del producto](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md)) son: Se calcularon minutos permitidos, una disponibilidad compuesta y una simulación por inquilino con una tasa de fallos sembrada por el autor; los tramos de crédito y los tiempos de soporte son del autor, no hay ningún servicio real medido y el texto no sustituye la revisión legal de un contrato.
 
 ## Relación con otros conceptos
 

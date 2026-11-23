@@ -26,9 +26,9 @@ Una práctica provoca contrapresión de forma segura. Levanta un receptor local 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-045 — Sockets, conexiones persistentes y tiempo real](../../../classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md):
+Caso medido en la sección «Ciclo de vida del socket, plazos y detección de fallos» de [SE-045 — Sockets, conexiones persistentes y tiempo real](../../../classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md):
 
-La petición observable de extremo a extremo usa SSE para estados unidireccionales y entrega `id` por evento. El cliente reanuda con el último ID; el servidor conserva una ventana finita y responde explícitamente cuando el cursor expiró. Métricas separan conexiones abiertas, clientes lentos, bytes pendientes y reconexiones.
+Un socket pasa por crear, conectar o escuchar, intercambiar con *framing*, esperar y cerrar. Cada fase necesita su plazo: una lectura con timeout de 0,1 s contra un servidor lento lanzó `TimeoutError` a los 0,1 s, de modo que la aplicación recupera el control. Cerrar correctamente importa: si un extremo cierra y el otro no, el segundo queda en `CLOSE-WAIT`.
 
 ## Errores y confusiones comunes
 

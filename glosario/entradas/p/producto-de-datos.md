@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-343 — Data mesh y propiedad de los datos](../../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/README.md)) son: La cola, la penalización de contexto, las derivas y los umbrales son construcciones del autor; la fórmula de Erlang C se usó solo como control de la simulación. No se midió ningún equipo de datos, ninguna plataforma ni la calidad de ningún lago, y el resultado «no ahorra personas» es del modelo, no de la práctica.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-343 — Data mesh y propiedad de los datos](../../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/README.md)) son: La cola, la penalización de contexto, las derivas y los umbrales son construcciones del autor; la fórmula de Erlang C se usó solo como control de la simulación. No se midió ningún equipo de datos, ninguna plataforma ni la calidad de ningún lago, y el resultado «no ahorra personas» es del modelo, no de la práctica.
 
 ## Relación con otros conceptos
 

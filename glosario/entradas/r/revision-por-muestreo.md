@@ -22,20 +22,20 @@ Quien revisa no lee todo. Si un dossier tiene n afirmaciones, m de ellas sin res
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md):
+Caso medido en la sección «Revisión por muestreo» de [SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo arma el dossier de la decisión de la exportación con los siete archivos requeridos: el índice con ocho afirmaciones, la decisión revisada con el expediente de `SE-539`, los riesgos con el valor esperado de `SE-534`, los costos con el análisis de `SE-537` y la matriz de `SE-535`, la retroalimentación con el acuerdo de mentoría de `SE-532` y el mensaje de decisión de `SE-531`, y los límites.
+Quien revisa no lee todo. Si un dossier tiene n afirmaciones, m de ellas sin respaldo, y la revisora inspecciona k elegidas al azar, la probabilidad de ver al menos una sin respaldo es 1 − C(n−m, k) / C(n, k), una distribución hipergeométrica que se calcula con `math.comb`. Con n = 30 y m = 3, inspeccionar 5 da el 43,3 % y 12 el 79,9 %. Dos consecuencias de diseño.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)) son:
 
 - **La revisora no encuentra la evidencia** — causa: sin tabla afirmación–evidencia. Corrección: construir `claims.csv` con ruta y huella.
 - **La evidencia no coincide con la huella** — causa: se modificó después de calcularla. Corrección: recalcular y registrar el cambio, o restaurar el original.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre seis dossiers construidos por el autor en un directorio temporal, en Windows y Ubuntu (WSL2), con resultados idénticos. No se revisó ningún dossier ni persona reales; los dossiers de prueba, los tiempos de revisión y la elección uniforme de la muestra son construcciones del autor, y el verificador comprueba forma, integridad y coherencia etiquetada, no veracidad.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre seis dossiers construidos por el autor en un directorio temporal, en Windows y Ubuntu (WSL2), con resultados idénticos. No se revisó ningún dossier ni persona reales; los dossiers de prueba, los tiempos de revisión y la elección uniforme de la muestra son construcciones del autor, y el verificador comprueba forma, integridad y coherencia etiquetada, no veracidad.
 
 ## Relación con otros conceptos
 

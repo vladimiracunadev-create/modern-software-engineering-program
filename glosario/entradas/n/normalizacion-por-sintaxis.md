@@ -22,13 +22,13 @@ La RFC 3986 define una normalización por sintaxis que no cambia el significado:
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md):
 
 La plataforma publica una tabla de URLs: `/entregas/:id` identifica una entrega, `/entregas?estado=tarde&curso=3&pagina=2` describe una vista de la lista, y los parámetros de la vista se leen con un esquema de tipos que ignora lo desconocido. Las rutas se declaran ordenadas por especificidad y una prueba comprueba que cada URL de una lista de ejemplos se resuelve a la vista esperada en cualquier orden de declaración.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)) son:
 
 - **Los filtros se pierden al compartir el enlace** — causa: el estado vive solo en memoria. Corrección: llevar a la consulta lo que repite la vista.
 - **La misma página cuenta como dos en las métricas** — causa: variantes de la URL sin normalizar (barra final, mayúsculas, utm). Corrección: elegir una forma canónica y redirigir a ella.

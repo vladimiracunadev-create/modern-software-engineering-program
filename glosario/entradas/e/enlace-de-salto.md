@@ -32,7 +32,7 @@ En la plataforma, cada componente tiene una ficha con su elemento nativo, su nom
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-174 — Semántica, teclado, foco y tecnologías de asistencia](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-174 — Semántica, teclado, foco y tecnologías de asistencia](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)) son:
 
 - **Un control funciona con ratón y no con teclado** — causa: un div con clic sin foco ni teclas. Corrección: usar el elemento nativo o reproducir rol, foco y teclas.
 - **El lector anuncia «botón» sin más** — causa: falta nombre accesible. Corrección: texto visible, etiqueta nativa o `aria-label` si no hay otra opción.

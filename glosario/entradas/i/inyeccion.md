@@ -32,7 +32,7 @@ Sí, por otra razón. La validación de forma (longitud, rango, formato) reduce 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-460 — Validación, codificación y clases de inyección](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion/README.md)) son:
 
 - **Se escapan comillas y una consulta numérica sigue vulnerable** — causa: defensa de literal aplicada a un número. Corrección: parámetros enlazados para todos los valores.
 - **Una lista de palabras no detiene `' OR 1=1 --`** — causa: la carga no contiene ninguna palabra de la lista. Corrección: separar canales; usar la lista blanca solo para identificadores.

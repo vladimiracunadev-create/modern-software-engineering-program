@@ -22,13 +22,13 @@ Según [SE-256 — Almacenamiento local y sincronización](../../../classes/part
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-256 — Almacenamiento local y sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-256 — Almacenamiento local y sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md):
 
 El equipo del cliente escribe el inventario de datos con una fila por dato: ubicación (base local, archivo, caché), garantía (transacción confirmada, reemplazo atómico, sin garantía), política de borrado y política de fusión. El borrador va en la base con transacciones cortas; la configuración, en un archivo con reemplazo atómico; la caché de tareas, en un directorio que el sistema puede limpiar. La fusión del borrador es por campo, con detección explícita cuando ambos editan el mismo, y se avisa a la persona en lugar de elegir en silencio.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-256 — Almacenamiento local y sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-256 — Almacenamiento local y sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md)) son:
 
 - **La configuración queda ilegible tras un cierre inesperado** — causa: se escribió encima del archivo. Corrección: temporal sincronizado y reemplazo atómico.
 - **Guardar un borrador tarda segundos con muchas ediciones** — causa: una transacción por edición con sincronización completa. Corrección: agrupar escrituras y elegir un modo de sincronización explícito.

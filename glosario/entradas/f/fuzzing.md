@@ -36,7 +36,7 @@ El equipo de la plataforma ejecuta cada noche una mutación acotada sobre los m�
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)) son:
 
 - **La cobertura sube y los mutantes muertos no** — causa: se añadieron casos que ejecutan líneas sin afirmar fronteras. Corrección: medir la puntuación de mutación al añadir casos.
 - **Un mutante sobrevive y nadie sabe por qué** — causa: no se clasifica. Corrección: caso faltante, aserción débil o equivalente, con razón escrita.

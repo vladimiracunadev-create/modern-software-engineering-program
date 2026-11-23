@@ -32,7 +32,7 @@ Supón, como caso hipotético y no como medición, que el equipo reescribe su hi
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)) son:
 
 - **La hipótesis se refuta con el sistema sano** — causa: regla sin banda. Corrección: medir la línea base y usar media menos tres desviaciones.
 - **La hipótesis nunca se refuta** — causa: potencia baja: ventana corta o efecto pequeño. Corrección: ampliar la ventana o repetir y declarar el efecto mínimo detectable.

@@ -26,20 +26,20 @@ En el enfoque de Fowler, cada consumidor expresa en una prueba qué espera de la
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md):
 
 El equipo del servicio de notas mantiene en su repositorio una carpeta `contratos/` con un archivo por consumidor (`panel.json`, `exportador.json`, `avisos.json`) que lista los campos, tipos y valores que ese consumidor usa y, desde un incidente, el orden de la lista. La integración continua del servicio ejecuta los tres contratos contra su respuesta en cada propuesta de cambio y falla con el nombre del consumidor afectado. Los equipos de los consumidores abren un contrato nuevo cuando empiezan a usar un campo, y retiran las cláusulas que dejaron de usar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son:
 
 - **El consumidor falla en producción y sus pruebas pasan** — causa: el doble refleja una versión antigua del proveedor. Corrección: verificar el doble contra el proveedor con el mismo contrato.
 - **El proveedor recibe alarmas por cambios que nadie usa** — causa: comparación de esquema completo. Corrección: contratos por consumidor.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un proveedor y un consumidor sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se usó red, servidor HTTP ni herramienta de contratos; los ocho cambios, los tres consumidores y el grafo de siete interfaces son del autor. La verificación del contrato es un verificador mínimo y su exactitud real es desconocida.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un proveedor y un consumidor sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se usó red, servidor HTTP ni herramienta de contratos; los ocho cambios, los tres consumidores y el grafo de siete interfaces son del autor. La verificación del contrato es un verificador mínimo y su exactitud real es desconocida.
 
 ## Relación con otros conceptos
 

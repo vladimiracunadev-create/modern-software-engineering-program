@@ -26,9 +26,9 @@ Un segundo fallo controlado es la acumulación. Escribe un bucle que sume 0,1 un
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-016 — Enteros, coma flotante, precisión y errores numéricos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md):
+Caso medido en la sección «Redondeo: modos, empates y el caso de 2,675» de [SE-016 — Enteros, coma flotante, precisión y errores numéricos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md):
 
-Un contador Java de 32 bits se exporta desde Python. Aunque Python no desborde, el contrato sí. Se valida rango antes de serializar y se prueba máximo, máximo+1 y valores negativos.
+Redondear exige elegir un *modo*. Python usa por defecto «redondeo al par más cercano» (a veces llamado bancario): `round(0.5)` es 0, `round(1.5)` es 2 y `round(2.5)` es 2, porque los empates van al entero par. Esto evita sesgo acumulado, pero choca con las reglas legales que exigen «medio hacia arriba». Un caso aparente de error es `round(2.675, 2)`, que devuelve `2.67` y no `2.68`: el `float` 2,675 en realidad vale 2,67499999999999982236…, de modo que *no hay empate* y el redondeo es correcto.
 
 ## Errores y confusiones comunes
 

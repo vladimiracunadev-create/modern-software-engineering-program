@@ -26,20 +26,20 @@ Un portafolio es un conjunto de iniciativas financiadas a la vez. Con un presupu
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md):
+Caso medido en la sección «El portafolio contiene decisiones, no solo resultados bonitos» de [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md):
 
-En la plataforma, `portfolio-log.md` registra cada iniciativa con costo, rango de retorno, dependencias y responsable, la cartera elegida con las alternativas descartadas, la medida de robustez (veces que es la mejor, arrepentimiento) y la regla de revisión. El contrato es que ninguna cartera se aprueba sin sus alternativas y sin la fecha en que se revisará. Esa estructura permite que otra persona vea qué se descartó y por qué.
+Un artefacto demuestra más cuando conserva propósito, contexto, alternativas, método, resultado, revisión y límite. El mapa de [SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) muestra frontera; el caso de [SE-004](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md), deliberación; el log de [SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md), calidad de inferencia; la anatomía de [SE-011](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md), integración. Una captura final sin proceso puede probar que algo existió, no quién lo produjo ni qué capacidad movilizó.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md)) son:
 
 - **El comité cree que la cartera «ganará»** — causa: se informó solo el valor esperado. Corrección: informar arrepentimiento y retorno neto p5.
 - **Se compromete todo el presupuesto en una iniciativa** — causa: no se evaluó un piloto. Corrección: calcular el valor por etapas y la exactitud mínima.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna iniciativa real; los costos, los retornos independientes, la probabilidad de mercado bueno, la exactitud del piloto y las dependencias son supuestos del autor, y la enumeración exhaustiva solo sirve para problemas pequeños. La siguiente clase pregunta cuán reversible es cada decisión de la cartera.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna iniciativa real; los costos, los retornos independientes, la probabilidad de mercado bueno, la exactitud del piloto y las dependencias son supuestos del autor, y la enumeración exhaustiva solo sirve para problemas pequeños. La siguiente clase pregunta cuán reversible es cada decisión de la cartera.
 
 ## Relación con otros conceptos
 

@@ -28,9 +28,9 @@ La descripción más citada del estilo enumera rasgos: componentes que son servi
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md):
+Caso medido en la sección «La organización también es una fuerza» de [SE-337 — Estilos como respuestas a fuerzas de calidad](../../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Conway planteó que los sistemas copian la estructura de comunicación de quienes los construyen. Un equipo de seis personas no necesita desplegar de forma independiente porque no hay con quién coordinarse; doce equipos sí. Por eso el atributo «despliegue independiente» pesa 0,05 en el primer perfil y 0,30 en el segundo. Esta fuerza no se mide con un benchmark: se mide contando equipos y dependencias entre ellos, y se revisa cuando la organización cambia.
 
 ## Errores y confusiones comunes
 

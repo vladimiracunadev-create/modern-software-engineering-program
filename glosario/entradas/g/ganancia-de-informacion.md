@@ -22,13 +22,13 @@ Cuando queda más de una candidata, hay que decidir qué mirar. Tres criterios h
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-503 — Taller: diagnosticar con telemetría incompleta](../../../classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-503 — Taller: diagnosticar con telemetría incompleta](../../../classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/README.md):
 
 Supón, como caso hipotético de la plataforma y no como medición, que el equipo ejecuta el taller con el escenario del problema. La guardia abre la bitácora a las 14:05 y anota: 5xx desviada, p99 desviada, conexiones a la base normal, fallos de resolución normal, errores de TLS normal, caché normal, 429 normal, versión desplegada sin cambio; profundidad de la cola, reinicios, disco y memoria sin datos por la caída del agente. La función de candidatas devuelve una sola: dependencia externa caída.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-503 — Taller: diagnosticar con telemetría incompleta](../../../classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-503 — Taller: diagnosticar con telemetría incompleta](../../../classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/README.md)) son:
 
 - **El equipo actúa sobre la causa equivocada** — causa: una señal sin datos se leyó como normal. Corrección: tres estados por señal y latido por agente.
 - **El diagnóstico tarda en converger** — causa: se miran primero las señales más baratas. Corrección: elegir la que más separa las candidatas, ponderada por coste.

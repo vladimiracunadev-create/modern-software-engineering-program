@@ -22,13 +22,13 @@ Un build es **reproducible** si dos ejecuciones con las mismas entradas producen
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md):
+Caso medido en la sección «Localizar la diferencia y el build hermético» de [SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md):
 
-El equipo escribe el script de empaquetado de la API de entregas con cuatro reglas: ordena los nombres, fija la fecha a la del commit etiquetado (la variable `SOURCE_DATE_EPOCH`), fija modo y sistema de creación de cada entrada y excluye cualquier archivo generado que contenga rutas o fechas. Declara sus entradas en un archivo (`build-inputs.md`) con el commit, la versión de Python, la lista de dependencias con huella y el comando exacto.
+**Cómo leer la figura.** A la izquierda están los dos builds que no coinciden y a la derecha tres casos. La dorada es una diferencia localizada, un solo archivo de 42; la coral es un build que lee una entrada no declarada, por lo que no es hermético; la turquesa es el resultado deseado, un único hash. **Dónde deja de valer:** la comparación por archivo localiza dónde difiere el contenido, no por qué; un compilador puede producir un archivo distinto por una decisión interna que no hay forma de ver en el archivo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-469 — Build reproducible y hermético](../../../classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico/README.md)) son:
 
 - **Cada build produce un hash distinto** — causa: fechas, orden o rutas incrustadas. Corrección: normalizar tiempo y orden; eliminar rutas.
 - **El hash cambia solo en otra máquina** — causa: campo del formato dependiente del sistema. Corrección: repetir en otro sistema y fijar el campo.

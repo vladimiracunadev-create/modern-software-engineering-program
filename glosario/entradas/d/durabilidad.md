@@ -34,7 +34,7 @@ El equipo escribe el presupuesto de fiabilidad de la plataforma. Para disponibil
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)) son:
 
 - **El sistema cae más de lo que da la cuenta** — causa: fallos en serie ignorados o causa común. Corrección: calcular con todas las capas y listar lo que comparten las réplicas.
 - **Duplicar un componente no mejora nada** — causa: la limitación está en otra capa. Corrección: mejorar el eslabón más débil de la serie.

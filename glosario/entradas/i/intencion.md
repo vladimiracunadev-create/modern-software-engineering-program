@@ -30,9 +30,9 @@ La clave la genera el cliente por *intención* (una por cada «quiero crear esta
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-565 — De la intención a la especificación durable](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md):
+Caso medido en la sección «Intención, especificación, plan y código» de [SE-565 — De la intención a la especificación durable](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo toma la frase «avisa a los estudiantes antes de que venzan las entregas, rápido y sin molestar» y la convierte en seis requisitos con identificador: `RF-01` (avisos a las 72, 24 y 1 hora antes), `RF-02` (no repetir un aviso ya enviado), `RF-03` (no avisar si la entrega está `ENTREGADA`), `RF-04` (no avisar si está `SILENCIADA`), `RF-05` (no avisar después del vencimiento) y `RF-06` (tras una caída del servicio, enviar solo el aviso del umbral más cercano).
+La intención es el deseo de alguien: «que los estudiantes no pierdan entregas por olvido». La especificación declara qué comportamiento observable debe tener el sistema para satisfacerla y por qué importa: «cuando falten 72, 24 y 1 hora para el vencimiento y la entrega esté pendiente, el sistema enviará un aviso». El plan decide con qué se construye: una cola en SQLite, un proceso que despierta cada cinco minutos. Las tareas ordenan el trabajo. El código y las pruebas son el resultado. Cada nivel responde una pregunta distinta y, cuando se mezclan, aparecen dos fallos conocidos.
 
 ## Errores y confusiones comunes
 
@@ -42,7 +42,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-565 — De la intención a la especificación durable](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos; no se invocó ningún modelo de lenguaje ni se observó ningún equipo o sistema reales. Las 125 frases, las ocho decisiones abiertas, la independencia entre ellas, los 24 requisitos y los 12 defectos son construcciones del autor, y el revisor se escribió conociendo las frases que lo evalúan.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-565 — De la intención a la especificación durable](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos; no se invocó ningún modelo de lenguaje ni se observó ningún equipo o sistema reales. Las 125 frases, las ocho decisiones abiertas, la independencia entre ellas, los 24 requisitos y los 12 defectos son construcciones del autor, y el revisor se escribió conociendo las frases que lo evalúan.
 
 ## Relación con otros conceptos
 

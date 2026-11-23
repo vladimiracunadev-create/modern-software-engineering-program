@@ -22,20 +22,20 @@ Traslada el análisis a otra práctica de mejora (por ejemplo, la revisión post
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md):
 
 El equipo de la plataforma de entregas cambia su retrospectiva. Antes de la reunión, quien facilita prepara el tablero de `SE-189` y la hoja de acciones previas con su estado. La reunión dedica diez minutos a evaluar el cambio anterior con su señal, 20 a identificar qué parte del sistema produce el plazo largo (con la cola y la ley de Little como lentes), y 15 a elegir una acción, máximo dos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son:
 
 - **Las acciones pendientes crecen cada sprint** — causa: se acuerdan más de las que caben. Corrección: limitar a la capacidad y evaluar antes de agregar.
 - **Se declara fracaso a las dos semanas** — causa: muestra insuficiente para detectar la mejora. Corrección: fijar de antemano el plazo de evaluación según el tamaño del efecto.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ninguna retrospectiva ni se evaluó un cambio real: la capacidad de mejora, el beneficio por acción, el efecto del 15 %, la dispersión y la cola de un servidor son construcciones del autor, y la prueba de rangos se implementó con aproximación normal.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ninguna retrospectiva ni se evaluó un cambio real: la capacidad de mejora, el beneficio por acción, el efecto del 15 %, la dispersión y la cola de un servidor son construcciones del autor, y la prueba de rangos se implementó con aproximación normal.
 
 ## Relación con otros conceptos
 

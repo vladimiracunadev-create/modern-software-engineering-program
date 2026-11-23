@@ -22,13 +22,13 @@ La **calidad interna** observa propiedades sin ejecutar el producto: estructura,
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md):
 
 Una API tiene disponibilidad 99,9%, pero falla durante cierre financiero. El escenario crítico pondera momento y consecuencia; el promedio anual era insuficiente.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md)) son:
 
 - **lista de adjetivos sin contexto** — causa: atributo no convertido en escenario. Corrección: añade estímulo, entorno, respuesta y medida.
 - **cobertura se usa como calidad total** — causa: proxy confundido con resultado. Corrección: inspecciona aserciones y enlaza con comportamiento y uso.

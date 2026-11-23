@@ -16,24 +16,24 @@ La clase donde se define, [SE-239 — Taller: construir un flujo web resiliente]
 
 ## Cómo funciona
 
-[SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
+[SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md):
 
 El flujo de entrega se publica como una tabla de estados y transiciones en el repositorio, con una prueba que comprueba su forma y otra que ejecuta, para cada transición, el escenario que la dispara. El cliente reintenta con retroceso exponencial y dispersión completa, con un máximo de seis intentos, y el servidor limita la tasa y reconoce la clave de idempotencia. El estado «en cola» se anuncia en una región de estado y se muestra con texto («se enviará cuando haya conexión»), no solo con un icono.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md)) son:
 
 - **Una entrega queda «enviando» sin fin** — causa: falta la transición para un evento de fallo. Corrección: escribir la tabla con todos los eventos y probar cada transición.
 - **Mil clientes agotan al servidor al recuperarse** — causa: reintentos sincronizados sin dispersión. Corrección: retroceso exponencial con dispersión, máximo de intentos y límite de tasa.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El flujo, el servidor de capacidad fija y los nueve defectos son construcciones del autor; no se usó un navegador, un lector de pantalla ni una red real. La siguiente clase es el proyecto que lo verifica de punta a punta: una aplicación web accesible y offline con evidencia revisable.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El flujo, el servidor de capacidad fija y los nueve defectos son construcciones del autor; no se usó un navegador, un lector de pantalla ni una red real. La siguiente clase es el proyecto que lo verifica de punta a punta: una aplicación web accesible y offline con evidencia revisable.
 
 ## Relación con otros conceptos
 

@@ -22,13 +22,13 @@ Una alarma es una decisión automática de interrumpir a una persona. Cada umbra
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-295 — Salud, datos sensibles y sistemas regulados](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-295 — Salud, datos sensibles y sistemas regulados](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md):
 
 El equipo de la plataforma separa el módulo en tres almacenes: `identidad` (nombre y documento, acceso mínimo, retención larga), `atenciones` (seudónimo, edad, motivo, acceso por rol) y `estudio` (generalizado: tramos de 10 años y 2 dígitos, con una clase mínima de 5 y comprobación de que ninguna clase tenga un único diagnóstico). La fusión de fichas usa tres zonas: sobre 0,95 se fusiona, entre 0,85 y 0,95 va a revisión de una persona de secretaría con las fichas lado a lado, y bajo 0,85 no se une.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-295 — Salud, datos sensibles y sistemas regulados](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-295 — Salud, datos sensibles y sistemas regulados](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md)) son:
 
 - **Un conjunto sin nombre identifica a personas** — causa: cuasi-identificadores sin generalizar. Corrección: medir la unicidad y generalizar hasta una clase mínima declarada.
 - **La pertenencia a una clase revela el diagnóstico** — causa: clases homogéneas. Corrección: comprobar la diversidad del atributo sensible y suprimir o agrupar.

@@ -32,7 +32,7 @@ El equipo de la plataforma dibuja tres contextos (Aprendizaje, Evaluación, Admi
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-329 — Domain-Driven Design estratégico y táctico](../../../classes/part-27-arquitectura-de-software-y-dominio/se-329-domain-driven-design-estrategico-y-tactico/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-329 — Domain-Driven Design estratégico y táctico](../../../classes/part-27-arquitectura-de-software-y-dominio/se-329-domain-driven-design-estrategico-y-tactico/README.md)) son:
 
 - **Cada cambio de un atributo exige coordinar a tres equipos** — causa: un modelo único compartido. Corrección: separar contextos y reducir el contrato a lo necesario.
 - **La misma palabra significa cosas distintas en reuniones** — causa: hay varios contextos sin declarar. Corrección: escribir el significado en cada contexto y el mapa de relaciones.

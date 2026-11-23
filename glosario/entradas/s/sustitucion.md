@@ -32,14 +32,14 @@ Compara el caso normal con tres casos límite: la decisión pequeña y reversibl
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-208 — ADRs, RFCs y registro de decisiones](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-208 — ADRs, RFCs y registro de decisiones](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md)) son:
 
 - **Los ADR tienen secciones pero ninguna alternativa real** — causa: se completó la plantilla sin considerar opciones. Corrección: exigir al menos dos alternativas con una razón de descarte cada una.
 - **Una decisión parece vigente y sus suposiciones ya no se cumplen** — causa: no se enumeraron suposiciones ni se fijó revisión. Corrección: añadir suposiciones y fecha de revisión, y listar los ADR vencidos.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-208 — ADRs, RFCs y registro de decisiones](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se revisó ningún registro real ni se midió el ahorro de un ADR: los 300 registros, los 200 grafos y las tasas de cambio de suposiciones son construcciones del autor, y las frases vacías que escapan al linter se sembraron a propósito.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-208 — ADRs, RFCs y registro de decisiones](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se revisó ningún registro real ni se midió el ahorro de un ADR: los 300 registros, los 200 grafos y las tasas de cambio de suposiciones son construcciones del autor, y las frases vacías que escapan al linter se sembraron a propósito.
 
 ## Relación con otros conceptos
 

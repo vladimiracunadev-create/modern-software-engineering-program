@@ -22,9 +22,9 @@ Hay cuatro niveles de integridad, de A (menos exigente) a D (más exigente), y u
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-447 — Automoción: ISO 26262 y niveles ASIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md):
+Caso medido en la sección «ASIL, QM y la descomposición» de [SE-447 — Automoción: ISO 26262 y niveles ASIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Hay cuatro niveles de integridad, de A (menos exigente) a D (más exigente), y un nivel QM para lo que no requiere medidas de seguridad especiales más allá de la calidad habitual. El nivel pide más rigor de métodos, de verificación independiente y de métricas de hardware a medida que sube. La **descomposición** permite satisfacer un requisito de nivel alto con dos elementos redundantes de nivel menor, si de verdad son independientes; la norma exige demostrar esa independencia.
 
 ## Errores y confusiones comunes
 

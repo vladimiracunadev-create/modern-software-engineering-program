@@ -16,11 +16,11 @@ La clase donde se define, [SE-345 — 12-factor y aplicaciones nativas de la nub
 
 ## Cómo funciona
 
-[SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md)) son: El linter y las simulaciones son de juguete; no se auditó una aplicación real ni se ejecutó un orquestador. El arranque se midió en una máquina Windows y cambia con el sistema. El siguiente paso, `SE-346`, trata la migración de un estilo a otro: cómo se reemplaza un módulo sin detener el servicio, qué se compara mientras conviven y cómo se decide cuándo avanzar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md)) son: El linter y las simulaciones son de juguete; no se auditó una aplicación real ni se ejecutó un orquestador. El arranque se midió en una máquina Windows y cambia con el sistema. El siguiente paso, `SE-346`, trata la migración de un estilo a otro: cómo se reemplaza un módulo sin detener el servicio, qué se compara mientras conviven y cómo se decide cuándo avanzar.
 
 ## Relación con otros conceptos
 

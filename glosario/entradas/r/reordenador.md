@@ -22,9 +22,9 @@ Un **Resequencer** guarda los mensajes que llegan antes de tiempo hasta recibir 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md):
+Caso medido en la sección «Reordenador: restaurar el orden con un buffer acotado» de [SE-319 — Enterprise Integration Patterns como lenguaje común](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Un **Resequencer** guarda los mensajes que llegan antes de tiempo hasta recibir el que falta. Con una entrada con **977 pares fuera de orden** (tras eliminar los duplicados), el reordenador entrega una salida con **0** inversiones en los primeros 300 mensajes. El costo es la memoria del buffer y la latencia: un mensaje no se entrega hasta que llegan los anteriores. Y hay una condición que no se puede evitar: si un mensaje intermedio **nunca llega**, el reordenador espera sin fin; por eso necesita un plazo y una política (saltar el hueco, alarmar).
 
 ## Errores y confusiones comunes
 

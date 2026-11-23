@@ -32,7 +32,7 @@ Escenario hipotético, construido para la clase y sin datos reales. El equipo en
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-576 — Proyecto final: producto operable construido desde SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-576 — Proyecto final: producto operable construido desde SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec/README.md)) son:
 
 - **El informe dice «cumplido» y la revisión encuentra fallos** — causa: autodeclaración con pruebas del camino feliz. Corrección: pruebas por requisito escritas antes de implementar y ejecutadas por un tercero.
 - **Todas las pruebas pasan y no se sabe si valen** — causa: ninguna variante defectuosa las ha roto. Corrección: variante por requisito y matriz con lo que falta.

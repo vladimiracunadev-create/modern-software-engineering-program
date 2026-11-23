@@ -20,24 +20,24 @@ La clase donde se define, [SE-562 — Privacidad, propiedad intelectual y códig
 
 ## Cómo funciona
 
-[SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones clasifica sus datos: los de estudiantes (nombre, correo, identificador, notas) no salen en ninguna forma; las credenciales no salen ni se pegan, y se rotan si se sospecha; el código propietario sale solo hacia el servicio con contrato de no retención aprobado por el área legal; el código abierto y los datos sintéticos salen libremente.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md)) son:
 
 - **Se pegan trazas con datos de estudiantes** — causa: la política depende de la memoria. Corrección: filtro previo y datos sintéticos por defecto.
 - **El escáner no ve una credencial** — causa: ángulo ciego de una regla. Corrección: combinar patrones, entropía y contexto.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: un escáner real sobre mensajes sintéticos con cadenas generadas al azar, una comparación real de búsqueda de texto y árbol sintáctico, y un cálculo real de huellas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-562 — Privacidad, propiedad intelectual y código inseguro](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: un escáner real sobre mensajes sintéticos con cadenas generadas al azar, una comparación real de búsqueda de texto y árbol sintáctico, y un cálculo real de huellas.
 
 ## Relación con otros conceptos
 

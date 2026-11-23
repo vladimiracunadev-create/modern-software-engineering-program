@@ -32,7 +32,7 @@ El equipo de la API de entregas revisa su historial: las ramas viven nueve días
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-481 — Integración continua y feedback temprano](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-481 — Integración continua y feedback temprano](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md)) son:
 
 - **Hay un servidor de integración y la troncal pasa días en rojo** — causa: no hay política de reacción ni dueño. Corrección: escribir quién actúa ante un rojo y en cuánto tiempo; revertir primero.
 - **Las fusiones del viernes duran toda la tarde** — causa: ramas largas que se integran en lote. Corrección: acortar ramas, usar banderas para lo inacabado.

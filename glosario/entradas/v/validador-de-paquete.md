@@ -16,24 +16,24 @@ La clase donde se define, [SE-468 — Proyecto: producto con seguridad verificab
 
 ## Cómo funciona
 
-[SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md):
 
 El equipo selecciona 30 requisitos por amenaza, genera el paquete en cada versión, ejecuta el validador en la integración continua en Windows y Ubuntu, compara las huellas canónicas y publica `LIMITES.md`. Una persona ajena revisa por muestreo estratificado (`SE-466`) y en especial las evidencias que el validador no puede juzgar. En el modelo de la clase el validador completo detecta 195 de 210 mutaciones.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)) son:
 
 - **La huella cambia entre sistemas** — causa: orden, finales de línea o separadores. Corrección: huella canónica.
 - **Tres requisitos con la misma evidencia** — causa: evidencia copiada. Corrección: regla de huellas repetidas.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron dos experimentos en Windows y Ubuntu (WSL2): el validador con cifras idénticas y la huella con diferencias por diseño. Los requisitos, mutaciones y validadores son del autor; no se evaluó ningún producto real. La [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md) pasa a build, release y cadena de suministro.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron dos experimentos en Windows y Ubuntu (WSL2): el validador con cifras idénticas y la huella con diferencias por diseño. Los requisitos, mutaciones y validadores son del autor; no se evaluó ningún producto real. La [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md) pasa a build, release y cadena de suministro.
 
 ## Relación con otros conceptos
 

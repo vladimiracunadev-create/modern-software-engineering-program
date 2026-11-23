@@ -28,14 +28,14 @@ El equipo de la plataforma documenta el contrato de recepción del webhook del s
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)) son:
 
 - **Alguien crea eventos falsos con una herramienta** — causa: la dirección del webhook no verifica firma. Corrección: firma HMAC con secreto y comparación de tiempo constante.
 - **Se reprocesa una entrega capturada** — causa: firma sin marca de tiempo ni identificador. Corrección: marca de tiempo firmada con tolerancia corta e identificadores vistos.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún proveedor, dominio externo ni red más allá del bucle local: la tasa de eventos, la pérdida de respuestas, la ventana de 300 s y los calendarios de reintento son construcciones del autor, y los resultados no se extrapolan a ningún servicio.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-379 — Webhooks, polling y suscripciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún proveedor, dominio externo ni red más allá del bucle local: la tasa de eventos, la pérdida de respuestas, la ventana de 300 s y los calendarios de reintento son construcciones del autor, y los resultados no se extrapolan a ningún servicio.
 
 ## Relación con otros conceptos
 

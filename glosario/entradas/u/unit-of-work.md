@@ -22,9 +22,9 @@ Una Unit of Work mantiene los objetos afectados por una operación de negocio y 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md):
+Caso medido en la sección «Unit of Work: agrupar lo que cambia junto» de [SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Una Unit of Work mantiene los objetos afectados por una operación de negocio y coordina su escritura. Dos propiedades interesan. La primera es el **seguimiento de cambios**: de 100 entregas cargadas y 3 modificadas, guardar todo ejecuta **100** UPDATE y guardar solo lo que cambió ejecuta **3**; el seguimiento compara el estado cargado con el actual.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md)) son: La base es `sqlite3` en memoria, sin red ni concurrencia, y no se midió ningún ORM; los tiempos son de un equipo. El siguiente paso, `SE-319`, lleva el cambio de estado por un canal de mensajes, donde la atomicidad de una base deja de bastar y la garantía de entrega pasa a ser parte del diseño.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-318 — Repository, Unit of Work y Active Record](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record/README.md)) son: La base es `sqlite3` en memoria, sin red ni concurrencia, y no se midió ningún ORM; los tiempos son de un equipo. El siguiente paso, `SE-319`, lleva el cambio de estado por un canal de mensajes, donde la atomicidad de una base deja de bastar y la garantía de entrega pasa a ser parte del diseño.
 
 ## Relación con otros conceptos
 

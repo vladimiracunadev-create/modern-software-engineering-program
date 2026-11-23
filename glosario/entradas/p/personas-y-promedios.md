@@ -22,20 +22,20 @@ Describir a la audiencia con promedios (edad media, uso medio) es cómodo y fall
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md):
+Caso medido en la sección «Personas y promedios» de [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md):
 
-En la plataforma de entregas, el mapa de actores conserva por cada actor: rol, qué decide o veta, qué evidencia aceptaría, qué teme y qué contexto habita. Un trabajo conserva circunstancia, deseo, resultado y contexto que lo altera. El contrato es que ninguna afirmación de mejora se publica sin su desagregación por los contextos declarados.
+Describir a la audiencia con promedios (edad media, uso medio) es cómodo y falla por un motivo aritmético: la probabilidad de estar cerca del centro en todas las dimensiones a la vez es el producto de las probabilidades de cada una. Con una dimensión cerca del 24 % de la población queda en la banda central; con tres, poco más del 1 %. Por eso una «persona» de producto no puede ser el promedio de nadie: debe ser un caso concreto con un contexto reconocible, construido a partir de observaciones, y debe declararse como ilustración, no como estadística.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)) son:
 
 - **La opción «ganadora» empeora la experiencia de un grupo específico** — causa: se decidió con la métrica agregada y composiciones distintas por opción. Corrección: desagregar por los contextos declarados y comparar con la misma mezcla (estandarizar) antes de decidir.
 - **La persona-ficha no se parece a nadie que se haya entrevistado** — causa: se construyó con promedios o con intuición. Corrección: construir la persona desde observaciones concretas y declarar de dónde viene cada rasgo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y Ubuntu (WSL2), con salidas idénticas. No se entrevistó a nadie, las dimensiones se simularon independientes y las tasas de Simpson son un cálculo reciclado. La siguiente clase pregunta cómo obtener evidencia cualitativa de las personas del mapa sin convertir una anécdota en verdad general.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y Ubuntu (WSL2), con salidas idénticas. No se entrevistó a nadie, las dimensiones se simularon independientes y las tasas de Simpson son un cálculo reciclado. La siguiente clase pregunta cómo obtener evidencia cualitativa de las personas del mapa sin convertir una anécdota en verdad general.
 
 ## Relación con otros conceptos
 

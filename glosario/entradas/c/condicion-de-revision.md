@@ -30,9 +30,9 @@ Según [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../class
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md):
+Caso medido en la sección «La condición de revisión» de [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+La decisión de entrar a producción no es definitiva. Cada decisión lleva su **condición de revisión**: un cambio de proveedor o de modelo, una tasa de escalado superior a un umbral, una caída del acuerdo del juez con personas, un incidente de seguridad, una desviación del costo mensual. La puerta se vuelve a ejecutar con cada cambio de versión y cada fallo relevante se convierte en un caso (`SE-597`). Operar es sostener esa disciplina.
 
 ## Errores y confusiones comunes
 

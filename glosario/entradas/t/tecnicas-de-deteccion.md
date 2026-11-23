@@ -22,20 +22,20 @@ Para la ambigüedad estructural, enumerar las lecturas y comparar sus resultados
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md):
 
 Un inventario de defectos del expediente, con su tipo, su técnica de hallazgo y su responsable:
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)) son:
 
 - **Dos equipos implementan la misma frase de maneras distintas** — causa: la frase admite varias lecturas. Corrección: enumerar las lecturas y preguntar al autor, o reescribir con una plantilla estructurada.
 - **Los requisitos se revisaron de dos en dos y el módulo no se puede construir** — causa: hay una contradicción de orden tres o más. Corrección: buscar subconjuntos mínimos incompatibles sobre las condiciones.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los requisitos, las variables y la tabla de estados son ejemplos del autor, la búsqueda exhaustiva no escala y la traducción a lógica es una interpretación no verificada. La siguiente clase aplica todo esto a un taller: reparar requisitos que no se pueden verificar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los requisitos, las variables y la tabla de estados son ejemplos del autor, la búsqueda exhaustiva no escala y la traducción a lógica es una interpretación no verificada. La siguiente clase aplica todo esto a un taller: reparar requisitos que no se pueden verificar.
 
 ## Relación con otros conceptos
 

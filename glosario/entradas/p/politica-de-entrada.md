@@ -32,7 +32,7 @@ Para el trabajo de proyecto sí; para incidentes, no: requiere una política de 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-183 — Scrum, Kanban, XP y Shape Up](../../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md)) son:
 
 - **Los urgentes esperan hasta el siguiente sprint** — causa: alcance cerrado sin carril exprés. Corrección: reservar capacidad con una definición escrita de urgencia.
 - **Casi la mitad de los sprints no se cumple y se culpa al equipo** — causa: compromiso con la media del rendimiento. Corrección: comprometer con un valor prudente y llenar el resto con trabajo opcional.

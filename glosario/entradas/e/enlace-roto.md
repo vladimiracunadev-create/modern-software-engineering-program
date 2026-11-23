@@ -28,14 +28,14 @@ El fragmento calcula la ancla de dos encabezados y detecta un enlace roto. Antes
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md)) son:
 
 - **El linter emite cientos de avisos y nadie los lee** — causa: no respeta los bloques de código. Corrección: usar un analizador de Markdown o ignorar las vallas de forma explícita.
 - **Un cambio de título rompe enlaces internos sin aviso** — causa: no se comprueban las anclas. Corrección: añadir la comprobación con la regla de ancla del sitio.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna canalización real ni el tiempo de revisión: el corpus de 60 archivos, la regla de ancla y el linter de tres reglas son construcciones del autor, y la construcción reproducible controla solo tres fuentes de variación.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-212 — Docs as code, revisión y publicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna canalización real ni el tiempo de revisión: el corpus de 60 archivos, la regla de ancla y el linter de tres reglas son construcciones del autor, y la construcción reproducible controla solo tres fuentes de variación.
 
 ## Relación con otros conceptos
 

@@ -22,13 +22,13 @@ Si la ventilación debe arrancar en menos de 100 ms tras superar un umbral, la d
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md):
+Caso medido en la sección «Decisiones con plazo» de [SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md):
 
-El equipo de la plataforma asigna cada decisión a un nivel. La alarma de ventilación se decide en el nodo con un umbral guardado en memoria y un valor seguro por defecto; el nodo informa del evento cuando hay red.
+Si la ventilación debe arrancar en menos de 100 ms tras superar un umbral, la decisión no puede depender de una ida y vuelta a la nube, cuya latencia tiene cola larga y a veces no hay. La decisión se toma en el dispositivo y se informa a la nube después. La nube puede ajustar umbrales y reglas con calma, y el dispositivo debe tener valores seguros por defecto cuando no recibe nada. Es el mismo principio de `SE-268` (el plazo decide dónde vive el cómputo) llevado a la red.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-273 — Edge, gateways y procesamiento local](../../../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md)) son:
 
 - **Una alarma no actúa cuando se corta la red** — causa: decisión en la nube. Corrección: decidir en el dispositivo con valores por defecto seguros.
 - **La factura de datos es alta con datos casi constantes** — causa: envío de cada muestra. Corrección: banda muerta o promedios con evento.

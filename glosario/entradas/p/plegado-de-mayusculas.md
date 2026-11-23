@@ -28,7 +28,7 @@ Registra versión del intérprete y salida. Añade `casefold()` y predice si `JO
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md)) son:
 
 - **Una dirección con `+` o apóstrofo es rechazada** — causa: expresión más estricta que el estándar. Corrección: usar la del estándar con reglas de longitud y probar con un corpus.
 - **La misma persona aparece dos veces en el sistema** — causa: nombres con acentos en formas Unicode distintas. Corrección: normalizar y plegar para comparar; guardar el nombre tal como se escribió.

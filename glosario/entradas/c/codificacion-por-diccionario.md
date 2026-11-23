@@ -16,11 +16,11 @@ La clase donde se define, [SE-368 — Warehouse, lake, lakehouse y formatos colu
 
 ## Cómo funciona
 
-[SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md)) son: El formato columnar es un archivo didáctico, los datos son sintéticos y los tiempos de lectura varían entre ejecuciones y equipos; el efecto de los archivos pequeños se midió en un disco local y no en un almacenamiento de objetos, y el manifiesto es un archivo JSON con un solo escritor. No se midió ningún almacén, Parquet, Iceberg ni Delta.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md)) son: El formato columnar es un archivo didáctico, los datos son sintéticos y los tiempos de lectura varían entre ejecuciones y equipos; el efecto de los archivos pequeños se midió en un disco local y no en un almacenamiento de objetos, y el manifiesto es un archivo JSON con un solo escritor. No se midió ningún almacén, Parquet, Iceberg ni Delta.
 
 ## Relación con otros conceptos
 

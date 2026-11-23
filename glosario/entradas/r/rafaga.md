@@ -22,13 +22,13 @@ Un **limitador de ventana fija** cuenta solicitudes por intervalos alineados al 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md):
+Caso medido en la sección «Cuatro limitadores ante una ráfaga en el borde y ante tráfico uniforme» de [SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md):
 
-La plataforma cachea el enunciado de la tarea durante una hora con validador, el estado de una entrega en la caché privada durante 10 s con revalidación y no cachea las notas. La clave del resumen del curso se renueva con una única carga en vuelo y servirá el valor obsoleto hasta 5 s mientras se renueva. Cada identidad tiene una cubeta de 10 solicitudes por segundo con capacidad 20; el exceso recibe 429 con `Retry-After`.
+El límite nominal es de 100 solicitudes por 10 s. Se envían 200 solicitudes agrupadas entre t = 9 y t = 11 (100 antes y 100 después del cambio de la ventana de 10 s), y por separado 1 000 solicitudes uniformes en 100 s (semilla 249). Se comparan ventana fija, ventana deslizante y cubeta de fichas de 10 por segundo con capacidad 20 y con capacidad 100.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-249 — Caching, rate limiting y protección](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md)) son:
 
 - **Los docentes ven notas viejas** — causa: TTL largo en datos que cambian. Corrección: TTL corto o invalidación al cambiar; revalidación condicional.
 - **La caché no mejora la carga** — causa: capacidad menor que la popularidad concentrada. Corrección: medir aciertos y dimensionar la capacidad.

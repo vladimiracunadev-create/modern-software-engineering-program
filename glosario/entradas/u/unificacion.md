@@ -22,9 +22,9 @@ Unificar busca una sustitución compatible entre estructuras. No es asignación 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-078 — Programación lógica y resolución](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md):
+Caso medido en la sección «Unificación: ligar variables en ambos sentidos» de [SE-078 — Programación lógica y resolución](../../../classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md):
 
-En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+Unificar dos términos significa encontrar una sustitución que los haga idénticos. Tres casos ejecutados: `f(A, 2)` con `f(1, B)` tuvo éxito con `A = 1` y `B = 2`, de modo que una misma relación sirve de entrada y de salida; `f(1)` con `f(2)` falló, y el fallo es lo que hace retroceder a la búsqueda; y `X` con `f(X)` fue aceptado, porque el resolvedor mínimo no hace la **comprobación de ocurrencia**: crea una estructura infinita. SWI-Prolog tiene `unify_with_occurs_check/2` para exigir la comprobación, y por defecto la omite por costo.
 
 ## Errores y confusiones comunes
 

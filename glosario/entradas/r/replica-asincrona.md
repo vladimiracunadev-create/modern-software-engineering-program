@@ -32,7 +32,7 @@ Supón, como caso hipotético de la plataforma y no como medición, que el equip
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-502 — Continuidad, disaster recovery y ejercicios](../../../classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-502 — Continuidad, disaster recovery y ejercicios](../../../classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/README.md)) son:
 
 - **Se pierde más de lo previsto tras un borrado** — causa: la réplica copió el error y la copia es antigua. Corrección: copias separadas y un RPO diferenciado por tipo de fallo.
 - **La copia no se puede restaurar** — causa: nunca se probó la restauración. Corrección: restauración periódica con consulta y alerta.

@@ -28,20 +28,20 @@ Cuando una dependencia cae, hay peldaños entre «todo funciona» y «error 500�
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md):
+Caso medido en la sección «Escalera de degradación» de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md):
 
-El equipo ensambla el paquete. `GARANTIAS.md` declara, por operación, la garantía con su condición (por ejemplo, «el acuse se emite tras confirmar en dos de tres réplicas; sin mayoría se rechaza con un error reintentable») y lo que no garantiza. `PRESUPUESTOS.md` reparte 800 ms entre tres llamadas con un máximo de un reintento de 150 ms solo en la primera, con un máximo de 700 ms comprobado por una prueba.
+Cuando una dependencia cae, hay peldaños entre «todo funciona» y «error 500». Un primer peldaño es **servir lecturas obsoletas** de una caché, con una antigüedad máxima declarada y una etiqueta visible. Un segundo es **encolar las escrituras** localmente y reenviarlas al volver la dependencia, con un tamaño máximo de cola y una promesa honesta («tu entrega está recibida y se confirmará en unos minutos»). El último es **rechazar** con un mensaje claro.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son:
 
 - **El servicio tarda más que el plazo sin que nadie falle** — causa: tiempos límite que se suman por capa. Corrección: presupuesto de tiempo comprobado con una prueba.
 - **Un estudiante tiene acuse y no entrega** — causa: acuse emitido al encolar sin distinguir estados. Corrección: estados «recibida» y «guardada» en la garantía.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió una carga real: la caída de 60 s, la sobrecarga del 50 %, la proporción 30/70, la capacidad constante y las mutaciones del paquete son construcciones del autor, y el validador se escribió conociendo las mutaciones.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió una carga real: la caída de 60 s, la sobrecarga del 50 %, la proporción 30/70, la capacidad constante y las mutaciones del paquete son construcciones del autor, y el validador se escribió conociendo las mutaciones.
 
 ## Relación con otros conceptos
 

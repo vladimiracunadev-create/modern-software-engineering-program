@@ -32,7 +32,7 @@ No. Es una dirección no enrutable en Internet, pero dentro de la red privada es
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-039 — IPv4, IPv6, subredes, rutas y NAT](../../../classes/part-03-redes-internet-y-protocolos/se-039-ipv4-ipv6-subredes-rutas-y-nat/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-039 — IPv4, IPv6, subredes, rutas y NAT](../../../classes/part-03-redes-internet-y-protocolos/se-039-ipv4-ipv6-subredes-rutas-y-nat/README.md)) son:
 
 - **Un equipo alcanza Internet pero no a un vecino** — causa: máscara mal configurada: el vecino parece estar en otra red. Corrección: comparar prefijo y dirección con `ipaddress` y corregir la máscara.
 - **Suponer que `is_private` equivale a «de mi red»** — causa: la misma dirección privada existe en muchas redes. Corrección: identificar equipos con nombres y credenciales, no con la dirección.

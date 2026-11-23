@@ -32,7 +32,7 @@ Debe poder revocarse y reemplazarse; por eso la identidad única por dispositivo
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) son:
 
 - **Un dispositivo comprometido permite suplantar a toda la flota** — causa: clave compartida. Corrección: claves únicas por dispositivo o derivadas de un secreto maestro externo.
 - **Mensajes legítimos rechazados** — causa: ventana de tiempo estrecha frente al desfase. Corrección: ensanchar la ventana, sincronizar el reloj o usar un contador persistente.

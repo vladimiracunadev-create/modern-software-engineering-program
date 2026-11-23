@@ -24,13 +24,13 @@ MQTT define tres niveles. En el nivel 0 el emisor envía una vez y no espera con
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md):
+Caso medido en la sección «Garantías de entrega» de [SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md):
 
-El equipo de la plataforma define una política por tipo de mensaje. Las lecturas por minuto usan nivel 1 con identificador y marca de tiempo (el servidor descarta duplicados), una cola de 120 muestras que descarta lo más viejo y se vacía a 10 por minuto al reconectar. La alarma de CO₂ usa nivel 1 con un envío inmediato y un resumen en el siguiente, y se marca «reenviada» si se retrasa más de cinco minutos. Los comandos hacia el nodo usan nivel 2 o son idempotentes.
+MQTT define tres niveles. En el nivel 0 el emisor envía una vez y no espera confirmación: lo que se pierde, se pierde. En el nivel 1 el emisor reenvía hasta recibir confirmación: el mensaje llega al menos una vez, y puede llegar varias si se pierde la confirmación. En el nivel 2 un intercambio de cuatro paquetes con identificador evita que el receptor entregue dos veces: exactamente una vez, a costa de más paquetes y de estado en ambos lados. Ninguno elimina todos los casos: tras agotar los reintentos, el emisor puede no saber si el mensaje llegó.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md)) son:
 
 - **Faltan lecturas tras un corte** — causa: sin cola local o cola pequeña. Corrección: dimensionar la cola por la desconexión más larga y avisar de pérdidas.
 - **Alarmas duplicadas** — causa: nivel 1 con consumidor no idempotente. Corrección: identificador de mensaje y descarte de duplicados.

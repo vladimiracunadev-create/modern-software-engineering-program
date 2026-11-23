@@ -28,7 +28,7 @@ En la plataforma, `metric-audit.md` tiene una fila por métrica con definición 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md)) son:
 
 - **La meta se cumple y nadie mejora** — causa: se premió la producción. Corrección: reemplazar o acompañar con un resultado y su métrica contraria.
 - **El panel solo muestra crecimiento** — causa: la métrica es acumulada. Corrección: usar métricas por periodo (activos del mes, retenidos).

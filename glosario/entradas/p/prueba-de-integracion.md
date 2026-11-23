@@ -32,7 +32,7 @@ El equipo del servicio de notas mantiene en su repositorio una carpeta `contrato
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-423 — Integración, componentes y contratos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/README.md)) son:
 
 - **El consumidor falla en producción y sus pruebas pasan** — causa: el doble refleja una versión antigua del proveedor. Corrección: verificar el doble contra el proveedor con el mismo contrato.
 - **El proveedor recibe alarmas por cambios que nadie usa** — causa: comparación de esquema completo. Corrección: contratos por consumidor.

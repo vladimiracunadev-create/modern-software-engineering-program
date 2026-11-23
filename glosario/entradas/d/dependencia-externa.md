@@ -28,7 +28,7 @@ El equipo de la plataforma de entregas dibuja la red de la entrega: 15 elementos
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)) son:
 
 - **El plan cumple todas las fechas parciales y falla la final** — causa: se sumaron fechas de caminos paralelos. Corrección: simular la red y comunicar un rango.
 - **Siempre hay una dependencia «casi lista» que llega tarde** — causa: no se pidió fecha de aviso ni alternativa. Corrección: acordar con cada proveedor una fecha de aviso y un doble.

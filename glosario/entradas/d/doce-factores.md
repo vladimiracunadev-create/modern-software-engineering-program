@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md)) son: El linter y las simulaciones son de juguete; no se auditó una aplicación real ni se ejecutó un orquestador. El arranque se midió en una máquina Windows y cambia con el sistema. El siguiente paso, `SE-346`, trata la migración de un estilo a otro: cómo se reemplaza un módulo sin detener el servicio, qué se compara mientras conviven y cómo se decide cuándo avanzar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md)) son: El linter y las simulaciones son de juguete; no se auditó una aplicación real ni se ejecutó un orquestador. El arranque se midió en una máquina Windows y cambia con el sistema. El siguiente paso, `SE-346`, trata la migración de un estilo a otro: cómo se reemplaza un módulo sin detener el servicio, qué se compara mientras conviven y cómo se decide cuándo avanzar.
 
 ## Relación con otros conceptos
 

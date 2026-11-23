@@ -36,7 +36,7 @@ No sin validarlo: límites de tamaño y profundidad, esquema y tipos estrictos, 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-067 — Entrada, salida y serialización](../../../classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-067 — Entrada, salida y serialización](../../../classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion/README.md)) son:
 
 - **`seÃ±al` en lugar de `señal`** — causa: UTF-8 leído como cp1252/latin-1. Corrección: declarar `encoding='utf-8'` en la lectura.
 - **`UnicodeEncodeError` al imprimir** — causa: la consola no puede codificar el carácter. Corrección: salida ASCII escapada o configurar la codificación de salida.

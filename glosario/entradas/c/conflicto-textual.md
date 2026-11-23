@@ -22,9 +22,9 @@ Un **conflicto textual** ocurre cuando dos ramas modifican las mismas líneas: G
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md):
+Caso medido en la sección «Conflicto textual y conflicto semántico» de [SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Un **conflicto textual** ocurre cuando dos ramas modifican las mismas líneas: Git lo detecta y obliga a decidir. En el experimento, «mismas líneas» termina en conflicto, y es el caso bien resuelto por la herramienta. Un **conflicto semántico** ocurre cuando los cambios son compatibles para Git e incompatibles para el programa: un renombre y un uso del nombre antiguo, un cambio de firma y una llamada con la firma anterior, dos funciones que asumen invariantes opuestos. En el experimento, esa fusión es limpia y las pruebas fallan.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md)) son: Se ejecutaron cuatro fusiones con ramas reales de Git y una simulación de solapamiento con parámetros del autor, en Windows 11 con CPython 3.12.9 y Git 2.55. Los agentes son ediciones guionizadas: no se midió ningún sistema multiagente real ni su beneficio frente a un solo agente. El siguiente paso, `SE-585`, trata cómo saber qué hace el harness: trazas, métricas y evaluaciones del propio harness.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md)) son: Se ejecutaron cuatro fusiones con ramas reales de Git y una simulación de solapamiento con parámetros del autor, en Windows 11 con CPython 3.12.9 y Git 2.55. Los agentes son ediciones guionizadas: no se midió ningún sistema multiagente real ni su beneficio frente a un solo agente. El siguiente paso, `SE-585`, trata cómo saber qué hace el harness: trazas, métricas y evaluaciones del propio harness.
 
 ## Relación con otros conceptos
 

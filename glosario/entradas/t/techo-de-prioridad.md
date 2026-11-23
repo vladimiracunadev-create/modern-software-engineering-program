@@ -22,9 +22,9 @@ Con **herencia de prioridad**, la tarea que tiene el mutex hereda la prioridad m
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md):
+Caso medido en la sección «Herencia y techo de prioridad» de [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Con **herencia de prioridad**, la tarea que tiene el mutex hereda la prioridad más alta de las que esperan por él; así M no puede desplazar a L mientras H espera. El bloqueo de H queda acotado por la sección crítica restante de L.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md)) son: El simulador es de ticks con un solo mutex, sin interrupciones ni caché; los tiempos son del autor y el WCET se mide en pasos de un algoritmo; el relato del Pathfinder es de segunda mano. Los dos artículos clásicos se citan por su DOI, que responde con bloqueo a clientes automáticos, y no se reproducen.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md)) son: El simulador es de ticks con un solo mutex, sin interrupciones ni caché; los tiempos son del autor y el WCET se mide en pasos de un algoritmo; el relato del Pathfinder es de segunda mano. Los dos artículos clásicos se citan por su DOI, que responde con bloqueo a clientes automáticos, y no se reproducen.
 
 ## Relación con otros conceptos
 

@@ -22,7 +22,7 @@ Un workflow con modelos dura segundos o minutos y depende de procesos que se rei
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md)) son: El diario es una base SQLite en memoria con un solo paso con efecto; el servicio externo es simulado y respeta la clave; la tormenta de reintentos usa clientes sincronizados sin cola ni limitación de tasa; no se probó ningún motor de ejecución durable ni ningún proveedor real. El siguiente paso, `SE-597`, trata cómo se mide un sistema con LLM: evaluaciones, ruido, jueces, trazas y puertas de release.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md)) son: El diario es una base SQLite en memoria con un solo paso con efecto; el servicio externo es simulado y respeta la clave; la tormenta de reintentos usa clientes sincronizados sin cola ni limitación de tasa; no se probó ningún motor de ejecución durable ni ningún proveedor real. El siguiente paso, `SE-597`, trata cómo se mide un sistema con LLM: evaluaciones, ruido, jueces, trazas y puertas de release.
 
 ## Relación con otros conceptos
 

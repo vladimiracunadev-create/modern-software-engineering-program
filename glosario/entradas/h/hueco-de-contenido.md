@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md)) son: El paquete es mínimo y sintético, el comprobador verifica estructura y cambios y no calidad, el manifiesto es de granularidad de archivo, no hay revisión independiente de contenido y no se afirma que el *Horno de curado* sea seguro ni que cumpla ninguna norma. Con esta clase termina la [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md); el criterio de argumentar y no declarar acompaña al resto del programa.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md)) son: El paquete es mínimo y sintético, el comprobador verifica estructura y cambios y no calidad, el manifiesto es de granularidad de archivo, no hay revisión independiente de contenido y no se afirma que el *Horno de curado* sea seguro ni que cumpla ninguna norma. Con esta clase termina la [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md); el criterio de argumentar y no declarar acompaña al resto del programa.
 
 ## Relación con otros conceptos
 

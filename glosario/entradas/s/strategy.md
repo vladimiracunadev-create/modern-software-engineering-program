@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-316 — GoF conductuales: Strategy, Observer, Command, State y Template Method](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-316-gof-conductuales-strategy-observer-command-state-y-template-method/README.md)) son: La definición de «imposible», las secuencias y los oyentes son del autor; no se midió la frecuencia de estos defectos en proyectos reales. El siguiente paso, `SE-317`, sube un nivel: en lugar de preguntar qué patrón usar, pregunta **a quién le corresponde** una responsabilidad, con los criterios de GRASP.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-316 — GoF conductuales: Strategy, Observer, Command, State y Template Method](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-316-gof-conductuales-strategy-observer-command-state-y-template-method/README.md)) son: La definición de «imposible», las secuencias y los oyentes son del autor; no se midió la frecuencia de estos defectos en proyectos reales. El siguiente paso, `SE-317`, sube un nivel: en lugar de preguntar qué patrón usar, pregunta **a quién le corresponde** una responsabilidad, con los criterios de GRASP.
 
 ## Relación con otros conceptos
 

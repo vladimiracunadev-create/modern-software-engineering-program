@@ -16,24 +16,24 @@ La clase donde se define, [SE-326 — Vistas lógica, runtime, datos y despliegu
 
 ## Cómo funciona
 
-[SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md):
 
 El equipo mantiene un único archivo `modelo.yaml` con componentes, dependencias permitidas, recorridos y topología. Un generador produce las cuatro vistas (diagramas de texto) y una prueba compara la vista lógica con las trazas de una semana: encuentra tres aristas no declaradas y una declarada sin uso. Otra prueba recorre cada nodo de la topología y falla si algún nodo rompe más de la mitad de los recorridos; hoy falla con la web en un solo nodo, y el equipo decide replicarla antes del siguiente periodo de entregas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)) son:
 
 - **El diagrama no responde las preguntas de operaciones** — causa: mezcla módulos, procesos y servidores. Corrección: separar vistas y decir qué pregunta responde cada una.
 - **El código tiene dependencias que nadie dibujó** — causa: la vista lógica declara lo permitido y no se verifica. Corrección: comparar con trazas o con el código en cada cambio.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se instrumentó ningún sistema, no se cayó ningún nodo y no se capturó ninguna traza real: componentes, probabilidades, topologías y latencias son construcciones del autor. La siguiente clase compara tres formas de agrupar los mismos componentes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se instrumentó ningún sistema, no se cayó ningún nodo y no se capturó ninguna traza real: componentes, probabilidades, topologías y latencias son construcciones del autor. La siguiente clase compara tres formas de agrupar los mismos componentes.
 
 ## Relación con otros conceptos
 

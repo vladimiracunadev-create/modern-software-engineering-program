@@ -16,24 +16,24 @@ La clase donde se define, [SE-046 — Captura, medición y diagnóstico de tráf
 
 ## Cómo funciona
 
-[SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
+[SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md):
 
 La petición observable de extremo a extremo define un presupuesto de 800 ms: 100 DNS, 100 conexión/TLS, 400 procesamiento y 200 transferencia. La traza de incidente usa un ID, zona horaria, reloj monotónico local y ventana de dos minutos. Solo si la fase rompe presupuesto se solicita evidencia más invasiva.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)) son:
 
 - **Concluir una mejora con una sola medición** — causa: se ignora la variación entre ejecuciones. Corrección: repetir y comparar medianas y rangos.
 - **Reportar solo el mejor valor** — causa: sesgo de selección. Corrección: conservar todas las muestras y resumir con mediana y rango.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)) son: Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal. Cifrado impide leer payload y eso es una propiedad deseable. Capturas no sustituyen telemetría de aplicación. La siguiente clase integra las señales siguiendo una petición completa.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)) son: Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal. Cifrado impide leer payload y eso es una propiedad deseable. Capturas no sustituyen telemetría de aplicación. La siguiente clase integra las señales siguiendo una petición completa.
 
 ## Relación con otros conceptos
 

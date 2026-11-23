@@ -22,13 +22,13 @@ Simon Willison propuso una regla de diseño que sirve de lista de comprobación:
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-574 — Seguridad agentic, prompt injection y auditoría](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-574 — Seguridad agentic, prompt injection y auditoría](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo de *Avisos* modela las amenazas de su agente que resume notas. Marca las capacidades: lee notas de docentes (contenido de terceros: N), accede a la base con datos de matrícula (D) y tiene una herramienta de envío de correos (E). Las tres coinciden.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-574 — Seguridad agentic, prompt injection y auditoría](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-574 — Seguridad agentic, prompt injection y auditoría](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md)) son:
 
 - **El filtro bloquea frases legítimas y deja pasar la orden** — causa: patrón amplio sin normalizar o patrón fijo. Corrección: usar el filtro como señal y no como control.
 - **Una nota hace que el agente envíe un correo** — causa: las tres capacidades coinciden. Corrección: romper una o exigir aprobación en la salida.

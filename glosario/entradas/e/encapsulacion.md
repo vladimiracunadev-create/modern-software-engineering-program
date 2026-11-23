@@ -32,14 +32,14 @@ Esconde el nombre del campo, no su significado: los treinta clientes seguían mu
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)) son:
 
 - **Cambiar una plantilla obliga a releer el cálculo del costo** — causa: una clase mezcla responsabilidades con distinto motivo de cambio. Corrección: separar por decisión y comprobar con LCOM4 y con el cambio previsto.
 - **Un cambio de unidad toca decenas de archivos** — causa: los clientes leen el dato y calculan por su cuenta. Corrección: exponer comportamiento en vez de datos.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún proyecto real ni se evaluó si las métricas predicen defectos; las clases, los treinta clientes y los grafos son construcciones del autor. La siguiente clase examina los principios que guían estas separaciones y dónde dejan de valer.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún proyecto real ni se evaluó si las métricas predicen defectos; las clases, los treinta clientes y los grafos son construcciones del autor. La siguiente clase examina los principios que guían estas separaciones y dónde dejan de valer.
 
 ## Relación con otros conceptos
 

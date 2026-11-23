@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-348 — Proyecto: decisión arquitectónica defendida con ADR](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md)) son: El analizador, la función de aptitud y la serie son herramientas del autor sobre registros y un paquete de juguete; no se evaluó ningún ADR real ni se ejecutó ninguna herramienta de terceros. La conclusión de que un ADR con estas características mejora las decisiones no se midió.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-348 — Proyecto: decisión arquitectónica defendida con ADR](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md)) son: El analizador, la función de aptitud y la serie son herramientas del autor sobre registros y un paquete de juguete; no se evaluó ningún ADR real ni se ejecutó ninguna herramienta de terceros. La conclusión de que un ADR con estas características mejora las decisiones no se midió.
 
 ## Relación con otros conceptos
 

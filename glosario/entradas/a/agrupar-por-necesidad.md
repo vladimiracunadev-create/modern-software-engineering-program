@@ -22,7 +22,7 @@ Dieciséis peticiones del backlog («agregar botón exportar», «descargar mis 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md):
 
 En la plataforma de entregas, el archivo del taller conserva la petición original textual, quién la hizo y cuándo, su descomposición (observación, inferencia, solución), el problema reformulado, la guía de preguntas con su clasificación, la rúbrica aplicada por dos personas y las peticiones del backlog con su necesidad asignada. El contrato es que la petición original no se sobrescribe y que el problema reformulado indica qué observación lo confirmaría.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. Las etiquetas son de una sola persona, las reglas se afinaron con pocos ejemplos y las pruebas con casos nuevos son de seis y tres elementos. El proyecto final reúne todo en un brief respaldado por evidencia.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. Las etiquetas son de una sola persona, las reglas se afinaron con pocos ejemplos y las pruebas con casos nuevos son de seis y tres elementos. El proyecto final reúne todo en un brief respaldado por evidencia.
 
 ## Relación con otros conceptos
 

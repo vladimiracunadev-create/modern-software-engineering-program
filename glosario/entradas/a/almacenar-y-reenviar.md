@@ -22,20 +22,20 @@ Mientras no hay red, el dispositivo guarda los datos en una cola local de capaci
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md):
+Caso medido en la sección «Almacenar y reenviar» de [SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md):
 
-El equipo de la plataforma define una política por tipo de mensaje. Las lecturas por minuto usan nivel 1 con identificador y marca de tiempo (el servidor descarta duplicados), una cola de 120 muestras que descarta lo más viejo y se vacía a 10 por minuto al reconectar. La alarma de CO₂ usa nivel 1 con un envío inmediato y un resumen en el siguiente, y se marca «reenviada» si se retrasa más de cinco minutos. Los comandos hacia el nodo usan nivel 2 o son idempotentes.
+Mientras no hay red, el dispositivo guarda los datos en una cola local de capacidad fija; al reconectar, los envía a una velocidad limitada. La capacidad se elige por la desconexión más larga que se quiere cubrir (con una muestra por minuto, 60 muestras cubren una hora). Más capacidad pierde menos datos y los entrega más viejos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md)) son:
 
 - **Faltan lecturas tras un corte** — causa: sin cola local o cola pequeña. Corrección: dimensionar la cola por la desconexión más larga y avisar de pérdidas.
 - **Alarmas duplicadas** — causa: nivel 1 con consumidor no idempotente. Corrección: identificador de mensaje y descarte de duplicados.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún agente MQTT, ningún servidor ni una red real: la pérdida independiente, las desconexiones geométricas y el colapso del servidor por encima de 1,5 veces su capacidad son construcciones del autor. La siguiente clase usa este canal para actualizar el firmware sin dejar el dispositivo inservible.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún agente MQTT, ningún servidor ni una red real: la pérdida independiente, las desconexiones geométricas y el colapso del servidor por encima de 1,5 veces su capacidad son construcciones del autor. La siguiente clase usa este canal para actualizar el firmware sin dejar el dispositivo inservible.
 
 ## Relación con otros conceptos
 

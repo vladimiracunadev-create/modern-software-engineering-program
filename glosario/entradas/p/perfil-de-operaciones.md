@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller cubre cargas sintéticas y una plataforma. El proyecto siguiente empaqueta alternativas, propiedades y benchmarks para revisión reproducible.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-095 — Taller: elegir por carga y no por costumbre](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El taller cubre cargas sintéticas y una plataforma. El proyecto siguiente empaqueta alternativas, propiedades y benchmarks para revisión reproducible.
 
 ## Relación con otros conceptos
 

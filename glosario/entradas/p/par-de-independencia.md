@@ -16,11 +16,11 @@ La clase donde se define, [SE-454 — Verificación y cobertura: MC/DC, HIL y SI
 
 ## Cómo funciona
 
-[SE-454 — Verificación y cobertura: MC/DC, HIL y SIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-454 — Verificación y cobertura: MC/DC, HIL y SIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-454 — Verificación y cobertura: MC/DC, HIL y SIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-454 — Verificación y cobertura: MC/DC, HIL y SIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-454 — Verificación y cobertura: MC/DC, HIL y SIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md)) son: La decisión, los 17 mutantes, la planta y el retardo son del autor; no hay banco con hardware real; la cobertura se calcula con código propio y no con una herramienta calificada; las normas de pago no se reproducen. El siguiente paso, `SE-455`, junta todas las miradas en un taller: analizar un fallo real, el del Therac-25, frente a las ideas de las normas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-454 — Verificación y cobertura: MC/DC, HIL y SIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md)) son: La decisión, los 17 mutantes, la planta y el retardo son del autor; no hay banco con hardware real; la cobertura se calcula con código propio y no con una herramienta calificada; las normas de pago no se reproducen. El siguiente paso, `SE-455`, junta todas las miradas en un taller: analizar un fallo real, el del Therac-25, frente a las ideas de las normas.
 
 ## Relación con otros conceptos
 

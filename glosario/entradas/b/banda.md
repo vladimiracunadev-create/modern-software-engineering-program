@@ -26,9 +26,9 @@ Reproduce el fallo clásico de la clase: **refutar una hipótesis con una regla 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md):
+Caso medido en la sección «Ruido y ventana: la banda del estado estable» de [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md):
 
-Supón, como caso hipotético y no como medición, que el equipo reescribe su hipótesis: «con 100 ms más de lentitud en el 5 % de las llamadas al almacenamiento durante diez minutos, la proporción de entregas aceptadas en menos de 400 ms de los grupos experimental y de control diferirá menos de 1,5 puntos en cada ventana de 60 s».
+Un indicador calculado sobre una ventana de pocas peticiones oscila por azar. Si la proporción verdadera de peticiones rápidas es 96,5 % y la ventana contiene n peticiones independientes, la desviación típica es `sqrt(p(1-p)/n)`. Con 90 peticiones por segundo, una ventana de 5 s tiene unas 450 peticiones y una desviación de 0,9 puntos; una de 120 s tiene 10 800 y 0,17. En la práctica es algo mayor porque las peticiones no son independientes (las colas las correlacionan), y por eso se mide en lugar de calcularse.
 
 ## Errores y confusiones comunes
 

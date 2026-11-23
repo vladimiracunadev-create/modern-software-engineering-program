@@ -16,24 +16,24 @@ La clase donde se define, [SE-421 — Calidad por riesgo y propósito de las pru
 
 ## Cómo funciona
 
-[SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes.
+[SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md):
+Caso medido en la sección «Qué nivel de prueba puede ver qué fallo» de [SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md):
 
-El equipo de la plataforma abre `estrategia-log.md` con una fila por componente: probabilidad estimada con su fuente (cuántos defectos tuvo el trimestre anterior), impacto con su razón (qué pasa si falla: nota errónea, entrega perdida, aviso tardío), tamaño y dificultad de detección. Calcula tres repartos de 40 horas y elige el marginal con dos reglas añadidas: ningún componente de impacto 9 o 10 baja de 4 horas, y toda clase de fallo con impacto alto debe tener al menos un nivel asignado.
+El resultado es el conjunto unitaria + contrato + extremo a extremo + carga, con 91,1 minutos por ejecución. Las pruebas unitarias solas cubren dos de ocho clases; sumar integración y contrato eleva la cobertura a cuatro. Lo notable es que las cuatro clases restantes (recorrido de usuario, concurrencia, rendimiento y accesibilidad) solo las ven niveles caros, de modo que una estrategia con miles de pruebas unitarias y ninguna de carga no tiene cobertura de rendimiento aunque sus números parezcan altos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son:
 
 - **«Probamos todo» y aun así hay incidentes en producción** — causa: se confunde cobertura de líneas con detección de defectos. Corrección: medir con mutantes y listar qué clases de fallo no tienen nivel asignado.
 - **El reparto cambia cada trimestre sin explicación** — causa: las estimaciones viven en la cabeza de alguien. Corrección: documentar p, impacto y su fuente; reestimar tras un incidente.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son: Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes. Se ejecutaron tres experimentos con modelos del autor y datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se midió ningún sistema real, equipo ni defecto: probabilidad, impacto, dificultad, costos por nivel y la forma exponencial de la detección son supuestos. El conjunto mínimo de niveles es una consecuencia de la matriz que escribí, no un resultado empírico.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son: Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes. Se ejecutaron tres experimentos con modelos del autor y datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se midió ningún sistema real, equipo ni defecto: probabilidad, impacto, dificultad, costos por nivel y la forma exponencial de la detección son supuestos. El conjunto mínimo de niveles es una consecuencia de la matriz que escribí, no un resultado empírico.
 
 ## Relación con otros conceptos
 

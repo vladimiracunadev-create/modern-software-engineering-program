@@ -32,14 +32,14 @@ Una función JIT tarda al inicio y mejora después de calentamiento. Un benchmar
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son:
 
 - **lenguaje clasificado por una palabra** — causa: etapas combinadas ocultas. Corrección: dibuja traducción real de implementación.
 - **bytecode = máquina** — causa: niveles confundidos. Corrección: nombra VM y versión.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son: No implementa compilador ni inspecciona código nativo. `SE-021` estudia runtime y memoria automática.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son: No implementa compilador ni inspecciona código nativo. `SE-021` estudia runtime y memoria automática.
 
 ## Relación con otros conceptos
 

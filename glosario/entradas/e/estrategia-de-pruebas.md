@@ -16,7 +16,7 @@ La clase donde se define, [SE-432 — Proyecto: estrategia ejecutable por riesgo
 
 ## Cómo funciona
 
-[SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
+[SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
@@ -26,14 +26,14 @@ La plataforma de entregas es el caso conductor de la parte. Esta clase deja el a
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son:
 
 - **La estrategia es un documento que nadie ejecuta** — causa: no hay validador ni vínculo con la integración continua. Corrección: paquete estructurado y validado en cada cambio.
 - **Un riesgo alto queda sin horas o sin nivel que lo vea** — causa: falta de reglas de coherencia. Corrección: reglas de riesgo en el validador.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un simulador, un paquete y un validador escritos por el autor en Windows y Ubuntu (WSL2), con salidas idénticas. La probabilidad de defecto, el impacto, la distribución de los cambios y el costo de un escape son supuestos; las reglas del validador se ajustaron con las mismas mutaciones que lo miden. No se midió ningún equipo, integración continua ni incidente real.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un simulador, un paquete y un validador escritos por el autor en Windows y Ubuntu (WSL2), con salidas idénticas. La probabilidad de defecto, el impacto, la distribución de los cambios y el costo de un escape son supuestos; las reglas del validador se ajustaron con las mismas mutaciones que lo miden. No se midió ningún equipo, integración continua ni incidente real.
 
 ## Relación con otros conceptos
 

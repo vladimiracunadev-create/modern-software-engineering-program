@@ -2,51 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Denegación por defecto](./denegacion-por-defecto.md) · [Dependencia alucinada →](./dependencia-alucinada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Relaciones por las cuales un requisito no puede entregarse, probarse o usarse sin otro.
+**Dependencia** es una palabra con varios sentidos en el programa, todos con la idea de «algo que necesita de otra cosa». Las clases distinguen:
 
-Definición de trabajo de [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md).
+- **De software instalable** ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)): un componente requerido bajo una relación y una restricción declaradas (por ejemplo, una versión).
+- **Entre componentes** ([SE-068](../../../classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades/README.md)): el conocimiento de un componente sobre otro; es el acoplamiento visto como relación.
+- **De orden de trabajo** ([SE-141](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md), [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)): una relación por la cual un elemento no puede empezar o terminar hasta que otro llegue a cierto estado.
+- **Entre requisitos** ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md)): una relación por la cual un requisito no puede entregarse, probarse o usarse sin otro.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md): Componente requerido bajo una relación y restricción declaradas.
-- En [SE-141 — Portafolio, opciones y secuenciación de inversión](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md): Relación que impide empezar una tarea antes de terminar otra.
-- En [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md): Relación por la cual un elemento no puede empezar o terminar hasta que otro llegue a cierto estado.
-- En [SE-068 — Módulos, interfaces y separación de responsabilidades](../../../classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades/README.md): Conocimiento de un componente sobre otro.
+El sentido común es una relación dirigida: A depende de B. Al leer la palabra hay que confirmar qué clase de relación es.
 
 ## Por qué importa
 
-En [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md), el tema «Dependencias» importa porque un requisito sin sus precondiciones no se puede entregar; el orden por valor las ignora.
+Una dependencia ignorada produce planes que no se pueden cumplir o sistemas que se rompen al cambiar una pieza. [SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) lo muestra en la planificación: ordenar por valor sin comprobar dependencias produce planes que prometen lo que no se puede construir con lo comprometido. [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) lo muestra en la entrega: si el camino crítico pasa por una dependencia externa, todo el equipo espera la misma entrega.
 
 ## Cómo funciona
 
-Según [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md), en la sección «Dependencias»:
-
-Un requisito depende de otro si no puede entregarse, probarse o usarse sin él. Las dependencias forman un grafo dirigido; si hay un ciclo, los requisitos implicados son en realidad uno solo o están mal separados. Un conjunto es entregable si está cerrado bajo las dependencias: si contiene un requisito, contiene también todo aquello de lo que depende. Ordenar por valor/costo sin comprobar el cierre produce planes que prometen lo que no se puede construir con lo comprometido.
+[SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) modela las dependencias entre requisitos como un grafo dirigido. Si hay un ciclo, los requisitos implicados son en realidad uno solo o están mal separados. Un conjunto es **entregable** si está cerrado bajo las dependencias: si contiene un requisito, contiene también todo aquello de lo que depende; por eso se verifica el cierre antes de aprobar un plan. [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) trata las dependencias externas con una práctica: acordar con cada proveedor una fecha de aviso y un doble (una alternativa o un contrato que permita avanzar sin la entrega), y revisar el diagrama de dependencias en cada ciclo con el avance real. [SE-141](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md) lo aplica al orden: se enumera o resuelve el orden con las dependencias, y no se hace primero lo de mayor valor propio.
 
 ## Ejemplo
 
-Ejemplo de [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) (sección «Ejemplo mínimo»):
-
-Un conjunto con F y sin D no se puede entregar, aunque F tenga la mejor razón valor/costo. Registra versión del intérprete, comando y salida. La corrección puede ser incluir D, retirar F o argumentar que la dependencia no existe, pero debe ser una decisión.
+En [SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md), un requisito de alto valor nunca se hace porque su dependencia está fuera del presupuesto; la corrección es hacer visible la dependencia y decidir si se incluye o se retira el requisito. En [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), todo el equipo espera la misma entrega externa porque el camino crítico pasa por ella; se divide el trabajo para que avance sin ella, con un contrato o un doble.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El plan aprobado no se puede construir** — causa: se ordenó por valor sin comprobar dependencias. Corrección: verificar el cierre del conjunto antes de aprobar. ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md))
-- **Un requisito de alto valor nunca se hace** — causa: su dependencia está fuera del presupuesto. Corrección: hacer visible la dependencia y decidir si incluirla o retirar el requisito. ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md))
-- **Se hace primero lo de mayor valor propio y todo se retrasa** — causa: se ignoraron las dependencias. Corrección: enumerar o resolver el orden con las dependencias. ([SE-141](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md))
+- **El plan aprobado no se puede construir.** Se ordenó por valor sin comprobar dependencias; corrección ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md)): verificar el cierre del conjunto.
+- **Una dependencia «casi lista» que llega tarde.** No se pidió fecha de aviso ni alternativa ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)).
+- **Un diagrama de dependencias desactualizado.** Se dibujó una vez; hay que revisarlo cada ciclo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una razón valor/costo ordena muy bien cuando los trabajos son independientes y divisibles; deja de hacerlo cuando hay dependencias, cuando el presupuesto es una mochila de tamaño fijo o cuando el valor depende del orden. ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md))
-- Con dependencias, el prefijo de mayor razón puede no ser entregable, y con un presupuesto fijo el óptimo puede dejar fuera un requisito de buena razón que no cabe junto a otros. ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md))
+Un grafo de dependencias solo contiene las relaciones que alguien declaró: las no declaradas aparecen como sorpresas. Las clases tratan las dependencias de requisitos ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md)) y de plan ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)) en contextos de planificación con ejemplos sintéticos, y las de software y de componentes en otros contextos; no se pueden trasladar sus reglas de un sentido a otro sin comprobar que la relación es la misma.
 
 ## Relación con otros conceptos
 

@@ -22,9 +22,9 @@ El andamiaje (scaffolding) es la estructura repetitiva que rodea al código de d
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-557 — Prototipado, scaffolding y exploración de alternativas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas/README.md):
+Caso medido en la sección «Ocho entidades: cuánto del andamiaje se usa» de [SE-557 — Prototipado, scaffolding y exploración de alternativas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones necesita una exportación. Antes de generar nada escribe cuatro criterios: error claro ante nota ausente, salida idéntica para la misma entrada, pruebas sin base de datos y menos de 200 líneas. Pide al asistente cuatro alternativas realmente distintas, cada una con supuestos y desventajas. Las evalúa ejecutando el mismo conjunto de 12 casos reales anonimizados, incluidos tres de nota ausente.
+El andamiaje suma 200 líneas, 40 funciones y ninguna línea de dominio: ninguna decide cómo se calcula una nota. De las 40 funciones, el código usa 4 y 36 quedan sin uso (90 %). El costo de esas 36 es de mantenimiento y de comprensión, y no es proporcional a su uso. El recuento es una ejecución real de `ast` sobre un andamiaje que genera una plantilla; los números dependen de esa plantilla y de elegir cuatro funciones usadas.
 
 ## Errores y confusiones comunes
 

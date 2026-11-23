@@ -22,9 +22,9 @@ El análisis por árbol de fallos parte de un evento tope («horno sobrecalentad
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md):
+Caso medido en la sección «FTA: del evento tope hacia las causas, y los cortes mínimos» de [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El análisis por árbol de fallos parte de un evento tope («horno sobrecalentado sin corte») y lo descompone con puertas Y y O hasta eventos básicos. Un **corte mínimo** es un conjunto mínimo de eventos básicos cuya ocurrencia conjunta produce el tope.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md)) son: Las tasas de fallo, las valoraciones y los parámetros de la planta son del autor, no hay un producto real analizado y el texto de las normas de pago no se reproduce ni se cita. El siguiente paso, `SE-446`, toma el análisis y lo expresa en el marco genérico de la seguridad funcional: niveles de integridad, probabilidad de fallo bajo demanda y arquitecturas redundantes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md)) son: Las tasas de fallo, las valoraciones y los parámetros de la planta son del autor, no hay un producto real analizado y el texto de las normas de pago no se reproduce ni se cita. El siguiente paso, `SE-446`, toma el análisis y lo expresa en el marco genérico de la seguridad funcional: niveles de integridad, probabilidad de fallo bajo demanda y arquitecturas redundantes.
 
 ## Relación con otros conceptos
 

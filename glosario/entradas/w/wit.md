@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-278 — WebAssembly en servidor y borde: component model](../../../classes/part-23-runtimes-y-plataformas-modernas/se-278-webassembly-en-servidor-y-borde-component-model/README.md)) son: Se midió un módulo trivial con `wasmtime` desde Python; no se midió una plataforma de borde, ningún módulo de tamaño real ni el modelo de componentes. El siguiente paso, `SE-279`, cambia de runtime: eBPF permite ejecutar programas pequeños dentro del núcleo de Linux, con un verificador que decide si se pueden cargar, y se ejecuta de verdad en esta parte.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-278 — WebAssembly en servidor y borde: component model](../../../classes/part-23-runtimes-y-plataformas-modernas/se-278-webassembly-en-servidor-y-borde-component-model/README.md)) son: Se midió un módulo trivial con `wasmtime` desde Python; no se midió una plataforma de borde, ningún módulo de tamaño real ni el modelo de componentes. El siguiente paso, `SE-279`, cambia de runtime: eBPF permite ejecutar programas pequeños dentro del núcleo de Linux, con un verificador que decide si se pueden cargar, y se ejecuta de verdad en esta parte.
 
 ## Relación con otros conceptos
 

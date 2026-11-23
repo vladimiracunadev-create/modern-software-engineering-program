@@ -32,7 +32,7 @@ En la plataforma, la auditoría de un flujo parte de un alcance firmado (pasos, 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)) son:
 
 - **Se declara el flujo accesible con cero hallazgos** — causa: se confundió «las reglas no encuentran nada» con accesibilidad. Corrección: declarar alcance, revisión humana y lo no comprobado.
 - **Se arreglan los hallazgos baratos y los bloqueos esperan** — causa: orden por facilidad. Corrección: comparar órdenes con personas bloqueadas y esfuerzo.

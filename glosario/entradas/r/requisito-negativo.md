@@ -32,14 +32,14 @@ El equipo toma la historia «subir una entrega con un adjunto», escribe doce ca
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-464 — Secure SDLC, abuso y pruebas negativas](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-464 — Secure SDLC, abuso y pruebas negativas](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md)) son:
 
 - **La suite pasa con un validador roto** — causa: solo ejemplos válidos. Corrección: negativos, bordes y mutantes.
 - **El analizador estático está limpio y hay un defecto** — causa: el defecto no tiene forma local reconocible. Corrección: pruebas negativas y revisión de diseño.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-464 — Secure SDLC, abuso y pruebas negativas](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): validador y reglas con cifras idénticas; la medición de la expresión regular es una lectura de reloj de cada equipo. No se usó ninguna herramienta de análisis comercial ni se evaluó el proceso de un equipo; el validador, los mutantes, los fragmentos y las reglas son construcciones del autor y los porcentajes marcan una frontera, no una tasa.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-464 — Secure SDLC, abuso y pruebas negativas](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): validador y reglas con cifras idénticas; la medición de la expresión regular es una lectura de reloj de cada equipo. No se usó ninguna herramienta de análisis comercial ni se evaluó el proceso de un equipo; el validador, los mutantes, los fragmentos y las reglas son construcciones del autor y los porcentajes marcan una frontera, no una tasa.
 
 ## Relación con otros conceptos
 

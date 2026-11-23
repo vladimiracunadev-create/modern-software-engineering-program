@@ -22,20 +22,20 @@ Las preguntas sobre el pasado («cuéntame la última vez que…») traen hechos
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md):
 
 En la plataforma de entregas, el archivo del taller conserva la petición original textual, quién la hizo y cuándo, su descomposición (observación, inferencia, solución), el problema reformulado, la guía de preguntas con su clasificación, la rúbrica aplicada por dos personas y las peticiones del backlog con su necesidad asignada. El contrato es que la petición original no se sobrescribe y que el problema reformulado indica qué observación lo confirmaría.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son:
 
 - **Los docentes dicen «sí» a todo y el panel no se usa** — causa: las preguntas eran guiadas o hipotéticas. Corrección: preguntar por episodios pasados concretos y revisar la guía con una segunda persona.
 - **El backlog crece con peticiones que parecen distintas y resultan iguales** — causa: no se agruparon por necesidad. Corrección: agrupar por necesidad con criterio explícito y contar necesidades, no peticiones.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. Las etiquetas son de una sola persona, las reglas se afinaron con pocos ejemplos y las pruebas con casos nuevos son de seis y tres elementos. El proyecto final reúne todo en un brief respaldado por evidencia.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. Las etiquetas son de una sola persona, las reglas se afinaron con pocos ejemplos y las pruebas con casos nuevos son de seis y tres elementos. El proyecto final reúne todo en un brief respaldado por evidencia.
 
 ## Relación con otros conceptos
 

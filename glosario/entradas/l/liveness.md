@@ -22,13 +22,13 @@ Safety afirma que algo malo nunca ocurre: no ejecutar sin autorización. Livenes
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md):
 
 El modelo de decisión diagnóstica persiste transición y versión antes de emitir efectos. Cada ejecución tiene ID; eventos duplicados son idempotentes y tardíos se archivan sin mutar el estado actual. Un diagrama se acompaña con tabla completa de eventos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)) son:
 
 - **Un pedido sin pagar aparece enviado** — causa: transición ilegal aceptada. Corrección: validar contra la tabla y rechazar.
 - **El estado cambia al recibir un evento inválido** — causa: error silencioso. Corrección: mantener el estado y registrar el rechazo.

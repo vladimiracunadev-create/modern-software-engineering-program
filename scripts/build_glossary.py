@@ -442,6 +442,20 @@ GUIDE_TEXT = """# Guía editorial del glosario
 | `glosario/casos.json` | dónde aparece cada concepto en los casos | no, `--refresh-cases` |
 | `site/glosario/` | páginas del portal con búsqueda | no |
 
+## Procedimiento para varias personas o sesiones escritoras
+
+Varias personas pueden desarrollar entradas a la vez sin pisarse, porque cada una edita archivos distintos:
+
+1. **Elige conceptos de un solo grupo** (una familia o una letra) y no los repitas con nadie: un concepto, un archivo `glosario/curado/<slug>.md`.
+2. **Escribe** el archivo con las seis secciones obligatorias (Definición, Por qué importa, Cómo funciona, Ejemplo, Errores y confusiones comunes, Límites y cuándo no aplica). Las demás secciones se componen solas. Cita las clases como `SE-nnn` sin enlazar: la publicación las enlaza.
+3. **Fundamenta cada afirmación** en lo que enseñan las clases (cítalas) o en una fuente verificada; marca como ilustración lo que no venga de ellas.
+4. **Regenera** con `python scripts/build_glossary.py` y valida con `python scripts/validate_glossary.py`.
+5. **Commitea solo** tus `glosario/curado/*.md` y los archivos generados que cambian (`glosario/entradas/`, `glosario/README.md`, `glosario/INVENTARIO.md`, `glosario/indice/`, `glosario/familias/`, `site/glosario/`) y, si cambian por tus conteos, `README.md`, `STATUS.md`, `FILE_INDEX.md` y `site/index.html` (los regenera `python scripts/build_phase2.py`).
+6. **Antes de empujar**, `git fetch` y rebase. Ante un conflicto en un archivo generado, no lo edites: toma cualquiera de las dos versiones, vuelve a ejecutar `build_glossary.py` (y `build_phase2.py` si el conflicto fue en README, STATUS, FILE_INDEX o `site/index.html`) y añade el resultado. Los archivos `glosario/curado/` de personas distintas no entran en conflicto.
+7. **Los conteos** (desarrolladas y compuestas) los calcula el generador a partir de `glosario/curado/`: no se escriben a mano en ninguna parte.
+
+Calidad mínima exigida por `scripts/validate_glossary.py` y `tests/test_glossary.py` a cada entrada curada: las seis secciones presentes; entre 350 y 1.100 palabras en las seis secciones si el concepto es troncal (entre 110 y 800 si es de apoyo); enlaces a clases existentes; y ninguna mención `SE-nnn` o `Parte NN` sin enlazar en la entrada publicada.
+
 ## Cómo desarrollar una entrada
 
 1. Busca el `slug` del concepto en [`INVENTARIO.md`](INVENTARIO.md) o en el índice.
@@ -485,7 +499,9 @@ Además de las partes, los roles y los casos, el programa ofrece una superficie 
 {fmt(c['total'])} conceptos ({c['troncal']} troncales y {fmt(c['apoyo'])} de apoyo). No son clases ni roles y no cambian el
 número de clases: cada entrada define el término, explica por qué importa y cómo funciona, advierte de errores y límites, lo
 relaciona con otros conceptos y enlaza las clases y los casos donde se enseña. Se consulta cuando una clase usa un término que no
-dominas y se usa para volver a la clase que lo desarrolla.
+dominas y se usa para volver a la clase que lo desarrolla. De los {fmt(c['total'])} conceptos, {c['desarrolladas']} tienen una entrada
+desarrollada a mano y {fmt(c['total'] - c['desarrolladas'])} se componen, con atribución, a partir de lo que las clases ya enseñan;
+el estado de cada entrada figura en su cabecera.
 
 - 🔎 [**Buscar un término en el portal**](https://vladimiracunadev-create.github.io/modern-software-engineering-program/glosario/index.html), con búsqueda por término y por sigla.
 - 🔤 [**Índice alfabético y por familias**](glosario/README.md): cómo se lee una entrada, conteos y accesos a todas las entradas.
@@ -632,7 +648,8 @@ def site_pages(items: list[gc.Entry]) -> dict[Path, str]:
         '</p><p id="glosario-cuenta" aria-live="polite"></p><p id="glosario-vacio" hidden>Ningún concepto coincide con la búsqueda.</p>'
     )
     intro = (
-        f"<p>{len(items)} conceptos ({c['nivel']['troncal']} troncales y {c['nivel']['apoyo']} de apoyo). Cada entrada define el término, "
+        f"<p>{len(items)} conceptos ({c['nivel']['troncal']} troncales y {c['nivel']['apoyo']} de apoyo); "
+        f"{c['profundidad'].get('desarrollada', 0)} con entrada desarrollada a mano y el resto compuesto desde las clases. Cada entrada define el término, "
         "explica por qué importa y cómo funciona, advierte de errores y límites y enlaza las clases donde se enseña. "
         "No son clases ni roles: no cambian el número de clases.</p>"
         f"<p>Saltar a: {letter_nav}</p>"

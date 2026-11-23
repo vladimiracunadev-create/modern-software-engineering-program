@@ -22,20 +22,20 @@ Trazar duración, bytes y concurrencia por operación separa espera de cómputo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-099 — Profilers de CPU, memoria, I/O y red](../../../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-099 — Profilers de CPU, memoria, I/O y red](../../../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md):
 
 En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-099 — Profilers de CPU, memoria, I/O y red](../../../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-099 — Profilers de CPU, memoria, I/O y red](../../../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md)) son:
 
 - **Se optimiza una función que no era el problema** — causa: perfil determinista inflado por llamadas. Corrección: confirmar con el tiempo total sin perfilador.
 - **El perfil de memoria hace la prueba 62 veces más lenta** — causa: `tracemalloc` activo en la medición de tiempo. Corrección: perfilar memoria y tiempo en ejecuciones separadas.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-099 — Profilers de CPU, memoria, I/O y red](../../../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un perfil dinámico observa entradas ejecutadas. La siguiente clase combina compilador, linter, formatter y análisis estático para detectar clases distintas de defectos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-099 — Profilers de CPU, memoria, I/O y red](../../../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md)) son: Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Un perfil dinámico observa entradas ejecutadas. La siguiente clase combina compilador, linter, formatter y análisis estático para detectar clases distintas de defectos.
 
 ## Relación con otros conceptos
 

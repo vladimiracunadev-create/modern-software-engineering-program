@@ -22,20 +22,20 @@ La memoria automática gestiona *objetos*, no *recursos*: un archivo, un socket 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md):
 
 Un servicio guarda respuestas en una caché sin límite. Los objetos son alcanzables; no es fallo del GC. Se define tamaño, expiración, métrica y comportamiento al saturarse.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)) son:
 
 - **toda memoria creciente = fuga GC** — causa: causas no separadas. Corrección: inspecciona alcanzabilidad, caché y memoria nativa.
 - **`del` = liberación física** — causa: niveles confundidos. Corrección: habla de referencias y política del runtime.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)) son: No perfila memoria nativa ni compara recolectores productivos. `SE-022` diseña mediciones de rendimiento y energía.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)) son: No perfila memoria nativa ni compara recolectores productivos. `SE-022` diseña mediciones de rendimiento y energía.
 
 ## Relación con otros conceptos
 

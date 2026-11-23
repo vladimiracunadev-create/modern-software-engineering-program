@@ -26,9 +26,9 @@ El tiempo de cómputo del análisis es el peor caso (WCET), no el medio. Lo obti
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md):
+Caso medido en la sección «WCET: lo que se mide y lo que se argumenta» de [SE-451 — RTOS y planificación de tiempo real](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El tiempo de cómputo del peor caso de una tarea es el insumo más difícil. Medirlo en pruebas da un límite inferior: lo que se observó, no lo que puede ocurrir. En el laboratorio, una ordenación de 8 elementos con salida anticipada usa 56 pasos de mediana, 80 pasos como máximo observado en 1000 entradas al azar y 84 pasos en el peor caso real (entrada en orden inverso), que 1000 entradas aleatorias no generan: la marca de agua queda 4,8 % por debajo.
 
 ## Errores y confusiones comunes
 

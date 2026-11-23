@@ -30,9 +30,9 @@ Traslada el experimento a otro de los dominios persistentes (por ejemplo, un ser
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md):
+Caso medido en la sección «Apagado abrupto o con drenaje en un servidor local real» de [SE-250 — Health, readiness y shutdown ordenado](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md):
 
-La plataforma expone tres sondeos: `/salud/viva` (local, sin dependencias, usado para reiniciar), `/salud/lista` (comprueba base de datos, cola y que la caché alcance el 60 % de aciertos, usado para retirar del reparto) y `/salud/arranque` (permite hasta 60 s de inicio). Al recibir la señal de terminación, la instancia se declara no lista, deja de aceptar conexiones, espera hasta 25 s a las solicitudes en curso, devuelve a la cola los trabajos largos y sale con código 0. El plazo de gracia del orquestador es 30 s.
+Se levanta un `ThreadingHTTPServer` cuyo manejador tarda 200 ms (diez pausas de 20 ms) y 30 clientes envían una solicitud a la vez. A los 80 ms se detiene el servidor de dos maneras. **Abrupto:** se activa una bandera que corta las conexiones en curso sin responder (el efecto visto desde el cliente de un proceso que muere). **Con drenaje:** `shutdown()` deja de aceptar conexiones y `server_close()` espera a los hilos en curso.
 
 ## Errores y confusiones comunes
 

@@ -16,6 +16,8 @@ El código contiene la condición y el valor se lee de configuración, de modo q
 
 `SE-485`: una función nueva se despliega con la bandera apagada, se activa para un grupo de personas y, si aparece un problema, se apaga sin desplegar de nuevo. `SE-414` muestra el error contrario: usar la misma tabla o el mismo `if` para plan, derecho y bandera.
 
+Los tipos importan porque cada uno vive un tiempo distinto: una bandera de lanzamiento debe retirarse cuando el lanzamiento termina, mientras que una operativa (apagar una dependencia) o de permisos puede durar mientras exista la razón. Según `SE-485`, la disciplina que contiene el costo es asignar a cada bandera un dueño y un plazo.
+
 ## Errores y confusiones comunes
 
 - **Mezclar plan, derecho y bandera** en una misma condición (`SE-414`).

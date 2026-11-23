@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md)) son: El éxito por paso, la detección de la puerta, el acierto por muestra y la correlación son parámetros del autor; el enrutador usa cuatro intenciones y plantillas escritas a mano; los tiempos paralelos usan esperas de sueño. No se midió ningún modelo de lenguaje ni ningún proveedor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-590 — Encadenado, enrutamiento y paralelización](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md)) son: El éxito por paso, la detección de la puerta, el acierto por muestra y la correlación son parámetros del autor; el enrutador usa cuatro intenciones y plantillas escritas a mano; los tiempos paralelos usan esperas de sueño. No se midió ningún modelo de lenguaje ni ningún proveedor.
 
 ## Relación con otros conceptos
 

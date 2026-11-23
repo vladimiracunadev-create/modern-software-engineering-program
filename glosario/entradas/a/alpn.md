@@ -22,13 +22,13 @@ SNI permite anunciar el nombre durante el handshake para que un servidor elija c
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-043 — TLS, certificados y confianza en tránsito](../../../classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md):
+Caso medido en la sección «SNI, ALPN y virtualización» de [SE-043 — TLS, certificados y confianza en tránsito](../../../classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md):
 
-La petición observable de extremo a extremo monitorea días hasta expiración y prueba la cadena desde un cliente limpio. La rotación instala certificado e intermedios antes del corte y conserva rollback. Ante un error, el informe distingue reloj incorrecto, nombre distinto, expiración, ancla ausente y cadena incompleta.
+SNI permite anunciar el nombre durante el handshake para que un servidor elija certificado; ALPN negocia protocolos como HTTP/2. Un balanceador puede terminar TLS y abrir una segunda conexión interna. El mapa de confianza debe incluir cada terminación, no asumir cifrado único extremo a extremo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-043 — TLS, certificados y confianza en tránsito](../../../classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-043 — TLS, certificados y confianza en tránsito](../../../classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md)) son:
 
 - **`unable to get local issuer certificate`** — causa: el almacén del cliente no tiene la raíz o falta una intermedia. Corrección: comprobar el almacén de esa herramienta y la cadena que presenta el servidor.
 - **`Hostname mismatch` con cadena válida** — causa: el nombre pedido no figura en la SAN. Corrección: usar el nombre correcto o emitir un certificado que lo incluya.

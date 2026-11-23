@@ -30,9 +30,9 @@ Según [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](..
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
+Caso medido en la sección «Degradación: devolver menos antes que nada» de [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Cuando una dependencia no está, el sistema puede devolver una respuesta **parcial o antigua** en lugar de fallar. El experimento simula 2000 peticiones con una dependencia caída el 40 % del tiempo y una caché con un 70 % de aciertos. Sin degradación, el 60,0 % de las respuestas son útiles; con la caché como respaldo, el **87,5 %**. La degradación convierte la pregunta «¿funciona?» en «¿qué parte del valor se conserva?». Exige tres decisiones que son de producto, no solo técnicas:
 
 ## Errores y confusiones comunes
 

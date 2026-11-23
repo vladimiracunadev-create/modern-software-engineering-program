@@ -16,11 +16,11 @@ La clase donde se define, [SE-594 — Embeddings, recuperación y agentic RAG](.
 
 ## Cómo funciona
 
-[SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md)) son: El vector del experimento no es un modelo de embeddings semántico; las consultas son sintéticas y salen del propio corpus; solo hay seis consultas ajenas; no se evaluó ningún modelo de embeddings, ninguna base vectorial ni ningún producto de RAG. El siguiente paso, `SE-595`, sale del proceso: cómo un agente descubre y llama herramientas de otros y cómo se comunican entre sí agentes distintos con protocolos como MCP y A2A.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-594 — Embeddings, recuperación y agentic RAG](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md)) son: El vector del experimento no es un modelo de embeddings semántico; las consultas son sintéticas y salen del propio corpus; solo hay seis consultas ajenas; no se evaluó ningún modelo de embeddings, ninguna base vectorial ni ningún producto de RAG. El siguiente paso, `SE-595`, sale del proceso: cómo un agente descubre y llama herramientas de otros y cómo se comunican entre sí agentes distintos con protocolos como MCP y A2A.
 
 ## Relación con otros conceptos
 

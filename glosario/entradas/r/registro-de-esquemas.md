@@ -22,7 +22,7 @@ Un **registro de esquemas** guarda las versiones de cada esquema y comprueba, an
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md):
 
 El equipo de la plataforma fija las reglas de evolución de `EntregaRecibida`. **Modo del registro:** compatibilidad completa, porque el log se retiene 14 días y hay consumidores que se despliegan con semanas de desfase. **Reglas:** se permite añadir campos opcionales con valor por defecto y quitar campos opcionales; se prohíbe renombrar, cambiar tipos y volver obligatorio un campo. **Lectores:** todos los consumidores usan lectores tolerantes sobre los campos que necesitan y validan su tipo; los estados desconocidos se conservan y se derivan a una cola de revisión con una alarma.
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó Avro, Protocol Buffers, JSON Schema ni registro de esquemas: los esquemas, los lectores, el despliegue en cinco pasos del 20 % y el 6 % de valores nuevos son construcciones del autor, y los resultados no se extrapolan a ningún formato ni producto.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó Avro, Protocol Buffers, JSON Schema ni registro de esquemas: los esquemas, los lectores, el despliegue en cinco pasos del 20 % y el 6 % de valores nuevos son construcciones del autor, y los resultados no se extrapolan a ningún formato ni producto.
 
 ## Relación con otros conceptos
 

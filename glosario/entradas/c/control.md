@@ -37,7 +37,7 @@ El equipo de *Avisos* convierte el proyecto en una práctica. Mantiene el regist
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-062 — Control de flujo y decisiones](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-062 — Control de flujo y decisiones](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)) son:
 
 - **clases mal asignadas justo en el límite** — causa: `<=` y `<` intercambiados, sin prueba de frontera. Corrección: probar ambos lados de cada umbral.
 - **`if budget:` responde igual con 0 y con `None`** — causa: verdad de Python mezcla ausencia y cero. Corrección: comparar con `is None` y con 0 por separado.

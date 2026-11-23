@@ -22,20 +22,20 @@ Según [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../..
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md):
 
 En la plataforma de entregas, el registro de una entrevista conserva participante (código, no nombre), fecha, quién entrevistó, la guía usada, el motivo de selección, la transcripción o notas literales y los códigos asignados con quién los asignó. El contrato es que el informe solo puede citar fragmentos que existan en el registro, y que cada afirmación declare cuántas personas la respaldan.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son:
 
 - **El informe afirma que «nadie mencionó X, así que X no importa»** — causa: se interpretó la ausencia en una muestra pequeña como ausencia en la población. Corrección: calcular la probabilidad de no oír el tema y declararla en el informe.
 - **Las respuestas suenan todas iguales y amables** — causa: preguntas hipotéticas o guiadas que invitan a la cortesía. Corrección: preguntar por episodios pasados concretos y sondear con «¿y entonces qué hiciste?».
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se entrevistó a nadie, las prevalencias son supuestos y las codificadoras son simuladas. La siguiente clase convierte las citas verificadas en hipótesis y preguntas críticas que puedan refutarse.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se entrevistó a nadie, las prevalencias son supuestos y las codificadoras son simuladas. La siguiente clase convierte las citas verificadas en hipótesis y preguntas críticas que puedan refutarse.
 
 ## Relación con otros conceptos
 

@@ -22,9 +22,9 @@ Si una herramienta automatiza o reemplaza una verificación (el medidor de cober
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-448 — Aviación: DO-178C, DO-254 y ARP4754](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md):
+Caso medido en la sección «Calificación de herramientas y trazabilidad» de [SE-448 — Aviación: DO-178C, DO-254 y ARP4754](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Si una herramienta automatiza o reemplaza una verificación (el medidor de cobertura, el generador de código), su error puede pasar inadvertido; por eso existe un documento aparte sobre la calificación de herramientas y los suplementos para modelos, orientación a objetos y métodos formales. En el laboratorio, el medidor es el trazador de líneas de Python, no una herramienta calificada, y por eso los resultados sirven para entender el mecanismo y no como evidencia de certificación.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-448 — Aviación: DO-178C, DO-254 y ARP4754](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md)) son: La función del limitador es una pieza didáctica con defectos plantados, el medidor no es una herramienta calificada, las normas de pago no se reproducen y no se afirma conformidad con DO-178C ni DO-254. El siguiente paso, `SE-449`, pasa a los dispositivos médicos, donde el software se clasifica por su contribución al daño y por los controles externos que lo acotan.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-448 — Aviación: DO-178C, DO-254 y ARP4754](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md)) son: La función del limitador es una pieza didáctica con defectos plantados, el medidor no es una herramienta calificada, las normas de pago no se reproducen y no se afirma conformidad con DO-178C ni DO-254. El siguiente paso, `SE-449`, pasa a los dispositivos médicos, donde el software se clasifica por su contribución al daño y por los controles externos que lo acotan.
 
 ## Relación con otros conceptos
 

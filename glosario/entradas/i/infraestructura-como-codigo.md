@@ -16,24 +16,24 @@ La clase donde se define, [SE-402 — Infraestructura como código y estado](../
 
 ## Cómo funciona
 
-[SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. Cada herramienta usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
+[SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. Cada herramienta usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md):
 
 El equipo de la plataforma guarda el estado en un almacén remoto con bloqueo y cifrado, trata su acceso como el de un secreto y exige que todo cambio pase por un plan revisado por una persona distinta de quien lo escribió. Programa un plan solo de lectura cada noche para detectar deriva y abre una incidencia con cada diferencia; cuando la deriva es un arreglo de emergencia, el equipo lo incorpora al código o lo revierte de forma deliberada, no al pasar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)) son:
 
 - **Un apply revierte un arreglo de emergencia** — causa: deriva no incorporada al código. Corrección: revisar las acciones que el código no editó y decidir cada una.
 - **Un recurso se crea dos veces o falla por duplicado** — causa: escritura del estado perdida. Corrección: almacén remoto con bloqueo y versión.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada herramienta usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ninguna herramienta de infraestructura ni se tocó un proveedor: el diferenciador, la enumeración y el planificador son modelos del autor, las duraciones y el grafo son sintéticos y no se modelaron límites de tasa ni reemplazos forzados. La siguiente clase mira dónde se aplica todo esto: cuentas, entornos y separación de responsabilidades.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada herramienta usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ninguna herramienta de infraestructura ni se tocó un proveedor: el diferenciador, la enumeración y el planificador son modelos del autor, las duraciones y el grafo son sintéticos y no se modelaron límites de tasa ni reemplazos forzados. La siguiente clase mira dónde se aplica todo esto: cuentas, entornos y separación de responsabilidades.
 
 ## Relación con otros conceptos
 

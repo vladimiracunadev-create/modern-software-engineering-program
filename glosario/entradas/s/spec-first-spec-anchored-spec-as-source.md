@@ -16,11 +16,11 @@ La clase donde se define, [SE-548 — SDD: spec-first, spec-anchored y spec-as-s
 
 ## Cómo funciona
 
-[SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)) son: El generador es una plantilla y el comprobador y las diez derivas son del autor; no se ejecutó ninguna herramienta de SDD ni se midió productividad. El siguiente paso, `SE-549`, pasa a los componentes cuya salida es probabilística, donde una especificación no puede dictar un resultado único y el oráculo es una evaluación con umbral.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)) son: El generador es una plantilla y el comprobador y las diez derivas son del autor; no se ejecutó ninguna herramienta de SDD ni se midió productividad. El siguiente paso, `SE-549`, pasa a los componentes cuya salida es probabilística, donde una especificación no puede dictar un resultado único y el oráculo es una evaluación con umbral.
 
 ## Relación con otros conceptos
 

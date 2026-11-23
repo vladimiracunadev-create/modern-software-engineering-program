@@ -22,9 +22,9 @@ Un módulo recibe una memoria lineal: un arreglo de bytes que crece en páginas 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-277 — WebAssembly y WASI](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md):
+Caso medido en la sección «La memoria lineal es la frontera» de [SE-277 — WebAssembly y WASI](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Un módulo recibe una memoria lineal: un arreglo de bytes que crece en páginas de 64 KiB y que solo se direcciona con enteros relativos a su inicio. No existe la instrucción «leer la dirección absoluta X del proceso». En el experimento, el módulo declara una página (65 536 bytes) y se le pide leer en la dirección 70 000: el runtime responde con una trampa (`out of bounds memory access`), el llamador recibe una excepción y, lo importante, el almacén sigue utilizable: llamar después a `add(40, 2)` devuelve 42. La trampa mata la llamada, no el servicio.
 
 ## Errores y confusiones comunes
 

@@ -28,7 +28,7 @@ La canalización de la API de entregas cierra aquí su recorrido en la [Parte 40
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md)) son:
 
 - **El retroceso falla con errores de columna** — causa: renombrado o borrado directo. Corrección: cambio en paralelo: expandir, migrar, contraer.
 - **Tras retroceder faltan datos** — causa: la versión nueva escribe solo en lo nuevo. Corrección: doble escritura y relleno de los datos antiguos.

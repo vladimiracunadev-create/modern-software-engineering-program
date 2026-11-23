@@ -22,20 +22,20 @@ Un síntoma es la parte visible de una situación: una frase en un ticket, una c
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md):
 
 En la plataforma de entregas, un ticket conserva identificador, fecha, texto original, canal y, cuando existe, una etiqueta de causa asignada por una persona identificada, con la fecha de asignación. El contrato del registro es que el texto original nunca se sobrescribe: la etiqueta de causa es una interpretación que puede cambiar, y el texto es el dato. Esa separación permite que un revisor vea cuántos síntomas se fusionaron y rehaga la agrupación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)) son:
 
 - **El tablero prioriza una falla que, al arreglarla, no reduce los tickets** — causa: se contó la frase y no la causa; varias redacciones de una causa quedaron dispersas. Corrección: etiquetar la causa por ticket (con quién y cuándo) y contar por causa, conservando el texto original.
 - **La reunión discute «la solución» durante una hora sin acordar el problema** — causa: la petición original se aceptó como requisito. Corrección: reformular la petición como necesidad («necesito… para…») antes de proponer opciones.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizaron tickets reales, no se midió a ninguna persona y los rangos del dimensionamiento son supuestos. La siguiente clase pregunta quiénes son las personas detrás de los tickets y en qué contexto intentan hacer su trabajo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-121 — Problemas, síntomas, necesidades y oportunidades](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizaron tickets reales, no se midió a ninguna persona y los rangos del dimensionamiento son supuestos. La siguiente clase pregunta quiénes son las personas detrás de los tickets y en qué contexto intentan hacer su trabajo.
 
 ## Relación con otros conceptos
 

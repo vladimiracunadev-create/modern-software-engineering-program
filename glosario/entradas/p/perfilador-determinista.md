@@ -22,13 +22,13 @@ Un **perfilador determinista** como `cProfile` registra cada llamada y cada reto
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md):
 
 El equipo quiere decidir si la nueva ordenación de entregas es más rápida. Antes de medir, escribe el protocolo: entrada de 20 000 entregas con la distribución del cierre anterior, 30 repeticiones por versión en 5 procesos nuevos intercalados (A, B, A, B), mediana como estadístico, diferencia mínima relevante del 10 % y criterio de «no distinguible» si el intervalo de las diferencias incluye cero.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)) son:
 
 - **Una mejora desaparece al repetir** — causa: ejecución única en un proceso con interferencias. Corrección: repetir en varios procesos con un estadístico robusto.
 - **El perfil acusa a una función que no es el cuello de botella** — causa: sobrecarga del perfilador atribuida a funciones pequeñas. Corrección: verificar con una medición sin perfilador.

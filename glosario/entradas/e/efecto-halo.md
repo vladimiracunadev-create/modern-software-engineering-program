@@ -22,20 +22,20 @@ Los metaanálisis de selección de personal (Schmidt y Hunter, revisado por Sack
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)) son:
 
 - **Nadie puede reproducir mis resultados** — causa: sin comando, versión ni datos. Corrección: incluir comando, entorno y datos sintéticos.
 - **El comité duda de mi alcance** — causa: se describe participación y no autoría. Corrección: atribuir con precisión qué decidiste y hiciste.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre cuatro entradas escritas por el autor, en Windows y Ubuntu (WSL2), con resultados idénticos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-538 — Portafolio, entrevistas y defensa profesional](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre cuatro entradas escritas por el autor, en Windows y Ubuntu (WSL2), con resultados idénticos.
 
 ## Relación con otros conceptos
 

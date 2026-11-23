@@ -22,13 +22,13 @@ Una base en memoria del mismo motor que producción (SQLite en memoria) tiene mu
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-427 — Dobles, virtualización y entornos de prueba](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md):
+Caso medido en la sección «Fidelidad de un doble» de [SE-427 — Dobles, virtualización y entornos de prueba](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md):
 
-El equipo de la plataforma define una carpeta `contrato/` con una batería de ocho comprobaciones del repositorio de entregas y la ejecuta dos veces en la integración continua: contra SQLite en memoria y contra el fake del repositorio que usan las pruebas de servicio; si el fake no supera una comprobación que la base supera, la compilación falla.
+Un doble es fiel en la medida en que se comporta como lo real en lo que las pruebas usan. No se mide por inspección: se escribe una batería de comportamientos (rechazar un duplicado, respetar un rango, ordenar los nulos de una forma, tratar mayúsculas) y se ejecuta contra la implementación real y contra el doble. Cada comprobación que el doble no supera es una situación en la que una prueba de servicio pasará con él y fallaría con la real. La batería de contrato es el mismo mecanismo que anclaba al doble en `SE-423`.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-427 — Dobles, virtualización y entornos de prueba](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-427 — Dobles, virtualización y entornos de prueba](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md)) son:
 
 - **Una prueba con doble pasa y con la dependencia real falla** — causa: el doble no reproduce una regla. Corrección: batería de contrato ejecutada contra ambos.
 - **Un refactor sin cambios de comportamiento rompe pruebas** — causa: pruebas que verifican llamadas y orden. Corrección: pruebas de estado y verificación de interacción solo donde el efecto es lo único observable.

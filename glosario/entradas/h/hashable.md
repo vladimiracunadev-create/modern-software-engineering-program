@@ -32,7 +32,7 @@ Lista para una secuencia que crece o se modifica; tupla para una secuencia fija 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-066 — Colecciones y transformación de datos](../../../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-066 — Colecciones y transformación de datos](../../../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md)) son:
 
 - **cambiar una fila cambia todas** — causa: multiplicar una lista de listas comparte el objeto interno. Corrección: construir con una comprensión.
 - **la copia «cambia sola»** — causa: copia superficial de una estructura anidada. Corrección: `copy.deepcopy` o evitar la mutación.

@@ -22,9 +22,9 @@ El peor caso fija garantía; promedio exige distribución justificada; amortizad
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-055 — Complejidad temporal y espacial](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial/README.md):
+Caso medido en la sección «Costo amortizado» de [SE-055 — Complejidad temporal y espacial](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial/README.md):
 
-El modelo de decisión diagnóstica modela recorrido O(V+E) y memoria O(V). El benchmark genera grafos dispersos y densos, separa construcción de consulta y registra versión. Un presupuesto cancela antes de agotar memoria y reporta salida parcial como incompleta.
+Añadir un elemento a una lista de Python es «O(1) amortizado». `sys.getsizeof` muestra por qué: al añadir elementos uno por uno el tamaño de la lista cambia solo en algunos puntos (88 bytes con 1 elemento, 120 con 5, 184 con 9, 248 con 17, 312 con 25, 376 con 33). La mayoría de las inserciones no reservan memoria; algunas sí, y son más costosas. El promedio por inserción es constante, pero una inserción concreta puede ser lenta. Esto importa en sistemas con requisitos de latencia: el promedio no es el peor caso.
 
 ## Errores y confusiones comunes
 

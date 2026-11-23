@@ -16,24 +16,24 @@ La clase donde se define, [SE-395 — Taller: reproducir una carrera y un fallo 
 
 ## Cómo funciona
 
-[SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md):
 
 El equipo del reporte del lunes sigue el procedimiento del taller. Para el cupo duplicado, escribe el modelo de tres pasos, reproduce con el calendario mínimo de seis pasos y descubre que otra ruta (la importación masiva) también leía y escribía el cupo sin la comprobación atómica. La corrección reemplaza «leer y escribir» por `UPDATE cupo SET libres = libres - 1 WHERE libres > 0` y comprueba el número de filas afectadas; la regresión ejecuta el calendario mínimo y 200 semillas del planificador y falla antes del cambio.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md)) son:
 
 - **El fallo desaparece al añadir registros** — causa: el registro cambia el orden de los pasos. Corrección: registrar fuera de la sección o grabar la ejecución.
 - **El arreglo vuelve a fallar por otra ruta** — causa: solo se protegió una de las rutas. Corrección: proteger el dato, no la ruta, y probar cada ruta.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se usaron hilos del sistema operativo ni una red: el modelo de tres pasos, el ruido, el flujo de cinco pasos y la tasa de 1 en 70 son construcciones del autor, y la reducción puede devolver un mínimo local.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-395 — Taller: reproducir una carrera y un fallo parcial](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se usaron hilos del sistema operativo ni una red: el modelo de tres pasos, el ruido, el flujo de cinco pasos y la tasa de 1 en 70 son construcciones del autor, y la reducción puede devolver un mínimo local.
 
 ## Relación con otros conceptos
 

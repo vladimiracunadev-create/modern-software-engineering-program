@@ -32,7 +32,7 @@ Significa que el resolvedor consultado afirma que no existe. Puede deberse a un 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-041 — DNS, nombres, resolución y fallos](../../../classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-041 — DNS, nombres, resolución y fallos](../../../classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)) son:
 
 - **«DNS falla» ante cualquier error de red** — causa: no se distinguió NXDOMAIN de un resolvedor sin respuesta. Corrección: clasificar el código de error y probar con otro resolvedor.
 - **Comparar resultados de dos entornos sin declararlos** — causa: la resolución depende de caché, familia y resolvedor. Corrección: registrar dónde y con qué herramienta se resolvió.

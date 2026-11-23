@@ -28,7 +28,7 @@ Define H={DNS,TCP,TLS}, P={p1,p2,p3} y una relación `refuta`. Calcula qué hip�
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-051 — Conjuntos, relaciones, funciones y grafos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-051 — Conjuntos, relaciones, funciones y grafos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md)) son:
 
 - **El recorrido no termina** — causa: no hay conjunto de visitados o medida decreciente. Corrección: registrar los nodos visitados y acotar los pasos.
 - **El orden de construcción cambia entre ejecuciones** — causa: se fijó una prueba al orden de vecinos. Corrección: comprobar solo las propiedades exigidas por el contrato.

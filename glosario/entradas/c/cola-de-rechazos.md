@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-339 — Pipes and filters y arquitecturas de flujo](../../../classes/part-28-estilos-arquitectonicos/se-339-pipes-and-filters-y-arquitecturas-de-flujo/README.md)) son: Los datos son sintéticos, la memoria es la de Python y los tiempos de hilo dependen del sistema; no se midió ninguna plataforma de flujo de datos ni un sistema de producción. El siguiente paso, `SE-340`, cambia de eje: separar procesos y llamarse por red, con los costos que un límite de proceso añade a cada llamada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-339 — Pipes and filters y arquitecturas de flujo](../../../classes/part-28-estilos-arquitectonicos/se-339-pipes-and-filters-y-arquitecturas-de-flujo/README.md)) son: Los datos son sintéticos, la memoria es la de Python y los tiempos de hilo dependen del sistema; no se midió ninguna plataforma de flujo de datos ni un sistema de producción. El siguiente paso, `SE-340`, cambia de eje: separar procesos y llamarse por red, con los costos que un límite de proceso añade a cada llamada.
 
 ## Relación con otros conceptos
 

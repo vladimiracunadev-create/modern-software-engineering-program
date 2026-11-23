@@ -32,14 +32,14 @@ El fragmento simula doce tareas con mediana de cinco días y dispersión logarí
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md)) son:
 
 - **Se incumple la fecha pese a estimaciones razonables** — causa: se sumaron medianas. Corrección: simular el total y comunicar percentiles.
 - **El pronóstico cambia mucho de una semana a otra** — causa: historial muy corto. Corrección: repetir con subconjuntos y comunicar rango.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se estimó ni se pronosticó ningún proyecto real; las duraciones lognormales, el factor común, el historial de Poisson y la cola de un servidor son construcciones del autor, y el modelo supone semanas independientes y elementos de tamaño parecido.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se estimó ni se pronosticó ningún proyecto real; las duraciones lognormales, el factor común, el historial de Poisson y la cola de un servidor son construcciones del autor, y el modelo supone semanas independientes y elementos de tamaño parecido.
 
 ## Relación con otros conceptos
 

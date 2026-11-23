@@ -22,13 +22,13 @@ La idea de «trabajo por hacer» propone que las personas «contratan» un produ
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md):
 
 En la plataforma de entregas, el mapa de actores conserva por cada actor: rol, qué decide o veta, qué evidencia aceptaría, qué teme y qué contexto habita. Un trabajo conserva circunstancia, deseo, resultado y contexto que lo altera. El contrato es que ninguna afirmación de mejora se publica sin su desagregación por los contextos declarados.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)) son:
 
 - **La opción «ganadora» empeora la experiencia de un grupo específico** — causa: se decidió con la métrica agregada y composiciones distintas por opción. Corrección: desagregar por los contextos declarados y comparar con la misma mezcla (estandarizar) antes de decidir.
 - **La persona-ficha no se parece a nadie que se haya entrevistado** — causa: se construyó con promedios o con intuición. Corrección: construir la persona desde observaciones concretas y declarar de dónde viene cada rasgo.

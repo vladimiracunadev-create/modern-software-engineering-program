@@ -32,14 +32,14 @@ La CLI diagnóstica recorre un grafo con pila explícita y `visited`. Cada extra
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md)) son:
 
 - **el resultado cambia según los datos, sin error** — causa: se elimina de la lista que se recorre. Corrección: construir una lista nueva o iterar sobre una copia.
 - **`RuntimeError: dictionary changed size`** — causa: se añaden o quitan claves durante el recorrido. Corrección: recorrer `list(d)` o construir un diccionario nuevo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md)) son: Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas. Un recorrido correcto puede ser demasiado costoso y Python impone límites de recursos. La siguiente clase encapsula decisiones mediante funciones y contratos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-063 — Iteración, recursión y recorridos](../../../classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md)) son: Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas. Un recorrido correcto puede ser demasiado costoso y Python impone límites de recursos. La siguiente clase encapsula decisiones mediante funciones y contratos.
 
 ## Relación con otros conceptos
 

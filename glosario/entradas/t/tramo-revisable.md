@@ -22,9 +22,9 @@ El flujo pide confirmar las unidades de trabajo en la rama de la funcionalidad e
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md):
+Caso medido en la sección «Commits en tramos revisables» de [SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El flujo pide confirmar las unidades de trabajo en la rama de la funcionalidad en tramos revisables de unas 400 líneas modificadas, y que una unidad de alto riesgo vaya en su propio commit. El número es una convención, y su razón es de revisión: una persona (o un agente revisor) puede leer 400 líneas con atención; 463 de una vez, con reorganizaciones mezcladas, no. El tamaño se puede medir con `git log --numstat`. Lo que no se puede medir es si un commit pequeño es coherente.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md)) son: No se ejecutó Gentle AI ni se midió el efecto de ODD en equipos; los historiales son sintéticos y las reglas son las que la documentación declara. El siguiente paso, `SE-551`, es el taller: el mismo cambio, silenciar un curso, con cinco metodologías, medido con los mismos mutantes.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md)) son: No se ejecutó Gentle AI ni se midió el efecto de ODD en equipos; los historiales son sintéticos y las reglas son las que la documentación declara. El siguiente paso, `SE-551`, es el taller: el mismo cambio, silenciar un curso, con cinco metodologías, medido con los mismos mutantes.
 
 ## Relación con otros conceptos
 

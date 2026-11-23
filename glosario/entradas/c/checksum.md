@@ -32,7 +32,7 @@ El fragmento comprueba un checksum y detecta un cambio de un byte. Antes de ejec
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-473 — Firmas, checksums y verificación](../../../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)) son:
 
 - **El atacante firma con su clave y pasa** — causa: clave de verificación descargada de la misma página. Corrección: clave fijada de antemano en una fuente independiente.
 - **Se acepta una versión antigua vulnerable** — causa: sin secuencia ni caducidad en lo firmado. Corrección: número monótono firmado y recordado por el cliente.

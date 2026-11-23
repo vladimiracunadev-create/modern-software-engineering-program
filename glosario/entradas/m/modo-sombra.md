@@ -22,9 +22,9 @@ En el modo sombra, cada petición se envía al sistema antiguo, cuya respuesta s
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md):
+Caso medido en la sección «Modo sombra: dos respuestas, una decisión» de [SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+En el modo sombra, cada petición se envía al sistema antiguo, cuya respuesta se devuelve al usuario, y también al nuevo, cuya respuesta se compara y se descarta. En el experimento se ejecutaron ambos módulos sobre 20 000 peticiones sintéticas: difirieron en 203 (1,01 %). Las causas, clasificadas, fueron 145 por redondeo en el borde (el módulo nuevo trunca los minutos a horas y el antiguo conserva la fracción), 57 por un plazo de extensión que el antiguo concede y el nuevo olvidó, y 1 por un cambio de hora que el antiguo trata con un desplazamiento.
 
 ## Errores y confusiones comunes
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md)) son: Los dos módulos, las tres diferencias, las tasas y las peticiones son construcciones del autor; la detección se calculó por muestreo y por una distribución de Poisson con supuestos declarados. No se migró ningún sistema real ni se midió el costo humano de mantener dos versiones.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md)) son: Los dos módulos, las tres diferencias, las tasas y las peticiones son construcciones del autor; la detección se calculó por muestreo y por una distribución de Poisson con supuestos declarados. No se migró ningún sistema real ni se midió el costo humano de mantener dos versiones.
 
 ## Relación con otros conceptos
 

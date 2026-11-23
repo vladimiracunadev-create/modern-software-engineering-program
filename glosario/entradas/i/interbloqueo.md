@@ -28,7 +28,7 @@ Evita el bloqueo eterno, no el interbloqueo: ambos hilos fallan o uno falla y el
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md)) son:
 
 - **Contadores que a veces están un poco bajos** — causa: leer-sumar-escribir sin sincronizar. Corrección: operación atómica o sección crítica.
 - **El servicio se congela y no hay error** — causa: espera circular entre cerrojos. Corrección: orden global de adquisición.

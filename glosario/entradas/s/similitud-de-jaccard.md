@@ -22,20 +22,20 @@ Se simulan 20 términos con definiciones de 14 palabras. Para cada término se g
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md):
 
 El portal de la plataforma de entregas mantiene un glosario de 30 términos con etiqueta preferida, alternativas y una definición única que las demás páginas enlazan. El buscador indexa título, cuerpo y alternativas del glosario. El registro de consultas sin resultado se revisa cada mes: «descuento por tarde» pasó a ser una alternativa de «penalización por retraso». Un recorrido en anchura en cada construcción comprueba que no hay huérfanas y que ninguna página está a más de tres clics.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md)) son:
 
 - **Quien busca con otras palabras no encuentra nada** — causa: el buscador es léxico y no hay alternativas. Corrección: añadir etiquetas alternativas al glosario y a los metadatos.
 - **Un término tiene tres definiciones distintas** — causa: se copió y se editó sin fuente única. Corrección: centralizar la definición y enlazarla desde las demás.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de SKOS ni las de la bibliografía enlazada abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún lector ni se evaluó un buscador de producción: el vocabulario de 40 conceptos con tres sinónimos exactos, las definiciones de 14 palabras sorteadas y el sitio aleatorio de 120 páginas son construcciones del autor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md)) son: Las definiciones son operativas para el portal; no reemplazan las de SKOS ni las de la bibliografía enlazada abajo. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún lector ni se evaluó un buscador de producción: el vocabulario de 40 conceptos con tres sinónimos exactos, las definiciones de 14 palabras sorteadas y el sitio aleatorio de 120 páginas son construcciones del autor.
 
 ## Relación con otros conceptos
 

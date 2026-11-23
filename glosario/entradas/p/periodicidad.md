@@ -22,13 +22,13 @@ Para saber si un sistema se puede apagar hace falta saber quién lo usa, y de es
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-525 — Retiro, archivado y disposición de sistemas](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-525 — Retiro, archivado y disposición de sistemas](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo hace el inventario de consumidores del módulo: 11 aplicaciones, 3 informes programados y, tras preguntar a las áreas, dos consultas manuales (una anual de finanzas y otra trimestral de la coordinación académica). Fija una ventana de observación de 400 días, desactiva la lectura por etapas con aviso y mantiene el sistema apagado pero restaurable durante noventa días.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-525 — Retiro, archivado y disposición de sistemas](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-525 — Retiro, archivado y disposición de sistemas](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md)) son:
 
 - **Un proceso periódico falla tras el apagado** — causa: ventana más corta que su ciclo. Corrección: ventana de un ciclo completo y apagado gradual.
 - **Se borran actas que debían conservarse** — causa: corte único de retención. Corrección: reglas por tipo con fundamento y retención legal.

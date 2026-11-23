@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md)) son: Las medidas son de una CPU con NumPy; el modelo de costo usa supuestos del autor; no se ejecutó nada en un acelerador ni se consultó el precio de ningún proveedor. El siguiente paso, `SE-282`, estudia las fronteras para ejecutar código ajeno o cargas de varios clientes: procesos, contenedores, microVM y sandboxes, con lo que cuesta crear cada una y lo que contiene.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md)) son: Las medidas son de una CPU con NumPy; el modelo de costo usa supuestos del autor; no se ejecutó nada en un acelerador ni se consultó el precio de ningún proveedor. El siguiente paso, `SE-282`, estudia las fronteras para ejecutar código ajeno o cargas de varios clientes: procesos, contenedores, microVM y sandboxes, con lo que cuesta crear cada una y lo que contiene.
 
 ## Relación con otros conceptos
 

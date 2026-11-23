@@ -32,7 +32,7 @@ El equipo de seguridad de la universidad cliente define un procedimiento de acep
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md)) son:
 
 - **El verificador acepta un release de otro constructor** — causa: valores esperados tomados del documento. Corrección: configuración independiente y fijada de antemano.
 - **Un release antiguo pasa como el último** — causa: sin comprobar la secuencia. Corrección: recordar la mayor secuencia vista y rechazar menores.

@@ -22,7 +22,7 @@ La simulación genera 1 000 clientes cuyo número de puestos sigue una distribuc
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-415 — Precios, empaquetado y límites por plan](../../../classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-415 — Precios, empaquetado y límites por plan](../../../classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-415 — Precios, empaquetado y límites por plan](../../../classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md)) son: Se simularon 1 000 clientes con semilla 34 y se compararon tres diseños de precio con parámetros del autor; no se midió ningún mercado, elasticidad ni competencia, y los parámetros se optimizaron sobre la misma población, lo que favorece a los diseños con más parámetros. Las cifras muestran un método, no un precio recomendable.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-415 — Precios, empaquetado y límites por plan](../../../classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md)) son: Se simularon 1 000 clientes con semilla 34 y se compararon tres diseños de precio con parámetros del autor; no se midió ningún mercado, elasticidad ni competencia, y los parámetros se optimizaron sobre la misma población, lo que favorece a los diseños con más parámetros. Las cifras muestran un método, no un precio recomendable.
 
 ## Relación con otros conceptos
 

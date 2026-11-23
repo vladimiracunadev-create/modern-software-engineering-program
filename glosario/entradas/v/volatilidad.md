@@ -26,9 +26,9 @@ Traslada el experimento a otro dominio (por ejemplo, la migración de un sistema
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md):
+Caso medido en la sección «Cuándo conviene cada modelo: el cruce según la volatilidad» de [SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md):
 
-El equipo de la plataforma de entregas divide el lanzamiento en tres bloques. La integración con el sistema de calificaciones de la secretaría tiene fecha fija y proveedor externo: se planifica de forma predictiva, con un contrato de interfaz acordado de antemano. La experiencia de entrega y recuperación del borrador tiene alta incertidumbre sobre lo que las estudiantes necesitan: se construye en ciclos de dos semanas con revisión de las usuarias.
+Se repite el cálculo del primer experimento variando la proporción de piezas malentendidas y comparando tres estrategias: un ciclo único (sin sobrecoste), ciclos de cuatro piezas y ciclos de una pieza, estos dos con 0,3 por ciclo.
 
 ## Errores y confusiones comunes
 

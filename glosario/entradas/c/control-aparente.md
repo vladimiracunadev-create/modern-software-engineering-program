@@ -22,13 +22,13 @@ Según [SE-467 — Taller: explotar y reparar un control aparente](../../../clas
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md):
 
 El equipo de la plataforma organiza el taller como una sesión de tres horas con dos roles: quien ataca escribe una hipótesis por control sin ver la implementación y quien defiende la reparación.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-467 — Taller: explotar y reparar un control aparente](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md)) son:
 
 - **Un archivo fuera de la carpeta se descarga** — causa: filtro de texto en lugar de comprobar el destino. Corrección: decodificar, resolver y comprobar el prefijo de la raíz.
 - **El límite de intentos no frena a nadie** — causa: se cuenta por una cabecera que escribe el cliente. Corrección: contar por la conexión, por cuenta y por comportamiento.

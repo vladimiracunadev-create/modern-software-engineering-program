@@ -32,7 +32,7 @@ En la plataforma, cada artefacto tiene un nivel declarado. El documento de arqui
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md)) son:
 
 - **La especificación dice una cosa y el código otra, y nadie lo sabe** — causa: spec-anchored sin comprobación mecánica. Corrección: comparar firmas o ejemplos en integración continua.
 - **La regeneración borra trabajo manual** — causa: ediciones dentro de lo generado. Corrección: delimitar la región generada y mover lo manual fuera.

@@ -32,14 +32,14 @@ Durante la migración de la petición observable de extremo a extremo, el equipo
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-041 — DNS, nombres, resolución y fallos](../../../classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-041 — DNS, nombres, resolución y fallos](../../../classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)) son:
 
 - **«DNS falla» ante cualquier error de red** — causa: no se distinguió NXDOMAIN de un resolvedor sin respuesta. Corrección: clasificar el código de error y probar con otro resolvedor.
 - **Comparar resultados de dos entornos sin declararlos** — causa: la resolución depende de caché, familia y resolvedor. Corrección: registrar dónde y con qué herramienta se resolvió.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-041 — DNS, nombres, resolución y fallos](../../../classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)) son: Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal. No cubre operación completa de DNSSEC ni registradores. Las herramientas pueden omitir el camino usado por una aplicación. La siguiente clase interpreta la petición HTTP una vez resuelto y conectado el origen.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-041 — DNS, nombres, resolución y fallos](../../../classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)) son: Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal. No cubre operación completa de DNSSEC ni registradores. Las herramientas pueden omitir el camino usado por una aplicación. La siguiente clase interpreta la petición HTTP una vez resuelto y conectado el origen.
 
 ## Relación con otros conceptos
 

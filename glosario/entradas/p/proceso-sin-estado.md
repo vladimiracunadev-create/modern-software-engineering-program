@@ -26,9 +26,9 @@ Según [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md):
+Caso medido en la sección «Procesos sin estado: la sesión en memoria» de [SE-345 — 12-factor y aplicaciones nativas de la nube](../../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Se simularon tres instancias detrás de un balanceador con 100 usuarios que inician sesión y luego hacen peticiones, en 1 000 peticiones, con una instancia que cae en la petición 500. Con las sesiones en la memoria de cada instancia y balanceo sin afinidad, 611 de 1 000 peticiones no encontraron su sesión: una petición que llega a una instancia distinta de la del inicio de sesión no la ve, aunque no haya caído nada. Con afinidad por usuario (cada usuario siempre a la misma instancia), fallaron 140, todas de los usuarios de la instancia caída.
 
 ## Errores y confusiones comunes
 

@@ -32,7 +32,7 @@ En la capa de IP suelen exponer 1500, pero Wi-Fi agrega capas propias de acceso 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)) son:
 
 - **«Las transferencias grandes se cuelgan pero conectar funciona»** — causa: un tramo con MTU menor descarta paquetes con DF y los avisos ICMP se filtran. Corrección: probar PMTU, permitir ICMP «fragmentación necesaria» y ajustar el MSS.
 - **Medir el rendimiento en loopback y extrapolarlo** — causa: el loopback no usa ningún medio. Corrección: medir sobre la interfaz y la ruta reales.

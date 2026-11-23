@@ -28,14 +28,14 @@ Escríbelas como hipótesis, basadas en los correos y preguntas que ya recibes, 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) son:
 
 - **Nadie encuentra «cómo cambiar el plazo» aunque existe la página** — causa: el título usa el nombre del componente («Módulo de calendario») y no la tarea. Corrección: reescribir el título con verbo y resultado y añadirla al índice de tareas.
 - **Dos páginas dan topes de penalización distintos** — causa: el dato se copió en lugar de enlazarse. Corrección: elegir una fuente, enlazar desde las demás y añadir un comprobador de enlaces.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) son: Las definiciones son operativas para el portal de la plataforma de entregas; no sustituyen las de la bibliografía enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún lector ni se evaluó una documentación existente: el árbol de cinco hijos, el 0,9 de reconocimiento de tareas, el 0,85 de actualización y los cuatro textos son construcciones del autor, y el índice de legibilidad se calculó con una cuenta aproximada de sílabas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) son: Las definiciones son operativas para el portal de la plataforma de entregas; no sustituyen las de la bibliografía enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún lector ni se evaluó una documentación existente: el árbol de cinco hijos, el 0,9 de reconocimiento de tareas, el 0,85 de actualización y los cuatro textos son construcciones del autor, y el índice de legibilidad se calculó con una cuenta aproximada de sílabas.
 
 ## Relación con otros conceptos
 

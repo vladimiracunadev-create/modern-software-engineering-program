@@ -32,7 +32,7 @@ En la plataforma, los tokens de color viven en un archivo con los pares permitid
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)) son:
 
 - **Dos estados se ven iguales a una parte de los usuarios** — causa: se codificaron solo con tono. Corrección: añadir texto, forma o patrón y comprobar la distancia.
 - **El modo oscuro tiene textos ilegibles** — causa: se invirtieron los colores. Corrección: definir pares calculados para el tema oscuro.

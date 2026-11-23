@@ -22,20 +22,20 @@ Verificar una firma comprueba que fue hecha por la clave y sobre ese contenido. 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md):
 
 La plataforma exige PR, una aprobación del propietario de código (`SE-199`), comprobaciones superadas, commits firmados en la rama principal y prohíbe el push forzado. Las claves de firma están asociadas a identidades en un archivo de firmantes versionado y revisado como cualquier otro cambio; un procedimiento documenta qué hacer si una clave se compromete (revocar, revisar los commits firmados con ella, avisar). El bypass de administración está desactivado y las excepciones se registran.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son:
 
 - **Un commit firmado no verifica** — causa: el archivo de firmantes no contiene la clave. Corrección: añadir la clave al archivo tras verificar la identidad.
 - **Se confía en «verificado» como revisión** — causa: se confunde atribución con aprobación. Corrección: exigir PR y aprobación además de firma.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos de firma. La clave es desechable, los eventos y proporciones son del autor y no se probó ninguna infraestructura de claves, plataforma ni artefacto. La siguiente clase aplica todo lo anterior a un caso de rescate: una integración mal resuelta sobre una rama que otras personas ya tienen.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos de firma. La clave es desechable, los eventos y proporciones son del autor y no se probó ninguna infraestructura de claves, plataforma ni artefacto. La siguiente clase aplica todo lo anterior a un caso de rescate: una integración mal resuelta sobre una rama que otras personas ya tienen.
 
 ## Relación con otros conceptos
 

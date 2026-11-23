@@ -33,7 +33,7 @@ El fragmento calcula el factor de camión de un repositorio pequeño probando co
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-530 — Diseño de equipos y ownership](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md)) son:
 
 - **Un archivo espera semanas por una persona** — causa: propiedad fuerte sin segundo conocedor. Corrección: revisión obligatoria por una segunda persona y rotación.
 - **Todo cambio requiere tres equipos** — causa: fronteras por capa. Corrección: reorganizar por dominio o abrir vía de autoservicio.

@@ -22,7 +22,7 @@ Un **refactor** cambia la estructura interna y conserva el comportamiento observ
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-543 — TDD en la práctica: escuelas de Londres y clásica, y sus límites](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-543-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-543 — TDD en la práctica: escuelas de Londres y clásica, y sus límites](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-543-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 

@@ -16,24 +16,24 @@ La clase donde se define, [SE-224 — Automatización idempotente y reanudable](
 
 ## Cómo funciona
 
-[SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md):
 
 La publicación nocturna de `notas` calcula una clave por fila (`ent-1:v3`), escribe las filas nuevas en un temporal del mismo directorio, vacía y reemplaza de forma atómica con reintentos ante `PermissionError`, y envía los avisos con la clave como cabecera de idempotencia. Un archivo de progreso (también reemplazado atómicamente) guarda la última clave publicada; al reanudar, la herramienta verifica contra el archivo final y no solo contra el de progreso.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md)) son:
 
 - **Filas duplicadas tras reanudar** — causa: se escribe y luego se marca. Corrección: clave de fila y verificación antes de escribir.
 - **Filas perdidas tras reanudar** — causa: se marca antes de escribir. Corrección: escribir primero o hacer ambas cosas atómicas.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la matriz fue idéntica y el reemplazo con un archivo abierto difirió. Las caídas son excepciones simuladas; no se midió durabilidad, `fsync`, sistemas de archivos de red ni cortes de energía, y las operaciones son juguetes del autor. La siguiente clase pregunta cómo distribuir y actualizar la herramienta con las mismas garantías.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-224 — Automatización idempotente y reanudable](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la matriz fue idéntica y el reemplazo con un archivo abierto difirió. Las caídas son excepciones simuladas; no se midió durabilidad, `fsync`, sistemas de archivos de red ni cortes de energía, y las operaciones son juguetes del autor. La siguiente clase pregunta cómo distribuir y actualizar la herramienta con las mismas garantías.
 
 ## Relación con otros conceptos
 

@@ -28,7 +28,7 @@ El equipo de la plataforma mantiene el sistema como monolito modular y añade al
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)) son:
 
 - **Un cambio pequeño exige probar todo el sistema** — causa: monolito sin fronteras internas. Corrección: imponer API públicas y un comprobador de importaciones.
 - **La latencia sube al separar un módulo** — causa: la frontera cruza muchas llamadas por operación. Corrección: medir llamadas por operación y fusionar o engrosar la API.

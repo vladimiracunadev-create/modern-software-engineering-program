@@ -16,11 +16,11 @@ La clase donde se define, [SE-541 — Mapa de metodologías: qué decide cada un
 
 ## Cómo funciona
 
-[SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md)) son: Esta clase mide cinco oráculos sobre una función y 18 mutantes escritos por el autor; no mide equipos, productividad ni defectos reales. El siguiente paso, `SE-542`, toma el ciclo de TDD y muestra cómo ocho pruebas escritas una a una producen la curva de mutantes muertos y cómo los sobrevivientes guían las pruebas que faltan.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md)) son: Esta clase mide cinco oráculos sobre una función y 18 mutantes escritos por el autor; no mide equipos, productividad ni defectos reales. El siguiente paso, `SE-542`, toma el ciclo de TDD y muestra cómo ocho pruebas escritas una a una producen la curva de mutantes muertos y cómo los sobrevivientes guían las pruebas que faltan.
 
 ## Relación con otros conceptos
 

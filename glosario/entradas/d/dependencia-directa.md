@@ -32,7 +32,7 @@ Se instalan cuatro paquetes para dos dependencias directas. Registra versión de
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md)) son:
 
 - **El CI falla sin cambios en el repositorio** — causa: resolución sin bloqueo. Corrección: archivo de bloqueo con versiones y huellas.
 - **No se sabe si un aviso afecta** — causa: inventario solo del manifiesto. Corrección: inventario de la clausura desde el bloqueo.

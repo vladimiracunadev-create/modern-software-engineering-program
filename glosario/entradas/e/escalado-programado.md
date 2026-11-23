@@ -16,24 +16,24 @@ La clase donde se define, [SE-404 — Escalado, capacidad y costos](../../../cla
 
 ## Cómo funciona
 
-[SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada herramienta usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
+[SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada herramienta usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md):
 
 El equipo de la plataforma describe la demanda de siete días con mínimo, mediana, percentil 99 y máximo, y concluye que 12 instancias cubren el día normal y 30 el peor pico. Elige una política programada con una base de 7 instancias, una subida programada para las horas del cierre y un margen reactivo con objetivo de utilización del 60 % y arranque de 2 minutos, y mide con su propio tráfico cuánta demanda pierde en los picos aleatorios.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md)) son:
 
 - **Se pierden solicitudes en cada pico aunque el autoescalador funcione** — causa: el arranque tarda más que la subida. Corrección: subida programada previa o instancias de reserva.
 - **Se paga el pico todo el año** — causa: capacidad fija dimensionada al máximo. Corrección: escalado reactivo con base programada.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada herramienta usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna plataforma ni un autoescalador real: el tráfico, la capacidad por instancia, el arranque y los precios son supuestos del autor y la cola es un modelo de un servidor.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada herramienta usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna plataforma ni un autoescalador real: el tráfico, la capacidad por instancia, el arranque y los precios son supuestos del autor y la cola es un modelo de un servidor.
 
 ## Relación con otros conceptos
 

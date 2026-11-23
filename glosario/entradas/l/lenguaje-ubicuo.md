@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md)) son: El recuento usa reglas burdas sobre un corpus de este programa y la traducción se probó con ocho entregas sintéticas; no se midió el efecto de DDD en un equipo. El siguiente paso, `SE-547`, formaliza lo que se promete en cada frontera: el diseño por contrato y las pruebas de contrato.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-546 — DDD como lenguaje ubicuo y contexto para agentes](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md)) son: El recuento usa reglas burdas sobre un corpus de este programa y la traducción se probó con ocho entregas sintéticas; no se midió el efecto de DDD en un equipo. El siguiente paso, `SE-547`, formaliza lo que se promete en cada frontera: el diseño por contrato y las pruebas de contrato.
 
 ## Relación con otros conceptos
 

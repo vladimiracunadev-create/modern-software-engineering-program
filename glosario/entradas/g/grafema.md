@@ -26,7 +26,7 @@ Repite con emoji compuesto y una escritura no latina; identifica puntos, grafema
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-015 — Texto, Unicode, codificaciones y mojibake](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-015 — Texto, Unicode, codificaciones y mojibake](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md):
 
 Una importación recibe CSV sin charset. En vez de probar hasta “verse bien”, se obtiene metadato del productor, se conserva original, se valida muestra multilingüe y se rechazan secuencias inválidas con informe de fila.
 

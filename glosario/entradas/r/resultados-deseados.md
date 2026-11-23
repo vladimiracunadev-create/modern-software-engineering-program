@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se encuestó a nadie, los parámetros son supuestos y el modelo de adopción no se contrastó con comportamiento real. La siguiente clase compara esta propuesta con las alternativas que las personas ya usan, incluida no hacer nada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se encuestó a nadie, los parámetros son supuestos y el modelo de adopción no se contrastó con comportamiento real. La siguiente clase compara esta propuesta con las alternativas que las personas ya usan, incluida no hacer nada.
 
 ## Relación con otros conceptos
 

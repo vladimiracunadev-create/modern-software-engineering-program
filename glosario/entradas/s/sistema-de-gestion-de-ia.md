@@ -16,11 +16,11 @@ La clase donde se define, [SE-610 — Gobierno de IA y regulación: EU AI Act, I
 
 ## Cómo funciona
 
-[SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md)) son: El triaje, la lista de verificación, el generador de dos grupos y los umbrales son construcciones del autor sobre ocho usos inventados y datos sintéticos; no son una clasificación jurídica ni una evaluación de conformidad. El calendario del reglamento se tomó de la página de la Comisión consultada para esta clase y puede haber cambiado. No se evaluó ninguna herramienta de gobierno ni se auditó ninguna organización.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md)) son: El triaje, la lista de verificación, el generador de dos grupos y los umbrales son construcciones del autor sobre ocho usos inventados y datos sintéticos; no son una clasificación jurídica ni una evaluación de conformidad. El calendario del reglamento se tomó de la página de la Comisión consultada para esta clase y puede haber cambiado. No se evaluó ninguna herramienta de gobierno ni se auditó ninguna organización.
 
 ## Relación con otros conceptos
 

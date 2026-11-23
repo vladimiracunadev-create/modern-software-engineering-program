@@ -2,52 +2,33 @@
 
 [↑ Glosario](../../README.md) · [← Lápida](./lapida.md) · [Latencia de cola →](./latencia-de-cola.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Tiempo desde que llega una petición hasta que se responde.
-
-Definición de trabajo de [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md): Tiempo para una unidad de trabajo.
-- En [SE-018 — Memoria, cachés, almacenamiento y jerarquías](../../../classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md): Tiempo hasta completar una operación.
-- En [SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md): Tiempo entre un inicio definido y un resultado definido.
+La **latencia** es el tiempo que transcurre entre un inicio y un resultado definidos. Es la formulación de [SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) («tiempo entre un inicio definido y un resultado definido»), y las demás clases la aplican a objetos distintos: [SE-018](../../../classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) el tiempo hasta completar una operación de memoria o almacenamiento, [SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) el tiempo para una unidad de trabajo, y [SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md) el tiempo desde que llega una petición hasta que se responde. Lo esencial es que la palabra solo significa algo cuando se declaran el inicio y el fin.
 
 ## Por qué importa
 
-En [SE-561 — Evals de exactitud, utilidad, costo y latencia](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md), el tema «Latencia» importa porque condiciona el uso interactivo
+Una cifra de latencia sin sus extremos no se puede comparar. [SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) pide definir el inicio y el resultado precisamente para que dos mediciones se puedan comparar. Y en servicio de modelos ([SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md)), la latencia entra en tensión con el costo: agrandar el lote reduce el costo por petición hasta cierto punto y después añade latencia.
 
 ## Cómo funciona
 
-Según [SE-561 — Evals de exactitud, utilidad, costo y latencia](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md):
-
-El costo por llamada es el número más visible y rara vez el que importa. Lo relevante es cuánto cuesta obtener una solución que pasa: el costo de cada intento dividido por la probabilidad de éxito, más lo que cuesta revisar cada intento. Si revisar un intento cuesta mucho más que generarlo, la configuración más barata por llamada sale cara por solución, porque falla más y cada fallo pasa por una revisión. La **frontera de Pareto** reúne las configuraciones que ninguna otra supera en todas las dimensiones a la vez (éxito, costo, latencia); una configuración dominada no se elige nunca, y entre las no dominadas la elección depende del contexto de uso: un editor interactivo valora la latencia, un trabajo por lotes valora el costo.
-
-Según [SE-561 — Evals de exactitud, utilidad, costo y latencia](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones arma una eval con 120 tareas reales de mantenimiento, cada una con una prueba ejecutable escrita desde la especificación (`SE-558`), y reserva 40 que nadie usa para ajustar. Calcula que para detectar una diferencia de 10 puntos con el 90 % de fiabilidad necesita unas 100 tareas pareadas; con 120 está en el límite y lo declara. Compara tres configuraciones: éxito, costo por intento, latencia y minutos de revisión humana medidos en veinte tareas.
+La latencia se descompone en lo que ocurre entre los dos extremos definidos. En [SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md), el experimento de lotes mide costo por petición según el tamaño del lote: a partir de cierto tamaño el beneficio se acaba y la curva sube (con 1 024 peticiones el costo por petición fue 8,3 µs, más del triple que con 512), porque en una CPU las matrices dejan de caber en la caché o, en un acelerador, la memoria es limitada. Agrandar el lote deja de ayudar y añade latencia. La forma de la curva depende del hardware, del modelo y de las bibliotecas, por lo que se mide con el modelo propio y la máquina de producción; el experimento mostró además tiempos irregulares en lotes pequeños. En [SE-018](../../../classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md), la jerarquía de memoria explica por qué la latencia de una operación depende de dónde está el dato.
 
 ## Ejemplo
 
-Ejemplo de [SE-561 — Evals de exactitud, utilidad, costo y latencia](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones arma una eval con 120 tareas reales de mantenimiento, cada una con una prueba ejecutable escrita desde la especificación (`SE-558`), y reserva 40 que nadie usa para ajustar. Calcula que para detectar una diferencia de 10 puntos con el 90 % de fiabilidad necesita unas 100 tareas pareadas; con 120 está en el límite y lo declara. Compara tres configuraciones: éxito, costo por intento, latencia y minutos de revisión humana medidos en veinte tareas.
+En [SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md), con lotes de 512 y 1 024 peticiones el costo por petición pasa a más del triple al duplicar el lote, y agrandarlo así deja de ayudar y añade latencia. Es un experimento de la clase sobre un modelo y una máquina concretos.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-561 — Evals de exactitud, utilidad, costo y latencia](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md)) son:
-
-- **Se adopta una configuración por 3 puntos de diferencia** — causa: conjunto pequeño sin intervalos. Corrección: calcular tamaño y mostrar intervalos.
-- **Se ajusta el prompt hasta que pasan los ejemplos** — causa: sin conjunto reservado. Corrección: reservar tareas que no se usan para ajustar.
+- **Dar una latencia sin decir de dónde a dónde.** Sin inicio y resultado definidos no es comparable ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)).
+- **Asumir que un lote más grande siempre mejora.** El beneficio se acaba y la curva sube ([SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md)).
+- **Transferir una curva medida a otro hardware.** Depende del hardware, del modelo y de las bibliotecas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **frontera de Pareto** reúne las configuraciones que ninguna otra supera en todas las dimensiones a la vez (éxito, costo, latencia); una configuración dominada no se elige nunca, y entre las no dominadas la elección depende del contexto de uso: un editor interactivo valora la latencia, un trabajo por lotes valora el costo. ([SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md))
+La latencia es una medida de tiempo, no de capacidad: [SE-436](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) la trata junto con rendimiento, saturación y capacidad como cosas distintas que se leen juntas. Los números de [SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md) salen de una máquina y un modelo concretos.
 
 ## Relación con otros conceptos
 

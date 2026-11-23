@@ -22,9 +22,9 @@ Para el hardware, la norma pide métricas que cuantifican qué fracción de las 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-447 — Automoción: ISO 26262 y niveles ASIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md):
+Caso medido en la sección «Dónde termina el diagnóstico: causa común y fallos latentes» de [SE-447 — Automoción: ISO 26262 y niveles ASIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El 100 % vale para el modelo de fallos usado: un bit, un fallo a la vez, canal B sano. Un fallo de causa común (el mismo error de especificación en ambos canales) o un fallo en el propio comparador (un fallo latente de diagnóstico) quedan fuera. El análisis de dependientes pide buscar causas comunes (misma alimentación, mismo reloj, mismo compilador, mismo equipo) y cubrir los fallos de los mecanismos de seguridad con sus propias comprobaciones.
 
 ## Errores y confusiones comunes
 

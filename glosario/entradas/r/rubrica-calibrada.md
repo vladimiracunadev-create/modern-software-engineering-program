@@ -22,7 +22,7 @@ Se simulan 300 grupos de 200 personas con un desempeño verdadero. Cada evaluado
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. La mentora y la ingeniera nueva firman un acuerdo de seis meses con una meta («asumir la responsabilidad del módulo de exportación con revisión de otra persona»), una reunión cada dos semanas y tres tareas escalonadas: ajustar una regla de formato con pruebas existentes, escribir la prueba de caracterización de la exportación y diseñar el contrato de versiones con el equipo de calificaciones.
 

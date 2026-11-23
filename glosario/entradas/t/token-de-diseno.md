@@ -16,24 +16,24 @@ La clase donde se define, [SE-175 — Diseño visual, tipografía, color y contr
 
 ## Cómo funciona
 
-[SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md):
 
 En la plataforma, los tokens de color viven en un archivo con los pares permitidos de texto sobre fondo; una prueba calcula la razón de cada par y falla si alguno baja de 4,5:1 (3:1 para componentes), y otra calcula la distancia entre los colores de estado bajo tres simulaciones de visión y exige una señal redundante cuando baja de diez. El tema oscuro se define con sus propios pares y la maquetación usa anchos relativos; una captura a 320 px CSS comprueba que no hay desplazamiento horizontal.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)) son:
 
 - **Dos estados se ven iguales a una parte de los usuarios** — causa: se codificaron solo con tono. Corrección: añadir texto, forma o patrón y comprobar la distancia.
 - **El modo oscuro tiene textos ilegibles** — causa: se invirtieron los colores. Corrección: definir pares calculados para el tema oscuro.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún navegador, simulador de terceros ni persona con deficiencia de color; las matrices se aplican en RGB lineal como aproximación, el reflujo supone 0,5 em por carácter y los pares de colores son aleatorios. La siguiente clase adapta la maquetación a anchos y preferencias.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún navegador, simulador de terceros ni persona con deficiencia de color; las matrices se aplican en RGB lineal como aproximación, el reflujo supone 0,5 em por carácter y los pares de colores son aleatorios. La siguiente clase adapta la maquetación a anchos y preferencias.
 
 ## Relación con otros conceptos
 

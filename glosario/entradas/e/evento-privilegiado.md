@@ -22,7 +22,7 @@ El evento `pull_request` ejecuta el flujo de trabajo del cambio con permisos red
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md):
 
 El equipo de la API de entregas aplica el taller a su canalización real. Primero ejecuta el verificador sobre todos los flujos de trabajo y obtiene hallazgos en tres de once. Para cada hallazgo abre un cambio pequeño con su prueba: la acción fijada por SHA (con un comentario que indica la versión legible), los permisos declarados por trabajo, el evento cambiado a `pull_request` y el título pasado como variable. El script descargado se sustituye por uno versionado en el repositorio que verifica la huella de lo que descarga.
 

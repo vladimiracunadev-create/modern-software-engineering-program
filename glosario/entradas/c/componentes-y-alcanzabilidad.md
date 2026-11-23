@@ -22,20 +22,20 @@ Alcanzabilidad responde si existe camino; componentes agrupan conectividad bajo 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-089 — Grafos y recorridos](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-089 — Grafos y recorridos](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md):
 
 En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-089 — Grafos y recorridos](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-089 — Grafos y recorridos](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md)) son:
 
 - **El «camino más corto» devuelto es largo** — causa: se usó DFS donde se necesitaba BFS. Corrección: usar BFS (sin pesos) y comprobarlo contra una fórmula conocida en rejillas.
 - **El recorrido no termina o repite nodos** — causa: falta el conjunto de visitados. Corrección: marcar al encolar y probar un ciclo mínimo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-089 — Grafos y recorridos](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. BFS no resuelve pesos negativos ni toda forma de optimización de caminos. La siguiente clase contrasta búsqueda, ordenamiento y selección bajo contratos precisos.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-089 — Grafos y recorridos](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. BFS no resuelve pesos negativos ni toda forma de optimización de caminos. La siguiente clase contrasta búsqueda, ordenamiento y selección bajo contratos precisos.
 
 ## Relación con otros conceptos
 

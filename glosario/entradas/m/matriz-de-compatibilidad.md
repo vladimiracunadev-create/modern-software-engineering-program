@@ -36,14 +36,14 @@ El equipo escribe el contrato del mensaje de entrega que consumen el portal, el 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son:
 
 - **Un cambio «interno» rompe a un consumidor sin que ninguna prueba falle** — causa: la promesa no estaba escrita como prueba de contrato. Corrección: escribir la prueba desde el consumidor y añadirla al conjunto.
 - **La comparación de API marca un cambio que no importa** — causa: se compara toda la superficie sin distinguir lo público. Corrección: definir `__all__` o una lista pública y comparar solo eso.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-120 — Proyecto: SDK y CLI con compatibilidad verificada](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)) son: Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
 
 ## Relación con otros conceptos
 

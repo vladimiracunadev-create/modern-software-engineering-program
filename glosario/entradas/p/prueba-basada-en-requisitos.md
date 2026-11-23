@@ -22,9 +22,9 @@ Tras las pruebas basadas en requisitos se mide qué partes del código se ejecut
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-448 — Aviación: DO-178C, DO-254 y ARP4754](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md):
+Caso medido en la sección «Pruebas basadas en requisitos: la intención primero» de [SE-448 — Aviación: DO-178C, DO-254 y ARP4754](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+La verificación principal del comportamiento es una prueba por cada requisito, con casos normales y de robustez (entradas fuera de rango, falta de datos). Su pregunta es «¿hace el código lo que debe?». No se diseñan mirando el código, porque entonces solo verificarían que el código hace lo que hace. En el laboratorio, las cinco pruebas de R0 a R4 pasan todas; si el análisis terminara ahí, se habría concluido que el limitador está verificado, con tres sentencias que nadie ejecutó.
 
 ## Errores y confusiones comunes
 

@@ -22,9 +22,9 @@ Little demostró que, en un sistema estable, el trabajo promedio en curso es el 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md):
+Caso medido en la sección «Carga, trabajo en curso y compromiso» de [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo toma las últimas 24 semanas de entrega, que incluyen tres semanas con cero elementos terminados por guardia, y pronostica los sesenta elementos pendientes: percentil 50 en 13 semanas y percentil 85 en 14 a 15. Antes de comunicar, repite el cálculo con las últimas 12 semanas y ve que el percentil 85 se mueve entre 13 y 16: lo comunica como rango. Redacta el compromiso:
+Little demostró que, en un sistema estable, el trabajo promedio en curso es el ritmo de entrada por el tiempo promedio de permanencia. Quien quiere reducir el tiempo de permanencia sin reducir el ritmo debe reducir el trabajo en curso. Y Kingman describe cómo la espera de una cola de un servidor crece de forma brusca al aproximarse la utilización a uno: un equipo al 95 % no tiene elementos lentos por pereza sino por saturación. Por eso el compromiso incluye un límite de trabajo en curso y una reserva de capacidad.
 
 ## Errores y confusiones comunes
 

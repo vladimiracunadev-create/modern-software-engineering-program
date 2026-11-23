@@ -16,24 +16,24 @@ Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
 
 ## Cómo funciona
 
-[SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md):
 
 En el producto de referencia, sigue la creación de una solicitud desde OpenAPI hasta requisitos, arquitectura, pruebas y runbook. Si el contrato admite reintento pero no hay idempotencia documentada, registra riesgo, no afirmes defecto ejecutado.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)) son:
 
 - **informe organizado por carpetas** — causa: se inventarió estructura sin seguir capacidad. Corrección: elige tarea y traza flujo vertical normal y degradado.
 - **README tratado como prueba** — causa: intención confundida con comportamiento. Corrección: contrasta contrato, implementación, pruebas y configuración.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)) son: Es una revisión acotada, no certificación de seguridad ni producción. `SE-012` convierte resultados en un plan profesional verificable.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)) son: Es una revisión acotada, no certificación de seguridad ni producción. `SE-012` convierte resultados en un plan profesional verificable.
 
 ## Relación con otros conceptos
 

@@ -32,7 +32,7 @@ El equipo de la plataforma separa el firmware del nodo en dos módulos. `hal.py`
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-265 — Hardware, firmware y software embebido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-265 — Hardware, firmware y software embebido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md)) son:
 
 - **El botón «a veces» no responde** — causa: sondeo en un bucle con tareas lentas. Corrección: medir la vuelta más larga y atender el botón por interrupción o acotar el bucle.
 - **Un promedio sale en cero o muy bajo con señales altas** — causa: desbordamiento del acumulador. Corrección: escribir la condición de rango y usar un tipo más ancho.

@@ -22,13 +22,13 @@ Una **regresión de resiliencia** es un cambio que empeora la capacidad del sist
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-512 — Caos continuo: automatización en CI/CD y en producción](../../../classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-512 — Caos continuo: automatización en CI/CD y en producción](../../../classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md):
 
 Supón, como caso hipotético y no como medición, que el equipo de la API de entregas agrega a su pipeline una etapa de resiliencia con tres piezas. La lectura estática corre en cada commit y bloquea el cambio si falta alguna de cinco reglas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-512 — Caos continuo: automatización en CI/CD y en producción](../../../classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-512 — Caos continuo: automatización en CI/CD y en producción](../../../classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md)) son:
 
 - **El pipeline aprueba un cambio que quita una protección** — causa: solo hay pruebas de camino feliz. Corrección: añadir una suite de fallas y reglas de configuración.
 - **La suite falla al azar y se ignora** — causa: sin dobles de prueba ni reloj controlado. Corrección: aislar la suite, usar semillas y mayoría de ejecuciones.

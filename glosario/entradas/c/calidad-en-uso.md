@@ -32,14 +32,14 @@ La edición 2023 define producto; el modelo de calidad en uso está en ISO/IEC 2
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md)) son:
 
 - **lista de adjetivos sin contexto** — causa: atributo no convertido en escenario. Corrección: añade estímulo, entorno, respuesta y medida.
 - **cobertura se usa como calidad total** — causa: proxy confundido con resultado. Corrección: inspecciona aserciones y enlaza con comportamiento y uso.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md)) son: El modelo no elige prioridades. `SE-008` trata restricciones, riesgos y trade-offs.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-007 — Calidad interna, externa y calidad en uso](../../../classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso/README.md)) son: El modelo no elige prioridades. `SE-008` trata restricciones, riesgos y trade-offs.
 
 ## Relación con otros conceptos
 

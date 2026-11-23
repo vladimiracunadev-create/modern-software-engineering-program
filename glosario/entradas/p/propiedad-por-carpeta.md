@@ -16,7 +16,7 @@ La clase donde se define, [SE-572 — Delegación, subagentes y sistemas multiag
 
 ## Cómo funciona
 
-[SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
@@ -26,14 +26,14 @@ El servicio *Avisos* es el caso conductor de la [Parte 47](../../../classes/part
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md)) son:
 
 - **El sistema consume mucho más que un solo agente y no mejora** — causa: se delegó una tarea con muchas dependencias. Corrección: medir el reparto y volver a un agente si las partes no son independientes.
 - **El resumen omite un detalle decisivo** — causa: contrato sin lista estructurada ni declaración de lo no hecho. Corrección: exigir hechos con evidencia y lo no comprobado.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: el contexto y las colisiones son cálculos y simulaciones con semilla fija y los protocolos de escritura son código real sobre SQLite en memoria con intercalaciones deterministas. No se lanzó ningún subagente, no se invocó ningún modelo y no se observó ningún equipo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-572 — Delegación, subagentes y sistemas multiagente](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente/README.md)) son: Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: el contexto y las colisiones son cálculos y simulaciones con semilla fija y los protocolos de escritura son código real sobre SQLite en memoria con intercalaciones deterministas. No se lanzó ningún subagente, no se invocó ningún modelo y no se observó ningún equipo.
 
 ## Relación con otros conceptos
 

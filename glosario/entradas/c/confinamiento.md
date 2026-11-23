@@ -40,7 +40,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md)) son: Se ejecutaron cuatro configuraciones sobre quince archivos de texto con acciones sencillas, en Windows 11 con CPython 3.12.9 y Git 2.55. No se midió ningún sandbox del sistema operativo, ningún escape, ningún enlace simbólico ni ningún proceso hijo. El siguiente paso, `SE-583`, trata cómo decidir qué cambios se aceptan: las compuertas de verificación y un menú único que agente y persona ejecutan igual.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md)) son: Se ejecutaron cuatro configuraciones sobre quince archivos de texto con acciones sencillas, en Windows 11 con CPython 3.12.9 y Git 2.55. No se midió ningún sandbox del sistema operativo, ningún escape, ningún enlace simbólico ni ningún proceso hijo. El siguiente paso, `SE-583`, trata cómo decidir qué cambios se aceptan: las compuertas de verificación y un menú único que agente y persona ejecutan igual.
 
 ## Relación con otros conceptos
 

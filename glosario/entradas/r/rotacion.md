@@ -32,7 +32,7 @@ La rotación acota la ventana, pero no evita la filtración ni sustituye la dete
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-401 — Redes, identidad y secretos en cloud](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-401 — Redes, identidad y secretos en cloud](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md)) son:
 
 - **«La base de datos no es accesible desde internet» y alguien llega a ella** — causa: se miró la exposición directa y no el grafo. Corrección: calcular saltos mínimos desde la configuración real.
 - **Un rol de servicio puede borrar o listar todo** — causa: política de servicio completo sobre todos los recursos. Corrección: generar la política desde el uso y añadir denegaciones explícitas.

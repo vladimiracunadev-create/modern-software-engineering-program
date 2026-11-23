@@ -26,7 +26,7 @@ LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 IMAGE = re.compile(r"!\[([^\n]*?)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 CLASS_LINK = re.compile(r"\]\((?:\.\./)+classes/part-\d\d-[^/]+/se-(\d{3})-[^/]+/README\.md\)")
 HEADING = re.compile(r"^## (.+)$", re.M)
-WORDS_TRONCAL = (330, 1100)
+WORDS_TRONCAL = (350, 1100)
 WORDS_APOYO = (110, 800)
 MIN_SECTION_WORDS = 3
 
@@ -68,7 +68,10 @@ def main() -> int:
         unknown = [name for name in sections if name not in gc.SECTIONS]
         if unknown:
             failures.append(f"glosario/curado/{slug}.md has unknown sections: {unknown}")
-        if all(name in sections for name in gc.DEVELOPED_SECTIONS):
+        missing = [name for name in gc.DEVELOPED_SECTIONS if name not in sections]
+        if missing:
+            failures.append(f"glosario/curado/{slug}.md lacks required sections: {missing}")
+        else:
             low, high = WORDS_TRONCAL if data.tier_of(expected[slug]) == "troncal" else WORDS_APOYO
             total = sum(words(sections[name]) for name in gc.DEVELOPED_SECTIONS)
             if not low <= total <= high:

@@ -32,7 +32,7 @@ La CLI diagnóstica acepta un paquete del modelo de decisión diagnóstica, gene
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-072 — Proyecto: herramienta de línea de comandos probada](../../../classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-072 — Proyecto: herramienta de línea de comandos probada](../../../classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada/README.md)) son:
 
 - **el consumidor falla al leer stdout** — causa: mensajes de diagnóstico mezclados con los datos. Corrección: stdout solo datos; stderr solo diagnóstico.
 - **un script no distingue un uso incorrecto de un rechazo del dominio** — causa: todos los fallos devuelven el mismo código. Corrección: códigos distintos y documentados.

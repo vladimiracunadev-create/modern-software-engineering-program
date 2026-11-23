@@ -22,13 +22,13 @@ La **práctica deliberada** (Ericsson et al.) describe la mejora como resultado 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. La mentora y la ingeniera nueva firman un acuerdo de seis meses con una meta («asumir la responsabilidad del módulo de exportación con revisión de otra persona»), una reunión cada dos semanas y tres tareas escalonadas: ajustar una regla de formato con pruebas existentes, escribir la prueba de caracterización de la exportación y diseñar el contrato de versiones con el equipo de calificaciones.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md)) son:
 
 - **La persona repite el mismo error** — causa: retroalimentación tardía o vaga. Corrección: dar el aviso en el mismo cambio, con línea y efecto.
 - **No crece pese a muchas horas de mentoría** — causa: tareas sin brecha. Corrección: asignar tareas con brecha cercana a uno.

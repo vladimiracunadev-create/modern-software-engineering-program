@@ -22,13 +22,13 @@ La **autoridad formal** es el derecho reconocido a decidir o asignar trabajo; la
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-529 — Liderazgo técnico sin autoridad formal](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-529 — Liderazgo técnico sin autoridad formal](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. La ingeniera quiere que el equipo registre sus decisiones de diseño. Mapea los vínculos: dos personas revisan casi todos los cambios de las demás y otra mantiene la exportación al ministerio. Siembra por ahí: pide a las dos revisoras que usen el registro en su siguiente cambio y envía el borrador de una decisión a la responsable de la exportación antes de implementar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-529 — Liderazgo técnico sin autoridad formal](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-529 — Liderazgo técnico sin autoridad formal](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md)) son:
 
 - **Se aprueba en reunión y no ocurre nada** — causa: anuncio sin siembra ni responsables. Corrección: elegir a las primeras personas y fechar la revisión.
 - **Todo pasa por una persona y se atrasa** — causa: se delegaron tareas y no criterios. Corrección: escribir criterios y condiciones de consulta.

@@ -26,9 +26,9 @@ Elige un cálculo de tu sistema que consideres pesado. Descompón su tiempo en l
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-280 — GPU y aceleradores: modelo de ejecución](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md):
+Caso medido en la sección «Intensidad aritmética: quién limita» de [SE-280 — GPU y aceleradores: modelo de ejecución](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El modelo *roofline* acota el rendimiento de un programa por el menor entre el pico de cómputo del hardware y el producto del ancho de banda de memoria por la intensidad aritmética (operaciones por byte movido). Dos operaciones que se midieron en la CPU del laboratorio muestran los extremos. `v·1,5 + w` sobre 8 000 000 de valores: dos operaciones por cada 12 bytes movidos (leer dos valores de 4 bytes y escribir uno), unos 0,4 GFLOP/s y unos 2 GB/s efectivos; la operación está limitada por memoria y el cómputo está casi ocioso.
 
 ## Errores y confusiones comunes
 
@@ -36,7 +36,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-280 — GPU y aceleradores: modelo de ejecución](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md)) son: No se ejecutó ningún núcleo en una GPU; las medidas son de CPU y NumPy y la divergencia es un modelo con semilla 48. El siguiente paso, `SE-281`, lleva el modelo al terreno económico: qué rendimiento y qué costo por petición se obtienen según el tamaño del lote, la precisión y la utilización, con parámetros del autor para los precios.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-280 — GPU y aceleradores: modelo de ejecución](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md)) son: No se ejecutó ningún núcleo en una GPU; las medidas son de CPU y NumPy y la divergencia es un modelo con semilla 48. El siguiente paso, `SE-281`, lleva el modelo al terreno económico: qué rendimiento y qué costo por petición se obtienen según el tamaño del lote, la precisión y la utilización, con parámetros del autor para los precios.
 
 ## Relación con otros conceptos
 

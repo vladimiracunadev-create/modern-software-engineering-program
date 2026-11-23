@@ -16,11 +16,11 @@ En [SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48
 
 ## Cómo funciona
 
-[SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md)) son: El modelo simula 120 turnos con diez hechos en posiciones fijas y reglas de conservación del autor, en Windows 11 con CPython 3.12.9. No se midió la compactación de ningún producto, el recuerdo de ningún modelo ni un relevo real con una persona distinta de quien lo escribió. El siguiente paso, `SE-581`, trata el bucle que llena el contexto: cuándo seguir intentando y cuándo parar.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-580 — Gestión de contexto, resets y handoffs](../../../classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs/README.md)) son: El modelo simula 120 turnos con diez hechos en posiciones fijas y reglas de conservación del autor, en Windows 11 con CPython 3.12.9. No se midió la compactación de ningún producto, el recuerdo de ningún modelo ni un relevo real con una persona distinta de quien lo escribió. El siguiente paso, `SE-581`, trata el bucle que llena el contexto: cuándo seguir intentando y cuándo parar.
 
 ## Relación con otros conceptos
 

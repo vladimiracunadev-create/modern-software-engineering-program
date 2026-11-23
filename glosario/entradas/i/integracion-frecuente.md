@@ -22,7 +22,7 @@ El manifiesto pide atención continua a la excelencia técnica por una razón ec
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-182 — Agile como principios y no como ceremonia](../../../classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-182 — Agile como principios y no como ceremonia](../../../classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md):
 
 El equipo de la plataforma de entregas revisa sus prácticas con una tabla de cuatro columnas: principio, práctica, decisión que cambió la última vez y señal observable. La demostración quincenal ya no es interna: invita a dos profesoras y tres estudiantes distintas cada vez, con una versión desplegada que pueden usar. La retrospectiva exige que cada acción tenga persona responsable y una señal de comprobación. La reunión diaria se acorta a un tablero asíncrono porque nadie había cambiado una decisión gracias a ella en tres semanas.
 
@@ -35,7 +35,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-182 — Agile como principios y no como ceremonia](../../../classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún equipo ni se observó una demostración real: el modelo de aprendizaje, las horas de ceremonia y los cambios en un archivo son construcciones del autor. La siguiente clase compara cuatro marcos concretos con este criterio.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-182 — Agile como principios y no como ceremonia](../../../classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún equipo ni se observó una demostración real: el modelo de aprendizaje, las horas de ceremonia y los cambios en un archivo son construcciones del autor. La siguiente clase compara cuatro marcos concretos con este criterio.
 
 ## Relación con otros conceptos
 

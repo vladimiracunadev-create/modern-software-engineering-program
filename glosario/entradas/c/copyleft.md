@@ -36,7 +36,7 @@ Imprime `0 2 1`: con `OR` se elige la permisiva y no hay obligación copyleft; c
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-536 — Propiedad intelectual, contratos y ética](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-536 — Propiedad intelectual, contratos y ética](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md)) son:
 
 - **Se frena trabajo por una licencia inofensiva** — causa: búsqueda de cadena sin analizar la expresión. Corrección: analizar `AND`, `OR` y `WITH`.
 - **Una licencia incompatible llega a producción** — causa: campo vacío tratado como seguro. Corrección: tratar lo desconocido como bloqueado hasta resolverlo.

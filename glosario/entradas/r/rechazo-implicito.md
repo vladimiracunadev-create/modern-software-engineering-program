@@ -22,7 +22,7 @@ En ML-KEM, descapsular un texto cifrado alterado no devuelve un error: devuelve 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md)) son: Se ejecutaron implementaciones de estudio de ML-KEM y ML-DSA con sus tamaños reales, una firma de Lamport y cálculos de Mosca con valores del autor; no se ejecutó SLH-DSA, ningún saludo TLS real ni rendimiento de producción. El siguiente paso, `SE-286`, aplica la confianza cero: decidir cada petición con identidad, contexto y política en lugar de confiar en la red, con tokens de vida corta y credenciales limitadas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-285 — Criptografía poscuántica y migración](../../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md)) son: Se ejecutaron implementaciones de estudio de ML-KEM y ML-DSA con sus tamaños reales, una firma de Lamport y cálculos de Mosca con valores del autor; no se ejecutó SLH-DSA, ningún saludo TLS real ni rendimiento de producción. El siguiente paso, `SE-286`, aplica la confianza cero: decidir cada petición con identidad, contexto y política en lugar de confiar en la red, con tokens de vida corta y credenciales limitadas.
 
 ## Relación con otros conceptos
 

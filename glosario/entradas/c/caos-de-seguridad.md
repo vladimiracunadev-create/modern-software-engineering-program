@@ -32,14 +32,14 @@ No. Una prueba de intrusión explora si alguien puede entrar por caminos que nad
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-514 — Aprender de los experimentos: hallazgos, métricas y mejora](../../../classes/part-42-ingenieria-del-caos/se-514-aprender-de-los-experimentos-hallazgos-metricas-y-mejora/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-514 — Aprender de los experimentos: hallazgos, métricas y mejora](../../../classes/part-42-ingenieria-del-caos/se-514-aprender-de-los-experimentos-hallazgos-metricas-y-mejora/README.md)) son:
 
 - **«Revocación inmediata» no lo es** — causa: caché de autorización sin invalidación. Corrección: medir la exposición y ajustar la vigencia o invalidar.
 - **Un control débil aprueba la auditoría** — causa: pocos ensayos. Corrección: fijar ensayos acordes a la cota que se afirma.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-514 — Aprender de los experimentos: hallazgos, métricas y mejora](../../../classes/part-42-ingenieria-del-caos/se-514-aprender-de-los-experimentos-hallazgos-metricas-y-mejora/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas. Se ejecutaron tres experimentos con semilla fija en Windows y Ubuntu (WSL2) con resultados idénticos. No se atacó, auditó ni revocó nada real; los 30 controles, sus eficacias, los 2 000 clientes, las vigencias de caché y el criterio «cero fallas» son construcciones del autor, y la clase no sustituye una auditoría ni una prueba de intrusión.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-514 — Aprender de los experimentos: hallazgos, métricas y mejora](../../../classes/part-42-ingenieria-del-caos/se-514-aprender-de-los-experimentos-hallazgos-metricas-y-mejora/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas. Se ejecutaron tres experimentos con semilla fija en Windows y Ubuntu (WSL2) con resultados idénticos. No se atacó, auditó ni revocó nada real; los 30 controles, sus eficacias, los 2 000 clientes, las vigencias de caché y el criterio «cero fallas» son construcciones del autor, y la clase no sustituye una auditoría ni una prueba de intrusión.
 
 ## Relación con otros conceptos
 

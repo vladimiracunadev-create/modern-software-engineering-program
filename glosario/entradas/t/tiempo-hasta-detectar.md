@@ -24,20 +24,20 @@ Con 400 solicitudes por segundo, un error de base del 0,5 % y un defecto que lo 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md):
+Caso medido en la sección «Tiempo hasta detectar» de [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md):
 
-El equipo de la API de entregas despliega cada versión en cuatro fases: 1 % durante diez minutos, 5 % durante veinte, 25 % durante treinta y 100 % con la versión anterior conservada una hora.
+Con 400 solicitudes por segundo, un error de base del 0,5 % y un defecto que lo sube al 1,5 %, se simulan 40 semillas para cinco fracciones de tráfico del canario y una prueba de dos proporciones con z = 3, evaluada cada segundo durante 30 minutos. Se cuentan los errores extra que sufren las personas antes de la detección.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)) son:
 
 - **El despliegue se revierte sin defecto** — causa: umbral de decisión única evaluado repetidamente. Corrección: umbral mayor, mínimo de muestra o prueba secuencial.
 - **Un defecto pequeño no se detecta** — causa: canario y ventana insuficientes. Corrección: definir el defecto mínimo relevante y dimensionar para él.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro simulaciones con semilla fija y tiempo virtual, idénticas en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3).
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro simulaciones con semilla fija y tiempo virtual, idénticas en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3).
 
 ## Relación con otros conceptos
 

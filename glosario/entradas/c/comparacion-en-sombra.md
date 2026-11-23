@@ -22,13 +22,13 @@ Antes de servir tráfico real desde el sistema nuevo, se le puede enviar una **c
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md):
+Caso medido en la sección «Comparación en sombra» de [SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo divide el módulo en cuatro rebanadas: consulta de nota (poco tráfico, lectura), cálculo de nota, cierre de acta y exportación. Empieza por la consulta: la fachada la envía al sistema nuevo al 5 % y copia el 100 % en sombra al antiguo para comparar; la regla de equivalencia compara la nota al décimo y estado traducido, e ignora la marca de tiempo.
+Antes de servir tráfico real desde el sistema nuevo, se le puede enviar una **copia** de cada petición y comparar su respuesta con la del antiguo, sin que la persona vea la respuesta nueva. La técnica (lanzamiento oscuro, ejecución en paralelo) detecta diferencias sin exponer a nadie, con tres cautelas. Los efectos secundarios no deben duplicarse: la copia en sombra no puede escribir en la base real ni enviar correos. La comparación debe tener una **regla de equivalencia** (qué diferencias importan: los décimos de una nota sí, el orden de los campos o la hora de generación no).
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-521 — Strangler, branch by abstraction y anticorruption](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/README.md)) son:
 
 - **El corte se pospone una y otra vez** — causa: el paso es demasiado grande para verificarse. Corrección: dividir en rebanadas con retroceso independiente.
 - **La sombra no muestra diferencias y hay error en producción** — causa: la ventana no incluye el tráfico raro. Corrección: elegir la ventana por calendario y reproducir tráfico grabado.

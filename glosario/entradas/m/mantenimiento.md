@@ -32,7 +32,7 @@ El taller ejecuta el mismo archivo de casos en ambas implementaciones y compara 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)) son:
 
 - **El runbook dice «revisa los servicios»** — causa: pasos sin comando ni salida esperada. Corrección: un paso por acción, con comando y resultado esperado.
 - **La guardia es siempre la misma persona** — causa: equipo pequeño o ausencias sin plan. Corrección: calcular la carga y ampliar la rotación o reducir el alcance.

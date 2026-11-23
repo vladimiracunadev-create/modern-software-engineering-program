@@ -22,7 +22,7 @@ Según [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-s
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)) son: El argumento y la matriz son datos sintéticos del autor; el comprobador verifica estructura y no la calidad de la evidencia; no hay revisión independiente de contenido ni se afirma que el horno sea seguro. El siguiente paso, `SE-451`, pasa al tiempo real: la correctitud de una función de seguridad depende también de que se ejecute a tiempo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)) son: El argumento y la matriz son datos sintéticos del autor; el comprobador verifica estructura y no la calidad de la evidencia; no hay revisión independiente de contenido ni se afirma que el horno sea seguro. El siguiente paso, `SE-451`, pasa al tiempo real: la correctitud de una función de seguridad depende también de que se ejecute a tiempo.
 
 ## Relación con otros conceptos
 

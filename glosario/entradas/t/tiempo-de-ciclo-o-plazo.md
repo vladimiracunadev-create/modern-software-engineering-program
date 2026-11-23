@@ -20,24 +20,24 @@ La clase donde se define, [SE-184 — Lean, teoría de colas y límites de traba
 
 ## Cómo funciona
 
-[SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md):
 
 El equipo de la plataforma de entregas mide el tablero durante cuatro semanas: 18 elementos en curso de media y un rendimiento de 3 por semana, que por Little implica un plazo medio de 6 semanas, y es lo que ven. Proponen un límite de 9 (tres por persona) y una regla: si alguien queda sin trabajo disponible, ayuda a terminar el elemento más antiguo antes de empezar otro. Además, la revisión de código deja de hacerse los viernes en bloque y pasa a ser inmediata, para eliminar lotes.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)) son:
 
 - **El plazo crece sin que el rendimiento baje** — causa: el trabajo en curso crece. Corrección: aplicar la ley de Little y fijar un límite.
 - **Se pide llegar al 100 % de ocupación** — causa: se confunde ocupación con eficiencia. Corrección: mostrar la curva de espera y fijar una utilización objetivo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ningún tablero real: las colas de un servidor, las tareas exponenciales y los lotes de cinco son construcciones del autor, y la simulación cerca del 95 % queda por debajo de la fórmula por convergencia lenta.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ningún tablero real: las colas de un servidor, las tareas exponenciales y los lotes de cinco son construcciones del autor, y la simulación cerca del 95 % queda por debajo de la fórmula por convergencia lenta.
 
 ## Relación con otros conceptos
 

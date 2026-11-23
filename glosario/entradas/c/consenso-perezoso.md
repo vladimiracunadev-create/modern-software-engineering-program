@@ -26,7 +26,7 @@ Reproduce el fallo clásico de la clase: **aceptar por silencio una propuesta qu
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md):
 
 La plataforma publica `CONTRIBUTING.md` con el entorno, el formato de ramas, la plantilla de PR, el tiempo objetivo de primera respuesta y lo que no se acepta. Una regla de decisión escrita: los cambios pequeños los aprueba una mantenedora; los que modifican una regla de negocio exigen dos aprobaciones y un plazo de 72 horas; los cambios de gobierno exigen consenso. Un indicador mensual muestra cuántas personas cubren la mitad de los commits y qué rutas solo conoce una, para planificar relevos.
 
@@ -38,7 +38,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos y repositorios temporales en Windows y Ubuntu (WSL2) con resultados idénticos. Los contribuyentes, las probabilidades y los desfases son supuestos del autor, con seis semillas en el experimento de Git, y no se midió ninguna comunidad real. La siguiente clase pregunta bajo qué licencia se reciben y se redistribuyen las contribuciones.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos y repositorios temporales en Windows y Ubuntu (WSL2) con resultados idénticos. Los contribuyentes, las probabilidades y los desfases son supuestos del autor, con seis semillas en el experimento de Git, y no se midió ninguna comunidad real. La siguiente clase pregunta bajo qué licencia se reciben y se redistribuyen las contribuciones.
 
 ## Relación con otros conceptos
 

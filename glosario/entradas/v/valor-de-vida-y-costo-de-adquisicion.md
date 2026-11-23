@@ -22,13 +22,13 @@ El margen de contribución de un centro es su ingreso menos lo que cuesta servir
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-133 — Modelos de negocio y sostenibilidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md):
+Caso medido en la sección «La razón entre valor de vida y costo de adquisición: un punto o un rango» de [SE-133 — Modelos de negocio y sostenibilidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md):
 
-En la plataforma de entregas, el modelo vive en `viability-log.md` con una fila por supuesto: nombre, unidad, mínimo, moda, máximo, fuente y estado (medido, derivado, suposición). El contrato del registro es que ningún resultado se informa sin la fila de supuestos que lo produjo y que cambiar una fila cambia la fecha del resultado. Esa separación permite que un revisor recalcule el modelo con otros valores.
+La hoja del equipo calcula la razón con valores centrales: 400 alumnos por centro, un precio de 1,5 por alumno y mes, un costo de servir de 0,6 por alumno, 50 de soporte mensual, un abandono de 3 % mensual y 900 de costo de adquisición. El margen mensual es 400 × (1,5 − 0,6) − 50 = 310, el valor de vida 310 / 0,03 = 10 333 y la razón 11,5 veces. Predicción antes de ejecutar: si cada supuesto es incierto, la razón no debería ser un punto.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-133 — Modelos de negocio y sostenibilidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-133 — Modelos de negocio y sostenibilidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md)) son:
 
 - **La hoja muestra 11 veces y la dirección pide más ventas sin preguntar nada** — causa: se informó la razón con valores centrales y sin intervalo. Corrección: informar p5, mediana y p95 con el supuesto que más contribuye.
 - **El plan se equilibra en el mes 4 y la caja se agota en el mes 8** — causa: se miró el flujo mensual y no la caja acumulada. Corrección: calcular la caja mínima y financiar hasta ese punto.

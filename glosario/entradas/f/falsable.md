@@ -22,20 +22,20 @@ Una hipótesis propone un mecanismo que predice señales. Debe poder perder: «a
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md):
 
 El modelo de decisión diagnóstica genera un registro append-only y no sobreescribe la primera interpretación. Cuando cambia una hipótesis, enlaza la evidencia. El informe final muestra la primera divergencia y alternativas descartadas, evitando una historia retrospectiva perfecta.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)) son:
 
 - **La bisección señala un cambio inocente** — causa: prueba intermitente. Corrección: estabilizar la prueba o repetirla según la fórmula.
 - **«Ya no falla» tras tres corridas** — causa: pocas repeticiones. Corrección: calcular el mínimo con la probabilidad.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)) son: Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada. El método reduce sesgos, no garantiza acceso a toda evidencia ni elimina incertidumbre. El taller siguiente lo aplica a un problema deliberadamente ambiguo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)) son: Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada. El método reduce sesgos, no garantiza acceso a toda evidencia ni elimina incertidumbre. El taller siguiente lo aplica a un problema deliberadamente ambiguo.
 
 ## Relación con otros conceptos
 

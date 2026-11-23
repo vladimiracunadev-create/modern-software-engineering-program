@@ -16,24 +16,24 @@ La clase donde se define, [SE-520 — Dependencias obsoletas y riesgo acumulado]
 
 ## Cómo funciona
 
-[SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md):
 
 Escenario hipotético, construido para la clase y sin datos reales. El equipo hace el inventario del módulo: 14 dependencias directas y 61 transitivas. De las directas, 4 llevan más de tres años sin actualizar, 1 no tiene soporte (la biblioteca de exportación) y 2 tienen avisos abiertos. Con el grafo, descubren que la biblioteca de fechas es un concentrador: de ella dependen 9 paquetes.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son:
 
 - **La actualización «de una hora» dura semanas** — causa: se acumularon cambios incompatibles. Corrección: actualizar en pasos pequeños con una cadencia.
 - **Un aviso queda abierto meses** — causa: política por lotes sin prioridad. Corrección: añadir un carril rápido para avisos con explotación conocida.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se consultó ningún repositorio de paquetes, base de vulnerabilidades ni biblioteca real; la probabilidad de cambio incompatible, la fórmula de interacción, el ritmo de avisos, el retraso del proveedor y los grafos aleatorios son construcciones del autor, y las políticas de la simulación son versiones simplificadas de las reales.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se consultó ningún repositorio de paquetes, base de vulnerabilidades ni biblioteca real; la probabilidad de cambio incompatible, la fórmula de interacción, el ritmo de avisos, el retraso del proveedor y los grafos aleatorios son construcciones del autor, y las políticas de la simulación son versiones simplificadas de las reales.
 
 ## Relación con otros conceptos
 

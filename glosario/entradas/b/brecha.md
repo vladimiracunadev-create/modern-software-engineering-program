@@ -22,13 +22,13 @@ La brecha es la distancia entre evidencia actual y capacidad requerida. Si una p
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md):
 
 Una persona busca backend. Su evidencia muestra APIs básicas, pero no migración ni operación. La ruta prioriza datos y recuperación antes de distribuir sistemas; cada bloque aporta un artefacto al producto transversal y una revisión.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)) son:
 
 - **objetivos son nombres de herramientas** — causa: se confundió medio con capacidad. Corrección: añade acción, contexto, criterio, responsabilidad y límite.
 - **autoevaluación sin enlaces** — causa: familiaridad se tomó como evidencia. Corrección: vincula artefacto revisable o declara “aún no”.

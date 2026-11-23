@@ -22,20 +22,20 @@ Una prueba compara el resultado de ejecutar el código con un resultado esperado
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md):
+Caso medido en la sección «El problema del oráculo» de [SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones recibe del asistente doce pruebas para `nota_final`. Antes de aceptarlas, ejecuta ocho mutantes: las doce pruebas detectan cuatro. Pide entonces al asistente casos a partir del reglamento (sin darle el código) y un revisor humano calcula a mano los esperados; la suite pasa a detectar ocho. Para la documentación exige ejemplos ejecutables y los añade a la integración continua; las docstrings en prosa llevan la versión en que se redactaron.
+Una prueba compara el resultado de ejecutar el código con un resultado esperado, y de dónde sale ese resultado esperado es la cuestión central. Barr y sus coautores llaman a esto el problema del oráculo: decidir si una salida es correcta exige una fuente de verdad distinta del programa mismo. Cuando el esperado se obtiene ejecutando el código, la prueba no comprueba nada, solo congela el comportamiento actual. Congelar tiene un uso legítimo: una **prueba de caracterización** (`SE-519`) fija lo que el sistema hace antes de modificarlo, a sabiendas de que puede ser incorrecto.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md)) son:
 
 - **Todas las pruebas pasan y un cambio de comportamiento pasa inadvertido** — causa: esperados copiados del código. Corrección: esperados calculados a mano desde la especificación.
 - **Cobertura del 100 % y defectos sin detectar** — causa: se midió ejecución, no detección. Corrección: medir con mutantes.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: ocho mutantes ejecutados contra dos suites, `doctest` real sobre módulos generados y una migración real en SQLite en memoria.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-558 — Generación de pruebas, documentación y migraciones](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md)) son: Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: ocho mutantes ejecutados contra dos suites, `doctest` real sobre módulos generados y una migración real en SQLite en memoria.
 
 ## Relación con otros conceptos
 

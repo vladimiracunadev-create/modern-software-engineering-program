@@ -16,24 +16,24 @@ Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
 
 ## Cómo funciona
 
-[SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md):
 
 Un trámite exige video en vivo. Se diseña ruta asincrónica con documentos mínimos, atención accesible y plazo equivalente. Se mide éxito por finalización y carga, no por adopción del canal nuevo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son:
 
 - **“digital elimina papel, por tanto es sostenible”** — causa: frontera demasiado estrecha. Corrección: compara ciclo de vida, conducta habilitada y alternativas.
 - **promedio de adopción justifica canal único** — causa: quienes no acceden quedaron fuera de la muestra. Corrección: segmenta, investiga abandono y conserva resultado alternativo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son: Un análisis hipotético no sustituye participación. `SE-010` enseña a leer fuentes normativas sin exagerar su alcance.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)) son: Un análisis hipotético no sustituye participación. `SE-010` enseña a leer fuentes normativas sin exagerar su alcance.
 
 ## Relación con otros conceptos
 

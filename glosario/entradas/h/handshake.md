@@ -32,7 +32,7 @@ Ejemplo de [SE-043 — TLS, certificados y confianza en tránsito](../../../clas
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-043 — TLS, certificados y confianza en tránsito](../../../classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-043 — TLS, certificados y confianza en tránsito](../../../classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md)) son:
 
 - **`unable to get local issuer certificate`** — causa: el almacén del cliente no tiene la raíz o falta una intermedia. Corrección: comprobar el almacén de esa herramienta y la cadena que presenta el servidor.
 - **`Hostname mismatch` con cadena válida** — causa: el nombre pedido no figura en la SAN. Corrección: usar el nombre correcto o emitir un certificado que lo incluya.

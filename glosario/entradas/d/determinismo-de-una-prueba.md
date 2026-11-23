@@ -16,24 +16,24 @@ La clase donde se define, [SE-308 — Diseño para cambio, prueba y operación](
 
 ## Cómo funciona
 
-[SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
+[SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md):
 
 El equipo de `tarifas` hace tres cambios de diseño, uno por preocupación. Para el cambio, agrupa en un módulo `moneda` todo lo relativo al redondeo y al formato; los cuatro módulos que redondeaban por su cuenta pasan a pedirle el monto; la próxima petición de cambio solo toca `moneda`. Para la prueba, la regla de recargo recibe el instante y la zona horaria como parámetros y el reloj real solo se llama en el borde; la suite incluye las medianoches de los husos que atiende.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md)) son:
 
 - **Un cambio de redondeo toca cuatro módulos** — causa: la decisión está repartida entre pasos del flujo. Corrección: esconderla en un módulo y hacer que los demás pidan el monto.
 - **Una prueba pasa de lunes a viernes y falla el sábado** — causa: depende del reloj real. Corrección: inyectar el instante y probar los bordes de día y de huso.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis y modelos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún reloj real ni ningún sistema de registros real; las matrices de conocimiento, los pesos de cambio, los husos y el modelo de solicitudes son construcciones del autor. La siguiente clase separa la complejidad esencial del problema de la que añade el diseño.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-308 — Diseño para cambio, prueba y operación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis y modelos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún reloj real ni ningún sistema de registros real; las matrices de conocimiento, los pesos de cambio, los husos y el modelo de solicitudes son construcciones del autor. La siguiente clase separa la complejidad esencial del problema de la que añade el diseño.
 
 ## Relación con otros conceptos
 

@@ -32,7 +32,7 @@ El equipo adopta una lista de comprobación de endurecimiento para cada automati
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md)) son:
 
 - **El trabajo termina con 0 sin hacer nada** — causa: se ignora el código de la herramienta externa. Corrección: comprobar el código y propagarlo.
 - **Se pierden copias existentes tras un fallo** — causa: se borra antes de verificar lo nuevo. Corrección: crear y verificar primero; retirar después.

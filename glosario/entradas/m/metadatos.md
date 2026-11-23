@@ -30,20 +30,20 @@ El laboratorio tiene seis sentencias `CREATE TABLE ... AS SELECT` en el estilo d
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md):
+Caso medido en la sección «El costo de cruzar la frontera: metadatos y el montaje 9p» de [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md):
 
-Un actualizador escribe sobre el archivo final y se interrumpe, dejando JSON truncado. El equipo cambia a temporal en el mismo volumen, valida el contenido y reemplaza según la garantía documentada. Mantiene copia o recuperación porque atomicidad no equivale a persistencia ante toda falla.
+El tamaño de un archivo importa menos que el *número* de operaciones de metadatos. La misma prueba creó 2000 archivos de un byte y luego consultó `stat` de cada uno: en ext4 tardó 0,33 s y 0,007 s; en NTFS desde Windows, 1,32 s y 0,12 s; y en `/mnt/c` desde WSL2, 12,79 s y 4,89 s. Cada operación de metadatos que cruza de Linux a Windows pasa por el protocolo 9p y por el sistema de archivos de Windows: la consulta de metadatos fue unas 700 veces más lenta que en ext4.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son:
 
 - **El archivo se busca en lugares distintos** — causa: se confundió directorio del script con directorio de trabajo. Corrección: elegir una base explícita y mostrarla en diagnóstico.
 - **Una ruta portable se construye reemplazando `/`** — causa: se trataron rutas como cadenas. Corrección: usar la biblioteca de rutas y probar raíces, volúmenes y UNC.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son: No cubrimos recuperación forense, sistemas distribuidos ni todas las garantías de cada sistema de archivos. Una ruta resoluble todavía puede estar prohibida. La próxima clase incorpora identidad, grupos, permisos y elevación para explicar esa decisión.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son: No cubrimos recuperación forense, sistemas distribuidos ni todas las garantías de cada sistema de archivos. Una ruta resoluble todavía puede estar prohibida. La próxima clase incorpora identidad, grupos, permisos y elevación para explicar esa decisión.
 
 ## Relación con otros conceptos
 

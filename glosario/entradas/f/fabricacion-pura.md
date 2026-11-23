@@ -22,9 +22,9 @@ Los cuatro criterios restantes corrigen costos. El **Polimorfismo** reemplaza co
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md):
+Caso medido en la sección «Polimorfismo, Indirección, Fabricación pura y Variaciones protegidas» de [SE-317 — GRASP y asignación de responsabilidades](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades/README.md):
 
-*Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
+Los cuatro criterios restantes corrigen costos. El **Polimorfismo** reemplaza condicionales sobre el tipo con métodos del tipo (el Strategy de `SE-313`). La **Indirección** introduce un intermediario para bajar el acoplamiento directo (el Adapter de `SE-315`, el Repository de `SE-318`). La **Fabricación pura** crea una pieza sin correspondencia con el dominio para sostener alta cohesión: en el experimento, `total_puro(lineas)` calcula el total sin base de datos, sin reloj y sin dobles, y se prueba con una llamada. Las **Variaciones protegidas** envuelven un punto de cambio probable con una interfaz estable.
 
 ## Errores y confusiones comunes
 

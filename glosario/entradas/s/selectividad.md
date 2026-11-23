@@ -26,9 +26,9 @@ La **selectividad** de una condición es la fracción de filas que deja pasar. U
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-353 — Consultas, índices y patrones de acceso](../../../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md):
+Caso medido en la sección «Selectividad» de [SE-353 — Consultas, índices y patrones de acceso](../../../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md):
 
-El equipo de la plataforma crea un catálogo de patrones de acceso, uno por consulta frecuente, con su frecuencia, su filtro y su plazo: «mis entregas» (por estudiante, ordenadas por fecha, cada pantalla), «panel del docente» (por curso y rango de fechas) y «informe nocturno» (promedios por curso). Para cada una anota el plan antes y después, los pasos medidos y el índice que la justifica.
+La **selectividad** de una condición es la fracción de filas que deja pasar. Un índice sobre una columna ayuda cuando la condición selecciona pocas filas: buscar un estudiante entre 2 000 devuelve una fracción mínima y el índice evita recorrer el resto. Cuando una condición selecciona la mayoría (el 90 % de las entregas están «enviadas»), recorrer el índice y luego leer casi todas las filas cuesta casi lo mismo que recorrer la tabla. Un índice sobre una columna con pocos valores distintos solo es útil para sus valores raros.
 
 ## Errores y confusiones comunes
 

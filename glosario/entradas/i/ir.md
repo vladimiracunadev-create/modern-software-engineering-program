@@ -22,13 +22,13 @@ IR y bytecode permiten analizar y transformar sin atarse inmediatamente a una IS
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md):
 
 Una función JIT tarda al inicio y mejora después de calentamiento. Un benchmark que mide una sola llamada favorece AOT; otro que descarta arranque favorece estado estable. Se reportan ambos según uso.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-020 — Compilación, interpretación, bytecode y JIT](../../../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)) son:
 
 - **lenguaje clasificado por una palabra** — causa: etapas combinadas ocultas. Corrección: dibuja traducción real de implementación.
 - **bytecode = máquina** — causa: niveles confundidos. Corrección: nombra VM y versión.

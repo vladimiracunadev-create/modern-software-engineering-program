@@ -16,24 +16,24 @@ La clase donde se define, [SE-289 — Software científico y reproducibilidad](.
 
 ## Cómo funciona
 
-[SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el modelo de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el modelo de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md):
 
 El equipo de la plataforma crea `model/` con un `requirements.txt` fijado, una función `simular(semilla, n)` pura, un script `repetir.py` que ejecuta 200 semillas y escribe la media, la desviación y los percentiles 5 y 95, y una prueba que compara dos ejecuciones con la misma semilla con igualdad exacta y dos plataformas con tolerancia relativa de 10⁻⁹. El informe publica una frase con la forma «entregas a tiempo: media (intervalo p5 a p95, 200 semillas, versión de Python)» y no la cifra de una ejecución.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md)) son:
 
 - **El total difiere en la última cifra entre dos ejecuciones** — causa: orden de suma distinto (hilos, particiones). Corrección: fijar el orden o usar una suma con error acotado y comparar con tolerancia.
 - **Una estimación cambia de decimales con otra semilla** — causa: se publicó una muestra de tamaño uno. Corrección: repetir con muchas semillas y publicar la dispersión.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md)) son: Las definiciones son operativas para el modelo de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún código científico real, ningún compilador distinto de CPython ni otras arquitecturas de procesador: las magnitudes de los números, la estimación de π y el mapa logístico son construcciones del autor. La siguiente clase mueve los datos del modelo por una cadena de procesamiento analítico.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md)) son: Las definiciones son operativas para el modelo de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún código científico real, ningún compilador distinto de CPython ni otras arquitecturas de procesador: las magnitudes de los números, la estimación de π y el mapa logístico son construcciones del autor. La siguiente clase mueve los datos del modelo por una cadena de procesamiento analítico.
 
 ## Relación con otros conceptos
 

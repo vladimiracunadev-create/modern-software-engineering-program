@@ -16,24 +16,24 @@ La clase donde se define, [SE-234 — Navegación, routing y URLs durables](../.
 
 ## Cómo funciona
 
-[SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
+[SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md):
 
 La plataforma publica una tabla de URLs: `/entregas/:id` identifica una entrega, `/entregas?estado=tarde&curso=3&pagina=2` describe una vista de la lista, y los parámetros de la vista se leen con un esquema de tipos que ignora lo desconocido. Las rutas se declaran ordenadas por especificidad y una prueba comprueba que cada URL de una lista de ejemplos se resuelve a la vista esperada en cualquier orden de declaración.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)) son:
 
 - **Los filtros se pierden al compartir el enlace** — causa: el estado vive solo en memoria. Corrección: llevar a la consulta lo que repite la vista.
 - **La misma página cuenta como dos en las métricas** — causa: variantes de la URL sin normalizar (barra final, mayúsculas, utm). Corrección: elegir una forma canónica y redirigir a ella.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Las URLs, las rutas y los estados son construcciones del autor, el enrutador es un algoritmo mínimo y no se probó contra un navegador, un servidor ni un buscador. La siguiente clase pregunta cuánto pesan y cuánto tardan las páginas a las que esas URLs llevan, y cómo se pone un presupuesto.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-234 — Navegación, routing y URLs durables](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Las URLs, las rutas y los estados son construcciones del autor, el enrutador es un algoritmo mínimo y no se probó contra un navegador, un servidor ni un buscador. La siguiente clase pregunta cuánto pesan y cuánto tardan las páginas a las que esas URLs llevan, y cómo se pone un presupuesto.
 
 ## Relación con otros conceptos
 

@@ -22,9 +22,9 @@ Se divide en subproblemas independientes, se resuelven y combinan. La independen
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md):
+Caso medido en la sección «Divide y vencerás: profundidad, costo y cuándo no conviene» de [SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md):
 
-En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+La ordenación por mezcla divide en mitades: con 1 000, 10 000 y 100 000 elementos usó 8 678, 120 398 y 1 536 147 comparaciones, cerca de `n·log₂ n` (9 966; 132 877; 1 660 964), con profundidad de recursión 10, 14 y 17. Si la división es desigual (quitar un elemento cada vez), la profundidad pasa a ser `n`: una recursión de ese tipo con 2 000 elementos agotó la pila con `RecursionError`. Dividir bien es parte de la corrección práctica del algoritmo.
 
 ## Errores y confusiones comunes
 
@@ -35,7 +35,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La exploración exacta puede seguir siendo intratable. La siguiente clase presenta índices, estructuras probabilísticas y persistentes con garantías explícitas, no magia de rendimiento.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-092 — Backtracking, divide y vencerás](../../../classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)) son: Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. La exploración exacta puede seguir siendo intratable. La siguiente clase presenta índices, estructuras probabilísticas y persistentes con garantías explícitas, no magia de rendimiento.
 
 ## Relación con otros conceptos
 

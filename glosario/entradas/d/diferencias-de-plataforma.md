@@ -18,24 +18,24 @@ En [SE-224 — Automatización idempotente y reanudable](../../../classes/part-1
 
 ## Cómo funciona
 
-[SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md):
 
 `notas servir` tiene cuatro estados (arrancando, preparado, drenando, detenido) y publica una ruta `/listo` que responde 200 solo cuando la configuración está cargada y el almacenamiento accesible, y otra `/vivo` que no consulta nada externo. Al recibir `SIGTERM` (Linux) o `CTRL_BREAK_EVENT` (Windows), la ruta `/listo` empieza a devolver 503, el servicio termina las exportaciones en curso durante un plazo de 20 s (el máximo observado más un margen), vacía sus archivos temporales y sale con 0 o con 75 si venció el plazo.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)) son:
 
 - **Fallan peticiones tras cada despliegue** — causa: se envía tráfico antes de que el servicio esté preparado. Corrección: sonda de preparación que prueba lo mismo que el cliente.
 - **Un archivo queda truncado al detener el servicio** — causa: la terminación fue forzada o el manejador no vació. Corrección: cierre ordenado y escritura en archivo temporal.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la terminación difirió por sistema, la ventana de preparación coincidió salvo una petición y la simulación fue idéntica. No se usó ningún gestor de servicios ni orquestador; los retardos y los tiempos de espera son supuestos del autor. La siguiente clase pregunta qué hace el servicio por dentro cuando debe programar y repartir trabajo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la terminación difirió por sistema, la ventana de preparación coincidió salvo una petición y la simulación fue idéntica. No se usó ningún gestor de servicios ni orquestador; los retardos y los tiempos de espera son supuestos del autor. La siguiente clase pregunta qué hace el servicio por dentro cuando debe programar y repartir trabajo.
 
 ## Relación con otros conceptos
 

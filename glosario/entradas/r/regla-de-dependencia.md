@@ -22,13 +22,13 @@ La **regla de dependencia** (formulada por Martin en la arquitectura limpia) dic
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-328 — Capas, hexagonal, clean y ports and adapters](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-328 — Capas, hexagonal, clean y ports and adapters](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md):
 
 El equipo de la plataforma reorganiza el módulo de notas: `notas/dominio` contiene las reglas y el puerto `Repositorio`; `notas/aplicacion` los casos de uso; `notas/adaptadores` el adaptador SQLite y el doble en memoria. Un comprobador de importaciones (el de `SE-327`) falla si `dominio` importa `adaptadores`, `sqlite3` o el framework web. La suite de contrato corre contra el doble y contra SQLite en cada commit; las pruebas de regla usan el doble (0,01 ms) y solo una docena de pruebas de integración usan SQLite en archivo (100 ms).
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-328 — Capas, hexagonal, clean y ports and adapters](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-328 — Capas, hexagonal, clean y ports and adapters](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md)) son:
 
 - **Cambiar la base de datos toca decenas de módulos** — causa: el dominio depende de la infraestructura. Corrección: invertir la dependencia con un puerto y comprobar las importaciones.
 - **Las capas existen en los nombres pero el código salta capas** — causa: no hay una regla comprobable. Corrección: añadir un comprobador de importaciones al CI.

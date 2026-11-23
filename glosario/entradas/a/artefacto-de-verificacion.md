@@ -16,11 +16,11 @@ La clase donde se define, [SE-551 — Taller: un mismo cambio con cinco metodolo
 
 ## Cómo funciona
 
-[SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md)) son: Los siete mutantes y los cinco artefactos son del autor; no se midió esfuerzo humano ni mantenimiento. El siguiente paso, `SE-552`, convierte lo aprendido en una política de equipo: reglas que asignan prácticas a clases de cambio, con costo, riesgo y revisión.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-551 — Taller: un mismo cambio con cinco metodologías](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/README.md)) son: Los siete mutantes y los cinco artefactos son del autor; no se midió esfuerzo humano ni mantenimiento. El siguiente paso, `SE-552`, convierte lo aprendido en una política de equipo: reglas que asignan prácticas a clases de cambio, con costo, riesgo y revisión.
 
 ## Relación con otros conceptos
 

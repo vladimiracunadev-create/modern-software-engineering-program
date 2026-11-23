@@ -22,20 +22,20 @@ Se pasaron doce nombres de archivo a un proceso hijo que imprime sus argumentos,
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md):
 
 El equipo adopta una lista de comprobación de endurecimiento para cada automatización: validar entradas antes de actuar, listas de argumentos sin shell, tiempo límite en cada proceso externo, bloqueo con `O_EXCL` y limpieza en `finally`, escritura en temporal con reemplazo atómico, verificación por resumen, orden «crear y verificar, luego retirar», códigos de salida de `SE-220` y un registro con inicio, fin y resultado.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md)) son:
 
 - **El trabajo termina con 0 sin hacer nada** — causa: se ignora el código de la herramienta externa. Corrección: comprobar el código y propagarlo.
 - **Se pierden copias existentes tras un fallo** — causa: se borra antes de verificar lo nuevo. Corrección: crear y verificar primero; retirar después.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la matriz de fallos fue idéntica; el contador y el citado difirieron por sistema. Los diez fallos, las dos versiones y el contador son del autor; no se probaron permisos, disco lleno, red ni antivirus, ni bloqueos huérfanos. La siguiente clase reúne todo en un paquete operable y multiplataforma.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-227 — Taller: endurecer una automatización frágil](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md)) son: Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la matriz de fallos fue idéntica; el contador y el citado difirieron por sistema. Los diez fallos, las dos versiones y el contador son del autor; no se probaron permisos, disco lleno, red ni antivirus, ni bloqueos huérfanos. La siguiente clase reúne todo en un paquete operable y multiplataforma.
 
 ## Relación con otros conceptos
 

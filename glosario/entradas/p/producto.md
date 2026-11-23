@@ -34,14 +34,14 @@ Una calculadora tributaria contiene software. El sistema relevante incluye regla
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)) son:
 
 - **el mapa contiene solo servicios y bases de datos** — causa: se confundió sistema con arquitectura técnica. Corrección: añade personas, reglas, datos, decisiones y el resultado que conecta los elementos.
 - **la frontera coincide exactamente con el organigrama** — causa: se modeló autoridad formal, no causalidad. Corrección: sigue una solicitud real y mueve la frontera según la pregunta que necesitas responder.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)) son: El mapa no prueba funcionamiento ni sustituye requisitos. `SE-002` estudia por qué escala y cambio hicieron insuficiente tratar el software como artesanía aislada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)) son: El mapa no prueba funcionamiento ni sustituye requisitos. `SE-002` estudia por qué escala y cambio hicieron insuficiente tratar el software como artesanía aislada.
 
 ## Relación con otros conceptos
 

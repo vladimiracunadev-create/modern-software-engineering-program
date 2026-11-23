@@ -16,11 +16,11 @@ La clase donde se define, [SE-453 — Verificación formal y model checking: TLA
 
 ## Cómo funciona
 
-[SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md)) son: El verificador es propio y de estados explícitos, los modelos son diminutos y del autor, no se ejecutó TLA+, SPARK ni Alloy y el artículo del CACM se cita por su DOI, que responde con bloqueo a clientes automáticos. El siguiente paso, `SE-454`, mide cuánto de un programa ejercitan las pruebas con criterios de cobertura estricta y cómo se combinan la simulación y el banco con hardware.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md)) son: El verificador es propio y de estados explícitos, los modelos son diminutos y del autor, no se ejecutó TLA+, SPARK ni Alloy y el artículo del CACM se cita por su DOI, que responde con bloqueo a clientes automáticos. El siguiente paso, `SE-454`, mide cuánto de un programa ejercitan las pruebas con criterios de cobertura estricta y cómo se combinan la simulación y el banco con hardware.
 
 ## Relación con otros conceptos
 

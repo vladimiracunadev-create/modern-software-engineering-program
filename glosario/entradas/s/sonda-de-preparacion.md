@@ -22,7 +22,7 @@ Al recibir la petición de parada, un servicio ordenado deja de aceptar trabajo 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md):
 
 `notas servir` tiene cuatro estados (arrancando, preparado, drenando, detenido) y publica una ruta `/listo` que responde 200 solo cuando la configuración está cargada y el almacenamiento accesible, y otra `/vivo` que no consulta nada externo. Al recibir `SIGTERM` (Linux) o `CTRL_BREAK_EVENT` (Windows), la ruta `/listo` empieza a devolver 503, el servicio termina las exportaciones en curso durante un plazo de 20 s (el máximo observado más un margen), vacía sus archivos temporales y sale con 0 o con 75 si venció el plazo.
 

@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-412 — Suscripciones, ciclos de facturación y dunning](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md)) son: Se ejecutaron una máquina de estados, un ciclo anclado y un prorrateo, y se simularon reintentos con semilla 34 y probabilidades del autor; no se llamó a un procesador, no hubo cobros reales ni se trataron impuestos, facturación electrónica ni reconocimiento contable de ingresos. Las probabilidades de recuperación no son las de ningún procesador.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-412 — Suscripciones, ciclos de facturación y dunning](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md)) son: Se ejecutaron una máquina de estados, un ciclo anclado y un prorrateo, y se simularon reintentos con semilla 34 y probabilidades del autor; no se llamó a un procesador, no hubo cobros reales ni se trataron impuestos, facturación electrónica ni reconocimiento contable de ingresos. Las probabilidades de recuperación no son las de ningún procesador.
 
 ## Relación con otros conceptos
 

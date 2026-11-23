@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← RFC](./rfc.md) · [Riesgo aceptado →](./riesgo-aceptado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Evento incierto futuro con una causa, un efecto, una probabilidad, un impacto, un disparador y una respuesta.
+Un **riesgo** es, en el programa, un evento incierto que, si ocurre, afecta a lo que se persigue. La palabra cambia de escala según la clase, siempre con la idea de incertidumbre más consecuencia:
 
-Definición de trabajo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md): Pérdida esperada de un componente, estimada como probabilidad de defecto por impacto.
-- En [SE-445 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md): Combinación de la gravedad de un daño posible y la probabilidad de que ocurra.
+- **En un proyecto** ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)): un evento incierto futuro con una causa, un efecto, una probabilidad, un impacto, un disparador y una respuesta.
+- **En la estrategia de pruebas** ([SE-421](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)): la pérdida esperada de un componente, estimada como probabilidad de defecto por impacto.
+- **En sistemas críticos** ([SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md)): la combinación de la gravedad de un daño posible y la probabilidad de que ocurra.
+- **En una restricción de diseño** ([SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md)): una cadena causal con señal, mitigación y contingencia; la clase advierte que un riesgo escrito como sustantivo («rendimiento») no sirve.
 
 ## Por qué importa
 
-En [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), el tema «Riesgos» importa porque se gestionan con probabilidad, impacto, disparador y respuesta; la media no basta si hay causa común.
-
-En [SE-008 — Restricciones, riesgos y compromisos entre atributos](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md), el tema «Riesgo» importa porque combina incertidumbre y consecuencia
+Decide dónde se gasta el esfuerzo limitado. [SE-421](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) usa el riesgo para priorizar pruebas: no todo componente merece la misma inversión, y la pérdida esperada ordena las decisiones. [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) lo usa para gobernar un proyecto: Boehm propuso ordenar los riesgos por exposición, el producto de probabilidad y pérdida, y revisar la lista de los principales cada vez.
 
 ## Cómo funciona
 
-Según [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), en la sección «Riesgos»:
-
-Un riesgo es un evento incierto que, si ocurre, afecta al proyecto. Se describe con una causa, un evento y un efecto («si el proveedor de identidad cambia su contrato, la integración se retrasa»), se estima con probabilidad e impacto, y se acompaña de un disparador (la señal de que se está materializando), una respuesta (reducir, evitar, aceptar, transferir) y un responsable. Boehm propuso ordenarlos por exposición, es decir, por el producto de probabilidad y pérdida, y revisar la lista de los principales cada vez. El valor de la lista es la conversación que obliga, no el número.
+Para que un riesgo sirva, se describe como cadena causal, no como etiqueta. [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) pide escribirlo con una **causa**, un **evento** y un **efecto** («si el proveedor de identidad cambia su contrato, la integración se retrasa»), estimarlo con probabilidad e impacto y acompañarlo de un **disparador** (la señal de que se está materializando), una **respuesta** (reducir, evitar, aceptar o transferir) y un **responsable**. Se mantiene separado de otros registros: tareas (se hacen), problemas o *issues* (ya ocurrieron), supuestos (se creen) y decisiones. En una pérdida esperada ([SE-421](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)), la cuenta es probabilidad de defecto por impacto; en seguridad funcional ([SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md)), se combinan gravedad y probabilidad para clasificar el daño posible.
 
 ## Ejemplo
 
-Ejemplo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula la exposición esperada de tres riesgos y la probabilidad de que ninguno ocurra. Antes de ejecutarlo, predice si la probabilidad de que no ocurra ninguno es mayor o menor que 50 %.
+En [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), «el proveedor de identidad cambia su contrato» tiene una causa (cambio del proveedor), un evento (cambio del contrato), un efecto (retraso de la integración), un disparador (aviso del proveedor), una respuesta y un responsable. En [SE-421](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md), un componente con alta probabilidad de defecto y alto impacto recibe más pruebas que uno de impacto bajo, aunque tenga el mismo tamaño.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La hoja de riesgos mezcla tareas, problemas y creencias** — causa: todo se llama «riesgo». Corrección: clasificar en cuatro registros con campos distintos. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
-- **La contingencia se agota con un único evento** — causa: riesgos con causa común tratados como independientes. Corrección: registrar causas comunes y reservar por percentil. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
-- **riesgo escrito como sustantivo** — causa: faltan causa y consecuencia. Corrección: formula cadena causal, señal, mitigación y contingencia. ([SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md))
+- **Una hoja de riesgos que mezcla tareas, problemas y creencias.** Todo se llama «riesgo»; corrección ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)): clasificar en cuatro registros con campos distintos.
+- **La contingencia se agota con un único evento.** Riesgos con causa común tratados como independientes; corrección: registrar las causas comunes y reservar por percentil.
+- **Un riesgo escrito como sustantivo.** Faltan causa y consecuencia; corrección ([SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md)): formular cadena causal, señal, mitigación y contingencia.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- A diferencia del riesgo, no es un evento futuro sino una creencia presente: si es falsa, el plan estaba mal desde el principio. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
-- Traslada el análisis a otro plan (por ejemplo, una migración de datos): cambia los riesgos y supuestos, y conserva el procedimiento de clasificar, simular con y sin causas comunes y ordenar la validación. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
+Las tres definiciones no son intercambiables: la pérdida esperada de [SE-421](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) es una estimación numérica para priorizar pruebas, mientras que la combinación de gravedad y probabilidad de [SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) clasifica daños con normas de seguridad, donde el producto de números no basta por sí solo. Las cifras de probabilidad e impacto son estimaciones y la exposición de Boehm ordena, no predice. Al usar la palabra hay que confirmar a qué escala se refiere.
 
 ## Relación con otros conceptos
 

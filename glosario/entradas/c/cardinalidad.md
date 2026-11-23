@@ -36,7 +36,7 @@ Mientras sean pocos y acotados, sí; el problema es que «pocos» crece sin que 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-495 — Métricas, dimensiones y cardinalidad](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-495 — Métricas, dimensiones y cardinalidad](../../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md)) son:
 
 - **El almacén de métricas se queda sin memoria** — causa: etiqueta con valores abiertos. Corrección: presupuestar series y probar el número en integración.
 - **El contador cae a cero tras un despliegue** — causa: reinicio del proceso. Corrección: consultar incrementos con detección de reinicios.

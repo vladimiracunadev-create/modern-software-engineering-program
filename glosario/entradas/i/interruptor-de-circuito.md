@@ -22,13 +22,13 @@ Un **interruptor de circuito** envuelve las llamadas a una dependencia y observa
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
+Caso medido en la sección «Interruptor de circuito» de [SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md):
 
-El equipo hace un mapa de las dependencias de la API de entregas. Para la base de datos (crítica), no hay interruptor con respaldo posible: se reserva un pool propio de trabajadores para entregar tareas y se acota la cola; si la base cae, la API responde con un error claro. Para el servicio de miniaturas (secundario) se pone un interruptor con apertura por cinco fallos seguidos y 10 s abierto, un compartimento de 5 trabajadores y una respuesta degradada (un icono genérico) marcada con una cabecera.
+Un **interruptor de circuito** envuelve las llamadas a una dependencia y observa su resultado. Tiene tres estados. En **cerrado**, las llamadas pasan y se cuentan los fallos; cuando se supera un criterio (cinco fallos seguidos, o una fracción de fallos en una ventana) pasa a **abierto**. En abierto, las llamadas fallan al instante sin tocar la dependencia (o devuelven una respuesta de respaldo) y se espera un tiempo. Tras ese tiempo pasa a **semiabierto**: deja pasar una llamada de prueba; si tiene éxito, vuelve a cerrado; si falla, vuelve a abierto.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-439 — Circuit breakers, bulkheads y degradación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md)) son:
 
 - **Una dependencia secundaria tumba la función principal** — causa: pool compartido. Corrección: mamparos por dependencia o por criticidad.
 - **El interruptor se abre y cierra sin parar** — causa: umbral demasiado bajo para fallos aleatorios. Corrección: subir el umbral o usar una ventana con fracción de fallos.

@@ -32,7 +32,7 @@ La petición observable de extremo a extremo ejecuta una traza sintética cada c
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)) son:
 
 - **Informe con una lista de errores sin ordenar** — causa: no se identificó la primera divergencia. Corrección: comparar con el caso sano y señalar la primera fase que difiere.
 - **Eventos de componentes que no se pueden unir** — causa: falta un identificador propagado. Corrección: generar el ID en el borde, propagarlo y registrarlo en cada capa.

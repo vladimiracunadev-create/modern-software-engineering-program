@@ -28,14 +28,14 @@ Los que existan: un conteo bajo no prueba accesibilidad y uno alto no prueba mal
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)) son:
 
 - **Se declara el flujo accesible con cero hallazgos** — causa: se confundió «las reglas no encuentran nada» con accesibilidad. Corrección: declarar alcance, revisión humana y lo no comprobado.
 - **Se arreglan los hallazgos baratos y los bloqueos esperan** — causa: orden por facilidad. Corrección: comparar órdenes con personas bloqueadas y esfuerzo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún escáner de producción, lector de pantalla ni persona usuaria de tecnologías de apoyo, y los hallazgos, sus estimaciones, el auditor de ocho reglas y las 13 mutaciones son construcciones del autor. La siguiente clase integra todo en un prototipo evaluado con personas.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-179 — Taller: auditar y reparar un flujo excluyente](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún escáner de producción, lector de pantalla ni persona usuaria de tecnologías de apoyo, y los hallazgos, sus estimaciones, el auditor de ocho reglas y las 13 mutaciones son construcciones del autor. La siguiente clase integra todo en un prototipo evaluado con personas.
 
 ## Relación con otros conceptos
 

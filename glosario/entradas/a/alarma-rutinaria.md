@@ -22,7 +22,7 @@ Los mensajes crípticos y las pausas que el operador aprendía a confirmar son u
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-455 — Taller: analizar un fallo real frente a las normas](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-455-taller-analizar-un-fallo-real-frente-a-las-normas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-455 — Taller: analizar un fallo real frente a las normas](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-455-taller-analizar-un-fallo-real-frente-a-las-normas/README.md):
 
 *Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -32,7 +32,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-455 — Taller: analizar un fallo real frente a las normas](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-455-taller-analizar-un-fallo-real-frente-a-las-normas/README.md)) son: Los hechos vienen de un solo artículo de 1993 y de su recopilación en el caso del programa; los modelos son del autor y no reconstruyen el código; los supuestos de probabilidad y distribución no tienen respaldo en datos publicados. El siguiente paso, `SE-456`, cierra la parte con un proyecto: armar el paquete de aseguramiento de un controlador, con comprobaciones automáticas de huecos y de evidencia obsoleta.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-455 — Taller: analizar un fallo real frente a las normas](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-455-taller-analizar-un-fallo-real-frente-a-las-normas/README.md)) son: Los hechos vienen de un solo artículo de 1993 y de su recopilación en el caso del programa; los modelos son del autor y no reconstruyen el código; los supuestos de probabilidad y distribución no tienen respaldo en datos publicados. El siguiente paso, `SE-456`, cierra la parte con un proyecto: armar el paquete de aseguramiento de un controlador, con comprobaciones automáticas de huecos y de evidencia obsoleta.
 
 ## Relación con otros conceptos
 

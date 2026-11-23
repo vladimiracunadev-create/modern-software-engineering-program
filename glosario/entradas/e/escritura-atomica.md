@@ -36,14 +36,14 @@ La herramienta `notas` es el caso conductor de la [Parte 18](../../../classes/pa
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-254 — Ciclo de vida, suspensión y reanudación](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-254 — Ciclo de vida, suspensión y reanudación](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md)) son:
 
 - **El borrador vuelve vacío tras cambiar de aplicación** — causa: se guardaba solo en un evento de cierre que no se entregó. Corrección: guardar al pasar a segundo plano y de forma periódica durante la edición.
 - **La aplicación se cierra al abrirla tras actualizar** — causa: la lectura estricta rechaza el estado de la versión anterior. Corrección: versión en el archivo, migraciones y prueba por versión.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-254 — Ciclo de vida, suspensión y reanudación](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos. No se midió ningún dispositivo móvil ni el plazo real de ningún gancho: los porcentajes son del autor. La siguiente clase compara formas de construir el cliente.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-254 — Ciclo de vida, suspensión y reanudación](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md)) son: Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos. No se midió ningún dispositivo móvil ni el plazo real de ningún gancho: los porcentajes son del autor. La siguiente clase compara formas de construir el cliente.
 
 ## Relación con otros conceptos
 

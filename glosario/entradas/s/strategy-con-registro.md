@@ -16,11 +16,11 @@ La clase donde se define, [SE-323 — Taller: refactorizar con patrones y medir 
 
 ## Cómo funciona
 
-[SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+[SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md):
 
 *Escenario ilustrativo: las cifras de este ejemplo son supuestos de la narración, no mediciones.*
 
@@ -30,7 +30,7 @@ Las clases no registran errores específicos de este término.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md)) son: La función, los mutantes y las entradas son del autor, los tiempos varían entre ejecuciones y equipos, y no se midió la comprensión de ninguna persona. El siguiente paso, `SE-324`, lleva el mismo método a un sistema completo: inventariar los patrones, verificar cada candidato y escribir un catálogo con evidencia, costo y condición de salida por entrada.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md)) son: La función, los mutantes y las entradas son del autor, los tiempos varían entre ejecuciones y equipos, y no se midió la comprensión de ninguna persona. El siguiente paso, `SE-324`, lleva el mismo método a un sistema completo: inventariar los patrones, verificar cada candidato y escribir un catálogo con evidencia, costo y condición de salida por entrada.
 
 ## Relación con otros conceptos
 

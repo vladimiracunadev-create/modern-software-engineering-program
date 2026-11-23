@@ -36,7 +36,7 @@ HMAC es un MAC; el problema es la clave. La clave de un MAC debe ser aleatoria y
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-461 — Criptografía aplicada y gestión de claves](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-461 — Criptografía aplicada y gestión de claves](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md)) son:
 
 - **Un mensaje se lee sin la clave** — causa: nonce repetido con la misma clave. Corrección: nonce aleatorio de 96 bits o contador persistente y una clave nueva antes del límite.
 - **Se puede falsificar una firma por red** — causa: comparación con `==`. Corrección: `hmac.compare_digest` y respuesta uniforme.

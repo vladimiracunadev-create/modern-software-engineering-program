@@ -22,9 +22,9 @@ En un procesador de 8 bits, un valor de 16 bits se lee en dos instrucciones. Si 
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md):
+Caso medido en la sección «Lecturas partidas» de [SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md):
 
-El equipo de la plataforma escribe una regla de datos compartidos del nodo. El contador de pulsaciones lo escribe solo la interrupción y el bucle lo lee con una sección crítica de dos instrucciones, de modo que el bucle nunca lo escribe. La temperatura de 16 bits la escribe la interrupción con un número de secuencia: se incrementa antes y después de escribir; el bucle repite la lectura hasta ver el mismo número par dos veces.
+En un procesador de 8 bits, un valor de 16 bits se lee en dos instrucciones. Si la interrupción lo actualiza entre ambas, el programa obtiene un byte alto antiguo y uno bajo nuevo. El resultado es casi siempre inocuo: si el valor solo se incrementa en uno y el byte bajo no pasa de 255 a 0, el valor leído es el nuevo. Pero cuando el incremento cruza un límite de byte, el valor leído difiere en 255 o 256: un salto grande, rarísimo y casi irreproducible.
 
 ## Errores y confusiones comunes
 
@@ -34,7 +34,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún procesador, ensamblador ni analizador de interrupciones: las posiciones, la probabilidad de 1/20 y el proceso de llegadas del búfer son construcciones del autor. La siguiente clase saca esos datos del dispositivo por una red que se corta.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-269 — Interrupciones, concurrencia y estado compartido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún procesador, ensamblador ni analizador de interrupciones: las posiciones, la probabilidad de 1/20 y el proceso de llegadas del búfer son construcciones del autor. La siguiente clase saca esos datos del dispositivo por una red que se corta.
 
 ## Relación con otros conceptos
 

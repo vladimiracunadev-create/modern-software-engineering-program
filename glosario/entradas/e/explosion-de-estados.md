@@ -28,9 +28,9 @@ Cada componente concurrente añade su propio estado y los estados globales son e
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md):
+Caso medido en la sección «La explosión de estados» de [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md):
 
-En la plataforma, el ciclo de vida de la entrega vive en una tabla de transiciones (estado, acción, estado siguiente, condición) que usan tanto el código de producción como el verificador. El verificador, ejecutado en integración continua, explora el modelo con los invariantes (si hay nota, estado válido; una entrega anulada no vuelve a ningún estado; el contador de apelaciones no supera 2) y falla con la traza si hay violación. Un segundo modelo con la concurrencia de las revisoras explora los intercalados de lectura y escritura con k pequeño.
+El costo de la verificación crece con el espacio de estados, y este crece de forma exponencial con el número de componentes. En el laboratorio, n procesos independientes de cuatro pasos tienen 4ⁿ estados: 16 con 2, 1 024 con 5 y 16 384 con 7.
 
 ## Errores y confusiones comunes
 
@@ -40,7 +40,7 @@ Errores que las clases asocian con este término (síntoma → causa → correcc
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): estados e intercalados idénticos, tiempos y resultados con hilos reales variables. No se usó TLA+ ni SPIN, el modelo es una abstracción de cinco estados y no se verificó ningún código real. La siguiente clase pregunta cómo se valida lo que viaja entre esas entidades.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): estados e intercalados idénticos, tiempos y resultados con hilos reales variables. No se usó TLA+ ni SPIN, el modelo es una abstracción de cinco estados y no se verificó ningún código real. La siguiente clase pregunta cómo se valida lo que viaja entre esas entidades.
 
 ## Relación con otros conceptos
 

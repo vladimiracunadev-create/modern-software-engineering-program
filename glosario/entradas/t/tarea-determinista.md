@@ -22,20 +22,20 @@ Anexar deja 9 filas repetidas con una tarea determinista, que al menos son igual
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md):
 
 El equipo del panel clasifica las operaciones. «Marcar una entrega como recibida» pasa de «sumar uno» a «insertar la entrega con su identificador», con clave primaria: el contador del panel se calcula contando filas, de modo que un mensaje repetido no cambia nada. «Enviar el acuse por correo» no es idempotente por naturaleza: lleva una clave `acuse-<entrega>` guardada con el resultado en la misma transacción que marca el envío, con una retención de 7 días justificada por el retraso máximo observado de reentregas.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)) son:
 
 - **Contadores por encima de lo real** — causa: mensajes reentregados aplicados dos veces. Corrección: clave en la misma transacción que el efecto.
 - **Contadores por debajo de lo real** — causa: confirmar antes de aplicar. Corrección: aplicar y recordar, luego confirmar.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna cola de mensajes, ningún sistema de procesamiento por lotes ni un servicio de pagos: las caídas del 5 %, el retraso lognormal de los duplicados y las 200 tareas son construcciones del autor. La siguiente clase usa estas piezas repetibles para repartirlas: replicación, partición y balanceo.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna cola de mensajes, ningún sistema de procesamiento por lotes ni un servicio de pagos: las caídas del 5 %, el retraso lognormal de los duplicados y las 200 tareas son construcciones del autor. La siguiente clase usa estas piezas repetibles para repartirlas: replicación, partición y balanceo.
 
 ## Relación con otros conceptos
 

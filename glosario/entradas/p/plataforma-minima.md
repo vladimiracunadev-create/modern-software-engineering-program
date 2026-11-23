@@ -28,7 +28,7 @@ El equipo de la plataforma reúne en `plataforma-minima/` los artefactos de las 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-408 — Proyecto: plataforma mínima reproducible](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-408 — Proyecto: plataforma mínima reproducible](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md)) son:
 
 - **La suma cambia entre máquinas** — causa: marcas de tiempo, orden o campos del sistema en el archivo. Corrección: normalizar orden, fecha, permisos y sistema, y comparar en dos sistemas.
 - **El validador aprueba un paquete con evidencia vieja** — causa: solo comprueba la forma. Corrección: revisión por otra persona y fecha máxima de antigüedad.

@@ -16,24 +16,24 @@ La clase donde se define, [SE-272 — Identidad de dispositivo y gestión de cla
 
 ## Cómo funciona
 
-[SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md):
 
 El equipo de la plataforma cambia la política de identidad del nodo. Cada nodo recibe en fábrica una clave única derivada con HKDF de un secreto maestro que vive en un módulo de seguridad del fabricante y nunca en los nodos; el servidor deriva la misma clave al recibir un mensaje. Los mensajes llevan un contador persistente (guardado con la política de `SE-267` en un sector aparte) y la marca de tiempo solo como señal auxiliar, con una ventana de ±120 s.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) son:
 
 - **Un dispositivo comprometido permite suplantar a toda la flota** — causa: clave compartida. Corrección: claves únicas por dispositivo o derivadas de un secreto maestro externo.
 - **Mensajes legítimos rechazados** — causa: ventana de tiempo estrecha frente al desfase. Corrección: ensanchar la ventana, sincronizar el reloj o usar un contador persistente.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se atacó ningún chip ni se auditó un dispositivo: la flota, la extracción, el desfase gaussiano y la semilla por segundo de arranque son construcciones del autor, y el generador de Python no es criptográfico. La siguiente clase mueve parte del procesamiento al borde de la red.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)) son: Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se atacó ningún chip ni se auditó un dispositivo: la flota, la extracción, el desfase gaussiano y la semilla por segundo de arranque son construcciones del autor, y el generador de Python no es criptográfico. La siguiente clase mueve parte del procesamiento al borde de la red.
 
 ## Relación con otros conceptos
 

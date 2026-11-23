@@ -32,14 +32,14 @@ El DCO es ligero y verificable por formato; el CLA es más formal, permite cambi
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-536 — Propiedad intelectual, contratos y ética](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-536 — Propiedad intelectual, contratos y ética](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md)) son:
 
 - **Se frena trabajo por una licencia inofensiva** — causa: búsqueda de cadena sin analizar la expresión. Corrección: analizar `AND`, `OR` y `WITH`.
 - **Una licencia incompatible llega a producción** — causa: campo vacío tratado como seguro. Corrección: tratar lo desconocido como bloqueado hasta resolverlo.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-536 — Propiedad intelectual, contratos y ética](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos, no son asesoría legal y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se revisó ningún proyecto, contrato ni historial reales; las expresiones de licencia, el reparto de tipos de commit y los parámetros del flujo de suscripción son construcciones del autor, el analizador es una versión simplificada y nada de esto es asesoría legal.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-536 — Propiedad intelectual, contratos y ética](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md)) son: Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos, no son asesoría legal y deben contrastarse con las fuentes primarias enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se revisó ningún proyecto, contrato ni historial reales; las expresiones de licencia, el reparto de tipos de commit y los parámetros del flujo de suscripción son construcciones del autor, el analizador es una versión simplificada y nada de esto es asesoría legal.
 
 ## Relación con otros conceptos
 

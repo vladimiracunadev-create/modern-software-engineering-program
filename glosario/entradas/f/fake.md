@@ -32,7 +32,7 @@ El equipo de la plataforma define una carpeta `contrato/` con una batería de oc
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-427 — Dobles, virtualización y entornos de prueba](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-427 — Dobles, virtualización y entornos de prueba](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md)) son:
 
 - **Una prueba con doble pasa y con la dependencia real falla** — causa: el doble no reproduce una regla. Corrección: batería de contrato ejecutada contra ambos.
 - **Un refactor sin cambios de comportamiento rompe pruebas** — causa: pruebas que verifican llamadas y orden. Corrección: pruebas de estado y verificación de interacción solo donde el efecto es lo único observable.

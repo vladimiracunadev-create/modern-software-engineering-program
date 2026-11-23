@@ -16,24 +16,24 @@ La clase donde se define, [SE-475 — Feature flags y entrega progresiva](../../
 
 ## Cómo funciona
 
-[SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+[SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md):
 
 El equipo de la API de entregas define una política: cada bandera tiene tipo, propietario, fecha de caducidad y valor por defecto ante fallo; las de lanzamiento caducan a los 30 días. La evaluación es local, determinista, con la bandera como sal y el identificador de usuario como contexto, y el sistema de reglas está detrás de una interfaz neutral para poder cambiar de proveedor.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md)) son:
 
 - **La misma persona ve cosas distintas** — causa: azar por petición. Corrección: huella determinista del identificador.
 - **Dos experimentos se confunden** — causa: misma huella sin sal. Corrección: usar la bandera como sal.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro experimentos con usuarios sintéticos y SHA-256 real, idénticos en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3).
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md)) son: Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron cuatro experimentos con usuarios sintéticos y SHA-256 real, idénticos en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3).
 
 ## Relación con otros conceptos
 

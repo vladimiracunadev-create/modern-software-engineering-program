@@ -26,13 +26,13 @@ Cuando se publica un aviso de seguridad sobre una dependencia, el tiempo hasta q
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md):
+Caso medido en la sección «Ventana de exposición» de [SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md):
 
-Escenario hipotético, construido para la clase y sin datos reales. El equipo hace el inventario del módulo: 14 dependencias directas y 61 transitivas. De las directas, 4 llevan más de tres años sin actualizar, 1 no tiene soporte (la biblioteca de exportación) y 2 tienen avisos abiertos. Con el grafo, descubren que la biblioteca de fechas es un concentrador: de ella dependen 9 paquetes.
+Cuando se publica un aviso de seguridad sobre una dependencia, el tiempo hasta que tu sistema deje de usar la versión afectada tiene tres tramos: hasta que el proveedor publica una versión corregida, hasta que tu política decide aplicarla y hasta que el cambio llega a producción. El primer tramo no depende de ti; los otros dos, sí.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-520 — Dependencias obsoletas y riesgo acumulado](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md)) son:
 
 - **La actualización «de una hora» dura semanas** — causa: se acumularon cambios incompatibles. Corrección: actualizar en pasos pequeños con una cadencia.
 - **Un aviso queda abierto meses** — causa: política por lotes sin prioridad. Corrección: añadir un carril rápido para avisos con explotación conocida.

@@ -28,14 +28,14 @@ El fragmento calcula la pérdida residual de dos repartos con tres componentes. 
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son:
 
 - **«Probamos todo» y aun así hay incidentes en producción** — causa: se confunde cobertura de líneas con detección de defectos. Corrección: medir con mutantes y listar qué clases de fallo no tienen nivel asignado.
 - **El reparto cambia cada trimestre sin explicación** — causa: las estimaciones viven en la cabeza de alguien. Corrección: documentar p, impacto y su fuente; reestimar tras un incidente.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son: Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes. Se ejecutaron tres experimentos con modelos del autor y datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se midió ningún sistema real, equipo ni defecto: probabilidad, impacto, dificultad, costos por nivel y la forma exponencial de la detección son supuestos. El conjunto mínimo de niveles es una consecuencia de la matriz que escribí, no un resultado empírico.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)) son: Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes. Se ejecutaron tres experimentos con modelos del autor y datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se midió ningún sistema real, equipo ni defecto: probabilidad, impacto, dificultad, costos por nivel y la forma exponencial de la detección son supuestos. El conjunto mínimo de niveles es una consecuencia de la matriz que escribí, no un resultado empírico.
 
 ## Relación con otros conceptos
 

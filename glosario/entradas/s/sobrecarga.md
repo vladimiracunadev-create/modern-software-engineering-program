@@ -26,9 +26,9 @@ Mide el costo por petición contra el tamaño de lote de un modelo que sirvas. D
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md):
+Caso medido en la sección «Con sobrecarga, el lote evita el colapso» de [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md):
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Con una carga igual a la capacidad sin lotes, el p99 sin lotes fue 9,4 ms y con lote dinámico de 2 ms y 64 fue 2,3 ms. Con el doble de la capacidad, el servicio sin lotes acumuló una cola de la que el p99 llegó a 858 ms en la simulación (y crece mientras dura la sobrecarga), mientras que el servicio con lote dinámico mantuvo un p99 de 1,9 ms, porque su capacidad (peticiones por segundo) es mucho mayor. Con cuatro veces la capacidad, 1 291 ms contra 1,1 ms.
 
 ## Errores y confusiones comunes
 

@@ -22,20 +22,20 @@ La terminación cooperativa permite dejar de aceptar trabajo, finalizar operacio
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md):
+Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md):
 
 Un servicio reinicia cada segundo porque la configuración es inválida. Limitar reintentos y conservar el primer error evita saturación; corregir la configuración resuelve la causa. Aumentar prioridad o matar instancias repetidamente no lo hace.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)) son:
+Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)) son:
 
 - **Se mata un PID copiado minutos antes** — causa: el PID se trató como identidad permanente. Corrección: revalidar ejecutable, propietario e inicio antes de actuar.
 - **CPU baja se interpreta como bloqueo** — causa: se ignoró espera útil. Corrección: correlacionar estado, tiempo, E/S y progreso funcional.
 
 ## Límites y cuándo no aplica
 
-Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)) son: No hacemos depuración de kernel ni análisis forense de memoria. La observabilidad disponible depende de permisos y plataforma. La próxima clase estudia la interfaz más común para coordinar procesos: terminal, shell, flujos y códigos de salida.
+Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)) son: No hacemos depuración de kernel ni análisis forense de memoria. La observabilidad disponible depende de permisos y plataforma. La próxima clase estudia la interfaz más común para coordinar procesos: terminal, shell, flujos y códigos de salida.
 
 ## Relación con otros conceptos
 

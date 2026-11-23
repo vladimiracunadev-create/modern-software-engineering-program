@@ -146,11 +146,11 @@ ni de los procesos hijos que heredan el entorno, ni de los volcados de memoria o
 
 ## Definiciones de trabajo
 
-- **esquema:** contrato de nombres, tipos, restricciones y sensibilidad;
-- **precedencia:** orden que determina qué fuente gana por campo;
-- **configuración efectiva:** valores resultantes junto con su procedencia;
-- **secreto centinela:** valor ficticio reconocible usado para comprobar filtraciones;
-- **redacción:** transformación previa a salida que oculta información sensible.
+- **[esquema](../../../glosario/entradas/e/esquema.md):** contrato de nombres, tipos, restricciones y sensibilidad;
+- **[precedencia](../../../glosario/entradas/p/precedencia.md):** orden que determina qué fuente gana por campo;
+- **[configuración efectiva](../../../glosario/entradas/c/configuracion-efectiva.md):** valores resultantes junto con su procedencia;
+- **[secreto centinela](../../../glosario/entradas/s/secreto-centinela.md):** valor ficticio reconocible usado para comprobar filtraciones;
+- **[redacción](../../../glosario/entradas/r/redaccion.md):** transformación previa a salida que oculta información sensible.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma carga sin filtrar
 
@@ -279,11 +279,13 @@ No diseñamos una infraestructura empresarial de secretos ni garantizamos borrad
 - [Python `os.environ`](https://docs.python.org/3/library/os.html#os.environ): mapeo de texto a texto y su comportamiento según el sistema.
 ## Glosario
 
-- **Configuración efectiva:** resultado final tras aplicar fuentes, precedencia y validación.
-- **Precedencia:** orden determinista para resolver valores de múltiples fuentes.
-- **Redacción:** sustitución deliberada de datos sensibles en una representación.
-- **Rotación:** reemplazo de una credencial y retiro de la anterior.
-- **Secreto:** dato cuya divulgación permite o facilita una acción no autorizada.
+- **[Configuración efectiva](../../../glosario/entradas/c/configuracion-efectiva.md):** resultado final tras aplicar fuentes, precedencia y validación.
+- **[Precedencia](../../../glosario/entradas/p/precedencia.md):** orden determinista para resolver valores de múltiples fuentes.
+- **[Redacción](../../../glosario/entradas/r/redaccion.md):** sustitución deliberada de datos sensibles en una representación.
+- **[Rotación](../../../glosario/entradas/r/rotacion.md):** reemplazo de una credencial y retiro de la anterior.
+- **[Secreto](../../../glosario/entradas/s/secreto.md):** dato cuya divulgación permite o facilita una acción no autorizada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Configuración efectiva](../../../glosario/entradas/c/configuracion-efectiva.md) · [Esquema](../../../glosario/entradas/e/esquema.md) · [Herencia](../../../glosario/entradas/h/herencia.md) · [Precedencia](../../../glosario/entradas/p/precedencia.md) · [Redacción](../../../glosario/entradas/r/redaccion.md) · [Rotación](../../../glosario/entradas/r/rotacion.md) · [Secreto](../../../glosario/entradas/s/secreto.md) · [Secreto centinela](../../../glosario/entradas/s/secreto-centinela.md) · [Validación](../../../glosario/entradas/v/validacion.md).
 
 ---
 [← SE-030](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-032 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)

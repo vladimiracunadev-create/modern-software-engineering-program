@@ -124,11 +124,11 @@ Se crean cinco archivos (algunos con `\r\n`, un nombre con eñe, una subcarpeta)
 
 ## Definiciones de trabajo
 
-- **paquete de evidencia:** conjunto versionado de requisitos, controles, pruebas y evidencias con fecha, alcance y huella.
-- **huella canónica:** resumen criptográfico calculado sobre una representación con orden, codificación y finales de línea fijados.
-- **validador de paquete:** programa que comprueba la estructura y la coherencia del paquete sin juzgar si la evidencia prueba el requisito.
-- **excepción:** incumplimiento aceptado con dueño, razón y fecha de vencimiento.
-- **revisión independiente:** examen del paquete por una persona que no lo produjo.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto versionado de requisitos, controles, pruebas y evidencias con fecha, alcance y huella.
+- **[huella canónica](../../../glosario/entradas/h/huella-canonica.md):** resumen criptográfico calculado sobre una representación con orden, codificación y finales de línea fijados.
+- **[validador de paquete](../../../glosario/entradas/v/validador-de-paquete.md):** programa que comprueba la estructura y la coherencia del paquete sin juzgar si la evidencia prueba el requisito.
+- **[excepción](../../../glosario/entradas/e/excepcion.md):** incumplimiento aceptado con dueño, razón y fecha de vencimiento.
+- **[revisión independiente](../../../glosario/entradas/r/revision-independiente.md):** examen del paquete por una persona que no lo produjo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -260,11 +260,13 @@ Se ejecutaron dos experimentos en Windows y Ubuntu (WSL2): el validador con cifr
 
 ## Glosario
 
-- **paquete de evidencia:** conjunto versionado de requisitos, controles, pruebas y evidencias con fecha, alcance y huella.
-- **huella canónica:** resumen criptográfico calculado sobre una representación con orden, codificación y finales de línea fijados.
-- **validador de paquete:** programa que comprueba la estructura y la coherencia del paquete sin juzgar si la evidencia prueba el requisito.
-- **excepción:** incumplimiento aceptado con dueño, razón y fecha de vencimiento.
-- **revisión independiente:** examen del paquete por una persona que no lo produjo.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto versionado de requisitos, controles, pruebas y evidencias con fecha, alcance y huella.
+- **[huella canónica](../../../glosario/entradas/h/huella-canonica.md):** resumen criptográfico calculado sobre una representación con orden, codificación y finales de línea fijados.
+- **[validador de paquete](../../../glosario/entradas/v/validador-de-paquete.md):** programa que comprueba la estructura y la coherencia del paquete sin juzgar si la evidencia prueba el requisito.
+- **[excepción](../../../glosario/entradas/e/excepcion.md):** incumplimiento aceptado con dueño, razón y fecha de vencimiento.
+- **[revisión independiente](../../../glosario/entradas/r/revision-independiente.md):** examen del paquete por una persona que no lo produjo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Estructura del paquete](../../../glosario/entradas/e/estructura-del-paquete.md) · [Excepción](../../../glosario/entradas/e/excepcion.md) · [Huella canónica](../../../glosario/entradas/h/huella-canonica.md) · [Paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md) · [Reproducibilidad entre sistemas](../../../glosario/entradas/r/reproducibilidad-entre-sistemas.md) · [Revisión independiente](../../../glosario/entradas/r/revision-independiente.md) · [Validador de paquete](../../../glosario/entradas/v/validador-de-paquete.md).
 
 ---
 

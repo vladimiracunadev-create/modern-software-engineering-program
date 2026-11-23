@@ -162,12 +162,12 @@ La escritura ciega pierde 600 de las 800 contribuciones: de cada ronda de cuatro
 
 ## Definiciones de trabajo
 
-- **subagente:** agente lanzado por otro, con su propio contexto, instrucciones, herramientas y permisos, que devuelve un resultado a quien lo invocó.
-- **contrato de delegación:** especificación de objetivo, límites, formato de salida, condiciones de parada y declaración de lo no hecho que recibe un subagente.
-- **propiedad por carpeta:** asignación de cada archivo o módulo a un único agente que puede modificarlo.
-- **versión optimista:** protocolo de escritura que solo guarda si el estado no cambió desde la lectura y reintenta en caso contrario.
-- **arrendamiento:** derecho temporal y exclusivo de escribir, con caducidad para que un titular caído no bloquee a los demás.
-- **resumen con pérdida:** compresión del trabajo de un subagente que omite parte de lo explorado.
+- **[subagente](../../../glosario/entradas/s/subagente.md):** agente lanzado por otro, con su propio contexto, instrucciones, herramientas y permisos, que devuelve un resultado a quien lo invocó.
+- **[contrato de delegación](../../../glosario/entradas/c/contrato-de-delegacion.md):** especificación de objetivo, límites, formato de salida, condiciones de parada y declaración de lo no hecho que recibe un subagente.
+- **[propiedad por carpeta](../../../glosario/entradas/p/propiedad-por-carpeta.md):** asignación de cada archivo o módulo a un único agente que puede modificarlo.
+- **[versión optimista](../../../glosario/entradas/v/version-optimista.md):** protocolo de escritura que solo guarda si el estado no cambió desde la lectura y reintenta en caso contrario.
+- **[arrendamiento](../../../glosario/entradas/a/arrendamiento.md):** derecho temporal y exclusivo de escribir, con caducidad para que un titular caído no bloquee a los demás.
+- **[resumen con pérdida](../../../glosario/entradas/r/resumen-con-perdida.md):** compresión del trabajo de un subagente que omite parte de lo explorado.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,12 +311,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **subagente:** agente lanzado por otro, con su propio contexto, instrucciones, herramientas y permisos, que devuelve un resultado a quien lo invocó.
-- **contrato de delegación:** especificación de objetivo, límites, formato de salida, condiciones de parada y declaración de lo no hecho que recibe un subagente.
-- **propiedad por carpeta:** asignación de cada archivo o módulo a un único agente que puede modificarlo.
-- **versión optimista:** protocolo de escritura que solo guarda si el estado no cambió desde la lectura y reintenta en caso contrario.
-- **arrendamiento:** derecho temporal y exclusivo de escribir, con caducidad para que un titular caído no bloquee a los demás.
-- **resumen con pérdida:** compresión del trabajo de un subagente que omite parte de lo explorado.
+- **[subagente](../../../glosario/entradas/s/subagente.md):** agente lanzado por otro, con su propio contexto, instrucciones, herramientas y permisos, que devuelve un resultado a quien lo invocó.
+- **[contrato de delegación](../../../glosario/entradas/c/contrato-de-delegacion.md):** especificación de objetivo, límites, formato de salida, condiciones de parada y declaración de lo no hecho que recibe un subagente.
+- **[propiedad por carpeta](../../../glosario/entradas/p/propiedad-por-carpeta.md):** asignación de cada archivo o módulo a un único agente que puede modificarlo.
+- **[versión optimista](../../../glosario/entradas/v/version-optimista.md):** protocolo de escritura que solo guarda si el estado no cambió desde la lectura y reintenta en caso contrario.
+- **[arrendamiento](../../../glosario/entradas/a/arrendamiento.md):** derecho temporal y exclusivo de escribir, con caducidad para que un titular caído no bloquee a los demás.
+- **[resumen con pérdida](../../../glosario/entradas/r/resumen-con-perdida.md):** compresión del trabajo de un subagente que omite parte de lo explorado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arrendamiento](../../../glosario/entradas/a/arrendamiento.md) · [Contrato de delegación](../../../glosario/entradas/c/contrato-de-delegacion.md) · [Propiedad por carpeta](../../../glosario/entradas/p/propiedad-por-carpeta.md) · [Resumen con pérdida](../../../glosario/entradas/r/resumen-con-perdida.md) · [Subagente](../../../glosario/entradas/s/subagente.md) · [Versión optimista](../../../glosario/entradas/v/version-optimista.md).
 
 ---
 

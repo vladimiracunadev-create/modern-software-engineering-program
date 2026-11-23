@@ -152,11 +152,11 @@ Resultado: **0 %** sin recuperación, **16,4 %** con tau de 240 minutos, **38,3 
 
 ## Definiciones de trabajo
 
-- **modelo de aplicación:** conjunto de reglas con que una plataforma crea, mantiene y termina el código en ejecución y reparte entre sistema y equipo las decisiones sobre proceso, ventanas e instancias.
-- **proceso:** unidad de ejecución que el sistema operativo crea y puede terminar; contiene la memoria de la aplicación y no equivale a una ventana.
-- **instancia:** copia de la aplicación en ejecución; un modelo puede permitir varias a la vez o una sola.
-- **reflujo:** propiedad de un diseño que reorganiza su contenido para caber en un ancho menor sin desplazamiento en dos dimensiones.
-- **arranque en frío:** arranque que parte sin proceso ni estado en memoria y debe reconstruir la aplicación desde el disco o el servidor.
+- **[modelo de aplicación](../../../glosario/entradas/m/modelo-de-aplicacion.md):** conjunto de reglas con que una plataforma crea, mantiene y termina el código en ejecución y reparte entre sistema y equipo las decisiones sobre proceso, ventanas e instancias.
+- **[proceso](../../../glosario/entradas/p/proceso.md):** unidad de ejecución que el sistema operativo crea y puede terminar; contiene la memoria de la aplicación y no equivale a una ventana.
+- **[instancia](../../../glosario/entradas/i/instancia.md):** copia de la aplicación en ejecución; un modelo puede permitir varias a la vez o una sola.
+- **[reflujo](../../../glosario/entradas/r/reflujo.md):** propiedad de un diseño que reorganiza su contenido para caber en un ancho menor sin desplazamiento en dos dimensiones.
+- **[arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** arranque que parte sin proceso ni estado en memoria y debe reconstruir la aplicación desde el disco o el servidor.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **modelo de aplicación:** conjunto de reglas con que una plataforma crea, mantiene y termina el código en ejecución y reparte entre sistema y equipo las decisiones sobre proceso, ventanas e instancias.
-- **proceso:** unidad de ejecución que el sistema operativo crea y puede terminar; contiene la memoria de la aplicación y no equivale a una ventana.
-- **instancia:** copia de la aplicación en ejecución; un modelo puede permitir varias a la vez o una sola.
-- **reflujo:** propiedad de un diseño que reorganiza su contenido para caber en un ancho menor sin desplazamiento en dos dimensiones.
-- **arranque en frío:** arranque que parte sin proceso ni estado en memoria y debe reconstruir la aplicación desde el disco o el servidor.
+- **[modelo de aplicación](../../../glosario/entradas/m/modelo-de-aplicacion.md):** conjunto de reglas con que una plataforma crea, mantiene y termina el código en ejecución y reparte entre sistema y equipo las decisiones sobre proceso, ventanas e instancias.
+- **[proceso](../../../glosario/entradas/p/proceso.md):** unidad de ejecución que el sistema operativo crea y puede terminar; contiene la memoria de la aplicación y no equivale a una ventana.
+- **[instancia](../../../glosario/entradas/i/instancia.md):** copia de la aplicación en ejecución; un modelo puede permitir varias a la vez o una sola.
+- **[reflujo](../../../glosario/entradas/r/reflujo.md):** propiedad de un diseño que reorganiza su contenido para caber en un ancho menor sin desplazamiento en dos dimensiones.
+- **[arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** arranque que parte sin proceso ni estado en memoria y debe reconstruir la aplicación desde el disco o el servidor.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md) · [Instancia](../../../glosario/entradas/i/instancia.md) · [Modelo de aplicación](../../../glosario/entradas/m/modelo-de-aplicacion.md) · [Proceso](../../../glosario/entradas/p/proceso.md) · [Reflujo](../../../glosario/entradas/r/reflujo.md).
 
 ---
 

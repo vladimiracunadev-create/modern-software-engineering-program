@@ -120,11 +120,11 @@ Se generaron 1 000 filas con diez nombres (`Ana`, `José`, `María`, `李雨`, `
 
 ## Definiciones de trabajo
 
-- **terminal (TTY):** dispositivo interactivo de texto; `isatty()` indica si un flujo está conectado a uno.
-- **secuencia de escape:** par de caracteres de control con que un terminal recibe órdenes de color o de cursor.
-- **ancho en pantalla:** número de celdas de terminal que ocupa un texto, distinto de su longitud en caracteres.
-- **normalización Unicode:** conversión de un texto a una forma canónica (NFC o NFD) para poder compararlo.
-- **TUI:** interfaz de usuario de texto interactiva que redibuja el terminal y recibe teclado.
+- **[terminal (TTY)](../../../glosario/entradas/t/terminal.md):** dispositivo interactivo de texto; `isatty()` indica si un flujo está conectado a uno.
+- **[secuencia de escape](../../../glosario/entradas/s/secuencia-de-escape.md):** par de caracteres de control con que un terminal recibe órdenes de color o de cursor.
+- **[ancho en pantalla](../../../glosario/entradas/a/ancho-en-pantalla.md):** número de celdas de terminal que ocupa un texto, distinto de su longitud en caracteres.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** conversión de un texto a una forma canónica (NFC o NFD) para poder compararlo.
+- **[TUI](../../../glosario/entradas/t/tui.md):** interfaz de usuario de texto interactiva que redibuja el terminal y recibe teclado.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -273,11 +273,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **terminal (TTY):** dispositivo interactivo de texto; `isatty()` indica si un flujo está conectado a uno.
-- **secuencia de escape:** par de caracteres de control con que un terminal recibe órdenes de color o de cursor.
-- **ancho en pantalla:** número de celdas de terminal que ocupa un texto, distinto de su longitud en caracteres.
-- **normalización Unicode:** conversión de un texto a una forma canónica (NFC o NFD) para poder compararlo.
-- **TUI:** interfaz de usuario de texto interactiva que redibuja el terminal y recibe teclado.
+- **[terminal (TTY)](../../../glosario/entradas/t/terminal.md):** dispositivo interactivo de texto; `isatty()` indica si un flujo está conectado a uno.
+- **[secuencia de escape](../../../glosario/entradas/s/secuencia-de-escape.md):** par de caracteres de control con que un terminal recibe órdenes de color o de cursor.
+- **[ancho en pantalla](../../../glosario/entradas/a/ancho-en-pantalla.md):** número de celdas de terminal que ocupa un texto, distinto de su longitud en caracteres.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** conversión de un texto a una forma canónica (NFC o NFD) para poder compararlo.
+- **[TUI](../../../glosario/entradas/t/tui.md):** interfaz de usuario de texto interactiva que redibuja el terminal y recibe teclado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ancho en pantalla](../../../glosario/entradas/a/ancho-en-pantalla.md) · [Normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md) · [Secuencia de escape](../../../glosario/entradas/s/secuencia-de-escape.md) · [Terminal](../../../glosario/entradas/t/terminal.md) · [TUI](../../../glosario/entradas/t/tui.md).
 
 ---
 

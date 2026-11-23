@@ -105,11 +105,11 @@ La productividad del entorno también tiene un componente de tiempo. La actualiz
 
 ## Definiciones de trabajo
 
-- **ergonomía y carga:** postura, pausas, repetición y legibilidad influyen en fatiga y errores, pero no existe configuración corporal universal.
-- **teclado y foco:** todas las acciones esenciales necesitan ruta por teclado con foco visible y orden lógico.
-- **color, texto y movimiento:** color refuerza pero no porta solo error o estado.
-- **salida accesible:** trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros.
-- **automatización y agencia:** automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable.
+- **[ergonomía y carga](../../../glosario/entradas/e/ergonomia-y-carga.md):** postura, pausas, repetición y legibilidad influyen en fatiga y errores, pero no existe configuración corporal universal.
+- **[teclado y foco](../../../glosario/entradas/t/teclado-y-foco.md):** todas las acciones esenciales necesitan ruta por teclado con foco visible y orden lógico.
+- **[color, texto y movimiento](../../../glosario/entradas/c/color-texto-y-movimiento.md):** color refuerza pero no porta solo error o estado.
+- **[salida accesible](../../../glosario/entradas/s/salida-accesible.md):** trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros.
+- **[automatización y agencia](../../../glosario/entradas/a/automatizacion-y-agencia.md):** automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -259,11 +259,13 @@ Una checklist básica no sustituye auditoría con personas y tecnologías asisti
 
 ## Glosario
 
-- **ergonomía y carga:** postura, pausas, repetición y legibilidad influyen en fatiga y errores, pero no existe configuración corporal universal.
-- **teclado y foco:** todas las acciones esenciales necesitan ruta por teclado con foco visible y orden lógico.
-- **color, texto y movimiento:** color refuerza pero no porta solo error o estado.
-- **salida accesible:** trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros.
-- **automatización y agencia:** automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable.
+- **[ergonomía y carga](../../../glosario/entradas/e/ergonomia-y-carga.md):** postura, pausas, repetición y legibilidad influyen en fatiga y errores, pero no existe configuración corporal universal.
+- **[teclado y foco](../../../glosario/entradas/t/teclado-y-foco.md):** todas las acciones esenciales necesitan ruta por teclado con foco visible y orden lógico.
+- **[color, texto y movimiento](../../../glosario/entradas/c/color-texto-y-movimiento.md):** color refuerza pero no porta solo error o estado.
+- **[salida accesible](../../../glosario/entradas/s/salida-accesible.md):** trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros.
+- **[automatización y agencia](../../../glosario/entradas/a/automatizacion-y-agencia.md):** automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Automatización y agencia](../../../glosario/entradas/a/automatizacion-y-agencia.md) · [Color, texto y movimiento](../../../glosario/entradas/c/color-texto-y-movimiento.md) · [Ergonomía y carga](../../../glosario/entradas/e/ergonomia-y-carga.md) · [Salida accesible](../../../glosario/entradas/s/salida-accesible.md) · [Teclado y foco](../../../glosario/entradas/t/teclado-y-foco.md).
 
 ---
 

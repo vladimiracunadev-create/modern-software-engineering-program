@@ -159,11 +159,11 @@ if len(doc.get("factores", [])) < 2: problems.append("menos de dos factores cont
 
 ## Definiciones de trabajo
 
-- **postmortem:** documento que reconstruye un incidente para aprender de él y cambiar el sistema.
-- **postmortem sin culpa:** análisis que parte de que cada persona actuó con la mejor información disponible y busca los factores del sistema.
-- **factor contribuyente:** condición que, de haber sido distinta, habría evitado o reducido el incidente.
-- **sesgo de retrospectiva:** tendencia a ver como previsible un desenlace conocido.
-- **acción correctiva verificable:** cambio con propietario, fecha y criterio que permite comprobar que funciona.
+- **[postmortem](../../../glosario/entradas/p/postmortem.md):** documento que reconstruye un incidente para aprender de él y cambiar el sistema.
+- **[postmortem sin culpa](../../../glosario/entradas/p/postmortem-sin-culpa.md):** análisis que parte de que cada persona actuó con la mejor información disponible y busca los factores del sistema.
+- **[factor contribuyente](../../../glosario/entradas/f/factor-contribuyente.md):** condición que, de haber sido distinta, habría evitado o reducido el incidente.
+- **[sesgo de retrospectiva](../../../glosario/entradas/s/sesgo-de-retrospectiva.md):** tendencia a ver como previsible un desenlace conocido.
+- **[acción correctiva verificable](../../../glosario/entradas/a/accion-correctiva-verificable.md):** cambio con propietario, fecha y criterio que permite comprobar que funciona.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **postmortem:** documento que reconstruye un incidente para aprender de él y cambiar el sistema.
-- **postmortem sin culpa:** análisis que parte de que cada persona actuó con la mejor información disponible y busca los factores del sistema.
-- **factor contribuyente:** condición que, de haber sido distinta, habría evitado o reducido el incidente.
-- **sesgo de retrospectiva:** tendencia a ver como previsible un desenlace conocido.
-- **acción correctiva verificable:** cambio con propietario, fecha y criterio que permite comprobar que funciona.
+- **[postmortem](../../../glosario/entradas/p/postmortem.md):** documento que reconstruye un incidente para aprender de él y cambiar el sistema.
+- **[postmortem sin culpa](../../../glosario/entradas/p/postmortem-sin-culpa.md):** análisis que parte de que cada persona actuó con la mejor información disponible y busca los factores del sistema.
+- **[factor contribuyente](../../../glosario/entradas/f/factor-contribuyente.md):** condición que, de haber sido distinta, habría evitado o reducido el incidente.
+- **[sesgo de retrospectiva](../../../glosario/entradas/s/sesgo-de-retrospectiva.md):** tendencia a ver como previsible un desenlace conocido.
+- **[acción correctiva verificable](../../../glosario/entradas/a/accion-correctiva-verificable.md):** cambio con propietario, fecha y criterio que permite comprobar que funciona.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acción correctiva verificable](../../../glosario/entradas/a/accion-correctiva-verificable.md) · [Factor contribuyente](../../../glosario/entradas/f/factor-contribuyente.md) · [Postmortem](../../../glosario/entradas/p/postmortem.md) · [Postmortem sin culpa](../../../glosario/entradas/p/postmortem-sin-culpa.md) · [Sesgo de retrospectiva](../../../glosario/entradas/s/sesgo-de-retrospectiva.md).
 
 ---
 

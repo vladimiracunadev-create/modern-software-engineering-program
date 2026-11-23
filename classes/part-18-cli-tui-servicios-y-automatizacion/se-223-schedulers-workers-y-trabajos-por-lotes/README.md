@@ -125,11 +125,11 @@ Mil trabajos, **35 venenosos** (que siempre fallan) y **110 con un fallo transit
 
 ## Definiciones de trabajo
 
-- **planificador:** componente que arranca trabajos en instantes o periodos dados, sin garantizar cuándo terminan.
-- **política de solape:** decisión sobre qué hacer cuando una ejecución arranca mientras la anterior sigue activa.
-- **trabajador (worker):** proceso o hilo que toma trabajos de una cola y los ejecuta.
-- **trabajo venenoso:** trabajo que falla en cada intento por una causa que reintentar no resuelve.
-- **cola de muertos:** lugar donde se aparta un trabajo que agotó sus reintentos para su revisión.
+- **[planificador](../../../glosario/entradas/p/planificador.md):** componente que arranca trabajos en instantes o periodos dados, sin garantizar cuándo terminan.
+- **[política de solape](../../../glosario/entradas/p/politica-de-solape.md):** decisión sobre qué hacer cuando una ejecución arranca mientras la anterior sigue activa.
+- **[trabajador (worker)](../../../glosario/entradas/t/trabajador.md):** proceso o hilo que toma trabajos de una cola y los ejecuta.
+- **[trabajo venenoso](../../../glosario/entradas/t/trabajo-venenoso.md):** trabajo que falla en cada intento por una causa que reintentar no resuelve.
+- **[cola de muertos](../../../glosario/entradas/c/cola-de-muertos.md):** lugar donde se aparta un trabajo que agotó sus reintentos para su revisión.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -278,11 +278,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): las simulaciones fue
 
 ## Glosario
 
-- **planificador:** componente que arranca trabajos en instantes o periodos dados, sin garantizar cuándo terminan.
-- **política de solape:** decisión sobre qué hacer cuando una ejecución arranca mientras la anterior sigue activa.
-- **trabajador (worker):** proceso o hilo que toma trabajos de una cola y los ejecuta.
-- **trabajo venenoso:** trabajo que falla en cada intento por una causa que reintentar no resuelve.
-- **cola de muertos:** lugar donde se aparta un trabajo que agotó sus reintentos para su revisión.
+- **[planificador](../../../glosario/entradas/p/planificador.md):** componente que arranca trabajos en instantes o periodos dados, sin garantizar cuándo terminan.
+- **[política de solape](../../../glosario/entradas/p/politica-de-solape.md):** decisión sobre qué hacer cuando una ejecución arranca mientras la anterior sigue activa.
+- **[trabajador (worker)](../../../glosario/entradas/t/trabajador.md):** proceso o hilo que toma trabajos de una cola y los ejecuta.
+- **[trabajo venenoso](../../../glosario/entradas/t/trabajo-venenoso.md):** trabajo que falla en cada intento por una causa que reintentar no resuelve.
+- **[cola de muertos](../../../glosario/entradas/c/cola-de-muertos.md):** lugar donde se aparta un trabajo que agotó sus reintentos para su revisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola de muertos](../../../glosario/entradas/c/cola-de-muertos.md) · [Lote](../../../glosario/entradas/l/lote.md) · [Planificador](../../../glosario/entradas/p/planificador.md) · [Política de solape](../../../glosario/entradas/p/politica-de-solape.md) · [Trabajador](../../../glosario/entradas/t/trabajador.md) · [Trabajo venenoso](../../../glosario/entradas/t/trabajo-venenoso.md).
 
 ---
 

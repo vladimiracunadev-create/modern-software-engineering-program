@@ -153,11 +153,11 @@ Una tarea de talla 3 tarda más que una de talla 5 en el 27,1 % de los pares; en
 
 ## Definiciones de trabajo
 
-- **estimación puntual:** un único valor para una cantidad incierta, sin rango ni confianza.
-- **rango con confianza:** par de valores y la probabilidad declarada de que el resultado caiga entre ellos.
-- **percentil:** valor por debajo del cual cae la proporción indicada de los resultados; el percentil 85 deja al 85 % por debajo.
-- **cobertura:** fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
-- **clase de referencia:** conjunto de proyectos pasados parecidos cuya distribución de resultados se usa para corregir una estimación interna.
+- **[estimación puntual](../../../glosario/entradas/e/estimacion-puntual.md):** un único valor para una cantidad incierta, sin rango ni confianza.
+- **[rango con confianza](../../../glosario/entradas/r/rango-con-confianza.md):** par de valores y la probabilidad declarada de que el resultado caiga entre ellos.
+- **[percentil](../../../glosario/entradas/p/percentil.md):** valor por debajo del cual cae la proporción indicada de los resultados; el percentil 85 deja al 85 % por debajo.
+- **[cobertura](../../../glosario/entradas/c/cobertura.md):** fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
+- **[clase de referencia](../../../glosario/entradas/c/clase-de-referencia.md):** conjunto de proyectos pasados parecidos cuya distribución de resultados se usa para corregir una estimación interna.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **estimación puntual:** un único valor para una cantidad incierta, sin rango ni confianza.
-- **rango con confianza:** par de valores y la probabilidad declarada de que el resultado caiga entre ellos.
-- **percentil:** valor por debajo del cual cae la proporción indicada de los resultados; el percentil 85 deja al 85 % por debajo.
-- **cobertura:** fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
-- **clase de referencia:** conjunto de proyectos pasados parecidos cuya distribución de resultados se usa para corregir una estimación interna.
+- **[estimación puntual](../../../glosario/entradas/e/estimacion-puntual.md):** un único valor para una cantidad incierta, sin rango ni confianza.
+- **[rango con confianza](../../../glosario/entradas/r/rango-con-confianza.md):** par de valores y la probabilidad declarada de que el resultado caiga entre ellos.
+- **[percentil](../../../glosario/entradas/p/percentil.md):** valor por debajo del cual cae la proporción indicada de los resultados; el percentil 85 deja al 85 % por debajo.
+- **[cobertura](../../../glosario/entradas/c/cobertura.md):** fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
+- **[clase de referencia](../../../glosario/entradas/c/clase-de-referencia.md):** conjunto de proyectos pasados parecidos cuya distribución de resultados se usa para corregir una estimación interna.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clase de referencia](../../../glosario/entradas/c/clase-de-referencia.md) · [Cobertura](../../../glosario/entradas/c/cobertura.md) · [Estimación puntual](../../../glosario/entradas/e/estimacion-puntual.md) · [Percentil](../../../glosario/entradas/p/percentil.md) · [Rango](../../../glosario/entradas/r/rango.md) · [Rango con confianza](../../../glosario/entradas/r/rango-con-confianza.md).
 
 ---
 

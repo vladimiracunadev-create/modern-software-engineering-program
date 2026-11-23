@@ -140,13 +140,13 @@ La tercera figura compara tres niveles de control.
 
 ## Definiciones de trabajo
 
-- **Plataforma de datos gobernada:** plataforma donde cada conjunto tiene dueño, contrato, comprobaciones, retención y dependencias verificables.
-- **Registro de metadatos:** declaración versionada de lo que debería ser cada conjunto.
-- **Control (gate):** conjunto de reglas que decide si algo se publica.
-- **Mutación:** cambio malo inyectado deliberadamente para probar el control.
-- **Cobertura:** mutaciones detectadas sobre mutaciones inyectadas.
-- **Punto ciego:** familia de cambios que ninguna regla detecta.
-- **Evidencia de ejecución:** informe que permite auditar una ejecución del control.
+- **[Plataforma de datos gobernada](../../../glosario/entradas/p/plataforma-de-datos-gobernada.md):** plataforma donde cada conjunto tiene dueño, contrato, comprobaciones, retención y dependencias verificables.
+- **[Registro de metadatos](../../../glosario/entradas/r/registro-de-metadatos.md):** declaración versionada de lo que debería ser cada conjunto.
+- **[Control (gate)](../../../glosario/entradas/c/control.md):** conjunto de reglas que decide si algo se publica.
+- **[Mutación](../../../glosario/entradas/m/mutacion.md):** cambio malo inyectado deliberadamente para probar el control.
+- **[Cobertura](../../../glosario/entradas/c/cobertura.md):** mutaciones detectadas sobre mutaciones inyectadas.
+- **[Punto ciego](../../../glosario/entradas/p/punto-ciego.md):** familia de cambios que ninguna regla detecta.
+- **[Evidencia de ejecución](../../../glosario/entradas/e/evidencia-de-ejecucion.md):** informe que permite auditar una ejecución del control.
 
 ## Ejemplo mínimo
 
@@ -288,6 +288,8 @@ Los tres conjuntos, las siete reglas y las diez mutaciones son construcciones de
 | Cobertura | Detectadas sobre inyectadas |
 | Punto ciego | Lo que ninguna regla ve |
 | Evidencia de ejecución | Informe que permite auditar una corrida |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura](../../../glosario/entradas/c/cobertura.md) · [Control](../../../glosario/entradas/c/control.md) · [Costo](../../../glosario/entradas/c/costo.md) · [Evidencia](../../../glosario/entradas/e/evidencia.md) · [Evidencia de ejecución](../../../glosario/entradas/e/evidencia-de-ejecucion.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Plataforma de datos gobernada](../../../glosario/entradas/p/plataforma-de-datos-gobernada.md) · [Punto ciego](../../../glosario/entradas/p/punto-ciego.md) · [Registro de metadatos](../../../glosario/entradas/r/registro-de-metadatos.md).
 
 ---
 

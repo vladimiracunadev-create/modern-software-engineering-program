@@ -129,11 +129,11 @@ La regla acierta porque se afinó con esos ocho; su límite es que valida forma,
 
 ## Definiciones de trabajo
 
-- **éxito y no éxito:** par de umbrales fijados antes de observar: por encima del primero se continúa y por debajo del segundo se abandona o se cambia de rumbo.
-- **zona gris:** rango de resultados que no permite distinguir con la confianza declarada entre el éxito y el no éxito.
-- **reglas de parada:** procedimiento que, tras cada observación o lote, decide continuar, detener por futilidad o detener por éxito, con tasas de error conocidas.
-- **coste hundido y compromiso:** tendencia a continuar un proyecto por lo ya invertido y no por su valor futuro esperado; se contrarresta comprometiendo la decisión de antemano.
-- **abandonar y conservar:** cierre explícito de una línea de trabajo que registra qué se aprendió, qué se retira y qué podría reabrirla.
+- **[éxito y no éxito](../../../glosario/entradas/e/exito-y-no-exito.md):** par de umbrales fijados antes de observar: por encima del primero se continúa y por debajo del segundo se abandona o se cambia de rumbo.
+- **[zona gris](../../../glosario/entradas/z/zona-gris.md):** rango de resultados que no permite distinguir con la confianza declarada entre el éxito y el no éxito.
+- **[reglas de parada](../../../glosario/entradas/r/reglas-de-parada.md):** procedimiento que, tras cada observación o lote, decide continuar, detener por futilidad o detener por éxito, con tasas de error conocidas.
+- **[coste hundido y compromiso](../../../glosario/entradas/c/coste-hundido-y-compromiso.md):** tendencia a continuar un proyecto por lo ya invertido y no por su valor futuro esperado; se contrarresta comprometiendo la decisión de antemano.
+- **[abandonar y conservar](../../../glosario/entradas/a/abandonar-y-conservar.md):** cierre explícito de una línea de trabajo que registra qué se aprendió, qué se retira y qué podría reabrirla.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -290,11 +290,13 @@ Se ejecutaron tres experimentos con tasas y criterios sintéticos en Windows y U
 
 ## Glosario
 
-- **éxito y no éxito:** par de umbrales fijados antes de observar: por encima del primero se continúa y por debajo del segundo se abandona o se cambia de rumbo.
-- **zona gris:** rango de resultados que no permite distinguir con la confianza declarada entre el éxito y el no éxito.
-- **reglas de parada:** procedimiento que, tras cada observación o lote, decide continuar, detener por futilidad o detener por éxito, con tasas de error conocidas.
-- **coste hundido y compromiso:** tendencia a continuar un proyecto por lo ya invertido y no por su valor futuro esperado; se contrarresta comprometiendo la decisión de antemano.
-- **abandonar y conservar:** cierre explícito de una línea de trabajo que registra qué se aprendió, qué se retira y qué podría reabrirla.
+- **[éxito y no éxito](../../../glosario/entradas/e/exito-y-no-exito.md):** par de umbrales fijados antes de observar: por encima del primero se continúa y por debajo del segundo se abandona o se cambia de rumbo.
+- **[zona gris](../../../glosario/entradas/z/zona-gris.md):** rango de resultados que no permite distinguir con la confianza declarada entre el éxito y el no éxito.
+- **[reglas de parada](../../../glosario/entradas/r/reglas-de-parada.md):** procedimiento que, tras cada observación o lote, decide continuar, detener por futilidad o detener por éxito, con tasas de error conocidas.
+- **[coste hundido y compromiso](../../../glosario/entradas/c/coste-hundido-y-compromiso.md):** tendencia a continuar un proyecto por lo ya invertido y no por su valor futuro esperado; se contrarresta comprometiendo la decisión de antemano.
+- **[abandonar y conservar](../../../glosario/entradas/a/abandonar-y-conservar.md):** cierre explícito de una línea de trabajo que registra qué se aprendió, qué se retira y qué podría reabrirla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abandonar y conservar](../../../glosario/entradas/a/abandonar-y-conservar.md) · [Coste hundido y compromiso](../../../glosario/entradas/c/coste-hundido-y-compromiso.md) · [Éxito y no éxito](../../../glosario/entradas/e/exito-y-no-exito.md) · [Reglas de parada](../../../glosario/entradas/r/reglas-de-parada.md) · [Zona gris](../../../glosario/entradas/z/zona-gris.md).
 
 ---
 

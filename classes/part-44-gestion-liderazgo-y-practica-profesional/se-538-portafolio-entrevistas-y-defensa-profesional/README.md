@@ -138,11 +138,11 @@ Una persona responde seis preguntas de profundidad creciente. Si su conocimiento
 
 ## Definiciones de trabajo
 
-- **nivel profesional:** etapa de una escalera definida por alcance, ambigüedad, impacto e influencia que se espera de una persona.
-- **entrada de portafolio comprobable:** descripción de un trabajo con comando reproducible, resultado con unidades, entorno, decisión y alternativa, enlace a evidencia y límites.
-- **entrevista estructurada:** entrevista con las mismas preguntas para todas las personas, criterios de puntuación previos y puntuación por pregunta.
-- **efecto halo:** influencia de un rasgo ajeno a la habilidad (soltura, parecido) sobre la valoración global de una persona.
-- **defensa por profundidad:** secuencia de preguntas cada vez más específicas sobre un mismo trabajo para descubrir hasta dónde llega la comprensión.
+- **[nivel profesional](../../../glosario/entradas/n/nivel-profesional.md):** etapa de una escalera definida por alcance, ambigüedad, impacto e influencia que se espera de una persona.
+- **[entrada de portafolio comprobable](../../../glosario/entradas/e/entrada-de-portafolio-comprobable.md):** descripción de un trabajo con comando reproducible, resultado con unidades, entorno, decisión y alternativa, enlace a evidencia y límites.
+- **[entrevista estructurada](../../../glosario/entradas/e/entrevista-estructurada.md):** entrevista con las mismas preguntas para todas las personas, criterios de puntuación previos y puntuación por pregunta.
+- **[efecto halo](../../../glosario/entradas/e/efecto-halo.md):** influencia de un rasgo ajeno a la habilidad (soltura, parecido) sobre la valoración global de una persona.
+- **[defensa por profundidad](../../../glosario/entradas/d/defensa-por-profundidad.md):** secuencia de preguntas cada vez más específicas sobre un mismo trabajo para descubrir hasta dónde llega la comprensión.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -284,11 +284,13 @@ Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre cua
 
 ## Glosario
 
-- **nivel profesional:** etapa de una escalera definida por alcance, ambigüedad, impacto e influencia que se espera de una persona.
-- **entrada de portafolio comprobable:** descripción de un trabajo con comando reproducible, resultado con unidades, entorno, decisión y alternativa, enlace a evidencia y límites.
-- **entrevista estructurada:** entrevista con las mismas preguntas para todas las personas, criterios de puntuación previos y puntuación por pregunta.
-- **efecto halo:** influencia de un rasgo ajeno a la habilidad (soltura, parecido) sobre la valoración global de una persona.
-- **defensa por profundidad:** secuencia de preguntas cada vez más específicas sobre un mismo trabajo para descubrir hasta dónde llega la comprensión.
+- **[nivel profesional](../../../glosario/entradas/n/nivel-profesional.md):** etapa de una escalera definida por alcance, ambigüedad, impacto e influencia que se espera de una persona.
+- **[entrada de portafolio comprobable](../../../glosario/entradas/e/entrada-de-portafolio-comprobable.md):** descripción de un trabajo con comando reproducible, resultado con unidades, entorno, decisión y alternativa, enlace a evidencia y límites.
+- **[entrevista estructurada](../../../glosario/entradas/e/entrevista-estructurada.md):** entrevista con las mismas preguntas para todas las personas, criterios de puntuación previos y puntuación por pregunta.
+- **[efecto halo](../../../glosario/entradas/e/efecto-halo.md):** influencia de un rasgo ajeno a la habilidad (soltura, parecido) sobre la valoración global de una persona.
+- **[defensa por profundidad](../../../glosario/entradas/d/defensa-por-profundidad.md):** secuencia de preguntas cada vez más específicas sobre un mismo trabajo para descubrir hasta dónde llega la comprensión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Defensa por profundidad](../../../glosario/entradas/d/defensa-por-profundidad.md) · [Efecto halo](../../../glosario/entradas/e/efecto-halo.md) · [Entrada de portafolio comprobable](../../../glosario/entradas/e/entrada-de-portafolio-comprobable.md) · [Entrevista estructurada](../../../glosario/entradas/e/entrevista-estructurada.md) · [Nivel profesional](../../../glosario/entradas/n/nivel-profesional.md).
 
 ---
 

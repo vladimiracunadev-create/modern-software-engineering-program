@@ -162,11 +162,11 @@ Con cinco ediciones posteriores repartidas al azar, la reversión es limpia solo
 
 ## Definiciones de trabajo
 
-- **trazabilidad:** capacidad de reconstruir qué se decidió, quién, con qué evidencia y con qué resultado.
-- **bitácora encadenada:** registro en que cada entrada incluye el resumen criptográfico de la anterior.
-- **ancla externa:** copia del último resumen de una bitácora guardada fuera de ella.
-- **compuerta:** comprobación que un cambio debe pasar antes de avanzar de etapa.
-- **ventana de reversión limpia:** periodo en que un cambio puede deshacerse sin conflictos.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** capacidad de reconstruir qué se decidió, quién, con qué evidencia y con qué resultado.
+- **[bitácora encadenada](../../../glosario/entradas/b/bitacora-encadenada.md):** registro en que cada entrada incluye el resumen criptográfico de la anterior.
+- **[ancla externa](../../../glosario/entradas/a/ancla-externa.md):** copia del último resumen de una bitácora guardada fuera de ella.
+- **[compuerta](../../../glosario/entradas/c/compuerta.md):** comprobación que un cambio debe pasar antes de avanzar de etapa.
+- **[ventana de reversión limpia](../../../glosario/entradas/v/ventana-de-reversion-limpia.md):** periodo en que un cambio puede deshacerse sin conflictos.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **trazabilidad:** capacidad de reconstruir qué se decidió, quién, con qué evidencia y con qué resultado.
-- **bitácora encadenada:** registro en que cada entrada incluye el resumen criptográfico de la anterior.
-- **ancla externa:** copia del último resumen de una bitácora guardada fuera de ella.
-- **compuerta:** comprobación que un cambio debe pasar antes de avanzar de etapa.
-- **ventana de reversión limpia:** periodo en que un cambio puede deshacerse sin conflictos.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** capacidad de reconstruir qué se decidió, quién, con qué evidencia y con qué resultado.
+- **[bitácora encadenada](../../../glosario/entradas/b/bitacora-encadenada.md):** registro en que cada entrada incluye el resumen criptográfico de la anterior.
+- **[ancla externa](../../../glosario/entradas/a/ancla-externa.md):** copia del último resumen de una bitácora guardada fuera de ella.
+- **[compuerta](../../../glosario/entradas/c/compuerta.md):** comprobación que un cambio debe pasar antes de avanzar de etapa.
+- **[ventana de reversión limpia](../../../glosario/entradas/v/ventana-de-reversion-limpia.md):** periodo en que un cambio puede deshacerse sin conflictos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ancla externa](../../../glosario/entradas/a/ancla-externa.md) · [Bitácora encadenada](../../../glosario/entradas/b/bitacora-encadenada.md) · [Compuerta](../../../glosario/entradas/c/compuerta.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md) · [Ventana de reversión limpia](../../../glosario/entradas/v/ventana-de-reversion-limpia.md).
 
 ---
 

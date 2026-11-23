@@ -158,11 +158,11 @@ def huella(src):
 
 ## Definiciones de trabajo
 
-- **patrón de diseño:** solución nombrada a un problema recurrente de diseño, con su intención y sus consecuencias.
-- **singleton:** patrón que garantiza una única instancia con acceso global, con el costo del estado compartido.
-- **adaptador:** patrón que traduce la interfaz de un colaborador a la que espera el cliente.
-- **observador:** patrón en que un objeto avisa a quienes se suscribieron cuando su estado cambia.
-- **inyección de dependencias:** práctica de pasar a un objeto sus colaboradores en vez de que los busque.
+- **[patrón de diseño](../../../glosario/entradas/p/patron-de-diseno.md):** solución nombrada a un problema recurrente de diseño, con su intención y sus consecuencias.
+- **[singleton](../../../glosario/entradas/s/singleton.md):** patrón que garantiza una única instancia con acceso global, con el costo del estado compartido.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** patrón que traduce la interfaz de un colaborador a la que espera el cliente.
+- **[observador](../../../glosario/entradas/o/observador.md):** patrón en que un objeto avisa a quienes se suscribieron cuando su estado cambia.
+- **[inyección de dependencias](../../../glosario/entradas/i/inyeccion-de-dependencias.md):** práctica de pasar a un objeto sus colaboradores en vez de que los busque.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windo
 
 ## Glosario
 
-- **patrón de diseño:** solución nombrada a un problema recurrente de diseño, con su intención y sus consecuencias.
-- **singleton:** patrón que garantiza una única instancia con acceso global, con el costo del estado compartido.
-- **adaptador:** patrón que traduce la interfaz de un colaborador a la que espera el cliente.
-- **observador:** patrón en que un objeto avisa a quienes se suscribieron cuando su estado cambia.
-- **inyección de dependencias:** práctica de pasar a un objeto sus colaboradores en vez de que los busque.
+- **[patrón de diseño](../../../glosario/entradas/p/patron-de-diseno.md):** solución nombrada a un problema recurrente de diseño, con su intención y sus consecuencias.
+- **[singleton](../../../glosario/entradas/s/singleton.md):** patrón que garantiza una única instancia con acceso global, con el costo del estado compartido.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** patrón que traduce la interfaz de un colaborador a la que espera el cliente.
+- **[observador](../../../glosario/entradas/o/observador.md):** patrón en que un objeto avisa a quienes se suscribieron cuando su estado cambia.
+- **[inyección de dependencias](../../../glosario/entradas/i/inyeccion-de-dependencias.md):** práctica de pasar a un objeto sus colaboradores en vez de que los busque.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador](../../../glosario/entradas/a/adaptador.md) · [Inyección de dependencias](../../../glosario/entradas/i/inyeccion-de-dependencias.md) · [Observador](../../../glosario/entradas/o/observador.md) · [Patrón de diseño](../../../glosario/entradas/p/patron-de-diseno.md) · [Singleton](../../../glosario/entradas/s/singleton.md).
 
 ---
 

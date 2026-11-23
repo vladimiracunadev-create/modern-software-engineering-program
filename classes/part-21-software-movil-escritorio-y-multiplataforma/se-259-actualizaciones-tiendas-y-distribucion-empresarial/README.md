@@ -142,11 +142,11 @@ Resultado: con un 1 % de cambio, **1 de 32** bloques cambia y la descarga baja d
 
 ## Definiciones de trabajo
 
-- **canal de distribución:** vía por la que una versión llega al dispositivo (tienda con actualización automática o manual, distribución empresarial o paquete propio) y que fija quién decide la fecha.
-- **lanzamiento por fases:** publicación de una versión a una fracción creciente de la base instalada para limitar el efecto de un error.
-- **versión mínima soportada:** versión más antigua que el servidor acepta; por debajo, el cliente debe actualizar.
-- **adopción:** fracción de la base instalada que ya tiene una versión en un momento dado.
-- **huella de bloque:** resumen criptográfico de un bloque de bytes que permite saber si cambió sin compararlo byte a byte.
+- **[canal de distribución](../../../glosario/entradas/c/canal-de-distribucion.md):** vía por la que una versión llega al dispositivo (tienda con actualización automática o manual, distribución empresarial o paquete propio) y que fija quién decide la fecha.
+- **[lanzamiento por fases](../../../glosario/entradas/l/lanzamiento-por-fases.md):** publicación de una versión a una fracción creciente de la base instalada para limitar el efecto de un error.
+- **[versión mínima soportada](../../../glosario/entradas/v/version-minima-soportada.md):** versión más antigua que el servidor acepta; por debajo, el cliente debe actualizar.
+- **[adopción](../../../glosario/entradas/a/adopcion.md):** fracción de la base instalada que ya tiene una versión en un momento dado.
+- **[huella de bloque](../../../glosario/entradas/h/huella-de-bloque.md):** resumen criptográfico de un bloque de bytes que permite saber si cambió sin compararlo byte a byte.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **canal de distribución:** vía por la que una versión llega al dispositivo (tienda con actualización automática o manual, distribución empresarial o paquete propio) y que fija quién decide la fecha.
-- **lanzamiento por fases:** publicación de una versión a una fracción creciente de la base instalada para limitar el efecto de un error.
-- **versión mínima soportada:** versión más antigua que el servidor acepta; por debajo, el cliente debe actualizar.
-- **adopción:** fracción de la base instalada que ya tiene una versión en un momento dado.
-- **huella de bloque:** resumen criptográfico de un bloque de bytes que permite saber si cambió sin compararlo byte a byte.
+- **[canal de distribución](../../../glosario/entradas/c/canal-de-distribucion.md):** vía por la que una versión llega al dispositivo (tienda con actualización automática o manual, distribución empresarial o paquete propio) y que fija quién decide la fecha.
+- **[lanzamiento por fases](../../../glosario/entradas/l/lanzamiento-por-fases.md):** publicación de una versión a una fracción creciente de la base instalada para limitar el efecto de un error.
+- **[versión mínima soportada](../../../glosario/entradas/v/version-minima-soportada.md):** versión más antigua que el servidor acepta; por debajo, el cliente debe actualizar.
+- **[adopción](../../../glosario/entradas/a/adopcion.md):** fracción de la base instalada que ya tiene una versión en un momento dado.
+- **[huella de bloque](../../../glosario/entradas/h/huella-de-bloque.md):** resumen criptográfico de un bloque de bytes que permite saber si cambió sin compararlo byte a byte.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adopción](../../../glosario/entradas/a/adopcion.md) · [Canal de distribución](../../../glosario/entradas/c/canal-de-distribucion.md) · [Huella de bloque](../../../glosario/entradas/h/huella-de-bloque.md) · [Lanzamiento por fases](../../../glosario/entradas/l/lanzamiento-por-fases.md) · [Versión mínima soportada](../../../glosario/entradas/v/version-minima-soportada.md).
 
 ---
 

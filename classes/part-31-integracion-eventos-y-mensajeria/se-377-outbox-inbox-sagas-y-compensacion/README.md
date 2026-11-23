@@ -157,11 +157,11 @@ Ambas completan cerca del 71 %, como esperaría 0,92 elevado a 4. La diferencia 
 
 ## Definiciones de trabajo
 
-- **outbox transaccional:** tabla, en la misma base que el cambio de negocio, donde se guardan los mensajes a publicar dentro de la misma transacción.
-- **relevo:** proceso que lee los mensajes pendientes del outbox, los publica y los marca como enviados.
-- **inbox:** tabla del receptor que registra los identificadores de los mensajes aplicados, con clave única, junto con el efecto.
-- **saga:** secuencia de transacciones locales en distintos servicios, cada una con una compensación que contrarresta su efecto.
-- **pivote:** paso de una saga a partir del cual ya no hay vuelta atrás y solo se puede avanzar.
+- **[outbox transaccional](../../../glosario/entradas/o/outbox-transaccional.md):** tabla, en la misma base que el cambio de negocio, donde se guardan los mensajes a publicar dentro de la misma transacción.
+- **[relevo](../../../glosario/entradas/r/relevo.md):** proceso que lee los mensajes pendientes del outbox, los publica y los marca como enviados.
+- **[inbox](../../../glosario/entradas/i/inbox.md):** tabla del receptor que registra los identificadores de los mensajes aplicados, con clave única, junto con el efecto.
+- **[saga](../../../glosario/entradas/s/saga.md):** secuencia de transacciones locales en distintos servicios, cada una con una compensación que contrarresta su efecto.
+- **[pivote](../../../glosario/entradas/p/pivote.md):** paso de una saga a partir del cual ya no hay vuelta atrás y solo se puede avanzar.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **outbox transaccional:** tabla, en la misma base que el cambio de negocio, donde se guardan los mensajes a publicar dentro de la misma transacción.
-- **relevo:** proceso que lee los mensajes pendientes del outbox, los publica y los marca como enviados.
-- **inbox:** tabla del receptor que registra los identificadores de los mensajes aplicados, con clave única, junto con el efecto.
-- **saga:** secuencia de transacciones locales en distintos servicios, cada una con una compensación que contrarresta su efecto.
-- **pivote:** paso de una saga a partir del cual ya no hay vuelta atrás y solo se puede avanzar.
+- **[outbox transaccional](../../../glosario/entradas/o/outbox-transaccional.md):** tabla, en la misma base que el cambio de negocio, donde se guardan los mensajes a publicar dentro de la misma transacción.
+- **[relevo](../../../glosario/entradas/r/relevo.md):** proceso que lee los mensajes pendientes del outbox, los publica y los marca como enviados.
+- **[inbox](../../../glosario/entradas/i/inbox.md):** tabla del receptor que registra los identificadores de los mensajes aplicados, con clave única, junto con el efecto.
+- **[saga](../../../glosario/entradas/s/saga.md):** secuencia de transacciones locales en distintos servicios, cada una con una compensación que contrarresta su efecto.
+- **[pivote](../../../glosario/entradas/p/pivote.md):** paso de una saga a partir del cual ya no hay vuelta atrás y solo se puede avanzar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compensación](../../../glosario/entradas/c/compensacion.md) · [Doble escritura](../../../glosario/entradas/d/doble-escritura.md) · [Inbox](../../../glosario/entradas/i/inbox.md) · [Outbox transaccional](../../../glosario/entradas/o/outbox-transaccional.md) · [Pivote](../../../glosario/entradas/p/pivote.md) · [Relevo](../../../glosario/entradas/r/relevo.md) · [Saga](../../../glosario/entradas/s/saga.md).
 
 ---
 

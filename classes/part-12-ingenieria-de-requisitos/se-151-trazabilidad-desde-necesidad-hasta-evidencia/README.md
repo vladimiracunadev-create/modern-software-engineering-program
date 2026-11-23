@@ -143,11 +143,11 @@ Resultado: T1 y T2 ejecutan solo `tarifa`; T3, `exento` y `total`; T5, solo `exe
 
 ## Definiciones de trabajo
 
-- **trazabilidad bidireccional:** capacidad de seguir un elemento hacia su origen y hacia su implementación y verificación.
-- **granularidad de los enlaces:** nivel de detalle de los elementos que se enlazan, desde documentos hasta líneas de código.
-- **análisis de impacto:** determinación de los elementos que un cambio puede afectar a partir de los enlaces.
-- **mantenimiento y deterioro:** esfuerzo necesario para que los enlaces sigan siendo ciertos y su pérdida por cambios no registrados.
-- **enlace frente a evidencia:** diferencia entre declarar que una prueba pertenece a un requisito y demostrar, con una ejecución fechada, que lo verifica.
+- **[trazabilidad bidireccional](../../../glosario/entradas/t/trazabilidad-bidireccional.md):** capacidad de seguir un elemento hacia su origen y hacia su implementación y verificación.
+- **[granularidad de los enlaces](../../../glosario/entradas/g/granularidad-de-los-enlaces.md):** nivel de detalle de los elementos que se enlazan, desde documentos hasta líneas de código.
+- **[análisis de impacto](../../../glosario/entradas/a/analisis-de-impacto.md):** determinación de los elementos que un cambio puede afectar a partir de los enlaces.
+- **[mantenimiento y deterioro](../../../glosario/entradas/m/mantenimiento-y-deterioro.md):** esfuerzo necesario para que los enlaces sigan siendo ciertos y su pérdida por cambios no registrados.
+- **[enlace frente a evidencia](../../../glosario/entradas/e/enlace-frente-a-evidencia.md):** diferencia entre declarar que una prueba pertenece a un requisito y demostrar, con una ejecución fechada, que lo verifica.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **trazabilidad bidireccional:** capacidad de seguir un elemento hacia su origen y hacia su implementación y verificación.
-- **granularidad de los enlaces:** nivel de detalle de los elementos que se enlazan, desde documentos hasta líneas de código.
-- **análisis de impacto:** determinación de los elementos que un cambio puede afectar a partir de los enlaces.
-- **mantenimiento y deterioro:** esfuerzo necesario para que los enlaces sigan siendo ciertos y su pérdida por cambios no registrados.
-- **enlace frente a evidencia:** diferencia entre declarar que una prueba pertenece a un requisito y demostrar, con una ejecución fechada, que lo verifica.
+- **[trazabilidad bidireccional](../../../glosario/entradas/t/trazabilidad-bidireccional.md):** capacidad de seguir un elemento hacia su origen y hacia su implementación y verificación.
+- **[granularidad de los enlaces](../../../glosario/entradas/g/granularidad-de-los-enlaces.md):** nivel de detalle de los elementos que se enlazan, desde documentos hasta líneas de código.
+- **[análisis de impacto](../../../glosario/entradas/a/analisis-de-impacto.md):** determinación de los elementos que un cambio puede afectar a partir de los enlaces.
+- **[mantenimiento y deterioro](../../../glosario/entradas/m/mantenimiento-y-deterioro.md):** esfuerzo necesario para que los enlaces sigan siendo ciertos y su pérdida por cambios no registrados.
+- **[enlace frente a evidencia](../../../glosario/entradas/e/enlace-frente-a-evidencia.md):** diferencia entre declarar que una prueba pertenece a un requisito y demostrar, con una ejecución fechada, que lo verifica.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis de impacto](../../../glosario/entradas/a/analisis-de-impacto.md) · [Enlace frente a evidencia](../../../glosario/entradas/e/enlace-frente-a-evidencia.md) · [Granularidad de los enlaces](../../../glosario/entradas/g/granularidad-de-los-enlaces.md) · [Mantenimiento y deterioro](../../../glosario/entradas/m/mantenimiento-y-deterioro.md) · [Trazabilidad bidireccional](../../../glosario/entradas/t/trazabilidad-bidireccional.md).
 
 ---
 

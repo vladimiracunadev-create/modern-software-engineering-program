@@ -200,16 +200,18 @@ Python. El dossier enlaza cada observación a archivo y comando.
 
 ## Definiciones de trabajo
 
-- **ruta vertical:** seguimiento de una capacidad a través de capas;
-- **invariante:** propiedad que debe conservarse entre variantes;
-- **instrumento:** mecanismo que produce una observación con alcance;
-- **procedencia:** origen, versión y transformación de evidencia;
-- **reproducción:** repetición documentada del método.
+- **[ruta vertical](../../../glosario/entradas/r/ruta-vertical.md):** seguimiento de una capacidad a través de capas;
+- **[invariante](../../../glosario/entradas/i/invariante.md):** propiedad que debe conservarse entre variantes;
+- **[instrumento](../../../glosario/entradas/i/instrumento.md):** mecanismo que produce una observación con alcance;
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** origen, versión y transformación de evidencia;
+- **[reproducción](../../../glosario/entradas/r/reproduccion.md):** repetición documentada del método.
 
 ## Glosario
 
-**Probe** es observación acotada. **Fixture** es entrada estable. **Cold/warm** distingue
+**[Probe](../../../glosario/entradas/p/probe.md)** es observación acotada. **[Fixture](../../../glosario/entradas/f/fixture.md)** es entrada estable. **[Cold/warm](../../../glosario/entradas/c/cold-warm.md)** distingue
 estados inicial y estabilizado según protocolo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cold/warm](../../../glosario/entradas/c/cold-warm.md) · [Fixture](../../../glosario/entradas/f/fixture.md) · [Instrumento](../../../glosario/entradas/i/instrumento.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Probe](../../../glosario/entradas/p/probe.md) · [Procedencia](../../../glosario/entradas/p/procedencia.md) · [Recurso](../../../glosario/entradas/r/recurso.md) · [Reproducción](../../../glosario/entradas/r/reproduccion.md) · [Ruta vertical](../../../glosario/entradas/r/ruta-vertical.md) · [Traducción](../../../glosario/entradas/t/traduccion.md).
 
 ## Ejemplo mínimo
 

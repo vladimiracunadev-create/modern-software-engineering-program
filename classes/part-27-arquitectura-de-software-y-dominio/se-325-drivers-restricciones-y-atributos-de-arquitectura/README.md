@@ -156,11 +156,11 @@ De las 300 candidatas, 13 no están dominadas con tres atributos; 13 cumplen las
 
 ## Definiciones de trabajo
 
-- **driver arquitectónico:** fuerza de negocio, de contexto o técnica que condiciona la estructura del sistema y que debe poder escribirse como una frase verificable.
-- **restricción:** decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
-- **escenario de calidad:** descripción de una fuente que produce un estímulo en un entorno sobre un artefacto y de la respuesta medible que se espera.
-- **dominancia:** relación entre alternativas en la que una es igual o mejor que otra en todos los atributos y mejor en alguno.
-- **causa común:** fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
+- **[driver arquitectónico](../../../glosario/entradas/d/driver-arquitectonico.md):** fuerza de negocio, de contexto o técnica que condiciona la estructura del sistema y que debe poder escribirse como una frase verificable.
+- **[restricción](../../../glosario/entradas/r/restricciones.md):** decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
+- **[escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** descripción de una fuente que produce un estímulo en un entorno sobre un artefacto y de la respuesta medible que se espera.
+- **[dominancia](../../../glosario/entradas/d/dominancia.md):** relación entre alternativas en la que una es igual o mejor que otra en todos los atributos y mejor en alguno.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **driver arquitectónico:** fuerza de negocio, de contexto o técnica que condiciona la estructura del sistema y que debe poder escribirse como una frase verificable.
-- **restricción:** decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
-- **escenario de calidad:** descripción de una fuente que produce un estímulo en un entorno sobre un artefacto y de la respuesta medible que se espera.
-- **dominancia:** relación entre alternativas en la que una es igual o mejor que otra en todos los atributos y mejor en alguno.
-- **causa común:** fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
+- **[driver arquitectónico](../../../glosario/entradas/d/driver-arquitectonico.md):** fuerza de negocio, de contexto o técnica que condiciona la estructura del sistema y que debe poder escribirse como una frase verificable.
+- **[restricción](../../../glosario/entradas/r/restricciones.md):** decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
+- **[escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** descripción de una fuente que produce un estímulo en un entorno sobre un artefacto y de la respuesta medible que se espera.
+- **[dominancia](../../../glosario/entradas/d/dominancia.md):** relación entre alternativas en la que una es igual o mejor que otra en todos los atributos y mejor en alguno.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Conflictos entre atributos](../../../glosario/entradas/c/conflictos-entre-atributos.md) · [Dominancia](../../../glosario/entradas/d/dominancia.md) · [Driver arquitectónico](../../../glosario/entradas/d/driver-arquitectonico.md) · [Escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md) · [Restricciones](../../../glosario/entradas/r/restricciones.md).
 
 ---
 

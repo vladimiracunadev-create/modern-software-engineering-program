@@ -113,13 +113,13 @@ Aun con diario y claves, conviene una **reconciliación** periódica: una consul
 
 ## Definiciones de trabajo
 
-- **Ejecución durable:** ejecución cuyo progreso se persiste para poder reanudarla tras una interrupción.
-- **Diario de pasos:** registro transaccional de los pasos completados de una ejecución.
-- **Idempotencia:** propiedad de una operación cuya repetición no cambia el resultado respecto a hacerla una vez.
-- **Clave de idempotencia:** identificador estable de una intención que permite al servidor ignorar repeticiones.
-- **Retroceso exponencial:** espera que crece de forma exponencial entre reintentos.
-- **Jitter:** componente aleatorio de la espera para desincronizar a los clientes.
-- **Reconciliación:** comparación periódica de dos registros independientes del mismo hecho.
+- **[Ejecución durable](../../../glosario/entradas/e/ejecucion-durable.md):** ejecución cuyo progreso se persiste para poder reanudarla tras una interrupción.
+- **[Diario de pasos](../../../glosario/entradas/d/diario-de-pasos.md):** registro transaccional de los pasos completados de una ejecución.
+- **[Idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuya repetición no cambia el resultado respecto a hacerla una vez.
+- **[Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador estable de una intención que permite al servidor ignorar repeticiones.
+- **[Retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md):** espera que crece de forma exponencial entre reintentos.
+- **[Jitter](../../../glosario/entradas/d/dispersion.md):** componente aleatorio de la espera para desincronizar a los clientes.
+- **[Reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica de dos registros independientes del mismo hecho.
 
 ## Ejemplo mínimo
 
@@ -254,6 +254,8 @@ El diario es una base SQLite en memoria con un solo paso con efecto; el servicio
 | Retroceso exponencial | Espera que crece entre reintentos |
 | Jitter | Aleatoriedad en la espera para desincronizar |
 | Reconciliación | Comparación de dos registros del mismo hecho |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Diario de pasos](../../../glosario/entradas/d/diario-de-pasos.md) · [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Ejecución durable](../../../glosario/entradas/e/ejecucion-durable.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md) · [Reintentos](../../../glosario/entradas/r/reintentos.md) · [Retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md).
 
 ---
 

@@ -153,11 +153,11 @@ tail[k] += k != "normal" or rng.random() < 0.01
 
 ## Definiciones de trabajo
 
-- **traza:** conjunto de spans que describen el recorrido de una petición por un sistema.
-- **span:** tramo de una traza con nombre, inicio, duración, atributos y referencia a su padre.
-- **contexto de traza:** identificadores de traza y de span que viajan con la petición y permiten enlazar spans.
-- **ruta crítica:** camino de spans que determina la latencia total de una petición.
-- **muestreo de cola:** decisión de conservar una traza tomada después de que termina, a la vista de su resultado.
+- **[traza](../../../glosario/entradas/t/traza.md):** conjunto de spans que describen el recorrido de una petición por un sistema.
+- **[span](../../../glosario/entradas/s/span.md):** tramo de una traza con nombre, inicio, duración, atributos y referencia a su padre.
+- **[contexto de traza](../../../glosario/entradas/c/contexto-de-traza.md):** identificadores de traza y de span que viajan con la petición y permiten enlazar spans.
+- **[ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** camino de spans que determina la latencia total de una petición.
+- **[muestreo de cola](../../../glosario/entradas/m/muestreo-de-cola.md):** decisión de conservar una traza tomada después de que termina, a la vista de su resultado.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **traza:** conjunto de spans que describen el recorrido de una petición por un sistema.
-- **span:** tramo de una traza con nombre, inicio, duración, atributos y referencia a su padre.
-- **contexto de traza:** identificadores de traza y de span que viajan con la petición y permiten enlazar spans.
-- **ruta crítica:** camino de spans que determina la latencia total de una petición.
-- **muestreo de cola:** decisión de conservar una traza tomada después de que termina, a la vista de su resultado.
+- **[traza](../../../glosario/entradas/t/traza.md):** conjunto de spans que describen el recorrido de una petición por un sistema.
+- **[span](../../../glosario/entradas/s/span.md):** tramo de una traza con nombre, inicio, duración, atributos y referencia a su padre.
+- **[contexto de traza](../../../glosario/entradas/c/contexto-de-traza.md):** identificadores de traza y de span que viajan con la petición y permiten enlazar spans.
+- **[ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** camino de spans que determina la latencia total de una petición.
+- **[muestreo de cola](../../../glosario/entradas/m/muestreo-de-cola.md):** decisión de conservar una traza tomada después de que termina, a la vista de su resultado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contexto de traza](../../../glosario/entradas/c/contexto-de-traza.md) · [Muestreo](../../../glosario/entradas/m/muestreo.md) · [Muestreo de cola](../../../glosario/entradas/m/muestreo-de-cola.md) · [Propagación de contexto](../../../glosario/entradas/p/propagacion-de-contexto.md) · [Ruta crítica](../../../glosario/entradas/r/ruta-critica.md) · [Span](../../../glosario/entradas/s/span.md) · [Traza](../../../glosario/entradas/t/traza.md).
 
 ---
 

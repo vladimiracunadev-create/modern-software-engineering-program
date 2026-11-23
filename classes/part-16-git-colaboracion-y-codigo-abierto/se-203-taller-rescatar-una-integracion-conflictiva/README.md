@@ -112,11 +112,11 @@ Con `tope` ya fusionada, la fusión de `gracia` entró en conflicto en `penal.py
 
 ## Definiciones de trabajo
 
-- **fusión de tres ramas:** secuencia de fusiones de dos ramas cuyo resultado depende del orden en que se hacen.
-- **`--ours` y `--theirs`:** resolución de un conflicto tomando el lado de la rama actual o el de la rama que se fusiona.
-- **`--remerge-diff`:** vista que muestra lo que una resolución cambió respecto de la fusión automática.
-- **corrección hacia delante:** commit posterior que restaura lo perdido sin reescribir la historia publicada.
-- **`merge --abort`:** operación que devuelve el repositorio al estado anterior a una fusión con conflicto sin confirmar.
+- **[fusión de tres ramas](../../../glosario/entradas/f/fusion-de-tres-ramas.md):** secuencia de fusiones de dos ramas cuyo resultado depende del orden en que se hacen.
+- **[`--ours` y `--theirs`](../../../glosario/entradas/o/ours-y-theirs.md):** resolución de un conflicto tomando el lado de la rama actual o el de la rama que se fusiona.
+- **[`--remerge-diff`](../../../glosario/entradas/r/remerge-diff.md):** vista que muestra lo que una resolución cambió respecto de la fusión automática.
+- **[corrección hacia delante](../../../glosario/entradas/c/correccion-hacia-delante.md):** commit posterior que restaura lo perdido sin reescribir la historia publicada.
+- **[`merge --abort`](../../../glosario/entradas/m/merge-abort.md):** operación que devuelve el repositorio al estado anterior a una fusión con conflicto sin confirmar.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **fusión de tres ramas:** secuencia de fusiones de dos ramas cuyo resultado depende del orden en que se hacen.
-- **`--ours` y `--theirs`:** resolución de un conflicto tomando el lado de la rama actual o el de la rama que se fusiona.
-- **`--remerge-diff`:** vista que muestra lo que una resolución cambió respecto de la fusión automática.
-- **corrección hacia delante:** commit posterior que restaura lo perdido sin reescribir la historia publicada.
-- **`merge --abort`:** operación que devuelve el repositorio al estado anterior a una fusión con conflicto sin confirmar.
+- **[fusión de tres ramas](../../../glosario/entradas/f/fusion-de-tres-ramas.md):** secuencia de fusiones de dos ramas cuyo resultado depende del orden en que se hacen.
+- **[`--ours` y `--theirs`](../../../glosario/entradas/o/ours-y-theirs.md):** resolución de un conflicto tomando el lado de la rama actual o el de la rama que se fusiona.
+- **[`--remerge-diff`](../../../glosario/entradas/r/remerge-diff.md):** vista que muestra lo que una resolución cambió respecto de la fusión automática.
+- **[corrección hacia delante](../../../glosario/entradas/c/correccion-hacia-delante.md):** commit posterior que restaura lo perdido sin reescribir la historia publicada.
+- **[`merge --abort`](../../../glosario/entradas/m/merge-abort.md):** operación que devuelve el repositorio al estado anterior a una fusión con conflicto sin confirmar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [--ours y --theirs](../../../glosario/entradas/o/ours-y-theirs.md) · [--remerge-diff](../../../glosario/entradas/r/remerge-diff.md) · [Corrección hacia delante](../../../glosario/entradas/c/correccion-hacia-delante.md) · [Fusión de tres ramas](../../../glosario/entradas/f/fusion-de-tres-ramas.md) · [Merge --abort](../../../glosario/entradas/m/merge-abort.md).
 
 ---
 

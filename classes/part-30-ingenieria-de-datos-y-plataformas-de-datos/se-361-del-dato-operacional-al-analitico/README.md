@@ -131,13 +131,13 @@ La tercera figura reúne los cuatro casos medidos.
 
 ## Definiciones de trabajo
 
-- **Carga operacional (OLTP):** muchas transacciones cortas que leen y escriben pocas filas.
-- **Carga analítica (OLAP):** pocas consultas que recorren muchas filas para agregar.
-- **Patrón de acceso:** filas y columnas que toca una consulta y con qué frecuencia.
-- **Estado actual:** valor presente de una entidad, sin historia.
-- **Registro de eventos:** secuencia ordenada de los cambios, que permite reconstruir cualquier instante.
-- **Zona cruda:** copia del dato tal como llegó, sin transformar.
-- **Interferencia:** efecto de una carga sobre la latencia o el éxito de otra que comparte recursos.
+- **[Carga operacional (OLTP)](../../../glosario/entradas/c/carga-operacional.md):** muchas transacciones cortas que leen y escriben pocas filas.
+- **[Carga analítica (OLAP)](../../../glosario/entradas/c/carga-analitica.md):** pocas consultas que recorren muchas filas para agregar.
+- **[Patrón de acceso](../../../glosario/entradas/p/patron-de-acceso.md):** filas y columnas que toca una consulta y con qué frecuencia.
+- **[Estado actual](../../../glosario/entradas/e/estado-actual.md):** valor presente de una entidad, sin historia.
+- **[Registro de eventos](../../../glosario/entradas/r/registro-de-eventos.md):** secuencia ordenada de los cambios, que permite reconstruir cualquier instante.
+- **[Zona cruda](../../../glosario/entradas/z/zona-cruda.md):** copia del dato tal como llegó, sin transformar.
+- **[Interferencia](../../../glosario/entradas/i/interferencia.md):** efecto de una carga sobre la latencia o el éxito de otra que comparte recursos.
 
 ## Ejemplo mínimo
 
@@ -284,6 +284,8 @@ Las 200 000 filas y los 20 000 pedidos son sintéticos, los tiempos varían entr
 | Zona cruda | Dato como llegó, sin transformar |
 | Registro de eventos | Secuencia de cambios que permite reconstruir el pasado |
 | Interferencia | Una carga que degrada a otra |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capa](../../../glosario/entradas/c/capa.md) · [Carga analítica](../../../glosario/entradas/c/carga-analitica.md) · [Carga operacional](../../../glosario/entradas/c/carga-operacional.md) · [Estado actual](../../../glosario/entradas/e/estado-actual.md) · [Extracción](../../../glosario/entradas/e/extraccion.md) · [Interferencia](../../../glosario/entradas/i/interferencia.md) · [Patrón de acceso](../../../glosario/entradas/p/patron-de-acceso.md) · [Registro de eventos](../../../glosario/entradas/r/registro-de-eventos.md) · [Zona cruda](../../../glosario/entradas/z/zona-cruda.md).
 
 ---
 

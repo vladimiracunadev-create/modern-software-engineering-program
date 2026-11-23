@@ -133,14 +133,14 @@ Ser SaaS no garantiza escalabilidad (un monolito mal indexado sigue sin escalar)
 
 ## Definiciones de trabajo
 
-- **SaaS (software como servicio):** producto operado por el proveedor, entregado de forma continua a muchos clientes y pagado por suscripción o consumo.
-- **Inquilino (tenant):** cliente cuya cuenta, usuarios y datos el producto trata como una unidad de aislamiento y de facturación.
-- **Plano de control:** parte del sistema que gestiona inquilinos, planes, medición y facturación; distinta de la que atiende el uso de cada cliente.
-- **MRR (ingreso recurrente mensual):** suma de lo que los clientes activos pagan por mes, normalizado a un mes.
-- **Expansión y contracción:** aumento o disminución de lo que paga un cliente que sigue activo.
-- **Retención bruta y neta:** parte del MRR inicial que se conserva sin y con la expansión de los clientes existentes.
-- **Baja (churn):** cliente o ingreso que deja de pagar en un periodo.
-- **CAC (costo de adquisición de cliente):** lo que cuesta conseguir un cliente nuevo.
+- **[SaaS (software como servicio)](../../../glosario/entradas/s/saas.md):** producto operado por el proveedor, entregado de forma continua a muchos clientes y pagado por suscripción o consumo.
+- **[Inquilino (tenant)](../../../glosario/entradas/i/inquilino.md):** cliente cuya cuenta, usuarios y datos el producto trata como una unidad de aislamiento y de facturación.
+- **[Plano de control](../../../glosario/entradas/p/plano-de-control.md):** parte del sistema que gestiona inquilinos, planes, medición y facturación; distinta de la que atiende el uso de cada cliente.
+- **[MRR (ingreso recurrente mensual)](../../../glosario/entradas/m/mrr.md):** suma de lo que los clientes activos pagan por mes, normalizado a un mes.
+- **[Expansión y contracción](../../../glosario/entradas/e/expansion-y-contraccion.md):** aumento o disminución de lo que paga un cliente que sigue activo.
+- **[Retención bruta y neta](../../../glosario/entradas/r/retencion-bruta-y-neta.md):** parte del MRR inicial que se conserva sin y con la expansión de los clientes existentes.
+- **[Baja (churn)](../../../glosario/entradas/b/baja.md):** cliente o ingreso que deja de pagar en un periodo.
+- **[CAC (costo de adquisición de cliente)](../../../glosario/entradas/c/cac-costo-de-adquisicion-de-cliente.md):** lo que cuesta conseguir un cliente nuevo.
 
 ## Ejemplo mínimo
 
@@ -289,6 +289,8 @@ Se calculó el ingreso recurrente de 440 clientes sintéticos con sqlite3 y se m
 | Retención neta | MRR conservado contando expansión |
 | Baja | Cliente o ingreso que deja de pagar |
 | CAC | Costo de conseguir un cliente nuevo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Baja](../../../glosario/entradas/b/baja.md) · [CAC (costo de adquisición de cliente)](../../../glosario/entradas/c/cac-costo-de-adquisicion-de-cliente.md) · [Expansión y contracción](../../../glosario/entradas/e/expansion-y-contraccion.md) · [Inquilino](../../../glosario/entradas/i/inquilino.md) · [MRR](../../../glosario/entradas/m/mrr.md) · [Plano de control](../../../glosario/entradas/p/plano-de-control.md) · [Retención](../../../glosario/entradas/r/retencion.md) · [Retención bruta y neta](../../../glosario/entradas/r/retencion-bruta-y-neta.md) · [SaaS](../../../glosario/entradas/s/saas.md).
 
 ---
 

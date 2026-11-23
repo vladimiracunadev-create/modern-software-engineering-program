@@ -119,11 +119,11 @@ Una simulación con 10 000 trabajos y cinco tipos de fallo (40 % temporales, 15 
 
 ## Definiciones de trabajo
 
-- **código de salida:** entero con que un proceso informa al padre cómo terminó; 0 es éxito por convención.
-- **fallo temporal:** fallo que puede desaparecer si se repite más tarde sin cambiar la entrada.
-- **fallo permanente:** fallo que se repetirá igual mientras no cambien la entrada o el entorno.
-- **estado de una tubería:** valor de salida de una tubería, por defecto el de su última etapa.
-- **mensaje accionable:** mensaje que dice qué falló, por qué y qué hacer.
+- **[código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** entero con que un proceso informa al padre cómo terminó; 0 es éxito por convención.
+- **[fallo temporal](../../../glosario/entradas/f/fallo-temporal.md):** fallo que puede desaparecer si se repite más tarde sin cambiar la entrada.
+- **[fallo permanente](../../../glosario/entradas/f/fallo-permanente.md):** fallo que se repetirá igual mientras no cambien la entrada o el entorno.
+- **[estado de una tubería](../../../glosario/entradas/e/estado-de-una-tuberia.md):** valor de salida de una tubería, por defecto el de su última etapa.
+- **[mensaje accionable](../../../glosario/entradas/m/mensaje-accionable.md):** mensaje que dice qué falló, por qué y qué hacer.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **código de salida:** entero con que un proceso informa al padre cómo terminó; 0 es éxito por convención.
-- **fallo temporal:** fallo que puede desaparecer si se repite más tarde sin cambiar la entrada.
-- **fallo permanente:** fallo que se repetirá igual mientras no cambien la entrada o el entorno.
-- **estado de una tubería:** valor de salida de una tubería, por defecto el de su última etapa.
-- **mensaje accionable:** mensaje que dice qué falló, por qué y qué hacer.
+- **[código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** entero con que un proceso informa al padre cómo terminó; 0 es éxito por convención.
+- **[fallo temporal](../../../glosario/entradas/f/fallo-temporal.md):** fallo que puede desaparecer si se repite más tarde sin cambiar la entrada.
+- **[fallo permanente](../../../glosario/entradas/f/fallo-permanente.md):** fallo que se repetirá igual mientras no cambien la entrada o el entorno.
+- **[estado de una tubería](../../../glosario/entradas/e/estado-de-una-tuberia.md):** valor de salida de una tubería, por defecto el de su última etapa.
+- **[mensaje accionable](../../../glosario/entradas/m/mensaje-accionable.md):** mensaje que dice qué falló, por qué y qué hacer.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Código de salida](../../../glosario/entradas/c/codigo-de-salida.md) · [Estado de una tubería](../../../glosario/entradas/e/estado-de-una-tuberia.md) · [Fallo permanente](../../../glosario/entradas/f/fallo-permanente.md) · [Fallo temporal](../../../glosario/entradas/f/fallo-temporal.md) · [Mensaje accionable](../../../glosario/entradas/m/mensaje-accionable.md) · [Reintentos](../../../glosario/entradas/r/reintentos.md).
 
 ---
 

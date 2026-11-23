@@ -117,11 +117,11 @@ construye una cadena, y las herramientas que leen el almacén antes de que eso o
 
 ## Definiciones de trabajo
 
-- **handshake:** negociación inicial de parámetros, identidad y claves.
-- **certificado:** afirmación firmada que vincula una clave pública y atributos.
-- **ancla de confianza:** certificado o clave aceptado localmente como inicio de validación.
-- **SAN:** extensión que contiene identidades autorizadas.
-- **ALPN:** negociación del protocolo de aplicación dentro de TLS.
+- **[handshake](../../../glosario/entradas/h/handshake.md):** negociación inicial de parámetros, identidad y claves.
+- **[certificado](../../../glosario/entradas/c/certificado.md):** afirmación firmada que vincula una clave pública y atributos.
+- **[ancla de confianza](../../../glosario/entradas/a/ancla-de-confianza.md):** certificado o clave aceptado localmente como inicio de validación.
+- **[SAN](../../../glosario/entradas/s/san.md):** extensión que contiene identidades autorizadas.
+- **[ALPN](../../../glosario/entradas/a/alpn.md):** negociación del protocolo de aplicación dentro de TLS.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -271,11 +271,13 @@ No enseña diseño criptográfico ni operación completa de una PKI. La revocaci
 
 ## Glosario
 
-- **handshake:** negociación inicial de parámetros, identidad y claves.
-- **certificado:** afirmación firmada que vincula una clave pública y atributos.
-- **ancla de confianza:** certificado o clave aceptado localmente como inicio de validación.
-- **SAN:** extensión que contiene identidades autorizadas.
-- **ALPN:** negociación del protocolo de aplicación dentro de TLS.
+- **[handshake](../../../glosario/entradas/h/handshake.md):** negociación inicial de parámetros, identidad y claves.
+- **[certificado](../../../glosario/entradas/c/certificado.md):** afirmación firmada que vincula una clave pública y atributos.
+- **[ancla de confianza](../../../glosario/entradas/a/ancla-de-confianza.md):** certificado o clave aceptado localmente como inicio de validación.
+- **[SAN](../../../glosario/entradas/s/san.md):** extensión que contiene identidades autorizadas.
+- **[ALPN](../../../glosario/entradas/a/alpn.md):** negociación del protocolo de aplicación dentro de TLS.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [ALPN](../../../glosario/entradas/a/alpn.md) · [Ancla de confianza](../../../glosario/entradas/a/ancla-de-confianza.md) · [Certificado](../../../glosario/entradas/c/certificado.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Handshake](../../../glosario/entradas/h/handshake.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [SAN](../../../glosario/entradas/s/san.md).
 
 ---
 

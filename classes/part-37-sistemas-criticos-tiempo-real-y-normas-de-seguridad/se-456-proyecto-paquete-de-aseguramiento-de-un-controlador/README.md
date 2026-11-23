@@ -128,13 +128,13 @@ La tercera figura resume los eslabones y quién decide qué.
 
 ## Definiciones de trabajo
 
-- **Paquete de aseguramiento:** conjunto ordenado de peligros, requisitos, pruebas, resultados y argumento que respalda una afirmación de seguridad.
-- **Hueco de contenido:** peligro sin control, control sin requisito o requisito sin prueba.
-- **Evidencia obsoleta:** evidencia que ya no corresponde a la versión revisada de lo que verifica.
-- **Manifiesto:** lista de resúmenes de los archivos de evidencia en el momento de una revisión.
-- **Riesgo residual:** riesgo que queda tras los controles, aceptado por una persona con autoridad.
-- **Disparador de revisión:** condición (un cambio, un incidente) que obliga a revisar el paquete.
-- **Revisión independiente:** revisión por alguien que no desarrolló el sistema.
+- **[Paquete de aseguramiento](../../../glosario/entradas/p/paquete-de-aseguramiento.md):** conjunto ordenado de peligros, requisitos, pruebas, resultados y argumento que respalda una afirmación de seguridad.
+- **[Hueco de contenido](../../../glosario/entradas/h/hueco-de-contenido.md):** peligro sin control, control sin requisito o requisito sin prueba.
+- **[Evidencia obsoleta](../../../glosario/entradas/e/evidencia-obsoleta.md):** evidencia que ya no corresponde a la versión revisada de lo que verifica.
+- **[Manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de resúmenes de los archivos de evidencia en el momento de una revisión.
+- **[Riesgo residual](../../../glosario/entradas/r/riesgo-residual.md):** riesgo que queda tras los controles, aceptado por una persona con autoridad.
+- **[Disparador de revisión](../../../glosario/entradas/d/disparador-de-revision.md):** condición (un cambio, un incidente) que obliga a revisar el paquete.
+- **[Revisión independiente](../../../glosario/entradas/r/revision-independiente.md):** revisión por alguien que no desarrolló el sistema.
 
 ## Ejemplo mínimo
 
@@ -269,6 +269,8 @@ El paquete es mínimo y sintético, el comprobador verifica estructura y cambios
 | Manifiesto | Resúmenes de los archivos de evidencia revisados |
 | Riesgo residual | Riesgo que queda tras los controles y alguien acepta |
 | Disparador de revisión | Condición que obliga a revisar el paquete |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Disparador de revisión](../../../glosario/entradas/d/disparador-de-revision.md) · [Estructura del paquete](../../../glosario/entradas/e/estructura-del-paquete.md) · [Evidencia obsoleta](../../../glosario/entradas/e/evidencia-obsoleta.md) · [Hueco de contenido](../../../glosario/entradas/h/hueco-de-contenido.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Paquete de aseguramiento](../../../glosario/entradas/p/paquete-de-aseguramiento.md) · [Revisión independiente](../../../glosario/entradas/r/revision-independiente.md) · [Riesgo residual](../../../glosario/entradas/r/riesgo-residual.md).
 
 ---
 

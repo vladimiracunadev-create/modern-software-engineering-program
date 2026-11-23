@@ -162,11 +162,11 @@ Con un 95 % de cobertura casi la mitad de los entornos deja algo, y con un 80 %,
 
 ## Definiciones de trabajo
 
-- **recurso huérfano:** recurso existente que el estado de la herramienta no registra.
-- **registro de intención:** anotación previa de que se va a crear un recurso, que permite reconocerlo si el proceso se corta.
-- **orden topológico inverso:** orden de destrucción en que cada recurso se elimina antes que aquellos de los que depende.
-- **barrido por etiqueta:** búsqueda y eliminación de los recursos que llevan la etiqueta de un entorno.
-- **prueba de destrucción:** comprobación independiente, con fecha, de que no queda ningún recurso del entorno.
+- **[recurso huérfano](../../../glosario/entradas/r/recurso-huerfano.md):** recurso existente que el estado de la herramienta no registra.
+- **[registro de intención](../../../glosario/entradas/r/registro-de-intencion.md):** anotación previa de que se va a crear un recurso, que permite reconocerlo si el proceso se corta.
+- **[orden topológico inverso](../../../glosario/entradas/o/orden-topologico-inverso.md):** orden de destrucción en que cada recurso se elimina antes que aquellos de los que depende.
+- **[barrido por etiqueta](../../../glosario/entradas/b/barrido-por-etiqueta.md):** búsqueda y eliminación de los recursos que llevan la etiqueta de un entorno.
+- **[prueba de destrucción](../../../glosario/entradas/p/prueba-de-destruccion.md):** comprobación independiente, con fecha, de que no queda ningún recurso del entorno.
 
 Las definiciones son operativas para la plataforma de entregas. Cada herramienta y cada proveedor usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres experimentos sintéticos con carpetas locales en Windows y Ub
 
 ## Glosario
 
-- **recurso huérfano:** recurso existente que el estado de la herramienta no registra.
-- **registro de intención:** anotación previa de que se va a crear un recurso, que permite reconocerlo si el proceso se corta.
-- **orden topológico inverso:** orden de destrucción en que cada recurso se elimina antes que aquellos de los que depende.
-- **barrido por etiqueta:** búsqueda y eliminación de los recursos que llevan la etiqueta de un entorno.
-- **prueba de destrucción:** comprobación independiente, con fecha, de que no queda ningún recurso del entorno.
+- **[recurso huérfano](../../../glosario/entradas/r/recurso-huerfano.md):** recurso existente que el estado de la herramienta no registra.
+- **[registro de intención](../../../glosario/entradas/r/registro-de-intencion.md):** anotación previa de que se va a crear un recurso, que permite reconocerlo si el proceso se corta.
+- **[orden topológico inverso](../../../glosario/entradas/o/orden-topologico-inverso.md):** orden de destrucción en que cada recurso se elimina antes que aquellos de los que depende.
+- **[barrido por etiqueta](../../../glosario/entradas/b/barrido-por-etiqueta.md):** búsqueda y eliminación de los recursos que llevan la etiqueta de un entorno.
+- **[prueba de destrucción](../../../glosario/entradas/p/prueba-de-destruccion.md):** comprobación independiente, con fecha, de que no queda ningún recurso del entorno.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Barrido por etiqueta](../../../glosario/entradas/b/barrido-por-etiqueta.md) · [Orden topológico inverso](../../../glosario/entradas/o/orden-topologico-inverso.md) · [Prueba de destrucción](../../../glosario/entradas/p/prueba-de-destruccion.md) · [Recurso huérfano](../../../glosario/entradas/r/recurso-huerfano.md) · [Registro de intención](../../../glosario/entradas/r/registro-de-intencion.md).
 
 ---
 

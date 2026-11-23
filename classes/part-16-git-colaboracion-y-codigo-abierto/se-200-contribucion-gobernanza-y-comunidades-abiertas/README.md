@@ -144,11 +144,11 @@ Una contribución de 3 líneas contiguas a un archivo de 50 líneas se preparó 
 
 ## Definiciones de trabajo
 
-- **fork:** copia propia de un repositorio desde la que una persona sin permiso de escritura propone cambios.
-- **regla de decisión:** procedimiento por el que un proyecto acepta o rechaza una propuesta.
-- **consenso perezoso:** regla por la que una propuesta se acepta si nadie objeta en un plazo.
-- **concentración de conocimiento:** grado en que pocas personas concentran los commits o el conocimiento de un proyecto.
-- **código de conducta:** documento que fija comportamientos aceptables y el proceso para reportar y resolver incumplimientos.
+- **[fork](../../../glosario/entradas/f/fork.md):** copia propia de un repositorio desde la que una persona sin permiso de escritura propone cambios.
+- **[regla de decisión](../../../glosario/entradas/r/regla-de-decision.md):** procedimiento por el que un proyecto acepta o rechaza una propuesta.
+- **[consenso perezoso](../../../glosario/entradas/c/consenso-perezoso.md):** regla por la que una propuesta se acepta si nadie objeta en un plazo.
+- **[concentración de conocimiento](../../../glosario/entradas/c/concentracion-de-conocimiento.md):** grado en que pocas personas concentran los commits o el conocimiento de un proyecto.
+- **[código de conducta](../../../glosario/entradas/c/codigo-de-conducta.md):** documento que fija comportamientos aceptables y el proceso para reportar y resolver incumplimientos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con datos sintéticos y repositorios temporales 
 
 ## Glosario
 
-- **fork:** copia propia de un repositorio desde la que una persona sin permiso de escritura propone cambios.
-- **regla de decisión:** procedimiento por el que un proyecto acepta o rechaza una propuesta.
-- **consenso perezoso:** regla por la que una propuesta se acepta si nadie objeta en un plazo.
-- **concentración de conocimiento:** grado en que pocas personas concentran los commits o el conocimiento de un proyecto.
-- **código de conducta:** documento que fija comportamientos aceptables y el proceso para reportar y resolver incumplimientos.
+- **[fork](../../../glosario/entradas/f/fork.md):** copia propia de un repositorio desde la que una persona sin permiso de escritura propone cambios.
+- **[regla de decisión](../../../glosario/entradas/r/regla-de-decision.md):** procedimiento por el que un proyecto acepta o rechaza una propuesta.
+- **[consenso perezoso](../../../glosario/entradas/c/consenso-perezoso.md):** regla por la que una propuesta se acepta si nadie objeta en un plazo.
+- **[concentración de conocimiento](../../../glosario/entradas/c/concentracion-de-conocimiento.md):** grado en que pocas personas concentran los commits o el conocimiento de un proyecto.
+- **[código de conducta](../../../glosario/entradas/c/codigo-de-conducta.md):** documento que fija comportamientos aceptables y el proceso para reportar y resolver incumplimientos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Código de conducta](../../../glosario/entradas/c/codigo-de-conducta.md) · [Concentración de conocimiento](../../../glosario/entradas/c/concentracion-de-conocimiento.md) · [Consenso perezoso](../../../glosario/entradas/c/consenso-perezoso.md) · [Fork](../../../glosario/entradas/f/fork.md) · [Regla de decisión](../../../glosario/entradas/r/regla-de-decision.md).
 
 ---
 

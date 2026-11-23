@@ -157,11 +157,11 @@ if isinstance(hijo, ast.If):
 
 ## Definiciones de trabajo
 
-- **complejidad esencial:** la que se deriva del problema que el software resuelve y no puede eliminarse sin cambiar el problema.
-- **complejidad accidental:** la que introduce la solución elegida y puede reducirse con otra forma.
-- **complejidad ciclomática:** número de caminos independientes de una función.
-- **complejidad cognitiva:** medida que intenta aproximar la dificultad de entender una función penalizando el anidamiento.
-- **cobertura por pares:** conjunto de pruebas en que cada combinación de valores de cada pareja de opciones aparece al menos una vez.
+- **[complejidad esencial](../../../glosario/entradas/c/complejidad-esencial.md):** la que se deriva del problema que el software resuelve y no puede eliminarse sin cambiar el problema.
+- **[complejidad accidental](../../../glosario/entradas/c/complejidad-accidental.md):** la que introduce la solución elegida y puede reducirse con otra forma.
+- **[complejidad ciclomática](../../../glosario/entradas/c/complejidad-ciclomatica.md):** número de caminos independientes de una función.
+- **[complejidad cognitiva](../../../glosario/entradas/c/complejidad-cognitiva.md):** medida que intenta aproximar la dificultad de entender una función penalizando el anidamiento.
+- **[cobertura por pares](../../../glosario/entradas/c/cobertura-por-pares.md):** conjunto de pruebas en que cada combinación de valores de cada pareja de opciones aparece al menos una vez.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windo
 
 ## Glosario
 
-- **complejidad esencial:** la que se deriva del problema que el software resuelve y no puede eliminarse sin cambiar el problema.
-- **complejidad accidental:** la que introduce la solución elegida y puede reducirse con otra forma.
-- **complejidad ciclomática:** número de caminos independientes de una función.
-- **complejidad cognitiva:** medida que intenta aproximar la dificultad de entender una función penalizando el anidamiento.
-- **cobertura por pares:** conjunto de pruebas en que cada combinación de valores de cada pareja de opciones aparece al menos una vez.
+- **[complejidad esencial](../../../glosario/entradas/c/complejidad-esencial.md):** la que se deriva del problema que el software resuelve y no puede eliminarse sin cambiar el problema.
+- **[complejidad accidental](../../../glosario/entradas/c/complejidad-accidental.md):** la que introduce la solución elegida y puede reducirse con otra forma.
+- **[complejidad ciclomática](../../../glosario/entradas/c/complejidad-ciclomatica.md):** número de caminos independientes de una función.
+- **[complejidad cognitiva](../../../glosario/entradas/c/complejidad-cognitiva.md):** medida que intenta aproximar la dificultad de entender una función penalizando el anidamiento.
+- **[cobertura por pares](../../../glosario/entradas/c/cobertura-por-pares.md):** conjunto de pruebas en que cada combinación de valores de cada pareja de opciones aparece al menos una vez.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura por pares](../../../glosario/entradas/c/cobertura-por-pares.md) · [Complejidad accidental](../../../glosario/entradas/c/complejidad-accidental.md) · [Complejidad ciclomática](../../../glosario/entradas/c/complejidad-ciclomatica.md) · [Complejidad cognitiva](../../../glosario/entradas/c/complejidad-cognitiva.md) · [Complejidad esencial](../../../glosario/entradas/c/complejidad-esencial.md).
 
 ---
 

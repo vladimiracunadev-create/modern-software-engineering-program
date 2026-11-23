@@ -112,12 +112,12 @@ El ejercicio no termina al restaurar el sistema. La **retrospectiva sin culpa** 
 
 ## Definiciones de trabajo
 
-- **día de práctica (game day):** ejercicio programado donde un equipo responde con sus procedimientos a una falla inyectada, con observación y registro.
-- **ejercicio de mesa:** discusión de cómo se respondería a un escenario, sin inyectar nada.
-- **guion de inyección:** plan privado de qué se inyecta, cuándo y qué hacer si el equipo no responde.
-- **defecto latente:** debilidad de un sistema o de un procedimiento que aún no ha causado daño.
-- **retrospectiva sin culpa:** análisis de lo ocurrido centrado en factores del sistema y no en personas.
-- **acción verificable:** cambio con responsable, fecha y comprobación de que se hizo.
+- **[día de práctica (game day)](../../../glosario/entradas/d/dia-de-practica.md):** ejercicio programado donde un equipo responde con sus procedimientos a una falla inyectada, con observación y registro.
+- **[ejercicio de mesa](../../../glosario/entradas/e/ejercicio-de-mesa.md):** discusión de cómo se respondería a un escenario, sin inyectar nada.
+- **[guion de inyección](../../../glosario/entradas/g/guion-de-inyeccion.md):** plan privado de qué se inyecta, cuándo y qué hacer si el equipo no responde.
+- **[defecto latente](../../../glosario/entradas/d/defecto-latente.md):** debilidad de un sistema o de un procedimiento que aún no ha causado daño.
+- **[retrospectiva sin culpa](../../../glosario/entradas/r/retrospectiva-sin-culpa.md):** análisis de lo ocurrido centrado en factores del sistema y no en personas.
+- **[acción verificable](../../../glosario/entradas/a/accion-verificable.md):** cambio con responsable, fecha y comprobación de que se hizo.
 
 Las definiciones son operativas para el equipo de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -253,12 +253,14 @@ Se ejecutó un experimento con semilla fija y tiempo virtual en Windows y Ubuntu
 
 ## Glosario
 
-- **día de práctica (game day):** ejercicio programado donde un equipo responde a una falla inyectada, con observación y registro.
-- **ejercicio de mesa:** discusión de cómo se respondería a un escenario, sin inyectar nada.
-- **guion de inyección:** plan privado de qué se inyecta, cuándo y qué hacer si el equipo no responde.
-- **defecto latente:** debilidad que aún no ha causado daño.
-- **retrospectiva sin culpa:** análisis centrado en factores del sistema y no en personas.
-- **acción verificable:** cambio con responsable, fecha y comprobación.
+- **[día de práctica (game day)](../../../glosario/entradas/d/dia-de-practica.md):** ejercicio programado donde un equipo responde a una falla inyectada, con observación y registro.
+- **[ejercicio de mesa](../../../glosario/entradas/e/ejercicio-de-mesa.md):** discusión de cómo se respondería a un escenario, sin inyectar nada.
+- **[guion de inyección](../../../glosario/entradas/g/guion-de-inyeccion.md):** plan privado de qué se inyecta, cuándo y qué hacer si el equipo no responde.
+- **[defecto latente](../../../glosario/entradas/d/defecto-latente.md):** debilidad que aún no ha causado daño.
+- **[retrospectiva sin culpa](../../../glosario/entradas/r/retrospectiva-sin-culpa.md):** análisis centrado en factores del sistema y no en personas.
+- **[acción verificable](../../../glosario/entradas/a/accion-verificable.md):** cambio con responsable, fecha y comprobación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acción verificable](../../../glosario/entradas/a/accion-verificable.md) · [Defecto latente](../../../glosario/entradas/d/defecto-latente.md) · [Día de práctica](../../../glosario/entradas/d/dia-de-practica.md) · [Ejercicio de mesa](../../../glosario/entradas/e/ejercicio-de-mesa.md) · [Guion de inyección](../../../glosario/entradas/g/guion-de-inyeccion.md) · [Retrospectiva sin culpa](../../../glosario/entradas/r/retrospectiva-sin-culpa.md).
 
 ---
 

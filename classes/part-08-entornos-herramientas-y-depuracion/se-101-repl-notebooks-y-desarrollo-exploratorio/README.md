@@ -107,11 +107,11 @@ La exploración en un cuaderno o en el REPL es valiosa por su rapidez, pero su p
 
 ## Definiciones de trabajo
 
-- **repl y ciclo de realimentación:** read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción.
-- **notebook y grafo oculto:** visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia.
-- **exploración frente a producto:** explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
-- **proveniencia de datos:** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
-- **narrativa y verificación:** una explicación ordena pregunta, método, resultado y límite.
+- **[repl y ciclo de realimentación](../../../glosario/entradas/r/repl-y-ciclo-de-realimentacion.md):** read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción.
+- **[notebook y grafo oculto](../../../glosario/entradas/n/notebook-y-grafo-oculto.md):** visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia.
+- **[exploración frente a producto](../../../glosario/entradas/e/exploracion-frente-a-producto.md):** explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
+- **[proveniencia de datos](../../../glosario/entradas/p/proveniencia-de-datos.md):** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
+- **[narrativa y verificación](../../../glosario/entradas/n/narrativa-y-verificacion.md):** una explicación ordena pregunta, método, resultado y límite.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -260,11 +260,13 @@ Un proceso limpio aún puede usar otra versión de runtime. La siguiente clase f
 
 ## Glosario
 
-- **repl y ciclo de realimentación:** read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción.
-- **notebook y grafo oculto:** visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia.
-- **exploración frente a producto:** explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
-- **proveniencia de datos:** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
-- **narrativa y verificación:** una explicación ordena pregunta, método, resultado y límite.
+- **[repl y ciclo de realimentación](../../../glosario/entradas/r/repl-y-ciclo-de-realimentacion.md):** read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción.
+- **[notebook y grafo oculto](../../../glosario/entradas/n/notebook-y-grafo-oculto.md):** visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia.
+- **[exploración frente a producto](../../../glosario/entradas/e/exploracion-frente-a-producto.md):** explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
+- **[proveniencia de datos](../../../glosario/entradas/p/proveniencia-de-datos.md):** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
+- **[narrativa y verificación](../../../glosario/entradas/n/narrativa-y-verificacion.md):** una explicación ordena pregunta, método, resultado y límite.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Exploración frente a producto](../../../glosario/entradas/e/exploracion-frente-a-producto.md) · [Narrativa y verificación](../../../glosario/entradas/n/narrativa-y-verificacion.md) · [Notebook y grafo oculto](../../../glosario/entradas/n/notebook-y-grafo-oculto.md) · [Proveniencia de datos](../../../glosario/entradas/p/proveniencia-de-datos.md) · [Repl y ciclo de realimentación](../../../glosario/entradas/r/repl-y-ciclo-de-realimentacion.md).
 
 ---
 

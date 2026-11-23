@@ -158,11 +158,11 @@ Resumir nueve estados en cuatro impide recuperar el original en el 56 % de los r
 
 ## Definiciones de trabajo
 
-- **contexto delimitado:** ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
-- **capa anticorrupción:** componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
-- **cuarentena:** destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
-- **traducción con pérdida:** conversión en la que dos valores de origen distintos producen el mismo valor de destino.
-- **conformista:** relación en la que un sistema adopta tal cual el modelo de otro.
+- **[contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md):** ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
+- **[capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md):** componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
+- **[cuarentena](../../../glosario/entradas/c/cuarentena.md):** destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
+- **[traducción con pérdida](../../../glosario/entradas/t/traduccion-con-perdida.md):** conversión en la que dos valores de origen distintos producen el mismo valor de destino.
+- **[conformista](../../../glosario/entradas/c/conformista.md):** relación en la que un sistema adopta tal cual el modelo de otro.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **contexto delimitado:** ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
-- **capa anticorrupción:** componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
-- **cuarentena:** destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
-- **traducción con pérdida:** conversión en la que dos valores de origen distintos producen el mismo valor de destino.
-- **conformista:** relación en la que un sistema adopta tal cual el modelo de otro.
+- **[contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md):** ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
+- **[capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md):** componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
+- **[cuarentena](../../../glosario/entradas/c/cuarentena.md):** destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
+- **[traducción con pérdida](../../../glosario/entradas/t/traduccion-con-perdida.md):** conversión en la que dos valores de origen distintos producen el mismo valor de destino.
+- **[conformista](../../../glosario/entradas/c/conformista.md):** relación en la que un sistema adopta tal cual el modelo de otro.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md) · [Conformista](../../../glosario/entradas/c/conformista.md) · [Contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md) · [Cuarentena](../../../glosario/entradas/c/cuarentena.md) · [Traducción](../../../glosario/entradas/t/traduccion.md) · [Traducción con pérdida](../../../glosario/entradas/t/traduccion-con-perdida.md).
 
 ---
 

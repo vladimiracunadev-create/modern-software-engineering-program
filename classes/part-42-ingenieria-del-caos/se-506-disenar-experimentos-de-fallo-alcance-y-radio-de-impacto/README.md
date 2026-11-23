@@ -116,11 +116,11 @@ Un experimento se escribe antes de ejecutarse, en un documento versionado con ca
 
 ## Definiciones de trabajo
 
-- **radio de explosión:** conjunto de lo que un experimento puede dañar si sale mal, descrito por fracción de tráfico, alcance, duración, intensidad y profundidad.
-- **costo del experimento:** peticiones dañadas (o minutos equivalentes de caída total) que el experimento consume del presupuesto de error.
-- **condición de aborto:** regla automática que detiene el experimento y revierte la falla al cumplirse.
-- **reversión:** operación que restituye el sistema al estado previo a la inyección y cuyo tiempo se mide.
-- **especificación del experimento:** documento versionado con hipótesis, radio, aborto, reversión y responsable.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** conjunto de lo que un experimento puede dañar si sale mal, descrito por fracción de tráfico, alcance, duración, intensidad y profundidad.
+- **[costo del experimento](../../../glosario/entradas/c/costo-del-experimento.md):** peticiones dañadas (o minutos equivalentes de caída total) que el experimento consume del presupuesto de error.
+- **[condición de aborto](../../../glosario/entradas/c/condicion-de-aborto.md):** regla automática que detiene el experimento y revierte la falla al cumplirse.
+- **[reversión](../../../glosario/entradas/r/retroceso.md):** operación que restituye el sistema al estado previo a la inyección y cuyo tiempo se mide.
+- **[especificación del experimento](../../../glosario/entradas/e/especificacion-del-experimento.md):** documento versionado con hipótesis, radio, aborto, reversión y responsable.
 
 Las definiciones son operativas para el cliente de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -257,11 +257,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **radio de explosión:** conjunto de lo que un experimento puede dañar si sale mal.
-- **costo del experimento:** peticiones dañadas (o minutos equivalentes de caída total) que consume del presupuesto de error.
-- **condición de aborto:** regla automática que detiene el experimento y revierte la falla.
-- **reversión:** operación que restituye el estado previo a la inyección y cuyo tiempo se mide.
-- **especificación del experimento:** documento versionado con hipótesis, radio, aborto, reversión y responsable.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** conjunto de lo que un experimento puede dañar si sale mal.
+- **[costo del experimento](../../../glosario/entradas/c/costo-del-experimento.md):** peticiones dañadas (o minutos equivalentes de caída total) que consume del presupuesto de error.
+- **[condición de aborto](../../../glosario/entradas/c/condicion-de-aborto.md):** regla automática que detiene el experimento y revierte la falla.
+- **[reversión](../../../glosario/entradas/r/retroceso.md):** operación que restituye el estado previo a la inyección y cuyo tiempo se mide.
+- **[especificación del experimento](../../../glosario/entradas/e/especificacion-del-experimento.md):** documento versionado con hipótesis, radio, aborto, reversión y responsable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de aborto](../../../glosario/entradas/c/condicion-de-aborto.md) · [Costo del experimento](../../../glosario/entradas/c/costo-del-experimento.md) · [Especificación del experimento](../../../glosario/entradas/e/especificacion-del-experimento.md) · [Radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md).
 
 ---
 

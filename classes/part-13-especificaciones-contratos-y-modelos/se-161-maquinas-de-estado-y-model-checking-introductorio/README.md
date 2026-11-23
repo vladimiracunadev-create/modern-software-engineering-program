@@ -137,11 +137,11 @@ def ejecutar(orden):
 
 ## Definiciones de trabajo
 
-- **máquina de estados:** modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
-- **invariante:** propiedad que debe cumplirse en todos los estados alcanzables.
-- **contraejemplo:** traza finita de transiciones que lleva del estado inicial a un estado que viola una propiedad.
-- **explosión de estados:** crecimiento del número de estados globales con el número de componentes concurrentes.
-- **reducción por simetría:** tratar como idénticos los estados que difieren solo por permutación de componentes intercambiables.
+- **[máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md):** modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** propiedad que debe cumplirse en todos los estados alcanzables.
+- **[contraejemplo](../../../glosario/entradas/c/contraejemplo.md):** traza finita de transiciones que lleva del estado inicial a un estado que viola una propiedad.
+- **[explosión de estados](../../../glosario/entradas/e/explosion-de-estados.md):** crecimiento del número de estados globales con el número de componentes concurrentes.
+- **[reducción por simetría](../../../glosario/entradas/r/reduccion-por-simetria.md):** tratar como idénticos los estados que difieren solo por permutación de componentes intercambiables.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **máquina de estados:** modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
-- **invariante:** propiedad que debe cumplirse en todos los estados alcanzables.
-- **contraejemplo:** traza finita de transiciones que lleva del estado inicial a un estado que viola una propiedad.
-- **explosión de estados:** crecimiento del número de estados globales con el número de componentes concurrentes.
-- **reducción por simetría:** tratar como idénticos los estados que difieren solo por permutación de componentes intercambiables.
+- **[máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md):** modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** propiedad que debe cumplirse en todos los estados alcanzables.
+- **[contraejemplo](../../../glosario/entradas/c/contraejemplo.md):** traza finita de transiciones que lleva del estado inicial a un estado que viola una propiedad.
+- **[explosión de estados](../../../glosario/entradas/e/explosion-de-estados.md):** crecimiento del número de estados globales con el número de componentes concurrentes.
+- **[reducción por simetría](../../../glosario/entradas/r/reduccion-por-simetria.md):** tratar como idénticos los estados que difieren solo por permutación de componentes intercambiables.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contraejemplo](../../../glosario/entradas/c/contraejemplo.md) · [Explosión de estados](../../../glosario/entradas/e/explosion-de-estados.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md) · [Reducción por simetría](../../../glosario/entradas/r/reduccion-por-simetria.md).
 
 ---
 

@@ -122,11 +122,11 @@ Un estado tiene dos campos relacionados (`nota_final = 0,9 × nota`, redondeada)
 
 ## Definiciones de trabajo
 
-- **precondición:** condición que debe cumplirse al invocar una operación; su incumplimiento es un defecto del cliente.
-- **postcondición:** condición que la operación garantiza al terminar si se cumplió la precondición.
-- **invariante de clase:** propiedad que se cumple antes y después de cada operación pública.
-- **subtipado conductual:** relación por la que una subclase puede sustituir a su base aceptando al menos lo mismo y garantizando al menos lo mismo.
-- **contrato ejecutable:** afirmación de un contrato escrita en código que puede comprobarse en ejecución o en pruebas.
+- **[precondición](../../../glosario/entradas/p/precondicion.md):** condición que debe cumplirse al invocar una operación; su incumplimiento es un defecto del cliente.
+- **[postcondición](../../../glosario/entradas/p/postcondicion.md):** condición que la operación garantiza al terminar si se cumplió la precondición.
+- **[invariante de clase](../../../glosario/entradas/i/invariante-de-clase.md):** propiedad que se cumple antes y después de cada operación pública.
+- **[subtipado conductual](../../../glosario/entradas/s/subtipado-conductual.md):** relación por la que una subclase puede sustituir a su base aceptando al menos lo mismo y garantizando al menos lo mismo.
+- **[contrato ejecutable](../../../glosario/entradas/c/contrato-ejecutable.md):** afirmación de un contrato escrita en código que puede comprobarse en ejecución o en pruebas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -277,11 +277,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **precondición:** condición que debe cumplirse al invocar una operación; su incumplimiento es un defecto del cliente.
-- **postcondición:** condición que la operación garantiza al terminar si se cumplió la precondición.
-- **invariante de clase:** propiedad que se cumple antes y después de cada operación pública.
-- **subtipado conductual:** relación por la que una subclase puede sustituir a su base aceptando al menos lo mismo y garantizando al menos lo mismo.
-- **contrato ejecutable:** afirmación de un contrato escrita en código que puede comprobarse en ejecución o en pruebas.
+- **[precondición](../../../glosario/entradas/p/precondicion.md):** condición que debe cumplirse al invocar una operación; su incumplimiento es un defecto del cliente.
+- **[postcondición](../../../glosario/entradas/p/postcondicion.md):** condición que la operación garantiza al terminar si se cumplió la precondición.
+- **[invariante de clase](../../../glosario/entradas/i/invariante-de-clase.md):** propiedad que se cumple antes y después de cada operación pública.
+- **[subtipado conductual](../../../glosario/entradas/s/subtipado-conductual.md):** relación por la que una subclase puede sustituir a su base aceptando al menos lo mismo y garantizando al menos lo mismo.
+- **[contrato ejecutable](../../../glosario/entradas/c/contrato-ejecutable.md):** afirmación de un contrato escrita en código que puede comprobarse en ejecución o en pruebas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato ejecutable](../../../glosario/entradas/c/contrato-ejecutable.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Invariante de clase](../../../glosario/entradas/i/invariante-de-clase.md) · [Postcondición](../../../glosario/entradas/p/postcondicion.md) · [Precondición](../../../glosario/entradas/p/precondicion.md) · [Subtipado conductual](../../../glosario/entradas/s/subtipado-conductual.md).
 
 ---
 

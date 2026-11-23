@@ -179,11 +179,11 @@ Los controles de esta clase (qué datos salen, qué código se acepta, qué lice
 
 ## Definiciones de trabajo
 
-- **minimización de datos:** principio de tratar solo los datos necesarios para la finalidad declarada.
-- **escáner previo al envío:** control que examina el contenido antes de que salga y lo bloquea, redacta o avisa.
-- **inyección indirecta de instrucciones:** ataque en que contenido externo recuperado por una aplicación contiene órdenes que alteran su comportamiento.
-- **dependencia alucinada:** paquete referenciado por código generado que no existe o no es el esperado.
-- **huella de código:** secuencia corta de símbolos usada para comparar fragmentos.
+- **[minimización de datos](../../../glosario/entradas/m/minimizacion-de-datos.md):** principio de tratar solo los datos necesarios para la finalidad declarada.
+- **[escáner previo al envío](../../../glosario/entradas/e/escaner-previo-al-envio.md):** control que examina el contenido antes de que salga y lo bloquea, redacta o avisa.
+- **[inyección indirecta de instrucciones](../../../glosario/entradas/i/inyeccion-indirecta-de-instrucciones.md):** ataque en que contenido externo recuperado por una aplicación contiene órdenes que alteran su comportamiento.
+- **[dependencia alucinada](../../../glosario/entradas/d/dependencia-alucinada.md):** paquete referenciado por código generado que no existe o no es el esperado.
+- **[huella de código](../../../glosario/entradas/h/huella-de-codigo.md):** secuencia corta de símbolos usada para comparar fragmentos.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -338,11 +338,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **minimización de datos:** principio de tratar solo los datos necesarios para la finalidad declarada.
-- **escáner previo al envío:** control que examina el contenido antes de que salga y lo bloquea, redacta o avisa.
-- **inyección indirecta de instrucciones:** ataque en que contenido externo recuperado por una aplicación contiene órdenes que alteran su comportamiento.
-- **dependencia alucinada:** paquete referenciado por código generado que no existe o no es el esperado.
-- **huella de código:** secuencia corta de símbolos usada para comparar fragmentos.
+- **[minimización de datos](../../../glosario/entradas/m/minimizacion-de-datos.md):** principio de tratar solo los datos necesarios para la finalidad declarada.
+- **[escáner previo al envío](../../../glosario/entradas/e/escaner-previo-al-envio.md):** control que examina el contenido antes de que salga y lo bloquea, redacta o avisa.
+- **[inyección indirecta de instrucciones](../../../glosario/entradas/i/inyeccion-indirecta-de-instrucciones.md):** ataque en que contenido externo recuperado por una aplicación contiene órdenes que alteran su comportamiento.
+- **[dependencia alucinada](../../../glosario/entradas/d/dependencia-alucinada.md):** paquete referenciado por código generado que no existe o no es el esperado.
+- **[huella de código](../../../glosario/entradas/h/huella-de-codigo.md):** secuencia corta de símbolos usada para comparar fragmentos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dependencia alucinada](../../../glosario/entradas/d/dependencia-alucinada.md) · [Escáner previo al envío](../../../glosario/entradas/e/escaner-previo-al-envio.md) · [Huella de código](../../../glosario/entradas/h/huella-de-codigo.md) · [Inyección indirecta de instrucciones](../../../glosario/entradas/i/inyeccion-indirecta-de-instrucciones.md) · [Minimización de datos](../../../glosario/entradas/m/minimizacion-de-datos.md).
 
 ---
 

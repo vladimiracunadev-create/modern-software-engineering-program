@@ -118,11 +118,11 @@ Por último, el orden. `sorted` es estable: con `[('b', 2), ('a', 2), ('c', 1)]`
 
 ## Definiciones de trabajo
 
-- **secuencia:** colección ordenada accesible por posición.
-- **mapping:** asociación entre claves y valores.
-- **hashable:** valor con hash estable utilizable como clave.
-- **comprensión:** sintaxis para construir colección desde iterable.
-- **normalización:** transformación hacia una forma canónica.
+- **[secuencia](../../../glosario/entradas/s/secuencia.md):** colección ordenada accesible por posición.
+- **[mapping](../../../glosario/entradas/m/mapping.md):** asociación entre claves y valores.
+- **[hashable](../../../glosario/entradas/h/hashable.md):** valor con hash estable utilizable como clave.
+- **[comprensión](../../../glosario/entradas/c/comprension.md):** sintaxis para construir colección desde iterable.
+- **[normalización](../../../glosario/entradas/n/normalizacion.md):** transformación hacia una forma canónica.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -278,11 +278,13 @@ Las colecciones en memoria no resuelven persistencia, volumen ilimitado ni concu
 
 ## Glosario
 
-- **secuencia:** colección ordenada accesible por posición.
-- **mapping:** asociación entre claves y valores.
-- **hashable:** valor con hash estable utilizable como clave.
-- **comprensión:** sintaxis para construir colección desde iterable.
-- **normalización:** transformación hacia una forma canónica.
+- **[secuencia](../../../glosario/entradas/s/secuencia.md):** colección ordenada accesible por posición.
+- **[mapping](../../../glosario/entradas/m/mapping.md):** asociación entre claves y valores.
+- **[hashable](../../../glosario/entradas/h/hashable.md):** valor con hash estable utilizable como clave.
+- **[comprensión](../../../glosario/entradas/c/comprension.md):** sintaxis para construir colección desde iterable.
+- **[normalización](../../../glosario/entradas/n/normalizacion.md):** transformación hacia una forma canónica.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comprensión](../../../glosario/entradas/c/comprension.md) · [Conjunto](../../../glosario/entradas/c/conjunto.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Hashable](../../../glosario/entradas/h/hashable.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Mapping](../../../glosario/entradas/m/mapping.md) · [Normalización](../../../glosario/entradas/n/normalizacion.md) · [Secuencia](../../../glosario/entradas/s/secuencia.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

@@ -119,12 +119,12 @@ Un experimento de datos se escribe con una hipótesis sobre **la pérdida o la c
 
 ## Definiciones de trabajo
 
-- **replicación asíncrona:** el primario confirma la escritura antes de que la réplica la reciba.
-- **retraso de replicación:** tiempo que tarda una escritura del primario en estar en la réplica.
-- **escritura confirmada perdida:** escritura que el sistema confirmó y no está presente tras una conmutación.
-- **lectura obsoleta:** lectura que devuelve datos anteriores a una escritura ya confirmada.
-- **almacén de características:** servicio que entrega los valores de entrada que un modelo usa al predecir.
-- **regla de reserva:** respuesta alternativa, más simple que el modelo, que se sirve cuando las entradas no son confiables.
+- **[replicación asíncrona](../../../glosario/entradas/r/replicacion-asincrona.md):** el primario confirma la escritura antes de que la réplica la reciba.
+- **[retraso de replicación](../../../glosario/entradas/r/retraso-de-replicacion.md):** tiempo que tarda una escritura del primario en estar en la réplica.
+- **[escritura confirmada perdida](../../../glosario/entradas/e/escritura-confirmada-perdida.md):** escritura que el sistema confirmó y no está presente tras una conmutación.
+- **[lectura obsoleta](../../../glosario/entradas/l/lectura-obsoleta.md):** lectura que devuelve datos anteriores a una escritura ya confirmada.
+- **[almacén de características](../../../glosario/entradas/a/almacen-de-caracteristicas.md):** servicio que entrega los valores de entrada que un modelo usa al predecir.
+- **[regla de reserva](../../../glosario/entradas/r/regla-de-reserva.md):** respuesta alternativa, más simple que el modelo, que se sirve cuando las entradas no son confiables.
 
 Las definiciones son operativas para el almacenamiento de las entregas y su modelo. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -262,12 +262,14 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **replicación asíncrona:** el primario confirma la escritura antes de que la réplica la reciba.
-- **retraso de replicación:** tiempo que tarda una escritura del primario en estar en la réplica.
-- **escritura confirmada perdida:** escritura confirmada que no está presente tras una conmutación.
-- **lectura obsoleta:** lectura que devuelve datos anteriores a una escritura ya confirmada.
-- **almacén de características:** servicio que entrega los valores de entrada de un modelo al predecir.
-- **regla de reserva:** respuesta alternativa más simple que el modelo que se sirve cuando sus entradas no son confiables.
+- **[replicación asíncrona](../../../glosario/entradas/r/replicacion-asincrona.md):** el primario confirma la escritura antes de que la réplica la reciba.
+- **[retraso de replicación](../../../glosario/entradas/r/retraso-de-replicacion.md):** tiempo que tarda una escritura del primario en estar en la réplica.
+- **[escritura confirmada perdida](../../../glosario/entradas/e/escritura-confirmada-perdida.md):** escritura confirmada que no está presente tras una conmutación.
+- **[lectura obsoleta](../../../glosario/entradas/l/lectura-obsoleta.md):** lectura que devuelve datos anteriores a una escritura ya confirmada.
+- **[almacén de características](../../../glosario/entradas/a/almacen-de-caracteristicas.md):** servicio que entrega los valores de entrada de un modelo al predecir.
+- **[regla de reserva](../../../glosario/entradas/r/regla-de-reserva.md):** respuesta alternativa más simple que el modelo que se sirve cuando sus entradas no son confiables.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Almacén de características](../../../glosario/entradas/a/almacen-de-caracteristicas.md) · [Escritura confirmada perdida](../../../glosario/entradas/e/escritura-confirmada-perdida.md) · [Lectura obsoleta](../../../glosario/entradas/l/lectura-obsoleta.md) · [Regla de reserva](../../../glosario/entradas/r/regla-de-reserva.md) · [Replicación asíncrona](../../../glosario/entradas/r/replicacion-asincrona.md) · [Retraso de replicación](../../../glosario/entradas/r/retraso-de-replicacion.md).
 
 ---
 

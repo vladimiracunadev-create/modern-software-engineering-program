@@ -160,11 +160,11 @@ Con solo la edad, nadie es único (el grupo más pequeño tiene 90 personas). Co
 
 ## Definiciones de trabajo
 
-- **dato personal:** información sobre una persona identificada o que puede identificarse.
-- **minimización:** principio de recoger y conservar solo los datos necesarios para una finalidad declarada.
-- **retención:** plazo durante el cual se conserva cada tipo de dato.
-- **seudonimización:** sustitución de un identificador por otro valor de modo que se pueda volver con información adicional guardada aparte.
-- **k-anonimato:** propiedad de un conjunto en el que cada combinación de atributos identificadores pertenece al menos a k personas.
+- **[dato personal](../../../glosario/entradas/d/dato-personal.md):** información sobre una persona identificada o que puede identificarse.
+- **[minimización](../../../glosario/entradas/m/minimizacion.md):** principio de recoger y conservar solo los datos necesarios para una finalidad declarada.
+- **[retención](../../../glosario/entradas/r/retencion.md):** plazo durante el cual se conserva cada tipo de dato.
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustitución de un identificador por otro valor de modo que se pueda volver con información adicional guardada aparte.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto en el que cada combinación de atributos identificadores pertenece al menos a k personas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia ni con definiciones legales en sinónimos y deben contrastarse con la normativa y con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **dato personal:** información sobre una persona identificada o que puede identificarse.
-- **minimización:** principio de recoger y conservar solo los datos necesarios para una finalidad declarada.
-- **retención:** plazo durante el cual se conserva cada tipo de dato.
-- **seudonimización:** sustitución de un identificador por otro valor de modo que se pueda volver con información adicional guardada aparte.
-- **k-anonimato:** propiedad de un conjunto en el que cada combinación de atributos identificadores pertenece al menos a k personas.
+- **[dato personal](../../../glosario/entradas/d/dato-personal.md):** información sobre una persona identificada o que puede identificarse.
+- **[minimización](../../../glosario/entradas/m/minimizacion.md):** principio de recoger y conservar solo los datos necesarios para una finalidad declarada.
+- **[retención](../../../glosario/entradas/r/retencion.md):** plazo durante el cual se conserva cada tipo de dato.
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustitución de un identificador por otro valor de modo que se pueda volver con información adicional guardada aparte.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto en el que cada combinación de atributos identificadores pertenece al menos a k personas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dato personal](../../../glosario/entradas/d/dato-personal.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Minimización](../../../glosario/entradas/m/minimizacion.md) · [Retención](../../../glosario/entradas/r/retencion.md) · [Seudonimización](../../../glosario/entradas/s/seudonimizacion.md).
 
 ---
 

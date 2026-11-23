@@ -131,11 +131,11 @@ total += e["delta"]
 
 ## Definiciones de trabajo
 
-- **contrato de interfaz:** descripción de las operaciones o los mensajes que un servicio ofrece, con sus entradas, salidas, errores y garantías.
-- **OpenAPI:** formato de descripción de interfaces HTTP con rutas, operaciones, parámetros, respuestas y esquemas.
-- **GraphQL:** lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
-- **evento:** mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
-- **consumidor idempotente:** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
+- **[contrato de interfaz](../../../glosario/entradas/c/contrato-de-interfaz.md):** descripción de las operaciones o los mensajes que un servicio ofrece, con sus entradas, salidas, errores y garantías.
+- **[OpenAPI](../../../glosario/entradas/o/openapi.md):** formato de descripción de interfaces HTTP con rutas, operaciones, parámetros, respuestas y esquemas.
+- **[GraphQL](../../../glosario/entradas/g/graphql.md):** lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
+- **[evento](../../../glosario/entradas/e/evento.md):** mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
+- **[consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md):** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -284,11 +284,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **contrato de interfaz:** descripción de las operaciones o los mensajes que un servicio ofrece, con sus entradas, salidas, errores y garantías.
-- **OpenAPI:** formato de descripción de interfaces HTTP con rutas, operaciones, parámetros, respuestas y esquemas.
-- **GraphQL:** lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
-- **evento:** mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
-- **consumidor idempotente:** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
+- **[contrato de interfaz](../../../glosario/entradas/c/contrato-de-interfaz.md):** descripción de las operaciones o los mensajes que un servicio ofrece, con sus entradas, salidas, errores y garantías.
+- **[OpenAPI](../../../glosario/entradas/o/openapi.md):** formato de descripción de interfaces HTTP con rutas, operaciones, parámetros, respuestas y esquemas.
+- **[GraphQL](../../../glosario/entradas/g/graphql.md):** lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
+- **[evento](../../../glosario/entradas/e/evento.md):** mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
+- **[consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md):** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md) · [Contrato de interfaz](../../../glosario/entradas/c/contrato-de-interfaz.md) · [Evento](../../../glosario/entradas/e/evento.md) · [GraphQL](../../../glosario/entradas/g/graphql.md) · [OpenAPI](../../../glosario/entradas/o/openapi.md).
 
 ---
 

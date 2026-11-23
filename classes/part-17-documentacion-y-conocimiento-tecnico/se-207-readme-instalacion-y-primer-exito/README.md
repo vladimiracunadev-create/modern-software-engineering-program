@@ -135,11 +135,11 @@ Omitir los pasos 1 y 2 falla en el paso siguiente (distancia 1); omitir el 4 fal
 
 ## Definiciones de trabajo
 
-- **README:** documento de portada de un proyecto que dice qué es, cómo se prueba y dónde seguir, en el menor espacio útil.
-- **primer éxito:** resultado observable y comprobable que obtiene quien instala el proyecto por primera vez.
-- **paso de comprobación:** comando cuyo único propósito es demostrar que el paso anterior dejó el entorno como se esperaba.
-- **deriva del README:** diferencia entre lo que el README afirma y lo que el programa hace o acepta.
-- **entorno aislado:** copia independiente del intérprete y sus paquetes que evita mezclar dependencias con las del sistema.
+- **[README](../../../glosario/entradas/r/readme.md):** documento de portada de un proyecto que dice qué es, cómo se prueba y dónde seguir, en el menor espacio útil.
+- **[primer éxito](../../../glosario/entradas/p/primer-exito.md):** resultado observable y comprobable que obtiene quien instala el proyecto por primera vez.
+- **[paso de comprobación](../../../glosario/entradas/p/paso-de-comprobacion.md):** comando cuyo único propósito es demostrar que el paso anterior dejó el entorno como se esperaba.
+- **[deriva del README](../../../glosario/entradas/d/deriva-del-readme.md):** diferencia entre lo que el README afirma y lo que el programa hace o acepta.
+- **[entorno aislado](../../../glosario/entradas/e/entorno-aislado.md):** copia independiente del intérprete y sus paquetes que evita mezclar dependencias con las del sistema.
 
 Las definiciones son operativas para el portal; no reemplazan las de la documentación de Python y de GitHub enlazadas abajo.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **README:** documento de portada de un proyecto con lo mínimo para probarlo y seguir.
-- **primer éxito:** resultado observable y comprobable que obtiene quien instala el proyecto por primera vez.
-- **paso de comprobación:** comando que demuestra que el paso anterior dejó el entorno como se esperaba.
-- **deriva del README:** diferencia entre lo que el README afirma y lo que el programa hace o acepta.
-- **entorno aislado:** copia independiente del intérprete y sus paquetes.
+- **[README](../../../glosario/entradas/r/readme.md):** documento de portada de un proyecto con lo mínimo para probarlo y seguir.
+- **[primer éxito](../../../glosario/entradas/p/primer-exito.md):** resultado observable y comprobable que obtiene quien instala el proyecto por primera vez.
+- **[paso de comprobación](../../../glosario/entradas/p/paso-de-comprobacion.md):** comando que demuestra que el paso anterior dejó el entorno como se esperaba.
+- **[deriva del README](../../../glosario/entradas/d/deriva-del-readme.md):** diferencia entre lo que el README afirma y lo que el programa hace o acepta.
+- **[entorno aislado](../../../glosario/entradas/e/entorno-aislado.md):** copia independiente del intérprete y sus paquetes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deriva del README](../../../glosario/entradas/d/deriva-del-readme.md) · [Entorno aislado](../../../glosario/entradas/e/entorno-aislado.md) · [Paso de comprobación](../../../glosario/entradas/p/paso-de-comprobacion.md) · [Primer éxito](../../../glosario/entradas/p/primer-exito.md) · [README](../../../glosario/entradas/r/readme.md).
 
 ---
 

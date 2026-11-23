@@ -138,14 +138,14 @@ Un doble clic en «pagar», un reintento tras un tiempo agotado o un botón «at
 
 ## Definiciones de trabajo
 
-- **Inventario físico / reservado / vendible:** unidades en el almacén, unidades comprometidas y unidades que se pueden ofrecer ahora.
-- **Reserva:** retención temporal de una unidad para un comprador, con vencimiento.
-- **Condición de carrera:** resultado que depende del orden de operaciones concurrentes.
-- **Actualización condicional atómica:** sentencia que comprueba y modifica a la vez.
-- **Sobreventa:** aceptar más pedidos de los que hay unidades.
-- **Captura:** reclamo del importe autorizado de un pago.
-- **RMA (autorización de devolución):** permiso para devolver un producto con su número de seguimiento.
-- **Reposición:** vuelta de un producto devuelto al inventario vendible.
+- **[Inventario físico / reservado / vendible](../../../glosario/entradas/i/inventario-fisico-reservado-vendible.md):** unidades en el almacén, unidades comprometidas y unidades que se pueden ofrecer ahora.
+- **[Reserva](../../../glosario/entradas/r/reserva.md):** retención temporal de una unidad para un comprador, con vencimiento.
+- **[Condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md):** resultado que depende del orden de operaciones concurrentes.
+- **[Actualización condicional atómica](../../../glosario/entradas/a/actualizacion-condicional-atomica.md):** sentencia que comprueba y modifica a la vez.
+- **[Sobreventa](../../../glosario/entradas/s/sobreventa.md):** aceptar más pedidos de los que hay unidades.
+- **[Captura](../../../glosario/entradas/c/captura.md):** reclamo del importe autorizado de un pago.
+- **[RMA (autorización de devolución)](../../../glosario/entradas/r/rma.md):** permiso para devolver un producto con su número de seguimiento.
+- **[Reposición](../../../glosario/entradas/r/reposicion.md):** vuelta de un producto devuelto al inventario vendible.
 
 ## Ejemplo mínimo
 
@@ -291,6 +291,8 @@ Se ejecutaron 40 hilos reales contra sqlite3 (que serializa las escrituras) y un
 | Captura | Reclamo del importe autorizado |
 | RMA | Autorización de devolución |
 | Reposición | Vuelta del producto al inventario vendible |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actualización condicional atómica](../../../glosario/entradas/a/actualizacion-condicional-atomica.md) · [Captura](../../../glosario/entradas/c/captura.md) · [Condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md) · [Inventario físico / reservado / vendible](../../../glosario/entradas/i/inventario-fisico-reservado-vendible.md) · [Reposición](../../../glosario/entradas/r/reposicion.md) · [Reserva](../../../glosario/entradas/r/reserva.md) · [RMA](../../../glosario/entradas/r/rma.md) · [Sobreventa](../../../glosario/entradas/s/sobreventa.md).
 
 ---
 

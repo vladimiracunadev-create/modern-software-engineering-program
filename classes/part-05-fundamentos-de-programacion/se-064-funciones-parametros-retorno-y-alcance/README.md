@@ -118,11 +118,11 @@ La pureza práctica es más pobre que la teórica: imprimir, registrar y medir s
 
 ## Definiciones de trabajo
 
-- **parámetro:** nombre local declarado por una función.
-- **argumento:** valor suministrado en una llamada.
-- **retorno:** valor entregado al llamador.
-- **alcance:** región donde un nombre se resuelve.
-- **efecto:** interacción observable fuera del valor retornado.
+- **[parámetro](../../../glosario/entradas/p/parametro.md):** nombre local declarado por una función.
+- **[argumento](../../../glosario/entradas/a/argumento.md):** valor suministrado en una llamada.
+- **[retorno](../../../glosario/entradas/r/retorno.md):** valor entregado al llamador.
+- **[alcance](../../../glosario/entradas/a/alcance.md):** región donde un nombre se resuelve.
+- **[efecto](../../../glosario/entradas/e/efecto.md):** interacción observable fuera del valor retornado.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -275,11 +275,13 @@ Funciones no sustituyen un diseño de módulos ni validación de fronteras. La p
 
 ## Glosario
 
-- **parámetro:** nombre local declarado por una función.
-- **argumento:** valor suministrado en una llamada.
-- **retorno:** valor entregado al llamador.
-- **alcance:** región donde un nombre se resuelve.
-- **efecto:** interacción observable fuera del valor retornado.
+- **[parámetro](../../../glosario/entradas/p/parametro.md):** nombre local declarado por una función.
+- **[argumento](../../../glosario/entradas/a/argumento.md):** valor suministrado en una llamada.
+- **[retorno](../../../glosario/entradas/r/retorno.md):** valor entregado al llamador.
+- **[alcance](../../../glosario/entradas/a/alcance.md):** región donde un nombre se resuelve.
+- **[efecto](../../../glosario/entradas/e/efecto.md):** interacción observable fuera del valor retornado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Argumento](../../../glosario/entradas/a/argumento.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Parámetro](../../../glosario/entradas/p/parametro.md) · [Retorno](../../../glosario/entradas/r/retorno.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

@@ -150,11 +150,11 @@ La **fatiga de alertas** es la disminución de la respuesta a una alerta a medid
 
 ## Definiciones de trabajo
 
-- **página:** alerta que interrumpe de inmediato a una persona porque exige acción ahora.
-- **tasa de consumo:** cuántas veces más rápido que el ritmo normal se gasta el presupuesto de error.
-- **alerta de varias ventanas:** regla que exige que la condición se cumpla en una ventana larga y en una corta.
-- **agrupación:** unión de alertas relacionadas en una sola notificación.
-- **fatiga de alertas:** disminución de la respuesta a las alertas por exceso o repetición.
+- **[página](../../../glosario/entradas/p/pagina.md):** alerta que interrumpe de inmediato a una persona porque exige acción ahora.
+- **[tasa de consumo](../../../glosario/entradas/t/tasa-de-consumo.md):** cuántas veces más rápido que el ritmo normal se gasta el presupuesto de error.
+- **[alerta de varias ventanas](../../../glosario/entradas/a/alerta-de-varias-ventanas.md):** regla que exige que la condición se cumpla en una ventana larga y en una corta.
+- **[agrupación](../../../glosario/entradas/a/agrupacion.md):** unión de alertas relacionadas en una sola notificación.
+- **[fatiga de alertas](../../../glosario/entradas/f/fatiga-de-alertas.md):** disminución de la respuesta a las alertas por exceso o repetición.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **página:** alerta que interrumpe de inmediato a una persona porque exige acción ahora.
-- **tasa de consumo:** cuántas veces más rápido que el ritmo normal se gasta el presupuesto de error.
-- **alerta de varias ventanas:** regla que exige que la condición se cumpla en una ventana larga y en una corta.
-- **agrupación:** unión de alertas relacionadas en una sola notificación.
-- **fatiga de alertas:** disminución de la respuesta a las alertas por exceso o repetición.
+- **[página](../../../glosario/entradas/p/pagina.md):** alerta que interrumpe de inmediato a una persona porque exige acción ahora.
+- **[tasa de consumo](../../../glosario/entradas/t/tasa-de-consumo.md):** cuántas veces más rápido que el ritmo normal se gasta el presupuesto de error.
+- **[alerta de varias ventanas](../../../glosario/entradas/a/alerta-de-varias-ventanas.md):** regla que exige que la condición se cumpla en una ventana larga y en una corta.
+- **[agrupación](../../../glosario/entradas/a/agrupacion.md):** unión de alertas relacionadas en una sola notificación.
+- **[fatiga de alertas](../../../glosario/entradas/f/fatiga-de-alertas.md):** disminución de la respuesta a las alertas por exceso o repetición.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agrupación](../../../glosario/entradas/a/agrupacion.md) · [Alerta de varias ventanas](../../../glosario/entradas/a/alerta-de-varias-ventanas.md) · [Alertas por consumo](../../../glosario/entradas/a/alertas-por-consumo.md) · [Fatiga de alertas](../../../glosario/entradas/f/fatiga-de-alertas.md) · [Página](../../../glosario/entradas/p/pagina.md) · [Tasa de consumo](../../../glosario/entradas/t/tasa-de-consumo.md).
 
 ---
 

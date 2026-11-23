@@ -135,11 +135,11 @@ Se simulan 6 000 decisiones. Cada una tiene un número aleatorio de preocupacion
 
 ## Definiciones de trabajo
 
-- **autoridad formal:** derecho reconocido por la organización a decidir, asignar trabajo o vetar un cambio.
-- **influencia:** capacidad de cambiar lo que otras personas hacen sin apoyarse en autoridad formal.
-- **umbral de adopción:** fracción de personas del entorno que debe haber adoptado una práctica antes de que una persona concreta la adopte.
-- **criterio delegado:** regla que permite a otra persona decidir sin consultarte y que dice cuándo debe consultar.
-- **escalamiento:** llevar una decisión a quien tiene autoridad sobre ella, con el problema, las opciones y sus costos.
+- **[autoridad formal](../../../glosario/entradas/a/autoridad-formal.md):** derecho reconocido por la organización a decidir, asignar trabajo o vetar un cambio.
+- **[influencia](../../../glosario/entradas/i/influencia.md):** capacidad de cambiar lo que otras personas hacen sin apoyarse en autoridad formal.
+- **[umbral de adopción](../../../glosario/entradas/u/umbral-de-adopcion.md):** fracción de personas del entorno que debe haber adoptado una práctica antes de que una persona concreta la adopte.
+- **[criterio delegado](../../../glosario/entradas/c/criterio-delegado.md):** regla que permite a otra persona decidir sin consultarte y que dice cuándo debe consultar.
+- **[escalamiento](../../../glosario/entradas/e/escalamiento.md):** llevar una decisión a quien tiene autoridad sobre ella, con el problema, las opciones y sus costos.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia (liderazgo, poder, autoridad) en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -281,11 +281,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **autoridad formal:** derecho reconocido por la organización a decidir, asignar trabajo o vetar un cambio.
-- **influencia:** capacidad de cambiar lo que otras personas hacen sin apoyarse en autoridad formal.
-- **umbral de adopción:** fracción de personas del entorno que debe haber adoptado una práctica antes de que una persona concreta la adopte.
-- **criterio delegado:** regla que permite a otra persona decidir sin consultarte y que dice cuándo debe consultar.
-- **escalamiento:** llevar una decisión a quien tiene autoridad sobre ella, con el problema, las opciones y sus costos.
+- **[autoridad formal](../../../glosario/entradas/a/autoridad-formal.md):** derecho reconocido por la organización a decidir, asignar trabajo o vetar un cambio.
+- **[influencia](../../../glosario/entradas/i/influencia.md):** capacidad de cambiar lo que otras personas hacen sin apoyarse en autoridad formal.
+- **[umbral de adopción](../../../glosario/entradas/u/umbral-de-adopcion.md):** fracción de personas del entorno que debe haber adoptado una práctica antes de que una persona concreta la adopte.
+- **[criterio delegado](../../../glosario/entradas/c/criterio-delegado.md):** regla que permite a otra persona decidir sin consultarte y que dice cuándo debe consultar.
+- **[escalamiento](../../../glosario/entradas/e/escalamiento.md):** llevar una decisión a quien tiene autoridad sobre ella, con el problema, las opciones y sus costos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Autoridad formal](../../../glosario/entradas/a/autoridad-formal.md) · [Criterio delegado](../../../glosario/entradas/c/criterio-delegado.md) · [Escalamiento](../../../glosario/entradas/e/escalamiento.md) · [Influencia](../../../glosario/entradas/i/influencia.md) · [Umbral de adopción](../../../glosario/entradas/u/umbral-de-adopcion.md).
 
 ---
 

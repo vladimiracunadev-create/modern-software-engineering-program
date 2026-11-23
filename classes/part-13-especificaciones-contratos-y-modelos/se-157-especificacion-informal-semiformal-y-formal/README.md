@@ -136,11 +136,11 @@ El predicado formal permite comparar una implementación con la referencia. Sea 
 
 ## Definiciones de trabajo
 
-- **ambigüedad:** propiedad de un enunciado que admite al menos dos implementaciones compatibles con el texto que dan resultados distintos para una misma entrada.
-- **especificación informal:** descripción en lenguaje natural sin reglas de forma que permitan decidir mecánicamente si dos lecturas coinciden.
-- **especificación semiformal:** descripción con estructura comprobable (tabla de decisión, plantilla con campos obligatorios, diagrama con reglas de construcción) cuyo contenido sigue escrito en lenguaje natural.
-- **especificación formal:** descripción en una notación con semántica definida, ejecutable o comprobable por una herramienta, en un dominio acotado o con una demostración.
-- **mutante equivalente:** variante de una regla o de un programa que no cambia ninguna salida sobre el dominio considerado.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** propiedad de un enunciado que admite al menos dos implementaciones compatibles con el texto que dan resultados distintos para una misma entrada.
+- **[especificación informal](../../../glosario/entradas/e/especificacion-informal.md):** descripción en lenguaje natural sin reglas de forma que permitan decidir mecánicamente si dos lecturas coinciden.
+- **[especificación semiformal](../../../glosario/entradas/e/especificacion-semiformal.md):** descripción con estructura comprobable (tabla de decisión, plantilla con campos obligatorios, diagrama con reglas de construcción) cuyo contenido sigue escrito en lenguaje natural.
+- **[especificación formal](../../../glosario/entradas/e/especificacion-formal.md):** descripción en una notación con semántica definida, ejecutable o comprobable por una herramienta, en un dominio acotado o con una demostración.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** variante de una regla o de un programa que no cambia ninguna salida sobre el dominio considerado.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia académica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ambigüedad:** propiedad de un enunciado que admite al menos dos implementaciones compatibles con el texto que dan resultados distintos para una misma entrada.
-- **especificación informal:** descripción en lenguaje natural sin reglas de forma que permitan decidir mecánicamente si dos lecturas coinciden.
-- **especificación semiformal:** descripción con estructura comprobable (tabla de decisión, plantilla con campos obligatorios, diagrama con reglas de construcción) cuyo contenido sigue escrito en lenguaje natural.
-- **especificación formal:** descripción en una notación con semántica definida, ejecutable o comprobable por una herramienta, en un dominio acotado o con una demostración.
-- **mutante equivalente:** variante de una regla o de un programa que no cambia ninguna salida sobre el dominio considerado.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** propiedad de un enunciado que admite al menos dos implementaciones compatibles con el texto que dan resultados distintos para una misma entrada.
+- **[especificación informal](../../../glosario/entradas/e/especificacion-informal.md):** descripción en lenguaje natural sin reglas de forma que permitan decidir mecánicamente si dos lecturas coinciden.
+- **[especificación semiformal](../../../glosario/entradas/e/especificacion-semiformal.md):** descripción con estructura comprobable (tabla de decisión, plantilla con campos obligatorios, diagrama con reglas de construcción) cuyo contenido sigue escrito en lenguaje natural.
+- **[especificación formal](../../../glosario/entradas/e/especificacion-formal.md):** descripción en una notación con semántica definida, ejecutable o comprobable por una herramienta, en un dominio acotado o con una demostración.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** variante de una regla o de un programa que no cambia ninguna salida sobre el dominio considerado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ambigüedad](../../../glosario/entradas/a/ambiguedad.md) · [Especificación formal](../../../glosario/entradas/e/especificacion-formal.md) · [Especificación informal](../../../glosario/entradas/e/especificacion-informal.md) · [Especificación semiformal](../../../glosario/entradas/e/especificacion-semiformal.md) · [Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md).
 
 ---
 

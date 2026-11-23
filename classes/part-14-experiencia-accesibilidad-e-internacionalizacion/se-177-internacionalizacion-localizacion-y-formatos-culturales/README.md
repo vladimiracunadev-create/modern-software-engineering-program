@@ -136,11 +136,11 @@ def a_flotante(s, decimal, miles):
 
 ## Definiciones de trabajo
 
-- **internacionalización:** preparación de un producto para que funcione en cualquier lengua y región.
-- **localización:** adaptación de un producto internacionalizado a una lengua y región concretas.
-- **locale:** identificador de lengua y región que determina formatos y convenciones.
-- **normalización Unicode:** conversión de texto a una forma canónica para comparar cadenas equivalentes.
-- **pseudolocalización:** transformación del texto fuente que simula expansión y acentos para detectar problemas antes de traducir.
+- **[internacionalización](../../../glosario/entradas/i/internacionalizacion.md):** preparación de un producto para que funcione en cualquier lengua y región.
+- **[localización](../../../glosario/entradas/l/localizacion.md):** adaptación de un producto internacionalizado a una lengua y región concretas.
+- **[locale](../../../glosario/entradas/l/locale.md):** identificador de lengua y región que determina formatos y convenciones.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** conversión de texto a una forma canónica para comparar cadenas equivalentes.
+- **[pseudolocalización](../../../glosario/entradas/p/pseudolocalizacion.md):** transformación del texto fuente que simula expansión y acentos para detectar problemas antes de traducir.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **internacionalización:** preparación de un producto para que funcione en cualquier lengua y región.
-- **localización:** adaptación de un producto internacionalizado a una lengua y región concretas.
-- **locale:** identificador de lengua y región que determina formatos y convenciones.
-- **normalización Unicode:** conversión de texto a una forma canónica para comparar cadenas equivalentes.
-- **pseudolocalización:** transformación del texto fuente que simula expansión y acentos para detectar problemas antes de traducir.
+- **[internacionalización](../../../glosario/entradas/i/internacionalizacion.md):** preparación de un producto para que funcione en cualquier lengua y región.
+- **[localización](../../../glosario/entradas/l/localizacion.md):** adaptación de un producto internacionalizado a una lengua y región concretas.
+- **[locale](../../../glosario/entradas/l/locale.md):** identificador de lengua y región que determina formatos y convenciones.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** conversión de texto a una forma canónica para comparar cadenas equivalentes.
+- **[pseudolocalización](../../../glosario/entradas/p/pseudolocalizacion.md):** transformación del texto fuente que simula expansión y acentos para detectar problemas antes de traducir.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Internacionalización](../../../glosario/entradas/i/internacionalizacion.md) · [Locale](../../../glosario/entradas/l/locale.md) · [Localización](../../../glosario/entradas/l/localizacion.md) · [Normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md) · [Pseudolocalización](../../../glosario/entradas/p/pseudolocalizacion.md).
 
 ---
 

@@ -123,11 +123,11 @@ Se razona, para ocho ataques, qué comprobación de los campos de la procedencia
 
 ## Definiciones de trabajo
 
-- **SBOM:** lista estructurada de los componentes de un artefacto, con identificador, versión y huella.
-- **procedencia:** registro de quién construyó un artefacto, a partir de qué fuente y con qué materiales y parámetros.
-- **atestación:** afirmación sobre un artefacto, ligada a su huella y normalmente firmada.
-- **sujeto:** artefacto al que se refiere una atestación, identificado por su huella.
-- **Package URL (purl):** identificador uniforme de un paquete que codifica ecosistema, nombre y versión.
+- **[SBOM](../../../glosario/entradas/s/sbom.md):** lista estructurada de los componentes de un artefacto, con identificador, versión y huella.
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** registro de quién construyó un artefacto, a partir de qué fuente y con qué materiales y parámetros.
+- **[atestación](../../../glosario/entradas/a/atestacion.md):** afirmación sobre un artefacto, ligada a su huella y normalmente firmada.
+- **[sujeto](../../../glosario/entradas/s/sujeto.md):** artefacto al que se refiere una atestación, identificado por su huella.
+- **[Package URL (purl)](../../../glosario/entradas/p/package-url.md):** identificador uniforme de un paquete que codifica ecosistema, nombre y versión.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Se ejecutaron tres experimentos con datos sintéticos de semilla fija (más un a
 
 ## Glosario
 
-- **SBOM:** lista estructurada de los componentes de un artefacto, con identificador, versión y huella.
-- **procedencia:** registro de quién construyó un artefacto, a partir de qué fuente y con qué materiales y parámetros.
-- **atestación:** afirmación sobre un artefacto, ligada a su huella y normalmente firmada.
-- **sujeto:** artefacto al que se refiere una atestación, identificado por su huella.
-- **Package URL (purl):** identificador uniforme de un paquete que codifica ecosistema, nombre y versión.
+- **[SBOM](../../../glosario/entradas/s/sbom.md):** lista estructurada de los componentes de un artefacto, con identificador, versión y huella.
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** registro de quién construyó un artefacto, a partir de qué fuente y con qué materiales y parámetros.
+- **[atestación](../../../glosario/entradas/a/atestacion.md):** afirmación sobre un artefacto, ligada a su huella y normalmente firmada.
+- **[sujeto](../../../glosario/entradas/s/sujeto.md):** artefacto al que se refiere una atestación, identificado por su huella.
+- **[Package URL (purl)](../../../glosario/entradas/p/package-url.md):** identificador uniforme de un paquete que codifica ecosistema, nombre y versión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Atestación](../../../glosario/entradas/a/atestacion.md) · [Package URL](../../../glosario/entradas/p/package-url.md) · [Procedencia](../../../glosario/entradas/p/procedencia.md) · [SBOM](../../../glosario/entradas/s/sbom.md) · [Sujeto](../../../glosario/entradas/s/sujeto.md).
 
 ---
 

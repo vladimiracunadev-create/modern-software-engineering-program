@@ -158,11 +158,11 @@ Un punto de desacuerdo en cada puntuación conserva el primer lugar en el 86 % d
 
 ## Definiciones de trabajo
 
-- **inyección de fallos:** introducción deliberada de un fallo en un sistema o su modelo para observar si es detectado y cómo responde.
-- **fallo silencioso:** fallo que ninguna comprobación detecta y que produce resultados plausibles pero erróneos.
-- **referencia independiente:** fuente de comparación que no comparte el mecanismo de fallo del dato que se verifica.
-- **AMFE:** análisis de modos de fallo y efectos; tabla de modos de fallo con su efecto, causa y valoración de gravedad, ocurrencia y detección.
-- **número de prioridad de riesgo (NPR):** producto de las puntuaciones de gravedad, ocurrencia y detección de un modo de fallo.
+- **[inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md):** introducción deliberada de un fallo en un sistema o su modelo para observar si es detectado y cómo responde.
+- **[fallo silencioso](../../../glosario/entradas/f/fallo-silencioso.md):** fallo que ninguna comprobación detecta y que produce resultados plausibles pero erróneos.
+- **[referencia independiente](../../../glosario/entradas/r/referencia-independiente.md):** fuente de comparación que no comparte el mecanismo de fallo del dato que se verifica.
+- **[AMFE](../../../glosario/entradas/a/amfe.md):** análisis de modos de fallo y efectos; tabla de modos de fallo con su efecto, causa y valoración de gravedad, ocurrencia y detección.
+- **[número de prioridad de riesgo (NPR)](../../../glosario/entradas/n/numero-de-prioridad-de-riesgo.md):** producto de las puntuaciones de gravedad, ocurrencia y detección de un modo de fallo.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **inyección de fallos:** introducción deliberada de un fallo en un sistema o su modelo para observar si es detectado y cómo responde.
-- **fallo silencioso:** fallo que ninguna comprobación detecta y que produce resultados plausibles pero erróneos.
-- **referencia independiente:** fuente de comparación que no comparte el mecanismo de fallo del dato que se verifica.
-- **AMFE:** análisis de modos de fallo y efectos; tabla de modos de fallo con su efecto, causa y valoración de gravedad, ocurrencia y detección.
-- **número de prioridad de riesgo (NPR):** producto de las puntuaciones de gravedad, ocurrencia y detección de un modo de fallo.
+- **[inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md):** introducción deliberada de un fallo en un sistema o su modelo para observar si es detectado y cómo responde.
+- **[fallo silencioso](../../../glosario/entradas/f/fallo-silencioso.md):** fallo que ninguna comprobación detecta y que produce resultados plausibles pero erróneos.
+- **[referencia independiente](../../../glosario/entradas/r/referencia-independiente.md):** fuente de comparación que no comparte el mecanismo de fallo del dato que se verifica.
+- **[AMFE](../../../glosario/entradas/a/amfe.md):** análisis de modos de fallo y efectos; tabla de modos de fallo con su efecto, causa y valoración de gravedad, ocurrencia y detección.
+- **[número de prioridad de riesgo (NPR)](../../../glosario/entradas/n/numero-de-prioridad-de-riesgo.md):** producto de las puntuaciones de gravedad, ocurrencia y detección de un modo de fallo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [AMFE](../../../glosario/entradas/a/amfe.md) · [Fallo silencioso](../../../glosario/entradas/f/fallo-silencioso.md) · [Inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md) · [Número de prioridad de riesgo](../../../glosario/entradas/n/numero-de-prioridad-de-riesgo.md) · [Referencia independiente](../../../glosario/entradas/r/referencia-independiente.md).
 
 ---
 

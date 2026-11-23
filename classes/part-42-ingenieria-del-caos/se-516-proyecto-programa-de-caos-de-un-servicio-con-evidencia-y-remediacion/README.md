@@ -153,12 +153,12 @@ El proyecto entrega el paquete `caos-programa/` con **seis** piezas concretas: u
 
 ## Definiciones de trabajo
 
-- **programa de experimentos:** conjunto de experimentos con dueños, calendario, presupuesto, registro y revisión periódica.
-- **especificación del experimento:** documento versionado con hipótesis, estado estable, radio, aborto, reversión, responsable, ventana, observabilidad, aprobación, comunicación y evidencia.
-- **validador de especificaciones:** programa que comprueba la forma y el contenido de una especificación antes de ejecutarla.
-- **mutación:** cambio deliberado de un defecto en una especificación válida para medir qué detecta el validador.
-- **huella:** resumen criptográfico del resultado serializado de forma determinista.
-- **informe de límites:** apartado que declara lo que se hizo, lo que no y lo que ningún validador detecta.
+- **[programa de experimentos](../../../glosario/entradas/p/programa-de-experimentos.md):** conjunto de experimentos con dueños, calendario, presupuesto, registro y revisión periódica.
+- **[especificación del experimento](../../../glosario/entradas/e/especificacion-del-experimento.md):** documento versionado con hipótesis, estado estable, radio, aborto, reversión, responsable, ventana, observabilidad, aprobación, comunicación y evidencia.
+- **[validador de especificaciones](../../../glosario/entradas/v/validador-de-especificaciones.md):** programa que comprueba la forma y el contenido de una especificación antes de ejecutarla.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** cambio deliberado de un defecto en una especificación válida para medir qué detecta el validador.
+- **[huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico del resultado serializado de forma determinista.
+- **[informe de límites](../../../glosario/entradas/i/informe-de-limites.md):** apartado que declara lo que se hizo, lo que no y lo que ningún validador detecta.
 
 Las definiciones son operativas para el cliente de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -303,12 +303,14 @@ Se ejecutaron dos experimentos con semilla fija y tiempo virtual en Windows y Ub
 
 ## Glosario
 
-- **programa de experimentos:** conjunto de experimentos con dueños, calendario, presupuesto, registro y revisión periódica.
-- **especificación del experimento:** documento versionado con los doce campos de un experimento.
-- **validador de especificaciones:** programa que comprueba forma y contenido antes de ejecutar.
-- **mutación:** cambio deliberado de un defecto para medir qué detecta el validador.
-- **huella:** resumen criptográfico del resultado serializado de forma determinista.
-- **informe de límites:** apartado que declara lo que se hizo, lo que no y lo que ningún validador detecta.
+- **[programa de experimentos](../../../glosario/entradas/p/programa-de-experimentos.md):** conjunto de experimentos con dueños, calendario, presupuesto, registro y revisión periódica.
+- **[especificación del experimento](../../../glosario/entradas/e/especificacion-del-experimento.md):** documento versionado con los doce campos de un experimento.
+- **[validador de especificaciones](../../../glosario/entradas/v/validador-de-especificaciones.md):** programa que comprueba forma y contenido antes de ejecutar.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** cambio deliberado de un defecto para medir qué detecta el validador.
+- **[huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico del resultado serializado de forma determinista.
+- **[informe de límites](../../../glosario/entradas/i/informe-de-limites.md):** apartado que declara lo que se hizo, lo que no y lo que ningún validador detecta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Especificación del experimento](../../../glosario/entradas/e/especificacion-del-experimento.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Informe de límites](../../../glosario/entradas/i/informe-de-limites.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Programa de experimentos](../../../glosario/entradas/p/programa-de-experimentos.md) · [Validador de especificaciones](../../../glosario/entradas/v/validador-de-especificaciones.md).
 
 ---
 

@@ -23,6 +23,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "acoplamiento": [
@@ -68,6 +73,11 @@
    "Airbnb"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -76,11 +86,6 @@
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
-  ],
-  [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
   ]
  ],
  "activo": [
@@ -142,6 +147,11 @@
    "exito",
    "uber",
    "Uber"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
@@ -213,6 +223,13 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ]
+ ],
+ "agrupacion": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "aislamiento": [
@@ -414,6 +431,13 @@
    "Airbnb"
   ]
  ],
+ "aprovisionamiento": [
+  [
+   "exito",
+   "slack",
+   "Slack"
+  ]
+ ],
  "arbol": [
   [
    "fallo",
@@ -468,6 +492,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "arquitectura": [
@@ -547,6 +576,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "atributos-de-calidad": [
@@ -554,6 +588,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "audiencia": [
@@ -629,6 +668,11 @@
    "exito",
    "uber",
    "Uber"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "backoff": [
@@ -675,6 +719,11 @@
    "exito",
    "netflix",
    "Netflix"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "banda": [
@@ -811,6 +860,11 @@
    "WhatsApp"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "meta-2021",
    "Caída global de Meta"
@@ -840,6 +894,13 @@
    "Amazon"
   ]
  ],
+ "builder": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
  "bulkhead": [
   [
    "fallo",
@@ -855,6 +916,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "byte": [
@@ -1035,6 +1101,20 @@
    "CrowdStrike"
   ]
  ],
+ "carga-util": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
+ "caso-de-seguridad": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "casos-de-uso": [
   [
    "exito",
@@ -1062,6 +1142,13 @@
    "Airbnb"
   ]
  ],
+ "causa-comun": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "celda": [
   [
    "exito",
@@ -1079,6 +1166,11 @@
    "Amazon"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
@@ -1089,6 +1181,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "circuit-breaker": [
@@ -1106,6 +1203,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "clave-de-idempotencia": [
@@ -1157,6 +1259,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "codigo-muerto": [
@@ -1181,6 +1288,13 @@
    "fallo",
    "quibi",
    "Quibi"
+  ]
+ ],
+ "cola-de-trabajo": [
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "cola-larga": [
@@ -1329,9 +1443,9 @@
    "Mercado Libre"
   ],
   [
-   "fallo",
-   "quibi",
-   "Quibi"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "complejidad": [
@@ -1356,9 +1470,9 @@
    "Airbnb"
   ],
   [
-   "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "complemento": [
@@ -1405,28 +1519,28 @@
  "compromiso": [
   [
    "exito",
-   "netflix",
-   "Netflix"
-  ],
-  [
-   "exito",
    "whatsapp",
    "WhatsApp"
   ],
   [
    "exito",
-   "uber",
-   "Uber"
+   "slack",
+   "Slack"
   ],
   [
-   "exito",
-   "mercado-libre",
-   "Mercado Libre"
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
   ],
   [
-   "exito",
-   "amazon",
-   "Amazon"
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
   ]
  ],
  "compromisos-entre-atributos": [
@@ -1444,28 +1558,13 @@
  "compuerta": [
   [
    "exito",
-   "netflix",
-   "Netflix"
+   "stripe",
+   "Stripe"
   ],
   [
-   "exito",
-   "whatsapp",
-   "WhatsApp"
-  ],
-  [
-   "exito",
-   "mercado-libre",
-   "Mercado Libre"
-  ],
-  [
-   "exito",
-   "amazon",
-   "Amazon"
-  ],
-  [
-   "exito",
-   "spotify",
-   "Spotify"
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
   ]
  ],
  "concentracion": [
@@ -1613,14 +1712,14 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
-   "tsb",
-   "TSB Bank"
+   "knight-capital",
+   "Knight Capital"
   ]
  ],
  "consecuencia": [
@@ -1686,13 +1785,11 @@
    "exito",
    "stripe",
    "Stripe"
-  ]
- ],
- "constructor-de-datos": [
+  ],
   [
    "exito",
-   "amazon",
-   "Amazon"
+   "slack",
+   "Slack"
   ]
  ],
  "contador": [
@@ -1717,6 +1814,11 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
@@ -1822,9 +1924,36 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "slack",
+   "Slack"
+  ]
+ ],
+ "control": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
   ]
  ],
  "controlador": [
@@ -2071,6 +2200,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "decision-reversible": [
@@ -2158,6 +2292,13 @@
    "Amazon"
   ]
  ],
+ "degradacion-elegante": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "dependencia": [
   [
    "exito",
@@ -2228,6 +2369,11 @@
    "Spotify"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "quibi",
    "Quibi"
@@ -2266,6 +2412,13 @@
    "CrowdStrike"
   ]
  ],
+ "desviacion": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "deuda": [
   [
    "exito",
@@ -2288,6 +2441,11 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "diagrama": [
@@ -2504,6 +2662,13 @@
    "Therac-25"
   ]
  ],
+ "drenaje": [
+  [
+   "exito",
+   "slack",
+   "Slack"
+  ]
+ ],
  "durabilidad": [
   [
    "exito",
@@ -2586,6 +2751,13 @@
    "CrowdStrike"
   ]
  ],
+ "encargo": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "endurecimiento": [
   [
    "fallo",
@@ -2606,6 +2778,11 @@
   ]
  ],
  "enlace": [
+  [
+   "exito",
+   "slack",
+   "Slack"
+  ],
   [
    "fallo",
    "knight-capital",
@@ -2758,6 +2935,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "espera": [
@@ -2865,6 +3047,11 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "estado-estable": [
@@ -2872,6 +3059,11 @@
    "exito",
    "netflix",
    "Netflix"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "estado-seguro": [
@@ -2959,6 +3151,11 @@
    "Amazon"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "therac-25",
    "Therac-25"
@@ -3035,9 +3232,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "excepcion": [
@@ -3055,6 +3252,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "explicacion": [
@@ -3229,6 +3431,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "fragmentacion-aleatoria": [
@@ -3243,6 +3450,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "frontera": [
@@ -3315,6 +3527,11 @@
    "Amazon"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -3362,6 +3579,28 @@
    "exito",
    "stripe",
    "Stripe"
+  ]
+ ],
+ "gate": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
   ]
  ],
  "generacion": [
@@ -3451,6 +3690,11 @@
    "Uber"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "crowdstrike",
    "CrowdStrike"
@@ -3510,6 +3754,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "hash-consistente": [
@@ -3517,6 +3766,11 @@
    "exito",
    "amazon",
    "Amazon"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "hecho": [
@@ -3587,6 +3841,11 @@
    "Netflix"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
@@ -3636,6 +3895,11 @@
    "exito",
    "amazon",
    "Amazon"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
@@ -3721,9 +3985,16 @@
    "Stripe"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ]
+ ],
+ "implicacion": [
+  [
    "fallo",
-   "tsb",
-   "TSB Bank"
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "incertidumbre": [
@@ -3848,6 +4119,11 @@
    "exito",
    "netflix",
    "Netflix"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "instancia": [
@@ -3877,6 +4153,23 @@
    "Airbnb"
   ]
  ],
+ "instantanea": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
  "instante": [
   [
    "exito",
@@ -3887,6 +4180,13 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "instruccion": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "instrumento": [
@@ -3995,6 +4295,11 @@
    "exito",
    "spotify",
    "Spotify"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
@@ -4284,9 +4589,9 @@
    "Airbnb"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "maquina-de-estados": [
@@ -4340,6 +4645,13 @@
    "Spotify"
   ]
  ],
+ "mc-dc": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "mecanismo": [
   [
    "exito",
@@ -4389,9 +4701,9 @@
    "Spotify"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "medida": [
@@ -4416,9 +4728,9 @@
    "Airbnb"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "meseta": [
@@ -4625,6 +4937,13 @@
    "WhatsApp"
   ]
  ],
+ "modo-de-fallo": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "modulo": [
   [
    "exito",
@@ -4679,6 +4998,11 @@
    "exito",
    "airbnb",
    "Airbnb"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "monolito-modular": [
@@ -4710,9 +5034,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "mutacion": [
@@ -4752,6 +5076,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "normalizacion": [
@@ -4895,6 +5224,13 @@
    "Amazon"
   ]
  ],
+ "operando": [
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
+  ]
+ ],
  "oportunidades": [
   [
    "exito",
@@ -4915,6 +5251,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "oraculo": [
@@ -4941,14 +5282,14 @@
    "Airbnb"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "knight-capital",
+   "Knight Capital"
   ]
  ],
  "origen": [
@@ -5090,6 +5431,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "particion": [
@@ -5109,14 +5455,21 @@
    "Spotify"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "pasarela": [
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "patron": [
@@ -5131,6 +5484,11 @@
    "Stripe"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -5139,11 +5497,6 @@
    "fallo",
    "tsb",
    "TSB Bank"
-  ],
-  [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
   ]
  ],
  "peligro": [
@@ -5151,6 +5504,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "peor-caso": [
@@ -5173,6 +5531,11 @@
   ]
  ],
  "permiso": [
+  [
+   "exito",
+   "slack",
+   "Slack"
+  ],
   [
    "fallo",
    "crowdstrike",
@@ -5355,6 +5718,11 @@
  ],
  "postmortem": [
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -5373,15 +5741,15 @@
    "fallo",
    "therac-25",
    "Therac-25"
-  ],
-  [
-   "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
   ]
  ],
  "postmortem-sin-culpa": [
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -5400,11 +5768,6 @@
    "fallo",
    "therac-25",
    "Therac-25"
-  ],
-  [
-   "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
   ]
  ],
  "potencia": [
@@ -5446,6 +5809,11 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "precondicion": [
@@ -5453,6 +5821,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "preferencia": [
@@ -5767,19 +6140,9 @@
  ],
  "prueba-de-caracterizacion": [
   [
-   "exito",
-   "stripe",
-   "Stripe"
-  ],
-  [
    "fallo",
    "knight-capital",
    "Knight Capital"
-  ],
-  [
-   "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
   ]
  ],
  "prueba-de-carga": [
@@ -5914,6 +6277,11 @@
    "Amazon"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "crowdstrike",
    "CrowdStrike"
@@ -6040,14 +6408,14 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
-   "tsb",
-   "TSB Bank"
+   "healthcare-gov",
+   "HealthCare.gov"
   ]
  ],
  "red-de-seguridad": [
@@ -6103,6 +6471,11 @@
    "exito",
    "airbnb",
    "Airbnb"
+  ],
+  [
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "referencia": [
@@ -6115,6 +6488,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "region": [
@@ -6325,6 +6703,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "repeticion": [
@@ -6361,9 +6744,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "replicacion": [
@@ -6628,9 +7011,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "quibi",
-   "Quibi"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "retiro": [
@@ -6744,14 +7127,14 @@
    "Amazon"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "slack",
+   "Slack"
   ],
   [
    "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "knight-capital",
+   "Knight Capital"
   ]
  ],
  "revision-independiente": [
@@ -6855,6 +7238,11 @@
    "Stripe"
   ],
   [
+   "exito",
+   "slack",
+   "Slack"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -6868,11 +7256,6 @@
    "fallo",
    "meta-2021",
    "Caída global de Meta"
-  ],
-  [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
   ]
  ],
  "safety": [
@@ -6880,6 +7263,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "saga": [
@@ -6902,6 +7290,11 @@
   ]
  ],
  "saturacion": [
+  [
+   "exito",
+   "slack",
+   "Slack"
+  ],
   [
    "fallo",
    "healthcare-gov",
@@ -7103,6 +7496,11 @@
    "fallo",
    "meta-2021",
    "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "sistema-operativo": [
@@ -7236,9 +7634,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "tarea": [
@@ -7285,6 +7683,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "terminal": [
@@ -7415,6 +7818,33 @@
    "Airbnb"
   ]
  ],
+ "trade-off": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
  "traduccion": [
   [
    "exito",
@@ -7478,6 +7908,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "ariane-5-vuelo-501",
+   "Ariane 5, vuelo 501"
   ]
  ],
  "trinquete": [
@@ -7630,9 +8065,9 @@
    "Amazon"
   ],
   [
-   "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ],
  "ventana-de-retencion": [
@@ -7844,9 +8279,9 @@
    "Spotify"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "slack",
+   "Slack"
   ]
  ]
 }

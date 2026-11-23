@@ -110,13 +110,13 @@ Con las tres medidas, la decisión no es «refactorizar todo» sino elegir **qu�
 
 ## Definiciones de trabajo
 
-- **Antipatrón:** estructura recurrente con un daño conocido.
-- **Olor de código:** señal superficial que merece investigarse.
-- **Clase de dios:** clase con muchas razones para cambiar y muchas dependencias.
-- **Cohesión (aproximada):** fracción de pares de métodos que comparten estado.
-- **Componente fuertemente conexo:** grupo de módulos que se alcanzan entre sí.
-- **Deuda de diseño:** diferencia entre el diseño que se tiene y el que haría barato el próximo cambio.
-- **Interés:** costo extra por cambio debido a la deuda acumulada.
+- **[Antipatrón](../../../glosario/entradas/a/antipatron.md):** estructura recurrente con un daño conocido.
+- **[Olor de código](../../../glosario/entradas/o/olor-de-codigo.md):** señal superficial que merece investigarse.
+- **[Clase de dios](../../../glosario/entradas/c/clase-de-dios.md):** clase con muchas razones para cambiar y muchas dependencias.
+- **[Cohesión (aproximada)](../../../glosario/entradas/c/cohesion.md):** fracción de pares de métodos que comparten estado.
+- **[Componente fuertemente conexo](../../../glosario/entradas/c/componente-fuertemente-conexo.md):** grupo de módulos que se alcanzan entre sí.
+- **[Deuda de diseño](../../../glosario/entradas/d/deuda-de-diseno.md):** diferencia entre el diseño que se tiene y el que haría barato el próximo cambio.
+- **[Interés](../../../glosario/entradas/i/interes.md):** costo extra por cambio debido a la deuda acumulada.
 
 ## Ejemplo mínimo
 
@@ -246,6 +246,8 @@ Las clases, los grafos y el modelo de deuda son del autor; las métricas son apr
 | Cohesión | Propósito común de los métodos de una clase |
 | Ciclo de dependencias | Módulos que se alcanzan entre sí |
 | Deuda de diseño | Distancia entre el diseño actual y el que abarataría el cambio |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Antipatrón](../../../glosario/entradas/a/antipatron.md) · [Ciclo de dependencias](../../../glosario/entradas/c/ciclo-de-dependencias.md) · [Clase de dios](../../../glosario/entradas/c/clase-de-dios.md) · [Cohesión](../../../glosario/entradas/c/cohesion.md) · [Componente fuertemente conexo](../../../glosario/entradas/c/componente-fuertemente-conexo.md) · [Deuda de diseño](../../../glosario/entradas/d/deuda-de-diseno.md) · [Interés](../../../glosario/entradas/i/interes.md) · [Olor de código](../../../glosario/entradas/o/olor-de-codigo.md).
 
 ---
 

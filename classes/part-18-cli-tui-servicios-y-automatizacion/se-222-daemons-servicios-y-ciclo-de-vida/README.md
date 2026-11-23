@@ -122,11 +122,11 @@ Simulación de 600 s con un servicio que falla de inmediato (0,2 s por arranque)
 
 ## Definiciones de trabajo
 
-- **servicio (daemon):** proceso de larga duración que atiende peticiones o ejecuta trabajo sin un usuario interactivo.
-- **sonda de preparación:** comprobación que decide si el servicio puede recibir tráfico.
-- **sonda de actividad:** comprobación que decide si el proceso debe reiniciarse.
-- **drenado:** fase en que un servicio deja de aceptar trabajo nuevo y termina el que tiene.
-- **jitter:** variación aleatoria de una espera para evitar que varias instancias actúen a la vez.
+- **[servicio (daemon)](../../../glosario/entradas/s/servicio.md):** proceso de larga duración que atiende peticiones o ejecuta trabajo sin un usuario interactivo.
+- **[sonda de preparación](../../../glosario/entradas/s/sonda-de-preparacion.md):** comprobación que decide si el servicio puede recibir tráfico.
+- **[sonda de actividad](../../../glosario/entradas/s/sonda-de-actividad.md):** comprobación que decide si el proceso debe reiniciarse.
+- **[drenado](../../../glosario/entradas/d/drenado.md):** fase en que un servicio deja de aceptar trabajo nuevo y termina el que tiene.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** variación aleatoria de una espera para evitar que varias instancias actúen a la vez.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -277,11 +277,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la terminación difi
 
 ## Glosario
 
-- **servicio (daemon):** proceso de larga duración que atiende peticiones o ejecuta trabajo sin un usuario interactivo.
-- **sonda de preparación:** comprobación que decide si el servicio puede recibir tráfico.
-- **sonda de actividad:** comprobación que decide si el proceso debe reiniciarse.
-- **drenado:** fase en que un servicio deja de aceptar trabajo nuevo y termina el que tiene.
-- **jitter:** variación aleatoria de una espera para evitar que varias instancias actúen a la vez.
+- **[servicio (daemon)](../../../glosario/entradas/s/servicio.md):** proceso de larga duración que atiende peticiones o ejecuta trabajo sin un usuario interactivo.
+- **[sonda de preparación](../../../glosario/entradas/s/sonda-de-preparacion.md):** comprobación que decide si el servicio puede recibir tráfico.
+- **[sonda de actividad](../../../glosario/entradas/s/sonda-de-actividad.md):** comprobación que decide si el proceso debe reiniciarse.
+- **[drenado](../../../glosario/entradas/d/drenado.md):** fase en que un servicio deja de aceptar trabajo nuevo y termina el que tiene.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** variación aleatoria de una espera para evitar que varias instancias actúen a la vez.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Diferencias de plataforma](../../../glosario/entradas/d/diferencias-de-plataforma.md) · [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Drenado](../../../glosario/entradas/d/drenado.md) · [Servicio](../../../glosario/entradas/s/servicio.md) · [Sonda de actividad](../../../glosario/entradas/s/sonda-de-actividad.md) · [Sonda de preparación](../../../glosario/entradas/s/sonda-de-preparacion.md) · [Terminación](../../../glosario/entradas/t/terminacion.md).
 
 ---
 

@@ -157,11 +157,11 @@ que una persona ajena ejecute el recorrido desde cero y obtenga el mismo resulta
 
 ## Definiciones de trabajo
 
-- **contrato versionado:** interfaz observable cuya evolución se declara;
-- **núcleo:** reglas de interpretación independientes de comandos locales;
-- **adaptador:** implementación de capacidades para una plataforma;
-- **hallazgo:** relación estructurada entre evidencia, interpretación y siguiente prueba;
-- **matriz real:** registro que diferencia diseñado, ejecutado, aprobado y no soportado.
+- **[contrato versionado](../../../glosario/entradas/c/contrato-versionado.md):** interfaz observable cuya evolución se declara;
+- **[núcleo](../../../glosario/entradas/n/nucleo.md):** reglas de interpretación independientes de comandos locales;
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** implementación de capacidades para una plataforma;
+- **[hallazgo](../../../glosario/entradas/h/hallazgo.md):** relación estructurada entre evidencia, interpretación y siguiente prueba;
+- **[matriz real](../../../glosario/entradas/m/matriz-real.md):** registro que diferencia diseñado, ejecutado, aprobado y no soportado.
 
 ## Caso conductor: demostración final del kit de diagnóstico multiplataforma
 
@@ -314,11 +314,13 @@ El kit de diagnóstico multiplataforma es un kit educativo local, no un agente d
 - [Python `unittest`](https://docs.python.org/3/library/unittest.html) y [`argparse`](https://docs.python.org/3/library/argparse.html): marco de pruebas y análisis de argumentos usados por el núcleo y sus pruebas.
 ## Glosario
 
-- **Capacidad:** operación comprobable que una plataforma ofrece al adaptador.
-- **Degradación explícita:** reducción funcional informada en datos, mensajes y estado.
-- **Matriz de soporte:** tabla que separa plataformas objetivo de escenarios efectivamente probados.
-- **Solo lectura:** modo que observa sin cambiar deliberadamente el estado inspeccionado.
-- **Versión de esquema:** identificador que permite interpretar la estructura de un informe.
+- **[Capacidad](../../../glosario/entradas/c/capacidad.md):** operación comprobable que una plataforma ofrece al adaptador.
+- **[Degradación explícita](../../../glosario/entradas/d/degradacion-explicita.md):** reducción funcional informada en datos, mensajes y estado.
+- **[Matriz de soporte](../../../glosario/entradas/m/matriz-de-soporte.md):** tabla que separa plataformas objetivo de escenarios efectivamente probados.
+- **[Solo lectura](../../../glosario/entradas/s/solo-lectura.md):** modo que observa sin cambiar deliberadamente el estado inspeccionado.
+- **[Versión de esquema](../../../glosario/entradas/v/version-de-esquema.md):** identificador que permite interpretar la estructura de un informe.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador](../../../glosario/entradas/a/adaptador.md) · [Capacidad](../../../glosario/entradas/c/capacidad.md) · [Contrato versionado](../../../glosario/entradas/c/contrato-versionado.md) · [Degradación explícita](../../../glosario/entradas/d/degradacion-explicita.md) · [Hallazgo](../../../glosario/entradas/h/hallazgo.md) · [Matriz de soporte](../../../glosario/entradas/m/matriz-de-soporte.md) · [Matriz real](../../../glosario/entradas/m/matriz-real.md) · [Núcleo](../../../glosario/entradas/n/nucleo.md) · [Solo lectura](../../../glosario/entradas/s/solo-lectura.md) · [Versión de esquema](../../../glosario/entradas/v/version-de-esquema.md).
 
 ---
 [← SE-035](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-037 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)

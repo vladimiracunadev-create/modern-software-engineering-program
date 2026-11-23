@@ -105,11 +105,11 @@ Los depuradores se apoyan en ganchos del intérprete. Con 300 000 llamadas a una
 
 ## Definiciones de trabajo
 
-- **debugger, adapter y runtime:** la ui habla con un adaptador mediante dap y este traduce al debugger o runtime.
-- **breakpoint y condición:** un breakpoint pausa antes o después de una ubicación según runtime y mapeo de fuente.
-- **stack frame y alcance:** cada frame conserva posición, argumentos, locales y enlace al anterior.
-- **step, continue y watch:** step into sigue llamadas, over ejecuta la llamada y out termina el frame.
-- **heisenbug y costo de pausa:** detener cambia temporización, locks y timeouts.
+- **[debugger, adapter y runtime](../../../glosario/entradas/d/debugger-adapter-y-runtime.md):** la ui habla con un adaptador mediante dap y este traduce al debugger o runtime.
+- **[breakpoint y condición](../../../glosario/entradas/b/breakpoint-y-condicion.md):** un breakpoint pausa antes o después de una ubicación según runtime y mapeo de fuente.
+- **[stack frame y alcance](../../../glosario/entradas/s/stack-frame-y-alcance.md):** cada frame conserva posición, argumentos, locales y enlace al anterior.
+- **[step, continue y watch](../../../glosario/entradas/s/step-continue-y-watch.md):** step into sigue llamadas, over ejecuta la llamada y out termina el frame.
+- **[heisenbug y costo de pausa](../../../glosario/entradas/h/heisenbug-y-costo-de-pausa.md):** detener cambia temporización, locks y timeouts.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -257,11 +257,13 @@ El debugger explica una ejecución, no dónde se consume tiempo o memoria en una
 
 ## Glosario
 
-- **debugger, adapter y runtime:** la ui habla con un adaptador mediante dap y este traduce al debugger o runtime.
-- **breakpoint y condición:** un breakpoint pausa antes o después de una ubicación según runtime y mapeo de fuente.
-- **stack frame y alcance:** cada frame conserva posición, argumentos, locales y enlace al anterior.
-- **step, continue y watch:** step into sigue llamadas, over ejecuta la llamada y out termina el frame.
-- **heisenbug y costo de pausa:** detener cambia temporización, locks y timeouts.
+- **[debugger, adapter y runtime](../../../glosario/entradas/d/debugger-adapter-y-runtime.md):** la ui habla con un adaptador mediante dap y este traduce al debugger o runtime.
+- **[breakpoint y condición](../../../glosario/entradas/b/breakpoint-y-condicion.md):** un breakpoint pausa antes o después de una ubicación según runtime y mapeo de fuente.
+- **[stack frame y alcance](../../../glosario/entradas/s/stack-frame-y-alcance.md):** cada frame conserva posición, argumentos, locales y enlace al anterior.
+- **[step, continue y watch](../../../glosario/entradas/s/step-continue-y-watch.md):** step into sigue llamadas, over ejecuta la llamada y out termina el frame.
+- **[heisenbug y costo de pausa](../../../glosario/entradas/h/heisenbug-y-costo-de-pausa.md):** detener cambia temporización, locks y timeouts.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Breakpoint y condición](../../../glosario/entradas/b/breakpoint-y-condicion.md) · [Debugger, adapter y runtime](../../../glosario/entradas/d/debugger-adapter-y-runtime.md) · [Heisenbug y costo de pausa](../../../glosario/entradas/h/heisenbug-y-costo-de-pausa.md) · [Stack frame y alcance](../../../glosario/entradas/s/stack-frame-y-alcance.md) · [Step, continue y watch](../../../glosario/entradas/s/step-continue-y-watch.md).
 
 ---
 

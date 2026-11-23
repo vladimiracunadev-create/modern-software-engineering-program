@@ -135,11 +135,11 @@ Se simulan 300 grupos de 200 personas con un desempeño verdadero. Cada evaluado
 
 ## Definiciones de trabajo
 
-- **mentoría:** relación en que una persona con más experiencia aporta contexto y criterio a otra para su desarrollo.
-- **práctica deliberada:** práctica con tareas bien definidas, de dificultad ligeramente superior al nivel actual, con retroalimentación inmediata y repetición.
-- **retroalimentación específica:** descripción de un comportamiento observable y de su efecto, con un camino de mejora.
-- **ruido de evaluación:** variabilidad no deseada entre juicios de personas que evalúan el mismo trabajo.
-- **rúbrica calibrada:** escala con criterios separados, descripciones y ejemplos por nivel, acordada entre evaluadoras comparando casos.
+- **[mentoría](../../../glosario/entradas/m/mentoria.md):** relación en que una persona con más experiencia aporta contexto y criterio a otra para su desarrollo.
+- **[práctica deliberada](../../../glosario/entradas/p/practica-deliberada.md):** práctica con tareas bien definidas, de dificultad ligeramente superior al nivel actual, con retroalimentación inmediata y repetición.
+- **[retroalimentación específica](../../../glosario/entradas/r/retroalimentacion-especifica.md):** descripción de un comportamiento observable y de su efecto, con un camino de mejora.
+- **[ruido de evaluación](../../../glosario/entradas/r/ruido-de-evaluacion.md):** variabilidad no deseada entre juicios de personas que evalúan el mismo trabajo.
+- **[rúbrica calibrada](../../../glosario/entradas/r/rubrica-calibrada.md):** escala con criterios separados, descripciones y ejemplos por nivel, acordada entre evaluadoras comparando casos.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -279,11 +279,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **mentoría:** relación en que una persona con más experiencia aporta contexto y criterio a otra para su desarrollo.
-- **práctica deliberada:** práctica con tareas bien definidas, de dificultad ligeramente superior al nivel actual, con retroalimentación inmediata y repetición.
-- **retroalimentación específica:** descripción de un comportamiento observable y de su efecto, con un camino de mejora.
-- **ruido de evaluación:** variabilidad no deseada entre juicios de personas que evalúan el mismo trabajo.
-- **rúbrica calibrada:** escala con criterios separados, descripciones y ejemplos por nivel, acordada entre evaluadoras comparando casos.
+- **[mentoría](../../../glosario/entradas/m/mentoria.md):** relación en que una persona con más experiencia aporta contexto y criterio a otra para su desarrollo.
+- **[práctica deliberada](../../../glosario/entradas/p/practica-deliberada.md):** práctica con tareas bien definidas, de dificultad ligeramente superior al nivel actual, con retroalimentación inmediata y repetición.
+- **[retroalimentación específica](../../../glosario/entradas/r/retroalimentacion-especifica.md):** descripción de un comportamiento observable y de su efecto, con un camino de mejora.
+- **[ruido de evaluación](../../../glosario/entradas/r/ruido-de-evaluacion.md):** variabilidad no deseada entre juicios de personas que evalúan el mismo trabajo.
+- **[rúbrica calibrada](../../../glosario/entradas/r/rubrica-calibrada.md):** escala con criterios separados, descripciones y ejemplos por nivel, acordada entre evaluadoras comparando casos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Mentoría](../../../glosario/entradas/m/mentoria.md) · [Práctica deliberada](../../../glosario/entradas/p/practica-deliberada.md) · [Retroalimentación](../../../glosario/entradas/r/retroalimentacion.md) · [Retroalimentación específica](../../../glosario/entradas/r/retroalimentacion-especifica.md) · [Rúbrica calibrada](../../../glosario/entradas/r/rubrica-calibrada.md) · [Ruido de evaluación](../../../glosario/entradas/r/ruido-de-evaluacion.md).
 
 ---
 

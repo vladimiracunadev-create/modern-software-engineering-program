@@ -159,11 +159,11 @@ Bajo lectura de lo confirmado y bajo instantánea la plataforma se queda sin doc
 
 ## Definiciones de trabajo
 
-- **transacción:** conjunto de operaciones que se aplican enteras o no se aplican, y que se observan según el nivel de aislamiento.
-- **intercalación:** orden concreto en que se alternan los pasos de operaciones concurrentes.
-- **actualización perdida:** escritura que se pisa con otra basada en una lectura anterior sin que ninguna falle.
-- **sesgo de escritura:** anomalía en la que dos transacciones leen lo mismo, escriben filas distintas y juntas rompen una invariante.
-- **serializable:** nivel que garantiza un resultado equivalente a alguna ejecución una tras otra.
+- **[transacción](../../../glosario/entradas/t/transaccion.md):** conjunto de operaciones que se aplican enteras o no se aplican, y que se observan según el nivel de aislamiento.
+- **[intercalación](../../../glosario/entradas/i/intercalacion.md):** orden concreto en que se alternan los pasos de operaciones concurrentes.
+- **[actualización perdida](../../../glosario/entradas/a/actualizacion-perdida.md):** escritura que se pisa con otra basada en una lectura anterior sin que ninguna falle.
+- **[sesgo de escritura](../../../glosario/entradas/s/sesgo-de-escritura.md):** anomalía en la que dos transacciones leen lo mismo, escriben filas distintas y juntas rompen una invariante.
+- **[serializable](../../../glosario/entradas/s/serializable.md):** nivel que garantiza un resultado equivalente a alguna ejecución una tras otra.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **transacción:** conjunto de operaciones que se aplican enteras o no se aplican, y que se observan según el nivel de aislamiento.
-- **intercalación:** orden concreto en que se alternan los pasos de operaciones concurrentes.
-- **actualización perdida:** escritura que se pisa con otra basada en una lectura anterior sin que ninguna falle.
-- **sesgo de escritura:** anomalía en la que dos transacciones leen lo mismo, escriben filas distintas y juntas rompen una invariante.
-- **serializable:** nivel que garantiza un resultado equivalente a alguna ejecución una tras otra.
+- **[transacción](../../../glosario/entradas/t/transaccion.md):** conjunto de operaciones que se aplican enteras o no se aplican, y que se observan según el nivel de aislamiento.
+- **[intercalación](../../../glosario/entradas/i/intercalacion.md):** orden concreto en que se alternan los pasos de operaciones concurrentes.
+- **[actualización perdida](../../../glosario/entradas/a/actualizacion-perdida.md):** escritura que se pisa con otra basada en una lectura anterior sin que ninguna falle.
+- **[sesgo de escritura](../../../glosario/entradas/s/sesgo-de-escritura.md):** anomalía en la que dos transacciones leen lo mismo, escriben filas distintas y juntas rompen una invariante.
+- **[serializable](../../../glosario/entradas/s/serializable.md):** nivel que garantiza un resultado equivalente a alguna ejecución una tras otra.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actualización perdida](../../../glosario/entradas/a/actualizacion-perdida.md) · [Atomicidad](../../../glosario/entradas/a/atomicidad.md) · [Intercalación](../../../glosario/entradas/i/intercalacion.md) · [Serializable](../../../glosario/entradas/s/serializable.md) · [Sesgo de escritura](../../../glosario/entradas/s/sesgo-de-escritura.md) · [Transacción](../../../glosario/entradas/t/transaccion.md).
 
 ---
 

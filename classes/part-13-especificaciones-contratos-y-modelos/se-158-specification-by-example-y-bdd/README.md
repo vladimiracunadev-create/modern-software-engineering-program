@@ -130,11 +130,11 @@ def pares(fila):
 
 ## Definiciones de trabajo
 
-- **ejemplo como especificación:** caso con valores concretos de entrada y resultado esperado que toda implementación aceptable debe satisfacer.
-- **escenario:** ejemplo estructurado en contexto, acción y resultado observable, escrito en el lenguaje del dominio.
-- **paso ambiguo:** paso de un escenario que encaja con más de una definición ejecutable.
-- **mutante:** variante de un programa con un cambio deliberado cuyo objetivo es comprobar si la suite lo detecta.
-- **cobertura de pares:** suite en la que cada combinación de valores de cada par de factores aparece al menos una vez.
+- **[ejemplo como especificación](../../../glosario/entradas/e/ejemplo-como-especificacion.md):** caso con valores concretos de entrada y resultado esperado que toda implementación aceptable debe satisfacer.
+- **[escenario](../../../glosario/entradas/e/escenario.md):** ejemplo estructurado en contexto, acción y resultado observable, escrito en el lenguaje del dominio.
+- **[paso ambiguo](../../../glosario/entradas/p/paso-ambiguo.md):** paso de un escenario que encaja con más de una definición ejecutable.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** variante de un programa con un cambio deliberado cuyo objetivo es comprobar si la suite lo detecta.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** suite en la que cada combinación de valores de cada par de factores aparece al menos una vez.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ejemplo como especificación:** caso con valores concretos de entrada y resultado esperado que toda implementación aceptable debe satisfacer.
-- **escenario:** ejemplo estructurado en contexto, acción y resultado observable, escrito en el lenguaje del dominio.
-- **paso ambiguo:** paso de un escenario que encaja con más de una definición ejecutable.
-- **mutante:** variante de un programa con un cambio deliberado cuyo objetivo es comprobar si la suite lo detecta.
-- **cobertura de pares:** suite en la que cada combinación de valores de cada par de factores aparece al menos una vez.
+- **[ejemplo como especificación](../../../glosario/entradas/e/ejemplo-como-especificacion.md):** caso con valores concretos de entrada y resultado esperado que toda implementación aceptable debe satisfacer.
+- **[escenario](../../../glosario/entradas/e/escenario.md):** ejemplo estructurado en contexto, acción y resultado observable, escrito en el lenguaje del dominio.
+- **[paso ambiguo](../../../glosario/entradas/p/paso-ambiguo.md):** paso de un escenario que encaja con más de una definición ejecutable.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** variante de un programa con un cambio deliberado cuyo objetivo es comprobar si la suite lo detecta.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** suite en la que cada combinación de valores de cada par de factores aparece al menos una vez.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md) · [Ejemplo como especificación](../../../glosario/entradas/e/ejemplo-como-especificacion.md) · [Escenario](../../../glosario/entradas/e/escenario.md) · [Given-When-Then](../../../glosario/entradas/g/given-when-then.md) · [Paso ambiguo](../../../glosario/entradas/p/paso-ambiguo.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

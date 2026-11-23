@@ -134,11 +134,11 @@ segundos = kb(variante) * 1000 * 8 / 1.6e6 + 0.15
 
 ## Definiciones de trabajo
 
-- **diseño responsive:** diseño que se ajusta de forma continua al ancho disponible.
-- **punto de corte:** ancho a partir del cual cambia una regla de maquetación.
-- **característica de preferencia:** consulta de medios que expresa una elección del usuario, como el movimiento reducido o el esquema oscuro.
-- **cobertura de pares:** conjunto de combinaciones que incluye todos los pares de valores de dos factores.
-- **srcset:** atributo que ofrece al navegador varias fuentes de una imagen para elegir según el ancho y la densidad.
+- **[diseño responsive](../../../glosario/entradas/d/diseno-responsive.md):** diseño que se ajusta de forma continua al ancho disponible.
+- **[punto de corte](../../../glosario/entradas/p/punto-de-corte.md):** ancho a partir del cual cambia una regla de maquetación.
+- **[característica de preferencia](../../../glosario/entradas/c/caracteristica-de-preferencia.md):** consulta de medios que expresa una elección del usuario, como el movimiento reducido o el esquema oscuro.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** conjunto de combinaciones que incluye todos los pares de valores de dos factores.
+- **[srcset](../../../glosario/entradas/s/srcset.md):** atributo que ofrece al navegador varias fuentes de una imagen para elegir según el ancho y la densidad.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -286,11 +286,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **diseño responsive:** diseño que se ajusta de forma continua al ancho disponible.
-- **punto de corte:** ancho a partir del cual cambia una regla de maquetación.
-- **característica de preferencia:** consulta de medios que expresa una elección del usuario, como el movimiento reducido o el esquema oscuro.
-- **cobertura de pares:** conjunto de combinaciones que incluye todos los pares de valores de dos factores.
-- **srcset:** atributo que ofrece al navegador varias fuentes de una imagen para elegir según el ancho y la densidad.
+- **[diseño responsive](../../../glosario/entradas/d/diseno-responsive.md):** diseño que se ajusta de forma continua al ancho disponible.
+- **[punto de corte](../../../glosario/entradas/p/punto-de-corte.md):** ancho a partir del cual cambia una regla de maquetación.
+- **[característica de preferencia](../../../glosario/entradas/c/caracteristica-de-preferencia.md):** consulta de medios que expresa una elección del usuario, como el movimiento reducido o el esquema oscuro.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** conjunto de combinaciones que incluye todos los pares de valores de dos factores.
+- **[srcset](../../../glosario/entradas/s/srcset.md):** atributo que ofrece al navegador varias fuentes de una imagen para elegir según el ancho y la densidad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Característica de preferencia](../../../glosario/entradas/c/caracteristica-de-preferencia.md) · [Cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md) · [Diseño responsive](../../../glosario/entradas/d/diseno-responsive.md) · [Punto de corte](../../../glosario/entradas/p/punto-de-corte.md) · [Srcset](../../../glosario/entradas/s/srcset.md).
 
 ---
 

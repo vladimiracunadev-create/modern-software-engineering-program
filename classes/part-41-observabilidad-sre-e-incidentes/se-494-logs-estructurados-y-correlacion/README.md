@@ -159,11 +159,11 @@ kept_smart += is_err or take                              # errores siempre, 10 
 
 ## Definiciones de trabajo
 
-- **registro estructurado:** línea de registro con campos nombrados y tipados, legible por máquinas sin interpretar el mensaje.
-- **identificador de correlación:** valor que se propaga entre servicios para unir las líneas y los spans de una misma petición.
-- **muestreo:** conservar solo una parte de los registros para limitar el volumen.
-- **redacción:** sustitución de datos sensibles por una marca antes de almacenar el registro.
-- **retención:** tiempo durante el cual se conserva un registro antes de borrarlo.
+- **[registro estructurado](../../../glosario/entradas/r/registro-estructurado.md):** línea de registro con campos nombrados y tipados, legible por máquinas sin interpretar el mensaje.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor que se propaga entre servicios para unir las líneas y los spans de una misma petición.
+- **[muestreo](../../../glosario/entradas/m/muestreo.md):** conservar solo una parte de los registros para limitar el volumen.
+- **[redacción](../../../glosario/entradas/r/redaccion.md):** sustitución de datos sensibles por una marca antes de almacenar el registro.
+- **[retención](../../../glosario/entradas/r/retencion.md):** tiempo durante el cual se conserva un registro antes de borrarlo.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -308,11 +308,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **registro estructurado:** línea de registro con campos nombrados y tipados, legible por máquinas sin interpretar el mensaje.
-- **identificador de correlación:** valor que se propaga entre servicios para unir las líneas y los spans de una misma petición.
-- **muestreo:** conservar solo una parte de los registros para limitar el volumen.
-- **redacción:** sustitución de datos sensibles por una marca antes de almacenar el registro.
-- **retención:** tiempo durante el cual se conserva un registro antes de borrarlo.
+- **[registro estructurado](../../../glosario/entradas/r/registro-estructurado.md):** línea de registro con campos nombrados y tipados, legible por máquinas sin interpretar el mensaje.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor que se propaga entre servicios para unir las líneas y los spans de una misma petición.
+- **[muestreo](../../../glosario/entradas/m/muestreo.md):** conservar solo una parte de los registros para limitar el volumen.
+- **[redacción](../../../glosario/entradas/r/redaccion.md):** sustitución de datos sensibles por una marca antes de almacenar el registro.
+- **[retención](../../../glosario/entradas/r/retencion.md):** tiempo durante el cual se conserva un registro antes de borrarlo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Correlación](../../../glosario/entradas/c/correlacion.md) · [Identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md) · [Muestreo](../../../glosario/entradas/m/muestreo.md) · [Redacción](../../../glosario/entradas/r/redaccion.md) · [Registro estructurado](../../../glosario/entradas/r/registro-estructurado.md) · [Retención](../../../glosario/entradas/r/retencion.md).
 
 ---
 

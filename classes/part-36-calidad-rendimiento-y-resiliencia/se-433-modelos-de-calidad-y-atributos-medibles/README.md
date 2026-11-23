@@ -158,11 +158,11 @@ Detecta 106 de 180 (59 %), y todo lo que detecta es forma. Las 74 que se escapan
 
 ## Definiciones de trabajo
 
-- **característica de calidad:** categoría de necesidades del modelo de calidad del producto, como eficiencia de desempeño o fiabilidad.
-- **escenario de calidad:** descripción de un requisito de calidad con fuente, estímulo, artefacto, entorno, respuesta y medida.
-- **indicador:** resumen numérico de una medición con un estadístico, una ventana y un alcance declarados.
-- **percentil:** valor por debajo del cual queda una proporción dada de las mediciones; el p95 deja por debajo el 95 %.
-- **medida de la respuesta:** criterio con número y unidad que permite decidir si un escenario se cumple.
+- **[característica de calidad](../../../glosario/entradas/c/caracteristica-de-calidad.md):** categoría de necesidades del modelo de calidad del producto, como eficiencia de desempeño o fiabilidad.
+- **[escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** descripción de un requisito de calidad con fuente, estímulo, artefacto, entorno, respuesta y medida.
+- **[indicador](../../../glosario/entradas/i/indicador.md):** resumen numérico de una medición con un estadístico, una ventana y un alcance declarados.
+- **[percentil](../../../glosario/entradas/p/percentil.md):** valor por debajo del cual queda una proporción dada de las mediciones; el p95 deja por debajo el 95 %.
+- **[medida de la respuesta](../../../glosario/entradas/m/medida-de-la-respuesta.md):** criterio con número y unidad que permite decidir si un escenario se cumple.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **característica de calidad:** categoría de necesidades del modelo de calidad del producto, como eficiencia de desempeño o fiabilidad.
-- **escenario de calidad:** descripción de un requisito de calidad con fuente, estímulo, artefacto, entorno, respuesta y medida.
-- **indicador:** resumen numérico de una medición con un estadístico, una ventana y un alcance declarados.
-- **percentil:** valor por debajo del cual queda una proporción dada de las mediciones; el p95 deja por debajo el 95 %.
-- **medida de la respuesta:** criterio con número y unidad que permite decidir si un escenario se cumple.
+- **[característica de calidad](../../../glosario/entradas/c/caracteristica-de-calidad.md):** categoría de necesidades del modelo de calidad del producto, como eficiencia de desempeño o fiabilidad.
+- **[escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** descripción de un requisito de calidad con fuente, estímulo, artefacto, entorno, respuesta y medida.
+- **[indicador](../../../glosario/entradas/i/indicador.md):** resumen numérico de una medición con un estadístico, una ventana y un alcance declarados.
+- **[percentil](../../../glosario/entradas/p/percentil.md):** valor por debajo del cual queda una proporción dada de las mediciones; el p95 deja por debajo el 95 %.
+- **[medida de la respuesta](../../../glosario/entradas/m/medida-de-la-respuesta.md):** criterio con número y unidad que permite decidir si un escenario se cumple.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Característica de calidad](../../../glosario/entradas/c/caracteristica-de-calidad.md) · [Conflictos entre atributos](../../../glosario/entradas/c/conflictos-entre-atributos.md) · [Escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md) · [Indicador](../../../glosario/entradas/i/indicador.md) · [Medida de la respuesta](../../../glosario/entradas/m/medida-de-la-respuesta.md) · [Percentil](../../../glosario/entradas/p/percentil.md).
 
 ---
 

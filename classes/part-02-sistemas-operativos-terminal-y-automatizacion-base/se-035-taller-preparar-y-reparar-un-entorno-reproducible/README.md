@@ -128,11 +128,11 @@ se niega a borrar lo que no reconoce.
 
 ## Definiciones de trabajo
 
-- **estado inicial:** conjunto mínimo de condiciones antes de intervenir;
-- **hipótesis rival:** explicación alternativa compatible con el síntoma;
-- **prueba discriminante:** observación cuyo resultado separa hipótesis;
-- **cambio mínimo:** intervención acotada que permite atribuir efecto;
-- **regresión:** pérdida de una propiedad previamente satisfecha.
+- **[estado inicial](../../../glosario/entradas/e/estado-inicial.md):** conjunto mínimo de condiciones antes de intervenir;
+- **[hipótesis rival](../../../glosario/entradas/h/hipotesis-rival.md):** explicación alternativa compatible con el síntoma;
+- **[prueba discriminante](../../../glosario/entradas/p/prueba-discriminante.md):** observación cuyo resultado separa hipótesis;
+- **[cambio mínimo](../../../glosario/entradas/c/cambio-minimo.md):** intervención acotada que permite atribuir efecto;
+- **[regresión](../../../glosario/entradas/r/regresion.md):** pérdida de una propiedad previamente satisfecha.
 
 ## Caso conductor: incidente-de-diagnóstico-01
 
@@ -262,11 +262,13 @@ El escenario es local, deliberadamente controlado y no autoriza intervenir equip
 - [Laboratorio de la Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit): secuencia `prepare`, `inspect`, `repair` y `clean` con códigos de salida 0, 2 y 3.
 ## Glosario
 
-- **Hipótesis discriminante:** explicación cuya prueba produce resultados diferentes frente a alternativas.
-- **Radio de efecto:** recursos, personas o procesos que un cambio puede afectar.
-- **Regresión:** fallo introducido en una capacidad previamente válida.
-- **Reproducción:** procedimiento capaz de volver a mostrar el comportamiento bajo condiciones declaradas.
-- **Reversión:** retorno verificable al estado anterior o a uno seguro definido.
+- **[Hipótesis discriminante](../../../glosario/entradas/h/hipotesis-discriminante.md):** explicación cuya prueba produce resultados diferentes frente a alternativas.
+- **[Radio de efecto](../../../glosario/entradas/r/radio-de-efecto.md):** recursos, personas o procesos que un cambio puede afectar.
+- **[Regresión](../../../glosario/entradas/r/regresion.md):** fallo introducido en una capacidad previamente válida.
+- **[Reproducción](../../../glosario/entradas/r/reproduccion.md):** procedimiento capaz de volver a mostrar el comportamiento bajo condiciones declaradas.
+- **[Reversión](../../../glosario/entradas/r/retroceso.md):** retorno verificable al estado anterior o a uno seguro definido.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio mínimo](../../../glosario/entradas/c/cambio-minimo.md) · [Estado inicial](../../../glosario/entradas/e/estado-inicial.md) · [Hipótesis discriminante](../../../glosario/entradas/h/hipotesis-discriminante.md) · [Hipótesis rival](../../../glosario/entradas/h/hipotesis-rival.md) · [Prueba discriminante](../../../glosario/entradas/p/prueba-discriminante.md) · [Radio de efecto](../../../glosario/entradas/r/radio-de-efecto.md) · [Regresión](../../../glosario/entradas/r/regresion.md) · [Reproducción](../../../glosario/entradas/r/reproduccion.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md).
 
 ---
 [← SE-034](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-036 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)

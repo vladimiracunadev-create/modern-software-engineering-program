@@ -112,12 +112,12 @@ El módulo tiene dos funciones (`fee` y `total`) y su archivo de pruebas tiene d
 
 ## Definiciones de trabajo
 
-- **Compuerta (gate):** comprobación automática con veredicto de paso o fallo.
-- **Menú único:** punto de entrada que ejecuta todas las compuertas en orden.
+- **[Compuerta (gate)](../../../glosario/entradas/c/compuerta.md):** comprobación automática con veredicto de paso o fallo.
+- **[Menú único](../../../glosario/entradas/m/menu-unico.md):** punto de entrada que ejecuta todas las compuertas en orden.
 - **Fallo temprano (*fail fast*):** detener el menú en la primera compuerta que falla.
-- **Meta-verificación:** comprobar que una verificación no fue debilitada.
-- **Código de salida:** valor numérico con que un proceso informa éxito o fallo.
-- **Retroalimentación:** información que el agente recibe tras una acción.
+- **[Meta-verificación](../../../glosario/entradas/m/meta-verificacion.md):** comprobar que una verificación no fue debilitada.
+- **[Código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** valor numérico con que un proceso informa éxito o fallo.
+- **[Retroalimentación](../../../glosario/entradas/r/retroalimentacion.md):** información que el agente recibe tras una acción.
 
 ## Ejemplo mínimo
 
@@ -256,6 +256,8 @@ Se ejecutaron cinco compuertas sobre doce cambios del autor en un módulo de sie
 | Meta-verificación | Comprobar que una verificación no se debilitó |
 | Código de salida | Valor con que un proceso informa éxito o fallo |
 | Retroalimentación | Información que el agente recibe tras una acción |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Código de salida](../../../glosario/entradas/c/codigo-de-salida.md) · [Compuerta](../../../glosario/entradas/c/compuerta.md) · [Menú único](../../../glosario/entradas/m/menu-unico.md) · [Meta-verificación](../../../glosario/entradas/m/meta-verificacion.md) · [Retroalimentación](../../../glosario/entradas/r/retroalimentacion.md).
 
 ---
 

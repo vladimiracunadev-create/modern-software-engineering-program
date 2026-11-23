@@ -114,11 +114,11 @@ Cada caso de prueba existe porque protege una regla concreta; cada mutante que s
 
 ## Definiciones de trabajo
 
-- **fixture semántico común:** el taller comienza por entradas y salidas canónicas, no por código.
-- **implementaciones idiomáticas:** equivalencia no exige traducir línea por línea.
-- **trazas comparables:** se registra entrada normalizada, reglas consideradas, decisión, error y efectos.
-- **cambio dirigido:** después de lograr equivalencia se introduce una regla nueva y se observa el diff.
-- **retrospectiva basada en evidencia:** la conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos.
+- **[fixture semántico común](../../../glosario/entradas/f/fixture-semantico-comun.md):** el taller comienza por entradas y salidas canónicas, no por código.
+- **[implementaciones idiomáticas](../../../glosario/entradas/i/implementaciones-idiomaticas.md):** equivalencia no exige traducir línea por línea.
+- **[trazas comparables](../../../glosario/entradas/t/trazas-comparables.md):** se registra entrada normalizada, reglas consideradas, decisión, error y efectos.
+- **[cambio dirigido](../../../glosario/entradas/c/cambio-dirigido.md):** después de lograr equivalencia se introduce una regla nueva y se observa el diff.
+- **[retrospectiva basada en evidencia](../../../glosario/entradas/r/retrospectiva-basada-en-evidencia.md):** la conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -270,11 +270,13 @@ El taller compara un cambio y una carga pequeña; no demuestra mantenibilidad a 
 
 ## Glosario
 
-- **fixture semántico común:** el taller comienza por entradas y salidas canónicas, no por código.
-- **implementaciones idiomáticas:** equivalencia no exige traducir línea por línea.
-- **trazas comparables:** se registra entrada normalizada, reglas consideradas, decisión, error y efectos.
-- **cambio dirigido:** después de lograr equivalencia se introduce una regla nueva y se observa el diff.
-- **retrospectiva basada en evidencia:** la conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos.
+- **[fixture semántico común](../../../glosario/entradas/f/fixture-semantico-comun.md):** el taller comienza por entradas y salidas canónicas, no por código.
+- **[implementaciones idiomáticas](../../../glosario/entradas/i/implementaciones-idiomaticas.md):** equivalencia no exige traducir línea por línea.
+- **[trazas comparables](../../../glosario/entradas/t/trazas-comparables.md):** se registra entrada normalizada, reglas consideradas, decisión, error y efectos.
+- **[cambio dirigido](../../../glosario/entradas/c/cambio-dirigido.md):** después de lograr equivalencia se introduce una regla nueva y se observa el diff.
+- **[retrospectiva basada en evidencia](../../../glosario/entradas/r/retrospectiva-basada-en-evidencia.md):** la conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio dirigido](../../../glosario/entradas/c/cambio-dirigido.md) · [Fixture semántico común](../../../glosario/entradas/f/fixture-semantico-comun.md) · [Implementaciones idiomáticas](../../../glosario/entradas/i/implementaciones-idiomaticas.md) · [Retrospectiva basada en evidencia](../../../glosario/entradas/r/retrospectiva-basada-en-evidencia.md) · [Trazas comparables](../../../glosario/entradas/t/trazas-comparables.md).
 
 ---
 

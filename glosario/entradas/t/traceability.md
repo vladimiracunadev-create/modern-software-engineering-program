@@ -1,0 +1,64 @@
+# Traceability
+
+[↑ Glosario](../../README.md) · [← Trabajos por hacer](./trabajos-por-hacer.md) · [Trade-off →](./trade-off.md)
+
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+
+## Definición
+
+Traceability conecta necesidad, decisión, implementación y evidencia.
+
+Tomado del glosario de [SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md).
+
+## Por qué importa
+
+Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
+
+## Cómo funciona
+
+[SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+
+## Ejemplo
+
+La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md):
+
+En el producto de referencia, sigue la creación de una solicitud desde OpenAPI hasta requisitos, arquitectura, pruebas y runbook. Si el contrato admite reintento pero no hay idempotencia documentada, registra riesgo, no afirmes defecto ejecutado.
+
+## Errores y confusiones comunes
+
+Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)) son:
+
+- **informe organizado por carpetas** — causa: se inventarió estructura sin seguir capacidad. Corrección: elige tarea y traza flujo vertical normal y degradado.
+- **README tratado como prueba** — causa: intención confundida con comportamiento. Corrección: contrasta contrato, implementación, pruebas y configuración.
+
+## Límites y cuándo no aplica
+
+Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)) son: Es una revisión acotada, no certificación de seguridad ni producción. `SE-012` convierte resultados en un plan profesional verificable.
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md), [SE-010](../../../classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Evidencia](../e/evidencia.md), [Necesidades](../n/necesidades.md), [Contrato](../c/contrato.md), [Evidencia negativa](../e/evidencia-negativa.md), [Flujo vertical](../f/flujo-vertical.md), [Fuente de verdad](../f/fuente-de-verdad.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-011 — Taller: anatomía verificable de un producto real](../../../classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md) — [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md), Ingeniería de software como profesión.
+
+**También se usa en** (3 clases más lo mencionan; las que más):
+
+[SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md), [SE-168](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md), [SE-198](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md).
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Las fuentes de este concepto están en las clases enlazadas (sección «Fuentes» de cada clase).
+
+---
+
+[↑ Glosario](../../README.md) · [← Trabajos por hacer](./trabajos-por-hacer.md) · [Trade-off →](./trade-off.md)

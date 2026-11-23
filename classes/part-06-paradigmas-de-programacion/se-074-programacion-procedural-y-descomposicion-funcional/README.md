@@ -109,11 +109,11 @@ Un procedimiento con contrato estrecho declara qué lee, qué escribe y qué dev
 
 ## Definiciones de trabajo
 
-- **procedimiento y contrato:** un procedimiento agrupa una secuencia bajo un nombre y una interfaz.
-- **descomposición por responsabilidad:** separar parseo, validación, decisión y presentación permite cambiar una razón sin arrastrar las demás.
-- **flujo de datos y dependencias:** los parámetros hacen visibles entradas; el retorno hace visible el resultado.
-- **efectos en los bordes:** el núcleo calcula una recomendación y los adaptadores leen json o escriben texto.
-- **composición y nivel de abstracción:** una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar.
+- **[procedimiento y contrato](../../../glosario/entradas/p/procedimiento-y-contrato.md):** un procedimiento agrupa una secuencia bajo un nombre y una interfaz.
+- **[descomposición por responsabilidad](../../../glosario/entradas/d/descomposicion-por-responsabilidad.md):** separar parseo, validación, decisión y presentación permite cambiar una razón sin arrastrar las demás.
+- **[flujo de datos y dependencias](../../../glosario/entradas/f/flujo-de-datos-y-dependencias.md):** los parámetros hacen visibles entradas; el retorno hace visible el resultado.
+- **[efectos en los bordes](../../../glosario/entradas/e/efectos-en-los-bordes.md):** el núcleo calcula una recomendación y los adaptadores leen json o escriben texto.
+- **[composición y nivel de abstracción](../../../glosario/entradas/c/composicion-y-nivel-de-abstraccion.md):** una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -267,11 +267,13 @@ La descomposición procedural no define por sí misma cómo representar entidade
 
 ## Glosario
 
-- **procedimiento y contrato:** un procedimiento agrupa una secuencia bajo un nombre y una interfaz.
-- **descomposición por responsabilidad:** separar parseo, validación, decisión y presentación permite cambiar una razón sin arrastrar las demás.
-- **flujo de datos y dependencias:** los parámetros hacen visibles entradas; el retorno hace visible el resultado.
-- **efectos en los bordes:** el núcleo calcula una recomendación y los adaptadores leen json o escriben texto.
-- **composición y nivel de abstracción:** una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar.
+- **[procedimiento y contrato](../../../glosario/entradas/p/procedimiento-y-contrato.md):** un procedimiento agrupa una secuencia bajo un nombre y una interfaz.
+- **[descomposición por responsabilidad](../../../glosario/entradas/d/descomposicion-por-responsabilidad.md):** separar parseo, validación, decisión y presentación permite cambiar una razón sin arrastrar las demás.
+- **[flujo de datos y dependencias](../../../glosario/entradas/f/flujo-de-datos-y-dependencias.md):** los parámetros hacen visibles entradas; el retorno hace visible el resultado.
+- **[efectos en los bordes](../../../glosario/entradas/e/efectos-en-los-bordes.md):** el núcleo calcula una recomendación y los adaptadores leen json o escriben texto.
+- **[composición y nivel de abstracción](../../../glosario/entradas/c/composicion-y-nivel-de-abstraccion.md):** una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Composición y nivel de abstracción](../../../glosario/entradas/c/composicion-y-nivel-de-abstraccion.md) · [Descomposición por responsabilidad](../../../glosario/entradas/d/descomposicion-por-responsabilidad.md) · [Efectos en los bordes](../../../glosario/entradas/e/efectos-en-los-bordes.md) · [Flujo de datos y dependencias](../../../glosario/entradas/f/flujo-de-datos-y-dependencias.md) · [Procedimiento y contrato](../../../glosario/entradas/p/procedimiento-y-contrato.md).
 
 ---
 

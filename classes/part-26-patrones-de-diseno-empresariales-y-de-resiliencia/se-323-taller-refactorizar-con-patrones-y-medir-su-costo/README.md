@@ -110,12 +110,12 @@ La decisión se escribe: **se conserva** el Strategy porque el quinto canal est�
 
 ## Definiciones de trabajo
 
-- **Maestro dorado:** registro de la salida del código actual para un conjunto fijo de entradas, contra el cual se compara el código nuevo.
-- **Prueba de caracterización:** prueba que documenta el comportamiento actual, correcto o no.
-- **Mutante:** variante del programa con un cambio pequeño que debería ser detectado.
-- **Entradas de frontera:** valores en y alrededor de los límites de una regla.
-- **Strategy con registro:** una clase por variante y un diccionario que las asocia a su nombre.
-- **Condición de salida:** señal medible para retirar el patrón.
+- **[Maestro dorado](../../../glosario/entradas/m/maestro-dorado.md):** registro de la salida del código actual para un conjunto fijo de entradas, contra el cual se compara el código nuevo.
+- **[Prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que documenta el comportamiento actual, correcto o no.
+- **[Mutante](../../../glosario/entradas/v/variante-defectuosa.md):** variante del programa con un cambio pequeño que debería ser detectado.
+- **[Entradas de frontera](../../../glosario/entradas/e/entradas-de-frontera.md):** valores en y alrededor de los límites de una regla.
+- **[Strategy con registro](../../../glosario/entradas/s/strategy-con-registro.md):** una clase por variante y un diccionario que las asocia a su nombre.
+- **[Condición de salida](../../../glosario/entradas/c/condicion-de-salida.md):** señal medible para retirar el patrón.
 
 ## Ejemplo mínimo
 
@@ -243,6 +243,8 @@ La función, los mutantes y las entradas son del autor, los tiempos varían entr
 | Strategy con registro | Una clase por variante y un diccionario de nombres |
 | Refactor | Cambio de estructura sin cambio de comportamiento |
 | Condición de salida | Señal medible para retirar el patrón |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de salida](../../../glosario/entradas/c/condicion-de-salida.md) · [Entradas de frontera](../../../glosario/entradas/e/entradas-de-frontera.md) · [Maestro dorado](../../../glosario/entradas/m/maestro-dorado.md) · [Prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md) · [Strategy con registro](../../../glosario/entradas/s/strategy-con-registro.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

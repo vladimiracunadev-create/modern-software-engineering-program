@@ -149,11 +149,11 @@ Empezar con un margen igual a la mediana llega a tiempo menos de la mitad de las
 
 ## Definiciones de trabajo
 
-- **mantenimiento correctivo:** modificación para eliminar un comportamiento que contradice lo que el sistema debía hacer.
-- **mantenimiento adaptativo:** modificación para que el sistema siga funcionando cuando cambia su entorno, sin que el sistema sea defectuoso.
-- **mantenimiento perfectivo:** modificación para añadir capacidades o mejorar atributos como el rendimiento a petición de alguien.
-- **mantenimiento preventivo:** modificación para que el sistema conserve la capacidad de cambiar, sin cambiar su comportamiento visible.
-- **kappa de Cohen:** medida del acuerdo entre dos clasificadoras que descuenta el acuerdo esperado por azar.
+- **[mantenimiento correctivo](../../../glosario/entradas/m/mantenimiento-correctivo.md):** modificación para eliminar un comportamiento que contradice lo que el sistema debía hacer.
+- **[mantenimiento adaptativo](../../../glosario/entradas/m/mantenimiento-adaptativo.md):** modificación para que el sistema siga funcionando cuando cambia su entorno, sin que el sistema sea defectuoso.
+- **[mantenimiento perfectivo](../../../glosario/entradas/m/mantenimiento-perfectivo.md):** modificación para añadir capacidades o mejorar atributos como el rendimiento a petición de alguien.
+- **[mantenimiento preventivo](../../../glosario/entradas/m/mantenimiento-preventivo.md):** modificación para que el sistema conserve la capacidad de cambiar, sin cambiar su comportamiento visible.
+- **[kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md):** medida del acuerdo entre dos clasificadoras que descuenta el acuerdo esperado por azar.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **mantenimiento correctivo:** modificación para eliminar un comportamiento que contradice lo que el sistema debía hacer.
-- **mantenimiento adaptativo:** modificación para que el sistema siga funcionando cuando cambia su entorno, sin que el sistema sea defectuoso.
-- **mantenimiento perfectivo:** modificación para añadir capacidades o mejorar atributos como el rendimiento a petición de alguien.
-- **mantenimiento preventivo:** modificación para que el sistema conserve la capacidad de cambiar, sin cambiar su comportamiento visible.
-- **kappa de Cohen:** medida del acuerdo entre dos clasificadoras que descuenta el acuerdo esperado por azar.
+- **[mantenimiento correctivo](../../../glosario/entradas/m/mantenimiento-correctivo.md):** modificación para eliminar un comportamiento que contradice lo que el sistema debía hacer.
+- **[mantenimiento adaptativo](../../../glosario/entradas/m/mantenimiento-adaptativo.md):** modificación para que el sistema siga funcionando cuando cambia su entorno, sin que el sistema sea defectuoso.
+- **[mantenimiento perfectivo](../../../glosario/entradas/m/mantenimiento-perfectivo.md):** modificación para añadir capacidades o mejorar atributos como el rendimiento a petición de alguien.
+- **[mantenimiento preventivo](../../../glosario/entradas/m/mantenimiento-preventivo.md):** modificación para que el sistema conserve la capacidad de cambiar, sin cambiar su comportamiento visible.
+- **[kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md):** medida del acuerdo entre dos clasificadoras que descuenta el acuerdo esperado por azar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md) · [Mantenimiento adaptativo](../../../glosario/entradas/m/mantenimiento-adaptativo.md) · [Mantenimiento correctivo](../../../glosario/entradas/m/mantenimiento-correctivo.md) · [Mantenimiento perfectivo](../../../glosario/entradas/m/mantenimiento-perfectivo.md) · [Mantenimiento preventivo](../../../glosario/entradas/m/mantenimiento-preventivo.md).
 
 ---
 

@@ -136,11 +136,11 @@ Una revisora tiene 60 minutos y 30 afirmaciones. Sin trazabilidad, comprobar una
 
 ## Definiciones de trabajo
 
-- **dossier defendible:** conjunto de afirmaciones con evidencia vinculada, cifras coherentes y límites declarados, diseñado para que otra persona lo compruebe.
-- **huella (resumen) SHA-256:** valor de longitud fija calculado a partir del contenido de un archivo, que cambia si el contenido cambia.
-- **cifra etiquetada:** valor escrito con un formato fijo que un script puede extraer y comparar entre documentos.
-- **revisión por muestreo:** comprobación de un subconjunto de las afirmaciones elegidas al azar o por criterio.
-- **límites declarados:** lista de lo que no se midió, no se probó o se supuso, escrita en el propio dossier.
+- **[dossier defendible](../../../glosario/entradas/d/dossier-defendible.md):** conjunto de afirmaciones con evidencia vinculada, cifras coherentes y límites declarados, diseñado para que otra persona lo compruebe.
+- **[huella (resumen) SHA-256](../../../glosario/entradas/h/huella-resumen-sha-256.md):** valor de longitud fija calculado a partir del contenido de un archivo, que cambia si el contenido cambia.
+- **[cifra etiquetada](../../../glosario/entradas/c/cifra-etiquetada.md):** valor escrito con un formato fijo que un script puede extraer y comparar entre documentos.
+- **[revisión por muestreo](../../../glosario/entradas/r/revision-por-muestreo.md):** comprobación de un subconjunto de las afirmaciones elegidas al azar o por criterio.
+- **[límites declarados](../../../glosario/entradas/l/limite-declarado.md):** lista de lo que no se midió, no se probó o se supuso, escrita en el propio dossier.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -284,11 +284,13 @@ Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre sei
 
 ## Glosario
 
-- **dossier defendible:** conjunto de afirmaciones con evidencia vinculada, cifras coherentes y límites declarados, diseñado para que otra persona lo compruebe.
-- **huella (resumen) SHA-256:** valor de longitud fija calculado a partir del contenido de un archivo, que cambia si el contenido cambia.
-- **cifra etiquetada:** valor escrito con un formato fijo que un script puede extraer y comparar entre documentos.
-- **revisión por muestreo:** comprobación de un subconjunto de las afirmaciones elegidas al azar o por criterio.
-- **límites declarados:** lista de lo que no se midió, no se probó o se supuso, escrita en el propio dossier.
+- **[dossier defendible](../../../glosario/entradas/d/dossier-defendible.md):** conjunto de afirmaciones con evidencia vinculada, cifras coherentes y límites declarados, diseñado para que otra persona lo compruebe.
+- **[huella (resumen) SHA-256](../../../glosario/entradas/h/huella-resumen-sha-256.md):** valor de longitud fija calculado a partir del contenido de un archivo, que cambia si el contenido cambia.
+- **[cifra etiquetada](../../../glosario/entradas/c/cifra-etiquetada.md):** valor escrito con un formato fijo que un script puede extraer y comparar entre documentos.
+- **[revisión por muestreo](../../../glosario/entradas/r/revision-por-muestreo.md):** comprobación de un subconjunto de las afirmaciones elegidas al azar o por criterio.
+- **[límites declarados](../../../glosario/entradas/l/limite-declarado.md):** lista de lo que no se midió, no se probó o se supuso, escrita en el propio dossier.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cifra etiquetada](../../../glosario/entradas/c/cifra-etiquetada.md) · [Dossier defendible](../../../glosario/entradas/d/dossier-defendible.md) · [Huella (resumen) SHA-256](../../../glosario/entradas/h/huella-resumen-sha-256.md) · [Límite declarado](../../../glosario/entradas/l/limite-declarado.md) · [Revisión por muestreo](../../../glosario/entradas/r/revision-por-muestreo.md).
 
 ---
 

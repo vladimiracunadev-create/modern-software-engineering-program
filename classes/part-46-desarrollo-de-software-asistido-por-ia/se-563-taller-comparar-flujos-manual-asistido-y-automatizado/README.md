@@ -149,11 +149,11 @@ Con 20 tareas el diseño pareado detecta la diferencia real del 15 % en el 83 % 
 
 ## Definiciones de trabajo
 
-- **flujo manual:** trabajo sin asistencia generativa.
-- **flujo asistido:** trabajo en que la persona conduce y el asistente sugiere, edita y explica.
-- **flujo automatizado:** trabajo en que un agente ejecuta la tarea en bucle y la persona prepara el encargo y revisa el resultado.
-- **diseño pareado:** diseño en que cada tarea se resuelve con todos los flujos, de modo que se compara cada tarea consigo misma.
-- **bootstrap:** método que estima la variabilidad de un estadístico remuestreando los datos con reemplazo.
+- **[flujo manual](../../../glosario/entradas/f/flujo-manual.md):** trabajo sin asistencia generativa.
+- **[flujo asistido](../../../glosario/entradas/f/flujo-asistido.md):** trabajo en que la persona conduce y el asistente sugiere, edita y explica.
+- **[flujo automatizado](../../../glosario/entradas/f/flujo-automatizado.md):** trabajo en que un agente ejecuta la tarea en bucle y la persona prepara el encargo y revisa el resultado.
+- **[diseño pareado](../../../glosario/entradas/d/diseno-pareado.md):** diseño en que cada tarea se resuelve con todos los flujos, de modo que se compara cada tarea consigo misma.
+- **[bootstrap](../../../glosario/entradas/b/bootstrap.md):** método que estima la variabilidad de un estadístico remuestreando los datos con reemplazo.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -294,11 +294,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **flujo manual:** trabajo sin asistencia generativa.
-- **flujo asistido:** trabajo en que la persona conduce y el asistente sugiere, edita y explica.
-- **flujo automatizado:** trabajo en que un agente ejecuta la tarea en bucle y la persona prepara el encargo y revisa el resultado.
-- **diseño pareado:** diseño en que cada tarea se resuelve con todos los flujos, de modo que se compara cada tarea consigo misma.
-- **bootstrap:** método que estima la variabilidad de un estadístico remuestreando los datos con reemplazo.
+- **[flujo manual](../../../glosario/entradas/f/flujo-manual.md):** trabajo sin asistencia generativa.
+- **[flujo asistido](../../../glosario/entradas/f/flujo-asistido.md):** trabajo en que la persona conduce y el asistente sugiere, edita y explica.
+- **[flujo automatizado](../../../glosario/entradas/f/flujo-automatizado.md):** trabajo en que un agente ejecuta la tarea en bucle y la persona prepara el encargo y revisa el resultado.
+- **[diseño pareado](../../../glosario/entradas/d/diseno-pareado.md):** diseño en que cada tarea se resuelve con todos los flujos, de modo que se compara cada tarea consigo misma.
+- **[bootstrap](../../../glosario/entradas/b/bootstrap.md):** método que estima la variabilidad de un estadístico remuestreando los datos con reemplazo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bootstrap](../../../glosario/entradas/b/bootstrap.md) · [Diseño pareado](../../../glosario/entradas/d/diseno-pareado.md) · [Flujo asistido](../../../glosario/entradas/f/flujo-asistido.md) · [Flujo automatizado](../../../glosario/entradas/f/flujo-automatizado.md) · [Flujo manual](../../../glosario/entradas/f/flujo-manual.md) · [Métrica](../../../glosario/entradas/m/metrica.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md).
 
 ---
 

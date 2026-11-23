@@ -161,11 +161,11 @@ for pos in itertools.combinations(range(n1 + n2), n1):
 
 ## Definiciones de trabajo
 
-- **función pura:** función cuyo resultado depende solo de sus argumentos y que no produce efectos observables fuera de él.
-- **inmutabilidad:** propiedad de un dato que no puede modificarse después de crearse.
-- **contrapresión:** mecanismo por el que el consumidor limita el ritmo del productor.
-- **condición de carrera:** situación en que el resultado depende del orden en que se intercalan operaciones concurrentes.
-- **sección crítica:** fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
+- **[función pura](../../../glosario/entradas/f/funcion-pura.md):** función cuyo resultado depende solo de sus argumentos y que no produce efectos observables fuera de él.
+- **[inmutabilidad](../../../glosario/entradas/i/inmutabilidad.md):** propiedad de un dato que no puede modificarse después de crearse.
+- **[contrapresión](../../../glosario/entradas/c/contrapresion.md):** mecanismo por el que el consumidor limita el ritmo del productor.
+- **[condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md):** situación en que el resultado depende del orden en que se intercalan operaciones concurrentes.
+- **[sección crítica](../../../glosario/entradas/s/seccion-critica.md):** fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres modelos y análisis con datos sintéticos en Windows y Ubuntu
 
 ## Glosario
 
-- **función pura:** función cuyo resultado depende solo de sus argumentos y que no produce efectos observables fuera de él.
-- **inmutabilidad:** propiedad de un dato que no puede modificarse después de crearse.
-- **contrapresión:** mecanismo por el que el consumidor limita el ritmo del productor.
-- **condición de carrera:** situación en que el resultado depende del orden en que se intercalan operaciones concurrentes.
-- **sección crítica:** fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
+- **[función pura](../../../glosario/entradas/f/funcion-pura.md):** función cuyo resultado depende solo de sus argumentos y que no produce efectos observables fuera de él.
+- **[inmutabilidad](../../../glosario/entradas/i/inmutabilidad.md):** propiedad de un dato que no puede modificarse después de crearse.
+- **[contrapresión](../../../glosario/entradas/c/contrapresion.md):** mecanismo por el que el consumidor limita el ritmo del productor.
+- **[condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md):** situación en que el resultado depende del orden en que se intercalan operaciones concurrentes.
+- **[sección crítica](../../../glosario/entradas/s/seccion-critica.md):** fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md) · [Contrapresión](../../../glosario/entradas/c/contrapresion.md) · [Función pura](../../../glosario/entradas/f/funcion-pura.md) · [Inmutabilidad](../../../glosario/entradas/i/inmutabilidad.md) · [Sección crítica](../../../glosario/entradas/s/seccion-critica.md).
 
 ---
 

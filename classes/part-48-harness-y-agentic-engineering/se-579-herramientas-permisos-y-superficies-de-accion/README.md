@@ -113,12 +113,12 @@ Cada comando se analizó sin ejecutarlo. El veredicto esperado (seguro o insegur
 
 ## Definiciones de trabajo
 
-- **Superficie de acción:** conjunto de efectos que un agente puede producir.
-- **Mínimo privilegio:** conceder solo los permisos necesarios para la tarea.
-- **Comando compuesto:** texto que el intérprete de comandos convierte en más de una ejecución.
-- **Confinamiento de rutas:** resolver una ruta y comprobar que queda dentro de la raíz permitida.
-- **Aprobación humana:** confirmación explícita de una persona antes de una acción.
-- **Falsa denegación:** bloqueo de una acción segura.
+- **[Superficie de acción](../../../glosario/entradas/s/superficie-de-accion.md):** conjunto de efectos que un agente puede producir.
+- **[Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** conceder solo los permisos necesarios para la tarea.
+- **[Comando compuesto](../../../glosario/entradas/c/comando-compuesto.md):** texto que el intérprete de comandos convierte en más de una ejecución.
+- **[Confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md):** resolver una ruta y comprobar que queda dentro de la raíz permitida.
+- **[Aprobación humana](../../../glosario/entradas/a/aprobacion-humana.md):** confirmación explícita de una persona antes de una acción.
+- **[Falsa denegación](../../../glosario/entradas/f/falsa-denegacion.md):** bloqueo de una acción segura.
 
 ## Ejemplo mínimo
 
@@ -248,6 +248,8 @@ Se analizaron treinta comandos del autor con dos políticas de texto, en Windows
 | Confinamiento de rutas | Comprobar que una ruta resuelta queda dentro de la raíz |
 | Aprobación humana | Confirmación explícita antes de una acción |
 | Falsa denegación | Bloqueo de una acción segura |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aprobación humana](../../../glosario/entradas/a/aprobacion-humana.md) · [Comando compuesto](../../../glosario/entradas/c/comando-compuesto.md) · [Confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md) · [Falsa denegación](../../../glosario/entradas/f/falsa-denegacion.md) · [Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md) · [Superficie de acción](../../../glosario/entradas/s/superficie-de-accion.md).
 
 ---
 

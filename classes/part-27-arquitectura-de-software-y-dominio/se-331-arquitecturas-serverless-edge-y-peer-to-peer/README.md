@@ -165,11 +165,11 @@ Con fanout 2, el rumor llega al 99 % de los conectados en unas 10 rondas; cinco 
 
 ## Definiciones de trabajo
 
-- **serverless:** modelo en el que el proveedor ejecuta código bajo demanda, escala a cero y cobra por uso.
-- **arranque en frío:** latencia añadida cuando una petición exige crear un entorno de ejecución que no existía.
-- **punto de equilibrio de costo:** tráfico en el que dos modelos de precio cuestan lo mismo.
-- **borde de la red:** conjunto de puntos de ejecución cercanos al usuario que ejecutan cómputo o sirven datos sin pasar por el origen.
-- **difusión por rumor:** propagación de información por la elección aleatoria de pares en cada ronda.
+- **[serverless](../../../glosario/entradas/s/serverless.md):** modelo en el que el proveedor ejecuta código bajo demanda, escala a cero y cobra por uso.
+- **[arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** latencia añadida cuando una petición exige crear un entorno de ejecución que no existía.
+- **[punto de equilibrio de costo](../../../glosario/entradas/p/punto-de-equilibrio-de-costo.md):** tráfico en el que dos modelos de precio cuestan lo mismo.
+- **[borde de la red](../../../glosario/entradas/b/borde-de-la-red.md):** conjunto de puntos de ejecución cercanos al usuario que ejecutan cómputo o sirven datos sin pasar por el origen.
+- **[difusión por rumor](../../../glosario/entradas/d/difusion-por-rumor.md):** propagación de información por la elección aleatoria de pares en cada ronda.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **serverless:** modelo en el que el proveedor ejecuta código bajo demanda, escala a cero y cobra por uso.
-- **arranque en frío:** latencia añadida cuando una petición exige crear un entorno de ejecución que no existía.
-- **punto de equilibrio de costo:** tráfico en el que dos modelos de precio cuestan lo mismo.
-- **borde de la red:** conjunto de puntos de ejecución cercanos al usuario que ejecutan cómputo o sirven datos sin pasar por el origen.
-- **difusión por rumor:** propagación de información por la elección aleatoria de pares en cada ronda.
+- **[serverless](../../../glosario/entradas/s/serverless.md):** modelo en el que el proveedor ejecuta código bajo demanda, escala a cero y cobra por uso.
+- **[arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** latencia añadida cuando una petición exige crear un entorno de ejecución que no existía.
+- **[punto de equilibrio de costo](../../../glosario/entradas/p/punto-de-equilibrio-de-costo.md):** tráfico en el que dos modelos de precio cuestan lo mismo.
+- **[borde de la red](../../../glosario/entradas/b/borde-de-la-red.md):** conjunto de puntos de ejecución cercanos al usuario que ejecutan cómputo o sirven datos sin pasar por el origen.
+- **[difusión por rumor](../../../glosario/entradas/d/difusion-por-rumor.md):** propagación de información por la elección aleatoria de pares en cada ronda.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md) · [Borde de la red](../../../glosario/entradas/b/borde-de-la-red.md) · [Difusión por rumor](../../../glosario/entradas/d/difusion-por-rumor.md) · [Punto de equilibrio de costo](../../../glosario/entradas/p/punto-de-equilibrio-de-costo.md) · [Serverless](../../../glosario/entradas/s/serverless.md).
 
 ---
 

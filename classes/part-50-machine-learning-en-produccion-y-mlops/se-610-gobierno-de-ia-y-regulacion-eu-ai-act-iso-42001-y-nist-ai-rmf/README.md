@@ -151,13 +151,13 @@ La tercera figura sitúa el trabajo de la parte frente a lo que cada marco pide.
 
 ## Definiciones de trabajo
 
-- **Sistema de IA:** sistema basado en máquina que, con objetivos explícitos o implícitos, infiere cómo generar salidas que influyen en entornos físicos o virtuales.
-- **Alto riesgo:** categoría del reglamento europeo con requisitos estrictos, definida por el uso y el ámbito.
-- **Sistema de gestión de IA:** conjunto de políticas, procesos y responsables que una organización mantiene para gestionar la IA.
-- **Triaje:** clasificación provisional de un uso para decidir qué análisis exige.
-- **Ficha del modelo:** documento con el uso previsto, la evaluación y las limitaciones de un modelo.
-- **Supervisión humana:** capacidad de una persona de entender, ignorar o revertir la salida de un sistema.
-- **Registro encadenado:** registro en que cada entrada incluye la huella de la anterior.
+- **[Sistema de IA](../../../glosario/entradas/s/sistema-de-ia.md):** sistema basado en máquina que, con objetivos explícitos o implícitos, infiere cómo generar salidas que influyen en entornos físicos o virtuales.
+- **[Alto riesgo](../../../glosario/entradas/a/alto-riesgo.md):** categoría del reglamento europeo con requisitos estrictos, definida por el uso y el ámbito.
+- **[Sistema de gestión de IA](../../../glosario/entradas/s/sistema-de-gestion-de-ia.md):** conjunto de políticas, procesos y responsables que una organización mantiene para gestionar la IA.
+- **[Triaje](../../../glosario/entradas/t/triaje.md):** clasificación provisional de un uso para decidir qué análisis exige.
+- **[Ficha del modelo](../../../glosario/entradas/f/ficha-del-modelo.md):** documento con el uso previsto, la evaluación y las limitaciones de un modelo.
+- **[Supervisión humana](../../../glosario/entradas/s/supervision-humana.md):** capacidad de una persona de entender, ignorar o revertir la salida de un sistema.
+- **[Registro encadenado](../../../glosario/entradas/r/registro-encadenado.md):** registro en que cada entrada incluye la huella de la anterior.
 
 ## Ejemplo mínimo
 
@@ -297,6 +297,8 @@ El triaje, la lista de verificación, el generador de dos grupos y los umbrales 
 | Ficha del modelo | Documento de uso previsto, evaluación y límites |
 | Supervisión humana | Capacidad de entender, ignorar o revertir la salida |
 | Registro encadenado | Cada entrada incluye la huella de la anterior |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alto riesgo](../../../glosario/entradas/a/alto-riesgo.md) · [Ficha del modelo](../../../glosario/entradas/f/ficha-del-modelo.md) · [Inventario](../../../glosario/entradas/i/inventario.md) · [Registro de decisiones](../../../glosario/entradas/r/registro-de-decisiones.md) · [Registro encadenado](../../../glosario/entradas/r/registro-encadenado.md) · [Sistema de gestión de IA](../../../glosario/entradas/s/sistema-de-gestion-de-ia.md) · [Sistema de IA](../../../glosario/entradas/s/sistema-de-ia.md) · [Supervisión humana](../../../glosario/entradas/s/supervision-humana.md) · [Triaje](../../../glosario/entradas/t/triaje.md).
 
 ---
 

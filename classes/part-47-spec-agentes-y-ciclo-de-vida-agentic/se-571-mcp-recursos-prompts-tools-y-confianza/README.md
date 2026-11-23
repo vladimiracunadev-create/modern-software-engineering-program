@@ -153,12 +153,12 @@ Con un tiempo de vida de cinco minutos las lecturas bajan de 2 853 a 262 por dí
 
 ## Definiciones de trabajo
 
-- **servidor MCP:** programa que expone herramientas, recursos o plantillas de petición a un agente mediante el protocolo.
-- **herramienta:** función que un servidor expone y que el modelo puede invocar; es controlada por el modelo.
-- **recurso:** dato que un servidor expone y que la aplicación decide cómo incorporar al contexto.
-- **plantilla de petición:** texto parametrizado que la persona selecciona explícitamente.
-- **huella:** valor derivado de un hash que identifica el contenido aprobado de una herramienta y permite detectar cambios.
-- **tiempo de vida (`ttlMs`):** intervalo durante el cual un cliente puede reutilizar un resultado de listado sin volver a pedirlo.
+- **[servidor MCP](../../../glosario/entradas/s/servidor-mcp.md):** programa que expone herramientas, recursos o plantillas de petición a un agente mediante el protocolo.
+- **[herramienta](../../../glosario/entradas/h/herramientas.md):** función que un servidor expone y que el modelo puede invocar; es controlada por el modelo.
+- **[recurso](../../../glosario/entradas/r/recurso.md):** dato que un servidor expone y que la aplicación decide cómo incorporar al contexto.
+- **[plantilla de petición](../../../glosario/entradas/p/plantilla-de-peticion.md):** texto parametrizado que la persona selecciona explícitamente.
+- **[huella](../../../glosario/entradas/h/huella.md):** valor derivado de un hash que identifica el contenido aprobado de una herramienta y permite detectar cambios.
+- **[tiempo de vida (`ttlMs`)](../../../glosario/entradas/t/tiempo-de-vida.md):** intervalo durante el cual un cliente puede reutilizar un resultado de listado sin volver a pedirlo.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -303,12 +303,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **servidor MCP:** programa que expone herramientas, recursos o plantillas de petición a un agente mediante el protocolo.
-- **herramienta:** función que un servidor expone y que el modelo puede invocar; es controlada por el modelo.
-- **recurso:** dato que un servidor expone y que la aplicación decide cómo incorporar al contexto.
-- **plantilla de petición:** texto parametrizado que la persona selecciona explícitamente.
-- **huella:** valor derivado de un hash que identifica el contenido aprobado de una herramienta y permite detectar cambios.
-- **tiempo de vida (`ttlMs`):** intervalo durante el cual un cliente puede reutilizar un resultado de listado sin volver a pedirlo.
+- **[servidor MCP](../../../glosario/entradas/s/servidor-mcp.md):** programa que expone herramientas, recursos o plantillas de petición a un agente mediante el protocolo.
+- **[herramienta](../../../glosario/entradas/h/herramientas.md):** función que un servidor expone y que el modelo puede invocar; es controlada por el modelo.
+- **[recurso](../../../glosario/entradas/r/recurso.md):** dato que un servidor expone y que la aplicación decide cómo incorporar al contexto.
+- **[plantilla de petición](../../../glosario/entradas/p/plantilla-de-peticion.md):** texto parametrizado que la persona selecciona explícitamente.
+- **[huella](../../../glosario/entradas/h/huella.md):** valor derivado de un hash que identifica el contenido aprobado de una herramienta y permite detectar cambios.
+- **[tiempo de vida (`ttlMs`)](../../../glosario/entradas/t/tiempo-de-vida.md):** intervalo durante el cual un cliente puede reutilizar un resultado de listado sin volver a pedirlo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Descripciones no confiables](../../../glosario/entradas/d/descripciones-no-confiables.md) · [Herramientas](../../../glosario/entradas/h/herramientas.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Plantilla de petición](../../../glosario/entradas/p/plantilla-de-peticion.md) · [Recurso](../../../glosario/entradas/r/recurso.md) · [Servidor MCP](../../../glosario/entradas/s/servidor-mcp.md) · [Tiempo de vida](../../../glosario/entradas/t/tiempo-de-vida.md).
 
 ---
 

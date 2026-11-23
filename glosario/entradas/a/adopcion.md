@@ -1,0 +1,81 @@
+# Adopción
+
+[↑ Glosario](../../README.md) · [← Adapter](./adapter.md) · [ADR →](./adr.md)
+
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+
+## Definición
+
+Parte de una población objetivo declarada que comienza a usar el servicio en una ventana.
+
+Definición de trabajo de [SE-136 — Métricas de adopción, retención y tarea útil](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md).
+
+El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
+
+- En [SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md): Fracción de la base instalada que ya tiene una versión en un momento dado.
+
+## Por qué importa
+
+En [SE-136 — Métricas de adopción, retención y tarea útil](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md), el tema «Adopción» importa porque sin una población objetivo declarada, «adopción» es un porcentaje sin referente.
+
+## Cómo funciona
+
+Según [SE-136 — Métricas de adopción, retención y tarea útil](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md), en la sección «Adopción»:
+
+Adopción es la parte de una población objetivo que empieza a usar el servicio en una ventana. Su denominador es el punto delicado: ¿todos los centros con cuenta, los que activaron, los que firmaron? Cada elección cambia el valor. La guía del Gobierno británico sobre adopción digital exige declarar la población para que la cifra tenga referente.
+
+## Ejemplo
+
+Ejemplo de [SE-136 — Métricas de adopción, retención y tarea útil](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md) (sección «Ejemplo profesional»):
+
+En la plataforma, `adoption-metrics.md` define cada métrica con población, evento, ventana y filtros: adopción es «centros con al menos una entrega aceptada en los primeros 14 días, sobre centros con cuenta activada»; retención es «estudiantes con una entrega aceptada en la semana k sobre quienes tuvieron una en la semana 0». El contrato es que ninguna cifra se publica sin n, sin edad mínima de la cohorte y sin su intervalo.
+
+## Errores y confusiones comunes
+
+Errores que las clases asocian con este término (síntoma → causa → corrección):
+
+- **La adopción baja al crecer la base** — causa: el denominador cambió. Corrección: fijar y declarar la población objetivo. ([SE-136](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md))
+- **Una corrección urgente tarda semanas en llegar a la mayoría** — causa: el canal es lento y se supuso uno rápido. Corrección: medir la adopción por canal y planear en consecuencia. ([SE-259](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md))
+
+## Límites y cuándo no aplica
+
+Lo que las clases dicen sobre dónde deja de valer este término:
+
+- La guía del Gobierno británico sobre adopción digital exige declarar la población para que la cifra tenga referente. ([SE-136](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md))
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Base](../b/base.md), [Servicio](../s/servicio.md), [Ventana](../v/ventana.md), [Versión](../v/version.md), [Canal de distribución](../c/canal-de-distribucion.md), [Censura](../c/censura.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-136 — Métricas de adopción, retención y tarea útil](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md) — [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md), Economía, métricas y decisiones de producto.
+- [SE-259 — Actualizaciones, tiendas y distribución empresarial](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md) — [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md), Software móvil, escritorio y multiplataforma.
+
+**También se usa en** (27 clases más lo mencionan; las que más):
+
+[SE-489](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma/README.md), [SE-529](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md), [SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), [SE-406](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md), [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), [SE-226](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas/README.md), [SE-137](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md), [SE-458](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md).
+
+**Aparece en los casos de estudio:** [Uber](../../../casos/exito/uber.md), [Slack](../../../casos/exito/slack.md), [Quibi](../../../casos/fallo/quibi.md).
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Fuentes de las clases donde se enseña (cada una respalda el mecanismo que su clase indica):
+
+- [GOV.UK Service Manual: Measuring digital take-up](https://www.gov.uk/service-manual/measuring-success/measuring-digital-take-up) — adopción sobre una población declarada; autoridad: Government Digital Service.
+- [Google Research: HEART framework](https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/) — marco de métricas de experiencia de usuario (felicidad, compromiso, adopción, retención, éxito en la tarea); autoridad: Google Research.
+- [GOV.UK Service Manual: Measuring completion rate](https://www.gov.uk/service-manual/measuring-success/measuring-completion-rate) — finalización con numerador y denominador explícitos; autoridad: Government Digital Service (Reino Unido).
+- [GOV.UK Service Manual: Measuring success](https://www.gov.uk/service-manual/measuring-success) — qué medir y para qué decisión; autoridad: Government Digital Service.
+- [NIST/SEMATECH e-Handbook of Statistical Methods: Proportions](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm) — intervalos de confianza para proporciones; autoridad: NIST.
+
+---
+
+[↑ Glosario](../../README.md) · [← Adapter](./adapter.md) · [ADR →](./adr.md)

@@ -154,11 +154,11 @@ inicio = max(llegada, libre); fin = inicio + rng.expovariate(mu); libre = fin
 
 ## Definiciones de trabajo
 
-- **ley de Conway:** observación de que la estructura de un sistema copia la estructura de comunicación de la organización que lo diseña.
-- **carga cognitiva de un equipo:** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
-- **factor de autobús:** número de personas que pueden irse antes de que un proyecto se detenga por falta de conocimiento.
-- **traspaso:** paso de un cambio de un equipo a otro, con su cola.
-- **maniobra inversa de Conway:** diseño deliberado de la estructura de equipos para producir la arquitectura deseada.
+- **[ley de Conway](../../../glosario/entradas/l/ley-de-conway.md):** observación de que la estructura de un sistema copia la estructura de comunicación de la organización que lo diseña.
+- **[carga cognitiva de un equipo](../../../glosario/entradas/c/carga-cognitiva-de-un-equipo.md):** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
+- **[factor de autobús](../../../glosario/entradas/f/factor-de-autobus.md):** número de personas que pueden irse antes de que un proyecto se detenga por falta de conocimiento.
+- **[traspaso](../../../glosario/entradas/t/traspaso.md):** paso de un cambio de un equipo a otro, con su cola.
+- **[maniobra inversa de Conway](../../../glosario/entradas/m/maniobra-inversa-de-conway.md):** diseño deliberado de la estructura de equipos para producir la arquitectura deseada.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ley de Conway:** observación de que la estructura de un sistema copia la estructura de comunicación de la organización que lo diseña.
-- **carga cognitiva de un equipo:** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
-- **factor de autobús:** número de personas que pueden irse antes de que un proyecto se detenga por falta de conocimiento.
-- **traspaso:** paso de un cambio de un equipo a otro, con su cola.
-- **maniobra inversa de Conway:** diseño deliberado de la estructura de equipos para producir la arquitectura deseada.
+- **[ley de Conway](../../../glosario/entradas/l/ley-de-conway.md):** observación de que la estructura de un sistema copia la estructura de comunicación de la organización que lo diseña.
+- **[carga cognitiva de un equipo](../../../glosario/entradas/c/carga-cognitiva-de-un-equipo.md):** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
+- **[factor de autobús](../../../glosario/entradas/f/factor-de-autobus.md):** número de personas que pueden irse antes de que un proyecto se detenga por falta de conocimiento.
+- **[traspaso](../../../glosario/entradas/t/traspaso.md):** paso de un cambio de un equipo a otro, con su cola.
+- **[maniobra inversa de Conway](../../../glosario/entradas/m/maniobra-inversa-de-conway.md):** diseño deliberado de la estructura de equipos para producir la arquitectura deseada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Carga cognitiva de un equipo](../../../glosario/entradas/c/carga-cognitiva-de-un-equipo.md) · [Factor de autobús](../../../glosario/entradas/f/factor-de-autobus.md) · [Ley de Conway](../../../glosario/entradas/l/ley-de-conway.md) · [Maniobra inversa de Conway](../../../glosario/entradas/m/maniobra-inversa-de-conway.md) · [Traspaso](../../../glosario/entradas/t/traspaso.md).
 
 ---
 

@@ -112,11 +112,11 @@ Se generaron 500 eventos de integración: 25 % empujes directos, 10 % hechos por
 
 ## Definiciones de trabajo
 
-- **firma de commit:** firma criptográfica del contenido de un commit guardada en una cabecera del objeto.
-- **firmantes permitidos:** archivo que asocia identidades con claves públicas aceptadas para verificar firmas SSH.
-- **rama protegida:** rama cuyas reglas de integración se imponen técnicamente.
-- **bypass de administración:** excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
-- **procedencia:** información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
+- **[firma de commit](../../../glosario/entradas/f/firma-de-commit.md):** firma criptográfica del contenido de un commit guardada en una cabecera del objeto.
+- **[firmantes permitidos](../../../glosario/entradas/f/firmantes-permitidos.md):** archivo que asocia identidades con claves públicas aceptadas para verificar firmas SSH.
+- **[rama protegida](../../../glosario/entradas/r/rama-protegida.md):** rama cuyas reglas de integración se imponen técnicamente.
+- **[bypass de administración](../../../glosario/entradas/b/bypass-de-administracion.md):** excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -259,11 +259,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **firma de commit:** firma criptográfica del contenido de un commit guardada en una cabecera del objeto.
-- **firmantes permitidos:** archivo que asocia identidades con claves públicas aceptadas para verificar firmas SSH.
-- **rama protegida:** rama cuyas reglas de integración se imponen técnicamente.
-- **bypass de administración:** excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
-- **procedencia:** información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
+- **[firma de commit](../../../glosario/entradas/f/firma-de-commit.md):** firma criptográfica del contenido de un commit guardada en una cabecera del objeto.
+- **[firmantes permitidos](../../../glosario/entradas/f/firmantes-permitidos.md):** archivo que asocia identidades con claves públicas aceptadas para verificar firmas SSH.
+- **[rama protegida](../../../glosario/entradas/r/rama-protegida.md):** rama cuyas reglas de integración se imponen técnicamente.
+- **[bypass de administración](../../../glosario/entradas/b/bypass-de-administracion.md):** excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bypass de administración](../../../glosario/entradas/b/bypass-de-administracion.md) · [Cadena de hashes](../../../glosario/entradas/c/cadena-de-hashes.md) · [Firma de commit](../../../glosario/entradas/f/firma-de-commit.md) · [Firmantes permitidos](../../../glosario/entradas/f/firmantes-permitidos.md) · [Procedencia](../../../glosario/entradas/p/procedencia.md) · [Rama protegida](../../../glosario/entradas/r/rama-protegida.md).
 
 ---
 

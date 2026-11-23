@@ -156,11 +156,11 @@ El umbral absoluto avisa 14 semanas después de que empiece el daño y deja sin 
 
 ## Definiciones de trabajo
 
-- **función de aptitud arquitectónica:** mecanismo que evalúa de forma objetiva el cumplimiento de una propiedad de la arquitectura frente a un umbral.
-- **falsa alarma:** aviso de la función cuando la propiedad se cumple.
-- **alarma perdida:** ausencia de aviso cuando la propiedad se ha degradado.
-- **trinquete:** regla que impide que una medida empeore respecto de su mejor valor histórico más una tolerancia.
-- **erosión arquitectónica:** deterioro gradual de la estructura por cambios que violan las decisiones originales.
+- **[función de aptitud arquitectónica](../../../glosario/entradas/f/funcion-de-aptitud-arquitectonica.md):** mecanismo que evalúa de forma objetiva el cumplimiento de una propiedad de la arquitectura frente a un umbral.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** aviso de la función cuando la propiedad se cumple.
+- **[alarma perdida](../../../glosario/entradas/a/alarma-perdida.md):** ausencia de aviso cuando la propiedad se ha degradado.
+- **[trinquete](../../../glosario/entradas/t/trinquete.md):** regla que impide que una medida empeore respecto de su mejor valor histórico más una tolerancia.
+- **[erosión arquitectónica](../../../glosario/entradas/e/erosion-arquitectonica.md):** deterioro gradual de la estructura por cambios que violan las decisiones originales.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **función de aptitud arquitectónica:** mecanismo que evalúa de forma objetiva el cumplimiento de una propiedad de la arquitectura frente a un umbral.
-- **falsa alarma:** aviso de la función cuando la propiedad se cumple.
-- **alarma perdida:** ausencia de aviso cuando la propiedad se ha degradado.
-- **trinquete:** regla que impide que una medida empeore respecto de su mejor valor histórico más una tolerancia.
-- **erosión arquitectónica:** deterioro gradual de la estructura por cambios que violan las decisiones originales.
+- **[función de aptitud arquitectónica](../../../glosario/entradas/f/funcion-de-aptitud-arquitectonica.md):** mecanismo que evalúa de forma objetiva el cumplimiento de una propiedad de la arquitectura frente a un umbral.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** aviso de la función cuando la propiedad se cumple.
+- **[alarma perdida](../../../glosario/entradas/a/alarma-perdida.md):** ausencia de aviso cuando la propiedad se ha degradado.
+- **[trinquete](../../../glosario/entradas/t/trinquete.md):** regla que impide que una medida empeore respecto de su mejor valor histórico más una tolerancia.
+- **[erosión arquitectónica](../../../glosario/entradas/e/erosion-arquitectonica.md):** deterioro gradual de la estructura por cambios que violan las decisiones originales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alarma perdida](../../../glosario/entradas/a/alarma-perdida.md) · [Erosión arquitectónica](../../../glosario/entradas/e/erosion-arquitectonica.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Función de aptitud arquitectónica](../../../glosario/entradas/f/funcion-de-aptitud-arquitectonica.md) · [Trinquete](../../../glosario/entradas/t/trinquete.md).
 
 ---
 

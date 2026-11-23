@@ -163,11 +163,11 @@ La suma de duraciones es 2 832 s y el camino crítico, 577 s: ejecutar diez a la
 
 ## Definiciones de trabajo
 
-- **infraestructura como código:** práctica de describir la infraestructura en archivos versionados que una herramienta aplica de forma repetible.
-- **estado:** registro que relaciona cada recurso declarado con el objeto real y sus atributos.
-- **deriva:** diferencia entre lo que el estado cree y lo que existe, causada por cambios hechos fuera del código.
-- **plan:** cálculo de las acciones necesarias para llevar lo existente a lo declarado, previo a aplicarlas.
-- **camino crítico:** cadena de dependencias cuya suma de duraciones fija el tiempo mínimo de aplicar el conjunto.
+- **[infraestructura como código](../../../glosario/entradas/i/infraestructura-como-codigo.md):** práctica de describir la infraestructura en archivos versionados que una herramienta aplica de forma repetible.
+- **[estado](../../../glosario/entradas/e/estado.md):** registro que relaciona cada recurso declarado con el objeto real y sus atributos.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre lo que el estado cree y lo que existe, causada por cambios hechos fuera del código.
+- **[plan](../../../glosario/entradas/p/plan.md):** cálculo de las acciones necesarias para llevar lo existente a lo declarado, previo a aplicarlas.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** cadena de dependencias cuya suma de duraciones fija el tiempo mínimo de aplicar el conjunto.
 
 Las definiciones son operativas para la plataforma de entregas. Cada herramienta usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
@@ -308,11 +308,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **infraestructura como código:** práctica de describir la infraestructura en archivos versionados que una herramienta aplica de forma repetible.
-- **estado:** registro que relaciona cada recurso declarado con el objeto real y sus atributos.
-- **deriva:** diferencia entre lo que el estado cree y lo que existe, causada por cambios hechos fuera del código.
-- **plan:** cálculo de las acciones necesarias para llevar lo existente a lo declarado, previo a aplicarlas.
-- **camino crítico:** cadena de dependencias cuya suma de duraciones fija el tiempo mínimo de aplicar el conjunto.
+- **[infraestructura como código](../../../glosario/entradas/i/infraestructura-como-codigo.md):** práctica de describir la infraestructura en archivos versionados que una herramienta aplica de forma repetible.
+- **[estado](../../../glosario/entradas/e/estado.md):** registro que relaciona cada recurso declarado con el objeto real y sus atributos.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre lo que el estado cree y lo que existe, causada por cambios hechos fuera del código.
+- **[plan](../../../glosario/entradas/p/plan.md):** cálculo de las acciones necesarias para llevar lo existente a lo declarado, previo a aplicarlas.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** cadena de dependencias cuya suma de duraciones fija el tiempo mínimo de aplicar el conjunto.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloqueo del estado](../../../glosario/entradas/b/bloqueo-del-estado.md) · [Camino crítico](../../../glosario/entradas/c/camino-critico.md) · [Deriva](../../../glosario/entradas/d/deriva.md) · [Estado](../../../glosario/entradas/e/estado.md) · [Grafo de dependencias](../../../glosario/entradas/g/grafo-de-dependencias.md) · [Infraestructura como código](../../../glosario/entradas/i/infraestructura-como-codigo.md) · [Plan](../../../glosario/entradas/p/plan.md).
 
 ---
 

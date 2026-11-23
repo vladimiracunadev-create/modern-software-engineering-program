@@ -154,11 +154,11 @@ def tr(fr, ev, arg):
 
 ## Definiciones de trabajo
 
-- **maestro dorado:** registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
-- **prueba de caracterización:** prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
-- **rareza heredada:** comportamiento no documentado del código existente que puede estar en uso.
-- **arco:** par de líneas consecutivas ejecutadas, usado como medida de cobertura de caminos.
-- **compatibilidad hacia atrás:** propiedad de un cambio que no rompe a quienes usaban la versión anterior.
+- **[maestro dorado](../../../glosario/entradas/m/maestro-dorado.md):** registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
+- **[prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
+- **[rareza heredada](../../../glosario/entradas/r/rareza-heredada.md):** comportamiento no documentado del código existente que puede estar en uso.
+- **[arco](../../../glosario/entradas/a/arco.md):** par de líneas consecutivas ejecutadas, usado como medida de cobertura de caminos.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un cambio que no rompe a quienes usaban la versión anterior.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -308,11 +308,13 @@ Se ejecutaron tres análisis sobre una función heredada de ejemplo con datos si
 
 ## Glosario
 
-- **maestro dorado:** registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
-- **prueba de caracterización:** prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
-- **rareza heredada:** comportamiento no documentado del código existente que puede estar en uso.
-- **arco:** par de líneas consecutivas ejecutadas, usado como medida de cobertura de caminos.
-- **compatibilidad hacia atrás:** propiedad de un cambio que no rompe a quienes usaban la versión anterior.
+- **[maestro dorado](../../../glosario/entradas/m/maestro-dorado.md):** registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
+- **[prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
+- **[rareza heredada](../../../glosario/entradas/r/rareza-heredada.md):** comportamiento no documentado del código existente que puede estar en uso.
+- **[arco](../../../glosario/entradas/a/arco.md):** par de líneas consecutivas ejecutadas, usado como medida de cobertura de caminos.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un cambio que no rompe a quienes usaban la versión anterior.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arco](../../../glosario/entradas/a/arco.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Maestro dorado](../../../glosario/entradas/m/maestro-dorado.md) · [Prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md) · [Rareza heredada](../../../glosario/entradas/r/rareza-heredada.md).
 
 ---
 

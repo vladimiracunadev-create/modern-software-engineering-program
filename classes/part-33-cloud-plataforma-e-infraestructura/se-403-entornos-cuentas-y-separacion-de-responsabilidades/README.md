@@ -160,11 +160,11 @@ Once de los 40 roles ya contienen un par tóxico dentro de sí mismos, y los dem
 
 ## Definiciones de trabajo
 
-- **radio de explosión:** conjunto de recursos que un error o una credencial comprometida puede afectar.
-- **paridad de entornos:** grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
-- **promoción:** movimiento de un cambio ya probado de un entorno al siguiente por un proceso definido.
-- **separación de funciones:** principio de que ninguna persona complete sola una actividad crítica.
-- **acceso de emergencia:** concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** conjunto de recursos que un error o una credencial comprometida puede afectar.
+- **[paridad de entornos](../../../glosario/entradas/p/paridad-de-entornos.md):** grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
+- **[promoción](../../../glosario/entradas/p/promocion.md):** movimiento de un cambio ya probado de un entorno al siguiente por un proceso definido.
+- **[separación de funciones](../../../glosario/entradas/s/separacion-de-funciones.md):** principio de que ninguna persona complete sola una actividad crítica.
+- **[acceso de emergencia](../../../glosario/entradas/a/acceso-de-emergencia.md):** concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
 
 Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada norma usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **radio de explosión:** conjunto de recursos que un error o una credencial comprometida puede afectar.
-- **paridad de entornos:** grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
-- **promoción:** movimiento de un cambio ya probado de un entorno al siguiente por un proceso definido.
-- **separación de funciones:** principio de que ninguna persona complete sola una actividad crítica.
-- **acceso de emergencia:** concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** conjunto de recursos que un error o una credencial comprometida puede afectar.
+- **[paridad de entornos](../../../glosario/entradas/p/paridad-de-entornos.md):** grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
+- **[promoción](../../../glosario/entradas/p/promocion.md):** movimiento de un cambio ya probado de un entorno al siguiente por un proceso definido.
+- **[separación de funciones](../../../glosario/entradas/s/separacion-de-funciones.md):** principio de que ninguna persona complete sola una actividad crítica.
+- **[acceso de emergencia](../../../glosario/entradas/a/acceso-de-emergencia.md):** concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acceso de emergencia](../../../glosario/entradas/a/acceso-de-emergencia.md) · [Paridad de entornos](../../../glosario/entradas/p/paridad-de-entornos.md) · [Promoción](../../../glosario/entradas/p/promocion.md) · [Radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md) · [Separación de funciones](../../../glosario/entradas/s/separacion-de-funciones.md).
 
 ---
 

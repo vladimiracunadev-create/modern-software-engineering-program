@@ -151,11 +151,11 @@ Resultado: quedarse con el último registro pierde **100,68** intenciones en med
 
 ## Definiciones de trabajo
 
-- **durabilidad:** propiedad de que una escritura confirmada sobreviva a una caída; su coste crece con la frecuencia con que se fuerza la sincronización con el almacenamiento.
-- **transacción:** grupo de escrituras que se confirman o se descartan juntas y que, en una base transaccional, deja siempre un estado completo.
-- **escritura atómica:** guardado que deja el estado anterior o el nuevo completos, nunca uno parcial.
-- **fusión:** regla que decide el estado final cuando dos copias de un dato han cambiado sin ver el cambio de la otra.
-- **intención perdida:** edición que una persona hizo y que no aparece en el estado final tras sincronizar.
+- **[durabilidad](../../../glosario/entradas/d/durabilidad.md):** propiedad de que una escritura confirmada sobreviva a una caída; su coste crece con la frecuencia con que se fuerza la sincronización con el almacenamiento.
+- **[transacción](../../../glosario/entradas/t/transaccion.md):** grupo de escrituras que se confirman o se descartan juntas y que, en una base transaccional, deja siempre un estado completo.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** guardado que deja el estado anterior o el nuevo completos, nunca uno parcial.
+- **[fusión](../../../glosario/entradas/f/fusion.md):** regla que decide el estado final cuando dos copias de un dato han cambiado sin ver el cambio de la otra.
+- **[intención perdida](../../../glosario/entradas/i/intencion-perdida.md):** edición que una persona hizo y que no aparece en el estado final tras sincronizar.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -303,11 +303,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **durabilidad:** propiedad de que una escritura confirmada sobreviva a una caída; su coste crece con la frecuencia con que se fuerza la sincronización con el almacenamiento.
-- **transacción:** grupo de escrituras que se confirman o se descartan juntas y que, en una base transaccional, deja siempre un estado completo.
-- **escritura atómica:** guardado que deja el estado anterior o el nuevo completos, nunca uno parcial.
-- **fusión:** regla que decide el estado final cuando dos copias de un dato han cambiado sin ver el cambio de la otra.
-- **intención perdida:** edición que una persona hizo y que no aparece en el estado final tras sincronizar.
+- **[durabilidad](../../../glosario/entradas/d/durabilidad.md):** propiedad de que una escritura confirmada sobreviva a una caída; su coste crece con la frecuencia con que se fuerza la sincronización con el almacenamiento.
+- **[transacción](../../../glosario/entradas/t/transaccion.md):** grupo de escrituras que se confirman o se descartan juntas y que, en una base transaccional, deja siempre un estado completo.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** guardado que deja el estado anterior o el nuevo completos, nunca uno parcial.
+- **[fusión](../../../glosario/entradas/f/fusion.md):** regla que decide el estado final cuando dos copias de un dato han cambiado sin ver el cambio de la otra.
+- **[intención perdida](../../../glosario/entradas/i/intencion-perdida.md):** edición que una persona hizo y que no aparece en el estado final tras sincronizar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Durabilidad](../../../glosario/entradas/d/durabilidad.md) · [Escritura atómica](../../../glosario/entradas/e/escritura-atomica.md) · [Fusión](../../../glosario/entradas/f/fusion.md) · [Intención perdida](../../../glosario/entradas/i/intencion-perdida.md) · [Transacción](../../../glosario/entradas/t/transaccion.md).
 
 ---
 

@@ -161,14 +161,16 @@ reales hasta que haya investigación y participación con consentimiento. La tab
 de consulta, no una conclusión final.
 
 ## Definiciones de trabajo
-- **impacto directo:** recursos consumidos por construir y operar;
-- **impacto habilitado:** cambio de conducta que el software facilita;
-- **efecto sistémico:** consecuencia acumulada o de segundo orden;
-- **inclusión:** participación con dignidad y resultado equivalente;
-- **obsolescencia:** pérdida de utilidad por cambios técnicos u organizativos.
+- **[impacto directo](../../../glosario/entradas/i/impacto-directo.md):** recursos consumidos por construir y operar;
+- **[impacto habilitado](../../../glosario/entradas/i/impacto-habilitado.md):** cambio de conducta que el software facilita;
+- **[efecto sistémico](../../../glosario/entradas/e/efecto-sistemico.md):** consecuencia acumulada o de segundo orden;
+- **[inclusión](../../../glosario/entradas/i/inclusion.md):** participación con dignidad y resultado equivalente;
+- **[obsolescencia](../../../glosario/entradas/o/obsolescencia.md):** pérdida de utilidad por cambios técnicos u organizativos.
 
 ## Glosario
-**Efecto rebote** contrarresta eficiencia mediante más consumo. **Degradación progresiva** conserva función esencial bajo menos capacidades. **Just transition** considera a quienes cargan el cambio.
+**[Efecto rebote](../../../glosario/entradas/e/efecto-rebote.md)** contrarresta eficiencia mediante más consumo. **[Degradación progresiva](../../../glosario/entradas/d/degradacion-progresiva.md)** conserva función esencial bajo menos capacidades. **[Just transition](../../../glosario/entradas/j/just-transition.md)** considera a quienes cargan el cambio.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Degradación progresiva](../../../glosario/entradas/d/degradacion-progresiva.md) · [Efecto rebote](../../../glosario/entradas/e/efecto-rebote.md) · [Efecto sistémico](../../../glosario/entradas/e/efecto-sistemico.md) · [Impacto directo](../../../glosario/entradas/i/impacto-directo.md) · [Impacto habilitado](../../../glosario/entradas/i/impacto-habilitado.md) · [Inclusión](../../../glosario/entradas/i/inclusion.md) · [Just transition](../../../glosario/entradas/j/just-transition.md) · [Obsolescencia](../../../glosario/entradas/o/obsolescencia.md).
 
 ## Ejemplo mínimo
 Una imagen comprimida reduce transferencia sin cambiar tarea; bloquear navegadores antiguos reduce soporte pero excluye dispositivos. La decisión necesita datos de uso y alternativa.

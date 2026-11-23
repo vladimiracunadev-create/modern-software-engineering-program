@@ -166,11 +166,11 @@ Deduplicar por contenido quita los 200 duplicados y además 635 mensajes distint
 
 ## Definiciones de trabajo
 
-- **comando:** mensaje que expresa una intención dirigida a un destinatario esperado y que puede ser rechazada.
-- **evento:** mensaje que afirma un hecho ya ocurrido, inmutable y sin destinatario conocido.
-- **documento:** mensaje que transfiere el estado de una entidad para que el receptor decida qué hacer con él.
-- **sobre:** conjunto de atributos comunes a todo mensaje que permiten manejarlo sin interpretar su contenido.
-- **transferencia de estado en el evento:** diseño en el que el evento incluye los datos que los consumidores necesitan, para que no tengan que consultar al emisor.
+- **[comando](../../../glosario/entradas/c/comando.md):** mensaje que expresa una intención dirigida a un destinatario esperado y que puede ser rechazada.
+- **[evento](../../../glosario/entradas/e/evento.md):** mensaje que afirma un hecho ya ocurrido, inmutable y sin destinatario conocido.
+- **[documento](../../../glosario/entradas/d/documento.md):** mensaje que transfiere el estado de una entidad para que el receptor decida qué hacer con él.
+- **[sobre](../../../glosario/entradas/s/sobre.md):** conjunto de atributos comunes a todo mensaje que permiten manejarlo sin interpretar su contenido.
+- **[transferencia de estado en el evento](../../../glosario/entradas/t/transferencia-de-estado-en-el-evento.md):** diseño en el que el evento incluye los datos que los consumidores necesitan, para que no tengan que consultar al emisor.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **comando:** mensaje que expresa una intención dirigida a un destinatario esperado y que puede ser rechazada.
-- **evento:** mensaje que afirma un hecho ya ocurrido, inmutable y sin destinatario conocido.
-- **documento:** mensaje que transfiere el estado de una entidad para que el receptor decida qué hacer con él.
-- **sobre:** conjunto de atributos comunes a todo mensaje que permiten manejarlo sin interpretar su contenido.
-- **transferencia de estado en el evento:** diseño en el que el evento incluye los datos que los consumidores necesitan, para que no tengan que consultar al emisor.
+- **[comando](../../../glosario/entradas/c/comando.md):** mensaje que expresa una intención dirigida a un destinatario esperado y que puede ser rechazada.
+- **[evento](../../../glosario/entradas/e/evento.md):** mensaje que afirma un hecho ya ocurrido, inmutable y sin destinatario conocido.
+- **[documento](../../../glosario/entradas/d/documento.md):** mensaje que transfiere el estado de una entidad para que el receptor decida qué hacer con él.
+- **[sobre](../../../glosario/entradas/s/sobre.md):** conjunto de atributos comunes a todo mensaje que permiten manejarlo sin interpretar su contenido.
+- **[transferencia de estado en el evento](../../../glosario/entradas/t/transferencia-de-estado-en-el-evento.md):** diseño en el que el evento incluye los datos que los consumidores necesitan, para que no tengan que consultar al emisor.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comando](../../../glosario/entradas/c/comando.md) · [Documento](../../../glosario/entradas/d/documento.md) · [Evento](../../../glosario/entradas/e/evento.md) · [Sobre](../../../glosario/entradas/s/sobre.md) · [Transferencia de estado en el evento](../../../glosario/entradas/t/transferencia-de-estado-en-el-evento.md).
 
 ---
 

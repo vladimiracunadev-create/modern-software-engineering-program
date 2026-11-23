@@ -155,11 +155,11 @@ La mediana es de 18 aristas (p10 = 9, p90 = 27, mínimo 2, máximo 47). Con 20 a
 
 ## Definiciones de trabajo
 
-- **cohesión:** grado en que los elementos de un módulo cambian juntos y se entienden juntos.
-- **acoplamiento:** grado en que un módulo necesita conocer a otro para funcionar o para cambiar.
-- **encapsulación:** ocultar una decisión detrás de una interfaz, de modo que cambiarla no obligue a cambiar a los clientes.
-- **LCOM4:** número de componentes conectados que forman los métodos de una clase según los atributos que comparten o las llamadas entre sí.
-- **ciclo de dependencias:** conjunto de módulos que dependen unos de otros, directa o indirectamente.
+- **[cohesión](../../../glosario/entradas/c/cohesion.md):** grado en que los elementos de un módulo cambian juntos y se entienden juntos.
+- **[acoplamiento](../../../glosario/entradas/a/acoplamiento.md):** grado en que un módulo necesita conocer a otro para funcionar o para cambiar.
+- **[encapsulación](../../../glosario/entradas/e/encapsulacion.md):** ocultar una decisión detrás de una interfaz, de modo que cambiarla no obligue a cambiar a los clientes.
+- **[LCOM4](../../../glosario/entradas/l/lcom4.md):** número de componentes conectados que forman los métodos de una clase según los atributos que comparten o las llamadas entre sí.
+- **[ciclo de dependencias](../../../glosario/entradas/c/ciclo-de-dependencias.md):** conjunto de módulos que dependen unos de otros, directa o indirectamente.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windo
 
 ## Glosario
 
-- **cohesión:** grado en que los elementos de un módulo cambian juntos y se entienden juntos.
-- **acoplamiento:** grado en que un módulo necesita conocer a otro para funcionar o para cambiar.
-- **encapsulación:** ocultar una decisión detrás de una interfaz, de modo que cambiarla no obligue a cambiar a los clientes.
-- **LCOM4:** número de componentes conectados que forman los métodos de una clase según los atributos que comparten o las llamadas entre sí.
-- **ciclo de dependencias:** conjunto de módulos que dependen unos de otros, directa o indirectamente.
+- **[cohesión](../../../glosario/entradas/c/cohesion.md):** grado en que los elementos de un módulo cambian juntos y se entienden juntos.
+- **[acoplamiento](../../../glosario/entradas/a/acoplamiento.md):** grado en que un módulo necesita conocer a otro para funcionar o para cambiar.
+- **[encapsulación](../../../glosario/entradas/e/encapsulacion.md):** ocultar una decisión detrás de una interfaz, de modo que cambiarla no obligue a cambiar a los clientes.
+- **[LCOM4](../../../glosario/entradas/l/lcom4.md):** número de componentes conectados que forman los métodos de una clase según los atributos que comparten o las llamadas entre sí.
+- **[ciclo de dependencias](../../../glosario/entradas/c/ciclo-de-dependencias.md):** conjunto de módulos que dependen unos de otros, directa o indirectamente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acoplamiento](../../../glosario/entradas/a/acoplamiento.md) · [Ciclo de dependencias](../../../glosario/entradas/c/ciclo-de-dependencias.md) · [Cohesión](../../../glosario/entradas/c/cohesion.md) · [Encapsulación](../../../glosario/entradas/e/encapsulacion.md) · [LCOM4](../../../glosario/entradas/l/lcom4.md).
 
 ---
 

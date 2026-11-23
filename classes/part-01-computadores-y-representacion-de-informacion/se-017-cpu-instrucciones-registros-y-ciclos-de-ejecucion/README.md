@@ -203,16 +203,18 @@ conoce: caché, latencia, instrucciones generadas realmente y optimizaciones.
 
 ## Definiciones de trabajo
 
-- **instrucción:** operación definida por una ISA;
-- **registro:** almacenamiento nombrado visible para la ISA;
-- **PC:** estado que identifica la próxima instrucción;
-- **pipeline:** solapamiento de etapas;
-- **retiro:** compromiso de resultados al estado arquitectónico.
+- **[instrucción](../../../glosario/entradas/i/instruccion.md):** operación definida por una ISA;
+- **[registro](../../../glosario/entradas/r/registro.md):** almacenamiento nombrado visible para la ISA;
+- **[PC](../../../glosario/entradas/p/pc.md):** estado que identifica la próxima instrucción;
+- **[pipeline](../../../glosario/entradas/p/pipeline.md):** solapamiento de etapas;
+- **[retiro](../../../glosario/entradas/r/retiro.md):** compromiso de resultados al estado arquitectónico.
 
 ## Glosario
 
-**Opcode** identifica operación. **Operando** aporta datos. **Hazard** es una condición
-que impide avanzar sin control. **Excepción** transfiere control por un evento síncrono.
+**[Opcode](../../../glosario/entradas/o/opcode.md)** identifica operación. **[Operando](../../../glosario/entradas/o/operando.md)** aporta datos. **[Hazard](../../../glosario/entradas/h/hazard.md)** es una condición
+que impide avanzar sin control. **[Excepción](../../../glosario/entradas/e/excepcion.md)** transfiere control por un evento síncrono.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Excepción](../../../glosario/entradas/e/excepcion.md) · [Hazard](../../../glosario/entradas/h/hazard.md) · [Instrucción](../../../glosario/entradas/i/instruccion.md) · [ISA](../../../glosario/entradas/i/isa.md) · [Microarquitectura](../../../glosario/entradas/m/microarquitectura.md) · [Opcode](../../../glosario/entradas/o/opcode.md) · [Operando](../../../glosario/entradas/o/operando.md) · [PC](../../../glosario/entradas/p/pc.md) · [Pipeline](../../../glosario/entradas/p/pipeline.md) · [Registro](../../../glosario/entradas/r/registro.md) · [Retiro](../../../glosario/entradas/r/retiro.md).
 
 ## Ejemplo mínimo
 

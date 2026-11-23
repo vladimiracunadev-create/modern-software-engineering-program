@@ -177,15 +177,17 @@ grave no explicada o si la revisión no puede responder a tiempo. El caso no que
 
 ## Definiciones de trabajo
 
-- **interés público:** bienestar y derechos más allá del contrato inmediato;
-- **daño:** deterioro previsible de seguridad, derechos, oportunidades o dignidad;
-- **conflicto de intereses:** incentivo capaz de sesgar juicio;
-- **apelación:** revisión efectiva de una decisión;
-- **reparación:** corregir o compensar consecuencias.
+- **[interés público](../../../glosario/entradas/i/interes-publico.md):** bienestar y derechos más allá del contrato inmediato;
+- **[daño](../../../glosario/entradas/d/dano.md):** deterioro previsible de seguridad, derechos, oportunidades o dignidad;
+- **[conflicto de intereses](../../../glosario/entradas/c/conflicto-de-intereses.md):** incentivo capaz de sesgar juicio;
+- **[apelación](../../../glosario/entradas/a/apelacion.md):** revisión efectiva de una decisión;
+- **[reparación](../../../glosario/entradas/r/reparacion.md):** corregir o compensar consecuencias.
 
 ## Glosario
 
-**Consentimiento informado** requiere información comprensible y opción real. **Dark pattern** manipula decisiones. **Whistleblowing** revela irregularidades por canales internos o externos.
+**[Consentimiento informado](../../../glosario/entradas/c/consentimiento-informado.md)** requiere información comprensible y opción real. **[Dark pattern](../../../glosario/entradas/d/dark-pattern.md)** manipula decisiones. **[Whistleblowing](../../../glosario/entradas/w/whistleblowing.md)** revela irregularidades por canales internos o externos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Apelación](../../../glosario/entradas/a/apelacion.md) · [Competencia](../../../glosario/entradas/c/competencia.md) · [Conflicto de intereses](../../../glosario/entradas/c/conflicto-de-intereses.md) · [Consentimiento informado](../../../glosario/entradas/c/consentimiento-informado.md) · [Daño](../../../glosario/entradas/d/dano.md) · [Dark pattern](../../../glosario/entradas/d/dark-pattern.md) · [Interés público](../../../glosario/entradas/i/interes-publico.md) · [Reparación](../../../glosario/entradas/r/reparacion.md) · [Whistleblowing](../../../glosario/entradas/w/whistleblowing.md).
 
 ## Ejemplo mínimo
 

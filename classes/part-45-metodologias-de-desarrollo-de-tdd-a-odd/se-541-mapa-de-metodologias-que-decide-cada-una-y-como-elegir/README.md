@@ -135,12 +135,12 @@ El mapa de la clase es un orden de preguntas, no un proceso obligatorio. Se part
 
 ## Definiciones de trabajo
 
-- **Oráculo:** mecanismo que decide si un resultado es correcto.
-- **Mutante:** copia del código con un cambio mínimo; **muere** si algún oráculo falla con él y **sobrevive** si todos pasan.
-- **Mutante equivalente:** mutante cuyo comportamiento observable no difiere del original; no se puede matar.
-- **Punto ciego:** clase de defecto que un oráculo no puede ver.
-- **Resolución de un oráculo:** número de variantes del comportamiento que distingue.
-- **Política metodológica:** tabla que asigna prácticas a clases de cambio, con excepciones y revisión.
+- **[Oráculo](../../../glosario/entradas/o/oraculo.md):** mecanismo que decide si un resultado es correcto.
+- **[Mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mínimo; **muere** si algún oráculo falla con él y **sobrevive** si todos pasan.
+- **[Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** mutante cuyo comportamiento observable no difiere del original; no se puede matar.
+- **[Punto ciego](../../../glosario/entradas/p/punto-ciego.md):** clase de defecto que un oráculo no puede ver.
+- **[Resolución de un oráculo](../../../glosario/entradas/r/resolucion-de-un-oraculo.md):** número de variantes del comportamiento que distingue.
+- **[Política metodológica](../../../glosario/entradas/p/politica-metodologica.md):** tabla que asigna prácticas a clases de cambio, con excepciones y revisión.
 
 ## Ejemplo mínimo
 
@@ -269,6 +269,8 @@ Esta clase mide cinco oráculos sobre una función y 18 mutantes escritos por el
 | Punto ciego | Clase de defecto que un oráculo no ve |
 | Pareja de oráculos | Dos oráculos de naturaleza distinta usados juntos |
 | Política metodológica | Tabla que asigna prácticas a clases de cambio |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md) · [Oráculo](../../../glosario/entradas/o/oraculo.md) · [Política metodológica](../../../glosario/entradas/p/politica-metodologica.md) · [Punto ciego](../../../glosario/entradas/p/punto-ciego.md) · [Resolución de un oráculo](../../../glosario/entradas/r/resolucion-de-un-oraculo.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

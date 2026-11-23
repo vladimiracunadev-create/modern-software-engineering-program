@@ -157,11 +157,11 @@ Con cuarenta comprobaciones, más de la mitad de los cambios se bloquean al prim
 
 ## Definiciones de trabajo
 
-- **quality gate:** regla de decisión que decide, a partir de medidas del cambio, si este puede integrarse.
-- **análisis estático:** examen del código fuente sin ejecutarlo, mediante reglas sobre su estructura.
-- **falsa alarma:** alerta sobre algo que no es un defecto; **defecto no visto:** defecto que ninguna regla señala.
-- **cobertura del cambio:** fracción de las líneas añadidas o modificadas que ejecutan las pruebas.
-- **comprobación inestable:** comprobación cuyo resultado varía sin que cambie el código.
+- **[quality gate](../../../glosario/entradas/q/quality-gate.md):** regla de decisión que decide, a partir de medidas del cambio, si este puede integrarse.
+- **[análisis estático](../../../glosario/entradas/a/analisis-estatico.md):** examen del código fuente sin ejecutarlo, mediante reglas sobre su estructura.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** alerta sobre algo que no es un defecto; **defecto no visto:** defecto que ninguna regla señala.
+- **[cobertura del cambio](../../../glosario/entradas/c/cobertura-del-cambio.md):** fracción de las líneas añadidas o modificadas que ejecutan las pruebas.
+- **[comprobación inestable](../../../glosario/entradas/c/comprobacion-inestable.md):** comprobación cuyo resultado varía sin que cambie el código.
 
 Las definiciones son operativas para el repositorio de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **quality gate:** regla de decisión que decide, a partir de medidas del cambio, si este puede integrarse.
-- **análisis estático:** examen del código fuente sin ejecutarlo, mediante reglas sobre su estructura.
-- **falsa alarma:** alerta sobre algo que no es un defecto; **defecto no visto:** defecto que ninguna regla señala.
-- **cobertura del cambio:** fracción de las líneas añadidas o modificadas que ejecutan las pruebas.
-- **comprobación inestable:** comprobación cuyo resultado varía sin que cambie el código.
+- **[quality gate](../../../glosario/entradas/q/quality-gate.md):** regla de decisión que decide, a partir de medidas del cambio, si este puede integrarse.
+- **[análisis estático](../../../glosario/entradas/a/analisis-estatico.md):** examen del código fuente sin ejecutarlo, mediante reglas sobre su estructura.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** alerta sobre algo que no es un defecto; **defecto no visto:** defecto que ninguna regla señala.
+- **[cobertura del cambio](../../../glosario/entradas/c/cobertura-del-cambio.md):** fracción de las líneas añadidas o modificadas que ejecutan las pruebas.
+- **[comprobación inestable](../../../glosario/entradas/c/comprobacion-inestable.md):** comprobación cuyo resultado varía sin que cambie el código.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis estático](../../../glosario/entradas/a/analisis-estatico.md) · [Cobertura del cambio](../../../glosario/entradas/c/cobertura-del-cambio.md) · [Comprobación inestable](../../../glosario/entradas/c/comprobacion-inestable.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Quality gate](../../../glosario/entradas/q/quality-gate.md).
 
 ---
 

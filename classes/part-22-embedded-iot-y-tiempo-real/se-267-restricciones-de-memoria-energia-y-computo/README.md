@@ -152,11 +152,11 @@ Los valores son el error final en cuentas de un convertidor de 10 bits. Subiendo
 
 ## Definiciones de trabajo
 
-- **corriente media:** carga consumida en un ciclo dividida por su duración; determina la vida de una pila.
-- **ciclo de trabajo:** fracción del tiempo que un dispositivo permanece despierto.
-- **reparto del desgaste:** política que distribuye las escrituras entre los bloques de una flash para igualar sus borrados.
-- **zona muerta:** intervalo de la entrada en que un filtro no cambia su salida, por truncado.
-- **presupuesto de recursos:** lista de supuestos de energía, memoria y precisión con las consecuencias de cada uno.
+- **[corriente media](../../../glosario/entradas/c/corriente-media.md):** carga consumida en un ciclo dividida por su duración; determina la vida de una pila.
+- **[ciclo de trabajo](../../../glosario/entradas/c/ciclo-de-trabajo.md):** fracción del tiempo que un dispositivo permanece despierto.
+- **[reparto del desgaste](../../../glosario/entradas/r/reparto-del-desgaste.md):** política que distribuye las escrituras entre los bloques de una flash para igualar sus borrados.
+- **[zona muerta](../../../glosario/entradas/z/zona-muerta.md):** intervalo de la entrada en que un filtro no cambia su salida, por truncado.
+- **[presupuesto de recursos](../../../glosario/entradas/p/presupuesto-de-recursos.md):** lista de supuestos de energía, memoria y precisión con las consecuencias de cada uno.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y U
 
 ## Glosario
 
-- **corriente media:** carga consumida en un ciclo dividida por su duración; determina la vida de una pila.
-- **ciclo de trabajo:** fracción del tiempo que un dispositivo permanece despierto.
-- **reparto del desgaste:** política que distribuye las escrituras entre los bloques de una flash para igualar sus borrados.
-- **zona muerta:** intervalo de la entrada en que un filtro no cambia su salida, por truncado.
-- **presupuesto de recursos:** lista de supuestos de energía, memoria y precisión con las consecuencias de cada uno.
+- **[corriente media](../../../glosario/entradas/c/corriente-media.md):** carga consumida en un ciclo dividida por su duración; determina la vida de una pila.
+- **[ciclo de trabajo](../../../glosario/entradas/c/ciclo-de-trabajo.md):** fracción del tiempo que un dispositivo permanece despierto.
+- **[reparto del desgaste](../../../glosario/entradas/r/reparto-del-desgaste.md):** política que distribuye las escrituras entre los bloques de una flash para igualar sus borrados.
+- **[zona muerta](../../../glosario/entradas/z/zona-muerta.md):** intervalo de la entrada en que un filtro no cambia su salida, por truncado.
+- **[presupuesto de recursos](../../../glosario/entradas/p/presupuesto-de-recursos.md):** lista de supuestos de energía, memoria y precisión con las consecuencias de cada uno.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ciclo de trabajo](../../../glosario/entradas/c/ciclo-de-trabajo.md) · [Corriente media](../../../glosario/entradas/c/corriente-media.md) · [Presupuesto de recursos](../../../glosario/entradas/p/presupuesto-de-recursos.md) · [Reparto del desgaste](../../../glosario/entradas/r/reparto-del-desgaste.md) · [Zona muerta](../../../glosario/entradas/z/zona-muerta.md).
 
 ---
 

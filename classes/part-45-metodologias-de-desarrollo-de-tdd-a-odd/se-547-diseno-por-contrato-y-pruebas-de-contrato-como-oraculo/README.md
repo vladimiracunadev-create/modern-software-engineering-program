@@ -120,12 +120,12 @@ Las falsas alarmas son la cara oculta de la detección. Con una instantánea, tr
 
 ## Definiciones de trabajo
 
-- **Precondición:** lo que debe cumplirse al llamar a una rutina; responsabilidad de quien llama.
-- **Poscondición:** lo que la rutina garantiza al terminar.
-- **Invariante:** propiedad que se mantiene entre llamadas.
-- **Contrato del consumidor:** declaración de los campos y comportamientos que un cliente usa de un proveedor.
-- **Instantánea:** copia guardada de una respuesta completa que se compara con la actual.
-- **Falsa alarma:** alerta ante un cambio que no rompe al cliente.
+- **[Precondición](../../../glosario/entradas/p/precondicion.md):** lo que debe cumplirse al llamar a una rutina; responsabilidad de quien llama.
+- **[Poscondición](../../../glosario/entradas/p/poscondicion.md):** lo que la rutina garantiza al terminar.
+- **[Invariante](../../../glosario/entradas/i/invariante.md):** propiedad que se mantiene entre llamadas.
+- **[Contrato del consumidor](../../../glosario/entradas/c/contrato-del-consumidor.md):** declaración de los campos y comportamientos que un cliente usa de un proveedor.
+- **[Instantánea](../../../glosario/entradas/i/instantanea.md):** copia guardada de una respuesta completa que se compara con la actual.
+- **[Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** alerta ante un cambio que no rompe al cliente.
 
 ## Ejemplo mínimo
 
@@ -257,6 +257,8 @@ El cliente de cuatro campos y los doce cambios son del autor y no se ejecutó ni
 | Contrato del consumidor | Declaración de lo que un cliente lee de un proveedor |
 | Instantánea | Copia guardada de una respuesta |
 | Falsa alarma | Alerta ante un cambio que no rompe |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato del consumidor](../../../glosario/entradas/c/contrato-del-consumidor.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Instantánea](../../../glosario/entradas/i/instantanea.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Poscondición](../../../glosario/entradas/p/poscondicion.md) · [Precondición](../../../glosario/entradas/p/precondicion.md).
 
 ---
 

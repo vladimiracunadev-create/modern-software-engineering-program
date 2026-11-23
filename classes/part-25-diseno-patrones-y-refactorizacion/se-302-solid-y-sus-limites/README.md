@@ -154,11 +154,11 @@ nominal_rol = [sum(1 for c in clientes if any(m in r and (c & r) for r in roles)
 
 ## Definiciones de trabajo
 
-- **razón de cambio:** decisión o grupo de personas cuya petición obliga a modificar un módulo.
-- **punto de extensión:** lugar donde se pueden añadir variantes sin editar el código existente.
-- **contrato:** conjunto de precondiciones, postcondiciones e invariantes que un cliente puede esperar de un tipo.
-- **prueba de contrato:** prueba que se ejecuta contra todas las implementaciones de una interfaz para comprobar que cumplen lo mismo.
-- **dependencia nominal:** dependencia declarada en el tipo, aunque el cliente no use todos sus métodos.
+- **[razón de cambio](../../../glosario/entradas/r/razon-de-cambio.md):** decisión o grupo de personas cuya petición obliga a modificar un módulo.
+- **[punto de extensión](../../../glosario/entradas/p/punto-de-extension.md):** lugar donde se pueden añadir variantes sin editar el código existente.
+- **[contrato](../../../glosario/entradas/c/contrato.md):** conjunto de precondiciones, postcondiciones e invariantes que un cliente puede esperar de un tipo.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** prueba que se ejecuta contra todas las implementaciones de una interfaz para comprobar que cumplen lo mismo.
+- **[dependencia nominal](../../../glosario/entradas/d/dependencia-nominal.md):** dependencia declarada en el tipo, aunque el cliente no use todos sus métodos.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -313,11 +313,13 @@ Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windo
 
 ## Glosario
 
-- **razón de cambio:** decisión o grupo de personas cuya petición obliga a modificar un módulo.
-- **punto de extensión:** lugar donde se pueden añadir variantes sin editar el código existente.
-- **contrato:** conjunto de precondiciones, postcondiciones e invariantes que un cliente puede esperar de un tipo.
-- **prueba de contrato:** prueba que se ejecuta contra todas las implementaciones de una interfaz para comprobar que cumplen lo mismo.
-- **dependencia nominal:** dependencia declarada en el tipo, aunque el cliente no use todos sus métodos.
+- **[razón de cambio](../../../glosario/entradas/r/razon-de-cambio.md):** decisión o grupo de personas cuya petición obliga a modificar un módulo.
+- **[punto de extensión](../../../glosario/entradas/p/punto-de-extension.md):** lugar donde se pueden añadir variantes sin editar el código existente.
+- **[contrato](../../../glosario/entradas/c/contrato.md):** conjunto de precondiciones, postcondiciones e invariantes que un cliente puede esperar de un tipo.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** prueba que se ejecuta contra todas las implementaciones de una interfaz para comprobar que cumplen lo mismo.
+- **[dependencia nominal](../../../glosario/entradas/d/dependencia-nominal.md):** dependencia declarada en el tipo, aunque el cliente no use todos sus métodos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato](../../../glosario/entradas/c/contrato.md) · [Dependencia nominal](../../../glosario/entradas/d/dependencia-nominal.md) · [Prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md) · [Punto de extensión](../../../glosario/entradas/p/punto-de-extension.md) · [Razón de cambio](../../../glosario/entradas/r/razon-de-cambio.md).
 
 ---
 

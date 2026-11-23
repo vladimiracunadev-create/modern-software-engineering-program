@@ -156,14 +156,16 @@ El cambio parece menos grandioso y es profesionalmente más fuerte: otra persona
 ver qué procede de la fuente, qué decidió el equipo y qué permanece sin demostrar.
 
 ## Definiciones de trabajo
-- **normativo:** parte que establece requisitos dentro del alcance;
-- **informativo:** explicación o ejemplo no obligatorio;
-- **edición:** versión formal de una publicación;
-- **vigencia:** estado actual, retirado o sustituido;
-- **cita de proximidad:** enlace colocado junto a la afirmación sustentada.
+- **[normativo](../../../glosario/entradas/n/normativo.md):** parte que establece requisitos dentro del alcance;
+- **[informativo](../../../glosario/entradas/i/informativo.md):** explicación o ejemplo no obligatorio;
+- **[edición](../../../glosario/entradas/e/edicion.md):** versión formal de una publicación;
+- **[vigencia](../../../glosario/entradas/v/vigencia.md):** estado actual, retirado o sustituido;
+- **[cita de proximidad](../../../glosario/entradas/c/cita-de-proximidad.md):** enlace colocado junto a la afirmación sustentada.
 
 ## Glosario
-**DOI** identifica publicaciones; **ISBN** identifica ediciones de libros; **RFC** es una serie con estados y actualizaciones; **errata** corrige sin necesariamente crear edición nueva.
+**[DOI](../../../glosario/entradas/d/doi.md)** identifica publicaciones; **[ISBN](../../../glosario/entradas/i/isbn.md)** identifica ediciones de libros; **[RFC](../../../glosario/entradas/r/rfc.md)** es una serie con estados y actualizaciones; **[errata](../../../glosario/entradas/e/errata.md)** corrige sin necesariamente crear edición nueva.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cita de proximidad](../../../glosario/entradas/c/cita-de-proximidad.md) · [DOI](../../../glosario/entradas/d/doi.md) · [Edición](../../../glosario/entradas/e/edicion.md) · [Errata](../../../glosario/entradas/e/errata.md) · [Especificación](../../../glosario/entradas/e/especificacion.md) · [Informativo](../../../glosario/entradas/i/informativo.md) · [ISBN](../../../glosario/entradas/i/isbn.md) · [Normativo](../../../glosario/entradas/n/normativo.md) · [RFC](../../../glosario/entradas/r/rfc.md) · [Vigencia](../../../glosario/entradas/v/vigencia.md).
 
 ## Ejemplo mínimo
 «ISO 25010 mide usabilidad» es impreciso: el estándar define un modelo de producto y no ejecuta mediciones. Debe indicarse característica, edición y método de medida elegido.

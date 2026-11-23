@@ -1,0 +1,57 @@
+# Arista de valor
+
+[↑ Glosario](../../README.md) · [← Arista de condición](./arista-de-condicion.md) · [ARP →](./arp.md)
+
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md)
+
+## Definición
+
+Una columna de salida se calcula con una columna de origen.
+
+Definición de trabajo de [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md).
+
+## Por qué importa
+
+La clase donde se define, [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md), existe con este propósito: la clase existe para que puedas responder dos preguntas que una plataforma de datos recibe todos los días y que casi nadie puede contestar con certeza:
+
+## Cómo funciona
+
+[SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+
+## Ejemplo
+
+Ejemplo de [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) (sección «Ejemplo mínimo»):
+
+Aristas de valor y de condición en un solo `SELECT`:
+
+## Errores y confusiones comunes
+
+Las clases no registran errores específicos de este término.
+
+## Límites y cuándo no aplica
+
+Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md)) son: El pipeline, el analizador de expresiones regulares y las perturbaciones son construcciones del autor; las 17 salidas y las 9 columnas de origen son un caso de juguete y la medición solo ve lo que los datos de prueba ejercitan. No se ejecutó ninguna herramienta de linaje ni de catálogo. El siguiente paso, `SE-368`, estudia dónde y cómo se guardan los datos: almacén, lago, lakehouse y formatos columnares.
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md), [SE-366](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md), [SE-493](../../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Origen](../o/origen.md), [Arista de condición](./arista-de-condicion.md), [Catálogo de datos](../c/catalogo-de-datos.md), [Condición](../c/condicion.md), [Impacto](../i/impacto.md), [Linaje](../l/linaje.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) — [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md), Ingeniería de datos y plataformas de datos.
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Las fuentes de este concepto están en las clases enlazadas (sección «Fuentes» de cada clase).
+
+---
+
+[↑ Glosario](../../README.md) · [← Arista de condición](./arista-de-condicion.md) · [ARP →](./arp.md)

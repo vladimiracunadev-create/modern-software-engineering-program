@@ -147,11 +147,11 @@ for x in j:
 
 ## Definiciones de trabajo
 
-- **rastrear:** pedir una página para leer su contenido y sus enlaces.
-- **indexar:** decidir qué guardar de una página rastreada para poder devolverla en búsquedas.
-- **URL canónica:** URL preferida de un conjunto de duplicados, declarada con `rel="canonical"` o con una redirección.
-- **`noindex`:** directiva que pide no incluir una página en el índice; solo se obedece si el rastreador puede leerla.
-- **navegación facetada:** conjunto de filtros combinables que produce muchas URLs de listas que se solapan.
+- **[rastrear](../../../glosario/entradas/r/rastrear.md):** pedir una página para leer su contenido y sus enlaces.
+- **[indexar](../../../glosario/entradas/i/indexar.md):** decidir qué guardar de una página rastreada para poder devolverla en búsquedas.
+- **[URL canónica](../../../glosario/entradas/u/url-canonica.md):** URL preferida de un conjunto de duplicados, declarada con `rel="canonical"` o con una redirección.
+- **[`noindex`](../../../glosario/entradas/n/noindex.md):** directiva que pide no incluir una página en el índice; solo se obedece si el rastreador puede leerla.
+- **[navegación facetada](../../../glosario/entradas/n/navegacion-facetada.md):** conjunto de filtros combinables que produce muchas URLs de listas que se solapan.
 
 Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **rastrear:** pedir una página para leer su contenido y sus enlaces.
-- **indexar:** decidir qué guardar de una página rastreada para poder devolverla en búsquedas.
-- **URL canónica:** URL preferida de un conjunto de duplicados, declarada con `rel="canonical"` o con una redirección.
-- **`noindex`:** directiva que pide no incluir una página en el índice; solo se obedece si el rastreador puede leerla.
-- **navegación facetada:** conjunto de filtros combinables que produce muchas URLs de listas que se solapan.
+- **[rastrear](../../../glosario/entradas/r/rastrear.md):** pedir una página para leer su contenido y sus enlaces.
+- **[indexar](../../../glosario/entradas/i/indexar.md):** decidir qué guardar de una página rastreada para poder devolverla en búsquedas.
+- **[URL canónica](../../../glosario/entradas/u/url-canonica.md):** URL preferida de un conjunto de duplicados, declarada con `rel="canonical"` o con una redirección.
+- **[`noindex`](../../../glosario/entradas/n/noindex.md):** directiva que pide no incluir una página en el índice; solo se obedece si el rastreador puede leerla.
+- **[navegación facetada](../../../glosario/entradas/n/navegacion-facetada.md):** conjunto de filtros combinables que produce muchas URLs de listas que se solapan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Indexar](../../../glosario/entradas/i/indexar.md) · [Navegación facetada](../../../glosario/entradas/n/navegacion-facetada.md) · [Noindex](../../../glosario/entradas/n/noindex.md) · [Rastrear](../../../glosario/entradas/r/rastrear.md) · [URL canónica](../../../glosario/entradas/u/url-canonica.md).
 
 ---
 

@@ -145,11 +145,11 @@ La diferencia de la mediana baja de 6,7 a 3,4 al pasar de 4 a 20 años y reescri
 
 ## Definiciones de trabajo
 
-- **costo acumulado:** suma, durante un horizonte, de todos los costos de una opción (construcción, mantenimiento e inversiones) en las mismas unidades.
-- **deriva del alcance:** crecimiento de lo que el sistema nuevo debe replicar porque el antiguo sigue cambiando durante la construcción.
-- **análisis de sensibilidad:** estudio de cuánto cambia el resultado de un modelo al variar uno de sus parámetros.
-- **horizonte de equilibrio:** plazo a partir del cual el menor costo anual de una opción compensa su inversión inicial.
-- **criterio de abandono:** condición medible, fijada de antemano, que obliga a detener una iniciativa.
+- **[costo acumulado](../../../glosario/entradas/c/costo-acumulado.md):** suma, durante un horizonte, de todos los costos de una opción (construcción, mantenimiento e inversiones) en las mismas unidades.
+- **[deriva del alcance](../../../glosario/entradas/d/deriva-del-alcance.md):** crecimiento de lo que el sistema nuevo debe replicar porque el antiguo sigue cambiando durante la construcción.
+- **[análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md):** estudio de cuánto cambia el resultado de un modelo al variar uno de sus parámetros.
+- **[horizonte de equilibrio](../../../glosario/entradas/h/horizonte-de-equilibrio.md):** plazo a partir del cual el menor costo anual de una opción compensa su inversión inicial.
+- **[criterio de abandono](../../../glosario/entradas/c/criterio-de-abandono.md):** condición medible, fijada de antemano, que obliga a detener una iniciativa.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -286,11 +286,13 @@ Se ejecutaron tres experimentos con simulaciones sintéticas en Windows y Ubuntu
 
 ## Glosario
 
-- **costo acumulado:** suma, durante un horizonte, de todos los costos de una opción (construcción, mantenimiento e inversiones) en las mismas unidades.
-- **deriva del alcance:** crecimiento de lo que el sistema nuevo debe replicar porque el antiguo sigue cambiando durante la construcción.
-- **análisis de sensibilidad:** estudio de cuánto cambia el resultado de un modelo al variar uno de sus parámetros.
-- **horizonte de equilibrio:** plazo a partir del cual el menor costo anual de una opción compensa su inversión inicial.
-- **criterio de abandono:** condición medible, fijada de antemano, que obliga a detener una iniciativa.
+- **[costo acumulado](../../../glosario/entradas/c/costo-acumulado.md):** suma, durante un horizonte, de todos los costos de una opción (construcción, mantenimiento e inversiones) en las mismas unidades.
+- **[deriva del alcance](../../../glosario/entradas/d/deriva-del-alcance.md):** crecimiento de lo que el sistema nuevo debe replicar porque el antiguo sigue cambiando durante la construcción.
+- **[análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md):** estudio de cuánto cambia el resultado de un modelo al variar uno de sus parámetros.
+- **[horizonte de equilibrio](../../../glosario/entradas/h/horizonte-de-equilibrio.md):** plazo a partir del cual el menor costo anual de una opción compensa su inversión inicial.
+- **[criterio de abandono](../../../glosario/entradas/c/criterio-de-abandono.md):** condición medible, fijada de antemano, que obliga a detener una iniciativa.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md) · [Costo acumulado](../../../glosario/entradas/c/costo-acumulado.md) · [Criterio de abandono](../../../glosario/entradas/c/criterio-de-abandono.md) · [Deriva del alcance](../../../glosario/entradas/d/deriva-del-alcance.md) · [Horizonte de equilibrio](../../../glosario/entradas/h/horizonte-de-equilibrio.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md).
 
 ---
 

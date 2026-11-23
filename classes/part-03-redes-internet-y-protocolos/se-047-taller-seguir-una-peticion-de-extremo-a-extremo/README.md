@@ -115,11 +115,11 @@ algo que el laboratorio declara como límite. La matriz de integración continua
 
 ## Definiciones de trabajo
 
-- **traza:** secuencia de observaciones relacionadas y contextualizadas.
-- **primera divergencia:** primer evento donde caso sano y fallido dejan de coincidir.
-- **request ID:** identificador de correlación de una operación.
-- **prueba discriminante:** experimento cuyo resultado separa hipótesis.
-- **incertidumbre:** parte relevante que la evidencia disponible no permite determinar.
+- **[traza](../../../glosario/entradas/t/traza.md):** secuencia de observaciones relacionadas y contextualizadas.
+- **[primera divergencia](../../../glosario/entradas/p/primera-divergencia.md):** primer evento donde caso sano y fallido dejan de coincidir.
+- **[request ID](../../../glosario/entradas/r/request-id.md):** identificador de correlación de una operación.
+- **[prueba discriminante](../../../glosario/entradas/p/prueba-discriminante.md):** experimento cuyo resultado separa hipótesis.
+- **[incertidumbre](../../../glosario/entradas/i/incertidumbre.md):** parte relevante que la evidencia disponible no permite determinar.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -273,11 +273,13 @@ El taller no garantiza visibilidad dentro de redes de terceros. No deben recolec
 
 ## Glosario
 
-- **traza:** secuencia de observaciones relacionadas y contextualizadas.
-- **primera divergencia:** primer evento donde caso sano y fallido dejan de coincidir.
-- **request ID:** identificador de correlación de una operación.
-- **prueba discriminante:** experimento cuyo resultado separa hipótesis.
-- **incertidumbre:** parte relevante que la evidencia disponible no permite determinar.
+- **[traza](../../../glosario/entradas/t/traza.md):** secuencia de observaciones relacionadas y contextualizadas.
+- **[primera divergencia](../../../glosario/entradas/p/primera-divergencia.md):** primer evento donde caso sano y fallido dejan de coincidir.
+- **[request ID](../../../glosario/entradas/r/request-id.md):** identificador de correlación de una operación.
+- **[prueba discriminante](../../../glosario/entradas/p/prueba-discriminante.md):** experimento cuyo resultado separa hipótesis.
+- **[incertidumbre](../../../glosario/entradas/i/incertidumbre.md):** parte relevante que la evidencia disponible no permite determinar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Incertidumbre](../../../glosario/entradas/i/incertidumbre.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Primera divergencia](../../../glosario/entradas/p/primera-divergencia.md) · [Prueba discriminante](../../../glosario/entradas/p/prueba-discriminante.md) · [Request ID](../../../glosario/entradas/r/request-id.md) · [Traza](../../../glosario/entradas/t/traza.md).
 
 ---
 

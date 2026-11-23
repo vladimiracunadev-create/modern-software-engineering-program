@@ -138,11 +138,11 @@ De las 16 dependencias reales, el análisis ve 14 (13 si solo se miran las impor
 
 ## Definiciones de trabajo
 
-- **diagrama:** representación visual de una parte del sistema que responde a una pregunta de una audiencia.
-- **nivel de abstracción:** grado de detalle de un diagrama, desde el contexto del sistema hasta el código.
-- **cruce de aristas:** par de líneas de un dibujo de grafo que se intersecan sin ser vecinas.
-- **diagrama como código:** diagrama definido en un texto del que se genera el dibujo, y que se versiona y revisa como código.
-- **alternativa textual:** descripción en texto de lo esencial de un diagrama, disponible para quien no lo ve.
+- **[diagrama](../../../glosario/entradas/d/diagrama.md):** representación visual de una parte del sistema que responde a una pregunta de una audiencia.
+- **[nivel de abstracción](../../../glosario/entradas/n/nivel-de-abstraccion.md):** grado de detalle de un diagrama, desde el contexto del sistema hasta el código.
+- **[cruce de aristas](../../../glosario/entradas/c/cruce-de-aristas.md):** par de líneas de un dibujo de grafo que se intersecan sin ser vecinas.
+- **[diagrama como código](../../../glosario/entradas/d/diagrama-como-codigo.md):** diagrama definido en un texto del que se genera el dibujo, y que se versiona y revisa como código.
+- **[alternativa textual](../../../glosario/entradas/a/alternativa-textual.md):** descripción en texto de lo esencial de un diagrama, disponible para quien no lo ve.
 
 Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **diagrama:** representación visual de una parte del sistema que responde a una pregunta de una audiencia.
-- **nivel de abstracción:** grado de detalle de un diagrama, del contexto al código.
-- **cruce de aristas:** par de líneas de un dibujo de grafo que se intersecan sin ser vecinas.
-- **diagrama como código:** diagrama definido en texto del que se genera el dibujo y que se versiona como código.
-- **alternativa textual:** descripción en texto de lo esencial de un diagrama.
+- **[diagrama](../../../glosario/entradas/d/diagrama.md):** representación visual de una parte del sistema que responde a una pregunta de una audiencia.
+- **[nivel de abstracción](../../../glosario/entradas/n/nivel-de-abstraccion.md):** grado de detalle de un diagrama, del contexto al código.
+- **[cruce de aristas](../../../glosario/entradas/c/cruce-de-aristas.md):** par de líneas de un dibujo de grafo que se intersecan sin ser vecinas.
+- **[diagrama como código](../../../glosario/entradas/d/diagrama-como-codigo.md):** diagrama definido en texto del que se genera el dibujo y que se versiona como código.
+- **[alternativa textual](../../../glosario/entradas/a/alternativa-textual.md):** descripción en texto de lo esencial de un diagrama.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alternativa textual](../../../glosario/entradas/a/alternativa-textual.md) · [Cruce de aristas](../../../glosario/entradas/c/cruce-de-aristas.md) · [Diagrama](../../../glosario/entradas/d/diagrama.md) · [Diagrama como código](../../../glosario/entradas/d/diagrama-como-codigo.md) · [Nivel de abstracción](../../../glosario/entradas/n/nivel-de-abstraccion.md).
 
 ---
 

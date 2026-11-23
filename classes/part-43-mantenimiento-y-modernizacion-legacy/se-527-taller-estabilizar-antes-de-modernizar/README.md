@@ -145,11 +145,11 @@ Con 20 cambios, la estimación del 15 % queda entre el 0 % y el 30 %: no disting
 
 ## Definiciones de trabajo
 
-- **puerta de entrada a la modernización:** conjunto de condiciones verificables que debe cumplir un sistema antes de iniciar su modernización.
-- **prueba inestable (flaky):** prueba que pasa y falla sobre el mismo código sin que nada cambie.
-- **construcción reproducible:** construcción que, con el mismo código y las mismas herramientas, produce artefactos idénticos bit a bit.
-- **línea base:** valores de las métricas de un sistema antes de un cambio, con su incertidumbre, contra los que se compara después.
-- **riesgo aceptado:** riesgo conocido que se decide asumir, con responsable, motivo y condición de revisión.
+- **[puerta de entrada a la modernización](../../../glosario/entradas/p/puerta-de-entrada-a-la-modernizacion.md):** conjunto de condiciones verificables que debe cumplir un sistema antes de iniciar su modernización.
+- **[prueba inestable (flaky)](../../../glosario/entradas/p/prueba-inestable.md):** prueba que pasa y falla sobre el mismo código sin que nada cambie.
+- **[construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md):** construcción que, con el mismo código y las mismas herramientas, produce artefactos idénticos bit a bit.
+- **[línea base](../../../glosario/entradas/l/linea-base.md):** valores de las métricas de un sistema antes de un cambio, con su incertidumbre, contra los que se compara después.
+- **[riesgo aceptado](../../../glosario/entradas/r/riesgo-aceptado.md):** riesgo conocido que se decide asumir, con responsable, motivo y condición de revisión.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -288,11 +288,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el ruido y los inter
 
 ## Glosario
 
-- **puerta de entrada a la modernización:** conjunto de condiciones verificables que debe cumplir un sistema antes de iniciar su modernización.
-- **prueba inestable (flaky):** prueba que pasa y falla sobre el mismo código sin que nada cambie.
-- **construcción reproducible:** construcción que, con el mismo código y las mismas herramientas, produce artefactos idénticos bit a bit.
-- **línea base:** valores de las métricas de un sistema antes de un cambio, con su incertidumbre, contra los que se compara después.
-- **riesgo aceptado:** riesgo conocido que se decide asumir, con responsable, motivo y condición de revisión.
+- **[puerta de entrada a la modernización](../../../glosario/entradas/p/puerta-de-entrada-a-la-modernizacion.md):** conjunto de condiciones verificables que debe cumplir un sistema antes de iniciar su modernización.
+- **[prueba inestable (flaky)](../../../glosario/entradas/p/prueba-inestable.md):** prueba que pasa y falla sobre el mismo código sin que nada cambie.
+- **[construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md):** construcción que, con el mismo código y las mismas herramientas, produce artefactos idénticos bit a bit.
+- **[línea base](../../../glosario/entradas/l/linea-base.md):** valores de las métricas de un sistema antes de un cambio, con su incertidumbre, contra los que se compara después.
+- **[riesgo aceptado](../../../glosario/entradas/r/riesgo-aceptado.md):** riesgo conocido que se decide asumir, con responsable, motivo y condición de revisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md) · [Línea base](../../../glosario/entradas/l/linea-base.md) · [Prueba inestable](../../../glosario/entradas/p/prueba-inestable.md) · [Puerta de entrada a la modernización](../../../glosario/entradas/p/puerta-de-entrada-a-la-modernizacion.md) · [Riesgo aceptado](../../../glosario/entradas/r/riesgo-aceptado.md).
 
 ---
 

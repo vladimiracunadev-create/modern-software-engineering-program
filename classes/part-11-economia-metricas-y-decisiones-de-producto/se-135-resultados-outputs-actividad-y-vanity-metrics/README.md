@@ -142,11 +142,11 @@ La correlación de rangos de Spearman entre producción y resultado es 0,20; ent
 
 ## Definiciones de trabajo
 
-- **producción:** lo que el equipo entrega, contable y controlable (tickets cerrados, funciones lanzadas).
-- **actividad:** lo que ocurre dentro del producto (sesiones, vistas), sin garantizar que alguien logre algo.
-- **resultado:** cambio observable en una persona o una organización, con definición calculable y fuente de datos.
-- **métrica de vanidad:** cifra que sube sin que ninguna decisión cambie si baja, a menudo acumulada.
-- **ley de Goodhart:** una medida que se vuelve meta deja de informar sobre lo que se quería medir.
+- **[producción](../../../glosario/entradas/p/produccion.md):** lo que el equipo entrega, contable y controlable (tickets cerrados, funciones lanzadas).
+- **[actividad](../../../glosario/entradas/a/actividad.md):** lo que ocurre dentro del producto (sesiones, vistas), sin garantizar que alguien logre algo.
+- **[resultado](../../../glosario/entradas/r/resultado.md):** cambio observable en una persona o una organización, con definición calculable y fuente de datos.
+- **[métrica de vanidad](../../../glosario/entradas/m/metrica-de-vanidad.md):** cifra que sube sin que ninguna decisión cambie si baja, a menudo acumulada.
+- **[ley de Goodhart](../../../glosario/entradas/l/ley-de-goodhart.md):** una medida que se vuelve meta deja de informar sobre lo que se quería medir.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **producción:** lo que el equipo entrega, contable y controlable (tickets cerrados, funciones lanzadas).
-- **actividad:** lo que ocurre dentro del producto (sesiones, vistas), sin garantizar que alguien logre algo.
-- **resultado:** cambio observable en una persona o una organización, con definición calculable y fuente de datos.
-- **métrica de vanidad:** cifra que sube sin que ninguna decisión cambie si baja, a menudo acumulada.
-- **ley de Goodhart:** una medida que se vuelve meta deja de informar sobre lo que se quería medir.
+- **[producción](../../../glosario/entradas/p/produccion.md):** lo que el equipo entrega, contable y controlable (tickets cerrados, funciones lanzadas).
+- **[actividad](../../../glosario/entradas/a/actividad.md):** lo que ocurre dentro del producto (sesiones, vistas), sin garantizar que alguien logre algo.
+- **[resultado](../../../glosario/entradas/r/resultado.md):** cambio observable en una persona o una organización, con definición calculable y fuente de datos.
+- **[métrica de vanidad](../../../glosario/entradas/m/metrica-de-vanidad.md):** cifra que sube sin que ninguna decisión cambie si baja, a menudo acumulada.
+- **[ley de Goodhart](../../../glosario/entradas/l/ley-de-goodhart.md):** una medida que se vuelve meta deja de informar sobre lo que se quería medir.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actividad](../../../glosario/entradas/a/actividad.md) · [Ley de Goodhart](../../../glosario/entradas/l/ley-de-goodhart.md) · [Métrica de vanidad](../../../glosario/entradas/m/metrica-de-vanidad.md) · [Producción](../../../glosario/entradas/p/produccion.md) · [Resultado](../../../glosario/entradas/r/resultado.md).
 
 ---
 

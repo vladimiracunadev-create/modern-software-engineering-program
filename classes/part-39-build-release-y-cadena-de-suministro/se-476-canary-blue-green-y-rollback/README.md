@@ -122,11 +122,11 @@ Con un canario del 5 %, se simulan defectos que suben el error entre 0,1 y 2 pun
 
 ## Definiciones de trabajo
 
-- **canary:** despliegue de una versión nueva a una fracción pequeña del tráfico para compararla con la anterior.
-- **blue-green:** despliegue con dos entornos completos entre los que se cambia el tráfico.
-- **retroceso (rollback):** vuelta a la versión anterior tras detectar un problema.
-- **línea base:** comportamiento de la versión anterior, medido en paralelo, contra el que se compara el canario.
-- **expandir y contraer:** patrón de cambio de datos en tres fases en el que ambas versiones coexisten.
+- **[canary](../../../glosario/entradas/e/escalon-de-trafico.md):** despliegue de una versión nueva a una fracción pequeña del tráfico para compararla con la anterior.
+- **[blue-green](../../../glosario/entradas/b/blue-green.md):** despliegue con dos entornos completos entre los que se cambia el tráfico.
+- **[retroceso (rollback)](../../../glosario/entradas/r/retroceso.md):** vuelta a la versión anterior tras detectar un problema.
+- **[línea base](../../../glosario/entradas/l/linea-base.md):** comportamiento de la versión anterior, medido en paralelo, contra el que se compara el canario.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** patrón de cambio de datos en tres fases en el que ambas versiones coexisten.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ Se ejecutaron cuatro simulaciones con semilla fija y tiempo virtual, idénticas 
 
 ## Glosario
 
-- **canary:** despliegue de una versión nueva a una fracción pequeña del tráfico para compararla con la anterior.
-- **blue-green:** despliegue con dos entornos completos entre los que se cambia el tráfico.
-- **retroceso (rollback):** vuelta a la versión anterior tras detectar un problema.
-- **línea base:** comportamiento de la versión anterior, medido en paralelo, contra el que se compara el canario.
-- **expandir y contraer:** patrón de cambio de datos en tres fases en el que ambas versiones coexisten.
+- **[canary](../../../glosario/entradas/e/escalon-de-trafico.md):** despliegue de una versión nueva a una fracción pequeña del tráfico para compararla con la anterior.
+- **[blue-green](../../../glosario/entradas/b/blue-green.md):** despliegue con dos entornos completos entre los que se cambia el tráfico.
+- **[retroceso (rollback)](../../../glosario/entradas/r/retroceso.md):** vuelta a la versión anterior tras detectar un problema.
+- **[línea base](../../../glosario/entradas/l/linea-base.md):** comportamiento de la versión anterior, medido en paralelo, contra el que se compara el canario.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** patrón de cambio de datos en tres fases en el que ambas versiones coexisten.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Blue-green](../../../glosario/entradas/b/blue-green.md) · [Escalón de tráfico](../../../glosario/entradas/e/escalon-de-trafico.md) · [Estrategias de despliegue](../../../glosario/entradas/e/estrategias-de-despliegue.md) · [Expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Línea base](../../../glosario/entradas/l/linea-base.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md) · [Tiempo hasta detectar](../../../glosario/entradas/t/tiempo-hasta-detectar.md).
 
 ---
 

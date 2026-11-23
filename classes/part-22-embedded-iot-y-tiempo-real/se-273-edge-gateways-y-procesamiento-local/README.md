@@ -157,11 +157,11 @@ binp = b"".join(struct.pack("<IhHhHb", ...) for s in samples)
 
 ## Definiciones de trabajo
 
-- **borde de la red (edge):** conjunto de dispositivos y pasarelas cercanos a la fuente de los datos, donde se procesa antes de enviar a la nube.
-- **pasarela (gateway):** equipo que conecta dispositivos de una red local con una red mayor, traduciendo protocolos y agregando datos.
-- **banda muerta:** umbral de variación por debajo del cual no se envía una nueva lectura.
-- **decisión con plazo:** decisión que debe tomarse en un tiempo acotado, sin depender de recursos remotos.
-- **carga útil (payload):** datos de aplicación transportados por un mensaje, sin las cabeceras del protocolo.
+- **[borde de la red (edge)](../../../glosario/entradas/b/borde-de-la-red.md):** conjunto de dispositivos y pasarelas cercanos a la fuente de los datos, donde se procesa antes de enviar a la nube.
+- **[pasarela (gateway)](../../../glosario/entradas/p/pasarela.md):** equipo que conecta dispositivos de una red local con una red mayor, traduciendo protocolos y agregando datos.
+- **[banda muerta](../../../glosario/entradas/b/banda-muerta.md):** umbral de variación por debajo del cual no se envía una nueva lectura.
+- **[decisión con plazo](../../../glosario/entradas/d/decision-con-plazo.md):** decisión que debe tomarse en un tiempo acotado, sin depender de recursos remotos.
+- **[carga útil (payload)](../../../glosario/entradas/c/carga-util.md):** datos de aplicación transportados por un mensaje, sin las cabeceras del protocolo.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **borde de la red (edge):** conjunto de dispositivos y pasarelas cercanos a la fuente de los datos, donde se procesa antes de enviar a la nube.
-- **pasarela (gateway):** equipo que conecta dispositivos de una red local con una red mayor, traduciendo protocolos y agregando datos.
-- **banda muerta:** umbral de variación por debajo del cual no se envía una nueva lectura.
-- **decisión con plazo:** decisión que debe tomarse en un tiempo acotado, sin depender de recursos remotos.
-- **carga útil (payload):** datos de aplicación transportados por un mensaje, sin las cabeceras del protocolo.
+- **[borde de la red (edge)](../../../glosario/entradas/b/borde-de-la-red.md):** conjunto de dispositivos y pasarelas cercanos a la fuente de los datos, donde se procesa antes de enviar a la nube.
+- **[pasarela (gateway)](../../../glosario/entradas/p/pasarela.md):** equipo que conecta dispositivos de una red local con una red mayor, traduciendo protocolos y agregando datos.
+- **[banda muerta](../../../glosario/entradas/b/banda-muerta.md):** umbral de variación por debajo del cual no se envía una nueva lectura.
+- **[decisión con plazo](../../../glosario/entradas/d/decision-con-plazo.md):** decisión que debe tomarse en un tiempo acotado, sin depender de recursos remotos.
+- **[carga útil (payload)](../../../glosario/entradas/c/carga-util.md):** datos de aplicación transportados por un mensaje, sin las cabeceras del protocolo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Banda muerta](../../../glosario/entradas/b/banda-muerta.md) · [Borde de la red](../../../glosario/entradas/b/borde-de-la-red.md) · [Carga útil](../../../glosario/entradas/c/carga-util.md) · [Decisión con plazo](../../../glosario/entradas/d/decision-con-plazo.md) · [Pasarela](../../../glosario/entradas/p/pasarela.md).
 
 ---
 

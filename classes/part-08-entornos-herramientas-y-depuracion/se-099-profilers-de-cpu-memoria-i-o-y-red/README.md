@@ -105,11 +105,11 @@ Un perfilador por muestreo no registra cada llamada: pregunta periódicamente en
 
 ## Definiciones de trabajo
 
-- **tiempo de pared y cpu:** wall time incluye espera; cpu time cuenta ejecución en procesador.
-- **perfil determinista y muestreo:** el perfil determinista registra llamadas y tiempos con detalle, añadiendo overhead.
-- **asignaciones, retención y pico:** memoria asignada no equivale a memoria retenida ni rss.
-- **i/o y red:** trazar duración, bytes y concurrencia por operación separa espera de cómputo.
-- **perfil como hipótesis:** el perfil señala dónde se observa costo, no por qué.
+- **[tiempo de pared y cpu](../../../glosario/entradas/t/tiempo-de-pared-y-cpu.md):** wall time incluye espera; cpu time cuenta ejecución en procesador.
+- **[perfil determinista y muestreo](../../../glosario/entradas/p/perfil-determinista-y-muestreo.md):** el perfil determinista registra llamadas y tiempos con detalle, añadiendo overhead.
+- **[asignaciones, retención y pico](../../../glosario/entradas/a/asignaciones-retencion-y-pico.md):** memoria asignada no equivale a memoria retenida ni rss.
+- **[i/o y red](../../../glosario/entradas/i/i-o-y-red.md):** trazar duración, bytes y concurrencia por operación separa espera de cómputo.
+- **[perfil como hipótesis](../../../glosario/entradas/p/perfil-como-hipotesis.md):** el perfil señala dónde se observa costo, no por qué.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -257,11 +257,13 @@ Un perfil dinámico observa entradas ejecutadas. La siguiente clase combina comp
 
 ## Glosario
 
-- **tiempo de pared y cpu:** wall time incluye espera; cpu time cuenta ejecución en procesador.
-- **perfil determinista y muestreo:** el perfil determinista registra llamadas y tiempos con detalle, añadiendo overhead.
-- **asignaciones, retención y pico:** memoria asignada no equivale a memoria retenida ni rss.
-- **i/o y red:** trazar duración, bytes y concurrencia por operación separa espera de cómputo.
-- **perfil como hipótesis:** el perfil señala dónde se observa costo, no por qué.
+- **[tiempo de pared y cpu](../../../glosario/entradas/t/tiempo-de-pared-y-cpu.md):** wall time incluye espera; cpu time cuenta ejecución en procesador.
+- **[perfil determinista y muestreo](../../../glosario/entradas/p/perfil-determinista-y-muestreo.md):** el perfil determinista registra llamadas y tiempos con detalle, añadiendo overhead.
+- **[asignaciones, retención y pico](../../../glosario/entradas/a/asignaciones-retencion-y-pico.md):** memoria asignada no equivale a memoria retenida ni rss.
+- **[i/o y red](../../../glosario/entradas/i/i-o-y-red.md):** trazar duración, bytes y concurrencia por operación separa espera de cómputo.
+- **[perfil como hipótesis](../../../glosario/entradas/p/perfil-como-hipotesis.md):** el perfil señala dónde se observa costo, no por qué.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asignaciones, retención y pico](../../../glosario/entradas/a/asignaciones-retencion-y-pico.md) · [I/o y red](../../../glosario/entradas/i/i-o-y-red.md) · [Perfil como hipótesis](../../../glosario/entradas/p/perfil-como-hipotesis.md) · [Perfil determinista y muestreo](../../../glosario/entradas/p/perfil-determinista-y-muestreo.md) · [Tiempo de pared y cpu](../../../glosario/entradas/t/tiempo-de-pared-y-cpu.md).
 
 ---
 

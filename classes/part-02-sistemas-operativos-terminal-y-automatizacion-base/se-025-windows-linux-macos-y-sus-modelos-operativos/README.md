@@ -147,11 +147,11 @@ una política de Windows (que se puede levantar activando el modo de desarrollad
 
 ## Definiciones de trabajo
 
-- **sistema operativo:** software que administra recursos y ofrece abstracciones protegidas a programas;
-- **plataforma efectiva:** combinación de sistema, versión, arquitectura, políticas y capacidades observadas;
-- **API:** interfaz de programación visible en fuente o runtime;
-- **ABI:** contrato binario entre ejecutable, bibliotecas y plataforma;
-- **capacidad:** operación cuya disponibilidad puede comprobarse sin asumirla por nombre.
+- **[sistema operativo](../../../glosario/entradas/s/sistema-operativo.md):** software que administra recursos y ofrece abstracciones protegidas a programas;
+- **[plataforma efectiva](../../../glosario/entradas/p/plataforma-efectiva.md):** combinación de sistema, versión, arquitectura, políticas y capacidades observadas;
+- **[API](../../../glosario/entradas/a/api.md):** interfaz de programación visible en fuente o runtime;
+- **[ABI](../../../glosario/entradas/a/abi.md):** contrato binario entre ejecutable, bibliotecas y plataforma;
+- **[capacidad](../../../glosario/entradas/c/capacidad.md):** operación cuya disponibilidad puede comprobarse sin asumirla por nombre.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma identifica dónde está
 
@@ -292,11 +292,13 @@ Esta clase no enseña administración profunda de kernels ni promete que una API
 - [Python `platform`](https://docs.python.org/3/library/platform.html): campos que devuelve cada plataforma; `uname()` incluye datos de identificación que la ficha omite.
 ## Glosario
 
-- **ABI:** contrato binario que permite cooperar a ejecutables, bibliotecas y sistema.
-- **Espacio de usuario:** dominio de ejecución restringido donde viven aplicaciones y servicios no privilegiados.
-- **Kernel:** componente privilegiado que arbitra recursos y expone operaciones controladas.
-- **Llamada al sistema:** transición controlada mediante la que un proceso solicita una operación al kernel.
-- **Plataforma:** combinación relevante de hardware, sistema, versión, políticas y capacidades; no solo un nombre comercial.
+- **[ABI](../../../glosario/entradas/a/abi.md):** contrato binario que permite cooperar a ejecutables, bibliotecas y sistema.
+- **[Espacio de usuario](../../../glosario/entradas/e/espacio-de-usuario.md):** dominio de ejecución restringido donde viven aplicaciones y servicios no privilegiados.
+- **[Kernel](../../../glosario/entradas/k/kernel.md):** componente privilegiado que arbitra recursos y expone operaciones controladas.
+- **[Llamada al sistema](../../../glosario/entradas/l/llamada-al-sistema.md):** transición controlada mediante la que un proceso solicita una operación al kernel.
+- **[Plataforma](../../../glosario/entradas/p/plataforma.md):** combinación relevante de hardware, sistema, versión, políticas y capacidades; no solo un nombre comercial.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ABI](../../../glosario/entradas/a/abi.md) · [API](../../../glosario/entradas/a/api.md) · [Capacidad](../../../glosario/entradas/c/capacidad.md) · [Espacio de usuario](../../../glosario/entradas/e/espacio-de-usuario.md) · [Kernel](../../../glosario/entradas/k/kernel.md) · [Llamada al sistema](../../../glosario/entradas/l/llamada-al-sistema.md) · [Plataforma](../../../glosario/entradas/p/plataforma.md) · [Plataforma efectiva](../../../glosario/entradas/p/plataforma-efectiva.md) · [Sistema operativo](../../../glosario/entradas/s/sistema-operativo.md).
 
 ---
 [← SE-024](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-026 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)

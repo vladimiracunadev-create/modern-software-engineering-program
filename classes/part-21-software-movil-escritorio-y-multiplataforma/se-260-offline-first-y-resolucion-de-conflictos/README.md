@@ -145,11 +145,11 @@ Resultado: con desfase **0** y **1** unidades, **0,00 %** de pares invertidos; c
 
 ## Definiciones de trabajo
 
-- **offline-first:** estilo de diseño en el que el cliente lee y escribe en su almacenamiento local y la red solo reconcilia las copias.
-- **idempotencia:** propiedad de una operación cuyo efecto es el mismo si se aplica una vez o varias.
-- **réplica:** copia de un dato que un dispositivo edita de forma independiente y se reconcilia después con las demás.
-- **reloj lógico:** contador que ordena eventos según su causalidad sin depender de la hora física de ningún dispositivo.
-- **conflicto:** situación en que dos réplicas modificaron el mismo dato sin ver el cambio de la otra y existen varios estados finales razonables.
+- **[offline-first](../../../glosario/entradas/o/offline-first.md):** estilo de diseño en el que el cliente lee y escribe en su almacenamiento local y la red solo reconcilia las copias.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo efecto es el mismo si se aplica una vez o varias.
+- **[réplica](../../../glosario/entradas/r/replica.md):** copia de un dato que un dispositivo edita de forma independiente y se reconcilia después con las demás.
+- **[reloj lógico](../../../glosario/entradas/r/reloj-logico.md):** contador que ordena eventos según su causalidad sin depender de la hora física de ningún dispositivo.
+- **[conflicto](../../../glosario/entradas/c/conflicto.md):** situación en que dos réplicas modificaron el mismo dato sin ver el cambio de la otra y existen varios estados finales razonables.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **offline-first:** estilo de diseño en el que el cliente lee y escribe en su almacenamiento local y la red solo reconcilia las copias.
-- **idempotencia:** propiedad de una operación cuyo efecto es el mismo si se aplica una vez o varias.
-- **réplica:** copia de un dato que un dispositivo edita de forma independiente y se reconcilia después con las demás.
-- **reloj lógico:** contador que ordena eventos según su causalidad sin depender de la hora física de ningún dispositivo.
-- **conflicto:** situación en que dos réplicas modificaron el mismo dato sin ver el cambio de la otra y existen varios estados finales razonables.
+- **[offline-first](../../../glosario/entradas/o/offline-first.md):** estilo de diseño en el que el cliente lee y escribe en su almacenamiento local y la red solo reconcilia las copias.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo efecto es el mismo si se aplica una vez o varias.
+- **[réplica](../../../glosario/entradas/r/replica.md):** copia de un dato que un dispositivo edita de forma independiente y se reconcilia después con las demás.
+- **[reloj lógico](../../../glosario/entradas/r/reloj-logico.md):** contador que ordena eventos según su causalidad sin depender de la hora física de ningún dispositivo.
+- **[conflicto](../../../glosario/entradas/c/conflicto.md):** situación en que dos réplicas modificaron el mismo dato sin ver el cambio de la otra y existen varios estados finales razonables.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Conflicto](../../../glosario/entradas/c/conflicto.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Offline-first](../../../glosario/entradas/o/offline-first.md) · [Operaciones idempotentes](../../../glosario/entradas/o/operaciones-idempotentes.md) · [Reloj lógico](../../../glosario/entradas/r/reloj-logico.md) · [Réplica](../../../glosario/entradas/r/replica.md).
 
 ---
 

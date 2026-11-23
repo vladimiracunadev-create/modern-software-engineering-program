@@ -127,13 +127,13 @@ La tercera medida compara pasos medidos con el peor caso real de un algoritmo.
 
 ## Definiciones de trabajo
 
-- **Prioridad fija:** prioridad de una tarea que no cambia durante la ejecución.
-- **Tasa monótona:** asignación de prioridad según el periodo: menor periodo, mayor prioridad.
-- **Utilización:** fracción de CPU que una tarea o un conjunto necesita (cómputo dividido por periodo).
-- **Inversión de prioridad:** situación en la que una tarea de alta prioridad espera por una de menor prioridad que a su vez es desplazada por otra intermedia.
-- **Herencia de prioridad:** el poseedor de un recurso hereda la prioridad más alta de quienes esperan.
-- **Techo de prioridad:** el poseedor corre con la prioridad máxima de las tareas que usan el recurso.
-- **WCET:** tiempo de ejecución en el peor caso de una tarea, sin interferencias.
+- **[Prioridad fija](../../../glosario/entradas/p/prioridad-fija.md):** prioridad de una tarea que no cambia durante la ejecución.
+- **[Tasa monótona](../../../glosario/entradas/t/tasa-monotona.md):** asignación de prioridad según el periodo: menor periodo, mayor prioridad.
+- **[Utilización](../../../glosario/entradas/u/utilizacion.md):** fracción de CPU que una tarea o un conjunto necesita (cómputo dividido por periodo).
+- **[Inversión de prioridad](../../../glosario/entradas/i/inversion-de-prioridad.md):** situación en la que una tarea de alta prioridad espera por una de menor prioridad que a su vez es desplazada por otra intermedia.
+- **[Herencia de prioridad](../../../glosario/entradas/h/herencia-de-prioridad.md):** el poseedor de un recurso hereda la prioridad más alta de quienes esperan.
+- **[Techo de prioridad](../../../glosario/entradas/t/techo-de-prioridad.md):** el poseedor corre con la prioridad máxima de las tareas que usan el recurso.
+- **[WCET](../../../glosario/entradas/p/peor-caso-de-ejecucion.md):** tiempo de ejecución en el peor caso de una tarea, sin interferencias.
 
 ## Ejemplo mínimo
 
@@ -270,6 +270,8 @@ El simulador es de ticks con un solo mutex, sin interrupciones ni caché; los ti
 | Herencia de prioridad | El poseedor del recurso hereda la prioridad del que espera |
 | Techo de prioridad | El poseedor corre con la prioridad máxima del recurso |
 | WCET | Tiempo de ejecución en el peor caso |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Herencia de prioridad](../../../glosario/entradas/h/herencia-de-prioridad.md) · [Inversión de prioridad](../../../glosario/entradas/i/inversion-de-prioridad.md) · [Peor caso de ejecución](../../../glosario/entradas/p/peor-caso-de-ejecucion.md) · [Prioridad fija](../../../glosario/entradas/p/prioridad-fija.md) · [Tasa monótona](../../../glosario/entradas/t/tasa-monotona.md) · [Techo de prioridad](../../../glosario/entradas/t/techo-de-prioridad.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

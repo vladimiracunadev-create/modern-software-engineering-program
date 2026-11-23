@@ -135,13 +135,13 @@ La tercera medida pone en horas el cómputo de entrenamiento de un modelo de 7 0
 
 ## Definiciones de trabajo
 
-- **Modelo base:** modelo entrenado con datos amplios que sirve de punto de partida.
-- **Ajuste fino:** entrenamiento adicional de un modelo base con datos de la tarea o población nueva.
-- **Adaptación de rango bajo (LoRA):** ajuste que congela los pesos y entrena matrices de rango bajo añadidas a las capas.
-- **Olvido catastrófico:** pérdida de lo aprendido antes al aprender algo nuevo.
-- **Época:** una pasada completa por los datos de entrenamiento.
-- **Cómputo de entrenamiento:** número de operaciones de coma flotante necesarias para entrenar.
-- **Variante:** modelo adaptado que se opera por separado.
+- **[Modelo base](../../../glosario/entradas/m/modelo-base.md):** modelo entrenado con datos amplios que sirve de punto de partida.
+- **[Ajuste fino](../../../glosario/entradas/a/ajuste-fino.md):** entrenamiento adicional de un modelo base con datos de la tarea o población nueva.
+- **[Adaptación de rango bajo (LoRA)](../../../glosario/entradas/a/adaptacion-de-rango-bajo.md):** ajuste que congela los pesos y entrena matrices de rango bajo añadidas a las capas.
+- **[Olvido catastrófico](../../../glosario/entradas/o/olvido-catastrofico.md):** pérdida de lo aprendido antes al aprender algo nuevo.
+- **[Época](../../../glosario/entradas/e/epoca.md):** una pasada completa por los datos de entrenamiento.
+- **[Cómputo de entrenamiento](../../../glosario/entradas/c/computo-de-entrenamiento.md):** número de operaciones de coma flotante necesarias para entrenar.
+- **[Variante](../../../glosario/entradas/v/variante.md):** modelo adaptado que se opera por separado.
 
 ## Ejemplo mínimo
 
@@ -269,6 +269,8 @@ El modelo base, las dos poblaciones y las cantidades de datos son construcciones
 | Olvido catastrófico | Pérdida de lo aprendido al aprender algo nuevo |
 | Época | Una pasada completa por los datos |
 | Variante | Modelo adaptado que se opera por separado |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptación de rango bajo](../../../glosario/entradas/a/adaptacion-de-rango-bajo.md) · [Ajuste fino](../../../glosario/entradas/a/ajuste-fino.md) · [Cómputo de entrenamiento](../../../glosario/entradas/c/computo-de-entrenamiento.md) · [Época](../../../glosario/entradas/e/epoca.md) · [Modelo base](../../../glosario/entradas/m/modelo-base.md) · [Olvido catastrófico](../../../glosario/entradas/o/olvido-catastrofico.md) · [Variante](../../../glosario/entradas/v/variante.md).
 
 ---
 

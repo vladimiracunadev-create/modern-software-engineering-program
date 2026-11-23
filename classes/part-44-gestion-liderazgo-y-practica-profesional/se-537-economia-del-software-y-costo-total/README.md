@@ -137,11 +137,11 @@ Servidores propios: inversión de 36 000 y 1 200 mensuales; nube: 2 300 mensuale
 
 ## Definiciones de trabajo
 
-- **costo de demora:** pérdida por unidad de tiempo que se retrasa la entrega de una iniciativa.
-- **valor presente neto (VAN):** suma de los flujos futuros descontados a una tasa, menos la inversión inicial.
-- **tasa interna de retorno (TIR):** tasa de descuento que hace nulo el valor presente neto de un proyecto.
-- **CAPEX y OPEX:** gasto de capital que se paga al inicio y gasto operativo que se paga a medida que se usa.
-- **punto de equilibrio:** nivel de actividad en que los ingresos igualan a los costos.
+- **[costo de demora](../../../glosario/entradas/c/costo-de-demora.md):** pérdida por unidad de tiempo que se retrasa la entrega de una iniciativa.
+- **[valor presente neto (VAN)](../../../glosario/entradas/v/valor-presente-neto.md):** suma de los flujos futuros descontados a una tasa, menos la inversión inicial.
+- **[tasa interna de retorno (TIR)](../../../glosario/entradas/t/tasa-interna-de-retorno.md):** tasa de descuento que hace nulo el valor presente neto de un proyecto.
+- **[CAPEX y OPEX](../../../glosario/entradas/c/capex-y-opex.md):** gasto de capital que se paga al inicio y gasto operativo que se paga a medida que se usa.
+- **[punto de equilibrio](../../../glosario/entradas/p/punto-de-equilibrio.md):** nivel de actividad en que los ingresos igualan a los costos.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos, no son asesoría contable y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -282,11 +282,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **costo de demora:** pérdida por unidad de tiempo que se retrasa la entrega de una iniciativa.
-- **valor presente neto (VAN):** suma de los flujos futuros descontados a una tasa, menos la inversión inicial.
-- **tasa interna de retorno (TIR):** tasa de descuento que hace nulo el valor presente neto de un proyecto.
-- **CAPEX y OPEX:** gasto de capital que se paga al inicio y gasto operativo que se paga a medida que se usa.
-- **punto de equilibrio:** nivel de actividad en que los ingresos igualan a los costos.
+- **[costo de demora](../../../glosario/entradas/c/costo-de-demora.md):** pérdida por unidad de tiempo que se retrasa la entrega de una iniciativa.
+- **[valor presente neto (VAN)](../../../glosario/entradas/v/valor-presente-neto.md):** suma de los flujos futuros descontados a una tasa, menos la inversión inicial.
+- **[tasa interna de retorno (TIR)](../../../glosario/entradas/t/tasa-interna-de-retorno.md):** tasa de descuento que hace nulo el valor presente neto de un proyecto.
+- **[CAPEX y OPEX](../../../glosario/entradas/c/capex-y-opex.md):** gasto de capital que se paga al inicio y gasto operativo que se paga a medida que se usa.
+- **[punto de equilibrio](../../../glosario/entradas/p/punto-de-equilibrio.md):** nivel de actividad en que los ingresos igualan a los costos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [CAPEX y OPEX](../../../glosario/entradas/c/capex-y-opex.md) · [Costo de demora](../../../glosario/entradas/c/costo-de-demora.md) · [Punto de equilibrio](../../../glosario/entradas/p/punto-de-equilibrio.md) · [Tasa interna de retorno](../../../glosario/entradas/t/tasa-interna-de-retorno.md) · [Valor presente neto](../../../glosario/entradas/v/valor-presente-neto.md).
 
 ---
 

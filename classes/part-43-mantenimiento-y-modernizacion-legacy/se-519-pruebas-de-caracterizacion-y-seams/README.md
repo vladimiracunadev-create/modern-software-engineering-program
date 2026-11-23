@@ -156,11 +156,11 @@ La costura convierte 771 ms en 0,34 ms por 300 pruebas. Con una consulta real de
 
 ## Definiciones de trabajo
 
-- **prueba de caracterización:** prueba que fija el comportamiento actual de un código, sea o no el correcto, para detectar cambios no deseados.
-- **maestro dorado:** conjunto de entradas con las salidas registradas del código actual, usado como expectativa.
-- **mutante:** copia del código con un cambio pequeño introducido a propósito para comprobar si la suite lo detecta.
-- **costura (seam):** lugar donde puede alterarse el comportamiento de un programa sin editar el código en ese lugar.
-- **no determinismo:** dependencia de la salida de factores distintos de la entrada, como el orden de un conjunto, el reloj o el azar.
+- **[prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que fija el comportamiento actual de un código, sea o no el correcto, para detectar cambios no deseados.
+- **[maestro dorado](../../../glosario/entradas/m/maestro-dorado.md):** conjunto de entradas con las salidas registradas del código actual, usado como expectativa.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio pequeño introducido a propósito para comprobar si la suite lo detecta.
+- **[costura (seam)](../../../glosario/entradas/c/costura.md):** lugar donde puede alterarse el comportamiento de un programa sin editar el código en ese lugar.
+- **[no determinismo](../../../glosario/entradas/n/no-determinismo.md):** dependencia de la salida de factores distintos de la entrada, como el orden de un conjunto, el reloj o el azar.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): las cifras de cobert
 
 ## Glosario
 
-- **prueba de caracterización:** prueba que fija el comportamiento actual de un código, sea o no el correcto, para detectar cambios no deseados.
-- **maestro dorado:** conjunto de entradas con las salidas registradas del código actual, usado como expectativa.
-- **mutante:** copia del código con un cambio pequeño introducido a propósito para comprobar si la suite lo detecta.
-- **costura (seam):** lugar donde puede alterarse el comportamiento de un programa sin editar el código en ese lugar.
-- **no determinismo:** dependencia de la salida de factores distintos de la entrada, como el orden de un conjunto, el reloj o el azar.
+- **[prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que fija el comportamiento actual de un código, sea o no el correcto, para detectar cambios no deseados.
+- **[maestro dorado](../../../glosario/entradas/m/maestro-dorado.md):** conjunto de entradas con las salidas registradas del código actual, usado como expectativa.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio pequeño introducido a propósito para comprobar si la suite lo detecta.
+- **[costura (seam)](../../../glosario/entradas/c/costura.md):** lugar donde puede alterarse el comportamiento de un programa sin editar el código en ese lugar.
+- **[no determinismo](../../../glosario/entradas/n/no-determinismo.md):** dependencia de la salida de factores distintos de la entrada, como el orden de un conjunto, el reloj o el azar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Costura](../../../glosario/entradas/c/costura.md) · [Fuentes de no determinismo](../../../glosario/entradas/f/fuentes-de-no-determinismo.md) · [Maestro dorado](../../../glosario/entradas/m/maestro-dorado.md) · [No determinismo](../../../glosario/entradas/n/no-determinismo.md) · [Prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

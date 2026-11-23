@@ -108,12 +108,12 @@ El comprobador implementa seis reglas (`R1` a `R6`) y se aplicó a diecisiete ca
 
 ## Definiciones de trabajo
 
-- **Regla mecanizable:** regla que un programa puede decidir sobre un cambio.
-- **Regla semántica:** regla que exige juicio humano o de un modelo.
-- **Hook:** comando que el harness ejecuta en un punto del ciclo y que puede bloquear una acción.
-- **Compuerta (gate):** comprobación que un cambio debe pasar para integrarse.
-- **Falsa alarma:** bloqueo de un cambio que no infringe la regla.
-- **Omisión:** infracción real que la regla no detecta.
+- **[Regla mecanizable](../../../glosario/entradas/r/regla-mecanizable.md):** regla que un programa puede decidir sobre un cambio.
+- **[Regla semántica](../../../glosario/entradas/r/regla-semantica.md):** regla que exige juicio humano o de un modelo.
+- **[Hook](../../../glosario/entradas/h/hook.md):** comando que el harness ejecuta en un punto del ciclo y que puede bloquear una acción.
+- **[Compuerta (gate)](../../../glosario/entradas/c/compuerta.md):** comprobación que un cambio debe pasar para integrarse.
+- **[Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** bloqueo de un cambio que no infringe la regla.
+- **[Omisión](../../../glosario/entradas/o/omision.md):** infracción real que la regla no detecta.
 
 ## Ejemplo mínimo
 
@@ -241,6 +241,8 @@ Se midió un comprobador de seis reglas sobre diecisiete casos del autor, en Win
 | Compuerta | Comprobación obligatoria antes de integrar |
 | Falsa alarma | Bloqueo de un cambio que no infringe |
 | Omisión | Infracción real que la regla no ve |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compuerta](../../../glosario/entradas/c/compuerta.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Hook](../../../glosario/entradas/h/hook.md) · [Omisión](../../../glosario/entradas/o/omision.md) · [Regla mecanizable](../../../glosario/entradas/r/regla-mecanizable.md) · [Regla semántica](../../../glosario/entradas/r/regla-semantica.md).
 
 ---
 

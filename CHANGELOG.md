@@ -5,6 +5,13 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Glosario del programa: superficie propia con una entrada por concepto
+
+- nueva superficie `glosario/` (no son clases ni roles; no cambia 612 clases ni 51 partes): 2.743 conceptos (inventario en `glosario/INVENTARIO.md`) extraídos de las definiciones, glosarios y temas de las clases y de las 47 guías de rol, normalizados y deduplicados;
+- una entrada por concepto con esquema único (definición, por qué importa, cómo funciona, ejemplo, errores, límites, relaciones, dónde se enseña, sinónimos y fuentes); texto compuesto con atribución desde las clases y texto escrito a mano en `glosario/curado/` (28 entradas desarrolladas en esta tanda);
+- `scripts/build_glossary.py`, `glossary_data.py`, `glossary_compose.py`, `glossary_links.py` y `validate_glossary.py`; portal en `site/glosario/` con búsqueda por término; bloque «Glosario» enlazado al final de cada clase publicada y sección propia en el README raíz;
+- CI: pasos `build_glossary.py --check` y `validate_glossary.py` en Validate y Pages.
+
 ## 2026-11-23 — Los diagramas Mermaid se publican como figuras SVG con la identidad del programa
 
 - nuevo `scripts/mermaid_render.py`: renderizador determinista, sin dependencias ni JavaScript, que dibuja a SVG los 771 bloques `mermaid` del programa (51 README de parte, 612 clases y las guías de rol) con la tipografía, los colores y las formas de `scripts/figure_kit.py`; flujos por capas con serpentina para las cadenas largas (ningún diagrama supera 940 px de ancho ni usa texto menor de 13 px), los ramificados se dibujan de arriba abajo, aristas ortogonales que no cruzan nodos, retornos de ciclo discontinuos con su etiqueta, rombos, subgrafos, `stateDiagram-v2` (convertido al mismo modelo, sin perder estados ni transiciones) y `sequenceDiagram`.

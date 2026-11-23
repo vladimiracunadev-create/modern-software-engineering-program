@@ -128,11 +128,11 @@ it = sorted(campos)            # sin sorted, el orden cambia entre procesos
 
 ## Definiciones de trabajo
 
-- **spec-first:** uso de la especificación como guía previa a la implementación, sin mantenerla después.
-- **spec-anchored:** uso de la especificación como documento vivo que se actualiza junto con el código.
-- **spec-as-source:** uso de la especificación como único artefacto editable del que se genera el código.
-- **deriva:** diferencia entre lo que la especificación afirma y lo que el código hace.
-- **generación determinista:** propiedad de un generador que produce salida idéntica para la misma entrada.
+- **[spec-first](../../../glosario/entradas/s/spec-first.md):** uso de la especificación como guía previa a la implementación, sin mantenerla después.
+- **[spec-anchored](../../../glosario/entradas/s/spec-anchored.md):** uso de la especificación como documento vivo que se actualiza junto con el código.
+- **[spec-as-source](../../../glosario/entradas/s/spec-as-source.md):** uso de la especificación como único artefacto editable del que se genera el código.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre lo que la especificación afirma y lo que el código hace.
+- **[generación determinista](../../../glosario/entradas/g/generacion-determinista.md):** propiedad de un generador que produce salida idéntica para la misma entrada.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -282,11 +282,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **spec-first:** uso de la especificación como guía previa a la implementación, sin mantenerla después.
-- **spec-anchored:** uso de la especificación como documento vivo que se actualiza junto con el código.
-- **spec-as-source:** uso de la especificación como único artefacto editable del que se genera el código.
-- **deriva:** diferencia entre lo que la especificación afirma y lo que el código hace.
-- **generación determinista:** propiedad de un generador que produce salida idéntica para la misma entrada.
+- **[spec-first](../../../glosario/entradas/s/spec-first.md):** uso de la especificación como guía previa a la implementación, sin mantenerla después.
+- **[spec-anchored](../../../glosario/entradas/s/spec-anchored.md):** uso de la especificación como documento vivo que se actualiza junto con el código.
+- **[spec-as-source](../../../glosario/entradas/s/spec-as-source.md):** uso de la especificación como único artefacto editable del que se genera el código.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre lo que la especificación afirma y lo que el código hace.
+- **[generación determinista](../../../glosario/entradas/g/generacion-determinista.md):** propiedad de un generador que produce salida idéntica para la misma entrada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deriva](../../../glosario/entradas/d/deriva.md) · [Generación determinista](../../../glosario/entradas/g/generacion-determinista.md) · [Spec-anchored](../../../glosario/entradas/s/spec-anchored.md) · [Spec-as-source](../../../glosario/entradas/s/spec-as-source.md) · [Spec-first](../../../glosario/entradas/s/spec-first.md).
 
 ---
 

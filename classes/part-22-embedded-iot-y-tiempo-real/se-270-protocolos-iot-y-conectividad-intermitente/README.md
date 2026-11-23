@@ -162,11 +162,11 @@ Con espera exponencial sin jitter, los dispositivos que fallan en el mismo insta
 
 ## Definiciones de trabajo
 
-- **calidad de servicio (QoS):** garantía de entrega de un mensaje: a lo sumo una vez, al menos una vez o exactamente una vez.
-- **almacenar y reenviar:** política por la que un dispositivo guarda datos localmente mientras no hay red y los envía al reconectar.
-- **retroceso exponencial:** política que duplica el intervalo entre reintentos tras cada fallo hasta un máximo.
-- **jitter:** variación aleatoria añadida al intervalo de reintento para evitar que varios clientes coincidan.
-- **idempotencia:** propiedad de una operación que produce el mismo efecto si se aplica una o varias veces.
+- **[calidad de servicio (QoS)](../../../glosario/entradas/c/calidad-de-servicio.md):** garantía de entrega de un mensaje: a lo sumo una vez, al menos una vez o exactamente una vez.
+- **[almacenar y reenviar](../../../glosario/entradas/a/almacenar-y-reenviar.md):** política por la que un dispositivo guarda datos localmente mientras no hay red y los envía al reconectar.
+- **[retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md):** política que duplica el intervalo entre reintentos tras cada fallo hasta un máximo.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** variación aleatoria añadida al intervalo de reintento para evitar que varios clientes coincidan.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación que produce el mismo efecto si se aplica una o varias veces.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **calidad de servicio (QoS):** garantía de entrega de un mensaje: a lo sumo una vez, al menos una vez o exactamente una vez.
-- **almacenar y reenviar:** política por la que un dispositivo guarda datos localmente mientras no hay red y los envía al reconectar.
-- **retroceso exponencial:** política que duplica el intervalo entre reintentos tras cada fallo hasta un máximo.
-- **jitter:** variación aleatoria añadida al intervalo de reintento para evitar que varios clientes coincidan.
-- **idempotencia:** propiedad de una operación que produce el mismo efecto si se aplica una o varias veces.
+- **[calidad de servicio (QoS)](../../../glosario/entradas/c/calidad-de-servicio.md):** garantía de entrega de un mensaje: a lo sumo una vez, al menos una vez o exactamente una vez.
+- **[almacenar y reenviar](../../../glosario/entradas/a/almacenar-y-reenviar.md):** política por la que un dispositivo guarda datos localmente mientras no hay red y los envía al reconectar.
+- **[retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md):** política que duplica el intervalo entre reintentos tras cada fallo hasta un máximo.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** variación aleatoria añadida al intervalo de reintento para evitar que varios clientes coincidan.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación que produce el mismo efecto si se aplica una o varias veces.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Almacenar y reenviar](../../../glosario/entradas/a/almacenar-y-reenviar.md) · [Calidad de servicio](../../../glosario/entradas/c/calidad-de-servicio.md) · [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Garantías de entrega](../../../glosario/entradas/g/garantias-de-entrega.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md).
 
 ---
 

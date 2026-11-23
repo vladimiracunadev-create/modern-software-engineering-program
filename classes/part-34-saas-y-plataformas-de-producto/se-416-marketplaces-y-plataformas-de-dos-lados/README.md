@@ -139,14 +139,14 @@ Una plataforma crece cuando otros construyen sobre ella: plugins que se ejecutan
 
 ## Definiciones de trabajo
 
-- **Plataforma de dos lados:** producto que conecta a dos grupos que se necesitan entre sí y cuyo valor para cada uno depende del tamaño del otro.
-- **Efecto de red cruzado:** el valor para un lado crece con la masa del otro.
-- **Liquidez:** proporción de intentos (búsquedas, ofertas) que terminan en una transacción.
-- **Arranque en frío:** el problema de que ninguno de los dos lados llega sin masa en el otro.
-- **Comisión (take rate):** parte de cada venta que retiene la plataforma.
-- **Custodia (escrow):** retención de fondos por un tercero hasta que se cumple una condición.
-- **Desintermediación (fuga):** que las partes transaccionen fuera de la plataforma.
-- **KYC:** verificación de la identidad de quien recibe pagos.
+- **[Plataforma de dos lados](../../../glosario/entradas/p/plataforma-de-dos-lados.md):** producto que conecta a dos grupos que se necesitan entre sí y cuyo valor para cada uno depende del tamaño del otro.
+- **[Efecto de red cruzado](../../../glosario/entradas/e/efecto-de-red-cruzado.md):** el valor para un lado crece con la masa del otro.
+- **[Liquidez](../../../glosario/entradas/l/liquidez.md):** proporción de intentos (búsquedas, ofertas) que terminan en una transacción.
+- **[Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** el problema de que ninguno de los dos lados llega sin masa en el otro.
+- **[Comisión (take rate)](../../../glosario/entradas/c/comision.md):** parte de cada venta que retiene la plataforma.
+- **[Custodia (escrow)](../../../glosario/entradas/c/custodia.md):** retención de fondos por un tercero hasta que se cumple una condición.
+- **[Desintermediación (fuga)](../../../glosario/entradas/d/desintermediacion.md):** que las partes transaccionen fuera de la plataforma.
+- **[KYC](../../../glosario/entradas/k/kyc.md):** verificación de la identidad de quien recibe pagos.
 
 ## Ejemplo mínimo
 
@@ -291,6 +291,8 @@ Se simuló la liquidez con semilla 34 y se calculó el reparto con porcentajes d
 | Custodia (escrow) | Retención de fondos hasta cumplir una condición |
 | Desintermediación | Transaccionar fuera de la plataforma |
 | KYC | Verificación de identidad de quien recibe pagos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md) · [Comisión](../../../glosario/entradas/c/comision.md) · [Confianza](../../../glosario/entradas/c/confianza.md) · [Custodia](../../../glosario/entradas/c/custodia.md) · [Desintermediación](../../../glosario/entradas/d/desintermediacion.md) · [Efecto de red cruzado](../../../glosario/entradas/e/efecto-de-red-cruzado.md) · [KYC](../../../glosario/entradas/k/kyc.md) · [Liquidez](../../../glosario/entradas/l/liquidez.md) · [Plataforma de dos lados](../../../glosario/entradas/p/plataforma-de-dos-lados.md).
 
 ---
 

@@ -105,11 +105,11 @@ Un entorno virtual se creó en 180–278 ms y aísla paquetes; comparte intérpr
 
 ## Definiciones de trabajo
 
-- **contenedor de desarrollo:** un dev container describe imagen, features, mounts, usuario, puertos y lifecycle para trabajar en un entorno aislado.
-- **imagen, tag y digest:** una imagen aporta filesystem y metadata por capas.
-- **workspace, mounts y permisos:** bind mounts comparten archivos del host y heredan diferencias de permisos, case sensitivity y rendimiento.
-- **lifecycle y caché:** crear, iniciar y adjuntar disparan comandos distintos.
-- **desechabilidad y persistencia:** el contenedor debe poder borrarse sin perder código; volúmenes persistentes se enumeran y limpian con cuidado.
+- **[contenedor de desarrollo](../../../glosario/entradas/c/contenedor-de-desarrollo.md):** un dev container describe imagen, features, mounts, usuario, puertos y lifecycle para trabajar en un entorno aislado.
+- **[imagen, tag y digest](../../../glosario/entradas/i/imagen-tag-y-digest.md):** una imagen aporta filesystem y metadata por capas.
+- **[workspace, mounts y permisos](../../../glosario/entradas/w/workspace-mounts-y-permisos.md):** bind mounts comparten archivos del host y heredan diferencias de permisos, case sensitivity y rendimiento.
+- **[lifecycle y caché](../../../glosario/entradas/l/lifecycle-y-cache.md):** crear, iniciar y adjuntar disparan comandos distintos.
+- **[desechabilidad y persistencia](../../../glosario/entradas/d/desechabilidad-y-persistencia.md):** el contenedor debe poder borrarse sin perder código; volúmenes persistentes se enumeran y limpian con cuidado.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -260,11 +260,13 @@ Un contenedor estable no reduce automáticamente un fallo. La siguiente clase ap
 
 ## Glosario
 
-- **contenedor de desarrollo:** un dev container describe imagen, features, mounts, usuario, puertos y lifecycle para trabajar en un entorno aislado.
-- **imagen, tag y digest:** una imagen aporta filesystem y metadata por capas.
-- **workspace, mounts y permisos:** bind mounts comparten archivos del host y heredan diferencias de permisos, case sensitivity y rendimiento.
-- **lifecycle y caché:** crear, iniciar y adjuntar disparan comandos distintos.
-- **desechabilidad y persistencia:** el contenedor debe poder borrarse sin perder código; volúmenes persistentes se enumeran y limpian con cuidado.
+- **[contenedor de desarrollo](../../../glosario/entradas/c/contenedor-de-desarrollo.md):** un dev container describe imagen, features, mounts, usuario, puertos y lifecycle para trabajar en un entorno aislado.
+- **[imagen, tag y digest](../../../glosario/entradas/i/imagen-tag-y-digest.md):** una imagen aporta filesystem y metadata por capas.
+- **[workspace, mounts y permisos](../../../glosario/entradas/w/workspace-mounts-y-permisos.md):** bind mounts comparten archivos del host y heredan diferencias de permisos, case sensitivity y rendimiento.
+- **[lifecycle y caché](../../../glosario/entradas/l/lifecycle-y-cache.md):** crear, iniciar y adjuntar disparan comandos distintos.
+- **[desechabilidad y persistencia](../../../glosario/entradas/d/desechabilidad-y-persistencia.md):** el contenedor debe poder borrarse sin perder código; volúmenes persistentes se enumeran y limpian con cuidado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contenedor de desarrollo](../../../glosario/entradas/c/contenedor-de-desarrollo.md) · [Desechabilidad y persistencia](../../../glosario/entradas/d/desechabilidad-y-persistencia.md) · [Imagen, tag y digest](../../../glosario/entradas/i/imagen-tag-y-digest.md) · [Lifecycle y caché](../../../glosario/entradas/l/lifecycle-y-cache.md) · [Workspace, mounts y permisos](../../../glosario/entradas/w/workspace-mounts-y-permisos.md).
 
 ---
 

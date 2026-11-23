@@ -130,11 +130,11 @@ if set(c["invariantes"]) - set(c["pruebas"]): e.add("invariante sin prueba")
 
 ## Definiciones de trabajo
 
-- **cláusula completa:** afirmación de un contrato con actor, modal, resultado observable y límite.
-- **bucle de contraejemplos:** procedimiento que añade el ejemplo más pequeño que distingue a la regla de un mutante superviviente y repite.
-- **mutante superviviente:** variante defectuosa que pasa todos los ejemplos del conjunto.
-- **revisor de coherencia:** comprobación que verifica que las partes de un contrato (rangos, ejemplos, errores, invariantes) concuerdan entre sí.
-- **decisión humana abierta:** punto que el contrato no cierra, registrado con responsable, fecha y evidencia que lo modificaría.
+- **[cláusula completa](../../../glosario/entradas/c/clausula-completa.md):** afirmación de un contrato con actor, modal, resultado observable y límite.
+- **[bucle de contraejemplos](../../../glosario/entradas/b/bucle-de-contraejemplos.md):** procedimiento que añade el ejemplo más pequeño que distingue a la regla de un mutante superviviente y repite.
+- **[mutante superviviente](../../../glosario/entradas/m/mutante-superviviente.md):** variante defectuosa que pasa todos los ejemplos del conjunto.
+- **[revisor de coherencia](../../../glosario/entradas/r/revisor-de-coherencia.md):** comprobación que verifica que las partes de un contrato (rangos, ejemplos, errores, invariantes) concuerdan entre sí.
+- **[decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md):** punto que el contrato no cierra, registrado con responsable, fecha y evidencia que lo modificaría.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **cláusula completa:** afirmación de un contrato con actor, modal, resultado observable y límite.
-- **bucle de contraejemplos:** procedimiento que añade el ejemplo más pequeño que distingue a la regla de un mutante superviviente y repite.
-- **mutante superviviente:** variante defectuosa que pasa todos los ejemplos del conjunto.
-- **revisor de coherencia:** comprobación que verifica que las partes de un contrato (rangos, ejemplos, errores, invariantes) concuerdan entre sí.
-- **decisión humana abierta:** punto que el contrato no cierra, registrado con responsable, fecha y evidencia que lo modificaría.
+- **[cláusula completa](../../../glosario/entradas/c/clausula-completa.md):** afirmación de un contrato con actor, modal, resultado observable y límite.
+- **[bucle de contraejemplos](../../../glosario/entradas/b/bucle-de-contraejemplos.md):** procedimiento que añade el ejemplo más pequeño que distingue a la regla de un mutante superviviente y repite.
+- **[mutante superviviente](../../../glosario/entradas/m/mutante-superviviente.md):** variante defectuosa que pasa todos los ejemplos del conjunto.
+- **[revisor de coherencia](../../../glosario/entradas/r/revisor-de-coherencia.md):** comprobación que verifica que las partes de un contrato (rangos, ejemplos, errores, invariantes) concuerdan entre sí.
+- **[decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md):** punto que el contrato no cierra, registrado con responsable, fecha y evidencia que lo modificaría.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bucle de contraejemplos](../../../glosario/entradas/b/bucle-de-contraejemplos.md) · [Cláusula completa](../../../glosario/entradas/c/clausula-completa.md) · [Decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md) · [Mutante superviviente](../../../glosario/entradas/m/mutante-superviviente.md) · [Revisor de coherencia](../../../glosario/entradas/r/revisor-de-coherencia.md).
 
 ---
 

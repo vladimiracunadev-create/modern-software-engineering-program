@@ -127,13 +127,13 @@ La tercera figura resume la cadena de decisión.
 
 ## Definiciones de trabajo
 
-- **Clase de seguridad del software:** A, B o C, según la contribución del software a una situación peligrosa y la gravedad del daño posible.
-- **Medida de control de riesgo:** acción o elemento que reduce el riesgo, dentro o fuera del software.
-- **Segregación:** separación argumentada y verificada entre elementos que permite asignar clases distintas.
-- **SOUP:** software de origen desconocido, usado sin conocer sus procesos de desarrollo.
-- **Análisis de impacto:** evaluación del efecto de un cambio sobre riesgos, requisitos y pruebas.
-- **Archivo de gestión de riesgos:** conjunto de registros del análisis y control de riesgos del dispositivo.
-- **Situación peligrosa:** circunstancia en la que personas, bienes o el ambiente se exponen a un peligro.
+- **[Clase de seguridad del software](../../../glosario/entradas/c/clase-de-seguridad-del-software.md):** A, B o C, según la contribución del software a una situación peligrosa y la gravedad del daño posible.
+- **[Medida de control de riesgo](../../../glosario/entradas/m/medida-de-control-de-riesgo.md):** acción o elemento que reduce el riesgo, dentro o fuera del software.
+- **[Segregación](../../../glosario/entradas/s/segregacion.md):** separación argumentada y verificada entre elementos que permite asignar clases distintas.
+- **[SOUP](../../../glosario/entradas/s/soup.md):** software de origen desconocido, usado sin conocer sus procesos de desarrollo.
+- **[Análisis de impacto](../../../glosario/entradas/a/analisis-de-impacto.md):** evaluación del efecto de un cambio sobre riesgos, requisitos y pruebas.
+- **[Archivo de gestión de riesgos](../../../glosario/entradas/a/archivo-de-gestion-de-riesgos.md):** conjunto de registros del análisis y control de riesgos del dispositivo.
+- **[Situación peligrosa](../../../glosario/entradas/s/situacion-peligrosa.md):** circunstancia en la que personas, bienes o el ambiente se exponen a un peligro.
 
 ## Ejemplo mínimo
 
@@ -272,6 +272,8 @@ El dispositivo, los módulos, las clases y los pesos son ficticios y del autor; 
 | Medida de control | Elemento que reduce el riesgo |
 | Análisis de impacto | Efecto de un cambio en riesgos, requisitos y pruebas |
 | Situación peligrosa | Circunstancia de exposición a un peligro |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis de impacto](../../../glosario/entradas/a/analisis-de-impacto.md) · [Archivo de gestión de riesgos](../../../glosario/entradas/a/archivo-de-gestion-de-riesgos.md) · [Clase de seguridad del software](../../../glosario/entradas/c/clase-de-seguridad-del-software.md) · [Medida de control de riesgo](../../../glosario/entradas/m/medida-de-control-de-riesgo.md) · [Segregación](../../../glosario/entradas/s/segregacion.md) · [Situación peligrosa](../../../glosario/entradas/s/situacion-peligrosa.md) · [SOUP](../../../glosario/entradas/s/soup.md).
 
 ---
 

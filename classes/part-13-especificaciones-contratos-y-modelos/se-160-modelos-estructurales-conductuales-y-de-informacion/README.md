@@ -136,11 +136,11 @@ con.execute("create table entrega(id integer primary key, curso_id integer, estu
 
 ## Definiciones de trabajo
 
-- **modelo estructural:** descripción de las partes de un sistema y sus relaciones, sin el orden en que ocurren las cosas.
-- **modelo conductual:** descripción de cómo cambia el sistema en el tiempo mediante estados, transiciones o secuencias.
-- **modelo de información:** descripción de los datos almacenados, sus claves, unicidades y restricciones.
-- **normalización:** organización de los datos de modo que cada hecho se guarde en un único lugar.
-- **deriva:** diferencia entre lo que un modelo afirma y lo que el sistema hace.
+- **[modelo estructural](../../../glosario/entradas/m/modelo-estructural.md):** descripción de las partes de un sistema y sus relaciones, sin el orden en que ocurren las cosas.
+- **[modelo conductual](../../../glosario/entradas/m/modelo-conductual.md):** descripción de cómo cambia el sistema en el tiempo mediante estados, transiciones o secuencias.
+- **[modelo de información](../../../glosario/entradas/m/modelo-de-informacion.md):** descripción de los datos almacenados, sus claves, unicidades y restricciones.
+- **[normalización](../../../glosario/entradas/n/normalizacion.md):** organización de los datos de modo que cada hecho se guarde en un único lugar.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre lo que un modelo afirma y lo que el sistema hace.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -288,11 +288,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **modelo estructural:** descripción de las partes de un sistema y sus relaciones, sin el orden en que ocurren las cosas.
-- **modelo conductual:** descripción de cómo cambia el sistema en el tiempo mediante estados, transiciones o secuencias.
-- **modelo de información:** descripción de los datos almacenados, sus claves, unicidades y restricciones.
-- **normalización:** organización de los datos de modo que cada hecho se guarde en un único lugar.
-- **deriva:** diferencia entre lo que un modelo afirma y lo que el sistema hace.
+- **[modelo estructural](../../../glosario/entradas/m/modelo-estructural.md):** descripción de las partes de un sistema y sus relaciones, sin el orden en que ocurren las cosas.
+- **[modelo conductual](../../../glosario/entradas/m/modelo-conductual.md):** descripción de cómo cambia el sistema en el tiempo mediante estados, transiciones o secuencias.
+- **[modelo de información](../../../glosario/entradas/m/modelo-de-informacion.md):** descripción de los datos almacenados, sus claves, unicidades y restricciones.
+- **[normalización](../../../glosario/entradas/n/normalizacion.md):** organización de los datos de modo que cada hecho se guarde en un único lugar.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre lo que un modelo afirma y lo que el sistema hace.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deriva](../../../glosario/entradas/d/deriva.md) · [Modelo conductual](../../../glosario/entradas/m/modelo-conductual.md) · [Modelo de información](../../../glosario/entradas/m/modelo-de-informacion.md) · [Modelo estructural](../../../glosario/entradas/m/modelo-estructural.md) · [Normalización](../../../glosario/entradas/n/normalizacion.md).
 
 ---
 

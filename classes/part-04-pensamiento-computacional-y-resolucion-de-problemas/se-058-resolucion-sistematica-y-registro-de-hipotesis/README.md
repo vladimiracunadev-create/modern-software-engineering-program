@@ -105,11 +105,11 @@ Si un fallo ocurre en el 10 % de las corridas, la probabilidad de que cinco corr
 
 ## Definiciones de trabajo
 
-- **reproducción:** procedimiento que vuelve a producir un síntoma bajo condiciones declaradas.
-- **hipótesis:** explicación provisional con predicciones contrastables.
-- **falsable:** capaz de resultar incompatible con una observación.
-- **primera divergencia:** primer punto donde dos recorridos difieren.
-- **guardrail:** control que previene o limita una condición de fallo.
+- **[reproducción](../../../glosario/entradas/r/reproduccion.md):** procedimiento que vuelve a producir un síntoma bajo condiciones declaradas.
+- **[hipótesis](../../../glosario/entradas/h/hipotesis.md):** explicación provisional con predicciones contrastables.
+- **[falsable](../../../glosario/entradas/f/falsable.md):** capaz de resultar incompatible con una observación.
+- **[primera divergencia](../../../glosario/entradas/p/primera-divergencia.md):** primer punto donde dos recorridos difieren.
+- **[guardrail](../../../glosario/entradas/g/guardrail.md):** control que previene o limita una condición de fallo.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -253,11 +253,13 @@ El método reduce sesgos, no garantiza acceso a toda evidencia ni elimina incert
 
 ## Glosario
 
-- **reproducción:** procedimiento que vuelve a producir un síntoma bajo condiciones declaradas.
-- **hipótesis:** explicación provisional con predicciones contrastables.
-- **falsable:** capaz de resultar incompatible con una observación.
-- **primera divergencia:** primer punto donde dos recorridos difieren.
-- **guardrail:** control que previene o limita una condición de fallo.
+- **[reproducción](../../../glosario/entradas/r/reproduccion.md):** procedimiento que vuelve a producir un síntoma bajo condiciones declaradas.
+- **[hipótesis](../../../glosario/entradas/h/hipotesis.md):** explicación provisional con predicciones contrastables.
+- **[falsable](../../../glosario/entradas/f/falsable.md):** capaz de resultar incompatible con una observación.
+- **[primera divergencia](../../../glosario/entradas/p/primera-divergencia.md):** primer punto donde dos recorridos difieren.
+- **[guardrail](../../../glosario/entradas/g/guardrail.md):** control que previene o limita una condición de fallo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Falsable](../../../glosario/entradas/f/falsable.md) · [Guardrail](../../../glosario/entradas/g/guardrail.md) · [Hipótesis](../../../glosario/entradas/h/hipotesis.md) · [Primera divergencia](../../../glosario/entradas/p/primera-divergencia.md) · [Regla](../../../glosario/entradas/r/regla.md) · [Reproducción](../../../glosario/entradas/r/reproduccion.md).
 
 ---
 

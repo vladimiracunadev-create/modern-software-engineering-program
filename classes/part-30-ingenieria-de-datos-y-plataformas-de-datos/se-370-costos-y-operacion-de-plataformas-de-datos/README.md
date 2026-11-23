@@ -135,13 +135,13 @@ La tercera figura muestra cuándo termina cada tarea.
 
 ## Definiciones de trabajo
 
-- **Bytes escaneados:** datos que lee una consulta para responder.
-- **Refresco incremental:** recalcular solo la parte que cambió.
-- **Costo fijo por ejecución:** gasto que no depende del volumen (arranque, planificación).
-- **Retención:** plazo de conservación, con su costo en TB-mes.
-- **Ruta crítica:** camino de dependencias más largo; fija el tiempo de entrega.
-- **Holgura:** tiempo que una tarea puede retrasarse sin retrasar la entrega.
-- **Atribución de costos:** asignar el gasto a un equipo, producto o consulta.
+- **[Bytes escaneados](../../../glosario/entradas/b/bytes-escaneados.md):** datos que lee una consulta para responder.
+- **[Refresco incremental](../../../glosario/entradas/r/refresco-incremental.md):** recalcular solo la parte que cambió.
+- **[Costo fijo por ejecución](../../../glosario/entradas/c/costo-fijo-por-ejecucion.md):** gasto que no depende del volumen (arranque, planificación).
+- **[Retención](../../../glosario/entradas/r/retencion.md):** plazo de conservación, con su costo en TB-mes.
+- **[Ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** camino de dependencias más largo; fija el tiempo de entrega.
+- **[Holgura](../../../glosario/entradas/h/holgura.md):** tiempo que una tarea puede retrasarse sin retrasar la entrega.
+- **[Atribución de costos](../../../glosario/entradas/a/atribucion-de-costos.md):** asignar el gasto a un equipo, producto o consulta.
 
 ## Ejemplo mínimo
 
@@ -284,6 +284,8 @@ Los precios, el escalado de 1 TB y de 2 000 veces, el costo fijo de 20 segundos 
 | Ruta crítica | Camino más largo que fija la entrega |
 | Holgura | Retraso tolerable sin afectar la entrega |
 | Atribución | Asignar el gasto a un dueño |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Atribución de costos](../../../glosario/entradas/a/atribucion-de-costos.md) · [Bytes escaneados](../../../glosario/entradas/b/bytes-escaneados.md) · [Costo fijo por ejecución](../../../glosario/entradas/c/costo-fijo-por-ejecucion.md) · [Holgura](../../../glosario/entradas/h/holgura.md) · [Presupuesto](../../../glosario/entradas/p/presupuesto.md) · [Refresco incremental](../../../glosario/entradas/r/refresco-incremental.md) · [Retención](../../../glosario/entradas/r/retencion.md) · [Ruta crítica](../../../glosario/entradas/r/ruta-critica.md).
 
 ---
 

@@ -125,12 +125,12 @@ Las tasas de la simulación son las que midió `SE-541`: la fracción de mutante
 
 ## Definiciones de trabajo
 
-- **Política metodológica:** tabla que asigna prácticas a clases de cambio, con excepciones y revisión.
-- **Clase de cambio:** combinación de riesgo, existencia de reglas deterministas y ambigüedad.
-- **Impacto escapado:** suma de la probabilidad de defecto por el impacto de los cambios que ninguna práctica detectó.
-- **Impacto evitado por hora:** impacto que se evita respecto de no hacer nada, dividido por el costo.
-- **Excepción:** cambio que no sigue la política, con dueño, razón y fecha.
-- **Revisión de la política:** reunión periódica con los defectos escapados y los costos reales.
+- **[Política metodológica](../../../glosario/entradas/p/politica-metodologica.md):** tabla que asigna prácticas a clases de cambio, con excepciones y revisión.
+- **[Clase de cambio](../../../glosario/entradas/c/clase-de-cambio.md):** combinación de riesgo, existencia de reglas deterministas y ambigüedad.
+- **[Impacto escapado](../../../glosario/entradas/i/impacto-escapado.md):** suma de la probabilidad de defecto por el impacto de los cambios que ninguna práctica detectó.
+- **[Impacto evitado por hora](../../../glosario/entradas/i/impacto-evitado-por-hora.md):** impacto que se evita respecto de no hacer nada, dividido por el costo.
+- **[Excepción](../../../glosario/entradas/e/excepcion.md):** cambio que no sigue la política, con dueño, razón y fecha.
+- **[Revisión de la política](../../../glosario/entradas/r/revision-de-la-politica.md):** reunión periódica con los defectos escapados y los costos reales.
 
 ## Ejemplo mínimo
 
@@ -259,6 +259,8 @@ La simulación usa supuestos del autor salvo las tasas de detección, y estas sa
 | Impacto evitado por hora | Impacto evitado dividido por el costo |
 | Excepción | Cambio fuera de la política, con dueño y fecha |
 | Revisión de la política | Revisión periódica con defectos escapados |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clase de cambio](../../../glosario/entradas/c/clase-de-cambio.md) · [Excepción](../../../glosario/entradas/e/excepcion.md) · [Impacto escapado](../../../glosario/entradas/i/impacto-escapado.md) · [Impacto evitado por hora](../../../glosario/entradas/i/impacto-evitado-por-hora.md) · [Política metodológica](../../../glosario/entradas/p/politica-metodologica.md) · [Revisión de la política](../../../glosario/entradas/r/revision-de-la-politica.md).
 
 ---
 

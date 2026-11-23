@@ -127,11 +127,11 @@ fase y el código (`dns_failure`, `connection_refused`, `tls_name_mismatch`, `la
 
 ## Definiciones de trabajo
 
-- **SLI:** medida cuantitativa de comportamiento del servicio.
-- **deadline:** instante límite para completar una operación.
-- **backoff:** espera creciente entre intentos.
-- **circuit breaker:** control que limita llamadas a una dependencia degradada.
-- **SSRF:** abuso que induce a un servidor a solicitar destinos no autorizados.
+- **[SLI](../../../glosario/entradas/s/sli.md):** medida cuantitativa de comportamiento del servicio.
+- **[deadline](../../../glosario/entradas/d/deadline.md):** instante límite para completar una operación.
+- **[backoff](../../../glosario/entradas/b/backoff.md):** espera creciente entre intentos.
+- **[circuit breaker](../../../glosario/entradas/c/circuit-breaker.md):** control que limita llamadas a una dependencia degradada.
+- **[SSRF](../../../glosario/entradas/s/ssrf.md):** abuso que induce a un servidor a solicitar destinos no autorizados.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -284,11 +284,13 @@ El proyecto demuestra diseño y diagnóstico en laboratorio; no certifica dispon
 
 ## Glosario
 
-- **SLI:** medida cuantitativa de comportamiento del servicio.
-- **deadline:** instante límite para completar una operación.
-- **backoff:** espera creciente entre intentos.
-- **circuit breaker:** control que limita llamadas a una dependencia degradada.
-- **SSRF:** abuso que induce a un servidor a solicitar destinos no autorizados.
+- **[SLI](../../../glosario/entradas/s/sli.md):** medida cuantitativa de comportamiento del servicio.
+- **[deadline](../../../glosario/entradas/d/deadline.md):** instante límite para completar una operación.
+- **[backoff](../../../glosario/entradas/b/backoff.md):** espera creciente entre intentos.
+- **[circuit breaker](../../../glosario/entradas/c/circuit-breaker.md):** control que limita llamadas a una dependencia degradada.
+- **[SSRF](../../../glosario/entradas/s/ssrf.md):** abuso que induce a un servidor a solicitar destinos no autorizados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Backoff](../../../glosario/entradas/b/backoff.md) · [Circuit breaker](../../../glosario/entradas/c/circuit-breaker.md) · [Deadline](../../../glosario/entradas/d/deadline.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [SLI](../../../glosario/entradas/s/sli.md) · [SSRF](../../../glosario/entradas/s/ssrf.md).
 
 ---
 

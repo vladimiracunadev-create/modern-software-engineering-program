@@ -148,12 +148,12 @@ Sin compensación, el 34,3 % de los flujos queda a medias, con parte de los sist
 
 ## Definiciones de trabajo
 
-- **persona en el bucle:** persona cuya decisión se espera antes de que ciertas acciones procedan.
-- **fatiga de aprobación:** pérdida de atención de quien aprueba cuando las solicitudes son muchas y casi siempre inocuas.
-- **acción reversible:** acción cuyo efecto puede deshacerse restaurando el estado anterior que el sistema controla.
-- **acción compensable:** acción cuyo efecto puede contrarrestarse con otra acción, sin restaurar el estado exacto.
-- **acción irreversible:** acción cuyo efecto no puede deshacerse ni contrarrestarse por completo.
-- **saga:** secuencia de pasos con una compensación asociada a cada uno.
+- **[persona en el bucle](../../../glosario/entradas/p/persona-en-el-bucle.md):** persona cuya decisión se espera antes de que ciertas acciones procedan.
+- **[fatiga de aprobación](../../../glosario/entradas/f/fatiga-de-aprobacion.md):** pérdida de atención de quien aprueba cuando las solicitudes son muchas y casi siempre inocuas.
+- **[acción reversible](../../../glosario/entradas/a/accion-reversible.md):** acción cuyo efecto puede deshacerse restaurando el estado anterior que el sistema controla.
+- **[acción compensable](../../../glosario/entradas/a/accion-compensable.md):** acción cuyo efecto puede contrarrestarse con otra acción, sin restaurar el estado exacto.
+- **[acción irreversible](../../../glosario/entradas/a/accion-irreversible.md):** acción cuyo efecto no puede deshacerse ni contrarrestarse por completo.
+- **[saga](../../../glosario/entradas/s/saga.md):** secuencia de pasos con una compensación asociada a cada uno.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,12 +301,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **persona en el bucle:** persona cuya decisión se espera antes de que ciertas acciones procedan.
-- **fatiga de aprobación:** pérdida de atención de quien aprueba cuando las solicitudes son muchas y casi siempre inocuas.
-- **acción reversible:** acción cuyo efecto puede deshacerse restaurando el estado anterior que el sistema controla.
-- **acción compensable:** acción cuyo efecto puede contrarrestarse con otra acción, sin restaurar el estado exacto.
-- **acción irreversible:** acción cuyo efecto no puede deshacerse ni contrarrestarse por completo.
-- **saga:** secuencia de pasos con una compensación asociada a cada uno.
+- **[persona en el bucle](../../../glosario/entradas/p/persona-en-el-bucle.md):** persona cuya decisión se espera antes de que ciertas acciones procedan.
+- **[fatiga de aprobación](../../../glosario/entradas/f/fatiga-de-aprobacion.md):** pérdida de atención de quien aprueba cuando las solicitudes son muchas y casi siempre inocuas.
+- **[acción reversible](../../../glosario/entradas/a/accion-reversible.md):** acción cuyo efecto puede deshacerse restaurando el estado anterior que el sistema controla.
+- **[acción compensable](../../../glosario/entradas/a/accion-compensable.md):** acción cuyo efecto puede contrarrestarse con otra acción, sin restaurar el estado exacto.
+- **[acción irreversible](../../../glosario/entradas/a/accion-irreversible.md):** acción cuyo efecto no puede deshacerse ni contrarrestarse por completo.
+- **[saga](../../../glosario/entradas/s/saga.md):** secuencia de pasos con una compensación asociada a cada uno.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acción compensable](../../../glosario/entradas/a/accion-compensable.md) · [Acción irreversible](../../../glosario/entradas/a/accion-irreversible.md) · [Acción reversible](../../../glosario/entradas/a/accion-reversible.md) · [Compensación](../../../glosario/entradas/c/compensacion.md) · [Fatiga de aprobación](../../../glosario/entradas/f/fatiga-de-aprobacion.md) · [Persona en el bucle](../../../glosario/entradas/p/persona-en-el-bucle.md) · [Saga](../../../glosario/entradas/s/saga.md).
 
 ---
 

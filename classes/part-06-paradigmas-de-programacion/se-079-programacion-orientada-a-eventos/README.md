@@ -112,11 +112,11 @@ Cada fallo tiene un remedio de diseño: aislar los manejadores (capturar y regis
 
 ## Definiciones de trabajo
 
-- **evento, productor y manejador:** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
-- **bucle de eventos y cola:** el runtime extrae eventos de una cola y ejecuta manejadores.
-- **callbacks, promesas y corrutinas:** son formas distintas de expresar continuación.
-- **orden, duplicados e idempotencia:** la llegada no garantiza necesariamente el orden de producción y un evento puede repetirse.
-- **cancelación y ciclo de vida:** suscribirse crea una obligación de cancelar o desconectar.
+- **[evento, productor y manejador](../../../glosario/entradas/e/evento-productor-y-manejador.md):** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
+- **[bucle de eventos y cola](../../../glosario/entradas/b/bucle-de-eventos-y-cola.md):** el runtime extrae eventos de una cola y ejecuta manejadores.
+- **[callbacks, promesas y corrutinas](../../../glosario/entradas/c/callbacks-promesas-y-corrutinas.md):** son formas distintas de expresar continuación.
+- **[orden, duplicados e idempotencia](../../../glosario/entradas/o/orden-duplicados-e-idempotencia.md):** la llegada no garantiza necesariamente el orden de producción y un evento puede repetirse.
+- **[cancelación y ciclo de vida](../../../glosario/entradas/c/cancelacion-y-ciclo-de-vida.md):** suscribirse crea una obligación de cancelar o desconectar.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ La orientación a eventos organiza reacciones discretas, pero no compone necesar
 
 ## Glosario
 
-- **evento, productor y manejador:** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
-- **bucle de eventos y cola:** el runtime extrae eventos de una cola y ejecuta manejadores.
-- **callbacks, promesas y corrutinas:** son formas distintas de expresar continuación.
-- **orden, duplicados e idempotencia:** la llegada no garantiza necesariamente el orden de producción y un evento puede repetirse.
-- **cancelación y ciclo de vida:** suscribirse crea una obligación de cancelar o desconectar.
+- **[evento, productor y manejador](../../../glosario/entradas/e/evento-productor-y-manejador.md):** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
+- **[bucle de eventos y cola](../../../glosario/entradas/b/bucle-de-eventos-y-cola.md):** el runtime extrae eventos de una cola y ejecuta manejadores.
+- **[callbacks, promesas y corrutinas](../../../glosario/entradas/c/callbacks-promesas-y-corrutinas.md):** son formas distintas de expresar continuación.
+- **[orden, duplicados e idempotencia](../../../glosario/entradas/o/orden-duplicados-e-idempotencia.md):** la llegada no garantiza necesariamente el orden de producción y un evento puede repetirse.
+- **[cancelación y ciclo de vida](../../../glosario/entradas/c/cancelacion-y-ciclo-de-vida.md):** suscribirse crea una obligación de cancelar o desconectar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bucle de eventos y cola](../../../glosario/entradas/b/bucle-de-eventos-y-cola.md) · [Callbacks, promesas y corrutinas](../../../glosario/entradas/c/callbacks-promesas-y-corrutinas.md) · [Cancelación y ciclo de vida](../../../glosario/entradas/c/cancelacion-y-ciclo-de-vida.md) · [Evento, productor y manejador](../../../glosario/entradas/e/evento-productor-y-manejador.md) · [Orden, duplicados e idempotencia](../../../glosario/entradas/o/orden-duplicados-e-idempotencia.md).
 
 ---
 

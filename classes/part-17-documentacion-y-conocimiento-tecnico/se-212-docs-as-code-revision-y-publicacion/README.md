@@ -137,11 +137,11 @@ Con las etiquetas en el orden de un conjunto, las ocho ejecuciones producen ocho
 
 ## Definiciones de trabajo
 
-- **documentación como código:** práctica de escribir y mantener la documentación con control de versiones, revisión y comprobaciones automáticas.
-- **enlace roto:** referencia a un archivo o a una ancla que no existe en el conjunto publicado.
-- **ancla:** identificador de un encabezado dentro de una página, generado por el renderizador a partir de su título.
-- **construcción reproducible:** construcción que produce los mismos bytes a partir de las mismas fuentes.
-- **huella:** resumen criptográfico de un resultado que permite comprobar su identidad.
+- **[documentación como código](../../../glosario/entradas/d/documentacion-como-codigo.md):** práctica de escribir y mantener la documentación con control de versiones, revisión y comprobaciones automáticas.
+- **[enlace roto](../../../glosario/entradas/e/enlace-roto.md):** referencia a un archivo o a una ancla que no existe en el conjunto publicado.
+- **[ancla](../../../glosario/entradas/a/ancla.md):** identificador de un encabezado dentro de una página, generado por el renderizador a partir de su título.
+- **[construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md):** construcción que produce los mismos bytes a partir de las mismas fuentes.
+- **[huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico de un resultado que permite comprobar su identidad.
 
 Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
@@ -289,11 +289,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **documentación como código:** práctica de mantener la documentación con control de versiones, revisión y comprobaciones automáticas.
-- **enlace roto:** referencia a un archivo o ancla que no existe en el conjunto publicado.
-- **ancla:** identificador de un encabezado dentro de una página, generado a partir de su título.
-- **construcción reproducible:** construcción que produce los mismos bytes a partir de las mismas fuentes.
-- **huella:** resumen criptográfico de un resultado que permite comprobar su identidad.
+- **[documentación como código](../../../glosario/entradas/d/documentacion-como-codigo.md):** práctica de mantener la documentación con control de versiones, revisión y comprobaciones automáticas.
+- **[enlace roto](../../../glosario/entradas/e/enlace-roto.md):** referencia a un archivo o ancla que no existe en el conjunto publicado.
+- **[ancla](../../../glosario/entradas/a/ancla.md):** identificador de un encabezado dentro de una página, generado a partir de su título.
+- **[construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md):** construcción que produce los mismos bytes a partir de las mismas fuentes.
+- **[huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico de un resultado que permite comprobar su identidad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ancla](../../../glosario/entradas/a/ancla.md) · [Construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md) · [Documentación como código](../../../glosario/entradas/d/documentacion-como-codigo.md) · [Enlace roto](../../../glosario/entradas/e/enlace-roto.md) · [Huella](../../../glosario/entradas/h/huella.md).
 
 ---
 

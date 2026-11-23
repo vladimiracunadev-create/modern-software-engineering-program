@@ -108,12 +108,12 @@ La votación ejecuta la misma tarea varias veces y toma la mayoría. Con cinco m
 
 ## Definiciones de trabajo
 
-- **Encadenado:** secuencia de pasos donde la salida de uno es la entrada del siguiente.
-- **Puerta:** comprobación entre pasos con una acción definida al fallar.
-- **Enrutador:** componente que clasifica la entrada y elige el camino.
-- **Cobertura con umbral:** fracción de solicitudes que el enrutador acepta por su confianza.
-- **Seccionamiento:** paralelización donde cada subtarea es una parte distinta.
-- **Votación:** ejecución repetida de la misma tarea y decisión por mayoría.
+- **[Encadenado](../../../glosario/entradas/e/encadenado.md):** secuencia de pasos donde la salida de uno es la entrada del siguiente.
+- **[Puerta](../../../glosario/entradas/p/puerta.md):** comprobación entre pasos con una acción definida al fallar.
+- **[Enrutador](../../../glosario/entradas/e/enrutador.md):** componente que clasifica la entrada y elige el camino.
+- **[Cobertura con umbral](../../../glosario/entradas/c/cobertura-con-umbral.md):** fracción de solicitudes que el enrutador acepta por su confianza.
+- **[Seccionamiento](../../../glosario/entradas/s/seccionamiento.md):** paralelización donde cada subtarea es una parte distinta.
+- **[Votación](../../../glosario/entradas/v/votacion.md):** ejecución repetida de la misma tarea y decisión por mayoría.
 
 ## Ejemplo mínimo
 
@@ -251,6 +251,8 @@ El éxito por paso, la detección de la puerta, el acierto por muestra y la corr
 | Cobertura | Fracción de solicitudes que el enrutador acepta |
 | Seccionamiento | Paralelización por partes distintas del trabajo |
 | Votación | Mayoría sobre ejecuciones repetidas de una tarea |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura con umbral](../../../glosario/entradas/c/cobertura-con-umbral.md) · [Encadenado](../../../glosario/entradas/e/encadenado.md) · [Enrutador](../../../glosario/entradas/e/enrutador.md) · [Puerta](../../../glosario/entradas/p/puerta.md) · [Seccionamiento](../../../glosario/entradas/s/seccionamiento.md) · [Votación](../../../glosario/entradas/v/votacion.md).
 
 ---
 

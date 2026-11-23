@@ -139,11 +139,11 @@ De las 600 peticiones, 330 (55 %) devuelven códigos que la documentación no me
 
 ## Definiciones de trabajo
 
-- **referencia de API:** descripción de cada operación, parámetro y respuesta de una API, preferiblemente generada del código o de un esquema.
-- **ejemplo ejecutable:** ejemplo de uso cuya salida declarada se compara con la real de forma automática.
-- **código de estado:** número de tres cifras que indica el resultado de una petición HTTP según la semántica de HTTP.
-- **cobertura de documentación:** fracción de elementos públicos de un módulo que tiene texto de documentación.
-- **contrato publicado:** conjunto de comportamientos que el proveedor declara estables y que los clientes pueden asumir.
+- **[referencia de API](../../../glosario/entradas/r/referencia-de-api.md):** descripción de cada operación, parámetro y respuesta de una API, preferiblemente generada del código o de un esquema.
+- **[ejemplo ejecutable](../../../glosario/entradas/e/ejemplo-ejecutable.md):** ejemplo de uso cuya salida declarada se compara con la real de forma automática.
+- **[código de estado](../../../glosario/entradas/c/codigo-de-estado.md):** número de tres cifras que indica el resultado de una petición HTTP según la semántica de HTTP.
+- **[cobertura de documentación](../../../glosario/entradas/c/cobertura-de-documentacion.md):** fracción de elementos públicos de un módulo que tiene texto de documentación.
+- **[contrato publicado](../../../glosario/entradas/c/contrato-publicado.md):** conjunto de comportamientos que el proveedor declara estables y que los clientes pueden asumir.
 
 Las definiciones son operativas para el portal; no reemplazan las de las especificaciones enlazadas abajo.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **referencia de API:** descripción de cada operación, parámetro y respuesta de una API.
-- **ejemplo ejecutable:** ejemplo cuya salida declarada se compara con la real de forma automática.
-- **código de estado:** número que indica el resultado de una petición HTTP según su semántica.
-- **cobertura de documentación:** fracción de elementos públicos con texto de documentación.
-- **contrato publicado:** conjunto de comportamientos que el proveedor declara estables.
+- **[referencia de API](../../../glosario/entradas/r/referencia-de-api.md):** descripción de cada operación, parámetro y respuesta de una API.
+- **[ejemplo ejecutable](../../../glosario/entradas/e/ejemplo-ejecutable.md):** ejemplo cuya salida declarada se compara con la real de forma automática.
+- **[código de estado](../../../glosario/entradas/c/codigo-de-estado.md):** número que indica el resultado de una petición HTTP según su semántica.
+- **[cobertura de documentación](../../../glosario/entradas/c/cobertura-de-documentacion.md):** fracción de elementos públicos con texto de documentación.
+- **[contrato publicado](../../../glosario/entradas/c/contrato-publicado.md):** conjunto de comportamientos que el proveedor declara estables.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura de documentación](../../../glosario/entradas/c/cobertura-de-documentacion.md) · [Código de estado](../../../glosario/entradas/c/codigo-de-estado.md) · [Contrato publicado](../../../glosario/entradas/c/contrato-publicado.md) · [Ejemplo ejecutable](../../../glosario/entradas/e/ejemplo-ejecutable.md) · [Referencia de API](../../../glosario/entradas/r/referencia-de-api.md).
 
 ---
 

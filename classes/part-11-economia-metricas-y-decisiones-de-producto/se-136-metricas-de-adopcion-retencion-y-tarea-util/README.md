@@ -138,11 +138,11 @@ La retención real a 30 días es 34,2 %. Contar a todas las personas, aunque ten
 
 ## Definiciones de trabajo
 
-- **adopción:** parte de una población objetivo declarada que comienza a usar el servicio en una ventana.
-- **tarea útil:** evento que prueba que la persona logró lo que buscaba (en la plataforma, una entrega aceptada).
-- **retención por cohorte:** fracción de las personas que empezaron en un periodo y repiten la tarea útil k periodos después.
-- **heterogeneidad:** coexistencia de segmentos con comportamientos distintos dentro de una misma curva.
-- **censura:** ausencia de datos porque el tiempo de observación aún no alcanzó la ventana medida.
+- **[adopción](../../../glosario/entradas/a/adopcion.md):** parte de una población objetivo declarada que comienza a usar el servicio en una ventana.
+- **[tarea útil](../../../glosario/entradas/t/tarea-util.md):** evento que prueba que la persona logró lo que buscaba (en la plataforma, una entrega aceptada).
+- **[retención por cohorte](../../../glosario/entradas/r/retencion-por-cohorte.md):** fracción de las personas que empezaron en un periodo y repiten la tarea útil k periodos después.
+- **[heterogeneidad](../../../glosario/entradas/h/heterogeneidad.md):** coexistencia de segmentos con comportamientos distintos dentro de una misma curva.
+- **[censura](../../../glosario/entradas/c/censura.md):** ausencia de datos porque el tiempo de observación aún no alcanzó la ventana medida.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -285,11 +285,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **adopción:** parte de una población objetivo declarada que comienza a usar el servicio en una ventana.
-- **tarea útil:** evento que prueba que la persona logró lo que buscaba (en la plataforma, una entrega aceptada).
-- **retención por cohorte:** fracción de las personas que empezaron en un periodo y repiten la tarea útil k periodos después.
-- **heterogeneidad:** coexistencia de segmentos con comportamientos distintos dentro de una misma curva.
-- **censura:** ausencia de datos porque el tiempo de observación aún no alcanzó la ventana medida.
+- **[adopción](../../../glosario/entradas/a/adopcion.md):** parte de una población objetivo declarada que comienza a usar el servicio en una ventana.
+- **[tarea útil](../../../glosario/entradas/t/tarea-util.md):** evento que prueba que la persona logró lo que buscaba (en la plataforma, una entrega aceptada).
+- **[retención por cohorte](../../../glosario/entradas/r/retencion-por-cohorte.md):** fracción de las personas que empezaron en un periodo y repiten la tarea útil k periodos después.
+- **[heterogeneidad](../../../glosario/entradas/h/heterogeneidad.md):** coexistencia de segmentos con comportamientos distintos dentro de una misma curva.
+- **[censura](../../../glosario/entradas/c/censura.md):** ausencia de datos porque el tiempo de observación aún no alcanzó la ventana medida.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adopción](../../../glosario/entradas/a/adopcion.md) · [Censura](../../../glosario/entradas/c/censura.md) · [Heterogeneidad](../../../glosario/entradas/h/heterogeneidad.md) · [Retención por cohorte](../../../glosario/entradas/r/retencion-por-cohorte.md) · [Tarea útil](../../../glosario/entradas/t/tarea-util.md).
 
 ---
 

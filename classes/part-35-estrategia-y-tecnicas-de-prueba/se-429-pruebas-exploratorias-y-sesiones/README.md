@@ -165,11 +165,11 @@ La lista dirigida halla los seis defectos; las cadenas aleatorias hallan dos con
 
 ## Definiciones de trabajo
 
-- **exploración:** actividad simultánea de aprendizaje, diseño y ejecución de pruebas con una misión.
-- **misión:** objetivo acotado de una sesión de exploración, sin pasos prescritos.
-- **heurística de prueba:** regla práctica que orienta qué entradas o acciones probar.
-- **sonda:** valor de entrada elegido por su capacidad de revelar defectos conocidos.
-- **relación de contraste:** cociente de luminancias de dos colores definido por WCAG.
+- **[exploración](../../../glosario/entradas/e/exploracion.md):** actividad simultánea de aprendizaje, diseño y ejecución de pruebas con una misión.
+- **[misión](../../../glosario/entradas/m/mision.md):** objetivo acotado de una sesión de exploración, sin pasos prescritos.
+- **[heurística de prueba](../../../glosario/entradas/h/heuristica-de-prueba.md):** regla práctica que orienta qué entradas o acciones probar.
+- **[sonda](../../../glosario/entradas/s/sonda.md):** valor de entrada elegido por su capacidad de revelar defectos conocidos.
+- **[relación de contraste](../../../glosario/entradas/r/relacion-de-contraste.md):** cociente de luminancias de dos colores definido por WCAG.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -317,11 +317,13 @@ Se ejecutaron tres experimentos con agentes simulados, páginas sintéticas y va
 
 ## Glosario
 
-- **exploración:** actividad simultánea de aprendizaje, diseño y ejecución de pruebas con una misión.
-- **misión:** objetivo acotado de una sesión de exploración, sin pasos prescritos.
-- **heurística de prueba:** regla práctica que orienta qué entradas o acciones probar.
-- **sonda:** valor de entrada elegido por su capacidad de revelar defectos conocidos.
-- **relación de contraste:** cociente de luminancias de dos colores definido por WCAG.
+- **[exploración](../../../glosario/entradas/e/exploracion.md):** actividad simultánea de aprendizaje, diseño y ejecución de pruebas con una misión.
+- **[misión](../../../glosario/entradas/m/mision.md):** objetivo acotado de una sesión de exploración, sin pasos prescritos.
+- **[heurística de prueba](../../../glosario/entradas/h/heuristica-de-prueba.md):** regla práctica que orienta qué entradas o acciones probar.
+- **[sonda](../../../glosario/entradas/s/sonda.md):** valor de entrada elegido por su capacidad de revelar defectos conocidos.
+- **[relación de contraste](../../../glosario/entradas/r/relacion-de-contraste.md):** cociente de luminancias de dos colores definido por WCAG.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Exploración](../../../glosario/entradas/e/exploracion.md) · [Heurística de prueba](../../../glosario/entradas/h/heuristica-de-prueba.md) · [Misión](../../../glosario/entradas/m/mision.md) · [Relación de contraste](../../../glosario/entradas/r/relacion-de-contraste.md) · [Sonda](../../../glosario/entradas/s/sonda.md).
 
 ---
 

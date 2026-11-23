@@ -112,12 +112,12 @@ El esquema que une los dos patrones deja clara la responsabilidad de cada pieza.
 
 ## Definiciones de trabajo
 
-- **Orquestador:** componente que divide el trabajo según la entrada y lo asigna a trabajadores.
-- **Trabajador:** componente con contexto y herramientas mínimas que resuelve una subtarea.
-- **Síntesis:** paso que reúne los resultados de los trabajadores.
-- **Evaluador:** componente que juzga un resultado y devuelve las fallas concretas.
-- **Tope de vueltas:** número máximo de iteraciones del bucle de revisión.
-- **LPT:** regla voraz de reparto que asigna primero las tareas más grandes.
+- **[Orquestador](../../../glosario/entradas/o/orquestador.md):** componente que divide el trabajo según la entrada y lo asigna a trabajadores.
+- **[Trabajador](../../../glosario/entradas/t/trabajador.md):** componente con contexto y herramientas mínimas que resuelve una subtarea.
+- **[Síntesis](../../../glosario/entradas/s/sintesis.md):** paso que reúne los resultados de los trabajadores.
+- **[Evaluador](../../../glosario/entradas/e/evaluador.md):** componente que juzga un resultado y devuelve las fallas concretas.
+- **[Tope de vueltas](../../../glosario/entradas/t/tope-de-vueltas.md):** número máximo de iteraciones del bucle de revisión.
+- **[LPT](../../../glosario/entradas/l/lpt.md):** regla voraz de reparto que asigna primero las tareas más grandes.
 
 ## Ejemplo mínimo
 
@@ -255,6 +255,8 @@ Los tamaños de los cursos son sintéticos y el orquestador conoce los tamaños 
 | Evaluador | Componente que juzga y devuelve fallas concretas |
 | Tope de vueltas | Máximo de iteraciones del bucle de revisión |
 | LPT | Regla voraz que reparte primero lo más grande |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evaluador](../../../glosario/entradas/e/evaluador.md) · [LPT](../../../glosario/entradas/l/lpt.md) · [Orquestador](../../../glosario/entradas/o/orquestador.md) · [Síntesis](../../../glosario/entradas/s/sintesis.md) · [Tope de vueltas](../../../glosario/entradas/t/tope-de-vueltas.md) · [Trabajador](../../../glosario/entradas/t/trabajador.md).
 
 ---
 

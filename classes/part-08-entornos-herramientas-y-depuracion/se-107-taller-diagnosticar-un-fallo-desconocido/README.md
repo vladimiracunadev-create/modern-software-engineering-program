@@ -106,11 +106,11 @@ La reducción funciona con pruebas deterministas y falla con fallos intermitente
 
 ## Definiciones de trabajo
 
-- **triage y contención:** primero se describe impacto, alcance, seguridad y acción reversible para evitar daño.
-- **cronología y hechos:** el equipo registra qué cambió, cuándo apareció y en qué entornos, separando observación de interpretación.
-- **hipótesis rivales:** se formulan al menos dos explicaciones con predicciones distintas.
-- **escalera de herramientas:** se empieza por versión, logs y reproducción; luego debugger, profiler o análisis según la pregunta.
-- **causa, corrección y seguimiento:** la causa explica mecanismo y condiciones; la corrección cambia ese mecanismo; la regresión falla antes y pasa después.
+- **[triage y contención](../../../glosario/entradas/t/triage-y-contencion.md):** primero se describe impacto, alcance, seguridad y acción reversible para evitar daño.
+- **[cronología y hechos](../../../glosario/entradas/c/cronologia-y-hechos.md):** el equipo registra qué cambió, cuándo apareció y en qué entornos, separando observación de interpretación.
+- **[hipótesis rivales](../../../glosario/entradas/h/hipotesis-rivales.md):** se formulan al menos dos explicaciones con predicciones distintas.
+- **[escalera de herramientas](../../../glosario/entradas/e/escalera-de-herramientas.md):** se empieza por versión, logs y reproducción; luego debugger, profiler o análisis según la pregunta.
+- **[causa, corrección y seguimiento](../../../glosario/entradas/c/causa-correccion-y-seguimiento.md):** la causa explica mecanismo y condiciones; la corrección cambia ese mecanismo; la regresión falla antes y pasa después.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -259,11 +259,13 @@ El taller produce diagnóstico del caso dado; no demuestra que todo el equipo pu
 
 ## Glosario
 
-- **triage y contención:** primero se describe impacto, alcance, seguridad y acción reversible para evitar daño.
-- **cronología y hechos:** el equipo registra qué cambió, cuándo apareció y en qué entornos, separando observación de interpretación.
-- **hipótesis rivales:** se formulan al menos dos explicaciones con predicciones distintas.
-- **escalera de herramientas:** se empieza por versión, logs y reproducción; luego debugger, profiler o análisis según la pregunta.
-- **causa, corrección y seguimiento:** la causa explica mecanismo y condiciones; la corrección cambia ese mecanismo; la regresión falla antes y pasa después.
+- **[triage y contención](../../../glosario/entradas/t/triage-y-contencion.md):** primero se describe impacto, alcance, seguridad y acción reversible para evitar daño.
+- **[cronología y hechos](../../../glosario/entradas/c/cronologia-y-hechos.md):** el equipo registra qué cambió, cuándo apareció y en qué entornos, separando observación de interpretación.
+- **[hipótesis rivales](../../../glosario/entradas/h/hipotesis-rivales.md):** se formulan al menos dos explicaciones con predicciones distintas.
+- **[escalera de herramientas](../../../glosario/entradas/e/escalera-de-herramientas.md):** se empieza por versión, logs y reproducción; luego debugger, profiler o análisis según la pregunta.
+- **[causa, corrección y seguimiento](../../../glosario/entradas/c/causa-correccion-y-seguimiento.md):** la causa explica mecanismo y condiciones; la corrección cambia ese mecanismo; la regresión falla antes y pasa después.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa, corrección y seguimiento](../../../glosario/entradas/c/causa-correccion-y-seguimiento.md) · [Cronología y hechos](../../../glosario/entradas/c/cronologia-y-hechos.md) · [Escalera de herramientas](../../../glosario/entradas/e/escalera-de-herramientas.md) · [Hipótesis rivales](../../../glosario/entradas/h/hipotesis-rivales.md) · [Triage y contención](../../../glosario/entradas/t/triage-y-contencion.md).
 
 ---
 

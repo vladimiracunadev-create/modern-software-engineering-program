@@ -129,11 +129,11 @@ Se simularon 2000 horas de una página cuyos datos cambian en promedio 0,2 veces
 
 ## Definiciones de trabajo
 
-- **renderizado en cliente:** construcción del HTML en el navegador a partir de un documento mínimo, un paquete de código y datos pedidos después.
-- **renderizado en servidor:** construcción del HTML completo en cada petición antes de enviarlo.
-- **hidratación:** adjuntar comportamiento en el cliente a un HTML ya construido por el servidor, reproduciendo el mismo árbol.
-- **generación estática:** producción del HTML antes de publicar y servicio desde archivos o una caché.
-- **regeneración incremental:** reconstrucción de una página estática cuando caduca o cambian sus datos.
+- **[renderizado en cliente](../../../glosario/entradas/r/renderizado-en-cliente.md):** construcción del HTML en el navegador a partir de un documento mínimo, un paquete de código y datos pedidos después.
+- **[renderizado en servidor](../../../glosario/entradas/r/renderizado-en-servidor.md):** construcción del HTML completo en cada petición antes de enviarlo.
+- **[hidratación](../../../glosario/entradas/h/hidratacion.md):** adjuntar comportamiento en el cliente a un HTML ya construido por el servidor, reproduciendo el mismo árbol.
+- **[generación estática](../../../glosario/entradas/g/generacion-estatica.md):** producción del HTML antes de publicar y servicio desde archivos o una caché.
+- **[regeneración incremental](../../../glosario/entradas/r/regeneracion-incremental.md):** reconstrucción de una página estática cuando caduca o cambian sus datos.
 
 Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
 
@@ -279,11 +279,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **renderizado en cliente:** construcción del HTML en el navegador a partir de un documento mínimo, un paquete de código y datos pedidos después.
-- **renderizado en servidor:** construcción del HTML completo en cada petición antes de enviarlo.
-- **hidratación:** adjuntar comportamiento en el cliente a un HTML ya construido por el servidor, reproduciendo el mismo árbol.
-- **generación estática:** producción del HTML antes de publicar y servicio desde archivos o una caché.
-- **regeneración incremental:** reconstrucción de una página estática cuando caduca o cambian sus datos.
+- **[renderizado en cliente](../../../glosario/entradas/r/renderizado-en-cliente.md):** construcción del HTML en el navegador a partir de un documento mínimo, un paquete de código y datos pedidos después.
+- **[renderizado en servidor](../../../glosario/entradas/r/renderizado-en-servidor.md):** construcción del HTML completo en cada petición antes de enviarlo.
+- **[hidratación](../../../glosario/entradas/h/hidratacion.md):** adjuntar comportamiento en el cliente a un HTML ya construido por el servidor, reproduciendo el mismo árbol.
+- **[generación estática](../../../glosario/entradas/g/generacion-estatica.md):** producción del HTML antes de publicar y servicio desde archivos o una caché.
+- **[regeneración incremental](../../../glosario/entradas/r/regeneracion-incremental.md):** reconstrucción de una página estática cuando caduca o cambian sus datos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Generación estática](../../../glosario/entradas/g/generacion-estatica.md) · [Hidratación](../../../glosario/entradas/h/hidratacion.md) · [Regeneración incremental](../../../glosario/entradas/r/regeneracion-incremental.md) · [Renderizado en cliente](../../../glosario/entradas/r/renderizado-en-cliente.md) · [Renderizado en servidor](../../../glosario/entradas/r/renderizado-en-servidor.md).
 
 ---
 

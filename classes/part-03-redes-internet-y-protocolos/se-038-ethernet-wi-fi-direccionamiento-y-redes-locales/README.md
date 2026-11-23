@@ -118,11 +118,11 @@ como variación de latencia (jitter).
 
 ## Definiciones de trabajo
 
-- **trama:** unidad transmitida por un protocolo de enlace.
-- **MAC:** dirección utilizada en un dominio de enlace.
-- **ARP:** protocolo IPv4 de resolución entre dirección IP y dirección de enlace.
-- **gateway:** siguiente salto usado para alcanzar otras redes.
-- **VLAN:** segmentación lógica de dominios de enlace sobre infraestructura compartida.
+- **[trama](../../../glosario/entradas/t/trama.md):** unidad transmitida por un protocolo de enlace.
+- **[MAC](../../../glosario/entradas/c/codigo-de-autenticacion-de-mensaje.md):** dirección utilizada en un dominio de enlace.
+- **[ARP](../../../glosario/entradas/a/arp.md):** protocolo IPv4 de resolución entre dirección IP y dirección de enlace.
+- **[gateway](../../../glosario/entradas/g/gateway.md):** siguiente salto usado para alcanzar otras redes.
+- **[VLAN](../../../glosario/entradas/v/vlan.md):** segmentación lógica de dominios de enlace sobre infraestructura compartida.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -272,11 +272,13 @@ La captura local no ve decisiones internas del switch ni demuestra ausencia de i
 
 ## Glosario
 
-- **trama:** unidad transmitida por un protocolo de enlace.
-- **MAC:** dirección utilizada en un dominio de enlace.
-- **ARP:** protocolo IPv4 de resolución entre dirección IP y dirección de enlace.
-- **gateway:** siguiente salto usado para alcanzar otras redes.
-- **VLAN:** segmentación lógica de dominios de enlace sobre infraestructura compartida.
+- **[trama](../../../glosario/entradas/t/trama.md):** unidad transmitida por un protocolo de enlace.
+- **[MAC](../../../glosario/entradas/c/codigo-de-autenticacion-de-mensaje.md):** dirección utilizada en un dominio de enlace.
+- **[ARP](../../../glosario/entradas/a/arp.md):** protocolo IPv4 de resolución entre dirección IP y dirección de enlace.
+- **[gateway](../../../glosario/entradas/g/gateway.md):** siguiente salto usado para alcanzar otras redes.
+- **[VLAN](../../../glosario/entradas/v/vlan.md):** segmentación lógica de dominios de enlace sobre infraestructura compartida.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [ARP](../../../glosario/entradas/a/arp.md) · [Código de autenticación de mensaje](../../../glosario/entradas/c/codigo-de-autenticacion-de-mensaje.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Gateway](../../../glosario/entradas/g/gateway.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Trama](../../../glosario/entradas/t/trama.md) · [VLAN](../../../glosario/entradas/v/vlan.md).
 
 ---
 

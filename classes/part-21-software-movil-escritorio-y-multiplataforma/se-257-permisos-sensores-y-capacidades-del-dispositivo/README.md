@@ -151,11 +151,11 @@ Resultado: con celdas de 0,05 y de 0,5 km, **2000 de 2000** pares son únicos (1
 
 ## Definiciones de trabajo
 
-- **permiso:** autorización que el sistema o la persona concede, deniega o revoca para que la aplicación use una capacidad protegida; es un estado que cambia, no un booleano.
-- **capacidad:** función del dispositivo que el sistema protege (ubicación, cámara, notificaciones, archivos) y que exige una autorización.
-- **mínimo necesario:** criterio de pedir solo la capacidad, con la precisión y el alcance más pequeños, sin los cuales una función falla.
-- **revocación:** retirada de un permiso concedido, normalmente desde los ajustes del sistema y sin que la aplicación participe.
-- **reidentificación:** recuperación de la identidad de una persona a partir de datos que no la nombran, combinando atributos como lugares frecuentes.
+- **[permiso](../../../glosario/entradas/p/permiso.md):** autorización que el sistema o la persona concede, deniega o revoca para que la aplicación use una capacidad protegida; es un estado que cambia, no un booleano.
+- **[capacidad](../../../glosario/entradas/c/capacidad.md):** función del dispositivo que el sistema protege (ubicación, cámara, notificaciones, archivos) y que exige una autorización.
+- **[mínimo necesario](../../../glosario/entradas/m/minimo-necesario.md):** criterio de pedir solo la capacidad, con la precisión y el alcance más pequeños, sin los cuales una función falla.
+- **[revocación](../../../glosario/entradas/r/revocacion.md):** retirada de un permiso concedido, normalmente desde los ajustes del sistema y sin que la aplicación participe.
+- **[reidentificación](../../../glosario/entradas/r/reidentificacion.md):** recuperación de la identidad de una persona a partir de datos que no la nombran, combinando atributos como lugares frecuentes.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **permiso:** autorización que el sistema o la persona concede, deniega o revoca para que la aplicación use una capacidad protegida; es un estado que cambia, no un booleano.
-- **capacidad:** función del dispositivo que el sistema protege (ubicación, cámara, notificaciones, archivos) y que exige una autorización.
-- **mínimo necesario:** criterio de pedir solo la capacidad, con la precisión y el alcance más pequeños, sin los cuales una función falla.
-- **revocación:** retirada de un permiso concedido, normalmente desde los ajustes del sistema y sin que la aplicación participe.
-- **reidentificación:** recuperación de la identidad de una persona a partir de datos que no la nombran, combinando atributos como lugares frecuentes.
+- **[permiso](../../../glosario/entradas/p/permiso.md):** autorización que el sistema o la persona concede, deniega o revoca para que la aplicación use una capacidad protegida; es un estado que cambia, no un booleano.
+- **[capacidad](../../../glosario/entradas/c/capacidad.md):** función del dispositivo que el sistema protege (ubicación, cámara, notificaciones, archivos) y que exige una autorización.
+- **[mínimo necesario](../../../glosario/entradas/m/minimo-necesario.md):** criterio de pedir solo la capacidad, con la precisión y el alcance más pequeños, sin los cuales una función falla.
+- **[revocación](../../../glosario/entradas/r/revocacion.md):** retirada de un permiso concedido, normalmente desde los ajustes del sistema y sin que la aplicación participe.
+- **[reidentificación](../../../glosario/entradas/r/reidentificacion.md):** recuperación de la identidad de una persona a partir de datos que no la nombran, combinando atributos como lugares frecuentes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capacidad](../../../glosario/entradas/c/capacidad.md) · [Mínimo necesario](../../../glosario/entradas/m/minimo-necesario.md) · [Permiso](../../../glosario/entradas/p/permiso.md) · [Reidentificación](../../../glosario/entradas/r/reidentificacion.md) · [Revocación](../../../glosario/entradas/r/revocacion.md).
 
 ---
 

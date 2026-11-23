@@ -134,11 +134,11 @@ pierden = antes and not despues
 
 ## Definiciones de trabajo
 
-- **token de diseño:** nombre asignado a un valor de diseño (color, tamaño, espacio) que centraliza su uso.
-- **razón de contraste:** cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
-- **distancia de color ΔE:** distancia en un espacio perceptual como CIELAB entre dos colores.
-- **reflujo:** adaptación del contenido al ancho disponible sin desplazamiento en dos dimensiones.
-- **señal redundante:** indicador adicional al color, como texto, forma o patrón.
+- **[token de diseño](../../../glosario/entradas/t/token-de-diseno.md):** nombre asignado a un valor de diseño (color, tamaño, espacio) que centraliza su uso.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
+- **[distancia de color ΔE](../../../glosario/entradas/d/distancia-de-color-e.md):** distancia en un espacio perceptual como CIELAB entre dos colores.
+- **[reflujo](../../../glosario/entradas/r/reflujo.md):** adaptación del contenido al ancho disponible sin desplazamiento en dos dimensiones.
+- **[señal redundante](../../../glosario/entradas/s/senal-redundante.md):** indicador adicional al color, como texto, forma o patrón.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -284,11 +284,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **token de diseño:** nombre asignado a un valor de diseño (color, tamaño, espacio) que centraliza su uso.
-- **razón de contraste:** cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
-- **distancia de color ΔE:** distancia en un espacio perceptual como CIELAB entre dos colores.
-- **reflujo:** adaptación del contenido al ancho disponible sin desplazamiento en dos dimensiones.
-- **señal redundante:** indicador adicional al color, como texto, forma o patrón.
+- **[token de diseño](../../../glosario/entradas/t/token-de-diseno.md):** nombre asignado a un valor de diseño (color, tamaño, espacio) que centraliza su uso.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
+- **[distancia de color ΔE](../../../glosario/entradas/d/distancia-de-color-e.md):** distancia en un espacio perceptual como CIELAB entre dos colores.
+- **[reflujo](../../../glosario/entradas/r/reflujo.md):** adaptación del contenido al ancho disponible sin desplazamiento en dos dimensiones.
+- **[señal redundante](../../../glosario/entradas/s/senal-redundante.md):** indicador adicional al color, como texto, forma o patrón.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Distancia de color ΔE](../../../glosario/entradas/d/distancia-de-color-e.md) · [Razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md) · [Reflujo](../../../glosario/entradas/r/reflujo.md) · [Señal redundante](../../../glosario/entradas/s/senal-redundante.md) · [Token de diseño](../../../glosario/entradas/t/token-de-diseno.md).
 
 ---
 

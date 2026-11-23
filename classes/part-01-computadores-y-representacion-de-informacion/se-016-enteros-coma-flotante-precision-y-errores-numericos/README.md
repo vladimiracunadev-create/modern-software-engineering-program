@@ -192,16 +192,18 @@ unidad y política de redondeo. Cambiar a Decimal se evalúa por contrato extern
 
 ## Definiciones de trabajo
 
-- **precisión:** cantidad de información significativa representada;
-- **rango:** intervalo de magnitudes disponibles;
-- **redondeo:** selección de un valor representable;
-- **ULP:** distancia local entre valores flotantes consecutivos;
-- **NaN:** valor especial para resultados no numéricos.
+- **[precisión](../../../glosario/entradas/p/precision.md):** cantidad de información significativa representada;
+- **[rango](../../../glosario/entradas/r/rango.md):** intervalo de magnitudes disponibles;
+- **[redondeo](../../../glosario/entradas/r/redondeo.md):** selección de un valor representable;
+- **[ULP](../../../glosario/entradas/u/ulp.md):** distancia local entre valores flotantes consecutivos;
+- **[NaN](../../../glosario/entradas/n/nan.md):** valor especial para resultados no numéricos.
 
 ## Glosario
 
-**Significando** contiene dígitos significativos. **Overflow/underflow** exceden rango
-alto o pequeño. **Cancelación** pierde información al restar valores cercanos.
+**[Significando](../../../glosario/entradas/s/significando.md)** contiene dígitos significativos. **[Overflow/underflow](../../../glosario/entradas/o/overflow-underflow.md)** exceden rango
+alto o pequeño. **[Cancelación](../../../glosario/entradas/c/cancelacion.md)** pierde información al restar valores cercanos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cancelación](../../../glosario/entradas/c/cancelacion.md) · [NaN](../../../glosario/entradas/n/nan.md) · [Overflow/underflow](../../../glosario/entradas/o/overflow-underflow.md) · [Precisión](../../../glosario/entradas/p/precision.md) · [Rango](../../../glosario/entradas/r/rango.md) · [Redondeo](../../../glosario/entradas/r/redondeo.md) · [Significando](../../../glosario/entradas/s/significando.md) · [ULP](../../../glosario/entradas/u/ulp.md).
 
 ## Ejemplo mínimo
 

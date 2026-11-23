@@ -163,11 +163,11 @@ Con ocho servicios en serie la mediana se multiplica por 9 y el percentil 99 por
 
 ## Definiciones de trabajo
 
-- **vista arquitectónica:** representación del sistema desde un conjunto de preocupaciones, con los elementos y relaciones necesarios y nada más.
-- **vista lógica:** vista que muestra módulos y las dependencias permitidas entre ellos.
-- **vista de ejecución:** vista que muestra qué se llama en tiempo de ejecución, en qué orden y con qué concurrencia.
-- **radio de explosión:** conjunto de recorridos o funciones que dejan de funcionar cuando falla un elemento.
-- **traza:** registro de los pasos de una petición a través de los componentes del sistema.
+- **[vista arquitectónica](../../../glosario/entradas/v/vista-arquitectonica.md):** representación del sistema desde un conjunto de preocupaciones, con los elementos y relaciones necesarios y nada más.
+- **[vista lógica](../../../glosario/entradas/v/vista-logica.md):** vista que muestra módulos y las dependencias permitidas entre ellos.
+- **[vista de ejecución](../../../glosario/entradas/v/vista-de-ejecucion.md):** vista que muestra qué se llama en tiempo de ejecución, en qué orden y con qué concurrencia.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** conjunto de recorridos o funciones que dejan de funcionar cuando falla un elemento.
+- **[traza](../../../glosario/entradas/t/traza.md):** registro de los pasos de una petición a través de los componentes del sistema.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **vista arquitectónica:** representación del sistema desde un conjunto de preocupaciones, con los elementos y relaciones necesarios y nada más.
-- **vista lógica:** vista que muestra módulos y las dependencias permitidas entre ellos.
-- **vista de ejecución:** vista que muestra qué se llama en tiempo de ejecución, en qué orden y con qué concurrencia.
-- **radio de explosión:** conjunto de recorridos o funciones que dejan de funcionar cuando falla un elemento.
-- **traza:** registro de los pasos de una petición a través de los componentes del sistema.
+- **[vista arquitectónica](../../../glosario/entradas/v/vista-arquitectonica.md):** representación del sistema desde un conjunto de preocupaciones, con los elementos y relaciones necesarios y nada más.
+- **[vista lógica](../../../glosario/entradas/v/vista-logica.md):** vista que muestra módulos y las dependencias permitidas entre ellos.
+- **[vista de ejecución](../../../glosario/entradas/v/vista-de-ejecucion.md):** vista que muestra qué se llama en tiempo de ejecución, en qué orden y con qué concurrencia.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** conjunto de recorridos o funciones que dejan de funcionar cuando falla un elemento.
+- **[traza](../../../glosario/entradas/t/traza.md):** registro de los pasos de una petición a través de los componentes del sistema.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md) · [Traza](../../../glosario/entradas/t/traza.md) · [Vista arquitectónica](../../../glosario/entradas/v/vista-arquitectonica.md) · [Vista de ejecución](../../../glosario/entradas/v/vista-de-ejecucion.md) · [Vista lógica](../../../glosario/entradas/v/vista-logica.md).
 
 ---
 

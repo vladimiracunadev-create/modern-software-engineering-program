@@ -155,11 +155,11 @@ Resultado: de **240** mutaciones, el validador detecta **136** y deja pasar **10
 
 ## Definiciones de trabajo
 
-- **paquete trazable:** conjunto de artefactos con identificadores, enlaces entre ellos, evidencia y límites declarados que otra persona puede revisar sin pedir contexto.
-- **clave de idempotencia:** valor único por operación que el cliente envía y el servidor recuerda para no aplicar dos veces un reintento.
-- **registro de operaciones:** lista persistente de los cambios locales pendientes de sincronizar, cada uno con su identificador.
-- **validador de presencia:** comprobación automática de que ciertos campos existen y no están vacíos; no juzga su contenido.
-- **decisión abierta:** punto que ninguna herramienta decide y que queda registrado con responsable, fecha y la evidencia que lo cerraría.
+- **[paquete trazable](../../../glosario/entradas/p/paquete-trazable.md):** conjunto de artefactos con identificadores, enlaces entre ellos, evidencia y límites declarados que otra persona puede revisar sin pedir contexto.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** valor único por operación que el cliente envía y el servidor recuerda para no aplicar dos veces un reintento.
+- **[registro de operaciones](../../../glosario/entradas/r/registro-de-operaciones.md):** lista persistente de los cambios locales pendientes de sincronizar, cada uno con su identificador.
+- **[validador de presencia](../../../glosario/entradas/v/validador-de-presencia.md):** comprobación automática de que ciertos campos existen y no están vacíos; no juzga su contenido.
+- **[decisión abierta](../../../glosario/entradas/d/decision-abierta.md):** punto que ninguna herramienta decide y que queda registrado con responsable, fecha y la evidencia que lo cerraría.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -319,11 +319,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **paquete trazable:** conjunto de artefactos con identificadores, enlaces entre ellos, evidencia y límites declarados que otra persona puede revisar sin pedir contexto.
-- **clave de idempotencia:** valor único por operación que el cliente envía y el servidor recuerda para no aplicar dos veces un reintento.
-- **registro de operaciones:** lista persistente de los cambios locales pendientes de sincronizar, cada uno con su identificador.
-- **validador de presencia:** comprobación automática de que ciertos campos existen y no están vacíos; no juzga su contenido.
-- **decisión abierta:** punto que ninguna herramienta decide y que queda registrado con responsable, fecha y la evidencia que lo cerraría.
+- **[paquete trazable](../../../glosario/entradas/p/paquete-trazable.md):** conjunto de artefactos con identificadores, enlaces entre ellos, evidencia y límites declarados que otra persona puede revisar sin pedir contexto.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** valor único por operación que el cliente envía y el servidor recuerda para no aplicar dos veces un reintento.
+- **[registro de operaciones](../../../glosario/entradas/r/registro-de-operaciones.md):** lista persistente de los cambios locales pendientes de sincronizar, cada uno con su identificador.
+- **[validador de presencia](../../../glosario/entradas/v/validador-de-presencia.md):** comprobación automática de que ciertos campos existen y no están vacíos; no juzga su contenido.
+- **[decisión abierta](../../../glosario/entradas/d/decision-abierta.md):** punto que ninguna herramienta decide y que queda registrado con responsable, fecha y la evidencia que lo cerraría.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Decisión abierta](../../../glosario/entradas/d/decision-abierta.md) · [Decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md) · [Paquete trazable](../../../glosario/entradas/p/paquete-trazable.md) · [Registro de operaciones](../../../glosario/entradas/r/registro-de-operaciones.md) · [Validación del paquete](../../../glosario/entradas/v/validacion-del-paquete.md) · [Validador de presencia](../../../glosario/entradas/v/validador-de-presencia.md).
 
 ---
 

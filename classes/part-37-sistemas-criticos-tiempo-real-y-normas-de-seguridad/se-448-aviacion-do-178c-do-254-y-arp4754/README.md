@@ -128,13 +128,13 @@ La tercera medida cuenta las sentencias sin ejecutar antes y después de añadir
 
 ## Definiciones de trabajo
 
-- **Condición de fallo:** efecto de un fallo de una función sobre la aeronave y sus ocupantes, clasificado por gravedad.
-- **Requisito derivado:** requisito que surge del diseño y no de los requisitos del sistema.
-- **Prueba basada en requisitos:** prueba diseñada a partir de un requisito, no del código.
-- **Cobertura estructural:** medida de qué partes del código ejecutaron las pruebas.
-- **Código muerto:** código que no puede ejecutarse con ninguna entrada posible.
-- **Código no previsto:** código ejecutable que no corresponde a ningún requisito.
-- **Calificación de herramienta:** demostración de que una herramienta es confiable para la verificación que sustituye.
+- **[Condición de fallo](../../../glosario/entradas/c/condicion-de-fallo.md):** efecto de un fallo de una función sobre la aeronave y sus ocupantes, clasificado por gravedad.
+- **[Requisito derivado](../../../glosario/entradas/r/requisito-derivado.md):** requisito que surge del diseño y no de los requisitos del sistema.
+- **[Prueba basada en requisitos](../../../glosario/entradas/p/prueba-basada-en-requisitos.md):** prueba diseñada a partir de un requisito, no del código.
+- **[Cobertura estructural](../../../glosario/entradas/c/cobertura-estructural.md):** medida de qué partes del código ejecutaron las pruebas.
+- **[Código muerto](../../../glosario/entradas/c/codigo-muerto.md):** código que no puede ejecutarse con ninguna entrada posible.
+- **[Código no previsto](../../../glosario/entradas/c/codigo-no-previsto.md):** código ejecutable que no corresponde a ningún requisito.
+- **[Calificación de herramienta](../../../glosario/entradas/c/calificacion-de-herramienta.md):** demostración de que una herramienta es confiable para la verificación que sustituye.
 
 ## Ejemplo mínimo
 
@@ -276,6 +276,8 @@ La función del limitador es una pieza didáctica con defectos plantados, el med
 | Código muerto | Código que ninguna entrada puede ejecutar |
 | Código no previsto | Código ejecutable sin requisito |
 | Calificación de herramienta | Demostración de confiabilidad de una herramienta de verificación |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Calificación de herramienta](../../../glosario/entradas/c/calificacion-de-herramienta.md) · [Cobertura estructural](../../../glosario/entradas/c/cobertura-estructural.md) · [Código muerto](../../../glosario/entradas/c/codigo-muerto.md) · [Código no previsto](../../../glosario/entradas/c/codigo-no-previsto.md) · [Condición de fallo](../../../glosario/entradas/c/condicion-de-fallo.md) · [Prueba basada en requisitos](../../../glosario/entradas/p/prueba-basada-en-requisitos.md) · [Requisito derivado](../../../glosario/entradas/r/requisito-derivado.md).
 
 ---
 

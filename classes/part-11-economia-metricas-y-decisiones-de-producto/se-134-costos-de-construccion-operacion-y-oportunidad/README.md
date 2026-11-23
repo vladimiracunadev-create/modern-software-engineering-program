@@ -144,11 +144,11 @@ Con 0 % anual B vale 120 y A 84; con 10 %, 71,1 frente a 64,0; con 20 %, A vale 
 
 ## Definiciones de trabajo
 
-- **costo de construir:** gasto necesario para dejar el producto en uso, incluidas pruebas, migración inicial y documentación mínima.
-- **costo de operar y mantener:** gasto recurrente de infraestructura, soporte, actualizaciones y correcciones mientras el producto exista.
-- **costo de oportunidad:** valor de la mejor alternativa a la que se renuncia al elegir una opción.
-- **estimación con incertidumbre:** valor expresado con una distribución o percentiles, no con un único número.
-- **valor presente neto:** suma de los flujos descontados a una tasa declarada; depende del juicio sobre la tasa.
+- **[costo de construir](../../../glosario/entradas/c/costo-de-construir.md):** gasto necesario para dejar el producto en uso, incluidas pruebas, migración inicial y documentación mínima.
+- **[costo de operar y mantener](../../../glosario/entradas/c/costo-de-operar-y-mantener.md):** gasto recurrente de infraestructura, soporte, actualizaciones y correcciones mientras el producto exista.
+- **[costo de oportunidad](../../../glosario/entradas/c/costo-de-oportunidad.md):** valor de la mejor alternativa a la que se renuncia al elegir una opción.
+- **[estimación con incertidumbre](../../../glosario/entradas/e/estimacion-con-incertidumbre.md):** valor expresado con una distribución o percentiles, no con un único número.
+- **[valor presente neto](../../../glosario/entradas/v/valor-presente-neto.md):** suma de los flujos descontados a una tasa declarada; depende del juicio sobre la tasa.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **costo de construir:** gasto necesario para dejar el producto en uso, incluidas pruebas, migración inicial y documentación mínima.
-- **costo de operar y mantener:** gasto recurrente de infraestructura, soporte, actualizaciones y correcciones mientras el producto exista.
-- **costo de oportunidad:** valor de la mejor alternativa a la que se renuncia al elegir una opción.
-- **estimación con incertidumbre:** valor expresado con una distribución o percentiles, no con un único número.
-- **valor presente neto:** suma de los flujos descontados a una tasa declarada; depende del juicio sobre la tasa.
+- **[costo de construir](../../../glosario/entradas/c/costo-de-construir.md):** gasto necesario para dejar el producto en uso, incluidas pruebas, migración inicial y documentación mínima.
+- **[costo de operar y mantener](../../../glosario/entradas/c/costo-de-operar-y-mantener.md):** gasto recurrente de infraestructura, soporte, actualizaciones y correcciones mientras el producto exista.
+- **[costo de oportunidad](../../../glosario/entradas/c/costo-de-oportunidad.md):** valor de la mejor alternativa a la que se renuncia al elegir una opción.
+- **[estimación con incertidumbre](../../../glosario/entradas/e/estimacion-con-incertidumbre.md):** valor expresado con una distribución o percentiles, no con un único número.
+- **[valor presente neto](../../../glosario/entradas/v/valor-presente-neto.md):** suma de los flujos descontados a una tasa declarada; depende del juicio sobre la tasa.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Costo de construir](../../../glosario/entradas/c/costo-de-construir.md) · [Costo de operar y mantener](../../../glosario/entradas/c/costo-de-operar-y-mantener.md) · [Costo de oportunidad](../../../glosario/entradas/c/costo-de-oportunidad.md) · [Estimación con incertidumbre](../../../glosario/entradas/e/estimacion-con-incertidumbre.md) · [Valor presente neto](../../../glosario/entradas/v/valor-presente-neto.md).
 
 ---
 

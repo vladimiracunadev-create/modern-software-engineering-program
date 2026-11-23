@@ -119,11 +119,11 @@ Dos trampas más. Los cierres capturan el nombre, no el valor: `[lambda: i for i
 
 ## Definiciones de trabajo
 
-- **iterable:** objeto que produce elementos secuencialmente.
-- **invariante de bucle:** propiedad cierta antes y después de cada vuelta.
-- **progreso:** cambio que acerca a la terminación.
-- **caso base:** entrada resuelta sin nueva recursión.
-- **visited:** conjunto de identidades ya procesadas.
+- **[iterable](../../../glosario/entradas/i/iterable.md):** objeto que produce elementos secuencialmente.
+- **[invariante de bucle](../../../glosario/entradas/i/invariante-de-bucle.md):** propiedad cierta antes y después de cada vuelta.
+- **[progreso](../../../glosario/entradas/p/progreso.md):** cambio que acerca a la terminación.
+- **[caso base](../../../glosario/entradas/c/caso-base.md):** entrada resuelta sin nueva recursión.
+- **[visited](../../../glosario/entradas/v/visited.md):** conjunto de identidades ya procesadas.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -281,11 +281,13 @@ Un recorrido correcto puede ser demasiado costoso y Python impone límites de re
 
 ## Glosario
 
-- **iterable:** objeto que produce elementos secuencialmente.
-- **invariante de bucle:** propiedad cierta antes y después de cada vuelta.
-- **progreso:** cambio que acerca a la terminación.
-- **caso base:** entrada resuelta sin nueva recursión.
-- **visited:** conjunto de identidades ya procesadas.
+- **[iterable](../../../glosario/entradas/i/iterable.md):** objeto que produce elementos secuencialmente.
+- **[invariante de bucle](../../../glosario/entradas/i/invariante-de-bucle.md):** propiedad cierta antes y después de cada vuelta.
+- **[progreso](../../../glosario/entradas/p/progreso.md):** cambio que acerca a la terminación.
+- **[caso base](../../../glosario/entradas/c/caso-base.md):** entrada resuelta sin nueva recursión.
+- **[visited](../../../glosario/entradas/v/visited.md):** conjunto de identidades ya procesadas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caso base](../../../glosario/entradas/c/caso-base.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Invariante de bucle](../../../glosario/entradas/i/invariante-de-bucle.md) · [Iterable](../../../glosario/entradas/i/iterable.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Progreso](../../../glosario/entradas/p/progreso.md) · [Valor](../../../glosario/entradas/v/valor.md) · [Visited](../../../glosario/entradas/v/visited.md).
 
 ---
 

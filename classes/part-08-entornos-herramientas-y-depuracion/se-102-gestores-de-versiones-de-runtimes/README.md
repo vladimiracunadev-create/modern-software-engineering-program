@@ -107,11 +107,11 @@ En esta máquina se ejecutó CPython 3.12.9 en Windows y 3.12.3 en Linux: la mis
 
 ## Definiciones de trabajo
 
-- **runtime e implementación:** la versión del lenguaje, la implementación y la arquitectura son dimensiones distintas.
-- **resolución por path:** el shell busca ejecutables según path, alias, launcher o shim.
-- **gestor de versiones:** un gestor instala y selecciona runtimes por archivo o comando.
-- **compatibilidad y sintaxis:** un rango como `>=3.
-- **actualización y rollback:** actualizar runtime requiere suite, dependencias compatibles y plan de reversión.
+- **[runtime e implementación](../../../glosario/entradas/r/runtime-e-implementacion.md):** la versión del lenguaje, la implementación y la arquitectura son dimensiones distintas.
+- **[resolución por path](../../../glosario/entradas/r/resolucion-por-path.md):** el shell busca ejecutables según path, alias, launcher o shim.
+- **[gestor de versiones](../../../glosario/entradas/g/gestor-de-versiones.md):** un gestor instala y selecciona runtimes por archivo o comando.
+- **[compatibilidad y sintaxis](../../../glosario/entradas/c/compatibilidad-y-sintaxis.md):** un rango como `>=3.
+- **[actualización y rollback](../../../glosario/entradas/a/actualizacion-y-rollback.md):** actualizar runtime requiere suite, dependencias compatibles y plan de reversión.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Fijar runtime no aísla paquetes instalados. La siguiente clase explica entornos
 
 ## Glosario
 
-- **runtime e implementación:** la versión del lenguaje, la implementación y la arquitectura son dimensiones distintas.
-- **resolución por path:** el shell busca ejecutables según path, alias, launcher o shim.
-- **gestor de versiones:** un gestor instala y selecciona runtimes por archivo o comando.
-- **compatibilidad y sintaxis:** un rango como `>=3.
-- **actualización y rollback:** actualizar runtime requiere suite, dependencias compatibles y plan de reversión.
+- **[runtime e implementación](../../../glosario/entradas/r/runtime-e-implementacion.md):** la versión del lenguaje, la implementación y la arquitectura son dimensiones distintas.
+- **[resolución por path](../../../glosario/entradas/r/resolucion-por-path.md):** el shell busca ejecutables según path, alias, launcher o shim.
+- **[gestor de versiones](../../../glosario/entradas/g/gestor-de-versiones.md):** un gestor instala y selecciona runtimes por archivo o comando.
+- **[compatibilidad y sintaxis](../../../glosario/entradas/c/compatibilidad-y-sintaxis.md):** un rango como `>=3.
+- **[actualización y rollback](../../../glosario/entradas/a/actualizacion-y-rollback.md):** actualizar runtime requiere suite, dependencias compatibles y plan de reversión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actualización y rollback](../../../glosario/entradas/a/actualizacion-y-rollback.md) · [Compatibilidad y sintaxis](../../../glosario/entradas/c/compatibilidad-y-sintaxis.md) · [Gestor de versiones](../../../glosario/entradas/g/gestor-de-versiones.md) · [Resolución por path](../../../glosario/entradas/r/resolucion-por-path.md) · [Runtime e implementación](../../../glosario/entradas/r/runtime-e-implementacion.md).
 
 ---
 

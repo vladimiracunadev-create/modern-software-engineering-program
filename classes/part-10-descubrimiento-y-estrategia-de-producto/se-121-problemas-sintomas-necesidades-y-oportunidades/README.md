@@ -134,11 +134,11 @@ La prueba real es un caso que la regla no conocía. «Las vendedoras pierden ped
 
 ## Definiciones de trabajo
 
-- **síntomas y peticiones:** frase reportada o señal observable; describe qué se ve o se pide, no por qué ocurre.
-- **problemas:** brecha entre lo que una persona intenta lograr y lo que logra, con una consecuencia observable y una causa que puede investigarse.
-- **necesidades:** resultado que una persona busca, expresado desde su perspectiva y sin nombrar la solución (necesito… para…).
-- **oportunidades:** problema o necesidad con alcance estimado, consecuencia cuantificable y una ventana en la que actuar tiene sentido.
-- **causa y evidencia:** explicación de por qué ocurre un conjunto de síntomas, sostenida por observaciones que otra persona puede revisar.
+- **[síntomas y peticiones](../../../glosario/entradas/s/sintomas-y-peticiones.md):** frase reportada o señal observable; describe qué se ve o se pide, no por qué ocurre.
+- **[problemas](../../../glosario/entradas/p/problemas.md):** brecha entre lo que una persona intenta lograr y lo que logra, con una consecuencia observable y una causa que puede investigarse.
+- **[necesidades](../../../glosario/entradas/n/necesidades.md):** resultado que una persona busca, expresado desde su perspectiva y sin nombrar la solución (necesito… para…).
+- **[oportunidades](../../../glosario/entradas/o/oportunidades.md):** problema o necesidad con alcance estimado, consecuencia cuantificable y una ventana en la que actuar tiene sentido.
+- **[causa y evidencia](../../../glosario/entradas/c/causa-y-evidencia.md):** explicación de por qué ocurre un conjunto de síntomas, sostenida por observaciones que otra persona puede revisar.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **síntomas y peticiones:** frase reportada o señal observable; describe qué se ve o se pide, no por qué ocurre.
-- **problemas:** brecha entre lo que una persona intenta lograr y lo que logra, con una consecuencia observable y una causa que puede investigarse.
-- **necesidades:** resultado que una persona busca, expresado desde su perspectiva y sin nombrar la solución (necesito… para…).
-- **oportunidades:** problema o necesidad con alcance estimado, consecuencia cuantificable y una ventana en la que actuar tiene sentido.
-- **causa y evidencia:** explicación de por qué ocurre un conjunto de síntomas, sostenida por observaciones que otra persona puede revisar.
+- **[síntomas y peticiones](../../../glosario/entradas/s/sintomas-y-peticiones.md):** frase reportada o señal observable; describe qué se ve o se pide, no por qué ocurre.
+- **[problemas](../../../glosario/entradas/p/problemas.md):** brecha entre lo que una persona intenta lograr y lo que logra, con una consecuencia observable y una causa que puede investigarse.
+- **[necesidades](../../../glosario/entradas/n/necesidades.md):** resultado que una persona busca, expresado desde su perspectiva y sin nombrar la solución (necesito… para…).
+- **[oportunidades](../../../glosario/entradas/o/oportunidades.md):** problema o necesidad con alcance estimado, consecuencia cuantificable y una ventana en la que actuar tiene sentido.
+- **[causa y evidencia](../../../glosario/entradas/c/causa-y-evidencia.md):** explicación de por qué ocurre un conjunto de síntomas, sostenida por observaciones que otra persona puede revisar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa y evidencia](../../../glosario/entradas/c/causa-y-evidencia.md) · [Necesidades](../../../glosario/entradas/n/necesidades.md) · [Oportunidades](../../../glosario/entradas/o/oportunidades.md) · [Problemas](../../../glosario/entradas/p/problemas.md) · [Síntomas y peticiones](../../../glosario/entradas/s/sintomas-y-peticiones.md).
 
 ---
 

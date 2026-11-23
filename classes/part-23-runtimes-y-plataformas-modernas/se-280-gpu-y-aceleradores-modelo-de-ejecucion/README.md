@@ -125,14 +125,14 @@ La tercera figura sitúa tres operaciones según su intensidad aritmética y el 
 
 ## Definiciones de trabajo
 
-- **SIMT:** modelo en el que un mismo programa lo ejecutan muchos hilos sobre datos distintos.
-- **Bloque y rejilla:** agrupaciones de hilos; los hilos de un bloque cooperan, los de bloques distintos no.
-- **Warp:** grupo de 32 hilos que avanzan juntos en el hardware descrito por la guía de CUDA.
-- **Coalescencia:** fusión de accesos contiguos de un grupo en pocas transacciones de memoria.
-- **Divergencia:** situación en que los hilos de un grupo toman caminos distintos y el grupo ejecuta ambos.
-- **Intensidad aritmética:** operaciones realizadas por byte movido desde memoria.
-- **Roofline:** modelo que acota el rendimiento por el pico de cómputo o por ancho de banda por intensidad.
-- **Proxy:** medida sobre un sustituto accesible que muestra la forma de un efecto sin su magnitud.
+- **[SIMT](../../../glosario/entradas/s/simt.md):** modelo en el que un mismo programa lo ejecutan muchos hilos sobre datos distintos.
+- **[Bloque y rejilla](../../../glosario/entradas/b/bloque-y-rejilla.md):** agrupaciones de hilos; los hilos de un bloque cooperan, los de bloques distintos no.
+- **[Warp](../../../glosario/entradas/w/warp.md):** grupo de 32 hilos que avanzan juntos en el hardware descrito por la guía de CUDA.
+- **[Coalescencia](../../../glosario/entradas/c/coalescencia.md):** fusión de accesos contiguos de un grupo en pocas transacciones de memoria.
+- **[Divergencia](../../../glosario/entradas/d/divergencia.md):** situación en que los hilos de un grupo toman caminos distintos y el grupo ejecuta ambos.
+- **[Intensidad aritmética](../../../glosario/entradas/i/intensidad-aritmetica.md):** operaciones realizadas por byte movido desde memoria.
+- **[Roofline](../../../glosario/entradas/r/roofline.md):** modelo que acota el rendimiento por el pico de cómputo o por ancho de banda por intensidad.
+- **[Proxy](../../../glosario/entradas/p/proxy.md):** medida sobre un sustituto accesible que muestra la forma de un efecto sin su magnitud.
 
 ## Ejemplo mínimo
 
@@ -272,6 +272,8 @@ No se ejecutó ningún núcleo en una GPU; las medidas son de CPU y NumPy y la d
 | Intensidad aritmética | Operaciones por byte movido |
 | Roofline | Cota de rendimiento por cómputo o por ancho de banda |
 | Proxy | Medida sobre un sustituto que muestra la forma de un efecto |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloque y rejilla](../../../glosario/entradas/b/bloque-y-rejilla.md) · [Coalescencia](../../../glosario/entradas/c/coalescencia.md) · [Divergencia](../../../glosario/entradas/d/divergencia.md) · [Intensidad aritmética](../../../glosario/entradas/i/intensidad-aritmetica.md) · [Proxy](../../../glosario/entradas/p/proxy.md) · [Roofline](../../../glosario/entradas/r/roofline.md) · [SIMT](../../../glosario/entradas/s/simt.md) · [Transferencia](../../../glosario/entradas/t/transferencia.md) · [Warp](../../../glosario/entradas/w/warp.md).
 
 ---
 

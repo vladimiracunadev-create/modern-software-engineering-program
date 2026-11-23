@@ -141,11 +141,11 @@ Pasar de 20 a 1 000 personas (50 veces más) reduce el ancho del intervalo de 27
 
 ## Definiciones de trabajo
 
-- **prototipo y pregunta:** versión parcial o simulada de un producto construida para responder una pregunta específica sobre uso, comprensión o interés.
-- **experimento de demanda:** prueba que registra una acción costosa para la persona (hacer clic, registrarse, pagar, comprometer tiempo) como señal de interés.
-- **tamaño y potencia:** número de personas por rama necesario para detectar, con una probabilidad dada, una diferencia mínima relevante; la probabilidad de detectarla es la potencia.
-- **mirar los resultados:** decisión de cuándo analizar los datos de un experimento; si se hace repetidamente y se detiene al primer resultado favorable, el error real supera al nominal.
-- **incertidumbre residual:** rango de valores de la tasa real que son compatibles con lo observado, expresado como intervalo de confianza o de credibilidad.
+- **[prototipo y pregunta](../../../glosario/entradas/p/prototipo-y-pregunta.md):** versión parcial o simulada de un producto construida para responder una pregunta específica sobre uso, comprensión o interés.
+- **[experimento de demanda](../../../glosario/entradas/e/experimento-de-demanda.md):** prueba que registra una acción costosa para la persona (hacer clic, registrarse, pagar, comprometer tiempo) como señal de interés.
+- **[tamaño y potencia](../../../glosario/entradas/t/tamano-y-potencia.md):** número de personas por rama necesario para detectar, con una probabilidad dada, una diferencia mínima relevante; la probabilidad de detectarla es la potencia.
+- **[mirar los resultados](../../../glosario/entradas/m/mirar-los-resultados.md):** decisión de cuándo analizar los datos de un experimento; si se hace repetidamente y se detiene al primer resultado favorable, el error real supera al nominal.
+- **[incertidumbre residual](../../../glosario/entradas/i/incertidumbre-residual.md):** rango de valores de la tasa real que son compatibles con lo observado, expresado como intervalo de confianza o de credibilidad.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres cálculos y simulaciones con tasas supuestas en Windows y Ubu
 
 ## Glosario
 
-- **prototipo y pregunta:** versión parcial o simulada de un producto construida para responder una pregunta específica sobre uso, comprensión o interés.
-- **experimento de demanda:** prueba que registra una acción costosa para la persona (hacer clic, registrarse, pagar, comprometer tiempo) como señal de interés.
-- **tamaño y potencia:** número de personas por rama necesario para detectar, con una probabilidad dada, una diferencia mínima relevante; la probabilidad de detectarla es la potencia.
-- **mirar los resultados:** decisión de cuándo analizar los datos de un experimento; si se hace repetidamente y se detiene al primer resultado favorable, el error real supera al nominal.
-- **incertidumbre residual:** rango de valores de la tasa real que son compatibles con lo observado, expresado como intervalo de confianza o de credibilidad.
+- **[prototipo y pregunta](../../../glosario/entradas/p/prototipo-y-pregunta.md):** versión parcial o simulada de un producto construida para responder una pregunta específica sobre uso, comprensión o interés.
+- **[experimento de demanda](../../../glosario/entradas/e/experimento-de-demanda.md):** prueba que registra una acción costosa para la persona (hacer clic, registrarse, pagar, comprometer tiempo) como señal de interés.
+- **[tamaño y potencia](../../../glosario/entradas/t/tamano-y-potencia.md):** número de personas por rama necesario para detectar, con una probabilidad dada, una diferencia mínima relevante; la probabilidad de detectarla es la potencia.
+- **[mirar los resultados](../../../glosario/entradas/m/mirar-los-resultados.md):** decisión de cuándo analizar los datos de un experimento; si se hace repetidamente y se detiene al primer resultado favorable, el error real supera al nominal.
+- **[incertidumbre residual](../../../glosario/entradas/i/incertidumbre-residual.md):** rango de valores de la tasa real que son compatibles con lo observado, expresado como intervalo de confianza o de credibilidad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Experimento de demanda](../../../glosario/entradas/e/experimento-de-demanda.md) · [Incertidumbre residual](../../../glosario/entradas/i/incertidumbre-residual.md) · [Mirar los resultados](../../../glosario/entradas/m/mirar-los-resultados.md) · [Prototipo y pregunta](../../../glosario/entradas/p/prototipo-y-pregunta.md) · [Tamaño y potencia](../../../glosario/entradas/t/tamano-y-potencia.md).
 
 ---
 

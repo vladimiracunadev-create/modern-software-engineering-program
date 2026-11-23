@@ -164,11 +164,11 @@ Ordenar por valor eleva el valor entregado de 92,9 % a 98,8 % sin cambiar el cum
 
 ## Definiciones de trabajo
 
-- **plan adaptativo:** plan que declara sus supuestos, sus señales y las reglas con que se revisa, y que cambia por evidencia y no por presión.
-- **disparador:** condición medible sobre una señal, con umbral, ventana y responsable, que obliga a revisar el plan.
-- **guardrail o barrera:** garantía que no se recorta al replanificar, con una comprobación y un responsable.
-- **falsa alarma:** activación de un disparador sin que el plan haya dejado de valer.
-- **retraso de detección:** tiempo entre el cambio real y la activación del disparador.
+- **[plan adaptativo](../../../glosario/entradas/p/plan-adaptativo.md):** plan que declara sus supuestos, sus señales y las reglas con que se revisa, y que cambia por evidencia y no por presión.
+- **[disparador](../../../glosario/entradas/d/disparador.md):** condición medible sobre una señal, con umbral, ventana y responsable, que obliga a revisar el plan.
+- **[guardrail o barrera](../../../glosario/entradas/g/guardrail-o-barrera.md):** garantía que no se recorta al replanificar, con una comprobación y un responsable.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** activación de un disparador sin que el plan haya dejado de valer.
+- **[retraso de detección](../../../glosario/entradas/r/retraso-de-deteccion.md):** tiempo entre el cambio real y la activación del disparador.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **plan adaptativo:** plan que declara sus supuestos, sus señales y las reglas con que se revisa, y que cambia por evidencia y no por presión.
-- **disparador:** condición medible sobre una señal, con umbral, ventana y responsable, que obliga a revisar el plan.
-- **guardrail o barrera:** garantía que no se recorta al replanificar, con una comprobación y un responsable.
-- **falsa alarma:** activación de un disparador sin que el plan haya dejado de valer.
-- **retraso de detección:** tiempo entre el cambio real y la activación del disparador.
+- **[plan adaptativo](../../../glosario/entradas/p/plan-adaptativo.md):** plan que declara sus supuestos, sus señales y las reglas con que se revisa, y que cambia por evidencia y no por presión.
+- **[disparador](../../../glosario/entradas/d/disparador.md):** condición medible sobre una señal, con umbral, ventana y responsable, que obliga a revisar el plan.
+- **[guardrail o barrera](../../../glosario/entradas/g/guardrail-o-barrera.md):** garantía que no se recorta al replanificar, con una comprobación y un responsable.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** activación de un disparador sin que el plan haya dejado de valer.
+- **[retraso de detección](../../../glosario/entradas/r/retraso-de-deteccion.md):** tiempo entre el cambio real y la activación del disparador.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Disparador](../../../glosario/entradas/d/disparador.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Guardrail](../../../glosario/entradas/g/guardrail.md) · [Guardrail o barrera](../../../glosario/entradas/g/guardrail-o-barrera.md) · [Plan adaptativo](../../../glosario/entradas/p/plan-adaptativo.md) · [Retraso de detección](../../../glosario/entradas/r/retraso-de-deteccion.md).
 
 ---
 

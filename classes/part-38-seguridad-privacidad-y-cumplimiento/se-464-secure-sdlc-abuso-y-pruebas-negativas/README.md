@@ -147,11 +147,11 @@ Cada dos caracteres el tiempo se multiplica por cerca de cuatro; en Ubuntu bajo 
 
 ## Definiciones de trabajo
 
-- **caso de abuso:** descripción de cómo alguien con mala intención podría usar una funcionalidad prevista para dañar el sistema o a otras personas.
-- **requisito negativo:** requisito que declara lo que el sistema debe rechazar o impedir, comprobable con una prueba que falle si la defensa se rompe.
-- **mutante equivalente:** variante de un programa que no cambia su comportamiento observable y que, por tanto, ninguna prueba puede detectar.
-- **análisis estático:** examen del código sin ejecutarlo, normalmente sobre su árbol sintáctico, para encontrar patrones de defecto.
-- **fuzzing:** generación automática de entradas, aleatorias o mutadas, para provocar fallos o comportamientos inesperados.
+- **[caso de abuso](../../../glosario/entradas/c/caso-de-abuso.md):** descripción de cómo alguien con mala intención podría usar una funcionalidad prevista para dañar el sistema o a otras personas.
+- **[requisito negativo](../../../glosario/entradas/r/requisito-negativo.md):** requisito que declara lo que el sistema debe rechazar o impedir, comprobable con una prueba que falle si la defensa se rompe.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** variante de un programa que no cambia su comportamiento observable y que, por tanto, ninguna prueba puede detectar.
+- **[análisis estático](../../../glosario/entradas/a/analisis-estatico.md):** examen del código sin ejecutarlo, normalmente sobre su árbol sintáctico, para encontrar patrones de defecto.
+- **[fuzzing](../../../glosario/entradas/f/fuzzing.md):** generación automática de entradas, aleatorias o mutadas, para provocar fallos o comportamientos inesperados.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): validador y reglas c
 
 ## Glosario
 
-- **caso de abuso:** descripción de cómo alguien con mala intención podría usar una funcionalidad prevista para dañar el sistema o a otras personas.
-- **requisito negativo:** requisito que declara lo que el sistema debe rechazar o impedir, comprobable con una prueba que falle si la defensa se rompe.
-- **mutante equivalente:** variante de un programa que no cambia su comportamiento observable y que, por tanto, ninguna prueba puede detectar.
-- **análisis estático:** examen del código sin ejecutarlo, normalmente sobre su árbol sintáctico, para encontrar patrones de defecto.
-- **fuzzing:** generación automática de entradas, aleatorias o mutadas, para provocar fallos o comportamientos inesperados.
+- **[caso de abuso](../../../glosario/entradas/c/caso-de-abuso.md):** descripción de cómo alguien con mala intención podría usar una funcionalidad prevista para dañar el sistema o a otras personas.
+- **[requisito negativo](../../../glosario/entradas/r/requisito-negativo.md):** requisito que declara lo que el sistema debe rechazar o impedir, comprobable con una prueba que falle si la defensa se rompe.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** variante de un programa que no cambia su comportamiento observable y que, por tanto, ninguna prueba puede detectar.
+- **[análisis estático](../../../glosario/entradas/a/analisis-estatico.md):** examen del código sin ejecutarlo, normalmente sobre su árbol sintáctico, para encontrar patrones de defecto.
+- **[fuzzing](../../../glosario/entradas/f/fuzzing.md):** generación automática de entradas, aleatorias o mutadas, para provocar fallos o comportamientos inesperados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis estático](../../../glosario/entradas/a/analisis-estatico.md) · [Caso de abuso](../../../glosario/entradas/c/caso-de-abuso.md) · [Fuzzing](../../../glosario/entradas/f/fuzzing.md) · [Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md) · [Requisito negativo](../../../glosario/entradas/r/requisito-negativo.md).
 
 ---
 

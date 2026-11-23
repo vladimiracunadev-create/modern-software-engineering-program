@@ -161,11 +161,11 @@ Con la clave apagada, las cuatro declaraciones se comportan igual: el borrado pa
 
 ## Definiciones de trabajo
 
-- **invariante:** afirmación sobre los datos que debe ser verdadera siempre que no haya una operación en curso.
-- **restricción de integridad:** regla declarada en el esquema que el motor hace cumplir en cada cambio.
-- **clave foránea:** restricción que obliga a que un valor referencie una fila existente de otra tabla.
-- **disparador:** código que el motor ejecuta antes o después de un cambio y que puede rechazarlo.
-- **reconciliación:** comparación periódica entre dos fuentes para detectar y reparar diferencias que ninguna restricción impide.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** afirmación sobre los datos que debe ser verdadera siempre que no haya una operación en curso.
+- **[restricción de integridad](../../../glosario/entradas/r/restriccion-de-integridad.md):** regla declarada en el esquema que el motor hace cumplir en cada cambio.
+- **[clave foránea](../../../glosario/entradas/c/clave-foranea.md):** restricción que obliga a que un valor referencie una fila existente de otra tabla.
+- **[disparador](../../../glosario/entradas/d/disparador.md):** código que el motor ejecuta antes o después de un cambio y que puede rechazarlo.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica entre dos fuentes para detectar y reparar diferencias que ninguna restricción impide.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **invariante:** afirmación sobre los datos que debe ser verdadera siempre que no haya una operación en curso.
-- **restricción de integridad:** regla declarada en el esquema que el motor hace cumplir en cada cambio.
-- **clave foránea:** restricción que obliga a que un valor referencie una fila existente de otra tabla.
-- **disparador:** código que el motor ejecuta antes o después de un cambio y que puede rechazarlo.
-- **reconciliación:** comparación periódica entre dos fuentes para detectar y reparar diferencias que ninguna restricción impide.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** afirmación sobre los datos que debe ser verdadera siempre que no haya una operación en curso.
+- **[restricción de integridad](../../../glosario/entradas/r/restriccion-de-integridad.md):** regla declarada en el esquema que el motor hace cumplir en cada cambio.
+- **[clave foránea](../../../glosario/entradas/c/clave-foranea.md):** restricción que obliga a que un valor referencie una fila existente de otra tabla.
+- **[disparador](../../../glosario/entradas/d/disparador.md):** código que el motor ejecuta antes o después de un cambio y que puede rechazarlo.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica entre dos fuentes para detectar y reparar diferencias que ninguna restricción impide.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave foránea](../../../glosario/entradas/c/clave-foranea.md) · [Disparador](../../../glosario/entradas/d/disparador.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md) · [Restricción de integridad](../../../glosario/entradas/r/restriccion-de-integridad.md).
 
 ---
 

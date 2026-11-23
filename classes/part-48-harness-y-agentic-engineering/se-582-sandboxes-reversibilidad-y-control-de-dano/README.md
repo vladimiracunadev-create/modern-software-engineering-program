@@ -112,12 +112,12 @@ Las cinco acciones son: borrar un archivo del proyecto, borrar un archivo fuera 
 
 ## Definiciones de trabajo
 
-- **Alcance:** hasta dónde llegan los efectos de una acción.
-- **Reversibilidad:** posibilidad de volver al estado anterior.
-- **Confinamiento:** restricción de las rutas que el agente puede tocar.
-- **Instantánea:** copia o commit que permite restaurar un estado.
-- **Sandbox:** entorno que restringe lo que un proceso puede hacer en el sistema.
-- **Efecto externo:** efecto fuera de la máquina o del proyecto.
+- **[Alcance](../../../glosario/entradas/a/alcance.md):** hasta dónde llegan los efectos de una acción.
+- **[Reversibilidad](../../../glosario/entradas/r/reversibilidad.md):** posibilidad de volver al estado anterior.
+- **[Confinamiento](../../../glosario/entradas/c/confinamiento.md):** restricción de las rutas que el agente puede tocar.
+- **[Instantánea](../../../glosario/entradas/i/instantanea.md):** copia o commit que permite restaurar un estado.
+- **[Sandbox](../../../glosario/entradas/s/sandbox.md):** entorno que restringe lo que un proceso puede hacer en el sistema.
+- **[Efecto externo](../../../glosario/entradas/e/efecto-externo.md):** efecto fuera de la máquina o del proyecto.
 
 ## Ejemplo mínimo
 
@@ -243,6 +243,8 @@ Se ejecutaron cuatro configuraciones sobre quince archivos de texto con acciones
 | Instantánea | Copia o commit para restaurar un estado |
 | Sandbox | Entorno que restringe lo que un proceso puede hacer |
 | Efecto externo | Efecto fuera de la máquina o del proyecto |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Confinamiento](../../../glosario/entradas/c/confinamiento.md) · [Efecto externo](../../../glosario/entradas/e/efecto-externo.md) · [Instantánea](../../../glosario/entradas/i/instantanea.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md) · [Sandbox](../../../glosario/entradas/s/sandbox.md).
 
 ---
 

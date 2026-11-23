@@ -133,14 +133,14 @@ La tercera figura muestra la ventana media de uso indebido según la vida del to
 
 ## Definiciones de trabajo
 
-- **Confianza cero:** conjunto de principios que niegan confianza implícita por ubicación de red y evalúan cada solicitud.
-- **Punto de decisión (PDP) y de aplicación (PEP):** quien decide la política y quien la ejecuta.
-- **Audiencia:** destinatario para el que una credencial es válida.
-- **Credencial de vida corta:** credencial con expiración de minutos u horas.
-- **Radio de daño:** conjunto de recursos alcanzables con una credencial comprometida.
-- **Segmentación:** división de la red o de los servicios en partes con política entre ellas.
-- **Postura del dispositivo:** estado verificable de una máquina o carga de trabajo.
-- **Identidad de carga de trabajo:** identidad verificable de un servicio, distinta de la de una persona.
+- **[Confianza cero](../../../glosario/entradas/c/confianza-cero.md):** conjunto de principios que niegan confianza implícita por ubicación de red y evalúan cada solicitud.
+- **[Punto de decisión (PDP) y de aplicación (PEP)](../../../glosario/entradas/p/punto-de-decision-pdp-y-de-aplicacion.md):** quien decide la política y quien la ejecuta.
+- **[Audiencia](../../../glosario/entradas/a/audiencia.md):** destinatario para el que una credencial es válida.
+- **[Credencial de vida corta](../../../glosario/entradas/c/credencial-de-vida-corta.md):** credencial con expiración de minutos u horas.
+- **[Radio de daño](../../../glosario/entradas/r/radio-de-dano.md):** conjunto de recursos alcanzables con una credencial comprometida.
+- **[Segmentación](../../../glosario/entradas/s/segmentacion.md):** división de la red o de los servicios en partes con política entre ellas.
+- **[Postura del dispositivo](../../../glosario/entradas/p/postura-del-dispositivo.md):** estado verificable de una máquina o carga de trabajo.
+- **[Identidad de carga de trabajo](../../../glosario/entradas/i/identidad-de-carga-de-trabajo.md):** identidad verificable de un servicio, distinta de la de una persona.
 
 ## Ejemplo mínimo
 
@@ -288,6 +288,8 @@ Se verificaron tokens firmados con HMAC y se modelaron el radio de daño y la ve
 | Segmentación | División con política entre las partes |
 | Postura del dispositivo | Estado verificable de una máquina o carga |
 | Identidad de carga de trabajo | Identidad verificable de un servicio |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Audiencia](../../../glosario/entradas/a/audiencia.md) · [Confianza cero](../../../glosario/entradas/c/confianza-cero.md) · [Credencial de vida corta](../../../glosario/entradas/c/credencial-de-vida-corta.md) · [Identidad de carga de trabajo](../../../glosario/entradas/i/identidad-de-carga-de-trabajo.md) · [Postura del dispositivo](../../../glosario/entradas/p/postura-del-dispositivo.md) · [Punto de decisión (PDP) y de aplicación](../../../glosario/entradas/p/punto-de-decision-pdp-y-de-aplicacion.md) · [Radio de daño](../../../glosario/entradas/r/radio-de-dano.md) · [Segmentación](../../../glosario/entradas/s/segmentacion.md).
 
 ---
 

@@ -146,11 +146,11 @@ Hay 20 000 correos seudonimizados, 12 000 de ellos presentes en una lista de 100
 
 ## Definiciones de trabajo
 
-- **minimización de datos:** principio de recoger y conservar solo los datos adecuados, pertinentes y necesarios para una finalidad declarada.
-- **cuasi-identificador:** atributo que no identifica a una persona por sí solo y sí combinado con otros o con una fuente auxiliar.
-- **k-anonimato:** propiedad de un conjunto en el que cada combinación de cuasi-identificadores aparece al menos k veces.
-- **presupuesto de privacidad (ε):** cantidad acumulada de pérdida de privacidad que consumen las respuestas con ruido de un mismo conjunto de datos.
-- **seudonimización:** sustitución de identificadores por seudónimos, con la información que permite revertirla guardada aparte.
+- **[minimización de datos](../../../glosario/entradas/m/minimizacion-de-datos.md):** principio de recoger y conservar solo los datos adecuados, pertinentes y necesarios para una finalidad declarada.
+- **[cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** atributo que no identifica a una persona por sí solo y sí combinado con otros o con una fuente auxiliar.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto en el que cada combinación de cuasi-identificadores aparece al menos k veces.
+- **[presupuesto de privacidad (ε)](../../../glosario/entradas/p/presupuesto-de-privacidad.md):** cantidad acumulada de pérdida de privacidad que consumen las respuestas con ruido de un mismo conjunto de datos.
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustitución de identificadores por seudónimos, con la información que permite revertirla guardada aparte.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -289,11 +289,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **minimización de datos:** principio de recoger y conservar solo los datos adecuados, pertinentes y necesarios para una finalidad declarada.
-- **cuasi-identificador:** atributo que no identifica a una persona por sí solo y sí combinado con otros o con una fuente auxiliar.
-- **k-anonimato:** propiedad de un conjunto en el que cada combinación de cuasi-identificadores aparece al menos k veces.
-- **presupuesto de privacidad (ε):** cantidad acumulada de pérdida de privacidad que consumen las respuestas con ruido de un mismo conjunto de datos.
-- **seudonimización:** sustitución de identificadores por seudónimos, con la información que permite revertirla guardada aparte.
+- **[minimización de datos](../../../glosario/entradas/m/minimizacion-de-datos.md):** principio de recoger y conservar solo los datos adecuados, pertinentes y necesarios para una finalidad declarada.
+- **[cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** atributo que no identifica a una persona por sí solo y sí combinado con otros o con una fuente auxiliar.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto en el que cada combinación de cuasi-identificadores aparece al menos k veces.
+- **[presupuesto de privacidad (ε)](../../../glosario/entradas/p/presupuesto-de-privacidad.md):** cantidad acumulada de pérdida de privacidad que consumen las respuestas con ruido de un mismo conjunto de datos.
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustitución de identificadores por seudónimos, con la información que permite revertirla guardada aparte.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Minimización de datos](../../../glosario/entradas/m/minimizacion-de-datos.md) · [Presupuesto de privacidad](../../../glosario/entradas/p/presupuesto-de-privacidad.md) · [Seudonimización](../../../glosario/entradas/s/seudonimizacion.md).
 
 ---
 

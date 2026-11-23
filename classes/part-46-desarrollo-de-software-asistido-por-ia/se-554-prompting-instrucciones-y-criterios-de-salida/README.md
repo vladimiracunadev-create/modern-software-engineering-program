@@ -161,11 +161,11 @@ Con una probabilidad de conflicto del 2 % por par, un encargo de 12 instruccione
 
 ## Definiciones de trabajo
 
-- **encargo:** especificación de lo que se pide al modelo, con objetivo, contexto, restricciones, formato, ejemplos y criterios.
-- **criterio de aceptación:** condición verificable que la salida debe cumplir para aceptarse.
-- **contrato de salida:** descripción de la forma y los valores válidos de la respuesta, comprobable por un programa.
-- **validación por capas:** secuencia de comprobaciones de coste creciente (forma, rango, coherencia, comportamiento).
-- **instrucciones en conflicto:** pares de reglas del encargo cuyo cumplimiento simultáneo es imposible.
+- **[encargo](../../../glosario/entradas/e/encargo.md):** especificación de lo que se pide al modelo, con objetivo, contexto, restricciones, formato, ejemplos y criterios.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición verificable que la salida debe cumplir para aceptarse.
+- **[contrato de salida](../../../glosario/entradas/c/contrato-de-salida.md):** descripción de la forma y los valores válidos de la respuesta, comprobable por un programa.
+- **[validación por capas](../../../glosario/entradas/v/validacion-por-capas.md):** secuencia de comprobaciones de coste creciente (forma, rango, coherencia, comportamiento).
+- **[instrucciones en conflicto](../../../glosario/entradas/i/instrucciones-en-conflicto.md):** pares de reglas del encargo cuyo cumplimiento simultáneo es imposible.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **encargo:** especificación de lo que se pide al modelo, con objetivo, contexto, restricciones, formato, ejemplos y criterios.
-- **criterio de aceptación:** condición verificable que la salida debe cumplir para aceptarse.
-- **contrato de salida:** descripción de la forma y los valores válidos de la respuesta, comprobable por un programa.
-- **validación por capas:** secuencia de comprobaciones de coste creciente (forma, rango, coherencia, comportamiento).
-- **instrucciones en conflicto:** pares de reglas del encargo cuyo cumplimiento simultáneo es imposible.
+- **[encargo](../../../glosario/entradas/e/encargo.md):** especificación de lo que se pide al modelo, con objetivo, contexto, restricciones, formato, ejemplos y criterios.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición verificable que la salida debe cumplir para aceptarse.
+- **[contrato de salida](../../../glosario/entradas/c/contrato-de-salida.md):** descripción de la forma y los valores válidos de la respuesta, comprobable por un programa.
+- **[validación por capas](../../../glosario/entradas/v/validacion-por-capas.md):** secuencia de comprobaciones de coste creciente (forma, rango, coherencia, comportamiento).
+- **[instrucciones en conflicto](../../../glosario/entradas/i/instrucciones-en-conflicto.md):** pares de reglas del encargo cuyo cumplimiento simultáneo es imposible.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato de salida](../../../glosario/entradas/c/contrato-de-salida.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Encargo](../../../glosario/entradas/e/encargo.md) · [Instrucciones en conflicto](../../../glosario/entradas/i/instrucciones-en-conflicto.md) · [Validación por capas](../../../glosario/entradas/v/validacion-por-capas.md).
 
 ---
 

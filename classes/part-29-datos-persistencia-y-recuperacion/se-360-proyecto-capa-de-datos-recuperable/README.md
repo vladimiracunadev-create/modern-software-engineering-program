@@ -166,11 +166,11 @@ Una copia completa comprimida ocupa el 18 % de la base y un incremental por pág
 
 ## Definiciones de trabajo
 
-- **paquete de capa de datos:** conjunto de artefactos y pruebas que permiten operar, cambiar y recuperar la capa de datos de un sistema.
-- **manifiesto de respaldo:** descripción estructurada del método, el intervalo, la retención, el destino, la verificación y los objetivos medidos de las copias.
-- **simulacro:** ejercicio que inyecta incidentes conocidos en un sistema de prueba para medir qué se pierde y qué se recupera.
-- **bitácora de cambios:** registro ordenado de las escrituras que permite recuperar lo ocurrido desde la última copia.
-- **límite declarado:** afirmación explícita de lo que un artefacto no demuestra.
+- **[paquete de capa de datos](../../../glosario/entradas/p/paquete-de-capa-de-datos.md):** conjunto de artefactos y pruebas que permiten operar, cambiar y recuperar la capa de datos de un sistema.
+- **[manifiesto de respaldo](../../../glosario/entradas/m/manifiesto-de-respaldo.md):** descripción estructurada del método, el intervalo, la retención, el destino, la verificación y los objetivos medidos de las copias.
+- **[simulacro](../../../glosario/entradas/s/simulacro.md):** ejercicio que inyecta incidentes conocidos en un sistema de prueba para medir qué se pierde y qué se recupera.
+- **[bitácora de cambios](../../../glosario/entradas/b/bitacora-de-cambios.md):** registro ordenado de las escrituras que permite recuperar lo ocurrido desde la última copia.
+- **[límite declarado](../../../glosario/entradas/l/limite-declarado.md):** afirmación explícita de lo que un artefacto no demuestra.
 
 Las definiciones son operativas para el proyecto. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -323,11 +323,13 @@ Se ejecutaron tres experimentos con datos sintéticos y semillas fijas en Window
 
 ## Glosario
 
-- **paquete de capa de datos:** conjunto de artefactos y pruebas que permiten operar, cambiar y recuperar la capa de datos de un sistema.
-- **manifiesto de respaldo:** descripción estructurada del método, el intervalo, la retención, el destino, la verificación y los objetivos medidos de las copias.
-- **simulacro:** ejercicio que inyecta incidentes conocidos en un sistema de prueba para medir qué se pierde y qué se recupera.
-- **bitácora de cambios:** registro ordenado de las escrituras que permite recuperar lo ocurrido desde la última copia.
-- **límite declarado:** afirmación explícita de lo que un artefacto no demuestra.
+- **[paquete de capa de datos](../../../glosario/entradas/p/paquete-de-capa-de-datos.md):** conjunto de artefactos y pruebas que permiten operar, cambiar y recuperar la capa de datos de un sistema.
+- **[manifiesto de respaldo](../../../glosario/entradas/m/manifiesto-de-respaldo.md):** descripción estructurada del método, el intervalo, la retención, el destino, la verificación y los objetivos medidos de las copias.
+- **[simulacro](../../../glosario/entradas/s/simulacro.md):** ejercicio que inyecta incidentes conocidos en un sistema de prueba para medir qué se pierde y qué se recupera.
+- **[bitácora de cambios](../../../glosario/entradas/b/bitacora-de-cambios.md):** registro ordenado de las escrituras que permite recuperar lo ocurrido desde la última copia.
+- **[límite declarado](../../../glosario/entradas/l/limite-declarado.md):** afirmación explícita de lo que un artefacto no demuestra.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bitácora de cambios](../../../glosario/entradas/b/bitacora-de-cambios.md) · [Límite declarado](../../../glosario/entradas/l/limite-declarado.md) · [Manifiesto de respaldo](../../../glosario/entradas/m/manifiesto-de-respaldo.md) · [Paquete de capa de datos](../../../glosario/entradas/p/paquete-de-capa-de-datos.md) · [Simulacro](../../../glosario/entradas/s/simulacro.md).
 
 ---
 

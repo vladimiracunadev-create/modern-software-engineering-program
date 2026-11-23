@@ -161,11 +161,11 @@ Con ruido, el error baja a la mitad por cada factor cuatro de lecturas (0,583 �
 
 ## Definiciones de trabajo
 
-- **eficiencia de un bus:** fracción de los ciclos de reloj de una transacción que transportan datos útiles.
-- **código de control:** bits redundantes añadidos a una trama para detectar errores; la paridad, la suma y el CRC son ejemplos.
-- **CRC:** código de redundancia cíclica; resto de dividir la trama, vista como un polinomio, por un polinomio generador.
-- **LSB:** valor del bit menos significativo de un convertidor; tamaño de un nivel de cuantización.
-- **sobremuestreo:** promedio de varias lecturas de una señal estable para reducir el ruido de cuantización y de medición.
+- **[eficiencia de un bus](../../../glosario/entradas/e/eficiencia-de-un-bus.md):** fracción de los ciclos de reloj de una transacción que transportan datos útiles.
+- **[código de control](../../../glosario/entradas/c/codigo-de-control.md):** bits redundantes añadidos a una trama para detectar errores; la paridad, la suma y el CRC son ejemplos.
+- **[CRC](../../../glosario/entradas/c/crc.md):** código de redundancia cíclica; resto de dividir la trama, vista como un polinomio, por un polinomio generador.
+- **[LSB](../../../glosario/entradas/l/lsb.md):** valor del bit menos significativo de un convertidor; tamaño de un nivel de cuantización.
+- **[sobremuestreo](../../../glosario/entradas/s/sobremuestreo.md):** promedio de varias lecturas de una señal estable para reducir el ruido de cuantización y de medición.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **eficiencia de un bus:** fracción de los ciclos de reloj de una transacción que transportan datos útiles.
-- **código de control:** bits redundantes añadidos a una trama para detectar errores; la paridad, la suma y el CRC son ejemplos.
-- **CRC:** código de redundancia cíclica; resto de dividir la trama, vista como un polinomio, por un polinomio generador.
-- **LSB:** valor del bit menos significativo de un convertidor; tamaño de un nivel de cuantización.
-- **sobremuestreo:** promedio de varias lecturas de una señal estable para reducir el ruido de cuantización y de medición.
+- **[eficiencia de un bus](../../../glosario/entradas/e/eficiencia-de-un-bus.md):** fracción de los ciclos de reloj de una transacción que transportan datos útiles.
+- **[código de control](../../../glosario/entradas/c/codigo-de-control.md):** bits redundantes añadidos a una trama para detectar errores; la paridad, la suma y el CRC son ejemplos.
+- **[CRC](../../../glosario/entradas/c/crc.md):** código de redundancia cíclica; resto de dividir la trama, vista como un polinomio, por un polinomio generador.
+- **[LSB](../../../glosario/entradas/l/lsb.md):** valor del bit menos significativo de un convertidor; tamaño de un nivel de cuantización.
+- **[sobremuestreo](../../../glosario/entradas/s/sobremuestreo.md):** promedio de varias lecturas de una señal estable para reducir el ruido de cuantización y de medición.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Código de control](../../../glosario/entradas/c/codigo-de-control.md) · [CRC](../../../glosario/entradas/c/crc.md) · [Eficiencia de un bus](../../../glosario/entradas/e/eficiencia-de-un-bus.md) · [LSB](../../../glosario/entradas/l/lsb.md) · [Sobremuestreo](../../../glosario/entradas/s/sobremuestreo.md).
 
 ---
 

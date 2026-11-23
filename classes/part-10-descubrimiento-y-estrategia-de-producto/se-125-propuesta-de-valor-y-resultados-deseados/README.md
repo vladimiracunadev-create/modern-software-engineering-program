@@ -139,11 +139,11 @@ El resultado confirma la intuición: con un valor igual al actual adopta menos d
 
 ## Definiciones de trabajo
 
-- **propuesta de valor:** promesa específica de un progreso que una persona logra en su trabajo con este producto y no con la alternativa actual.
-- **resultados deseados:** enunciado de lo que la persona quiere lograr, con dirección de mejora, métrica, objeto y contexto, independiente de cómo se logre.
-- **oportunidad y ranking:** puntuación que combina cuán importante es un resultado con cuán insatisfecha está la persona con las soluciones actuales.
-- **indicadores y demora:** medida elegida para detectar un cambio; adelantada si responde pronto a lo que se hace, rezagada si refleja el resultado final con demora.
-- **valor percibido y cambio:** comparación subjetiva entre el valor que la persona espera del producto nuevo y el que da lo que ya usa, con el costo de cambiar y el apego incluidos.
+- **[propuesta de valor](../../../glosario/entradas/p/propuesta-de-valor.md):** promesa específica de un progreso que una persona logra en su trabajo con este producto y no con la alternativa actual.
+- **[resultados deseados](../../../glosario/entradas/r/resultados-deseados.md):** enunciado de lo que la persona quiere lograr, con dirección de mejora, métrica, objeto y contexto, independiente de cómo se logre.
+- **[oportunidad y ranking](../../../glosario/entradas/o/oportunidad-y-ranking.md):** puntuación que combina cuán importante es un resultado con cuán insatisfecha está la persona con las soluciones actuales.
+- **[indicadores y demora](../../../glosario/entradas/i/indicadores-y-demora.md):** medida elegida para detectar un cambio; adelantada si responde pronto a lo que se hace, rezagada si refleja el resultado final con demora.
+- **[valor percibido y cambio](../../../glosario/entradas/v/valor-percibido-y-cambio.md):** comparación subjetiva entre el valor que la persona espera del producto nuevo y el que da lo que ya usa, con el costo de cambiar y el apego incluidos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **propuesta de valor:** promesa específica de un progreso que una persona logra en su trabajo con este producto y no con la alternativa actual.
-- **resultados deseados:** enunciado de lo que la persona quiere lograr, con dirección de mejora, métrica, objeto y contexto, independiente de cómo se logre.
-- **oportunidad y ranking:** puntuación que combina cuán importante es un resultado con cuán insatisfecha está la persona con las soluciones actuales.
-- **indicadores y demora:** medida elegida para detectar un cambio; adelantada si responde pronto a lo que se hace, rezagada si refleja el resultado final con demora.
-- **valor percibido y cambio:** comparación subjetiva entre el valor que la persona espera del producto nuevo y el que da lo que ya usa, con el costo de cambiar y el apego incluidos.
+- **[propuesta de valor](../../../glosario/entradas/p/propuesta-de-valor.md):** promesa específica de un progreso que una persona logra en su trabajo con este producto y no con la alternativa actual.
+- **[resultados deseados](../../../glosario/entradas/r/resultados-deseados.md):** enunciado de lo que la persona quiere lograr, con dirección de mejora, métrica, objeto y contexto, independiente de cómo se logre.
+- **[oportunidad y ranking](../../../glosario/entradas/o/oportunidad-y-ranking.md):** puntuación que combina cuán importante es un resultado con cuán insatisfecha está la persona con las soluciones actuales.
+- **[indicadores y demora](../../../glosario/entradas/i/indicadores-y-demora.md):** medida elegida para detectar un cambio; adelantada si responde pronto a lo que se hace, rezagada si refleja el resultado final con demora.
+- **[valor percibido y cambio](../../../glosario/entradas/v/valor-percibido-y-cambio.md):** comparación subjetiva entre el valor que la persona espera del producto nuevo y el que da lo que ya usa, con el costo de cambiar y el apego incluidos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Indicadores y demora](../../../glosario/entradas/i/indicadores-y-demora.md) · [Oportunidad y ranking](../../../glosario/entradas/o/oportunidad-y-ranking.md) · [Propuesta de valor](../../../glosario/entradas/p/propuesta-de-valor.md) · [Resultados deseados](../../../glosario/entradas/r/resultados-deseados.md) · [Valor percibido y cambio](../../../glosario/entradas/v/valor-percibido-y-cambio.md).
 
 ---
 

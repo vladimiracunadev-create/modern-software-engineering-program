@@ -140,11 +140,11 @@ Antes de reparar hay 5 páginas sin ningún enlace entrante, inalcanzables desde
 
 ## Definiciones de trabajo
 
-- **recuperabilidad:** propiedad de una página de poder ser encontrada por alguien que la necesita con las palabras que usa y los caminos que sigue.
-- **vocabulario controlado:** conjunto de términos preferidos, con alternativas y definiciones, que fija cómo se nombran los conceptos.
-- **etiqueta alternativa:** sinónimo, forma coloquial o abreviatura de un concepto que lleva a la misma página que la etiqueta preferida.
-- **página huérfana:** página sin enlaces entrantes desde el resto del sitio.
-- **similitud de Jaccard:** cociente entre las palabras comunes de dos textos y las palabras totales de ambos.
+- **[recuperabilidad](../../../glosario/entradas/r/recuperabilidad.md):** propiedad de una página de poder ser encontrada por alguien que la necesita con las palabras que usa y los caminos que sigue.
+- **[vocabulario controlado](../../../glosario/entradas/v/vocabulario-controlado.md):** conjunto de términos preferidos, con alternativas y definiciones, que fija cómo se nombran los conceptos.
+- **[etiqueta alternativa](../../../glosario/entradas/e/etiqueta-alternativa.md):** sinónimo, forma coloquial o abreviatura de un concepto que lleva a la misma página que la etiqueta preferida.
+- **[página huérfana](../../../glosario/entradas/p/pagina-huerfana.md):** página sin enlaces entrantes desde el resto del sitio.
+- **[similitud de Jaccard](../../../glosario/entradas/s/similitud-de-jaccard.md):** cociente entre las palabras comunes de dos textos y las palabras totales de ambos.
 
 Las definiciones son operativas para el portal; no reemplazan las de SKOS ni las de la bibliografía enlazada abajo.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **recuperabilidad:** propiedad de una página de poder ser encontrada con las palabras y los caminos de quien la necesita.
-- **vocabulario controlado:** conjunto de términos preferidos con alternativas y definiciones que fija cómo se nombran los conceptos.
-- **etiqueta alternativa:** sinónimo o forma coloquial de un concepto que lleva a la misma página.
-- **página huérfana:** página sin enlaces entrantes desde el resto del sitio.
-- **similitud de Jaccard:** cociente entre las palabras comunes de dos textos y las palabras totales de ambos.
+- **[recuperabilidad](../../../glosario/entradas/r/recuperabilidad.md):** propiedad de una página de poder ser encontrada con las palabras y los caminos de quien la necesita.
+- **[vocabulario controlado](../../../glosario/entradas/v/vocabulario-controlado.md):** conjunto de términos preferidos con alternativas y definiciones que fija cómo se nombran los conceptos.
+- **[etiqueta alternativa](../../../glosario/entradas/e/etiqueta-alternativa.md):** sinónimo o forma coloquial de un concepto que lleva a la misma página.
+- **[página huérfana](../../../glosario/entradas/p/pagina-huerfana.md):** página sin enlaces entrantes desde el resto del sitio.
+- **[similitud de Jaccard](../../../glosario/entradas/s/similitud-de-jaccard.md):** cociente entre las palabras comunes de dos textos y las palabras totales de ambos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Etiqueta alternativa](../../../glosario/entradas/e/etiqueta-alternativa.md) · [Página huérfana](../../../glosario/entradas/p/pagina-huerfana.md) · [Recuperabilidad](../../../glosario/entradas/r/recuperabilidad.md) · [Similitud de Jaccard](../../../glosario/entradas/s/similitud-de-jaccard.md) · [Vocabulario controlado](../../../glosario/entradas/v/vocabulario-controlado.md).
 
 ---
 

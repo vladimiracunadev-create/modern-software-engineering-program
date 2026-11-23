@@ -169,11 +169,11 @@ Para el 95 % hacen falta 209 repeticiones y para el 99,9 %, 481; la simulación 
 
 ## Definiciones de trabajo
 
-- **reproductor mínimo:** programa pequeño y determinista que muestra un fallo con la menor cantidad posible de pasos.
+- **[reproductor mínimo](../../../glosario/entradas/r/reproductor-minimo.md):** programa pequeño y determinista que muestra un fallo con la menor cantidad posible de pasos.
 - **calendario (*schedule*):** orden concreto en que se ejecutan los pasos de varias tareas.
 - **reducción por bloques (*delta debugging*):** técnica que elimina partes de una entrada fallida mientras siga fallando.
-- **corte:** interrupción de un flujo antes de un paso, que deja hecho lo anterior y sin hacer lo siguiente.
-- **prueba de regresión:** prueba que falla ante el defecto original y pasa con la corrección.
+- **[corte](../../../glosario/entradas/c/corte.md):** interrupción de un flujo antes de un paso, que deja hecho lo anterior y sin hacer lo siguiente.
+- **[prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md):** prueba que falla ante el defecto original y pasa con la corrección.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -317,11 +317,13 @@ Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con res
 
 ## Glosario
 
-- **reproductor mínimo:** programa pequeño y determinista que muestra un fallo con la menor cantidad posible de pasos.
+- **[reproductor mínimo](../../../glosario/entradas/r/reproductor-minimo.md):** programa pequeño y determinista que muestra un fallo con la menor cantidad posible de pasos.
 - **calendario (*schedule*):** orden concreto en que se ejecutan los pasos de varias tareas.
 - **reducción por bloques (*delta debugging*):** técnica que elimina partes de una entrada fallida mientras siga fallando.
-- **corte:** interrupción de un flujo antes de un paso, que deja hecho lo anterior y sin hacer lo siguiente.
-- **prueba de regresión:** prueba que falla ante el defecto original y pasa con la corrección.
+- **[corte](../../../glosario/entradas/c/corte.md):** interrupción de un flujo antes de un paso, que deja hecho lo anterior y sin hacer lo siguiente.
+- **[prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md):** prueba que falla ante el defecto original y pasa con la corrección.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Corte](../../../glosario/entradas/c/corte.md) · [Prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md) · [Reproductor mínimo](../../../glosario/entradas/r/reproductor-minimo.md).
 
 ---
 

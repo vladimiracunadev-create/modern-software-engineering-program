@@ -162,11 +162,11 @@ Con la misma utilización, pasar de servicios constantes a muy variables multipl
 
 ## Definiciones de trabajo
 
-- **utilización:** fracción del tiempo en que un recurso está ocupado; en una cola, la tasa de llegadas dividida por la tasa de servicio.
-- **ley de Little:** en régimen estable, el número medio de elementos en un sistema es la tasa media de llegadas por el tiempo medio que pasan dentro.
-- **tiempo de ciclo o plazo:** tiempo desde que un elemento entra al sistema hasta que sale terminado.
-- **variabilidad:** dispersión de los tiempos entre llegadas o de servicio; se resume con el coeficiente de variación al cuadrado.
-- **lote:** grupo de elementos que se mueven juntos por una etapa del flujo.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo en que un recurso está ocupado; en una cola, la tasa de llegadas dividida por la tasa de servicio.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** en régimen estable, el número medio de elementos en un sistema es la tasa media de llegadas por el tiempo medio que pasan dentro.
+- **[tiempo de ciclo o plazo](../../../glosario/entradas/t/tiempo-de-ciclo-o-plazo.md):** tiempo desde que un elemento entra al sistema hasta que sale terminado.
+- **[variabilidad](../../../glosario/entradas/v/variabilidad.md):** dispersión de los tiempos entre llegadas o de servicio; se resume con el coeficiente de variación al cuadrado.
+- **[lote](../../../glosario/entradas/l/lote.md):** grupo de elementos que se mueven juntos por una etapa del flujo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **utilización:** fracción del tiempo en que un recurso está ocupado; en una cola, la tasa de llegadas dividida por la tasa de servicio.
-- **ley de Little:** en régimen estable, el número medio de elementos en un sistema es la tasa media de llegadas por el tiempo medio que pasan dentro.
-- **tiempo de ciclo o plazo:** tiempo desde que un elemento entra al sistema hasta que sale terminado.
-- **variabilidad:** dispersión de los tiempos entre llegadas o de servicio; se resume con el coeficiente de variación al cuadrado.
-- **lote:** grupo de elementos que se mueven juntos por una etapa del flujo.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo en que un recurso está ocupado; en una cola, la tasa de llegadas dividida por la tasa de servicio.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** en régimen estable, el número medio de elementos en un sistema es la tasa media de llegadas por el tiempo medio que pasan dentro.
+- **[tiempo de ciclo o plazo](../../../glosario/entradas/t/tiempo-de-ciclo-o-plazo.md):** tiempo desde que un elemento entra al sistema hasta que sale terminado.
+- **[variabilidad](../../../glosario/entradas/v/variabilidad.md):** dispersión de los tiempos entre llegadas o de servicio; se resume con el coeficiente de variación al cuadrado.
+- **[lote](../../../glosario/entradas/l/lote.md):** grupo de elementos que se mueven juntos por una etapa del flujo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ley de Little](../../../glosario/entradas/l/ley-de-little.md) · [Lote](../../../glosario/entradas/l/lote.md) · [Tiempo de ciclo o plazo](../../../glosario/entradas/t/tiempo-de-ciclo-o-plazo.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md) · [Variabilidad](../../../glosario/entradas/v/variabilidad.md).
 
 ---
 

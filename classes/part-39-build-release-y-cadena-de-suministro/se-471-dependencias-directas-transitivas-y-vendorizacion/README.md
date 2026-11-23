@@ -121,11 +121,11 @@ Se modela el tiempo, en días, desde el aviso hasta que el parche está aplicado
 
 ## Definiciones de trabajo
 
-- **dependencia directa:** pieza que el proyecto declara en su manifiesto.
-- **dependencia transitiva:** pieza que otra dependencia necesita, directa o indirectamente.
-- **clausura transitiva:** conjunto de todas las piezas que se instalan y pueden ejecutarse.
-- **archivo de bloqueo:** documento que fija la versión exacta y la huella de cada pieza de la clausura.
-- **vendorización:** copia del código de una dependencia dentro del repositorio propio.
+- **[dependencia directa](../../../glosario/entradas/d/dependencia-directa.md):** pieza que el proyecto declara en su manifiesto.
+- **[dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md):** pieza que otra dependencia necesita, directa o indirectamente.
+- **[clausura transitiva](../../../glosario/entradas/c/clausura-transitiva.md):** conjunto de todas las piezas que se instalan y pueden ejecutarse.
+- **[archivo de bloqueo](../../../glosario/entradas/a/archivo-de-bloqueo.md):** documento que fija la versión exacta y la huella de cada pieza de la clausura.
+- **[vendorización](../../../glosario/entradas/v/vendorizacion.md):** copia del código de una dependencia dentro del repositorio propio.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Se ejecutó una medición real de los metadatos de dos entornos de Python (349 y
 
 ## Glosario
 
-- **dependencia directa:** pieza que el proyecto declara en su manifiesto.
-- **dependencia transitiva:** pieza que otra dependencia necesita, directa o indirectamente.
-- **clausura transitiva:** conjunto de todas las piezas que se instalan y pueden ejecutarse.
-- **archivo de bloqueo:** documento que fija la versión exacta y la huella de cada pieza de la clausura.
-- **vendorización:** copia del código de una dependencia dentro del repositorio propio.
+- **[dependencia directa](../../../glosario/entradas/d/dependencia-directa.md):** pieza que el proyecto declara en su manifiesto.
+- **[dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md):** pieza que otra dependencia necesita, directa o indirectamente.
+- **[clausura transitiva](../../../glosario/entradas/c/clausura-transitiva.md):** conjunto de todas las piezas que se instalan y pueden ejecutarse.
+- **[archivo de bloqueo](../../../glosario/entradas/a/archivo-de-bloqueo.md):** documento que fija la versión exacta y la huella de cada pieza de la clausura.
+- **[vendorización](../../../glosario/entradas/v/vendorizacion.md):** copia del código de una dependencia dentro del repositorio propio.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Archivo de bloqueo](../../../glosario/entradas/a/archivo-de-bloqueo.md) · [Clausura transitiva](../../../glosario/entradas/c/clausura-transitiva.md) · [Dependencia directa](../../../glosario/entradas/d/dependencia-directa.md) · [Dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md) · [Vendorización](../../../glosario/entradas/v/vendorizacion.md).
 
 ---
 

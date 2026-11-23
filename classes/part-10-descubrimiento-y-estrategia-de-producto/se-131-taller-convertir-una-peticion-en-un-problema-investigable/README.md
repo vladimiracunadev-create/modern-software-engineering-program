@@ -127,11 +127,11 @@ Resultado: 16 peticiones y 6 necesidades, razón 2,67 peticiones por necesidad; 
 
 ## Definiciones de trabajo
 
-- **descomponer la petición:** separación de una petición en quién la hace, qué intenta lograr, qué hace hoy, qué consecuencia sufre y qué solución propone.
-- **reformular como problema:** enunciado de actor, intención, obstáculo y consecuencia que no nombra la solución y se puede confirmar o refutar con observaciones.
-- **preguntas de investigación:** pregunta que pide a la persona relatar episodios concretos y no opinar, predecir ni confirmar una idea del entrevistador.
-- **rúbrica de investigabilidad:** conjunto de criterios (actor, observable, consecuencia, ausencia de solución) con los que dos personas deciden si un problema puede investigarse.
-- **agrupar por necesidad:** asignación de peticiones distintas a la necesidad de fondo que expresan, con criterio explícito y revisable.
+- **[descomponer la petición](../../../glosario/entradas/d/descomponer-la-peticion.md):** separación de una petición en quién la hace, qué intenta lograr, qué hace hoy, qué consecuencia sufre y qué solución propone.
+- **[reformular como problema](../../../glosario/entradas/r/reformular-como-problema.md):** enunciado de actor, intención, obstáculo y consecuencia que no nombra la solución y se puede confirmar o refutar con observaciones.
+- **[preguntas de investigación](../../../glosario/entradas/p/preguntas-de-investigacion.md):** pregunta que pide a la persona relatar episodios concretos y no opinar, predecir ni confirmar una idea del entrevistador.
+- **[rúbrica de investigabilidad](../../../glosario/entradas/r/rubrica-de-investigabilidad.md):** conjunto de criterios (actor, observable, consecuencia, ausencia de solución) con los que dos personas deciden si un problema puede investigarse.
+- **[agrupar por necesidad](../../../glosario/entradas/a/agrupar-por-necesidad.md):** asignación de peticiones distintas a la necesidad de fondo que expresan, con criterio explícito y revisable.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintétic
 
 ## Glosario
 
-- **descomponer la petición:** separación de una petición en quién la hace, qué intenta lograr, qué hace hoy, qué consecuencia sufre y qué solución propone.
-- **reformular como problema:** enunciado de actor, intención, obstáculo y consecuencia que no nombra la solución y se puede confirmar o refutar con observaciones.
-- **preguntas de investigación:** pregunta que pide a la persona relatar episodios concretos y no opinar, predecir ni confirmar una idea del entrevistador.
-- **rúbrica de investigabilidad:** conjunto de criterios (actor, observable, consecuencia, ausencia de solución) con los que dos personas deciden si un problema puede investigarse.
-- **agrupar por necesidad:** asignación de peticiones distintas a la necesidad de fondo que expresan, con criterio explícito y revisable.
+- **[descomponer la petición](../../../glosario/entradas/d/descomponer-la-peticion.md):** separación de una petición en quién la hace, qué intenta lograr, qué hace hoy, qué consecuencia sufre y qué solución propone.
+- **[reformular como problema](../../../glosario/entradas/r/reformular-como-problema.md):** enunciado de actor, intención, obstáculo y consecuencia que no nombra la solución y se puede confirmar o refutar con observaciones.
+- **[preguntas de investigación](../../../glosario/entradas/p/preguntas-de-investigacion.md):** pregunta que pide a la persona relatar episodios concretos y no opinar, predecir ni confirmar una idea del entrevistador.
+- **[rúbrica de investigabilidad](../../../glosario/entradas/r/rubrica-de-investigabilidad.md):** conjunto de criterios (actor, observable, consecuencia, ausencia de solución) con los que dos personas deciden si un problema puede investigarse.
+- **[agrupar por necesidad](../../../glosario/entradas/a/agrupar-por-necesidad.md):** asignación de peticiones distintas a la necesidad de fondo que expresan, con criterio explícito y revisable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agrupar por necesidad](../../../glosario/entradas/a/agrupar-por-necesidad.md) · [Descomponer la petición](../../../glosario/entradas/d/descomponer-la-peticion.md) · [Preguntas de investigación](../../../glosario/entradas/p/preguntas-de-investigacion.md) · [Reformular como problema](../../../glosario/entradas/r/reformular-como-problema.md) · [Rúbrica de investigabilidad](../../../glosario/entradas/r/rubrica-de-investigabilidad.md).
 
 ---
 

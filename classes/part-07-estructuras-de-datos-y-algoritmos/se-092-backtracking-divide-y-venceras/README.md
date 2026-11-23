@@ -112,11 +112,11 @@ El problema del subarreglo de suma máxima admite divide y vencerás (6,22 ms pa
 
 ## Definiciones de trabajo
 
-- **espacio de estados:** cada nodo representa una decisión parcial y cada arista una elección.
-- **backtracking:** el backtracking elige, avanza, detecta imposibilidad y revierte.
-- **poda segura:** una poda descarta ramas que no pueden mejorar o satisfacer.
-- **divide y vencerás:** se divide en subproblemas independientes, se resuelven y combinan.
-- **recurrencias y umbral práctico:** el árbol de recursión explica tiempo y trabajo de combinación.
+- **[espacio de estados](../../../glosario/entradas/e/espacio-de-estados.md):** cada nodo representa una decisión parcial y cada arista una elección.
+- **[backtracking](../../../glosario/entradas/b/backtracking.md):** el backtracking elige, avanza, detecta imposibilidad y revierte.
+- **[poda segura](../../../glosario/entradas/p/poda-segura.md):** una poda descarta ramas que no pueden mejorar o satisfacer.
+- **[divide y vencerás](../../../glosario/entradas/d/divide-y-venceras.md):** se divide en subproblemas independientes, se resuelven y combinan.
+- **[recurrencias y umbral práctico](../../../glosario/entradas/r/recurrencias-y-umbral-practico.md):** el árbol de recursión explica tiempo y trabajo de combinación.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -270,11 +270,13 @@ La exploración exacta puede seguir siendo intratable. La siguiente clase presen
 
 ## Glosario
 
-- **espacio de estados:** cada nodo representa una decisión parcial y cada arista una elección.
-- **backtracking:** el backtracking elige, avanza, detecta imposibilidad y revierte.
-- **poda segura:** una poda descarta ramas que no pueden mejorar o satisfacer.
-- **divide y vencerás:** se divide en subproblemas independientes, se resuelven y combinan.
-- **recurrencias y umbral práctico:** el árbol de recursión explica tiempo y trabajo de combinación.
+- **[espacio de estados](../../../glosario/entradas/e/espacio-de-estados.md):** cada nodo representa una decisión parcial y cada arista una elección.
+- **[backtracking](../../../glosario/entradas/b/backtracking.md):** el backtracking elige, avanza, detecta imposibilidad y revierte.
+- **[poda segura](../../../glosario/entradas/p/poda-segura.md):** una poda descarta ramas que no pueden mejorar o satisfacer.
+- **[divide y vencerás](../../../glosario/entradas/d/divide-y-venceras.md):** se divide en subproblemas independientes, se resuelven y combinan.
+- **[recurrencias y umbral práctico](../../../glosario/entradas/r/recurrencias-y-umbral-practico.md):** el árbol de recursión explica tiempo y trabajo de combinación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backtracking](../../../glosario/entradas/b/backtracking.md) · [Divide y vencerás](../../../glosario/entradas/d/divide-y-venceras.md) · [Espacio de estados](../../../glosario/entradas/e/espacio-de-estados.md) · [Poda segura](../../../glosario/entradas/p/poda-segura.md) · [Recurrencias y umbral práctico](../../../glosario/entradas/r/recurrencias-y-umbral-practico.md).
 
 ---
 

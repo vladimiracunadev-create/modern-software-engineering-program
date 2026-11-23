@@ -112,11 +112,11 @@ El tamaño del diccionario también tiene un matiz: tras insertar 100 000 entrad
 
 ## Definiciones de trabajo
 
-- **mapa y conjunto:** un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado.
-- **función hash y buckets:** el hash transforma una clave en un entero usado para elegir ubicación.
-- **igualdad y estabilidad:** si dos claves son iguales deben compartir hash.
-- **factor de carga y crecimiento:** al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye.
-- **orden e iteración:** python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones.
+- **[mapa y conjunto](../../../glosario/entradas/m/mapa-y-conjunto.md):** un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado.
+- **[función hash y buckets](../../../glosario/entradas/f/funcion-hash-y-buckets.md):** el hash transforma una clave en un entero usado para elegir ubicación.
+- **[igualdad y estabilidad](../../../glosario/entradas/i/igualdad-y-estabilidad.md):** si dos claves son iguales deben compartir hash.
+- **[factor de carga y crecimiento](../../../glosario/entradas/f/factor-de-carga-y-crecimiento.md):** al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye.
+- **[orden e iteración](../../../glosario/entradas/o/orden-e-iteracion.md):** python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ Las tablas hash no mantienen rangos ni prefijos ordenados. La siguiente clase es
 
 ## Glosario
 
-- **mapa y conjunto:** un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado.
-- **función hash y buckets:** el hash transforma una clave en un entero usado para elegir ubicación.
-- **igualdad y estabilidad:** si dos claves son iguales deben compartir hash.
-- **factor de carga y crecimiento:** al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye.
-- **orden e iteración:** python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones.
+- **[mapa y conjunto](../../../glosario/entradas/m/mapa-y-conjunto.md):** un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado.
+- **[función hash y buckets](../../../glosario/entradas/f/funcion-hash-y-buckets.md):** el hash transforma una clave en un entero usado para elegir ubicación.
+- **[igualdad y estabilidad](../../../glosario/entradas/i/igualdad-y-estabilidad.md):** si dos claves son iguales deben compartir hash.
+- **[factor de carga y crecimiento](../../../glosario/entradas/f/factor-de-carga-y-crecimiento.md):** al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye.
+- **[orden e iteración](../../../glosario/entradas/o/orden-e-iteracion.md):** python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Factor de carga y crecimiento](../../../glosario/entradas/f/factor-de-carga-y-crecimiento.md) · [Función hash y buckets](../../../glosario/entradas/f/funcion-hash-y-buckets.md) · [Igualdad y estabilidad](../../../glosario/entradas/i/igualdad-y-estabilidad.md) · [Mapa y conjunto](../../../glosario/entradas/m/mapa-y-conjunto.md) · [Orden e iteración](../../../glosario/entradas/o/orden-e-iteracion.md).
 
 ---
 

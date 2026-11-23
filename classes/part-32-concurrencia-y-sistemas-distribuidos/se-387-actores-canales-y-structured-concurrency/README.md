@@ -163,11 +163,11 @@ Con `TaskGroup` no queda nada en vuelo al salir del bloque; con tareas sueltas, 
 
 ## Definiciones de trabajo
 
-- **actor:** unidad con estado privado y buzón que procesa un mensaje por vez.
-- **contrapresión:** mecanismo por el que un consumidor lento hace esperar o rechazar a un productor en lugar de acumular mensajes sin límite.
-- **concurrencia estructurada:** disciplina por la que toda tarea hija vive dentro de un bloque que la espera, propaga sus errores y la cancela al salir.
-- **cancelación cooperativa:** interrupción que se entrega en el siguiente punto de espera de la tarea, no en cualquier instrucción.
-- **escudo (`shield`):** envoltura que impide que una cancelación externa interrumpa una operación interna.
+- **[actor](../../../glosario/entradas/a/actor.md):** unidad con estado privado y buzón que procesa un mensaje por vez.
+- **[contrapresión](../../../glosario/entradas/c/contrapresion.md):** mecanismo por el que un consumidor lento hace esperar o rechazar a un productor en lugar de acumular mensajes sin límite.
+- **[concurrencia estructurada](../../../glosario/entradas/c/concurrencia-estructurada.md):** disciplina por la que toda tarea hija vive dentro de un bloque que la espera, propaga sus errores y la cancela al salir.
+- **[cancelación cooperativa](../../../glosario/entradas/c/cancelacion-cooperativa.md):** interrupción que se entrega en el siguiente punto de espera de la tarea, no en cualquier instrucción.
+- **[escudo (`shield`)](../../../glosario/entradas/e/escudo.md):** envoltura que impide que una cancelación externa interrumpa una operación interna.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres experimentos deterministas sobre el bucle de eventos de `asyn
 
 ## Glosario
 
-- **actor:** unidad con estado privado y buzón que procesa un mensaje por vez.
-- **contrapresión:** mecanismo por el que un consumidor lento hace esperar o rechazar a un productor en lugar de acumular mensajes sin límite.
-- **concurrencia estructurada:** disciplina por la que toda tarea hija vive dentro de un bloque que la espera, propaga sus errores y la cancela al salir.
-- **cancelación cooperativa:** interrupción que se entrega en el siguiente punto de espera de la tarea, no en cualquier instrucción.
-- **escudo (`shield`):** envoltura que impide que una cancelación externa interrumpa una operación interna.
+- **[actor](../../../glosario/entradas/a/actor.md):** unidad con estado privado y buzón que procesa un mensaje por vez.
+- **[contrapresión](../../../glosario/entradas/c/contrapresion.md):** mecanismo por el que un consumidor lento hace esperar o rechazar a un productor en lugar de acumular mensajes sin límite.
+- **[concurrencia estructurada](../../../glosario/entradas/c/concurrencia-estructurada.md):** disciplina por la que toda tarea hija vive dentro de un bloque que la espera, propaga sus errores y la cancela al salir.
+- **[cancelación cooperativa](../../../glosario/entradas/c/cancelacion-cooperativa.md):** interrupción que se entrega en el siguiente punto de espera de la tarea, no en cualquier instrucción.
+- **[escudo (`shield`)](../../../glosario/entradas/e/escudo.md):** envoltura que impide que una cancelación externa interrumpa una operación interna.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actor](../../../glosario/entradas/a/actor.md) · [Cancelación cooperativa](../../../glosario/entradas/c/cancelacion-cooperativa.md) · [Concurrencia estructurada](../../../glosario/entradas/c/concurrencia-estructurada.md) · [Contrapresión](../../../glosario/entradas/c/contrapresion.md) · [Escudo](../../../glosario/entradas/e/escudo.md).
 
 ---
 

@@ -177,16 +177,18 @@ energía no fue medida. La decisión considera memoria y latencia de arranque, n
 
 ## Definiciones de trabajo
 
-- **latencia:** tiempo para una unidad de trabajo;
-- **throughput:** unidades completadas por tiempo;
-- **benchmark:** experimento comparativo bajo protocolo;
-- **cuello de botella:** restricción dominante del resultado;
-- **unidad funcional:** resultado respecto del cual se normaliza impacto.
+- **[latencia](../../../glosario/entradas/l/latencia.md):** tiempo para una unidad de trabajo;
+- **[throughput](../../../glosario/entradas/t/throughput.md):** unidades completadas por tiempo;
+- **[benchmark](../../../glosario/entradas/b/benchmark.md):** experimento comparativo bajo protocolo;
+- **[cuello de botella](../../../glosario/entradas/c/cuello-de-botella.md):** restricción dominante del resultado;
+- **[unidad funcional](../../../glosario/entradas/u/unidad-funcional.md):** resultado respecto del cual se normaliza impacto.
 
 ## Glosario
 
-**Warm-up** es transición inicial. **Baseline** es referencia. **Tail latency** describe
-colas de distribución. **Potencia** es tasa; **energía**, acumulación en tiempo.
+**[Warm-up](../../../glosario/entradas/w/warm-up.md)** es transición inicial. **[Baseline](../../../glosario/entradas/b/baseline.md)** es referencia. **[Tail latency](../../../glosario/entradas/t/tail-latency.md)** describe
+colas de distribución. **[Potencia](../../../glosario/entradas/p/potencia.md)** es tasa; **[energía](../../../glosario/entradas/e/energia.md)**, acumulación en tiempo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Baseline](../../../glosario/entradas/b/baseline.md) · [Benchmark](../../../glosario/entradas/b/benchmark.md) · [Cuello de botella](../../../glosario/entradas/c/cuello-de-botella.md) · [Energía](../../../glosario/entradas/e/energia.md) · [Latencia](../../../glosario/entradas/l/latencia.md) · [Potencia](../../../glosario/entradas/p/potencia.md) · [Tail latency](../../../glosario/entradas/t/tail-latency.md) · [Throughput](../../../glosario/entradas/t/throughput.md) · [Unidad funcional](../../../glosario/entradas/u/unidad-funcional.md) · [Warm-up](../../../glosario/entradas/w/warm-up.md).
 
 ## Ejemplo mínimo
 

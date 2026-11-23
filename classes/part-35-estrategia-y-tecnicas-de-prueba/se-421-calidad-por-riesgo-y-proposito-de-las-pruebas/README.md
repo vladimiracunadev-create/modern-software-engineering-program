@@ -157,11 +157,11 @@ El resultado es el conjunto unitaria + contrato + extremo a extremo + carga, con
 
 ## Definiciones de trabajo
 
-- **riesgo:** pérdida esperada de un componente, estimada como probabilidad de defecto por impacto.
-- **nivel de prueba:** alcance y costo con los que se comprueba el sistema: unidad, contrato, integración, extremo a extremo, carga, exploración.
-- **pérdida residual:** pérdida esperada que queda después de aplicar un reparto de pruebas.
-- **exclusión:** decisión explícita de no probar un componente o una clase de fallo, con razón y fecha de revisión.
-- **sensibilidad:** cuánto cambia un resultado cuando cambian los supuestos que lo producen.
+- **[riesgo](../../../glosario/entradas/r/riesgo.md):** pérdida esperada de un componente, estimada como probabilidad de defecto por impacto.
+- **[nivel de prueba](../../../glosario/entradas/n/nivel-de-prueba.md):** alcance y costo con los que se comprueba el sistema: unidad, contrato, integración, extremo a extremo, carga, exploración.
+- **[pérdida residual](../../../glosario/entradas/p/perdida-residual.md):** pérdida esperada que queda después de aplicar un reparto de pruebas.
+- **[exclusión](../../../glosario/entradas/e/exclusion.md):** decisión explícita de no probar un componente o una clase de fallo, con razón y fecha de revisión.
+- **[sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** cuánto cambia un resultado cuando cambian los supuestos que lo producen.
 
 Las definiciones son operativas para esta clase y no sustituyen el vocabulario de las normas citadas en las fuentes.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con modelos del autor y datos sintéticos en Win
 
 ## Glosario
 
-- **riesgo:** pérdida esperada de un componente, estimada como probabilidad de defecto por impacto.
-- **nivel de prueba:** alcance y costo con los que se comprueba el sistema: unidad, contrato, integración, extremo a extremo, carga, exploración.
-- **pérdida residual:** pérdida esperada que queda después de aplicar un reparto de pruebas.
-- **exclusión:** decisión explícita de no probar un componente o una clase de fallo, con razón y fecha de revisión.
-- **sensibilidad:** cuánto cambia un resultado cuando cambian los supuestos que lo producen.
+- **[riesgo](../../../glosario/entradas/r/riesgo.md):** pérdida esperada de un componente, estimada como probabilidad de defecto por impacto.
+- **[nivel de prueba](../../../glosario/entradas/n/nivel-de-prueba.md):** alcance y costo con los que se comprueba el sistema: unidad, contrato, integración, extremo a extremo, carga, exploración.
+- **[pérdida residual](../../../glosario/entradas/p/perdida-residual.md):** pérdida esperada que queda después de aplicar un reparto de pruebas.
+- **[exclusión](../../../glosario/entradas/e/exclusion.md):** decisión explícita de no probar un componente o una clase de fallo, con razón y fecha de revisión.
+- **[sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** cuánto cambia un resultado cuando cambian los supuestos que lo producen.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Exclusión](../../../glosario/entradas/e/exclusion.md) · [Nivel de prueba](../../../glosario/entradas/n/nivel-de-prueba.md) · [Pérdida residual](../../../glosario/entradas/p/perdida-residual.md) · [Riesgo](../../../glosario/entradas/r/riesgo.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md).
 
 ---
 

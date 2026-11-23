@@ -112,11 +112,11 @@ La verificación recomendada es abrir la rueda con `zipfile` y comparar `namelis
 
 ## Definiciones de trabajo
 
-- **slice reusable:** se elige una capacidad pequeña con entrada, salida, errores y dependencia claros.
-- **diseño desde consumidor:** la prueba se escribe desde un directorio externo usando solo imports públicos.
-- **artefacto e instalación:** se construyen sdist y wheel, inspeccionan contenidos y se instalan en venv limpio.
-- **api y cli coherentes:** ambas superficies llaman el mismo núcleo pero adaptan errores a su medio.
-- **cambio compatible:** se agrega una opción sin romper consumidor anterior y se ejecutan ambas pruebas.
+- **[slice reusable](../../../glosario/entradas/s/slice-reusable.md):** se elige una capacidad pequeña con entrada, salida, errores y dependencia claros.
+- **[diseño desde consumidor](../../../glosario/entradas/d/diseno-desde-consumidor.md):** la prueba se escribe desde un directorio externo usando solo imports públicos.
+- **[artefacto e instalación](../../../glosario/entradas/a/artefacto-e-instalacion.md):** se construyen sdist y wheel, inspeccionan contenidos y se instalan en venv limpio.
+- **[api y cli coherentes](../../../glosario/entradas/a/api-y-cli-coherentes.md):** ambas superficies llaman el mismo núcleo pero adaptan errores a su medio.
+- **[cambio compatible](../../../glosario/entradas/c/cambio-compatible.md):** se agrega una opción sin romper consumidor anterior y se ejecutan ambas pruebas.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ El taller verifica una versión y un entorno principal. El proyecto siguiente co
 
 ## Glosario
 
-- **slice reusable:** se elige una capacidad pequeña con entrada, salida, errores y dependencia claros.
-- **diseño desde consumidor:** la prueba se escribe desde un directorio externo usando solo imports públicos.
-- **artefacto e instalación:** se construyen sdist y wheel, inspeccionan contenidos y se instalan en venv limpio.
-- **api y cli coherentes:** ambas superficies llaman el mismo núcleo pero adaptan errores a su medio.
-- **cambio compatible:** se agrega una opción sin romper consumidor anterior y se ejecutan ambas pruebas.
+- **[slice reusable](../../../glosario/entradas/s/slice-reusable.md):** se elige una capacidad pequeña con entrada, salida, errores y dependencia claros.
+- **[diseño desde consumidor](../../../glosario/entradas/d/diseno-desde-consumidor.md):** la prueba se escribe desde un directorio externo usando solo imports públicos.
+- **[artefacto e instalación](../../../glosario/entradas/a/artefacto-e-instalacion.md):** se construyen sdist y wheel, inspeccionan contenidos y se instalan en venv limpio.
+- **[api y cli coherentes](../../../glosario/entradas/a/api-y-cli-coherentes.md):** ambas superficies llaman el mismo núcleo pero adaptan errores a su medio.
+- **[cambio compatible](../../../glosario/entradas/c/cambio-compatible.md):** se agrega una opción sin romper consumidor anterior y se ejecutan ambas pruebas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Api y cli coherentes](../../../glosario/entradas/a/api-y-cli-coherentes.md) · [Artefacto e instalación](../../../glosario/entradas/a/artefacto-e-instalacion.md) · [Cambio compatible](../../../glosario/entradas/c/cambio-compatible.md) · [Diseño desde consumidor](../../../glosario/entradas/d/diseno-desde-consumidor.md) · [Slice reusable](../../../glosario/entradas/s/slice-reusable.md).
 
 ---
 

@@ -173,11 +173,11 @@ Escribir el diagnóstico mientras se hace tiene dos efectos: obliga a separar lo
 
 ## Definiciones de trabajo
 
-- **firma de una falla:** conjunto de señales que se desvían cuando ocurre esa falla.
-- **candidata:** falla cuya firma coincide con todas las señales observadas.
-- **señal sin datos:** señal que no se está registrando o consultando y que no permite concluir que esté normal.
-- **ganancia de información:** reducción de la incertidumbre que produce una observación; mide cuánto separa las hipótesis restantes.
-- **pérdida selectiva de telemetría:** pérdida de datos que depende del propio fallo y sesga lo que se observa.
+- **[firma de una falla](../../../glosario/entradas/f/firma-de-una-falla.md):** conjunto de señales que se desvían cuando ocurre esa falla.
+- **[candidata](../../../glosario/entradas/c/candidata.md):** falla cuya firma coincide con todas las señales observadas.
+- **[señal sin datos](../../../glosario/entradas/s/senal-sin-datos.md):** señal que no se está registrando o consultando y que no permite concluir que esté normal.
+- **[ganancia de información](../../../glosario/entradas/g/ganancia-de-informacion.md):** reducción de la incertidumbre que produce una observación; mide cuánto separa las hipótesis restantes.
+- **[pérdida selectiva de telemetría](../../../glosario/entradas/p/perdida-selectiva-de-telemetria.md):** pérdida de datos que depende del propio fallo y sesga lo que se observa.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -316,11 +316,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **firma de una falla:** conjunto de señales que se desvían cuando ocurre esa falla.
-- **candidata:** falla cuya firma coincide con todas las señales observadas.
-- **señal sin datos:** señal que no se está registrando o consultando y que no permite concluir que esté normal.
-- **ganancia de información:** reducción de la incertidumbre que produce una observación; mide cuánto separa las hipótesis restantes.
-- **pérdida selectiva de telemetría:** pérdida de datos que depende del propio fallo y sesga lo que se observa.
+- **[firma de una falla](../../../glosario/entradas/f/firma-de-una-falla.md):** conjunto de señales que se desvían cuando ocurre esa falla.
+- **[candidata](../../../glosario/entradas/c/candidata.md):** falla cuya firma coincide con todas las señales observadas.
+- **[señal sin datos](../../../glosario/entradas/s/senal-sin-datos.md):** señal que no se está registrando o consultando y que no permite concluir que esté normal.
+- **[ganancia de información](../../../glosario/entradas/g/ganancia-de-informacion.md):** reducción de la incertidumbre que produce una observación; mide cuánto separa las hipótesis restantes.
+- **[pérdida selectiva de telemetría](../../../glosario/entradas/p/perdida-selectiva-de-telemetria.md):** pérdida de datos que depende del propio fallo y sesga lo que se observa.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Candidata](../../../glosario/entradas/c/candidata.md) · [Firma de una falla](../../../glosario/entradas/f/firma-de-una-falla.md) · [Ganancia de información](../../../glosario/entradas/g/ganancia-de-informacion.md) · [Pérdida selectiva de telemetría](../../../glosario/entradas/p/perdida-selectiva-de-telemetria.md) · [Señal sin datos](../../../glosario/entradas/s/senal-sin-datos.md).
 
 ---
 

@@ -149,11 +149,11 @@ Invertir el orden baja las aceptadas de 67 a 50 y las peligrosas de 48 a 31: la 
 
 ## Definiciones de trabajo
 
-- **inyección:** vulnerabilidad en la que datos controlados por quien ataca se interpretan como instrucciones por un intérprete que los recibe junto con ellas.
-- **consulta parametrizada:** sentencia SQL enviada al motor separada de los valores, de modo que los valores no pueden alterar su estructura.
-- **codificación de salida:** transformación de un dato a la sintaxis segura del contexto donde se va a insertar, aplicada al generar la salida.
-- **lista blanca:** conjunto finito de valores o formas permitidas que se compara con la entrada, en lugar de enumerar lo prohibido.
-- **canonicalización:** transformación de una entrada a su forma única y completa (decodificada y normalizada) antes de validarla.
+- **[inyección](../../../glosario/entradas/i/inyeccion.md):** vulnerabilidad en la que datos controlados por quien ataca se interpretan como instrucciones por un intérprete que los recibe junto con ellas.
+- **[consulta parametrizada](../../../glosario/entradas/c/consulta-parametrizada.md):** sentencia SQL enviada al motor separada de los valores, de modo que los valores no pueden alterar su estructura.
+- **[codificación de salida](../../../glosario/entradas/c/codificacion-de-salida.md):** transformación de un dato a la sintaxis segura del contexto donde se va a insertar, aplicada al generar la salida.
+- **[lista blanca](../../../glosario/entradas/l/lista-blanca.md):** conjunto finito de valores o formas permitidas que se compara con la entrada, en lugar de enumerar lo prohibido.
+- **[canonicalización](../../../glosario/entradas/c/canonicalizacion.md):** transformación de una entrada a su forma única y completa (decodificada y normalizada) antes de validarla.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -294,11 +294,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **inyección:** vulnerabilidad en la que datos controlados por quien ataca se interpretan como instrucciones por un intérprete que los recibe junto con ellas.
-- **consulta parametrizada:** sentencia SQL enviada al motor separada de los valores, de modo que los valores no pueden alterar su estructura.
-- **codificación de salida:** transformación de un dato a la sintaxis segura del contexto donde se va a insertar, aplicada al generar la salida.
-- **lista blanca:** conjunto finito de valores o formas permitidas que se compara con la entrada, en lugar de enumerar lo prohibido.
-- **canonicalización:** transformación de una entrada a su forma única y completa (decodificada y normalizada) antes de validarla.
+- **[inyección](../../../glosario/entradas/i/inyeccion.md):** vulnerabilidad en la que datos controlados por quien ataca se interpretan como instrucciones por un intérprete que los recibe junto con ellas.
+- **[consulta parametrizada](../../../glosario/entradas/c/consulta-parametrizada.md):** sentencia SQL enviada al motor separada de los valores, de modo que los valores no pueden alterar su estructura.
+- **[codificación de salida](../../../glosario/entradas/c/codificacion-de-salida.md):** transformación de un dato a la sintaxis segura del contexto donde se va a insertar, aplicada al generar la salida.
+- **[lista blanca](../../../glosario/entradas/l/lista-blanca.md):** conjunto finito de valores o formas permitidas que se compara con la entrada, en lugar de enumerar lo prohibido.
+- **[canonicalización](../../../glosario/entradas/c/canonicalizacion.md):** transformación de una entrada a su forma única y completa (decodificada y normalizada) antes de validarla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Canonicalización](../../../glosario/entradas/c/canonicalizacion.md) · [Codificación de salida](../../../glosario/entradas/c/codificacion-de-salida.md) · [Consulta parametrizada](../../../glosario/entradas/c/consulta-parametrizada.md) · [Inyección](../../../glosario/entradas/i/inyeccion.md) · [Lista blanca](../../../glosario/entradas/l/lista-blanca.md).
 
 ---
 

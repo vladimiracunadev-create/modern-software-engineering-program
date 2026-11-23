@@ -158,11 +158,11 @@ La entropía señala 170 SHA de git, 153 UUID y 91 imágenes como secretos y aun
 
 ## Definiciones de trabajo
 
-- **credencial efímera:** credencial que expira por sí sola en minutos u horas.
-- **identidad federada:** identidad que un sistema demuestra con un token firmado que otro sistema acepta según una regla de confianza.
-- **regla de confianza:** condición que el receptor aplica a las notificaciones del token para decidir si entrega una credencial.
-- **sujeto (`sub`):** notificación que identifica quién pide, por ejemplo un repositorio y una rama.
-- **audiencia (`aud`):** receptor al que va dirigido un token; un receptor distinto debe rechazarlo.
+- **[credencial efímera](../../../glosario/entradas/c/credencial-efimera.md):** credencial que expira por sí sola en minutos u horas.
+- **[identidad federada](../../../glosario/entradas/i/identidad-federada.md):** identidad que un sistema demuestra con un token firmado que otro sistema acepta según una regla de confianza.
+- **[regla de confianza](../../../glosario/entradas/r/regla-de-confianza.md):** condición que el receptor aplica a las notificaciones del token para decidir si entrega una credencial.
+- **[sujeto (`sub`)](../../../glosario/entradas/s/sujeto.md):** notificación que identifica quién pide, por ejemplo un repositorio y una rama.
+- **[audiencia (`aud`)](../../../glosario/entradas/a/audiencia.md):** receptor al que va dirigido un token; un receptor distinto debe rechazarlo.
 
 Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **credencial efímera:** credencial que expira por sí sola en minutos u horas.
-- **identidad federada:** identidad que un sistema demuestra con un token firmado que otro sistema acepta según una regla de confianza.
-- **regla de confianza:** condición que el receptor aplica a las notificaciones del token para decidir si entrega una credencial.
-- **sujeto (`sub`):** notificación que identifica quién pide, por ejemplo un repositorio y una rama.
-- **audiencia (`aud`):** receptor al que va dirigido un token; un receptor distinto debe rechazarlo.
+- **[credencial efímera](../../../glosario/entradas/c/credencial-efimera.md):** credencial que expira por sí sola en minutos u horas.
+- **[identidad federada](../../../glosario/entradas/i/identidad-federada.md):** identidad que un sistema demuestra con un token firmado que otro sistema acepta según una regla de confianza.
+- **[regla de confianza](../../../glosario/entradas/r/regla-de-confianza.md):** condición que el receptor aplica a las notificaciones del token para decidir si entrega una credencial.
+- **[sujeto (`sub`)](../../../glosario/entradas/s/sujeto.md):** notificación que identifica quién pide, por ejemplo un repositorio y una rama.
+- **[audiencia (`aud`)](../../../glosario/entradas/a/audiencia.md):** receptor al que va dirigido un token; un receptor distinto debe rechazarlo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Audiencia](../../../glosario/entradas/a/audiencia.md) · [Credencial efímera](../../../glosario/entradas/c/credencial-efimera.md) · [Detección de secretos](../../../glosario/entradas/d/deteccion-de-secretos.md) · [Identidad federada](../../../glosario/entradas/i/identidad-federada.md) · [Regla de confianza](../../../glosario/entradas/r/regla-de-confianza.md) · [Sujeto](../../../glosario/entradas/s/sujeto.md).
 
 ---
 

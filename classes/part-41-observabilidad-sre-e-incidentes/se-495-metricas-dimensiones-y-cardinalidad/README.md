@@ -151,11 +151,11 @@ est = low + (high - low) * ((target - acc) / c if c else 0)    # interpolación 
 
 ## Definiciones de trabajo
 
-- **serie temporal:** secuencia de valores de una métrica con un nombre y un conjunto único de etiquetas.
-- **cardinalidad:** número de valores distintos de una etiqueta, o número de series que resulta de combinar varias.
-- **contador:** métrica que solo crece, salvo reinicios del proceso, y se consulta por su incremento.
-- **indicador:** métrica que sube y baja y mide un estado en un instante.
-- **histograma:** métrica que cuenta observaciones en cubetas de límites fijos y permite estimar percentiles.
+- **[serie temporal](../../../glosario/entradas/s/serie-temporal.md):** secuencia de valores de una métrica con un nombre y un conjunto único de etiquetas.
+- **[cardinalidad](../../../glosario/entradas/c/cardinalidad.md):** número de valores distintos de una etiqueta, o número de series que resulta de combinar varias.
+- **[contador](../../../glosario/entradas/c/contador.md):** métrica que solo crece, salvo reinicios del proceso, y se consulta por su incremento.
+- **[indicador](../../../glosario/entradas/i/indicador.md):** métrica que sube y baja y mide un estado en un instante.
+- **[histograma](../../../glosario/entradas/h/histograma.md):** métrica que cuenta observaciones en cubetas de límites fijos y permite estimar percentiles.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **serie temporal:** secuencia de valores de una métrica con un nombre y un conjunto único de etiquetas.
-- **cardinalidad:** número de valores distintos de una etiqueta, o número de series que resulta de combinar varias.
-- **contador:** métrica que solo crece, salvo reinicios del proceso, y se consulta por su incremento.
-- **indicador:** métrica que sube y baja y mide un estado en un instante.
-- **histograma:** métrica que cuenta observaciones en cubetas de límites fijos y permite estimar percentiles.
+- **[serie temporal](../../../glosario/entradas/s/serie-temporal.md):** secuencia de valores de una métrica con un nombre y un conjunto único de etiquetas.
+- **[cardinalidad](../../../glosario/entradas/c/cardinalidad.md):** número de valores distintos de una etiqueta, o número de series que resulta de combinar varias.
+- **[contador](../../../glosario/entradas/c/contador.md):** métrica que solo crece, salvo reinicios del proceso, y se consulta por su incremento.
+- **[indicador](../../../glosario/entradas/i/indicador.md):** métrica que sube y baja y mide un estado en un instante.
+- **[histograma](../../../glosario/entradas/h/histograma.md):** métrica que cuenta observaciones en cubetas de límites fijos y permite estimar percentiles.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cardinalidad](../../../glosario/entradas/c/cardinalidad.md) · [Contador](../../../glosario/entradas/c/contador.md) · [Histograma](../../../glosario/entradas/h/histograma.md) · [Indicador](../../../glosario/entradas/i/indicador.md) · [Serie temporal](../../../glosario/entradas/s/serie-temporal.md).
 
 ---
 

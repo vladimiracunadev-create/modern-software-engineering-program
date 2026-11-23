@@ -107,11 +107,11 @@ Sobre un archivo de 3 000 funciones (6 000 líneas) `ruff check` tardó 199 ms, 
 
 ## Definiciones de trabajo
 
-- **compilación y front-end:** el compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable.
-- **formatter:** un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo.
-- **linter:** un linter detecta patrones, apis riesgosas o convenciones.
-- **tipos y flujo:** el análisis de tipos aproxima valores posibles sin ejecutar todas las rutas.
-- **análisis estático y límites:** análisis de datos, taint o control explora modelos conservadores.
+- **[compilación y front-end](../../../glosario/entradas/c/compilacion-y-front-end.md):** el compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable.
+- **[formatter](../../../glosario/entradas/f/formatter.md):** un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo.
+- **[linter](../../../glosario/entradas/l/linter.md):** un linter detecta patrones, apis riesgosas o convenciones.
+- **[tipos y flujo](../../../glosario/entradas/t/tipos-y-flujo.md):** el análisis de tipos aproxima valores posibles sin ejecutar todas las rutas.
+- **[análisis estático y límites](../../../glosario/entradas/a/analisis-estatico-y-limites.md):** análisis de datos, taint o control explora modelos conservadores.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -259,11 +259,13 @@ La señal estática no sustituye experimentación y puede ser ruidosa durante ex
 
 ## Glosario
 
-- **compilación y front-end:** el compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable.
-- **formatter:** un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo.
-- **linter:** un linter detecta patrones, apis riesgosas o convenciones.
-- **tipos y flujo:** el análisis de tipos aproxima valores posibles sin ejecutar todas las rutas.
-- **análisis estático y límites:** análisis de datos, taint o control explora modelos conservadores.
+- **[compilación y front-end](../../../glosario/entradas/c/compilacion-y-front-end.md):** el compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable.
+- **[formatter](../../../glosario/entradas/f/formatter.md):** un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo.
+- **[linter](../../../glosario/entradas/l/linter.md):** un linter detecta patrones, apis riesgosas o convenciones.
+- **[tipos y flujo](../../../glosario/entradas/t/tipos-y-flujo.md):** el análisis de tipos aproxima valores posibles sin ejecutar todas las rutas.
+- **[análisis estático y límites](../../../glosario/entradas/a/analisis-estatico-y-limites.md):** análisis de datos, taint o control explora modelos conservadores.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis estático y límites](../../../glosario/entradas/a/analisis-estatico-y-limites.md) · [Compilación y front-end](../../../glosario/entradas/c/compilacion-y-front-end.md) · [Formatter](../../../glosario/entradas/f/formatter.md) · [Linter](../../../glosario/entradas/l/linter.md) · [Tipos y flujo](../../../glosario/entradas/t/tipos-y-flujo.md).
 
 ---
 

@@ -111,11 +111,11 @@ Esa clasificación frío-caliente decide si añadir un segundo observador cambia
 
 ## Definiciones de trabajo
 
-- **observable y contrato de notificaciones:** un flujo emite valores y termina una sola vez por completitud o error.
-- **operadores como álgebra de flujos:** mapear transforma, filtrar descarta, combinar relaciona y reducir acumula.
-- **flujos calientes y fríos:** un flujo frío comienza por suscriptor y puede repetir el origen; uno caliente existe independientemente y un suscriptor tardío pierde historia salvo replay.
-- **backpressure y pérdida:** si el productor supera al consumidor hay que bloquear, almacenar, agrupar, muestrear o descartar con política.
-- **errores, reintentos y cancelación:** un error terminal corta el flujo; `retry` vuelve a suscribirse y puede repetir efectos.
+- **[observable y contrato de notificaciones](../../../glosario/entradas/o/observable-y-contrato-de-notificaciones.md):** un flujo emite valores y termina una sola vez por completitud o error.
+- **[operadores como álgebra de flujos](../../../glosario/entradas/o/operadores-como-algebra-de-flujos.md):** mapear transforma, filtrar descarta, combinar relaciona y reducir acumula.
+- **[flujos calientes y fríos](../../../glosario/entradas/f/flujos-calientes-y-frios.md):** un flujo frío comienza por suscriptor y puede repetir el origen; uno caliente existe independientemente y un suscriptor tardío pierde historia salvo replay.
+- **[backpressure y pérdida](../../../glosario/entradas/b/backpressure-y-perdida.md):** si el productor supera al consumidor hay que bloquear, almacenar, agrupar, muestrear o descartar con política.
+- **[errores, reintentos y cancelación](../../../glosario/entradas/e/errores-reintentos-y-cancelacion.md):** un error terminal corta el flujo; `retry` vuelve a suscribirse y puede repetir efectos.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -270,11 +270,13 @@ Los operadores no eliminan límites de recursos ni garantizan entrega distribuid
 
 ## Glosario
 
-- **observable y contrato de notificaciones:** un flujo emite valores y termina una sola vez por completitud o error.
-- **operadores como álgebra de flujos:** mapear transforma, filtrar descarta, combinar relaciona y reducir acumula.
-- **flujos calientes y fríos:** un flujo frío comienza por suscriptor y puede repetir el origen; uno caliente existe independientemente y un suscriptor tardío pierde historia salvo replay.
-- **backpressure y pérdida:** si el productor supera al consumidor hay que bloquear, almacenar, agrupar, muestrear o descartar con política.
-- **errores, reintentos y cancelación:** un error terminal corta el flujo; `retry` vuelve a suscribirse y puede repetir efectos.
+- **[observable y contrato de notificaciones](../../../glosario/entradas/o/observable-y-contrato-de-notificaciones.md):** un flujo emite valores y termina una sola vez por completitud o error.
+- **[operadores como álgebra de flujos](../../../glosario/entradas/o/operadores-como-algebra-de-flujos.md):** mapear transforma, filtrar descarta, combinar relaciona y reducir acumula.
+- **[flujos calientes y fríos](../../../glosario/entradas/f/flujos-calientes-y-frios.md):** un flujo frío comienza por suscriptor y puede repetir el origen; uno caliente existe independientemente y un suscriptor tardío pierde historia salvo replay.
+- **[backpressure y pérdida](../../../glosario/entradas/b/backpressure-y-perdida.md):** si el productor supera al consumidor hay que bloquear, almacenar, agrupar, muestrear o descartar con política.
+- **[errores, reintentos y cancelación](../../../glosario/entradas/e/errores-reintentos-y-cancelacion.md):** un error terminal corta el flujo; `retry` vuelve a suscribirse y puede repetir efectos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backpressure y pérdida](../../../glosario/entradas/b/backpressure-y-perdida.md) · [Errores, reintentos y cancelación](../../../glosario/entradas/e/errores-reintentos-y-cancelacion.md) · [Flujos calientes y fríos](../../../glosario/entradas/f/flujos-calientes-y-frios.md) · [Observable y contrato de notificaciones](../../../glosario/entradas/o/observable-y-contrato-de-notificaciones.md) · [Operadores como álgebra de flujos](../../../glosario/entradas/o/operadores-como-algebra-de-flujos.md).
 
 ---
 

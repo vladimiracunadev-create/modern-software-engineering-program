@@ -146,11 +146,11 @@ saltos = [(a, b) for a, b in zip(niveles, niveles[1:]) if b - a > 1]
 
 ## Definiciones de trabajo
 
-- **nombre accesible:** texto con el que una tecnología de apoyo anuncia un control, calculado a partir de sus atributos y contenido.
-- **rol:** categoría semántica de un elemento (botón, enlace, campo de texto) que determina su comportamiento esperado.
-- **orden de foco:** secuencia en la que los controles reciben el foco al pulsar Tab.
-- **enlace de salto:** enlace al principio de una página que lleva al contenido principal para evitar bloques repetidos.
-- **región:** zona con un propósito semántico (principal, navegación, cabecera) que se puede alcanzar por atajos.
+- **[nombre accesible](../../../glosario/entradas/n/nombre-accesible.md):** texto con el que una tecnología de apoyo anuncia un control, calculado a partir de sus atributos y contenido.
+- **[rol](../../../glosario/entradas/r/rol.md):** categoría semántica de un elemento (botón, enlace, campo de texto) que determina su comportamiento esperado.
+- **[orden de foco](../../../glosario/entradas/o/orden-de-foco.md):** secuencia en la que los controles reciben el foco al pulsar Tab.
+- **[enlace de salto](../../../glosario/entradas/e/enlace-de-salto.md):** enlace al principio de una página que lleva al contenido principal para evitar bloques repetidos.
+- **[región](../../../glosario/entradas/r/region.md):** zona con un propósito semántico (principal, navegación, cabecera) que se puede alcanzar por atajos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -303,11 +303,13 @@ Se ejecutaron tres modelos con datos sintéticos en Windows y Ubuntu (WSL2) con 
 
 ## Glosario
 
-- **nombre accesible:** texto con el que una tecnología de apoyo anuncia un control, calculado a partir de sus atributos y contenido.
-- **rol:** categoría semántica de un elemento (botón, enlace, campo de texto) que determina su comportamiento esperado.
-- **orden de foco:** secuencia en la que los controles reciben el foco al pulsar Tab.
-- **enlace de salto:** enlace al principio de una página que lleva al contenido principal para evitar bloques repetidos.
-- **región:** zona con un propósito semántico (principal, navegación, cabecera) que se puede alcanzar por atajos.
+- **[nombre accesible](../../../glosario/entradas/n/nombre-accesible.md):** texto con el que una tecnología de apoyo anuncia un control, calculado a partir de sus atributos y contenido.
+- **[rol](../../../glosario/entradas/r/rol.md):** categoría semántica de un elemento (botón, enlace, campo de texto) que determina su comportamiento esperado.
+- **[orden de foco](../../../glosario/entradas/o/orden-de-foco.md):** secuencia en la que los controles reciben el foco al pulsar Tab.
+- **[enlace de salto](../../../glosario/entradas/e/enlace-de-salto.md):** enlace al principio de una página que lleva al contenido principal para evitar bloques repetidos.
+- **[región](../../../glosario/entradas/r/region.md):** zona con un propósito semántico (principal, navegación, cabecera) que se puede alcanzar por atajos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Enlace de salto](../../../glosario/entradas/e/enlace-de-salto.md) · [Nombre accesible](../../../glosario/entradas/n/nombre-accesible.md) · [Orden de foco](../../../glosario/entradas/o/orden-de-foco.md) · [Región](../../../glosario/entradas/r/region.md) · [Rol](../../../glosario/entradas/r/rol.md).
 
 ---
 

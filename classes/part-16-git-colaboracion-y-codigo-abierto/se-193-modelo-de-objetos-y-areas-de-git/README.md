@@ -118,11 +118,11 @@ Un archivo de 1 000 líneas (35 830 bytes) recibió 300 ediciones de una línea,
 
 ## Definiciones de trabajo
 
-- **objeto:** unidad inmutable de la base de Git (blob, árbol, commit o etiqueta anotada) identificada por el hash de su contenido.
-- **blob:** contenido de un archivo, sin nombre ni permisos.
-- **árbol:** lista de entradas con modo, nombre e identificador que da estructura a blobs y a otros árboles.
-- **índice:** instantánea que se prepara para el próximo commit; vive entre el árbol de trabajo y HEAD.
-- **referencia:** nombre (rama, etiqueta, HEAD) que apunta a un commit o a otra referencia.
+- **[objeto](../../../glosario/entradas/o/objeto.md):** unidad inmutable de la base de Git (blob, árbol, commit o etiqueta anotada) identificada por el hash de su contenido.
+- **[blob](../../../glosario/entradas/b/blob.md):** contenido de un archivo, sin nombre ni permisos.
+- **[árbol](../../../glosario/entradas/a/arbol.md):** lista de entradas con modo, nombre e identificador que da estructura a blobs y a otros árboles.
+- **[índice](../../../glosario/entradas/i/indice.md):** instantánea que se prepara para el próximo commit; vive entre el árbol de trabajo y HEAD.
+- **[referencia](../../../glosario/entradas/r/referencia.md):** nombre (rama, etiqueta, HEAD) que apunta a un commit o a otra referencia.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **objeto:** unidad inmutable de la base de Git (blob, árbol, commit o etiqueta anotada) identificada por el hash de su contenido.
-- **blob:** contenido de un archivo, sin nombre ni permisos.
-- **árbol:** lista de entradas con modo, nombre e identificador que da estructura a blobs y a otros árboles.
-- **índice:** instantánea que se prepara para el próximo commit; vive entre el árbol de trabajo y HEAD.
-- **referencia:** nombre (rama, etiqueta, HEAD) que apunta a un commit o a otra referencia.
+- **[objeto](../../../glosario/entradas/o/objeto.md):** unidad inmutable de la base de Git (blob, árbol, commit o etiqueta anotada) identificada por el hash de su contenido.
+- **[blob](../../../glosario/entradas/b/blob.md):** contenido de un archivo, sin nombre ni permisos.
+- **[árbol](../../../glosario/entradas/a/arbol.md):** lista de entradas con modo, nombre e identificador que da estructura a blobs y a otros árboles.
+- **[índice](../../../glosario/entradas/i/indice.md):** instantánea que se prepara para el próximo commit; vive entre el árbol de trabajo y HEAD.
+- **[referencia](../../../glosario/entradas/r/referencia.md):** nombre (rama, etiqueta, HEAD) que apunta a un commit o a otra referencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol](../../../glosario/entradas/a/arbol.md) · [Blob](../../../glosario/entradas/b/blob.md) · [Índice](../../../glosario/entradas/i/indice.md) · [Objeto](../../../glosario/entradas/o/objeto.md) · [Referencia](../../../glosario/entradas/r/referencia.md).
 
 ---
 

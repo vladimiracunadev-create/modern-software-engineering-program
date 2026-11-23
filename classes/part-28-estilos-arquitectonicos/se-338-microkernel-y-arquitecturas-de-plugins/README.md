@@ -127,12 +127,12 @@ La tercera comparación sube el contrato a la versión 2 y compara tres polític
 
 ## Definiciones de trabajo
 
-- **Microkernel:** estilo con un núcleo mínimo que registra y despacha, y extensiones que viven fuera de él.
-- **Complemento (plugin):** módulo que cumple el contrato del núcleo y se descubre, no se enlaza.
-- **Contrato:** interfaz, versión y garantías que el núcleo ofrece a los complementos y viceversa.
-- **Punto de extensión:** lugar declarado donde un complemento puede engancharse.
-- **Aislamiento:** técnica que impide que el fallo de un complemento se propague al núcleo o a otros complementos.
-- **Adaptador de compatibilidad:** capa del núcleo que traduce un contrato antiguo al nuevo.
+- **[Microkernel](../../../glosario/entradas/m/microkernel.md):** estilo con un núcleo mínimo que registra y despacha, y extensiones que viven fuera de él.
+- **[Complemento (plugin)](../../../glosario/entradas/c/complemento.md):** módulo que cumple el contrato del núcleo y se descubre, no se enlaza.
+- **[Contrato](../../../glosario/entradas/c/contrato.md):** interfaz, versión y garantías que el núcleo ofrece a los complementos y viceversa.
+- **[Punto de extensión](../../../glosario/entradas/p/punto-de-extension.md):** lugar declarado donde un complemento puede engancharse.
+- **[Aislamiento](../../../glosario/entradas/a/aislamiento.md):** técnica que impide que el fallo de un complemento se propague al núcleo o a otros complementos.
+- **[Adaptador de compatibilidad](../../../glosario/entradas/a/adaptador-de-compatibilidad.md):** capa del núcleo que traduce un contrato antiguo al nuevo.
 
 ## Ejemplo mínimo
 
@@ -283,6 +283,8 @@ El núcleo, los complementos y los defectos son construcciones del autor y miden
 | Punto de extensión | Lugar declarado donde un complemento se engancha |
 | Aislamiento | Técnica que impide que un fallo cruce a otros componentes |
 | Adaptador de compatibilidad | Capa que traduce un contrato antiguo al nuevo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador de compatibilidad](../../../glosario/entradas/a/adaptador-de-compatibilidad.md) · [Aislamiento](../../../glosario/entradas/a/aislamiento.md) · [Complemento](../../../glosario/entradas/c/complemento.md) · [Confianza](../../../glosario/entradas/c/confianza.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Descubrimiento](../../../glosario/entradas/d/descubrimiento.md) · [Microkernel](../../../glosario/entradas/m/microkernel.md) · [Punto de extensión](../../../glosario/entradas/p/punto-de-extension.md) · [Versionado](../../../glosario/entradas/v/versionado.md).
 
 ---
 

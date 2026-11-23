@@ -133,12 +133,12 @@ Tras las ocho pruebas sobreviven tres mutantes. Se escribieron tres pruebas más
 
 ## Definiciones de trabajo
 
-- **Rojo:** estado en que una prueba nueva falla por la razón esperada.
-- **Verde:** estado en que todas las pruebas pasan.
-- **Refactor:** cambio de estructura que conserva el comportamiento, hecho con todas las pruebas en verde.
-- **Lista de escenarios:** inventario vivo de comportamientos por comprobar.
-- **Triangulación:** generalizar el código solo cuando una segunda prueba lo exige.
-- **Prueba que pasa de inmediato:** prueba que no aporta información hasta que se demuestre lo contrario.
+- **[Rojo](../../../glosario/entradas/r/rojo.md):** estado en que una prueba nueva falla por la razón esperada.
+- **[Verde](../../../glosario/entradas/v/verde.md):** estado en que todas las pruebas pasan.
+- **[Refactor](../../../glosario/entradas/r/refactor.md):** cambio de estructura que conserva el comportamiento, hecho con todas las pruebas en verde.
+- **[Lista de escenarios](../../../glosario/entradas/l/lista-de-escenarios.md):** inventario vivo de comportamientos por comprobar.
+- **[Triangulación](../../../glosario/entradas/t/triangulacion.md):** generalizar el código solo cuando una segunda prueba lo exige.
+- **[Prueba que pasa de inmediato](../../../glosario/entradas/p/prueba-que-pasa-de-inmediato.md):** prueba que no aporta información hasta que se demuestre lo contrario.
 
 ## Ejemplo mínimo
 
@@ -265,6 +265,8 @@ El ciclo se reconstruyó sobre una función de veinte líneas con 18 mutantes de
 | Lista de escenarios | Inventario vivo de comportamientos por comprobar |
 | Triangulación | Generalizar solo cuando otra prueba lo exige |
 | Sobreviviente | Mutante que ninguna prueba mata |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Lista de escenarios](../../../glosario/entradas/l/lista-de-escenarios.md) · [Prueba que pasa de inmediato](../../../glosario/entradas/p/prueba-que-pasa-de-inmediato.md) · [Refactor](../../../glosario/entradas/r/refactor.md) · [Rojo](../../../glosario/entradas/r/rojo.md) · [Triangulación](../../../glosario/entradas/t/triangulacion.md) · [Verde](../../../glosario/entradas/v/verde.md).
 
 ---
 

@@ -147,13 +147,13 @@ La tercera medida compara la calidad media y la de las últimas semanas.
 
 ## Definiciones de trabajo
 
-- **PSI:** índice de estabilidad de la población, comparación de dos distribuciones por tramos.
-- **KS:** distancia máxima entre dos funciones de distribución acumuladas.
-- **Deriva de covariables:** cambio de la distribución de las entradas.
-- **Deriva de concepto:** cambio de la relación entre entradas y etiqueta.
-- **Referencia:** distribución con la que se compara, normalmente la de entrenamiento o la de un periodo sano.
-- **Ventana:** conjunto de observaciones recientes que se compara con la referencia.
-- **Política de reentrenamiento:** regla que decide cuándo reentrenar.
+- **[PSI](../../../glosario/entradas/p/psi.md):** índice de estabilidad de la población, comparación de dos distribuciones por tramos.
+- **[KS](../../../glosario/entradas/k/ks.md):** distancia máxima entre dos funciones de distribución acumuladas.
+- **[Deriva de covariables](../../../glosario/entradas/d/deriva-de-covariables.md):** cambio de la distribución de las entradas.
+- **[Deriva de concepto](../../../glosario/entradas/d/deriva-de-concepto.md):** cambio de la relación entre entradas y etiqueta.
+- **[Referencia](../../../glosario/entradas/r/referencia.md):** distribución con la que se compara, normalmente la de entrenamiento o la de un periodo sano.
+- **[Ventana](../../../glosario/entradas/v/ventana.md):** conjunto de observaciones recientes que se compara con la referencia.
+- **[Política de reentrenamiento](../../../glosario/entradas/p/politica-de-reentrenamiento.md):** regla que decide cuándo reentrenar.
 
 ## Ejemplo mínimo
 
@@ -287,6 +287,8 @@ La deriva, el generador, las políticas y los umbrales son construcciones del au
 | Deriva de concepto | Cambio de la relación entre entradas y etiqueta |
 | Ventana | Observaciones recientes que se comparan |
 | Política de reentrenamiento | Regla que decide cuándo reentrenar |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deriva de concepto](../../../glosario/entradas/d/deriva-de-concepto.md) · [Deriva de covariables](../../../glosario/entradas/d/deriva-de-covariables.md) · [KS](../../../glosario/entradas/k/ks.md) · [Política de reentrenamiento](../../../glosario/entradas/p/politica-de-reentrenamiento.md) · [PSI](../../../glosario/entradas/p/psi.md) · [Referencia](../../../glosario/entradas/r/referencia.md) · [Retraso de etiquetas](../../../glosario/entradas/r/retraso-de-etiquetas.md) · [Ventana](../../../glosario/entradas/v/ventana.md).
 
 ---
 

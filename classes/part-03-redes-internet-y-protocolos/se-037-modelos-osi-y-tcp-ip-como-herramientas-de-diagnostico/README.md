@@ -124,11 +124,11 @@ puerto, TLS ni HTTP.
 
 ## Definiciones de trabajo
 
-- **capa:** agrupación conceptual de responsabilidades y servicios.
-- **encapsulación:** adición de información de control alrededor de datos de una capa superior.
-- **PDU:** unidad de datos nombrada según el protocolo observado.
-- **extremo:** participante que origina o consume la comunicación.
-- **intermediario:** componente que reenvía, transforma o almacena tráfico entre extremos.
+- **[capa](../../../glosario/entradas/c/capa.md):** agrupación conceptual de responsabilidades y servicios.
+- **[encapsulación](../../../glosario/entradas/e/encapsulacion.md):** adición de información de control alrededor de datos de una capa superior.
+- **[PDU](../../../glosario/entradas/p/pdu.md):** unidad de datos nombrada según el protocolo observado.
+- **[extremo](../../../glosario/entradas/e/extremo.md):** participante que origina o consume la comunicación.
+- **[intermediario](../../../glosario/entradas/i/intermediario.md):** componente que reenvía, transforma o almacena tráfico entre extremos.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -281,11 +281,13 @@ Los modelos no sustituyen la especificación de cada protocolo ni describen toda
 
 ## Glosario
 
-- **capa:** agrupación conceptual de responsabilidades y servicios.
-- **encapsulación:** adición de información de control alrededor de datos de una capa superior.
-- **PDU:** unidad de datos nombrada según el protocolo observado.
-- **extremo:** participante que origina o consume la comunicación.
-- **intermediario:** componente que reenvía, transforma o almacena tráfico entre extremos.
+- **[capa](../../../glosario/entradas/c/capa.md):** agrupación conceptual de responsabilidades y servicios.
+- **[encapsulación](../../../glosario/entradas/e/encapsulacion.md):** adición de información de control alrededor de datos de una capa superior.
+- **[PDU](../../../glosario/entradas/p/pdu.md):** unidad de datos nombrada según el protocolo observado.
+- **[extremo](../../../glosario/entradas/e/extremo.md):** participante que origina o consume la comunicación.
+- **[intermediario](../../../glosario/entradas/i/intermediario.md):** componente que reenvía, transforma o almacena tráfico entre extremos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Capa](../../../glosario/entradas/c/capa.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Encapsulación](../../../glosario/entradas/e/encapsulacion.md) · [Extremo](../../../glosario/entradas/e/extremo.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Intermediario](../../../glosario/entradas/i/intermediario.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [PDU](../../../glosario/entradas/p/pdu.md).
 
 ---
 

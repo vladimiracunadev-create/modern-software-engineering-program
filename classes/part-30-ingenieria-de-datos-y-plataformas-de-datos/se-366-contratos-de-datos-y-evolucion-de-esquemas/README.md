@@ -134,13 +134,13 @@ La tercera medida ejecuta el renombre en tres pasos.
 
 ## Definiciones de trabajo
 
-- **Contrato de datos:** acuerdo versionado entre productor y consumidor sobre esquema, semántica, calidad y servicio.
-- **Compatibilidad hacia atrás:** un lector nuevo lee datos viejos.
-- **Compatibilidad hacia adelante:** un lector viejo lee datos nuevos.
-- **Valor por defecto:** valor que el lector usa si el campo falta.
-- **Expandir y contraer:** añadir lo nuevo, migrar y quitar lo viejo en pasos.
-- **Cambio semántico:** cambia el significado y conserva el esquema.
-- **Registro de cambios:** historial anunciado de cambios de significado y de esquema.
+- **[Contrato de datos](../../../glosario/entradas/c/contrato-de-datos.md):** acuerdo versionado entre productor y consumidor sobre esquema, semántica, calidad y servicio.
+- **[Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** un lector nuevo lee datos viejos.
+- **[Compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md):** un lector viejo lee datos nuevos.
+- **[Valor por defecto](../../../glosario/entradas/v/valor-por-defecto.md):** valor que el lector usa si el campo falta.
+- **[Expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** añadir lo nuevo, migrar y quitar lo viejo en pasos.
+- **[Cambio semántico](../../../glosario/entradas/c/cambio-semantico.md):** cambia el significado y conserva el esquema.
+- **[Registro de cambios](../../../glosario/entradas/r/registro-de-cambios.md):** historial anunciado de cambios de significado y de esquema.
 
 ## Ejemplo mínimo
 
@@ -284,6 +284,8 @@ Los esquemas, las reglas de promoción y los registros son construcciones del au
 | Valor por defecto | Valor si falta el campo |
 | Expandir y contraer | Cambio incompatible en pasos |
 | Cambio semántico | Cambia el significado, no el esquema |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio semántico](../../../glosario/entradas/c/cambio-semantico.md) · [Compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Contrato de datos](../../../glosario/entradas/c/contrato-de-datos.md) · [Expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md) · [Expandir, migrar y contraer](../../../glosario/entradas/e/expandir-migrar-y-contraer.md) · [Registro de cambios](../../../glosario/entradas/r/registro-de-cambios.md) · [Valor por defecto](../../../glosario/entradas/v/valor-por-defecto.md) · [Versionado](../../../glosario/entradas/v/versionado.md).
 
 ---
 

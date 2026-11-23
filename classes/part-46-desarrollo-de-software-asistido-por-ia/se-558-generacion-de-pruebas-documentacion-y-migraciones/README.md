@@ -150,11 +150,11 @@ La conversión directa termina sin error y con 2.000 filas, pero 99 valores inv�
 
 ## Definiciones de trabajo
 
-- **problema del oráculo:** dificultad de decidir si la salida de un programa es correcta sin una fuente de verdad distinta del programa.
-- **prueba de caracterización (snapshot):** prueba que fija el comportamiento actual, sea o no el correcto.
-- **mutante:** versión del código con un defecto pequeño introducido a propósito para medir si las pruebas lo detectan.
-- **documentación ejecutable:** ejemplos en la documentación que se ejecutan y comprueban automáticamente.
-- **cuarentena:** conjunto de filas apartadas durante una migración por no cumplir la validación, conservadas sin cambios.
+- **[problema del oráculo](../../../glosario/entradas/p/problema-del-oraculo.md):** dificultad de decidir si la salida de un programa es correcta sin una fuente de verdad distinta del programa.
+- **[prueba de caracterización (snapshot)](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que fija el comportamiento actual, sea o no el correcto.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** versión del código con un defecto pequeño introducido a propósito para medir si las pruebas lo detectan.
+- **[documentación ejecutable](../../../glosario/entradas/d/documentacion-ejecutable.md):** ejemplos en la documentación que se ejecutan y comprueban automáticamente.
+- **[cuarentena](../../../glosario/entradas/c/cuarentena.md):** conjunto de filas apartadas durante una migración por no cumplir la validación, conservadas sin cambios.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **problema del oráculo:** dificultad de decidir si la salida de un programa es correcta sin una fuente de verdad distinta del programa.
-- **prueba de caracterización (snapshot):** prueba que fija el comportamiento actual, sea o no el correcto.
-- **mutante:** versión del código con un defecto pequeño introducido a propósito para medir si las pruebas lo detectan.
-- **documentación ejecutable:** ejemplos en la documentación que se ejecutan y comprueban automáticamente.
-- **cuarentena:** conjunto de filas apartadas durante una migración por no cumplir la validación, conservadas sin cambios.
+- **[problema del oráculo](../../../glosario/entradas/p/problema-del-oraculo.md):** dificultad de decidir si la salida de un programa es correcta sin una fuente de verdad distinta del programa.
+- **[prueba de caracterización (snapshot)](../../../glosario/entradas/p/prueba-de-caracterizacion.md):** prueba que fija el comportamiento actual, sea o no el correcto.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** versión del código con un defecto pequeño introducido a propósito para medir si las pruebas lo detectan.
+- **[documentación ejecutable](../../../glosario/entradas/d/documentacion-ejecutable.md):** ejemplos en la documentación que se ejecutan y comprueban automáticamente.
+- **[cuarentena](../../../glosario/entradas/c/cuarentena.md):** conjunto de filas apartadas durante una migración por no cumplir la validación, conservadas sin cambios.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cuarentena](../../../glosario/entradas/c/cuarentena.md) · [Documentación ejecutable](../../../glosario/entradas/d/documentacion-ejecutable.md) · [Migración](../../../glosario/entradas/m/migracion.md) · [Problema del oráculo](../../../glosario/entradas/p/problema-del-oraculo.md) · [Prueba de caracterización](../../../glosario/entradas/p/prueba-de-caracterizacion.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

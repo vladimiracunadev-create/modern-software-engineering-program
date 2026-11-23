@@ -137,11 +137,11 @@ Las comprobaciones estáticas detectan 9 de los 12 defectos (los 3 enlaces rotos
 
 ## Definiciones de trabajo
 
-- **portal documental:** conjunto de páginas, decisiones, referencias y procedimientos con dueños, tipos y comprobaciones, publicado para varias audiencias.
-- **versión etiquetada:** estado de la documentación fijado con una etiqueta de control de versiones, que se publica como un conjunto coherente.
-- **política de enlaces entre versiones:** regla que dice qué ocurre cuando una página se retira, se renombra o cambia entre versiones.
-- **paquete reproducible:** archivo entregable que produce la misma huella cuando se construye dos veces a partir de las mismas fuentes.
-- **informe de entrega:** documento que dice qué se comprobó, qué no puede comprobarse y qué quedó pendiente.
+- **[portal documental](../../../glosario/entradas/p/portal-documental.md):** conjunto de páginas, decisiones, referencias y procedimientos con dueños, tipos y comprobaciones, publicado para varias audiencias.
+- **[versión etiquetada](../../../glosario/entradas/v/version-etiquetada.md):** estado de la documentación fijado con una etiqueta de control de versiones, que se publica como un conjunto coherente.
+- **[política de enlaces entre versiones](../../../glosario/entradas/p/politica-de-enlaces-entre-versiones.md):** regla que dice qué ocurre cuando una página se retira, se renombra o cambia entre versiones.
+- **[paquete reproducible](../../../glosario/entradas/p/paquete-reproducible.md):** archivo entregable que produce la misma huella cuando se construye dos veces a partir de las mismas fuentes.
+- **[informe de entrega](../../../glosario/entradas/i/informe-de-entrega.md):** documento que dice qué se comprobó, qué no puede comprobarse y qué quedó pendiente.
 
 Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **portal documental:** conjunto de páginas, decisiones, referencias y procedimientos con dueños, tipos y comprobaciones.
-- **versión etiquetada:** estado de la documentación fijado con una etiqueta de control de versiones.
-- **política de enlaces entre versiones:** regla que dice qué ocurre cuando una página se retira, se renombra o cambia entre versiones.
-- **paquete reproducible:** archivo entregable que produce la misma huella al construirse dos veces desde las mismas fuentes.
-- **informe de entrega:** documento que dice qué se comprobó, qué no puede comprobarse y qué quedó pendiente.
+- **[portal documental](../../../glosario/entradas/p/portal-documental.md):** conjunto de páginas, decisiones, referencias y procedimientos con dueños, tipos y comprobaciones.
+- **[versión etiquetada](../../../glosario/entradas/v/version-etiquetada.md):** estado de la documentación fijado con una etiqueta de control de versiones.
+- **[política de enlaces entre versiones](../../../glosario/entradas/p/politica-de-enlaces-entre-versiones.md):** regla que dice qué ocurre cuando una página se retira, se renombra o cambia entre versiones.
+- **[paquete reproducible](../../../glosario/entradas/p/paquete-reproducible.md):** archivo entregable que produce la misma huella al construirse dos veces desde las mismas fuentes.
+- **[informe de entrega](../../../glosario/entradas/i/informe-de-entrega.md):** documento que dice qué se comprobó, qué no puede comprobarse y qué quedó pendiente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Informe de entrega](../../../glosario/entradas/i/informe-de-entrega.md) · [Paquete reproducible](../../../glosario/entradas/p/paquete-reproducible.md) · [Política de enlaces entre versiones](../../../glosario/entradas/p/politica-de-enlaces-entre-versiones.md) · [Portal documental](../../../glosario/entradas/p/portal-documental.md) · [Versión etiquetada](../../../glosario/entradas/v/version-etiquetada.md) · [Versionado](../../../glosario/entradas/v/versionado.md).
 
 ---
 

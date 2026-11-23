@@ -121,11 +121,11 @@ La transferencia se verifica con evidencia común: mismos casos TSV, mismos cód
 
 ## Definiciones de trabajo
 
-- **semántica:** comportamiento y significado observable.
-- **idiomático:** alineado con convenciones y mecanismos del lenguaje.
-- **ownership:** reglas sobre posesión y vida de valores en Rust.
-- **Option:** tipo Rust para presencia o ausencia.
-- **equivalencia funcional:** mismo resultado contractual para casos compartidos.
+- **[semántica](../../../glosario/entradas/s/semantica.md):** comportamiento y significado observable.
+- **[idiomático](../../../glosario/entradas/i/idiomatico.md):** alineado con convenciones y mecanismos del lenguaje.
+- **[ownership](../../../glosario/entradas/o/ownership.md):** reglas sobre posesión y vida de valores en Rust.
+- **[Option](../../../glosario/entradas/o/option.md):** tipo Rust para presencia o ausencia.
+- **[equivalencia funcional](../../../glosario/entradas/e/equivalencia-funcional.md):** mismo resultado contractual para casos compartidos.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -282,11 +282,13 @@ El taller no enseña Rust completo ni compara rendimiento con un microbenchmark.
 
 ## Glosario
 
-- **semántica:** comportamiento y significado observable.
-- **idiomático:** alineado con convenciones y mecanismos del lenguaje.
-- **ownership:** reglas sobre posesión y vida de valores en Rust.
-- **Option:** tipo Rust para presencia o ausencia.
-- **equivalencia funcional:** mismo resultado contractual para casos compartidos.
+- **[semántica](../../../glosario/entradas/s/semantica.md):** comportamiento y significado observable.
+- **[idiomático](../../../glosario/entradas/i/idiomatico.md):** alineado con convenciones y mecanismos del lenguaje.
+- **[ownership](../../../glosario/entradas/o/ownership.md):** reglas sobre posesión y vida de valores en Rust.
+- **[Option](../../../glosario/entradas/o/option.md):** tipo Rust para presencia o ausencia.
+- **[equivalencia funcional](../../../glosario/entradas/e/equivalencia-funcional.md):** mismo resultado contractual para casos compartidos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Equivalencia funcional](../../../glosario/entradas/e/equivalencia-funcional.md) · [Idiomático](../../../glosario/entradas/i/idiomatico.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Option](../../../glosario/entradas/o/option.md) · [Ownership](../../../glosario/entradas/o/ownership.md) · [Semántica](../../../glosario/entradas/s/semantica.md) · [Semántica antes que sintaxis](../../../glosario/entradas/s/semantica-antes-que-sintaxis.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

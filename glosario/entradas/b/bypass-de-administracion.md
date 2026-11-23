@@ -1,0 +1,74 @@
+# Bypass de administración
+
+[↑ Glosario](../../README.md) · [← Búsqueda por contenido](./busqueda-por-contenido.md) · [Byte →](./byte.md)
+
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+
+## Definición
+
+Excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
+
+Definición de trabajo de [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md).
+
+## Por qué importa
+
+La clase donde se define, [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md), existe con este propósito: la clase existe para que lo que un repositorio publica pueda atribuirse a quien dice haberlo escrito y no haya cambiado desde entonces, y para que las reglas que lo protegen (revisión obligatoria, comprobaciones, firmas) sean una política explícita y no una expectativa.
+
+## Cómo funciona
+
+Según [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md):
+
+**Cómo leer la figura.** Cada barra es una política acumulativa aplicada a los mismos 500 eventos; la cifra cuenta eventos problemáticos que pasan. **Dónde deja de valer:** el cero final es por definición (los problemas se definieron con estos controles) y las proporciones son supuestos; lo informativo es el orden de reducción y que el bypass de administración deja pasar 37 eventos incluso con la política completa si no se desactiva o se registra.
+
+Según [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md):
+
+La plataforma exige PR, una aprobación del propietario de código (`SE-199`), comprobaciones superadas, commits firmados en la rama principal y prohíbe el push forzado. Las claves de firma están asociadas a identidades en un archivo de firmantes versionado y revisado como cualquier otro cambio; un procedimiento documenta qué hacer si una clave se compromete (revocar, revisar los commits firmados con ella, avisar). El bypass de administración está desactivado y las excepciones se registran.
+
+## Ejemplo
+
+Ejemplo de [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md) (sección «Ejemplo profesional»):
+
+La plataforma exige PR, una aprobación del propietario de código (`SE-199`), comprobaciones superadas, commits firmados en la rama principal y prohíbe el push forzado. Las claves de firma están asociadas a identidades en un archivo de firmantes versionado y revisado como cualquier otro cambio; un procedimiento documenta qué hacer si una clave se compromete (revocar, revisar los commits firmados con ella, avisar). El bypass de administración está desactivado y las excepciones se registran.
+
+## Errores y confusiones comunes
+
+Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)) son:
+
+- **Un commit firmado no verifica** — causa: el archivo de firmantes no contiene la clave. Corrección: añadir la clave al archivo tras verificar la identidad.
+- **Se confía en «verificado» como revisión** — causa: se confunde atribución con aprobación. Corrección: exigir PR y aprobación además de firma.
+
+## Límites y cuándo no aplica
+
+Lo que las clases dicen sobre dónde deja de valer este término:
+
+- **Dónde deja de valer:** el cero final es por definición (los problemas se definieron con estos controles) y las proporciones son supuestos; lo informativo es el orden de reducción y que el bypass de administración deja pasar 37 eventos incluso con la política completa si no se desactiva o se registra. ([SE-202](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md))
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Excepción](../e/excepcion.md), [Permiso](../p/permiso.md), [Regla](../r/regla.md), [Firma de commit](../f/firma-de-commit.md), [Firmantes permitidos](../f/firmantes-permitidos.md), [Procedencia](../p/procedencia.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md) — [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md), Git, colaboración y código abierto.
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Fuentes de las clases donde se enseña (cada una respalda el mecanismo que su clase indica):
+
+- [Pro Git: Signing Your Work](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work) — firma de commits y etiquetas; autoridad: Pro Git.
+- [git-verify-commit](https://git-scm.com/docs/git-verify-commit) — verificación de firmas; autoridad: documentación de Git.
+- [ssh-keygen (OpenBSD)](https://man.openbsd.org/ssh-keygen) — firmantes permitidos y firmas SSH; autoridad: OpenBSD.
+- [GitHub: verificación de firmas de commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification) — qué muestra el alojamiento como verificado; autoridad: GitHub Docs.
+- [GitHub: ramas protegidas](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) — reglas de protección disponibles; autoridad: GitHub Docs.
+
+---
+
+[↑ Glosario](../../README.md) · [← Búsqueda por contenido](./busqueda-por-contenido.md) · [Byte →](./byte.md)

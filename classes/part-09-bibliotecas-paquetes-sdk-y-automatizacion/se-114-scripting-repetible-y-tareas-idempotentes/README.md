@@ -112,11 +112,11 @@ Dos enseñanzas: el fallo sin bloqueo no es raro ni raro de ver (en doce pasadas
 
 ## Definiciones de trabajo
 
-- **idempotencia:** una operación es idempotente respecto de su efecto observable si repetir con la misma intención no acumula cambios.
-- **precondición y postcondición:** antes de mutar se valida estado, identidad y alcance; después se comprueba resultado.
-- **plan y dry-run:** mostrar cambios antes de aplicarlos mejora revisión, siempre que use la misma lógica de decisión.
-- **retry y operaciones inciertas:** reintentar requiere clasificar error y conocer si el primer intento pudo surtir efecto.
-- **journal y rollback:** registrar pasos completados permite reanudar o compensar.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** una operación es idempotente respecto de su efecto observable si repetir con la misma intención no acumula cambios.
+- **[precondición y postcondición](../../../glosario/entradas/p/precondicion-y-postcondicion.md):** antes de mutar se valida estado, identidad y alcance; después se comprueba resultado.
+- **[plan y dry-run](../../../glosario/entradas/p/plan-y-dry-run.md):** mostrar cambios antes de aplicarlos mejora revisión, siempre que use la misma lógica de decisión.
+- **[retry y operaciones inciertas](../../../glosario/entradas/r/retry-y-operaciones-inciertas.md):** reintentar requiere clasificar error y conocer si el primer intento pudo surtir efecto.
+- **[journal y rollback](../../../glosario/entradas/j/journal-y-rollback.md):** registrar pasos completados permite reanudar o compensar.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ La automatización administra capacidades conocidas. La siguiente clase permite 
 
 ## Glosario
 
-- **idempotencia:** una operación es idempotente respecto de su efecto observable si repetir con la misma intención no acumula cambios.
-- **precondición y postcondición:** antes de mutar se valida estado, identidad y alcance; después se comprueba resultado.
-- **plan y dry-run:** mostrar cambios antes de aplicarlos mejora revisión, siempre que use la misma lógica de decisión.
-- **retry y operaciones inciertas:** reintentar requiere clasificar error y conocer si el primer intento pudo surtir efecto.
-- **journal y rollback:** registrar pasos completados permite reanudar o compensar.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** una operación es idempotente respecto de su efecto observable si repetir con la misma intención no acumula cambios.
+- **[precondición y postcondición](../../../glosario/entradas/p/precondicion-y-postcondicion.md):** antes de mutar se valida estado, identidad y alcance; después se comprueba resultado.
+- **[plan y dry-run](../../../glosario/entradas/p/plan-y-dry-run.md):** mostrar cambios antes de aplicarlos mejora revisión, siempre que use la misma lógica de decisión.
+- **[retry y operaciones inciertas](../../../glosario/entradas/r/retry-y-operaciones-inciertas.md):** reintentar requiere clasificar error y conocer si el primer intento pudo surtir efecto.
+- **[journal y rollback](../../../glosario/entradas/j/journal-y-rollback.md):** registrar pasos completados permite reanudar o compensar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Journal y rollback](../../../glosario/entradas/j/journal-y-rollback.md) · [Plan y dry-run](../../../glosario/entradas/p/plan-y-dry-run.md) · [Precondición y postcondición](../../../glosario/entradas/p/precondicion-y-postcondicion.md) · [Retry y operaciones inciertas](../../../glosario/entradas/r/retry-y-operaciones-inciertas.md).
 
 ---
 

@@ -134,12 +134,12 @@ Cuatro criterios adicionales deciden entre candidatas de la misma capa: el **abo
 
 ## Definiciones de trabajo
 
-- **proxy de inyección:** intermediario en la conexión que altera lo que la atraviesa según el tóxico activo.
-- **tóxico:** alteración configurable de una conexión (latencia, corte, límite de datos, pérdida) que el proxy aplica en una dirección.
-- **orquestador de caos:** componente de plataforma que declara y ejecuta las fallas como recursos del clúster, con alcance, programación y estado.
-- **plantilla de experimento:** definición de acciones, objetivos y condiciones de parada de un experimento gestionado.
-- **condición de parada:** alarma que detiene el experimento si el sistema alcanza un estado inaceptable.
-- **sonda de resiliencia:** comprobación automática del estado del sistema durante un experimento.
+- **[proxy de inyección](../../../glosario/entradas/p/proxy-de-inyeccion.md):** intermediario en la conexión que altera lo que la atraviesa según el tóxico activo.
+- **[tóxico](../../../glosario/entradas/t/toxico.md):** alteración configurable de una conexión (latencia, corte, límite de datos, pérdida) que el proxy aplica en una dirección.
+- **[orquestador de caos](../../../glosario/entradas/o/orquestador-de-caos.md):** componente de plataforma que declara y ejecuta las fallas como recursos del clúster, con alcance, programación y estado.
+- **[plantilla de experimento](../../../glosario/entradas/p/plantilla-de-experimento.md):** definición de acciones, objetivos y condiciones de parada de un experimento gestionado.
+- **[condición de parada](../../../glosario/entradas/c/condicion-de-parada.md):** alarma que detiene el experimento si el sistema alcanza un estado inaceptable.
+- **[sonda de resiliencia](../../../glosario/entradas/s/sonda-de-resiliencia.md):** comprobación automática del estado del sistema durante un experimento.
 
 Las definiciones son operativas para el cliente de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -286,12 +286,14 @@ Se ejecutó una medición real con sockets en una máquina Windows 11 con CPytho
 
 ## Glosario
 
-- **proxy de inyección:** intermediario en la conexión que altera lo que la atraviesa según el tóxico activo.
-- **tóxico:** alteración configurable de una conexión que el proxy aplica en una dirección.
-- **orquestador de caos:** componente de plataforma que declara y ejecuta las fallas como recursos del clúster.
-- **plantilla de experimento:** definición de acciones, objetivos y condiciones de parada de un experimento gestionado.
-- **condición de parada:** alarma que detiene el experimento si el sistema alcanza un estado inaceptable.
-- **sonda de resiliencia:** comprobación automática del estado del sistema durante un experimento.
+- **[proxy de inyección](../../../glosario/entradas/p/proxy-de-inyeccion.md):** intermediario en la conexión que altera lo que la atraviesa según el tóxico activo.
+- **[tóxico](../../../glosario/entradas/t/toxico.md):** alteración configurable de una conexión que el proxy aplica en una dirección.
+- **[orquestador de caos](../../../glosario/entradas/o/orquestador-de-caos.md):** componente de plataforma que declara y ejecuta las fallas como recursos del clúster.
+- **[plantilla de experimento](../../../glosario/entradas/p/plantilla-de-experimento.md):** definición de acciones, objetivos y condiciones de parada de un experimento gestionado.
+- **[condición de parada](../../../glosario/entradas/c/condicion-de-parada.md):** alarma que detiene el experimento si el sistema alcanza un estado inaceptable.
+- **[sonda de resiliencia](../../../glosario/entradas/s/sonda-de-resiliencia.md):** comprobación automática del estado del sistema durante un experimento.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de parada](../../../glosario/entradas/c/condicion-de-parada.md) · [Orquestador de caos](../../../glosario/entradas/o/orquestador-de-caos.md) · [Plantilla de experimento](../../../glosario/entradas/p/plantilla-de-experimento.md) · [Proxy de inyección](../../../glosario/entradas/p/proxy-de-inyeccion.md) · [Sonda de resiliencia](../../../glosario/entradas/s/sonda-de-resiliencia.md) · [Tóxico](../../../glosario/entradas/t/toxico.md).
 
 ---
 

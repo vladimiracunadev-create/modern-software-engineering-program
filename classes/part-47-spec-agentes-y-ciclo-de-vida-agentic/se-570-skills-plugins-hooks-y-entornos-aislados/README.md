@@ -150,12 +150,12 @@ La comparación de prefijo deja pasar 3 de 12 escapes (los directorios hermanos 
 
 ## Definiciones de trabajo
 
-- **habilidad:** conjunto de instrucciones empaquetado con una descripción que el agente carga cuando considera que es relevante.
-- **extensión:** paquete que instala habilidades, ganchos, subagentes o herramientas y se ejecuta con la autoridad del agente.
-- **gancho:** programa que el agente invoca en un punto fijo de su bucle, con el evento como entrada y un código de salida como respuesta.
-- **modo de fallo:** comportamiento de un control cuando no puede decidir: abrirse (dejar pasar) o cerrarse (bloquear).
-- **entorno aislado:** contexto de ejecución que limita lo que un proceso puede leer, escribir o contactar, con independencia de las reglas del agente.
-- **confinamiento de rutas:** comprobación de que una ruta resuelta queda dentro de un directorio base.
+- **[habilidad](../../../glosario/entradas/h/habilidad.md):** conjunto de instrucciones empaquetado con una descripción que el agente carga cuando considera que es relevante.
+- **[extensión](../../../glosario/entradas/e/extension.md):** paquete que instala habilidades, ganchos, subagentes o herramientas y se ejecuta con la autoridad del agente.
+- **[gancho](../../../glosario/entradas/g/gancho.md):** programa que el agente invoca en un punto fijo de su bucle, con el evento como entrada y un código de salida como respuesta.
+- **[modo de fallo](../../../glosario/entradas/m/modo-de-fallo.md):** comportamiento de un control cuando no puede decidir: abrirse (dejar pasar) o cerrarse (bloquear).
+- **[entorno aislado](../../../glosario/entradas/e/entorno-aislado.md):** contexto de ejecución que limita lo que un proceso puede leer, escribir o contactar, con independencia de las reglas del agente.
+- **[confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md):** comprobación de que una ruta resuelta queda dentro de un directorio base.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,12 +301,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **habilidad:** conjunto de instrucciones empaquetado con una descripción que el agente carga cuando considera que es relevante.
-- **extensión:** paquete que instala habilidades, ganchos, subagentes o herramientas y se ejecuta con la autoridad del agente.
-- **gancho:** programa que el agente invoca en un punto fijo de su bucle, con el evento como entrada y un código de salida como respuesta.
-- **modo de fallo:** comportamiento de un control cuando no puede decidir: abrirse (dejar pasar) o cerrarse (bloquear).
-- **entorno aislado:** contexto de ejecución que limita lo que un proceso puede leer, escribir o contactar, con independencia de las reglas del agente.
-- **confinamiento de rutas:** comprobación de que una ruta resuelta queda dentro de un directorio base.
+- **[habilidad](../../../glosario/entradas/h/habilidad.md):** conjunto de instrucciones empaquetado con una descripción que el agente carga cuando considera que es relevante.
+- **[extensión](../../../glosario/entradas/e/extension.md):** paquete que instala habilidades, ganchos, subagentes o herramientas y se ejecuta con la autoridad del agente.
+- **[gancho](../../../glosario/entradas/g/gancho.md):** programa que el agente invoca en un punto fijo de su bucle, con el evento como entrada y un código de salida como respuesta.
+- **[modo de fallo](../../../glosario/entradas/m/modo-de-fallo.md):** comportamiento de un control cuando no puede decidir: abrirse (dejar pasar) o cerrarse (bloquear).
+- **[entorno aislado](../../../glosario/entradas/e/entorno-aislado.md):** contexto de ejecución que limita lo que un proceso puede leer, escribir o contactar, con independencia de las reglas del agente.
+- **[confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md):** comprobación de que una ruta resuelta queda dentro de un directorio base.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md) · [Entorno aislado](../../../glosario/entradas/e/entorno-aislado.md) · [Extensión](../../../glosario/entradas/e/extension.md) · [Gancho](../../../glosario/entradas/g/gancho.md) · [Habilidad](../../../glosario/entradas/h/habilidad.md) · [Modo de fallo](../../../glosario/entradas/m/modo-de-fallo.md).
 
 ---
 

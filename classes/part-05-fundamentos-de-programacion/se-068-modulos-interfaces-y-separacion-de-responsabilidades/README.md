@@ -119,11 +119,11 @@ La conclusión es doble. El código propio es barato; la dependencia es lo que c
 
 ## Definiciones de trabajo
 
-- **módulo:** unidad de código con namespace propio.
-- **interfaz:** comportamiento público esperado por consumidores.
-- **adaptador:** traducción entre contrato interno y sistema externo.
-- **dependencia:** conocimiento de un componente sobre otro.
-- **composition root:** punto donde se ensamblan colaboradores.
+- **[módulo](../../../glosario/entradas/m/modulo.md):** unidad de código con namespace propio.
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** comportamiento público esperado por consumidores.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** traducción entre contrato interno y sistema externo.
+- **[dependencia](../../../glosario/entradas/d/dependencia.md):** conocimiento de un componente sobre otro.
+- **[composition root](../../../glosario/entradas/c/composition-root.md):** punto donde se ensamblan colaboradores.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -279,11 +279,13 @@ Modularidad no garantiza buena API ni compatibilidad futura. La próxima clase u
 
 ## Glosario
 
-- **módulo:** unidad de código con namespace propio.
-- **interfaz:** comportamiento público esperado por consumidores.
-- **adaptador:** traducción entre contrato interno y sistema externo.
-- **dependencia:** conocimiento de un componente sobre otro.
-- **composition root:** punto donde se ensamblan colaboradores.
+- **[módulo](../../../glosario/entradas/m/modulo.md):** unidad de código con namespace propio.
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** comportamiento público esperado por consumidores.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** traducción entre contrato interno y sistema externo.
+- **[dependencia](../../../glosario/entradas/d/dependencia.md):** conocimiento de un componente sobre otro.
+- **[composition root](../../../glosario/entradas/c/composition-root.md):** punto donde se ensamblan colaboradores.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador](../../../glosario/entradas/a/adaptador.md) · [Composition root](../../../glosario/entradas/c/composition-root.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Dependencia](../../../glosario/entradas/d/dependencia.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Interfaz](../../../glosario/entradas/i/interfaz.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Módulo](../../../glosario/entradas/m/modulo.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

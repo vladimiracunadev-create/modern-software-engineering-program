@@ -153,14 +153,16 @@ dependen de supuestos de carga y de infraestructura. Un cambio en esos supuestos
 la fila entera; la tabla sirve para conversar sobre ellos, no para sumar puntos.
 
 ## Definiciones de trabajo
-- **restricción dura:** condición no negociable dentro del alcance;
-- **preferencia:** criterio graduable;
-- **exposición:** combinación razonada de probabilidad y consecuencia;
-- **mitigación:** reduce probabilidad o impacto;
-- **contingencia:** responde si el evento ocurre.
+- **[restricción dura](../../../glosario/entradas/r/restriccion-dura.md):** condición no negociable dentro del alcance;
+- **[preferencia](../../../glosario/entradas/p/preferencia.md):** criterio graduable;
+- **[exposición](../../../glosario/entradas/e/exposicion.md):** combinación razonada de probabilidad y consecuencia;
+- **[mitigación](../../../glosario/entradas/m/mitigacion.md):** reduce probabilidad o impacto;
+- **[contingencia](../../../glosario/entradas/c/contingencia.md):** responde si el evento ocurre.
 
 ## Glosario
-**Risk appetite** es nivel aceptable de exposición. **Option value** es beneficio de conservar alternativas. **Blast radius** es alcance del daño.
+**[Risk appetite](../../../glosario/entradas/r/risk-appetite.md)** es nivel aceptable de exposición. **[Option value](../../../glosario/entradas/o/option-value.md)** es beneficio de conservar alternativas. **[Blast radius](../../../glosario/entradas/b/blast-radius.md)** es alcance del daño.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Blast radius](../../../glosario/entradas/b/blast-radius.md) · [Contingencia](../../../glosario/entradas/c/contingencia.md) · [Exposición](../../../glosario/entradas/e/exposicion.md) · [Mitigación](../../../glosario/entradas/m/mitigacion.md) · [Option value](../../../glosario/entradas/o/option-value.md) · [Preferencia](../../../glosario/entradas/p/preferencia.md) · [Restricción dura](../../../glosario/entradas/r/restriccion-dura.md) · [Restricciones](../../../glosario/entradas/r/restricciones.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md) · [Riesgo](../../../glosario/entradas/r/riesgo.md) · [Risk appetite](../../../glosario/entradas/r/risk-appetite.md) · [Trade-off](../../../glosario/entradas/t/trade-off.md).
 
 ## Ejemplo mínimo
 Guardar sesión en memoria reduce latencia, pero perder proceso cierra sesiones. La decisión cambia si autenticación es crítica o si reingresar es barato.

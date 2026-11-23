@@ -112,12 +112,12 @@ Cada fallo se ejecutó sobre las seis tareas; se cuentan las ejecuciones con fal
 
 ## Definiciones de trabajo
 
-- **Fallo inyectado:** cambio deliberado de una pieza del harness para producir un fallo conocido.
-- **Patrón de traza:** forma característica que un fallo deja en el registro.
-- **Hipótesis refutable:** explicación que predice un resultado concreto al cambiar una pieza.
-- **Matriz de confusión:** tabla de diagnóstico real frente a diagnóstico propuesto.
-- **Traza enriquecida:** traza con herramientas ofrecidas, contexto visible y observación.
-- **Tarea de regresión:** tarea que protege contra la reaparición de un fallo.
+- **[Fallo inyectado](../../../glosario/entradas/f/fallo-inyectado.md):** cambio deliberado de una pieza del harness para producir un fallo conocido.
+- **[Patrón de traza](../../../glosario/entradas/p/patron-de-traza.md):** forma característica que un fallo deja en el registro.
+- **[Hipótesis refutable](../../../glosario/entradas/h/hipotesis-refutable.md):** explicación que predice un resultado concreto al cambiar una pieza.
+- **[Matriz de confusión](../../../glosario/entradas/m/matriz-de-confusion.md):** tabla de diagnóstico real frente a diagnóstico propuesto.
+- **[Traza enriquecida](../../../glosario/entradas/t/traza-enriquecida.md):** traza con herramientas ofrecidas, contexto visible y observación.
+- **[Tarea de regresión](../../../glosario/entradas/t/tarea-de-regresion.md):** tarea que protege contra la reaparición de un fallo.
 
 ## Ejemplo mínimo
 
@@ -241,6 +241,8 @@ Se inyectaron seis fallos del autor en un harness mínimo con política guioniza
 | Matriz de confusión | Diagnóstico real frente a propuesto |
 | Traza enriquecida | Traza con herramientas ofrecidas, contexto y observación |
 | Tarea de regresión | Tarea que protege contra la reaparición de un fallo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Fallo inyectado](../../../glosario/entradas/f/fallo-inyectado.md) · [Hipótesis refutable](../../../glosario/entradas/h/hipotesis-refutable.md) · [Matriz de confusión](../../../glosario/entradas/m/matriz-de-confusion.md) · [Patrón de traza](../../../glosario/entradas/p/patron-de-traza.md) · [Regresión](../../../glosario/entradas/r/regresion.md) · [Tarea de regresión](../../../glosario/entradas/t/tarea-de-regresion.md) · [Traza enriquecida](../../../glosario/entradas/t/traza-enriquecida.md).
 
 ---
 

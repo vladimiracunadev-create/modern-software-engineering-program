@@ -112,11 +112,11 @@ La memoria se mide igual. Con `tracemalloc`, sumar 100 000 enteros con un genera
 
 ## Definiciones de trabajo
 
-- **modelo de costo y pregunta:** antes de medir se formula qué operación, tamaño, distribución y recurso importan.
-- **reloj, repetición y distribución:** se usa reloj monotónico, múltiples repeticiones y estadísticos robustos.
-- **warm-up, caché y aislamiento:** importación, jit, page cache y asignadores cambian primeras corridas.
-- **perfil y atribución:** un profiler atribuye tiempo o asignaciones a funciones y líneas según su método.
-- **comparabilidad y reporte:** misma entrada, versión, afinidad razonable y estado del sistema hacen resultados comparables.
+- **[modelo de costo y pregunta](../../../glosario/entradas/m/modelo-de-costo-y-pregunta.md):** antes de medir se formula qué operación, tamaño, distribución y recurso importan.
+- **[reloj, repetición y distribución](../../../glosario/entradas/r/reloj-repeticion-y-distribucion.md):** se usa reloj monotónico, múltiples repeticiones y estadísticos robustos.
+- **[warm-up, caché y aislamiento](../../../glosario/entradas/w/warm-up-cache-y-aislamiento.md):** importación, jit, page cache y asignadores cambian primeras corridas.
+- **[perfil y atribución](../../../glosario/entradas/p/perfil-y-atribucion.md):** un profiler atribuye tiempo o asignaciones a funciones y líneas según su método.
+- **[comparabilidad y reporte](../../../glosario/entradas/c/comparabilidad-y-reporte.md):** misma entrada, versión, afinidad razonable y estado del sistema hacen resultados comparables.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -263,11 +263,13 @@ La medición local no demuestra latencia productiva ni causalidad por sí sola. 
 
 ## Glosario
 
-- **modelo de costo y pregunta:** antes de medir se formula qué operación, tamaño, distribución y recurso importan.
-- **reloj, repetición y distribución:** se usa reloj monotónico, múltiples repeticiones y estadísticos robustos.
-- **warm-up, caché y aislamiento:** importación, jit, page cache y asignadores cambian primeras corridas.
-- **perfil y atribución:** un profiler atribuye tiempo o asignaciones a funciones y líneas según su método.
-- **comparabilidad y reporte:** misma entrada, versión, afinidad razonable y estado del sistema hacen resultados comparables.
+- **[modelo de costo y pregunta](../../../glosario/entradas/m/modelo-de-costo-y-pregunta.md):** antes de medir se formula qué operación, tamaño, distribución y recurso importan.
+- **[reloj, repetición y distribución](../../../glosario/entradas/r/reloj-repeticion-y-distribucion.md):** se usa reloj monotónico, múltiples repeticiones y estadísticos robustos.
+- **[warm-up, caché y aislamiento](../../../glosario/entradas/w/warm-up-cache-y-aislamiento.md):** importación, jit, page cache y asignadores cambian primeras corridas.
+- **[perfil y atribución](../../../glosario/entradas/p/perfil-y-atribucion.md):** un profiler atribuye tiempo o asignaciones a funciones y líneas según su método.
+- **[comparabilidad y reporte](../../../glosario/entradas/c/comparabilidad-y-reporte.md):** misma entrada, versión, afinidad razonable y estado del sistema hacen resultados comparables.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comparabilidad y reporte](../../../glosario/entradas/c/comparabilidad-y-reporte.md) · [Modelo de costo y pregunta](../../../glosario/entradas/m/modelo-de-costo-y-pregunta.md) · [Perfil y atribución](../../../glosario/entradas/p/perfil-y-atribucion.md) · [Reloj, repetición y distribución](../../../glosario/entradas/r/reloj-repeticion-y-distribucion.md) · [Warm-up, caché y aislamiento](../../../glosario/entradas/w/warm-up-cache-y-aislamiento.md).
 
 ---
 

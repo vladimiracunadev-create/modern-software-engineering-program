@@ -138,11 +138,11 @@ Con ocho despliegues al mes casi siete de cada diez meses muestran una diferenci
 
 ## Definiciones de trabajo
 
-- **plazo de los cambios:** tiempo desde que un cambio se confirma en el control de versiones hasta que se despliega en producción.
-- **frecuencia de despliegue:** número de despliegues a producción en un periodo, con la unidad de despliegue declarada.
-- **tasa de fallos de los cambios:** fracción de los despliegues que requieren una intervención inmediata tras ejecutarse.
-- **tiempo de recuperación:** tiempo que tarda en restaurarse el servicio tras un despliegue fallido.
-- **medida de contrapeso:** medida que empeoraría si otra se mejorara con un atajo.
+- **[plazo de los cambios](../../../glosario/entradas/p/plazo-de-los-cambios.md):** tiempo desde que un cambio se confirma en el control de versiones hasta que se despliega en producción.
+- **[frecuencia de despliegue](../../../glosario/entradas/f/frecuencia-de-despliegue.md):** número de despliegues a producción en un periodo, con la unidad de despliegue declarada.
+- **[tasa de fallos de los cambios](../../../glosario/entradas/t/tasa-de-fallos-de-los-cambios.md):** fracción de los despliegues que requieren una intervención inmediata tras ejecutarse.
+- **[tiempo de recuperación](../../../glosario/entradas/t/tiempo-de-recuperacion.md):** tiempo que tarda en restaurarse el servicio tras un despliegue fallido.
+- **[medida de contrapeso](../../../glosario/entradas/m/medida-de-contrapeso.md):** medida que empeoraría si otra se mejorara con un atajo.
 
 Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -283,11 +283,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **plazo de los cambios:** tiempo desde que un cambio se confirma en el control de versiones hasta que se despliega en producción.
-- **frecuencia de despliegue:** número de despliegues a producción en un periodo, con la unidad de despliegue declarada.
-- **tasa de fallos de los cambios:** fracción de los despliegues que requieren una intervención inmediata tras ejecutarse.
-- **tiempo de recuperación:** tiempo que tarda en restaurarse el servicio tras un despliegue fallido.
-- **medida de contrapeso:** medida que empeoraría si otra se mejorara con un atajo.
+- **[plazo de los cambios](../../../glosario/entradas/p/plazo-de-los-cambios.md):** tiempo desde que un cambio se confirma en el control de versiones hasta que se despliega en producción.
+- **[frecuencia de despliegue](../../../glosario/entradas/f/frecuencia-de-despliegue.md):** número de despliegues a producción en un periodo, con la unidad de despliegue declarada.
+- **[tasa de fallos de los cambios](../../../glosario/entradas/t/tasa-de-fallos-de-los-cambios.md):** fracción de los despliegues que requieren una intervención inmediata tras ejecutarse.
+- **[tiempo de recuperación](../../../glosario/entradas/t/tiempo-de-recuperacion.md):** tiempo que tarda en restaurarse el servicio tras un despliegue fallido.
+- **[medida de contrapeso](../../../glosario/entradas/m/medida-de-contrapeso.md):** medida que empeoraría si otra se mejorara con un atajo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Frecuencia de despliegue](../../../glosario/entradas/f/frecuencia-de-despliegue.md) · [Medida de contrapeso](../../../glosario/entradas/m/medida-de-contrapeso.md) · [Plazo de los cambios](../../../glosario/entradas/p/plazo-de-los-cambios.md) · [Ruido](../../../glosario/entradas/r/ruido.md) · [Tasa de fallos de los cambios](../../../glosario/entradas/t/tasa-de-fallos-de-los-cambios.md) · [Tiempo de recuperación](../../../glosario/entradas/t/tiempo-de-recuperacion.md).
 
 ---
 

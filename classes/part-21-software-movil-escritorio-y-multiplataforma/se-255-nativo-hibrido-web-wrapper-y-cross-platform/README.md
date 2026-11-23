@@ -142,11 +142,11 @@ Resultado: las capacidades comunes son **12,66** de 20 con dos plataformas, **10
 
 ## Definiciones de trabajo
 
-- **enfoque de construcción:** forma de producir el cliente que determina dónde corre la interfaz, quién la dibuja y qué capa de código se comparte entre plataformas.
-- **análisis de sensibilidad:** repetición de una decisión variando sus supuestos para medir con qué frecuencia el resultado se mantiene.
-- **frontera entre capas:** punto donde el código compartido se comunica con el de una plataforma y cada cruce serializa, copia y cambia de contexto.
-- **capacidad opcional:** función que una abstracción común declara disponible solo en algunas plataformas y que obliga al cliente a decidir cómo degradar si falta.
-- **intersección de capacidades:** conjunto de funciones que ofrecen todas las plataformas elegidas; se encoge al añadir plataformas.
+- **[enfoque de construcción](../../../glosario/entradas/e/enfoque-de-construccion.md):** forma de producir el cliente que determina dónde corre la interfaz, quién la dibuja y qué capa de código se comparte entre plataformas.
+- **[análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md):** repetición de una decisión variando sus supuestos para medir con qué frecuencia el resultado se mantiene.
+- **[frontera entre capas](../../../glosario/entradas/f/frontera-entre-capas.md):** punto donde el código compartido se comunica con el de una plataforma y cada cruce serializa, copia y cambia de contexto.
+- **[capacidad opcional](../../../glosario/entradas/c/capacidad-opcional.md):** función que una abstracción común declara disponible solo en algunas plataformas y que obliga al cliente a decidir cómo degradar si falta.
+- **[intersección de capacidades](../../../glosario/entradas/i/interseccion-de-capacidades.md):** conjunto de funciones que ofrecen todas las plataformas elegidas; se encoge al añadir plataformas.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **enfoque de construcción:** forma de producir el cliente que determina dónde corre la interfaz, quién la dibuja y qué capa de código se comparte entre plataformas.
-- **análisis de sensibilidad:** repetición de una decisión variando sus supuestos para medir con qué frecuencia el resultado se mantiene.
-- **frontera entre capas:** punto donde el código compartido se comunica con el de una plataforma y cada cruce serializa, copia y cambia de contexto.
-- **capacidad opcional:** función que una abstracción común declara disponible solo en algunas plataformas y que obliga al cliente a decidir cómo degradar si falta.
-- **intersección de capacidades:** conjunto de funciones que ofrecen todas las plataformas elegidas; se encoge al añadir plataformas.
+- **[enfoque de construcción](../../../glosario/entradas/e/enfoque-de-construccion.md):** forma de producir el cliente que determina dónde corre la interfaz, quién la dibuja y qué capa de código se comparte entre plataformas.
+- **[análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md):** repetición de una decisión variando sus supuestos para medir con qué frecuencia el resultado se mantiene.
+- **[frontera entre capas](../../../glosario/entradas/f/frontera-entre-capas.md):** punto donde el código compartido se comunica con el de una plataforma y cada cruce serializa, copia y cambia de contexto.
+- **[capacidad opcional](../../../glosario/entradas/c/capacidad-opcional.md):** función que una abstracción común declara disponible solo en algunas plataformas y que obliga al cliente a decidir cómo degradar si falta.
+- **[intersección de capacidades](../../../glosario/entradas/i/interseccion-de-capacidades.md):** conjunto de funciones que ofrecen todas las plataformas elegidas; se encoge al añadir plataformas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md) · [Capacidad opcional](../../../glosario/entradas/c/capacidad-opcional.md) · [Enfoque de construcción](../../../glosario/entradas/e/enfoque-de-construccion.md) · [Frontera entre capas](../../../glosario/entradas/f/frontera-entre-capas.md) · [Intersección de capacidades](../../../glosario/entradas/i/interseccion-de-capacidades.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md).
 
 ---
 

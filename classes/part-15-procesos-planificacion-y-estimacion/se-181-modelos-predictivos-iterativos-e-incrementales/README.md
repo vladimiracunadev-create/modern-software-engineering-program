@@ -147,11 +147,11 @@ Sin cambios el plan predictivo gana (40 piezas, sin sobrecoste) y a partir de un
 
 ## Definiciones de trabajo
 
-- **modelo predictivo:** organización del trabajo en fases con alcance, coste y plazo comprometidos al inicio, y retroalimentación concentrada hacia el final.
-- **modelo iterativo:** organización del trabajo en ciclos que repiten construir, mostrar y aprender para revisar la dirección.
-- **modelo incremental:** organización del trabajo en partes utilizables que se liberan en un orden elegido por valor y riesgo.
-- **volatilidad:** proporción de lo planificado que cambia o se revela mal entendido antes de entregarse.
-- **intervalo de retroalimentación:** cantidad de trabajo construido entre dos momentos en que se contrasta con quien lo usará.
+- **[modelo predictivo](../../../glosario/entradas/m/modelo-predictivo.md):** organización del trabajo en fases con alcance, coste y plazo comprometidos al inicio, y retroalimentación concentrada hacia el final.
+- **[modelo iterativo](../../../glosario/entradas/m/modelo-iterativo.md):** organización del trabajo en ciclos que repiten construir, mostrar y aprender para revisar la dirección.
+- **[modelo incremental](../../../glosario/entradas/m/modelo-incremental.md):** organización del trabajo en partes utilizables que se liberan en un orden elegido por valor y riesgo.
+- **[volatilidad](../../../glosario/entradas/v/volatilidad.md):** proporción de lo planificado que cambia o se revela mal entendido antes de entregarse.
+- **[intervalo de retroalimentación](../../../glosario/entradas/i/intervalo-de-retroalimentacion.md):** cantidad de trabajo construido entre dos momentos en que se contrasta con quien lo usará.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **modelo predictivo:** organización del trabajo en fases con alcance, coste y plazo comprometidos al inicio, y retroalimentación concentrada hacia el final.
-- **modelo iterativo:** organización del trabajo en ciclos que repiten construir, mostrar y aprender para revisar la dirección.
-- **modelo incremental:** organización del trabajo en partes utilizables que se liberan en un orden elegido por valor y riesgo.
-- **volatilidad:** proporción de lo planificado que cambia o se revela mal entendido antes de entregarse.
-- **intervalo de retroalimentación:** cantidad de trabajo construido entre dos momentos en que se contrasta con quien lo usará.
+- **[modelo predictivo](../../../glosario/entradas/m/modelo-predictivo.md):** organización del trabajo en fases con alcance, coste y plazo comprometidos al inicio, y retroalimentación concentrada hacia el final.
+- **[modelo iterativo](../../../glosario/entradas/m/modelo-iterativo.md):** organización del trabajo en ciclos que repiten construir, mostrar y aprender para revisar la dirección.
+- **[modelo incremental](../../../glosario/entradas/m/modelo-incremental.md):** organización del trabajo en partes utilizables que se liberan en un orden elegido por valor y riesgo.
+- **[volatilidad](../../../glosario/entradas/v/volatilidad.md):** proporción de lo planificado que cambia o se revela mal entendido antes de entregarse.
+- **[intervalo de retroalimentación](../../../glosario/entradas/i/intervalo-de-retroalimentacion.md):** cantidad de trabajo construido entre dos momentos en que se contrasta con quien lo usará.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Intervalo de retroalimentación](../../../glosario/entradas/i/intervalo-de-retroalimentacion.md) · [Modelo incremental](../../../glosario/entradas/m/modelo-incremental.md) · [Modelo iterativo](../../../glosario/entradas/m/modelo-iterativo.md) · [Modelo predictivo](../../../glosario/entradas/m/modelo-predictivo.md) · [Volatilidad](../../../glosario/entradas/v/volatilidad.md).
 
 ---
 

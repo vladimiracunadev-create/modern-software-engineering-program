@@ -156,11 +156,11 @@ La clave fija es la más rápida y la única que produce entornos obsoletos: el 
 
 ## Definiciones de trabajo
 
-- **job:** unidad de trabajo de una canalización que se ejecuta en un entorno aislado y puede depender de otros jobs.
-- **camino crítico:** cadena de dependencias de mayor duración acumulada, que fija la duración mínima.
-- **matriz:** generación de un job por cada combinación de valores de varios factores.
-- **cobertura de parejas:** conjunto de combinaciones en el que cada pareja de niveles de dos factores aparece al menos una vez.
-- **clave de caché:** identificador que decide cuándo una entrada guardada se considera la misma entrada.
+- **[job](../../../glosario/entradas/j/job.md):** unidad de trabajo de una canalización que se ejecuta en un entorno aislado y puede depender de otros jobs.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** cadena de dependencias de mayor duración acumulada, que fija la duración mínima.
+- **[matriz](../../../glosario/entradas/m/matriz.md):** generación de un job por cada combinación de valores de varios factores.
+- **[cobertura de parejas](../../../glosario/entradas/c/cobertura-de-parejas.md):** conjunto de combinaciones en el que cada pareja de niveles de dos factores aparece al menos una vez.
+- **[clave de caché](../../../glosario/entradas/c/clave-de-cache.md):** identificador que decide cuándo una entrada guardada se considera la misma entrada.
 
 Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **job:** unidad de trabajo de una canalización que se ejecuta en un entorno aislado y puede depender de otros jobs.
-- **camino crítico:** cadena de dependencias de mayor duración acumulada, que fija la duración mínima.
-- **matriz:** generación de un job por cada combinación de valores de varios factores.
-- **cobertura de parejas:** conjunto de combinaciones en el que cada pareja de niveles de dos factores aparece al menos una vez.
-- **clave de caché:** identificador que decide cuándo una entrada guardada se considera la misma entrada.
+- **[job](../../../glosario/entradas/j/job.md):** unidad de trabajo de una canalización que se ejecuta en un entorno aislado y puede depender de otros jobs.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** cadena de dependencias de mayor duración acumulada, que fija la duración mínima.
+- **[matriz](../../../glosario/entradas/m/matriz.md):** generación de un job por cada combinación de valores de varios factores.
+- **[cobertura de parejas](../../../glosario/entradas/c/cobertura-de-parejas.md):** conjunto de combinaciones en el que cada pareja de niveles de dos factores aparece al menos una vez.
+- **[clave de caché](../../../glosario/entradas/c/clave-de-cache.md):** identificador que decide cuándo una entrada guardada se considera la misma entrada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Camino crítico](../../../glosario/entradas/c/camino-critico.md) · [Clave de caché](../../../glosario/entradas/c/clave-de-cache.md) · [Cobertura de parejas](../../../glosario/entradas/c/cobertura-de-parejas.md) · [Job](../../../glosario/entradas/j/job.md) · [Matriz](../../../glosario/entradas/m/matriz.md).
 
 ---
 

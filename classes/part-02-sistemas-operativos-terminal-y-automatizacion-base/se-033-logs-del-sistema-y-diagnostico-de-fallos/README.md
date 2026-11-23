@@ -139,11 +139,11 @@ comprueba que la corrección cambia el resultado, para no confundir correlación
 
 ## Definiciones de trabajo
 
-- **evento:** observación estructurada con significado estable;
-- **correlación:** relación explícita entre señales de una operación;
-- **hecho:** observación respaldada por una fuente identificable;
-- **inferencia:** explicación compatible con hechos, aún contrastable;
-- **paquete diagnóstico:** evidencia seleccionada, contextualizada y minimizada para revisión.
+- **[evento](../../../glosario/entradas/e/evento.md):** observación estructurada con significado estable;
+- **[correlación](../../../glosario/entradas/c/correlacion.md):** relación explícita entre señales de una operación;
+- **[hecho](../../../glosario/entradas/h/hecho.md):** observación respaldada por una fuente identificable;
+- **[inferencia](../../../glosario/entradas/i/inferencia.md):** explicación compatible con hechos, aún contrastable;
+- **[paquete diagnóstico](../../../glosario/entradas/p/paquete-diagnostico.md):** evidencia seleccionada, contextualizada y minimizada para revisión.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma construye una línea temporal
 
@@ -268,11 +268,13 @@ No implementamos una plataforma distribuida de observabilidad ni demostramos cau
 - [RFC 3339, Date and Time on the Internet: Timestamps](https://www.rfc-editor.org/rfc/rfc3339): perfil de ISO 8601 con desfase o `Z` usado para ordenar eventos.
 ## Glosario
 
-- **Correlación:** atributo que permite relacionar señales de una misma operación.
-- **Evento:** registro estructurado de algo observado en un momento.
-- **Métrica:** medida numérica agregable a lo largo del tiempo.
-- **Observabilidad:** capacidad de inferir estado interno a partir de salidas disponibles.
-- **Traza:** representación del recorrido de una operación por etapas relacionadas.
+- **[Correlación](../../../glosario/entradas/c/correlacion.md):** atributo que permite relacionar señales de una misma operación.
+- **[Evento](../../../glosario/entradas/e/evento.md):** registro estructurado de algo observado en un momento.
+- **[Métrica](../../../glosario/entradas/m/metrica.md):** medida numérica agregable a lo largo del tiempo.
+- **[Observabilidad](../../../glosario/entradas/o/observabilidad.md):** capacidad de inferir estado interno a partir de salidas disponibles.
+- **[Traza](../../../glosario/entradas/t/traza.md):** representación del recorrido de una operación por etapas relacionadas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Correlación](../../../glosario/entradas/c/correlacion.md) · [Evento](../../../glosario/entradas/e/evento.md) · [Hecho](../../../glosario/entradas/h/hecho.md) · [Inferencia](../../../glosario/entradas/i/inferencia.md) · [Métrica](../../../glosario/entradas/m/metrica.md) · [Minimización](../../../glosario/entradas/m/minimizacion.md) · [Observabilidad](../../../glosario/entradas/o/observabilidad.md) · [Paquete diagnóstico](../../../glosario/entradas/p/paquete-diagnostico.md) · [Traza](../../../glosario/entradas/t/traza.md).
 
 ---
 [← SE-032](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-034 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)

@@ -126,11 +126,11 @@ Un resultado práctico: añadir un solo ejemplo de dos personas en el mismo curs
 
 ## Definiciones de trabajo
 
-- **Artefacto de verificación:** lo que produce una metodología para comprobar un cambio.
-- **Mutante del silencio:** variante de la regla del silencio con un cambio mínimo.
-- **Sobreviviente común:** mutante que sobrevive a varias metodologías.
-- **Combinación de prácticas:** conjunto de artefactos de naturaleza distinta aplicados al mismo cambio.
-- **Dimensión no variada:** valor del problema que ningún ejemplo toma.
+- **[Artefacto de verificación](../../../glosario/entradas/a/artefacto-de-verificacion.md):** lo que produce una metodología para comprobar un cambio.
+- **[Mutante del silencio](../../../glosario/entradas/m/mutante-del-silencio.md):** variante de la regla del silencio con un cambio mínimo.
+- **[Sobreviviente común](../../../glosario/entradas/s/sobreviviente-comun.md):** mutante que sobrevive a varias metodologías.
+- **[Combinación de prácticas](../../../glosario/entradas/c/combinacion-de-practicas.md):** conjunto de artefactos de naturaleza distinta aplicados al mismo cambio.
+- **[Dimensión no variada](../../../glosario/entradas/d/dimension-no-variada.md):** valor del problema que ningún ejemplo toma.
 
 ## Ejemplo mínimo
 
@@ -258,6 +258,8 @@ Los siete mutantes y los cinco artefactos son del autor; no se midió esfuerzo h
 | Dimensión no variada | Valor del problema que ningún ejemplo toma |
 | Combinación | Artefactos de naturaleza distinta sobre el mismo cambio |
 | Modelo ejecutable | Segunda escritura de la regla usada como oráculo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Artefacto de verificación](../../../glosario/entradas/a/artefacto-de-verificacion.md) · [Combinación](../../../glosario/entradas/c/combinacion.md) · [Combinación de prácticas](../../../glosario/entradas/c/combinacion-de-practicas.md) · [Dimensión no variada](../../../glosario/entradas/d/dimension-no-variada.md) · [Mutante del silencio](../../../glosario/entradas/m/mutante-del-silencio.md) · [Sobreviviente común](../../../glosario/entradas/s/sobreviviente-comun.md).
 
 ---
 

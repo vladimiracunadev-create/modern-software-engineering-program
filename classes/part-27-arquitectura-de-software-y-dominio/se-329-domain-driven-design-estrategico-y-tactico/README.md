@@ -153,11 +153,11 @@ El caso 1,0 y 1,3 da 1,1 con `float` y con `Decimal` por defecto (el redondeo de
 
 ## Definiciones de trabajo
 
-- **contexto delimitado:** frontera dentro de la cual un modelo y su lenguaje tienen un significado único y preciso.
-- **mapa de contextos:** descripción de los contextos y de la naturaleza de cada relación entre ellos.
-- **agregado:** grupo de objetos que se modifica como una unidad a través de una raíz que protege un invariante.
-- **invariante:** regla que debe cumplirse siempre dentro de un agregado.
-- **objeto de valor:** objeto inmutable sin identidad que se define por sus atributos y encapsula sus reglas.
+- **[contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md):** frontera dentro de la cual un modelo y su lenguaje tienen un significado único y preciso.
+- **[mapa de contextos](../../../glosario/entradas/m/mapa-de-contextos.md):** descripción de los contextos y de la naturaleza de cada relación entre ellos.
+- **[agregado](../../../glosario/entradas/a/agregado.md):** grupo de objetos que se modifica como una unidad a través de una raíz que protege un invariante.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** regla que debe cumplirse siempre dentro de un agregado.
+- **[objeto de valor](../../../glosario/entradas/o/objeto-de-valor.md):** objeto inmutable sin identidad que se define por sus atributos y encapsula sus reglas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres cálculos con datos sintéticos en Windows y Ubuntu (WSL2) co
 
 ## Glosario
 
-- **contexto delimitado:** frontera dentro de la cual un modelo y su lenguaje tienen un significado único y preciso.
-- **mapa de contextos:** descripción de los contextos y de la naturaleza de cada relación entre ellos.
-- **agregado:** grupo de objetos que se modifica como una unidad a través de una raíz que protege un invariante.
-- **invariante:** regla que debe cumplirse siempre dentro de un agregado.
-- **objeto de valor:** objeto inmutable sin identidad que se define por sus atributos y encapsula sus reglas.
+- **[contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md):** frontera dentro de la cual un modelo y su lenguaje tienen un significado único y preciso.
+- **[mapa de contextos](../../../glosario/entradas/m/mapa-de-contextos.md):** descripción de los contextos y de la naturaleza de cada relación entre ellos.
+- **[agregado](../../../glosario/entradas/a/agregado.md):** grupo de objetos que se modifica como una unidad a través de una raíz que protege un invariante.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** regla que debe cumplirse siempre dentro de un agregado.
+- **[objeto de valor](../../../glosario/entradas/o/objeto-de-valor.md):** objeto inmutable sin identidad que se define por sus atributos y encapsula sus reglas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agregado](../../../glosario/entradas/a/agregado.md) · [Contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Mapa de contextos](../../../glosario/entradas/m/mapa-de-contextos.md) · [Objeto de valor](../../../glosario/entradas/o/objeto-de-valor.md).
 
 ---
 

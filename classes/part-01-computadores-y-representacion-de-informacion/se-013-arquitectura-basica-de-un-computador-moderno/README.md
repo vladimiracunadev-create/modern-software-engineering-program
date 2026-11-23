@@ -225,18 +225,20 @@ elegir una antes de medir.
 
 ## Definiciones de trabajo
 
-- **arquitectura:** propiedades e interfaces visibles de un sistema;
-- **ISA:** contrato de instrucciones y estado visible para software de máquina;
-- **microarquitectura:** organización concreta que implementa una ISA;
-- **runtime:** servicios que sostienen un programa durante ejecución;
-- **dispositivo:** componente que intercambia datos o señales con el sistema.
+- **[arquitectura](../../../glosario/entradas/a/arquitectura.md):** propiedades e interfaces visibles de un sistema;
+- **[ISA](../../../glosario/entradas/i/isa.md):** contrato de instrucciones y estado visible para software de máquina;
+- **[microarquitectura](../../../glosario/entradas/m/microarquitectura.md):** organización concreta que implementa una ISA;
+- **[runtime](../../../glosario/entradas/r/runtime.md):** servicios que sostienen un programa durante ejecución;
+- **[dispositivo](../../../glosario/entradas/d/dispositivo.md):** componente que intercambia datos o señales con el sistema.
 
 ## Glosario
 
-**Estado** es información suficiente para explicar una transición. **ABI** es un
-contrato binario que incluye llamadas y representación. **Firmware** es software ligado
-al control de hardware. **Memoria virtual** es el espacio de direcciones que el sistema
+**[Estado](../../../glosario/entradas/e/estado.md)** es información suficiente para explicar una transición. **[ABI](../../../glosario/entradas/a/abi.md)** es un
+contrato binario que incluye llamadas y representación. **[Firmware](../../../glosario/entradas/f/firmware.md)** es software ligado
+al control de hardware. **[Memoria virtual](../../../glosario/entradas/m/memoria-virtual.md)** es el espacio de direcciones que el sistema
 presenta a un proceso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ABI](../../../glosario/entradas/a/abi.md) · [Arquitectura](../../../glosario/entradas/a/arquitectura.md) · [Dispositivo](../../../glosario/entradas/d/dispositivo.md) · [Estado](../../../glosario/entradas/e/estado.md) · [Firmware](../../../glosario/entradas/f/firmware.md) · [ISA](../../../glosario/entradas/i/isa.md) · [Memoria virtual](../../../glosario/entradas/m/memoria-virtual.md) · [Microarquitectura](../../../glosario/entradas/m/microarquitectura.md) · [Observación](../../../glosario/entradas/o/observacion.md) · [Runtime](../../../glosario/entradas/r/runtime.md).
 
 ## Ejemplo mínimo
 

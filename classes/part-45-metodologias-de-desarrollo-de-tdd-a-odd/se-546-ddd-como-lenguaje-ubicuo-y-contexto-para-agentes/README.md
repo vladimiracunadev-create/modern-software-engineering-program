@@ -122,12 +122,12 @@ El hallazgo práctico es que ninguna de las dos rutas lanza una excepción. La d
 
 ## Definiciones de trabajo
 
-- **Lenguaje ubicuo:** vocabulario compartido por negocio y desarrollo, usado en conversación, documentación y código.
-- **Contexto delimitado:** frontera dentro de la cual un modelo y su lenguaje son consistentes.
-- **Polisemia:** una palabra con varios sentidos.
-- **Capa anticorrupción:** traducción entre contextos que protege al modelo propio.
-- **Glosario:** lista de términos del dominio con su sentido en cada contexto.
-- **Mapa de contextos:** diagrama de contextos y relaciones entre ellos.
+- **[Lenguaje ubicuo](../../../glosario/entradas/l/lenguaje-ubicuo.md):** vocabulario compartido por negocio y desarrollo, usado en conversación, documentación y código.
+- **[Contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md):** frontera dentro de la cual un modelo y su lenguaje son consistentes.
+- **[Polisemia](../../../glosario/entradas/p/polisemia.md):** una palabra con varios sentidos.
+- **[Capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md):** traducción entre contextos que protege al modelo propio.
+- **[Glosario](../../../glosario/entradas/g/glosario.md):** lista de términos del dominio con su sentido en cada contexto.
+- **[Mapa de contextos](../../../glosario/entradas/m/mapa-de-contextos.md):** diagrama de contextos y relaciones entre ellos.
 
 ## Ejemplo mínimo
 
@@ -254,6 +254,8 @@ El recuento usa reglas burdas sobre un corpus de este programa y la traducción 
 | Capa anticorrupción | Traducción que protege el modelo propio |
 | Glosario | Términos del dominio con su sentido por contexto |
 | Mapa de contextos | Diagrama de contextos y sus relaciones |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md) · [Contexto delimitado](../../../glosario/entradas/c/contexto-delimitado.md) · [Glosario](../../../glosario/entradas/g/glosario.md) · [Lenguaje ubicuo](../../../glosario/entradas/l/lenguaje-ubicuo.md) · [Mapa de contextos](../../../glosario/entradas/m/mapa-de-contextos.md) · [Polisemia](../../../glosario/entradas/p/polisemia.md).
 
 ---
 

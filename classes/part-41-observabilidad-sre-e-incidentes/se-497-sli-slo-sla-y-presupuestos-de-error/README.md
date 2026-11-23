@@ -151,11 +151,11 @@ slo += down > 43.2;  sla += down > 216
 
 ## Definiciones de trabajo
 
-- **SLI:** medida cuantitativa de un aspecto del servicio, normalmente la proporción de eventos buenos sobre eventos válidos.
-- **SLO:** valor objetivo de un SLI durante una ventana de tiempo.
-- **SLA:** compromiso contractual con una consecuencia si no se cumple un nivel de servicio.
-- **presupuesto de error:** cantidad de fallo que el SLO permite en la ventana, igual a uno menos el objetivo.
-- **política de presupuesto:** acuerdo previo sobre qué cambia cuando el presupuesto se agota o se consume demasiado rápido.
+- **[SLI](../../../glosario/entradas/s/sli.md):** medida cuantitativa de un aspecto del servicio, normalmente la proporción de eventos buenos sobre eventos válidos.
+- **[SLO](../../../glosario/entradas/s/slo.md):** valor objetivo de un SLI durante una ventana de tiempo.
+- **[SLA](../../../glosario/entradas/s/sla.md):** compromiso contractual con una consecuencia si no se cumple un nivel de servicio.
+- **[presupuesto de error](../../../glosario/entradas/p/presupuesto-de-error.md):** cantidad de fallo que el SLO permite en la ventana, igual a uno menos el objetivo.
+- **[política de presupuesto](../../../glosario/entradas/p/politica-de-presupuesto.md):** acuerdo previo sobre qué cambia cuando el presupuesto se agota o se consume demasiado rápido.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **SLI:** medida cuantitativa de un aspecto del servicio, normalmente la proporción de eventos buenos sobre eventos válidos.
-- **SLO:** valor objetivo de un SLI durante una ventana de tiempo.
-- **SLA:** compromiso contractual con una consecuencia si no se cumple un nivel de servicio.
-- **presupuesto de error:** cantidad de fallo que el SLO permite en la ventana, igual a uno menos el objetivo.
-- **política de presupuesto:** acuerdo previo sobre qué cambia cuando el presupuesto se agota o se consume demasiado rápido.
+- **[SLI](../../../glosario/entradas/s/sli.md):** medida cuantitativa de un aspecto del servicio, normalmente la proporción de eventos buenos sobre eventos válidos.
+- **[SLO](../../../glosario/entradas/s/slo.md):** valor objetivo de un SLI durante una ventana de tiempo.
+- **[SLA](../../../glosario/entradas/s/sla.md):** compromiso contractual con una consecuencia si no se cumple un nivel de servicio.
+- **[presupuesto de error](../../../glosario/entradas/p/presupuesto-de-error.md):** cantidad de fallo que el SLO permite en la ventana, igual a uno menos el objetivo.
+- **[política de presupuesto](../../../glosario/entradas/p/politica-de-presupuesto.md):** acuerdo previo sobre qué cambia cuando el presupuesto se agota o se consume demasiado rápido.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Política de presupuesto](../../../glosario/entradas/p/politica-de-presupuesto.md) · [Presupuesto de error](../../../glosario/entradas/p/presupuesto-de-error.md) · [SLA](../../../glosario/entradas/s/sla.md) · [SLI](../../../glosario/entradas/s/sli.md) · [SLO](../../../glosario/entradas/s/slo.md).
 
 ---
 

@@ -150,11 +150,11 @@ if cadence and (minute + 1) % cadence == 0: last = minute + 1
 
 ## Definiciones de trabajo
 
-- **incidente:** evento que degrada o amenaza el servicio y exige una respuesta coordinada.
-- **severidad:** nivel que clasifica el impacto de un incidente y decide la respuesta.
-- **comandante del incidente:** persona que decide y prioriza durante el incidente sin operar.
-- **cadencia de actualización:** intervalo anunciado en el que se informa del estado, haya o no novedades.
-- **kappa de Cohen:** estadístico que mide el acuerdo entre dos evaluadores descontando el acuerdo esperado por azar.
+- **[incidente](../../../glosario/entradas/i/incidente.md):** evento que degrada o amenaza el servicio y exige una respuesta coordinada.
+- **[severidad](../../../glosario/entradas/s/severidad.md):** nivel que clasifica el impacto de un incidente y decide la respuesta.
+- **[comandante del incidente](../../../glosario/entradas/c/comandante-del-incidente.md):** persona que decide y prioriza durante el incidente sin operar.
+- **[cadencia de actualización](../../../glosario/entradas/c/cadencia-de-actualizacion.md):** intervalo anunciado en el que se informa del estado, haya o no novedades.
+- **[kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md):** estadístico que mide el acuerdo entre dos evaluadores descontando el acuerdo esperado por azar.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **incidente:** evento que degrada o amenaza el servicio y exige una respuesta coordinada.
-- **severidad:** nivel que clasifica el impacto de un incidente y decide la respuesta.
-- **comandante del incidente:** persona que decide y prioriza durante el incidente sin operar.
-- **cadencia de actualización:** intervalo anunciado en el que se informa del estado, haya o no novedades.
-- **kappa de Cohen:** estadístico que mide el acuerdo entre dos evaluadores descontando el acuerdo esperado por azar.
+- **[incidente](../../../glosario/entradas/i/incidente.md):** evento que degrada o amenaza el servicio y exige una respuesta coordinada.
+- **[severidad](../../../glosario/entradas/s/severidad.md):** nivel que clasifica el impacto de un incidente y decide la respuesta.
+- **[comandante del incidente](../../../glosario/entradas/c/comandante-del-incidente.md):** persona que decide y prioriza durante el incidente sin operar.
+- **[cadencia de actualización](../../../glosario/entradas/c/cadencia-de-actualizacion.md):** intervalo anunciado en el que se informa del estado, haya o no novedades.
+- **[kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md):** estadístico que mide el acuerdo entre dos evaluadores descontando el acuerdo esperado por azar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cadencia de actualización](../../../glosario/entradas/c/cadencia-de-actualizacion.md) · [Comandante del incidente](../../../glosario/entradas/c/comandante-del-incidente.md) · [Incidente](../../../glosario/entradas/i/incidente.md) · [Kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md) · [Severidad](../../../glosario/entradas/s/severidad.md).
 
 ---
 

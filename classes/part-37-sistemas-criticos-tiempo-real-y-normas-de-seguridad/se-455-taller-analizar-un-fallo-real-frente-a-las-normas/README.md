@@ -128,13 +128,13 @@ La tercera medida cuenta las pasadas en que se omite la comprobación del colima
 
 ## Definiciones de trabajo
 
-- **Factor causal:** condición que contribuyó al accidente, con su fuente.
-- **Barrera independiente:** defensa que no falla por la misma causa que la defendida.
-- **Condición de carrera:** resultado que depende del orden relativo de eventos que no está controlado.
-- **Envoltura de un byte:** vuelta a cero de una variable de ocho bits tras el valor 255.
-- **Alarma rutinaria:** aviso tan frecuente que se confirma sin mirar.
-- **Análisis retrospectivo:** análisis de un suceso con la información posterior a él.
-- **Sesgo de lo ya sabido:** tendencia a ver como evidente lo que solo lo es después.
+- **[Factor causal](../../../glosario/entradas/f/factor-causal.md):** condición que contribuyó al accidente, con su fuente.
+- **[Barrera independiente](../../../glosario/entradas/b/barrera-independiente.md):** defensa que no falla por la misma causa que la defendida.
+- **[Condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md):** resultado que depende del orden relativo de eventos que no está controlado.
+- **[Envoltura de un byte](../../../glosario/entradas/e/envoltura-de-un-byte.md):** vuelta a cero de una variable de ocho bits tras el valor 255.
+- **[Alarma rutinaria](../../../glosario/entradas/a/alarma-rutinaria.md):** aviso tan frecuente que se confirma sin mirar.
+- **[Análisis retrospectivo](../../../glosario/entradas/a/analisis-retrospectivo.md):** análisis de un suceso con la información posterior a él.
+- **[Sesgo de lo ya sabido](../../../glosario/entradas/s/sesgo-de-lo-ya-sabido.md):** tendencia a ver como evidente lo que solo lo es después.
 
 ## Ejemplo mínimo
 
@@ -267,6 +267,8 @@ Los hechos vienen de un solo artículo de 1993 y de su recopilación en el caso 
 | Envoltura de un byte | Vuelta a cero tras 255 en una variable de ocho bits |
 | Alarma rutinaria | Aviso que se confirma sin mirar |
 | Sesgo de lo ya sabido | Ver como evidente lo que solo lo es después |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alarma rutinaria](../../../glosario/entradas/a/alarma-rutinaria.md) · [Análisis retrospectivo](../../../glosario/entradas/a/analisis-retrospectivo.md) · [Barrera independiente](../../../glosario/entradas/b/barrera-independiente.md) · [Condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md) · [Envoltura de un byte](../../../glosario/entradas/e/envoltura-de-un-byte.md) · [Factor causal](../../../glosario/entradas/f/factor-causal.md) · [Sesgo de lo ya sabido](../../../glosario/entradas/s/sesgo-de-lo-ya-sabido.md).
 
 ---
 

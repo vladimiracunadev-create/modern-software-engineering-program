@@ -130,11 +130,11 @@ Un límite de profundidad 1 rechaza el **43,15 %**; 2, el **18,62 %**; 3, el **7
 
 ## Definiciones de trabajo
 
-- **sobreobtención:** recibir más campos de los que la pantalla utiliza.
-- **N+1:** patrón en el que una lista de N elementos genera N consultas adicionales además de la inicial.
-- **resolvedor:** función que obtiene el valor de un campo de la consulta.
-- **carga por lotes:** agrupación en una consulta de las peticiones de datos que se producen en la misma ronda de resolución.
-- **coste de una consulta:** estimación del trabajo que exige resolverla, por ejemplo el número de nodos del grafo que visita.
+- **[sobreobtención](../../../glosario/entradas/s/sobreobtencion.md):** recibir más campos de los que la pantalla utiliza.
+- **[N+1](../../../glosario/entradas/n/n-mas-1.md):** patrón en el que una lista de N elementos genera N consultas adicionales además de la inicial.
+- **[resolvedor](../../../glosario/entradas/r/resolvedor.md):** función que obtiene el valor de un campo de la consulta.
+- **[carga por lotes](../../../glosario/entradas/c/carga-por-lotes.md):** agrupación en una consulta de las peticiones de datos que se producen en la misma ronda de resolución.
+- **[coste de una consulta](../../../glosario/entradas/c/coste-de-una-consulta.md):** estimación del trabajo que exige resolverla, por ejemplo el número de nodos del grafo que visita.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -272,11 +272,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **selección de campos:** mecanismo por el que el cliente declara qué campos de un recurso quiere recibir.
-- **fanout:** número de elementos hijos que devuelve cada nivel de una consulta anidada.
-- **llamada a procedimiento remoto:** invocación de una operación con nombre en otro proceso, con contrato de entrada y salida.
-- **introspección:** capacidad de consultar la propia descripción del esquema de una API.
-- **alias:** nombre alternativo que permite pedir el mismo campo varias veces en una consulta.
+- **[selección de campos](../../../glosario/entradas/s/seleccion-de-campos.md):** mecanismo por el que el cliente declara qué campos de un recurso quiere recibir.
+- **[fanout](../../../glosario/entradas/f/fanout.md):** número de elementos hijos que devuelve cada nivel de una consulta anidada.
+- **[llamada a procedimiento remoto](../../../glosario/entradas/l/llamada-a-procedimiento-remoto.md):** invocación de una operación con nombre en otro proceso, con contrato de entrada y salida.
+- **[introspección](../../../glosario/entradas/i/introspeccion.md):** capacidad de consultar la propia descripción del esquema de una API.
+- **[alias](../../../glosario/entradas/a/alias.md):** nombre alternativo que permite pedir el mismo campo varias veces en una consulta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alias](../../../glosario/entradas/a/alias.md) · [Carga por lotes](../../../glosario/entradas/c/carga-por-lotes.md) · [Coste de una consulta](../../../glosario/entradas/c/coste-de-una-consulta.md) · [Fanout](../../../glosario/entradas/f/fanout.md) · [Introspección](../../../glosario/entradas/i/introspeccion.md) · [Llamada a procedimiento remoto](../../../glosario/entradas/l/llamada-a-procedimiento-remoto.md) · [N+1](../../../glosario/entradas/n/n-mas-1.md) · [Resolvedor](../../../glosario/entradas/r/resolvedor.md) · [Selección de campos](../../../glosario/entradas/s/seleccion-de-campos.md) · [Sobreobtención](../../../glosario/entradas/s/sobreobtencion.md).
 
 ---
 

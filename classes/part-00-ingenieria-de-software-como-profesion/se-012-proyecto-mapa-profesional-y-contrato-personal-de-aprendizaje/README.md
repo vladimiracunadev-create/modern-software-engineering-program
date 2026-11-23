@@ -184,14 +184,16 @@ El proyecto demuestra capacidad para dirigir el propio aprendizaje con el mismo 
 empleado al dirigir una decisión técnica.
 
 ## Definiciones de trabajo
-- **competencia:** capacidad observable en contexto con criterio de calidad;
-- **brecha:** distancia entre evidencia actual y requerida;
-- **experimento de aprendizaje:** práctica acotada que puede confirmar o refutar avance;
-- **portafolio:** evidencia seleccionada con contexto, decisiones y límites;
-- **criterio de salida:** condición verificable para avanzar.
+- **[competencia](../../../glosario/entradas/c/competencia.md):** capacidad observable en contexto con criterio de calidad;
+- **[brecha](../../../glosario/entradas/b/brecha.md):** distancia entre evidencia actual y requerida;
+- **[experimento de aprendizaje](../../../glosario/entradas/e/experimento-de-aprendizaje.md):** práctica acotada que puede confirmar o refutar avance;
+- **[portafolio](../../../glosario/entradas/p/portafolio.md):** evidencia seleccionada con contexto, decisiones y límites;
+- **[criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md):** condición verificable para avanzar.
 
 ## Glosario
-**Deliberate practice** enfoca una subcapacidad con feedback. **WIP** es trabajo en curso. **Convalidación** reconoce evidencia previa sin omitir obligaciones transversales.
+**[Deliberate practice](../../../glosario/entradas/d/deliberate-practice.md)** enfoca una subcapacidad con feedback. **[WIP](../../../glosario/entradas/w/wip.md)** es trabajo en curso. **[Convalidación](../../../glosario/entradas/c/convalidacion.md)** reconoce evidencia previa sin omitir obligaciones transversales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Brecha](../../../glosario/entradas/b/brecha.md) · [Competencia](../../../glosario/entradas/c/competencia.md) · [Convalidación](../../../glosario/entradas/c/convalidacion.md) · [Criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md) · [Deliberate practice](../../../glosario/entradas/d/deliberate-practice.md) · [Experimento de aprendizaje](../../../glosario/entradas/e/experimento-de-aprendizaje.md) · [Portafolio](../../../glosario/entradas/p/portafolio.md) · [Revisión](../../../glosario/entradas/r/revision.md) · [WIP](../../../glosario/entradas/w/wip.md).
 
 ## Ejemplo mínimo
 Objetivo débil: «aprender pruebas». Objetivo verificable: «diseñar para una regla de transferencia pruebas unitarias, de contrato y negativas, ejecutar una y justificar límites antes del 30 de noviembre».

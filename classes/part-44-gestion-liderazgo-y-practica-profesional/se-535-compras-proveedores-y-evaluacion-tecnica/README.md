@@ -135,11 +135,11 @@ Cada proveedor con disponibilidad del 99,9 % tiene caídas aleatorias de 45 minu
 
 ## Definiciones de trabajo
 
-- **puerta de aprobación:** requisito que descarta a un proveedor si no se cumple y que no se compensa con otros criterios.
-- **evaluación ponderada:** puntuación de las opciones que pasan las puertas con criterios y pesos explícitos.
-- **plan de salida:** conjunto de datos exportables, alternativa identificada, costo y plazo para dejar a un proveedor.
-- **disponibilidad compuesta:** disponibilidad de un sistema que depende en serie de varios componentes, igual al producto de las disponibilidades.
-- **crédito de nivel de servicio:** devolución parcial de la cuota que establece un contrato cuando el servicio incumple su objetivo.
+- **[puerta de aprobación](../../../glosario/entradas/p/puerta-de-aprobacion.md):** requisito que descarta a un proveedor si no se cumple y que no se compensa con otros criterios.
+- **[evaluación ponderada](../../../glosario/entradas/e/evaluacion-ponderada.md):** puntuación de las opciones que pasan las puertas con criterios y pesos explícitos.
+- **[plan de salida](../../../glosario/entradas/p/plan-de-salida.md):** conjunto de datos exportables, alternativa identificada, costo y plazo para dejar a un proveedor.
+- **[disponibilidad compuesta](../../../glosario/entradas/d/disponibilidad-compuesta.md):** disponibilidad de un sistema que depende en serie de varios componentes, igual al producto de las disponibilidades.
+- **[crédito de nivel de servicio](../../../glosario/entradas/c/credito-de-nivel-de-servicio.md):** devolución parcial de la cuota que establece un contrato cuando el servicio incumple su objetivo.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -281,11 +281,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **puerta de aprobación:** requisito que descarta a un proveedor si no se cumple y que no se compensa con otros criterios.
-- **evaluación ponderada:** puntuación de las opciones que pasan las puertas con criterios y pesos explícitos.
-- **plan de salida:** conjunto de datos exportables, alternativa identificada, costo y plazo para dejar a un proveedor.
-- **disponibilidad compuesta:** disponibilidad de un sistema que depende en serie de varios componentes, igual al producto de las disponibilidades.
-- **crédito de nivel de servicio:** devolución parcial de la cuota que establece un contrato cuando el servicio incumple su objetivo.
+- **[puerta de aprobación](../../../glosario/entradas/p/puerta-de-aprobacion.md):** requisito que descarta a un proveedor si no se cumple y que no se compensa con otros criterios.
+- **[evaluación ponderada](../../../glosario/entradas/e/evaluacion-ponderada.md):** puntuación de las opciones que pasan las puertas con criterios y pesos explícitos.
+- **[plan de salida](../../../glosario/entradas/p/plan-de-salida.md):** conjunto de datos exportables, alternativa identificada, costo y plazo para dejar a un proveedor.
+- **[disponibilidad compuesta](../../../glosario/entradas/d/disponibilidad-compuesta.md):** disponibilidad de un sistema que depende en serie de varios componentes, igual al producto de las disponibilidades.
+- **[crédito de nivel de servicio](../../../glosario/entradas/c/credito-de-nivel-de-servicio.md):** devolución parcial de la cuota que establece un contrato cuando el servicio incumple su objetivo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Crédito de nivel de servicio](../../../glosario/entradas/c/credito-de-nivel-de-servicio.md) · [Disponibilidad compuesta](../../../glosario/entradas/d/disponibilidad-compuesta.md) · [Evaluación ponderada](../../../glosario/entradas/e/evaluacion-ponderada.md) · [Plan de salida](../../../glosario/entradas/p/plan-de-salida.md) · [Puerta de aprobación](../../../glosario/entradas/p/puerta-de-aprobacion.md).
 
 ---
 

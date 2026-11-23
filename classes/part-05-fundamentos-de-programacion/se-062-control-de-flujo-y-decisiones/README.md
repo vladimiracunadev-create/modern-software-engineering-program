@@ -118,11 +118,11 @@ Lo importante no es el costo, sino dónde se equivoca una persona: en la fronter
 
 ## Definiciones de trabajo
 
-- **condición:** expresión interpretada para elegir control.
-- **truthiness:** regla que convierte valores a contexto booleano.
-- **partición:** subdominio tratado por una rama.
-- **guarda:** comprobación temprana que protege el camino principal.
-- **cortocircuito:** evaluación que omite operandos innecesarios.
+- **[condición](../../../glosario/entradas/c/condicion.md):** expresión interpretada para elegir control.
+- **[truthiness](../../../glosario/entradas/t/truthiness.md):** regla que convierte valores a contexto booleano.
+- **[partición](../../../glosario/entradas/p/particion.md):** subdominio tratado por una rama.
+- **[guarda](../../../glosario/entradas/g/guarda.md):** comprobación temprana que protege el camino principal.
+- **[cortocircuito](../../../glosario/entradas/c/cortocircuito.md):** evaluación que omite operandos innecesarios.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -282,11 +282,13 @@ Las ramas secuenciales no modelan bien procesos largos ni estados concurrentes. 
 
 ## Glosario
 
-- **condición:** expresión interpretada para elegir control.
-- **truthiness:** regla que convierte valores a contexto booleano.
-- **partición:** subdominio tratado por una rama.
-- **guarda:** comprobación temprana que protege el camino principal.
-- **cortocircuito:** evaluación que omite operandos innecesarios.
+- **[condición](../../../glosario/entradas/c/condicion.md):** expresión interpretada para elegir control.
+- **[truthiness](../../../glosario/entradas/t/truthiness.md):** regla que convierte valores a contexto booleano.
+- **[partición](../../../glosario/entradas/p/particion.md):** subdominio tratado por una rama.
+- **[guarda](../../../glosario/entradas/g/guarda.md):** comprobación temprana que protege el camino principal.
+- **[cortocircuito](../../../glosario/entradas/c/cortocircuito.md):** evaluación que omite operandos innecesarios.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición](../../../glosario/entradas/c/condicion.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Cortocircuito](../../../glosario/entradas/c/cortocircuito.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Guarda](../../../glosario/entradas/g/guarda.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Partición](../../../glosario/entradas/p/particion.md) · [Truthiness](../../../glosario/entradas/t/truthiness.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

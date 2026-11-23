@@ -142,13 +142,13 @@ La tercera figura sitúa cada falla medida en el eslabón donde entra.
 
 ## Definiciones de trabajo
 
-- **Sistema de aprendizaje automático:** conjunto de datos, código, modelo e infraestructura que decide en producción.
-- **Sesgo entre entrenamiento y servicio:** diferencia entre cómo se calculan o distribuyen las entradas en cada entorno.
-- **Deriva de covariables:** cambio de la distribución de las entradas sin cambio de su relación con la etiqueta.
-- **Deriva de concepto:** cambio de la relación entre entradas y etiqueta.
-- **Bucle de realimentación:** efecto por el cual las decisiones del modelo alteran los datos con que se reentrenará.
-- **Grupo de control:** parte de la población a la que no se le aplica la decisión, para medir su efecto.
-- **Línea base:** regla o modelo simple con el que se compara.
+- **[Sistema de aprendizaje automático](../../../glosario/entradas/s/sistema-de-aprendizaje-automatico.md):** conjunto de datos, código, modelo e infraestructura que decide en producción.
+- **[Sesgo entre entrenamiento y servicio](../../../glosario/entradas/s/sesgo-entre-entrenamiento-y-servicio.md):** diferencia entre cómo se calculan o distribuyen las entradas en cada entorno.
+- **[Deriva de covariables](../../../glosario/entradas/d/deriva-de-covariables.md):** cambio de la distribución de las entradas sin cambio de su relación con la etiqueta.
+- **[Deriva de concepto](../../../glosario/entradas/d/deriva-de-concepto.md):** cambio de la relación entre entradas y etiqueta.
+- **[Bucle de realimentación](../../../glosario/entradas/b/bucle-de-realimentacion.md):** efecto por el cual las decisiones del modelo alteran los datos con que se reentrenará.
+- **[Grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** parte de la población a la que no se le aplica la decisión, para medir su efecto.
+- **[Línea base](../../../glosario/entradas/l/linea-base.md):** regla o modelo simple con el que se compara.
 
 ## Ejemplo mínimo
 
@@ -282,6 +282,8 @@ Las cuatro fallas, su magnitud, el efecto del recordatorio y la regla son constr
 | Deriva de concepto | Cambio de la relación entre entradas y etiqueta |
 | Bucle de realimentación | Las decisiones alteran los datos futuros |
 | Grupo de control | Población sin intervención para medir el efecto |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bucle de realimentación](../../../glosario/entradas/b/bucle-de-realimentacion.md) · [Ciclo de vida](../../../glosario/entradas/c/ciclo-de-vida.md) · [Deriva de concepto](../../../glosario/entradas/d/deriva-de-concepto.md) · [Deriva de covariables](../../../glosario/entradas/d/deriva-de-covariables.md) · [Grupo de control](../../../glosario/entradas/g/grupo-de-control.md) · [Línea base](../../../glosario/entradas/l/linea-base.md) · [Sesgo entre entrenamiento y servicio](../../../glosario/entradas/s/sesgo-entre-entrenamiento-y-servicio.md) · [Sistema de aprendizaje automático](../../../glosario/entradas/s/sistema-de-aprendizaje-automatico.md).
 
 ---
 

@@ -168,11 +168,11 @@ Con celdas de 1 km y puntos uniformes se examinan 18 candidatos para encontrar 6
 
 ## Definiciones de trabajo
 
-- **sistema de referencia:** convención que da significado a un par de coordenadas respecto de una forma y un origen de la Tierra.
-- **proyección:** transformación de coordenadas geográficas a un plano, que distorsiona áreas, ángulos o distancias.
-- **instante:** punto de la línea del tiempo, independiente del reloj de cualquier zona.
-- **hora civil:** hora que marca el reloj de pared en una zona según sus reglas vigentes.
-- **índice de rejilla:** estructura que guarda los puntos por celda de un reticulado para limitar los candidatos de una consulta espacial.
+- **[sistema de referencia](../../../glosario/entradas/s/sistema-de-referencia.md):** convención que da significado a un par de coordenadas respecto de una forma y un origen de la Tierra.
+- **[proyección](../../../glosario/entradas/p/proyeccion.md):** transformación de coordenadas geográficas a un plano, que distorsiona áreas, ángulos o distancias.
+- **[instante](../../../glosario/entradas/i/instante.md):** punto de la línea del tiempo, independiente del reloj de cualquier zona.
+- **[hora civil](../../../glosario/entradas/h/hora-civil.md):** hora que marca el reloj de pared en una zona según sus reglas vigentes.
+- **[índice de rejilla](../../../glosario/entradas/i/indice-de-rejilla.md):** estructura que guarda los puntos por celda de un reticulado para limitar los candidatos de una consulta espacial.
 
 Las definiciones son operativas para el mapa de sedes y el calendario. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -315,11 +315,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **sistema de referencia:** convención que da significado a un par de coordenadas respecto de una forma y un origen de la Tierra.
-- **proyección:** transformación de coordenadas geográficas a un plano, que distorsiona áreas, ángulos o distancias.
-- **instante:** punto de la línea del tiempo, independiente del reloj de cualquier zona.
-- **hora civil:** hora que marca el reloj de pared en una zona según sus reglas vigentes.
-- **índice de rejilla:** estructura que guarda los puntos por celda de un reticulado para limitar los candidatos de una consulta espacial.
+- **[sistema de referencia](../../../glosario/entradas/s/sistema-de-referencia.md):** convención que da significado a un par de coordenadas respecto de una forma y un origen de la Tierra.
+- **[proyección](../../../glosario/entradas/p/proyeccion.md):** transformación de coordenadas geográficas a un plano, que distorsiona áreas, ángulos o distancias.
+- **[instante](../../../glosario/entradas/i/instante.md):** punto de la línea del tiempo, independiente del reloj de cualquier zona.
+- **[hora civil](../../../glosario/entradas/h/hora-civil.md):** hora que marca el reloj de pared en una zona según sus reglas vigentes.
+- **[índice de rejilla](../../../glosario/entradas/i/indice-de-rejilla.md):** estructura que guarda los puntos por celda de un reticulado para limitar los candidatos de una consulta espacial.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Hora civil](../../../glosario/entradas/h/hora-civil.md) · [Índice de rejilla](../../../glosario/entradas/i/indice-de-rejilla.md) · [Instante](../../../glosario/entradas/i/instante.md) · [Proyección](../../../glosario/entradas/p/proyeccion.md) · [Sistema de referencia](../../../glosario/entradas/s/sistema-de-referencia.md).
 
 ---
 

@@ -130,11 +130,11 @@ Con reintento sin límite al frente, tras 20 000 ejecuciones solo **99 de 990** 
 
 ## Definiciones de trabajo
 
-- **tiempo de visibilidad:** periodo durante el cual un trabajo tomado por un trabajador queda oculto para los demás.
-- **cola de muertos:** cola donde se apartan los trabajos que agotaron sus intentos para que una persona los revise.
-- **mensaje venenoso:** trabajo que falla siempre, por ejemplo por un dato corrupto.
-- **utilización:** fracción del tiempo de un trabajador que está ocupado, tasa de llegada dividida entre la de servicio.
-- **handler idempotente:** función de trabajo cuyo efecto no se repite si se ejecuta varias veces con el mismo trabajo.
+- **[tiempo de visibilidad](../../../glosario/entradas/t/tiempo-de-visibilidad.md):** periodo durante el cual un trabajo tomado por un trabajador queda oculto para los demás.
+- **[cola de muertos](../../../glosario/entradas/c/cola-de-muertos.md):** cola donde se apartan los trabajos que agotaron sus intentos para que una persona los revise.
+- **[mensaje venenoso](../../../glosario/entradas/m/mensaje-venenoso.md):** trabajo que falla siempre, por ejemplo por un dato corrupto.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo de un trabajador que está ocupado, tasa de llegada dividida entre la de servicio.
+- **[handler idempotente](../../../glosario/entradas/h/handler-idempotente.md):** función de trabajo cuyo efecto no se repite si se ejecuta varias veces con el mismo trabajo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -272,11 +272,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **trabajo:** unidad de procesamiento diferido con identificador, estado y plazo.
-- **trabajador:** proceso que toma trabajos de una cola y los ejecuta.
-- **ley de Little:** relación L = λW entre el número medio de elementos, la tasa de llegada y el tiempo medio en el sistema.
-- **M/M/1:** modelo de una cola con llegadas aleatorias, servicio exponencial y un servidor.
-- **backpressure:** mecanismo por el que un componente saturado señala a los anteriores que reduzcan la entrada.
+- **[trabajo](../../../glosario/entradas/t/trabajo.md):** unidad de procesamiento diferido con identificador, estado y plazo.
+- **[trabajador](../../../glosario/entradas/t/trabajador.md):** proceso que toma trabajos de una cola y los ejecuta.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** relación L = λW entre el número medio de elementos, la tasa de llegada y el tiempo medio en el sistema.
+- **[M/M/1](../../../glosario/entradas/m/m-m-1.md):** modelo de una cola con llegadas aleatorias, servicio exponencial y un servidor.
+- **[backpressure](../../../glosario/entradas/b/backpressure.md):** mecanismo por el que un componente saturado señala a los anteriores que reduzcan la entrada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backpressure](../../../glosario/entradas/b/backpressure.md) · [Cola de muertos](../../../glosario/entradas/c/cola-de-muertos.md) · [Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md) · [Handler idempotente](../../../glosario/entradas/h/handler-idempotente.md) · [Ley de Little](../../../glosario/entradas/l/ley-de-little.md) · [M/M/1](../../../glosario/entradas/m/m-m-1.md) · [Mensaje venenoso](../../../glosario/entradas/m/mensaje-venenoso.md) · [Tiempo de visibilidad](../../../glosario/entradas/t/tiempo-de-visibilidad.md) · [Trabajador](../../../glosario/entradas/t/trabajador.md) · [Trabajo](../../../glosario/entradas/t/trabajo.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

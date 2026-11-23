@@ -133,11 +133,11 @@ significativo = (perm + 1) / 201 < 0.05
 
 ## Definiciones de trabajo
 
-- **evaluación formativa:** evaluación cuyo objetivo es encontrar problemas para corregirlos.
-- **evaluación sumativa:** evaluación cuyo objetivo es estimar un resultado o comparar alternativas.
-- **intervalo de confianza:** rango calculado con un procedimiento que, repetido, cubre el valor verdadero con una frecuencia nominal.
-- **potencia estadística:** probabilidad de detectar una diferencia real de un tamaño dado con un procedimiento y una muestra.
-- **System Usability Scale:** cuestionario de diez preguntas que da una puntuación de 0 a 100 de usabilidad percibida.
+- **[evaluación formativa](../../../glosario/entradas/e/evaluacion-formativa.md):** evaluación cuyo objetivo es encontrar problemas para corregirlos.
+- **[evaluación sumativa](../../../glosario/entradas/e/evaluacion-sumativa.md):** evaluación cuyo objetivo es estimar un resultado o comparar alternativas.
+- **[intervalo de confianza](../../../glosario/entradas/i/intervalo-de-confianza.md):** rango calculado con un procedimiento que, repetido, cubre el valor verdadero con una frecuencia nominal.
+- **[potencia estadística](../../../glosario/entradas/p/potencia-estadistica.md):** probabilidad de detectar una diferencia real de un tamaño dado con un procedimiento y una muestra.
+- **[System Usability Scale](../../../glosario/entradas/s/system-usability-scale.md):** cuestionario de diez preguntas que da una puntuación de 0 a 100 de usabilidad percibida.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -289,11 +289,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **evaluación formativa:** evaluación cuyo objetivo es encontrar problemas para corregirlos.
-- **evaluación sumativa:** evaluación cuyo objetivo es estimar un resultado o comparar alternativas.
-- **intervalo de confianza:** rango calculado con un procedimiento que, repetido, cubre el valor verdadero con una frecuencia nominal.
-- **potencia estadística:** probabilidad de detectar una diferencia real de un tamaño dado con un procedimiento y una muestra.
-- **System Usability Scale:** cuestionario de diez preguntas que da una puntuación de 0 a 100 de usabilidad percibida.
+- **[evaluación formativa](../../../glosario/entradas/e/evaluacion-formativa.md):** evaluación cuyo objetivo es encontrar problemas para corregirlos.
+- **[evaluación sumativa](../../../glosario/entradas/e/evaluacion-sumativa.md):** evaluación cuyo objetivo es estimar un resultado o comparar alternativas.
+- **[intervalo de confianza](../../../glosario/entradas/i/intervalo-de-confianza.md):** rango calculado con un procedimiento que, repetido, cubre el valor verdadero con una frecuencia nominal.
+- **[potencia estadística](../../../glosario/entradas/p/potencia-estadistica.md):** probabilidad de detectar una diferencia real de un tamaño dado con un procedimiento y una muestra.
+- **[System Usability Scale](../../../glosario/entradas/s/system-usability-scale.md):** cuestionario de diez preguntas que da una puntuación de 0 a 100 de usabilidad percibida.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evaluación formativa](../../../glosario/entradas/e/evaluacion-formativa.md) · [Evaluación sumativa](../../../glosario/entradas/e/evaluacion-sumativa.md) · [Intervalo de confianza](../../../glosario/entradas/i/intervalo-de-confianza.md) · [Potencia estadística](../../../glosario/entradas/p/potencia-estadistica.md) · [System Usability Scale](../../../glosario/entradas/s/system-usability-scale.md).
 
 ---
 

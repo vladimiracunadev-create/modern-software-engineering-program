@@ -164,11 +164,11 @@ El ADR del monolito modular declara 2 escenarios y toca 10; el de la URL firmada
 
 ## Definiciones de trabajo
 
-- **dossier de arquitectura:** conjunto estructurado de drivers, escenarios, decisiones, vistas, funciones de aptitud y límites con referencias cruzadas verificables.
-- **validador de forma:** programa que comprueba la estructura y las referencias de un dossier, no su sentido.
-- **impacto de una decisión:** conjunto de escenarios y funciones de aptitud que dependen de los componentes que la decisión modifica.
-- **riesgo aceptado:** riesgo registrado con dueño, escenario y señal de reapertura que el equipo decide no corregir ahora.
-- **límite declarado:** afirmación explícita de lo que ni el modelo ni el validador cubren.
+- **[dossier de arquitectura](../../../glosario/entradas/d/dossier-de-arquitectura.md):** conjunto estructurado de drivers, escenarios, decisiones, vistas, funciones de aptitud y límites con referencias cruzadas verificables.
+- **[validador de forma](../../../glosario/entradas/v/validador-de-forma.md):** programa que comprueba la estructura y las referencias de un dossier, no su sentido.
+- **[impacto de una decisión](../../../glosario/entradas/i/impacto-de-una-decision.md):** conjunto de escenarios y funciones de aptitud que dependen de los componentes que la decisión modifica.
+- **[riesgo aceptado](../../../glosario/entradas/r/riesgo-aceptado.md):** riesgo registrado con dueño, escenario y señal de reapertura que el equipo decide no corregir ahora.
+- **[límite declarado](../../../glosario/entradas/l/limite-declarado.md):** afirmación explícita de lo que ni el modelo ni el validador cubren.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres análisis con datos sintéticos en Windows y Ubuntu (WSL2) co
 
 ## Glosario
 
-- **dossier de arquitectura:** conjunto estructurado de drivers, escenarios, decisiones, vistas, funciones de aptitud y límites con referencias cruzadas verificables.
-- **validador de forma:** programa que comprueba la estructura y las referencias de un dossier, no su sentido.
-- **impacto de una decisión:** conjunto de escenarios y funciones de aptitud que dependen de los componentes que la decisión modifica.
-- **riesgo aceptado:** riesgo registrado con dueño, escenario y señal de reapertura que el equipo decide no corregir ahora.
-- **límite declarado:** afirmación explícita de lo que ni el modelo ni el validador cubren.
+- **[dossier de arquitectura](../../../glosario/entradas/d/dossier-de-arquitectura.md):** conjunto estructurado de drivers, escenarios, decisiones, vistas, funciones de aptitud y límites con referencias cruzadas verificables.
+- **[validador de forma](../../../glosario/entradas/v/validador-de-forma.md):** programa que comprueba la estructura y las referencias de un dossier, no su sentido.
+- **[impacto de una decisión](../../../glosario/entradas/i/impacto-de-una-decision.md):** conjunto de escenarios y funciones de aptitud que dependen de los componentes que la decisión modifica.
+- **[riesgo aceptado](../../../glosario/entradas/r/riesgo-aceptado.md):** riesgo registrado con dueño, escenario y señal de reapertura que el equipo decide no corregir ahora.
+- **[límite declarado](../../../glosario/entradas/l/limite-declarado.md):** afirmación explícita de lo que ni el modelo ni el validador cubren.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dossier de arquitectura](../../../glosario/entradas/d/dossier-de-arquitectura.md) · [Impacto de una decisión](../../../glosario/entradas/i/impacto-de-una-decision.md) · [Límite declarado](../../../glosario/entradas/l/limite-declarado.md) · [Riesgo aceptado](../../../glosario/entradas/r/riesgo-aceptado.md) · [Validador de forma](../../../glosario/entradas/v/validador-de-forma.md).
 
 ---
 

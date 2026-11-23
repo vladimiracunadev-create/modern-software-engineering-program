@@ -138,11 +138,11 @@ Resultados: 3 verdaderos positivos (un correo y dos teléfonos con formato), 1 f
 
 ## Definiciones de trabajo
 
-- **consentimiento y finalidad:** acuerdo informado y libre de una persona a participar, para fines declarados, con la posibilidad real de retirarse.
-- **minimización y retención:** recoger solo lo necesario para la finalidad declarada y borrarlo cuando deja de serlo.
-- **identificabilidad:** posibilidad de distinguir a una persona de otras en un conjunto de datos, directamente o combinando atributos (cuasi-identificadores).
-- **seudonimización:** reemplazo de un identificador por un seudónimo de modo que la persona solo pueda reidentificarse con información adicional guardada aparte.
-- **daño, retiro y revisión:** evaluación previa de los daños posibles, criterio para detener la actividad y revisión por una persona ajena al equipo.
+- **[consentimiento y finalidad](../../../glosario/entradas/c/consentimiento-y-finalidad.md):** acuerdo informado y libre de una persona a participar, para fines declarados, con la posibilidad real de retirarse.
+- **[minimización y retención](../../../glosario/entradas/m/minimizacion-y-retencion.md):** recoger solo lo necesario para la finalidad declarada y borrarlo cuando deja de serlo.
+- **[identificabilidad](../../../glosario/entradas/i/identificabilidad.md):** posibilidad de distinguir a una persona de otras en un conjunto de datos, directamente o combinando atributos (cuasi-identificadores).
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** reemplazo de un identificador por un seudónimo de modo que la persona solo pueda reidentificarse con información adicional guardada aparte.
+- **[daño, retiro y revisión](../../../glosario/entradas/d/dano-retiro-y-revision.md):** evaluación previa de los daños posibles, criterio para detener la actividad y revisión por una persona ajena al equipo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -298,11 +298,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **consentimiento y finalidad:** acuerdo informado y libre de una persona a participar, para fines declarados, con la posibilidad real de retirarse.
-- **minimización y retención:** recoger solo lo necesario para la finalidad declarada y borrarlo cuando deja de serlo.
-- **identificabilidad:** posibilidad de distinguir a una persona de otras en un conjunto de datos, directamente o combinando atributos (cuasi-identificadores).
-- **seudonimización:** reemplazo de un identificador por un seudónimo de modo que la persona solo pueda reidentificarse con información adicional guardada aparte.
-- **daño, retiro y revisión:** evaluación previa de los daños posibles, criterio para detener la actividad y revisión por una persona ajena al equipo.
+- **[consentimiento y finalidad](../../../glosario/entradas/c/consentimiento-y-finalidad.md):** acuerdo informado y libre de una persona a participar, para fines declarados, con la posibilidad real de retirarse.
+- **[minimización y retención](../../../glosario/entradas/m/minimizacion-y-retencion.md):** recoger solo lo necesario para la finalidad declarada y borrarlo cuando deja de serlo.
+- **[identificabilidad](../../../glosario/entradas/i/identificabilidad.md):** posibilidad de distinguir a una persona de otras en un conjunto de datos, directamente o combinando atributos (cuasi-identificadores).
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** reemplazo de un identificador por un seudónimo de modo que la persona solo pueda reidentificarse con información adicional guardada aparte.
+- **[daño, retiro y revisión](../../../glosario/entradas/d/dano-retiro-y-revision.md):** evaluación previa de los daños posibles, criterio para detener la actividad y revisión por una persona ajena al equipo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consentimiento y finalidad](../../../glosario/entradas/c/consentimiento-y-finalidad.md) · [Daño, retiro y revisión](../../../glosario/entradas/d/dano-retiro-y-revision.md) · [Identificabilidad](../../../glosario/entradas/i/identificabilidad.md) · [Minimización y retención](../../../glosario/entradas/m/minimizacion-y-retencion.md) · [Seudonimización](../../../glosario/entradas/s/seudonimizacion.md).
 
 ---
 

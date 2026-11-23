@@ -188,17 +188,19 @@ bytes y longitud en cada nivel.
 
 ## Definiciones de trabajo
 
-- **punto de código:** valor del espacio Unicode;
-- **codificación:** transformación entre texto modelado y unidades binarias;
-- **grafema:** unidad aproximada percibida por una persona;
-- **normalización:** conversión a una forma Unicode definida;
-- **mojibake:** texto ilegible por interpretación incompatible de bytes.
+- **[punto de código](../../../glosario/entradas/p/punto-de-codigo.md):** valor del espacio Unicode;
+- **[codificación](../../../glosario/entradas/c/codificacion.md):** transformación entre texto modelado y unidades binarias;
+- **[grafema](../../../glosario/entradas/g/grafema.md):** unidad aproximada percibida por una persona;
+- **[normalización](../../../glosario/entradas/n/normalizacion.md):** conversión a una forma Unicode definida;
+- **[mojibake](../../../glosario/entradas/m/mojibake.md):** texto ilegible por interpretación incompatible de bytes.
 
 ## Glosario
 
-**Code unit** es unidad de una forma de codificación. **BOM** es U+FEFF al inicio bajo
-ciertos protocolos. **Replacement character** U+FFFD hace visible una decodificación no
+**[Code unit](../../../glosario/entradas/c/code-unit.md)** es unidad de una forma de codificación. **[BOM](../../../glosario/entradas/b/bom.md)** es U+FEFF al inicio bajo
+ciertos protocolos. **[Replacement character](../../../glosario/entradas/r/replacement-character.md)** U+FFFD hace visible una decodificación no
 recuperada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [BOM](../../../glosario/entradas/b/bom.md) · [Code unit](../../../glosario/entradas/c/code-unit.md) · [Codificación](../../../glosario/entradas/c/codificacion.md) · [Grafema](../../../glosario/entradas/g/grafema.md) · [Mojibake](../../../glosario/entradas/m/mojibake.md) · [Normalización](../../../glosario/entradas/n/normalizacion.md) · [Punto de código](../../../glosario/entradas/p/punto-de-codigo.md) · [Replacement character](../../../glosario/entradas/r/replacement-character.md).
 
 ## Ejemplo mínimo
 

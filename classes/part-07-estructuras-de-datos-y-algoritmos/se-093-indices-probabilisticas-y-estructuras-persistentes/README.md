@@ -112,11 +112,11 @@ La persistencia exige no modificar nodos ya publicados. Una referencia mutable c
 
 ## Definiciones de trabajo
 
-- **índices ordenados y consultas de rango:** un índice ordenado localiza fronteras y recorre un intervalo sin escanear todo.
-- **bloom filter:** un bloom filter marca varios bits por elemento.
-- **sketches y aproximación:** estructuras de resumen estiman frecuencia o cardinalidad con memoria acotada.
-- **estructuras persistentes:** una actualización produce nueva versión compartiendo partes inmutables con la anterior.
-- **índice como proyección:** todo índice duplica una vista derivada y puede quedar desincronizado.
+- **[índices ordenados y consultas de rango](../../../glosario/entradas/i/indices-ordenados-y-consultas-de-rango.md):** un índice ordenado localiza fronteras y recorre un intervalo sin escanear todo.
+- **[bloom filter](../../../glosario/entradas/b/bloom-filter.md):** un bloom filter marca varios bits por elemento.
+- **[sketches y aproximación](../../../glosario/entradas/s/sketches-y-aproximacion.md):** estructuras de resumen estiman frecuencia o cardinalidad con memoria acotada.
+- **[estructuras persistentes](../../../glosario/entradas/e/estructuras-persistentes.md):** una actualización produce nueva versión compartiendo partes inmutables con la anterior.
+- **[índice como proyección](../../../glosario/entradas/i/indice-como-proyeccion.md):** todo índice duplica una vista derivada y puede quedar desincronizado.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ Una garantía teórica no predice constantes, asignaciones ni distribución real
 
 ## Glosario
 
-- **índices ordenados y consultas de rango:** un índice ordenado localiza fronteras y recorre un intervalo sin escanear todo.
-- **bloom filter:** un bloom filter marca varios bits por elemento.
-- **sketches y aproximación:** estructuras de resumen estiman frecuencia o cardinalidad con memoria acotada.
-- **estructuras persistentes:** una actualización produce nueva versión compartiendo partes inmutables con la anterior.
-- **índice como proyección:** todo índice duplica una vista derivada y puede quedar desincronizado.
+- **[índices ordenados y consultas de rango](../../../glosario/entradas/i/indices-ordenados-y-consultas-de-rango.md):** un índice ordenado localiza fronteras y recorre un intervalo sin escanear todo.
+- **[bloom filter](../../../glosario/entradas/b/bloom-filter.md):** un bloom filter marca varios bits por elemento.
+- **[sketches y aproximación](../../../glosario/entradas/s/sketches-y-aproximacion.md):** estructuras de resumen estiman frecuencia o cardinalidad con memoria acotada.
+- **[estructuras persistentes](../../../glosario/entradas/e/estructuras-persistentes.md):** una actualización produce nueva versión compartiendo partes inmutables con la anterior.
+- **[índice como proyección](../../../glosario/entradas/i/indice-como-proyeccion.md):** todo índice duplica una vista derivada y puede quedar desincronizado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloom filter](../../../glosario/entradas/b/bloom-filter.md) · [Estructuras persistentes](../../../glosario/entradas/e/estructuras-persistentes.md) · [Índice como proyección](../../../glosario/entradas/i/indice-como-proyeccion.md) · [Índices ordenados y consultas de rango](../../../glosario/entradas/i/indices-ordenados-y-consultas-de-rango.md) · [Sketches y aproximación](../../../glosario/entradas/s/sketches-y-aproximacion.md).
 
 ---
 

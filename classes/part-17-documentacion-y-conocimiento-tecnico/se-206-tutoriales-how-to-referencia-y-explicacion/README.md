@@ -146,11 +146,11 @@ Sin cambios pasan los seis pasos. Renombrar `crear` hace fallar los pasos 1, 2, 
 
 ## Definiciones de trabajo
 
-- **tutorial:** página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
-- **guía práctica:** página orientada a un objetivo de trabajo concreto que supone competencia previa y admite bifurcaciones.
-- **referencia:** descripción completa y neutral de los elementos de un producto, estructurada como el producto.
-- **explicación:** página que aporta contexto, causas y alternativas para comprender, sin pasos ni listados.
-- **página mixta:** página cuyo contenido pertenece a más de un tipo sin separación ni enlaces entre ellos.
+- **[tutorial](../../../glosario/entradas/t/tutorial.md):** página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
+- **[guía práctica](../../../glosario/entradas/g/guia-practica.md):** página orientada a un objetivo de trabajo concreto que supone competencia previa y admite bifurcaciones.
+- **[referencia](../../../glosario/entradas/r/referencia.md):** descripción completa y neutral de los elementos de un producto, estructurada como el producto.
+- **[explicación](../../../glosario/entradas/e/explicacion.md):** página que aporta contexto, causas y alternativas para comprender, sin pasos ni listados.
+- **[página mixta](../../../glosario/entradas/p/pagina-mixta.md):** página cuyo contenido pertenece a más de un tipo sin separación ni enlaces entre ellos.
 
 Las definiciones son operativas para el portal; no reemplazan la formulación de Diátaxis, que se enlaza abajo.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **tutorial:** página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
-- **guía práctica:** página orientada a un objetivo de trabajo concreto que supone competencia previa.
-- **referencia:** descripción completa y neutral de los elementos de un producto.
-- **explicación:** página que aporta contexto, causas y alternativas para comprender.
-- **página mixta:** página cuyo contenido pertenece a más de un tipo sin separación ni enlaces entre ellos.
+- **[tutorial](../../../glosario/entradas/t/tutorial.md):** página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
+- **[guía práctica](../../../glosario/entradas/g/guia-practica.md):** página orientada a un objetivo de trabajo concreto que supone competencia previa.
+- **[referencia](../../../glosario/entradas/r/referencia.md):** descripción completa y neutral de los elementos de un producto.
+- **[explicación](../../../glosario/entradas/e/explicacion.md):** página que aporta contexto, causas y alternativas para comprender.
+- **[página mixta](../../../glosario/entradas/p/pagina-mixta.md):** página cuyo contenido pertenece a más de un tipo sin separación ni enlaces entre ellos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Explicación](../../../glosario/entradas/e/explicacion.md) · [Guía práctica](../../../glosario/entradas/g/guia-practica.md) · [Página mixta](../../../glosario/entradas/p/pagina-mixta.md) · [Referencia](../../../glosario/entradas/r/referencia.md) · [Tutorial](../../../glosario/entradas/t/tutorial.md).
 
 ---
 

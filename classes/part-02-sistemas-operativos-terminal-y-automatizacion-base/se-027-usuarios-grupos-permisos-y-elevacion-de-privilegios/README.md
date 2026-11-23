@@ -144,11 +144,11 @@ privilegios para «ver si funciona» no es una prueba sino una intervención con
 
 ## Definiciones de trabajo
 
-- **sujeto:** proceso y contexto de identidad que solicita una acción;
-- **objeto:** recurso sobre el que se evalúa la solicitud;
-- **permiso efectivo:** autoridad resultante después de reglas, grupos, herencia y contexto;
-- **elevación:** cambio a un contexto con más autoridad;
-- **mínimo privilegio:** autoridad mínima, acotada en acción, alcance y duración.
+- **[sujeto](../../../glosario/entradas/s/sujeto.md):** proceso y contexto de identidad que solicita una acción;
+- **[objeto](../../../glosario/entradas/o/objeto.md):** recurso sobre el que se evalúa la solicitud;
+- **[permiso efectivo](../../../glosario/entradas/p/permiso-efectivo.md):** autoridad resultante después de reglas, grupos, herencia y contexto;
+- **[elevación](../../../glosario/entradas/e/elevacion.md):** cambio a un contexto con más autoridad;
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** autoridad mínima, acotada en acción, alcance y duración.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma explica una denegación
 
@@ -281,11 +281,13 @@ No cubrimos administración empresarial de identidades, dominios, SELinux, AppAr
 - [Python `os`](https://docs.python.org/3/library/os.html): `chmod`, `access`, `umask` y su comportamiento diferente en Windows.
 ## Glosario
 
-- **ACL:** lista de reglas que asocia identidades o grupos con derechos sobre un objeto.
-- **Autenticación:** proceso de establecer una identidad.
-- **Autorización:** decisión sobre una acción solicitada por una identidad.
-- **Elevación:** ejecución con un contexto de autoridad mayor al habitual.
-- **Mínimo privilegio:** principio de conceder la menor autoridad suficiente, con alcance y duración acotados.
+- **[ACL](../../../glosario/entradas/a/acl.md):** lista de reglas que asocia identidades o grupos con derechos sobre un objeto.
+- **[Autenticación](../../../glosario/entradas/a/autenticacion.md):** proceso de establecer una identidad.
+- **[Autorización](../../../glosario/entradas/a/autorizacion.md):** decisión sobre una acción solicitada por una identidad.
+- **[Elevación](../../../glosario/entradas/e/elevacion.md):** ejecución con un contexto de autoridad mayor al habitual.
+- **[Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** principio de conceder la menor autoridad suficiente, con alcance y duración acotados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ACL](../../../glosario/entradas/a/acl.md) · [Autenticación](../../../glosario/entradas/a/autenticacion.md) · [Autorización](../../../glosario/entradas/a/autorizacion.md) · [Elevación](../../../glosario/entradas/e/elevacion.md) · [Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md) · [Objeto](../../../glosario/entradas/o/objeto.md) · [Permiso efectivo](../../../glosario/entradas/p/permiso-efectivo.md) · [Sujeto](../../../glosario/entradas/s/sujeto.md).
 
 ---
 [← SE-026](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-028 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)

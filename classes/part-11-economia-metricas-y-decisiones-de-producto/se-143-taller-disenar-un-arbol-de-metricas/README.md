@@ -143,11 +143,11 @@ Con el baseline central el orden es X (360), E (288), T (192), I (120) y S (96).
 
 ## Definiciones de trabajo
 
-- **árbol de métricas:** descomposición de una métrica norte en factores calculables, con responsable, fuente y decisión en cada nodo.
-- **nodo completo:** nodo con nombre, fórmula o fuente, responsable nombrado, decisión que informa y, en la raíz, métrica contraria.
-- **mutación:** copia del árbol con un defecto conocido que se usa para evaluar un validador.
-- **descomposición exacta:** reparto del cambio de la raíz entre factores sin depender del orden de sustitución.
-- **efecto por costo:** cambio esperado de la raíz al mejorar una hoja dividido por lo que cuesta lograrlo.
+- **[árbol de métricas](../../../glosario/entradas/a/arbol-de-metricas.md):** descomposición de una métrica norte en factores calculables, con responsable, fuente y decisión en cada nodo.
+- **[nodo completo](../../../glosario/entradas/n/nodo-completo.md):** nodo con nombre, fórmula o fuente, responsable nombrado, decisión que informa y, en la raíz, métrica contraria.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** copia del árbol con un defecto conocido que se usa para evaluar un validador.
+- **[descomposición exacta](../../../glosario/entradas/d/descomposicion-exacta.md):** reparto del cambio de la raíz entre factores sin depender del orden de sustitución.
+- **[efecto por costo](../../../glosario/entradas/e/efecto-por-costo.md):** cambio esperado de la raíz al mejorar una hoja dividido por lo que cuesta lograrlo.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **árbol de métricas:** descomposición de una métrica norte en factores calculables, con responsable, fuente y decisión en cada nodo.
-- **nodo completo:** nodo con nombre, fórmula o fuente, responsable nombrado, decisión que informa y, en la raíz, métrica contraria.
-- **mutación:** copia del árbol con un defecto conocido que se usa para evaluar un validador.
-- **descomposición exacta:** reparto del cambio de la raíz entre factores sin depender del orden de sustitución.
-- **efecto por costo:** cambio esperado de la raíz al mejorar una hoja dividido por lo que cuesta lograrlo.
+- **[árbol de métricas](../../../glosario/entradas/a/arbol-de-metricas.md):** descomposición de una métrica norte en factores calculables, con responsable, fuente y decisión en cada nodo.
+- **[nodo completo](../../../glosario/entradas/n/nodo-completo.md):** nodo con nombre, fórmula o fuente, responsable nombrado, decisión que informa y, en la raíz, métrica contraria.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** copia del árbol con un defecto conocido que se usa para evaluar un validador.
+- **[descomposición exacta](../../../glosario/entradas/d/descomposicion-exacta.md):** reparto del cambio de la raíz entre factores sin depender del orden de sustitución.
+- **[efecto por costo](../../../glosario/entradas/e/efecto-por-costo.md):** cambio esperado de la raíz al mejorar una hoja dividido por lo que cuesta lograrlo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol de métricas](../../../glosario/entradas/a/arbol-de-metricas.md) · [Descomposición exacta](../../../glosario/entradas/d/descomposicion-exacta.md) · [Efecto por costo](../../../glosario/entradas/e/efecto-por-costo.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Nodo completo](../../../glosario/entradas/n/nodo-completo.md).
 
 ---
 

@@ -167,11 +167,11 @@ Las tres primeras producen una salida distinta en cada proceso y son las más f�
 
 ## Definiciones de trabajo
 
-- **fixture:** estado y datos con los que se prepara una prueba antes de ejecutarla.
-- **determinismo:** propiedad de producir el mismo resultado ante las mismas entradas declaradas.
-- **dependencia del orden:** resultado de una prueba que cambia según qué pruebas se ejecutaron antes.
-- **semilla:** valor inicial de un generador pseudoaleatorio que permite repetir su secuencia.
-- **constructor de datos (builder):** función que crea un dato de prueba con valores por defecto y permite cambiar solo lo relevante.
+- **[fixture](../../../glosario/entradas/f/fixture.md):** estado y datos con los que se prepara una prueba antes de ejecutarla.
+- **[determinismo](../../../glosario/entradas/d/determinismo.md):** propiedad de producir el mismo resultado ante las mismas entradas declaradas.
+- **[dependencia del orden](../../../glosario/entradas/d/dependencia-del-orden.md):** resultado de una prueba que cambia según qué pruebas se ejecutaron antes.
+- **[semilla](../../../glosario/entradas/s/semilla.md):** valor inicial de un generador pseudoaleatorio que permite repetir su secuencia.
+- **[constructor de datos (builder)](../../../glosario/entradas/c/constructor-de-datos.md):** función que crea un dato de prueba con valores por defecto y permite cambiar solo lo relevante.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -316,11 +316,13 @@ Se ejecutaron tres experimentos con una base SQLite en memoria, una propiedad co
 
 ## Glosario
 
-- **fixture:** estado y datos con los que se prepara una prueba antes de ejecutarla.
-- **determinismo:** propiedad de producir el mismo resultado ante las mismas entradas declaradas.
-- **dependencia del orden:** resultado de una prueba que cambia según qué pruebas se ejecutaron antes.
-- **semilla:** valor inicial de un generador pseudoaleatorio que permite repetir su secuencia.
-- **constructor de datos (builder):** función que crea un dato de prueba con valores por defecto y permite cambiar solo lo relevante.
+- **[fixture](../../../glosario/entradas/f/fixture.md):** estado y datos con los que se prepara una prueba antes de ejecutarla.
+- **[determinismo](../../../glosario/entradas/d/determinismo.md):** propiedad de producir el mismo resultado ante las mismas entradas declaradas.
+- **[dependencia del orden](../../../glosario/entradas/d/dependencia-del-orden.md):** resultado de una prueba que cambia según qué pruebas se ejecutaron antes.
+- **[semilla](../../../glosario/entradas/s/semilla.md):** valor inicial de un generador pseudoaleatorio que permite repetir su secuencia.
+- **[constructor de datos (builder)](../../../glosario/entradas/c/constructor-de-datos.md):** función que crea un dato de prueba con valores por defecto y permite cambiar solo lo relevante.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Constructor de datos](../../../glosario/entradas/c/constructor-de-datos.md) · [Dependencia del orden](../../../glosario/entradas/d/dependencia-del-orden.md) · [Determinismo](../../../glosario/entradas/d/determinismo.md) · [Fixture](../../../glosario/entradas/f/fixture.md) · [Fuentes de no determinismo](../../../glosario/entradas/f/fuentes-de-no-determinismo.md) · [Semilla](../../../glosario/entradas/s/semilla.md).
 
 ---
 

@@ -159,11 +159,11 @@ El linter detecta 147 de 200 mutaciones y falla exactamente en las dos que convi
 
 ## Definiciones de trabajo
 
-- **estado estable:** conjunto de métricas observables que describen el funcionamiento normal del sistema.
-- **radio de explosión:** alcance máximo del daño que puede causar un experimento.
-- **condición de aborto:** umbral de una métrica que detiene el experimento.
+- **[estado estable](../../../glosario/entradas/e/estado-estable.md):** conjunto de métricas observables que describen el funcionamiento normal del sistema.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** alcance máximo del daño que puede causar un experimento.
+- **[condición de aborto](../../../glosario/entradas/c/condicion-de-aborto.md):** umbral de una métrica que detiene el experimento.
 - **interruptor (*circuit breaker*):** mecanismo que corta las llamadas a una dependencia tras muchos fallos y las reanuda tras un tiempo.
-- **exploración con semilla:** ejecución de una prueba bajo un planificador pseudoaleatorio con semilla registrada para poder repetirla.
+- **[exploración con semilla](../../../glosario/entradas/e/exploracion-con-semilla.md):** ejecución de una prueba bajo un planificador pseudoaleatorio con semilla registrada para poder repetirla.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **estado estable:** conjunto de métricas observables que describen el funcionamiento normal del sistema.
-- **radio de explosión:** alcance máximo del daño que puede causar un experimento.
-- **condición de aborto:** umbral de una métrica que detiene el experimento.
+- **[estado estable](../../../glosario/entradas/e/estado-estable.md):** conjunto de métricas observables que describen el funcionamiento normal del sistema.
+- **[radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md):** alcance máximo del daño que puede causar un experimento.
+- **[condición de aborto](../../../glosario/entradas/c/condicion-de-aborto.md):** umbral de una métrica que detiene el experimento.
 - **interruptor (*circuit breaker*):** mecanismo que corta las llamadas a una dependencia tras muchos fallos y las reanuda tras un tiempo.
-- **exploración con semilla:** ejecución de una prueba bajo un planificador pseudoaleatorio con semilla registrada para poder repetirla.
+- **[exploración con semilla](../../../glosario/entradas/e/exploracion-con-semilla.md):** ejecución de una prueba bajo un planificador pseudoaleatorio con semilla registrada para poder repetirla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de aborto](../../../glosario/entradas/c/condicion-de-aborto.md) · [Estado estable](../../../glosario/entradas/e/estado-estable.md) · [Exploración con semilla](../../../glosario/entradas/e/exploracion-con-semilla.md) · [Radio de explosión](../../../glosario/entradas/r/radio-de-explosion.md).
 
 ---
 

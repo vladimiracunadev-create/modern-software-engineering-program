@@ -161,11 +161,11 @@ Solo el renombrado devuelve exactamente lo que había. Las demás «tienen down�
 
 ## Definiciones de trabajo
 
-- **migración:** cambio versionado del esquema o de los datos que se aplica en orden y deja registro de que se aplicó.
-- **compatibilidad hacia atrás:** propiedad de un esquema con el que el código anterior sigue funcionando.
-- **expandir y contraer:** patrón que divide un cambio incompatible en fases compatibles: añadir lo nuevo, migrar a los clientes y quitar lo viejo.
-- **relleno por lotes:** actualización de una columna en muchas filas dividida en transacciones cortas e idempotentes.
-- **punto de no retorno:** paso desde el cual volver atrás exige un respaldo anterior.
+- **[migración](../../../glosario/entradas/m/migracion.md):** cambio versionado del esquema o de los datos que se aplica en orden y deja registro de que se aplicó.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un esquema con el que el código anterior sigue funcionando.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** patrón que divide un cambio incompatible en fases compatibles: añadir lo nuevo, migrar a los clientes y quitar lo viejo.
+- **[relleno por lotes](../../../glosario/entradas/r/relleno-por-lotes.md):** actualización de una columna en muchas filas dividida en transacciones cortas e idempotentes.
+- **[punto de no retorno](../../../glosario/entradas/p/punto-de-no-retorno.md):** paso desde el cual volver atrás exige un respaldo anterior.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **migración:** cambio versionado del esquema o de los datos que se aplica en orden y deja registro de que se aplicó.
-- **compatibilidad hacia atrás:** propiedad de un esquema con el que el código anterior sigue funcionando.
-- **expandir y contraer:** patrón que divide un cambio incompatible en fases compatibles: añadir lo nuevo, migrar a los clientes y quitar lo viejo.
-- **relleno por lotes:** actualización de una columna en muchas filas dividida en transacciones cortas e idempotentes.
-- **punto de no retorno:** paso desde el cual volver atrás exige un respaldo anterior.
+- **[migración](../../../glosario/entradas/m/migracion.md):** cambio versionado del esquema o de los datos que se aplica en orden y deja registro de que se aplicó.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un esquema con el que el código anterior sigue funcionando.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** patrón que divide un cambio incompatible en fases compatibles: añadir lo nuevo, migrar a los clientes y quitar lo viejo.
+- **[relleno por lotes](../../../glosario/entradas/r/relleno-por-lotes.md):** actualización de una columna en muchas filas dividida en transacciones cortas e idempotentes.
+- **[punto de no retorno](../../../glosario/entradas/p/punto-de-no-retorno.md):** paso desde el cual volver atrás exige un respaldo anterior.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compatibilidad entre versiones](../../../glosario/entradas/c/compatibilidad-entre-versiones.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md) · [Migración](../../../glosario/entradas/m/migracion.md) · [Punto de no retorno](../../../glosario/entradas/p/punto-de-no-retorno.md) · [Relleno por lotes](../../../glosario/entradas/r/relleno-por-lotes.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md).
 
 ---
 

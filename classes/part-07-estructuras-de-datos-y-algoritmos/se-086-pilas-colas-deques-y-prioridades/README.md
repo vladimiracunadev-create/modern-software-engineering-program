@@ -112,11 +112,11 @@ La pila además sirve para validar estructuras anidadas. Un verificador de paré
 
 ## Definiciones de trabajo
 
-- **pila y disciplina lifo:** una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir.
-- **cola y disciplina fifo:** una cola conserva llegada entre elementos de la misma clase.
-- **deque y ventanas:** la cola doble inserta y retira en ambos extremos; sirve para ventanas deslizantes y work stealing bajo contratos específicos.
-- **heap y prioridad parcial:** un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada.
-- **starvation y envejecimiento:** prioridad estricta puede posponer indefinidamente trabajo bajo.
+- **[pila y disciplina lifo](../../../glosario/entradas/p/pila-y-disciplina-lifo.md):** una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir.
+- **[cola y disciplina fifo](../../../glosario/entradas/c/cola-y-disciplina-fifo.md):** una cola conserva llegada entre elementos de la misma clase.
+- **[deque y ventanas](../../../glosario/entradas/d/deque-y-ventanas.md):** la cola doble inserta y retira en ambos extremos; sirve para ventanas deslizantes y work stealing bajo contratos específicos.
+- **[heap y prioridad parcial](../../../glosario/entradas/h/heap-y-prioridad-parcial.md):** un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada.
+- **[starvation y envejecimiento](../../../glosario/entradas/s/starvation-y-envejecimiento.md):** prioridad estricta puede posponer indefinidamente trabajo bajo.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ Una cola responde cuál sale después, no cómo encontrar identidad ni evitar du
 
 ## Glosario
 
-- **pila y disciplina lifo:** una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir.
-- **cola y disciplina fifo:** una cola conserva llegada entre elementos de la misma clase.
-- **deque y ventanas:** la cola doble inserta y retira en ambos extremos; sirve para ventanas deslizantes y work stealing bajo contratos específicos.
-- **heap y prioridad parcial:** un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada.
-- **starvation y envejecimiento:** prioridad estricta puede posponer indefinidamente trabajo bajo.
+- **[pila y disciplina lifo](../../../glosario/entradas/p/pila-y-disciplina-lifo.md):** una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir.
+- **[cola y disciplina fifo](../../../glosario/entradas/c/cola-y-disciplina-fifo.md):** una cola conserva llegada entre elementos de la misma clase.
+- **[deque y ventanas](../../../glosario/entradas/d/deque-y-ventanas.md):** la cola doble inserta y retira en ambos extremos; sirve para ventanas deslizantes y work stealing bajo contratos específicos.
+- **[heap y prioridad parcial](../../../glosario/entradas/h/heap-y-prioridad-parcial.md):** un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada.
+- **[starvation y envejecimiento](../../../glosario/entradas/s/starvation-y-envejecimiento.md):** prioridad estricta puede posponer indefinidamente trabajo bajo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola y disciplina fifo](../../../glosario/entradas/c/cola-y-disciplina-fifo.md) · [Deque y ventanas](../../../glosario/entradas/d/deque-y-ventanas.md) · [Heap y prioridad parcial](../../../glosario/entradas/h/heap-y-prioridad-parcial.md) · [Pila y disciplina lifo](../../../glosario/entradas/p/pila-y-disciplina-lifo.md) · [Starvation y envejecimiento](../../../glosario/entradas/s/starvation-y-envejecimiento.md).
 
 ---
 

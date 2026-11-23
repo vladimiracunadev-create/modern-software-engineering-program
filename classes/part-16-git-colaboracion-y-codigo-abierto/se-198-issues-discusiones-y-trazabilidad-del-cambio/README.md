@@ -112,11 +112,11 @@ Se generaron 60 cambios sobre 25 issues, con tres orígenes: commits directos en
 
 ## Definiciones de trabajo
 
-- **issue:** registro con identificador estable de un problema, una propuesta o una decisión pendiente.
-- **referencia de cierre:** palabra clave seguida del identificador de un issue que lo cierra al integrarse en la rama por defecto.
-- **pie de commit:** línea `clave: valor` al final del mensaje de un commit, legible por herramientas.
-- **trazabilidad:** propiedad de poder seguir un elemento hacia su origen y hacia sus usos.
-- **huérfano:** commit sin motivo registrado o issue sin cambio asociado.
+- **[issue](../../../glosario/entradas/i/issue.md):** registro con identificador estable de un problema, una propuesta o una decisión pendiente.
+- **[referencia de cierre](../../../glosario/entradas/r/referencia-de-cierre.md):** palabra clave seguida del identificador de un issue que lo cierra al integrarse en la rama por defecto.
+- **[pie de commit](../../../glosario/entradas/p/pie-de-commit.md):** línea `clave: valor` al final del mensaje de un commit, legible por herramientas.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** propiedad de poder seguir un elemento hacia su origen y hacia sus usos.
+- **[huérfano](../../../glosario/entradas/h/huerfano.md):** commit sin motivo registrado o issue sin cambio asociado.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **issue:** registro con identificador estable de un problema, una propuesta o una decisión pendiente.
-- **referencia de cierre:** palabra clave seguida del identificador de un issue que lo cierra al integrarse en la rama por defecto.
-- **pie de commit:** línea `clave: valor` al final del mensaje de un commit, legible por herramientas.
-- **trazabilidad:** propiedad de poder seguir un elemento hacia su origen y hacia sus usos.
-- **huérfano:** commit sin motivo registrado o issue sin cambio asociado.
+- **[issue](../../../glosario/entradas/i/issue.md):** registro con identificador estable de un problema, una propuesta o una decisión pendiente.
+- **[referencia de cierre](../../../glosario/entradas/r/referencia-de-cierre.md):** palabra clave seguida del identificador de un issue que lo cierra al integrarse en la rama por defecto.
+- **[pie de commit](../../../glosario/entradas/p/pie-de-commit.md):** línea `clave: valor` al final del mensaje de un commit, legible por herramientas.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** propiedad de poder seguir un elemento hacia su origen y hacia sus usos.
+- **[huérfano](../../../glosario/entradas/h/huerfano.md):** commit sin motivo registrado o issue sin cambio asociado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Huérfano](../../../glosario/entradas/h/huerfano.md) · [Issue](../../../glosario/entradas/i/issue.md) · [Pie de commit](../../../glosario/entradas/p/pie-de-commit.md) · [Referencia de cierre](../../../glosario/entradas/r/referencia-de-cierre.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md).
 
 ---
 

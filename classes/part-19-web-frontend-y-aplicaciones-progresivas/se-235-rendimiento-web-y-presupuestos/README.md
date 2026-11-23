@@ -135,11 +135,11 @@ bajo_presupuesto = sum(1 for v in p75s if v <= 2500) / len(p75s)
 
 ## Definiciones de trabajo
 
-- **percentil 75:** valor por debajo del cual está el 75 % de las visitas; se usa para evaluar métricas de experiencia.
-- **presupuesto de rendimiento:** límite explícito y comprobable sobre una métrica o un tamaño que el equipo se compromete a no superar.
-- **ruta crítica:** cadena más larga de recursos dependientes que decide el tiempo hasta la primera pintura.
-- **minificación:** transformación del código que elimina lo que el motor no necesita sin cambiar su comportamiento.
-- **precarga (`preload`):** pista que hace que el navegador pida un recurso antes de descubrirlo por sí mismo.
+- **[percentil 75](../../../glosario/entradas/p/percentil-75.md):** valor por debajo del cual está el 75 % de las visitas; se usa para evaluar métricas de experiencia.
+- **[presupuesto de rendimiento](../../../glosario/entradas/p/presupuesto-de-rendimiento.md):** límite explícito y comprobable sobre una métrica o un tamaño que el equipo se compromete a no superar.
+- **[ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** cadena más larga de recursos dependientes que decide el tiempo hasta la primera pintura.
+- **[minificación](../../../glosario/entradas/m/minificacion.md):** transformación del código que elimina lo que el motor no necesita sin cambiar su comportamiento.
+- **[precarga (`preload`)](../../../glosario/entradas/p/precarga.md):** pista que hace que el navegador pida un recurso antes de descubrirlo por sí mismo.
 
 Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
 
@@ -284,11 +284,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **percentil 75:** valor por debajo del cual está el 75 % de las visitas; se usa para evaluar métricas de experiencia.
-- **presupuesto de rendimiento:** límite explícito y comprobable sobre una métrica o un tamaño que el equipo se compromete a no superar.
-- **ruta crítica:** cadena más larga de recursos dependientes que decide el tiempo hasta la primera pintura.
-- **minificación:** transformación del código que elimina lo que el motor no necesita sin cambiar su comportamiento.
-- **precarga (`preload`):** pista que hace que el navegador pida un recurso antes de descubrirlo por sí mismo.
+- **[percentil 75](../../../glosario/entradas/p/percentil-75.md):** valor por debajo del cual está el 75 % de las visitas; se usa para evaluar métricas de experiencia.
+- **[presupuesto de rendimiento](../../../glosario/entradas/p/presupuesto-de-rendimiento.md):** límite explícito y comprobable sobre una métrica o un tamaño que el equipo se compromete a no superar.
+- **[ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** cadena más larga de recursos dependientes que decide el tiempo hasta la primera pintura.
+- **[minificación](../../../glosario/entradas/m/minificacion.md):** transformación del código que elimina lo que el motor no necesita sin cambiar su comportamiento.
+- **[precarga (`preload`)](../../../glosario/entradas/p/precarga.md):** pista que hace que el navegador pida un recurso antes de descubrirlo por sí mismo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Byte](../../../glosario/entradas/b/byte.md) · [Minificación](../../../glosario/entradas/m/minificacion.md) · [Percentil 75](../../../glosario/entradas/p/percentil-75.md) · [Precarga](../../../glosario/entradas/p/precarga.md) · [Presupuesto](../../../glosario/entradas/p/presupuesto.md) · [Presupuesto de rendimiento](../../../glosario/entradas/p/presupuesto-de-rendimiento.md) · [Ruta crítica](../../../glosario/entradas/r/ruta-critica.md).
 
 ---
 

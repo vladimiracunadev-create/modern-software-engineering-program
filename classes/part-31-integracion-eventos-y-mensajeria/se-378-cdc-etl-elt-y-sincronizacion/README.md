@@ -199,11 +199,11 @@ Con linaje de tabla, cambiar el correo de clientes alerta a 4 activos cuando sol
 
 ## Definiciones de trabajo
 
-- **captura de cambios (CDC):** mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
-- **instantánea:** copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
-- **ETL:** modelo en el que los datos se extraen, se transforman y luego se cargan al destino.
-- **ELT:** modelo en el que los datos se extraen, se cargan crudos y se transforman dentro del destino.
-- **lápida:** registro de que una clave fue borrada, con su versión, que impide que un cambio anterior la reviva.
+- **[captura de cambios (CDC)](../../../glosario/entradas/c/captura-de-cambios.md):** mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
+- **[instantánea](../../../glosario/entradas/i/instantanea.md):** copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
+- **[ETL](../../../glosario/entradas/e/etl.md):** modelo en el que los datos se extraen, se transforman y luego se cargan al destino.
+- **[ELT](../../../glosario/entradas/e/elt.md):** modelo en el que los datos se extraen, se cargan crudos y se transforman dentro del destino.
+- **[lápida](../../../glosario/entradas/l/lapida.md):** registro de que una clave fue borrada, con su versión, que impide que un cambio anterior la reviva.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -347,11 +347,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **captura de cambios (CDC):** mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
-- **instantánea:** copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
-- **ETL:** modelo en el que los datos se extraen, se transforman y luego se cargan al destino.
-- **ELT:** modelo en el que los datos se extraen, se cargan crudos y se transforman dentro del destino.
-- **lápida:** registro de que una clave fue borrada, con su versión, que impide que un cambio anterior la reviva.
+- **[captura de cambios (CDC)](../../../glosario/entradas/c/captura-de-cambios.md):** mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
+- **[instantánea](../../../glosario/entradas/i/instantanea.md):** copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
+- **[ETL](../../../glosario/entradas/e/etl.md):** modelo en el que los datos se extraen, se transforman y luego se cargan al destino.
+- **[ELT](../../../glosario/entradas/e/elt.md):** modelo en el que los datos se extraen, se cargan crudos y se transforman dentro del destino.
+- **[lápida](../../../glosario/entradas/l/lapida.md):** registro de que una clave fue borrada, con su versión, que impide que un cambio anterior la reviva.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Captura de cambios](../../../glosario/entradas/c/captura-de-cambios.md) · [Consistencia eventual](../../../glosario/entradas/c/consistencia-eventual.md) · [ELT](../../../glosario/entradas/e/elt.md) · [ETL](../../../glosario/entradas/e/etl.md) · [Instantánea](../../../glosario/entradas/i/instantanea.md) · [Lápida](../../../glosario/entradas/l/lapida.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md).
 
 ---
 

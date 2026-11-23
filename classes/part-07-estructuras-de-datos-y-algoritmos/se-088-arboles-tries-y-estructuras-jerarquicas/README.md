@@ -112,11 +112,11 @@ El montículo binario muestra otra forma de jerarquía: un arreglo plano donde e
 
 ## Definiciones de trabajo
 
-- **árbol, raíz y subárbol:** un árbol conecta nodos sin ciclos mediante relación padre-hijo y ofrece un camino único desde la raíz.
-- **árbol de búsqueda:** en un bst, claves menores y mayores se separan por subárbol.
-- **balance y rotaciones:** árboles avl o rojo-negro acotan altura mediante metadatos y rotaciones que preservan orden.
-- **trie y prefijos:** un trie comparte prefijos a lo largo de aristas o nodos.
-- **recorridos y serialización:** preorden sirve para copiar estructura, inorden produce claves ordenadas en un bst y postorden procesa hijos antes que padre.
+- **[árbol, raíz y subárbol](../../../glosario/entradas/a/arbol-raiz-y-subarbol.md):** un árbol conecta nodos sin ciclos mediante relación padre-hijo y ofrece un camino único desde la raíz.
+- **[árbol de búsqueda](../../../glosario/entradas/a/arbol-de-busqueda.md):** en un bst, claves menores y mayores se separan por subárbol.
+- **[balance y rotaciones](../../../glosario/entradas/b/balance-y-rotaciones.md):** árboles avl o rojo-negro acotan altura mediante metadatos y rotaciones que preservan orden.
+- **[trie y prefijos](../../../glosario/entradas/t/trie-y-prefijos.md):** un trie comparte prefijos a lo largo de aristas o nodos.
+- **[recorridos y serialización](../../../glosario/entradas/r/recorridos-y-serializacion.md):** preorden sirve para copiar estructura, inorden produce claves ordenadas en un bst y postorden procesa hijos antes que padre.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ Un árbol representa jerarquía, no dependencias arbitrarias o múltiples rutas.
 
 ## Glosario
 
-- **árbol, raíz y subárbol:** un árbol conecta nodos sin ciclos mediante relación padre-hijo y ofrece un camino único desde la raíz.
-- **árbol de búsqueda:** en un bst, claves menores y mayores se separan por subárbol.
-- **balance y rotaciones:** árboles avl o rojo-negro acotan altura mediante metadatos y rotaciones que preservan orden.
-- **trie y prefijos:** un trie comparte prefijos a lo largo de aristas o nodos.
-- **recorridos y serialización:** preorden sirve para copiar estructura, inorden produce claves ordenadas en un bst y postorden procesa hijos antes que padre.
+- **[árbol, raíz y subárbol](../../../glosario/entradas/a/arbol-raiz-y-subarbol.md):** un árbol conecta nodos sin ciclos mediante relación padre-hijo y ofrece un camino único desde la raíz.
+- **[árbol de búsqueda](../../../glosario/entradas/a/arbol-de-busqueda.md):** en un bst, claves menores y mayores se separan por subárbol.
+- **[balance y rotaciones](../../../glosario/entradas/b/balance-y-rotaciones.md):** árboles avl o rojo-negro acotan altura mediante metadatos y rotaciones que preservan orden.
+- **[trie y prefijos](../../../glosario/entradas/t/trie-y-prefijos.md):** un trie comparte prefijos a lo largo de aristas o nodos.
+- **[recorridos y serialización](../../../glosario/entradas/r/recorridos-y-serializacion.md):** preorden sirve para copiar estructura, inorden produce claves ordenadas en un bst y postorden procesa hijos antes que padre.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol de búsqueda](../../../glosario/entradas/a/arbol-de-busqueda.md) · [Árbol, raíz y subárbol](../../../glosario/entradas/a/arbol-raiz-y-subarbol.md) · [Balance y rotaciones](../../../glosario/entradas/b/balance-y-rotaciones.md) · [Recorridos y serialización](../../../glosario/entradas/r/recorridos-y-serializacion.md) · [Trie y prefijos](../../../glosario/entradas/t/trie-y-prefijos.md).
 
 ---
 

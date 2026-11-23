@@ -132,11 +132,11 @@ importa. Por eso la decisión de instalar considera la procedencia del repositor
 
 ## Definiciones de trabajo
 
-- **paquete:** artefactos, metadatos y acciones administradas como una unidad;
-- **dependencia transitiva:** componente requerido a través de otra dependencia;
-- **procedencia:** evidencia sobre origen y cadena de publicación;
-- **alcance:** conjunto de usuarios, proyectos o sistema afectado;
-- **reversibilidad:** capacidad demostrada de retirar cambios o volver a un estado definido.
+- **[paquete](../../../glosario/entradas/p/paquete.md):** artefactos, metadatos y acciones administradas como una unidad;
+- **[dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md):** componente requerido a través de otra dependencia;
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** evidencia sobre origen y cadena de publicación;
+- **[alcance](../../../glosario/entradas/a/alcance.md):** conjunto de usuarios, proyectos o sistema afectado;
+- **[reversibilidad](../../../glosario/entradas/r/reversibilidad.md):** capacidad demostrada de retirar cambios o volver a un estado definido.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma verifica sus dependencias
 
@@ -260,11 +260,13 @@ No realizamos auditoría completa de cadena de suministro ni declaramos seguro u
 - [Python Packaging User Guide](https://packaging.python.org/): diferencia entre distribuciones fuente y ruedas, y cómo se instalan.
 ## Glosario
 
-- **Dependencia:** componente requerido bajo una relación y restricción declaradas.
-- **Lockfile:** registro de resoluciones concretas para repetir una instalación.
-- **Procedencia:** evidencia sobre origen y cadena de publicación de un artefacto.
-- **Repositorio de paquetes:** servicio e índice desde el que un gestor obtiene metadatos y artefactos.
-- **Transacción:** conjunto de cambios tratado como una unidad según garantías del gestor.
+- **[Dependencia](../../../glosario/entradas/d/dependencia.md):** componente requerido bajo una relación y restricción declaradas.
+- **[Lockfile](../../../glosario/entradas/l/lockfile.md):** registro de resoluciones concretas para repetir una instalación.
+- **[Procedencia](../../../glosario/entradas/p/procedencia.md):** evidencia sobre origen y cadena de publicación de un artefacto.
+- **[Repositorio de paquetes](../../../glosario/entradas/r/repositorio-de-paquetes.md):** servicio e índice desde el que un gestor obtiene metadatos y artefactos.
+- **[Transacción](../../../glosario/entradas/t/transaccion.md):** conjunto de cambios tratado como una unidad según garantías del gestor.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Dependencia](../../../glosario/entradas/d/dependencia.md) · [Dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md) · [Lockfile](../../../glosario/entradas/l/lockfile.md) · [Paquete](../../../glosario/entradas/p/paquete.md) · [Procedencia](../../../glosario/entradas/p/procedencia.md) · [Repositorio de paquetes](../../../glosario/entradas/r/repositorio-de-paquetes.md) · [Resolución](../../../glosario/entradas/r/resolucion.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md) · [Transacción](../../../glosario/entradas/t/transaccion.md).
 
 ---
 [← SE-031](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-033 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)

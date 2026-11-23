@@ -135,13 +135,13 @@ Las facturas por consumo que sorprenden generan disputas y bajas. La contramedid
 
 ## Definiciones de trabajo
 
-- **Métrica facturable:** magnitud medida que se convierte en importe, con unidad y precisión definidas.
-- **Evento de uso:** registro inmutable de un hecho medible, con identidad, inquilino, cantidad y tiempo de ocurrencia.
-- **Deduplicación:** descartar eventos repetidos mediante su identificador.
-- **Tiempo de ocurrencia / de procesamiento:** cuándo ocurrió el hecho frente a cuándo lo recibió el sistema.
-- **Ventana de gracia (cierre):** plazo tras el fin del periodo durante el cual aún se aceptan eventos antes de emitir la factura.
-- **Ajuste:** línea en una factura posterior que corrige lo que llegó tras el cierre.
-- **Tramos graduales / por volumen:** cada tramo a su precio frente a toda la cantidad al precio de su tramo.
+- **[Métrica facturable](../../../glosario/entradas/m/metrica-facturable.md):** magnitud medida que se convierte en importe, con unidad y precisión definidas.
+- **[Evento de uso](../../../glosario/entradas/e/evento-de-uso.md):** registro inmutable de un hecho medible, con identidad, inquilino, cantidad y tiempo de ocurrencia.
+- **[Deduplicación](../../../glosario/entradas/d/deduplicacion.md):** descartar eventos repetidos mediante su identificador.
+- **[Tiempo de ocurrencia / de procesamiento](../../../glosario/entradas/t/tiempo-de-ocurrencia-de-procesamiento.md):** cuándo ocurrió el hecho frente a cuándo lo recibió el sistema.
+- **[Ventana de gracia (cierre)](../../../glosario/entradas/v/ventana-de-gracia.md):** plazo tras el fin del periodo durante el cual aún se aceptan eventos antes de emitir la factura.
+- **[Ajuste](../../../glosario/entradas/a/ajuste.md):** línea en una factura posterior que corrige lo que llegó tras el cierre.
+- **[Tramos graduales / por volumen](../../../glosario/entradas/t/tramos-graduales-por-volumen.md):** cada tramo a su precio frente a toda la cantidad al precio de su tramo.
 
 ## Ejemplo mínimo
 
@@ -290,6 +290,8 @@ Se midieron 30 000 eventos sintéticos con duplicados y tardíos simulados con s
 | Ajuste | Corrección de lo tardío en una factura posterior |
 | Tramos graduales | Cada tramo a su precio |
 | Precio por volumen | Toda la cantidad al precio de su tramo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ajuste](../../../glosario/entradas/a/ajuste.md) · [Deduplicación](../../../glosario/entradas/d/deduplicacion.md) · [Evento de uso](../../../glosario/entradas/e/evento-de-uso.md) · [Métrica facturable](../../../glosario/entradas/m/metrica-facturable.md) · [Tiempo de ocurrencia / de procesamiento](../../../glosario/entradas/t/tiempo-de-ocurrencia-de-procesamiento.md) · [Tramos graduales / por volumen](../../../glosario/entradas/t/tramos-graduales-por-volumen.md) · [Ventana de gracia](../../../glosario/entradas/v/ventana-de-gracia.md).
 
 ---
 

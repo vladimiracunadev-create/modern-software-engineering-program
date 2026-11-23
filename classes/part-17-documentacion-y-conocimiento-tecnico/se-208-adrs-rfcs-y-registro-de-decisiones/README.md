@@ -142,11 +142,11 @@ Con 2 suposiciones y 10 % anual, la probabilidad de que alguna haya cambiado es 
 
 ## Definiciones de trabajo
 
-- **ADR:** registro breve de una decisión con contexto, alternativas, decisión, consecuencias y estado.
-- **RFC:** propuesta publicada para revisión antes de decidir, con un proceso de estados y criterios de aceptación.
-- **suposición:** condición del entorno que la decisión da por cierta y cuyo cambio podría invalidarla.
-- **sustitución:** relación entre dos ADR por la que el segundo reemplaza al primero sin borrarlo.
-- **fecha de revisión:** momento o condición en que se vuelve a comprobar que las suposiciones siguen valiendo.
+- **[ADR](../../../glosario/entradas/a/adr.md):** registro breve de una decisión con contexto, alternativas, decisión, consecuencias y estado.
+- **[RFC](../../../glosario/entradas/r/rfc.md):** propuesta publicada para revisión antes de decidir, con un proceso de estados y criterios de aceptación.
+- **[suposición](../../../glosario/entradas/s/suposicion.md):** condición del entorno que la decisión da por cierta y cuyo cambio podría invalidarla.
+- **[sustitución](../../../glosario/entradas/s/sustitucion.md):** relación entre dos ADR por la que el segundo reemplaza al primero sin borrarlo.
+- **[fecha de revisión](../../../glosario/entradas/f/fecha-de-revision.md):** momento o condición en que se vuelve a comprobar que las suposiciones siguen valiendo.
 
 Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ADR:** registro breve de una decisión con contexto, alternativas, decisión, consecuencias y estado.
-- **RFC:** propuesta publicada para revisión antes de decidir.
-- **suposición:** condición del entorno que la decisión da por cierta y cuyo cambio podría invalidarla.
-- **sustitución:** relación por la que un ADR reemplaza a otro sin borrarlo.
-- **fecha de revisión:** momento o condición en que se comprueba que las suposiciones siguen valiendo.
+- **[ADR](../../../glosario/entradas/a/adr.md):** registro breve de una decisión con contexto, alternativas, decisión, consecuencias y estado.
+- **[RFC](../../../glosario/entradas/r/rfc.md):** propuesta publicada para revisión antes de decidir.
+- **[suposición](../../../glosario/entradas/s/suposicion.md):** condición del entorno que la decisión da por cierta y cuyo cambio podría invalidarla.
+- **[sustitución](../../../glosario/entradas/s/sustitucion.md):** relación por la que un ADR reemplaza a otro sin borrarlo.
+- **[fecha de revisión](../../../glosario/entradas/f/fecha-de-revision.md):** momento o condición en que se comprueba que las suposiciones siguen valiendo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ADR](../../../glosario/entradas/a/adr.md) · [Fecha de revisión](../../../glosario/entradas/f/fecha-de-revision.md) · [RFC](../../../glosario/entradas/r/rfc.md) · [Suposición](../../../glosario/entradas/s/suposicion.md) · [Sustitución](../../../glosario/entradas/s/sustitucion.md).
 
 ---
 

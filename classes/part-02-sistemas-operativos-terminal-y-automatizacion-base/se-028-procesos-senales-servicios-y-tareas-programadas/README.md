@@ -142,11 +142,11 @@ las tareas programadas deben ser idempotentes, usar un bloqueo contra el solapam
 
 ## Definiciones de trabajo
 
-- **proceso:** instancia de un programa con contexto y recursos administrados;
-- **hilo:** flujo de ejecución planificable dentro de un proceso;
-- **espera:** estado en que el progreso depende de un evento o recurso;
-- **servicio:** proceso gestionado por un supervisor y una política de ciclo de vida;
-- **idempotencia:** propiedad por la que repetir una operación no multiplica su efecto previsto.
+- **[proceso](../../../glosario/entradas/p/proceso.md):** instancia de un programa con contexto y recursos administrados;
+- **[hilo](../../../glosario/entradas/h/hilo.md):** flujo de ejecución planificable dentro de un proceso;
+- **[espera](../../../glosario/entradas/e/espera.md):** estado en que el progreso depende de un evento o recurso;
+- **[servicio](../../../glosario/entradas/s/servicio.md):** proceso gestionado por un supervisor y una política de ciclo de vida;
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad por la que repetir una operación no multiplica su efecto previsto.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma observa el analizador local de eventos bloqueado
 
@@ -271,11 +271,13 @@ No hacemos depuración de kernel ni análisis forense de memoria. La observabili
 - [systemd.exec(5)](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html): opciones de ejecución de servicios, incluido `WorkingDirectory`, y los códigos de salida de fallos de preparación como `200/CHDIR`.
 ## Glosario
 
-- **Código de salida:** valor con el que un proceso comunica una categoría de resultado.
-- **Daemon/servicio:** proceso no interactivo administrado bajo una política de ciclo de vida.
-- **Hilo:** flujo planificable de ejecución dentro de un proceso.
-- **PID:** identificador temporal asignado a un proceso.
-- **Terminación cooperativa:** solicitud que permite al programa cerrar ordenadamente.
+- **[Código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** valor con el que un proceso comunica una categoría de resultado.
+- **[Daemon/servicio](../../../glosario/entradas/d/daemon-servicio.md):** proceso no interactivo administrado bajo una política de ciclo de vida.
+- **[Hilo](../../../glosario/entradas/h/hilo.md):** flujo planificable de ejecución dentro de un proceso.
+- **[PID](../../../glosario/entradas/p/pid.md):** identificador temporal asignado a un proceso.
+- **[Terminación cooperativa](../../../glosario/entradas/t/terminacion-cooperativa.md):** solicitud que permite al programa cerrar ordenadamente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Código de salida](../../../glosario/entradas/c/codigo-de-salida.md) · [Daemon/servicio](../../../glosario/entradas/d/daemon-servicio.md) · [Espera](../../../glosario/entradas/e/espera.md) · [Hilo](../../../glosario/entradas/h/hilo.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [PID](../../../glosario/entradas/p/pid.md) · [Planificación](../../../glosario/entradas/p/planificacion.md) · [Proceso](../../../glosario/entradas/p/proceso.md) · [Servicio](../../../glosario/entradas/s/servicio.md) · [Terminación](../../../glosario/entradas/t/terminacion.md) · [Terminación cooperativa](../../../glosario/entradas/t/terminacion-cooperativa.md).
 
 ---
 [← SE-027](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-029 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)

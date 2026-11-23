@@ -155,11 +155,11 @@ Cada celda es el porcentaje del interés total que se evita.
 
 ## Definiciones de trabajo
 
-- **deuda técnica:** costo futuro adicional que se acepta al elegir una solución más rápida o más incompleta hoy.
-- **principal:** costo de eliminar el atajo que originó la deuda.
-- **interés:** costo extra, por cada vez que se trabaja sobre el código afectado, de convivir con la deuda.
-- **deuda deliberada:** deuda contraída con conocimiento de que lo es y de su costo.
-- **opción de refactorizar:** derecho, sin obligación, de pagar el principal cuando el código se vuelva a tocar.
+- **[deuda técnica](../../../glosario/entradas/d/deuda-tecnica.md):** costo futuro adicional que se acepta al elegir una solución más rápida o más incompleta hoy.
+- **[principal](../../../glosario/entradas/p/principal.md):** costo de eliminar el atajo que originó la deuda.
+- **[interés](../../../glosario/entradas/i/interes.md):** costo extra, por cada vez que se trabaja sobre el código afectado, de convivir con la deuda.
+- **[deuda deliberada](../../../glosario/entradas/d/deuda-deliberada.md):** deuda contraída con conocimiento de que lo es y de su costo.
+- **[opción de refactorizar](../../../glosario/entradas/o/opcion-de-refactorizar.md):** derecho, sin obligación, de pagar el principal cuando el código se vuelva a tocar.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -303,11 +303,13 @@ Se ejecutaron tres modelos con parámetros supuestos y datos sintéticos en Wind
 
 ## Glosario
 
-- **deuda técnica:** costo futuro adicional que se acepta al elegir una solución más rápida o más incompleta hoy.
-- **principal:** costo de eliminar el atajo que originó la deuda.
-- **interés:** costo extra, por cada vez que se trabaja sobre el código afectado, de convivir con la deuda.
-- **deuda deliberada:** deuda contraída con conocimiento de que lo es y de su costo.
-- **opción de refactorizar:** derecho, sin obligación, de pagar el principal cuando el código se vuelva a tocar.
+- **[deuda técnica](../../../glosario/entradas/d/deuda-tecnica.md):** costo futuro adicional que se acepta al elegir una solución más rápida o más incompleta hoy.
+- **[principal](../../../glosario/entradas/p/principal.md):** costo de eliminar el atajo que originó la deuda.
+- **[interés](../../../glosario/entradas/i/interes.md):** costo extra, por cada vez que se trabaja sobre el código afectado, de convivir con la deuda.
+- **[deuda deliberada](../../../glosario/entradas/d/deuda-deliberada.md):** deuda contraída con conocimiento de que lo es y de su costo.
+- **[opción de refactorizar](../../../glosario/entradas/o/opcion-de-refactorizar.md):** derecho, sin obligación, de pagar el principal cuando el código se vuelva a tocar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deuda deliberada](../../../glosario/entradas/d/deuda-deliberada.md) · [Deuda técnica](../../../glosario/entradas/d/deuda-tecnica.md) · [Interés](../../../glosario/entradas/i/interes.md) · [Opción de refactorizar](../../../glosario/entradas/o/opcion-de-refactorizar.md) · [Principal](../../../glosario/entradas/p/principal.md).
 
 ---
 

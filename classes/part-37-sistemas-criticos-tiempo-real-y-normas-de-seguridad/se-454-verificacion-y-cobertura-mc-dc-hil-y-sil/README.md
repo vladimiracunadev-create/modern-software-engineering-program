@@ -127,13 +127,13 @@ La tercera medida compara el número de pruebas de MC/DC con el recorrido exhaus
 
 ## Definiciones de trabajo
 
-- **Cobertura de decisión:** cada decisión toma ambos resultados en alguna prueba.
-- **Cobertura de condiciones:** cada condición simple toma ambos valores en alguna prueba.
-- **MC/DC:** además, cada condición muestra su influencia independiente en el resultado.
-- **Par de independencia:** dos vectores que difieren solo en una condición y dan resultados distintos.
-- **Mutante:** copia del código con un cambio pequeño y plausible.
-- **SIL:** simulación del controlador contra un modelo de planta en software.
-- **HIL:** banco con el controlador real conectado a una simulación de la planta en tiempo real.
+- **[Cobertura de decisión](../../../glosario/entradas/c/cobertura-de-decision.md):** cada decisión toma ambos resultados en alguna prueba.
+- **[Cobertura de condiciones](../../../glosario/entradas/c/cobertura-de-condiciones.md):** cada condición simple toma ambos valores en alguna prueba.
+- **[MC/DC](../../../glosario/entradas/m/mc-dc.md):** además, cada condición muestra su influencia independiente en el resultado.
+- **[Par de independencia](../../../glosario/entradas/p/par-de-independencia.md):** dos vectores que difieren solo en una condición y dan resultados distintos.
+- **[Mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio pequeño y plausible.
+- **[SIL](../../../glosario/entradas/s/sil.md):** simulación del controlador contra un modelo de planta en software.
+- **[HIL](../../../glosario/entradas/h/hil.md):** banco con el controlador real conectado a una simulación de la planta en tiempo real.
 
 ## Ejemplo mínimo
 
@@ -267,6 +267,8 @@ La decisión, los 17 mutantes, la planta y el retardo son del autor; no hay banc
 | SIL | Simulación del controlador contra un modelo de planta |
 | HIL | Banco con el controlador real contra una planta simulada en tiempo real |
 | Decisión | Expresión booleana que determina un resultado del programa |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura de condiciones](../../../glosario/entradas/c/cobertura-de-condiciones.md) · [Cobertura de decisión](../../../glosario/entradas/c/cobertura-de-decision.md) · [HIL](../../../glosario/entradas/h/hil.md) · [MC/DC](../../../glosario/entradas/m/mc-dc.md) · [Par de independencia](../../../glosario/entradas/p/par-de-independencia.md) · [SIL](../../../glosario/entradas/s/sil.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

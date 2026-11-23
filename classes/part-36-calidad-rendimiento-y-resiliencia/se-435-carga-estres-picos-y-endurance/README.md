@@ -154,11 +154,11 @@ Una prueba más larga estrecha el intervalo (de 134 ms de rango a 64) y aun así
 
 ## Definiciones de trabajo
 
-- **prueba de carga:** ejecución con la carga esperada para comprobar el cumplimiento en régimen estable.
-- **prueba de estrés:** ejecución con carga creciente hasta el límite para observar cómo se rompe el sistema.
-- **prueba de pico:** ráfaga súbita de carga para medir la supervivencia y el tiempo de recuperación.
-- **prueba de resistencia:** ejecución larga con carga moderada para encontrar fallos acumulativos.
-- **omisión coordinada:** subregistro de la espera causada por una pausa del servidor cuando el generador deja de enviar mientras espera respuesta.
+- **[prueba de carga](../../../glosario/entradas/p/prueba-de-carga.md):** ejecución con la carga esperada para comprobar el cumplimiento en régimen estable.
+- **[prueba de estrés](../../../glosario/entradas/p/prueba-de-estres.md):** ejecución con carga creciente hasta el límite para observar cómo se rompe el sistema.
+- **[prueba de pico](../../../glosario/entradas/p/prueba-de-pico.md):** ráfaga súbita de carga para medir la supervivencia y el tiempo de recuperación.
+- **[prueba de resistencia](../../../glosario/entradas/p/prueba-de-resistencia.md):** ejecución larga con carga moderada para encontrar fallos acumulativos.
+- **[omisión coordinada](../../../glosario/entradas/o/omision-coordinada.md):** subregistro de la espera causada por una pausa del servidor cuando el generador deja de enviar mientras espera respuesta.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **prueba de carga:** ejecución con la carga esperada para comprobar el cumplimiento en régimen estable.
-- **prueba de estrés:** ejecución con carga creciente hasta el límite para observar cómo se rompe el sistema.
-- **prueba de pico:** ráfaga súbita de carga para medir la supervivencia y el tiempo de recuperación.
-- **prueba de resistencia:** ejecución larga con carga moderada para encontrar fallos acumulativos.
-- **omisión coordinada:** subregistro de la espera causada por una pausa del servidor cuando el generador deja de enviar mientras espera respuesta.
+- **[prueba de carga](../../../glosario/entradas/p/prueba-de-carga.md):** ejecución con la carga esperada para comprobar el cumplimiento en régimen estable.
+- **[prueba de estrés](../../../glosario/entradas/p/prueba-de-estres.md):** ejecución con carga creciente hasta el límite para observar cómo se rompe el sistema.
+- **[prueba de pico](../../../glosario/entradas/p/prueba-de-pico.md):** ráfaga súbita de carga para medir la supervivencia y el tiempo de recuperación.
+- **[prueba de resistencia](../../../glosario/entradas/p/prueba-de-resistencia.md):** ejecución larga con carga moderada para encontrar fallos acumulativos.
+- **[omisión coordinada](../../../glosario/entradas/o/omision-coordinada.md):** subregistro de la espera causada por una pausa del servidor cuando el generador deja de enviar mientras espera respuesta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Omisión coordinada](../../../glosario/entradas/o/omision-coordinada.md) · [Prueba de carga](../../../glosario/entradas/p/prueba-de-carga.md) · [Prueba de estrés](../../../glosario/entradas/p/prueba-de-estres.md) · [Prueba de pico](../../../glosario/entradas/p/prueba-de-pico.md) · [Prueba de resistencia](../../../glosario/entradas/p/prueba-de-resistencia.md).
 
 ---
 

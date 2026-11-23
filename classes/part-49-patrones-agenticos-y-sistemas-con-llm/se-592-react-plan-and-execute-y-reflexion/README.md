@@ -112,12 +112,12 @@ La tabla de criterio resume el árbol: pasos conocidos y entorno estable piden p
 
 ## Definiciones de trabajo
 
-- **ReAct:** bucle donde el modelo razona, actúa con una herramienta y observa el resultado antes de la siguiente vuelta.
-- **Plan-and-execute:** estrategia que produce un plan completo y lo ejecuta con código.
-- **Sorpresa:** observación que contradice lo que el plan suponía.
-- **Replanificación:** nueva llamada al modelo con la sorpresa para obtener un plan de lo que queda.
-- **Reflexión:** texto de retroalimentación sobre un intento fallido que se usa en el siguiente.
-- **Señal de fallo:** evidencia externa de que un intento falló (error, verificador, prueba).
+- **[ReAct](../../../glosario/entradas/r/react.md):** bucle donde el modelo razona, actúa con una herramienta y observa el resultado antes de la siguiente vuelta.
+- **[Plan-and-execute](../../../glosario/entradas/p/plan-and-execute.md):** estrategia que produce un plan completo y lo ejecuta con código.
+- **[Sorpresa](../../../glosario/entradas/s/sorpresa.md):** observación que contradice lo que el plan suponía.
+- **[Replanificación](../../../glosario/entradas/r/replanificacion.md):** nueva llamada al modelo con la sorpresa para obtener un plan de lo que queda.
+- **[Reflexión](../../../glosario/entradas/r/reflexion.md):** texto de retroalimentación sobre un intento fallido que se usa en el siguiente.
+- **[Señal de fallo](../../../glosario/entradas/s/senal-de-fallo.md):** evidencia externa de que un intento falló (error, verificador, prueba).
 
 ## Ejemplo mínimo
 
@@ -250,6 +250,8 @@ El entorno de contactos que faltan, las decisiones equivocadas, las probabilidad
 | Replanificación | Nuevo plan tras una sorpresa |
 | Reflexión | Lección escrita de un intento fallido |
 | Señal de fallo | Evidencia externa de que algo falló |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Plan-and-execute](../../../glosario/entradas/p/plan-and-execute.md) · [ReAct](../../../glosario/entradas/r/react.md) · [Reflexión](../../../glosario/entradas/r/reflexion.md) · [Replanificación](../../../glosario/entradas/r/replanificacion.md) · [Señal de fallo](../../../glosario/entradas/s/senal-de-fallo.md) · [Sorpresa](../../../glosario/entradas/s/sorpresa.md).
 
 ---
 

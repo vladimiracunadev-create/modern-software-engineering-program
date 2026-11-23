@@ -148,12 +148,12 @@ Cuando solo el 5 % o el 10 % de las ideas es buena, el valor esperado de evaluar
 
 ## Definiciones de trabajo
 
-- **proyecto nuevo (greenfield):** construcción de un sistema que no existe, sin restricciones de código previo.
-- **cambio sobre código existente (brownfield):** modificación de un sistema en uso, que debe preservar su comportamiento salvo en lo que se cambia.
-- **diagnóstico:** conclusión razonada de la causa de un comportamiento, con la reproducción que lo respalda.
-- **arreglo del síntoma:** modificación que hace pasar la reproducción sin eliminar la causa del defecto.
-- **veredicto de corrección:** resultado de la prueba de un arreglo: verificado, parcial o fallido.
-- **evaluación de idea:** recolección de evidencia para decidir si una idea merece seguir, aclararse o detenerse.
+- **[proyecto nuevo (greenfield)](../../../glosario/entradas/p/proyecto-nuevo.md):** construcción de un sistema que no existe, sin restricciones de código previo.
+- **[cambio sobre código existente (brownfield)](../../../glosario/entradas/c/cambio-sobre-codigo-existente.md):** modificación de un sistema en uso, que debe preservar su comportamiento salvo en lo que se cambia.
+- **[diagnóstico](../../../glosario/entradas/d/diagnostico.md):** conclusión razonada de la causa de un comportamiento, con la reproducción que lo respalda.
+- **[arreglo del síntoma](../../../glosario/entradas/a/arreglo-del-sintoma.md):** modificación que hace pasar la reproducción sin eliminar la causa del defecto.
+- **[veredicto de corrección](../../../glosario/entradas/v/veredicto-de-correccion.md):** resultado de la prueba de un arreglo: verificado, parcial o fallido.
+- **[evaluación de idea](../../../glosario/entradas/e/evaluacion-de-idea.md):** recolección de evidencia para decidir si una idea merece seguir, aclararse o detenerse.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,12 +295,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **proyecto nuevo (greenfield):** construcción de un sistema que no existe, sin restricciones de código previo.
-- **cambio sobre código existente (brownfield):** modificación de un sistema en uso, que debe preservar su comportamiento salvo en lo que se cambia.
-- **diagnóstico:** conclusión razonada de la causa de un comportamiento, con la reproducción que lo respalda.
-- **arreglo del síntoma:** modificación que hace pasar la reproducción sin eliminar la causa del defecto.
-- **veredicto de corrección:** resultado de la prueba de un arreglo: verificado, parcial o fallido.
-- **evaluación de idea:** recolección de evidencia para decidir si una idea merece seguir, aclararse o detenerse.
+- **[proyecto nuevo (greenfield)](../../../glosario/entradas/p/proyecto-nuevo.md):** construcción de un sistema que no existe, sin restricciones de código previo.
+- **[cambio sobre código existente (brownfield)](../../../glosario/entradas/c/cambio-sobre-codigo-existente.md):** modificación de un sistema en uso, que debe preservar su comportamiento salvo en lo que se cambia.
+- **[diagnóstico](../../../glosario/entradas/d/diagnostico.md):** conclusión razonada de la causa de un comportamiento, con la reproducción que lo respalda.
+- **[arreglo del síntoma](../../../glosario/entradas/a/arreglo-del-sintoma.md):** modificación que hace pasar la reproducción sin eliminar la causa del defecto.
+- **[veredicto de corrección](../../../glosario/entradas/v/veredicto-de-correccion.md):** resultado de la prueba de un arreglo: verificado, parcial o fallido.
+- **[evaluación de idea](../../../glosario/entradas/e/evaluacion-de-idea.md):** recolección de evidencia para decidir si una idea merece seguir, aclararse o detenerse.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arreglo del síntoma](../../../glosario/entradas/a/arreglo-del-sintoma.md) · [Cambio sobre código existente](../../../glosario/entradas/c/cambio-sobre-codigo-existente.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Evaluación de idea](../../../glosario/entradas/e/evaluacion-de-idea.md) · [Proyecto nuevo](../../../glosario/entradas/p/proyecto-nuevo.md) · [Veredicto de corrección](../../../glosario/entradas/v/veredicto-de-correccion.md).
 
 ---
 

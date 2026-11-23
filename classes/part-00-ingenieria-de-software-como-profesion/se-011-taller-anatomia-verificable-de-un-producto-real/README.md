@@ -166,14 +166,16 @@ estática o dinámica.
 9. **Corrige y entrega:** conserva límites, comandos autorizados y preguntas abiertas.
 
 ## Definiciones de trabajo
-- **flujo vertical:** recorrido completo de una tarea por capas;
-- **punto de entrada:** interfaz que inicia comportamiento;
-- **fuente de verdad:** artefacto autorizado para una afirmación concreta;
-- **evidencia negativa:** ausencia o contradicción relevante, no prueba automática de defecto;
-- **gap:** pregunta necesaria que la evidencia disponible no responde.
+- **[flujo vertical](../../../glosario/entradas/f/flujo-vertical.md):** recorrido completo de una tarea por capas;
+- **[punto de entrada](../../../glosario/entradas/p/punto-de-entrada.md):** interfaz que inicia comportamiento;
+- **[fuente de verdad](../../../glosario/entradas/f/fuente-de-verdad.md):** artefacto autorizado para una afirmación concreta;
+- **[evidencia negativa](../../../glosario/entradas/e/evidencia-negativa.md):** ausencia o contradicción relevante, no prueba automática de defecto;
+- **[gap](../../../glosario/entradas/g/gap.md):** pregunta necesaria que la evidencia disponible no responde.
 
 ## Glosario
-**Happy path** es recorrido esperado; **degraded path** conserva capacidad limitada; **traceability** conecta necesidad, decisión, implementación y evidencia.
+**[Happy path](../../../glosario/entradas/h/happy-path.md)** es recorrido esperado; **[degraded path](../../../glosario/entradas/d/degraded-path.md)** conserva capacidad limitada; **[traceability](../../../glosario/entradas/t/traceability.md)** conecta necesidad, decisión, implementación y evidencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato](../../../glosario/entradas/c/contrato.md) · [Degraded path](../../../glosario/entradas/d/degraded-path.md) · [Evidencia negativa](../../../glosario/entradas/e/evidencia-negativa.md) · [Flujo vertical](../../../glosario/entradas/f/flujo-vertical.md) · [Fuente de verdad](../../../glosario/entradas/f/fuente-de-verdad.md) · [Gap](../../../glosario/entradas/g/gap.md) · [Happy path](../../../glosario/entradas/h/happy-path.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Punto de entrada](../../../glosario/entradas/p/punto-de-entrada.md) · [Traceability](../../../glosario/entradas/t/traceability.md).
 
 ## Ejemplo mínimo
 El README dice «datos cifrados». La configuración muestra TLS para tránsito, pero no cifrado de almacenamiento. La conclusión correcta delimita lo observado y pregunta por la capa ausente.

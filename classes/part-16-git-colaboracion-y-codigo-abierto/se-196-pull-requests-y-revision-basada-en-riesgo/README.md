@@ -112,11 +112,11 @@ Cuatro PR apilados cambian cada uno una línea distinta de un archivo de 60 lín
 
 ## Definiciones de trabajo
 
-- **pull request:** propuesta de integrar una rama que se revisa y se discute antes de aceptarse.
-- **triaje por riesgo:** orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
-- **range-diff:** comparación de dos series de commits que muestra qué cambió entre una versión y otra de una rama reescrita.
-- **pila de PR:** serie de pull requests encadenados donde cada uno parte de la rama del anterior.
-- **comprobación automática:** verificación ejecutada por una máquina antes o durante la revisión humana.
+- **[pull request](../../../glosario/entradas/p/pull-request.md):** propuesta de integrar una rama que se revisa y se discute antes de aceptarse.
+- **[triaje por riesgo](../../../glosario/entradas/t/triaje-por-riesgo.md):** orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
+- **[range-diff](../../../glosario/entradas/r/range-diff.md):** comparación de dos series de commits que muestra qué cambió entre una versión y otra de una rama reescrita.
+- **[pila de PR](../../../glosario/entradas/p/pila-de-pr.md):** serie de pull requests encadenados donde cada uno parte de la rama del anterior.
+- **[comprobación automática](../../../glosario/entradas/c/comprobacion-automatica.md):** verificación ejecutada por una máquina antes o durante la revisión humana.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **pull request:** propuesta de integrar una rama que se revisa y se discute antes de aceptarse.
-- **triaje por riesgo:** orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
-- **range-diff:** comparación de dos series de commits que muestra qué cambió entre una versión y otra de una rama reescrita.
-- **pila de PR:** serie de pull requests encadenados donde cada uno parte de la rama del anterior.
-- **comprobación automática:** verificación ejecutada por una máquina antes o durante la revisión humana.
+- **[pull request](../../../glosario/entradas/p/pull-request.md):** propuesta de integrar una rama que se revisa y se discute antes de aceptarse.
+- **[triaje por riesgo](../../../glosario/entradas/t/triaje-por-riesgo.md):** orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
+- **[range-diff](../../../glosario/entradas/r/range-diff.md):** comparación de dos series de commits que muestra qué cambió entre una versión y otra de una rama reescrita.
+- **[pila de PR](../../../glosario/entradas/p/pila-de-pr.md):** serie de pull requests encadenados donde cada uno parte de la rama del anterior.
+- **[comprobación automática](../../../glosario/entradas/c/comprobacion-automatica.md):** verificación ejecutada por una máquina antes o durante la revisión humana.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comprobación automática](../../../glosario/entradas/c/comprobacion-automatica.md) · [Pila de PR](../../../glosario/entradas/p/pila-de-pr.md) · [Pull request](../../../glosario/entradas/p/pull-request.md) · [Range-diff](../../../glosario/entradas/r/range-diff.md) · [Triaje por riesgo](../../../glosario/entradas/t/triaje-por-riesgo.md).
 
 ---
 

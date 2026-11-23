@@ -112,11 +112,11 @@ La decisión de diseño no se toma por ese costo, sino por el cambio. Con el des
 
 ## Definiciones de trabajo
 
-- **objeto, identidad y estado válido:** un objeto reúne identidad, estado y operaciones permitidas durante un ciclo de vida.
-- **mensajes y despacho:** invocar un método envía una solicitud a un receptor que decide cómo responder según su tipo y estado.
-- **encapsulación como protección:** encapsular no significa esconder campos con getters equivalentes.
-- **composición frente a herencia:** la herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores.
-- **objetos de valor y entidades:** una duración o resultado puede compararse por valor y ser inmutable; una sesión conserva identidad aunque cambien sus atributos.
+- **[objeto, identidad y estado válido](../../../glosario/entradas/o/objeto-identidad-y-estado-valido.md):** un objeto reúne identidad, estado y operaciones permitidas durante un ciclo de vida.
+- **[mensajes y despacho](../../../glosario/entradas/m/mensajes-y-despacho.md):** invocar un método envía una solicitud a un receptor que decide cómo responder según su tipo y estado.
+- **[encapsulación como protección](../../../glosario/entradas/e/encapsulacion-como-proteccion.md):** encapsular no significa esconder campos con getters equivalentes.
+- **[composición frente a herencia](../../../glosario/entradas/c/composicion-frente-a-herencia.md):** la herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores.
+- **[objetos de valor y entidades](../../../glosario/entradas/o/objetos-de-valor-y-entidades.md):** una duración o resultado puede compararse por valor y ser inmutable; una sesión conserva identidad aunque cambien sus atributos.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -276,11 +276,13 @@ Los objetos reducen estados inválidos solo si sus fronteras son reales. La sigu
 
 ## Glosario
 
-- **objeto, identidad y estado válido:** un objeto reúne identidad, estado y operaciones permitidas durante un ciclo de vida.
-- **mensajes y despacho:** invocar un método envía una solicitud a un receptor que decide cómo responder según su tipo y estado.
-- **encapsulación como protección:** encapsular no significa esconder campos con getters equivalentes.
-- **composición frente a herencia:** la herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores.
-- **objetos de valor y entidades:** una duración o resultado puede compararse por valor y ser inmutable; una sesión conserva identidad aunque cambien sus atributos.
+- **[objeto, identidad y estado válido](../../../glosario/entradas/o/objeto-identidad-y-estado-valido.md):** un objeto reúne identidad, estado y operaciones permitidas durante un ciclo de vida.
+- **[mensajes y despacho](../../../glosario/entradas/m/mensajes-y-despacho.md):** invocar un método envía una solicitud a un receptor que decide cómo responder según su tipo y estado.
+- **[encapsulación como protección](../../../glosario/entradas/e/encapsulacion-como-proteccion.md):** encapsular no significa esconder campos con getters equivalentes.
+- **[composición frente a herencia](../../../glosario/entradas/c/composicion-frente-a-herencia.md):** la herencia reutiliza un contrato y comportamiento bajo relación de sustitución; la composición ensambla colaboradores.
+- **[objetos de valor y entidades](../../../glosario/entradas/o/objetos-de-valor-y-entidades.md):** una duración o resultado puede compararse por valor y ser inmutable; una sesión conserva identidad aunque cambien sus atributos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Composición frente a herencia](../../../glosario/entradas/c/composicion-frente-a-herencia.md) · [Encapsulación como protección](../../../glosario/entradas/e/encapsulacion-como-proteccion.md) · [Mensajes y despacho](../../../glosario/entradas/m/mensajes-y-despacho.md) · [Objeto, identidad y estado válido](../../../glosario/entradas/o/objeto-identidad-y-estado-valido.md) · [Objetos de valor y entidades](../../../glosario/entradas/o/objetos-de-valor-y-entidades.md).
 
 ---
 

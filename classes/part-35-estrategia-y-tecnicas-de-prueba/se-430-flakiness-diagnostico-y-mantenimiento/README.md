@@ -166,11 +166,11 @@ El clasificador acierta 412 de 440 (93,6 %). Falla más donde las causas se conf
 
 ## Definiciones de trabajo
 
-- **prueba inestable (flaky):** prueba que, sin cambios en el código ni en los datos declarados, pasa o falla según la ejecución.
-- **fallo espurio:** fallo que no corresponde a un defecto del producto.
-- **condición de carrera:** resultado que depende del orden relativo de operaciones concurrentes.
-- **cuarentena:** estado en el que una prueba se ejecuta sin bloquear, con responsable y fecha de salida.
-- **regla de tres:** con \(n\) ejecuciones sin fallo, el límite superior del 95 % de la tasa de fallo es cercano a \(3/n\).
+- **[prueba inestable (flaky)](../../../glosario/entradas/p/prueba-inestable.md):** prueba que, sin cambios en el código ni en los datos declarados, pasa o falla según la ejecución.
+- **[fallo espurio](../../../glosario/entradas/f/fallo-espurio.md):** fallo que no corresponde a un defecto del producto.
+- **[condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md):** resultado que depende del orden relativo de operaciones concurrentes.
+- **[cuarentena](../../../glosario/entradas/c/cuarentena.md):** estado en el que una prueba se ejecuta sin bloquear, con responsable y fecha de salida.
+- **[regla de tres](../../../glosario/entradas/r/regla-de-tres.md):** con \(n\) ejecuciones sin fallo, el límite superior del 95 % de la tasa de fallo es cercano a \(3/n\).
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres experimentos con modelos del autor, un historial sintético c
 
 ## Glosario
 
-- **prueba inestable (flaky):** prueba que, sin cambios en el código ni en los datos declarados, pasa o falla según la ejecución.
-- **fallo espurio:** fallo que no corresponde a un defecto del producto.
-- **condición de carrera:** resultado que depende del orden relativo de operaciones concurrentes.
-- **cuarentena:** estado en el que una prueba se ejecuta sin bloquear, con responsable y fecha de salida.
-- **regla de tres:** con \(n\) ejecuciones sin fallo, el límite superior del 95 % de la tasa de fallo es cercano a \(3/n\).
+- **[prueba inestable (flaky)](../../../glosario/entradas/p/prueba-inestable.md):** prueba que, sin cambios en el código ni en los datos declarados, pasa o falla según la ejecución.
+- **[fallo espurio](../../../glosario/entradas/f/fallo-espurio.md):** fallo que no corresponde a un defecto del producto.
+- **[condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md):** resultado que depende del orden relativo de operaciones concurrentes.
+- **[cuarentena](../../../glosario/entradas/c/cuarentena.md):** estado en el que una prueba se ejecuta sin bloquear, con responsable y fecha de salida.
+- **[regla de tres](../../../glosario/entradas/r/regla-de-tres.md):** con \(n\) ejecuciones sin fallo, el límite superior del 95 % de la tasa de fallo es cercano a \(3/n\).
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de carrera](../../../glosario/entradas/c/condicion-de-carrera.md) · [Cuarentena](../../../glosario/entradas/c/cuarentena.md) · [Fallo espurio](../../../glosario/entradas/f/fallo-espurio.md) · [Prueba inestable](../../../glosario/entradas/p/prueba-inestable.md) · [Regla de tres](../../../glosario/entradas/r/regla-de-tres.md) · [Reintentos](../../../glosario/entradas/r/reintentos.md).
 
 ---
 

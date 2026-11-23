@@ -159,11 +159,11 @@ Con hash, las escrituras recientes se reparten casi por igual (entre 578 y 674) 
 
 ## Definiciones de trabajo
 
-- **balanceo de carga:** reparto de las solicitudes entre servidores según una política.
-- **objetivo de punto de recuperación (RPO):** cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
-- **replicación semisíncrona:** replicación en que el primario espera la confirmación de al menos una réplica antes de responder.
+- **[balanceo de carga](../../../glosario/entradas/b/balanceo-de-carga.md):** reparto de las solicitudes entre servidores según una política.
+- **[objetivo de punto de recuperación (RPO)](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
+- **[replicación semisíncrona](../../../glosario/entradas/r/replicacion-semisincrona.md):** replicación en que el primario espera la confirmación de al menos una réplica antes de responder.
 - **fragmento (*shard*):** subconjunto de los datos alojado en un nodo o grupo de nodos.
-- **fragmento caliente:** fragmento que recibe una fracción desproporcionada de la carga.
+- **[fragmento caliente](../../../glosario/entradas/f/fragmento-caliente.md):** fragmento que recibe una fracción desproporcionada de la carga.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **balanceo de carga:** reparto de las solicitudes entre servidores según una política.
-- **objetivo de punto de recuperación (RPO):** cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
-- **replicación semisíncrona:** replicación en que el primario espera la confirmación de al menos una réplica antes de responder.
+- **[balanceo de carga](../../../glosario/entradas/b/balanceo-de-carga.md):** reparto de las solicitudes entre servidores según una política.
+- **[objetivo de punto de recuperación (RPO)](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
+- **[replicación semisíncrona](../../../glosario/entradas/r/replicacion-semisincrona.md):** replicación en que el primario espera la confirmación de al menos una réplica antes de responder.
 - **fragmento (*shard*):** subconjunto de los datos alojado en un nodo o grupo de nodos.
-- **fragmento caliente:** fragmento que recibe una fracción desproporcionada de la carga.
+- **[fragmento caliente](../../../glosario/entradas/f/fragmento-caliente.md):** fragmento que recibe una fracción desproporcionada de la carga.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Balanceo de carga](../../../glosario/entradas/b/balanceo-de-carga.md) · [Fragmento caliente](../../../glosario/entradas/f/fragmento-caliente.md) · [Objetivo de punto de recuperación](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md) · [Replicación semisíncrona](../../../glosario/entradas/r/replicacion-semisincrona.md).
 
 ---
 

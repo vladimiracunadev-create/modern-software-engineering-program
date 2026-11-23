@@ -135,14 +135,14 @@ La tercera figura compara, para cinco escenarios, el tiempo que debe resistir el
 
 ## Definiciones de trabajo
 
-- **Criptografía poscuántica (PQC):** algoritmos clásicos que se creen resistentes a ordenadores cuánticos.
-- **ML-KEM:** mecanismo de encapsulación de claves basado en retículos modulares (FIPS 203).
-- **ML-DSA:** firma digital basada en retículos modulares (FIPS 204).
-- **SLH-DSA:** firma sin estado basada en funciones de resumen (FIPS 205).
-- **Rechazo implícito:** devolver un secreto distinto en lugar de un error ante un texto cifrado inválido.
-- **Híbrido:** combinación de un algoritmo clásico y uno poscuántico en una misma clave de sesión.
-- **Agilidad criptográfica:** capacidad de cambiar de algoritmo sin reescribir el sistema.
-- **Desigualdad de Mosca:** riesgo si vida del secreto más tiempo de migración supera el tiempo hasta un ordenador cuántico capaz.
+- **[Criptografía poscuántica (PQC)](../../../glosario/entradas/c/criptografia-poscuantica.md):** algoritmos clásicos que se creen resistentes a ordenadores cuánticos.
+- **[ML-KEM](../../../glosario/entradas/m/ml-kem.md):** mecanismo de encapsulación de claves basado en retículos modulares (FIPS 203).
+- **[ML-DSA](../../../glosario/entradas/m/ml-dsa.md):** firma digital basada en retículos modulares (FIPS 204).
+- **[SLH-DSA](../../../glosario/entradas/s/slh-dsa.md):** firma sin estado basada en funciones de resumen (FIPS 205).
+- **[Rechazo implícito](../../../glosario/entradas/r/rechazo-implicito.md):** devolver un secreto distinto en lugar de un error ante un texto cifrado inválido.
+- **[Híbrido](../../../glosario/entradas/h/hibrido.md):** combinación de un algoritmo clásico y uno poscuántico en una misma clave de sesión.
+- **[Agilidad criptográfica](../../../glosario/entradas/a/agilidad-criptografica.md):** capacidad de cambiar de algoritmo sin reescribir el sistema.
+- **[Desigualdad de Mosca](../../../glosario/entradas/d/desigualdad-de-mosca.md):** riesgo si vida del secreto más tiempo de migración supera el tiempo hasta un ordenador cuántico capaz.
 
 ## Ejemplo mínimo
 
@@ -279,6 +279,8 @@ Se ejecutaron implementaciones de estudio de ML-KEM y ML-DSA con sus tamaños re
 | Híbrido | Combinación de un algoritmo clásico y uno poscuántico |
 | Agilidad criptográfica | Poder cambiar de algoritmo sin reescribir |
 | Desigualdad de Mosca | Riesgo si x + y supera a z |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agilidad criptográfica](../../../glosario/entradas/a/agilidad-criptografica.md) · [Criptografía poscuántica](../../../glosario/entradas/c/criptografia-poscuantica.md) · [Desigualdad de Mosca](../../../glosario/entradas/d/desigualdad-de-mosca.md) · [Híbrido](../../../glosario/entradas/h/hibrido.md) · [Inventario](../../../glosario/entradas/i/inventario.md) · [ML-DSA](../../../glosario/entradas/m/ml-dsa.md) · [ML-KEM](../../../glosario/entradas/m/ml-kem.md) · [Rechazo implícito](../../../glosario/entradas/r/rechazo-implicito.md) · [SLH-DSA](../../../glosario/entradas/s/slh-dsa.md).
 
 ---
 

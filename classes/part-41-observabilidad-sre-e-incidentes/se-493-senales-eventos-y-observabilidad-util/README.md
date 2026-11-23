@@ -150,11 +150,11 @@ series_all = math.prod(dims.values())          # 5·3·3·30·40·4·3·2
 
 ## Definiciones de trabajo
 
-- **señal:** dato que un sistema emite sobre su comportamiento, en forma de registro, métrica, traza o perfil.
-- **evento ancho:** registro estructurado con muchos campos, escrito una vez por unidad de trabajo.
-- **observabilidad:** capacidad de explicar el comportamiento de un sistema a partir de lo que emite, incluidas preguntas no previstas.
-- **duración inclusiva:** tiempo que mide un servicio para una llamada, que incluye el de las llamadas que a su vez hace.
-- **sonda sintética:** petición programada que imita a una persona usuaria para medir el servicio desde fuera.
+- **[señal](../../../glosario/entradas/s/senal.md):** dato que un sistema emite sobre su comportamiento, en forma de registro, métrica, traza o perfil.
+- **[evento ancho](../../../glosario/entradas/e/evento-ancho.md):** registro estructurado con muchos campos, escrito una vez por unidad de trabajo.
+- **[observabilidad](../../../glosario/entradas/o/observabilidad.md):** capacidad de explicar el comportamiento de un sistema a partir de lo que emite, incluidas preguntas no previstas.
+- **[duración inclusiva](../../../glosario/entradas/d/duracion-inclusiva.md):** tiempo que mide un servicio para una llamada, que incluye el de las llamadas que a su vez hace.
+- **[sonda sintética](../../../glosario/entradas/s/sonda-sintetica.md):** petición programada que imita a una persona usuaria para medir el servicio desde fuera.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **señal:** dato que un sistema emite sobre su comportamiento, en forma de registro, métrica, traza o perfil.
-- **evento ancho:** registro estructurado con muchos campos, escrito una vez por unidad de trabajo.
-- **observabilidad:** capacidad de explicar el comportamiento de un sistema a partir de lo que emite, incluidas preguntas no previstas.
-- **duración inclusiva:** tiempo que mide un servicio para una llamada, que incluye el de las llamadas que a su vez hace.
-- **sonda sintética:** petición programada que imita a una persona usuaria para medir el servicio desde fuera.
+- **[señal](../../../glosario/entradas/s/senal.md):** dato que un sistema emite sobre su comportamiento, en forma de registro, métrica, traza o perfil.
+- **[evento ancho](../../../glosario/entradas/e/evento-ancho.md):** registro estructurado con muchos campos, escrito una vez por unidad de trabajo.
+- **[observabilidad](../../../glosario/entradas/o/observabilidad.md):** capacidad de explicar el comportamiento de un sistema a partir de lo que emite, incluidas preguntas no previstas.
+- **[duración inclusiva](../../../glosario/entradas/d/duracion-inclusiva.md):** tiempo que mide un servicio para una llamada, que incluye el de las llamadas que a su vez hace.
+- **[sonda sintética](../../../glosario/entradas/s/sonda-sintetica.md):** petición programada que imita a una persona usuaria para medir el servicio desde fuera.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Duración inclusiva](../../../glosario/entradas/d/duracion-inclusiva.md) · [Evento ancho](../../../glosario/entradas/e/evento-ancho.md) · [Observabilidad](../../../glosario/entradas/o/observabilidad.md) · [Señal](../../../glosario/entradas/s/senal.md) · [Sonda sintética](../../../glosario/entradas/s/sonda-sintetica.md).
 
 ---
 

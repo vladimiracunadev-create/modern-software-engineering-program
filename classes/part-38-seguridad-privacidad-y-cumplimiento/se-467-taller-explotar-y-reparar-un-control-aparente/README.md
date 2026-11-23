@@ -156,11 +156,11 @@ Los dos controles aparentes cumplen contra el caso que se probó (sin cambiar de
 
 ## Definiciones de trabajo
 
-- **control aparente:** control que existe, tiene pruebas favorables y decide con un dato que controla quien ataca.
-- **hipótesis de ruptura:** enunciado de qué entrada eludiría un control y por qué, formulado antes de probarla.
-- **resolver la ruta:** convertir un nombre de archivo en la ruta final que usará el sistema, aplicando decodificación, unión con la raíz y normalización.
-- **token ligado a la sesión:** valor de comprobación derivado de la sesión con una clave del servidor, de modo que solo vale para ella.
-- **prueba de regresión:** prueba que falla con el defecto y pasa con la corrección, y que se conserva para detectar su reaparición.
+- **[control aparente](../../../glosario/entradas/c/control-aparente.md):** control que existe, tiene pruebas favorables y decide con un dato que controla quien ataca.
+- **[hipótesis de ruptura](../../../glosario/entradas/h/hipotesis-de-ruptura.md):** enunciado de qué entrada eludiría un control y por qué, formulado antes de probarla.
+- **[resolver la ruta](../../../glosario/entradas/r/resolver-la-ruta.md):** convertir un nombre de archivo en la ruta final que usará el sistema, aplicando decodificación, unión con la raíz y normalización.
+- **[token ligado a la sesión](../../../glosario/entradas/t/token-ligado-a-la-sesion.md):** valor de comprobación derivado de la sesión con una clave del servidor, de modo que solo vale para ella.
+- **[prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md):** prueba que falla con el defecto y pasa con la corrección, y que se conserva para detectar su reaparición.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -298,11 +298,13 @@ Se ejecutaron cuatro experimentos con datos sintéticos en Windows y Ubuntu (WSL
 
 ## Glosario
 
-- **control aparente:** control que existe, tiene pruebas favorables y decide con un dato que controla quien ataca.
-- **hipótesis de ruptura:** enunciado de qué entrada eludiría un control y por qué, formulado antes de probarla.
-- **resolver la ruta:** convertir un nombre de archivo en la ruta final que usará el sistema, aplicando decodificación, unión con la raíz y normalización.
-- **token ligado a la sesión:** valor de comprobación derivado de la sesión con una clave del servidor, de modo que solo vale para ella.
-- **prueba de regresión:** prueba que falla con el defecto y pasa con la corrección, y que se conserva para detectar su reaparición.
+- **[control aparente](../../../glosario/entradas/c/control-aparente.md):** control que existe, tiene pruebas favorables y decide con un dato que controla quien ataca.
+- **[hipótesis de ruptura](../../../glosario/entradas/h/hipotesis-de-ruptura.md):** enunciado de qué entrada eludiría un control y por qué, formulado antes de probarla.
+- **[resolver la ruta](../../../glosario/entradas/r/resolver-la-ruta.md):** convertir un nombre de archivo en la ruta final que usará el sistema, aplicando decodificación, unión con la raíz y normalización.
+- **[token ligado a la sesión](../../../glosario/entradas/t/token-ligado-a-la-sesion.md):** valor de comprobación derivado de la sesión con una clave del servidor, de modo que solo vale para ella.
+- **[prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md):** prueba que falla con el defecto y pasa con la corrección, y que se conserva para detectar su reaparición.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Control aparente](../../../glosario/entradas/c/control-aparente.md) · [Hipótesis de ruptura](../../../glosario/entradas/h/hipotesis-de-ruptura.md) · [Prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md) · [Resolver la ruta](../../../glosario/entradas/r/resolver-la-ruta.md) · [Token ligado a la sesión](../../../glosario/entradas/t/token-ligado-a-la-sesion.md).
 
 ---
 

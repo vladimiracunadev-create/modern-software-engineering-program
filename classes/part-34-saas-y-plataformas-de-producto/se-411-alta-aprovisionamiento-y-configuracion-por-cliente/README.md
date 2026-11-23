@@ -141,14 +141,14 @@ La **baja** es el otro extremo y debe tener los mismos mecanismos que el alta: p
 
 ## Definiciones de trabajo
 
-- **Aprovisionamiento:** creación de los recursos y registros que un inquilino necesita para operar.
-- **Plano de control:** componentes que crean, configuran, miden y facturan a los inquilinos.
-- **Saga:** secuencia de transacciones locales con acciones compensatorias.
-- **Orquestación:** un componente central lleva el estado de la saga y llama a cada paso.
-- **Idempotente:** que repetir la operación con la misma entrada no cambia el resultado.
-- **Compensación:** acción que deshace o neutraliza el efecto de un paso anterior.
-- **Configuración por capas:** valores resueltos de lo general a lo específico (producto, plan, inquilino, usuario).
-- **Semilla:** datos iniciales que se crean para que el cliente tenga algo con qué empezar.
+- **[Aprovisionamiento](../../../glosario/entradas/a/aprovisionamiento.md):** creación de los recursos y registros que un inquilino necesita para operar.
+- **[Plano de control](../../../glosario/entradas/p/plano-de-control.md):** componentes que crean, configuran, miden y facturan a los inquilinos.
+- **[Saga](../../../glosario/entradas/s/saga.md):** secuencia de transacciones locales con acciones compensatorias.
+- **[Orquestación](../../../glosario/entradas/o/orquestacion.md):** un componente central lleva el estado de la saga y llama a cada paso.
+- **[Idempotente](../../../glosario/entradas/i/idempotente.md):** que repetir la operación con la misma entrada no cambia el resultado.
+- **[Compensación](../../../glosario/entradas/c/compensacion.md):** acción que deshace o neutraliza el efecto de un paso anterior.
+- **[Configuración por capas](../../../glosario/entradas/c/configuracion-por-capas.md):** valores resueltos de lo general a lo específico (producto, plan, inquilino, usuario).
+- **[Semilla](../../../glosario/entradas/s/semilla.md):** datos iniciales que se crean para que el cliente tenga algo con qué empezar.
 
 ## Ejemplo mínimo
 
@@ -295,6 +295,8 @@ Se ejecutó un alta de cinco pasos con sqlite3 en memoria y un fallo inyectado, 
 | Compensación | Acción que neutraliza un paso previo |
 | Configuración por capas | Valores resueltos de lo general a lo específico |
 | Semilla | Datos iniciales de un cliente nuevo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aprovisionamiento](../../../glosario/entradas/a/aprovisionamiento.md) · [Compensación](../../../glosario/entradas/c/compensacion.md) · [Configuración por capas](../../../glosario/entradas/c/configuracion-por-capas.md) · [Idempotente](../../../glosario/entradas/i/idempotente.md) · [Orquestación](../../../glosario/entradas/o/orquestacion.md) · [Plano de control](../../../glosario/entradas/p/plano-de-control.md) · [Saga](../../../glosario/entradas/s/saga.md) · [Semilla](../../../glosario/entradas/s/semilla.md).
 
 ---
 

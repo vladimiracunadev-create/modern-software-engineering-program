@@ -138,11 +138,11 @@ las de siempre: pasar argumentos como lista (no como cadena), usar `--` para mar
 
 ## Definiciones de trabajo
 
-- **terminal:** interfaz que transporta entrada y salida de una sesión;
-- **shell:** lenguaje que analiza órdenes y coordina procesos;
-- **argumento:** valor entregado a un programa tras la interpretación correspondiente;
-- **pipeline:** conexión de salida de una etapa con entrada de otra;
-- **código de salida:** valor discreto con significado documentado para el proceso padre.
+- **[terminal](../../../glosario/entradas/t/terminal.md):** interfaz que transporta entrada y salida de una sesión;
+- **[shell](../../../glosario/entradas/s/shell.md):** lenguaje que analiza órdenes y coordina procesos;
+- **[argumento](../../../glosario/entradas/a/argumento.md):** valor entregado a un programa tras la interpretación correspondiente;
+- **[pipeline](../../../glosario/entradas/p/pipeline.md):** conexión de salida de una etapa con entrada de otra;
+- **[código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** valor discreto con significado documentado para el proceso padre.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma ofrece un contrato de línea de comandos
 
@@ -266,11 +266,13 @@ No cubrimos interfaces interactivas complejas, pseudo-terminales ni todas las re
 - [about_Automatic_Variables (PowerShell)](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_automatic_variables): `$?`, `$LASTEXITCODE` y variables relacionadas.
 ## Glosario
 
-- **Pipeline:** composición donde la salida de una etapa alimenta la entrada de otra.
-- **Redirección:** cambio del origen o destino de un flujo.
-- **Shell:** intérprete y lenguaje para lanzar y coordinar procesos.
-- **stderr:** canal convencional de diagnóstico.
-- **stdout:** canal convencional de resultados o datos.
+- **[Pipeline](../../../glosario/entradas/p/pipeline.md):** composición donde la salida de una etapa alimenta la entrada de otra.
+- **[Redirección](../../../glosario/entradas/r/redireccion.md):** cambio del origen o destino de un flujo.
+- **[Shell](../../../glosario/entradas/s/shell.md):** intérprete y lenguaje para lanzar y coordinar procesos.
+- **[stderr](../../../glosario/entradas/s/stderr.md):** canal convencional de diagnóstico.
+- **[stdout](../../../glosario/entradas/s/stdout.md):** canal convencional de resultados o datos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Argumento](../../../glosario/entradas/a/argumento.md) · [Código de salida](../../../glosario/entradas/c/codigo-de-salida.md) · [Flujos estándar](../../../glosario/entradas/f/flujos-estandar.md) · [Pipeline](../../../glosario/entradas/p/pipeline.md) · [Redirección](../../../glosario/entradas/r/redireccion.md) · [Shell](../../../glosario/entradas/s/shell.md) · [Stderr](../../../glosario/entradas/s/stderr.md) · [Stdout](../../../glosario/entradas/s/stdout.md) · [Terminal](../../../glosario/entradas/t/terminal.md).
 
 ---
 [← SE-028](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-030 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)

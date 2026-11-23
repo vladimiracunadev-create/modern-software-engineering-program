@@ -126,13 +126,13 @@ La tercera figura muestra el camino del dato y qué diagnóstico lo vigila.
 
 ## Definiciones de trabajo
 
-- **ASIL:** nivel de integridad de seguridad automotriz, de A a D, asignado a un objetivo de seguridad.
-- **QM:** nivel que solo requiere la gestión de calidad ordinaria, sin medidas específicas de seguridad.
-- **Objetivo de seguridad:** requisito de más alto nivel derivado de un peligro.
-- **Descomposición:** satisfacer un requisito con elementos redundantes de nivel menor que sean independientes.
-- **Cobertura de diagnóstico:** fracción de fallos peligrosos que un mecanismo detecta.
-- **FIT:** un fallo por 10⁹ horas de operación.
-- **Fallo latente:** fallo de un mecanismo de seguridad que no se manifiesta hasta que se necesita.
+- **[ASIL](../../../glosario/entradas/a/asil.md):** nivel de integridad de seguridad automotriz, de A a D, asignado a un objetivo de seguridad.
+- **[QM](../../../glosario/entradas/q/qm.md):** nivel que solo requiere la gestión de calidad ordinaria, sin medidas específicas de seguridad.
+- **[Objetivo de seguridad](../../../glosario/entradas/o/objetivo-de-seguridad.md):** requisito de más alto nivel derivado de un peligro.
+- **[Descomposición](../../../glosario/entradas/d/descomposicion.md):** satisfacer un requisito con elementos redundantes de nivel menor que sean independientes.
+- **[Cobertura de diagnóstico](../../../glosario/entradas/c/cobertura-de-diagnostico.md):** fracción de fallos peligrosos que un mecanismo detecta.
+- **[FIT](../../../glosario/entradas/f/fit.md):** un fallo por 10⁹ horas de operación.
+- **[Fallo latente](../../../glosario/entradas/f/fallo-latente.md):** fallo de un mecanismo de seguridad que no se manifiesta hasta que se necesita.
 
 ## Ejemplo mínimo
 
@@ -266,6 +266,8 @@ Las tasas, las coberturas por componente y el cálculo de par son del autor; el 
 | Descomposición | Repartir un requisito entre elementos independientes |
 | Cobertura de diagnóstico | Fracción de fallos peligrosos detectados |
 | FIT | Un fallo por 10⁹ horas |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ASIL](../../../glosario/entradas/a/asil.md) · [Cobertura de diagnóstico](../../../glosario/entradas/c/cobertura-de-diagnostico.md) · [Descomposición](../../../glosario/entradas/d/descomposicion.md) · [Fallo latente](../../../glosario/entradas/f/fallo-latente.md) · [FIT](../../../glosario/entradas/f/fit.md) · [Objetivo de seguridad](../../../glosario/entradas/o/objetivo-de-seguridad.md) · [QM](../../../glosario/entradas/q/qm.md).
 
 ---
 

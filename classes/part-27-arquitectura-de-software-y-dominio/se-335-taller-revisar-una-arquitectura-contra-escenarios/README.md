@@ -164,11 +164,11 @@ Solo 8 de 144 perturbaciones cambian algún veredicto: ninguna variación de lat
 
 ## Definiciones de trabajo
 
-- **riesgo arquitectónico:** decisión que, con los escenarios dados, puede producir problemas.
-- **punto de sensibilidad:** parámetro del que depende de forma notable un atributo de calidad.
-- **compromiso (trade-off):** decisión que mejora un atributo a costa de otro.
-- **árbol de utilidad:** jerarquía de atributos y escenarios ordenados por importancia y dificultad.
-- **modelo ejecutable de arquitectura:** descripción de la arquitectura en datos que permite evaluar escenarios con reglas.
+- **[riesgo arquitectónico](../../../glosario/entradas/r/riesgo-arquitectonico.md):** decisión que, con los escenarios dados, puede producir problemas.
+- **[punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md):** parámetro del que depende de forma notable un atributo de calidad.
+- **[compromiso (trade-off)](../../../glosario/entradas/c/compromiso.md):** decisión que mejora un atributo a costa de otro.
+- **[árbol de utilidad](../../../glosario/entradas/a/arbol-de-utilidad.md):** jerarquía de atributos y escenarios ordenados por importancia y dificultad.
+- **[modelo ejecutable de arquitectura](../../../glosario/entradas/m/modelo-ejecutable-de-arquitectura.md):** descripción de la arquitectura en datos que permite evaluar escenarios con reglas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -313,11 +313,13 @@ Se ejecutaron tres análisis con datos sintéticos en Windows y Ubuntu (WSL2) co
 
 ## Glosario
 
-- **riesgo arquitectónico:** decisión que, con los escenarios dados, puede producir problemas.
-- **punto de sensibilidad:** parámetro del que depende de forma notable un atributo de calidad.
-- **compromiso (trade-off):** decisión que mejora un atributo a costa de otro.
-- **árbol de utilidad:** jerarquía de atributos y escenarios ordenados por importancia y dificultad.
-- **modelo ejecutable de arquitectura:** descripción de la arquitectura en datos que permite evaluar escenarios con reglas.
+- **[riesgo arquitectónico](../../../glosario/entradas/r/riesgo-arquitectonico.md):** decisión que, con los escenarios dados, puede producir problemas.
+- **[punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md):** parámetro del que depende de forma notable un atributo de calidad.
+- **[compromiso (trade-off)](../../../glosario/entradas/c/compromiso.md):** decisión que mejora un atributo a costa de otro.
+- **[árbol de utilidad](../../../glosario/entradas/a/arbol-de-utilidad.md):** jerarquía de atributos y escenarios ordenados por importancia y dificultad.
+- **[modelo ejecutable de arquitectura](../../../glosario/entradas/m/modelo-ejecutable-de-arquitectura.md):** descripción de la arquitectura en datos que permite evaluar escenarios con reglas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol de utilidad](../../../glosario/entradas/a/arbol-de-utilidad.md) · [Compromiso](../../../glosario/entradas/c/compromiso.md) · [Modelo ejecutable de arquitectura](../../../glosario/entradas/m/modelo-ejecutable-de-arquitectura.md) · [Punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md) · [Riesgo arquitectónico](../../../glosario/entradas/r/riesgo-arquitectonico.md).
 
 ---
 

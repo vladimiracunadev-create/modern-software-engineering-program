@@ -105,11 +105,11 @@ Para demostrar que la suma de 0 a n es n(n+1)/2: el **caso base** n = 0 da 0; en
 
 ## Definiciones de trabajo
 
-- **recursión:** definición o cálculo expresado mediante instancias menores.
-- **caso base:** instancia resuelta sin llamada recursiva.
-- **hipótesis inductiva:** propiedad asumida para estructuras menores.
-- **medida:** cantidad bien fundada que disminuye.
-- **memoización:** reutilización de resultados de subproblemas identificados.
+- **[recursión](../../../glosario/entradas/r/recursion.md):** definición o cálculo expresado mediante instancias menores.
+- **[caso base](../../../glosario/entradas/c/caso-base.md):** instancia resuelta sin llamada recursiva.
+- **[hipótesis inductiva](../../../glosario/entradas/h/hipotesis-inductiva.md):** propiedad asumida para estructuras menores.
+- **[medida](../../../glosario/entradas/m/medida.md):** cantidad bien fundada que disminuye.
+- **[memoización](../../../glosario/entradas/m/memoizacion.md):** reutilización de resultados de subproblemas identificados.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -253,11 +253,13 @@ Inducción demuestra una propiedad del modelo, no corrige una especificación eq
 
 ## Glosario
 
-- **recursión:** definición o cálculo expresado mediante instancias menores.
-- **caso base:** instancia resuelta sin llamada recursiva.
-- **hipótesis inductiva:** propiedad asumida para estructuras menores.
-- **medida:** cantidad bien fundada que disminuye.
-- **memoización:** reutilización de resultados de subproblemas identificados.
+- **[recursión](../../../glosario/entradas/r/recursion.md):** definición o cálculo expresado mediante instancias menores.
+- **[caso base](../../../glosario/entradas/c/caso-base.md):** instancia resuelta sin llamada recursiva.
+- **[hipótesis inductiva](../../../glosario/entradas/h/hipotesis-inductiva.md):** propiedad asumida para estructuras menores.
+- **[medida](../../../glosario/entradas/m/medida.md):** cantidad bien fundada que disminuye.
+- **[memoización](../../../glosario/entradas/m/memoizacion.md):** reutilización de resultados de subproblemas identificados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caso base](../../../glosario/entradas/c/caso-base.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Hipótesis inductiva](../../../glosario/entradas/h/hipotesis-inductiva.md) · [Medida](../../../glosario/entradas/m/medida.md) · [Memoización](../../../glosario/entradas/m/memoizacion.md) · [Recursión](../../../glosario/entradas/r/recursion.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

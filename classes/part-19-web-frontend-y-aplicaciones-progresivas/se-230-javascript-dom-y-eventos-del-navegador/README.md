@@ -149,11 +149,11 @@ def debounce(ev, espera):
 
 ## Definiciones de trabajo
 
-- **tarea:** unidad de trabajo que el bucle de eventos toma de una cola y ejecuta hasta vaciar la pila.
-- **microtarea:** continuación pendiente (promesa o `queueMicrotask`) que se ejecuta por completo antes de la siguiente tarea.
-- **delegación de eventos:** registro de un manejador en un ancestro para atender eventos de descendientes presentes y futuros.
-- **debounce:** técnica que retrasa una llamada hasta que pasa un tiempo sin nuevos eventos.
-- **throttle:** técnica que limita una llamada a como mucho una por intervalo.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** unidad de trabajo que el bucle de eventos toma de una cola y ejecuta hasta vaciar la pila.
+- **[microtarea](../../../glosario/entradas/m/microtarea.md):** continuación pendiente (promesa o `queueMicrotask`) que se ejecuta por completo antes de la siguiente tarea.
+- **[delegación de eventos](../../../glosario/entradas/d/delegacion-de-eventos.md):** registro de un manejador en un ancestro para atender eventos de descendientes presentes y futuros.
+- **[debounce](../../../glosario/entradas/d/debounce.md):** técnica que retrasa una llamada hasta que pasa un tiempo sin nuevos eventos.
+- **[throttle](../../../glosario/entradas/t/throttle.md):** técnica que limita una llamada a como mucho una por intervalo.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **tarea:** unidad de trabajo que el bucle de eventos toma de una cola y ejecuta hasta vaciar la pila.
-- **microtarea:** continuación pendiente (promesa o `queueMicrotask`) que se ejecuta por completo antes de la siguiente tarea.
-- **delegación de eventos:** registro de un manejador en un ancestro para atender eventos de descendientes presentes y futuros.
-- **debounce:** técnica que retrasa una llamada hasta que pasa un tiempo sin nuevos eventos.
-- **throttle:** técnica que limita una llamada a como mucho una por intervalo.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** unidad de trabajo que el bucle de eventos toma de una cola y ejecuta hasta vaciar la pila.
+- **[microtarea](../../../glosario/entradas/m/microtarea.md):** continuación pendiente (promesa o `queueMicrotask`) que se ejecuta por completo antes de la siguiente tarea.
+- **[delegación de eventos](../../../glosario/entradas/d/delegacion-de-eventos.md):** registro de un manejador en un ancestro para atender eventos de descendientes presentes y futuros.
+- **[debounce](../../../glosario/entradas/d/debounce.md):** técnica que retrasa una llamada hasta que pasa un tiempo sin nuevos eventos.
+- **[throttle](../../../glosario/entradas/t/throttle.md):** técnica que limita una llamada a como mucho una por intervalo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Debounce](../../../glosario/entradas/d/debounce.md) · [Delegación de eventos](../../../glosario/entradas/d/delegacion-de-eventos.md) · [Microtarea](../../../glosario/entradas/m/microtarea.md) · [Tarea](../../../glosario/entradas/t/tarea.md) · [Throttle](../../../glosario/entradas/t/throttle.md).
 
 ---
 

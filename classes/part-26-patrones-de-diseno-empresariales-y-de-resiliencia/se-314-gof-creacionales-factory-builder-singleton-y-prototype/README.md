@@ -106,12 +106,12 @@ Los cuatro patrones responden a fuerzas distintas y se pueden combinar: una fáb
 
 ## Definiciones de trabajo
 
-- **Factory:** punto único que decide qué clase concreta crear.
-- **Registro:** diccionario de nombres a constructores que permite extender sin tocar la fábrica.
-- **Builder:** objeto o secuencia de pasos que construye un objeto complejo y valida al final.
-- **Singleton:** garantía de una instancia con acceso global; en este curso se separa de la unicidad.
-- **Copia superficial:** copia que comparte las referencias a los componentes mutables.
-- **Copia profunda:** copia recursiva que no comparte componentes mutables.
+- **[Factory](../../../glosario/entradas/f/factory.md):** punto único que decide qué clase concreta crear.
+- **[Registro](../../../glosario/entradas/r/registro.md):** diccionario de nombres a constructores que permite extender sin tocar la fábrica.
+- **[Builder](../../../glosario/entradas/b/builder.md):** objeto o secuencia de pasos que construye un objeto complejo y valida al final.
+- **[Singleton](../../../glosario/entradas/s/singleton.md):** garantía de una instancia con acceso global; en este curso se separa de la unicidad.
+- **[Copia superficial](../../../glosario/entradas/c/copia-superficial.md):** copia que comparte las referencias a los componentes mutables.
+- **[Copia profunda](../../../glosario/entradas/c/copia-profunda.md):** copia recursiva que no comparte componentes mutables.
 
 ## Ejemplo mínimo
 
@@ -242,6 +242,8 @@ Las pruebas, la configuración y las copias son del autor y los tiempos son de u
 | Singleton | Una instancia con acceso global |
 | Copia superficial | Copia que comparte los componentes mutables |
 | Inyección de dependencias | Entregar un colaborador desde fuera en lugar de buscarlo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Builder](../../../glosario/entradas/b/builder.md) · [Copia profunda](../../../glosario/entradas/c/copia-profunda.md) · [Copia superficial](../../../glosario/entradas/c/copia-superficial.md) · [Factory](../../../glosario/entradas/f/factory.md) · [Registro](../../../glosario/entradas/r/registro.md) · [Singleton](../../../glosario/entradas/s/singleton.md).
 
 ---
 

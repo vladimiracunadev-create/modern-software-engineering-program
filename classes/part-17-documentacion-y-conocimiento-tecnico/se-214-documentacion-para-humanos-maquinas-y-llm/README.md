@@ -135,11 +135,11 @@ El filtro marca las 6 literales, 0 de las 8 ofuscadas y 0 de los 8 benignos. Los
 
 ## Definiciones de trabajo
 
-- **metadatos de documento:** campos estructurados al inicio de una página (responsable, estado, fecha, tipo) que un programa puede validar y consultar.
-- **fragmento:** trozo de un documento que un sistema de recuperación entrega a un modelo como contexto.
-- **inyección indirecta:** ataque que coloca instrucciones en datos que un modelo recupera o lee, para que las obedezca como si fueran de su usuario.
-- **permiso mínimo:** capacidad estrictamente necesaria que se concede a un agente para su tarea.
-- **archivo de instrucciones para agentes:** documento de contexto y convenciones que un agente puede leer antes de trabajar en un proyecto.
+- **[metadatos de documento](../../../glosario/entradas/m/metadatos-de-documento.md):** campos estructurados al inicio de una página (responsable, estado, fecha, tipo) que un programa puede validar y consultar.
+- **[fragmento](../../../glosario/entradas/f/fragmento.md):** trozo de un documento que un sistema de recuperación entrega a un modelo como contexto.
+- **[inyección indirecta](../../../glosario/entradas/i/inyeccion-indirecta.md):** ataque que coloca instrucciones en datos que un modelo recupera o lee, para que las obedezca como si fueran de su usuario.
+- **[permiso mínimo](../../../glosario/entradas/p/permiso-minimo.md):** capacidad estrictamente necesaria que se concede a un agente para su tarea.
+- **[archivo de instrucciones para agentes](../../../glosario/entradas/a/archivo-de-instrucciones-para-agentes.md):** documento de contexto y convenciones que un agente puede leer antes de trabajar en un proyecto.
 
 Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **metadatos de documento:** campos estructurados al inicio de una página que un programa puede validar y consultar.
-- **fragmento:** trozo de un documento que un sistema de recuperación entrega a un modelo como contexto.
-- **inyección indirecta:** ataque que coloca instrucciones en datos que un modelo lee para que las obedezca.
-- **permiso mínimo:** capacidad estrictamente necesaria que se concede a un agente para su tarea.
-- **archivo de instrucciones para agentes:** documento de contexto y convenciones que un agente puede leer antes de trabajar en un proyecto.
+- **[metadatos de documento](../../../glosario/entradas/m/metadatos-de-documento.md):** campos estructurados al inicio de una página que un programa puede validar y consultar.
+- **[fragmento](../../../glosario/entradas/f/fragmento.md):** trozo de un documento que un sistema de recuperación entrega a un modelo como contexto.
+- **[inyección indirecta](../../../glosario/entradas/i/inyeccion-indirecta.md):** ataque que coloca instrucciones en datos que un modelo lee para que las obedezca.
+- **[permiso mínimo](../../../glosario/entradas/p/permiso-minimo.md):** capacidad estrictamente necesaria que se concede a un agente para su tarea.
+- **[archivo de instrucciones para agentes](../../../glosario/entradas/a/archivo-de-instrucciones-para-agentes.md):** documento de contexto y convenciones que un agente puede leer antes de trabajar en un proyecto.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Archivo de instrucciones para agentes](../../../glosario/entradas/a/archivo-de-instrucciones-para-agentes.md) · [Fragmentación](../../../glosario/entradas/f/fragmentacion.md) · [Fragmento](../../../glosario/entradas/f/fragmento.md) · [Inyección indirecta](../../../glosario/entradas/i/inyeccion-indirecta.md) · [Metadatos de documento](../../../glosario/entradas/m/metadatos-de-documento.md) · [Permiso mínimo](../../../glosario/entradas/p/permiso-minimo.md).
 
 ---
 

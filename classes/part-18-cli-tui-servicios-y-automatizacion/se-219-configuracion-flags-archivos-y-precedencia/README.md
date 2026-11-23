@@ -122,11 +122,11 @@ Se lanzó un proceso hijo con el argumento `--token=FAKE-TOKEN-0001` y la variab
 
 ## Definiciones de trabajo
 
-- **precedencia:** orden en que se consultan las fuentes de configuración cuando hay más de una para el mismo valor.
-- **valor definido:** valor que una fuente aporta según el criterio documentado (presente, no vacío, etc.).
-- **configuración efectiva:** valor final de cada opción tras aplicar la precedencia, con su fuente.
-- **interpretación estricta:** conversión de texto a tipo que rechaza lo no reconocido en vez de adivinar.
-- **secreto:** valor cuya divulgación da acceso o daña a alguien: contraseñas, tokens, claves.
+- **[precedencia](../../../glosario/entradas/p/precedencia.md):** orden en que se consultan las fuentes de configuración cuando hay más de una para el mismo valor.
+- **[valor definido](../../../glosario/entradas/v/valor-definido.md):** valor que una fuente aporta según el criterio documentado (presente, no vacío, etc.).
+- **[configuración efectiva](../../../glosario/entradas/c/configuracion-efectiva.md):** valor final de cada opción tras aplicar la precedencia, con su fuente.
+- **[interpretación estricta](../../../glosario/entradas/i/interpretacion-estricta.md):** conversión de texto a tipo que rechaza lo no reconocido en vez de adivinar.
+- **[secreto](../../../glosario/entradas/s/secreto.md):** valor cuya divulgación da acceso o daña a alguien: contraseñas, tokens, claves.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -276,11 +276,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **precedencia:** orden en que se consultan las fuentes de configuración cuando hay más de una para el mismo valor.
-- **valor definido:** valor que una fuente aporta según el criterio documentado.
-- **configuración efectiva:** valor final de cada opción tras aplicar la precedencia, con su fuente.
-- **interpretación estricta:** conversión de texto a tipo que rechaza lo no reconocido en vez de adivinar.
-- **secreto:** valor cuya divulgación da acceso o daña a alguien.
+- **[precedencia](../../../glosario/entradas/p/precedencia.md):** orden en que se consultan las fuentes de configuración cuando hay más de una para el mismo valor.
+- **[valor definido](../../../glosario/entradas/v/valor-definido.md):** valor que una fuente aporta según el criterio documentado.
+- **[configuración efectiva](../../../glosario/entradas/c/configuracion-efectiva.md):** valor final de cada opción tras aplicar la precedencia, con su fuente.
+- **[interpretación estricta](../../../glosario/entradas/i/interpretacion-estricta.md):** conversión de texto a tipo que rechaza lo no reconocido en vez de adivinar.
+- **[secreto](../../../glosario/entradas/s/secreto.md):** valor cuya divulgación da acceso o daña a alguien.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Configuración efectiva](../../../glosario/entradas/c/configuracion-efectiva.md) · [Interpretación estricta](../../../glosario/entradas/i/interpretacion-estricta.md) · [Precedencia](../../../glosario/entradas/p/precedencia.md) · [Secreto](../../../glosario/entradas/s/secreto.md) · [Valor definido](../../../glosario/entradas/v/valor-definido.md).
 
 ---
 

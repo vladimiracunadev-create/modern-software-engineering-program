@@ -160,11 +160,11 @@ La instantánea detecta los nueve defectos y los siete cambios benignos: cada al
 
 ## Definiciones de trabajo
 
-- **recorrido crítico:** secuencia de pasos de un usuario cuyo fallo causa un daño inaceptable para el negocio.
-- **criterio de aceptación:** condición observable que el negocio acepta como prueba de que algo está terminado.
-- **fallo espurio:** fallo de una prueba que no corresponde a un defecto del producto.
-- **instantánea (snapshot):** copia de una salida contra la que se compara exactamente en cada ejecución.
-- **aserción semántica:** comprobación de un significado observable por el usuario, no de la representación exacta.
+- **[recorrido crítico](../../../glosario/entradas/r/recorrido-critico.md):** secuencia de pasos de un usuario cuyo fallo causa un daño inaceptable para el negocio.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición observable que el negocio acepta como prueba de que algo está terminado.
+- **[fallo espurio](../../../glosario/entradas/f/fallo-espurio.md):** fallo de una prueba que no corresponde a un defecto del producto.
+- **[instantánea (snapshot)](../../../glosario/entradas/i/instantanea.md):** copia de una salida contra la que se compara exactamente en cada ejecución.
+- **[aserción semántica](../../../glosario/entradas/a/asercion-semantica.md):** comprobación de un significado observable por el usuario, no de la representación exacta.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con simulaciones y un registro sintético en Win
 
 ## Glosario
 
-- **recorrido crítico:** secuencia de pasos de un usuario cuyo fallo causa un daño inaceptable para el negocio.
-- **criterio de aceptación:** condición observable que el negocio acepta como prueba de que algo está terminado.
-- **fallo espurio:** fallo de una prueba que no corresponde a un defecto del producto.
-- **instantánea (snapshot):** copia de una salida contra la que se compara exactamente en cada ejecución.
-- **aserción semántica:** comprobación de un significado observable por el usuario, no de la representación exacta.
+- **[recorrido crítico](../../../glosario/entradas/r/recorrido-critico.md):** secuencia de pasos de un usuario cuyo fallo causa un daño inaceptable para el negocio.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición observable que el negocio acepta como prueba de que algo está terminado.
+- **[fallo espurio](../../../glosario/entradas/f/fallo-espurio.md):** fallo de una prueba que no corresponde a un defecto del producto.
+- **[instantánea (snapshot)](../../../glosario/entradas/i/instantanea.md):** copia de una salida contra la que se compara exactamente en cada ejecución.
+- **[aserción semántica](../../../glosario/entradas/a/asercion-semantica.md):** comprobación de un significado observable por el usuario, no de la representación exacta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aserción semántica](../../../glosario/entradas/a/asercion-semantica.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Fallo espurio](../../../glosario/entradas/f/fallo-espurio.md) · [Instantánea](../../../glosario/entradas/i/instantanea.md) · [Recorrido crítico](../../../glosario/entradas/r/recorrido-critico.md).
 
 ---
 

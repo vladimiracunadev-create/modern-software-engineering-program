@@ -167,11 +167,11 @@ Dos programas idénticos producen un informe de mejora en el 96,4 % de los casos
 
 ## Definiciones de trabajo
 
-- **paquete de informe:** carpeta con el manifiesto, los datos crudos con su huella, los scripts, el validador y los límites necesarios para repetir y auditar un informe.
-- **manifiesto:** archivo estructurado que describe la pregunta, el plan, el entorno, los datos, los resultados, el veredicto y los límites de un informe.
-- **huella (hash):** resumen criptográfico de un archivo, como SHA-256, que cambia si el contenido cambia.
-- **análisis confirmatorio y exploratorio:** el primero está fijado en el plan antes de ver los datos; el segundo se decide después y solo sugiere hipótesis.
-- **reproducibilidad:** capacidad de obtener el mismo resultado con el mismo código y los mismos datos.
+- **[paquete de informe](../../../glosario/entradas/p/paquete-de-informe.md):** carpeta con el manifiesto, los datos crudos con su huella, los scripts, el validador y los límites necesarios para repetir y auditar un informe.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** archivo estructurado que describe la pregunta, el plan, el entorno, los datos, los resultados, el veredicto y los límites de un informe.
+- **[huella (hash)](../../../glosario/entradas/h/huella.md):** resumen criptográfico de un archivo, como SHA-256, que cambia si el contenido cambia.
+- **[análisis confirmatorio y exploratorio](../../../glosario/entradas/a/analisis-confirmatorio-y-exploratorio.md):** el primero está fijado en el plan antes de ver los datos; el segundo se decide después y solo sugiere hipótesis.
+- **[reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md):** capacidad de obtener el mismo resultado con el mismo código y los mismos datos.
 
 Las definiciones son operativas para el informe de calidad de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron los tres experimentos en Windows y Ubuntu (WSL2), con resultados i
 
 ## Glosario
 
-- **paquete de informe:** carpeta con el manifiesto, los datos crudos con su huella, los scripts, el validador y los límites necesarios para repetir y auditar un informe.
-- **manifiesto:** archivo estructurado que describe la pregunta, el plan, el entorno, los datos, los resultados, el veredicto y los límites de un informe.
-- **huella (hash):** resumen criptográfico de un archivo, como SHA-256, que cambia si el contenido cambia.
-- **análisis confirmatorio y exploratorio:** el primero está fijado en el plan antes de ver los datos; el segundo se decide después y solo sugiere hipótesis.
-- **reproducibilidad:** capacidad de obtener el mismo resultado con el mismo código y los mismos datos.
+- **[paquete de informe](../../../glosario/entradas/p/paquete-de-informe.md):** carpeta con el manifiesto, los datos crudos con su huella, los scripts, el validador y los límites necesarios para repetir y auditar un informe.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** archivo estructurado que describe la pregunta, el plan, el entorno, los datos, los resultados, el veredicto y los límites de un informe.
+- **[huella (hash)](../../../glosario/entradas/h/huella.md):** resumen criptográfico de un archivo, como SHA-256, que cambia si el contenido cambia.
+- **[análisis confirmatorio y exploratorio](../../../glosario/entradas/a/analisis-confirmatorio-y-exploratorio.md):** el primero está fijado en el plan antes de ver los datos; el segundo se decide después y solo sugiere hipótesis.
+- **[reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md):** capacidad de obtener el mismo resultado con el mismo código y los mismos datos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis confirmatorio y exploratorio](../../../glosario/entradas/a/analisis-confirmatorio-y-exploratorio.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md) · [Paquete de informe](../../../glosario/entradas/p/paquete-de-informe.md) · [Reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md) · [Reproducibilidad entre sistemas](../../../glosario/entradas/r/reproducibilidad-entre-sistemas.md) · [Validación del paquete](../../../glosario/entradas/v/validacion-del-paquete.md).
 
 ---
 

@@ -143,13 +143,13 @@ El **ajuste fino** (*fine-tuning*) continúa el entrenamiento de un modelo ya en
 
 ## Definiciones de trabajo
 
-- **Evaluación (eval):** conjunto de casos con un criterio de calificación que mide un sistema.
-- **Calificador:** componente que decide si una respuesta es correcta: código, persona o modelo.
-- **Comparación pareada:** comparación de dos versiones sobre los mismos casos.
-- **Falso positivo de la puerta:** declarar mejor una versión que no lo es.
-- **Potencia:** probabilidad de detectar una mejora real.
-- **Sesgo de posición:** tendencia de un juez a preferir una respuesta por el orden en que aparece.
-- **Traza:** registro estructurado de los tramos de una solicitud.
+- **[Evaluación (eval)](../../../glosario/entradas/e/evaluacion.md):** conjunto de casos con un criterio de calificación que mide un sistema.
+- **[Calificador](../../../glosario/entradas/c/calificador.md):** componente que decide si una respuesta es correcta: código, persona o modelo.
+- **[Comparación pareada](../../../glosario/entradas/c/comparacion-pareada.md):** comparación de dos versiones sobre los mismos casos.
+- **[Falso positivo de la puerta](../../../glosario/entradas/f/falso-positivo-de-la-puerta.md):** declarar mejor una versión que no lo es.
+- **[Potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de detectar una mejora real.
+- **[Sesgo de posición](../../../glosario/entradas/s/sesgo-de-posicion.md):** tendencia de un juez a preferir una respuesta por el orden en que aparece.
+- **[Traza](../../../glosario/entradas/t/traza.md):** registro estructurado de los tramos de una solicitud.
 
 ## Ejemplo mínimo
 
@@ -286,6 +286,8 @@ Los sistemas, la dificultad por caso, el sesgo del juez y la traza son sintétic
 | Potencia | Probabilidad de detectar una mejora real |
 | Sesgo de posición | Preferencia de un juez por el orden de aparición |
 | Traza | Registro estructurado de tramos de una solicitud |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Calificador](../../../glosario/entradas/c/calificador.md) · [Comparación pareada](../../../glosario/entradas/c/comparacion-pareada.md) · [Evaluación](../../../glosario/entradas/e/evaluacion.md) · [Falso positivo de la puerta](../../../glosario/entradas/f/falso-positivo-de-la-puerta.md) · [Potencia](../../../glosario/entradas/p/potencia.md) · [Sesgo de posición](../../../glosario/entradas/s/sesgo-de-posicion.md) · [Traza](../../../glosario/entradas/t/traza.md).
 
 ---
 

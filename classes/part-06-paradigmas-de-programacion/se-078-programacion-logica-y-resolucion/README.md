@@ -111,11 +111,11 @@ En Prolog, este problema se resuelve con **tabling** (memorización de subobjeti
 
 ## Definiciones de trabajo
 
-- **términos, hechos y consultas:** un programa lógico describe relaciones mediante términos.
-- **unificación:** unificar busca una sustitución compatible entre estructuras.
-- **resolución y backtracking:** el motor selecciona metas, prueba cláusulas y retrocede cuando una elección falla.
-- **negación y mundo cerrado:** en muchos sistemas prolog, no poder demostrar una meta permite tratarla como falsa bajo supuestos de mundo cerrado.
-- **restricciones y explicación:** la programación lógica con restricciones mantiene dominios posibles y propaga reducciones antes de enumerar.
+- **[términos, hechos y consultas](../../../glosario/entradas/t/terminos-hechos-y-consultas.md):** un programa lógico describe relaciones mediante términos.
+- **[unificación](../../../glosario/entradas/u/unificacion.md):** unificar busca una sustitución compatible entre estructuras.
+- **[resolución y backtracking](../../../glosario/entradas/r/resolucion-y-backtracking.md):** el motor selecciona metas, prueba cláusulas y retrocede cuando una elección falla.
+- **[negación y mundo cerrado](../../../glosario/entradas/n/negacion-y-mundo-cerrado.md):** en muchos sistemas prolog, no poder demostrar una meta permite tratarla como falsa bajo supuestos de mundo cerrado.
+- **[restricciones y explicación](../../../glosario/entradas/r/restricciones-y-explicacion.md):** la programación lógica con restricciones mantiene dominios posibles y propaga reducciones antes de enumerar.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ La resolución lógica depende de supuestos operacionales y no gestiona por sí 
 
 ## Glosario
 
-- **términos, hechos y consultas:** un programa lógico describe relaciones mediante términos.
-- **unificación:** unificar busca una sustitución compatible entre estructuras.
-- **resolución y backtracking:** el motor selecciona metas, prueba cláusulas y retrocede cuando una elección falla.
-- **negación y mundo cerrado:** en muchos sistemas prolog, no poder demostrar una meta permite tratarla como falsa bajo supuestos de mundo cerrado.
-- **restricciones y explicación:** la programación lógica con restricciones mantiene dominios posibles y propaga reducciones antes de enumerar.
+- **[términos, hechos y consultas](../../../glosario/entradas/t/terminos-hechos-y-consultas.md):** un programa lógico describe relaciones mediante términos.
+- **[unificación](../../../glosario/entradas/u/unificacion.md):** unificar busca una sustitución compatible entre estructuras.
+- **[resolución y backtracking](../../../glosario/entradas/r/resolucion-y-backtracking.md):** el motor selecciona metas, prueba cláusulas y retrocede cuando una elección falla.
+- **[negación y mundo cerrado](../../../glosario/entradas/n/negacion-y-mundo-cerrado.md):** en muchos sistemas prolog, no poder demostrar una meta permite tratarla como falsa bajo supuestos de mundo cerrado.
+- **[restricciones y explicación](../../../glosario/entradas/r/restricciones-y-explicacion.md):** la programación lógica con restricciones mantiene dominios posibles y propaga reducciones antes de enumerar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Negación y mundo cerrado](../../../glosario/entradas/n/negacion-y-mundo-cerrado.md) · [Resolución y backtracking](../../../glosario/entradas/r/resolucion-y-backtracking.md) · [Restricciones y explicación](../../../glosario/entradas/r/restricciones-y-explicacion.md) · [Términos, hechos y consultas](../../../glosario/entradas/t/terminos-hechos-y-consultas.md) · [Unificación](../../../glosario/entradas/u/unificacion.md).
 
 ---
 

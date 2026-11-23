@@ -144,11 +144,11 @@ Comprobar solo al fusionar es peor que un plan diario y depende del ritmo del eq
 
 ## Definiciones de trabajo
 
-- **estado deseado:** configuración que el código declara para la infraestructura.
-- **plan:** lista de acciones que la herramienta calcularía para llevar el estado registrado y el real al deseado.
-- **reemplazo:** acción que destruye un recurso y lo vuelve a crear porque una propiedad no se puede cambiar en sitio.
-- **bloqueo del estado:** exclusión mutua que impide que dos operaciones escriban el estado a la vez.
-- **deriva:** diferencia entre el estado deseado y el real causada por cambios hechos fuera del flujo de cambios.
+- **[estado deseado](../../../glosario/entradas/e/estado-deseado.md):** configuración que el código declara para la infraestructura.
+- **[plan](../../../glosario/entradas/p/plan.md):** lista de acciones que la herramienta calcularía para llevar el estado registrado y el real al deseado.
+- **[reemplazo](../../../glosario/entradas/r/reemplazo.md):** acción que destruye un recurso y lo vuelve a crear porque una propiedad no se puede cambiar en sitio.
+- **[bloqueo del estado](../../../glosario/entradas/b/bloqueo-del-estado.md):** exclusión mutua que impide que dos operaciones escriban el estado a la vez.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre el estado deseado y el real causada por cambios hechos fuera del flujo de cambios.
 
 Las definiciones son operativas para la plataforma de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **estado deseado:** configuración que el código declara para la infraestructura.
-- **plan:** lista de acciones que la herramienta calcularía para llevar el estado registrado y el real al deseado.
-- **reemplazo:** acción que destruye un recurso y lo vuelve a crear porque una propiedad no se puede cambiar en sitio.
-- **bloqueo del estado:** exclusión mutua que impide que dos operaciones escriban el estado a la vez.
-- **deriva:** diferencia entre el estado deseado y el real causada por cambios hechos fuera del flujo de cambios.
+- **[estado deseado](../../../glosario/entradas/e/estado-deseado.md):** configuración que el código declara para la infraestructura.
+- **[plan](../../../glosario/entradas/p/plan.md):** lista de acciones que la herramienta calcularía para llevar el estado registrado y el real al deseado.
+- **[reemplazo](../../../glosario/entradas/r/reemplazo.md):** acción que destruye un recurso y lo vuelve a crear porque una propiedad no se puede cambiar en sitio.
+- **[bloqueo del estado](../../../glosario/entradas/b/bloqueo-del-estado.md):** exclusión mutua que impide que dos operaciones escriban el estado a la vez.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** diferencia entre el estado deseado y el real causada por cambios hechos fuera del flujo de cambios.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloqueo del estado](../../../glosario/entradas/b/bloqueo-del-estado.md) · [Deriva](../../../glosario/entradas/d/deriva.md) · [Estado deseado](../../../glosario/entradas/e/estado-deseado.md) · [Plan](../../../glosario/entradas/p/plan.md) · [Reemplazo](../../../glosario/entradas/r/reemplazo.md).
 
 ---
 

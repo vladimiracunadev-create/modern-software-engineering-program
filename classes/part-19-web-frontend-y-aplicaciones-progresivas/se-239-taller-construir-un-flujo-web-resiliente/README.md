@@ -143,11 +143,11 @@ Resultado, idéntico en ambos sistemas: la página base no produce hallazgos y *
 
 ## Definiciones de trabajo
 
-- **máquina de estados:** modelo con un conjunto finito de estados, eventos y transiciones que describe cómo reacciona un sistema a su entorno.
-- **estado inalcanzable:** estado que no se puede alcanzar desde el estado inicial por ninguna secuencia de eventos.
-- **retroceso exponencial:** política de reintento que multiplica la espera tras cada fallo.
-- **dispersión (`jitter`):** componente aleatorio añadido a una espera para que los clientes no reintenten sincronizados.
-- **escenario de integración:** secuencia de acciones y condiciones que cruza varias piezas y tiene un resultado esperado escrito.
+- **[máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md):** modelo con un conjunto finito de estados, eventos y transiciones que describe cómo reacciona un sistema a su entorno.
+- **[estado inalcanzable](../../../glosario/entradas/e/estado-inalcanzable.md):** estado que no se puede alcanzar desde el estado inicial por ninguna secuencia de eventos.
+- **[retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md):** política de reintento que multiplica la espera tras cada fallo.
+- **[dispersión (`jitter`)](../../../glosario/entradas/d/dispersion.md):** componente aleatorio añadido a una espera para que los clientes no reintenten sincronizados.
+- **[escenario de integración](../../../glosario/entradas/e/escenario-de-integracion.md):** secuencia de acciones y condiciones que cruza varias piezas y tiene un resultado esperado escrito.
 
 Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
 
@@ -297,11 +297,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **máquina de estados:** modelo con un conjunto finito de estados, eventos y transiciones que describe cómo reacciona un sistema a su entorno.
-- **estado inalcanzable:** estado que no se puede alcanzar desde el estado inicial por ninguna secuencia de eventos.
-- **retroceso exponencial:** política de reintento que multiplica la espera tras cada fallo.
-- **dispersión (`jitter`):** componente aleatorio añadido a una espera para que los clientes no reintenten sincronizados.
-- **escenario de integración:** secuencia de acciones y condiciones que cruza varias piezas y tiene un resultado esperado escrito.
+- **[máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md):** modelo con un conjunto finito de estados, eventos y transiciones que describe cómo reacciona un sistema a su entorno.
+- **[estado inalcanzable](../../../glosario/entradas/e/estado-inalcanzable.md):** estado que no se puede alcanzar desde el estado inicial por ninguna secuencia de eventos.
+- **[retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md):** política de reintento que multiplica la espera tras cada fallo.
+- **[dispersión (`jitter`)](../../../glosario/entradas/d/dispersion.md):** componente aleatorio añadido a una espera para que los clientes no reintenten sincronizados.
+- **[escenario de integración](../../../glosario/entradas/e/escenario-de-integracion.md):** secuencia de acciones y condiciones que cruza varias piezas y tiene un resultado esperado escrito.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Escenario de integración](../../../glosario/entradas/e/escenario-de-integracion.md) · [Estado inalcanzable](../../../glosario/entradas/e/estado-inalcanzable.md) · [Máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md) · [Retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md).
 
 ---
 

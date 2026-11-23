@@ -141,13 +141,13 @@ La tercera medida compara las respuestas posibles a la misma falla.
 
 ## Definiciones de trabajo
 
-- **Inyección de fallas:** introducir a propósito una falla controlada para comprobar la detección y la recuperación.
-- **Monitor:** comprobación automática con umbral que alerta.
-- **Tiempo hasta detectar:** horas entre la falla y la primera alerta.
-- **Mitigación:** acción que reduce el daño sin resolver todavía la causa.
-- **Recuperación:** vuelta a un estado sano verificado con la métrica.
-- **Postmortem sin culpa:** análisis de un incidente centrado en el sistema y no en las personas.
-- **Respaldo:** alternativa simple que se usa cuando el modelo no sirve.
+- **[Inyección de fallas](../../../glosario/entradas/i/inyeccion-de-fallas.md):** introducir a propósito una falla controlada para comprobar la detección y la recuperación.
+- **[Monitor](../../../glosario/entradas/m/monitor.md):** comprobación automática con umbral que alerta.
+- **[Tiempo hasta detectar](../../../glosario/entradas/t/tiempo-hasta-detectar.md):** horas entre la falla y la primera alerta.
+- **[Mitigación](../../../glosario/entradas/m/mitigacion.md):** acción que reduce el daño sin resolver todavía la causa.
+- **[Recuperación](../../../glosario/entradas/r/recuperacion.md):** vuelta a un estado sano verificado con la métrica.
+- **[Postmortem sin culpa](../../../glosario/entradas/p/postmortem-sin-culpa.md):** análisis de un incidente centrado en el sistema y no en las personas.
+- **[Respaldo](../../../glosario/entradas/r/respaldo.md):** alternativa simple que se usa cuando el modelo no sirve.
 
 ## Ejemplo mínimo
 
@@ -282,6 +282,8 @@ Las cuatro fallas, los umbrales, las ventanas, el retraso de las etiquetas, las 
 | Mitigación | Acción que reduce el daño antes de resolver la causa |
 | Postmortem sin culpa | Análisis del sistema que lleva a acciones con dueño |
 | Respaldo | Alternativa simple cuando el modelo no sirve |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Exposición](../../../glosario/entradas/e/exposicion.md) · [Inyección de fallas](../../../glosario/entradas/i/inyeccion-de-fallas.md) · [Mitigación](../../../glosario/entradas/m/mitigacion.md) · [Monitor](../../../glosario/entradas/m/monitor.md) · [Postmortem sin culpa](../../../glosario/entradas/p/postmortem-sin-culpa.md) · [Recuperación](../../../glosario/entradas/r/recuperacion.md) · [Respaldo](../../../glosario/entradas/r/respaldo.md) · [Retraso de etiquetas](../../../glosario/entradas/r/retraso-de-etiquetas.md) · [Runbook](../../../glosario/entradas/r/runbook.md) · [Tiempo hasta detectar](../../../glosario/entradas/t/tiempo-hasta-detectar.md).
 
 ---
 

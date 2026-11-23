@@ -113,13 +113,13 @@ Las tres restricciones se vuelven operativas con un **presupuesto por solicitud*
 
 ## Definiciones de trabajo
 
-- **Caché de prefijo:** reutilización del procesamiento de un prefijo estable del prompt entre llamadas.
-- **Percentil 95:** valor por debajo del cual queda el 95 % de las observaciones.
-- **Cola larga:** distribución donde una fracción pequeña de observaciones es mucho mayor que la mediana.
-- **Solicitud de cobertura:** copia de una llamada lenta cuya primera respuesta se usa.
-- **Inyección de prompt:** texto que busca dirigir el comportamiento del modelo desde el contenido que procesa.
-- **Regla de las tres condiciones:** datos privados, contenido no confiable y canal de salida en un mismo agente.
-- **Presupuesto:** conjunto de topes de costo, tiempo y capacidades con una acción al excederlos.
+- **[Caché de prefijo](../../../glosario/entradas/c/cache-de-prefijo.md):** reutilización del procesamiento de un prefijo estable del prompt entre llamadas.
+- **[Percentil 95](../../../glosario/entradas/p/percentil-95.md):** valor por debajo del cual queda el 95 % de las observaciones.
+- **[Cola larga](../../../glosario/entradas/c/cola-larga.md):** distribución donde una fracción pequeña de observaciones es mucho mayor que la mediana.
+- **[Solicitud de cobertura](../../../glosario/entradas/s/solicitud-de-cobertura.md):** copia de una llamada lenta cuya primera respuesta se usa.
+- **[Inyección de prompt](../../../glosario/entradas/i/inyeccion-de-prompt.md):** texto que busca dirigir el comportamiento del modelo desde el contenido que procesa.
+- **[Regla de las tres condiciones](../../../glosario/entradas/r/regla-de-las-tres-condiciones.md):** datos privados, contenido no confiable y canal de salida en un mismo agente.
+- **[Presupuesto](../../../glosario/entradas/p/presupuesto.md):** conjunto de topes de costo, tiempo y capacidades con una acción al excederlos.
 
 ## Ejemplo mínimo
 
@@ -250,6 +250,8 @@ Las unidades de costo son supuestos y no precios; la latencia es una distribuci�
 | Inyección de prompt | Texto que intenta dirigir al modelo desde su contenido |
 | Regla de las tres condiciones | Datos privados, contenido no confiable y canal de salida |
 | Presupuesto | Topes de costo, tiempo y capacidades con acción al excederlos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caché de prefijo](../../../glosario/entradas/c/cache-de-prefijo.md) · [Cola larga](../../../glosario/entradas/c/cola-larga.md) · [Costo cuadrático del bucle](../../../glosario/entradas/c/costo-cuadratico-del-bucle.md) · [Inyección de prompt](../../../glosario/entradas/i/inyeccion-de-prompt.md) · [Percentil 95](../../../glosario/entradas/p/percentil-95.md) · [Presupuesto](../../../glosario/entradas/p/presupuesto.md) · [Regla de las tres condiciones](../../../glosario/entradas/r/regla-de-las-tres-condiciones.md) · [Solicitud de cobertura](../../../glosario/entradas/s/solicitud-de-cobertura.md).
 
 ---
 

@@ -111,11 +111,11 @@ Lo mismo ocurre con los errores: una v1 lanzaba `ValueError('empty input')` y un
 
 ## Definiciones de trabajo
 
-- **api pública:** la api incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender.
-- **compatibilidad hacia atrás:** una versión nueva es backward compatible si consumidores válidos anteriores siguen funcionando bajo el contrato.
-- **semver:** semver exige declarar api pública: major para ruptura, minor para funcionalidad compatible y patch para corrección compatible, con reglas particulares antes de 1.
-- **prerelease y metadata:** identificadores prerelease tienen precedencia menor y permiten ensayo; metadata de build no cambia precedencia.
-- **deprecación y migración:** deprecar anuncia reemplazo, ventana y señal antes de remover.
+- **[api pública](../../../glosario/entradas/a/api-publica.md):** la api incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** una versión nueva es backward compatible si consumidores válidos anteriores siguen funcionando bajo el contrato.
+- **[semver](../../../glosario/entradas/s/semver.md):** semver exige declarar api pública: major para ruptura, minor para funcionalidad compatible y patch para corrección compatible, con reglas particulares antes de 1.
+- **[prerelease y metadata](../../../glosario/entradas/p/prerelease-y-metadata.md):** identificadores prerelease tienen precedencia menor y permiten ensayo; metadata de build no cambia precedencia.
+- **[deprecación y migración](../../../glosario/entradas/d/deprecacion-y-migracion.md):** deprecar anuncia reemplazo, ventana y señal antes de remover.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ SemVer describe una versión del producto, no cómo varias restricciones selecci
 
 ## Glosario
 
-- **api pública:** la api incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender.
-- **compatibilidad hacia atrás:** una versión nueva es backward compatible si consumidores válidos anteriores siguen funcionando bajo el contrato.
-- **semver:** semver exige declarar api pública: major para ruptura, minor para funcionalidad compatible y patch para corrección compatible, con reglas particulares antes de 1.
-- **prerelease y metadata:** identificadores prerelease tienen precedencia menor y permiten ensayo; metadata de build no cambia precedencia.
-- **deprecación y migración:** deprecar anuncia reemplazo, ventana y señal antes de remover.
+- **[api pública](../../../glosario/entradas/a/api-publica.md):** la api incluye nombres, tipos, errores, efectos, orden, formato y comportamiento documentado que consumidores pueden depender.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** una versión nueva es backward compatible si consumidores válidos anteriores siguen funcionando bajo el contrato.
+- **[semver](../../../glosario/entradas/s/semver.md):** semver exige declarar api pública: major para ruptura, minor para funcionalidad compatible y patch para corrección compatible, con reglas particulares antes de 1.
+- **[prerelease y metadata](../../../glosario/entradas/p/prerelease-y-metadata.md):** identificadores prerelease tienen precedencia menor y permiten ensayo; metadata de build no cambia precedencia.
+- **[deprecación y migración](../../../glosario/entradas/d/deprecacion-y-migracion.md):** deprecar anuncia reemplazo, ventana y señal antes de remover.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [API pública](../../../glosario/entradas/a/api-publica.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Deprecación y migración](../../../glosario/entradas/d/deprecacion-y-migracion.md) · [Prerelease y metadata](../../../glosario/entradas/p/prerelease-y-metadata.md) · [Semver](../../../glosario/entradas/s/semver.md).
 
 ---
 

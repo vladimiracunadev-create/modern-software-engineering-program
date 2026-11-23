@@ -147,11 +147,11 @@ Resultado en una corrida (los tiempos dependen del equipo): Windows 11, 0,9 ms, 
 
 ## Definiciones de trabajo
 
-- **atributos de calidad:** propiedades del sistema, distintas de su función, como rendimiento, fiabilidad, seguridad o mantenibilidad.
-- **escenarios de calidad:** formulación estructurada de un atributo con fuente, estímulo, artefacto, entorno, respuesta y medida.
-- **medidas y ventanas:** estadístico, población y periodo sobre los que se evalúa el cumplimiento de un escenario.
-- **restricciones:** condiciones impuestas fuera del equipo que limitan el diseño y no se negocian como requisitos.
-- **compromisos entre atributos:** relaciones en las que mejorar un atributo cuesta otro.
+- **[atributos de calidad](../../../glosario/entradas/a/atributos-de-calidad.md):** propiedades del sistema, distintas de su función, como rendimiento, fiabilidad, seguridad o mantenibilidad.
+- **[escenarios de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** formulación estructurada de un atributo con fuente, estímulo, artefacto, entorno, respuesta y medida.
+- **[medidas y ventanas](../../../glosario/entradas/m/medidas-y-ventanas.md):** estadístico, población y periodo sobre los que se evalúa el cumplimiento de un escenario.
+- **[restricciones](../../../glosario/entradas/r/restricciones.md):** condiciones impuestas fuera del equipo que limitan el diseño y no se negocian como requisitos.
+- **[compromisos entre atributos](../../../glosario/entradas/c/compromisos-entre-atributos.md):** relaciones en las que mejorar un atributo cuesta otro.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -308,11 +308,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **atributos de calidad:** propiedades del sistema, distintas de su función, como rendimiento, fiabilidad, seguridad o mantenibilidad.
-- **escenarios de calidad:** formulación estructurada de un atributo con fuente, estímulo, artefacto, entorno, respuesta y medida.
-- **medidas y ventanas:** estadístico, población y periodo sobre los que se evalúa el cumplimiento de un escenario.
-- **restricciones:** condiciones impuestas fuera del equipo que limitan el diseño y no se negocian como requisitos.
-- **compromisos entre atributos:** relaciones en las que mejorar un atributo cuesta otro.
+- **[atributos de calidad](../../../glosario/entradas/a/atributos-de-calidad.md):** propiedades del sistema, distintas de su función, como rendimiento, fiabilidad, seguridad o mantenibilidad.
+- **[escenarios de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** formulación estructurada de un atributo con fuente, estímulo, artefacto, entorno, respuesta y medida.
+- **[medidas y ventanas](../../../glosario/entradas/m/medidas-y-ventanas.md):** estadístico, población y periodo sobre los que se evalúa el cumplimiento de un escenario.
+- **[restricciones](../../../glosario/entradas/r/restricciones.md):** condiciones impuestas fuera del equipo que limitan el diseño y no se negocian como requisitos.
+- **[compromisos entre atributos](../../../glosario/entradas/c/compromisos-entre-atributos.md):** relaciones en las que mejorar un atributo cuesta otro.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Atributos de calidad](../../../glosario/entradas/a/atributos-de-calidad.md) · [Compromisos entre atributos](../../../glosario/entradas/c/compromisos-entre-atributos.md) · [Escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md) · [Medidas y ventanas](../../../glosario/entradas/m/medidas-y-ventanas.md) · [Restricciones](../../../glosario/entradas/r/restricciones.md).
 
 ---
 

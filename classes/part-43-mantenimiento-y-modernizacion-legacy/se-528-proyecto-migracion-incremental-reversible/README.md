@@ -147,11 +147,11 @@ El reposo de tres días que quería el equipo deja casi nueve de cada diez defec
 
 ## Definiciones de trabajo
 
-- **fase reversible:** fase de una migración desde la cual se puede volver a la anterior sin perder datos.
-- **punto de no retorno:** paso a partir del cual volver atrás es imposible o destruye datos.
-- **ensayo de vuelta atrás:** ejecución controlada de la reversión para medir su duración y lo que se pierde.
-- **reposo:** periodo durante el cual ambos esquemas se conservan antes de retirar el antiguo.
-- **paquete de migración:** conjunto de artefactos (plan, ejecutor, verificación, ensayo, límites) que permite a otra persona comprobar la migración.
+- **[fase reversible](../../../glosario/entradas/f/fase-reversible.md):** fase de una migración desde la cual se puede volver a la anterior sin perder datos.
+- **[punto de no retorno](../../../glosario/entradas/p/punto-de-no-retorno.md):** paso a partir del cual volver atrás es imposible o destruye datos.
+- **[ensayo de vuelta atrás](../../../glosario/entradas/e/ensayo-de-vuelta-atras.md):** ejecución controlada de la reversión para medir su duración y lo que se pierde.
+- **[reposo](../../../glosario/entradas/r/reposo.md):** periodo durante el cual ambos esquemas se conservan antes de retirar el antiguo.
+- **[paquete de migración](../../../glosario/entradas/p/paquete-de-migracion.md):** conjunto de artefactos (plan, ejecutor, verificación, ensayo, límites) que permite a otra persona comprobar la migración.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -297,11 +297,13 @@ Se ejecutó la migración y los dos cálculos con datos sintéticos en Windows y
 
 ## Glosario
 
-- **fase reversible:** fase de una migración desde la cual se puede volver a la anterior sin perder datos.
-- **punto de no retorno:** paso a partir del cual volver atrás es imposible o destruye datos.
-- **ensayo de vuelta atrás:** ejecución controlada de la reversión para medir su duración y lo que se pierde.
-- **reposo:** periodo durante el cual ambos esquemas se conservan antes de retirar el antiguo.
-- **paquete de migración:** conjunto de artefactos (plan, ejecutor, verificación, ensayo, límites) que permite a otra persona comprobar la migración.
+- **[fase reversible](../../../glosario/entradas/f/fase-reversible.md):** fase de una migración desde la cual se puede volver a la anterior sin perder datos.
+- **[punto de no retorno](../../../glosario/entradas/p/punto-de-no-retorno.md):** paso a partir del cual volver atrás es imposible o destruye datos.
+- **[ensayo de vuelta atrás](../../../glosario/entradas/e/ensayo-de-vuelta-atras.md):** ejecución controlada de la reversión para medir su duración y lo que se pierde.
+- **[reposo](../../../glosario/entradas/r/reposo.md):** periodo durante el cual ambos esquemas se conservan antes de retirar el antiguo.
+- **[paquete de migración](../../../glosario/entradas/p/paquete-de-migracion.md):** conjunto de artefactos (plan, ejecutor, verificación, ensayo, límites) que permite a otra persona comprobar la migración.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ensayo de vuelta atrás](../../../glosario/entradas/e/ensayo-de-vuelta-atras.md) · [Fase reversible](../../../glosario/entradas/f/fase-reversible.md) · [Paquete de migración](../../../glosario/entradas/p/paquete-de-migracion.md) · [Punto de no retorno](../../../glosario/entradas/p/punto-de-no-retorno.md) · [Reposo](../../../glosario/entradas/r/reposo.md) · [Verificación de contenido](../../../glosario/entradas/v/verificacion-de-contenido.md).
 
 ---
 

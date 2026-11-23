@@ -165,11 +165,11 @@ El estudiante más pedido recibe el 15,8 % de las peticiones: con 8 particiones,
 
 ## Definiciones de trabajo
 
-- **replicación asíncrona:** copia de los datos a otras máquinas sin esperar su confirmación antes de responder al cliente.
-- **retardo de replicación:** tiempo entre que el líder confirma una escritura y una réplica la aplica.
-- **cuórum:** número mínimo de réplicas que deben responder para dar una operación por válida; R + W > N asegura el solapamiento.
-- **hash consistente:** función de reparto en un círculo en la que cambiar el número de nodos mueve solo una fracción de las claves.
-- **clave caliente:** clave que recibe una fracción desproporcionada de las peticiones.
+- **[replicación asíncrona](../../../glosario/entradas/r/replicacion-asincrona.md):** copia de los datos a otras máquinas sin esperar su confirmación antes de responder al cliente.
+- **[retardo de replicación](../../../glosario/entradas/r/retardo-de-replicacion.md):** tiempo entre que el líder confirma una escritura y una réplica la aplica.
+- **[cuórum](../../../glosario/entradas/c/cuorum.md):** número mínimo de réplicas que deben responder para dar una operación por válida; R + W > N asegura el solapamiento.
+- **[hash consistente](../../../glosario/entradas/h/hash-consistente.md):** función de reparto en un círculo en la que cambiar el número de nodos mueve solo una fracción de las claves.
+- **[clave caliente](../../../glosario/entradas/c/clave-caliente.md):** clave que recibe una fracción desproporcionada de las peticiones.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres simulaciones con semilla fija en Windows y Ubuntu (WSL2) con 
 
 ## Glosario
 
-- **replicación asíncrona:** copia de los datos a otras máquinas sin esperar su confirmación antes de responder al cliente.
-- **retardo de replicación:** tiempo entre que el líder confirma una escritura y una réplica la aplica.
-- **cuórum:** número mínimo de réplicas que deben responder para dar una operación por válida; R + W > N asegura el solapamiento.
-- **hash consistente:** función de reparto en un círculo en la que cambiar el número de nodos mueve solo una fracción de las claves.
-- **clave caliente:** clave que recibe una fracción desproporcionada de las peticiones.
+- **[replicación asíncrona](../../../glosario/entradas/r/replicacion-asincrona.md):** copia de los datos a otras máquinas sin esperar su confirmación antes de responder al cliente.
+- **[retardo de replicación](../../../glosario/entradas/r/retardo-de-replicacion.md):** tiempo entre que el líder confirma una escritura y una réplica la aplica.
+- **[cuórum](../../../glosario/entradas/c/cuorum.md):** número mínimo de réplicas que deben responder para dar una operación por válida; R + W > N asegura el solapamiento.
+- **[hash consistente](../../../glosario/entradas/h/hash-consistente.md):** función de reparto en un círculo en la que cambiar el número de nodos mueve solo una fracción de las claves.
+- **[clave caliente](../../../glosario/entradas/c/clave-caliente.md):** clave que recibe una fracción desproporcionada de las peticiones.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave caliente](../../../glosario/entradas/c/clave-caliente.md) · [Cuórum](../../../glosario/entradas/c/cuorum.md) · [Hash consistente](../../../glosario/entradas/h/hash-consistente.md) · [Lectura de la propia escritura](../../../glosario/entradas/l/lectura-de-la-propia-escritura.md) · [Replicación asíncrona](../../../glosario/entradas/r/replicacion-asincrona.md) · [Retardo de replicación](../../../glosario/entradas/r/retardo-de-replicacion.md).
 
 ---
 

@@ -122,11 +122,11 @@ El arranque mínimo de Python (`python -c pass`) tardó una mediana de **281 ms 
 
 ## Definiciones de trabajo
 
-- **artefacto:** archivo producido por la compilación o el empaquetado que se entrega a los usuarios.
-- **resumen criptográfico (hash):** valor de longitud fija que cambia si cambia cualquier bit del contenido.
-- **firma digital:** prueba, con una clave privada, de que el publicador es quien dice ser y de que el contenido no cambió.
-- **despliegue escalonado:** entrega a fracciones crecientes de usuarios con una señal de salud entre cada una.
-- **reversión (rollback):** vuelta a la versión anterior tras detectar un defecto.
+- **[artefacto](../../../glosario/entradas/a/artefacto.md):** archivo producido por la compilación o el empaquetado que se entrega a los usuarios.
+- **[resumen criptográfico (hash)](../../../glosario/entradas/h/huella.md):** valor de longitud fija que cambia si cambia cualquier bit del contenido.
+- **[firma digital](../../../glosario/entradas/f/firma-digital.md):** prueba, con una clave privada, de que el publicador es quien dice ser y de que el contenido no cambió.
+- **[despliegue escalonado](../../../glosario/entradas/d/despliegue-escalonado.md):** entrega a fracciones crecientes de usuarios con una señal de salud entre cada una.
+- **[reversión (rollback)](../../../glosario/entradas/r/retroceso.md):** vuelta a la versión anterior tras detectar un defecto.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -272,11 +272,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): detecciones y simula
 
 ## Glosario
 
-- **artefacto:** archivo producido por la compilación o el empaquetado que se entrega a los usuarios.
-- **resumen criptográfico (hash):** valor de longitud fija que cambia si cambia cualquier bit del contenido.
-- **firma digital:** prueba, con una clave privada, de que el publicador es quien dice ser y de que el contenido no cambió.
-- **despliegue escalonado:** entrega a fracciones crecientes de usuarios con una señal de salud entre cada una.
-- **reversión (rollback):** vuelta a la versión anterior tras detectar un defecto.
+- **[artefacto](../../../glosario/entradas/a/artefacto.md):** archivo producido por la compilación o el empaquetado que se entrega a los usuarios.
+- **[resumen criptográfico (hash)](../../../glosario/entradas/h/huella.md):** valor de longitud fija que cambia si cambia cualquier bit del contenido.
+- **[firma digital](../../../glosario/entradas/f/firma-digital.md):** prueba, con una clave privada, de que el publicador es quien dice ser y de que el contenido no cambió.
+- **[despliegue escalonado](../../../glosario/entradas/d/despliegue-escalonado.md):** entrega a fracciones crecientes de usuarios con una señal de salud entre cada una.
+- **[reversión (rollback)](../../../glosario/entradas/r/retroceso.md):** vuelta a la versión anterior tras detectar un defecto.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Artefacto](../../../glosario/entradas/a/artefacto.md) · [Despliegue escalonado](../../../glosario/entradas/d/despliegue-escalonado.md) · [Firma digital](../../../glosario/entradas/f/firma-digital.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md) · [Versionado](../../../glosario/entradas/v/versionado.md).
 
 ---
 

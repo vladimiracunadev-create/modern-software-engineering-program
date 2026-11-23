@@ -112,11 +112,11 @@ Reducir a dos filas tiene un precio: ya no se puede reconstruir la subsecuencia 
 
 ## Definiciones de trabajo
 
-- **estrategia voraz:** un algoritmo voraz toma la mejor opción local y no retrocede.
-- **contraejemplo mínimo:** cuando se propone una regla local, se busca la entrada más pequeña que la rompe.
-- **subproblemas superpuestos:** programación dinámica identifica estados que reaparecen y guarda sus soluciones.
-- **memoización y tabulación:** memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias.
-- **reconstrucción de la solución:** el valor óptimo no basta si se necesita explicar qué casos se eligieron.
+- **[estrategia voraz](../../../glosario/entradas/e/estrategia-voraz.md):** un algoritmo voraz toma la mejor opción local y no retrocede.
+- **[contraejemplo mínimo](../../../glosario/entradas/c/contraejemplo-minimo.md):** cuando se propone una regla local, se busca la entrada más pequeña que la rompe.
+- **[subproblemas superpuestos](../../../glosario/entradas/s/subproblemas-superpuestos.md):** programación dinámica identifica estados que reaparecen y guarda sus soluciones.
+- **[memoización y tabulación](../../../glosario/entradas/m/memoizacion-y-tabulacion.md):** memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias.
+- **[reconstrucción de la solución](../../../glosario/entradas/r/reconstruccion-de-la-solucion.md):** el valor óptimo no basta si se necesita explicar qué casos se eligieron.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -264,11 +264,13 @@ La programación dinámica exige un estado finito y manejable. La siguiente clas
 
 ## Glosario
 
-- **estrategia voraz:** un algoritmo voraz toma la mejor opción local y no retrocede.
-- **contraejemplo mínimo:** cuando se propone una regla local, se busca la entrada más pequeña que la rompe.
-- **subproblemas superpuestos:** programación dinámica identifica estados que reaparecen y guarda sus soluciones.
-- **memoización y tabulación:** memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias.
-- **reconstrucción de la solución:** el valor óptimo no basta si se necesita explicar qué casos se eligieron.
+- **[estrategia voraz](../../../glosario/entradas/e/estrategia-voraz.md):** un algoritmo voraz toma la mejor opción local y no retrocede.
+- **[contraejemplo mínimo](../../../glosario/entradas/c/contraejemplo-minimo.md):** cuando se propone una regla local, se busca la entrada más pequeña que la rompe.
+- **[subproblemas superpuestos](../../../glosario/entradas/s/subproblemas-superpuestos.md):** programación dinámica identifica estados que reaparecen y guarda sus soluciones.
+- **[memoización y tabulación](../../../glosario/entradas/m/memoizacion-y-tabulacion.md):** memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias.
+- **[reconstrucción de la solución](../../../glosario/entradas/r/reconstruccion-de-la-solucion.md):** el valor óptimo no basta si se necesita explicar qué casos se eligieron.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contraejemplo mínimo](../../../glosario/entradas/c/contraejemplo-minimo.md) · [Estrategia voraz](../../../glosario/entradas/e/estrategia-voraz.md) · [Memoización y tabulación](../../../glosario/entradas/m/memoizacion-y-tabulacion.md) · [Reconstrucción de la solución](../../../glosario/entradas/r/reconstruccion-de-la-solucion.md) · [Subproblemas superpuestos](../../../glosario/entradas/s/subproblemas-superpuestos.md).
 
 ---
 

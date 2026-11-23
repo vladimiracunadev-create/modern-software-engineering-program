@@ -108,12 +108,12 @@ La degradación protege contra fallos **del entorno**; no corrige un defecto del
 
 ## Definiciones de trabajo
 
-- **Selector de patrón:** función que asigna un patrón agéntico a una tarea a partir de sus atributos.
-- **Degradación:** paso controlado a un nivel con menos capacidad y más previsibilidad.
-- **Escalera de degradación:** secuencia ordenada de niveles de servicio.
-- **Interruptor de circuito:** mecanismo que deja de llamar a un servicio que falla y prueba su recuperación.
-- **Sonda:** llamada ocasional al nivel superior para saber si ya se recuperó.
-- **Cobertura de un nivel:** fracción de solicitudes que puede atender.
+- **[Selector de patrón](../../../glosario/entradas/s/selector-de-patron.md):** función que asigna un patrón agéntico a una tarea a partir de sus atributos.
+- **[Degradación](../../../glosario/entradas/d/degradacion.md):** paso controlado a un nivel con menos capacidad y más previsibilidad.
+- **[Escalera de degradación](../../../glosario/entradas/e/escalera-de-degradacion.md):** secuencia ordenada de niveles de servicio.
+- **[Interruptor de circuito](../../../glosario/entradas/i/interruptor-de-circuito.md):** mecanismo que deja de llamar a un servicio que falla y prueba su recuperación.
+- **[Sonda](../../../glosario/entradas/s/sonda.md):** llamada ocasional al nivel superior para saber si ya se recuperó.
+- **[Cobertura de un nivel](../../../glosario/entradas/c/cobertura-de-un-nivel.md):** fracción de solicitudes que puede atender.
 
 ## Ejemplo mínimo
 
@@ -254,6 +254,8 @@ El selector se probó con ocho tareas escritas por el autor, y la simulación us
 | Interruptor de circuito | Deja de llamar a un servicio que falla y prueba su recuperación |
 | Sonda | Llamada ocasional para saber si el servicio se recuperó |
 | Cobertura de un nivel | Fracción de solicitudes que puede atender |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura de un nivel](../../../glosario/entradas/c/cobertura-de-un-nivel.md) · [Degradación](../../../glosario/entradas/d/degradacion.md) · [Escalera de degradación](../../../glosario/entradas/e/escalera-de-degradacion.md) · [Interruptor de circuito](../../../glosario/entradas/i/interruptor-de-circuito.md) · [Selector de patrón](../../../glosario/entradas/s/selector-de-patron.md) · [Sonda](../../../glosario/entradas/s/sonda.md).
 
 ---
 

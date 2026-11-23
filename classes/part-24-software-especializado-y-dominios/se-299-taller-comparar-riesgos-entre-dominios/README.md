@@ -185,11 +185,11 @@ Los riesgos más repetidos son privacidad, duplicados y pérdida de datos, con c
 
 ## Definiciones de trabajo
 
-- **ejemplo ancla:** caso concreto que fija el significado de un nivel de una escala de puntuación.
-- **sensibilidad global:** análisis del efecto de variar a la vez varios parámetros inciertos sobre el resultado de un modelo.
-- **kappa ponderado:** medida de acuerdo entre evaluadores corregida por azar que penaliza más las diferencias grandes.
-- **control:** medida que reduce la probabilidad o el impacto de un riesgo.
-- **cobertura de controles:** fracción de los riesgos de un dominio a los que un conjunto de controles es pertinente.
+- **[ejemplo ancla](../../../glosario/entradas/e/ejemplo-ancla.md):** caso concreto que fija el significado de un nivel de una escala de puntuación.
+- **[sensibilidad global](../../../glosario/entradas/s/sensibilidad-global.md):** análisis del efecto de variar a la vez varios parámetros inciertos sobre el resultado de un modelo.
+- **[kappa ponderado](../../../glosario/entradas/k/kappa-ponderado.md):** medida de acuerdo entre evaluadores corregida por azar que penaliza más las diferencias grandes.
+- **[control](../../../glosario/entradas/c/control.md):** medida que reduce la probabilidad o el impacto de un riesgo.
+- **[cobertura de controles](../../../glosario/entradas/c/cobertura-de-controles.md):** fracción de los riesgos de un dominio a los que un conjunto de controles es pertinente.
 
 Las definiciones son operativas para el taller. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -330,11 +330,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ejemplo ancla:** caso concreto que fija el significado de un nivel de una escala de puntuación.
-- **sensibilidad global:** análisis del efecto de variar a la vez varios parámetros inciertos sobre el resultado de un modelo.
-- **kappa ponderado:** medida de acuerdo entre evaluadores corregida por azar que penaliza más las diferencias grandes.
-- **control:** medida que reduce la probabilidad o el impacto de un riesgo.
-- **cobertura de controles:** fracción de los riesgos de un dominio a los que un conjunto de controles es pertinente.
+- **[ejemplo ancla](../../../glosario/entradas/e/ejemplo-ancla.md):** caso concreto que fija el significado de un nivel de una escala de puntuación.
+- **[sensibilidad global](../../../glosario/entradas/s/sensibilidad-global.md):** análisis del efecto de variar a la vez varios parámetros inciertos sobre el resultado de un modelo.
+- **[kappa ponderado](../../../glosario/entradas/k/kappa-ponderado.md):** medida de acuerdo entre evaluadores corregida por azar que penaliza más las diferencias grandes.
+- **[control](../../../glosario/entradas/c/control.md):** medida que reduce la probabilidad o el impacto de un riesgo.
+- **[cobertura de controles](../../../glosario/entradas/c/cobertura-de-controles.md):** fracción de los riesgos de un dominio a los que un conjunto de controles es pertinente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acuerdo entre evaluadores](../../../glosario/entradas/a/acuerdo-entre-evaluadores.md) · [Cobertura de controles](../../../glosario/entradas/c/cobertura-de-controles.md) · [Control](../../../glosario/entradas/c/control.md) · [Ejemplo ancla](../../../glosario/entradas/e/ejemplo-ancla.md) · [Kappa ponderado](../../../glosario/entradas/k/kappa-ponderado.md) · [Sensibilidad global](../../../glosario/entradas/s/sensibilidad-global.md).
 
 ---
 

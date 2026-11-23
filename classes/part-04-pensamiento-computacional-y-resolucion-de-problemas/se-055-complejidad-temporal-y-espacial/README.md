@@ -106,11 +106,11 @@ Añadir un elemento a una lista de Python es «O(1) amortizado». `sys.getsizeof
 
 ## Definiciones de trabajo
 
-- **complejidad:** crecimiento de recursos respecto al tamaño.
-- **cota:** límite matemático de crecimiento.
-- **peor caso:** máximo costo entre entradas del mismo tamaño.
-- **amortizado:** costo promedio garantizado sobre una secuencia.
-- **benchmark:** medición controlada de una implementación.
+- **[complejidad](../../../glosario/entradas/c/complejidad.md):** crecimiento de recursos respecto al tamaño.
+- **[cota](../../../glosario/entradas/c/cota.md):** límite matemático de crecimiento.
+- **[peor caso](../../../glosario/entradas/p/peor-caso.md):** máximo costo entre entradas del mismo tamaño.
+- **[amortizado](../../../glosario/entradas/a/amortizado.md):** costo promedio garantizado sobre una secuencia.
+- **[benchmark](../../../glosario/entradas/b/benchmark.md):** medición controlada de una implementación.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -255,11 +255,13 @@ Complejidad asintótica no sustituye perfilado ni incluye automáticamente red y
 
 ## Glosario
 
-- **complejidad:** crecimiento de recursos respecto al tamaño.
-- **cota:** límite matemático de crecimiento.
-- **peor caso:** máximo costo entre entradas del mismo tamaño.
-- **amortizado:** costo promedio garantizado sobre una secuencia.
-- **benchmark:** medición controlada de una implementación.
+- **[complejidad](../../../glosario/entradas/c/complejidad.md):** crecimiento de recursos respecto al tamaño.
+- **[cota](../../../glosario/entradas/c/cota.md):** límite matemático de crecimiento.
+- **[peor caso](../../../glosario/entradas/p/peor-caso.md):** máximo costo entre entradas del mismo tamaño.
+- **[amortizado](../../../glosario/entradas/a/amortizado.md):** costo promedio garantizado sobre una secuencia.
+- **[benchmark](../../../glosario/entradas/b/benchmark.md):** medición controlada de una implementación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Amortizado](../../../glosario/entradas/a/amortizado.md) · [Benchmark](../../../glosario/entradas/b/benchmark.md) · [Complejidad](../../../glosario/entradas/c/complejidad.md) · [Cota](../../../glosario/entradas/c/cota.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Peor caso](../../../glosario/entradas/p/peor-caso.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

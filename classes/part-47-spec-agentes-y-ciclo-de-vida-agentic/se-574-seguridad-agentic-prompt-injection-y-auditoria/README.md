@@ -150,12 +150,12 @@ El registro simple no detecta nada, porque no tiene con qué comparar. La cadena
 
 ## Definiciones de trabajo
 
-- **inyección indirecta de instrucciones:** alteración del comportamiento de un modelo por instrucciones contenidas en datos externos que este procesa.
-- **contenido no confiable:** texto que proviene de una fuente que quien opera el agente no controla.
-- **tres capacidades:** acceso a datos privados, exposición a contenido no confiable y capacidad de comunicación hacia fuera.
-- **agente en cuarentena:** agente que lee contenido no confiable sin acceso a datos privados ni a herramientas de salida.
-- **cadena de huellas:** registro en el que cada evento incorpora el hash del anterior, de modo que cambiar un evento invalida los siguientes.
-- **referencia externa:** huella del último evento de un registro guardada en otro lugar con otros controles de acceso.
+- **[inyección indirecta de instrucciones](../../../glosario/entradas/i/inyeccion-indirecta-de-instrucciones.md):** alteración del comportamiento de un modelo por instrucciones contenidas en datos externos que este procesa.
+- **[contenido no confiable](../../../glosario/entradas/c/contenido-no-confiable.md):** texto que proviene de una fuente que quien opera el agente no controla.
+- **[tres capacidades](../../../glosario/entradas/t/tres-capacidades.md):** acceso a datos privados, exposición a contenido no confiable y capacidad de comunicación hacia fuera.
+- **[agente en cuarentena](../../../glosario/entradas/a/agente-en-cuarentena.md):** agente que lee contenido no confiable sin acceso a datos privados ni a herramientas de salida.
+- **[cadena de huellas](../../../glosario/entradas/c/cadena-de-huellas.md):** registro en el que cada evento incorpora el hash del anterior, de modo que cambiar un evento invalida los siguientes.
+- **[referencia externa](../../../glosario/entradas/r/referencia-externa.md):** huella del último evento de un registro guardada en otro lugar con otros controles de acceso.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,12 +299,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **inyección indirecta de instrucciones:** alteración del comportamiento de un modelo por instrucciones contenidas en datos externos que este procesa.
-- **contenido no confiable:** texto que proviene de una fuente que quien opera el agente no controla.
-- **tres capacidades:** acceso a datos privados, exposición a contenido no confiable y capacidad de comunicación hacia fuera.
-- **agente en cuarentena:** agente que lee contenido no confiable sin acceso a datos privados ni a herramientas de salida.
-- **cadena de huellas:** registro en el que cada evento incorpora el hash del anterior, de modo que cambiar un evento invalida los siguientes.
-- **referencia externa:** huella del último evento de un registro guardada en otro lugar con otros controles de acceso.
+- **[inyección indirecta de instrucciones](../../../glosario/entradas/i/inyeccion-indirecta-de-instrucciones.md):** alteración del comportamiento de un modelo por instrucciones contenidas en datos externos que este procesa.
+- **[contenido no confiable](../../../glosario/entradas/c/contenido-no-confiable.md):** texto que proviene de una fuente que quien opera el agente no controla.
+- **[tres capacidades](../../../glosario/entradas/t/tres-capacidades.md):** acceso a datos privados, exposición a contenido no confiable y capacidad de comunicación hacia fuera.
+- **[agente en cuarentena](../../../glosario/entradas/a/agente-en-cuarentena.md):** agente que lee contenido no confiable sin acceso a datos privados ni a herramientas de salida.
+- **[cadena de huellas](../../../glosario/entradas/c/cadena-de-huellas.md):** registro en el que cada evento incorpora el hash del anterior, de modo que cambiar un evento invalida los siguientes.
+- **[referencia externa](../../../glosario/entradas/r/referencia-externa.md):** huella del último evento de un registro guardada en otro lugar con otros controles de acceso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agente en cuarentena](../../../glosario/entradas/a/agente-en-cuarentena.md) · [Cadena de huellas](../../../glosario/entradas/c/cadena-de-huellas.md) · [Contenido no confiable](../../../glosario/entradas/c/contenido-no-confiable.md) · [Inyección indirecta de instrucciones](../../../glosario/entradas/i/inyeccion-indirecta-de-instrucciones.md) · [Referencia externa](../../../glosario/entradas/r/referencia-externa.md) · [Registro de auditoría](../../../glosario/entradas/r/registro-de-auditoria.md) · [Tres capacidades](../../../glosario/entradas/t/tres-capacidades.md).
 
 ---
 

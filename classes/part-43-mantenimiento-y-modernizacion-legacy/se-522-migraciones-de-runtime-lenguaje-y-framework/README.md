@@ -145,11 +145,11 @@ Esperar a que el soporte termine deja al equipo sin soporte el 16,3 % del tiempo
 
 ## Definiciones de trabajo
 
-- **cambio ruidoso:** diferencia entre versiones que lanza una excepción al ejecutarse.
-- **cambio silencioso:** diferencia entre versiones que produce un resultado distinto sin lanzar una excepción.
-- **sonda:** programa que aplica una operación con el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren.
-- **reescritura por estructura:** modificación automática del código que opera sobre su árbol sintáctico y no sobre su texto.
-- **matriz de pruebas:** ejecución de la misma suite en varias versiones de la plataforma.
+- **[cambio ruidoso](../../../glosario/entradas/c/cambio-ruidoso.md):** diferencia entre versiones que lanza una excepción al ejecutarse.
+- **[cambio silencioso](../../../glosario/entradas/c/cambio-silencioso.md):** diferencia entre versiones que produce un resultado distinto sin lanzar una excepción.
+- **[sonda](../../../glosario/entradas/s/sonda.md):** programa que aplica una operación con el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren.
+- **[reescritura por estructura](../../../glosario/entradas/r/reescritura-por-estructura.md):** modificación automática del código que opera sobre su árbol sintáctico y no sobre su texto.
+- **[matriz de pruebas](../../../glosario/entradas/m/matriz-de-pruebas.md):** ejecución de la misma suite en varias versiones de la plataforma.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con cifras idénticas
 
 ## Glosario
 
-- **cambio ruidoso:** diferencia entre versiones que lanza una excepción al ejecutarse.
-- **cambio silencioso:** diferencia entre versiones que produce un resultado distinto sin lanzar una excepción.
-- **sonda:** programa que aplica una operación con el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren.
-- **reescritura por estructura:** modificación automática del código que opera sobre su árbol sintáctico y no sobre su texto.
-- **matriz de pruebas:** ejecución de la misma suite en varias versiones de la plataforma.
+- **[cambio ruidoso](../../../glosario/entradas/c/cambio-ruidoso.md):** diferencia entre versiones que lanza una excepción al ejecutarse.
+- **[cambio silencioso](../../../glosario/entradas/c/cambio-silencioso.md):** diferencia entre versiones que produce un resultado distinto sin lanzar una excepción.
+- **[sonda](../../../glosario/entradas/s/sonda.md):** programa que aplica una operación con el comportamiento antiguo y el nuevo sobre datos representativos y cuenta cuántos resultados difieren.
+- **[reescritura por estructura](../../../glosario/entradas/r/reescritura-por-estructura.md):** modificación automática del código que opera sobre su árbol sintáctico y no sobre su texto.
+- **[matriz de pruebas](../../../glosario/entradas/m/matriz-de-pruebas.md):** ejecución de la misma suite en varias versiones de la plataforma.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio ruidoso](../../../glosario/entradas/c/cambio-ruidoso.md) · [Cambio silencioso](../../../glosario/entradas/c/cambio-silencioso.md) · [Matriz de pruebas](../../../glosario/entradas/m/matriz-de-pruebas.md) · [Reescritura por estructura](../../../glosario/entradas/r/reescritura-por-estructura.md) · [Sonda](../../../glosario/entradas/s/sonda.md).
 
 ---
 

@@ -145,12 +145,12 @@ Los tres casos del camino feliz detectan 3 de las 10 variantes; los nueve con bo
 
 ## Definiciones de trabajo
 
-- **convergencia:** estado en que un verificador independiente no encuentra ningún criterio de la especificación sin cumplir.
-- **verificador independiente:** procedimiento que juzga la implementación sin compartir el contexto ni los supuestos de quien la escribió.
-- **condición de parada:** regla explícita que detiene un bucle de agente y define qué se hace después.
-- **regresión:** criterio que estaba cumplido y deja de estarlo tras un cambio.
-- **cobertura del verificador:** fracción de los criterios de la especificación que el verificador puede evaluar.
-- **variante defectuosa (mutante):** copia del código con un defecto introducido para medir si las pruebas lo detectan.
+- **[convergencia](../../../glosario/entradas/c/convergencia.md):** estado en que un verificador independiente no encuentra ningún criterio de la especificación sin cumplir.
+- **[verificador independiente](../../../glosario/entradas/v/verificador-independiente.md):** procedimiento que juzga la implementación sin compartir el contexto ni los supuestos de quien la escribió.
+- **[condición de parada](../../../glosario/entradas/c/condicion-de-parada.md):** regla explícita que detiene un bucle de agente y define qué se hace después.
+- **[regresión](../../../glosario/entradas/r/regresion.md):** criterio que estaba cumplido y deja de estarlo tras un cambio.
+- **[cobertura del verificador](../../../glosario/entradas/c/cobertura-del-verificador.md):** fracción de los criterios de la especificación que el verificador puede evaluar.
+- **[variante defectuosa (mutante)](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un defecto introducido para medir si las pruebas lo detectan.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,12 +291,14 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **convergencia:** estado en que un verificador independiente no encuentra ningún criterio de la especificación sin cumplir.
-- **verificador independiente:** procedimiento que juzga la implementación sin compartir el contexto ni los supuestos de quien la escribió.
-- **condición de parada:** regla explícita que detiene un bucle de agente y define qué se hace después.
-- **regresión:** criterio que estaba cumplido y deja de estarlo tras un cambio.
-- **cobertura del verificador:** fracción de los criterios de la especificación que el verificador puede evaluar.
-- **variante defectuosa (mutante):** copia del código con un defecto introducido para medir si las pruebas lo detectan.
+- **[convergencia](../../../glosario/entradas/c/convergencia.md):** estado en que un verificador independiente no encuentra ningún criterio de la especificación sin cumplir.
+- **[verificador independiente](../../../glosario/entradas/v/verificador-independiente.md):** procedimiento que juzga la implementación sin compartir el contexto ni los supuestos de quien la escribió.
+- **[condición de parada](../../../glosario/entradas/c/condicion-de-parada.md):** regla explícita que detiene un bucle de agente y define qué se hace después.
+- **[regresión](../../../glosario/entradas/r/regresion.md):** criterio que estaba cumplido y deja de estarlo tras un cambio.
+- **[cobertura del verificador](../../../glosario/entradas/c/cobertura-del-verificador.md):** fracción de los criterios de la especificación que el verificador puede evaluar.
+- **[variante defectuosa (mutante)](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un defecto introducido para medir si las pruebas lo detectan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura del verificador](../../../glosario/entradas/c/cobertura-del-verificador.md) · [Condición de parada](../../../glosario/entradas/c/condicion-de-parada.md) · [Convergencia](../../../glosario/entradas/c/convergencia.md) · [Regresión](../../../glosario/entradas/r/regresion.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md) · [Verificador independiente](../../../glosario/entradas/v/verificador-independiente.md).
 
 ---
 

@@ -157,11 +157,11 @@ Resultado en Windows: **3,96 ms** con 1 KiB, **6,12 ms** con 64 KiB, **34,15 ms*
 
 ## Definiciones de trabajo
 
-- **ciclo de vida:** secuencia de estados por los que pasa una aplicación (primer plano, segundo plano, suspendido, terminado) y de transiciones que el sistema o la persona provocan.
-- **gancho:** función que el sistema invoca al cambiar el estado de la aplicación y que dispone de un plazo limitado y no siempre garantizado.
-- **restauración:** lectura del estado guardado para reconstruir la aplicación tras un arranque en frío o una actualización.
-- **migración:** transformación explícita de un estado guardado por una versión anterior a la forma que espera la versión actual.
-- **escritura atómica:** guardado que deja siempre el estado anterior o el nuevo completos, nunca uno parcial, mediante un archivo temporal sincronizado y un reemplazo.
+- **[ciclo de vida](../../../glosario/entradas/c/ciclo-de-vida.md):** secuencia de estados por los que pasa una aplicación (primer plano, segundo plano, suspendido, terminado) y de transiciones que el sistema o la persona provocan.
+- **[gancho](../../../glosario/entradas/g/gancho.md):** función que el sistema invoca al cambiar el estado de la aplicación y que dispone de un plazo limitado y no siempre garantizado.
+- **[restauración](../../../glosario/entradas/r/restauracion.md):** lectura del estado guardado para reconstruir la aplicación tras un arranque en frío o una actualización.
+- **[migración](../../../glosario/entradas/m/migracion.md):** transformación explícita de un estado guardado por una versión anterior a la forma que espera la versión actual.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** guardado que deja siempre el estado anterior o el nuevo completos, nunca uno parcial, mediante un archivo temporal sincronizado y un reemplazo.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ciclo de vida:** secuencia de estados por los que pasa una aplicación (primer plano, segundo plano, suspendido, terminado) y de transiciones que el sistema o la persona provocan.
-- **gancho:** función que el sistema invoca al cambiar el estado de la aplicación y que dispone de un plazo limitado y no siempre garantizado.
-- **restauración:** lectura del estado guardado para reconstruir la aplicación tras un arranque en frío o una actualización.
-- **migración:** transformación explícita de un estado guardado por una versión anterior a la forma que espera la versión actual.
-- **escritura atómica:** guardado que deja siempre el estado anterior o el nuevo completos, nunca uno parcial, mediante un archivo temporal sincronizado y un reemplazo.
+- **[ciclo de vida](../../../glosario/entradas/c/ciclo-de-vida.md):** secuencia de estados por los que pasa una aplicación (primer plano, segundo plano, suspendido, terminado) y de transiciones que el sistema o la persona provocan.
+- **[gancho](../../../glosario/entradas/g/gancho.md):** función que el sistema invoca al cambiar el estado de la aplicación y que dispone de un plazo limitado y no siempre garantizado.
+- **[restauración](../../../glosario/entradas/r/restauracion.md):** lectura del estado guardado para reconstruir la aplicación tras un arranque en frío o una actualización.
+- **[migración](../../../glosario/entradas/m/migracion.md):** transformación explícita de un estado guardado por una versión anterior a la forma que espera la versión actual.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** guardado que deja siempre el estado anterior o el nuevo completos, nunca uno parcial, mediante un archivo temporal sincronizado y un reemplazo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ciclo de vida](../../../glosario/entradas/c/ciclo-de-vida.md) · [Escritura atómica](../../../glosario/entradas/e/escritura-atomica.md) · [Gancho](../../../glosario/entradas/g/gancho.md) · [Migración](../../../glosario/entradas/m/migracion.md) · [Restauración](../../../glosario/entradas/r/restauracion.md).
 
 ---
 

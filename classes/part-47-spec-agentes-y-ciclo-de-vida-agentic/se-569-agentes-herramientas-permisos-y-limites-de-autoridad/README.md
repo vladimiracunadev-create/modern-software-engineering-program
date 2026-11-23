@@ -145,12 +145,12 @@ Sin revisión, un equipo típico acumula 57 reglas, 20 de ellas amplias, y todos
 
 ## Definiciones de trabajo
 
-- **autoridad de un agente:** conjunto de acciones que puede realizar, determinado por sus herramientas, permisos, alcance y duración.
-- **mínimo privilegio:** principio por el que cada componente opera con el menor conjunto de privilegios que su tarea requiere.
-- **regla de permisos:** condición sobre una acción que decide si procede, se pregunta o se bloquea.
-- **radio de daño:** conjunto de efectos que una acción errónea o maliciosa puede causar con la autoridad disponible.
-- **confinamiento:** limitación de lo que una operación puede tocar a una región resuelta (un directorio, un dominio).
-- **aislamiento del sistema operativo:** restricción impuesta por el sistema operativo a los procesos, independiente de las reglas del agente.
+- **[autoridad de un agente](../../../glosario/entradas/a/autoridad-de-un-agente.md):** conjunto de acciones que puede realizar, determinado por sus herramientas, permisos, alcance y duración.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** principio por el que cada componente opera con el menor conjunto de privilegios que su tarea requiere.
+- **[regla de permisos](../../../glosario/entradas/r/regla-de-permisos.md):** condición sobre una acción que decide si procede, se pregunta o se bloquea.
+- **[radio de daño](../../../glosario/entradas/r/radio-de-dano.md):** conjunto de efectos que una acción errónea o maliciosa puede causar con la autoridad disponible.
+- **[confinamiento](../../../glosario/entradas/c/confinamiento.md):** limitación de lo que una operación puede tocar a una región resuelta (un directorio, un dominio).
+- **[aislamiento del sistema operativo](../../../glosario/entradas/a/aislamiento-del-sistema-operativo.md):** restricción impuesta por el sistema operativo a los procesos, independiente de las reglas del agente.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -288,12 +288,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **autoridad de un agente:** conjunto de acciones que puede realizar, determinado por sus herramientas, permisos, alcance y duración.
-- **mínimo privilegio:** principio por el que cada componente opera con el menor conjunto de privilegios que su tarea requiere.
-- **regla de permisos:** condición sobre una acción que decide si procede, se pregunta o se bloquea.
-- **radio de daño:** conjunto de efectos que una acción errónea o maliciosa puede causar con la autoridad disponible.
-- **confinamiento:** limitación de lo que una operación puede tocar a una región resuelta (un directorio, un dominio).
-- **aislamiento del sistema operativo:** restricción impuesta por el sistema operativo a los procesos, independiente de las reglas del agente.
+- **[autoridad de un agente](../../../glosario/entradas/a/autoridad-de-un-agente.md):** conjunto de acciones que puede realizar, determinado por sus herramientas, permisos, alcance y duración.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** principio por el que cada componente opera con el menor conjunto de privilegios que su tarea requiere.
+- **[regla de permisos](../../../glosario/entradas/r/regla-de-permisos.md):** condición sobre una acción que decide si procede, se pregunta o se bloquea.
+- **[radio de daño](../../../glosario/entradas/r/radio-de-dano.md):** conjunto de efectos que una acción errónea o maliciosa puede causar con la autoridad disponible.
+- **[confinamiento](../../../glosario/entradas/c/confinamiento.md):** limitación de lo que una operación puede tocar a una región resuelta (un directorio, un dominio).
+- **[aislamiento del sistema operativo](../../../glosario/entradas/a/aislamiento-del-sistema-operativo.md):** restricción impuesta por el sistema operativo a los procesos, independiente de las reglas del agente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aislamiento del sistema operativo](../../../glosario/entradas/a/aislamiento-del-sistema-operativo.md) · [Autoridad de un agente](../../../glosario/entradas/a/autoridad-de-un-agente.md) · [Confinamiento](../../../glosario/entradas/c/confinamiento.md) · [Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md) · [Radio de daño](../../../glosario/entradas/r/radio-de-dano.md) · [Regla de permisos](../../../glosario/entradas/r/regla-de-permisos.md).
 
 ---
 

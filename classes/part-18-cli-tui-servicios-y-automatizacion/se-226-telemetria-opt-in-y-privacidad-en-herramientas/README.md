@@ -120,11 +120,11 @@ Población sintética de 100 000: el 20 % son usuarios intensivos; la función F
 
 ## Definiciones de trabajo
 
-- **telemetría:** datos de uso o de funcionamiento enviados por una herramienta a quien la mantiene.
-- **opt-in:** modelo en que la recogida está apagada hasta que la persona la activa explícitamente.
-- **k-anonimato:** propiedad de un conjunto de datos en que cada registro es indistinguible de al menos k−1 por los atributos casi-identificadores.
-- **sesgo de participación:** diferencia entre quienes aceptan ser medidos y la población que se quiere conocer.
-- **privacidad diferencial:** garantía matemática de que el resultado cambia poco por incluir o no a una persona, lograda con ruido calibrado.
+- **[telemetría](../../../glosario/entradas/t/telemetria.md):** datos de uso o de funcionamiento enviados por una herramienta a quien la mantiene.
+- **[opt-in](../../../glosario/entradas/o/opt-in.md):** modelo en que la recogida está apagada hasta que la persona la activa explícitamente.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto de datos en que cada registro es indistinguible de al menos k−1 por los atributos casi-identificadores.
+- **[sesgo de participación](../../../glosario/entradas/s/sesgo-de-participacion.md):** diferencia entre quienes aceptan ser medidos y la población que se quiere conocer.
+- **[privacidad diferencial](../../../glosario/entradas/p/privacidad-diferencial.md):** garantía matemática de que el resultado cambia poco por incluir o no a una persona, lograda con ruido calibrado.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -271,11 +271,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **telemetría:** datos de uso o de funcionamiento enviados por una herramienta a quien la mantiene.
-- **opt-in:** modelo en que la recogida está apagada hasta que la persona la activa explícitamente.
-- **k-anonimato:** propiedad de un conjunto de datos en que cada registro es indistinguible de al menos k−1 por los atributos casi-identificadores.
-- **sesgo de participación:** diferencia entre quienes aceptan ser medidos y la población que se quiere conocer.
-- **privacidad diferencial:** garantía matemática de que el resultado cambia poco por incluir o no a una persona, lograda con ruido calibrado.
+- **[telemetría](../../../glosario/entradas/t/telemetria.md):** datos de uso o de funcionamiento enviados por una herramienta a quien la mantiene.
+- **[opt-in](../../../glosario/entradas/o/opt-in.md):** modelo en que la recogida está apagada hasta que la persona la activa explícitamente.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto de datos en que cada registro es indistinguible de al menos k−1 por los atributos casi-identificadores.
+- **[sesgo de participación](../../../glosario/entradas/s/sesgo-de-participacion.md):** diferencia entre quienes aceptan ser medidos y la población que se quiere conocer.
+- **[privacidad diferencial](../../../glosario/entradas/p/privacidad-diferencial.md):** garantía matemática de que el resultado cambia poco por incluir o no a una persona, lograda con ruido calibrado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consentimiento](../../../glosario/entradas/c/consentimiento.md) · [Identificabilidad](../../../glosario/entradas/i/identificabilidad.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Mínimo necesario](../../../glosario/entradas/m/minimo-necesario.md) · [Opt-in](../../../glosario/entradas/o/opt-in.md) · [Privacidad diferencial](../../../glosario/entradas/p/privacidad-diferencial.md) · [Sesgo de participación](../../../glosario/entradas/s/sesgo-de-participacion.md) · [Telemetría](../../../glosario/entradas/t/telemetria.md).
 
 ---
 

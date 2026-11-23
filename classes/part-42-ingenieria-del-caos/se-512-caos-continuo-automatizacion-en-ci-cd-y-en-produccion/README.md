@@ -130,12 +130,12 @@ La suite se ejecuta solo cuando cambian los archivos que importan, la lectura es
 
 ## Definiciones de trabajo
 
-- **regresión de resiliencia:** cambio que empeora la capacidad de resistir una falla sin romper ninguna prueba funcional.
-- **lectura estática de la configuración:** conjunto de reglas aplicadas a un archivo de configuración sin ejecutar el sistema.
-- **suite dinámica de fallas:** conjunto de escenarios deterministas que inyectan fallas sobre un sistema controlado y evalúan un criterio de paso.
-- **doble de prueba:** componente que reemplaza a una dependencia real con un comportamiento controlado.
-- **falsa alarma:** fallo de la suite sobre una configuración sana.
-- **tapado:** regresión que no se manifiesta porque otra protección la compensa.
+- **[regresión de resiliencia](../../../glosario/entradas/r/regresion-de-resiliencia.md):** cambio que empeora la capacidad de resistir una falla sin romper ninguna prueba funcional.
+- **[lectura estática de la configuración](../../../glosario/entradas/l/lectura-estatica-de-la-configuracion.md):** conjunto de reglas aplicadas a un archivo de configuración sin ejecutar el sistema.
+- **[suite dinámica de fallas](../../../glosario/entradas/s/suite-dinamica-de-fallas.md):** conjunto de escenarios deterministas que inyectan fallas sobre un sistema controlado y evalúan un criterio de paso.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** componente que reemplaza a una dependencia real con un comportamiento controlado.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** fallo de la suite sobre una configuración sana.
+- **[tapado](../../../glosario/entradas/t/tapado.md):** regresión que no se manifiesta porque otra protección la compensa.
 
 Las definiciones son operativas para el cliente de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -281,12 +281,14 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **regresión de resiliencia:** cambio que empeora la capacidad de resistir una falla sin romper ninguna prueba funcional.
-- **lectura estática de la configuración:** conjunto de reglas aplicadas a un archivo sin ejecutar el sistema.
-- **suite dinámica de fallas:** conjunto de escenarios deterministas que inyectan fallas sobre un sistema controlado.
-- **doble de prueba:** componente que reemplaza a una dependencia real con un comportamiento controlado.
-- **falsa alarma:** fallo de la suite sobre una configuración sana.
-- **tapado:** regresión que no se manifiesta porque otra protección la compensa.
+- **[regresión de resiliencia](../../../glosario/entradas/r/regresion-de-resiliencia.md):** cambio que empeora la capacidad de resistir una falla sin romper ninguna prueba funcional.
+- **[lectura estática de la configuración](../../../glosario/entradas/l/lectura-estatica-de-la-configuracion.md):** conjunto de reglas aplicadas a un archivo sin ejecutar el sistema.
+- **[suite dinámica de fallas](../../../glosario/entradas/s/suite-dinamica-de-fallas.md):** conjunto de escenarios deterministas que inyectan fallas sobre un sistema controlado.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** componente que reemplaza a una dependencia real con un comportamiento controlado.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** fallo de la suite sobre una configuración sana.
+- **[tapado](../../../glosario/entradas/t/tapado.md):** regresión que no se manifiesta porque otra protección la compensa.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Lectura estática de la configuración](../../../glosario/entradas/l/lectura-estatica-de-la-configuracion.md) · [Regresión de resiliencia](../../../glosario/entradas/r/regresion-de-resiliencia.md) · [Suite dinámica de fallas](../../../glosario/entradas/s/suite-dinamica-de-fallas.md) · [Tapado](../../../glosario/entradas/t/tapado.md).
 
 ---
 

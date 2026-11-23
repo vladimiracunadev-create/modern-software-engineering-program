@@ -112,11 +112,11 @@ Se tomó el texto de la licencia MIT y se compararon cinco variantes con una hue
 
 ## Definiciones de trabajo
 
-- **licencia de software:** autorización de su titular para usar, copiar, modificar o redistribuir una obra bajo ciertas condiciones.
-- **expresión de licencia:** combinación de identificadores con `AND`, `OR`, `WITH` y paréntesis que describe bajo qué licencias se ofrece una pieza.
-- **copyleft:** familia de licencias que condiciona la redistribución de obras derivadas a términos similares.
-- **dependencia transitiva:** paquete que un proyecto usa indirectamente a través de otro.
-- **huella de texto:** resumen criptográfico del texto normalizado de una licencia, sensible a cualquier cambio.
+- **[licencia de software](../../../glosario/entradas/l/licencia-de-software.md):** autorización de su titular para usar, copiar, modificar o redistribuir una obra bajo ciertas condiciones.
+- **[expresión de licencia](../../../glosario/entradas/e/expresion-de-licencia.md):** combinación de identificadores con `AND`, `OR`, `WITH` y paréntesis que describe bajo qué licencias se ofrece una pieza.
+- **[copyleft](../../../glosario/entradas/c/copyleft.md):** familia de licencias que condiciona la redistribución de obras derivadas a términos similares.
+- **[dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md):** paquete que un proyecto usa indirectamente a través de otro.
+- **[huella de texto](../../../glosario/entradas/h/huella-de-texto.md):** resumen criptográfico del texto normalizado de una licencia, sensible a cualquier cambio.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -261,11 +261,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **licencia de software:** autorización de su titular para usar, copiar, modificar o redistribuir una obra bajo ciertas condiciones.
-- **expresión de licencia:** combinación de identificadores con `AND`, `OR`, `WITH` y paréntesis que describe bajo qué licencias se ofrece una pieza.
-- **copyleft:** familia de licencias que condiciona la redistribución de obras derivadas a términos similares.
-- **dependencia transitiva:** paquete que un proyecto usa indirectamente a través de otro.
-- **huella de texto:** resumen criptográfico del texto normalizado de una licencia, sensible a cualquier cambio.
+- **[licencia de software](../../../glosario/entradas/l/licencia-de-software.md):** autorización de su titular para usar, copiar, modificar o redistribuir una obra bajo ciertas condiciones.
+- **[expresión de licencia](../../../glosario/entradas/e/expresion-de-licencia.md):** combinación de identificadores con `AND`, `OR`, `WITH` y paréntesis que describe bajo qué licencias se ofrece una pieza.
+- **[copyleft](../../../glosario/entradas/c/copyleft.md):** familia de licencias que condiciona la redistribución de obras derivadas a términos similares.
+- **[dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md):** paquete que un proyecto usa indirectamente a través de otro.
+- **[huella de texto](../../../glosario/entradas/h/huella-de-texto.md):** resumen criptográfico del texto normalizado de una licencia, sensible a cualquier cambio.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Copyleft](../../../glosario/entradas/c/copyleft.md) · [Dependencia transitiva](../../../glosario/entradas/d/dependencia-transitiva.md) · [Expresión de licencia](../../../glosario/entradas/e/expresion-de-licencia.md) · [Huella de texto](../../../glosario/entradas/h/huella-de-texto.md) · [Licencia de software](../../../glosario/entradas/l/licencia-de-software.md).
 
 ---
 

@@ -132,12 +132,12 @@ La tercera figura muestra qué artefacto alimenta qué comprobación.
 
 ## Definiciones de trabajo
 
-- **Paquete operable:** conjunto de artefactos con los que otra persona puede reproducir, evaluar, desplegar, revertir y vigilar un modelo.
-- **Manifiesto:** archivo con las huellas, la semilla, las versiones y las métricas de un modelo.
-- **Puerta de liberación:** conjunto de comprobaciones que decide si un modelo puede desplegarse.
-- **Variante defectuosa:** copia del proyecto con un defecto sembrado para probar que la puerta lo detecta.
-- **Evidencia ejecutable:** afirmación respaldada por una comprobación que puede fallar.
-- **Brecha entre segmentos:** diferencia de una métrica entre el mejor y el peor segmento.
+- **[Paquete operable](../../../glosario/entradas/p/paquete-operable.md):** conjunto de artefactos con los que otra persona puede reproducir, evaluar, desplegar, revertir y vigilar un modelo.
+- **[Manifiesto](../../../glosario/entradas/m/manifiesto.md):** archivo con las huellas, la semilla, las versiones y las métricas de un modelo.
+- **[Puerta de liberación](../../../glosario/entradas/p/puerta-de-liberacion.md):** conjunto de comprobaciones que decide si un modelo puede desplegarse.
+- **[Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md):** copia del proyecto con un defecto sembrado para probar que la puerta lo detecta.
+- **[Evidencia ejecutable](../../../glosario/entradas/e/evidencia-ejecutable.md):** afirmación respaldada por una comprobación que puede fallar.
+- **[Brecha entre segmentos](../../../glosario/entradas/b/brecha-entre-segmentos.md):** diferencia de una métrica entre el mejor y el peor segmento.
 
 ## Ejemplo mínimo
 
@@ -271,6 +271,8 @@ El proyecto, las once comprobaciones, las cuatro variantes y los umbrales son co
 | Variante defectuosa | Copia con un defecto sembrado para probar la puerta |
 | Evidencia ejecutable | Afirmación respaldada por una comprobación que puede fallar |
 | Brecha entre segmentos | Diferencia de una métrica entre mejor y peor segmento |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Brecha entre segmentos](../../../glosario/entradas/b/brecha-entre-segmentos.md) · [Evidencia ejecutable](../../../glosario/entradas/e/evidencia-ejecutable.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md) · [Paquete operable](../../../glosario/entradas/p/paquete-operable.md) · [Puerta de liberación](../../../glosario/entradas/p/puerta-de-liberacion.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

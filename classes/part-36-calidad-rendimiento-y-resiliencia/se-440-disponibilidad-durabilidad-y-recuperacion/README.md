@@ -160,11 +160,11 @@ Con 1,5 y 2 s, la pérdida de un solo latido (0,5 % de los latidos) ya dispara c
 
 ## Definiciones de trabajo
 
-- **disponibilidad:** fracción del tiempo en que un sistema cumple su función, igual a MTBF/(MTBF + MTTR) para un componente.
-- **durabilidad:** probabilidad de no perder un dato durante un periodo.
-- **RTO:** tiempo máximo aceptable entre un fallo y el servicio restablecido.
-- **RPO:** cantidad máxima de datos recientes que se acepta perder, expresada como tiempo.
-- **causa común:** evento único que provoca el fallo simultáneo de varios componentes supuestamente independientes.
+- **[disponibilidad](../../../glosario/entradas/d/disponibilidad.md):** fracción del tiempo en que un sistema cumple su función, igual a MTBF/(MTBF + MTTR) para un componente.
+- **[durabilidad](../../../glosario/entradas/d/durabilidad.md):** probabilidad de no perder un dato durante un periodo.
+- **[RTO](../../../glosario/entradas/r/rto.md):** tiempo máximo aceptable entre un fallo y el servicio restablecido.
+- **[RPO](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos recientes que se acepta perder, expresada como tiempo.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** evento único que provoca el fallo simultáneo de varios componentes supuestamente independientes.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con semillas fijas en Windows y Ubuntu (WSL2) co
 
 ## Glosario
 
-- **disponibilidad:** fracción del tiempo en que un sistema cumple su función, igual a MTBF/(MTBF + MTTR) para un componente.
-- **durabilidad:** probabilidad de no perder un dato durante un periodo.
-- **RTO:** tiempo máximo aceptable entre un fallo y el servicio restablecido.
-- **RPO:** cantidad máxima de datos recientes que se acepta perder, expresada como tiempo.
-- **causa común:** evento único que provoca el fallo simultáneo de varios componentes supuestamente independientes.
+- **[disponibilidad](../../../glosario/entradas/d/disponibilidad.md):** fracción del tiempo en que un sistema cumple su función, igual a MTBF/(MTBF + MTTR) para un componente.
+- **[durabilidad](../../../glosario/entradas/d/durabilidad.md):** probabilidad de no perder un dato durante un periodo.
+- **[RTO](../../../glosario/entradas/r/rto.md):** tiempo máximo aceptable entre un fallo y el servicio restablecido.
+- **[RPO](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos recientes que se acepta perder, expresada como tiempo.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** evento único que provoca el fallo simultáneo de varios componentes supuestamente independientes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Disponibilidad](../../../glosario/entradas/d/disponibilidad.md) · [Durabilidad](../../../glosario/entradas/d/durabilidad.md) · [Objetivo de punto de recuperación](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md) · [RTO](../../../glosario/entradas/r/rto.md).
 
 ---
 

@@ -107,12 +107,12 @@ La pregunta que decide entre los tres es **qué cambia con más frecuencia y qu�
 
 ## Definiciones de trabajo
 
-- **Repository:** colección de objetos de dominio que oculta el acceso a datos.
-- **Unit of Work:** agrupación de los cambios de una operación de negocio en una transacción.
-- **Active Record:** objeto que encapsula una fila, el acceso a la base y lógica de dominio.
-- **N+1:** patrón en que una consulta inicial desencadena una consulta adicional por cada fila.
-- **Seguimiento de cambios:** comparación del estado cargado con el actual para escribir solo lo modificado.
-- **Atomicidad:** propiedad de que una operación se confirma completa o no deja efectos.
+- **[Repository](../../../glosario/entradas/r/repository.md):** colección de objetos de dominio que oculta el acceso a datos.
+- **[Unit of Work](../../../glosario/entradas/u/unit-of-work.md):** agrupación de los cambios de una operación de negocio en una transacción.
+- **[Active Record](../../../glosario/entradas/a/active-record.md):** objeto que encapsula una fila, el acceso a la base y lógica de dominio.
+- **[N+1](../../../glosario/entradas/n/n-mas-1.md):** patrón en que una consulta inicial desencadena una consulta adicional por cada fila.
+- **[Seguimiento de cambios](../../../glosario/entradas/s/seguimiento-de-cambios.md):** comparación del estado cargado con el actual para escribir solo lo modificado.
+- **[Atomicidad](../../../glosario/entradas/a/atomicidad.md):** propiedad de que una operación se confirma completa o no deja efectos.
 
 ## Ejemplo mínimo
 
@@ -241,6 +241,8 @@ La base es `sqlite3` en memoria, sin red ni concurrencia, y no se midió ningún
 | N+1 | Una consulta inicial más una por fila |
 | Atomicidad | Todo o nada |
 | Gancho de seguimiento | Función que recibe cada sentencia ejecutada |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Active Record](../../../glosario/entradas/a/active-record.md) · [Atomicidad](../../../glosario/entradas/a/atomicidad.md) · [N+1](../../../glosario/entradas/n/n-mas-1.md) · [Repository](../../../glosario/entradas/r/repository.md) · [Seguimiento de cambios](../../../glosario/entradas/s/seguimiento-de-cambios.md) · [Unit of Work](../../../glosario/entradas/u/unit-of-work.md).
 
 ---
 

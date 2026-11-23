@@ -136,11 +136,11 @@ En escala logarítmica, el alcance explica 93,2 % del cambio, la frecuencia rest
 
 ## Definiciones de trabajo
 
-- **métrica norte:** medida única de resultado que resume el valor entregado y orienta las decisiones del equipo.
-- **guarda:** límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
-- **métrica contraria:** contraparte de una meta que mide el daño posible de perseguirla.
-- **descomposición:** reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
-- **corrección por comparaciones múltiples:** ajuste del umbral para que la tasa global de alarmas falsas se mantenga en un nivel dado.
+- **[métrica norte](../../../glosario/entradas/m/metrica-norte.md):** medida única de resultado que resume el valor entregado y orienta las decisiones del equipo.
+- **[guarda](../../../glosario/entradas/g/guarda.md):** límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
+- **[métrica contraria](../../../glosario/entradas/m/metrica-contraria.md):** contraparte de una meta que mide el daño posible de perseguirla.
+- **[descomposición](../../../glosario/entradas/d/descomposicion.md):** reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
+- **[corrección por comparaciones múltiples](../../../glosario/entradas/c/correccion-por-comparaciones-multiples.md):** ajuste del umbral para que la tasa global de alarmas falsas se mantenga en un nivel dado.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -285,11 +285,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **métrica norte:** medida única de resultado que resume el valor entregado y orienta las decisiones del equipo.
-- **guarda:** límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
-- **métrica contraria:** contraparte de una meta que mide el daño posible de perseguirla.
-- **descomposición:** reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
-- **corrección por comparaciones múltiples:** ajuste del umbral para que la tasa global de alarmas falsas se mantenga en un nivel dado.
+- **[métrica norte](../../../glosario/entradas/m/metrica-norte.md):** medida única de resultado que resume el valor entregado y orienta las decisiones del equipo.
+- **[guarda](../../../glosario/entradas/g/guarda.md):** límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
+- **[métrica contraria](../../../glosario/entradas/m/metrica-contraria.md):** contraparte de una meta que mide el daño posible de perseguirla.
+- **[descomposición](../../../glosario/entradas/d/descomposicion.md):** reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
+- **[corrección por comparaciones múltiples](../../../glosario/entradas/c/correccion-por-comparaciones-multiples.md):** ajuste del umbral para que la tasa global de alarmas falsas se mantenga en un nivel dado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Corrección por comparaciones múltiples](../../../glosario/entradas/c/correccion-por-comparaciones-multiples.md) · [Descomposición](../../../glosario/entradas/d/descomposicion.md) · [Guarda](../../../glosario/entradas/g/guarda.md) · [Métrica contraria](../../../glosario/entradas/m/metrica-contraria.md) · [Métrica norte](../../../glosario/entradas/m/metrica-norte.md).
 
 ---
 

@@ -114,11 +114,11 @@ La negociación de contenido permite que cliente y servidor acuerden la represen
 
 ## Definiciones de trabajo
 
-- **recurso:** objetivo conceptual identificado por una URI.
-- **representación:** estado transferible de un recurso en un formato.
-- **método seguro:** método cuya semántica solicitada es de solo lectura.
-- **ETag:** validador opaco de una representación.
-- **Vary:** cabecera que declara dimensiones adicionales de selección de respuesta.
+- **[recurso](../../../glosario/entradas/r/recurso.md):** objetivo conceptual identificado por una URI.
+- **[representación](../../../glosario/entradas/r/representacion.md):** estado transferible de un recurso en un formato.
+- **[método seguro](../../../glosario/entradas/m/metodo-seguro.md):** método cuya semántica solicitada es de solo lectura.
+- **[ETag](../../../glosario/entradas/e/etag.md):** validador opaco de una representación.
+- **[Vary](../../../glosario/entradas/v/vary.md):** cabecera que declara dimensiones adicionales de selección de respuesta.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -267,11 +267,13 @@ HTTP define semántica común, no la lógica de autorización de la petición ob
 
 ## Glosario
 
-- **recurso:** objetivo conceptual identificado por una URI.
-- **representación:** estado transferible de un recurso en un formato.
-- **método seguro:** método cuya semántica solicitada es de solo lectura.
-- **ETag:** validador opaco de una representación.
-- **Vary:** cabecera que declara dimensiones adicionales de selección de respuesta.
+- **[recurso](../../../glosario/entradas/r/recurso.md):** objetivo conceptual identificado por una URI.
+- **[representación](../../../glosario/entradas/r/representacion.md):** estado transferible de un recurso en un formato.
+- **[método seguro](../../../glosario/entradas/m/metodo-seguro.md):** método cuya semántica solicitada es de solo lectura.
+- **[ETag](../../../glosario/entradas/e/etag.md):** validador opaco de una representación.
+- **[Vary](../../../glosario/entradas/v/vary.md):** cabecera que declara dimensiones adicionales de selección de respuesta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [ETag](../../../glosario/entradas/e/etag.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Método seguro](../../../glosario/entradas/m/metodo-seguro.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Recurso](../../../glosario/entradas/r/recurso.md) · [Representación](../../../glosario/entradas/r/representacion.md) · [Vary](../../../glosario/entradas/v/vary.md).
 
 ---
 

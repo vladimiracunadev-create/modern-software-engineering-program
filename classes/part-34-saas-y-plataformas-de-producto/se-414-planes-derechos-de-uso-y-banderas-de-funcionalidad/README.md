@@ -139,13 +139,13 @@ Un derecho se hace cumplir en cada superficie por la que un cliente puede actuar
 
 ## Definiciones de trabajo
 
-- **Plan:** paquete comercial con precio, ciclo y derechos.
-- **Derecho (entitlement):** lo que una cuenta puede hacer, resultado de plan, excepciones y estado.
-- **Límite:** máximo de algo que existe a la vez (usuarios, proyectos).
-- **Cuota:** máximo de algo que ocurre en un periodo (llamadas por mes).
-- **Excepción:** cambio de un derecho para un cliente, con vencimiento y autorización.
-- **Bandera de funcionalidad:** interruptor que decide qué código se ejecuta.
-- **Grandfathering:** conservar para clientes existentes condiciones que ya no se ofrecen.
+- **[Plan](../../../glosario/entradas/p/plan.md):** paquete comercial con precio, ciclo y derechos.
+- **[Derecho (entitlement)](../../../glosario/entradas/d/derecho.md):** lo que una cuenta puede hacer, resultado de plan, excepciones y estado.
+- **[Límite](../../../glosario/entradas/l/limite.md):** máximo de algo que existe a la vez (usuarios, proyectos).
+- **[Cuota](../../../glosario/entradas/c/cuota.md):** máximo de algo que ocurre en un periodo (llamadas por mes).
+- **[Excepción](../../../glosario/entradas/e/excepcion.md):** cambio de un derecho para un cliente, con vencimiento y autorización.
+- **[Bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md):** interruptor que decide qué código se ejecuta.
+- **[Grandfathering](../../../glosario/entradas/g/grandfathering.md):** conservar para clientes existentes condiciones que ya no se ofrecen.
 
 ## Ejemplo mínimo
 
@@ -296,6 +296,8 @@ Se ejecutó un motor de derechos con sqlite3 con tres planes, tres cuentas y sie
 | Excepción | Cambio de un derecho para un cliente con vencimiento |
 | Bandera | Interruptor que decide qué código corre |
 | Grandfathering | Conservar condiciones antiguas a clientes existentes |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md) · [Cambio de plan](../../../glosario/entradas/c/cambio-de-plan.md) · [Cuota](../../../glosario/entradas/c/cuota.md) · [Derecho](../../../glosario/entradas/d/derecho.md) · [Excepción](../../../glosario/entradas/e/excepcion.md) · [Grandfathering](../../../glosario/entradas/g/grandfathering.md) · [Límite](../../../glosario/entradas/l/limite.md) · [Plan](../../../glosario/entradas/p/plan.md).
 
 ---
 

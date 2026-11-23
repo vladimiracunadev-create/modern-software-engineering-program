@@ -162,11 +162,11 @@ Las etapas bajan el daño inicial de 30 a 18 y la reversión baja los que siguen
 
 ## Definiciones de trabajo
 
-- **paquete del dispositivo:** documento que reúne las decisiones de identidad, versiones, reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsabilidad y revisión de un dispositivo.
-- **operabilidad:** capacidad de un dispositivo de ser mantenido durante su vida útil por personas que no lo construyeron.
-- **reversión automática:** regreso a la versión anterior sin intervención humana cuando la nueva no confirma su arranque.
-- **validador de forma:** programa que comprueba la estructura de un documento sin entender su sentido.
-- **gemelo simulado:** modelo ejecutable de un dispositivo o una flota usado para comparar decisiones sin hardware.
+- **[paquete del dispositivo](../../../glosario/entradas/p/paquete-del-dispositivo.md):** documento que reúne las decisiones de identidad, versiones, reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsabilidad y revisión de un dispositivo.
+- **[operabilidad](../../../glosario/entradas/o/operabilidad.md):** capacidad de un dispositivo de ser mantenido durante su vida útil por personas que no lo construyeron.
+- **[reversión automática](../../../glosario/entradas/r/reversion-automatica.md):** regreso a la versión anterior sin intervención humana cuando la nueva no confirma su arranque.
+- **[validador de forma](../../../glosario/entradas/v/validador-de-forma.md):** programa que comprueba la estructura de un documento sin entender su sentido.
+- **[gemelo simulado](../../../glosario/entradas/g/gemelo-simulado.md):** modelo ejecutable de un dispositivo o una flota usado para comparar decisiones sin hardware.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **paquete del dispositivo:** documento que reúne las decisiones de identidad, versiones, reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsabilidad y revisión de un dispositivo.
-- **operabilidad:** capacidad de un dispositivo de ser mantenido durante su vida útil por personas que no lo construyeron.
-- **reversión automática:** regreso a la versión anterior sin intervención humana cuando la nueva no confirma su arranque.
-- **validador de forma:** programa que comprueba la estructura de un documento sin entender su sentido.
-- **gemelo simulado:** modelo ejecutable de un dispositivo o una flota usado para comparar decisiones sin hardware.
+- **[paquete del dispositivo](../../../glosario/entradas/p/paquete-del-dispositivo.md):** documento que reúne las decisiones de identidad, versiones, reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsabilidad y revisión de un dispositivo.
+- **[operabilidad](../../../glosario/entradas/o/operabilidad.md):** capacidad de un dispositivo de ser mantenido durante su vida útil por personas que no lo construyeron.
+- **[reversión automática](../../../glosario/entradas/r/reversion-automatica.md):** regreso a la versión anterior sin intervención humana cuando la nueva no confirma su arranque.
+- **[validador de forma](../../../glosario/entradas/v/validador-de-forma.md):** programa que comprueba la estructura de un documento sin entender su sentido.
+- **[gemelo simulado](../../../glosario/entradas/g/gemelo-simulado.md):** modelo ejecutable de un dispositivo o una flota usado para comparar decisiones sin hardware.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Gemelo simulado](../../../glosario/entradas/g/gemelo-simulado.md) · [Operabilidad](../../../glosario/entradas/o/operabilidad.md) · [Paquete del dispositivo](../../../glosario/entradas/p/paquete-del-dispositivo.md) · [Reversión automática](../../../glosario/entradas/r/reversion-automatica.md) · [Validador de forma](../../../glosario/entradas/v/validador-de-forma.md).
 
 ---
 

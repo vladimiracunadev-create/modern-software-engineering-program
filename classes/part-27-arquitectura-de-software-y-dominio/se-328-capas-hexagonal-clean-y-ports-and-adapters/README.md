@@ -157,11 +157,11 @@ Tres ejemplos de camino feliz (guardar dos entregas, listarlas, buscar una y com
 
 ## Definiciones de trabajo
 
-- **puerto:** contrato que el dominio o la aplicación declara para comunicarse con lo que está fuera de ellos.
-- **adaptador:** implementación de un puerto con una tecnología concreta.
-- **regla de dependencia:** las dependencias del código fuente apuntan hacia las políticas de alto nivel y no hacia los detalles.
-- **doble de prueba:** sustituto de un componente real que hace las pruebas más rápidas o deterministas.
-- **prueba de contrato:** prueba escrita contra un puerto y ejecutada contra todas sus implementaciones.
+- **[puerto](../../../glosario/entradas/p/puerto.md):** contrato que el dominio o la aplicación declara para comunicarse con lo que está fuera de ellos.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** implementación de un puerto con una tecnología concreta.
+- **[regla de dependencia](../../../glosario/entradas/r/regla-de-dependencia.md):** las dependencias del código fuente apuntan hacia las políticas de alto nivel y no hacia los detalles.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** sustituto de un componente real que hace las pruebas más rápidas o deterministas.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** prueba escrita contra un puerto y ejecutada contra todas sus implementaciones.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -317,11 +317,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): dos con datos sinté
 
 ## Glosario
 
-- **puerto:** contrato que el dominio o la aplicación declara para comunicarse con lo que está fuera de ellos.
-- **adaptador:** implementación de un puerto con una tecnología concreta.
-- **regla de dependencia:** las dependencias del código fuente apuntan hacia las políticas de alto nivel y no hacia los detalles.
-- **doble de prueba:** sustituto de un componente real que hace las pruebas más rápidas o deterministas.
-- **prueba de contrato:** prueba escrita contra un puerto y ejecutada contra todas sus implementaciones.
+- **[puerto](../../../glosario/entradas/p/puerto.md):** contrato que el dominio o la aplicación declara para comunicarse con lo que está fuera de ellos.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** implementación de un puerto con una tecnología concreta.
+- **[regla de dependencia](../../../glosario/entradas/r/regla-de-dependencia.md):** las dependencias del código fuente apuntan hacia las políticas de alto nivel y no hacia los detalles.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** sustituto de un componente real que hace las pruebas más rápidas o deterministas.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** prueba escrita contra un puerto y ejecutada contra todas sus implementaciones.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador](../../../glosario/entradas/a/adaptador.md) · [Doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md) · [Prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md) · [Puerto](../../../glosario/entradas/p/puerto.md) · [Regla de dependencia](../../../glosario/entradas/r/regla-de-dependencia.md).
 
 ---
 

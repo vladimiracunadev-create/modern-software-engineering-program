@@ -139,11 +139,11 @@ if politica == "ignorar_obsoletas":
 
 ## Definiciones de trabajo
 
-- **estado derivado:** valor que se calcula a partir de otro estado y no se almacena como dato independiente.
-- **fuente de verdad:** lugar único donde vive un dato y desde el que se obtienen sus copias.
-- **clave de lista:** identificador estable que permite emparejar un elemento nuevo con su antecesor para conservar su estado.
-- **carrera entre peticiones:** situación en la que el resultado depende del orden de llegada de respuestas, no del orden de envío.
-- **deduplicación de peticiones:** reutilización de una petición en vuelo por varias partes que piden el mismo recurso.
+- **[estado derivado](../../../glosario/entradas/e/estado-derivado.md):** valor que se calcula a partir de otro estado y no se almacena como dato independiente.
+- **[fuente de verdad](../../../glosario/entradas/f/fuente-de-verdad.md):** lugar único donde vive un dato y desde el que se obtienen sus copias.
+- **[clave de lista](../../../glosario/entradas/c/clave-de-lista.md):** identificador estable que permite emparejar un elemento nuevo con su antecesor para conservar su estado.
+- **[carrera entre peticiones](../../../glosario/entradas/c/carrera-entre-peticiones.md):** situación en la que el resultado depende del orden de llegada de respuestas, no del orden de envío.
+- **[deduplicación de peticiones](../../../glosario/entradas/d/deduplicacion-de-peticiones.md):** reutilización de una petición en vuelo por varias partes que piden el mismo recurso.
 
 Las definiciones son operativas para esta clase y deben contrastarse con la documentación enlazada al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **estado derivado:** valor que se calcula a partir de otro estado y no se almacena como dato independiente.
-- **fuente de verdad:** lugar único donde vive un dato y desde el que se obtienen sus copias.
-- **clave de lista:** identificador estable que permite emparejar un elemento nuevo con su antecesor para conservar su estado.
-- **carrera entre peticiones:** situación en la que el resultado depende del orden de llegada de respuestas, no del orden de envío.
-- **deduplicación de peticiones:** reutilización de una petición en vuelo por varias partes que piden el mismo recurso.
+- **[estado derivado](../../../glosario/entradas/e/estado-derivado.md):** valor que se calcula a partir de otro estado y no se almacena como dato independiente.
+- **[fuente de verdad](../../../glosario/entradas/f/fuente-de-verdad.md):** lugar único donde vive un dato y desde el que se obtienen sus copias.
+- **[clave de lista](../../../glosario/entradas/c/clave-de-lista.md):** identificador estable que permite emparejar un elemento nuevo con su antecesor para conservar su estado.
+- **[carrera entre peticiones](../../../glosario/entradas/c/carrera-entre-peticiones.md):** situación en la que el resultado depende del orden de llegada de respuestas, no del orden de envío.
+- **[deduplicación de peticiones](../../../glosario/entradas/d/deduplicacion-de-peticiones.md):** reutilización de una petición en vuelo por varias partes que piden el mismo recurso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Carrera entre peticiones](../../../glosario/entradas/c/carrera-entre-peticiones.md) · [Clave de lista](../../../glosario/entradas/c/clave-de-lista.md) · [Deduplicación de peticiones](../../../glosario/entradas/d/deduplicacion-de-peticiones.md) · [Estado derivado](../../../glosario/entradas/e/estado-derivado.md) · [Fuente de verdad](../../../glosario/entradas/f/fuente-de-verdad.md).
 
 ---
 

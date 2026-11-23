@@ -112,11 +112,11 @@ La consecuencia de diseño es simple: una rueda pura (`py3-none-any`) sirve en t
 
 ## Definiciones de trabajo
 
-- **módulo, paquete e importación:** un módulo es unidad importable; un paquete organiza módulos y namespace.
-- **metadata de proyecto:** nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar.
-- **sdist y wheel:** el sdist contiene fuente necesaria para construir; wheel es distribución construida para tags compatibles.
-- **build aislado:** el backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor.
-- **publicación y repositorio:** publicar crea un artefacto consumible e idealmente inmutable.
+- **[módulo, paquete e importación](../../../glosario/entradas/m/modulo-paquete-e-importacion.md):** un módulo es unidad importable; un paquete organiza módulos y namespace.
+- **[metadata de proyecto](../../../glosario/entradas/m/metadata-de-proyecto.md):** nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar.
+- **[sdist y wheel](../../../glosario/entradas/s/sdist-y-wheel.md):** el sdist contiene fuente necesaria para construir; wheel es distribución construida para tags compatibles.
+- **[build aislado](../../../glosario/entradas/b/build-aislado.md):** el backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor.
+- **[publicación y repositorio](../../../glosario/entradas/p/publicacion-y-repositorio.md):** publicar crea un artefacto consumible e idealmente inmutable.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Un paquete instalado todavía necesita una interfaz operable y estable. La sigui
 
 ## Glosario
 
-- **módulo, paquete e importación:** un módulo es unidad importable; un paquete organiza módulos y namespace.
-- **metadata de proyecto:** nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar.
-- **sdist y wheel:** el sdist contiene fuente necesaria para construir; wheel es distribución construida para tags compatibles.
-- **build aislado:** el backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor.
-- **publicación y repositorio:** publicar crea un artefacto consumible e idealmente inmutable.
+- **[módulo, paquete e importación](../../../glosario/entradas/m/modulo-paquete-e-importacion.md):** un módulo es unidad importable; un paquete organiza módulos y namespace.
+- **[metadata de proyecto](../../../glosario/entradas/m/metadata-de-proyecto.md):** nombre, versión, runtime, dependencias, licencia, autores y entry points permiten construir e instalar.
+- **[sdist y wheel](../../../glosario/entradas/s/sdist-y-wheel.md):** el sdist contiene fuente necesaria para construir; wheel es distribución construida para tags compatibles.
+- **[build aislado](../../../glosario/entradas/b/build-aislado.md):** el backend se ejecuta con requisitos de build declarados, evitando depender del entorno del autor.
+- **[publicación y repositorio](../../../glosario/entradas/p/publicacion-y-repositorio.md):** publicar crea un artefacto consumible e idealmente inmutable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Build aislado](../../../glosario/entradas/b/build-aislado.md) · [Metadata de proyecto](../../../glosario/entradas/m/metadata-de-proyecto.md) · [Módulo, paquete e importación](../../../glosario/entradas/m/modulo-paquete-e-importacion.md) · [Publicación y repositorio](../../../glosario/entradas/p/publicacion-y-repositorio.md) · [Sdist y wheel](../../../glosario/entradas/s/sdist-y-wheel.md).
 
 ---
 

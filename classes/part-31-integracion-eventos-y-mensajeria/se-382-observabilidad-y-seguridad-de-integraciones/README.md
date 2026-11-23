@@ -162,11 +162,11 @@ Registrar todo filtra todo. Cada expresión regular cierra un tipo de dato y dej
 
 ## Definiciones de trabajo
 
-- **traza:** recorrido de una petición o de un flujo por varios componentes, formado por tramos relacionados.
-- **identificador de correlación:** valor que acompaña a un flujo y permite unir los registros y tramos de componentes distintos.
-- **propagación de contexto:** reenvío del contexto de una traza en los encabezados o atributos de cada llamada o mensaje.
-- **lista de permitidos:** política que registra únicamente los campos expresamente autorizados.
-- **mensaje venenoso:** mensaje que un consumidor no puede procesar y que, reintentado sin fin, impide avanzar a los siguientes.
+- **[traza](../../../glosario/entradas/t/traza.md):** recorrido de una petición o de un flujo por varios componentes, formado por tramos relacionados.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor que acompaña a un flujo y permite unir los registros y tramos de componentes distintos.
+- **[propagación de contexto](../../../glosario/entradas/p/propagacion-de-contexto.md):** reenvío del contexto de una traza en los encabezados o atributos de cada llamada o mensaje.
+- **[lista de permitidos](../../../glosario/entradas/l/lista-de-permitidos.md):** política que registra únicamente los campos expresamente autorizados.
+- **[mensaje venenoso](../../../glosario/entradas/m/mensaje-venenoso.md):** mensaje que un consumidor no puede procesar y que, reintentado sin fin, impide avanzar a los siguientes.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **traza:** recorrido de una petición o de un flujo por varios componentes, formado por tramos relacionados.
-- **identificador de correlación:** valor que acompaña a un flujo y permite unir los registros y tramos de componentes distintos.
-- **propagación de contexto:** reenvío del contexto de una traza en los encabezados o atributos de cada llamada o mensaje.
-- **lista de permitidos:** política que registra únicamente los campos expresamente autorizados.
-- **mensaje venenoso:** mensaje que un consumidor no puede procesar y que, reintentado sin fin, impide avanzar a los siguientes.
+- **[traza](../../../glosario/entradas/t/traza.md):** recorrido de una petición o de un flujo por varios componentes, formado por tramos relacionados.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor que acompaña a un flujo y permite unir los registros y tramos de componentes distintos.
+- **[propagación de contexto](../../../glosario/entradas/p/propagacion-de-contexto.md):** reenvío del contexto de una traza en los encabezados o atributos de cada llamada o mensaje.
+- **[lista de permitidos](../../../glosario/entradas/l/lista-de-permitidos.md):** política que registra únicamente los campos expresamente autorizados.
+- **[mensaje venenoso](../../../glosario/entradas/m/mensaje-venenoso.md):** mensaje que un consumidor no puede procesar y que, reintentado sin fin, impide avanzar a los siguientes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md) · [Lista de permitidos](../../../glosario/entradas/l/lista-de-permitidos.md) · [Mensaje venenoso](../../../glosario/entradas/m/mensaje-venenoso.md) · [Propagación de contexto](../../../glosario/entradas/p/propagacion-de-contexto.md) · [Traza](../../../glosario/entradas/t/traza.md).
 
 ---
 

@@ -155,12 +155,12 @@ Hay 7 olas y la más ancha tiene 13 tareas. La ruta crítica es de 10,4 y es un 
 
 ## Definiciones de trabajo
 
-- **constitución:** conjunto corto de principios obligatorios y comprobables contra los que se evalúa cada fase posterior del proceso.
-- **clarificación:** ronda de preguntas dirigidas sobre las partes insuficientemente especificadas cuyas respuestas se codifican en la especificación.
-- **plan:** artefacto que decide cómo se construye (tecnología, arquitectura, restricciones) y que debe citar los requisitos que satisface.
-- **tarea:** unidad de trabajo ordenada, con dependencias, archivos afectados y, si procede, marca de ejecución en paralelo.
-- **ruta crítica:** cadena de dependencias de mayor duración; fija el mínimo de tiempo con cualquier número de trabajadores.
-- **análisis entre artefactos:** lectura conjunta de especificación, plan y tareas que informa de conflictos y huecos sin modificar nada.
+- **[constitución](../../../glosario/entradas/c/constitucion.md):** conjunto corto de principios obligatorios y comprobables contra los que se evalúa cada fase posterior del proceso.
+- **[clarificación](../../../glosario/entradas/c/clarificacion.md):** ronda de preguntas dirigidas sobre las partes insuficientemente especificadas cuyas respuestas se codifican en la especificación.
+- **[plan](../../../glosario/entradas/p/plan.md):** artefacto que decide cómo se construye (tecnología, arquitectura, restricciones) y que debe citar los requisitos que satisface.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** unidad de trabajo ordenada, con dependencias, archivos afectados y, si procede, marca de ejecución en paralelo.
+- **[ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** cadena de dependencias de mayor duración; fija el mínimo de tiempo con cualquier número de trabajadores.
+- **[análisis entre artefactos](../../../glosario/entradas/a/analisis-entre-artefactos.md):** lectura conjunta de especificación, plan y tareas que informa de conflictos y huecos sin modificar nada.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,12 +299,14 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **constitución:** conjunto corto de principios obligatorios y comprobables contra los que se evalúa cada fase posterior del proceso.
-- **clarificación:** ronda de preguntas dirigidas sobre las partes insuficientemente especificadas cuyas respuestas se codifican en la especificación.
-- **plan:** artefacto que decide cómo se construye (tecnología, arquitectura, restricciones) y que debe citar los requisitos que satisface.
-- **tarea:** unidad de trabajo ordenada, con dependencias, archivos afectados y, si procede, marca de ejecución en paralelo.
-- **ruta crítica:** cadena de dependencias de mayor duración; fija el mínimo de tiempo con cualquier número de trabajadores.
-- **análisis entre artefactos:** lectura conjunta de especificación, plan y tareas que informa de conflictos y huecos sin modificar nada.
+- **[constitución](../../../glosario/entradas/c/constitucion.md):** conjunto corto de principios obligatorios y comprobables contra los que se evalúa cada fase posterior del proceso.
+- **[clarificación](../../../glosario/entradas/c/clarificacion.md):** ronda de preguntas dirigidas sobre las partes insuficientemente especificadas cuyas respuestas se codifican en la especificación.
+- **[plan](../../../glosario/entradas/p/plan.md):** artefacto que decide cómo se construye (tecnología, arquitectura, restricciones) y que debe citar los requisitos que satisface.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** unidad de trabajo ordenada, con dependencias, archivos afectados y, si procede, marca de ejecución en paralelo.
+- **[ruta crítica](../../../glosario/entradas/r/ruta-critica.md):** cadena de dependencias de mayor duración; fija el mínimo de tiempo con cualquier número de trabajadores.
+- **[análisis entre artefactos](../../../glosario/entradas/a/analisis-entre-artefactos.md):** lectura conjunta de especificación, plan y tareas que informa de conflictos y huecos sin modificar nada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis entre artefactos](../../../glosario/entradas/a/analisis-entre-artefactos.md) · [Clarificación](../../../glosario/entradas/c/clarificacion.md) · [Constitución](../../../glosario/entradas/c/constitucion.md) · [Plan](../../../glosario/entradas/p/plan.md) · [Ruta crítica](../../../glosario/entradas/r/ruta-critica.md) · [Tarea](../../../glosario/entradas/t/tarea.md).
 
 ---
 

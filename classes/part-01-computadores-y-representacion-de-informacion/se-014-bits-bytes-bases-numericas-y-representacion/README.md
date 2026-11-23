@@ -182,16 +182,18 @@ identidad.
 
 ## Definiciones de trabajo
 
-- **bit:** unidad con dos estados distinguibles;
-- **byte:** grupo de ocho bits en este programa;
-- **base:** cantidad de dígitos y pesos de una notación posicional;
-- **overflow:** resultado fuera del rango representable;
-- **endianess:** orden de bytes en un valor multibyte.
+- **[bit](../../../glosario/entradas/b/bit.md):** unidad con dos estados distinguibles;
+- **[byte](../../../glosario/entradas/b/byte.md):** grupo de ocho bits en este programa;
+- **[base](../../../glosario/entradas/b/base.md):** cantidad de dígitos y pesos de una notación posicional;
+- **[overflow](../../../glosario/entradas/o/overflow.md):** resultado fuera del rango representable;
+- **[endianess](../../../glosario/entradas/e/endianess.md):** orden de bytes en un valor multibyte.
 
 ## Glosario
 
-**MSB/LSB** señalan bit o byte más/menos significativo según contexto. **Nibble** son
-cuatro bits. **Máscara** selecciona posiciones mediante operaciones bit a bit.
+**[MSB/LSB](../../../glosario/entradas/m/msb-lsb.md)** señalan bit o byte más/menos significativo según contexto. **[Nibble](../../../glosario/entradas/n/nibble.md)** son
+cuatro bits. **[Máscara](../../../glosario/entradas/m/mascara.md)** selecciona posiciones mediante operaciones bit a bit.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Base](../../../glosario/entradas/b/base.md) · [Bit](../../../glosario/entradas/b/bit.md) · [Byte](../../../glosario/entradas/b/byte.md) · [Endianess](../../../glosario/entradas/e/endianess.md) · [Máscara](../../../glosario/entradas/m/mascara.md) · [MSB/LSB](../../../glosario/entradas/m/msb-lsb.md) · [Nibble](../../../glosario/entradas/n/nibble.md) · [Overflow](../../../glosario/entradas/o/overflow.md).
 
 ## Ejemplo mínimo
 

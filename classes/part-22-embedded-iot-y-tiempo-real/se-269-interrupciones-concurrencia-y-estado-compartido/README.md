@@ -155,11 +155,11 @@ Un búfer que cubre el periodo típico (15 ms × 0,5 = 7,5 muestras) pierde casi
 
 ## Definiciones de trabajo
 
-- **rutina de interrupción (ISR):** código que el procesador ejecuta al ocurrir un evento, suspendiendo el programa principal entre dos instrucciones.
-- **atomicidad:** propiedad de una operación que ningún otro contexto observa a medias.
-- **sección crítica:** tramo de código que accede a un dato compartido y se protege para que ningún otro contexto lo interrumpa.
-- **lectura partida:** lectura de un valor de varios bytes que mezcla partes de dos escrituras distintas.
-- **búfer circular:** cola de capacidad fija con índices de lectura y escritura que dan la vuelta.
+- **[rutina de interrupción (ISR)](../../../glosario/entradas/r/rutina-de-interrupcion.md):** código que el procesador ejecuta al ocurrir un evento, suspendiendo el programa principal entre dos instrucciones.
+- **[atomicidad](../../../glosario/entradas/a/atomicidad.md):** propiedad de una operación que ningún otro contexto observa a medias.
+- **[sección crítica](../../../glosario/entradas/s/seccion-critica.md):** tramo de código que accede a un dato compartido y se protege para que ningún otro contexto lo interrumpa.
+- **[lectura partida](../../../glosario/entradas/l/lectura-partida.md):** lectura de un valor de varios bytes que mezcla partes de dos escrituras distintas.
+- **[búfer circular](../../../glosario/entradas/b/bufer-circular.md):** cola de capacidad fija con índices de lectura y escritura que dan la vuelta.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **rutina de interrupción (ISR):** código que el procesador ejecuta al ocurrir un evento, suspendiendo el programa principal entre dos instrucciones.
-- **atomicidad:** propiedad de una operación que ningún otro contexto observa a medias.
-- **sección crítica:** tramo de código que accede a un dato compartido y se protege para que ningún otro contexto lo interrumpa.
-- **lectura partida:** lectura de un valor de varios bytes que mezcla partes de dos escrituras distintas.
-- **búfer circular:** cola de capacidad fija con índices de lectura y escritura que dan la vuelta.
+- **[rutina de interrupción (ISR)](../../../glosario/entradas/r/rutina-de-interrupcion.md):** código que el procesador ejecuta al ocurrir un evento, suspendiendo el programa principal entre dos instrucciones.
+- **[atomicidad](../../../glosario/entradas/a/atomicidad.md):** propiedad de una operación que ningún otro contexto observa a medias.
+- **[sección crítica](../../../glosario/entradas/s/seccion-critica.md):** tramo de código que accede a un dato compartido y se protege para que ningún otro contexto lo interrumpa.
+- **[lectura partida](../../../glosario/entradas/l/lectura-partida.md):** lectura de un valor de varios bytes que mezcla partes de dos escrituras distintas.
+- **[búfer circular](../../../glosario/entradas/b/bufer-circular.md):** cola de capacidad fija con índices de lectura y escritura que dan la vuelta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Atomicidad](../../../glosario/entradas/a/atomicidad.md) · [Búfer circular](../../../glosario/entradas/b/bufer-circular.md) · [Lectura partida](../../../glosario/entradas/l/lectura-partida.md) · [Rutina de interrupción](../../../glosario/entradas/r/rutina-de-interrupcion.md) · [Sección crítica](../../../glosario/entradas/s/seccion-critica.md).
 
 ---
 

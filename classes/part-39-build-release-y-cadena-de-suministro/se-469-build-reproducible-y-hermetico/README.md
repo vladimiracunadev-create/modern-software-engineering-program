@@ -123,11 +123,11 @@ Se comparan dos builds que solo difieren en una fecha incrustada, entrada por en
 
 ## Definiciones de trabajo
 
-- **build reproducible:** construcción que, con las mismas entradas declaradas, produce artefactos idénticos bit a bit en cualquier máquina.
-- **build hermético:** construcción que solo puede leer las entradas que declaró, sin red ni variables heredadas.
-- **huella (hash):** valor calculado a partir de los bytes de un artefacto; si los bytes cambian, la huella cambia.
-- **normalizar:** fijar o eliminar toda información del entorno (hora, orden, ruta, usuario) que el formato incrusta.
-- **entrada no declarada:** dato que el build lee y que no figura en su lista de entradas.
+- **[build reproducible](../../../glosario/entradas/b/build-reproducible.md):** construcción que, con las mismas entradas declaradas, produce artefactos idénticos bit a bit en cualquier máquina.
+- **[build hermético](../../../glosario/entradas/b/build-hermetico.md):** construcción que solo puede leer las entradas que declaró, sin red ni variables heredadas.
+- **[huella (hash)](../../../glosario/entradas/h/huella.md):** valor calculado a partir de los bytes de un artefacto; si los bytes cambian, la huella cambia.
+- **[normalizar](../../../glosario/entradas/n/normalizar.md):** fijar o eliminar toda información del entorno (hora, orden, ruta, usuario) que el formato incrusta.
+- **[entrada no declarada](../../../glosario/entradas/e/entrada-no-declarada.md):** dato que el build lee y que no figura en su lista de entradas.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -270,11 +270,13 @@ Se ejecutaron tres experimentos con un árbol sintético de 42 archivos, uno de 
 
 ## Glosario
 
-- **build reproducible:** construcción que, con las mismas entradas declaradas, produce artefactos idénticos bit a bit en cualquier máquina.
-- **build hermético:** construcción que solo puede leer las entradas que declaró, sin red ni variables heredadas.
-- **huella (hash):** valor calculado a partir de los bytes de un artefacto; si los bytes cambian, la huella cambia.
-- **normalizar:** fijar o eliminar toda información del entorno (hora, orden, ruta, usuario) que el formato incrusta.
-- **entrada no declarada:** dato que el build lee y que no figura en su lista de entradas.
+- **[build reproducible](../../../glosario/entradas/b/build-reproducible.md):** construcción que, con las mismas entradas declaradas, produce artefactos idénticos bit a bit en cualquier máquina.
+- **[build hermético](../../../glosario/entradas/b/build-hermetico.md):** construcción que solo puede leer las entradas que declaró, sin red ni variables heredadas.
+- **[huella (hash)](../../../glosario/entradas/h/huella.md):** valor calculado a partir de los bytes de un artefacto; si los bytes cambian, la huella cambia.
+- **[normalizar](../../../glosario/entradas/n/normalizar.md):** fijar o eliminar toda información del entorno (hora, orden, ruta, usuario) que el formato incrusta.
+- **[entrada no declarada](../../../glosario/entradas/e/entrada-no-declarada.md):** dato que el build lee y que no figura en su lista de entradas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Build hermético](../../../glosario/entradas/b/build-hermetico.md) · [Build reproducible](../../../glosario/entradas/b/build-reproducible.md) · [Entrada no declarada](../../../glosario/entradas/e/entrada-no-declarada.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Normalizar](../../../glosario/entradas/n/normalizar.md).
 
 ---
 

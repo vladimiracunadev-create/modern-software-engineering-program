@@ -112,11 +112,11 @@ El problema de fondo es el orden total: un comparador debe ser transitivo y cons
 
 ## Definiciones de trabajo
 
-- **búsqueda lineal y binaria:** la búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice.
-- **contrato de comparación:** ordenar requiere una relación consistente, normalmente total o una clave total derivada.
-- **estabilidad:** un sort estable conserva orden relativo entre claves iguales.
-- **familias de ordenamiento:** merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
-- **selección parcial:** para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
+- **[búsqueda lineal y binaria](../../../glosario/entradas/b/busqueda-lineal-y-binaria.md):** la búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice.
+- **[contrato de comparación](../../../glosario/entradas/c/contrato-de-comparacion.md):** ordenar requiere una relación consistente, normalmente total o una clave total derivada.
+- **[estabilidad](../../../glosario/entradas/e/estabilidad.md):** un sort estable conserva orden relativo entre claves iguales.
+- **[familias de ordenamiento](../../../glosario/entradas/f/familias-de-ordenamiento.md):** merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
+- **[selección parcial](../../../glosario/entradas/s/seleccion-parcial.md):** para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ Elegir top-k no resuelve decisiones secuenciales con subproblemas o restriccione
 
 ## Glosario
 
-- **búsqueda lineal y binaria:** la búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice.
-- **contrato de comparación:** ordenar requiere una relación consistente, normalmente total o una clave total derivada.
-- **estabilidad:** un sort estable conserva orden relativo entre claves iguales.
-- **familias de ordenamiento:** merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
-- **selección parcial:** para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
+- **[búsqueda lineal y binaria](../../../glosario/entradas/b/busqueda-lineal-y-binaria.md):** la búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice.
+- **[contrato de comparación](../../../glosario/entradas/c/contrato-de-comparacion.md):** ordenar requiere una relación consistente, normalmente total o una clave total derivada.
+- **[estabilidad](../../../glosario/entradas/e/estabilidad.md):** un sort estable conserva orden relativo entre claves iguales.
+- **[familias de ordenamiento](../../../glosario/entradas/f/familias-de-ordenamiento.md):** merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
+- **[selección parcial](../../../glosario/entradas/s/seleccion-parcial.md):** para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Búsqueda lineal y binaria](../../../glosario/entradas/b/busqueda-lineal-y-binaria.md) · [Contrato de comparación](../../../glosario/entradas/c/contrato-de-comparacion.md) · [Estabilidad](../../../glosario/entradas/e/estabilidad.md) · [Familias de ordenamiento](../../../glosario/entradas/f/familias-de-ordenamiento.md) · [Selección parcial](../../../glosario/entradas/s/seleccion-parcial.md).
 
 ---
 

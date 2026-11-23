@@ -119,11 +119,11 @@ no mostró esa espera (0,60 ms).
 
 ## Definiciones de trabajo
 
-- **flujo:** secuencia ordenada de octetos sin fronteras de mensaje.
-- **datagrama:** mensaje independiente transportado como unidad.
-- **stream:** canal lógico ordenado dentro de una conexión QUIC.
-- **RTT:** tiempo de ida y vuelta observado.
-- **idempotencia:** propiedad por la cual repetir una operación conserva el efecto esperado.
+- **[flujo](../../../glosario/entradas/f/flujo.md):** secuencia ordenada de octetos sin fronteras de mensaje.
+- **[datagrama](../../../glosario/entradas/d/datagrama.md):** mensaje independiente transportado como unidad.
+- **[stream](../../../glosario/entradas/f/flujo.md):** canal lógico ordenado dentro de una conexión QUIC.
+- **[RTT](../../../glosario/entradas/r/rtt.md):** tiempo de ida y vuelta observado.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad por la cual repetir una operación conserva el efecto esperado.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -273,11 +273,13 @@ No implementa algoritmos de congestión ni criptografía de QUIC. Las condicione
 
 ## Glosario
 
-- **flujo:** secuencia ordenada de octetos sin fronteras de mensaje.
-- **datagrama:** mensaje independiente transportado como unidad.
-- **stream:** canal lógico ordenado dentro de una conexión QUIC.
-- **RTT:** tiempo de ida y vuelta observado.
-- **idempotencia:** propiedad por la cual repetir una operación conserva el efecto esperado.
+- **[flujo](../../../glosario/entradas/f/flujo.md):** secuencia ordenada de octetos sin fronteras de mensaje.
+- **[datagrama](../../../glosario/entradas/d/datagrama.md):** mensaje independiente transportado como unidad.
+- **[stream](../../../glosario/entradas/f/flujo.md):** canal lógico ordenado dentro de una conexión QUIC.
+- **[RTT](../../../glosario/entradas/r/rtt.md):** tiempo de ida y vuelta observado.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad por la cual repetir una operación conserva el efecto esperado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Datagrama](../../../glosario/entradas/d/datagrama.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Flujo](../../../glosario/entradas/f/flujo.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [RTT](../../../glosario/entradas/r/rtt.md).
 
 ---
 

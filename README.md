@@ -300,7 +300,7 @@ especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fue
 ## 📖 Glosario: el vocabulario del programa
 
 Además de las partes, los roles y los casos, el programa ofrece una superficie propia: un **glosario profundo** con
-2731 conceptos (628 troncales y 2103 de apoyo). No son clases ni roles y no cambian el
+2743 conceptos (625 troncales y 2118 de apoyo). No son clases ni roles y no cambian el
 número de clases: cada entrada define el término, explica por qué importa y cómo funciona, advierte de errores y límites, lo
 relaciona con otros conceptos y enlaza las clases y los casos donde se enseña. Se consulta cuando una clase usa un término que no
 dominas y se usa para volver a la clase que lo desarrolla.

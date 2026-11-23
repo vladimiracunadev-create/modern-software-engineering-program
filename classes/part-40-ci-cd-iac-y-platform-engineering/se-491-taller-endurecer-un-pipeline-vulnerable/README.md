@@ -171,11 +171,11 @@ Con permisos amplios cada trabajo puede escribir en 16 ámbitos; con el mínimo,
 
 ## Definiciones de trabajo
 
-- **inyección por expansión:** ejecución de texto de un tercero como código porque se sustituyó en un script antes de que el intérprete lo leyera.
-- **evento privilegiado:** evento de activación cuyo flujo se ejecuta con secretos y permisos de escritura aunque lo origine un tercero.
-- **fijar por SHA:** referenciar una acción por el identificador completo de un contenido en lugar de una etiqueta que puede moverse.
-- **mínimo privilegio:** concesión a cada trabajo de solo los permisos que necesita.
-- **hallazgo:** coincidencia de una regla del verificador con un patrón de riesgo.
+- **[inyección por expansión](../../../glosario/entradas/i/inyeccion-por-expansion.md):** ejecución de texto de un tercero como código porque se sustituyó en un script antes de que el intérprete lo leyera.
+- **[evento privilegiado](../../../glosario/entradas/e/evento-privilegiado.md):** evento de activación cuyo flujo se ejecuta con secretos y permisos de escritura aunque lo origine un tercero.
+- **[fijar por SHA](../../../glosario/entradas/f/fijar-por-sha.md):** referenciar una acción por el identificador completo de un contenido en lugar de una etiqueta que puede moverse.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** concesión a cada trabajo de solo los permisos que necesita.
+- **[hallazgo](../../../glosario/entradas/h/hallazgo.md):** coincidencia de una regla del verificador con un patrón de riesgo.
 
 Las definiciones son operativas para el taller de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -315,11 +315,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **inyección por expansión:** ejecución de texto de un tercero como código porque se sustituyó en un script antes de que el intérprete lo leyera.
-- **evento privilegiado:** evento de activación cuyo flujo se ejecuta con secretos y permisos de escritura aunque lo origine un tercero.
-- **fijar por SHA:** referenciar una acción por el identificador completo de un contenido en lugar de una etiqueta que puede moverse.
-- **mínimo privilegio:** concesión a cada trabajo de solo los permisos que necesita.
-- **hallazgo:** coincidencia de una regla del verificador con un patrón de riesgo.
+- **[inyección por expansión](../../../glosario/entradas/i/inyeccion-por-expansion.md):** ejecución de texto de un tercero como código porque se sustituyó en un script antes de que el intérprete lo leyera.
+- **[evento privilegiado](../../../glosario/entradas/e/evento-privilegiado.md):** evento de activación cuyo flujo se ejecuta con secretos y permisos de escritura aunque lo origine un tercero.
+- **[fijar por SHA](../../../glosario/entradas/f/fijar-por-sha.md):** referenciar una acción por el identificador completo de un contenido en lugar de una etiqueta que puede moverse.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** concesión a cada trabajo de solo los permisos que necesita.
+- **[hallazgo](../../../glosario/entradas/h/hallazgo.md):** coincidencia de una regla del verificador con un patrón de riesgo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Entradas no confiables](../../../glosario/entradas/e/entradas-no-confiables.md) · [Evento privilegiado](../../../glosario/entradas/e/evento-privilegiado.md) · [Fijar por SHA](../../../glosario/entradas/f/fijar-por-sha.md) · [Hallazgo](../../../glosario/entradas/h/hallazgo.md) · [Inyección por expansión](../../../glosario/entradas/i/inyeccion-por-expansion.md) · [Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md).
 
 ---
 

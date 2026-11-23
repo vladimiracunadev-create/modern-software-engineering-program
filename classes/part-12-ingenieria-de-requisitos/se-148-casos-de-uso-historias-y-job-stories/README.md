@@ -148,11 +148,11 @@ Resultado: Estudiante 7, Docente 6, Soporte 4, Administrador 3, Coordinación 2,
 
 ## Definiciones de trabajo
 
-- **actores y objetivos:** quien interactúa con el sistema y el resultado que busca lograr.
-- **casos de uso:** narración de cómo un actor alcanza un objetivo, con flujo principal, extensiones y resultado garantizado.
-- **historias de usuario:** unidad de valor pequeña, negociable y comprobable, expresada como tarjeta, conversación y confirmación.
-- **job stories:** relato que parte de una situación, una motivación y un resultado esperado, sin depender de un rol.
-- **corte vertical:** división del trabajo en incrementos que atraviesan todas las capas y entregan algo utilizable.
+- **[actores y objetivos](../../../glosario/entradas/a/actores-y-objetivos.md):** quien interactúa con el sistema y el resultado que busca lograr.
+- **[casos de uso](../../../glosario/entradas/c/casos-de-uso.md):** narración de cómo un actor alcanza un objetivo, con flujo principal, extensiones y resultado garantizado.
+- **[historias de usuario](../../../glosario/entradas/h/historias-de-usuario.md):** unidad de valor pequeña, negociable y comprobable, expresada como tarjeta, conversación y confirmación.
+- **[job stories](../../../glosario/entradas/j/job-stories.md):** relato que parte de una situación, una motivación y un resultado esperado, sin depender de un rol.
+- **[corte vertical](../../../glosario/entradas/c/corte-vertical.md):** división del trabajo en incrementos que atraviesan todas las capas y entregan algo utilizable.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **actores y objetivos:** quien interactúa con el sistema y el resultado que busca lograr.
-- **casos de uso:** narración de cómo un actor alcanza un objetivo, con flujo principal, extensiones y resultado garantizado.
-- **historias de usuario:** unidad de valor pequeña, negociable y comprobable, expresada como tarjeta, conversación y confirmación.
-- **job stories:** relato que parte de una situación, una motivación y un resultado esperado, sin depender de un rol.
-- **corte vertical:** división del trabajo en incrementos que atraviesan todas las capas y entregan algo utilizable.
+- **[actores y objetivos](../../../glosario/entradas/a/actores-y-objetivos.md):** quien interactúa con el sistema y el resultado que busca lograr.
+- **[casos de uso](../../../glosario/entradas/c/casos-de-uso.md):** narración de cómo un actor alcanza un objetivo, con flujo principal, extensiones y resultado garantizado.
+- **[historias de usuario](../../../glosario/entradas/h/historias-de-usuario.md):** unidad de valor pequeña, negociable y comprobable, expresada como tarjeta, conversación y confirmación.
+- **[job stories](../../../glosario/entradas/j/job-stories.md):** relato que parte de una situación, una motivación y un resultado esperado, sin depender de un rol.
+- **[corte vertical](../../../glosario/entradas/c/corte-vertical.md):** división del trabajo en incrementos que atraviesan todas las capas y entregan algo utilizable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actores y objetivos](../../../glosario/entradas/a/actores-y-objetivos.md) · [Casos de uso](../../../glosario/entradas/c/casos-de-uso.md) · [Corte vertical](../../../glosario/entradas/c/corte-vertical.md) · [Historias de usuario](../../../glosario/entradas/h/historias-de-usuario.md) · [Job stories](../../../glosario/entradas/j/job-stories.md).
 
 ---
 

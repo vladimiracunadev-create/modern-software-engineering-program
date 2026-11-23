@@ -138,11 +138,11 @@ Con q = 5 %, el despliegue total afecta a 9 952 personas y el progresivo se deti
 
 ## Definiciones de trabajo
 
-- **decisión reversible (de dos sentidos):** decisión que puede deshacerse con un costo bajo y sin pérdida de información.
-- **decisión irreversible (de un sentido):** decisión cuyo efecto no puede deshacerse o cuyo costo de deshacerlo es muy alto.
-- **costo de reversión:** costo de volver al estado anterior, incluido el tiempo de exposición del error.
-- **migración reversible:** cambio de datos cuya inversa devuelve los datos originales, comprobado por comparación.
-- **despliegue progresivo:** exposición gradual de un cambio a fracciones crecientes de personas con detección entre etapas.
+- **[decisión reversible (de dos sentidos)](../../../glosario/entradas/d/decision-reversible-de-dos-sentidos.md):** decisión que puede deshacerse con un costo bajo y sin pérdida de información.
+- **[decisión irreversible (de un sentido)](../../../glosario/entradas/d/decision-irreversible-de-un-sentido.md):** decisión cuyo efecto no puede deshacerse o cuyo costo de deshacerlo es muy alto.
+- **[costo de reversión](../../../glosario/entradas/c/costo-de-reversion.md):** costo de volver al estado anterior, incluido el tiempo de exposición del error.
+- **[migración reversible](../../../glosario/entradas/m/migracion-reversible.md):** cambio de datos cuya inversa devuelve los datos originales, comprobado por comparación.
+- **[despliegue progresivo](../../../glosario/entradas/d/despliegue-progresivo.md):** exposición gradual de un cambio a fracciones crecientes de personas con detección entre etapas.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -286,11 +286,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **decisión reversible (de dos sentidos):** decisión que puede deshacerse con un costo bajo y sin pérdida de información.
-- **decisión irreversible (de un sentido):** decisión cuyo efecto no puede deshacerse o cuyo costo de deshacerlo es muy alto.
-- **costo de reversión:** costo de volver al estado anterior, incluido el tiempo de exposición del error.
-- **migración reversible:** cambio de datos cuya inversa devuelve los datos originales, comprobado por comparación.
-- **despliegue progresivo:** exposición gradual de un cambio a fracciones crecientes de personas con detección entre etapas.
+- **[decisión reversible (de dos sentidos)](../../../glosario/entradas/d/decision-reversible-de-dos-sentidos.md):** decisión que puede deshacerse con un costo bajo y sin pérdida de información.
+- **[decisión irreversible (de un sentido)](../../../glosario/entradas/d/decision-irreversible-de-un-sentido.md):** decisión cuyo efecto no puede deshacerse o cuyo costo de deshacerlo es muy alto.
+- **[costo de reversión](../../../glosario/entradas/c/costo-de-reversion.md):** costo de volver al estado anterior, incluido el tiempo de exposición del error.
+- **[migración reversible](../../../glosario/entradas/m/migracion-reversible.md):** cambio de datos cuya inversa devuelve los datos originales, comprobado por comparación.
+- **[despliegue progresivo](../../../glosario/entradas/d/despliegue-progresivo.md):** exposición gradual de un cambio a fracciones crecientes de personas con detección entre etapas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Costo de reversión](../../../glosario/entradas/c/costo-de-reversion.md) · [Decisión irreversible (de un sentido)](../../../glosario/entradas/d/decision-irreversible-de-un-sentido.md) · [Decisión reversible (de dos sentidos)](../../../glosario/entradas/d/decision-reversible-de-dos-sentidos.md) · [Despliegue progresivo](../../../glosario/entradas/d/despliegue-progresivo.md) · [Migración reversible](../../../glosario/entradas/m/migracion-reversible.md).
 
 ---
 

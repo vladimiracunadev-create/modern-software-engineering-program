@@ -138,11 +138,11 @@ Hay 63 órdenes válidos. El mejor, A B C D G E F, vale 551,5. El voraz que elig
 
 ## Definiciones de trabajo
 
-- **portafolio:** conjunto de iniciativas financiadas a la vez dentro de un presupuesto.
-- **arrepentimiento:** diferencia entre el valor de la mejor decisión en un futuro realizado y el de la elegida.
-- **opción:** derecho, no obligación, de continuar una inversión tras observar información de una etapa previa.
-- **dependencia:** relación que impide empezar una tarea antes de terminar otra.
-- **secuencia:** orden de ejecución de las tareas que respeta las dependencias.
+- **[portafolio](../../../glosario/entradas/p/portafolio.md):** conjunto de iniciativas financiadas a la vez dentro de un presupuesto.
+- **[arrepentimiento](../../../glosario/entradas/a/arrepentimiento.md):** diferencia entre el valor de la mejor decisión en un futuro realizado y el de la elegida.
+- **[opción](../../../glosario/entradas/o/opcion.md):** derecho, no obligación, de continuar una inversión tras observar información de una etapa previa.
+- **[dependencia](../../../glosario/entradas/d/dependencia.md):** relación que impide empezar una tarea antes de terminar otra.
+- **[secuencia](../../../glosario/entradas/s/secuencia.md):** orden de ejecución de las tareas que respeta las dependencias.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -289,11 +289,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **portafolio:** conjunto de iniciativas financiadas a la vez dentro de un presupuesto.
-- **arrepentimiento:** diferencia entre el valor de la mejor decisión en un futuro realizado y el de la elegida.
-- **opción:** derecho, no obligación, de continuar una inversión tras observar información de una etapa previa.
-- **dependencia:** relación que impide empezar una tarea antes de terminar otra.
-- **secuencia:** orden de ejecución de las tareas que respeta las dependencias.
+- **[portafolio](../../../glosario/entradas/p/portafolio.md):** conjunto de iniciativas financiadas a la vez dentro de un presupuesto.
+- **[arrepentimiento](../../../glosario/entradas/a/arrepentimiento.md):** diferencia entre el valor de la mejor decisión en un futuro realizado y el de la elegida.
+- **[opción](../../../glosario/entradas/o/opcion.md):** derecho, no obligación, de continuar una inversión tras observar información de una etapa previa.
+- **[dependencia](../../../glosario/entradas/d/dependencia.md):** relación que impide empezar una tarea antes de terminar otra.
+- **[secuencia](../../../glosario/entradas/s/secuencia.md):** orden de ejecución de las tareas que respeta las dependencias.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arrepentimiento](../../../glosario/entradas/a/arrepentimiento.md) · [Dependencia](../../../glosario/entradas/d/dependencia.md) · [Opción](../../../glosario/entradas/o/opcion.md) · [Portafolio](../../../glosario/entradas/p/portafolio.md) · [Secuencia](../../../glosario/entradas/s/secuencia.md).
 
 ---
 

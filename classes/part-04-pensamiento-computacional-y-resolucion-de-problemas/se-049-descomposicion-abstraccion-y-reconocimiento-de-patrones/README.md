@@ -105,11 +105,11 @@ Abstraer es decidir qué ignorar. El modelo conserva el conjunto cerrado de hip�
 
 ## Definiciones de trabajo
 
-- **descomposición:** separación de un problema en resultados coordinables.
-- **abstracción:** modelo que conserva solo propiedades relevantes.
-- **patrón:** estructura repetida con consecuencias conocidas.
-- **interfaz:** contrato entre subproblemas.
-- **recomposición:** integración y revisión de propiedades del conjunto.
+- **[descomposición](../../../glosario/entradas/d/descomposicion.md):** separación de un problema en resultados coordinables.
+- **[abstracción](../../../glosario/entradas/a/abstraccion.md):** modelo que conserva solo propiedades relevantes.
+- **[patrón](../../../glosario/entradas/p/patron.md):** estructura repetida con consecuencias conocidas.
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** contrato entre subproblemas.
+- **[recomposición](../../../glosario/entradas/r/recomposicion.md):** integración y revisión de propiedades del conjunto.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -253,11 +253,13 @@ La descomposición no demuestra corrección ni prioriza por sí sola. La próxim
 
 ## Glosario
 
-- **descomposición:** separación de un problema en resultados coordinables.
-- **abstracción:** modelo que conserva solo propiedades relevantes.
-- **patrón:** estructura repetida con consecuencias conocidas.
-- **interfaz:** contrato entre subproblemas.
-- **recomposición:** integración y revisión de propiedades del conjunto.
+- **[descomposición](../../../glosario/entradas/d/descomposicion.md):** separación de un problema en resultados coordinables.
+- **[abstracción](../../../glosario/entradas/a/abstraccion.md):** modelo que conserva solo propiedades relevantes.
+- **[patrón](../../../glosario/entradas/p/patron.md):** estructura repetida con consecuencias conocidas.
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** contrato entre subproblemas.
+- **[recomposición](../../../glosario/entradas/r/recomposicion.md):** integración y revisión de propiedades del conjunto.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abstracción](../../../glosario/entradas/a/abstraccion.md) · [Descomposición](../../../glosario/entradas/d/descomposicion.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Interfaz](../../../glosario/entradas/i/interfaz.md) · [Patrón](../../../glosario/entradas/p/patron.md) · [Recomposición](../../../glosario/entradas/r/recomposicion.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

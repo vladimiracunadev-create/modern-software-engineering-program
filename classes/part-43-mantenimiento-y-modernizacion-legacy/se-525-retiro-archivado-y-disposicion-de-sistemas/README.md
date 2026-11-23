@@ -153,11 +153,11 @@ La suma delata la alteración; el lector no. Un archivo con un valor cambiado en
 
 ## Definiciones de trabajo
 
-- **periodicidad:** intervalo habitual entre dos usos de un sistema por un mismo consumidor.
-- **retención:** tiempo durante el que se conserva un tipo de dato y fundamento de ese plazo.
-- **retención legal:** suspensión de la eliminación de ciertos registros por un litigio, una auditoría o una obligación.
-- **suma de verificación:** huella criptográfica del contenido de un archivo, usada para detectar alteraciones.
-- **disposición:** conjunto de acciones finales sobre datos y soportes (borrado, destrucción, saneamiento) cuando ya no se necesitan.
+- **[periodicidad](../../../glosario/entradas/p/periodicidad.md):** intervalo habitual entre dos usos de un sistema por un mismo consumidor.
+- **[retención](../../../glosario/entradas/r/retencion.md):** tiempo durante el que se conserva un tipo de dato y fundamento de ese plazo.
+- **[retención legal](../../../glosario/entradas/r/retencion-legal.md):** suspensión de la eliminación de ciertos registros por un litigio, una auditoría o una obligación.
+- **[suma de verificación](../../../glosario/entradas/s/suma-de-verificacion.md):** huella criptográfica del contenido de un archivo, usada para detectar alteraciones.
+- **[disposición](../../../glosario/entradas/d/disposicion.md):** conjunto de acciones finales sobre datos y soportes (borrado, destrucción, saneamiento) cuando ya no se necesitan.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -298,11 +298,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con cifras idénticas
 
 ## Glosario
 
-- **periodicidad:** intervalo habitual entre dos usos de un sistema por un mismo consumidor.
-- **retención:** tiempo durante el que se conserva un tipo de dato y fundamento de ese plazo.
-- **retención legal:** suspensión de la eliminación de ciertos registros por un litigio, una auditoría o una obligación.
-- **suma de verificación:** huella criptográfica del contenido de un archivo, usada para detectar alteraciones.
-- **disposición:** conjunto de acciones finales sobre datos y soportes (borrado, destrucción, saneamiento) cuando ya no se necesitan.
+- **[periodicidad](../../../glosario/entradas/p/periodicidad.md):** intervalo habitual entre dos usos de un sistema por un mismo consumidor.
+- **[retención](../../../glosario/entradas/r/retencion.md):** tiempo durante el que se conserva un tipo de dato y fundamento de ese plazo.
+- **[retención legal](../../../glosario/entradas/r/retencion-legal.md):** suspensión de la eliminación de ciertos registros por un litigio, una auditoría o una obligación.
+- **[suma de verificación](../../../glosario/entradas/s/suma-de-verificacion.md):** huella criptográfica del contenido de un archivo, usada para detectar alteraciones.
+- **[disposición](../../../glosario/entradas/d/disposicion.md):** conjunto de acciones finales sobre datos y soportes (borrado, destrucción, saneamiento) cuando ya no se necesitan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Disposición](../../../glosario/entradas/d/disposicion.md) · [Periodicidad](../../../glosario/entradas/p/periodicidad.md) · [Retención](../../../glosario/entradas/r/retencion.md) · [Retención legal](../../../glosario/entradas/r/retencion-legal.md) · [Suma de verificación](../../../glosario/entradas/s/suma-de-verificacion.md).
 
 ---
 

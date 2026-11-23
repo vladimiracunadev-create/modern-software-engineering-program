@@ -170,11 +170,11 @@ Cuatro secuencias escritas a mano (encolar y sacar, encolar dos y sacar dos, lle
 
 ## Definiciones de trabajo
 
-- **propiedad:** afirmación que debe cumplirse para toda entrada del dominio de una función.
-- **generador:** procedimiento que produce entradas de prueba, con semilla si debe ser reproducible.
-- **reducción (shrinking):** proceso que simplifica un contraejemplo mientras siga fallando.
-- **modelo:** implementación simple y obviamente correcta contra la que se compara otra más compleja.
-- **prueba metamórfica:** prueba que relaciona los resultados de dos entradas relacionadas en lugar de conocer el resultado exacto.
+- **[propiedad](../../../glosario/entradas/p/propiedad.md):** afirmación que debe cumplirse para toda entrada del dominio de una función.
+- **[generador](../../../glosario/entradas/g/generador.md):** procedimiento que produce entradas de prueba, con semilla si debe ser reproducible.
+- **[reducción (shrinking)](../../../glosario/entradas/r/reduccion.md):** proceso que simplifica un contraejemplo mientras siga fallando.
+- **[modelo](../../../glosario/entradas/m/modelo.md):** implementación simple y obviamente correcta contra la que se compara otra más compleja.
+- **[prueba metamórfica](../../../glosario/entradas/p/prueba-metamorfica.md):** prueba que relaciona los resultados de dos entradas relacionadas en lugar de conocer el resultado exacto.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres experimentos con un motor mínimo, defectos inyectados y dato
 
 ## Glosario
 
-- **propiedad:** afirmación que debe cumplirse para toda entrada del dominio de una función.
-- **generador:** procedimiento que produce entradas de prueba, con semilla si debe ser reproducible.
-- **reducción (shrinking):** proceso que simplifica un contraejemplo mientras siga fallando.
-- **modelo:** implementación simple y obviamente correcta contra la que se compara otra más compleja.
-- **prueba metamórfica:** prueba que relaciona los resultados de dos entradas relacionadas en lugar de conocer el resultado exacto.
+- **[propiedad](../../../glosario/entradas/p/propiedad.md):** afirmación que debe cumplirse para toda entrada del dominio de una función.
+- **[generador](../../../glosario/entradas/g/generador.md):** procedimiento que produce entradas de prueba, con semilla si debe ser reproducible.
+- **[reducción (shrinking)](../../../glosario/entradas/r/reduccion.md):** proceso que simplifica un contraejemplo mientras siga fallando.
+- **[modelo](../../../glosario/entradas/m/modelo.md):** implementación simple y obviamente correcta contra la que se compara otra más compleja.
+- **[prueba metamórfica](../../../glosario/entradas/p/prueba-metamorfica.md):** prueba que relaciona los resultados de dos entradas relacionadas en lugar de conocer el resultado exacto.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Generador](../../../glosario/entradas/g/generador.md) · [Modelo](../../../glosario/entradas/m/modelo.md) · [Propiedad](../../../glosario/entradas/p/propiedad.md) · [Prueba metamórfica](../../../glosario/entradas/p/prueba-metamorfica.md) · [Reducción](../../../glosario/entradas/r/reduccion.md).
 
 ---
 

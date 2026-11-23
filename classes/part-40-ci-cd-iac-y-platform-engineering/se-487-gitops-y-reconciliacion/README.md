@@ -138,11 +138,11 @@ Con poda, una refactorización que parece inofensiva borra casi dos recursos y, 
 
 ## Definiciones de trabajo
 
-- **GitOps:** práctica en la que el estado deseado se declara y versiona en un repositorio y un agente lo reconcilia continuamente con el estado real.
-- **reconciliación:** comparación periódica del estado real con el deseado y aplicación de la diferencia.
-- **extracción:** modelo en el que el agente que despliega lee el repositorio desde dentro del entorno, en lugar de recibir órdenes desde fuera.
-- **poda:** borrado de los recursos del clúster que ya no figuran en el repositorio.
-- **propietario de un campo:** único actor autorizado a gobernar el valor de un campo de un recurso.
+- **[GitOps](../../../glosario/entradas/g/gitops.md):** práctica en la que el estado deseado se declara y versiona en un repositorio y un agente lo reconcilia continuamente con el estado real.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica del estado real con el deseado y aplicación de la diferencia.
+- **[extracción](../../../glosario/entradas/e/extraccion.md):** modelo en el que el agente que despliega lee el repositorio desde dentro del entorno, en lugar de recibir órdenes desde fuera.
+- **[poda](../../../glosario/entradas/p/poda.md):** borrado de los recursos del clúster que ya no figuran en el repositorio.
+- **[propietario de un campo](../../../glosario/entradas/p/propietario-de-un-campo.md):** único actor autorizado a gobernar el valor de un campo de un recurso.
 
 Las definiciones son operativas para el despliegue de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -285,11 +285,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **GitOps:** práctica en la que el estado deseado se declara y versiona en un repositorio y un agente lo reconcilia continuamente con el estado real.
-- **reconciliación:** comparación periódica del estado real con el deseado y aplicación de la diferencia.
-- **extracción:** modelo en el que el agente que despliega lee el repositorio desde dentro del entorno, en lugar de recibir órdenes desde fuera.
-- **poda:** borrado de los recursos del clúster que ya no figuran en el repositorio.
-- **propietario de un campo:** único actor autorizado a gobernar el valor de un campo de un recurso.
+- **[GitOps](../../../glosario/entradas/g/gitops.md):** práctica en la que el estado deseado se declara y versiona en un repositorio y un agente lo reconcilia continuamente con el estado real.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica del estado real con el deseado y aplicación de la diferencia.
+- **[extracción](../../../glosario/entradas/e/extraccion.md):** modelo en el que el agente que despliega lee el repositorio desde dentro del entorno, en lugar de recibir órdenes desde fuera.
+- **[poda](../../../glosario/entradas/p/poda.md):** borrado de los recursos del clúster que ya no figuran en el repositorio.
+- **[propietario de un campo](../../../glosario/entradas/p/propietario-de-un-campo.md):** único actor autorizado a gobernar el valor de un campo de un recurso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Extracción](../../../glosario/entradas/e/extraccion.md) · [GitOps](../../../glosario/entradas/g/gitops.md) · [Poda](../../../glosario/entradas/p/poda.md) · [Propietario de un campo](../../../glosario/entradas/p/propietario-de-un-campo.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md).
 
 ---
 

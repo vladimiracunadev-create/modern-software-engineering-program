@@ -139,11 +139,11 @@ Subir la demanda 2,75 veces multiplica la espera media por 22. Con 83 % de utili
 
 ## Definiciones de trabajo
 
-- **plataforma interna:** conjunto de capacidades que un equipo ofrece como producto a otros equipos de la organización.
-- **camino dorado:** forma recomendada y soportada de realizar una tarea común, no obligatoria.
-- **carga cognitiva:** cantidad de cosas que un equipo debe conocer y mantener para hacer su trabajo.
-- **catálogo de servicios:** inventario de servicios con sus dueños, ciclo de vida y documentación.
-- **autoservicio:** capacidad que un equipo obtiene sin esperar a una persona de otro equipo.
+- **[plataforma interna](../../../glosario/entradas/p/plataforma-interna.md):** conjunto de capacidades que un equipo ofrece como producto a otros equipos de la organización.
+- **[camino dorado](../../../glosario/entradas/c/camino-dorado.md):** forma recomendada y soportada de realizar una tarea común, no obligatoria.
+- **[carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md):** cantidad de cosas que un equipo debe conocer y mantener para hacer su trabajo.
+- **[catálogo de servicios](../../../glosario/entradas/c/catalogo-de-servicios.md):** inventario de servicios con sus dueños, ciclo de vida y documentación.
+- **[autoservicio](../../../glosario/entradas/a/autoservicio.md):** capacidad que un equipo obtiene sin esperar a una persona de otro equipo.
 
 Las definiciones son operativas para la plataforma de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -278,11 +278,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **plataforma interna:** conjunto de capacidades que un equipo ofrece como producto a otros equipos de la organización.
-- **camino dorado:** forma recomendada y soportada de realizar una tarea común, no obligatoria.
-- **carga cognitiva:** cantidad de cosas que un equipo debe conocer y mantener para hacer su trabajo.
-- **catálogo de servicios:** inventario de servicios con sus dueños, ciclo de vida y documentación.
-- **autoservicio:** capacidad que un equipo obtiene sin esperar a una persona de otro equipo.
+- **[plataforma interna](../../../glosario/entradas/p/plataforma-interna.md):** conjunto de capacidades que un equipo ofrece como producto a otros equipos de la organización.
+- **[camino dorado](../../../glosario/entradas/c/camino-dorado.md):** forma recomendada y soportada de realizar una tarea común, no obligatoria.
+- **[carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md):** cantidad de cosas que un equipo debe conocer y mantener para hacer su trabajo.
+- **[catálogo de servicios](../../../glosario/entradas/c/catalogo-de-servicios.md):** inventario de servicios con sus dueños, ciclo de vida y documentación.
+- **[autoservicio](../../../glosario/entradas/a/autoservicio.md):** capacidad que un equipo obtiene sin esperar a una persona de otro equipo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Autoservicio](../../../glosario/entradas/a/autoservicio.md) · [Camino dorado](../../../glosario/entradas/c/camino-dorado.md) · [Carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md) · [Catálogo de servicios](../../../glosario/entradas/c/catalogo-de-servicios.md) · [Plataforma como producto](../../../glosario/entradas/p/plataforma-como-producto.md) · [Plataforma interna](../../../glosario/entradas/p/plataforma-interna.md).
 
 ---
 

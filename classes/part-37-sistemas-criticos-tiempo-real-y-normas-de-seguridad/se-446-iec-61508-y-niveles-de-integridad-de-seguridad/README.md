@@ -126,13 +126,13 @@ La tercera medida cambia la cobertura de la prueba periódica de un canal 1oo1.
 
 ## Definiciones de trabajo
 
-- **Función de seguridad:** acción que lleva al sistema a un estado seguro o lo mantiene en él ante una condición peligrosa.
-- **Nivel de integridad:** escala de 1 a 4 que fija el rigor y la banda de probabilidad de fallo de una función de seguridad.
-- **PFD media:** probabilidad media de que la función no actúe cuando se la pide (baja demanda).
-- **Arquitectura MooN:** M canales de N deben coincidir para actuar (1oo2, 2oo3).
-- **β:** fracción de los fallos peligrosos que afectan a todos los canales a la vez.
-- **Prueba periódica:** comprobación que descubre fallos latentes y reinicia la exposición, con cobertura menor que 100 %.
-- **Fallo sistemático:** defecto presente desde la creación del sistema, que falla igual siempre que se dan las condiciones.
+- **[Función de seguridad](../../../glosario/entradas/f/funcion-de-seguridad.md):** acción que lleva al sistema a un estado seguro o lo mantiene en él ante una condición peligrosa.
+- **[Nivel de integridad](../../../glosario/entradas/n/nivel-de-integridad.md):** escala de 1 a 4 que fija el rigor y la banda de probabilidad de fallo de una función de seguridad.
+- **[PFD media](../../../glosario/entradas/p/pfd-media.md):** probabilidad media de que la función no actúe cuando se la pide (baja demanda).
+- **[Arquitectura MooN](../../../glosario/entradas/a/arquitectura-moon.md):** M canales de N deben coincidir para actuar (1oo2, 2oo3).
+- **[β](../../../glosario/entradas/c/concepto.md):** fracción de los fallos peligrosos que afectan a todos los canales a la vez.
+- **[Prueba periódica](../../../glosario/entradas/p/prueba-periodica.md):** comprobación que descubre fallos latentes y reinicia la exposición, con cobertura menor que 100 %.
+- **[Fallo sistemático](../../../glosario/entradas/f/fallo-sistematico.md):** defecto presente desde la creación del sistema, que falla igual siempre que se dan las condiciones.
 
 ## Ejemplo mínimo
 
@@ -261,6 +261,8 @@ Las fórmulas son simplificadas, las tasas y el valor de β son del autor y el t
 | 1oo2, 2oo3 | Arquitecturas de canales redundantes |
 | β | Fracción de causa común |
 | Capacidad sistemática | Evidencia de proceso frente a fallos sistemáticos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arquitectura MooN](../../../glosario/entradas/a/arquitectura-moon.md) · [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Fallo sistemático](../../../glosario/entradas/f/fallo-sistematico.md) · [Función de seguridad](../../../glosario/entradas/f/funcion-de-seguridad.md) · [Nivel de integridad](../../../glosario/entradas/n/nivel-de-integridad.md) · [PFD media](../../../glosario/entradas/p/pfd-media.md) · [Prueba periódica](../../../glosario/entradas/p/prueba-periodica.md) · [Β](../../../glosario/entradas/c/concepto.md).
 
 ---
 

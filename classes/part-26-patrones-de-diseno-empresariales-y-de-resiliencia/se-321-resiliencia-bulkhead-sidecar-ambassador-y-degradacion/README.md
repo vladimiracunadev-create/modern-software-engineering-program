@@ -110,12 +110,12 @@ Los cuatro patrones son piezas de un **mapa**: una tabla con una fila por depend
 
 ## Definiciones de trabajo
 
-- **Bulkhead:** aislamiento de recursos por dependencia para contener una falla.
-- **Ley de Little:** concurrencia promedio = tasa de llegadas × tiempo promedio en el sistema.
-- **Degradación elegante:** respuesta parcial o antigua en lugar de un fallo total.
-- **Sidecar:** proceso auxiliar desplegado junto a la aplicación.
-- **Ambassador:** proxy fuera de proceso que gestiona las conexiones salientes.
-- **Salto:** paso adicional por un componente intermedio en una llamada.
+- **[Bulkhead](../../../glosario/entradas/b/bulkhead.md):** aislamiento de recursos por dependencia para contener una falla.
+- **[Ley de Little](../../../glosario/entradas/l/ley-de-little.md):** concurrencia promedio = tasa de llegadas × tiempo promedio en el sistema.
+- **[Degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md):** respuesta parcial o antigua en lugar de un fallo total.
+- **[Sidecar](../../../glosario/entradas/s/sidecar.md):** proceso auxiliar desplegado junto a la aplicación.
+- **[Ambassador](../../../glosario/entradas/a/ambassador.md):** proxy fuera de proceso que gestiona las conexiones salientes.
+- **[Salto](../../../glosario/entradas/s/salto.md):** paso adicional por un componente intermedio en una llamada.
 
 ## Ejemplo mínimo
 
@@ -242,6 +242,8 @@ La simulación usa tasas y latencias elegidas por el autor y un grupo fijo; la d
 | Sidecar | Proceso auxiliar junto a la aplicación |
 | Ambassador | Proxy fuera de proceso para las conexiones salientes |
 | Salto | Componente intermedio adicional en una llamada |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ambassador](../../../glosario/entradas/a/ambassador.md) · [Bulkhead](../../../glosario/entradas/b/bulkhead.md) · [Degradación](../../../glosario/entradas/d/degradacion.md) · [Degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md) · [Ley de Little](../../../glosario/entradas/l/ley-de-little.md) · [Salto](../../../glosario/entradas/s/salto.md) · [Sidecar](../../../glosario/entradas/s/sidecar.md).
 
 ---
 

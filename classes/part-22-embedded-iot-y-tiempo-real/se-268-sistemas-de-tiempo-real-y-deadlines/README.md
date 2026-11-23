@@ -175,11 +175,11 @@ En las 1 200 simulaciones EDF, ningún conjunto con utilización real menor o ig
 
 ## Definiciones de trabajo
 
-- **plazo:** instante límite, relativo a la activación de una tarea, en el que debe haber terminado.
-- **utilización:** fracción del procesador que consume una tarea, igual a su cómputo dividido por su periodo.
-- **tiempo de respuesta:** tiempo desde la activación de una tarea hasta su terminación, incluida la interferencia de otras.
-- **peor caso de ejecución (WCET):** cota superior del tiempo de cómputo de una tarea sobre todas las entradas y estados posibles.
-- **inversión de prioridad:** situación en que una tarea de alta prioridad espera por una de menor mientras una intermedia se ejecuta.
+- **[plazo](../../../glosario/entradas/p/plazo.md):** instante límite, relativo a la activación de una tarea, en el que debe haber terminado.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del procesador que consume una tarea, igual a su cómputo dividido por su periodo.
+- **[tiempo de respuesta](../../../glosario/entradas/t/tiempo-de-respuesta.md):** tiempo desde la activación de una tarea hasta su terminación, incluida la interferencia de otras.
+- **[peor caso de ejecución (WCET)](../../../glosario/entradas/p/peor-caso-de-ejecucion.md):** cota superior del tiempo de cómputo de una tarea sobre todas las entradas y estados posibles.
+- **[inversión de prioridad](../../../glosario/entradas/i/inversion-de-prioridad.md):** situación en que una tarea de alta prioridad espera por una de menor mientras una intermedia se ejecuta.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -327,11 +327,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **plazo:** instante límite, relativo a la activación de una tarea, en el que debe haber terminado.
-- **utilización:** fracción del procesador que consume una tarea, igual a su cómputo dividido por su periodo.
-- **tiempo de respuesta:** tiempo desde la activación de una tarea hasta su terminación, incluida la interferencia de otras.
-- **peor caso de ejecución (WCET):** cota superior del tiempo de cómputo de una tarea sobre todas las entradas y estados posibles.
-- **inversión de prioridad:** situación en que una tarea de alta prioridad espera por una de menor mientras una intermedia se ejecuta.
+- **[plazo](../../../glosario/entradas/p/plazo.md):** instante límite, relativo a la activación de una tarea, en el que debe haber terminado.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del procesador que consume una tarea, igual a su cómputo dividido por su periodo.
+- **[tiempo de respuesta](../../../glosario/entradas/t/tiempo-de-respuesta.md):** tiempo desde la activación de una tarea hasta su terminación, incluida la interferencia de otras.
+- **[peor caso de ejecución (WCET)](../../../glosario/entradas/p/peor-caso-de-ejecucion.md):** cota superior del tiempo de cómputo de una tarea sobre todas las entradas y estados posibles.
+- **[inversión de prioridad](../../../glosario/entradas/i/inversion-de-prioridad.md):** situación en que una tarea de alta prioridad espera por una de menor mientras una intermedia se ejecuta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Inversión de prioridad](../../../glosario/entradas/i/inversion-de-prioridad.md) · [Peor caso de ejecución](../../../glosario/entradas/p/peor-caso-de-ejecucion.md) · [Plazo](../../../glosario/entradas/p/plazo.md) · [Tiempo de respuesta](../../../glosario/entradas/t/tiempo-de-respuesta.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

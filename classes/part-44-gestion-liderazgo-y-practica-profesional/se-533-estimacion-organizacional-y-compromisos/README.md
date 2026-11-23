@@ -136,11 +136,11 @@ Una cola de un servidor con tiempos de servicio y de llegada aleatorios (unidad 
 
 ## Definiciones de trabajo
 
-- **compromiso probabilístico:** afirmación sobre una fecha o alcance acompañada de su probabilidad y de los supuestos que la sostienen.
-- **percentil 85:** valor que se supera el 15 % de las veces en un conjunto de resultados.
-- **pronóstico por simulación:** estimación de la distribución de plazos remuestreando un historial de entrega.
-- **trabajo en curso:** cantidad de elementos iniciados y no terminados.
-- **utilización:** fracción del tiempo disponible que el equipo (o una persona) dedica a trabajo asignado.
+- **[compromiso probabilístico](../../../glosario/entradas/c/compromiso-probabilistico.md):** afirmación sobre una fecha o alcance acompañada de su probabilidad y de los supuestos que la sostienen.
+- **[percentil 85](../../../glosario/entradas/p/percentil-85.md):** valor que se supera el 15 % de las veces en un conjunto de resultados.
+- **[pronóstico por simulación](../../../glosario/entradas/p/pronostico-por-simulacion.md):** estimación de la distribución de plazos remuestreando un historial de entrega.
+- **[trabajo en curso](../../../glosario/entradas/t/trabajo-en-curso.md):** cantidad de elementos iniciados y no terminados.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo disponible que el equipo (o una persona) dedica a trabajo asignado.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -281,11 +281,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **compromiso probabilístico:** afirmación sobre una fecha o alcance acompañada de su probabilidad y de los supuestos que la sostienen.
-- **percentil 85:** valor que se supera el 15 % de las veces en un conjunto de resultados.
-- **pronóstico por simulación:** estimación de la distribución de plazos remuestreando un historial de entrega.
-- **trabajo en curso:** cantidad de elementos iniciados y no terminados.
-- **utilización:** fracción del tiempo disponible que el equipo (o una persona) dedica a trabajo asignado.
+- **[compromiso probabilístico](../../../glosario/entradas/c/compromiso-probabilistico.md):** afirmación sobre una fecha o alcance acompañada de su probabilidad y de los supuestos que la sostienen.
+- **[percentil 85](../../../glosario/entradas/p/percentil-85.md):** valor que se supera el 15 % de las veces en un conjunto de resultados.
+- **[pronóstico por simulación](../../../glosario/entradas/p/pronostico-por-simulacion.md):** estimación de la distribución de plazos remuestreando un historial de entrega.
+- **[trabajo en curso](../../../glosario/entradas/t/trabajo-en-curso.md):** cantidad de elementos iniciados y no terminados.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo disponible que el equipo (o una persona) dedica a trabajo asignado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compromiso probabilístico](../../../glosario/entradas/c/compromiso-probabilistico.md) · [Percentil 85](../../../glosario/entradas/p/percentil-85.md) · [Pronóstico por simulación](../../../glosario/entradas/p/pronostico-por-simulacion.md) · [Trabajo en curso](../../../glosario/entradas/t/trabajo-en-curso.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

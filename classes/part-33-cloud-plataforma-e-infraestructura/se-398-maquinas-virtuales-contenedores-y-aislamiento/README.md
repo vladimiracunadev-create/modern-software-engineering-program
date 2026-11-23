@@ -162,11 +162,11 @@ Con 8 hilos lógicos se esperaba un trabajo cercano a 1,00 hasta ocho procesos y
 
 ## Definiciones de trabajo
 
-- **hipervisor:** programa que presenta hardware virtual a uno o varios sistemas invitados y los aísla entre sí.
-- **contenedor:** proceso o grupo de procesos al que el núcleo muestra una vista restringida y limita los recursos, sin un núcleo propio.
-- **espacio de nombres:** mecanismo del núcleo que da a un conjunto de procesos una vista propia de un recurso global.
-- **grupo de control:** mecanismo del núcleo que reparte y limita el consumo de recursos de un conjunto de procesos.
-- **vecino ruidoso:** carga que, al consumir recursos compartidos, degrada el servicio que reciben las demás.
+- **[hipervisor](../../../glosario/entradas/h/hipervisor.md):** programa que presenta hardware virtual a uno o varios sistemas invitados y los aísla entre sí.
+- **[contenedor](../../../glosario/entradas/c/contenedor.md):** proceso o grupo de procesos al que el núcleo muestra una vista restringida y limita los recursos, sin un núcleo propio.
+- **[espacio de nombres](../../../glosario/entradas/e/espacio-de-nombres.md):** mecanismo del núcleo que da a un conjunto de procesos una vista propia de un recurso global.
+- **[grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** mecanismo del núcleo que reparte y limita el consumo de recursos de un conjunto de procesos.
+- **[vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md):** carga que, al consumir recursos compartidos, degrada el servicio que reciben las demás.
 
 Las definiciones son operativas para la plataforma de entregas. Los productos usan estos términos con matices (por ejemplo, contenedores que se ejecutan dentro de una máquina virtual ligera) y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres experimentos en un equipo con Windows y Ubuntu (WSL2) y los t
 
 ## Glosario
 
-- **hipervisor:** programa que presenta hardware virtual a uno o varios sistemas invitados y los aísla entre sí.
-- **contenedor:** proceso o grupo de procesos al que el núcleo muestra una vista restringida y limita los recursos, sin un núcleo propio.
-- **espacio de nombres:** mecanismo del núcleo que da a un conjunto de procesos una vista propia de un recurso global.
-- **grupo de control:** mecanismo del núcleo que reparte y limita el consumo de recursos de un conjunto de procesos.
-- **vecino ruidoso:** carga que, al consumir recursos compartidos, degrada el servicio que reciben las demás.
+- **[hipervisor](../../../glosario/entradas/h/hipervisor.md):** programa que presenta hardware virtual a uno o varios sistemas invitados y los aísla entre sí.
+- **[contenedor](../../../glosario/entradas/c/contenedor.md):** proceso o grupo de procesos al que el núcleo muestra una vista restringida y limita los recursos, sin un núcleo propio.
+- **[espacio de nombres](../../../glosario/entradas/e/espacio-de-nombres.md):** mecanismo del núcleo que da a un conjunto de procesos una vista propia de un recurso global.
+- **[grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** mecanismo del núcleo que reparte y limita el consumo de recursos de un conjunto de procesos.
+- **[vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md):** carga que, al consumir recursos compartidos, degrada el servicio que reciben las demás.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contenedor](../../../glosario/entradas/c/contenedor.md) · [Espacio de nombres](../../../glosario/entradas/e/espacio-de-nombres.md) · [Grupo de control](../../../glosario/entradas/g/grupo-de-control.md) · [Hipervisor](../../../glosario/entradas/h/hipervisor.md) · [Modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md) · [Vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md).
 
 ---
 

@@ -132,11 +132,11 @@ else:
 
 ## Definiciones de trabajo
 
-- **idempotencia:** propiedad de una operación cuyo efecto no cambia al repetirla con la misma entrada.
-- **clave de idempotencia:** identificador de la intención que permite reconocer y omitir una repetición.
-- **punto de control:** registro del progreso que permite reanudar sin empezar de cero.
-- **escritura atómica:** publicación de un archivo de modo que un lector ve el contenido anterior o el nuevo completo, nunca una mezcla.
-- **entrega al menos una vez / como máximo una vez:** garantías que duplican o pierden, respectivamente, ante una caída.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo efecto no cambia al repetirla con la misma entrada.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de la intención que permite reconocer y omitir una repetición.
+- **[punto de control](../../../glosario/entradas/p/punto-de-control.md):** registro del progreso que permite reanudar sin empezar de cero.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** publicación de un archivo de modo que un lector ve el contenido anterior o el nuevo completo, nunca una mezcla.
+- **[entrega al menos una vez / como máximo una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez-como-maximo-una-vez.md):** garantías que duplican o pierden, respectivamente, ante una caída.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -288,11 +288,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la matriz fue idént
 
 ## Glosario
 
-- **idempotencia:** propiedad de una operación cuyo efecto no cambia al repetirla con la misma entrada.
-- **clave de idempotencia:** identificador de la intención que permite reconocer y omitir una repetición.
-- **punto de control:** registro del progreso que permite reanudar sin empezar de cero.
-- **escritura atómica:** publicación de un archivo de modo que un lector ve el contenido anterior o el nuevo completo, nunca una mezcla.
-- **entrega al menos una vez / como máximo una vez:** garantías que duplican o pierden, respectivamente, ante una caída.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo efecto no cambia al repetirla con la misma entrada.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de la intención que permite reconocer y omitir una repetición.
+- **[punto de control](../../../glosario/entradas/p/punto-de-control.md):** registro del progreso que permite reanudar sin empezar de cero.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** publicación de un archivo de modo que un lector ve el contenido anterior o el nuevo completo, nunca una mezcla.
+- **[entrega al menos una vez / como máximo una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez-como-maximo-una-vez.md):** garantías que duplican o pierden, respectivamente, ante una caída.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Diferencias de plataforma](../../../glosario/entradas/d/diferencias-de-plataforma.md) · [Entrega al menos una vez / como máximo una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez-como-maximo-una-vez.md) · [Escritura atómica](../../../glosario/entradas/e/escritura-atomica.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Punto de control](../../../glosario/entradas/p/punto-de-control.md).
 
 ---
 

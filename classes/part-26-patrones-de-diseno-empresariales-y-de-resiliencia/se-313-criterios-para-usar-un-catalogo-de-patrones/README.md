@@ -118,11 +118,11 @@ Un nombre de patrón comprime una conversación: «el remitente es un Decorator�
 
 ## Definiciones de trabajo
 
-- **Patrón:** solución con nombre a un problema recurrente en un contexto, con sus consecuencias.
-- **Fuerza:** presión de diseño con dolor observable que el patrón equilibra.
-- **Consecuencia:** efecto del patrón, favorable o costoso, sobre otras cualidades.
-- **Costo estructural:** código e indirección añadidos por el patrón; se mide en nodos, clases o saltos.
-- **Condición de salida:** señal medible que indica cuándo retirar o simplificar el patrón.
+- **[Patrón](../../../glosario/entradas/p/patron.md):** solución con nombre a un problema recurrente en un contexto, con sus consecuencias.
+- **[Fuerza](../../../glosario/entradas/f/fuerza.md):** presión de diseño con dolor observable que el patrón equilibra.
+- **[Consecuencia](../../../glosario/entradas/c/consecuencia.md):** efecto del patrón, favorable o costoso, sobre otras cualidades.
+- **[Costo estructural](../../../glosario/entradas/c/costo-estructural.md):** código e indirección añadidos por el patrón; se mide en nodos, clases o saltos.
+- **[Condición de salida](../../../glosario/entradas/c/condicion-de-salida.md):** señal medible que indica cuándo retirar o simplificar el patrón.
 
 ## Ejemplo mínimo
 
@@ -253,6 +253,8 @@ Las funciones comparadas son del autor y las medidas son estructurales; no se mi
 | Complejidad ciclomática | Número de caminos independientes de una función |
 | Condición de salida | Señal medible para retirar un patrón |
 | Costo estructural | Código e indirección que el patrón añade |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Condición de salida](../../../glosario/entradas/c/condicion-de-salida.md) · [Consecuencia](../../../glosario/entradas/c/consecuencia.md) · [Costo estructural](../../../glosario/entradas/c/costo-estructural.md) · [Fuerza](../../../glosario/entradas/f/fuerza.md) · [Patrón](../../../glosario/entradas/p/patron.md).
 
 ---
 

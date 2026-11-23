@@ -119,11 +119,11 @@ Una entrada hostil puede ser un problema de tamaño o de forma: `json.loads('[' 
 
 ## Definiciones de trabajo
 
-- **encoding:** regla entre bytes y caracteres.
-- **stream:** secuencia de datos leída o escrita progresivamente.
-- **serialización:** conversión entre valores y formato transferible.
-- **esquema:** restricciones de forma y campos.
-- **escritura atómica:** reemplazo observado como cambio indivisible bajo supuestos del sistema.
+- **[encoding](../../../glosario/entradas/e/encoding.md):** regla entre bytes y caracteres.
+- **[stream](../../../glosario/entradas/f/flujo.md):** secuencia de datos leída o escrita progresivamente.
+- **[serialización](../../../glosario/entradas/s/serializacion.md):** conversión entre valores y formato transferible.
+- **[esquema](../../../glosario/entradas/e/esquema.md):** restricciones de forma y campos.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** reemplazo observado como cambio indivisible bajo supuestos del sistema.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -282,11 +282,13 @@ JSON no conserva todos los tipos ni define evolución de esquema. La siguiente c
 
 ## Glosario
 
-- **encoding:** regla entre bytes y caracteres.
-- **stream:** secuencia de datos leída o escrita progresivamente.
-- **serialización:** conversión entre valores y formato transferible.
-- **esquema:** restricciones de forma y campos.
-- **escritura atómica:** reemplazo observado como cambio indivisible bajo supuestos del sistema.
+- **[encoding](../../../glosario/entradas/e/encoding.md):** regla entre bytes y caracteres.
+- **[stream](../../../glosario/entradas/f/flujo.md):** secuencia de datos leída o escrita progresivamente.
+- **[serialización](../../../glosario/entradas/s/serializacion.md):** conversión entre valores y formato transferible.
+- **[esquema](../../../glosario/entradas/e/esquema.md):** restricciones de forma y campos.
+- **[escritura atómica](../../../glosario/entradas/e/escritura-atomica.md):** reemplazo observado como cambio indivisible bajo supuestos del sistema.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Encoding](../../../glosario/entradas/e/encoding.md) · [Escritura atómica](../../../glosario/entradas/e/escritura-atomica.md) · [Esquema](../../../glosario/entradas/e/esquema.md) · [Flujo](../../../glosario/entradas/f/flujo.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Serialización](../../../glosario/entradas/s/serializacion.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

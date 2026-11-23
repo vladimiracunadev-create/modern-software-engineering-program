@@ -112,13 +112,13 @@ La recuperación no es una función, es una canalización con puntos de medida: 
 
 ## Definiciones de trabajo
 
-- **Fragmento:** unidad de texto que se indexa y recupera, con título y origen.
-- **BM25:** función de puntuación léxica que pondera la rareza de las palabras y normaliza por longitud.
-- **Embedding:** vector que representa un texto de modo que la cercanía aproxima la similitud.
-- **Acierto@k:** fracción de consultas con el fragmento correcto entre los k primeros.
-- **MRR:** media del inverso de la posición del fragmento correcto.
-- **RRF:** fusión de listas ordenadas que suma 1/(k + posición) por lista.
-- **Abstención:** decisión de no responder porque la evidencia recuperada no alcanza un umbral.
+- **[Fragmento](../../../glosario/entradas/f/fragmento.md):** unidad de texto que se indexa y recupera, con título y origen.
+- **[BM25](../../../glosario/entradas/b/bm25.md):** función de puntuación léxica que pondera la rareza de las palabras y normaliza por longitud.
+- **[Embedding](../../../glosario/entradas/e/embedding.md):** vector que representa un texto de modo que la cercanía aproxima la similitud.
+- **[Acierto@k](../../../glosario/entradas/a/acierto-k.md):** fracción de consultas con el fragmento correcto entre los k primeros.
+- **[MRR](../../../glosario/entradas/m/mrr.md):** media del inverso de la posición del fragmento correcto.
+- **[RRF](../../../glosario/entradas/r/rrf.md):** fusión de listas ordenadas que suma 1/(k + posición) por lista.
+- **[Abstención](../../../glosario/entradas/a/abstencion.md):** decisión de no responder porque la evidencia recuperada no alcanza un umbral.
 
 ## Ejemplo mínimo
 
@@ -251,6 +251,8 @@ El vector del experimento no es un modelo de embeddings semántico; las consulta
 | MRR | Media del inverso de la posición correcta |
 | RRF | Fusión de listas por rango recíproco |
 | Abstención | No responder por falta de evidencia suficiente |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abstención](../../../glosario/entradas/a/abstencion.md) · [Acierto@k](../../../glosario/entradas/a/acierto-k.md) · [BM25](../../../glosario/entradas/b/bm25.md) · [Embedding](../../../glosario/entradas/e/embedding.md) · [Fragmentación](../../../glosario/entradas/f/fragmentacion.md) · [Fragmento](../../../glosario/entradas/f/fragmento.md) · [MRR](../../../glosario/entradas/m/mrr.md) · [RRF](../../../glosario/entradas/r/rrf.md).
 
 ---
 

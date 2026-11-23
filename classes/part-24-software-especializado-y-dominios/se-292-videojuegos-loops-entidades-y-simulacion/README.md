@@ -171,11 +171,11 @@ Con un coste de 17 ms, apenas por encima del paso, el juego sin tope se bloquea 
 
 ## Definiciones de trabajo
 
-- **bucle de juego:** ciclo repetido de lectura de entrada, actualización del estado y dibujo.
-- **paso fijo:** duración constante con que se avanza el estado, independiente del tiempo real del fotograma.
-- **determinismo:** propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
-- **túnel:** efecto por el cual un objeto rápido atraviesa uno fino porque nunca se solapa en un instante muestreado.
-- **espiral de la muerte:** realimentación en que un fotograma lento acumula más trabajo y provoca otro más lento.
+- **[bucle de juego](../../../glosario/entradas/b/bucle-de-juego.md):** ciclo repetido de lectura de entrada, actualización del estado y dibujo.
+- **[paso fijo](../../../glosario/entradas/p/paso-fijo.md):** duración constante con que se avanza el estado, independiente del tiempo real del fotograma.
+- **[determinismo](../../../glosario/entradas/d/determinismo.md):** propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
+- **[túnel](../../../glosario/entradas/t/tunel.md):** efecto por el cual un objeto rápido atraviesa uno fino porque nunca se solapa en un instante muestreado.
+- **[espiral de la muerte](../../../glosario/entradas/e/espiral-de-la-muerte.md):** realimentación en que un fotograma lento acumula más trabajo y provoca otro más lento.
 
 Las definiciones son operativas para el laboratorio de física. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -321,11 +321,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **bucle de juego:** ciclo repetido de lectura de entrada, actualización del estado y dibujo.
-- **paso fijo:** duración constante con que se avanza el estado, independiente del tiempo real del fotograma.
-- **determinismo:** propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
-- **túnel:** efecto por el cual un objeto rápido atraviesa uno fino porque nunca se solapa en un instante muestreado.
-- **espiral de la muerte:** realimentación en que un fotograma lento acumula más trabajo y provoca otro más lento.
+- **[bucle de juego](../../../glosario/entradas/b/bucle-de-juego.md):** ciclo repetido de lectura de entrada, actualización del estado y dibujo.
+- **[paso fijo](../../../glosario/entradas/p/paso-fijo.md):** duración constante con que se avanza el estado, independiente del tiempo real del fotograma.
+- **[determinismo](../../../glosario/entradas/d/determinismo.md):** propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
+- **[túnel](../../../glosario/entradas/t/tunel.md):** efecto por el cual un objeto rápido atraviesa uno fino porque nunca se solapa en un instante muestreado.
+- **[espiral de la muerte](../../../glosario/entradas/e/espiral-de-la-muerte.md):** realimentación en que un fotograma lento acumula más trabajo y provoca otro más lento.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bucle de juego](../../../glosario/entradas/b/bucle-de-juego.md) · [Determinismo](../../../glosario/entradas/d/determinismo.md) · [Espiral de la muerte](../../../glosario/entradas/e/espiral-de-la-muerte.md) · [Paso fijo](../../../glosario/entradas/p/paso-fijo.md) · [Túnel](../../../glosario/entradas/t/tunel.md).
 
 ---
 

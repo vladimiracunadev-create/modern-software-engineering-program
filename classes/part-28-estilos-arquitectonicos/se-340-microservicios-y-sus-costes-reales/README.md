@@ -132,13 +132,13 @@ La tercera comparación cuenta los servicios afectados por un cambio incompatibl
 
 ## Definiciones de trabajo
 
-- **Microservicio:** servicio desplegable de forma independiente, organizado alrededor de una capacidad de negocio y dueño de sus datos.
-- **Monolito distribuido:** sistema de servicios que debe desplegarse en conjunto por acoplamiento de contratos.
-- **Latencia de cola:** percentil alto de la latencia, como el p99.
-- **Contrato compatible:** cambio que no obliga a los consumidores existentes a modificarse.
-- **Lector tolerante:** consumidor que ignora los campos que no usa.
-- **Camino crítico:** secuencia de llamadas de la que depende la respuesta al usuario.
-- **Saga:** secuencia de transacciones locales con pasos de compensación.
+- **[Microservicio](../../../glosario/entradas/m/microservicio.md):** servicio desplegable de forma independiente, organizado alrededor de una capacidad de negocio y dueño de sus datos.
+- **[Monolito distribuido](../../../glosario/entradas/m/monolito-distribuido.md):** sistema de servicios que debe desplegarse en conjunto por acoplamiento de contratos.
+- **[Latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md):** percentil alto de la latencia, como el p99.
+- **[Contrato compatible](../../../glosario/entradas/c/contrato-compatible.md):** cambio que no obliga a los consumidores existentes a modificarse.
+- **[Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que ignora los campos que no usa.
+- **[Camino crítico](../../../glosario/entradas/c/camino-critico.md):** secuencia de llamadas de la que depende la respuesta al usuario.
+- **[Saga](../../../glosario/entradas/s/saga.md):** secuencia de transacciones locales con pasos de compensación.
 
 ## Ejemplo mínimo
 
@@ -266,6 +266,8 @@ El costo de HTTP es el de un servidor de la biblioteca estándar en la misma má
 | Contrato compatible | Cambio que no obliga a modificar a los consumidores |
 | Camino crítico | Llamadas de las que depende la respuesta |
 | Saga | Transacciones locales con compensaciones |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Camino crítico](../../../glosario/entradas/c/camino-critico.md) · [Contrato compatible](../../../glosario/entradas/c/contrato-compatible.md) · [Latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md) · [Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md) · [Microservicio](../../../glosario/entradas/m/microservicio.md) · [Monolito distribuido](../../../glosario/entradas/m/monolito-distribuido.md) · [Organización](../../../glosario/entradas/o/organizacion.md) · [Saga](../../../glosario/entradas/s/saga.md).
 
 ---
 

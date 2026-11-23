@@ -127,11 +127,11 @@ Con el tratamiento ingenuo, **3 de 12** nombres terminan fuera del directorio en
 
 ## Definiciones de trabajo
 
-- **flujo:** secuencia de datos procesada por trozos sin retener el conjunto completo.
-- **trozo:** porción de un archivo que se envía y confirma como unidad.
-- **subida reanudable:** protocolo que permite continuar una subida interrumpida desde el último desplazamiento confirmado.
-- **huella:** valor derivado del contenido que permite comprobar su integridad.
-- **bomba de descompresión:** archivo comprimido cuyo contenido descomprimido es desproporcionadamente grande.
+- **[flujo](../../../glosario/entradas/f/flujo.md):** secuencia de datos procesada por trozos sin retener el conjunto completo.
+- **[trozo](../../../glosario/entradas/t/trozo.md):** porción de un archivo que se envía y confirma como unidad.
+- **[subida reanudable](../../../glosario/entradas/s/subida-reanudable.md):** protocolo que permite continuar una subida interrumpida desde el último desplazamiento confirmado.
+- **[huella](../../../glosario/entradas/h/huella.md):** valor derivado del contenido que permite comprobar su integridad.
+- **[bomba de descompresión](../../../glosario/entradas/b/bomba-de-descompresion.md):** archivo comprimido cuyo contenido descomprimido es desproporcionadamente grande.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -274,11 +274,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **desplazamiento:** número de bytes de una subida que el servidor ya ha confirmado.
-- **tope de salida:** límite de bytes que una descompresión puede producir antes de abortarse.
-- **traversal de rutas:** uso de componentes como `..` para alcanzar archivos fuera del directorio previsto.
-- **bloque en memoria:** archivo leído entero a la memoria del proceso.
-- **almacenamiento temporal:** área donde se guardan los trozos hasta completar la subida.
+- **[desplazamiento](../../../glosario/entradas/d/desplazamiento.md):** número de bytes de una subida que el servidor ya ha confirmado.
+- **[tope de salida](../../../glosario/entradas/t/tope-de-salida.md):** límite de bytes que una descompresión puede producir antes de abortarse.
+- **[traversal de rutas](../../../glosario/entradas/t/traversal-de-rutas.md):** uso de componentes como `..` para alcanzar archivos fuera del directorio previsto.
+- **[bloque en memoria](../../../glosario/entradas/b/bloque-en-memoria.md):** archivo leído entero a la memoria del proceso.
+- **[almacenamiento temporal](../../../glosario/entradas/a/almacenamiento-temporal.md):** área donde se guardan los trozos hasta completar la subida.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Almacenamiento temporal](../../../glosario/entradas/a/almacenamiento-temporal.md) · [Bloque en memoria](../../../glosario/entradas/b/bloque-en-memoria.md) · [Bomba de descompresión](../../../glosario/entradas/b/bomba-de-descompresion.md) · [Desplazamiento](../../../glosario/entradas/d/desplazamiento.md) · [Flujo](../../../glosario/entradas/f/flujo.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Subida reanudable](../../../glosario/entradas/s/subida-reanudable.md) · [Tope de salida](../../../glosario/entradas/t/tope-de-salida.md) · [Traversal de rutas](../../../glosario/entradas/t/traversal-de-rutas.md) · [Trozo](../../../glosario/entradas/t/trozo.md).
 
 ---
 

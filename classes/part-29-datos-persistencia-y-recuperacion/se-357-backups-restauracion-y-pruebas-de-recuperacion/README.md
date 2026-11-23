@@ -160,11 +160,11 @@ Cada nivel ve una familia y es ciego a otras: las comprobaciones de estructura v
 
 ## Definiciones de trabajo
 
-- **RPO:** cantidad máxima de datos, medida en tiempo, que la institución acepta perder.
-- **RTO:** tiempo máximo que la institución acepta que el servicio esté caído.
-- **copia consistente:** copia que corresponde a un único instante confirmado de la base.
-- **registro de cambios archivado:** secuencia de registros de escritura que permite avanzar una copia hasta un instante posterior.
-- **prueba de restauración:** ejercicio que restaura una copia en un entorno aislado y verifica su contenido y su tiempo.
+- **[RPO](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos, medida en tiempo, que la institución acepta perder.
+- **[RTO](../../../glosario/entradas/r/rto.md):** tiempo máximo que la institución acepta que el servicio esté caído.
+- **[copia consistente](../../../glosario/entradas/c/copia-consistente.md):** copia que corresponde a un único instante confirmado de la base.
+- **[registro de cambios archivado](../../../glosario/entradas/r/registro-de-cambios-archivado.md):** secuencia de registros de escritura que permite avanzar una copia hasta un instante posterior.
+- **[prueba de restauración](../../../glosario/entradas/p/prueba-de-restauracion.md):** ejercicio que restaura una copia en un entorno aislado y verifica su contenido y su tiempo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **RPO:** cantidad máxima de datos, medida en tiempo, que la institución acepta perder.
-- **RTO:** tiempo máximo que la institución acepta que el servicio esté caído.
-- **copia consistente:** copia que corresponde a un único instante confirmado de la base.
-- **registro de cambios archivado:** secuencia de registros de escritura que permite avanzar una copia hasta un instante posterior.
-- **prueba de restauración:** ejercicio que restaura una copia en un entorno aislado y verifica su contenido y su tiempo.
+- **[RPO](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos, medida en tiempo, que la institución acepta perder.
+- **[RTO](../../../glosario/entradas/r/rto.md):** tiempo máximo que la institución acepta que el servicio esté caído.
+- **[copia consistente](../../../glosario/entradas/c/copia-consistente.md):** copia que corresponde a un único instante confirmado de la base.
+- **[registro de cambios archivado](../../../glosario/entradas/r/registro-de-cambios-archivado.md):** secuencia de registros de escritura que permite avanzar una copia hasta un instante posterior.
+- **[prueba de restauración](../../../glosario/entradas/p/prueba-de-restauracion.md):** ejercicio que restaura una copia en un entorno aislado y verifica su contenido y su tiempo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Copia consistente](../../../glosario/entradas/c/copia-consistente.md) · [Objetivo de punto de recuperación](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md) · [Prueba de restauración](../../../glosario/entradas/p/prueba-de-restauracion.md) · [Registro de cambios archivado](../../../glosario/entradas/r/registro-de-cambios-archivado.md) · [RTO](../../../glosario/entradas/r/rto.md).
 
 ---
 

@@ -133,11 +133,11 @@ def udec_tipada(t):
 
 ## Definiciones de trabajo
 
-- **URL canónica:** forma elegida de una URL entre varias que nombran el mismo recurso, a la que se redirige o se refiere.
-- **normalización por sintaxis:** transformación que no cambia el significado de una URL (minúsculas del host, codificación porcentual, segmentos de punto).
-- **enlace profundo:** URL que lleva directamente a una vista interior de la aplicación, no a su portada.
-- **ruta ambigua:** ruta que coincide con más de un patrón declarado de modo que el resultado depende del orden.
-- **redirección permanente:** respuesta (301 o 308) que indica que un recurso cambió de dirección de forma definitiva.
+- **[URL canónica](../../../glosario/entradas/u/url-canonica.md):** forma elegida de una URL entre varias que nombran el mismo recurso, a la que se redirige o se refiere.
+- **[normalización por sintaxis](../../../glosario/entradas/n/normalizacion-por-sintaxis.md):** transformación que no cambia el significado de una URL (minúsculas del host, codificación porcentual, segmentos de punto).
+- **[enlace profundo](../../../glosario/entradas/e/enlace-profundo.md):** URL que lleva directamente a una vista interior de la aplicación, no a su portada.
+- **[ruta ambigua](../../../glosario/entradas/r/ruta-ambigua.md):** ruta que coincide con más de un patrón declarado de modo que el resultado depende del orden.
+- **[redirección permanente](../../../glosario/entradas/r/redireccion-permanente.md):** respuesta (301 o 308) que indica que un recurso cambió de dirección de forma definitiva.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -283,11 +283,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **URL canónica:** forma elegida de una URL entre varias que nombran el mismo recurso, a la que se redirige o se refiere.
-- **normalización por sintaxis:** transformación que no cambia el significado de una URL (minúsculas del host, codificación porcentual, segmentos de punto).
-- **enlace profundo:** URL que lleva directamente a una vista interior de la aplicación, no a su portada.
-- **ruta ambigua:** ruta que coincide con más de un patrón declarado de modo que el resultado depende del orden.
-- **redirección permanente:** respuesta (301 o 308) que indica que un recurso cambió de dirección de forma definitiva.
+- **[URL canónica](../../../glosario/entradas/u/url-canonica.md):** forma elegida de una URL entre varias que nombran el mismo recurso, a la que se redirige o se refiere.
+- **[normalización por sintaxis](../../../glosario/entradas/n/normalizacion-por-sintaxis.md):** transformación que no cambia el significado de una URL (minúsculas del host, codificación porcentual, segmentos de punto).
+- **[enlace profundo](../../../glosario/entradas/e/enlace-profundo.md):** URL que lleva directamente a una vista interior de la aplicación, no a su portada.
+- **[ruta ambigua](../../../glosario/entradas/r/ruta-ambigua.md):** ruta que coincide con más de un patrón declarado de modo que el resultado depende del orden.
+- **[redirección permanente](../../../glosario/entradas/r/redireccion-permanente.md):** respuesta (301 o 308) que indica que un recurso cambió de dirección de forma definitiva.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Enlace profundo](../../../glosario/entradas/e/enlace-profundo.md) · [Normalización por sintaxis](../../../glosario/entradas/n/normalizacion-por-sintaxis.md) · [Redirección permanente](../../../glosario/entradas/r/redireccion-permanente.md) · [Ruta ambigua](../../../glosario/entradas/r/ruta-ambigua.md) · [URL canónica](../../../glosario/entradas/u/url-canonica.md).
 
 ---
 

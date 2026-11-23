@@ -134,11 +134,11 @@ ok(pedir)   # False: el proveedor real ya no devuelve "nota"
 
 ## Definiciones de trabajo
 
-- **contrato de consumidor:** prueba escrita por un consumidor que fija lo que espera de la respuesta de un proveedor.
-- **prueba contractual:** prueba que verifica que un proveedor cumple lo que un contrato afirma.
-- **propiedad:** afirmación que debe cumplirse para todas las entradas de un tipo y que se comprueba con entradas generadas.
-- **reducción:** simplificación de un contraejemplo hasta una forma mínima que sigue fallando.
-- **doble de prueba:** sustituto de un componente real usado para acelerar o aislar una prueba.
+- **[contrato de consumidor](../../../glosario/entradas/c/contrato-de-consumidor.md):** prueba escrita por un consumidor que fija lo que espera de la respuesta de un proveedor.
+- **[prueba contractual](../../../glosario/entradas/p/prueba-contractual.md):** prueba que verifica que un proveedor cumple lo que un contrato afirma.
+- **[propiedad](../../../glosario/entradas/p/propiedad.md):** afirmación que debe cumplirse para todas las entradas de un tipo y que se comprueba con entradas generadas.
+- **[reducción](../../../glosario/entradas/r/reduccion.md):** simplificación de un contraejemplo hasta una forma mínima que sigue fallando.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** sustituto de un componente real usado para acelerar o aislar una prueba.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -285,11 +285,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **contrato de consumidor:** prueba escrita por un consumidor que fija lo que espera de la respuesta de un proveedor.
-- **prueba contractual:** prueba que verifica que un proveedor cumple lo que un contrato afirma.
-- **propiedad:** afirmación que debe cumplirse para todas las entradas de un tipo y que se comprueba con entradas generadas.
-- **reducción:** simplificación de un contraejemplo hasta una forma mínima que sigue fallando.
-- **doble de prueba:** sustituto de un componente real usado para acelerar o aislar una prueba.
+- **[contrato de consumidor](../../../glosario/entradas/c/contrato-de-consumidor.md):** prueba escrita por un consumidor que fija lo que espera de la respuesta de un proveedor.
+- **[prueba contractual](../../../glosario/entradas/p/prueba-contractual.md):** prueba que verifica que un proveedor cumple lo que un contrato afirma.
+- **[propiedad](../../../glosario/entradas/p/propiedad.md):** afirmación que debe cumplirse para todas las entradas de un tipo y que se comprueba con entradas generadas.
+- **[reducción](../../../glosario/entradas/r/reduccion.md):** simplificación de un contraejemplo hasta una forma mínima que sigue fallando.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** sustituto de un componente real usado para acelerar o aislar una prueba.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato de consumidor](../../../glosario/entradas/c/contrato-de-consumidor.md) · [Contrato dirigido por el consumidor](../../../glosario/entradas/c/contrato-dirigido-por-el-consumidor.md) · [Doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md) · [Propiedad](../../../glosario/entradas/p/propiedad.md) · [Prueba contractual](../../../glosario/entradas/p/prueba-contractual.md) · [Reducción](../../../glosario/entradas/r/reduccion.md).
 
 ---
 

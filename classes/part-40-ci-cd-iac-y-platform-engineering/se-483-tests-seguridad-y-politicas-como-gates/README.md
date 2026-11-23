@@ -151,11 +151,11 @@ Con dos reintentos la suite casi nunca falla por inestabilidad y también casi n
 
 ## Definiciones de trabajo
 
-- **compuerta:** comprobación cuyo resultado decide si un cambio puede avanzar.
-- **política como código:** regla ejecutable evaluada sobre datos de entrada que produce una decisión auditable.
-- **precisión:** fracción de los avisos de una regla que corresponden a un problema real.
-- **exhaustividad:** fracción de los problemas reales que una regla avisa.
-- **prueba inestable:** prueba que pasa y falla sobre el mismo código sin que nada haya cambiado.
+- **[compuerta](../../../glosario/entradas/c/compuerta.md):** comprobación cuyo resultado decide si un cambio puede avanzar.
+- **[política como código](../../../glosario/entradas/p/politica-como-codigo.md):** regla ejecutable evaluada sobre datos de entrada que produce una decisión auditable.
+- **[precisión](../../../glosario/entradas/p/precision.md):** fracción de los avisos de una regla que corresponden a un problema real.
+- **[exhaustividad](../../../glosario/entradas/e/exhaustividad.md):** fracción de los problemas reales que una regla avisa.
+- **[prueba inestable](../../../glosario/entradas/p/prueba-inestable.md):** prueba que pasa y falla sobre el mismo código sin que nada haya cambiado.
 
 Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **compuerta:** comprobación cuyo resultado decide si un cambio puede avanzar.
-- **política como código:** regla ejecutable evaluada sobre datos de entrada que produce una decisión auditable.
-- **precisión:** fracción de los avisos de una regla que corresponden a un problema real.
-- **exhaustividad:** fracción de los problemas reales que una regla avisa.
-- **prueba inestable:** prueba que pasa y falla sobre el mismo código sin que nada haya cambiado.
+- **[compuerta](../../../glosario/entradas/c/compuerta.md):** comprobación cuyo resultado decide si un cambio puede avanzar.
+- **[política como código](../../../glosario/entradas/p/politica-como-codigo.md):** regla ejecutable evaluada sobre datos de entrada que produce una decisión auditable.
+- **[precisión](../../../glosario/entradas/p/precision.md):** fracción de los avisos de una regla que corresponden a un problema real.
+- **[exhaustividad](../../../glosario/entradas/e/exhaustividad.md):** fracción de los problemas reales que una regla avisa.
+- **[prueba inestable](../../../glosario/entradas/p/prueba-inestable.md):** prueba que pasa y falla sobre el mismo código sin que nada haya cambiado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compuerta](../../../glosario/entradas/c/compuerta.md) · [Exhaustividad](../../../glosario/entradas/e/exhaustividad.md) · [Política como código](../../../glosario/entradas/p/politica-como-codigo.md) · [Precisión](../../../glosario/entradas/p/precision.md) · [Prueba inestable](../../../glosario/entradas/p/prueba-inestable.md).
 
 ---
 

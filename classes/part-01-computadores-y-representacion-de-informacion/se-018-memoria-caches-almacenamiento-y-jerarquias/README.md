@@ -220,16 +220,18 @@ entorno”; no “medimos la caché L2”.
 
 ## Definiciones de trabajo
 
-- **latencia:** tiempo hasta completar una operación;
-- **ancho de banda:** cantidad transferida por unidad de tiempo;
-- **localidad:** tendencia de reutilización temporal o espacial;
-- **página:** unidad de mapeo de memoria virtual;
-- **persistencia:** conservación más allá del proceso o fallo definido.
+- **[latencia](../../../glosario/entradas/l/latencia.md):** tiempo hasta completar una operación;
+- **[ancho de banda](../../../glosario/entradas/a/ancho-de-banda.md):** cantidad transferida por unidad de tiempo;
+- **[localidad](../../../glosario/entradas/l/localidad.md):** tendencia de reutilización temporal o espacial;
+- **[página](../../../glosario/entradas/p/pagina.md):** unidad de mapeo de memoria virtual;
+- **[persistencia](../../../glosario/entradas/p/persistencia.md):** conservación más allá del proceso o fallo definido.
 
 ## Glosario
 
-**Cache hit/miss** indica si un nivel satisface acceso. **Working set** es conjunto
-activo. **Page fault** requiere intervención para resolver una página.
+**[Cache hit/miss](../../../glosario/entradas/c/cache-hit-miss.md)** indica si un nivel satisface acceso. **[Working set](../../../glosario/entradas/w/working-set.md)** es conjunto
+activo. **[Page fault](../../../glosario/entradas/p/page-fault.md)** requiere intervención para resolver una página.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ancho de banda](../../../glosario/entradas/a/ancho-de-banda.md) · [Cache hit/miss](../../../glosario/entradas/c/cache-hit-miss.md) · [Latencia](../../../glosario/entradas/l/latencia.md) · [Localidad](../../../glosario/entradas/l/localidad.md) · [Memoria virtual](../../../glosario/entradas/m/memoria-virtual.md) · [Page fault](../../../glosario/entradas/p/page-fault.md) · [Página](../../../glosario/entradas/p/pagina.md) · [Persistencia](../../../glosario/entradas/p/persistencia.md) · [Working set](../../../glosario/entradas/w/working-set.md).
 
 ## Ejemplo mínimo
 

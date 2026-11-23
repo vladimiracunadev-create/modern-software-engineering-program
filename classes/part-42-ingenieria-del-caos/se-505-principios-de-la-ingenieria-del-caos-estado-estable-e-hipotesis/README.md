@@ -118,12 +118,12 @@ La banda de la sección 2 compara el indicador del experimento con una línea ba
 
 ## Definiciones de trabajo
 
-- **estado estable:** salida medible del sistema que indica comportamiento normal, con su métrica, su ventana y su banda.
-- **hipótesis falsable:** afirmación de que el estado estable se mantendrá bajo una condición, con una regla que dice qué observación la refuta.
-- **banda:** intervalo de valores que el indicador toma por azar en un sistema sano en la ventana elegida.
-- **experimento A/A:** medición con el sistema sano para estimar el ruido y las falsas refutaciones de una regla.
-- **potencia:** probabilidad de que un experimento refute una hipótesis falsa con el efecto y la ventana dados.
-- **grupo de control:** parte del tráfico que no recibe la falla y se mide a la vez que el grupo experimental.
+- **[estado estable](../../../glosario/entradas/e/estado-estable.md):** salida medible del sistema que indica comportamiento normal, con su métrica, su ventana y su banda.
+- **[hipótesis falsable](../../../glosario/entradas/h/hipotesis-falsable.md):** afirmación de que el estado estable se mantendrá bajo una condición, con una regla que dice qué observación la refuta.
+- **[banda](../../../glosario/entradas/b/banda.md):** intervalo de valores que el indicador toma por azar en un sistema sano en la ventana elegida.
+- **[experimento A/A](../../../glosario/entradas/e/experimento-a-a.md):** medición con el sistema sano para estimar el ruido y las falsas refutaciones de una regla.
+- **[potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de que un experimento refute una hipótesis falsa con el efecto y la ventana dados.
+- **[grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** parte del tráfico que no recibe la falla y se mide a la vez que el grupo experimental.
 
 Las definiciones son operativas para el cliente de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -260,12 +260,14 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **estado estable:** salida medible del sistema que indica comportamiento normal, con su métrica, su ventana y su banda.
-- **hipótesis falsable:** afirmación de que el estado estable se mantendrá bajo una condición, con una regla que dice qué la refuta.
-- **banda:** intervalo de valores que el indicador toma por azar en un sistema sano.
-- **experimento A/A:** medición con el sistema sano para estimar el ruido y las falsas refutaciones de una regla.
-- **potencia:** probabilidad de que un experimento refute una hipótesis falsa.
-- **grupo de control:** parte del tráfico que no recibe la falla y se mide a la vez que el experimental.
+- **[estado estable](../../../glosario/entradas/e/estado-estable.md):** salida medible del sistema que indica comportamiento normal, con su métrica, su ventana y su banda.
+- **[hipótesis falsable](../../../glosario/entradas/h/hipotesis-falsable.md):** afirmación de que el estado estable se mantendrá bajo una condición, con una regla que dice qué la refuta.
+- **[banda](../../../glosario/entradas/b/banda.md):** intervalo de valores que el indicador toma por azar en un sistema sano.
+- **[experimento A/A](../../../glosario/entradas/e/experimento-a-a.md):** medición con el sistema sano para estimar el ruido y las falsas refutaciones de una regla.
+- **[potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de que un experimento refute una hipótesis falsa.
+- **[grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** parte del tráfico que no recibe la falla y se mide a la vez que el experimental.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Banda](../../../glosario/entradas/b/banda.md) · [Estado estable](../../../glosario/entradas/e/estado-estable.md) · [Experimento A/A](../../../glosario/entradas/e/experimento-a-a.md) · [Grupo de control](../../../glosario/entradas/g/grupo-de-control.md) · [Hipótesis falsable](../../../glosario/entradas/h/hipotesis-falsable.md) · [Potencia](../../../glosario/entradas/p/potencia.md).
 
 ---
 

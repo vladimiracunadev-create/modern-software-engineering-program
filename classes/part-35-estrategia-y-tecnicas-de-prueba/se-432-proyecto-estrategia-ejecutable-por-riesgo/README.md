@@ -164,11 +164,11 @@ El acumulado por nivel es 60, 124 y 186 de 200. Quedan 14 sin detectar: 13 cambi
 
 ## Definiciones de trabajo
 
-- **estrategia de pruebas:** conjunto de decisiones sobre qué probar, con qué nivel, con cuánto esfuerzo y qué excluir, con sus razones.
-- **gate:** punto de la integración continua que bloquea o avisa según un umbral.
-- **exposición:** riesgo ponderado por la parte de los cambios que cae en un componente.
-- **escape:** defecto que llega a producción sin ser detectado.
-- **exclusión:** decisión de no probar algo, con razón, responsable y fecha de revisión.
+- **[estrategia de pruebas](../../../glosario/entradas/e/estrategia-de-pruebas.md):** conjunto de decisiones sobre qué probar, con qué nivel, con cuánto esfuerzo y qué excluir, con sus razones.
+- **[gate](../../../glosario/entradas/g/gate.md):** punto de la integración continua que bloquea o avisa según un umbral.
+- **[exposición](../../../glosario/entradas/e/exposicion.md):** riesgo ponderado por la parte de los cambios que cae en un componente.
+- **[escape](../../../glosario/entradas/e/escape.md):** defecto que llega a producción sin ser detectado.
+- **[exclusión](../../../glosario/entradas/e/exclusion.md):** decisión de no probar algo, con razón, responsable y fecha de revisión.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres experimentos con un simulador, un paquete y un validador escr
 
 ## Glosario
 
-- **estrategia de pruebas:** conjunto de decisiones sobre qué probar, con qué nivel, con cuánto esfuerzo y qué excluir, con sus razones.
-- **gate:** punto de la integración continua que bloquea o avisa según un umbral.
-- **exposición:** riesgo ponderado por la parte de los cambios que cae en un componente.
-- **escape:** defecto que llega a producción sin ser detectado.
-- **exclusión:** decisión de no probar algo, con razón, responsable y fecha de revisión.
+- **[estrategia de pruebas](../../../glosario/entradas/e/estrategia-de-pruebas.md):** conjunto de decisiones sobre qué probar, con qué nivel, con cuánto esfuerzo y qué excluir, con sus razones.
+- **[gate](../../../glosario/entradas/g/gate.md):** punto de la integración continua que bloquea o avisa según un umbral.
+- **[exposición](../../../glosario/entradas/e/exposicion.md):** riesgo ponderado por la parte de los cambios que cae en un componente.
+- **[escape](../../../glosario/entradas/e/escape.md):** defecto que llega a producción sin ser detectado.
+- **[exclusión](../../../glosario/entradas/e/exclusion.md):** decisión de no probar algo, con razón, responsable y fecha de revisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Escape](../../../glosario/entradas/e/escape.md) · [Estrategia de pruebas](../../../glosario/entradas/e/estrategia-de-pruebas.md) · [Exclusión](../../../glosario/entradas/e/exclusion.md) · [Exposición](../../../glosario/entradas/e/exposicion.md) · [Gate](../../../glosario/entradas/g/gate.md).
 
 ---
 

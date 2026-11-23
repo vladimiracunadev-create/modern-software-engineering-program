@@ -135,13 +135,13 @@ La máquina de estados no decide los impuestos aplicables (que dependen de la ju
 
 ## Definiciones de trabajo
 
-- **Suscripción:** contrato recurrente de un cliente con un plan, un ciclo y un estado.
-- **Ancla del ciclo:** día del mes (o fecha del año) a partir del cual se calculan las renovaciones.
-- **Prorrateo:** ajuste de importes proporcional a los días restantes del ciclo cuando algo cambia a mitad de él.
-- **Factura:** documento que fija lo que se debe por un periodo; inmutable una vez emitida.
-- **Dunning:** proceso de reintentar y comunicar los cobros fallidos hasta recuperarlos o darlos por perdidos.
-- **Periodo de gracia:** plazo en que el cliente conserva acceso pese a tener un pago pendiente.
-- **Webhook:** mensaje que el procesador envía al producto para notificar un evento.
+- **[Suscripción](../../../glosario/entradas/s/suscripcion.md):** contrato recurrente de un cliente con un plan, un ciclo y un estado.
+- **[Ancla del ciclo](../../../glosario/entradas/a/ancla-del-ciclo.md):** día del mes (o fecha del año) a partir del cual se calculan las renovaciones.
+- **[Prorrateo](../../../glosario/entradas/p/prorrateo.md):** ajuste de importes proporcional a los días restantes del ciclo cuando algo cambia a mitad de él.
+- **[Factura](../../../glosario/entradas/f/factura.md):** documento que fija lo que se debe por un periodo; inmutable una vez emitida.
+- **[Dunning](../../../glosario/entradas/d/dunning.md):** proceso de reintentar y comunicar los cobros fallidos hasta recuperarlos o darlos por perdidos.
+- **[Periodo de gracia](../../../glosario/entradas/p/periodo-de-gracia.md):** plazo en que el cliente conserva acceso pese a tener un pago pendiente.
+- **[Webhook](../../../glosario/entradas/w/webhook.md):** mensaje que el procesador envía al producto para notificar un evento.
 
 ## Ejemplo mínimo
 
@@ -298,6 +298,8 @@ Se ejecutaron una máquina de estados, un ciclo anclado y un prorrateo, y se sim
 | Dunning | Gestión de reintentos y avisos por cobros fallidos |
 | Periodo de gracia | Acceso conservado con pago pendiente |
 | Webhook | Notificación de un evento del procesador |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ancla del ciclo](../../../glosario/entradas/a/ancla-del-ciclo.md) · [Dunning](../../../glosario/entradas/d/dunning.md) · [Factura](../../../glosario/entradas/f/factura.md) · [Máquina de estados](../../../glosario/entradas/m/maquina-de-estados.md) · [Periodo de gracia](../../../glosario/entradas/p/periodo-de-gracia.md) · [Prorrateo](../../../glosario/entradas/p/prorrateo.md) · [Suscripción](../../../glosario/entradas/s/suscripcion.md) · [Webhook](../../../glosario/entradas/w/webhook.md).
 
 ---
 

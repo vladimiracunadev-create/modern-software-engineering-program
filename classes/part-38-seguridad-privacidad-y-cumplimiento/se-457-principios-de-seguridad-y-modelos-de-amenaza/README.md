@@ -157,11 +157,11 @@ El disparador por cambio acierta donde la regla ve la frontera y falla en silenc
 
 ## Definiciones de trabajo
 
-- **activo:** dato, capacidad o servicio cuyo daño importa a la organización o a las personas, como las calificaciones o la disponibilidad el día del cierre.
-- **frontera de confianza:** línea de un diagrama de flujo de datos donde cambia quién controla el dato o el proceso, de modo que lo que cruza debe tratarse como no confiable.
-- **STRIDE:** lista de seis categorías de amenaza (suplantación, manipulación, repudio, divulgación de información, denegación de servicio y elevación de privilegios) usada como guía de preguntas por elemento.
-- **grafo de ataque:** representación de estados del atacante y técnicas con costo que permite calcular el camino de menor esfuerzo hacia un objetivo.
-- **modelo de amenazas:** representación del sistema, amenazas identificadas, decisiones tomadas y validación realizada, mantenida mientras el sistema cambia.
+- **[activo](../../../glosario/entradas/a/activo.md):** dato, capacidad o servicio cuyo daño importa a la organización o a las personas, como las calificaciones o la disponibilidad el día del cierre.
+- **[frontera de confianza](../../../glosario/entradas/f/frontera-de-confianza.md):** línea de un diagrama de flujo de datos donde cambia quién controla el dato o el proceso, de modo que lo que cruza debe tratarse como no confiable.
+- **[STRIDE](../../../glosario/entradas/s/stride.md):** lista de seis categorías de amenaza (suplantación, manipulación, repudio, divulgación de información, denegación de servicio y elevación de privilegios) usada como guía de preguntas por elemento.
+- **[grafo de ataque](../../../glosario/entradas/g/grafo-de-ataque.md):** representación de estados del atacante y técnicas con costo que permite calcular el camino de menor esfuerzo hacia un objetivo.
+- **[modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md):** representación del sistema, amenazas identificadas, decisiones tomadas y validación realizada, mantenida mientras el sistema cambia.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **activo:** dato, capacidad o servicio cuyo daño importa a la organización o a las personas, como las calificaciones o la disponibilidad el día del cierre.
-- **frontera de confianza:** línea de un diagrama de flujo de datos donde cambia quién controla el dato o el proceso, de modo que lo que cruza debe tratarse como no confiable.
-- **STRIDE:** lista de seis categorías de amenaza (suplantación, manipulación, repudio, divulgación de información, denegación de servicio y elevación de privilegios) usada como guía de preguntas por elemento.
-- **grafo de ataque:** representación de estados del atacante y técnicas con costo que permite calcular el camino de menor esfuerzo hacia un objetivo.
-- **modelo de amenazas:** representación del sistema, amenazas identificadas, decisiones tomadas y validación realizada, mantenida mientras el sistema cambia.
+- **[activo](../../../glosario/entradas/a/activo.md):** dato, capacidad o servicio cuyo daño importa a la organización o a las personas, como las calificaciones o la disponibilidad el día del cierre.
+- **[frontera de confianza](../../../glosario/entradas/f/frontera-de-confianza.md):** línea de un diagrama de flujo de datos donde cambia quién controla el dato o el proceso, de modo que lo que cruza debe tratarse como no confiable.
+- **[STRIDE](../../../glosario/entradas/s/stride.md):** lista de seis categorías de amenaza (suplantación, manipulación, repudio, divulgación de información, denegación de servicio y elevación de privilegios) usada como guía de preguntas por elemento.
+- **[grafo de ataque](../../../glosario/entradas/g/grafo-de-ataque.md):** representación de estados del atacante y técnicas con costo que permite calcular el camino de menor esfuerzo hacia un objetivo.
+- **[modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md):** representación del sistema, amenazas identificadas, decisiones tomadas y validación realizada, mantenida mientras el sistema cambia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Activo](../../../glosario/entradas/a/activo.md) · [Frontera de confianza](../../../glosario/entradas/f/frontera-de-confianza.md) · [Grafo de ataque](../../../glosario/entradas/g/grafo-de-ataque.md) · [Modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md) · [STRIDE](../../../glosario/entradas/s/stride.md).
 
 ---
 

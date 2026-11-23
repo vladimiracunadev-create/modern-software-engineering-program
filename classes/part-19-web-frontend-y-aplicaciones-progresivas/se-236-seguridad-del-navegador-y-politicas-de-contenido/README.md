@@ -140,11 +140,11 @@ def cookie_enviada(samesite, mismo_sitio, tipo):
 
 ## Definiciones de trabajo
 
-- **origen:** tupla de esquema, host y puerto que delimita qué datos puede leer una página.
-- **codificación de salida por contexto:** transformación de un dato para que, en el lugar donde se escribe, se interprete como texto y no como código.
-- **política de seguridad de contenido (CSP):** cabecera que declara de dónde puede cargar recursos una página y si puede ejecutar código en línea.
-- **SameSite:** atributo de cookie que limita su envío en peticiones iniciadas desde otro sitio.
-- **comprobación previa de CORS (`preflight`):** petición `OPTIONS` que el navegador envía para saber si el servidor permite una petición no simple.
+- **[origen](../../../glosario/entradas/o/origen.md):** tupla de esquema, host y puerto que delimita qué datos puede leer una página.
+- **[codificación de salida por contexto](../../../glosario/entradas/c/codificacion-de-salida-por-contexto.md):** transformación de un dato para que, en el lugar donde se escribe, se interprete como texto y no como código.
+- **[política de seguridad de contenido (CSP)](../../../glosario/entradas/p/politica-de-seguridad-de-contenido.md):** cabecera que declara de dónde puede cargar recursos una página y si puede ejecutar código en línea.
+- **[SameSite](../../../glosario/entradas/s/samesite.md):** atributo de cookie que limita su envío en peticiones iniciadas desde otro sitio.
+- **[comprobación previa de CORS (`preflight`)](../../../glosario/entradas/c/comprobacion-previa-de-cors.md):** petición `OPTIONS` que el navegador envía para saber si el servidor permite una petición no simple.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **origen:** tupla de esquema, host y puerto que delimita qué datos puede leer una página.
-- **codificación de salida por contexto:** transformación de un dato para que, en el lugar donde se escribe, se interprete como texto y no como código.
-- **política de seguridad de contenido (CSP):** cabecera que declara de dónde puede cargar recursos una página y si puede ejecutar código en línea.
-- **SameSite:** atributo de cookie que limita su envío en peticiones iniciadas desde otro sitio.
-- **comprobación previa de CORS (`preflight`):** petición `OPTIONS` que el navegador envía para saber si el servidor permite una petición no simple.
+- **[origen](../../../glosario/entradas/o/origen.md):** tupla de esquema, host y puerto que delimita qué datos puede leer una página.
+- **[codificación de salida por contexto](../../../glosario/entradas/c/codificacion-de-salida-por-contexto.md):** transformación de un dato para que, en el lugar donde se escribe, se interprete como texto y no como código.
+- **[política de seguridad de contenido (CSP)](../../../glosario/entradas/p/politica-de-seguridad-de-contenido.md):** cabecera que declara de dónde puede cargar recursos una página y si puede ejecutar código en línea.
+- **[SameSite](../../../glosario/entradas/s/samesite.md):** atributo de cookie que limita su envío en peticiones iniciadas desde otro sitio.
+- **[comprobación previa de CORS (`preflight`)](../../../glosario/entradas/c/comprobacion-previa-de-cors.md):** petición `OPTIONS` que el navegador envía para saber si el servidor permite una petición no simple.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Codificación de salida por contexto](../../../glosario/entradas/c/codificacion-de-salida-por-contexto.md) · [Comprobación previa de CORS](../../../glosario/entradas/c/comprobacion-previa-de-cors.md) · [Origen](../../../glosario/entradas/o/origen.md) · [Política de seguridad de contenido](../../../glosario/entradas/p/politica-de-seguridad-de-contenido.md) · [SameSite](../../../glosario/entradas/s/samesite.md).
 
 ---
 

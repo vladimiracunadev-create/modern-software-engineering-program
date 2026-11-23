@@ -135,11 +135,11 @@ Detecta las 3 órdenes destructivas, las 9 contraseñas y las 5 direcciones, mar
 
 ## Definiciones de trabajo
 
-- **runbook:** procedimiento paso a paso para una situación operacional conocida, ejecutable sin conocer el sistema.
-- **playbook:** guía de respuesta con preguntas y criterios de decisión para situaciones abiertas o poco conocidas.
-- **idempotencia:** propiedad de una operación cuyo segundo efecto sobre el estado es nulo respecto de la primera ejecución.
-- **verificación:** comprobación observable de que un paso dejó el sistema en el estado esperado.
-- **reversión:** conjunto de acciones que devuelve el sistema al estado anterior a un paso.
+- **[runbook](../../../glosario/entradas/r/runbook.md):** procedimiento paso a paso para una situación operacional conocida, ejecutable sin conocer el sistema.
+- **[playbook](../../../glosario/entradas/p/playbook.md):** guía de respuesta con preguntas y criterios de decisión para situaciones abiertas o poco conocidas.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo segundo efecto sobre el estado es nulo respecto de la primera ejecución.
+- **[verificación](../../../glosario/entradas/v/verificacion.md):** comprobación observable de que un paso dejó el sistema en el estado esperado.
+- **[reversión](../../../glosario/entradas/r/retroceso.md):** conjunto de acciones que devuelve el sistema al estado anterior a un paso.
 
 Las definiciones son operativas para el portal; no reemplazan las de las guías de manejo de incidentes enlazadas abajo.
 
@@ -290,11 +290,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **runbook:** procedimiento paso a paso para una situación operacional conocida.
-- **playbook:** guía de respuesta con preguntas y criterios de decisión para situaciones abiertas.
-- **idempotencia:** propiedad de una operación cuya repetición no cambia el estado que dejó la primera ejecución.
-- **verificación:** comprobación observable de que un paso dejó el sistema en el estado esperado.
-- **reversión:** acciones que devuelven el sistema al estado anterior a un paso.
+- **[runbook](../../../glosario/entradas/r/runbook.md):** procedimiento paso a paso para una situación operacional conocida.
+- **[playbook](../../../glosario/entradas/p/playbook.md):** guía de respuesta con preguntas y criterios de decisión para situaciones abiertas.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuya repetición no cambia el estado que dejó la primera ejecución.
+- **[verificación](../../../glosario/entradas/v/verificacion.md):** comprobación observable de que un paso dejó el sistema en el estado esperado.
+- **[reversión](../../../glosario/entradas/r/retroceso.md):** acciones que devuelven el sistema al estado anterior a un paso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Playbook](../../../glosario/entradas/p/playbook.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md) · [Runbook](../../../glosario/entradas/r/runbook.md) · [Verificación](../../../glosario/entradas/v/verificacion.md).
 
 ---
 

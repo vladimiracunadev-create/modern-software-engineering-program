@@ -168,11 +168,11 @@ El orden de un conjunto cambia en 11 de 12 procesos en ambos sistemas: una prueb
 
 ## Definiciones de trabajo
 
-- **doble de prueba:** objeto que sustituye a una dependencia real durante una prueba.
-- **fake:** doble con una implementación funcional simplificada (por ejemplo, una base en memoria).
-- **espía (spy):** doble que registra las llamadas que recibe para consultarlas después.
-- **prueba de contrato:** batería de comprobaciones que se ejecuta contra el doble y contra la implementación real.
-- **fidelidad:** grado en que un doble se comporta como la dependencia real en lo que las pruebas usan.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** objeto que sustituye a una dependencia real durante una prueba.
+- **[fake](../../../glosario/entradas/f/fake.md):** doble con una implementación funcional simplificada (por ejemplo, una base en memoria).
+- **[espía (spy)](../../../glosario/entradas/e/espia.md):** doble que registra las llamadas que recibe para consultarlas después.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** batería de comprobaciones que se ejecuta contra el doble y contra la implementación real.
+- **[fidelidad](../../../glosario/entradas/f/fidelidad.md):** grado en que un doble se comporta como la dependencia real en lo que las pruebas usan.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -322,11 +322,13 @@ Se ejecutaron tres experimentos con datos sintéticos, una base SQLite y proceso
 
 ## Glosario
 
-- **doble de prueba:** objeto que sustituye a una dependencia real durante una prueba.
-- **fake:** doble con una implementación funcional simplificada (por ejemplo, una base en memoria).
-- **espía (spy):** doble que registra las llamadas que recibe para consultarlas después.
-- **prueba de contrato:** batería de comprobaciones que se ejecuta contra el doble y contra la implementación real.
-- **fidelidad:** grado en que un doble se comporta como la dependencia real en lo que las pruebas usan.
+- **[doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md):** objeto que sustituye a una dependencia real durante una prueba.
+- **[fake](../../../glosario/entradas/f/fake.md):** doble con una implementación funcional simplificada (por ejemplo, una base en memoria).
+- **[espía (spy)](../../../glosario/entradas/e/espia.md):** doble que registra las llamadas que recibe para consultarlas después.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** batería de comprobaciones que se ejecuta contra el doble y contra la implementación real.
+- **[fidelidad](../../../glosario/entradas/f/fidelidad.md):** grado en que un doble se comporta como la dependencia real en lo que las pruebas usan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md) · [Espía](../../../glosario/entradas/e/espia.md) · [Fake](../../../glosario/entradas/f/fake.md) · [Fidelidad](../../../glosario/entradas/f/fidelidad.md) · [Prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md).
 
 ---
 

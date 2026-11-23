@@ -159,11 +159,11 @@ Con 100 ms, el 31 % de las primeras llamadas se abandona y por cada unidad de tr
 
 ## Definiciones de trabajo
 
-- **timeout:** tiempo máximo que un cliente espera una respuesta antes de rendirse.
-- **idempotencia:** propiedad de una operación cuya repetición produce el mismo efecto que una sola ejecución.
-- **jitter:** variación aleatoria del tiempo de espera entre reintentos para evitar la sincronización.
-- **presupuesto de reintentos:** límite a la fracción de solicitudes que pueden ser reintentos.
-- **fallo metaestable:** estado de sobrecarga que se sostiene por sí mismo después de desaparecer su causa inicial.
+- **[timeout](../../../glosario/entradas/t/timeout.md):** tiempo máximo que un cliente espera una respuesta antes de rendirse.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuya repetición produce el mismo efecto que una sola ejecución.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** variación aleatoria del tiempo de espera entre reintentos para evitar la sincronización.
+- **[presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite a la fracción de solicitudes que pueden ser reintentos.
+- **[fallo metaestable](../../../glosario/entradas/f/fallo-metaestable.md):** estado de sobrecarga que se sostiene por sí mismo después de desaparecer su causa inicial.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **timeout:** tiempo máximo que un cliente espera una respuesta antes de rendirse.
-- **idempotencia:** propiedad de una operación cuya repetición produce el mismo efecto que una sola ejecución.
-- **jitter:** variación aleatoria del tiempo de espera entre reintentos para evitar la sincronización.
-- **presupuesto de reintentos:** límite a la fracción de solicitudes que pueden ser reintentos.
-- **fallo metaestable:** estado de sobrecarga que se sostiene por sí mismo después de desaparecer su causa inicial.
+- **[timeout](../../../glosario/entradas/t/timeout.md):** tiempo máximo que un cliente espera una respuesta antes de rendirse.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuya repetición produce el mismo efecto que una sola ejecución.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** variación aleatoria del tiempo de espera entre reintentos para evitar la sincronización.
+- **[presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite a la fracción de solicitudes que pueden ser reintentos.
+- **[fallo metaestable](../../../glosario/entradas/f/fallo-metaestable.md):** estado de sobrecarga que se sostiene por sí mismo después de desaparecer su causa inicial.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Fallo metaestable](../../../glosario/entradas/f/fallo-metaestable.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md) · [Timeout](../../../glosario/entradas/t/timeout.md).
 
 ---
 

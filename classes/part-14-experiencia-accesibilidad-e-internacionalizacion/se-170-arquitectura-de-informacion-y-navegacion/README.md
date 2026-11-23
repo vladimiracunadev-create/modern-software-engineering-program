@@ -138,11 +138,11 @@ def bfs(adj, origen):
 
 ## Definiciones de trabajo
 
-- **arquitectura de información:** organización, etiquetado y enlazado de la información para que las personas la encuentren y la entiendan.
-- **ordenamiento de tarjetas:** técnica en la que participantes agrupan tarjetas con conceptos y revelan cómo los organizan.
-- **profundidad:** número de niveles o clics entre un punto de partida y una página.
-- **anchura:** número de opciones que se ofrecen en un nivel de navegación.
-- **página huérfana:** página sin ningún enlace entrante desde el resto de la estructura.
+- **[arquitectura de información](../../../glosario/entradas/a/arquitectura-de-informacion.md):** organización, etiquetado y enlazado de la información para que las personas la encuentren y la entiendan.
+- **[ordenamiento de tarjetas](../../../glosario/entradas/o/ordenamiento-de-tarjetas.md):** técnica en la que participantes agrupan tarjetas con conceptos y revelan cómo los organizan.
+- **[profundidad](../../../glosario/entradas/p/profundidad.md):** número de niveles o clics entre un punto de partida y una página.
+- **[anchura](../../../glosario/entradas/a/anchura.md):** número de opciones que se ofrecen en un nivel de navegación.
+- **[página huérfana](../../../glosario/entradas/p/pagina-huerfana.md):** página sin ningún enlace entrante desde el resto de la estructura.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -290,11 +290,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **arquitectura de información:** organización, etiquetado y enlazado de la información para que las personas la encuentren y la entiendan.
-- **ordenamiento de tarjetas:** técnica en la que participantes agrupan tarjetas con conceptos y revelan cómo los organizan.
-- **profundidad:** número de niveles o clics entre un punto de partida y una página.
-- **anchura:** número de opciones que se ofrecen en un nivel de navegación.
-- **página huérfana:** página sin ningún enlace entrante desde el resto de la estructura.
+- **[arquitectura de información](../../../glosario/entradas/a/arquitectura-de-informacion.md):** organización, etiquetado y enlazado de la información para que las personas la encuentren y la entiendan.
+- **[ordenamiento de tarjetas](../../../glosario/entradas/o/ordenamiento-de-tarjetas.md):** técnica en la que participantes agrupan tarjetas con conceptos y revelan cómo los organizan.
+- **[profundidad](../../../glosario/entradas/p/profundidad.md):** número de niveles o clics entre un punto de partida y una página.
+- **[anchura](../../../glosario/entradas/a/anchura.md):** número de opciones que se ofrecen en un nivel de navegación.
+- **[página huérfana](../../../glosario/entradas/p/pagina-huerfana.md):** página sin ningún enlace entrante desde el resto de la estructura.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Anchura](../../../glosario/entradas/a/anchura.md) · [Arquitectura de información](../../../glosario/entradas/a/arquitectura-de-informacion.md) · [Ordenamiento de tarjetas](../../../glosario/entradas/o/ordenamiento-de-tarjetas.md) · [Página huérfana](../../../glosario/entradas/p/pagina-huerfana.md) · [Profundidad](../../../glosario/entradas/p/profundidad.md).
 
 ---
 

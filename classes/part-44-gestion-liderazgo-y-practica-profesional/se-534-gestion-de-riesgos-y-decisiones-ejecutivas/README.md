@@ -133,11 +133,11 @@ Se simulan 200 decisiones por trimestre durante 3 000 trimestres. El 30 % es irr
 
 ## Definiciones de trabajo
 
-- **valor esperado:** suma de los resultados posibles ponderados por su probabilidad.
-- **riesgo de cola:** evento de probabilidad baja y consecuencia alta, cuyo impacto domina el valor esperado o es inaceptable por sí mismo.
-- **valor esperado de la información perfecta (VEIP):** mejora esperada de una decisión por conocer el resultado antes de decidir; tope de lo que vale cualquier prueba.
-- **decisión reversible:** decisión que puede deshacerse con poco costo en un plazo corto.
-- **petición de decisión:** documento breve que pide a una persona con autoridad una decisión concreta, con opciones, costos y plazo.
+- **[valor esperado](../../../glosario/entradas/v/valor-esperado.md):** suma de los resultados posibles ponderados por su probabilidad.
+- **[riesgo de cola](../../../glosario/entradas/r/riesgo-de-cola.md):** evento de probabilidad baja y consecuencia alta, cuyo impacto domina el valor esperado o es inaceptable por sí mismo.
+- **[valor esperado de la información perfecta (VEIP)](../../../glosario/entradas/v/valor-esperado-de-la-informacion-perfecta.md):** mejora esperada de una decisión por conocer el resultado antes de decidir; tope de lo que vale cualquier prueba.
+- **[decisión reversible](../../../glosario/entradas/d/decision-reversible.md):** decisión que puede deshacerse con poco costo en un plazo corto.
+- **[petición de decisión](../../../glosario/entradas/p/peticion-de-decision.md):** documento breve que pide a una persona con autoridad una decisión concreta, con opciones, costos y plazo.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -277,11 +277,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **valor esperado:** suma de los resultados posibles ponderados por su probabilidad.
-- **riesgo de cola:** evento de probabilidad baja y consecuencia alta, cuyo impacto domina el valor esperado o es inaceptable por sí mismo.
-- **valor esperado de la información perfecta (VEIP):** mejora esperada de una decisión por conocer el resultado antes de decidir; tope de lo que vale cualquier prueba.
-- **decisión reversible:** decisión que puede deshacerse con poco costo en un plazo corto.
-- **petición de decisión:** documento breve que pide a una persona con autoridad una decisión concreta, con opciones, costos y plazo.
+- **[valor esperado](../../../glosario/entradas/v/valor-esperado.md):** suma de los resultados posibles ponderados por su probabilidad.
+- **[riesgo de cola](../../../glosario/entradas/r/riesgo-de-cola.md):** evento de probabilidad baja y consecuencia alta, cuyo impacto domina el valor esperado o es inaceptable por sí mismo.
+- **[valor esperado de la información perfecta (VEIP)](../../../glosario/entradas/v/valor-esperado-de-la-informacion-perfecta.md):** mejora esperada de una decisión por conocer el resultado antes de decidir; tope de lo que vale cualquier prueba.
+- **[decisión reversible](../../../glosario/entradas/d/decision-reversible.md):** decisión que puede deshacerse con poco costo en un plazo corto.
+- **[petición de decisión](../../../glosario/entradas/p/peticion-de-decision.md):** documento breve que pide a una persona con autoridad una decisión concreta, con opciones, costos y plazo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Decisión reversible](../../../glosario/entradas/d/decision-reversible.md) · [Petición de decisión](../../../glosario/entradas/p/peticion-de-decision.md) · [Riesgo de cola](../../../glosario/entradas/r/riesgo-de-cola.md) · [Valor esperado](../../../glosario/entradas/v/valor-esperado.md) · [Valor esperado de la información perfecta](../../../glosario/entradas/v/valor-esperado-de-la-informacion-perfecta.md).
 
 ---
 

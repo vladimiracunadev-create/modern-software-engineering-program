@@ -113,11 +113,11 @@ Entre plataformas siguieron siendo distintos: los permisos guardados en la rueda
 
 ## Definiciones de trabajo
 
-- **contrato multicapa:** el proyecto publica api python, cli y protocolo de plugin con versiones y errores alineados.
-- **matriz de compatibilidad:** se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible.
-- **release candidate:** el rc usa artefactos inmutables, changelog, hashes y guía de migración.
-- **supply chain mínima:** dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/sbom disponible.
-- **aceptación desde el consumidor:** una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
+- **[contrato multicapa](../../../glosario/entradas/c/contrato-multicapa.md):** el proyecto publica api python, cli y protocolo de plugin con versiones y errores alineados.
+- **[matriz de compatibilidad](../../../glosario/entradas/m/matriz-de-compatibilidad.md):** se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible.
+- **[release candidate](../../../glosario/entradas/r/release-candidate.md):** el rc usa artefactos inmutables, changelog, hashes y guía de migración.
+- **[supply chain mínima](../../../glosario/entradas/s/supply-chain-minima.md):** dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/sbom disponible.
+- **[aceptación desde el consumidor](../../../glosario/entradas/a/aceptacion-desde-el-consumidor.md):** una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ El proyecto acredita un release candidato dentro de su matriz, no disponibilidad
 
 ## Glosario
 
-- **contrato multicapa:** el proyecto publica api python, cli y protocolo de plugin con versiones y errores alineados.
-- **matriz de compatibilidad:** se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible.
-- **release candidate:** el rc usa artefactos inmutables, changelog, hashes y guía de migración.
-- **supply chain mínima:** dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/sbom disponible.
-- **aceptación desde el consumidor:** una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
+- **[contrato multicapa](../../../glosario/entradas/c/contrato-multicapa.md):** el proyecto publica api python, cli y protocolo de plugin con versiones y errores alineados.
+- **[matriz de compatibilidad](../../../glosario/entradas/m/matriz-de-compatibilidad.md):** se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible.
+- **[release candidate](../../../glosario/entradas/r/release-candidate.md):** el rc usa artefactos inmutables, changelog, hashes y guía de migración.
+- **[supply chain mínima](../../../glosario/entradas/s/supply-chain-minima.md):** dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/sbom disponible.
+- **[aceptación desde el consumidor](../../../glosario/entradas/a/aceptacion-desde-el-consumidor.md):** una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aceptación desde el consumidor](../../../glosario/entradas/a/aceptacion-desde-el-consumidor.md) · [Contrato multicapa](../../../glosario/entradas/c/contrato-multicapa.md) · [Matriz de compatibilidad](../../../glosario/entradas/m/matriz-de-compatibilidad.md) · [Release candidate](../../../glosario/entradas/r/release-candidate.md) · [Supply chain mínima](../../../glosario/entradas/s/supply-chain-minima.md).
 
 ---
 

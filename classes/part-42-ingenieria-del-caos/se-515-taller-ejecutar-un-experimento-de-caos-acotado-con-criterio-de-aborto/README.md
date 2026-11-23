@@ -120,12 +120,12 @@ El taller recorre, con el simulador de estas clases, los pasos de un experimento
 
 ## Definiciones de trabajo
 
-- **evacuación de una región:** desviar todo el tráfico de una región a las demás, como ejercicio o como respuesta a una falla.
-- **experimento difuso:** inyección repartida sobre toda la capacidad, absorbida por la holgura normal.
-- **experimento concentrado:** inyección sobre un grupo pequeño al que se envía una porción del tráfico y en el que todas las peticiones sufren la falla.
-- **grupo de control:** grupo comparable que recibe el mismo tráfico sin la falla.
-- **interruptor del experimento:** mecanismo que lo termina de forma automática al superar un presupuesto de error.
-- **holgura:** capacidad no usada que permite absorber un aumento de carga.
+- **[evacuación de una región](../../../glosario/entradas/e/evacuacion-de-una-region.md):** desviar todo el tráfico de una región a las demás, como ejercicio o como respuesta a una falla.
+- **[experimento difuso](../../../glosario/entradas/e/experimento-difuso.md):** inyección repartida sobre toda la capacidad, absorbida por la holgura normal.
+- **[experimento concentrado](../../../glosario/entradas/e/experimento-concentrado.md):** inyección sobre un grupo pequeño al que se envía una porción del tráfico y en el que todas las peticiones sufren la falla.
+- **[grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** grupo comparable que recibe el mismo tráfico sin la falla.
+- **[interruptor del experimento](../../../glosario/entradas/i/interruptor-del-experimento.md):** mecanismo que lo termina de forma automática al superar un presupuesto de error.
+- **[holgura](../../../glosario/entradas/h/holgura.md):** capacidad no usada que permite absorber un aumento de carga.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -263,12 +263,14 @@ Se ejecutaron dos experimentos con tiempo virtual y semillas fijas en Windows y 
 
 ## Glosario
 
-- **evacuación de una región:** desviar todo el tráfico de una región a las demás.
-- **experimento difuso:** inyección repartida sobre toda la capacidad, absorbida por la holgura normal.
-- **experimento concentrado:** inyección sobre un grupo pequeño en el que todas las peticiones sufren la falla.
-- **grupo de control:** grupo comparable que recibe el mismo tráfico sin la falla.
-- **interruptor del experimento:** mecanismo que lo termina de forma automática al superar un presupuesto de error.
-- **holgura:** capacidad no usada que permite absorber un aumento de carga.
+- **[evacuación de una región](../../../glosario/entradas/e/evacuacion-de-una-region.md):** desviar todo el tráfico de una región a las demás.
+- **[experimento difuso](../../../glosario/entradas/e/experimento-difuso.md):** inyección repartida sobre toda la capacidad, absorbida por la holgura normal.
+- **[experimento concentrado](../../../glosario/entradas/e/experimento-concentrado.md):** inyección sobre un grupo pequeño en el que todas las peticiones sufren la falla.
+- **[grupo de control](../../../glosario/entradas/g/grupo-de-control.md):** grupo comparable que recibe el mismo tráfico sin la falla.
+- **[interruptor del experimento](../../../glosario/entradas/i/interruptor-del-experimento.md):** mecanismo que lo termina de forma automática al superar un presupuesto de error.
+- **[holgura](../../../glosario/entradas/h/holgura.md):** capacidad no usada que permite absorber un aumento de carga.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evacuación de una región](../../../glosario/entradas/e/evacuacion-de-una-region.md) · [Experimento concentrado](../../../glosario/entradas/e/experimento-concentrado.md) · [Experimento difuso](../../../glosario/entradas/e/experimento-difuso.md) · [Grupo de control](../../../glosario/entradas/g/grupo-de-control.md) · [Holgura](../../../glosario/entradas/h/holgura.md) · [Interruptor del experimento](../../../glosario/entradas/i/interruptor-del-experimento.md) · [Precondición](../../../glosario/entradas/p/precondicion.md).
 
 ---
 

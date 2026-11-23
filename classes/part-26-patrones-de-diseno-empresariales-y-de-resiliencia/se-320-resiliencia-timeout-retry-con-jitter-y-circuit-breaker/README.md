@@ -111,13 +111,13 @@ La política resultante es una pila (`SE-315`): por fuera, un plazo total que ca
 
 ## Definiciones de trabajo
 
-- **Timeout:** tiempo máximo que se espera una respuesta.
-- **Reintento:** repetir una llamada fallida con la esperanza de que una falla transitoria no se repita.
-- **Backoff exponencial:** espera entre reintentos que crece geométricamente.
-- **Jitter:** componente aleatorio de la espera que desincroniza a los clientes.
-- **Presupuesto de reintentos:** límite global de reintentos como fracción de las peticiones.
-- **Circuit breaker:** control que rechaza llamadas a una dependencia con fallos persistentes.
-- **Semiabierto:** estado del interruptor en que pasa una llamada de sondeo.
+- **[Timeout](../../../glosario/entradas/t/timeout.md):** tiempo máximo que se espera una respuesta.
+- **[Reintento](../../../glosario/entradas/r/reintentos.md):** repetir una llamada fallida con la esperanza de que una falla transitoria no se repita.
+- **[Backoff exponencial](../../../glosario/entradas/b/backoff-exponencial.md):** espera entre reintentos que crece geométricamente.
+- **[Jitter](../../../glosario/entradas/d/dispersion.md):** componente aleatorio de la espera que desincroniza a los clientes.
+- **[Presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite global de reintentos como fracción de las peticiones.
+- **[Circuit breaker](../../../glosario/entradas/c/circuit-breaker.md):** control que rechaza llamadas a una dependencia con fallos persistentes.
+- **[Semiabierto](../../../glosario/entradas/s/semiabierto.md):** estado del interruptor en que pasa una llamada de sondeo.
 
 ## Ejemplo mínimo
 
@@ -244,6 +244,8 @@ La simulación usa un servicio con capacidad fija y una caída total, latencias 
 | Amplificación | Intentos al servicio por petición del usuario |
 | Circuit breaker | Interruptor que corta llamadas a una dependencia con fallos |
 | Semiabierto | Estado de sondeo del interruptor |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backoff exponencial](../../../glosario/entradas/b/backoff-exponencial.md) · [Circuit breaker](../../../glosario/entradas/c/circuit-breaker.md) · [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md) · [Reintentos](../../../glosario/entradas/r/reintentos.md) · [Semiabierto](../../../glosario/entradas/s/semiabierto.md) · [Timeout](../../../glosario/entradas/t/timeout.md).
 
 ---
 

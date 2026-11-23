@@ -160,11 +160,11 @@ Resultado: para acotar la tasa por debajo de 1 por 100 hacen falta 299 pruebas s
 
 ## Definiciones de trabajo
 
-- **verificabilidad:** existencia de un procedimiento finito, ejecutable por otra persona, que produce un veredicto aceptado de cumple o no cumple.
-- **patrones de reparación:** movimientos repetibles para volver verificable una frase: cuantificar, acotar, condicionar y separar.
-- **procedimientos de verificación:** descripción de qué se ejecuta, con qué datos, en qué entorno, cuántas veces y cómo se decide.
-- **requisitos universales y negativos:** enunciados sobre todas las ejecuciones futuras («nunca», «siempre») que ninguna prueba finita puede demostrar.
-- **reformulación:** conversión de un requisito no verificable en un objetivo con revisión o en un riesgo aceptado con responsable.
+- **[verificabilidad](../../../glosario/entradas/v/verificabilidad.md):** existencia de un procedimiento finito, ejecutable por otra persona, que produce un veredicto aceptado de cumple o no cumple.
+- **[patrones de reparación](../../../glosario/entradas/p/patrones-de-reparacion.md):** movimientos repetibles para volver verificable una frase: cuantificar, acotar, condicionar y separar.
+- **[procedimientos de verificación](../../../glosario/entradas/p/procedimientos-de-verificacion.md):** descripción de qué se ejecuta, con qué datos, en qué entorno, cuántas veces y cómo se decide.
+- **[requisitos universales y negativos](../../../glosario/entradas/r/requisitos-universales-y-negativos.md):** enunciados sobre todas las ejecuciones futuras («nunca», «siempre») que ninguna prueba finita puede demostrar.
+- **[reformulación](../../../glosario/entradas/r/reformulacion.md):** conversión de un requisito no verificable en un objetivo con revisión o en un riesgo aceptado con responsable.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el cálculo y la reg
 
 ## Glosario
 
-- **verificabilidad:** existencia de un procedimiento finito, ejecutable por otra persona, que produce un veredicto aceptado de cumple o no cumple.
-- **patrones de reparación:** movimientos repetibles para volver verificable una frase: cuantificar, acotar, condicionar y separar.
-- **procedimientos de verificación:** descripción de qué se ejecuta, con qué datos, en qué entorno, cuántas veces y cómo se decide.
-- **requisitos universales y negativos:** enunciados sobre todas las ejecuciones futuras («nunca», «siempre») que ninguna prueba finita puede demostrar.
-- **reformulación:** conversión de un requisito no verificable en un objetivo con revisión o en un riesgo aceptado con responsable.
+- **[verificabilidad](../../../glosario/entradas/v/verificabilidad.md):** existencia de un procedimiento finito, ejecutable por otra persona, que produce un veredicto aceptado de cumple o no cumple.
+- **[patrones de reparación](../../../glosario/entradas/p/patrones-de-reparacion.md):** movimientos repetibles para volver verificable una frase: cuantificar, acotar, condicionar y separar.
+- **[procedimientos de verificación](../../../glosario/entradas/p/procedimientos-de-verificacion.md):** descripción de qué se ejecuta, con qué datos, en qué entorno, cuántas veces y cómo se decide.
+- **[requisitos universales y negativos](../../../glosario/entradas/r/requisitos-universales-y-negativos.md):** enunciados sobre todas las ejecuciones futuras («nunca», «siempre») que ninguna prueba finita puede demostrar.
+- **[reformulación](../../../glosario/entradas/r/reformulacion.md):** conversión de un requisito no verificable en un objetivo con revisión o en un riesgo aceptado con responsable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Patrones de reparación](../../../glosario/entradas/p/patrones-de-reparacion.md) · [Procedimientos de verificación](../../../glosario/entradas/p/procedimientos-de-verificacion.md) · [Reformulación](../../../glosario/entradas/r/reformulacion.md) · [Requisitos universales y negativos](../../../glosario/entradas/r/requisitos-universales-y-negativos.md) · [Verificabilidad](../../../glosario/entradas/v/verificabilidad.md).
 
 ---
 

@@ -170,11 +170,11 @@ Con un precio inventado de 730 unidades monetarias por mes por una instancia per
 
 ## Definiciones de trabajo
 
-- **ejecución gestionada:** modelo en que la plataforma crea, escala y apaga las instancias que ejecutan el código a partir de eventos o peticiones.
-- **arranque en frío:** creación de un entorno de ejecución para atender una petición cuando no hay uno disponible.
-- **entrega al menos una vez:** garantía de que un mensaje llegará una o más veces, nunca cero, sin impedir los duplicados.
-- **idempotencia:** propiedad de una operación cuyo efecto, al repetirse con la misma entrada, es el mismo que el de ejecutarla una vez.
-- **ventana de deduplicación:** tiempo durante el que se recuerda un identificador para descartar sus repeticiones.
+- **[ejecución gestionada](../../../glosario/entradas/e/ejecucion-gestionada.md):** modelo en que la plataforma crea, escala y apaga las instancias que ejecutan el código a partir de eventos o peticiones.
+- **[arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** creación de un entorno de ejecución para atender una petición cuando no hay uno disponible.
+- **[entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md):** garantía de que un mensaje llegará una o más veces, nunca cero, sin impedir los duplicados.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo efecto, al repetirse con la misma entrada, es el mismo que el de ejecutarla una vez.
+- **[ventana de deduplicación](../../../glosario/entradas/v/ventana-de-deduplicacion.md):** tiempo durante el que se recuerda un identificador para descartar sus repeticiones.
 
 Las definiciones son operativas para la plataforma de entregas. Cada servicio usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): las simulaciones fue
 
 ## Glosario
 
-- **ejecución gestionada:** modelo en que la plataforma crea, escala y apaga las instancias que ejecutan el código a partir de eventos o peticiones.
-- **arranque en frío:** creación de un entorno de ejecución para atender una petición cuando no hay uno disponible.
-- **entrega al menos una vez:** garantía de que un mensaje llegará una o más veces, nunca cero, sin impedir los duplicados.
-- **idempotencia:** propiedad de una operación cuyo efecto, al repetirse con la misma entrada, es el mismo que el de ejecutarla una vez.
-- **ventana de deduplicación:** tiempo durante el que se recuerda un identificador para descartar sus repeticiones.
+- **[ejecución gestionada](../../../glosario/entradas/e/ejecucion-gestionada.md):** modelo en que la plataforma crea, escala y apaga las instancias que ejecutan el código a partir de eventos o peticiones.
+- **[arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** creación de un entorno de ejecución para atender una petición cuando no hay uno disponible.
+- **[entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md):** garantía de que un mensaje llegará una o más veces, nunca cero, sin impedir los duplicados.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuyo efecto, al repetirse con la misma entrada, es el mismo que el de ejecutarla una vez.
+- **[ventana de deduplicación](../../../glosario/entradas/v/ventana-de-deduplicacion.md):** tiempo durante el que se recuerda un identificador para descartar sus repeticiones.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md) · [Ejecución gestionada](../../../glosario/entradas/e/ejecucion-gestionada.md) · [Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Ventana de deduplicación](../../../glosario/entradas/v/ventana-de-deduplicacion.md).
 
 ---
 

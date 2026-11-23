@@ -131,11 +131,11 @@ with open(ruta, "w", encoding="utf-8", newline="\n") as f:
 
 ## Definiciones de trabajo
 
-- **paquete trazable:** conjunto de artefactos con identificadores estables, enlaces de tipos permitidos y huellas verificables.
-- **trazabilidad:** capacidad de seguir un artefacto hacia su origen y hacia sus consecuencias.
-- **alcance de un cambio:** conjunto de artefactos alcanzables desde uno modificado siguiendo los enlaces.
-- **manifiesto:** lista de artefactos con su identificador y su huella que permite verificar el paquete.
-- **huella reproducible:** resumen criptográfico del paquete que no depende del sistema operativo ni del orden de lectura.
+- **[paquete trazable](../../../glosario/entradas/p/paquete-trazable.md):** conjunto de artefactos con identificadores estables, enlaces de tipos permitidos y huellas verificables.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** capacidad de seguir un artefacto hacia su origen y hacia sus consecuencias.
+- **[alcance de un cambio](../../../glosario/entradas/a/alcance-de-un-cambio.md):** conjunto de artefactos alcanzables desde uno modificado siguiendo los enlaces.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de artefactos con su identificador y su huella que permite verificar el paquete.
+- **[huella reproducible](../../../glosario/entradas/h/huella-reproducible.md):** resumen criptográfico del paquete que no depende del sistema operativo ni del orden de lectura.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -290,11 +290,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **paquete trazable:** conjunto de artefactos con identificadores estables, enlaces de tipos permitidos y huellas verificables.
-- **trazabilidad:** capacidad de seguir un artefacto hacia su origen y hacia sus consecuencias.
-- **alcance de un cambio:** conjunto de artefactos alcanzables desde uno modificado siguiendo los enlaces.
-- **manifiesto:** lista de artefactos con su identificador y su huella que permite verificar el paquete.
-- **huella reproducible:** resumen criptográfico del paquete que no depende del sistema operativo ni del orden de lectura.
+- **[paquete trazable](../../../glosario/entradas/p/paquete-trazable.md):** conjunto de artefactos con identificadores estables, enlaces de tipos permitidos y huellas verificables.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** capacidad de seguir un artefacto hacia su origen y hacia sus consecuencias.
+- **[alcance de un cambio](../../../glosario/entradas/a/alcance-de-un-cambio.md):** conjunto de artefactos alcanzables desde uno modificado siguiendo los enlaces.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de artefactos con su identificador y su huella que permite verificar el paquete.
+- **[huella reproducible](../../../glosario/entradas/h/huella-reproducible.md):** resumen criptográfico del paquete que no depende del sistema operativo ni del orden de lectura.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance de un cambio](../../../glosario/entradas/a/alcance-de-un-cambio.md) · [Análisis de impacto](../../../glosario/entradas/a/analisis-de-impacto.md) · [Estructura del paquete](../../../glosario/entradas/e/estructura-del-paquete.md) · [Huella reproducible](../../../glosario/entradas/h/huella-reproducible.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md) · [Paquete trazable](../../../glosario/entradas/p/paquete-trazable.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md).
 
 ---
 

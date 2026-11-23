@@ -165,11 +165,11 @@ Las dos políticas sin aleatoriedad concentran los 600 reintentos en un solo seg
 
 ## Definiciones de trabajo
 
-- **paquete de integración:** documento con las nueve secciones que describen el contrato, las defensas y los límites de un flujo de mensajes.
-- **invariante del flujo:** propiedad que debe cumplirse sin importar las fallas, como que cada entrega tenga exactamente una calificación.
-- **horizonte de reintentos:** tiempo total durante el cual un emisor puede reenviar un mensaje, la suma de sus esperas.
-- **cola de mensajes fallidos:** destino de los mensajes que no se pudieron procesar tras un número de intentos, para su revisión.
-- **inyección de fallas:** provocar a propósito caídas, duplicados, retrasos y mensajes inválidos para comprobar las invariantes.
+- **[paquete de integración](../../../glosario/entradas/p/paquete-de-integracion.md):** documento con las nueve secciones que describen el contrato, las defensas y los límites de un flujo de mensajes.
+- **[invariante del flujo](../../../glosario/entradas/i/invariante-del-flujo.md):** propiedad que debe cumplirse sin importar las fallas, como que cada entrega tenga exactamente una calificación.
+- **[horizonte de reintentos](../../../glosario/entradas/h/horizonte-de-reintentos.md):** tiempo total durante el cual un emisor puede reenviar un mensaje, la suma de sus esperas.
+- **[cola de mensajes fallidos](../../../glosario/entradas/c/cola-de-mensajes-fallidos.md):** destino de los mensajes que no se pudieron procesar tras un número de intentos, para su revisión.
+- **[inyección de fallas](../../../glosario/entradas/i/inyeccion-de-fallas.md):** provocar a propósito caídas, duplicados, retrasos y mensajes inválidos para comprobar las invariantes.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **paquete de integración:** documento con las nueve secciones que describen el contrato, las defensas y los límites de un flujo de mensajes.
-- **invariante del flujo:** propiedad que debe cumplirse sin importar las fallas, como que cada entrega tenga exactamente una calificación.
-- **horizonte de reintentos:** tiempo total durante el cual un emisor puede reenviar un mensaje, la suma de sus esperas.
-- **cola de mensajes fallidos:** destino de los mensajes que no se pudieron procesar tras un número de intentos, para su revisión.
-- **inyección de fallas:** provocar a propósito caídas, duplicados, retrasos y mensajes inválidos para comprobar las invariantes.
+- **[paquete de integración](../../../glosario/entradas/p/paquete-de-integracion.md):** documento con las nueve secciones que describen el contrato, las defensas y los límites de un flujo de mensajes.
+- **[invariante del flujo](../../../glosario/entradas/i/invariante-del-flujo.md):** propiedad que debe cumplirse sin importar las fallas, como que cada entrega tenga exactamente una calificación.
+- **[horizonte de reintentos](../../../glosario/entradas/h/horizonte-de-reintentos.md):** tiempo total durante el cual un emisor puede reenviar un mensaje, la suma de sus esperas.
+- **[cola de mensajes fallidos](../../../glosario/entradas/c/cola-de-mensajes-fallidos.md):** destino de los mensajes que no se pudieron procesar tras un número de intentos, para su revisión.
+- **[inyección de fallas](../../../glosario/entradas/i/inyeccion-de-fallas.md):** provocar a propósito caídas, duplicados, retrasos y mensajes inválidos para comprobar las invariantes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola de mensajes fallidos](../../../glosario/entradas/c/cola-de-mensajes-fallidos.md) · [Falla inyectada](../../../glosario/entradas/f/falla-inyectada.md) · [Horizonte de reintentos](../../../glosario/entradas/h/horizonte-de-reintentos.md) · [Invariante del flujo](../../../glosario/entradas/i/invariante-del-flujo.md) · [Inyección de fallas](../../../glosario/entradas/i/inyeccion-de-fallas.md) · [Paquete de integración](../../../glosario/entradas/p/paquete-de-integracion.md).
 
 ---
 

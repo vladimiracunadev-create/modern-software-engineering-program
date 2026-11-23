@@ -163,11 +163,11 @@ La primera cifra de cada celda es el porcentaje de comparaciones entre copias id
 
 ## Definiciones de trabajo
 
-- **benchmark:** medición repetible del tiempo o del consumo de un fragmento con una entrada y un protocolo declarados.
-- **perfilador determinista:** herramienta que registra cada llamada y retorno para contar y cronometrar funciones, con sobrecarga por evento.
-- **calentamiento:** conjunto de ejecuciones iniciales cuyo tiempo difiere del régimen estable por cachés frías o carga de módulos.
-- **prueba A/A:** comparación de dos copias idénticas para estimar la tasa de falsas diferencias de un protocolo.
-- **interferencia:** efecto sobre una medición de actividad ajena al programa, como otro proceso o un cambio de frecuencia.
+- **[benchmark](../../../glosario/entradas/b/benchmark.md):** medición repetible del tiempo o del consumo de un fragmento con una entrada y un protocolo declarados.
+- **[perfilador determinista](../../../glosario/entradas/p/perfilador-determinista.md):** herramienta que registra cada llamada y retorno para contar y cronometrar funciones, con sobrecarga por evento.
+- **[calentamiento](../../../glosario/entradas/c/calentamiento.md):** conjunto de ejecuciones iniciales cuyo tiempo difiere del régimen estable por cachés frías o carga de módulos.
+- **[prueba A/A](../../../glosario/entradas/p/prueba-a-a.md):** comparación de dos copias idénticas para estimar la tasa de falsas diferencias de un protocolo.
+- **[interferencia](../../../glosario/entradas/i/interferencia.md):** efecto sobre una medición de actividad ajena al programa, como otro proceso o un cambio de frecuencia.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2). Los de las dos prime
 
 ## Glosario
 
-- **benchmark:** medición repetible del tiempo o del consumo de un fragmento con una entrada y un protocolo declarados.
-- **perfilador determinista:** herramienta que registra cada llamada y retorno para contar y cronometrar funciones, con sobrecarga por evento.
-- **calentamiento:** conjunto de ejecuciones iniciales cuyo tiempo difiere del régimen estable por cachés frías o carga de módulos.
-- **prueba A/A:** comparación de dos copias idénticas para estimar la tasa de falsas diferencias de un protocolo.
-- **interferencia:** efecto sobre una medición de actividad ajena al programa, como otro proceso o un cambio de frecuencia.
+- **[benchmark](../../../glosario/entradas/b/benchmark.md):** medición repetible del tiempo o del consumo de un fragmento con una entrada y un protocolo declarados.
+- **[perfilador determinista](../../../glosario/entradas/p/perfilador-determinista.md):** herramienta que registra cada llamada y retorno para contar y cronometrar funciones, con sobrecarga por evento.
+- **[calentamiento](../../../glosario/entradas/c/calentamiento.md):** conjunto de ejecuciones iniciales cuyo tiempo difiere del régimen estable por cachés frías o carga de módulos.
+- **[prueba A/A](../../../glosario/entradas/p/prueba-a-a.md):** comparación de dos copias idénticas para estimar la tasa de falsas diferencias de un protocolo.
+- **[interferencia](../../../glosario/entradas/i/interferencia.md):** efecto sobre una medición de actividad ajena al programa, como otro proceso o un cambio de frecuencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Benchmark](../../../glosario/entradas/b/benchmark.md) · [Calentamiento](../../../glosario/entradas/c/calentamiento.md) · [Interferencia](../../../glosario/entradas/i/interferencia.md) · [Perfilador determinista](../../../glosario/entradas/p/perfilador-determinista.md) · [Prueba A/A](../../../glosario/entradas/p/prueba-a-a.md).
 
 ---
 

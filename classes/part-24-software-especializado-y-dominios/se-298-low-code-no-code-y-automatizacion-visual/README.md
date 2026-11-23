@@ -164,11 +164,11 @@ Con un solo responsable la revisión no cambia nada: cuando se va, no queda a qu
 
 ## Definiciones de trabajo
 
-- **low-code:** enfoque de construcción que reduce la cantidad de código escrito mediante bloques y plantillas, con código en los huecos.
-- **no-code:** enfoque que busca que quien construye no escriba código, sustituido por configuración visual.
-- **cobertura de pares:** propiedad de un conjunto de pruebas en que cada pareja de factores aparece en todas sus combinaciones de valores.
-- **receptor idempotente:** receptor que, ante un mensaje repetido, no repite el efecto.
-- **flujo huérfano:** automatización que sigue ejecutándose sin ninguna persona responsable activa.
+- **[low-code](../../../glosario/entradas/l/low-code.md):** enfoque de construcción que reduce la cantidad de código escrito mediante bloques y plantillas, con código en los huecos.
+- **[no-code](../../../glosario/entradas/n/no-code.md):** enfoque que busca que quien construye no escriba código, sustituido por configuración visual.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** propiedad de un conjunto de pruebas en que cada pareja de factores aparece en todas sus combinaciones de valores.
+- **[receptor idempotente](../../../glosario/entradas/r/receptor-idempotente.md):** receptor que, ante un mensaje repetido, no repite el efecto.
+- **[flujo huérfano](../../../glosario/entradas/f/flujo-huerfano.md):** automatización que sigue ejecutándose sin ninguna persona responsable activa.
 
 Las definiciones son operativas para la automatización de avisos. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **low-code:** enfoque de construcción que reduce la cantidad de código escrito mediante bloques y plantillas, con código en los huecos.
-- **no-code:** enfoque que busca que quien construye no escriba código, sustituido por configuración visual.
-- **cobertura de pares:** propiedad de un conjunto de pruebas en que cada pareja de factores aparece en todas sus combinaciones de valores.
-- **receptor idempotente:** receptor que, ante un mensaje repetido, no repite el efecto.
-- **flujo huérfano:** automatización que sigue ejecutándose sin ninguna persona responsable activa.
+- **[low-code](../../../glosario/entradas/l/low-code.md):** enfoque de construcción que reduce la cantidad de código escrito mediante bloques y plantillas, con código en los huecos.
+- **[no-code](../../../glosario/entradas/n/no-code.md):** enfoque que busca que quien construye no escriba código, sustituido por configuración visual.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** propiedad de un conjunto de pruebas en que cada pareja de factores aparece en todas sus combinaciones de valores.
+- **[receptor idempotente](../../../glosario/entradas/r/receptor-idempotente.md):** receptor que, ante un mensaje repetido, no repite el efecto.
+- **[flujo huérfano](../../../glosario/entradas/f/flujo-huerfano.md):** automatización que sigue ejecutándose sin ninguna persona responsable activa.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md) · [Flujo huérfano](../../../glosario/entradas/f/flujo-huerfano.md) · [Low-code](../../../glosario/entradas/l/low-code.md) · [No-code](../../../glosario/entradas/n/no-code.md) · [Receptor idempotente](../../../glosario/entradas/r/receptor-idempotente.md).
 
 ---
 

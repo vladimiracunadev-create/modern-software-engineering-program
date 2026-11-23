@@ -119,11 +119,11 @@ Una última precisión: `assert` no es validación. Con `python -O` el `assert F
 
 ## Definiciones de trabajo
 
-- **excepción:** objeto que señala interrupción anormal.
-- **manejador:** bloque que trata una excepción compatible.
-- **propagación:** búsqueda de un manejador en la pila.
-- **chaining:** vínculo causal entre excepciones.
-- **resultado explícito:** valor que representa éxito o fallo esperado.
+- **[excepción](../../../glosario/entradas/e/excepcion.md):** objeto que señala interrupción anormal.
+- **[manejador](../../../glosario/entradas/m/manejador.md):** bloque que trata una excepción compatible.
+- **[propagación](../../../glosario/entradas/p/propagacion.md):** búsqueda de un manejador en la pila.
+- **[chaining](../../../glosario/entradas/c/chaining.md):** vínculo causal entre excepciones.
+- **[resultado explícito](../../../glosario/entradas/r/resultado-explicito.md):** valor que representa éxito o fallo esperado.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -278,11 +278,13 @@ La taxonomía no evita todos los defectos ni reemplaza logs seguros. La siguient
 
 ## Glosario
 
-- **excepción:** objeto que señala interrupción anormal.
-- **manejador:** bloque que trata una excepción compatible.
-- **propagación:** búsqueda de un manejador en la pila.
-- **chaining:** vínculo causal entre excepciones.
-- **resultado explícito:** valor que representa éxito o fallo esperado.
+- **[excepción](../../../glosario/entradas/e/excepcion.md):** objeto que señala interrupción anormal.
+- **[manejador](../../../glosario/entradas/m/manejador.md):** bloque que trata una excepción compatible.
+- **[propagación](../../../glosario/entradas/p/propagacion.md):** búsqueda de un manejador en la pila.
+- **[chaining](../../../glosario/entradas/c/chaining.md):** vínculo causal entre excepciones.
+- **[resultado explícito](../../../glosario/entradas/r/resultado-explicito.md):** valor que representa éxito o fallo esperado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Chaining](../../../glosario/entradas/c/chaining.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Excepción](../../../glosario/entradas/e/excepcion.md) · [Manejador](../../../glosario/entradas/m/manejador.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Propagación](../../../glosario/entradas/p/propagacion.md) · [Resultado explícito](../../../glosario/entradas/r/resultado-explicito.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

@@ -181,11 +181,11 @@ Con profundidad 11, el atacante, que solo tenía 10 de saldo, vacía el fondo en
 
 ## Definiciones de trabajo
 
-- **prueba de trabajo:** mecanismo por el cual un bloque solo es válido si su hash cumple una condición que exige muchos intentos.
-- **confirmación:** bloque posterior a aquel en que se incluyó una transacción, que reduce la probabilidad de reversión.
-- **bloque huérfano:** bloque válido que queda fuera de la cadena adoptada tras una bifurcación.
-- **contrato inteligente:** programa desplegado en una cadena que se ejecuta de forma determinista cuando se invoca.
-- **reentrada:** llamada que vuelve a entrar en una función antes de que esta haya actualizado su estado.
+- **[prueba de trabajo](../../../glosario/entradas/p/prueba-de-trabajo.md):** mecanismo por el cual un bloque solo es válido si su hash cumple una condición que exige muchos intentos.
+- **[confirmación](../../../glosario/entradas/c/confirmacion.md):** bloque posterior a aquel en que se incluyó una transacción, que reduce la probabilidad de reversión.
+- **[bloque huérfano](../../../glosario/entradas/b/bloque-huerfano.md):** bloque válido que queda fuera de la cadena adoptada tras una bifurcación.
+- **[contrato inteligente](../../../glosario/entradas/c/contrato-inteligente.md):** programa desplegado en una cadena que se ejecuta de forma determinista cuando se invoca.
+- **[reentrada](../../../glosario/entradas/r/reentrada.md):** llamada que vuelve a entrar en una función antes de que esta haya actualizado su estado.
 
 Las definiciones son operativas para los certificados verificables. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -331,11 +331,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **prueba de trabajo:** mecanismo por el cual un bloque solo es válido si su hash cumple una condición que exige muchos intentos.
-- **confirmación:** bloque posterior a aquel en que se incluyó una transacción, que reduce la probabilidad de reversión.
-- **bloque huérfano:** bloque válido que queda fuera de la cadena adoptada tras una bifurcación.
-- **contrato inteligente:** programa desplegado en una cadena que se ejecuta de forma determinista cuando se invoca.
-- **reentrada:** llamada que vuelve a entrar en una función antes de que esta haya actualizado su estado.
+- **[prueba de trabajo](../../../glosario/entradas/p/prueba-de-trabajo.md):** mecanismo por el cual un bloque solo es válido si su hash cumple una condición que exige muchos intentos.
+- **[confirmación](../../../glosario/entradas/c/confirmacion.md):** bloque posterior a aquel en que se incluyó una transacción, que reduce la probabilidad de reversión.
+- **[bloque huérfano](../../../glosario/entradas/b/bloque-huerfano.md):** bloque válido que queda fuera de la cadena adoptada tras una bifurcación.
+- **[contrato inteligente](../../../glosario/entradas/c/contrato-inteligente.md):** programa desplegado en una cadena que se ejecuta de forma determinista cuando se invoca.
+- **[reentrada](../../../glosario/entradas/r/reentrada.md):** llamada que vuelve a entrar en una función antes de que esta haya actualizado su estado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloque huérfano](../../../glosario/entradas/b/bloque-huerfano.md) · [Cadena de hashes](../../../glosario/entradas/c/cadena-de-hashes.md) · [Confirmación](../../../glosario/entradas/c/confirmacion.md) · [Contrato inteligente](../../../glosario/entradas/c/contrato-inteligente.md) · [Prueba de trabajo](../../../glosario/entradas/p/prueba-de-trabajo.md) · [Reentrada](../../../glosario/entradas/r/reentrada.md).
 
 ---
 

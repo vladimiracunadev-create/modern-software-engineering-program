@@ -117,12 +117,12 @@ Las métricas de trazas son de ejecuciones reales del harness mínimo sobre seis
 
 ## Definiciones de trabajo
 
-- **Traza:** registro estructurado de cada paso del agente.
-- **Observabilidad:** capacidad de explicar el comportamiento a partir de lo registrado.
-- **Evaluación del harness:** comparación de versiones sobre las mismas tareas con un criterio de éxito.
-- **Graduador:** programa o regla que decide si una tarea se resolvió.
-- **Potencia:** probabilidad de detectar un efecto real.
-- **Tarea de regresión:** tarea derivada de un fallo ya diagnosticado.
+- **[Traza](../../../glosario/entradas/t/traza.md):** registro estructurado de cada paso del agente.
+- **[Observabilidad](../../../glosario/entradas/o/observabilidad.md):** capacidad de explicar el comportamiento a partir de lo registrado.
+- **[Evaluación del harness](../../../glosario/entradas/e/evaluacion-del-harness.md):** comparación de versiones sobre las mismas tareas con un criterio de éxito.
+- **[Graduador](../../../glosario/entradas/g/graduador.md):** programa o regla que decide si una tarea se resolvió.
+- **[Potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de detectar un efecto real.
+- **[Tarea de regresión](../../../glosario/entradas/t/tarea-de-regresion.md):** tarea derivada de un fallo ya diagnosticado.
 
 ## Ejemplo mínimo
 
@@ -247,6 +247,8 @@ Se calcularon métricas de trazas reales de un harness mínimo con política gui
 | Graduador | Regla o programa que decide si una tarea se resolvió |
 | Potencia | Probabilidad de detectar un efecto real |
 | Tarea de regresión | Tarea derivada de un fallo ya diagnosticado |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evaluación del harness](../../../glosario/entradas/e/evaluacion-del-harness.md) · [Graduador](../../../glosario/entradas/g/graduador.md) · [Observabilidad](../../../glosario/entradas/o/observabilidad.md) · [Potencia](../../../glosario/entradas/p/potencia.md) · [Tarea de regresión](../../../glosario/entradas/t/tarea-de-regresion.md) · [Traza](../../../glosario/entradas/t/traza.md).
 
 ---
 

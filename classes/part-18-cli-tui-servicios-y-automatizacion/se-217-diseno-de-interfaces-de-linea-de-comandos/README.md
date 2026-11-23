@@ -120,11 +120,11 @@ Un error de tecleo en un subcomando puede ayudarse con una sugerencia («¿quiso
 
 ## Definiciones de trabajo
 
-- **contrato de línea de comandos:** conjunto de flags, argumentos, códigos de salida y destinos de flujo que la herramienta promete mantener.
-- **subcomando:** acción con nombre propio dentro de una herramienta (`notas exportar`), con sus propias opciones.
-- **abreviatura de flag:** prefijo no ambiguo de una opción larga que el analizador acepta si se activa `allow_abbrev`.
-- **deprecación:** estado en que una opción sigue funcionando pero avisa de su retirada en una versión posterior.
-- **sugerencia:** texto que propone una corrección sin ejecutarla.
+- **[contrato de línea de comandos](../../../glosario/entradas/c/contrato-de-linea-de-comandos.md):** conjunto de flags, argumentos, códigos de salida y destinos de flujo que la herramienta promete mantener.
+- **[subcomando](../../../glosario/entradas/s/subcomando.md):** acción con nombre propio dentro de una herramienta (`notas exportar`), con sus propias opciones.
+- **[abreviatura de flag](../../../glosario/entradas/a/abreviatura-de-flag.md):** prefijo no ambiguo de una opción larga que el analizador acepta si se activa `allow_abbrev`.
+- **[deprecación](../../../glosario/entradas/d/deprecacion.md):** estado en que una opción sigue funcionando pero avisa de su retirada en una versión posterior.
+- **[sugerencia](../../../glosario/entradas/s/sugerencia.md):** texto que propone una corrección sin ejecutarla.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -282,11 +282,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **contrato de línea de comandos:** conjunto de flags, argumentos, códigos de salida y destinos de flujo que la herramienta promete mantener.
-- **subcomando:** acción con nombre propio dentro de una herramienta, con sus propias opciones.
-- **abreviatura de flag:** prefijo no ambiguo de una opción larga que el analizador acepta si se activa `allow_abbrev`.
-- **deprecación:** estado en que una opción sigue funcionando pero avisa de su retirada en una versión posterior.
-- **sugerencia:** texto que propone una corrección sin ejecutarla.
+- **[contrato de línea de comandos](../../../glosario/entradas/c/contrato-de-linea-de-comandos.md):** conjunto de flags, argumentos, códigos de salida y destinos de flujo que la herramienta promete mantener.
+- **[subcomando](../../../glosario/entradas/s/subcomando.md):** acción con nombre propio dentro de una herramienta, con sus propias opciones.
+- **[abreviatura de flag](../../../glosario/entradas/a/abreviatura-de-flag.md):** prefijo no ambiguo de una opción larga que el analizador acepta si se activa `allow_abbrev`.
+- **[deprecación](../../../glosario/entradas/d/deprecacion.md):** estado en que una opción sigue funcionando pero avisa de su retirada en una versión posterior.
+- **[sugerencia](../../../glosario/entradas/s/sugerencia.md):** texto que propone una corrección sin ejecutarla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abreviatura de flag](../../../glosario/entradas/a/abreviatura-de-flag.md) · [Contrato de línea de comandos](../../../glosario/entradas/c/contrato-de-linea-de-comandos.md) · [Deprecación](../../../glosario/entradas/d/deprecacion.md) · [Subcomando](../../../glosario/entradas/s/subcomando.md) · [Sugerencia](../../../glosario/entradas/s/sugerencia.md).
 
 ---
 

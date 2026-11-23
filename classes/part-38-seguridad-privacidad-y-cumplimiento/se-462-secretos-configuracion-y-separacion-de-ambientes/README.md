@@ -147,11 +147,11 @@ La separación por ambiente reduce el radio a un tercio y la separación por ser
 
 ## Definiciones de trabajo
 
-- **secreto:** valor cuyo conocimiento concede una capacidad, como una contraseña, una clave de API o un token.
-- **radio de una filtración:** conjunto de recursos y datos que quien obtiene un secreto puede alcanzar con él.
-- **doble validez:** periodo en que el verificador acepta tanto el secreto viejo como el nuevo para permitir una migración sin interrupción.
-- **entropía de una cadena:** medida de su imprevisibilidad según la distribución de sus caracteres; una cadena aleatoria larga tiene entropía alta.
-- **paridad entre ambientes:** igualdad de código, imagen y estructura entre desarrollo, pruebas y producción, con diferencias solo en configuración y credenciales.
+- **[secreto](../../../glosario/entradas/s/secreto.md):** valor cuyo conocimiento concede una capacidad, como una contraseña, una clave de API o un token.
+- **[radio de una filtración](../../../glosario/entradas/r/radio-de-una-filtracion.md):** conjunto de recursos y datos que quien obtiene un secreto puede alcanzar con él.
+- **[doble validez](../../../glosario/entradas/d/doble-validez.md):** periodo en que el verificador acepta tanto el secreto viejo como el nuevo para permitir una migración sin interrupción.
+- **[entropía de una cadena](../../../glosario/entradas/e/entropia-de-una-cadena.md):** medida de su imprevisibilidad según la distribución de sus caracteres; una cadena aleatoria larga tiene entropía alta.
+- **[paridad entre ambientes](../../../glosario/entradas/p/paridad-entre-ambientes.md):** igualdad de código, imagen y estructura entre desarrollo, pruebas y producción, con diferencias solo en configuración y credenciales.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -288,11 +288,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **secreto:** valor cuyo conocimiento concede una capacidad, como una contraseña, una clave de API o un token.
-- **radio de una filtración:** conjunto de recursos y datos que quien obtiene un secreto puede alcanzar con él.
-- **doble validez:** periodo en que el verificador acepta tanto el secreto viejo como el nuevo para permitir una migración sin interrupción.
-- **entropía de una cadena:** medida de su imprevisibilidad según la distribución de sus caracteres; una cadena aleatoria larga tiene entropía alta.
-- **paridad entre ambientes:** igualdad de código, imagen y estructura entre desarrollo, pruebas y producción, con diferencias solo en configuración y credenciales.
+- **[secreto](../../../glosario/entradas/s/secreto.md):** valor cuyo conocimiento concede una capacidad, como una contraseña, una clave de API o un token.
+- **[radio de una filtración](../../../glosario/entradas/r/radio-de-una-filtracion.md):** conjunto de recursos y datos que quien obtiene un secreto puede alcanzar con él.
+- **[doble validez](../../../glosario/entradas/d/doble-validez.md):** periodo en que el verificador acepta tanto el secreto viejo como el nuevo para permitir una migración sin interrupción.
+- **[entropía de una cadena](../../../glosario/entradas/e/entropia-de-una-cadena.md):** medida de su imprevisibilidad según la distribución de sus caracteres; una cadena aleatoria larga tiene entropía alta.
+- **[paridad entre ambientes](../../../glosario/entradas/p/paridad-entre-ambientes.md):** igualdad de código, imagen y estructura entre desarrollo, pruebas y producción, con diferencias solo en configuración y credenciales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Detección de secretos](../../../glosario/entradas/d/deteccion-de-secretos.md) · [Doble validez](../../../glosario/entradas/d/doble-validez.md) · [Entropía de una cadena](../../../glosario/entradas/e/entropia-de-una-cadena.md) · [Paridad entre ambientes](../../../glosario/entradas/p/paridad-entre-ambientes.md) · [Radio de una filtración](../../../glosario/entradas/r/radio-de-una-filtracion.md) · [Secreto](../../../glosario/entradas/s/secreto.md).
 
 ---
 

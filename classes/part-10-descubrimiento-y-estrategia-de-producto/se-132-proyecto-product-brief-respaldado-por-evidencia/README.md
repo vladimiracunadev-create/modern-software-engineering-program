@@ -141,11 +141,11 @@ Resultado: mediana de A = 30,4; mediana de B = 32,6; probabilidad de que A super
 
 ## Definiciones de trabajo
 
-- **brief como contrato de evidencia:** documento breve que reúne problema, evidencia, opciones, decisión, criterio de abandono y límites, de modo que otra persona pueda comprobarlo y disputarlo.
-- **evidencia trazable:** relación verificable entre una afirmación del brief y uno o más registros (citas, datos, observaciones) que existen y la respaldan.
-- **tipos de evidencia:** clasificación de la evidencia según su origen (dijo, hizo, comprometió, registro), con una ponderación explícita y revisable.
-- **decisión con rangos:** decisión que compara opciones con intervalos de beneficio y declara la probabilidad de que una supere a otra y el costo de equivocarse.
-- **abandono y límites:** criterio de abandono con comparador, umbral, ventana y responsable, más una lista de lo que no se midió ni a quién no se preguntó.
+- **[brief como contrato de evidencia](../../../glosario/entradas/b/brief-como-contrato-de-evidencia.md):** documento breve que reúne problema, evidencia, opciones, decisión, criterio de abandono y límites, de modo que otra persona pueda comprobarlo y disputarlo.
+- **[evidencia trazable](../../../glosario/entradas/e/evidencia-trazable.md):** relación verificable entre una afirmación del brief y uno o más registros (citas, datos, observaciones) que existen y la respaldan.
+- **[tipos de evidencia](../../../glosario/entradas/t/tipos-de-evidencia.md):** clasificación de la evidencia según su origen (dijo, hizo, comprometió, registro), con una ponderación explícita y revisable.
+- **[decisión con rangos](../../../glosario/entradas/d/decision-con-rangos.md):** decisión que compara opciones con intervalos de beneficio y declara la probabilidad de que una supere a otra y el costo de equivocarse.
+- **[abandono y límites](../../../glosario/entradas/a/abandono-y-limites.md):** criterio de abandono con comparador, umbral, ventana y responsable, más una lista de lo que no se midió ni a quién no se preguntó.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos y un validador con evidencias y participantes si
 
 ## Glosario
 
-- **brief como contrato de evidencia:** documento breve que reúne problema, evidencia, opciones, decisión, criterio de abandono y límites, de modo que otra persona pueda comprobarlo y disputarlo.
-- **evidencia trazable:** relación verificable entre una afirmación del brief y uno o más registros (citas, datos, observaciones) que existen y la respaldan.
-- **tipos de evidencia:** clasificación de la evidencia según su origen (dijo, hizo, comprometió, registro), con una ponderación explícita y revisable.
-- **decisión con rangos:** decisión que compara opciones con intervalos de beneficio y declara la probabilidad de que una supere a otra y el costo de equivocarse.
-- **abandono y límites:** criterio de abandono con comparador, umbral, ventana y responsable, más una lista de lo que no se midió ni a quién no se preguntó.
+- **[brief como contrato de evidencia](../../../glosario/entradas/b/brief-como-contrato-de-evidencia.md):** documento breve que reúne problema, evidencia, opciones, decisión, criterio de abandono y límites, de modo que otra persona pueda comprobarlo y disputarlo.
+- **[evidencia trazable](../../../glosario/entradas/e/evidencia-trazable.md):** relación verificable entre una afirmación del brief y uno o más registros (citas, datos, observaciones) que existen y la respaldan.
+- **[tipos de evidencia](../../../glosario/entradas/t/tipos-de-evidencia.md):** clasificación de la evidencia según su origen (dijo, hizo, comprometió, registro), con una ponderación explícita y revisable.
+- **[decisión con rangos](../../../glosario/entradas/d/decision-con-rangos.md):** decisión que compara opciones con intervalos de beneficio y declara la probabilidad de que una supere a otra y el costo de equivocarse.
+- **[abandono y límites](../../../glosario/entradas/a/abandono-y-limites.md):** criterio de abandono con comparador, umbral, ventana y responsable, más una lista de lo que no se midió ni a quién no se preguntó.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abandono y límites](../../../glosario/entradas/a/abandono-y-limites.md) · [Brief como contrato de evidencia](../../../glosario/entradas/b/brief-como-contrato-de-evidencia.md) · [Decisión con rangos](../../../glosario/entradas/d/decision-con-rangos.md) · [Evidencia trazable](../../../glosario/entradas/e/evidencia-trazable.md) · [Tipos de evidencia](../../../glosario/entradas/t/tipos-de-evidencia.md).
 
 ---
 

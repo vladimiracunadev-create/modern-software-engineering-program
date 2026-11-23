@@ -160,11 +160,11 @@ En uno de seis órdenes, el lector lee antes del cambio y guarda después del bo
 
 ## Definiciones de trabajo
 
-- **cache-aside:** patrón en el que la aplicación consulta la caché y, si falla, lee de la base y guarda el resultado.
-- **TTL:** tiempo máximo que un valor puede servirse desde la caché sin comprobarse.
-- **invalidación:** eliminación o actualización de una entrada de la caché cuando cambia el dato de origen.
-- **estampida:** pico de consultas a la base cuando muchas entradas faltan o expiran a la vez.
-- **recarga única (single-flight):** técnica en la que solo una petición recalcula un valor y las demás esperan su resultado.
+- **[cache-aside](../../../glosario/entradas/c/cache-aside.md):** patrón en el que la aplicación consulta la caché y, si falla, lee de la base y guarda el resultado.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo máximo que un valor puede servirse desde la caché sin comprobarse.
+- **[invalidación](../../../glosario/entradas/i/invalidacion.md):** eliminación o actualización de una entrada de la caché cuando cambia el dato de origen.
+- **[estampida](../../../glosario/entradas/e/estampida.md):** pico de consultas a la base cuando muchas entradas faltan o expiran a la vez.
+- **[recarga única (single-flight)](../../../glosario/entradas/r/recarga-unica.md):** técnica en la que solo una petición recalcula un valor y las demás esperan su resultado.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres simulaciones con semilla fija en Windows y Ubuntu (WSL2) con 
 
 ## Glosario
 
-- **cache-aside:** patrón en el que la aplicación consulta la caché y, si falla, lee de la base y guarda el resultado.
-- **TTL:** tiempo máximo que un valor puede servirse desde la caché sin comprobarse.
-- **invalidación:** eliminación o actualización de una entrada de la caché cuando cambia el dato de origen.
-- **estampida:** pico de consultas a la base cuando muchas entradas faltan o expiran a la vez.
-- **recarga única (single-flight):** técnica en la que solo una petición recalcula un valor y las demás esperan su resultado.
+- **[cache-aside](../../../glosario/entradas/c/cache-aside.md):** patrón en el que la aplicación consulta la caché y, si falla, lee de la base y guarda el resultado.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo máximo que un valor puede servirse desde la caché sin comprobarse.
+- **[invalidación](../../../glosario/entradas/i/invalidacion.md):** eliminación o actualización de una entrada de la caché cuando cambia el dato de origen.
+- **[estampida](../../../glosario/entradas/e/estampida.md):** pico de consultas a la base cuando muchas entradas faltan o expiran a la vez.
+- **[recarga única (single-flight)](../../../glosario/entradas/r/recarga-unica.md):** técnica en la que solo una petición recalcula un valor y las demás esperan su resultado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cache-aside](../../../glosario/entradas/c/cache-aside.md) · [Estampida](../../../glosario/entradas/e/estampida.md) · [Invalidación](../../../glosario/entradas/i/invalidacion.md) · [Recarga única](../../../glosario/entradas/r/recarga-unica.md) · [Vigencia de la caché](../../../glosario/entradas/v/vigencia-de-la-cache.md).
 
 ---
 

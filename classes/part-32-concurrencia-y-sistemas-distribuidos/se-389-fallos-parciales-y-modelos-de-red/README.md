@@ -161,11 +161,11 @@ Un límite de 150 ms, cercano a la mediana, convierte casi un tercio de los lati
 
 ## Definiciones de trabajo
 
-- **fallo parcial:** fallo de una parte de un sistema mientras el resto sigue funcionando.
-- **modelo de fallos:** declaración de qué tipos de falla pueden tener los nodos (parada, omisión, bizantino).
-- **tiempo agotado ambiguo:** ausencia de respuesta que no permite saber si la operación se ejecutó.
-- **presupuesto de reintentos:** límite de la fracción de tráfico que puede ser reintento.
-- **detector de fallos:** componente que sospecha que un nodo ha fallado según los latidos que recibe, y que puede equivocarse.
+- **[fallo parcial](../../../glosario/entradas/f/fallo-parcial.md):** fallo de una parte de un sistema mientras el resto sigue funcionando.
+- **[modelo de fallos](../../../glosario/entradas/m/modelo-de-fallos.md):** declaración de qué tipos de falla pueden tener los nodos (parada, omisión, bizantino).
+- **[tiempo agotado ambiguo](../../../glosario/entradas/t/tiempo-agotado-ambiguo.md):** ausencia de respuesta que no permite saber si la operación se ejecutó.
+- **[presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite de la fracción de tráfico que puede ser reintento.
+- **[detector de fallos](../../../glosario/entradas/d/detector-de-fallos.md):** componente que sospecha que un nodo ha fallado según los latidos que recibe, y que puede equivocarse.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con semillas fijas en Windows y Ubuntu (WSL2) co
 
 ## Glosario
 
-- **fallo parcial:** fallo de una parte de un sistema mientras el resto sigue funcionando.
-- **modelo de fallos:** declaración de qué tipos de falla pueden tener los nodos (parada, omisión, bizantino).
-- **tiempo agotado ambiguo:** ausencia de respuesta que no permite saber si la operación se ejecutó.
-- **presupuesto de reintentos:** límite de la fracción de tráfico que puede ser reintento.
-- **detector de fallos:** componente que sospecha que un nodo ha fallado según los latidos que recibe, y que puede equivocarse.
+- **[fallo parcial](../../../glosario/entradas/f/fallo-parcial.md):** fallo de una parte de un sistema mientras el resto sigue funcionando.
+- **[modelo de fallos](../../../glosario/entradas/m/modelo-de-fallos.md):** declaración de qué tipos de falla pueden tener los nodos (parada, omisión, bizantino).
+- **[tiempo agotado ambiguo](../../../glosario/entradas/t/tiempo-agotado-ambiguo.md):** ausencia de respuesta que no permite saber si la operación se ejecutó.
+- **[presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite de la fracción de tráfico que puede ser reintento.
+- **[detector de fallos](../../../glosario/entradas/d/detector-de-fallos.md):** componente que sospecha que un nodo ha fallado según los latidos que recibe, y que puede equivocarse.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Detector de fallos](../../../glosario/entradas/d/detector-de-fallos.md) · [Fallo parcial](../../../glosario/entradas/f/fallo-parcial.md) · [Modelo de fallos](../../../glosario/entradas/m/modelo-de-fallos.md) · [Presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md) · [Tiempo agotado ambiguo](../../../glosario/entradas/t/tiempo-agotado-ambiguo.md).
 
 ---
 

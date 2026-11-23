@@ -152,11 +152,11 @@ El rendimiento mueve el plazo 13 semanas, más que el tamaño del trabajo (9), y
 
 ## Definiciones de trabajo
 
-- **pronóstico por simulación:** distribución del resultado obtenida repitiendo muchas veces un modelo del proceso con datos extraídos de la historia.
-- **calibración:** correspondencia entre la confianza anunciada de un pronóstico y la frecuencia con que se cumple.
-- **colchón de proyecto:** margen único reservado al final de una cadena de tareas y consumido cuando alguna se atrasa.
-- **expansión del trabajo:** tendencia a ocupar el tiempo disponible cuando una tarea termina antes de lo asignado.
-- **sensibilidad:** cambio del resultado al variar un supuesto mientras los demás se mantienen.
+- **[pronóstico por simulación](../../../glosario/entradas/p/pronostico-por-simulacion.md):** distribución del resultado obtenida repitiendo muchas veces un modelo del proceso con datos extraídos de la historia.
+- **[calibración](../../../glosario/entradas/c/calibracion.md):** correspondencia entre la confianza anunciada de un pronóstico y la frecuencia con que se cumple.
+- **[colchón de proyecto](../../../glosario/entradas/c/colchon-de-proyecto.md):** margen único reservado al final de una cadena de tareas y consumido cuando alguna se atrasa.
+- **[expansión del trabajo](../../../glosario/entradas/e/expansion-del-trabajo.md):** tendencia a ocupar el tiempo disponible cuando una tarea termina antes de lo asignado.
+- **[sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** cambio del resultado al variar un supuesto mientras los demás se mantienen.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **pronóstico por simulación:** distribución del resultado obtenida repitiendo muchas veces un modelo del proceso con datos extraídos de la historia.
-- **calibración:** correspondencia entre la confianza anunciada de un pronóstico y la frecuencia con que se cumple.
-- **colchón de proyecto:** margen único reservado al final de una cadena de tareas y consumido cuando alguna se atrasa.
-- **expansión del trabajo:** tendencia a ocupar el tiempo disponible cuando una tarea termina antes de lo asignado.
-- **sensibilidad:** cambio del resultado al variar un supuesto mientras los demás se mantienen.
+- **[pronóstico por simulación](../../../glosario/entradas/p/pronostico-por-simulacion.md):** distribución del resultado obtenida repitiendo muchas veces un modelo del proceso con datos extraídos de la historia.
+- **[calibración](../../../glosario/entradas/c/calibracion.md):** correspondencia entre la confianza anunciada de un pronóstico y la frecuencia con que se cumple.
+- **[colchón de proyecto](../../../glosario/entradas/c/colchon-de-proyecto.md):** margen único reservado al final de una cadena de tareas y consumido cuando alguna se atrasa.
+- **[expansión del trabajo](../../../glosario/entradas/e/expansion-del-trabajo.md):** tendencia a ocupar el tiempo disponible cuando una tarea termina antes de lo asignado.
+- **[sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** cambio del resultado al variar un supuesto mientras los demás se mantienen.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Calibración](../../../glosario/entradas/c/calibracion.md) · [Colchón de proyecto](../../../glosario/entradas/c/colchon-de-proyecto.md) · [Expansión del trabajo](../../../glosario/entradas/e/expansion-del-trabajo.md) · [Pronóstico por simulación](../../../glosario/entradas/p/pronostico-por-simulacion.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md).
 
 ---
 

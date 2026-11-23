@@ -171,11 +171,11 @@ El gasto mínimo, 110 unidades (22 días hábiles por 5), se alcanza con un barr
 
 ## Definiciones de trabajo
 
-- **plataforma mínima:** conjunto acotado de capacidades que una plataforma ofrece y puede sostener con evidencia comprobable.
-- **construcción reproducible:** proceso que, con las mismas entradas, produce siempre los mismos bytes.
-- **manifiesto:** lista de los archivos de un paquete con su suma de comprobación y su procedencia.
-- **validador de forma:** comprobador que decide si un paquete está completo y es coherente en su estructura, sin interpretar su contenido.
-- **paquete aprobado:** paquete que pasó la validación y la revisión de otra persona, con fecha y con sus límites declarados.
+- **[plataforma mínima](../../../glosario/entradas/p/plataforma-minima.md):** conjunto acotado de capacidades que una plataforma ofrece y puede sostener con evidencia comprobable.
+- **[construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md):** proceso que, con las mismas entradas, produce siempre los mismos bytes.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de los archivos de un paquete con su suma de comprobación y su procedencia.
+- **[validador de forma](../../../glosario/entradas/v/validador-de-forma.md):** comprobador que decide si un paquete está completo y es coherente en su estructura, sin interpretar su contenido.
+- **[paquete aprobado](../../../glosario/entradas/p/paquete-aprobado.md):** paquete que pasó la validación y la revisión de otra persona, con fecha y con sus límites declarados.
 
 Las definiciones son operativas para la plataforma de entregas. Cada marco usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
@@ -327,11 +327,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la validación y la 
 
 ## Glosario
 
-- **plataforma mínima:** conjunto acotado de capacidades que una plataforma ofrece y puede sostener con evidencia comprobable.
-- **construcción reproducible:** proceso que, con las mismas entradas, produce siempre los mismos bytes.
-- **manifiesto:** lista de los archivos de un paquete con su suma de comprobación y su procedencia.
-- **validador de forma:** comprobador que decide si un paquete está completo y es coherente en su estructura, sin interpretar su contenido.
-- **paquete aprobado:** paquete que pasó la validación y la revisión de otra persona, con fecha y con sus límites declarados.
+- **[plataforma mínima](../../../glosario/entradas/p/plataforma-minima.md):** conjunto acotado de capacidades que una plataforma ofrece y puede sostener con evidencia comprobable.
+- **[construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md):** proceso que, con las mismas entradas, produce siempre los mismos bytes.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de los archivos de un paquete con su suma de comprobación y su procedencia.
+- **[validador de forma](../../../glosario/entradas/v/validador-de-forma.md):** comprobador que decide si un paquete está completo y es coherente en su estructura, sin interpretar su contenido.
+- **[paquete aprobado](../../../glosario/entradas/p/paquete-aprobado.md):** paquete que pasó la validación y la revisión de otra persona, con fecha y con sus límites declarados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Construcción reproducible](../../../glosario/entradas/c/construccion-reproducible.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md) · [Paquete aprobado](../../../glosario/entradas/p/paquete-aprobado.md) · [Plataforma mínima](../../../glosario/entradas/p/plataforma-minima.md) · [Validador de forma](../../../glosario/entradas/v/validador-de-forma.md).
 
 ---
 

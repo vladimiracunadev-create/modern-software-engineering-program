@@ -147,11 +147,11 @@ Añadir una columna cuesta décimas de milisegundo y reconstruir la tabla ciento
 
 ## Definiciones de trabajo
 
-- **expandir y contraer:** patrón que añade la estructura nueva, migra consumidores y datos, y retira la antigua en pasos compatibles.
-- **relleno (backfill):** proceso que calcula y escribe en la estructura nueva los valores de los datos históricos.
-- **escritura condicional:** actualización que se aplica solo si la fila no cambió desde que se leyó.
-- **idempotencia:** propiedad de una operación que, aplicada varias veces, deja el mismo resultado que aplicada una.
-- **suma de verificación por rango:** huella de un bloque de filas que permite comparar tablas grandes sin leer cada fila.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** patrón que añade la estructura nueva, migra consumidores y datos, y retira la antigua en pasos compatibles.
+- **[relleno (backfill)](../../../glosario/entradas/r/relleno.md):** proceso que calcula y escribe en la estructura nueva los valores de los datos históricos.
+- **[escritura condicional](../../../glosario/entradas/e/escritura-condicional.md):** actualización que se aplica solo si la fila no cambió desde que se leyó.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación que, aplicada varias veces, deja el mismo resultado que aplicada una.
+- **[suma de verificación por rango](../../../glosario/entradas/s/suma-de-verificacion-por-rango.md):** huella de un bloque de filas que permite comparar tablas grandes sin leer cada fila.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la simulación del l
 
 ## Glosario
 
-- **expandir y contraer:** patrón que añade la estructura nueva, migra consumidores y datos, y retira la antigua en pasos compatibles.
-- **relleno (backfill):** proceso que calcula y escribe en la estructura nueva los valores de los datos históricos.
-- **escritura condicional:** actualización que se aplica solo si la fila no cambió desde que se leyó.
-- **idempotencia:** propiedad de una operación que, aplicada varias veces, deja el mismo resultado que aplicada una.
-- **suma de verificación por rango:** huella de un bloque de filas que permite comparar tablas grandes sin leer cada fila.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** patrón que añade la estructura nueva, migra consumidores y datos, y retira la antigua en pasos compatibles.
+- **[relleno (backfill)](../../../glosario/entradas/r/relleno.md):** proceso que calcula y escribe en la estructura nueva los valores de los datos históricos.
+- **[escritura condicional](../../../glosario/entradas/e/escritura-condicional.md):** actualización que se aplica solo si la fila no cambió desde que se leyó.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación que, aplicada varias veces, deja el mismo resultado que aplicada una.
+- **[suma de verificación por rango](../../../glosario/entradas/s/suma-de-verificacion-por-rango.md):** huella de un bloque de filas que permite comparar tablas grandes sin leer cada fila.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Escritura condicional](../../../glosario/entradas/e/escritura-condicional.md) · [Expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Relleno](../../../glosario/entradas/r/relleno.md) · [Relleno por lotes](../../../glosario/entradas/r/relleno-por-lotes.md) · [Suma de verificación por rango](../../../glosario/entradas/s/suma-de-verificacion-por-rango.md) · [Verificación de contenido](../../../glosario/entradas/v/verificacion-de-contenido.md).
 
 ---
 

@@ -116,12 +116,12 @@ La decisión se puede hacer repetible con un árbol corto. La primera pregunta e
 
 ## Definiciones de trabajo
 
-- **Workflow:** sistema donde el código fija los pasos y el modelo se usa dentro de ellos.
-- **Agente:** sistema donde el modelo decide el siguiente paso y el uso de herramientas en cada vuelta.
-- **Presupuesto de pasos:** límite duro de llamadas por solicitud, con una acción definida al agotarse.
-- **Escalar:** derivar una solicitud a una persona con el contexto reunido; es un resultado, no un fallo.
-- **Agencia excesiva:** conceder al modelo más funciones, permisos o autonomía de los que la tarea necesita.
-- **Híbrido:** arquitectura donde un enrutador manda cada solicitud al workflow o al agente que le corresponde.
+- **[Workflow](../../../glosario/entradas/w/workflow.md):** sistema donde el código fija los pasos y el modelo se usa dentro de ellos.
+- **[Agente](../../../glosario/entradas/a/agente.md):** sistema donde el modelo decide el siguiente paso y el uso de herramientas en cada vuelta.
+- **[Presupuesto de pasos](../../../glosario/entradas/p/presupuesto-de-pasos.md):** límite duro de llamadas por solicitud, con una acción definida al agotarse.
+- **[Escalar](../../../glosario/entradas/e/escalar.md):** derivar una solicitud a una persona con el contexto reunido; es un resultado, no un fallo.
+- **[Agencia excesiva](../../../glosario/entradas/a/agencia-excesiva.md):** conceder al modelo más funciones, permisos o autonomía de los que la tarea necesita.
+- **[Híbrido](../../../glosario/entradas/h/hibrido.md):** arquitectura donde un enrutador manda cada solicitud al workflow o al agente que le corresponde.
 
 ## Ejemplo mínimo
 
@@ -260,6 +260,8 @@ El experimento usa un modelo sintético con tasas de error declaradas, tres tipo
 | Escalar | Derivar a una persona con el contexto reunido |
 | Agencia excesiva | Dar al modelo más permisos o autonomía de los necesarios |
 | Híbrido | Enrutador que reparte entre workflow y agente |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agencia excesiva](../../../glosario/entradas/a/agencia-excesiva.md) · [Agente](../../../glosario/entradas/a/agente.md) · [Costo cuadrático del bucle](../../../glosario/entradas/c/costo-cuadratico-del-bucle.md) · [Escalar](../../../glosario/entradas/e/escalar.md) · [Híbrido](../../../glosario/entradas/h/hibrido.md) · [Presupuesto de pasos](../../../glosario/entradas/p/presupuesto-de-pasos.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md) · [Workflow](../../../glosario/entradas/w/workflow.md).
 
 ---
 

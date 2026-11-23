@@ -123,11 +123,11 @@ Se resume lo que cada estrategia supone y lo que no cubre.
 
 ## Definiciones de trabajo
 
-- **checksum:** huella criptográfica de un archivo usada para detectar cambios.
-- **firma digital:** valor calculado con una clave privada que cualquiera puede verificar con la clave pública.
-- **raíz de confianza:** clave o dato que el verificador da por bueno sin comprobarlo.
-- **secuencia:** número monótono dentro de lo firmado que impide aceptar una versión anterior.
-- **revocación:** declaración de que una clave ya no debe aceptarse.
+- **[checksum](../../../glosario/entradas/c/checksum.md):** huella criptográfica de un archivo usada para detectar cambios.
+- **[firma digital](../../../glosario/entradas/f/firma-digital.md):** valor calculado con una clave privada que cualquiera puede verificar con la clave pública.
+- **[raíz de confianza](../../../glosario/entradas/r/raiz-de-confianza.md):** clave o dato que el verificador da por bueno sin comprobarlo.
+- **[secuencia](../../../glosario/entradas/s/secuencia.md):** número monótono dentro de lo firmado que impide aceptar una versión anterior.
+- **[revocación](../../../glosario/entradas/r/revocacion.md):** declaración de que una clave ya no debe aceptarse.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ Se ejecutaron tres experimentos, con firmas Ed25519 reales de `openssl` y hashes
 
 ## Glosario
 
-- **checksum:** huella criptográfica de un archivo usada para detectar cambios.
-- **firma digital:** valor calculado con una clave privada que cualquiera puede verificar con la clave pública.
-- **raíz de confianza:** clave o dato que el verificador da por bueno sin comprobarlo.
-- **secuencia:** número monótono dentro de lo firmado que impide aceptar una versión anterior.
-- **revocación:** declaración de que una clave ya no debe aceptarse.
+- **[checksum](../../../glosario/entradas/c/checksum.md):** huella criptográfica de un archivo usada para detectar cambios.
+- **[firma digital](../../../glosario/entradas/f/firma-digital.md):** valor calculado con una clave privada que cualquiera puede verificar con la clave pública.
+- **[raíz de confianza](../../../glosario/entradas/r/raiz-de-confianza.md):** clave o dato que el verificador da por bueno sin comprobarlo.
+- **[secuencia](../../../glosario/entradas/s/secuencia.md):** número monótono dentro de lo firmado que impide aceptar una versión anterior.
+- **[revocación](../../../glosario/entradas/r/revocacion.md):** declaración de que una clave ya no debe aceptarse.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Checksum](../../../glosario/entradas/c/checksum.md) · [Firma digital](../../../glosario/entradas/f/firma-digital.md) · [Raíz de confianza](../../../glosario/entradas/r/raiz-de-confianza.md) · [Revocación](../../../glosario/entradas/r/revocacion.md) · [Secuencia](../../../glosario/entradas/s/secuencia.md).
 
 ---
 

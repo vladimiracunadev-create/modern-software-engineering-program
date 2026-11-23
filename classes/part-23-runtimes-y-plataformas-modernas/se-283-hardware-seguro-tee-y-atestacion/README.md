@@ -132,14 +132,14 @@ La tercera figura es un diagrama de las cuatro decisiones del verificador.
 
 ## Definiciones de trabajo
 
-- **TEE (entorno de ejecución confiable):** entorno cuya memoria y ejecución quedan protegidas del sistema operativo y del operador mediante hardware.
-- **Medición:** resumen criptográfico del código y la configuración cargados.
-- **Extensión:** operación que acumula una medición nueva en un registro sin poder reescribir las anteriores.
+- **[TEE (entorno de ejecución confiable)](../../../glosario/entradas/t/tee.md):** entorno cuya memoria y ejecución quedan protegidas del sistema operativo y del operador mediante hardware.
+- **[Medición](../../../glosario/entradas/m/medicion.md):** resumen criptográfico del código y la configuración cargados.
+- **[Extensión](../../../glosario/entradas/e/extension.md):** operación que acumula una medición nueva en un registro sin poder reescribir las anteriores.
 - **Cita (*quote*):** medición firmada por el hardware.
 - **Desafío (*nonce*):** valor aleatorio del verificador que garantiza frescura.
-- **Valor de referencia:** medición que el verificador acepta como correcta, obtenida por un canal independiente.
-- **Sellado:** derivación de una clave atada a una medición concreta.
-- **Raíz de confianza:** componente (normalmente de hardware) del que se parte sin verificación adicional.
+- **[Valor de referencia](../../../glosario/entradas/v/valor-de-referencia.md):** medición que el verificador acepta como correcta, obtenida por un canal independiente.
+- **[Sellado](../../../glosario/entradas/s/sellado.md):** derivación de una clave atada a una medición concreta.
+- **[Raíz de confianza](../../../glosario/entradas/r/raiz-de-confianza.md):** componente (normalmente de hardware) del que se parte sin verificación adicional.
 
 ## Ejemplo mínimo
 
@@ -277,6 +277,8 @@ Se ejecutó la lógica de medición, cita, desafío y sellado con SHA-256 y HMAC
 | Valor de referencia | Medición aceptada, obtenida por canal independiente |
 | Sellado | Clave derivada atada a una medición |
 | Raíz de confianza | Componente del que se parte sin verificación adicional |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Extensión](../../../glosario/entradas/e/extension.md) · [Lo que no cubre](../../../glosario/entradas/l/lo-que-no-cubre.md) · [Medición](../../../glosario/entradas/m/medicion.md) · [Raíz de confianza](../../../glosario/entradas/r/raiz-de-confianza.md) · [Sellado](../../../glosario/entradas/s/sellado.md) · [TEE](../../../glosario/entradas/t/tee.md) · [Valor de referencia](../../../glosario/entradas/v/valor-de-referencia.md).
 
 ---
 

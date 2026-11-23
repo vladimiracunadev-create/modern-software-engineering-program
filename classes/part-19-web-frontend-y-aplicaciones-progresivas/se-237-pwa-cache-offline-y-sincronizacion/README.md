@@ -137,11 +137,11 @@ else: reintentos += 1
 
 ## Definiciones de trabajo
 
-- **service worker:** script que el navegador ejecuta aparte de la página y que intercepta las peticiones de un alcance para responder desde caché, red o lógica propia.
-- **estrategia de caché:** regla que decide, para cada petición, si se responde desde la caché, desde la red o desde ambas.
-- **huella de contenido:** identificador derivado del contenido de un recurso que cambia solo cuando el contenido cambia.
-- **clave de idempotencia:** identificador generado por el cliente para una operación, de modo que el servidor la aplique una sola vez aunque llegue varias.
-- **última escritura gana:** política de conflicto que conserva la edición con la marca de tiempo mayor y descarta las demás.
+- **[service worker](../../../glosario/entradas/s/service-worker.md):** script que el navegador ejecuta aparte de la página y que intercepta las peticiones de un alcance para responder desde caché, red o lógica propia.
+- **[estrategia de caché](../../../glosario/entradas/e/estrategia-de-cache.md):** regla que decide, para cada petición, si se responde desde la caché, desde la red o desde ambas.
+- **[huella de contenido](../../../glosario/entradas/h/huella-de-contenido.md):** identificador derivado del contenido de un recurso que cambia solo cuando el contenido cambia.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador generado por el cliente para una operación, de modo que el servidor la aplique una sola vez aunque llegue varias.
+- **[última escritura gana](../../../glosario/entradas/u/ultima-escritura-gana.md):** política de conflicto que conserva la edición con la marca de tiempo mayor y descarta las demás.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -286,11 +286,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **service worker:** script que el navegador ejecuta aparte de la página y que intercepta las peticiones de un alcance para responder desde caché, red o lógica propia.
-- **estrategia de caché:** regla que decide, para cada petición, si se responde desde la caché, desde la red o desde ambas.
-- **huella de contenido:** identificador derivado del contenido de un recurso que cambia solo cuando el contenido cambia.
-- **clave de idempotencia:** identificador generado por el cliente para una operación, de modo que el servidor la aplique una sola vez aunque llegue varias.
-- **última escritura gana:** política de conflicto que conserva la edición con la marca de tiempo mayor y descarta las demás.
+- **[service worker](../../../glosario/entradas/s/service-worker.md):** script que el navegador ejecuta aparte de la página y que intercepta las peticiones de un alcance para responder desde caché, red o lógica propia.
+- **[estrategia de caché](../../../glosario/entradas/e/estrategia-de-cache.md):** regla que decide, para cada petición, si se responde desde la caché, desde la red o desde ambas.
+- **[huella de contenido](../../../glosario/entradas/h/huella-de-contenido.md):** identificador derivado del contenido de un recurso que cambia solo cuando el contenido cambia.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador generado por el cliente para una operación, de modo que el servidor la aplique una sola vez aunque llegue varias.
+- **[última escritura gana](../../../glosario/entradas/u/ultima-escritura-gana.md):** política de conflicto que conserva la edición con la marca de tiempo mayor y descarta las demás.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Estrategia de caché](../../../glosario/entradas/e/estrategia-de-cache.md) · [Huella de contenido](../../../glosario/entradas/h/huella-de-contenido.md) · [Service worker](../../../glosario/entradas/s/service-worker.md) · [Última escritura gana](../../../glosario/entradas/u/ultima-escritura-gana.md).
 
 ---
 

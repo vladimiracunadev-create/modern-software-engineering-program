@@ -146,11 +146,11 @@ Con 3 000 simulaciones por escenario (semilla 156): con defectos de igual dificu
 
 ## Definiciones de trabajo
 
-- **contenido de una especificación:** conjunto de elementos que permite a una lectora decidir sin preguntar: problema, supuestos, alcance, requisitos con origen y criterio, dependencias y línea base.
-- **validador de estructura:** programa que comprueba propiedades mecánicas de la especificación y falla con un mensaje identificable.
-- **camino crítico:** cadena de requisitos dependientes de mayor duración acumulada, que fija el mínimo de tiempo con recursos ilimitados.
-- **revisión por pares:** lectura estructurada por personas con criterios distintos, que busca los defectos que una máquina no ve.
-- **decisión de entrega:** juicio explícito, con criterios de salida comprobables y defectos conocidos, sobre si se puede construir sobre la especificación.
+- **[contenido de una especificación](../../../glosario/entradas/c/contenido-de-una-especificacion.md):** conjunto de elementos que permite a una lectora decidir sin preguntar: problema, supuestos, alcance, requisitos con origen y criterio, dependencias y línea base.
+- **[validador de estructura](../../../glosario/entradas/v/validador-de-estructura.md):** programa que comprueba propiedades mecánicas de la especificación y falla con un mensaje identificable.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** cadena de requisitos dependientes de mayor duración acumulada, que fija el mínimo de tiempo con recursos ilimitados.
+- **[revisión por pares](../../../glosario/entradas/r/revision-por-pares.md):** lectura estructurada por personas con criterios distintos, que busca los defectos que una máquina no ve.
+- **[decisión de entrega](../../../glosario/entradas/d/decision-de-entrega.md):** juicio explícito, con criterios de salida comprobables y defectos conocidos, sobre si se puede construir sobre la especificación.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -308,11 +308,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **contenido de una especificación:** conjunto de elementos que permite a una lectora decidir sin preguntar: problema, supuestos, alcance, requisitos con origen y criterio, dependencias y línea base.
-- **validador de estructura:** programa que comprueba propiedades mecánicas de la especificación y falla con un mensaje identificable.
-- **camino crítico:** cadena de requisitos dependientes de mayor duración acumulada, que fija el mínimo de tiempo con recursos ilimitados.
-- **revisión por pares:** lectura estructurada por personas con criterios distintos, que busca los defectos que una máquina no ve.
-- **decisión de entrega:** juicio explícito, con criterios de salida comprobables y defectos conocidos, sobre si se puede construir sobre la especificación.
+- **[contenido de una especificación](../../../glosario/entradas/c/contenido-de-una-especificacion.md):** conjunto de elementos que permite a una lectora decidir sin preguntar: problema, supuestos, alcance, requisitos con origen y criterio, dependencias y línea base.
+- **[validador de estructura](../../../glosario/entradas/v/validador-de-estructura.md):** programa que comprueba propiedades mecánicas de la especificación y falla con un mensaje identificable.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** cadena de requisitos dependientes de mayor duración acumulada, que fija el mínimo de tiempo con recursos ilimitados.
+- **[revisión por pares](../../../glosario/entradas/r/revision-por-pares.md):** lectura estructurada por personas con criterios distintos, que busca los defectos que una máquina no ve.
+- **[decisión de entrega](../../../glosario/entradas/d/decision-de-entrega.md):** juicio explícito, con criterios de salida comprobables y defectos conocidos, sobre si se puede construir sobre la especificación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Camino crítico](../../../glosario/entradas/c/camino-critico.md) · [Contenido de una especificación](../../../glosario/entradas/c/contenido-de-una-especificacion.md) · [Decisión de entrega](../../../glosario/entradas/d/decision-de-entrega.md) · [Revisión por pares](../../../glosario/entradas/r/revision-por-pares.md) · [Validador de estructura](../../../glosario/entradas/v/validador-de-estructura.md).
 
 ---
 

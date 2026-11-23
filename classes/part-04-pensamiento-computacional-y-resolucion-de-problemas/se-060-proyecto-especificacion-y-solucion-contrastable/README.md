@@ -106,11 +106,11 @@ Una evaluación honesta separa tres afirmaciones. La selección converge a una h
 
 ## Definiciones de trabajo
 
-- **especificación:** descripción verificable de comportamiento y restricciones.
-- **oráculo:** mecanismo para determinar el resultado esperado.
-- **trazabilidad:** vínculo entre necesidad, regla, solución y evidencia.
-- **partición:** subdominio tratado de forma equivalente.
-- **solución contrastable:** propuesta cuya adecuación puede decidirse con criterios explícitos.
+- **[especificación](../../../glosario/entradas/e/especificacion.md):** descripción verificable de comportamiento y restricciones.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** mecanismo para determinar el resultado esperado.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** vínculo entre necesidad, regla, solución y evidencia.
+- **[partición](../../../glosario/entradas/p/particion.md):** subdominio tratado de forma equivalente.
+- **[solución contrastable](../../../glosario/entradas/s/solucion-contrastable.md):** propuesta cuya adecuación puede decidirse con criterios explícitos.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -257,11 +257,13 @@ La especificación reduce interpretaciones, pero no prueba que las necesidades s
 
 ## Glosario
 
-- **especificación:** descripción verificable de comportamiento y restricciones.
-- **oráculo:** mecanismo para determinar el resultado esperado.
-- **trazabilidad:** vínculo entre necesidad, regla, solución y evidencia.
-- **partición:** subdominio tratado de forma equivalente.
-- **solución contrastable:** propuesta cuya adecuación puede decidirse con criterios explícitos.
+- **[especificación](../../../glosario/entradas/e/especificacion.md):** descripción verificable de comportamiento y restricciones.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** mecanismo para determinar el resultado esperado.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** vínculo entre necesidad, regla, solución y evidencia.
+- **[partición](../../../glosario/entradas/p/particion.md):** subdominio tratado de forma equivalente.
+- **[solución contrastable](../../../glosario/entradas/s/solucion-contrastable.md):** propuesta cuya adecuación puede decidirse con criterios explícitos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dominio](../../../glosario/entradas/d/dominio.md) · [Especificación](../../../glosario/entradas/e/especificacion.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Oráculo](../../../glosario/entradas/o/oraculo.md) · [Partición](../../../glosario/entradas/p/particion.md) · [Regla](../../../glosario/entradas/r/regla.md) · [Solución contrastable](../../../glosario/entradas/s/solucion-contrastable.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md).
 
 ---
 

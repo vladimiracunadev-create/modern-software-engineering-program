@@ -176,11 +176,11 @@ El acumulado por nivel es: estructura 77 de 200, referencias 139, re-ejecución 
 
 ## Definiciones de trabajo
 
-- **rojo, verde, refactor:** demostración de una prueba: falla con el defecto, pasa sin él y pasa con una reescritura neutra.
-- **muerte por aserción:** mutante que una prueba detecta porque un valor comprobado no coincide.
-- **muerte por excepción:** mutante que una prueba detecta solo porque el código lanza una excepción inesperada.
-- **prueba frágil:** prueba que falla ante un cambio que no altera el comportamiento observable.
-- **paquete de evidencia:** archivo que asocia cada prueba con el defecto que detecta y el resultado de ejecutarla con y sin él.
+- **[rojo, verde, refactor](../../../glosario/entradas/r/rojo-verde-refactor.md):** demostración de una prueba: falla con el defecto, pasa sin él y pasa con una reescritura neutra.
+- **[muerte por aserción](../../../glosario/entradas/m/muerte-por-asercion.md):** mutante que una prueba detecta porque un valor comprobado no coincide.
+- **[muerte por excepción](../../../glosario/entradas/m/muerte-por-excepcion.md):** mutante que una prueba detecta solo porque el código lanza una excepción inesperada.
+- **[prueba frágil](../../../glosario/entradas/p/prueba-fragil.md):** prueba que falla ante un cambio que no altera el comportamiento observable.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** archivo que asocia cada prueba con el defecto que detecta y el resultado de ejecutarla con y sin él.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -325,11 +325,13 @@ Se ejecutaron tres experimentos sobre un módulo sintético con 18 mutantes, sei
 
 ## Glosario
 
-- **rojo, verde, refactor:** demostración de una prueba: falla con el defecto, pasa sin él y pasa con una reescritura neutra.
-- **muerte por aserción:** mutante que una prueba detecta porque un valor comprobado no coincide.
-- **muerte por excepción:** mutante que una prueba detecta solo porque el código lanza una excepción inesperada.
-- **prueba frágil:** prueba que falla ante un cambio que no altera el comportamiento observable.
-- **paquete de evidencia:** archivo que asocia cada prueba con el defecto que detecta y el resultado de ejecutarla con y sin él.
+- **[rojo, verde, refactor](../../../glosario/entradas/r/rojo-verde-refactor.md):** demostración de una prueba: falla con el defecto, pasa sin él y pasa con una reescritura neutra.
+- **[muerte por aserción](../../../glosario/entradas/m/muerte-por-asercion.md):** mutante que una prueba detecta porque un valor comprobado no coincide.
+- **[muerte por excepción](../../../glosario/entradas/m/muerte-por-excepcion.md):** mutante que una prueba detecta solo porque el código lanza una excepción inesperada.
+- **[prueba frágil](../../../glosario/entradas/p/prueba-fragil.md):** prueba que falla ante un cambio que no altera el comportamiento observable.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** archivo que asocia cada prueba con el defecto que detecta y el resultado de ejecutarla con y sin él.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Muerte por aserción](../../../glosario/entradas/m/muerte-por-asercion.md) · [Muerte por excepción](../../../glosario/entradas/m/muerte-por-excepcion.md) · [Paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md) · [Prueba frágil](../../../glosario/entradas/p/prueba-fragil.md) · [Rojo, verde, refactor](../../../glosario/entradas/r/rojo-verde-refactor.md).
 
 ---
 

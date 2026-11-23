@@ -159,11 +159,11 @@ for ent in abiertas[w]:
 
 ## Definiciones de trabajo
 
-- **decisión oculta:** decisión de diseño que un módulo encapsula de modo que su interfaz no la revele.
-- **inyección de dependencias:** práctica de pasar a un componente sus colaboradores (reloj, aleatoriedad, red) en vez de que los obtenga.
-- **identificador de correlación:** valor único de una solicitud que se registra en cada evento que la toca.
-- **observabilidad:** capacidad de inferir el estado interno de un sistema a partir de lo que emite.
-- **determinismo de una prueba:** propiedad de dar el mismo resultado con las mismas entradas, sin importar cuándo o dónde se ejecute.
+- **[decisión oculta](../../../glosario/entradas/d/decision-oculta.md):** decisión de diseño que un módulo encapsula de modo que su interfaz no la revele.
+- **[inyección de dependencias](../../../glosario/entradas/i/inyeccion-de-dependencias.md):** práctica de pasar a un componente sus colaboradores (reloj, aleatoriedad, red) en vez de que los obtenga.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor único de una solicitud que se registra en cada evento que la toca.
+- **[observabilidad](../../../glosario/entradas/o/observabilidad.md):** capacidad de inferir el estado interno de un sistema a partir de lo que emite.
+- **[determinismo de una prueba](../../../glosario/entradas/d/determinismo-de-una-prueba.md):** propiedad de dar el mismo resultado con las mismas entradas, sin importar cuándo o dónde se ejecute.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres análisis y modelos con datos sintéticos en Windows y Ubuntu
 
 ## Glosario
 
-- **decisión oculta:** decisión de diseño que un módulo encapsula de modo que su interfaz no la revele.
-- **inyección de dependencias:** práctica de pasar a un componente sus colaboradores (reloj, aleatoriedad, red) en vez de que los obtenga.
-- **identificador de correlación:** valor único de una solicitud que se registra en cada evento que la toca.
-- **observabilidad:** capacidad de inferir el estado interno de un sistema a partir de lo que emite.
-- **determinismo de una prueba:** propiedad de dar el mismo resultado con las mismas entradas, sin importar cuándo o dónde se ejecute.
+- **[decisión oculta](../../../glosario/entradas/d/decision-oculta.md):** decisión de diseño que un módulo encapsula de modo que su interfaz no la revele.
+- **[inyección de dependencias](../../../glosario/entradas/i/inyeccion-de-dependencias.md):** práctica de pasar a un componente sus colaboradores (reloj, aleatoriedad, red) en vez de que los obtenga.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor único de una solicitud que se registra en cada evento que la toca.
+- **[observabilidad](../../../glosario/entradas/o/observabilidad.md):** capacidad de inferir el estado interno de un sistema a partir de lo que emite.
+- **[determinismo de una prueba](../../../glosario/entradas/d/determinismo-de-una-prueba.md):** propiedad de dar el mismo resultado con las mismas entradas, sin importar cuándo o dónde se ejecute.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Decisión oculta](../../../glosario/entradas/d/decision-oculta.md) · [Determinismo de una prueba](../../../glosario/entradas/d/determinismo-de-una-prueba.md) · [Identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md) · [Inyección de dependencias](../../../glosario/entradas/i/inyeccion-de-dependencias.md) · [Observabilidad](../../../glosario/entradas/o/observabilidad.md).
 
 ---
 

@@ -208,11 +208,11 @@ La **microsegmentación** es la versión de red de lo mismo: en lugar de segment
 
 ## Definiciones de trabajo
 
-- **segmentación:** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
-- **política de permisos:** conjunto de reglas que concede o deniega acciones sobre recursos a una identidad.
-- **menor privilegio:** principio de conceder a cada identidad solo los permisos necesarios para su tarea.
-- **escalada de privilegios:** obtención de más permisos de los concedidos, por ejemplo modificando las propias políticas.
-- **entropía de Shannon:** medida, en bits por carácter, de la imprevisibilidad de una cadena según la frecuencia de sus caracteres.
+- **[segmentación](../../../glosario/entradas/s/segmentacion.md):** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
+- **[política de permisos](../../../glosario/entradas/p/politica-de-permisos.md):** conjunto de reglas que concede o deniega acciones sobre recursos a una identidad.
+- **[menor privilegio](../../../glosario/entradas/m/menor-privilegio.md):** principio de conceder a cada identidad solo los permisos necesarios para su tarea.
+- **[escalada de privilegios](../../../glosario/entradas/e/escalada-de-privilegios.md):** obtención de más permisos de los concedidos, por ejemplo modificando las propias políticas.
+- **[entropía de Shannon](../../../glosario/entradas/e/entropia-de-shannon.md):** medida, en bits por carácter, de la imprevisibilidad de una cadena según la frecuencia de sus caracteres.
 
 Las definiciones son operativas para la plataforma de entregas. Cada proveedor usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
@@ -362,11 +362,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **segmentación:** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
-- **política de permisos:** conjunto de reglas que concede o deniega acciones sobre recursos a una identidad.
-- **menor privilegio:** principio de conceder a cada identidad solo los permisos necesarios para su tarea.
-- **escalada de privilegios:** obtención de más permisos de los concedidos, por ejemplo modificando las propias políticas.
-- **entropía de Shannon:** medida, en bits por carácter, de la imprevisibilidad de una cadena según la frecuencia de sus caracteres.
+- **[segmentación](../../../glosario/entradas/s/segmentacion.md):** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
+- **[política de permisos](../../../glosario/entradas/p/politica-de-permisos.md):** conjunto de reglas que concede o deniega acciones sobre recursos a una identidad.
+- **[menor privilegio](../../../glosario/entradas/m/menor-privilegio.md):** principio de conceder a cada identidad solo los permisos necesarios para su tarea.
+- **[escalada de privilegios](../../../glosario/entradas/e/escalada-de-privilegios.md):** obtención de más permisos de los concedidos, por ejemplo modificando las propias políticas.
+- **[entropía de Shannon](../../../glosario/entradas/e/entropia-de-shannon.md):** medida, en bits por carácter, de la imprevisibilidad de una cadena según la frecuencia de sus caracteres.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Confianza cero](../../../glosario/entradas/c/confianza-cero.md) · [Entropía de Shannon](../../../glosario/entradas/e/entropia-de-shannon.md) · [Escalada de privilegios](../../../glosario/entradas/e/escalada-de-privilegios.md) · [Menor privilegio](../../../glosario/entradas/m/menor-privilegio.md) · [Política de permisos](../../../glosario/entradas/p/politica-de-permisos.md) · [Rotación](../../../glosario/entradas/r/rotacion.md) · [Secreto](../../../glosario/entradas/s/secreto.md) · [Segmentación](../../../glosario/entradas/s/segmentacion.md).
 
 ---
 

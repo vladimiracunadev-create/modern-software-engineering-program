@@ -131,14 +131,14 @@ La tercera figura cruza cinco escenarios con los mecanismos que los contienen.
 
 ## Definiciones de trabajo
 
-- **Módulo:** unidad compilada de WebAssembly (binario `.wasm` o texto `.wat`).
-- **Instancia:** módulo con su memoria y sus importaciones ya enlazadas.
-- **Memoria lineal:** arreglo de bytes de la instancia, en páginas de 64 KiB.
-- **Trampa:** terminación controlada de la llamada por una condición ilegal (acceso fuera de rango, combustible agotado).
-- **Importación:** función, memoria o tabla que el módulo pide al anfitrión por módulo y nombre.
-- **Combustible:** contador de trabajo que el runtime descuenta por instrucción para poder detener una ejecución.
-- **Capacidad:** referencia no falsificable a un recurso (por ejemplo, un descriptor de directorio) que permite operar sobre él.
-- **WASI:** interfaz de sistema estandarizada para módulos, basada en capacidades.
+- **[Módulo](../../../glosario/entradas/m/modulo.md):** unidad compilada de WebAssembly (binario `.wasm` o texto `.wat`).
+- **[Instancia](../../../glosario/entradas/i/instancia.md):** módulo con su memoria y sus importaciones ya enlazadas.
+- **[Memoria lineal](../../../glosario/entradas/m/memoria-lineal.md):** arreglo de bytes de la instancia, en páginas de 64 KiB.
+- **[Trampa](../../../glosario/entradas/t/trampa.md):** terminación controlada de la llamada por una condición ilegal (acceso fuera de rango, combustible agotado).
+- **[Importación](../../../glosario/entradas/i/importacion.md):** función, memoria o tabla que el módulo pide al anfitrión por módulo y nombre.
+- **[Combustible](../../../glosario/entradas/c/combustible.md):** contador de trabajo que el runtime descuenta por instrucción para poder detener una ejecución.
+- **[Capacidad](../../../glosario/entradas/c/capacidad.md):** referencia no falsificable a un recurso (por ejemplo, un descriptor de directorio) que permite operar sobre él.
+- **[WASI](../../../glosario/entradas/w/wasi.md):** interfaz de sistema estandarizada para módulos, basada en capacidades.
 
 ## Ejemplo mínimo
 
@@ -275,6 +275,8 @@ Se ejecutó un módulo escrito a mano de 236 bytes con `wasmtime` 50.0.1 en una 
 | Combustible | Contador de trabajo para detener ejecuciones |
 | Capacidad | Referencia a un recurso que permite operar sobre él |
 | WASI | Interfaz de sistema para módulos basada en capacidades |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capacidad](../../../glosario/entradas/c/capacidad.md) · [Combustible](../../../glosario/entradas/c/combustible.md) · [Importación](../../../glosario/entradas/i/importacion.md) · [Instancia](../../../glosario/entradas/i/instancia.md) · [Memoria lineal](../../../glosario/entradas/m/memoria-lineal.md) · [Módulo](../../../glosario/entradas/m/modulo.md) · [Rendimiento](../../../glosario/entradas/r/rendimiento.md) · [Trampa](../../../glosario/entradas/t/trampa.md) · [WASI](../../../glosario/entradas/w/wasi.md).
 
 ---
 

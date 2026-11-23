@@ -139,11 +139,11 @@ Resultado: no hay trabajos huérfanos (todos están cubiertos por alguna alterna
 
 ## Definiciones de trabajo
 
-- **segmentación por necesidad:** grupo de personas que comparten un trabajo, un contexto y resultados insatisfechos, y que justifican una decisión de producto distinta de la del resto.
-- **estabilidad de segmentos:** grado en que un agrupamiento se reproduce al repetirlo con otra semilla o con otra submuestra de los mismos datos.
-- **tamaño del mercado:** estimación de cuántas personas o cuánto dinero hay detrás de un segmento, con el método y los rangos usados a la vista.
-- **alternativas existentes:** todo lo que una persona usa o hace hoy para cumplir el trabajo, con o sin producto especializado, incluido no actuar.
-- **segmento inicial:** grupo concreto al que se dirige primero la propuesta, elegido por necesidad insatisfecha, alcance y facilidad para aprender de él.
+- **[segmentación por necesidad](../../../glosario/entradas/s/segmentacion-por-necesidad.md):** grupo de personas que comparten un trabajo, un contexto y resultados insatisfechos, y que justifican una decisión de producto distinta de la del resto.
+- **[estabilidad de segmentos](../../../glosario/entradas/e/estabilidad-de-segmentos.md):** grado en que un agrupamiento se reproduce al repetirlo con otra semilla o con otra submuestra de los mismos datos.
+- **[tamaño del mercado](../../../glosario/entradas/t/tamano-del-mercado.md):** estimación de cuántas personas o cuánto dinero hay detrás de un segmento, con el método y los rangos usados a la vista.
+- **[alternativas existentes](../../../glosario/entradas/a/alternativas-existentes.md):** todo lo que una persona usa o hace hoy para cumplir el trabajo, con o sin producto especializado, incluido no actuar.
+- **[segmento inicial](../../../glosario/entradas/s/segmento-inicial.md):** grupo concreto al que se dirige primero la propuesta, elegido por necesidad insatisfecha, alcance y facilidad para aprender de él.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **segmentación por necesidad:** grupo de personas que comparten un trabajo, un contexto y resultados insatisfechos, y que justifican una decisión de producto distinta de la del resto.
-- **estabilidad de segmentos:** grado en que un agrupamiento se reproduce al repetirlo con otra semilla o con otra submuestra de los mismos datos.
-- **tamaño del mercado:** estimación de cuántas personas o cuánto dinero hay detrás de un segmento, con el método y los rangos usados a la vista.
-- **alternativas existentes:** todo lo que una persona usa o hace hoy para cumplir el trabajo, con o sin producto especializado, incluido no actuar.
-- **segmento inicial:** grupo concreto al que se dirige primero la propuesta, elegido por necesidad insatisfecha, alcance y facilidad para aprender de él.
+- **[segmentación por necesidad](../../../glosario/entradas/s/segmentacion-por-necesidad.md):** grupo de personas que comparten un trabajo, un contexto y resultados insatisfechos, y que justifican una decisión de producto distinta de la del resto.
+- **[estabilidad de segmentos](../../../glosario/entradas/e/estabilidad-de-segmentos.md):** grado en que un agrupamiento se reproduce al repetirlo con otra semilla o con otra submuestra de los mismos datos.
+- **[tamaño del mercado](../../../glosario/entradas/t/tamano-del-mercado.md):** estimación de cuántas personas o cuánto dinero hay detrás de un segmento, con el método y los rangos usados a la vista.
+- **[alternativas existentes](../../../glosario/entradas/a/alternativas-existentes.md):** todo lo que una persona usa o hace hoy para cumplir el trabajo, con o sin producto especializado, incluido no actuar.
+- **[segmento inicial](../../../glosario/entradas/s/segmento-inicial.md):** grupo concreto al que se dirige primero la propuesta, elegido por necesidad insatisfecha, alcance y facilidad para aprender de él.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alternativas existentes](../../../glosario/entradas/a/alternativas-existentes.md) · [Estabilidad de segmentos](../../../glosario/entradas/e/estabilidad-de-segmentos.md) · [Segmentación por necesidad](../../../glosario/entradas/s/segmentacion-por-necesidad.md) · [Segmento inicial](../../../glosario/entradas/s/segmento-inicial.md) · [Tamaño del mercado](../../../glosario/entradas/t/tamano-del-mercado.md).
 
 ---
 

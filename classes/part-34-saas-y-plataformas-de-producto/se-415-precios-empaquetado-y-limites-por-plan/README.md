@@ -139,13 +139,13 @@ Un precio solo se evalúa frente a lo que cuesta servir. La economía unitaria c
 
 ## Definiciones de trabajo
 
-- **Métrica de valor:** unidad con la que se cobra, que escala con lo que obtiene el cliente.
-- **Empaquetado:** agrupación de funciones y límites en planes para segmentos distintos.
-- **Disposición a pagar:** máximo que un cliente aceptaría pagar por algo.
-- **Meseta:** zona de la curva de ingreso donde cambiar el precio apenas cambia el ingreso.
-- **Valla (fence):** límite o función que separa un segmento de otro.
-- **Grandfathering:** conservar condiciones anteriores a clientes existentes.
-- **Excedente del cliente:** valor que obtiene menos lo que paga.
+- **[Métrica de valor](../../../glosario/entradas/m/metrica-de-valor.md):** unidad con la que se cobra, que escala con lo que obtiene el cliente.
+- **[Empaquetado](../../../glosario/entradas/e/empaquetado.md):** agrupación de funciones y límites en planes para segmentos distintos.
+- **[Disposición a pagar](../../../glosario/entradas/d/disposicion-a-pagar.md):** máximo que un cliente aceptaría pagar por algo.
+- **[Meseta](../../../glosario/entradas/m/meseta.md):** zona de la curva de ingreso donde cambiar el precio apenas cambia el ingreso.
+- **[Valla (fence)](../../../glosario/entradas/v/valla.md):** límite o función que separa un segmento de otro.
+- **[Grandfathering](../../../glosario/entradas/g/grandfathering.md):** conservar condiciones anteriores a clientes existentes.
+- **[Excedente del cliente](../../../glosario/entradas/e/excedente-del-cliente.md):** valor que obtiene menos lo que paga.
 
 ## Ejemplo mínimo
 
@@ -284,6 +284,8 @@ Se simularon 1 000 clientes con semilla 34 y se compararon tres diseños de prec
 | Valla | Límite o función que separa segmentos |
 | Grandfathering | Conservar condiciones antiguas a clientes existentes |
 | Excedente | Valor obtenido menos lo pagado |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Disposición a pagar](../../../glosario/entradas/d/disposicion-a-pagar.md) · [Empaquetado](../../../glosario/entradas/e/empaquetado.md) · [Excedente del cliente](../../../glosario/entradas/e/excedente-del-cliente.md) · [Grandfathering](../../../glosario/entradas/g/grandfathering.md) · [Meseta](../../../glosario/entradas/m/meseta.md) · [Métrica de valor](../../../glosario/entradas/m/metrica-de-valor.md) · [Valla](../../../glosario/entradas/v/valla.md).
 
 ---
 

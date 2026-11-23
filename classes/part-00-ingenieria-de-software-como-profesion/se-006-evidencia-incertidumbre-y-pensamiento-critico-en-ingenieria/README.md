@@ -166,15 +166,17 @@ causa verdadera, y una sola prueba no las aísla.
 
 ## Definiciones de trabajo
 
-- **hecho observado:** registro producido por un método declarado;
-- **inferencia:** conclusión derivada de observaciones y supuestos;
-- **hipótesis:** explicación contrastable;
-- **confusor:** variable que altera relación aparente;
-- **reproducibilidad:** posibilidad de repetir método con información suficiente.
+- **[hecho observado](../../../glosario/entradas/h/hecho-observado.md):** registro producido por un método declarado;
+- **[inferencia](../../../glosario/entradas/i/inferencia.md):** conclusión derivada de observaciones y supuestos;
+- **[hipótesis](../../../glosario/entradas/h/hipotesis.md):** explicación contrastable;
+- **[confusor](../../../glosario/entradas/c/confusor.md):** variable que altera relación aparente;
+- **[reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md):** posibilidad de repetir método con información suficiente.
 
 ## Glosario
 
-**Base rate** es frecuencia previa relevante. **Proxy** es medida indirecta. **Intervalo** expresa rango compatible con método y datos, no promesa absoluta.
+**[Base rate](../../../glosario/entradas/b/base-rate.md)** es frecuencia previa relevante. **[Proxy](../../../glosario/entradas/p/proxy.md)** es medida indirecta. **[Intervalo](../../../glosario/entradas/i/intervalo.md)** expresa rango compatible con método y datos, no promesa absoluta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Base rate](../../../glosario/entradas/b/base-rate.md) · [Confusor](../../../glosario/entradas/c/confusor.md) · [Hecho observado](../../../glosario/entradas/h/hecho-observado.md) · [Hipótesis](../../../glosario/entradas/h/hipotesis.md) · [Incertidumbre](../../../glosario/entradas/i/incertidumbre.md) · [Inferencia](../../../glosario/entradas/i/inferencia.md) · [Intervalo](../../../glosario/entradas/i/intervalo.md) · [Observación](../../../glosario/entradas/o/observacion.md) · [Proxy](../../../glosario/entradas/p/proxy.md) · [Reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md).
 
 ## Ejemplo mínimo
 

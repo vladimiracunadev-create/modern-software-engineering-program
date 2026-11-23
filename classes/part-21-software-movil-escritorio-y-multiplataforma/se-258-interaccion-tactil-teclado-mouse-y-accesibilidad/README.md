@@ -144,11 +144,11 @@ Resultado: el texto oscuro (20, 34, 49) sobre blanco da **16,12 a 1**; el aviso 
 
 ## Definiciones de trabajo
 
-- **objetivo táctil:** área que activa una acción cuando se toca o se hace clic; su tamaño y separación determinan la probabilidad de acierto.
-- **orden de foco:** secuencia en que el teclado y las tecnologías de apoyo recorren los controles; debe conservar significado y no retener ni omitir controles.
-- **árbol de accesibilidad:** representación que la plataforma ofrece a las tecnologías de apoyo con nombre, rol y estado de cada elemento.
-- **relación de contraste:** cociente calculado con la luminancia relativa de dos colores que WCAG usa para fijar mínimos de legibilidad.
-- **trampa de foco:** control que retiene el foco del teclado sin permitir salir con las teclas habituales.
+- **[objetivo táctil](../../../glosario/entradas/o/objetivo-tactil.md):** área que activa una acción cuando se toca o se hace clic; su tamaño y separación determinan la probabilidad de acierto.
+- **[orden de foco](../../../glosario/entradas/o/orden-de-foco.md):** secuencia en que el teclado y las tecnologías de apoyo recorren los controles; debe conservar significado y no retener ni omitir controles.
+- **[árbol de accesibilidad](../../../glosario/entradas/a/arbol-de-accesibilidad.md):** representación que la plataforma ofrece a las tecnologías de apoyo con nombre, rol y estado de cada elemento.
+- **[relación de contraste](../../../glosario/entradas/r/relacion-de-contraste.md):** cociente calculado con la luminancia relativa de dos colores que WCAG usa para fijar mínimos de legibilidad.
+- **[trampa de foco](../../../glosario/entradas/t/trampa-de-foco.md):** control que retiene el foco del teclado sin permitir salir con las teclas habituales.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **objetivo táctil:** área que activa una acción cuando se toca o se hace clic; su tamaño y separación determinan la probabilidad de acierto.
-- **orden de foco:** secuencia en que el teclado y las tecnologías de apoyo recorren los controles; debe conservar significado y no retener ni omitir controles.
-- **árbol de accesibilidad:** representación que la plataforma ofrece a las tecnologías de apoyo con nombre, rol y estado de cada elemento.
-- **relación de contraste:** cociente calculado con la luminancia relativa de dos colores que WCAG usa para fijar mínimos de legibilidad.
-- **trampa de foco:** control que retiene el foco del teclado sin permitir salir con las teclas habituales.
+- **[objetivo táctil](../../../glosario/entradas/o/objetivo-tactil.md):** área que activa una acción cuando se toca o se hace clic; su tamaño y separación determinan la probabilidad de acierto.
+- **[orden de foco](../../../glosario/entradas/o/orden-de-foco.md):** secuencia en que el teclado y las tecnologías de apoyo recorren los controles; debe conservar significado y no retener ni omitir controles.
+- **[árbol de accesibilidad](../../../glosario/entradas/a/arbol-de-accesibilidad.md):** representación que la plataforma ofrece a las tecnologías de apoyo con nombre, rol y estado de cada elemento.
+- **[relación de contraste](../../../glosario/entradas/r/relacion-de-contraste.md):** cociente calculado con la luminancia relativa de dos colores que WCAG usa para fijar mínimos de legibilidad.
+- **[trampa de foco](../../../glosario/entradas/t/trampa-de-foco.md):** control que retiene el foco del teclado sin permitir salir con las teclas habituales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol de accesibilidad](../../../glosario/entradas/a/arbol-de-accesibilidad.md) · [Objetivo táctil](../../../glosario/entradas/o/objetivo-tactil.md) · [Orden de foco](../../../glosario/entradas/o/orden-de-foco.md) · [Relación de contraste](../../../glosario/entradas/r/relacion-de-contraste.md) · [Trampa de foco](../../../glosario/entradas/t/trampa-de-foco.md).
 
 ---
 

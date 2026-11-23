@@ -110,11 +110,11 @@ La primera es el **orden**: dos reglas que modifican la misma prioridad, `+2` y 
 
 ## Definiciones de trabajo
 
-- **estado como memoria de la ejecución:** una variable mutable conserva información entre instrucciones.
-- **comandos, expresiones y secuencia:** un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles.
-- **asignación, aliasing y mutación:** dos nombres pueden referirse al mismo objeto mutable.
-- **invariantes alrededor de transiciones:** la disciplina no consiste en prohibir mutación, sino en acotarla.
-- **estado local, compartido y persistente:** el estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso.
+- **[estado como memoria de la ejecución](../../../glosario/entradas/e/estado-como-memoria-de-la-ejecucion.md):** una variable mutable conserva información entre instrucciones.
+- **[comandos, expresiones y secuencia](../../../glosario/entradas/c/comandos-expresiones-y-secuencia.md):** un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles.
+- **[asignación, aliasing y mutación](../../../glosario/entradas/a/asignacion-aliasing-y-mutacion.md):** dos nombres pueden referirse al mismo objeto mutable.
+- **[invariantes alrededor de transiciones](../../../glosario/entradas/i/invariantes-alrededor-de-transiciones.md):** la disciplina no consiste en prohibir mutación, sino en acotarla.
+- **[estado local, compartido y persistente](../../../glosario/entradas/e/estado-local-compartido-y-persistente.md):** el estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ La ejecución secuencial no explica por sí sola concurrencia, persistencia ni c
 
 ## Glosario
 
-- **estado como memoria de la ejecución:** una variable mutable conserva información entre instrucciones.
-- **comandos, expresiones y secuencia:** un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles.
-- **asignación, aliasing y mutación:** dos nombres pueden referirse al mismo objeto mutable.
-- **invariantes alrededor de transiciones:** la disciplina no consiste en prohibir mutación, sino en acotarla.
-- **estado local, compartido y persistente:** el estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso.
+- **[estado como memoria de la ejecución](../../../glosario/entradas/e/estado-como-memoria-de-la-ejecucion.md):** una variable mutable conserva información entre instrucciones.
+- **[comandos, expresiones y secuencia](../../../glosario/entradas/c/comandos-expresiones-y-secuencia.md):** un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles.
+- **[asignación, aliasing y mutación](../../../glosario/entradas/a/asignacion-aliasing-y-mutacion.md):** dos nombres pueden referirse al mismo objeto mutable.
+- **[invariantes alrededor de transiciones](../../../glosario/entradas/i/invariantes-alrededor-de-transiciones.md):** la disciplina no consiste en prohibir mutación, sino en acotarla.
+- **[estado local, compartido y persistente](../../../glosario/entradas/e/estado-local-compartido-y-persistente.md):** el estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asignación, aliasing y mutación](../../../glosario/entradas/a/asignacion-aliasing-y-mutacion.md) · [Comandos, expresiones y secuencia](../../../glosario/entradas/c/comandos-expresiones-y-secuencia.md) · [Estado como memoria de la ejecución](../../../glosario/entradas/e/estado-como-memoria-de-la-ejecucion.md) · [Estado local, compartido y persistente](../../../glosario/entradas/e/estado-local-compartido-y-persistente.md) · [Invariantes alrededor de transiciones](../../../glosario/entradas/i/invariantes-alrededor-de-transiciones.md).
 
 ---
 

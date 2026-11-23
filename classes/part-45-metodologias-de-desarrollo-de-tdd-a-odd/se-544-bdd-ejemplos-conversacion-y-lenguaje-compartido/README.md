@@ -136,12 +136,12 @@ Un resultado contraintuitivo merece una nota: tres escenarios pueden perder su �
 
 ## Definiciones de trabajo
 
-- **Escenario:** ejemplo concreto con contexto, acción y resultado observable.
-- **Descubrimiento, formulación, automatización:** las tres prácticas de BDD según la documentación de Cucumber.
-- **Definición de paso:** enlace entre una frase de un escenario y el código que la ejecuta.
-- **Documentación viva:** escenarios ejecutables que fallan si el sistema deja de cumplirlos.
-- **Escenario decorativo:** escenario cuyo «Entonces» no afirma nada comprobable.
-- **Contribución única:** mutantes que solo mata un escenario.
+- **[Escenario](../../../glosario/entradas/e/escenario.md):** ejemplo concreto con contexto, acción y resultado observable.
+- **[Descubrimiento, formulación, automatización](../../../glosario/entradas/d/descubrimiento-formulacion-automatizacion.md):** las tres prácticas de BDD según la documentación de Cucumber.
+- **[Definición de paso](../../../glosario/entradas/d/definicion-de-paso.md):** enlace entre una frase de un escenario y el código que la ejecuta.
+- **[Documentación viva](../../../glosario/entradas/d/documentacion-viva.md):** escenarios ejecutables que fallan si el sistema deja de cumplirlos.
+- **[Escenario decorativo](../../../glosario/entradas/e/escenario-decorativo.md):** escenario cuyo «Entonces» no afirma nada comprobable.
+- **[Contribución única](../../../glosario/entradas/c/contribucion-unica.md):** mutantes que solo mata un escenario.
 
 ## Ejemplo mínimo
 
@@ -271,6 +271,8 @@ El ejecutor es un intérprete mínimo y los escenarios y mutantes son del autor;
 | Documentación viva | Escenarios ejecutables que fallan si el sistema deja de cumplirlos |
 | Escenario decorativo | Escenario sin resultado observable |
 | Contribución única | Mutantes que solo mata un escenario |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contribución única](../../../glosario/entradas/c/contribucion-unica.md) · [Definición de paso](../../../glosario/entradas/d/definicion-de-paso.md) · [Descubrimiento, formulación, automatización](../../../glosario/entradas/d/descubrimiento-formulacion-automatizacion.md) · [Documentación viva](../../../glosario/entradas/d/documentacion-viva.md) · [Escenario](../../../glosario/entradas/e/escenario.md) · [Escenario decorativo](../../../glosario/entradas/e/escenario-decorativo.md).
 
 ---
 

@@ -112,11 +112,11 @@ Se creó una rama de versión en un corte y el tronco avanzó 10, 20, 40 y 80 co
 
 ## Definiciones de trabajo
 
-- **trunk-based development:** práctica de integrar en un tronco único con ramas de muy corta duración.
-- **GitFlow:** modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
-- **conflicto semántico:** incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
-- **cola de fusión:** mecanismo que prueba cada cambio sobre el estado actual del tronco antes de integrarlo.
-- **backport:** aplicación de una corrección hecha en el tronco a una versión publicada.
+- **[trunk-based development](../../../glosario/entradas/t/trunk-based-development.md):** práctica de integrar en un tronco único con ramas de muy corta duración.
+- **[GitFlow](../../../glosario/entradas/g/gitflow.md):** modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
+- **[conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md):** incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
+- **[cola de fusión](../../../glosario/entradas/c/cola-de-fusion.md):** mecanismo que prueba cada cambio sobre el estado actual del tronco antes de integrarlo.
+- **[backport](../../../glosario/entradas/b/backport.md):** aplicación de una corrección hecha en el tronco a una versión publicada.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **trunk-based development:** práctica de integrar en un tronco único con ramas de muy corta duración.
-- **GitFlow:** modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
-- **conflicto semántico:** incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
-- **cola de fusión:** mecanismo que prueba cada cambio sobre el estado actual del tronco antes de integrarlo.
-- **backport:** aplicación de una corrección hecha en el tronco a una versión publicada.
+- **[trunk-based development](../../../glosario/entradas/t/trunk-based-development.md):** práctica de integrar en un tronco único con ramas de muy corta duración.
+- **[GitFlow](../../../glosario/entradas/g/gitflow.md):** modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
+- **[conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md):** incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
+- **[cola de fusión](../../../glosario/entradas/c/cola-de-fusion.md):** mecanismo que prueba cada cambio sobre el estado actual del tronco antes de integrarlo.
+- **[backport](../../../glosario/entradas/b/backport.md):** aplicación de una corrección hecha en el tronco a una versión publicada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backport](../../../glosario/entradas/b/backport.md) · [Cola de fusión](../../../glosario/entradas/c/cola-de-fusion.md) · [Conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md) · [GitFlow](../../../glosario/entradas/g/gitflow.md) · [Trunk-based development](../../../glosario/entradas/t/trunk-based-development.md).
 
 ---
 

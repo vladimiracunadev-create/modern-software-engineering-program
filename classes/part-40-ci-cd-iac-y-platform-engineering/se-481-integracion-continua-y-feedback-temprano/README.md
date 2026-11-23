@@ -154,11 +154,11 @@ Doce cambios al día entran por un proceso de Poisson y cada uno vive 0,25, 1 o 
 
 ## Definiciones de trabajo
 
-- **integración continua:** práctica de integrar el trabajo de todas las personas en una línea común con frecuencia y verificar automáticamente cada integración.
-- **troncal:** línea de desarrollo de la que parte y a la que vuelve el trabajo de todo el equipo.
-- **conflicto semántico:** combinación de dos cambios que no choca en el texto y rompe una suposición compartida.
-- **cola de integración:** mecanismo que verifica cada cambio combinado con los que lo preceden antes de integrarlo.
-- **bisección:** búsqueda binaria del primer cambio defectuoso dividiendo repetidamente un conjunto de cambios.
+- **[integración continua](../../../glosario/entradas/i/integracion-continua.md):** práctica de integrar el trabajo de todas las personas en una línea común con frecuencia y verificar automáticamente cada integración.
+- **[troncal](../../../glosario/entradas/t/troncal.md):** línea de desarrollo de la que parte y a la que vuelve el trabajo de todo el equipo.
+- **[conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md):** combinación de dos cambios que no choca en el texto y rompe una suposición compartida.
+- **[cola de integración](../../../glosario/entradas/c/cola-de-integracion.md):** mecanismo que verifica cada cambio combinado con los que lo preceden antes de integrarlo.
+- **[bisección](../../../glosario/entradas/b/biseccion.md):** búsqueda binaria del primer cambio defectuoso dividiendo repetidamente un conjunto de cambios.
 
 Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **integración continua:** práctica de integrar el trabajo de todas las personas en una línea común con frecuencia y verificar automáticamente cada integración.
-- **troncal:** línea de desarrollo de la que parte y a la que vuelve el trabajo de todo el equipo.
-- **conflicto semántico:** combinación de dos cambios que no choca en el texto y rompe una suposición compartida.
-- **cola de integración:** mecanismo que verifica cada cambio combinado con los que lo preceden antes de integrarlo.
-- **bisección:** búsqueda binaria del primer cambio defectuoso dividiendo repetidamente un conjunto de cambios.
+- **[integración continua](../../../glosario/entradas/i/integracion-continua.md):** práctica de integrar el trabajo de todas las personas en una línea común con frecuencia y verificar automáticamente cada integración.
+- **[troncal](../../../glosario/entradas/t/troncal.md):** línea de desarrollo de la que parte y a la que vuelve el trabajo de todo el equipo.
+- **[conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md):** combinación de dos cambios que no choca en el texto y rompe una suposición compartida.
+- **[cola de integración](../../../glosario/entradas/c/cola-de-integracion.md):** mecanismo que verifica cada cambio combinado con los que lo preceden antes de integrarlo.
+- **[bisección](../../../glosario/entradas/b/biseccion.md):** búsqueda binaria del primer cambio defectuoso dividiendo repetidamente un conjunto de cambios.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bisección](../../../glosario/entradas/b/biseccion.md) · [Cola de integración](../../../glosario/entradas/c/cola-de-integracion.md) · [Conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md) · [Integración continua](../../../glosario/entradas/i/integracion-continua.md) · [Troncal](../../../glosario/entradas/t/troncal.md).
 
 ---
 

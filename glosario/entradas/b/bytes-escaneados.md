@@ -1,0 +1,57 @@
+# Bytes escaneados
+
+[↑ Glosario](../../README.md) · [← Bytecode](./bytecode.md) · [Cabeza de la cadena →](../c/cabeza-de-la-cadena.md)
+
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md)
+
+## Definición
+
+Datos que lee una consulta para responder.
+
+Definición de trabajo de [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md).
+
+## Por qué importa
+
+En [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md), el tema «Bytes escaneados» importa porque es el insumo del precio de una consulta.
+
+## Cómo funciona
+
+[SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+
+## Ejemplo
+
+La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md):
+
+*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+
+## Errores y confusiones comunes
+
+Las clases no registran errores específicos de este término.
+
+## Límites y cuándo no aplica
+
+Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md)) son: Los precios, el escalado de 1 TB y de 2 000 veces, el costo fijo de 20 segundos y las duraciones de las tareas son supuestos del autor; los bytes y los tiempos se midieron una vez en un equipo de escritorio y varían. No se midió ninguna factura ni se evaluó ninguna plataforma o proveedor.
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md), [SE-368](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md), [SE-369](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/README.md), [SE-436](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Atribución de costos](../a/atribucion-de-costos.md), [Costo fijo por ejecución](../c/costo-fijo-por-ejecucion.md), [Holgura](../h/holgura.md), [Presupuesto](../p/presupuesto.md), [Refresco incremental](../r/refresco-incremental.md), [Retención](../r/retencion.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md) — [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md), Ingeniería de datos y plataformas de datos.
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Las fuentes de este concepto están en las clases enlazadas (sección «Fuentes» de cada clase).
+
+---
+
+[↑ Glosario](../../README.md) · [← Bytecode](./bytecode.md) · [Cabeza de la cadena →](../c/cabeza-de-la-cadena.md)

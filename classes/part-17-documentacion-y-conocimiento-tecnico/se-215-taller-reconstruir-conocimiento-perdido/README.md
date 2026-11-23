@@ -135,11 +135,11 @@ Con fuentes independientes (c = 0), una fuente da 80,0 % de exactitud; si tres c
 
 ## Definiciones de trabajo
 
-- **conocimiento perdido:** información sobre un sistema que ya no está documentada ni disponible en las personas que lo conocieron.
-- **factor de camión:** número de personas cuya salida dejaría al proyecto sin conocimiento suficiente de una parte esencial.
-- **búsqueda por contenido:** consulta al historial de Git que encuentra los commits que cambian el número de apariciones de una cadena.
-- **ADR retrospectivo:** registro de una decisión escrito después de tomarla, que declara su fecha de escritura y distingue lo observado de lo inferido.
-- **independencia de fuentes:** propiedad de dos fuentes cuyo contenido no procede de un origen común.
+- **[conocimiento perdido](../../../glosario/entradas/c/conocimiento-perdido.md):** información sobre un sistema que ya no está documentada ni disponible en las personas que lo conocieron.
+- **[factor de camión](../../../glosario/entradas/f/factor-de-camion.md):** número de personas cuya salida dejaría al proyecto sin conocimiento suficiente de una parte esencial.
+- **[búsqueda por contenido](../../../glosario/entradas/b/busqueda-por-contenido.md):** consulta al historial de Git que encuentra los commits que cambian el número de apariciones de una cadena.
+- **[ADR retrospectivo](../../../glosario/entradas/a/adr-retrospectivo.md):** registro de una decisión escrito después de tomarla, que declara su fecha de escritura y distingue lo observado de lo inferido.
+- **[independencia de fuentes](../../../glosario/entradas/i/independencia-de-fuentes.md):** propiedad de dos fuentes cuyo contenido no procede de un origen común.
 
 Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
@@ -286,11 +286,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **conocimiento perdido:** información sobre un sistema que ya no está documentada ni disponible en las personas que lo conocieron.
-- **factor de camión:** número de personas cuya salida dejaría al proyecto sin conocimiento suficiente de una parte esencial.
-- **búsqueda por contenido:** consulta al historial que encuentra los commits que cambian el número de apariciones de una cadena.
-- **ADR retrospectivo:** registro de una decisión escrito después de tomarla, que distingue lo observado de lo inferido.
-- **independencia de fuentes:** propiedad de dos fuentes cuyo contenido no procede de un origen común.
+- **[conocimiento perdido](../../../glosario/entradas/c/conocimiento-perdido.md):** información sobre un sistema que ya no está documentada ni disponible en las personas que lo conocieron.
+- **[factor de camión](../../../glosario/entradas/f/factor-de-camion.md):** número de personas cuya salida dejaría al proyecto sin conocimiento suficiente de una parte esencial.
+- **[búsqueda por contenido](../../../glosario/entradas/b/busqueda-por-contenido.md):** consulta al historial que encuentra los commits que cambian el número de apariciones de una cadena.
+- **[ADR retrospectivo](../../../glosario/entradas/a/adr-retrospectivo.md):** registro de una decisión escrito después de tomarla, que distingue lo observado de lo inferido.
+- **[independencia de fuentes](../../../glosario/entradas/i/independencia-de-fuentes.md):** propiedad de dos fuentes cuyo contenido no procede de un origen común.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ADR retrospectivo](../../../glosario/entradas/a/adr-retrospectivo.md) · [Búsqueda por contenido](../../../glosario/entradas/b/busqueda-por-contenido.md) · [Conocimiento perdido](../../../glosario/entradas/c/conocimiento-perdido.md) · [Factor de camión](../../../glosario/entradas/f/factor-de-camion.md) · [Independencia de fuentes](../../../glosario/entradas/i/independencia-de-fuentes.md).
 
 ---
 

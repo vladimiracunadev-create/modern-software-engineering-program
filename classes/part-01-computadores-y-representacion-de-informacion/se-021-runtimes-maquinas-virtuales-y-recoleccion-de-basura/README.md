@@ -185,16 +185,18 @@ retención y conserva el resultado.
 
 ## Definiciones de trabajo
 
-- **runtime:** servicios que implementan ejecución de un lenguaje;
-- **máquina virtual:** arquitectura abstracta ejecutada por software o hardware;
-- **raíz:** referencia inicial para un trazado de alcanzabilidad;
-- **objeto alcanzable:** objeto conectado desde raíces según referencias;
-- **finalización:** acción asociada al fin de vida, no garantía de liberación inmediata.
+- **[runtime](../../../glosario/entradas/r/runtime.md):** servicios que implementan ejecución de un lenguaje;
+- **[máquina virtual](../../../glosario/entradas/m/maquina-virtual.md):** arquitectura abstracta ejecutada por software o hardware;
+- **[raíz](../../../glosario/entradas/r/raiz.md):** referencia inicial para un trazado de alcanzabilidad;
+- **[objeto alcanzable](../../../glosario/entradas/o/objeto-alcanzable.md):** objeto conectado desde raíces según referencias;
+- **[finalización](../../../glosario/entradas/f/finalizacion.md):** acción asociada al fin de vida, no garantía de liberación inmediata.
 
 ## Glosario
 
-**Heap** almacena objetos de vida dinámica. **Frame** representa una llamada. **Pause**
+**[Heap](../../../glosario/entradas/h/heap.md)** almacena objetos de vida dinámica. **[Frame](../../../glosario/entradas/f/frame.md)** representa una llamada. **[Pause](../../../glosario/entradas/p/pause.md)**
 es intervalo de trabajo del recolector que puede afectar la aplicación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Finalización](../../../glosario/entradas/f/finalizacion.md) · [Frame](../../../glosario/entradas/f/frame.md) · [Heap](../../../glosario/entradas/h/heap.md) · [Máquina virtual](../../../glosario/entradas/m/maquina-virtual.md) · [Objeto alcanzable](../../../glosario/entradas/o/objeto-alcanzable.md) · [Pause](../../../glosario/entradas/p/pause.md) · [Raíz](../../../glosario/entradas/r/raiz.md) · [Runtime](../../../glosario/entradas/r/runtime.md) · [VM](../../../glosario/entradas/v/vm.md).
 
 ## Ejemplo mínimo
 

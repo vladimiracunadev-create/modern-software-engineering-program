@@ -158,11 +158,11 @@ Entre los temporizadores armados justo antes de la vuelta, la comparación direc
 
 ## Definiciones de trabajo
 
-- **safety:** propiedad de un sistema de no causar daño inaceptable a personas o al entorno ante fallos accidentales.
-- **seguridad (security):** propiedad de un sistema de resistir acciones deliberadas de personas que buscan usarlo de forma no autorizada.
-- **causa común:** origen único de fallos que afecta a varios componentes redundantes a la vez.
-- **temporizador de vigilancia (watchdog):** temporizador que reinicia el sistema si el firmware no lo reinicia periódicamente.
-- **estado seguro:** estado en que un sistema con un fallo causa el menor daño posible, definido de antemano.
+- **[safety](../../../glosario/entradas/s/safety.md):** propiedad de un sistema de no causar daño inaceptable a personas o al entorno ante fallos accidentales.
+- **[seguridad (security)](../../../glosario/entradas/s/seguridad.md):** propiedad de un sistema de resistir acciones deliberadas de personas que buscan usarlo de forma no autorizada.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** origen único de fallos que afecta a varios componentes redundantes a la vez.
+- **[temporizador de vigilancia (watchdog)](../../../glosario/entradas/t/temporizador-de-vigilancia.md):** temporizador que reinicia el sistema si el firmware no lo reinicia periódicamente.
+- **[estado seguro](../../../glosario/entradas/e/estado-seguro.md):** estado en que un sistema con un fallo causa el menor daño posible, definido de antemano.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -303,11 +303,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **safety:** propiedad de un sistema de no causar daño inaceptable a personas o al entorno ante fallos accidentales.
-- **seguridad (security):** propiedad de un sistema de resistir acciones deliberadas de personas que buscan usarlo de forma no autorizada.
-- **causa común:** origen único de fallos que afecta a varios componentes redundantes a la vez.
-- **temporizador de vigilancia (watchdog):** temporizador que reinicia el sistema si el firmware no lo reinicia periódicamente.
-- **estado seguro:** estado en que un sistema con un fallo causa el menor daño posible, definido de antemano.
+- **[safety](../../../glosario/entradas/s/safety.md):** propiedad de un sistema de no causar daño inaceptable a personas o al entorno ante fallos accidentales.
+- **[seguridad (security)](../../../glosario/entradas/s/seguridad.md):** propiedad de un sistema de resistir acciones deliberadas de personas que buscan usarlo de forma no autorizada.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** origen único de fallos que afecta a varios componentes redundantes a la vez.
+- **[temporizador de vigilancia (watchdog)](../../../glosario/entradas/t/temporizador-de-vigilancia.md):** temporizador que reinicia el sistema si el firmware no lo reinicia periódicamente.
+- **[estado seguro](../../../glosario/entradas/e/estado-seguro.md):** estado en que un sistema con un fallo causa el menor daño posible, definido de antemano.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Estado seguro](../../../glosario/entradas/e/estado-seguro.md) · [Safety](../../../glosario/entradas/s/safety.md) · [Seguridad](../../../glosario/entradas/s/seguridad.md) · [Temporizador de vigilancia](../../../glosario/entradas/t/temporizador-de-vigilancia.md).
 
 ---
 

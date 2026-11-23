@@ -144,11 +144,11 @@ Actualizar una hoja no arrastra ningún paquete en la mediana; un concentrador a
 
 ## Definiciones de trabajo
 
-- **dependencia atrasada:** dependencia para la cual existe una versión más reciente que la usada.
-- **dependencia sin soporte:** dependencia cuyo mantenedor ya no publica correcciones, incluidas las de seguridad.
-- **ventana de exposición:** tiempo transcurrido entre la publicación de un aviso de seguridad y el momento en que el sistema deja de usar la versión afectada.
-- **radio de impacto:** número de paquetes que deben cambiar como consecuencia de actualizar uno.
-- **archivo de bloqueo:** archivo que fija las versiones exactas de todas las dependencias para repetir una instalación.
+- **[dependencia atrasada](../../../glosario/entradas/d/dependencia-atrasada.md):** dependencia para la cual existe una versión más reciente que la usada.
+- **[dependencia sin soporte](../../../glosario/entradas/d/dependencia-sin-soporte.md):** dependencia cuyo mantenedor ya no publica correcciones, incluidas las de seguridad.
+- **[ventana de exposición](../../../glosario/entradas/v/ventana-de-exposicion.md):** tiempo transcurrido entre la publicación de un aviso de seguridad y el momento en que el sistema deja de usar la versión afectada.
+- **[radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md):** número de paquetes que deben cambiar como consecuencia de actualizar uno.
+- **[archivo de bloqueo](../../../glosario/entradas/a/archivo-de-bloqueo.md):** archivo que fija las versiones exactas de todas las dependencias para repetir una instalación.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **dependencia atrasada:** dependencia para la cual existe una versión más reciente que la usada.
-- **dependencia sin soporte:** dependencia cuyo mantenedor ya no publica correcciones, incluidas las de seguridad.
-- **ventana de exposición:** tiempo transcurrido entre la publicación de un aviso de seguridad y el momento en que el sistema deja de usar la versión afectada.
-- **radio de impacto:** número de paquetes que deben cambiar como consecuencia de actualizar uno.
-- **archivo de bloqueo:** archivo que fija las versiones exactas de todas las dependencias para repetir una instalación.
+- **[dependencia atrasada](../../../glosario/entradas/d/dependencia-atrasada.md):** dependencia para la cual existe una versión más reciente que la usada.
+- **[dependencia sin soporte](../../../glosario/entradas/d/dependencia-sin-soporte.md):** dependencia cuyo mantenedor ya no publica correcciones, incluidas las de seguridad.
+- **[ventana de exposición](../../../glosario/entradas/v/ventana-de-exposicion.md):** tiempo transcurrido entre la publicación de un aviso de seguridad y el momento en que el sistema deja de usar la versión afectada.
+- **[radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md):** número de paquetes que deben cambiar como consecuencia de actualizar uno.
+- **[archivo de bloqueo](../../../glosario/entradas/a/archivo-de-bloqueo.md):** archivo que fija las versiones exactas de todas las dependencias para repetir una instalación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Archivo de bloqueo](../../../glosario/entradas/a/archivo-de-bloqueo.md) · [Dependencia atrasada](../../../glosario/entradas/d/dependencia-atrasada.md) · [Dependencia sin soporte](../../../glosario/entradas/d/dependencia-sin-soporte.md) · [Radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md) · [Ventana de exposición](../../../glosario/entradas/v/ventana-de-exposicion.md).
 
 ---
 

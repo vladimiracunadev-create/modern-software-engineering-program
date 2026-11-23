@@ -135,13 +135,13 @@ La tercera figura lista los límites.
 
 ## Definiciones de trabajo
 
-- **Linaje:** grafo de dependencia entre conjuntos de datos, columnas o trabajos.
-- **Arista de valor:** una columna de salida se calcula con una columna de origen.
-- **Arista de condición:** una columna de origen decide qué filas llegan, sin entrar en el valor.
-- **Catálogo de datos:** inventario de activos con su ficha.
-- **Metadatos:** datos que describen otros datos (dueño, significado, sensibilidad, frescura).
-- **Perturbación:** cambio deliberado de una entrada para ver qué salidas se alteran.
-- **Impacto:** conjunto de activos que un cambio puede alcanzar.
+- **[Linaje](../../../glosario/entradas/l/linaje.md):** grafo de dependencia entre conjuntos de datos, columnas o trabajos.
+- **[Arista de valor](../../../glosario/entradas/a/arista-de-valor.md):** una columna de salida se calcula con una columna de origen.
+- **[Arista de condición](../../../glosario/entradas/a/arista-de-condicion.md):** una columna de origen decide qué filas llegan, sin entrar en el valor.
+- **[Catálogo de datos](../../../glosario/entradas/c/catalogo-de-datos.md):** inventario de activos con su ficha.
+- **[Metadatos](../../../glosario/entradas/m/metadatos.md):** datos que describen otros datos (dueño, significado, sensibilidad, frescura).
+- **[Perturbación](../../../glosario/entradas/p/perturbacion.md):** cambio deliberado de una entrada para ver qué salidas se alteran.
+- **[Impacto](../../../glosario/entradas/i/impacto.md):** conjunto de activos que un cambio puede alcanzar.
 
 ## Ejemplo mínimo
 
@@ -278,6 +278,8 @@ El pipeline, el analizador de expresiones regulares y las perturbaciones son con
 | Metadatos | Datos que describen otros datos |
 | Perturbación | Cambiar una entrada para ver el efecto |
 | Impacto | Activos que un cambio puede alcanzar |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arista de condición](../../../glosario/entradas/a/arista-de-condicion.md) · [Arista de valor](../../../glosario/entradas/a/arista-de-valor.md) · [Catálogo de datos](../../../glosario/entradas/c/catalogo-de-datos.md) · [Condición](../../../glosario/entradas/c/condicion.md) · [Impacto](../../../glosario/entradas/i/impacto.md) · [Linaje](../../../glosario/entradas/l/linaje.md) · [Metadatos](../../../glosario/entradas/m/metadatos.md) · [Perturbación](../../../glosario/entradas/p/perturbacion.md).
 
 ---
 

@@ -159,11 +159,11 @@ Anexar deja 9 filas repetidas con una tarea determinista, que al menos son igual
 
 ## Definiciones de trabajo
 
-- **idempotencia:** propiedad de una operación cuya repetición deja el mismo estado que su ejecución única.
-- **efecto único:** garantía de que, aunque un mensaje se procese varias veces, su efecto sobre el estado ocurre una sola vez.
-- **clave de idempotencia:** identificador de una intención, generado por el cliente y reutilizado en sus reintentos.
-- **huella del cuerpo:** resumen del contenido de una petición, guardado con la clave para detectar su reutilización con otro contenido.
-- **tarea determinista:** tarea que produce la misma salida para la misma entrada, sin depender de la hora ni de la aleatoriedad.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuya repetición deja el mismo estado que su ejecución única.
+- **[efecto único](../../../glosario/entradas/e/efecto-unico.md):** garantía de que, aunque un mensaje se procese varias veces, su efecto sobre el estado ocurre una sola vez.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de una intención, generado por el cliente y reutilizado en sus reintentos.
+- **[huella del cuerpo](../../../glosario/entradas/h/huella-del-cuerpo.md):** resumen del contenido de una petición, guardado con la clave para detectar su reutilización con otro contenido.
+- **[tarea determinista](../../../glosario/entradas/t/tarea-determinista.md):** tarea que produce la misma salida para la misma entrada, sin depender de la hora ni de la aleatoriedad.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **idempotencia:** propiedad de una operación cuya repetición deja el mismo estado que su ejecución única.
-- **efecto único:** garantía de que, aunque un mensaje se procese varias veces, su efecto sobre el estado ocurre una sola vez.
-- **clave de idempotencia:** identificador de una intención, generado por el cliente y reutilizado en sus reintentos.
-- **huella del cuerpo:** resumen del contenido de una petición, guardado con la clave para detectar su reutilización con otro contenido.
-- **tarea determinista:** tarea que produce la misma salida para la misma entrada, sin depender de la hora ni de la aleatoriedad.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación cuya repetición deja el mismo estado que su ejecución única.
+- **[efecto único](../../../glosario/entradas/e/efecto-unico.md):** garantía de que, aunque un mensaje se procese varias veces, su efecto sobre el estado ocurre una sola vez.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de una intención, generado por el cliente y reutilizado en sus reintentos.
+- **[huella del cuerpo](../../../glosario/entradas/h/huella-del-cuerpo.md):** resumen del contenido de una petición, guardado con la clave para detectar su reutilización con otro contenido.
+- **[tarea determinista](../../../glosario/entradas/t/tarea-determinista.md):** tarea que produce la misma salida para la misma entrada, sin depender de la hora ni de la aleatoriedad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Efecto único](../../../glosario/entradas/e/efecto-unico.md) · [Huella del cuerpo](../../../glosario/entradas/h/huella-del-cuerpo.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Operaciones idempotentes](../../../glosario/entradas/o/operaciones-idempotentes.md) · [Semánticas de entrega](../../../glosario/entradas/s/semanticas-de-entrega.md) · [Tarea determinista](../../../glosario/entradas/t/tarea-determinista.md).
 
 ---
 

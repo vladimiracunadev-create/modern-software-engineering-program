@@ -144,11 +144,11 @@ Las dos técnicas encuentran las 20 funciones muertas, pero el análisis por nom
 
 ## Definiciones de trabajo
 
-- **punto caliente:** archivo o módulo que concentra una parte desproporcionada de los cambios o de las correcciones.
-- **churn:** cantidad de código añadido, modificado o eliminado en un periodo, medida por archivo.
-- **factor de camión:** número mínimo de personas que, al irse, dejan a un proyecto o a un archivo sin conocimiento clave.
-- **archivo huérfano:** archivo sin ninguna persona activa asociada por autoría que pueda explicarlo.
-- **código muerto:** código que no se ejecuta en ninguna situación de uso real o plausible del sistema.
+- **[punto caliente](../../../glosario/entradas/p/punto-caliente.md):** archivo o módulo que concentra una parte desproporcionada de los cambios o de las correcciones.
+- **[churn](../../../glosario/entradas/c/churn.md):** cantidad de código añadido, modificado o eliminado en un periodo, medida por archivo.
+- **[factor de camión](../../../glosario/entradas/f/factor-de-camion.md):** número mínimo de personas que, al irse, dejan a un proyecto o a un archivo sin conocimiento clave.
+- **[archivo huérfano](../../../glosario/entradas/a/archivo-huerfano.md):** archivo sin ninguna persona activa asociada por autoría que pueda explicarlo.
+- **[código muerto](../../../glosario/entradas/c/codigo-muerto.md):** código que no se ejecuta en ninguna situación de uso real o plausible del sistema.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -289,11 +289,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **punto caliente:** archivo o módulo que concentra una parte desproporcionada de los cambios o de las correcciones.
-- **churn:** cantidad de código añadido, modificado o eliminado en un periodo, medida por archivo.
-- **factor de camión:** número mínimo de personas que, al irse, dejan a un proyecto o a un archivo sin conocimiento clave.
-- **archivo huérfano:** archivo sin ninguna persona activa asociada por autoría que pueda explicarlo.
-- **código muerto:** código que no se ejecuta en ninguna situación de uso real o plausible del sistema.
+- **[punto caliente](../../../glosario/entradas/p/punto-caliente.md):** archivo o módulo que concentra una parte desproporcionada de los cambios o de las correcciones.
+- **[churn](../../../glosario/entradas/c/churn.md):** cantidad de código añadido, modificado o eliminado en un periodo, medida por archivo.
+- **[factor de camión](../../../glosario/entradas/f/factor-de-camion.md):** número mínimo de personas que, al irse, dejan a un proyecto o a un archivo sin conocimiento clave.
+- **[archivo huérfano](../../../glosario/entradas/a/archivo-huerfano.md):** archivo sin ninguna persona activa asociada por autoría que pueda explicarlo.
+- **[código muerto](../../../glosario/entradas/c/codigo-muerto.md):** código que no se ejecuta en ninguna situación de uso real o plausible del sistema.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Archivo huérfano](../../../glosario/entradas/a/archivo-huerfano.md) · [Churn](../../../glosario/entradas/c/churn.md) · [Código muerto](../../../glosario/entradas/c/codigo-muerto.md) · [Factor de camión](../../../glosario/entradas/f/factor-de-camion.md) · [Punto caliente](../../../glosario/entradas/p/punto-caliente.md).
 
 ---
 

@@ -135,13 +135,13 @@ La tercera figura muestra el grafo y qué se recalcula.
 
 ## Definiciones de trabajo
 
-- **Idempotencia:** ejecutar varias veces deja el mismo estado que ejecutar una.
-- **Partición:** subconjunto de una tabla, normalmente por fecha, que se escribe y se reescribe como unidad.
-- **Backfill:** ejecución del trabajo sobre un intervalo pasado.
-- **Fusión por clave:** inserta si no existe la clave y actualiza si existe.
-- **Orden topológico:** orden de ejecución que respeta todas las dependencias.
-- **Ventana de reproceso:** número de días anteriores que se vuelven a calcular en cada ejecución.
-- **Determinismo:** el resultado depende solo de las entradas declaradas.
+- **[Idempotencia](../../../glosario/entradas/i/idempotencia.md):** ejecutar varias veces deja el mismo estado que ejecutar una.
+- **[Partición](../../../glosario/entradas/p/particion.md):** subconjunto de una tabla, normalmente por fecha, que se escribe y se reescribe como unidad.
+- **[Backfill](../../../glosario/entradas/b/backfill.md):** ejecución del trabajo sobre un intervalo pasado.
+- **[Fusión por clave](../../../glosario/entradas/f/fusion-por-clave.md):** inserta si no existe la clave y actualiza si existe.
+- **[Orden topológico](../../../glosario/entradas/o/orden-topologico.md):** orden de ejecución que respeta todas las dependencias.
+- **[Ventana de reproceso](../../../glosario/entradas/v/ventana-de-reproceso.md):** número de días anteriores que se vuelven a calcular en cada ejecución.
+- **[Determinismo](../../../glosario/entradas/d/determinismo.md):** el resultado depende solo de las entradas declaradas.
 
 ## Ejemplo mínimo
 
@@ -286,6 +286,8 @@ Las particiones, el fallo y los retrasos son construcciones del autor; no se eje
 | Orden topológico | Orden que respeta las dependencias |
 | Ventana de reproceso | Días que se recalculan en cada ejecución |
 | Determinismo | Resultado según las entradas declaradas |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backfill](../../../glosario/entradas/b/backfill.md) · [Dato tardío](../../../glosario/entradas/d/dato-tardio.md) · [Determinismo](../../../glosario/entradas/d/determinismo.md) · [Fusión por clave](../../../glosario/entradas/f/fusion-por-clave.md) · [Grafo de dependencias](../../../glosario/entradas/g/grafo-de-dependencias.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Orden topológico](../../../glosario/entradas/o/orden-topologico.md) · [Partición](../../../glosario/entradas/p/particion.md) · [Transacción](../../../glosario/entradas/t/transaccion.md) · [Ventana de reproceso](../../../glosario/entradas/v/ventana-de-reproceso.md).
 
 ---
 

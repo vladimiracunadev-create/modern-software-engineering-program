@@ -112,11 +112,11 @@ La consecuencia es que un SDK que deprecia con un `DeprecationWarning` y espera 
 
 ## Definiciones de trabajo
 
-- **journey de desarrollador:** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
-- **time to first success:** un camino mínimo debe producir resultado significativo con precondiciones explícitas.
-- **diseño de errores:** un error útil identifica qué falló, contexto seguro, acción y referencia estable.
-- **documentación ejecutable:** ejemplos se prueban contra versión publicada y usan datos sintéticos.
-- **feedback, telemetría y privacidad:** issues, soporte y telemetría pueden revelar fricción.
+- **[journey de desarrollador](../../../glosario/entradas/j/journey-de-desarrollador.md):** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
+- **[time to first success](../../../glosario/entradas/t/time-to-first-success.md):** un camino mínimo debe producir resultado significativo con precondiciones explícitas.
+- **[diseño de errores](../../../glosario/entradas/d/diseno-de-errores.md):** un error útil identifica qué falló, contexto seguro, acción y referencia estable.
+- **[documentación ejecutable](../../../glosario/entradas/d/documentacion-ejecutable.md):** ejemplos se prueban contra versión publicada y usan datos sintéticos.
+- **[feedback, telemetría y privacidad](../../../glosario/entradas/f/feedback-telemetria-y-privacidad.md):** issues, soporte y telemetría pueden revelar fricción.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -267,11 +267,13 @@ Una evaluación interna de DX no sustituye investigación diversa ni soporte rea
 
 ## Glosario
 
-- **journey de desarrollador:** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
-- **time to first success:** un camino mínimo debe producir resultado significativo con precondiciones explícitas.
-- **diseño de errores:** un error útil identifica qué falló, contexto seguro, acción y referencia estable.
-- **documentación ejecutable:** ejemplos se prueban contra versión publicada y usan datos sintéticos.
-- **feedback, telemetría y privacidad:** issues, soporte y telemetría pueden revelar fricción.
+- **[journey de desarrollador](../../../glosario/entradas/j/journey-de-desarrollador.md):** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
+- **[time to first success](../../../glosario/entradas/t/time-to-first-success.md):** un camino mínimo debe producir resultado significativo con precondiciones explícitas.
+- **[diseño de errores](../../../glosario/entradas/d/diseno-de-errores.md):** un error útil identifica qué falló, contexto seguro, acción y referencia estable.
+- **[documentación ejecutable](../../../glosario/entradas/d/documentacion-ejecutable.md):** ejemplos se prueban contra versión publicada y usan datos sintéticos.
+- **[feedback, telemetría y privacidad](../../../glosario/entradas/f/feedback-telemetria-y-privacidad.md):** issues, soporte y telemetría pueden revelar fricción.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Diseño de errores](../../../glosario/entradas/d/diseno-de-errores.md) · [Documentación ejecutable](../../../glosario/entradas/d/documentacion-ejecutable.md) · [Feedback, telemetría y privacidad](../../../glosario/entradas/f/feedback-telemetria-y-privacidad.md) · [Journey de desarrollador](../../../glosario/entradas/j/journey-de-desarrollador.md) · [Time to first success](../../../glosario/entradas/t/time-to-first-success.md).
 
 ---
 

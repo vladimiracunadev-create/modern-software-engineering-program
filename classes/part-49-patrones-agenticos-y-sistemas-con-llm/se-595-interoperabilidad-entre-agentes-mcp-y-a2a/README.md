@@ -113,13 +113,13 @@ Un cliente prudente aplica unas reglas que no dependen de que el servidor sea ho
 
 ## Definiciones de trabajo
 
-- **MCP:** protocolo abierto para conectar aplicaciones de IA con herramientas y datos mediante mensajes JSON-RPC.
-- **JSON-RPC 2.0:** protocolo de llamadas remotas con mensajes JSON de petición, respuesta y notificación.
-- **Servidor MCP:** proceso que expone herramientas, recursos o prompts a un cliente.
-- **Error de protocolo:** respuesta con código de error JSON-RPC por una petición mal formada o inexistente.
-- **Error de herramienta:** resultado válido que indica que la herramienta no pudo cumplir el pedido.
-- **A2A:** protocolo para que agentes se descubran y colaboren mediante tareas.
-- **Tarjeta de agente:** descripción de un agente: capacidades, endpoint y autenticación.
+- **[MCP](../../../glosario/entradas/m/mcp.md):** protocolo abierto para conectar aplicaciones de IA con herramientas y datos mediante mensajes JSON-RPC.
+- **[JSON-RPC 2.0](../../../glosario/entradas/j/json-rpc-2-0.md):** protocolo de llamadas remotas con mensajes JSON de petición, respuesta y notificación.
+- **[Servidor MCP](../../../glosario/entradas/s/servidor-mcp.md):** proceso que expone herramientas, recursos o prompts a un cliente.
+- **[Error de protocolo](../../../glosario/entradas/e/error-de-protocolo.md):** respuesta con código de error JSON-RPC por una petición mal formada o inexistente.
+- **[Error de herramienta](../../../glosario/entradas/e/error-de-herramienta.md):** resultado válido que indica que la herramienta no pudo cumplir el pedido.
+- **[A2A](../../../glosario/entradas/a/a2a.md):** protocolo para que agentes se descubran y colaboren mediante tareas.
+- **[Tarjeta de agente](../../../glosario/entradas/t/tarjeta-de-agente.md):** descripción de un agente: capacidades, endpoint y autenticación.
 
 ## Ejemplo mínimo
 
@@ -245,6 +245,8 @@ El servidor es una demostración con nombres de métodos de MCP y no una impleme
 | Error de herramienta | Resultado que indica que la herramienta no pudo cumplir |
 | A2A | Protocolo de colaboración entre agentes mediante tareas |
 | Tarjeta de agente | Descripción de capacidades y acceso de un agente |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [A2A](../../../glosario/entradas/a/a2a.md) · [Descripciones no confiables](../../../glosario/entradas/d/descripciones-no-confiables.md) · [Error de herramienta](../../../glosario/entradas/e/error-de-herramienta.md) · [Error de protocolo](../../../glosario/entradas/e/error-de-protocolo.md) · [JSON-RPC 2.0](../../../glosario/entradas/j/json-rpc-2-0.md) · [MCP](../../../glosario/entradas/m/mcp.md) · [Servidor MCP](../../../glosario/entradas/s/servidor-mcp.md) · [Tarjeta de agente](../../../glosario/entradas/t/tarjeta-de-agente.md).
 
 ---
 

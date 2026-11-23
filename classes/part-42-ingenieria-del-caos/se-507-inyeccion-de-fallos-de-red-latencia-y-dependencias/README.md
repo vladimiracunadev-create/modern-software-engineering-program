@@ -128,12 +128,12 @@ Se ve en una serie temporal. Se retiran la mitad de los hilos de la dependencia 
 
 ## Definiciones de trabajo
 
-- **resiliencia declarada:** conjunto de mecanismos de protección descritos en el diseño o la configuración de un sistema.
-- **resiliencia demostrada:** comportamiento observado del sistema completo cuando se inyectó una falla concreta, con una intensidad y un tráfico concretos.
-- **ingeniería del caos:** disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas.
-- **debilidad sistémica:** propiedad de un sistema que convierte una falla localizada en daño visible para las personas usuarias.
-- **fallo metaestable:** estado degradado que persiste tras desaparecer su disparador por un efecto de refuerzo, como los reintentos.
-- **amplificación por reintentos:** multiplicación de la carga sobre una dependencia por intentos repetidos de peticiones que fallan.
+- **[resiliencia declarada](../../../glosario/entradas/r/resiliencia-declarada.md):** conjunto de mecanismos de protección descritos en el diseño o la configuración de un sistema.
+- **[resiliencia demostrada](../../../glosario/entradas/r/resiliencia-demostrada.md):** comportamiento observado del sistema completo cuando se inyectó una falla concreta, con una intensidad y un tráfico concretos.
+- **[ingeniería del caos](../../../glosario/entradas/i/ingenieria-del-caos.md):** disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas.
+- **[debilidad sistémica](../../../glosario/entradas/d/debilidad-sistemica.md):** propiedad de un sistema que convierte una falla localizada en daño visible para las personas usuarias.
+- **[fallo metaestable](../../../glosario/entradas/f/fallo-metaestable.md):** estado degradado que persiste tras desaparecer su disparador por un efecto de refuerzo, como los reintentos.
+- **[amplificación por reintentos](../../../glosario/entradas/a/amplificacion-por-reintentos.md):** multiplicación de la carga sobre una dependencia por intentos repetidos de peticiones que fallan.
 
 Las definiciones son operativas para el cliente de la API de entregas. No fijan sinónimos para términos con una historia más amplia y deben contrastarse con las fuentes enlazadas.
 
@@ -273,12 +273,14 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **resiliencia declarada:** conjunto de mecanismos de protección descritos en el diseño o la configuración de un sistema.
-- **resiliencia demostrada:** comportamiento observado del sistema completo cuando se inyectó una falla concreta.
-- **ingeniería del caos:** disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas.
-- **debilidad sistémica:** propiedad que convierte una falla localizada en daño visible para las personas usuarias.
-- **fallo metaestable:** estado degradado que persiste tras desaparecer su disparador por un efecto de refuerzo.
-- **amplificación por reintentos:** multiplicación de la carga sobre una dependencia por intentos repetidos.
+- **[resiliencia declarada](../../../glosario/entradas/r/resiliencia-declarada.md):** conjunto de mecanismos de protección descritos en el diseño o la configuración de un sistema.
+- **[resiliencia demostrada](../../../glosario/entradas/r/resiliencia-demostrada.md):** comportamiento observado del sistema completo cuando se inyectó una falla concreta.
+- **[ingeniería del caos](../../../glosario/entradas/i/ingenieria-del-caos.md):** disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas.
+- **[debilidad sistémica](../../../glosario/entradas/d/debilidad-sistemica.md):** propiedad que convierte una falla localizada en daño visible para las personas usuarias.
+- **[fallo metaestable](../../../glosario/entradas/f/fallo-metaestable.md):** estado degradado que persiste tras desaparecer su disparador por un efecto de refuerzo.
+- **[amplificación por reintentos](../../../glosario/entradas/a/amplificacion-por-reintentos.md):** multiplicación de la carga sobre una dependencia por intentos repetidos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Amplificación por reintentos](../../../glosario/entradas/a/amplificacion-por-reintentos.md) · [Debilidad sistémica](../../../glosario/entradas/d/debilidad-sistemica.md) · [Fallo metaestable](../../../glosario/entradas/f/fallo-metaestable.md) · [Ingeniería del caos](../../../glosario/entradas/i/ingenieria-del-caos.md) · [Resiliencia declarada](../../../glosario/entradas/r/resiliencia-declarada.md) · [Resiliencia demostrada](../../../glosario/entradas/r/resiliencia-demostrada.md).
 
 ---
 

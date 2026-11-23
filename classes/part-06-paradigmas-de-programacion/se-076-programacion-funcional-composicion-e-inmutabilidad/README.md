@@ -110,11 +110,11 @@ Un **cierre** captura la variable, no su valor. La lista `[lambda: i for i in ra
 
 ## Definiciones de trabajo
 
-- **funciones puras y transparencia referencial:** una función pura devuelve el mismo valor para los mismos argumentos y no modifica estado observable.
-- **inmutabilidad y evolución de valores:** en vez de cambiar un registro se produce otro que comparte o copia lo necesario.
-- **funciones de orden superior:** pasar una regla como valor permite parametrizar evaluación sin condicionales globales.
-- **composición y tipos de resultado:** funciones pequeñas se conectan cuando la salida de una satisface la entrada de otra.
-- **recursión, evaluación y efectos:** la recursión describe estructuras inductivas, aunque python no optimiza llamadas terminales y un bucle puede ser más seguro.
+- **[funciones puras y transparencia referencial](../../../glosario/entradas/f/funciones-puras-y-transparencia-referencial.md):** una función pura devuelve el mismo valor para los mismos argumentos y no modifica estado observable.
+- **[inmutabilidad y evolución de valores](../../../glosario/entradas/i/inmutabilidad-y-evolucion-de-valores.md):** en vez de cambiar un registro se produce otro que comparte o copia lo necesario.
+- **[funciones de orden superior](../../../glosario/entradas/f/funciones-de-orden-superior.md):** pasar una regla como valor permite parametrizar evaluación sin condicionales globales.
+- **[composición y tipos de resultado](../../../glosario/entradas/c/composicion-y-tipos-de-resultado.md):** funciones pequeñas se conectan cuando la salida de una satisface la entrada de otra.
+- **[recursión, evaluación y efectos](../../../glosario/entradas/r/recursion-evaluacion-y-efectos.md):** la recursión describe estructuras inductivas, aunque python no optimiza llamadas terminales y un bucle puede ser más seguro.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Pureza y composición no resuelven automáticamente interacción, latencia ni gr
 
 ## Glosario
 
-- **funciones puras y transparencia referencial:** una función pura devuelve el mismo valor para los mismos argumentos y no modifica estado observable.
-- **inmutabilidad y evolución de valores:** en vez de cambiar un registro se produce otro que comparte o copia lo necesario.
-- **funciones de orden superior:** pasar una regla como valor permite parametrizar evaluación sin condicionales globales.
-- **composición y tipos de resultado:** funciones pequeñas se conectan cuando la salida de una satisface la entrada de otra.
-- **recursión, evaluación y efectos:** la recursión describe estructuras inductivas, aunque python no optimiza llamadas terminales y un bucle puede ser más seguro.
+- **[funciones puras y transparencia referencial](../../../glosario/entradas/f/funciones-puras-y-transparencia-referencial.md):** una función pura devuelve el mismo valor para los mismos argumentos y no modifica estado observable.
+- **[inmutabilidad y evolución de valores](../../../glosario/entradas/i/inmutabilidad-y-evolucion-de-valores.md):** en vez de cambiar un registro se produce otro que comparte o copia lo necesario.
+- **[funciones de orden superior](../../../glosario/entradas/f/funciones-de-orden-superior.md):** pasar una regla como valor permite parametrizar evaluación sin condicionales globales.
+- **[composición y tipos de resultado](../../../glosario/entradas/c/composicion-y-tipos-de-resultado.md):** funciones pequeñas se conectan cuando la salida de una satisface la entrada de otra.
+- **[recursión, evaluación y efectos](../../../glosario/entradas/r/recursion-evaluacion-y-efectos.md):** la recursión describe estructuras inductivas, aunque python no optimiza llamadas terminales y un bucle puede ser más seguro.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Composición y tipos de resultado](../../../glosario/entradas/c/composicion-y-tipos-de-resultado.md) · [Funciones de orden superior](../../../glosario/entradas/f/funciones-de-orden-superior.md) · [Funciones puras y transparencia referencial](../../../glosario/entradas/f/funciones-puras-y-transparencia-referencial.md) · [Inmutabilidad y evolución de valores](../../../glosario/entradas/i/inmutabilidad-y-evolucion-de-valores.md) · [Recursión, evaluación y efectos](../../../glosario/entradas/r/recursion-evaluacion-y-efectos.md).
 
 ---
 

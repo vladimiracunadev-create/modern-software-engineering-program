@@ -135,11 +135,11 @@ Se simulan 3 000 años con una guardia semanal de una persona por vez, con una m
 
 ## Definiciones de trabajo
 
-- **propiedad del código:** asignación de la responsabilidad de decidir, mantener y responder sobre una parte del software.
-- **factor de camión:** número mínimo de personas cuya salida deja sin conocedor a más de la mitad de los archivos según la autoría registrada.
-- **frontera de equipo:** línea que separa lo que un equipo puede cambiar completo de lo que requiere relevo con otro.
-- **carga cognitiva:** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
-- **contrato entre equipos:** interfaz documentada con propietario, versiones y vía de solicitud de cambios.
+- **[propiedad del código](../../../glosario/entradas/p/propiedad-del-codigo.md):** asignación de la responsabilidad de decidir, mantener y responder sobre una parte del software.
+- **[factor de camión](../../../glosario/entradas/f/factor-de-camion.md):** número mínimo de personas cuya salida deja sin conocedor a más de la mitad de los archivos según la autoría registrada.
+- **[frontera de equipo](../../../glosario/entradas/f/frontera-de-equipo.md):** línea que separa lo que un equipo puede cambiar completo de lo que requiere relevo con otro.
+- **[carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md):** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
+- **[contrato entre equipos](../../../glosario/entradas/c/contrato-entre-equipos.md):** interfaz documentada con propietario, versiones y vía de solicitud de cambios.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -282,11 +282,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **propiedad del código:** asignación de la responsabilidad de decidir, mantener y responder sobre una parte del software.
-- **factor de camión:** número mínimo de personas cuya salida deja sin conocedor a más de la mitad de los archivos según la autoría registrada.
-- **frontera de equipo:** línea que separa lo que un equipo puede cambiar completo de lo que requiere relevo con otro.
-- **carga cognitiva:** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
-- **contrato entre equipos:** interfaz documentada con propietario, versiones y vía de solicitud de cambios.
+- **[propiedad del código](../../../glosario/entradas/p/propiedad-del-codigo.md):** asignación de la responsabilidad de decidir, mantener y responder sobre una parte del software.
+- **[factor de camión](../../../glosario/entradas/f/factor-de-camion.md):** número mínimo de personas cuya salida deja sin conocedor a más de la mitad de los archivos según la autoría registrada.
+- **[frontera de equipo](../../../glosario/entradas/f/frontera-de-equipo.md):** línea que separa lo que un equipo puede cambiar completo de lo que requiere relevo con otro.
+- **[carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md):** cantidad de contexto que un equipo debe mantener para operar y cambiar lo que posee.
+- **[contrato entre equipos](../../../glosario/entradas/c/contrato-entre-equipos.md):** interfaz documentada con propietario, versiones y vía de solicitud de cambios.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md) · [Contrato entre equipos](../../../glosario/entradas/c/contrato-entre-equipos.md) · [Factor de camión](../../../glosario/entradas/f/factor-de-camion.md) · [Frontera de equipo](../../../glosario/entradas/f/frontera-de-equipo.md) · [Propiedad del código](../../../glosario/entradas/p/propiedad-del-codigo.md).
 
 ---
 

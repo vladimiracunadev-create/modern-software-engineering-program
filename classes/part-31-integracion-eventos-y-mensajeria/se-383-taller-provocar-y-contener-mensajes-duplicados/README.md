@@ -166,11 +166,11 @@ Con la clave primero, la caída deja la clave guardada y la reentrega se descart
 
 ## Definiciones de trabajo
 
-- **clave del mensaje:** identificador asignado a un mensaje concreto al enviarlo; reconoce reentregas de ese mensaje.
-- **clave de negocio:** identificador de la operación del dominio; reconoce repeticiones de la operación sea cual sea el mensaje que las trajo.
-- **plazo de visibilidad:** tiempo durante el cual un mensaje recibido no se entrega a otros consumidores si no se confirma.
-- **actualización condicionada por versión:** escritura que se aplica solo si la versión del cambio supera la guardada.
-- **transacción única de clave y efecto:** diseño que registra el identificador y aplica el efecto en la misma transacción, de modo que ocurran ambos o ninguno.
+- **[clave del mensaje](../../../glosario/entradas/c/clave-del-mensaje.md):** identificador asignado a un mensaje concreto al enviarlo; reconoce reentregas de ese mensaje.
+- **[clave de negocio](../../../glosario/entradas/c/clave-de-negocio.md):** identificador de la operación del dominio; reconoce repeticiones de la operación sea cual sea el mensaje que las trajo.
+- **[plazo de visibilidad](../../../glosario/entradas/p/plazo-de-visibilidad.md):** tiempo durante el cual un mensaje recibido no se entrega a otros consumidores si no se confirma.
+- **[actualización condicionada por versión](../../../glosario/entradas/a/actualizacion-condicionada-por-version.md):** escritura que se aplica solo si la versión del cambio supera la guardada.
+- **[transacción única de clave y efecto](../../../glosario/entradas/t/transaccion-unica-de-clave-y-efecto.md):** diseño que registra el identificador y aplica el efecto en la misma transacción, de modo que ocurran ambos o ninguno.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **clave del mensaje:** identificador asignado a un mensaje concreto al enviarlo; reconoce reentregas de ese mensaje.
-- **clave de negocio:** identificador de la operación del dominio; reconoce repeticiones de la operación sea cual sea el mensaje que las trajo.
-- **plazo de visibilidad:** tiempo durante el cual un mensaje recibido no se entrega a otros consumidores si no se confirma.
-- **actualización condicionada por versión:** escritura que se aplica solo si la versión del cambio supera la guardada.
-- **transacción única de clave y efecto:** diseño que registra el identificador y aplica el efecto en la misma transacción, de modo que ocurran ambos o ninguno.
+- **[clave del mensaje](../../../glosario/entradas/c/clave-del-mensaje.md):** identificador asignado a un mensaje concreto al enviarlo; reconoce reentregas de ese mensaje.
+- **[clave de negocio](../../../glosario/entradas/c/clave-de-negocio.md):** identificador de la operación del dominio; reconoce repeticiones de la operación sea cual sea el mensaje que las trajo.
+- **[plazo de visibilidad](../../../glosario/entradas/p/plazo-de-visibilidad.md):** tiempo durante el cual un mensaje recibido no se entrega a otros consumidores si no se confirma.
+- **[actualización condicionada por versión](../../../glosario/entradas/a/actualizacion-condicionada-por-version.md):** escritura que se aplica solo si la versión del cambio supera la guardada.
+- **[transacción única de clave y efecto](../../../glosario/entradas/t/transaccion-unica-de-clave-y-efecto.md):** diseño que registra el identificador y aplica el efecto en la misma transacción, de modo que ocurran ambos o ninguno.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actualización condicionada por versión](../../../glosario/entradas/a/actualizacion-condicionada-por-version.md) · [Clave de negocio](../../../glosario/entradas/c/clave-de-negocio.md) · [Clave del mensaje](../../../glosario/entradas/c/clave-del-mensaje.md) · [Plazo de visibilidad](../../../glosario/entradas/p/plazo-de-visibilidad.md) · [Transacción única de clave y efecto](../../../glosario/entradas/t/transaccion-unica-de-clave-y-efecto.md).
 
 ---
 

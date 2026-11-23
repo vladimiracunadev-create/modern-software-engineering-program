@@ -152,12 +152,12 @@ La comprobación de identificadores encuentra 8 de los 12 defectos; el recorrido
 
 ## Definiciones de trabajo
 
-- **intención:** deseo o necesidad de alguien, expresado sin comprometer un comportamiento observable.
-- **especificación:** documento versionado que declara qué comportamiento observable debe tener un sistema y por qué, con requisitos identificables y criterios comprobables.
-- **requisito comprobable:** frase con un disparador y una respuesta para la que existe una observación que podría refutarla.
-- **ambigüedad:** decisión de comportamiento que el documento no resuelve y que, por tanto, toma quien implementa.
-- **trazabilidad:** relación mantenida entre cada requisito y las pruebas que lo comprueban y entre cada prueba y el requisito que la justifica.
-- **deriva:** separación entre lo que la especificación dice y lo que el sistema hace.
+- **[intención](../../../glosario/entradas/i/intencion.md):** deseo o necesidad de alguien, expresado sin comprometer un comportamiento observable.
+- **[especificación](../../../glosario/entradas/e/especificacion.md):** documento versionado que declara qué comportamiento observable debe tener un sistema y por qué, con requisitos identificables y criterios comprobables.
+- **[requisito comprobable](../../../glosario/entradas/r/requisito-comprobable.md):** frase con un disparador y una respuesta para la que existe una observación que podría refutarla.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** decisión de comportamiento que el documento no resuelve y que, por tanto, toma quien implementa.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** relación mantenida entre cada requisito y las pruebas que lo comprueban y entre cada prueba y el requisito que la justifica.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** separación entre lo que la especificación dice y lo que el sistema hace.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,12 +299,14 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **intención:** deseo o necesidad de alguien, expresado sin comprometer un comportamiento observable.
-- **especificación:** documento versionado que declara qué comportamiento observable debe tener un sistema y por qué, con requisitos identificables y criterios comprobables.
-- **requisito comprobable:** frase con un disparador y una respuesta para la que existe una observación que podría refutarla.
-- **ambigüedad:** decisión de comportamiento que el documento no resuelve y que, por tanto, toma quien implementa.
-- **trazabilidad:** relación mantenida entre cada requisito y las pruebas que lo comprueban y entre cada prueba y el requisito que la justifica.
-- **deriva:** separación entre lo que la especificación dice y lo que el sistema hace.
+- **[intención](../../../glosario/entradas/i/intencion.md):** deseo o necesidad de alguien, expresado sin comprometer un comportamiento observable.
+- **[especificación](../../../glosario/entradas/e/especificacion.md):** documento versionado que declara qué comportamiento observable debe tener un sistema y por qué, con requisitos identificables y criterios comprobables.
+- **[requisito comprobable](../../../glosario/entradas/r/requisito-comprobable.md):** frase con un disparador y una respuesta para la que existe una observación que podría refutarla.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** decisión de comportamiento que el documento no resuelve y que, por tanto, toma quien implementa.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** relación mantenida entre cada requisito y las pruebas que lo comprueban y entre cada prueba y el requisito que la justifica.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** separación entre lo que la especificación dice y lo que el sistema hace.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ambigüedad](../../../glosario/entradas/a/ambiguedad.md) · [Deriva](../../../glosario/entradas/d/deriva.md) · [Espacio de interpretaciones](../../../glosario/entradas/e/espacio-de-interpretaciones.md) · [Especificación](../../../glosario/entradas/e/especificacion.md) · [Intención](../../../glosario/entradas/i/intencion.md) · [Requisito comprobable](../../../glosario/entradas/r/requisito-comprobable.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md).
 
 ---
 

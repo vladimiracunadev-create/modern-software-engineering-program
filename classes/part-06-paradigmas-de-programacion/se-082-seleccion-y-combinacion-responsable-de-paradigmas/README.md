@@ -112,11 +112,11 @@ Una selección responsable deja visible esa frontera. Escribe qué criterios se 
 
 ## Definiciones de trabajo
 
-- **fuerzas del problema:** la elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo.
-- **semántica antes que sintaxis:** dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error.
-- **fronteras entre modelos:** combinar modelos exige adaptadores: evento a valor, objeto a registro, resultado a excepción o mensaje.
-- **costo cognitivo y operativo:** una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene.
-- **decisión reversible y experimento:** cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión.
+- **[fuerzas del problema](../../../glosario/entradas/f/fuerzas-del-problema.md):** la elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo.
+- **[semántica antes que sintaxis](../../../glosario/entradas/s/semantica-antes-que-sintaxis.md):** dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error.
+- **[fronteras entre modelos](../../../glosario/entradas/f/fronteras-entre-modelos.md):** combinar modelos exige adaptadores: evento a valor, objeto a registro, resultado a excepción o mensaje.
+- **[costo cognitivo y operativo](../../../glosario/entradas/c/costo-cognitivo-y-operativo.md):** una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene.
+- **[decisión reversible y experimento](../../../glosario/entradas/d/decision-reversible-y-experimento.md):** cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ Una matriz organiza juicio, no sustituye un prototipo ni datos de mantenimiento.
 
 ## Glosario
 
-- **fuerzas del problema:** la elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo.
-- **semántica antes que sintaxis:** dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error.
-- **fronteras entre modelos:** combinar modelos exige adaptadores: evento a valor, objeto a registro, resultado a excepción o mensaje.
-- **costo cognitivo y operativo:** una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene.
-- **decisión reversible y experimento:** cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión.
+- **[fuerzas del problema](../../../glosario/entradas/f/fuerzas-del-problema.md):** la elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo.
+- **[semántica antes que sintaxis](../../../glosario/entradas/s/semantica-antes-que-sintaxis.md):** dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error.
+- **[fronteras entre modelos](../../../glosario/entradas/f/fronteras-entre-modelos.md):** combinar modelos exige adaptadores: evento a valor, objeto a registro, resultado a excepción o mensaje.
+- **[costo cognitivo y operativo](../../../glosario/entradas/c/costo-cognitivo-y-operativo.md):** una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene.
+- **[decisión reversible y experimento](../../../glosario/entradas/d/decision-reversible-y-experimento.md):** cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Costo cognitivo y operativo](../../../glosario/entradas/c/costo-cognitivo-y-operativo.md) · [Decisión reversible y experimento](../../../glosario/entradas/d/decision-reversible-y-experimento.md) · [Fronteras entre modelos](../../../glosario/entradas/f/fronteras-entre-modelos.md) · [Fuerzas del problema](../../../glosario/entradas/f/fuerzas-del-problema.md) · [Semántica antes que sintaxis](../../../glosario/entradas/s/semantica-antes-que-sintaxis.md).
 
 ---
 

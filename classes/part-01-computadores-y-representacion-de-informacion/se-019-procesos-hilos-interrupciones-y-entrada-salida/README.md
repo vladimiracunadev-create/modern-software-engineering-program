@@ -200,16 +200,18 @@ explicar qué trabajo se solapa, qué estado se comparte y qué medición refuta
 
 ## Definiciones de trabajo
 
-- **proceso:** instancia de ejecución con recursos aislados;
-- **hilo:** secuencia planificable dentro de un proceso;
-- **concurrencia:** composición de progresos superpuestos;
-- **interrupción:** señal que desvía control para atender un evento;
-- **I/O bloqueante:** operación que suspende la unidad llamante hasta progreso.
+- **[proceso](../../../glosario/entradas/p/proceso.md):** instancia de ejecución con recursos aislados;
+- **[hilo](../../../glosario/entradas/h/hilo.md):** secuencia planificable dentro de un proceso;
+- **[concurrencia](../../../glosario/entradas/c/concurrencia.md):** composición de progresos superpuestos;
+- **[interrupción](../../../glosario/entradas/i/interrupcion.md):** señal que desvía control para atender un evento;
+- **[I/O bloqueante](../../../glosario/entradas/i/i-o-bloqueante.md):** operación que suspende la unidad llamante hasta progreso.
 
 ## Glosario
 
-**Context switch** cambia unidad ejecutada. **Syscall** solicita servicio al kernel.
-**DMA** permite transferencias de dispositivo a memoria con intervención acotada de CPU.
+**[Context switch](../../../glosario/entradas/c/context-switch.md)** cambia unidad ejecutada. **[Syscall](../../../glosario/entradas/s/syscall.md)** solicita servicio al kernel.
+**[DMA](../../../glosario/entradas/d/dma.md)** permite transferencias de dispositivo a memoria con intervención acotada de CPU.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Concurrencia](../../../glosario/entradas/c/concurrencia.md) · [Context switch](../../../glosario/entradas/c/context-switch.md) · [DMA](../../../glosario/entradas/d/dma.md) · [Hilo](../../../glosario/entradas/h/hilo.md) · [I/O bloqueante](../../../glosario/entradas/i/i-o-bloqueante.md) · [Interrupción](../../../glosario/entradas/i/interrupcion.md) · [Planificación](../../../glosario/entradas/p/planificacion.md) · [Proceso](../../../glosario/entradas/p/proceso.md) · [Syscall](../../../glosario/entradas/s/syscall.md).
 
 ## Ejemplo mínimo
 

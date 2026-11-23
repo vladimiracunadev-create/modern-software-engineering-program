@@ -153,11 +153,11 @@ Resultado: el adaptador correcto devuelve una lista vacía de fallos; el que no 
 
 ## Definiciones de trabajo
 
-- **inventario de diferencias:** tabla de comportamientos del producto que pueden variar entre plataformas, ejecutados y registrados en cada una.
-- **puerto:** interfaz que describe lo que la lógica de la aplicación necesita de su entorno, independiente de cómo lo ofrezca cada plataforma.
-- **adaptador:** implementación de un puerto para un entorno concreto: una plataforma, un servicio o una prueba.
-- **doble de pruebas:** adaptador sustituto que se usa en las pruebas y que debe cumplir el mismo contrato que el real.
-- **contrato de puerto:** conjunto de comprobaciones ejecutables que todo adaptador de un puerto debe superar.
+- **[inventario de diferencias](../../../glosario/entradas/i/inventario-de-diferencias.md):** tabla de comportamientos del producto que pueden variar entre plataformas, ejecutados y registrados en cada una.
+- **[puerto](../../../glosario/entradas/p/puerto.md):** interfaz que describe lo que la lógica de la aplicación necesita de su entorno, independiente de cómo lo ofrezca cada plataforma.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** implementación de un puerto para un entorno concreto: una plataforma, un servicio o una prueba.
+- **[doble de pruebas](../../../glosario/entradas/d/doble-de-prueba.md):** adaptador sustituto que se usa en las pruebas y que debe cumplir el mismo contrato que el real.
+- **[contrato de puerto](../../../glosario/entradas/c/contrato-de-puerto.md):** conjunto de comprobaciones ejecutables que todo adaptador de un puerto debe superar.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el inventario mostr�
 
 ## Glosario
 
-- **inventario de diferencias:** tabla de comportamientos del producto que pueden variar entre plataformas, ejecutados y registrados en cada una.
-- **puerto:** interfaz que describe lo que la lógica de la aplicación necesita de su entorno, independiente de cómo lo ofrezca cada plataforma.
-- **adaptador:** implementación de un puerto para un entorno concreto: una plataforma, un servicio o una prueba.
-- **doble de pruebas:** adaptador sustituto que se usa en las pruebas y que debe cumplir el mismo contrato que el real.
-- **contrato de puerto:** conjunto de comprobaciones ejecutables que todo adaptador de un puerto debe superar.
+- **[inventario de diferencias](../../../glosario/entradas/i/inventario-de-diferencias.md):** tabla de comportamientos del producto que pueden variar entre plataformas, ejecutados y registrados en cada una.
+- **[puerto](../../../glosario/entradas/p/puerto.md):** interfaz que describe lo que la lógica de la aplicación necesita de su entorno, independiente de cómo lo ofrezca cada plataforma.
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** implementación de un puerto para un entorno concreto: una plataforma, un servicio o una prueba.
+- **[doble de pruebas](../../../glosario/entradas/d/doble-de-prueba.md):** adaptador sustituto que se usa en las pruebas y que debe cumplir el mismo contrato que el real.
+- **[contrato de puerto](../../../glosario/entradas/c/contrato-de-puerto.md):** conjunto de comprobaciones ejecutables que todo adaptador de un puerto debe superar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador](../../../glosario/entradas/a/adaptador.md) · [Contrato de puerto](../../../glosario/entradas/c/contrato-de-puerto.md) · [Doble de prueba](../../../glosario/entradas/d/doble-de-prueba.md) · [Inventario de diferencias](../../../glosario/entradas/i/inventario-de-diferencias.md) · [Puerto](../../../glosario/entradas/p/puerto.md).
 
 ---
 

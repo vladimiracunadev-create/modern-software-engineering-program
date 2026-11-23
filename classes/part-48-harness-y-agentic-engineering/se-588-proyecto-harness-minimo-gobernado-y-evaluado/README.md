@@ -113,12 +113,12 @@ El harness de referencia se ejecutó en seis tareas normales y cuatro escenarios
 
 ## Definiciones de trabajo
 
-- **Harness gobernado:** harness con controles explícitos, probados con escenarios y con límites declarados.
-- **Escenario adverso:** comportamiento descuidado o malicioso que un control debe contener.
-- **Contención:** que un comportamiento no produzca su efecto dañino.
-- **Informe de límites:** declaración de lo no probado, lo no cubierto y lo no medido.
-- **Escalada:** entrega de la tarea a una persona con la traza.
-- **Tarea de regresión:** tarea que protege un fallo diagnosticado.
+- **[Harness gobernado](../../../glosario/entradas/h/harness-gobernado.md):** harness con controles explícitos, probados con escenarios y con límites declarados.
+- **[Escenario adverso](../../../glosario/entradas/e/escenario-adverso.md):** comportamiento descuidado o malicioso que un control debe contener.
+- **[Contención](../../../glosario/entradas/c/contencion.md):** que un comportamiento no produzca su efecto dañino.
+- **[Informe de límites](../../../glosario/entradas/i/informe-de-limites.md):** declaración de lo no probado, lo no cubierto y lo no medido.
+- **[Escalada](../../../glosario/entradas/e/escalada.md):** entrega de la tarea a una persona con la traza.
+- **[Tarea de regresión](../../../glosario/entradas/t/tarea-de-regresion.md):** tarea que protege un fallo diagnosticado.
 
 ## Ejemplo mínimo
 
@@ -249,6 +249,8 @@ El harness de referencia se ejecutó con una política guionizada, seis tareas y
 | Informe de límites | Declaración de lo no probado, no cubierto y no medido |
 | Escalada | Entrega a una persona con la traza |
 | Tarea de regresión | Tarea que protege un fallo diagnosticado |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contención](../../../glosario/entradas/c/contencion.md) · [Escalada](../../../glosario/entradas/e/escalada.md) · [Escenario adverso](../../../glosario/entradas/e/escenario-adverso.md) · [Harness gobernado](../../../glosario/entradas/h/harness-gobernado.md) · [Informe de límites](../../../glosario/entradas/i/informe-de-limites.md) · [Tarea de regresión](../../../glosario/entradas/t/tarea-de-regresion.md).
 
 ---
 

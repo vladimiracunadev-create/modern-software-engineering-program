@@ -151,11 +151,11 @@ Hay 300 personas, un catálogo de 40 permisos y cada una necesita cinco. Cada me
 
 ## Definiciones de trabajo
 
-- **autorización:** decisión de si un sujeto autenticado puede realizar una acción sobre un recurso en un momento dado.
-- **autorización a nivel de objeto:** comprobación, en cada acceso, de que el sujeto tiene la relación requerida con el recurso concreto que pide.
-- **mínimo privilegio:** principio de conceder a cada sujeto solo los permisos que necesita para su función y solo mientras los necesita.
-- **mutante:** versión de un programa con un defecto plantado a propósito para comprobar si una suite de pruebas lo detecta.
-- **matriz de autorización:** enumeración de combinaciones de rol, acción, relación con el recurso y estado, cada una con su resultado esperado.
+- **[autorización](../../../glosario/entradas/a/autorizacion.md):** decisión de si un sujeto autenticado puede realizar una acción sobre un recurso en un momento dado.
+- **[autorización a nivel de objeto](../../../glosario/entradas/a/autorizacion-a-nivel-de-objeto.md):** comprobación, en cada acceso, de que el sujeto tiene la relación requerida con el recurso concreto que pide.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** principio de conceder a cada sujeto solo los permisos que necesita para su función y solo mientras los necesita.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** versión de un programa con un defecto plantado a propósito para comprobar si una suite de pruebas lo detecta.
+- **[matriz de autorización](../../../glosario/entradas/m/matriz-de-autorizacion.md):** enumeración de combinaciones de rol, acción, relación con el recurso y estado, cada una con su resultado esperado.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -294,11 +294,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **autorización:** decisión de si un sujeto autenticado puede realizar una acción sobre un recurso en un momento dado.
-- **autorización a nivel de objeto:** comprobación, en cada acceso, de que el sujeto tiene la relación requerida con el recurso concreto que pide.
-- **mínimo privilegio:** principio de conceder a cada sujeto solo los permisos que necesita para su función y solo mientras los necesita.
-- **mutante:** versión de un programa con un defecto plantado a propósito para comprobar si una suite de pruebas lo detecta.
-- **matriz de autorización:** enumeración de combinaciones de rol, acción, relación con el recurso y estado, cada una con su resultado esperado.
+- **[autorización](../../../glosario/entradas/a/autorizacion.md):** decisión de si un sujeto autenticado puede realizar una acción sobre un recurso en un momento dado.
+- **[autorización a nivel de objeto](../../../glosario/entradas/a/autorizacion-a-nivel-de-objeto.md):** comprobación, en cada acceso, de que el sujeto tiene la relación requerida con el recurso concreto que pide.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** principio de conceder a cada sujeto solo los permisos que necesita para su función y solo mientras los necesita.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** versión de un programa con un defecto plantado a propósito para comprobar si una suite de pruebas lo detecta.
+- **[matriz de autorización](../../../glosario/entradas/m/matriz-de-autorizacion.md):** enumeración de combinaciones de rol, acción, relación con el recurso y estado, cada una con su resultado esperado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Autorización](../../../glosario/entradas/a/autorizacion.md) · [Autorización a nivel de objeto](../../../glosario/entradas/a/autorizacion-a-nivel-de-objeto.md) · [Matriz de autorización](../../../glosario/entradas/m/matriz-de-autorizacion.md) · [Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

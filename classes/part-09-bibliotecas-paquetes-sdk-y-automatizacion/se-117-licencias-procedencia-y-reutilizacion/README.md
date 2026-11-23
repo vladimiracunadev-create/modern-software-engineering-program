@@ -112,11 +112,11 @@ Eso es una declaración a nivel de repositorio, no archivo por archivo. REUSE pi
 
 ## Definiciones de trabajo
 
-- **copyright y licencia:** el copyright surge sobre una obra y la licencia concede permisos bajo condiciones.
-- **identificadores y expresiones spdx:** spdx normaliza identificadores y expresiones `and`, `or`, `with`.
-- **procedencia:** origen, versión, autor, url, hash y transformación permiten rastrear un componente.
-- **dependencias y distribución:** obligaciones pueden cambiar al distribuir binario, ofrecer servicio o enlazar componentes según licencia y jurisdicción.
-- **reuse y verificación:** reuse propone información de copyright/licencia por archivo y textos en ubicaciones convencionales.
+- **[copyright y licencia](../../../glosario/entradas/c/copyright-y-licencia.md):** el copyright surge sobre una obra y la licencia concede permisos bajo condiciones.
+- **[identificadores y expresiones spdx](../../../glosario/entradas/i/identificadores-y-expresiones-spdx.md):** spdx normaliza identificadores y expresiones `and`, `or`, `with`.
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** origen, versión, autor, url, hash y transformación permiten rastrear un componente.
+- **[dependencias y distribución](../../../glosario/entradas/d/dependencias-y-distribucion.md):** obligaciones pueden cambiar al distribuir binario, ofrecer servicio o enlazar componentes según licencia y jurisdicción.
+- **[reuse y verificación](../../../glosario/entradas/r/reuse-y-verificacion.md):** reuse propone información de copyright/licencia por archivo y textos en ubicaciones convencionales.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -267,11 +267,13 @@ Cumplir metadata y licencias no garantiza que el producto sea fácil de adoptar.
 
 ## Glosario
 
-- **copyright y licencia:** el copyright surge sobre una obra y la licencia concede permisos bajo condiciones.
-- **identificadores y expresiones spdx:** spdx normaliza identificadores y expresiones `and`, `or`, `with`.
-- **procedencia:** origen, versión, autor, url, hash y transformación permiten rastrear un componente.
-- **dependencias y distribución:** obligaciones pueden cambiar al distribuir binario, ofrecer servicio o enlazar componentes según licencia y jurisdicción.
-- **reuse y verificación:** reuse propone información de copyright/licencia por archivo y textos en ubicaciones convencionales.
+- **[copyright y licencia](../../../glosario/entradas/c/copyright-y-licencia.md):** el copyright surge sobre una obra y la licencia concede permisos bajo condiciones.
+- **[identificadores y expresiones spdx](../../../glosario/entradas/i/identificadores-y-expresiones-spdx.md):** spdx normaliza identificadores y expresiones `and`, `or`, `with`.
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** origen, versión, autor, url, hash y transformación permiten rastrear un componente.
+- **[dependencias y distribución](../../../glosario/entradas/d/dependencias-y-distribucion.md):** obligaciones pueden cambiar al distribuir binario, ofrecer servicio o enlazar componentes según licencia y jurisdicción.
+- **[reuse y verificación](../../../glosario/entradas/r/reuse-y-verificacion.md):** reuse propone información de copyright/licencia por archivo y textos en ubicaciones convencionales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Copyright y licencia](../../../glosario/entradas/c/copyright-y-licencia.md) · [Dependencias y distribución](../../../glosario/entradas/d/dependencias-y-distribucion.md) · [Identificadores y expresiones spdx](../../../glosario/entradas/i/identificadores-y-expresiones-spdx.md) · [Procedencia](../../../glosario/entradas/p/procedencia.md) · [Reuse y verificación](../../../glosario/entradas/r/reuse-y-verificacion.md).
 
 ---
 

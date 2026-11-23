@@ -158,11 +158,11 @@ Con los criterios con que se ajustó acierta 8 de 8; con los nuevos, 6 de 8: mar
 
 ## Definiciones de trabajo
 
-- **definición de listo:** acuerdo sobre la información que un elemento debe tener antes de comenzar a construirse.
-- **definición de terminado:** conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable.
-- **criterio de aceptación:** condición concreta, con un resultado observable, que debe cumplirse para que una historia se acepte.
-- **escape:** defecto que supera las puertas del proceso y se descubre después de dar el trabajo por terminado.
-- **correlación entre comprobaciones:** grado en que dos comprobaciones fallan o aciertan sobre los mismos defectos.
+- **[definición de listo](../../../glosario/entradas/d/definicion-de-listo.md):** acuerdo sobre la información que un elemento debe tener antes de comenzar a construirse.
+- **[definición de terminado](../../../glosario/entradas/d/definicion-de-terminado.md):** conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición concreta, con un resultado observable, que debe cumplirse para que una historia se acepte.
+- **[escape](../../../glosario/entradas/e/escape.md):** defecto que supera las puertas del proceso y se descubre después de dar el trabajo por terminado.
+- **[correlación entre comprobaciones](../../../glosario/entradas/c/correlacion-entre-comprobaciones.md):** grado en que dos comprobaciones fallan o aciertan sobre los mismos defectos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **definición de listo:** acuerdo sobre la información que un elemento debe tener antes de comenzar a construirse.
-- **definición de terminado:** conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable.
-- **criterio de aceptación:** condición concreta, con un resultado observable, que debe cumplirse para que una historia se acepte.
-- **escape:** defecto que supera las puertas del proceso y se descubre después de dar el trabajo por terminado.
-- **correlación entre comprobaciones:** grado en que dos comprobaciones fallan o aciertan sobre los mismos defectos.
+- **[definición de listo](../../../glosario/entradas/d/definicion-de-listo.md):** acuerdo sobre la información que un elemento debe tener antes de comenzar a construirse.
+- **[definición de terminado](../../../glosario/entradas/d/definicion-de-terminado.md):** conjunto de comprobaciones que un incremento debe pasar para considerarse utilizable y liberable.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición concreta, con un resultado observable, que debe cumplirse para que una historia se acepte.
+- **[escape](../../../glosario/entradas/e/escape.md):** defecto que supera las puertas del proceso y se descubre después de dar el trabajo por terminado.
+- **[correlación entre comprobaciones](../../../glosario/entradas/c/correlacion-entre-comprobaciones.md):** grado en que dos comprobaciones fallan o aciertan sobre los mismos defectos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Correlación entre comprobaciones](../../../glosario/entradas/c/correlacion-entre-comprobaciones.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Definición de listo](../../../glosario/entradas/d/definicion-de-listo.md) · [Definición de terminado](../../../glosario/entradas/d/definicion-de-terminado.md) · [Escape](../../../glosario/entradas/e/escape.md).
 
 ---
 

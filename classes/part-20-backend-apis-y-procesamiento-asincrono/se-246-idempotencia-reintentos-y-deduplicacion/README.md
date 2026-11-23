@@ -127,11 +127,11 @@ Además, la huella de la carga distingue dos casos con la misma clave: con la mi
 
 ## Definiciones de trabajo
 
-- **clave de idempotencia:** identificador generado por el cliente para una intención que permite al servidor reconocer repeticiones.
-- **jitter:** aleatoriedad añadida a la espera entre reintentos para evitar que los clientes se sincronicen.
-- **tormenta de reintentos:** carga adicional causada por muchos clientes que reintentan a la vez tras un fallo.
-- **ventana de retención:** tiempo durante el cual el servidor recuerda una clave y su respuesta.
-- **huella de la carga:** hash del contenido canónico de una solicitud, usado para detectar reutilización de una clave con otros datos.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador generado por el cliente para una intención que permite al servidor reconocer repeticiones.
+- **[jitter](../../../glosario/entradas/d/dispersion.md):** aleatoriedad añadida a la espera entre reintentos para evitar que los clientes se sincronicen.
+- **[tormenta de reintentos](../../../glosario/entradas/t/tormenta-de-reintentos.md):** carga adicional causada por muchos clientes que reintentan a la vez tras un fallo.
+- **[ventana de retención](../../../glosario/entradas/v/ventana-de-retencion.md):** tiempo durante el cual el servidor recuerda una clave y su respuesta.
+- **[huella de la carga](../../../glosario/entradas/h/huella-de-la-carga.md):** hash del contenido canónico de una solicitud, usado para detectar reutilización de una clave con otros datos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -273,11 +273,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **idempotente:** dicho de una operación cuyo efecto repetido es el mismo que el de una ejecución.
-- **restricción única:** regla de la base de datos que impide dos filas con el mismo valor en una columna o conjunto de columnas.
-- **retroceso exponencial:** estrategia que multiplica la espera entre reintentos por un factor fijo.
-- **Retry-After:** encabezado con el que el servidor indica cuánto esperar antes de reintentar.
-- **intención:** acción única que quiere lograr el cliente, identificada por una clave.
+- **[idempotente](../../../glosario/entradas/i/idempotente.md):** dicho de una operación cuyo efecto repetido es el mismo que el de una ejecución.
+- **[restricción única](../../../glosario/entradas/r/restriccion-unica.md):** regla de la base de datos que impide dos filas con el mismo valor en una columna o conjunto de columnas.
+- **[retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md):** estrategia que multiplica la espera entre reintentos por un factor fijo.
+- **[Retry-After](../../../glosario/entradas/r/retry-after.md):** encabezado con el que el servidor indica cuánto esperar antes de reintentar.
+- **[intención](../../../glosario/entradas/i/intencion.md):** acción única que quiere lograr el cliente, identificada por una clave.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Huella de la carga](../../../glosario/entradas/h/huella-de-la-carga.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Idempotente](../../../glosario/entradas/i/idempotente.md) · [Intención](../../../glosario/entradas/i/intencion.md) · [Restricción única](../../../glosario/entradas/r/restriccion-unica.md) · [Retroceso exponencial](../../../glosario/entradas/r/retroceso-exponencial.md) · [Retry-After](../../../glosario/entradas/r/retry-after.md) · [Tormenta de reintentos](../../../glosario/entradas/t/tormenta-de-reintentos.md) · [Ventana de retención](../../../glosario/entradas/v/ventana-de-retencion.md).
 
 ---
 

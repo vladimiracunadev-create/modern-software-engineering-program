@@ -141,11 +141,11 @@ Los 64 entornos abandonados consumen más de la mitad de las horas de la primera
 
 ## Definiciones de trabajo
 
-- **entorno de vista previa:** instancia temporal y completa de la aplicación creada para un cambio propuesto.
-- **cuasi-identificador:** dato que no identifica por sí solo pero sí en combinación con otros.
-- **k-anonimato:** propiedad por la que cada combinación de cuasi-identificadores corresponde al menos a *k* registros.
-- **enmascarado determinista:** transformación que da siempre el mismo resultado para el mismo valor de entrada.
-- **TTL:** tiempo máximo de vida de un recurso tras el cual se destruye salvo que se renueve.
+- **[entorno de vista previa](../../../glosario/entradas/e/entorno-de-vista-previa.md):** instancia temporal y completa de la aplicación creada para un cambio propuesto.
+- **[cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** dato que no identifica por sí solo pero sí en combinación con otros.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad por la que cada combinación de cuasi-identificadores corresponde al menos a *k* registros.
+- **[enmascarado determinista](../../../glosario/entradas/e/enmascarado-determinista.md):** transformación que da siempre el mismo resultado para el mismo valor de entrada.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo máximo de vida de un recurso tras el cual se destruye salvo que se renueve.
 
 Las definiciones son operativas para los entornos de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -285,11 +285,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **entorno de vista previa:** instancia temporal y completa de la aplicación creada para un cambio propuesto.
-- **cuasi-identificador:** dato que no identifica por sí solo pero sí en combinación con otros.
-- **k-anonimato:** propiedad por la que cada combinación de cuasi-identificadores corresponde al menos a *k* registros.
-- **enmascarado determinista:** transformación que da siempre el mismo resultado para el mismo valor de entrada.
-- **TTL:** tiempo máximo de vida de un recurso tras el cual se destruye salvo que se renueve.
+- **[entorno de vista previa](../../../glosario/entradas/e/entorno-de-vista-previa.md):** instancia temporal y completa de la aplicación creada para un cambio propuesto.
+- **[cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** dato que no identifica por sí solo pero sí en combinación con otros.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad por la que cada combinación de cuasi-identificadores corresponde al menos a *k* registros.
+- **[enmascarado determinista](../../../glosario/entradas/e/enmascarado-determinista.md):** transformación que da siempre el mismo resultado para el mismo valor de entrada.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo máximo de vida de un recurso tras el cual se destruye salvo que se renueve.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md) · [Enmascarado determinista](../../../glosario/entradas/e/enmascarado-determinista.md) · [Entorno de vista previa](../../../glosario/entradas/e/entorno-de-vista-previa.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Reidentificación](../../../glosario/entradas/r/reidentificacion.md) · [Vigencia de la caché](../../../glosario/entradas/v/vigencia-de-la-cache.md).
 
 ---
 

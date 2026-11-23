@@ -160,11 +160,11 @@ Con un fallo del 2 %, publicar a todos daña 200 dispositivos y las etapas, 15. 
 
 ## Definiciones de trabajo
 
-- **actualización inalámbrica (OTA):** actualización del firmware de un dispositivo a través de una red, sin acceso físico.
-- **ranura:** región de memoria que contiene una imagen de firmware completa; con dos, una está activa y la otra recibe la actualización.
-- **reversión:** regreso automático a la imagen anterior cuando la nueva no confirma su arranque correcto.
-- **actualización diferencial:** envío de las diferencias entre dos versiones del firmware en lugar de la imagen completa.
-- **despliegue por etapas:** publicación de una versión a fracciones crecientes de la flota con una regla para detenerla.
+- **[actualización inalámbrica (OTA)](../../../glosario/entradas/a/actualizacion-inalambrica.md):** actualización del firmware de un dispositivo a través de una red, sin acceso físico.
+- **[ranura](../../../glosario/entradas/r/ranura.md):** región de memoria que contiene una imagen de firmware completa; con dos, una está activa y la otra recibe la actualización.
+- **[reversión](../../../glosario/entradas/r/retroceso.md):** regreso automático a la imagen anterior cuando la nueva no confirma su arranque correcto.
+- **[actualización diferencial](../../../glosario/entradas/a/actualizacion-diferencial.md):** envío de las diferencias entre dos versiones del firmware en lugar de la imagen completa.
+- **[despliegue por etapas](../../../glosario/entradas/d/despliegue-por-etapas.md):** publicación de una versión a fracciones crecientes de la flota con una regla para detenerla.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **actualización inalámbrica (OTA):** actualización del firmware de un dispositivo a través de una red, sin acceso físico.
-- **ranura:** región de memoria que contiene una imagen de firmware completa; con dos, una está activa y la otra recibe la actualización.
-- **reversión:** regreso automático a la imagen anterior cuando la nueva no confirma su arranque correcto.
-- **actualización diferencial:** envío de las diferencias entre dos versiones del firmware en lugar de la imagen completa.
-- **despliegue por etapas:** publicación de una versión a fracciones crecientes de la flota con una regla para detenerla.
+- **[actualización inalámbrica (OTA)](../../../glosario/entradas/a/actualizacion-inalambrica.md):** actualización del firmware de un dispositivo a través de una red, sin acceso físico.
+- **[ranura](../../../glosario/entradas/r/ranura.md):** región de memoria que contiene una imagen de firmware completa; con dos, una está activa y la otra recibe la actualización.
+- **[reversión](../../../glosario/entradas/r/retroceso.md):** regreso automático a la imagen anterior cuando la nueva no confirma su arranque correcto.
+- **[actualización diferencial](../../../glosario/entradas/a/actualizacion-diferencial.md):** envío de las diferencias entre dos versiones del firmware en lugar de la imagen completa.
+- **[despliegue por etapas](../../../glosario/entradas/d/despliegue-por-etapas.md):** publicación de una versión a fracciones crecientes de la flota con una regla para detenerla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actualización diferencial](../../../glosario/entradas/a/actualizacion-diferencial.md) · [Actualización inalámbrica](../../../glosario/entradas/a/actualizacion-inalambrica.md) · [Criterio de parada](../../../glosario/entradas/c/criterio-de-parada.md) · [Despliegue por etapas](../../../glosario/entradas/d/despliegue-por-etapas.md) · [Ranura](../../../glosario/entradas/r/ranura.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md).
 
 ---
 

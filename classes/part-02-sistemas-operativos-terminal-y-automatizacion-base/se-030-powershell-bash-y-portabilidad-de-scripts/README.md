@@ -132,11 +132,11 @@ códigos de salida. Probar el mismo contrato en Windows y en Linux (el laborator
 
 ## Definiciones de trabajo
 
-- **núcleo:** lógica que opera sobre el contrato común sin conocer comandos concretos;
-- **adaptador:** traducción entre una capacidad local y el modelo común;
-- **equivalencia semántica:** mismo resultado observable dentro de límites declarados;
-- **matriz de soporte:** plataformas, versiones y escenarios realmente probados;
-- **degradación:** resultado parcial explícito cuando una capacidad opcional falta.
+- **[núcleo](../../../glosario/entradas/n/nucleo.md):** lógica que opera sobre el contrato común sin conocer comandos concretos;
+- **[adaptador](../../../glosario/entradas/a/adaptador.md):** traducción entre una capacidad local y el modelo común;
+- **[equivalencia semántica](../../../glosario/entradas/e/equivalencia-semantica.md):** mismo resultado observable dentro de límites declarados;
+- **[matriz de soporte](../../../glosario/entradas/m/matriz-de-soporte.md):** plataformas, versiones y escenarios realmente probados;
+- **[degradación](../../../glosario/entradas/d/degradacion.md):** resultado parcial explícito cuando una capacidad opcional falta.
 
 ## Caso conductor: dos adaptadores, un contrato
 
@@ -260,11 +260,13 @@ No buscamos cubrir toda la sintaxis ni producir scripts idénticos. Aún falta d
 - [Laboratorio de la Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit): núcleo en Python con adaptadores de Bash y PowerShell; sus diez pruebas se ejecutaron en Windows y en Linux (WSL2).
 ## Glosario
 
-- **Adaptador:** implementación específica que traduce un contrato común a una plataforma.
-- **Contrato:** definición observable de entradas, salidas, errores y efectos.
-- **Modo degradado:** ejecución limitada que declara capacidades ausentes.
-- **Portabilidad:** grado de funcionamiento demostrado dentro de una matriz definida.
-- **Proveedor de PowerShell:** interfaz que presenta almacenes como espacios navegables.
+- **[Adaptador](../../../glosario/entradas/a/adaptador.md):** implementación específica que traduce un contrato común a una plataforma.
+- **[Contrato](../../../glosario/entradas/c/contrato.md):** definición observable de entradas, salidas, errores y efectos.
+- **[Modo degradado](../../../glosario/entradas/m/modo-degradado.md):** ejecución limitada que declara capacidades ausentes.
+- **[Portabilidad](../../../glosario/entradas/p/portabilidad.md):** grado de funcionamiento demostrado dentro de una matriz definida.
+- **[Proveedor de PowerShell](../../../glosario/entradas/p/proveedor-de-powershell.md):** interfaz que presenta almacenes como espacios navegables.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adaptador](../../../glosario/entradas/a/adaptador.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Degradación](../../../glosario/entradas/d/degradacion.md) · [Equivalencia semántica](../../../glosario/entradas/e/equivalencia-semantica.md) · [Matriz de soporte](../../../glosario/entradas/m/matriz-de-soporte.md) · [Modo degradado](../../../glosario/entradas/m/modo-degradado.md) · [Núcleo](../../../glosario/entradas/n/nucleo.md) · [Portabilidad](../../../glosario/entradas/p/portabilidad.md) · [Proveedor de PowerShell](../../../glosario/entradas/p/proveedor-de-powershell.md).
 
 ---
 [← SE-029](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-031 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md)

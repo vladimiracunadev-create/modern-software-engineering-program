@@ -131,13 +131,13 @@ La tercera comparación simula una campaña masiva de un inquilino contra los de
 
 ## Definiciones de trabajo
 
-- **Multi-tenancy:** servir a varios clientes (inquilinos) con infraestructura compartida.
-- **Inquilino (tenant):** cliente cuyos datos y comportamiento deben aislarse de los de otros.
-- **Aislamiento de datos:** garantía de que una operación de un inquilino no lee ni escribe datos de otro.
-- **Vecino ruidoso:** inquilino cuya carga degrada el servicio de otros.
-- **Silo y pool:** recursos dedicados a un inquilino frente a recursos compartidos entre varios.
-- **Barrera independiente de la consulta:** mecanismo que aplica el aislamiento sin que cada consulta lo escriba.
-- **Tope de concurrencia:** límite de trabajo simultáneo que un inquilino puede ocupar.
+- **[Multi-tenancy](../../../glosario/entradas/m/multi-tenancy.md):** servir a varios clientes (inquilinos) con infraestructura compartida.
+- **[Inquilino (tenant)](../../../glosario/entradas/i/inquilino.md):** cliente cuyos datos y comportamiento deben aislarse de los de otros.
+- **[Aislamiento de datos](../../../glosario/entradas/a/aislamiento-de-datos.md):** garantía de que una operación de un inquilino no lee ni escribe datos de otro.
+- **[Vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md):** inquilino cuya carga degrada el servicio de otros.
+- **[Silo y pool](../../../glosario/entradas/s/silo-y-pool.md):** recursos dedicados a un inquilino frente a recursos compartidos entre varios.
+- **[Barrera independiente de la consulta](../../../glosario/entradas/b/barrera-independiente-de-la-consulta.md):** mecanismo que aplica el aislamiento sin que cada consulta lo escriba.
+- **[Tope de concurrencia](../../../glosario/entradas/t/tope-de-concurrencia.md):** límite de trabajo simultáneo que un inquilino puede ocupar.
 
 ## Ejemplo mínimo
 
@@ -268,6 +268,8 @@ Las consultas, los datos y la simulación son construcciones del autor; SQLite n
 | Silo y pool | Recursos dedicados o compartidos |
 | Barrera independiente de la consulta | Aislamiento aplicado fuera de cada consulta |
 | Tope de concurrencia | Límite de trabajo simultáneo por inquilino |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aislamiento de datos](../../../glosario/entradas/a/aislamiento-de-datos.md) · [Barrera independiente](../../../glosario/entradas/b/barrera-independiente.md) · [Barrera independiente de la consulta](../../../glosario/entradas/b/barrera-independiente-de-la-consulta.md) · [Inquilino](../../../glosario/entradas/i/inquilino.md) · [Multi-tenancy](../../../glosario/entradas/m/multi-tenancy.md) · [Silo y pool](../../../glosario/entradas/s/silo-y-pool.md) · [Tope de concurrencia](../../../glosario/entradas/t/tope-de-concurrencia.md) · [Vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md).
 
 ---
 

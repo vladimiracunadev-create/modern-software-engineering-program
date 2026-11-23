@@ -125,11 +125,11 @@ Con 5, 12 y 20 casos tomados al azar se detectan **5, 12 y 20** mutaciones; con 
 
 ## Definiciones de trabajo
 
-- **autenticación:** establecimiento de la identidad de quien hace una solicitud.
-- **autorización:** decisión de si un sujeto puede realizar una acción sobre un recurso.
-- **autorización a nivel de objeto:** comprobación de que el sujeto tiene derecho sobre la instancia concreta que pide.
-- **audiencia:** destinatario previsto de un token; la API debe rechazar los emitidos para otra.
-- **denegación por defecto:** regla por la que todo lo que la política no permite explícitamente se niega.
+- **[autenticación](../../../glosario/entradas/a/autenticacion.md):** establecimiento de la identidad de quien hace una solicitud.
+- **[autorización](../../../glosario/entradas/a/autorizacion.md):** decisión de si un sujeto puede realizar una acción sobre un recurso.
+- **[autorización a nivel de objeto](../../../glosario/entradas/a/autorizacion-a-nivel-de-objeto.md):** comprobación de que el sujeto tiene derecho sobre la instancia concreta que pide.
+- **[audiencia](../../../glosario/entradas/a/audiencia.md):** destinatario previsto de un token; la API debe rechazar los emitidos para otra.
+- **[denegación por defecto](../../../glosario/entradas/d/denegacion-por-defecto.md):** regla por la que todo lo que la política no permite explícitamente se niega.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -267,11 +267,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **token:** credencial firmada que transporta afirmaciones sobre un sujeto y su vigencia.
-- **tenant:** unidad aislada (institución o curso) a la que pertenecen los datos y que limita el alcance de un sujeto.
-- **sujeto:** identidad autenticada que realiza la solicitud.
-- **política de acceso:** conjunto de reglas que determinan quién puede hacer qué sobre qué recurso.
-- **enumeración de identificadores:** recorrido sistemático de identificadores para descubrir recursos accesibles.
+- **[token](../../../glosario/entradas/t/token.md):** credencial firmada que transporta afirmaciones sobre un sujeto y su vigencia.
+- **[tenant](../../../glosario/entradas/t/tenant.md):** unidad aislada (institución o curso) a la que pertenecen los datos y que limita el alcance de un sujeto.
+- **[sujeto](../../../glosario/entradas/s/sujeto.md):** identidad autenticada que realiza la solicitud.
+- **[política de acceso](../../../glosario/entradas/p/politica-de-acceso.md):** conjunto de reglas que determinan quién puede hacer qué sobre qué recurso.
+- **[enumeración de identificadores](../../../glosario/entradas/e/enumeracion-de-identificadores.md):** recorrido sistemático de identificadores para descubrir recursos accesibles.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Audiencia](../../../glosario/entradas/a/audiencia.md) · [Autenticación](../../../glosario/entradas/a/autenticacion.md) · [Autorización](../../../glosario/entradas/a/autorizacion.md) · [Autorización a nivel de objeto](../../../glosario/entradas/a/autorizacion-a-nivel-de-objeto.md) · [Denegación por defecto](../../../glosario/entradas/d/denegacion-por-defecto.md) · [Enumeración de identificadores](../../../glosario/entradas/e/enumeracion-de-identificadores.md) · [Política de acceso](../../../glosario/entradas/p/politica-de-acceso.md) · [Sujeto](../../../glosario/entradas/s/sujeto.md) · [Tenant](../../../glosario/entradas/t/tenant.md) · [Token](../../../glosario/entradas/t/token.md).
 
 ---
 

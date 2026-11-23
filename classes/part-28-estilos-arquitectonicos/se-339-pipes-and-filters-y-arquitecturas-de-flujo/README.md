@@ -127,13 +127,13 @@ La tercera medida enfrenta un productor rápido a un consumidor lento y provoca 
 
 ## Definiciones de trabajo
 
-- **Filtro:** paso que transforma, descarta o enriquece elementos de un flujo.
-- **Tubería (pipe):** conexión entre la salida de un filtro y la entrada del siguiente.
-- **Flujo (stream):** secuencia de elementos procesada de uno en uno.
-- **Filtro con estado:** filtro que necesita retener elementos antes de emitir.
-- **Contrapresión:** señal que frena al productor cuando el consumidor no da abasto.
-- **Cola de rechazos (dead letter):** destino de lo que no se pudo procesar, con su causa.
-- **Selectividad:** proporción de elementos que un filtro deja pasar.
+- **[Filtro](../../../glosario/entradas/f/filtro.md):** paso que transforma, descarta o enriquece elementos de un flujo.
+- **[Tubería (pipe)](../../../glosario/entradas/t/tuberia.md):** conexión entre la salida de un filtro y la entrada del siguiente.
+- **[Flujo (stream)](../../../glosario/entradas/f/flujo.md):** secuencia de elementos procesada de uno en uno.
+- **[Filtro con estado](../../../glosario/entradas/f/filtro-con-estado.md):** filtro que necesita retener elementos antes de emitir.
+- **[Contrapresión](../../../glosario/entradas/c/contrapresion.md):** señal que frena al productor cuando el consumidor no da abasto.
+- **[Cola de rechazos (dead letter)](../../../glosario/entradas/c/cola-de-rechazos.md):** destino de lo que no se pudo procesar, con su causa.
+- **[Selectividad](../../../glosario/entradas/s/selectividad.md):** proporción de elementos que un filtro deja pasar.
 
 ## Ejemplo mínimo
 
@@ -271,6 +271,8 @@ Los datos son sintéticos, la memoria es la de Python y los tiempos de hilo depe
 | Filtro con estado | Filtro que retiene elementos antes de emitir |
 | Contrapresión | Señal que frena al productor |
 | Cola de rechazos | Destino de lo que no se pudo procesar |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola de rechazos](../../../glosario/entradas/c/cola-de-rechazos.md) · [Contrapresión](../../../glosario/entradas/c/contrapresion.md) · [Filtro](../../../glosario/entradas/f/filtro.md) · [Filtro con estado](../../../glosario/entradas/f/filtro-con-estado.md) · [Flujo](../../../glosario/entradas/f/flujo.md) · [Selectividad](../../../glosario/entradas/s/selectividad.md) · [Tubería](../../../glosario/entradas/t/tuberia.md).
 
 ---
 

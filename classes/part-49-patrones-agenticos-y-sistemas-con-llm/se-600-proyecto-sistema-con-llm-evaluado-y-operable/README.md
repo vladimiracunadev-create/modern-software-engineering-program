@@ -109,11 +109,11 @@ La decisión de entrar a producción no es definitiva. Cada decisión lleva su *
 
 ## Definiciones de trabajo
 
-- **Puerta de entrada a producción:** conjunto de umbrales, uno por columna, que decide si un sistema puede operar.
-- **Candidato:** configuración del sistema que se somete a la puerta.
-- **Gobierno:** conjunto de controles (enrutamiento, permisos, diario, trazas, evaluación, degradación) que rodean a la calidad.
-- **Condición de revisión:** evento o umbral que reabre una decisión.
-- **Documento de límites:** declaración de lo que no se midió y de los supuestos de lo medido.
+- **[Puerta de entrada a producción](../../../glosario/entradas/p/puerta-de-entrada-a-produccion.md):** conjunto de umbrales, uno por columna, que decide si un sistema puede operar.
+- **[Candidato](../../../glosario/entradas/c/candidato.md):** configuración del sistema que se somete a la puerta.
+- **[Gobierno](../../../glosario/entradas/g/gobierno.md):** conjunto de controles (enrutamiento, permisos, diario, trazas, evaluación, degradación) que rodean a la calidad.
+- **[Condición de revisión](../../../glosario/entradas/c/condicion-de-revision.md):** evento o umbral que reabre una decisión.
+- **[Documento de límites](../../../glosario/entradas/d/documento-de-limites.md):** declaración de lo que no se midió y de los supuestos de lo medido.
 
 ## Ejemplo mínimo
 
@@ -248,6 +248,8 @@ Los cuatro candidatos son configuraciones sintéticas que recombinan medidas de 
 | Gobierno | Controles que rodean a la calidad del sistema |
 | Condición de revisión | Evento o umbral que reabre la decisión |
 | Documento de límites | Declaración de lo que no se midió |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Candidato](../../../glosario/entradas/c/candidato.md) · [Condición de revisión](../../../glosario/entradas/c/condicion-de-revision.md) · [Documento de límites](../../../glosario/entradas/d/documento-de-limites.md) · [Durabilidad](../../../glosario/entradas/d/durabilidad.md) · [Gobierno](../../../glosario/entradas/g/gobierno.md) · [Puerta de entrada a producción](../../../glosario/entradas/p/puerta-de-entrada-a-produccion.md).
 
 ---
 

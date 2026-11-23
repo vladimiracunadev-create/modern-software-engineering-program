@@ -129,11 +129,11 @@ filas = db.execute("select id,ts from e where ts < ? order by ts desc limit 50",
 
 ## Definiciones de trabajo
 
-- **recurso:** cosa con identidad que el sistema nombra y sobre la que actúa mediante métodos.
-- **método seguro:** método que no pretende cambiar el estado del servidor y puede repetirse o precargarse.
-- **método idempotente:** método cuyo efecto, repetido varias veces, es el mismo que el de una ejecución.
-- **ETag:** validador opaco que identifica la versión de una representación y permite solicitudes condicionales.
-- **keyset:** paginación cuyo punto de continuación es el valor de la clave de orden del último elemento visto.
+- **[recurso](../../../glosario/entradas/r/recurso.md):** cosa con identidad que el sistema nombra y sobre la que actúa mediante métodos.
+- **[método seguro](../../../glosario/entradas/m/metodo-seguro.md):** método que no pretende cambiar el estado del servidor y puede repetirse o precargarse.
+- **[método idempotente](../../../glosario/entradas/m/metodo-idempotente.md):** método cuyo efecto, repetido varias veces, es el mismo que el de una ejecución.
+- **[ETag](../../../glosario/entradas/e/etag.md):** validador opaco que identifica la versión de una representación y permite solicitudes condicionales.
+- **[keyset](../../../glosario/entradas/k/keyset.md):** paginación cuyo punto de continuación es el valor de la clave de orden del último elemento visto.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -275,11 +275,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **representación:** forma concreta (formato y campos) en que un recurso se entrega a un cliente.
-- **precondición:** condición sobre el estado del recurso que debe cumplirse para que una solicitud se aplique.
-- **actualización perdida:** efecto por el que una escritura posterior sobrescribe otra sin haberla visto.
-- **colección:** recurso que agrupa otros recursos del mismo tipo y admite consultas sobre ellos.
-- **orden total:** orden en el que no hay dos elementos equivalentes, por ejemplo fecha más identificador.
+- **[representación](../../../glosario/entradas/r/representacion.md):** forma concreta (formato y campos) en que un recurso se entrega a un cliente.
+- **[precondición](../../../glosario/entradas/p/precondicion.md):** condición sobre el estado del recurso que debe cumplirse para que una solicitud se aplique.
+- **[actualización perdida](../../../glosario/entradas/a/actualizacion-perdida.md):** efecto por el que una escritura posterior sobrescribe otra sin haberla visto.
+- **[colección](../../../glosario/entradas/c/coleccion.md):** recurso que agrupa otros recursos del mismo tipo y admite consultas sobre ellos.
+- **[orden total](../../../glosario/entradas/o/orden-total.md):** orden en el que no hay dos elementos equivalentes, por ejemplo fecha más identificador.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actualización perdida](../../../glosario/entradas/a/actualizacion-perdida.md) · [Colección](../../../glosario/entradas/c/coleccion.md) · [ETag](../../../glosario/entradas/e/etag.md) · [Keyset](../../../glosario/entradas/k/keyset.md) · [Método idempotente](../../../glosario/entradas/m/metodo-idempotente.md) · [Método seguro](../../../glosario/entradas/m/metodo-seguro.md) · [Orden total](../../../glosario/entradas/o/orden-total.md) · [Precondición](../../../glosario/entradas/p/precondicion.md) · [Recurso](../../../glosario/entradas/r/recurso.md) · [Representación](../../../glosario/entradas/r/representacion.md).
 
 ---
 

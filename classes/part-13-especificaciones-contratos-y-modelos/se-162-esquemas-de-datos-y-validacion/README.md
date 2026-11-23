@@ -130,11 +130,11 @@ ok = len(s) <= 20 and bool(patron.match(s))   # la longitud va primero
 
 ## Definiciones de trabajo
 
-- **esquema de datos:** descripción declarativa de la forma (tipos, rangos, formatos, campos requeridos) que debe cumplir un documento.
-- **esquema abierto:** esquema que acepta propiedades no declaradas.
-- **esquema cerrado:** esquema que rechaza propiedades no declaradas.
-- **regla entre campos:** condición que relaciona el valor de dos o más campos y que un esquema de forma no expresa.
-- **retroceso catastrófico:** crecimiento exponencial del tiempo de una expresión regular al explorar divisiones alternativas de una entrada.
+- **[esquema de datos](../../../glosario/entradas/e/esquema-de-datos.md):** descripción declarativa de la forma (tipos, rangos, formatos, campos requeridos) que debe cumplir un documento.
+- **[esquema abierto](../../../glosario/entradas/e/esquema-abierto.md):** esquema que acepta propiedades no declaradas.
+- **[esquema cerrado](../../../glosario/entradas/e/esquema-cerrado.md):** esquema que rechaza propiedades no declaradas.
+- **[regla entre campos](../../../glosario/entradas/r/regla-entre-campos.md):** condición que relaciona el valor de dos o más campos y que un esquema de forma no expresa.
+- **[retroceso catastrófico](../../../glosario/entradas/r/retroceso-catastrofico.md):** crecimiento exponencial del tiempo de una expresión regular al explorar divisiones alternativas de una entrada.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -281,11 +281,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **esquema de datos:** descripción declarativa de la forma (tipos, rangos, formatos, campos requeridos) que debe cumplir un documento.
-- **esquema abierto:** esquema que acepta propiedades no declaradas.
-- **esquema cerrado:** esquema que rechaza propiedades no declaradas.
-- **regla entre campos:** condición que relaciona el valor de dos o más campos y que un esquema de forma no expresa.
-- **retroceso catastrófico:** crecimiento exponencial del tiempo de una expresión regular al explorar divisiones alternativas de una entrada.
+- **[esquema de datos](../../../glosario/entradas/e/esquema-de-datos.md):** descripción declarativa de la forma (tipos, rangos, formatos, campos requeridos) que debe cumplir un documento.
+- **[esquema abierto](../../../glosario/entradas/e/esquema-abierto.md):** esquema que acepta propiedades no declaradas.
+- **[esquema cerrado](../../../glosario/entradas/e/esquema-cerrado.md):** esquema que rechaza propiedades no declaradas.
+- **[regla entre campos](../../../glosario/entradas/r/regla-entre-campos.md):** condición que relaciona el valor de dos o más campos y que un esquema de forma no expresa.
+- **[retroceso catastrófico](../../../glosario/entradas/r/retroceso-catastrofico.md):** crecimiento exponencial del tiempo de una expresión regular al explorar divisiones alternativas de una entrada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Esquema abierto](../../../glosario/entradas/e/esquema-abierto.md) · [Esquema cerrado](../../../glosario/entradas/e/esquema-cerrado.md) · [Esquema de datos](../../../glosario/entradas/e/esquema-de-datos.md) · [Regla entre campos](../../../glosario/entradas/r/regla-entre-campos.md) · [Retroceso catastrófico](../../../glosario/entradas/r/retroceso-catastrofico.md).
 
 ---
 

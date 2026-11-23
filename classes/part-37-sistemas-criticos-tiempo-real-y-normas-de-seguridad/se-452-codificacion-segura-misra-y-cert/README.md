@@ -127,13 +127,13 @@ La tercera figura ordena qué comprueba cada capa y qué deja a la siguiente.
 
 ## Definiciones de trabajo
 
-- **Estándar de codificación segura:** conjunto de reglas que restringen el uso del lenguaje para evitar clases de defectos.
-- **Regla decidible:** regla que una herramienta puede comprobar con certeza.
-- **Desviación:** excepción justificada, revisada y registrada de una regla.
-- **Falso positivo:** aviso que la herramienta emite sobre código que no tiene el defecto.
-- **Aserción:** comprobación en ejecución de un supuesto del programa.
-- **Envoltorio de enteros:** resultado módulo 2ⁿ de una operación que excede el rango del tipo.
-- **Cota de bucle:** límite superior comprobable de las iteraciones de un bucle.
+- **[Estándar de codificación segura](../../../glosario/entradas/e/estandar-de-codificacion-segura.md):** conjunto de reglas que restringen el uso del lenguaje para evitar clases de defectos.
+- **[Regla decidible](../../../glosario/entradas/r/regla-decidible.md):** regla que una herramienta puede comprobar con certeza.
+- **[Desviación](../../../glosario/entradas/d/desviacion.md):** excepción justificada, revisada y registrada de una regla.
+- **[Falso positivo](../../../glosario/entradas/f/falso-positivo.md):** aviso que la herramienta emite sobre código que no tiene el defecto.
+- **[Aserción](../../../glosario/entradas/a/asercion.md):** comprobación en ejecución de un supuesto del programa.
+- **[Envoltorio de enteros](../../../glosario/entradas/e/envoltorio-de-enteros.md):** resultado módulo 2ⁿ de una operación que excede el rango del tipo.
+- **[Cota de bucle](../../../glosario/entradas/c/cota-de-bucle.md):** límite superior comprobable de las iteraciones de un bucle.
 
 ## Ejemplo mínimo
 
@@ -268,6 +268,8 @@ Las reglas son una versión en Python de ideas de Holzmann, no MISRA ni CERT; no
 | Falso positivo | Aviso sobre código sin el defecto |
 | Aserción | Comprobación en ejecución de un supuesto |
 | Cota de bucle | Límite comprobable de iteraciones |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aserción](../../../glosario/entradas/a/asercion.md) · [Cota de bucle](../../../glosario/entradas/c/cota-de-bucle.md) · [Desviación](../../../glosario/entradas/d/desviacion.md) · [Envoltorio de enteros](../../../glosario/entradas/e/envoltorio-de-enteros.md) · [Estándar de codificación segura](../../../glosario/entradas/e/estandar-de-codificacion-segura.md) · [Falso positivo](../../../glosario/entradas/f/falso-positivo.md) · [Regla decidible](../../../glosario/entradas/r/regla-decidible.md).
 
 ---
 

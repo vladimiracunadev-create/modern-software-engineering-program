@@ -137,11 +137,11 @@ Resultado, idéntico en ambos sistemas: las tres pruebas del camino feliz matan 
 
 ## Definiciones de trabajo
 
-- **evento de telemetría:** registro estructurado de algo que ocurrió en el producto, con campos permitidos y justificados.
-- **consentimiento:** manifestación libre, específica, informada e inequívoca de una persona, retirable con facilidad.
-- **minimización:** recoger solo los datos, el tiempo y la granularidad que una decisión necesita.
-- **k-anonimato:** propiedad de un conjunto en que cada combinación de atributos la comparten al menos k registros.
-- **mutante:** copia del código con un cambio mínimo que sirve para comprobar si las pruebas lo detectan.
+- **[evento de telemetría](../../../glosario/entradas/e/evento-de-telemetria.md):** registro estructurado de algo que ocurrió en el producto, con campos permitidos y justificados.
+- **[consentimiento](../../../glosario/entradas/c/consentimiento.md):** manifestación libre, específica, informada e inequívoca de una persona, retirable con facilidad.
+- **[minimización](../../../glosario/entradas/m/minimizacion.md):** recoger solo los datos, el tiempo y la granularidad que una decisión necesita.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto en que cada combinación de atributos la comparten al menos k registros.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mínimo que sirve para comprobar si las pruebas lo detectan.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -285,11 +285,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **evento de telemetría:** registro estructurado de algo que ocurrió en el producto, con campos permitidos y justificados.
-- **consentimiento:** manifestación libre, específica, informada e inequívoca de una persona, retirable con facilidad.
-- **minimización:** recoger solo los datos, el tiempo y la granularidad que una decisión necesita.
-- **k-anonimato:** propiedad de un conjunto en que cada combinación de atributos la comparten al menos k registros.
-- **mutante:** copia del código con un cambio mínimo que sirve para comprobar si las pruebas lo detectan.
+- **[evento de telemetría](../../../glosario/entradas/e/evento-de-telemetria.md):** registro estructurado de algo que ocurrió en el producto, con campos permitidos y justificados.
+- **[consentimiento](../../../glosario/entradas/c/consentimiento.md):** manifestación libre, específica, informada e inequívoca de una persona, retirable con facilidad.
+- **[minimización](../../../glosario/entradas/m/minimizacion.md):** recoger solo los datos, el tiempo y la granularidad que una decisión necesita.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad de un conjunto en que cada combinación de atributos la comparten al menos k registros.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mínimo que sirve para comprobar si las pruebas lo detectan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consentimiento](../../../glosario/entradas/c/consentimiento.md) · [Evento de telemetría](../../../glosario/entradas/e/evento-de-telemetria.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Minimización](../../../glosario/entradas/m/minimizacion.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

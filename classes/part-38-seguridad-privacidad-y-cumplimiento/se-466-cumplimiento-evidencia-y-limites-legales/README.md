@@ -150,11 +150,11 @@ La cadena sola ve todo lo que rompe un eslabón y nada de lo que lo reconstruye 
 
 ## Definiciones de trabajo
 
-- **trazabilidad:** relación verificable entre un requisito, el control que lo cubre, la prueba que lo comprueba y la evidencia que lo respalda.
-- **evidencia:** resultado de una prueba o inspección con fecha, versión y huella que permite a otra persona verificar un control.
-- **muestreo de auditoría:** selección de un subconjunto de eventos o registros para inferir la tasa de defectos de la población completa.
-- **registro de solo anexado:** registro en el que solo se pueden añadir entradas y cualquier modificación posterior es detectable.
-- **ancla externa:** huella de un registro publicada fuera del alcance de quien puede escribir en él.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** relación verificable entre un requisito, el control que lo cubre, la prueba que lo comprueba y la evidencia que lo respalda.
+- **[evidencia](../../../glosario/entradas/e/evidencia.md):** resultado de una prueba o inspección con fecha, versión y huella que permite a otra persona verificar un control.
+- **[muestreo de auditoría](../../../glosario/entradas/m/muestreo-de-auditoria.md):** selección de un subconjunto de eventos o registros para inferir la tasa de defectos de la población completa.
+- **[registro de solo anexado](../../../glosario/entradas/r/registro-de-solo-anexado.md):** registro en el que solo se pueden añadir entradas y cualquier modificación posterior es detectable.
+- **[ancla externa](../../../glosario/entradas/a/ancla-externa.md):** huella de un registro publicada fuera del alcance de quien puede escribir en él.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **trazabilidad:** relación verificable entre un requisito, el control que lo cubre, la prueba que lo comprueba y la evidencia que lo respalda.
-- **evidencia:** resultado de una prueba o inspección con fecha, versión y huella que permite a otra persona verificar un control.
-- **muestreo de auditoría:** selección de un subconjunto de eventos o registros para inferir la tasa de defectos de la población completa.
-- **registro de solo anexado:** registro en el que solo se pueden añadir entradas y cualquier modificación posterior es detectable.
-- **ancla externa:** huella de un registro publicada fuera del alcance de quien puede escribir en él.
+- **[trazabilidad](../../../glosario/entradas/t/trazabilidad.md):** relación verificable entre un requisito, el control que lo cubre, la prueba que lo comprueba y la evidencia que lo respalda.
+- **[evidencia](../../../glosario/entradas/e/evidencia.md):** resultado de una prueba o inspección con fecha, versión y huella que permite a otra persona verificar un control.
+- **[muestreo de auditoría](../../../glosario/entradas/m/muestreo-de-auditoria.md):** selección de un subconjunto de eventos o registros para inferir la tasa de defectos de la población completa.
+- **[registro de solo anexado](../../../glosario/entradas/r/registro-de-solo-anexado.md):** registro en el que solo se pueden añadir entradas y cualquier modificación posterior es detectable.
+- **[ancla externa](../../../glosario/entradas/a/ancla-externa.md):** huella de un registro publicada fuera del alcance de quien puede escribir en él.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ancla externa](../../../glosario/entradas/a/ancla-externa.md) · [Evidencia](../../../glosario/entradas/e/evidencia.md) · [Muestreo de auditoría](../../../glosario/entradas/m/muestreo-de-auditoria.md) · [Registro de solo anexado](../../../glosario/entradas/r/registro-de-solo-anexado.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md).
 
 ---
 

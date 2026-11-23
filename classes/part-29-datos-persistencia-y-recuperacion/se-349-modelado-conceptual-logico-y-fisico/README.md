@@ -155,11 +155,11 @@ El patrón ingenuo devuelve 4,5 veces los resultados correctos y falla para los 
 
 ## Definiciones de trabajo
 
-- **modelo conceptual:** descripción de las entidades del dominio y sus relaciones, sin referencia a un motor.
-- **dependencia funcional:** relación en la que el valor de un conjunto de columnas determina el de otra.
-- **anomalía de actualización:** inconsistencia que aparece cuando un hecho repetido se cambia solo en parte de sus copias.
-- **clave sustituta:** identificador sin significado de negocio que identifica una fila de forma estable.
-- **cardinalidad:** número de instancias de una entidad que pueden relacionarse con una instancia de otra.
+- **[modelo conceptual](../../../glosario/entradas/m/modelo-conceptual.md):** descripción de las entidades del dominio y sus relaciones, sin referencia a un motor.
+- **[dependencia funcional](../../../glosario/entradas/d/dependencia-funcional.md):** relación en la que el valor de un conjunto de columnas determina el de otra.
+- **[anomalía de actualización](../../../glosario/entradas/a/anomalia-de-actualizacion.md):** inconsistencia que aparece cuando un hecho repetido se cambia solo en parte de sus copias.
+- **[clave sustituta](../../../glosario/entradas/c/clave-sustituta.md):** identificador sin significado de negocio que identifica una fila de forma estable.
+- **[cardinalidad](../../../glosario/entradas/c/cardinalidad.md):** número de instancias de una entidad que pueden relacionarse con una instancia de otra.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **modelo conceptual:** descripción de las entidades del dominio y sus relaciones, sin referencia a un motor.
-- **dependencia funcional:** relación en la que el valor de un conjunto de columnas determina el de otra.
-- **anomalía de actualización:** inconsistencia que aparece cuando un hecho repetido se cambia solo en parte de sus copias.
-- **clave sustituta:** identificador sin significado de negocio que identifica una fila de forma estable.
-- **cardinalidad:** número de instancias de una entidad que pueden relacionarse con una instancia de otra.
+- **[modelo conceptual](../../../glosario/entradas/m/modelo-conceptual.md):** descripción de las entidades del dominio y sus relaciones, sin referencia a un motor.
+- **[dependencia funcional](../../../glosario/entradas/d/dependencia-funcional.md):** relación en la que el valor de un conjunto de columnas determina el de otra.
+- **[anomalía de actualización](../../../glosario/entradas/a/anomalia-de-actualizacion.md):** inconsistencia que aparece cuando un hecho repetido se cambia solo en parte de sus copias.
+- **[clave sustituta](../../../glosario/entradas/c/clave-sustituta.md):** identificador sin significado de negocio que identifica una fila de forma estable.
+- **[cardinalidad](../../../glosario/entradas/c/cardinalidad.md):** número de instancias de una entidad que pueden relacionarse con una instancia de otra.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Anomalía de actualización](../../../glosario/entradas/a/anomalia-de-actualizacion.md) · [Cardinalidad](../../../glosario/entradas/c/cardinalidad.md) · [Clave sustituta](../../../glosario/entradas/c/clave-sustituta.md) · [Dependencia funcional](../../../glosario/entradas/d/dependencia-funcional.md) · [Modelo conceptual](../../../glosario/entradas/m/modelo-conceptual.md).
 
 ---
 

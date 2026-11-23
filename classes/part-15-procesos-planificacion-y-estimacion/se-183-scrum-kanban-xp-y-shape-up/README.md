@@ -148,11 +148,11 @@ Terminar las 12 piezas dentro de las cuatro semanas ocurre en el **1,3 %** de la
 
 ## Definiciones de trabajo
 
-- **política de entrada:** regla que determina cuándo puede empezar trabajo nuevo (al inicio de un ciclo, al liberarse capacidad, al inicio de un ciclo con apetito fijo).
-- **compromiso:** previsión de qué se terminará en un ciclo, con la regla usada para calcularla.
-- **límite de trabajo en curso:** número máximo de elementos que pueden estar en marcha a la vez en una etapa o en todo el flujo.
-- **apetito:** tiempo máximo que se está dispuesto a dedicar a un problema, fijado antes de decidir el alcance.
-- **carril exprés:** capacidad reservada para trabajo urgente, con sus propias reglas de admisión.
+- **[política de entrada](../../../glosario/entradas/p/politica-de-entrada.md):** regla que determina cuándo puede empezar trabajo nuevo (al inicio de un ciclo, al liberarse capacidad, al inicio de un ciclo con apetito fijo).
+- **[compromiso](../../../glosario/entradas/c/compromiso.md):** previsión de qué se terminará en un ciclo, con la regla usada para calcularla.
+- **[límite de trabajo en curso](../../../glosario/entradas/l/limite-de-trabajo-en-curso.md):** número máximo de elementos que pueden estar en marcha a la vez en una etapa o en todo el flujo.
+- **[apetito](../../../glosario/entradas/a/apetito.md):** tiempo máximo que se está dispuesto a dedicar a un problema, fijado antes de decidir el alcance.
+- **[carril exprés](../../../glosario/entradas/c/carril-expres.md):** capacidad reservada para trabajo urgente, con sus propias reglas de admisión.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -297,11 +297,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **política de entrada:** regla que determina cuándo puede empezar trabajo nuevo (al inicio de un ciclo, al liberarse capacidad, al inicio de un ciclo con apetito fijo).
-- **compromiso:** previsión de qué se terminará en un ciclo, con la regla usada para calcularla.
-- **límite de trabajo en curso:** número máximo de elementos que pueden estar en marcha a la vez en una etapa o en todo el flujo.
-- **apetito:** tiempo máximo que se está dispuesto a dedicar a un problema, fijado antes de decidir el alcance.
-- **carril exprés:** capacidad reservada para trabajo urgente, con sus propias reglas de admisión.
+- **[política de entrada](../../../glosario/entradas/p/politica-de-entrada.md):** regla que determina cuándo puede empezar trabajo nuevo (al inicio de un ciclo, al liberarse capacidad, al inicio de un ciclo con apetito fijo).
+- **[compromiso](../../../glosario/entradas/c/compromiso.md):** previsión de qué se terminará en un ciclo, con la regla usada para calcularla.
+- **[límite de trabajo en curso](../../../glosario/entradas/l/limite-de-trabajo-en-curso.md):** número máximo de elementos que pueden estar en marcha a la vez en una etapa o en todo el flujo.
+- **[apetito](../../../glosario/entradas/a/apetito.md):** tiempo máximo que se está dispuesto a dedicar a un problema, fijado antes de decidir el alcance.
+- **[carril exprés](../../../glosario/entradas/c/carril-expres.md):** capacidad reservada para trabajo urgente, con sus propias reglas de admisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Apetito](../../../glosario/entradas/a/apetito.md) · [Carril exprés](../../../glosario/entradas/c/carril-expres.md) · [Compromiso](../../../glosario/entradas/c/compromiso.md) · [Límite de trabajo en curso](../../../glosario/entradas/l/limite-de-trabajo-en-curso.md) · [Política de entrada](../../../glosario/entradas/p/politica-de-entrada.md).
 
 ---
 

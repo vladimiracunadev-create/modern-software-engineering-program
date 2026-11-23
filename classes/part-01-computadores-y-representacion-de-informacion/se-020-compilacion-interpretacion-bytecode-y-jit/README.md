@@ -178,16 +178,18 @@ clase no afirma qué código nativo termina ejecutando CPython. Cada artefacto r
 
 ## Definiciones de trabajo
 
-- **AST:** árbol de estructura sintáctica relevante;
-- **IR:** representación diseñada para análisis o traducción;
-- **bytecode:** instrucciones de una máquina virtual;
-- **AOT:** traducción antes de ejecutar;
-- **JIT:** traducción durante ejecución.
+- **[AST](../../../glosario/entradas/a/ast.md):** árbol de estructura sintáctica relevante;
+- **[IR](../../../glosario/entradas/i/ir.md):** representación diseñada para análisis o traducción;
+- **[bytecode](../../../glosario/entradas/b/bytecode.md):** instrucciones de una máquina virtual;
+- **[AOT](../../../glosario/entradas/a/aot.md):** traducción antes de ejecutar;
+- **[JIT](../../../glosario/entradas/j/jit.md):** traducción durante ejecución.
 
 ## Glosario
 
-**Frontend/backend** separan lenguaje fuente y destino. **Linker** resuelve artefactos.
-**Loader** prepara ejecución. **Hot path** es ruta observada con alta actividad.
+**[Frontend/backend](../../../glosario/entradas/f/frontend-backend.md)** separan lenguaje fuente y destino. **[Linker](../../../glosario/entradas/e/enlace.md)** resuelve artefactos.
+**[Loader](../../../glosario/entradas/l/loader.md)** prepara ejecución. **[Hot path](../../../glosario/entradas/h/hot-path.md)** es ruta observada con alta actividad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [AOT](../../../glosario/entradas/a/aot.md) · [AST](../../../glosario/entradas/a/ast.md) · [Bytecode](../../../glosario/entradas/b/bytecode.md) · [Enlace](../../../glosario/entradas/e/enlace.md) · [Frontend/backend](../../../glosario/entradas/f/frontend-backend.md) · [Hot path](../../../glosario/entradas/h/hot-path.md) · [IR](../../../glosario/entradas/i/ir.md) · [JIT](../../../glosario/entradas/j/jit.md) · [Loader](../../../glosario/entradas/l/loader.md).
 
 ## Ejemplo mínimo
 

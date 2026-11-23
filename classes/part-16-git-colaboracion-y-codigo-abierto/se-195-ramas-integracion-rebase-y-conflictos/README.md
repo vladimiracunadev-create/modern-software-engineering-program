@@ -112,11 +112,11 @@ Se creó un conflicto entre dos ramas que cambiaban `tope=72` a 48 y a 96. Con `
 
 ## Definiciones de trabajo
 
-- **fusión de tres vías:** combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
-- **rebase:** reaplicación de commits sobre otra base que crea commits nuevos con otros identificadores.
-- **squash:** integración que reduce los cambios de una rama a un solo commit nuevo.
-- **conflicto de texto:** región donde dos cambios afectan líneas contiguas respecto de la base y Git no puede decidir.
-- **rerere:** mecanismo que guarda resoluciones de conflictos y las reaplica cuando el mismo conflicto reaparece.
+- **[fusión de tres vías](../../../glosario/entradas/f/fusion-de-tres-vias.md):** combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
+- **[rebase](../../../glosario/entradas/r/rebase.md):** reaplicación de commits sobre otra base que crea commits nuevos con otros identificadores.
+- **[squash](../../../glosario/entradas/s/squash.md):** integración que reduce los cambios de una rama a un solo commit nuevo.
+- **[conflicto de texto](../../../glosario/entradas/c/conflicto-de-texto.md):** región donde dos cambios afectan líneas contiguas respecto de la base y Git no puede decidir.
+- **[rerere](../../../glosario/entradas/r/rerere.md):** mecanismo que guarda resoluciones de conflictos y las reaplica cuando el mismo conflicto reaparece.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **fusión de tres vías:** combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
-- **rebase:** reaplicación de commits sobre otra base que crea commits nuevos con otros identificadores.
-- **squash:** integración que reduce los cambios de una rama a un solo commit nuevo.
-- **conflicto de texto:** región donde dos cambios afectan líneas contiguas respecto de la base y Git no puede decidir.
-- **rerere:** mecanismo que guarda resoluciones de conflictos y las reaplica cuando el mismo conflicto reaparece.
+- **[fusión de tres vías](../../../glosario/entradas/f/fusion-de-tres-vias.md):** combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
+- **[rebase](../../../glosario/entradas/r/rebase.md):** reaplicación de commits sobre otra base que crea commits nuevos con otros identificadores.
+- **[squash](../../../glosario/entradas/s/squash.md):** integración que reduce los cambios de una rama a un solo commit nuevo.
+- **[conflicto de texto](../../../glosario/entradas/c/conflicto-de-texto.md):** región donde dos cambios afectan líneas contiguas respecto de la base y Git no puede decidir.
+- **[rerere](../../../glosario/entradas/r/rerere.md):** mecanismo que guarda resoluciones de conflictos y las reaplica cuando el mismo conflicto reaparece.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Conflicto](../../../glosario/entradas/c/conflicto.md) · [Conflicto de texto](../../../glosario/entradas/c/conflicto-de-texto.md) · [Fusión de tres vías](../../../glosario/entradas/f/fusion-de-tres-vias.md) · [Rebase](../../../glosario/entradas/r/rebase.md) · [Rerere](../../../glosario/entradas/r/rerere.md) · [Squash](../../../glosario/entradas/s/squash.md).
 
 ---
 

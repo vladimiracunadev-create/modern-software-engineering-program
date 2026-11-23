@@ -115,11 +115,11 @@ validación con el origen.
 
 ## Definiciones de trabajo
 
-- **forward proxy:** intermediario que actúa por clientes hacia destinos.
-- **reverse proxy:** intermediario que actúa frente a uno o más orígenes.
-- **balanceador:** selector de un destino entre instancias elegibles.
-- **CDN:** red de borde que distribuye y puede almacenar contenido.
-- **health check:** prueba acotada usada para decidir elegibilidad de una instancia.
+- **[forward proxy](../../../glosario/entradas/f/forward-proxy.md):** intermediario que actúa por clientes hacia destinos.
+- **[reverse proxy](../../../glosario/entradas/r/reverse-proxy.md):** intermediario que actúa frente a uno o más orígenes.
+- **[balanceador](../../../glosario/entradas/b/balanceador.md):** selector de un destino entre instancias elegibles.
+- **[CDN](../../../glosario/entradas/c/cdn.md):** red de borde que distribuye y puede almacenar contenido.
+- **[health check](../../../glosario/entradas/h/health-check.md):** prueba acotada usada para decidir elegibilidad de una instancia.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -270,11 +270,13 @@ No cubre configuración de un proveedor concreto ni DDoS. Más intermediarios ap
 
 ## Glosario
 
-- **forward proxy:** intermediario que actúa por clientes hacia destinos.
-- **reverse proxy:** intermediario que actúa frente a uno o más orígenes.
-- **balanceador:** selector de un destino entre instancias elegibles.
-- **CDN:** red de borde que distribuye y puede almacenar contenido.
-- **health check:** prueba acotada usada para decidir elegibilidad de una instancia.
+- **[forward proxy](../../../glosario/entradas/f/forward-proxy.md):** intermediario que actúa por clientes hacia destinos.
+- **[reverse proxy](../../../glosario/entradas/r/reverse-proxy.md):** intermediario que actúa frente a uno o más orígenes.
+- **[balanceador](../../../glosario/entradas/b/balanceador.md):** selector de un destino entre instancias elegibles.
+- **[CDN](../../../glosario/entradas/c/cdn.md):** red de borde que distribuye y puede almacenar contenido.
+- **[health check](../../../glosario/entradas/h/health-check.md):** prueba acotada usada para decidir elegibilidad de una instancia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Balanceador](../../../glosario/entradas/b/balanceador.md) · [CDN](../../../glosario/entradas/c/cdn.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Forward proxy](../../../glosario/entradas/f/forward-proxy.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Health check](../../../glosario/entradas/h/health-check.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Reverse proxy](../../../glosario/entradas/r/reverse-proxy.md).
 
 ---
 

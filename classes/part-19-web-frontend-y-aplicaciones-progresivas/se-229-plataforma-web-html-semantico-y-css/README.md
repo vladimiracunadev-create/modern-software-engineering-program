@@ -128,11 +128,11 @@ Se implementó una calculadora de especificidad y se verificó con los once ejem
 
 ## Definiciones de trabajo
 
-- **elemento semántico:** elemento HTML cuyo significado y comportamiento por defecto describe su función (botón, enlace, etiqueta, encabezado) y no solo su aspecto.
-- **nombre accesible:** texto que una tecnología de apoyo anuncia para un control, derivado de su etiqueta, su `alt`, su contenido o un atributo ARIA.
-- **especificidad:** tupla que mide cuánto se concentra un selector en identificadores, clases y tipos y que decide entre declaraciones de igual origen y capa.
-- **capa de cascada:** agrupación con nombre (`@layer`) cuyo orden de declaración decide entre estilos antes de comparar la especificidad.
-- **razón de contraste:** cociente `(L1 + 0,05) / (L2 + 0,05)` entre las luminancias relativas del color claro y del oscuro.
+- **[elemento semántico](../../../glosario/entradas/e/elemento-semantico.md):** elemento HTML cuyo significado y comportamiento por defecto describe su función (botón, enlace, etiqueta, encabezado) y no solo su aspecto.
+- **[nombre accesible](../../../glosario/entradas/n/nombre-accesible.md):** texto que una tecnología de apoyo anuncia para un control, derivado de su etiqueta, su `alt`, su contenido o un atributo ARIA.
+- **[especificidad](../../../glosario/entradas/e/especificidad.md):** tupla que mide cuánto se concentra un selector en identificadores, clases y tipos y que decide entre declaraciones de igual origen y capa.
+- **[capa de cascada](../../../glosario/entradas/c/capa-de-cascada.md):** agrupación con nombre (`@layer`) cuyo orden de declaración decide entre estilos antes de comparar la especificidad.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente `(L1 + 0,05) / (L2 + 0,05)` entre las luminancias relativas del color claro y del oscuro.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -286,11 +286,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **elemento semántico:** elemento HTML cuyo significado y comportamiento por defecto describe su función (botón, enlace, etiqueta, encabezado) y no solo su aspecto.
-- **nombre accesible:** texto que una tecnología de apoyo anuncia para un control, derivado de su etiqueta, su `alt`, su contenido o un atributo ARIA.
-- **especificidad:** tupla que mide cuánto se concentra un selector en identificadores, clases y tipos y que decide entre declaraciones de igual origen y capa.
-- **capa de cascada:** agrupación con nombre (`@layer`) cuyo orden de declaración decide entre estilos antes de comparar la especificidad.
-- **razón de contraste:** cociente `(L1 + 0,05) / (L2 + 0,05)` entre las luminancias relativas del color claro y del oscuro.
+- **[elemento semántico](../../../glosario/entradas/e/elemento-semantico.md):** elemento HTML cuyo significado y comportamiento por defecto describe su función (botón, enlace, etiqueta, encabezado) y no solo su aspecto.
+- **[nombre accesible](../../../glosario/entradas/n/nombre-accesible.md):** texto que una tecnología de apoyo anuncia para un control, derivado de su etiqueta, su `alt`, su contenido o un atributo ARIA.
+- **[especificidad](../../../glosario/entradas/e/especificidad.md):** tupla que mide cuánto se concentra un selector en identificadores, clases y tipos y que decide entre declaraciones de igual origen y capa.
+- **[capa de cascada](../../../glosario/entradas/c/capa-de-cascada.md):** agrupación con nombre (`@layer`) cuyo orden de declaración decide entre estilos antes de comparar la especificidad.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente `(L1 + 0,05) / (L2 + 0,05)` entre las luminancias relativas del color claro y del oscuro.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capa de cascada](../../../glosario/entradas/c/capa-de-cascada.md) · [Elemento semántico](../../../glosario/entradas/e/elemento-semantico.md) · [Especificidad](../../../glosario/entradas/e/especificidad.md) · [Nombre accesible](../../../glosario/entradas/n/nombre-accesible.md) · [Razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md).
 
 ---
 

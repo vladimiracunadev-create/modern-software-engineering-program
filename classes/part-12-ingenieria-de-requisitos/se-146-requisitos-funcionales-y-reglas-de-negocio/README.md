@@ -141,11 +141,11 @@ Resultado: los ejemplos típicos matan 4 de 12; las fronteras, 10 de 12; el domi
 
 ## Definiciones de trabajo
 
-- **requisito funcional:** descripción de una respuesta observable del sistema ante un estímulo bajo una condición.
-- **regla de negocio:** decisión de la organización, independiente del sistema, sobre qué se acepta, se calcula o se rechaza.
-- **tablas de decisión:** enumeración de combinaciones de condiciones con la acción de cada una, que permite comprobar completitud y consistencia.
-- **tiempo, plazos y zonas:** especificación de un instante límite que incluye zona, regla de cambio de hora y definición de día.
-- **estados e invariantes:** situaciones por las que pasa una entidad y propiedades que deben cumplirse en todas.
+- **[requisito funcional](../../../glosario/entradas/r/requisito-funcional.md):** descripción de una respuesta observable del sistema ante un estímulo bajo una condición.
+- **[regla de negocio](../../../glosario/entradas/r/regla-de-negocio.md):** decisión de la organización, independiente del sistema, sobre qué se acepta, se calcula o se rechaza.
+- **[tablas de decisión](../../../glosario/entradas/t/tablas-de-decision.md):** enumeración de combinaciones de condiciones con la acción de cada una, que permite comprobar completitud y consistencia.
+- **[tiempo, plazos y zonas](../../../glosario/entradas/t/tiempo-plazos-y-zonas.md):** especificación de un instante límite que incluye zona, regla de cambio de hora y definición de día.
+- **[estados e invariantes](../../../glosario/entradas/e/estados-e-invariantes.md):** situaciones por las que pasa una entidad y propiedades que deben cumplirse en todas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con reglas y fechas sintéticas en Windows y Ubu
 
 ## Glosario
 
-- **requisito funcional:** descripción de una respuesta observable del sistema ante un estímulo bajo una condición.
-- **regla de negocio:** decisión de la organización, independiente del sistema, sobre qué se acepta, se calcula o se rechaza.
-- **tablas de decisión:** enumeración de combinaciones de condiciones con la acción de cada una, que permite comprobar completitud y consistencia.
-- **tiempo, plazos y zonas:** especificación de un instante límite que incluye zona, regla de cambio de hora y definición de día.
-- **estados e invariantes:** situaciones por las que pasa una entidad y propiedades que deben cumplirse en todas.
+- **[requisito funcional](../../../glosario/entradas/r/requisito-funcional.md):** descripción de una respuesta observable del sistema ante un estímulo bajo una condición.
+- **[regla de negocio](../../../glosario/entradas/r/regla-de-negocio.md):** decisión de la organización, independiente del sistema, sobre qué se acepta, se calcula o se rechaza.
+- **[tablas de decisión](../../../glosario/entradas/t/tablas-de-decision.md):** enumeración de combinaciones de condiciones con la acción de cada una, que permite comprobar completitud y consistencia.
+- **[tiempo, plazos y zonas](../../../glosario/entradas/t/tiempo-plazos-y-zonas.md):** especificación de un instante límite que incluye zona, regla de cambio de hora y definición de día.
+- **[estados e invariantes](../../../glosario/entradas/e/estados-e-invariantes.md):** situaciones por las que pasa una entidad y propiedades que deben cumplirse en todas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Estados e invariantes](../../../glosario/entradas/e/estados-e-invariantes.md) · [Regla de negocio](../../../glosario/entradas/r/regla-de-negocio.md) · [Requisito funcional](../../../glosario/entradas/r/requisito-funcional.md) · [Tablas de decisión](../../../glosario/entradas/t/tablas-de-decision.md) · [Tiempo, plazos y zonas](../../../glosario/entradas/t/tiempo-plazos-y-zonas.md).
 
 ---
 

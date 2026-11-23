@@ -123,11 +123,11 @@ Se generan 3 000 lanzamientos con 55 % de parches, 33 % de cambios con funcional
 
 ## Definiciones de trabajo
 
-- **versionado semántico:** convención de numeración que comunica la compatibilidad mediante MAYOR.MENOR.PARCHE.
-- **API pública:** conjunto de interfaces y comportamientos que un proyecto promete mantener.
-- **cambio incompatible:** el que puede hacer fallar o cambiar el resultado de un cliente que seguía el contrato.
-- **registro de cambios:** documento para humanos que describe qué cambió en cada versión y qué debe hacer el cliente.
-- **obsolescencia:** aviso de que una funcionalidad se retirará, con alternativa y plazo.
+- **[versionado semántico](../../../glosario/entradas/v/versionado-semantico.md):** convención de numeración que comunica la compatibilidad mediante MAYOR.MENOR.PARCHE.
+- **[API pública](../../../glosario/entradas/a/api-publica.md):** conjunto de interfaces y comportamientos que un proyecto promete mantener.
+- **[cambio incompatible](../../../glosario/entradas/c/cambio-incompatible.md):** el que puede hacer fallar o cambiar el resultado de un cliente que seguía el contrato.
+- **[registro de cambios](../../../glosario/entradas/r/registro-de-cambios.md):** documento para humanos que describe qué cambió en cada versión y qué debe hacer el cliente.
+- **[obsolescencia](../../../glosario/entradas/o/obsolescencia.md):** aviso de que una funcionalidad se retirará, con alternativa y plazo.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -272,11 +272,13 @@ Se ejecutaron tres experimentos con una API sintética de cuatro elementos, cato
 
 ## Glosario
 
-- **versionado semántico:** convención de numeración que comunica la compatibilidad mediante MAYOR.MENOR.PARCHE.
-- **API pública:** conjunto de interfaces y comportamientos que un proyecto promete mantener.
-- **cambio incompatible:** el que puede hacer fallar o cambiar el resultado de un cliente que seguía el contrato.
-- **registro de cambios:** documento para humanos que describe qué cambió en cada versión y qué debe hacer el cliente.
-- **obsolescencia:** aviso de que una funcionalidad se retirará, con alternativa y plazo.
+- **[versionado semántico](../../../glosario/entradas/v/versionado-semantico.md):** convención de numeración que comunica la compatibilidad mediante MAYOR.MENOR.PARCHE.
+- **[API pública](../../../glosario/entradas/a/api-publica.md):** conjunto de interfaces y comportamientos que un proyecto promete mantener.
+- **[cambio incompatible](../../../glosario/entradas/c/cambio-incompatible.md):** el que puede hacer fallar o cambiar el resultado de un cliente que seguía el contrato.
+- **[registro de cambios](../../../glosario/entradas/r/registro-de-cambios.md):** documento para humanos que describe qué cambió en cada versión y qué debe hacer el cliente.
+- **[obsolescencia](../../../glosario/entradas/o/obsolescencia.md):** aviso de que una funcionalidad se retirará, con alternativa y plazo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [API pública](../../../glosario/entradas/a/api-publica.md) · [Cambio incompatible](../../../glosario/entradas/c/cambio-incompatible.md) · [Obsolescencia](../../../glosario/entradas/o/obsolescencia.md) · [Registro de cambios](../../../glosario/entradas/r/registro-de-cambios.md) · [Versionado semántico](../../../glosario/entradas/v/versionado-semantico.md).
 
 ---
 

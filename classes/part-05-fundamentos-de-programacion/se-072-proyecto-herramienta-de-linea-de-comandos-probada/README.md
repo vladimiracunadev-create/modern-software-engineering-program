@@ -119,11 +119,11 @@ La operación completa el contrato: versión y comandos de reproducción en el R
 
 ## Definiciones de trabajo
 
-- **CLI:** interfaz consumida mediante argumentos y streams.
-- **código de salida:** entero que comunica resultado al proceso llamador.
-- **stdout:** stream de resultado normal.
-- **stderr:** stream de diagnóstico.
-- **dry-run:** modo que valida y explica sin aplicar efectos.
+- **[CLI](../../../glosario/entradas/c/cli.md):** interfaz consumida mediante argumentos y streams.
+- **[código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** entero que comunica resultado al proceso llamador.
+- **[stdout](../../../glosario/entradas/s/stdout.md):** stream de resultado normal.
+- **[stderr](../../../glosario/entradas/s/stderr.md):** stream de diagnóstico.
+- **[dry-run](../../../glosario/entradas/d/dry-run.md):** modo que valida y explica sin aplicar efectos.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -287,11 +287,13 @@ El proyecto demuestra fundamentos y un contrato local; no publica paquete, no ej
 
 ## Glosario
 
-- **CLI:** interfaz consumida mediante argumentos y streams.
-- **código de salida:** entero que comunica resultado al proceso llamador.
-- **stdout:** stream de resultado normal.
-- **stderr:** stream de diagnóstico.
-- **dry-run:** modo que valida y explica sin aplicar efectos.
+- **[CLI](../../../glosario/entradas/c/cli.md):** interfaz consumida mediante argumentos y streams.
+- **[código de salida](../../../glosario/entradas/c/codigo-de-salida.md):** entero que comunica resultado al proceso llamador.
+- **[stdout](../../../glosario/entradas/s/stdout.md):** stream de resultado normal.
+- **[stderr](../../../glosario/entradas/s/stderr.md):** stream de diagnóstico.
+- **[dry-run](../../../glosario/entradas/d/dry-run.md):** modo que valida y explica sin aplicar efectos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [CLI](../../../glosario/entradas/c/cli.md) · [Código de salida](../../../glosario/entradas/c/codigo-de-salida.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Dry-run](../../../glosario/entradas/d/dry-run.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Stderr](../../../glosario/entradas/s/stderr.md) · [Stdout](../../../glosario/entradas/s/stdout.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

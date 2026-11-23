@@ -158,11 +158,11 @@ En la mediana quedan pendientes 57 de los 65 puntos (87,7 %); en el percentil 90
 
 ## Definiciones de trabajo
 
-- **prototipo desechable:** pieza escrita para aprender que se descarta al responder su pregunta.
-- **prototipo evolutivo:** pieza construida con intención de endurecerse hasta convertirse en producto.
-- **andamiaje (scaffolding):** estructura repetitiva generada alrededor del código de dominio.
-- **maldición del optimizador:** sesgo por el cual la alternativa elegida por su mejor estimación vale en promedio menos que esa estimación.
-- **brecha a producción:** conjunto de atributos que un prototipo no tiene y producción exige.
+- **[prototipo desechable](../../../glosario/entradas/p/prototipo-desechable.md):** pieza escrita para aprender que se descarta al responder su pregunta.
+- **[prototipo evolutivo](../../../glosario/entradas/p/prototipo-evolutivo.md):** pieza construida con intención de endurecerse hasta convertirse en producto.
+- **[andamiaje (scaffolding)](../../../glosario/entradas/a/andamiaje.md):** estructura repetitiva generada alrededor del código de dominio.
+- **[maldición del optimizador](../../../glosario/entradas/m/maldicion-del-optimizador.md):** sesgo por el cual la alternativa elegida por su mejor estimación vale en promedio menos que esa estimación.
+- **[brecha a producción](../../../glosario/entradas/b/brecha-a-produccion.md):** conjunto de atributos que un prototipo no tiene y producción exige.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **prototipo desechable:** pieza escrita para aprender que se descarta al responder su pregunta.
-- **prototipo evolutivo:** pieza construida con intención de endurecerse hasta convertirse en producto.
-- **andamiaje (scaffolding):** estructura repetitiva generada alrededor del código de dominio.
-- **maldición del optimizador:** sesgo por el cual la alternativa elegida por su mejor estimación vale en promedio menos que esa estimación.
-- **brecha a producción:** conjunto de atributos que un prototipo no tiene y producción exige.
+- **[prototipo desechable](../../../glosario/entradas/p/prototipo-desechable.md):** pieza escrita para aprender que se descarta al responder su pregunta.
+- **[prototipo evolutivo](../../../glosario/entradas/p/prototipo-evolutivo.md):** pieza construida con intención de endurecerse hasta convertirse en producto.
+- **[andamiaje (scaffolding)](../../../glosario/entradas/a/andamiaje.md):** estructura repetitiva generada alrededor del código de dominio.
+- **[maldición del optimizador](../../../glosario/entradas/m/maldicion-del-optimizador.md):** sesgo por el cual la alternativa elegida por su mejor estimación vale en promedio menos que esa estimación.
+- **[brecha a producción](../../../glosario/entradas/b/brecha-a-produccion.md):** conjunto de atributos que un prototipo no tiene y producción exige.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Andamiaje](../../../glosario/entradas/a/andamiaje.md) · [Brecha a producción](../../../glosario/entradas/b/brecha-a-produccion.md) · [Maldición del optimizador](../../../glosario/entradas/m/maldicion-del-optimizador.md) · [Prototipo desechable](../../../glosario/entradas/p/prototipo-desechable.md) · [Prototipo evolutivo](../../../glosario/entradas/p/prototipo-evolutivo.md) · [Registro de decisiones](../../../glosario/entradas/r/registro-de-decisiones.md).
 
 ---
 

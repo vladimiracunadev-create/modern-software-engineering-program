@@ -174,11 +174,11 @@ Cada tres órdenes de magnitud de precisión compran unos 14 pasos: crecimiento 
 
 ## Definiciones de trabajo
 
-- **repetición:** ejecutar de nuevo el mismo código con los mismos datos y el mismo entorno y obtener el mismo resultado.
-- **reproducción:** que otra persona, con el mismo código y los mismos datos, obtenga un resultado equivalente dentro de una tolerancia declarada.
-- **replicación:** llegar a una conclusión consistente con datos nuevos obtenidos de forma independiente.
-- **no asociatividad:** propiedad de la suma en coma flotante por la cual agrupar los sumandos de otro modo puede cambiar el resultado.
-- **horizonte de predictibilidad:** número de pasos tras el cual una diferencia inicial pequeña se amplifica hasta igualar la señal.
+- **[repetición](../../../glosario/entradas/r/repeticion.md):** ejecutar de nuevo el mismo código con los mismos datos y el mismo entorno y obtener el mismo resultado.
+- **[reproducción](../../../glosario/entradas/r/reproduccion.md):** que otra persona, con el mismo código y los mismos datos, obtenga un resultado equivalente dentro de una tolerancia declarada.
+- **[replicación](../../../glosario/entradas/r/replicacion.md):** llegar a una conclusión consistente con datos nuevos obtenidos de forma independiente.
+- **[no asociatividad](../../../glosario/entradas/n/no-asociatividad.md):** propiedad de la suma en coma flotante por la cual agrupar los sumandos de otro modo puede cambiar el resultado.
+- **[horizonte de predictibilidad](../../../glosario/entradas/h/horizonte-de-predictibilidad.md):** número de pasos tras el cual una diferencia inicial pequeña se amplifica hasta igualar la señal.
 
 Las definiciones son operativas para el modelo de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -320,11 +320,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **repetición:** ejecutar de nuevo el mismo código con los mismos datos y el mismo entorno y obtener el mismo resultado.
-- **reproducción:** que otra persona, con el mismo código y los mismos datos, obtenga un resultado equivalente dentro de una tolerancia declarada.
-- **replicación:** llegar a una conclusión consistente con datos nuevos obtenidos de forma independiente.
-- **no asociatividad:** propiedad de la suma en coma flotante por la cual agrupar los sumandos de otro modo puede cambiar el resultado.
-- **horizonte de predictibilidad:** número de pasos tras el cual una diferencia inicial pequeña se amplifica hasta igualar la señal.
+- **[repetición](../../../glosario/entradas/r/repeticion.md):** ejecutar de nuevo el mismo código con los mismos datos y el mismo entorno y obtener el mismo resultado.
+- **[reproducción](../../../glosario/entradas/r/reproduccion.md):** que otra persona, con el mismo código y los mismos datos, obtenga un resultado equivalente dentro de una tolerancia declarada.
+- **[replicación](../../../glosario/entradas/r/replicacion.md):** llegar a una conclusión consistente con datos nuevos obtenidos de forma independiente.
+- **[no asociatividad](../../../glosario/entradas/n/no-asociatividad.md):** propiedad de la suma en coma flotante por la cual agrupar los sumandos de otro modo puede cambiar el resultado.
+- **[horizonte de predictibilidad](../../../glosario/entradas/h/horizonte-de-predictibilidad.md):** número de pasos tras el cual una diferencia inicial pequeña se amplifica hasta igualar la señal.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Horizonte de predictibilidad](../../../glosario/entradas/h/horizonte-de-predictibilidad.md) · [No asociatividad](../../../glosario/entradas/n/no-asociatividad.md) · [Repetición](../../../glosario/entradas/r/repeticion.md) · [Replicación](../../../glosario/entradas/r/replicacion.md) · [Reproducción](../../../glosario/entradas/r/reproduccion.md).
 
 ---
 

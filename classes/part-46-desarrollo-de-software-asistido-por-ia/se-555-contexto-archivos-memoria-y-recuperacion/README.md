@@ -148,11 +148,11 @@ Ordenar por relevancia triplica el azar y ordenar por relevancia por token mete 
 
 ## Definiciones de trabajo
 
-- **recuperación:** búsqueda que devuelve fragmentos de un índice relevantes para una consulta.
-- **fragmentación:** división de documentos en unidades indexables, con un tamaño y una solapación.
-- **BM25:** función de puntuación léxica que combina frecuencia saturada del término, rareza y longitud.
-- **memoria persistente:** información guardada entre sesiones que la herramienta incorpora al contexto.
-- **presupuesto de contexto:** número de tokens que se decide enviar al modelo para una tarea.
+- **[recuperación](../../../glosario/entradas/r/recuperacion.md):** búsqueda que devuelve fragmentos de un índice relevantes para una consulta.
+- **[fragmentación](../../../glosario/entradas/f/fragmentacion.md):** división de documentos en unidades indexables, con un tamaño y una solapación.
+- **[BM25](../../../glosario/entradas/b/bm25.md):** función de puntuación léxica que combina frecuencia saturada del término, rareza y longitud.
+- **[memoria persistente](../../../glosario/entradas/m/memoria-persistente.md):** información guardada entre sesiones que la herramienta incorpora al contexto.
+- **[presupuesto de contexto](../../../glosario/entradas/p/presupuesto-de-contexto.md):** número de tokens que se decide enviar al modelo para una tarea.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -303,11 +303,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **recuperación:** búsqueda que devuelve fragmentos de un índice relevantes para una consulta.
-- **fragmentación:** división de documentos en unidades indexables, con un tamaño y una solapación.
-- **BM25:** función de puntuación léxica que combina frecuencia saturada del término, rareza y longitud.
-- **memoria persistente:** información guardada entre sesiones que la herramienta incorpora al contexto.
-- **presupuesto de contexto:** número de tokens que se decide enviar al modelo para una tarea.
+- **[recuperación](../../../glosario/entradas/r/recuperacion.md):** búsqueda que devuelve fragmentos de un índice relevantes para una consulta.
+- **[fragmentación](../../../glosario/entradas/f/fragmentacion.md):** división de documentos en unidades indexables, con un tamaño y una solapación.
+- **[BM25](../../../glosario/entradas/b/bm25.md):** función de puntuación léxica que combina frecuencia saturada del término, rareza y longitud.
+- **[memoria persistente](../../../glosario/entradas/m/memoria-persistente.md):** información guardada entre sesiones que la herramienta incorpora al contexto.
+- **[presupuesto de contexto](../../../glosario/entradas/p/presupuesto-de-contexto.md):** número de tokens que se decide enviar al modelo para una tarea.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [BM25](../../../glosario/entradas/b/bm25.md) · [Fragmentación](../../../glosario/entradas/f/fragmentacion.md) · [Memoria persistente](../../../glosario/entradas/m/memoria-persistente.md) · [Presupuesto de contexto](../../../glosario/entradas/p/presupuesto-de-contexto.md) · [Recuperación](../../../glosario/entradas/r/recuperacion.md).
 
 ---
 

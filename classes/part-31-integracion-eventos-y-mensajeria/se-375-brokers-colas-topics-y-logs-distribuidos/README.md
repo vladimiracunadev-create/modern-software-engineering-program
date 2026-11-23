@@ -166,11 +166,11 @@ La retención guarda cinco veces menos y reconstruye el 89 % de las claves vivas
 
 ## Definiciones de trabajo
 
-- **cola de trabajo:** canal en el que varios consumidores compiten y cada mensaje se entrega a uno y se borra al confirmarse.
-- **tópico:** canal que entrega una copia de cada mensaje publicado a cada suscripción vigente.
-- **log:** secuencia ordenada de mensajes que se conserva tras leerse y se consume mediante desplazamientos.
-- **partición:** subdivisión de un log que se lee en orden y se asigna a un solo consumidor de un grupo.
-- **compactación:** conservar solo el último mensaje de cada clave, de modo que el log reconstruya un estado y no una historia.
+- **[cola de trabajo](../../../glosario/entradas/c/cola-de-trabajo.md):** canal en el que varios consumidores compiten y cada mensaje se entrega a uno y se borra al confirmarse.
+- **[tópico](../../../glosario/entradas/t/topico.md):** canal que entrega una copia de cada mensaje publicado a cada suscripción vigente.
+- **[log](../../../glosario/entradas/l/log.md):** secuencia ordenada de mensajes que se conserva tras leerse y se consume mediante desplazamientos.
+- **[partición](../../../glosario/entradas/p/particion.md):** subdivisión de un log que se lee en orden y se asigna a un solo consumidor de un grupo.
+- **[compactación](../../../glosario/entradas/c/compactacion.md):** conservar solo el último mensaje de cada clave, de modo que el log reconstruya un estado y no una historia.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **cola de trabajo:** canal en el que varios consumidores compiten y cada mensaje se entrega a uno y se borra al confirmarse.
-- **tópico:** canal que entrega una copia de cada mensaje publicado a cada suscripción vigente.
-- **log:** secuencia ordenada de mensajes que se conserva tras leerse y se consume mediante desplazamientos.
-- **partición:** subdivisión de un log que se lee en orden y se asigna a un solo consumidor de un grupo.
-- **compactación:** conservar solo el último mensaje de cada clave, de modo que el log reconstruya un estado y no una historia.
+- **[cola de trabajo](../../../glosario/entradas/c/cola-de-trabajo.md):** canal en el que varios consumidores compiten y cada mensaje se entrega a uno y se borra al confirmarse.
+- **[tópico](../../../glosario/entradas/t/topico.md):** canal que entrega una copia de cada mensaje publicado a cada suscripción vigente.
+- **[log](../../../glosario/entradas/l/log.md):** secuencia ordenada de mensajes que se conserva tras leerse y se consume mediante desplazamientos.
+- **[partición](../../../glosario/entradas/p/particion.md):** subdivisión de un log que se lee en orden y se asigna a un solo consumidor de un grupo.
+- **[compactación](../../../glosario/entradas/c/compactacion.md):** conservar solo el último mensaje de cada clave, de modo que el log reconstruya un estado y no una historia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola de trabajo](../../../glosario/entradas/c/cola-de-trabajo.md) · [Compactación](../../../glosario/entradas/c/compactacion.md) · [Log](../../../glosario/entradas/l/log.md) · [Partición](../../../glosario/entradas/p/particion.md) · [Tópico](../../../glosario/entradas/t/topico.md).
 
 ---
 

@@ -155,12 +155,12 @@ Seis requisitos tienen una variante que los rompe y su prueba la detecta (6 de 6
 
 ## Definiciones de trabajo
 
-- **producto operable:** producto que se puede reiniciar, copiar, restaurar, vigilar y detener con evidencia ejecutable de que lo hace.
-- **verificación independiente:** conjunto de comprobaciones escrito y ejecutado sin compartir el contexto de quien construyó el producto.
-- **variante defectuosa:** versión del producto con un defecto introducido para comprobar que una prueba puede fallar.
-- **objetivo de punto de recuperación:** cantidad máxima de trabajo reciente que se acepta perder tras una restauración.
-- **paquete de evidencia:** conjunto de artefactos que permite a otra persona revisar y operar el producto.
-- **`LIMITES.md`:** documento que declara lo no ejecutado, lo no medido y las suposiciones del autor.
+- **[producto operable](../../../glosario/entradas/p/producto-operable.md):** producto que se puede reiniciar, copiar, restaurar, vigilar y detener con evidencia ejecutable de que lo hace.
+- **[verificación independiente](../../../glosario/entradas/v/verificacion-independiente.md):** conjunto de comprobaciones escrito y ejecutado sin compartir el contexto de quien construyó el producto.
+- **[variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md):** versión del producto con un defecto introducido para comprobar que una prueba puede fallar.
+- **[objetivo de punto de recuperación](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de trabajo reciente que se acepta perder tras una restauración.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto de artefactos que permite a otra persona revisar y operar el producto.
+- **[`LIMITES.md`](../../../glosario/entradas/l/limites-md.md):** documento que declara lo no ejecutado, lo no medido y las suposiciones del autor.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,12 +318,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **producto operable:** producto que se puede reiniciar, copiar, restaurar, vigilar y detener con evidencia ejecutable de que lo hace.
-- **verificación independiente:** conjunto de comprobaciones escrito y ejecutado sin compartir el contexto de quien construyó el producto.
-- **variante defectuosa:** versión del producto con un defecto introducido para comprobar que una prueba puede fallar.
-- **objetivo de punto de recuperación:** cantidad máxima de trabajo reciente que se acepta perder tras una restauración.
-- **paquete de evidencia:** conjunto de artefactos que permite a otra persona revisar y operar el producto.
-- **`LIMITES.md`:** documento que declara lo no ejecutado, lo no medido y las suposiciones del autor.
+- **[producto operable](../../../glosario/entradas/p/producto-operable.md):** producto que se puede reiniciar, copiar, restaurar, vigilar y detener con evidencia ejecutable de que lo hace.
+- **[verificación independiente](../../../glosario/entradas/v/verificacion-independiente.md):** conjunto de comprobaciones escrito y ejecutado sin compartir el contexto de quien construyó el producto.
+- **[variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md):** versión del producto con un defecto introducido para comprobar que una prueba puede fallar.
+- **[objetivo de punto de recuperación](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md):** cantidad máxima de trabajo reciente que se acepta perder tras una restauración.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto de artefactos que permite a otra persona revisar y operar el producto.
+- **[`LIMITES.md`](../../../glosario/entradas/l/limites-md.md):** documento que declara lo no ejecutado, lo no medido y las suposiciones del autor.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [LIMITES.md](../../../glosario/entradas/l/limites-md.md) · [Objetivo de punto de recuperación](../../../glosario/entradas/o/objetivo-de-punto-de-recuperacion.md) · [Paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md) · [Producto operable](../../../glosario/entradas/p/producto-operable.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md) · [Verificación independiente](../../../glosario/entradas/v/verificacion-independiente.md).
 
 ---
 

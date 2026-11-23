@@ -111,12 +111,12 @@ Un catálogo útil rechaza más de lo que acepta. Se rechazan las entradas sin e
 
 ## Definiciones de trabajo
 
-- **Catálogo de patrones de un sistema:** documento que lista los patrones realmente presentes, con su fuerza, evidencia, costo y salida.
-- **Detector estructural:** regla que identifica un patrón por la forma del código y no por el nombre.
-- **Precisión:** fracción de los candidatos detectados que son patrones reales.
-- **Exhaustividad:** fracción de los patrones reales que la regla detecta.
-- **Candidato descartado:** patrón propuesto y rechazado, registrado con su razón.
-- **ADR:** registro corto de una decisión de arquitectura con su contexto y sus consecuencias.
+- **[Catálogo de patrones de un sistema](../../../glosario/entradas/c/catalogo-de-patrones-de-un-sistema.md):** documento que lista los patrones realmente presentes, con su fuerza, evidencia, costo y salida.
+- **[Detector estructural](../../../glosario/entradas/d/detector-estructural.md):** regla que identifica un patrón por la forma del código y no por el nombre.
+- **[Precisión](../../../glosario/entradas/p/precision.md):** fracción de los candidatos detectados que son patrones reales.
+- **[Exhaustividad](../../../glosario/entradas/e/exhaustividad.md):** fracción de los patrones reales que la regla detecta.
+- **[Candidato descartado](../../../glosario/entradas/c/candidato-descartado.md):** patrón propuesto y rechazado, registrado con su razón.
+- **[ADR](../../../glosario/entradas/a/adr.md):** registro corto de una decisión de arquitectura con su contexto y sus consecuencias.
 
 ## Ejemplo mínimo
 
@@ -243,6 +243,8 @@ El corpus es de 14 fragmentos escritos por el autor, el detector estructural se 
 | Exhaustividad | Fracción de patrones reales que se detectan |
 | Descarte | Candidato rechazado con su razón |
 | ADR | Registro corto de una decisión de arquitectura |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ADR](../../../glosario/entradas/a/adr.md) · [Candidato descartado](../../../glosario/entradas/c/candidato-descartado.md) · [Catálogo de patrones de un sistema](../../../glosario/entradas/c/catalogo-de-patrones-de-un-sistema.md) · [Condición de salida](../../../glosario/entradas/c/condicion-de-salida.md) · [Detector estructural](../../../glosario/entradas/d/detector-estructural.md) · [Exhaustividad](../../../glosario/entradas/e/exhaustividad.md) · [Precisión](../../../glosario/entradas/p/precision.md).
 
 ---
 

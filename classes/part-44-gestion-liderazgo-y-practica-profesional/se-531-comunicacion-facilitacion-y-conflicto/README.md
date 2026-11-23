@@ -135,11 +135,11 @@ Dos personas interactúan 200 rondas; en cada una pueden cooperar o atacar, y co
 
 ## Definiciones de trabajo
 
-- **mensaje de decisión:** comunicación con decisión, motivo, responsable, fecha y alcance.
-- **acuse:** respuesta en que quien recibe un mensaje repite con sus palabras lo que entendió.
-- **facilitación:** diseño de una conversación para que su resultado dependa de las ideas y no del orden o la jerarquía.
-- **anclaje:** tendencia de las estimaciones a acercarse a un valor inicial, aunque sea arbitrario.
-- **desacuerdo de hechos, de intereses y de valores:** discrepancia sobre lo que ocurre, sobre quién carga con qué o sobre qué debe priorizarse.
+- **[mensaje de decisión](../../../glosario/entradas/m/mensaje-de-decision.md):** comunicación con decisión, motivo, responsable, fecha y alcance.
+- **[acuse](../../../glosario/entradas/a/acuse.md):** respuesta en que quien recibe un mensaje repite con sus palabras lo que entendió.
+- **[facilitación](../../../glosario/entradas/f/facilitacion.md):** diseño de una conversación para que su resultado dependa de las ideas y no del orden o la jerarquía.
+- **[anclaje](../../../glosario/entradas/a/anclaje.md):** tendencia de las estimaciones a acercarse a un valor inicial, aunque sea arbitrario.
+- **[desacuerdo de hechos, de intereses y de valores](../../../glosario/entradas/d/desacuerdo-de-hechos-de-intereses-y-de-valores.md):** discrepancia sobre lo que ocurre, sobre quién carga con qué o sobre qué debe priorizarse.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -280,11 +280,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **mensaje de decisión:** comunicación con decisión, motivo, responsable, fecha y alcance.
-- **acuse:** respuesta en que quien recibe un mensaje repite con sus palabras lo que entendió.
-- **facilitación:** diseño de una conversación para que su resultado dependa de las ideas y no del orden o la jerarquía.
-- **anclaje:** tendencia de las estimaciones a acercarse a un valor inicial, aunque sea arbitrario.
-- **desacuerdo de hechos, de intereses y de valores:** discrepancia sobre lo que ocurre, sobre quién carga con qué o sobre qué debe priorizarse.
+- **[mensaje de decisión](../../../glosario/entradas/m/mensaje-de-decision.md):** comunicación con decisión, motivo, responsable, fecha y alcance.
+- **[acuse](../../../glosario/entradas/a/acuse.md):** respuesta en que quien recibe un mensaje repite con sus palabras lo que entendió.
+- **[facilitación](../../../glosario/entradas/f/facilitacion.md):** diseño de una conversación para que su resultado dependa de las ideas y no del orden o la jerarquía.
+- **[anclaje](../../../glosario/entradas/a/anclaje.md):** tendencia de las estimaciones a acercarse a un valor inicial, aunque sea arbitrario.
+- **[desacuerdo de hechos, de intereses y de valores](../../../glosario/entradas/d/desacuerdo-de-hechos-de-intereses-y-de-valores.md):** discrepancia sobre lo que ocurre, sobre quién carga con qué o sobre qué debe priorizarse.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acuse](../../../glosario/entradas/a/acuse.md) · [Anclaje](../../../glosario/entradas/a/anclaje.md) · [Desacuerdo de hechos, de intereses y de valores](../../../glosario/entradas/d/desacuerdo-de-hechos-de-intereses-y-de-valores.md) · [Facilitación](../../../glosario/entradas/f/facilitacion.md) · [Mensaje de decisión](../../../glosario/entradas/m/mensaje-de-decision.md).
 
 ---
 

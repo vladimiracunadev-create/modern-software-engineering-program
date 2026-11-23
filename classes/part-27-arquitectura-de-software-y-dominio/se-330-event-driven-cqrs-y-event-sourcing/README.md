@@ -159,11 +159,11 @@ Con capacidad 60 el retraso del percentil 99 es de 0,2 s; con 41, justo sobre la
 
 ## Definiciones de trabajo
 
-- **evento de dominio:** hecho pasado, con nombre del negocio, que otros contextos pueden consumir.
-- **consumidor idempotente:** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
-- **proyector:** componente que construye un modelo de lectura a partir de los eventos.
-- **instantánea:** copia del estado en un punto de la historia que evita reaplicar todos los eventos anteriores.
-- **lectura de la propia escritura:** garantía de que quien escribe verá su cambio en las lecturas siguientes.
+- **[evento de dominio](../../../glosario/entradas/e/evento-de-dominio.md):** hecho pasado, con nombre del negocio, que otros contextos pueden consumir.
+- **[consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md):** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
+- **[proyector](../../../glosario/entradas/p/proyector.md):** componente que construye un modelo de lectura a partir de los eventos.
+- **[instantánea](../../../glosario/entradas/i/instantanea.md):** copia del estado en un punto de la historia que evita reaplicar todos los eventos anteriores.
+- **[lectura de la propia escritura](../../../glosario/entradas/l/lectura-de-la-propia-escritura.md):** garantía de que quien escribe verá su cambio en las lecturas siguientes.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **evento de dominio:** hecho pasado, con nombre del negocio, que otros contextos pueden consumir.
-- **consumidor idempotente:** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
-- **proyector:** componente que construye un modelo de lectura a partir de los eventos.
-- **instantánea:** copia del estado en un punto de la historia que evita reaplicar todos los eventos anteriores.
-- **lectura de la propia escritura:** garantía de que quien escribe verá su cambio en las lecturas siguientes.
+- **[evento de dominio](../../../glosario/entradas/e/evento-de-dominio.md):** hecho pasado, con nombre del negocio, que otros contextos pueden consumir.
+- **[consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md):** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
+- **[proyector](../../../glosario/entradas/p/proyector.md):** componente que construye un modelo de lectura a partir de los eventos.
+- **[instantánea](../../../glosario/entradas/i/instantanea.md):** copia del estado en un punto de la historia que evita reaplicar todos los eventos anteriores.
+- **[lectura de la propia escritura](../../../glosario/entradas/l/lectura-de-la-propia-escritura.md):** garantía de que quien escribe verá su cambio en las lecturas siguientes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md) · [Evento de dominio](../../../glosario/entradas/e/evento-de-dominio.md) · [Instantánea](../../../glosario/entradas/i/instantanea.md) · [Lectura de la propia escritura](../../../glosario/entradas/l/lectura-de-la-propia-escritura.md) · [Proyector](../../../glosario/entradas/p/proyector.md).
 
 ---
 

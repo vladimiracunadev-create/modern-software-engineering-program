@@ -154,11 +154,11 @@ Con 5 reglas, una de cada seis veces el archivo se contradice; con 10, casi dos 
 
 ## Definiciones de trabajo
 
-- **context engineering:** diseño del conjunto de información, su forma y su precedencia que se aporta al modelo en cada llamada.
-- **dimensión de decisión:** aspecto de una tarea con varias opciones razonables que la petición puede dejar abiertas.
-- **interpretación:** combinación coherente de opciones que satisface la petición tal como está escrita.
-- **metadato de versión:** dato asociado a un documento que indica su vigencia, fecha y relación con otras versiones.
-- **precedencia:** regla que establece cuál de dos instrucciones en conflicto prevalece.
+- **[context engineering](../../../glosario/entradas/c/context-engineering.md):** diseño del conjunto de información, su forma y su precedencia que se aporta al modelo en cada llamada.
+- **[dimensión de decisión](../../../glosario/entradas/d/dimension-de-decision.md):** aspecto de una tarea con varias opciones razonables que la petición puede dejar abiertas.
+- **[interpretación](../../../glosario/entradas/i/interpretacion.md):** combinación coherente de opciones que satisface la petición tal como está escrita.
+- **[metadato de versión](../../../glosario/entradas/m/metadato-de-version.md):** dato asociado a un documento que indica su vigencia, fecha y relación con otras versiones.
+- **[precedencia](../../../glosario/entradas/p/precedencia.md):** regla que establece cuál de dos instrucciones en conflicto prevalece.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **context engineering:** diseño del conjunto de información, su forma y su precedencia que se aporta al modelo en cada llamada.
-- **dimensión de decisión:** aspecto de una tarea con varias opciones razonables que la petición puede dejar abiertas.
-- **interpretación:** combinación coherente de opciones que satisface la petición tal como está escrita.
-- **metadato de versión:** dato asociado a un documento que indica su vigencia, fecha y relación con otras versiones.
-- **precedencia:** regla que establece cuál de dos instrucciones en conflicto prevalece.
+- **[context engineering](../../../glosario/entradas/c/context-engineering.md):** diseño del conjunto de información, su forma y su precedencia que se aporta al modelo en cada llamada.
+- **[dimensión de decisión](../../../glosario/entradas/d/dimension-de-decision.md):** aspecto de una tarea con varias opciones razonables que la petición puede dejar abiertas.
+- **[interpretación](../../../glosario/entradas/i/interpretacion.md):** combinación coherente de opciones que satisface la petición tal como está escrita.
+- **[metadato de versión](../../../glosario/entradas/m/metadato-de-version.md):** dato asociado a un documento que indica su vigencia, fecha y relación con otras versiones.
+- **[precedencia](../../../glosario/entradas/p/precedencia.md):** regla que establece cuál de dos instrucciones en conflicto prevalece.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Context engineering](../../../glosario/entradas/c/context-engineering.md) · [Contradicción](../../../glosario/entradas/c/contradiccion.md) · [Dimensión de decisión](../../../glosario/entradas/d/dimension-de-decision.md) · [Espacio de interpretaciones](../../../glosario/entradas/e/espacio-de-interpretaciones.md) · [Interpretación](../../../glosario/entradas/i/interpretacion.md) · [Metadato de versión](../../../glosario/entradas/m/metadato-de-version.md) · [Precedencia](../../../glosario/entradas/p/precedencia.md).
 
 ---
 

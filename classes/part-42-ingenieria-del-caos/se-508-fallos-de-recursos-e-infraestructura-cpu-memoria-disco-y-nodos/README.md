@@ -120,12 +120,12 @@ Con seis mecanismos y decenas de intensidades, el catálogo se prioriza con tres
 
 ## Definiciones de trabajo
 
-- **falla inyectada:** condición adversa introducida de forma deliberada y controlada para observar el comportamiento del sistema.
-- **mecanismo de falla:** categoría de evento real que la falla representa: red, recursos, dependencias, reloj, discos o procesos.
-- **huella de una falla:** patrón de cambios que la falla deja en las señales del sistema.
-- **latencia de red:** retraso en la entrega de los datos que no retiene recursos del servidor.
-- **lentitud de la dependencia:** mayor tiempo de servicio que retiene hilos y otros recursos mientras dura.
-- **desfase de reloj:** diferencia entre la hora de un componente y la hora de referencia.
+- **[falla inyectada](../../../glosario/entradas/f/falla-inyectada.md):** condición adversa introducida de forma deliberada y controlada para observar el comportamiento del sistema.
+- **[mecanismo de falla](../../../glosario/entradas/m/mecanismo-de-falla.md):** categoría de evento real que la falla representa: red, recursos, dependencias, reloj, discos o procesos.
+- **[huella de una falla](../../../glosario/entradas/h/huella-de-una-falla.md):** patrón de cambios que la falla deja en las señales del sistema.
+- **[latencia de red](../../../glosario/entradas/l/latencia-de-red.md):** retraso en la entrega de los datos que no retiene recursos del servidor.
+- **[lentitud de la dependencia](../../../glosario/entradas/l/lentitud-de-la-dependencia.md):** mayor tiempo de servicio que retiene hilos y otros recursos mientras dura.
+- **[desfase de reloj](../../../glosario/entradas/d/desfase-de-reloj.md):** diferencia entre la hora de un componente y la hora de referencia.
 
 Las definiciones son operativas para el cliente de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -262,12 +262,14 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **falla inyectada:** condición adversa introducida de forma deliberada y controlada.
-- **mecanismo de falla:** categoría de evento real que la falla representa.
-- **huella de una falla:** patrón de cambios que deja en las señales del sistema.
-- **latencia de red:** retraso en la entrega de datos que no retiene recursos del servidor.
-- **lentitud de la dependencia:** mayor tiempo de servicio que retiene hilos mientras dura.
-- **desfase de reloj:** diferencia entre la hora de un componente y la de referencia.
+- **[falla inyectada](../../../glosario/entradas/f/falla-inyectada.md):** condición adversa introducida de forma deliberada y controlada.
+- **[mecanismo de falla](../../../glosario/entradas/m/mecanismo-de-falla.md):** categoría de evento real que la falla representa.
+- **[huella de una falla](../../../glosario/entradas/h/huella-de-una-falla.md):** patrón de cambios que deja en las señales del sistema.
+- **[latencia de red](../../../glosario/entradas/l/latencia-de-red.md):** retraso en la entrega de datos que no retiene recursos del servidor.
+- **[lentitud de la dependencia](../../../glosario/entradas/l/lentitud-de-la-dependencia.md):** mayor tiempo de servicio que retiene hilos mientras dura.
+- **[desfase de reloj](../../../glosario/entradas/d/desfase-de-reloj.md):** diferencia entre la hora de un componente y la de referencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Desfase de reloj](../../../glosario/entradas/d/desfase-de-reloj.md) · [Falla inyectada](../../../glosario/entradas/f/falla-inyectada.md) · [Huella de una falla](../../../glosario/entradas/h/huella-de-una-falla.md) · [Latencia de red](../../../glosario/entradas/l/latencia-de-red.md) · [Lentitud de la dependencia](../../../glosario/entradas/l/lentitud-de-la-dependencia.md) · [Mecanismo de falla](../../../glosario/entradas/m/mecanismo-de-falla.md).
 
 ---
 

@@ -152,11 +152,11 @@ Con 3600 semillas posibles, 2279 de 5000 claves se repiten (la paradoja del cump
 
 ## Definiciones de trabajo
 
-- **clave de flota:** secreto compartido por todos los dispositivos de una flota; su extracción compromete a todos.
-- **derivación de claves:** cálculo de una clave a partir de un secreto maestro y un identificador mediante una función como HKDF o HMAC.
-- **reproducción (replay):** reenvío de un mensaje legítimo capturado para que el receptor lo acepte de nuevo.
-- **entropía:** medida de la imprevisibilidad de una fuente de datos; determina la seguridad de una clave generada a partir de ella.
-- **revocación:** retirada de una clave o certificado para que el servidor deje de aceptarlo.
+- **[clave de flota](../../../glosario/entradas/c/clave-de-flota.md):** secreto compartido por todos los dispositivos de una flota; su extracción compromete a todos.
+- **[derivación de claves](../../../glosario/entradas/d/derivacion-de-claves.md):** cálculo de una clave a partir de un secreto maestro y un identificador mediante una función como HKDF o HMAC.
+- **[reproducción (replay)](../../../glosario/entradas/r/reproduccion.md):** reenvío de un mensaje legítimo capturado para que el receptor lo acepte de nuevo.
+- **[entropía](../../../glosario/entradas/e/entropia.md):** medida de la imprevisibilidad de una fuente de datos; determina la seguridad de una clave generada a partir de ella.
+- **[revocación](../../../glosario/entradas/r/revocacion.md):** retirada de una clave o certificado para que el servidor deje de aceptarlo.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **clave de flota:** secreto compartido por todos los dispositivos de una flota; su extracción compromete a todos.
-- **derivación de claves:** cálculo de una clave a partir de un secreto maestro y un identificador mediante una función como HKDF o HMAC.
-- **reproducción (replay):** reenvío de un mensaje legítimo capturado para que el receptor lo acepte de nuevo.
-- **entropía:** medida de la imprevisibilidad de una fuente de datos; determina la seguridad de una clave generada a partir de ella.
-- **revocación:** retirada de una clave o certificado para que el servidor deje de aceptarlo.
+- **[clave de flota](../../../glosario/entradas/c/clave-de-flota.md):** secreto compartido por todos los dispositivos de una flota; su extracción compromete a todos.
+- **[derivación de claves](../../../glosario/entradas/d/derivacion-de-claves.md):** cálculo de una clave a partir de un secreto maestro y un identificador mediante una función como HKDF o HMAC.
+- **[reproducción (replay)](../../../glosario/entradas/r/reproduccion.md):** reenvío de un mensaje legítimo capturado para que el receptor lo acepte de nuevo.
+- **[entropía](../../../glosario/entradas/e/entropia.md):** medida de la imprevisibilidad de una fuente de datos; determina la seguridad de una clave generada a partir de ella.
+- **[revocación](../../../glosario/entradas/r/revocacion.md):** retirada de una clave o certificado para que el servidor deje de aceptarlo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de flota](../../../glosario/entradas/c/clave-de-flota.md) · [Derivación de claves](../../../glosario/entradas/d/derivacion-de-claves.md) · [Entropía](../../../glosario/entradas/e/entropia.md) · [Reproducción](../../../glosario/entradas/r/reproduccion.md) · [Revocación](../../../glosario/entradas/r/revocacion.md).
 
 ---
 

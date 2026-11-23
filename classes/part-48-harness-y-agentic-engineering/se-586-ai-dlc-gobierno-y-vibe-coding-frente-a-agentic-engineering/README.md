@@ -113,12 +113,12 @@ La clasificación es determinista, con reglas sobre rutas, tamaño y dependencia
 
 ## Definiciones de trabajo
 
-- **Gobierno:** conjunto de decisiones sobre quién aprueba qué y con qué evidencia.
-- **Nivel de riesgo:** categoría del cambio según el daño potencial.
-- **Proporcionalidad:** más control donde el daño potencial es mayor.
+- **[Gobierno](../../../glosario/entradas/g/gobierno.md):** conjunto de decisiones sobre quién aprueba qué y con qué evidencia.
+- **[Nivel de riesgo](../../../glosario/entradas/n/nivel-de-riesgo.md):** categoría del cambio según el daño potencial.
+- **[Proporcionalidad](../../../glosario/entradas/p/proporcionalidad.md):** más control donde el daño potencial es mayor.
 - ***Vibe coding*:** uso de un modelo para generar código sin revisarlo ni entenderlo.
-- **Agentic engineering:** desarrollo con agentes bajo compuertas, revisión por riesgo y registro.
-- **Registro de decisiones:** historial de quién aprobó qué, con qué evidencia.
+- **[Agentic engineering](../../../glosario/entradas/a/agentic-engineering.md):** desarrollo con agentes bajo compuertas, revisión por riesgo y registro.
+- **[Registro de decisiones](../../../glosario/entradas/r/registro-de-decisiones.md):** historial de quién aprobó qué, con qué evidencia.
 
 ## Ejemplo mínimo
 
@@ -249,6 +249,8 @@ Se clasificaron doce cambios con reglas del autor y se simularon 20 000 con par�
 | Vibe coding | Generar código con un modelo sin revisarlo ni entenderlo |
 | Agentic engineering | Desarrollo con agentes bajo compuertas, revisión y registro |
 | Registro de decisiones | Historial de quién aprobó qué con qué evidencia |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agentic engineering](../../../glosario/entradas/a/agentic-engineering.md) · [Aprobación humana](../../../glosario/entradas/a/aprobacion-humana.md) · [Gobierno](../../../glosario/entradas/g/gobierno.md) · [Nivel de riesgo](../../../glosario/entradas/n/nivel-de-riesgo.md) · [Proporcionalidad](../../../glosario/entradas/p/proporcionalidad.md) · [Registro de decisiones](../../../glosario/entradas/r/registro-de-decisiones.md).
 
 ---
 

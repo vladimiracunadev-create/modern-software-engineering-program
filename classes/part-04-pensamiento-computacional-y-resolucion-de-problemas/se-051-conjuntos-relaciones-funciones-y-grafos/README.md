@@ -105,11 +105,11 @@ La relación «depende directamente de» define otra, «depende directa o indire
 
 ## Definiciones de trabajo
 
-- **conjunto:** colección definida por pertenencia.
-- **relación:** conjunto de pares entre dominios.
-- **función:** asignación unívoca desde un dominio.
-- **grafo:** vértices conectados por aristas.
-- **alcanzabilidad:** existencia de un camino entre vértices.
+- **[conjunto](../../../glosario/entradas/c/conjunto.md):** colección definida por pertenencia.
+- **[relación](../../../glosario/entradas/r/relacion.md):** conjunto de pares entre dominios.
+- **[función](../../../glosario/entradas/f/funcion.md):** asignación unívoca desde un dominio.
+- **[grafo](../../../glosario/entradas/g/grafo.md):** vértices conectados por aristas.
+- **[alcanzabilidad](../../../glosario/entradas/a/alcanzabilidad.md):** existencia de un camino entre vértices.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -253,11 +253,13 @@ La estructura no fija semántica ni calidad de datos. La siguiente clase expresa
 
 ## Glosario
 
-- **conjunto:** colección definida por pertenencia.
-- **relación:** conjunto de pares entre dominios.
-- **función:** asignación unívoca desde un dominio.
-- **grafo:** vértices conectados por aristas.
-- **alcanzabilidad:** existencia de un camino entre vértices.
+- **[conjunto](../../../glosario/entradas/c/conjunto.md):** colección definida por pertenencia.
+- **[relación](../../../glosario/entradas/r/relacion.md):** conjunto de pares entre dominios.
+- **[función](../../../glosario/entradas/f/funcion.md):** asignación unívoca desde un dominio.
+- **[grafo](../../../glosario/entradas/g/grafo.md):** vértices conectados por aristas.
+- **[alcanzabilidad](../../../glosario/entradas/a/alcanzabilidad.md):** existencia de un camino entre vértices.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcanzabilidad](../../../glosario/entradas/a/alcanzabilidad.md) · [Conjunto](../../../glosario/entradas/c/conjunto.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Función](../../../glosario/entradas/f/funcion.md) · [Grafo](../../../glosario/entradas/g/grafo.md) · [Regla](../../../glosario/entradas/r/regla.md) · [Relación](../../../glosario/entradas/r/relacion.md).
 
 ---
 

@@ -154,11 +154,11 @@ El juez acuerda con la etiqueta humana en el 83,5 % de las comparaciones, una ci
 
 ## Definiciones de trabajo
 
-- **eval:** conjunto de tareas con criterio de éxito ejecutable y procedimiento reproducible para medir un sistema.
-- **intervalo de Wilson:** intervalo de confianza para una proporción, adecuado para tamaños pequeños.
-- **costo por solución aceptada:** costo total de intentos y revisión dividido por las soluciones que se aceptan.
-- **frontera de Pareto:** conjunto de configuraciones que ninguna otra supera en todas las dimensiones a la vez.
-- **juez automático:** modelo usado para puntuar o comparar respuestas, cuyo acuerdo con personas debe calibrarse.
+- **[eval](../../../glosario/entradas/e/evaluacion.md):** conjunto de tareas con criterio de éxito ejecutable y procedimiento reproducible para medir un sistema.
+- **[intervalo de Wilson](../../../glosario/entradas/i/intervalo-de-wilson.md):** intervalo de confianza para una proporción, adecuado para tamaños pequeños.
+- **[costo por solución aceptada](../../../glosario/entradas/c/costo-por-solucion-aceptada.md):** costo total de intentos y revisión dividido por las soluciones que se aceptan.
+- **[frontera de Pareto](../../../glosario/entradas/f/frontera-de-pareto.md):** conjunto de configuraciones que ninguna otra supera en todas las dimensiones a la vez.
+- **[juez automático](../../../glosario/entradas/j/juez-automatico.md):** modelo usado para puntuar o comparar respuestas, cuyo acuerdo con personas debe calibrarse.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **eval:** conjunto de tareas con criterio de éxito ejecutable y procedimiento reproducible para medir un sistema.
-- **intervalo de Wilson:** intervalo de confianza para una proporción, adecuado para tamaños pequeños.
-- **costo por solución aceptada:** costo total de intentos y revisión dividido por las soluciones que se aceptan.
-- **frontera de Pareto:** conjunto de configuraciones que ninguna otra supera en todas las dimensiones a la vez.
-- **juez automático:** modelo usado para puntuar o comparar respuestas, cuyo acuerdo con personas debe calibrarse.
+- **[eval](../../../glosario/entradas/e/evaluacion.md):** conjunto de tareas con criterio de éxito ejecutable y procedimiento reproducible para medir un sistema.
+- **[intervalo de Wilson](../../../glosario/entradas/i/intervalo-de-wilson.md):** intervalo de confianza para una proporción, adecuado para tamaños pequeños.
+- **[costo por solución aceptada](../../../glosario/entradas/c/costo-por-solucion-aceptada.md):** costo total de intentos y revisión dividido por las soluciones que se aceptan.
+- **[frontera de Pareto](../../../glosario/entradas/f/frontera-de-pareto.md):** conjunto de configuraciones que ninguna otra supera en todas las dimensiones a la vez.
+- **[juez automático](../../../glosario/entradas/j/juez-automatico.md):** modelo usado para puntuar o comparar respuestas, cuyo acuerdo con personas debe calibrarse.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Costo por solución aceptada](../../../glosario/entradas/c/costo-por-solucion-aceptada.md) · [Evaluación](../../../glosario/entradas/e/evaluacion.md) · [Frontera de Pareto](../../../glosario/entradas/f/frontera-de-pareto.md) · [Intervalo de Wilson](../../../glosario/entradas/i/intervalo-de-wilson.md) · [Juez automático](../../../glosario/entradas/j/juez-automatico.md) · [Latencia](../../../glosario/entradas/l/latencia.md).
 
 ---
 

@@ -135,13 +135,13 @@ La tercera medida pasa ocho derivas y un cambio legítimo por las cinco comproba
 
 ## Definiciones de trabajo
 
-- **Data mesh:** enfoque organizativo y técnico que reparte la propiedad de los datos entre los dominios que los producen.
-- **Producto de datos:** conjunto de datos con dueño, contrato, calidad y nivel de servicio.
-- **Dominio:** área de negocio con su propio lenguaje y equipo.
-- **Contrato de datos:** esquema y garantías de calidad y frescura que el productor ofrece.
-- **Utilización:** fracción de la capacidad de servicio que ocupa la demanda.
-- **Gobernanza federada y computacional:** reglas globales decididas en conjunto y aplicadas como código.
-- **Deriva semántica:** cambio de significado que conserva el esquema.
+- **[Data mesh](../../../glosario/entradas/d/data-mesh.md):** enfoque organizativo y técnico que reparte la propiedad de los datos entre los dominios que los producen.
+- **[Producto de datos](../../../glosario/entradas/p/producto-de-datos.md):** conjunto de datos con dueño, contrato, calidad y nivel de servicio.
+- **[Dominio](../../../glosario/entradas/d/dominio.md):** área de negocio con su propio lenguaje y equipo.
+- **[Contrato de datos](../../../glosario/entradas/c/contrato-de-datos.md):** esquema y garantías de calidad y frescura que el productor ofrece.
+- **[Utilización](../../../glosario/entradas/u/utilizacion.md):** fracción de la capacidad de servicio que ocupa la demanda.
+- **[Gobernanza federada y computacional](../../../glosario/entradas/g/gobernanza-federada-y-computacional.md):** reglas globales decididas en conjunto y aplicadas como código.
+- **[Deriva semántica](../../../glosario/entradas/d/deriva-semantica.md):** cambio de significado que conserva el esquema.
 
 ## Ejemplo mínimo
 
@@ -273,6 +273,8 @@ La cola, la penalización de contexto, las derivas y los umbrales son construcci
 | Utilización | Fracción de capacidad ocupada por la demanda |
 | Gobernanza computacional | Reglas globales aplicadas como código |
 | Deriva semántica | Cambio de significado que conserva el esquema |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato de datos](../../../glosario/entradas/c/contrato-de-datos.md) · [Data mesh](../../../glosario/entradas/d/data-mesh.md) · [Deriva semántica](../../../glosario/entradas/d/deriva-semantica.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Gobernanza federada y computacional](../../../glosario/entradas/g/gobernanza-federada-y-computacional.md) · [Producto de datos](../../../glosario/entradas/p/producto-de-datos.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

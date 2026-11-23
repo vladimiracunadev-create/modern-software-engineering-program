@@ -186,11 +186,11 @@ Esta clase trata cómo se identifica a una persona y cómo se mantiene su sesió
 
 ## Definiciones de trabajo
 
-- **autenticación:** prueba de que quien llama controla la identidad que afirma, mediante algo que sabe, tiene o es.
-- **sal:** valor aleatorio único por contraseña, almacenado junto al hash, que impide reutilizar cálculos entre cuentas.
-- **relleno de credenciales:** ataque que prueba en un sitio pares usuario-contraseña filtrados de otros sitios, normalmente un intento por cuenta.
-- **identificador de sesión:** valor que el servidor reconoce como prueba de una autenticación previa y que vale lo mismo que ella mientras sea válido.
-- **fijación de sesión:** ataque en el que el atacante impone a la víctima un identificador conocido antes de que se autentique.
+- **[autenticación](../../../glosario/entradas/a/autenticacion.md):** prueba de que quien llama controla la identidad que afirma, mediante algo que sabe, tiene o es.
+- **[sal](../../../glosario/entradas/s/sal.md):** valor aleatorio único por contraseña, almacenado junto al hash, que impide reutilizar cálculos entre cuentas.
+- **[relleno de credenciales](../../../glosario/entradas/r/relleno-de-credenciales.md):** ataque que prueba en un sitio pares usuario-contraseña filtrados de otros sitios, normalmente un intento por cuenta.
+- **[identificador de sesión](../../../glosario/entradas/i/identificador-de-sesion.md):** valor que el servidor reconoce como prueba de una autenticación previa y que vale lo mismo que ella mientras sea válido.
+- **[fijación de sesión](../../../glosario/entradas/f/fijacion-de-sesion.md):** ataque en el que el atacante impone a la víctima un identificador conocido antes de que se autentique.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -331,11 +331,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): relleno y sesión co
 
 ## Glosario
 
-- **autenticación:** prueba de que quien llama controla la identidad que afirma, mediante algo que sabe, tiene o es.
-- **sal:** valor aleatorio único por contraseña, almacenado junto al hash, que impide reutilizar cálculos entre cuentas.
-- **relleno de credenciales:** ataque que prueba en un sitio pares usuario-contraseña filtrados de otros sitios, normalmente un intento por cuenta.
-- **identificador de sesión:** valor que el servidor reconoce como prueba de una autenticación previa y que vale lo mismo que ella mientras sea válido.
-- **fijación de sesión:** ataque en el que el atacante impone a la víctima un identificador conocido antes de que se autentique.
+- **[autenticación](../../../glosario/entradas/a/autenticacion.md):** prueba de que quien llama controla la identidad que afirma, mediante algo que sabe, tiene o es.
+- **[sal](../../../glosario/entradas/s/sal.md):** valor aleatorio único por contraseña, almacenado junto al hash, que impide reutilizar cálculos entre cuentas.
+- **[relleno de credenciales](../../../glosario/entradas/r/relleno-de-credenciales.md):** ataque que prueba en un sitio pares usuario-contraseña filtrados de otros sitios, normalmente un intento por cuenta.
+- **[identificador de sesión](../../../glosario/entradas/i/identificador-de-sesion.md):** valor que el servidor reconoce como prueba de una autenticación previa y que vale lo mismo que ella mientras sea válido.
+- **[fijación de sesión](../../../glosario/entradas/f/fijacion-de-sesion.md):** ataque en el que el atacante impone a la víctima un identificador conocido antes de que se autentique.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Autenticación](../../../glosario/entradas/a/autenticacion.md) · [Fijación de sesión](../../../glosario/entradas/f/fijacion-de-sesion.md) · [Identificador de sesión](../../../glosario/entradas/i/identificador-de-sesion.md) · [Relleno de credenciales](../../../glosario/entradas/r/relleno-de-credenciales.md) · [Sal](../../../glosario/entradas/s/sal.md).
 
 ---
 

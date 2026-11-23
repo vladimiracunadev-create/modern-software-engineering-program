@@ -124,12 +124,12 @@ Los cuatro aspectos que se pueden comprobar del flujo tienen distinta calidad. E
 
 ## Definiciones de trabajo
 
-- **ODD (desarrollo orgánico):** flujo de trabajo para agentes de código descrito por el proyecto Gentle AI.
-- **Documento de tarea:** archivo con alcance, tareas, evidencia y siguiente paso, creado antes de tocar el código.
-- **Tramo revisable:** commit de un tamaño que una persona puede leer con atención (unas 400 líneas modificadas, según la documentación).
-- **Rojo y verde:** estado de las pruebas antes y después de implementar.
-- **Decisión de entrega:** push, pull request o merge, separados de la implementación.
-- **Siguiente paso:** línea del documento que permite retomar sin la sesión anterior.
+- **[ODD (desarrollo orgánico)](../../../glosario/entradas/o/odd.md):** flujo de trabajo para agentes de código descrito por el proyecto Gentle AI.
+- **[Documento de tarea](../../../glosario/entradas/d/documento-de-tarea.md):** archivo con alcance, tareas, evidencia y siguiente paso, creado antes de tocar el código.
+- **[Tramo revisable](../../../glosario/entradas/t/tramo-revisable.md):** commit de un tamaño que una persona puede leer con atención (unas 400 líneas modificadas, según la documentación).
+- **[Rojo y verde](../../../glosario/entradas/r/rojo-y-verde.md):** estado de las pruebas antes y después de implementar.
+- **[Decisión de entrega](../../../glosario/entradas/d/decision-de-entrega.md):** push, pull request o merge, separados de la implementación.
+- **[Siguiente paso](../../../glosario/entradas/s/siguiente-paso.md):** línea del documento que permite retomar sin la sesión anterior.
 
 ## Ejemplo mínimo
 
@@ -265,6 +265,8 @@ No se ejecutó Gentle AI ni se midió el efecto de ODD en equipos; los historial
 | Rojo y verde | Estado de las pruebas antes y después de implementar |
 | Decisión de entrega | Push, PR o merge, aparte de implementar |
 | Siguiente paso | Línea que permite retomar sin la sesión anterior |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Decisión de entrega](../../../glosario/entradas/d/decision-de-entrega.md) · [Documento de tarea](../../../glosario/entradas/d/documento-de-tarea.md) · [ODD](../../../glosario/entradas/o/odd.md) · [Rojo y verde](../../../glosario/entradas/r/rojo-y-verde.md) · [Siguiente paso](../../../glosario/entradas/s/siguiente-paso.md) · [Tramo revisable](../../../glosario/entradas/t/tramo-revisable.md).
 
 ---
 

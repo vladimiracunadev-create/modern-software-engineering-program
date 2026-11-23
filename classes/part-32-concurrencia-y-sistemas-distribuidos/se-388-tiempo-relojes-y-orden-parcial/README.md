@@ -169,11 +169,11 @@ El reloj monotónico nunca retrocedió y el de pared, ante el ajuste simulado, p
 
 ## Definiciones de trabajo
 
-- **reloj de pared:** reloj que da la hora del sistema y puede ajustarse hacia atrás o adelante al sincronizarse.
-- **reloj monotónico:** reloj que solo avanza y sirve para medir duraciones locales.
-- **ocurrió antes de:** relación de orden parcial entre sucesos definida por el orden en un proceso y por el envío y la recepción de mensajes.
-- **sucesos concurrentes:** sucesos entre los que no existe cadena de «ocurrió antes de» en ningún sentido.
-- **reloj vectorial:** marca con un contador por nodo que permite decidir si dos sucesos están ordenados o son concurrentes.
+- **[reloj de pared](../../../glosario/entradas/r/reloj-de-pared.md):** reloj que da la hora del sistema y puede ajustarse hacia atrás o adelante al sincronizarse.
+- **[reloj monotónico](../../../glosario/entradas/r/reloj-monotonico.md):** reloj que solo avanza y sirve para medir duraciones locales.
+- **[ocurrió antes de](../../../glosario/entradas/o/ocurrio-antes-de.md):** relación de orden parcial entre sucesos definida por el orden en un proceso y por el envío y la recepción de mensajes.
+- **[sucesos concurrentes](../../../glosario/entradas/s/sucesos-concurrentes.md):** sucesos entre los que no existe cadena de «ocurrió antes de» en ningún sentido.
+- **[reloj vectorial](../../../glosario/entradas/r/reloj-vectorial.md):** marca con un contador por nodo que permite decidir si dos sucesos están ordenados o son concurrentes.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2); los conteos fueron i
 
 ## Glosario
 
-- **reloj de pared:** reloj que da la hora del sistema y puede ajustarse hacia atrás o adelante al sincronizarse.
-- **reloj monotónico:** reloj que solo avanza y sirve para medir duraciones locales.
-- **ocurrió antes de:** relación de orden parcial entre sucesos definida por el orden en un proceso y por el envío y la recepción de mensajes.
-- **sucesos concurrentes:** sucesos entre los que no existe cadena de «ocurrió antes de» en ningún sentido.
-- **reloj vectorial:** marca con un contador por nodo que permite decidir si dos sucesos están ordenados o son concurrentes.
+- **[reloj de pared](../../../glosario/entradas/r/reloj-de-pared.md):** reloj que da la hora del sistema y puede ajustarse hacia atrás o adelante al sincronizarse.
+- **[reloj monotónico](../../../glosario/entradas/r/reloj-monotonico.md):** reloj que solo avanza y sirve para medir duraciones locales.
+- **[ocurrió antes de](../../../glosario/entradas/o/ocurrio-antes-de.md):** relación de orden parcial entre sucesos definida por el orden en un proceso y por el envío y la recepción de mensajes.
+- **[sucesos concurrentes](../../../glosario/entradas/s/sucesos-concurrentes.md):** sucesos entre los que no existe cadena de «ocurrió antes de» en ningún sentido.
+- **[reloj vectorial](../../../glosario/entradas/r/reloj-vectorial.md):** marca con un contador por nodo que permite decidir si dos sucesos están ordenados o son concurrentes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ocurrió antes de](../../../glosario/entradas/o/ocurrio-antes-de.md) · [Reloj de pared](../../../glosario/entradas/r/reloj-de-pared.md) · [Reloj monotónico](../../../glosario/entradas/r/reloj-monotonico.md) · [Reloj vectorial](../../../glosario/entradas/r/reloj-vectorial.md) · [Sucesos concurrentes](../../../glosario/entradas/s/sucesos-concurrentes.md).
 
 ---
 

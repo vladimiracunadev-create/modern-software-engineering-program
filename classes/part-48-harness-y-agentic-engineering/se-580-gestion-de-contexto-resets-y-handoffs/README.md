@@ -112,12 +112,12 @@ El modelo simula 120 turnos de 400 fichas cada uno (48 000 fichas en total) con 
 
 ## Definiciones de trabajo
 
-- **Ventana de contexto:** conjunto de fichas que el modelo ve en una decisión.
-- **Compactación:** sustituir parte del contexto por un resumen.
-- **Archivo de relevo (handoff):** documento en disco con el estado necesario para continuar en otra sesión.
+- **[Ventana de contexto](../../../glosario/entradas/v/ventana-de-contexto.md):** conjunto de fichas que el modelo ve en una decisión.
+- **[Compactación](../../../glosario/entradas/c/compactacion.md):** sustituir parte del contexto por un resumen.
+- **[Archivo de relevo (handoff)](../../../glosario/entradas/a/archivo-de-relevo.md):** documento en disco con el estado necesario para continuar en otra sesión.
 - **Degradación del contexto (*context rot*):** pérdida de precisión al crecer el contexto.
-- **Decisión declarada:** decisión dicha de forma explícita y registrable.
-- **Estado limpio:** estado del repositorio que se podría integrar sin sorpresas.
+- **[Decisión declarada](../../../glosario/entradas/d/decision-declarada.md):** decisión dicha de forma explícita y registrable.
+- **[Estado limpio](../../../glosario/entradas/e/estado-limpio.md):** estado del repositorio que se podría integrar sin sorpresas.
 
 ## Ejemplo mínimo
 
@@ -252,6 +252,8 @@ El modelo simula 120 turnos con diez hechos en posiciones fijas y reglas de cons
 | Context rot | Pérdida de precisión al crecer el contexto |
 | Decisión declarada | Decisión dicha de forma explícita |
 | Estado limpio | Estado integrable sin sorpresas |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Archivo de relevo](../../../glosario/entradas/a/archivo-de-relevo.md) · [Compactación](../../../glosario/entradas/c/compactacion.md) · [Decisión declarada](../../../glosario/entradas/d/decision-declarada.md) · [Estado limpio](../../../glosario/entradas/e/estado-limpio.md) · [Ventana de contexto](../../../glosario/entradas/v/ventana-de-contexto.md).
 
 ---
 

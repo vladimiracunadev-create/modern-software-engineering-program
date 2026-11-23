@@ -137,11 +137,11 @@ Tres personas hacen 500 pronósticos cada una. La calibrada tiene probabilidad r
 
 ## Definiciones de trabajo
 
-- **sesgo del resultado:** tendencia a juzgar una decisión por su resultado en lugar de por la información y el razonamiento disponibles al decidir.
-- **expediente de la decisión:** documento fechado con el problema, las opciones, la información disponible y el razonamiento en el momento de decidir.
-- **ejercicio previo al fallo:** ejercicio en que se imagina que la decisión ya fracasó y se escribe por qué.
-- **calibración:** correspondencia entre la probabilidad declarada y la frecuencia con que lo declarado ocurre.
-- **puntuación de Brier:** error cuadrático medio entre las probabilidades pronosticadas y los resultados observados (0 o 1).
+- **[sesgo del resultado](../../../glosario/entradas/s/sesgo-del-resultado.md):** tendencia a juzgar una decisión por su resultado en lugar de por la información y el razonamiento disponibles al decidir.
+- **[expediente de la decisión](../../../glosario/entradas/e/expediente-de-la-decision.md):** documento fechado con el problema, las opciones, la información disponible y el razonamiento en el momento de decidir.
+- **[ejercicio previo al fallo](../../../glosario/entradas/e/ejercicio-previo-al-fallo.md):** ejercicio en que se imagina que la decisión ya fracasó y se escribe por qué.
+- **[calibración](../../../glosario/entradas/c/calibracion.md):** correspondencia entre la probabilidad declarada y la frecuencia con que lo declarado ocurre.
+- **[puntuación de Brier](../../../glosario/entradas/p/puntuacion-de-brier.md):** error cuadrático medio entre las probabilidades pronosticadas y los resultados observados (0 o 1).
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -283,11 +283,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **sesgo del resultado:** tendencia a juzgar una decisión por su resultado en lugar de por la información y el razonamiento disponibles al decidir.
-- **expediente de la decisión:** documento fechado con el problema, las opciones, la información disponible y el razonamiento en el momento de decidir.
-- **ejercicio previo al fallo:** ejercicio en que se imagina que la decisión ya fracasó y se escribe por qué.
-- **calibración:** correspondencia entre la probabilidad declarada y la frecuencia con que lo declarado ocurre.
-- **puntuación de Brier:** error cuadrático medio entre las probabilidades pronosticadas y los resultados observados (0 o 1).
+- **[sesgo del resultado](../../../glosario/entradas/s/sesgo-del-resultado.md):** tendencia a juzgar una decisión por su resultado en lugar de por la información y el razonamiento disponibles al decidir.
+- **[expediente de la decisión](../../../glosario/entradas/e/expediente-de-la-decision.md):** documento fechado con el problema, las opciones, la información disponible y el razonamiento en el momento de decidir.
+- **[ejercicio previo al fallo](../../../glosario/entradas/e/ejercicio-previo-al-fallo.md):** ejercicio en que se imagina que la decisión ya fracasó y se escribe por qué.
+- **[calibración](../../../glosario/entradas/c/calibracion.md):** correspondencia entre la probabilidad declarada y la frecuencia con que lo declarado ocurre.
+- **[puntuación de Brier](../../../glosario/entradas/p/puntuacion-de-brier.md):** error cuadrático medio entre las probabilidades pronosticadas y los resultados observados (0 o 1).
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Calibración](../../../glosario/entradas/c/calibracion.md) · [Ejercicio previo al fallo](../../../glosario/entradas/e/ejercicio-previo-al-fallo.md) · [Expediente de la decisión](../../../glosario/entradas/e/expediente-de-la-decision.md) · [Puntuación de Brier](../../../glosario/entradas/p/puntuacion-de-brier.md) · [Sesgo del resultado](../../../glosario/entradas/s/sesgo-del-resultado.md).
 
 ---
 

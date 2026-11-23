@@ -145,11 +145,11 @@ Sin compromiso el costo anual medio es 1 257 y el percentil 95, 1 859. Con 60 un
 
 ## Definiciones de trabajo
 
-- **costo por resultado:** costo total de operar el servicio dividido por los resultados útiles logrados.
-- **costo fijo y variable:** el primero no cambia con el uso en el rango de operación; el segundo crece con él.
-- **reparto de costo compartido:** regla que asigna entre usuarios un costo común (igual, proporcional, marginal).
-- **valor de Shapley:** promedio de la contribución marginal de cada participante sobre todos los órdenes de llegada.
-- **compromiso de capacidad:** acuerdo de pagar por una cantidad de capacidad durante un periodo, se use o no.
+- **[costo por resultado](../../../glosario/entradas/c/costo-por-resultado.md):** costo total de operar el servicio dividido por los resultados útiles logrados.
+- **[costo fijo y variable](../../../glosario/entradas/c/costo-fijo-y-variable.md):** el primero no cambia con el uso en el rango de operación; el segundo crece con él.
+- **[reparto de costo compartido](../../../glosario/entradas/r/reparto-de-costo-compartido.md):** regla que asigna entre usuarios un costo común (igual, proporcional, marginal).
+- **[valor de Shapley](../../../glosario/entradas/v/valor-de-shapley.md):** promedio de la contribución marginal de cada participante sobre todos los órdenes de llegada.
+- **[compromiso de capacidad](../../../glosario/entradas/c/compromiso-de-capacidad.md):** acuerdo de pagar por una cantidad de capacidad durante un periodo, se use o no.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **costo por resultado:** costo total de operar el servicio dividido por los resultados útiles logrados.
-- **costo fijo y variable:** el primero no cambia con el uso en el rango de operación; el segundo crece con él.
-- **reparto de costo compartido:** regla que asigna entre usuarios un costo común (igual, proporcional, marginal).
-- **valor de Shapley:** promedio de la contribución marginal de cada participante sobre todos los órdenes de llegada.
-- **compromiso de capacidad:** acuerdo de pagar por una cantidad de capacidad durante un periodo, se use o no.
+- **[costo por resultado](../../../glosario/entradas/c/costo-por-resultado.md):** costo total de operar el servicio dividido por los resultados útiles logrados.
+- **[costo fijo y variable](../../../glosario/entradas/c/costo-fijo-y-variable.md):** el primero no cambia con el uso en el rango de operación; el segundo crece con él.
+- **[reparto de costo compartido](../../../glosario/entradas/r/reparto-de-costo-compartido.md):** regla que asigna entre usuarios un costo común (igual, proporcional, marginal).
+- **[valor de Shapley](../../../glosario/entradas/v/valor-de-shapley.md):** promedio de la contribución marginal de cada participante sobre todos los órdenes de llegada.
+- **[compromiso de capacidad](../../../glosario/entradas/c/compromiso-de-capacidad.md):** acuerdo de pagar por una cantidad de capacidad durante un periodo, se use o no.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compromiso de capacidad](../../../glosario/entradas/c/compromiso-de-capacidad.md) · [Costo fijo y variable](../../../glosario/entradas/c/costo-fijo-y-variable.md) · [Costo por resultado](../../../glosario/entradas/c/costo-por-resultado.md) · [Reparto de costo compartido](../../../glosario/entradas/r/reparto-de-costo-compartido.md) · [Valor de Shapley](../../../glosario/entradas/v/valor-de-shapley.md).
 
 ---
 

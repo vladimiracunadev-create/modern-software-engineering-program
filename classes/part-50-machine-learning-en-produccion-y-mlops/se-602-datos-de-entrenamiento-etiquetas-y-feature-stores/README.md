@@ -136,13 +136,13 @@ La tercera medida reimplementa dos características en el servicio.
 
 ## Definiciones de trabajo
 
-- **Etiqueta:** valor que el modelo debe predecir, con su fuente, su ventana y su retraso.
-- **Característica:** variable de entrada calculada a partir de eventos anteriores a la decisión.
-- **Fuga de información:** característica que contiene información no disponible al decidir.
-- **Unión puntual en el tiempo:** unión que asigna a cada evento el último valor conocido en su instante.
-- **Sesgo entre entrenamiento y servicio:** diferencia entre cómo se calcula o se distribuye una característica en cada entorno.
-- **Almacén de características:** sistema que define, versiona y sirve características para entrenar y para decidir.
-- **Paridad:** coincidencia, característica por característica, entre lo visto al entrenar y lo servido.
+- **[Etiqueta](../../../glosario/entradas/e/etiqueta.md):** valor que el modelo debe predecir, con su fuente, su ventana y su retraso.
+- **[Característica](../../../glosario/entradas/c/caracteristica.md):** variable de entrada calculada a partir de eventos anteriores a la decisión.
+- **[Fuga de información](../../../glosario/entradas/f/fuga-de-informacion.md):** característica que contiene información no disponible al decidir.
+- **[Unión puntual en el tiempo](../../../glosario/entradas/u/union-puntual-en-el-tiempo.md):** unión que asigna a cada evento el último valor conocido en su instante.
+- **[Sesgo entre entrenamiento y servicio](../../../glosario/entradas/s/sesgo-entre-entrenamiento-y-servicio.md):** diferencia entre cómo se calcula o se distribuye una característica en cada entorno.
+- **[Almacén de características](../../../glosario/entradas/a/almacen-de-caracteristicas.md):** sistema que define, versiona y sirve características para entrenar y para decidir.
+- **[Paridad](../../../glosario/entradas/p/paridad.md):** coincidencia, característica por característica, entre lo visto al entrenar y lo servido.
 
 ## Ejemplo mínimo
 
@@ -276,6 +276,8 @@ La fuga, el ruido, la unión y las definiciones alternativas son construcciones 
 | Sesgo entrenamiento-servicio | Diferencia entre cómo se calcula o distribuye una característica en cada entorno |
 | Almacén de características | Sistema que define, versiona y sirve características |
 | Paridad | Coincidencia entre lo visto al entrenar y lo servido |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Almacén de características](../../../glosario/entradas/a/almacen-de-caracteristicas.md) · [Característica](../../../glosario/entradas/c/caracteristica.md) · [Etiqueta](../../../glosario/entradas/e/etiqueta.md) · [Fuga de información](../../../glosario/entradas/f/fuga-de-informacion.md) · [Paridad](../../../glosario/entradas/p/paridad.md) · [Sesgo entre entrenamiento y servicio](../../../glosario/entradas/s/sesgo-entre-entrenamiento-y-servicio.md) · [Unión puntual en el tiempo](../../../glosario/entradas/u/union-puntual-en-el-tiempo.md).
 
 ---
 

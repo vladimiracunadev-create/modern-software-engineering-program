@@ -132,14 +132,14 @@ La tercera figura es el mapa de calor de qué mecanismo contiene cada amenaza de
 
 ## Definiciones de trabajo
 
-- **Plataforma de ejecución aislada:** servicio que acepta código ajeno, lo valida, lo ejecuta con límites y registra lo ocurrido.
-- **Contrato de ejecución:** lo que un módulo puede importar, consumir y hacer ante fallas.
-- **Validador de subida:** comprobación de un módulo antes de aceptarlo.
-- **Política de falla:** respuesta que se da cuando una ejecución no termina bien.
-- **Registro encadenado:** secuencia de entradas donde cada una incluye el resumen de la anterior.
-- **Cabeza de la cadena:** resumen de la última entrada, que fija toda la historia.
-- **Tabla amenaza-mecanismo-prueba:** correspondencia que exige una prueba por cada mecanismo.
-- **Expediente:** conjunto de documentos y evidencias que permiten revisar la plataforma.
+- **[Plataforma de ejecución aislada](../../../glosario/entradas/p/plataforma-de-ejecucion-aislada.md):** servicio que acepta código ajeno, lo valida, lo ejecuta con límites y registra lo ocurrido.
+- **[Contrato de ejecución](../../../glosario/entradas/c/contrato-de-ejecucion.md):** lo que un módulo puede importar, consumir y hacer ante fallas.
+- **[Validador de subida](../../../glosario/entradas/v/validador-de-subida.md):** comprobación de un módulo antes de aceptarlo.
+- **[Política de falla](../../../glosario/entradas/p/politica-de-falla.md):** respuesta que se da cuando una ejecución no termina bien.
+- **[Registro encadenado](../../../glosario/entradas/r/registro-encadenado.md):** secuencia de entradas donde cada una incluye el resumen de la anterior.
+- **[Cabeza de la cadena](../../../glosario/entradas/c/cabeza-de-la-cadena.md):** resumen de la última entrada, que fija toda la historia.
+- **[Tabla amenaza-mecanismo-prueba](../../../glosario/entradas/t/tabla-amenaza-mecanismo-prueba.md):** correspondencia que exige una prueba por cada mecanismo.
+- **[Expediente](../../../glosario/entradas/e/expediente.md):** conjunto de documentos y evidencias que permiten revisar la plataforma.
 
 ## Ejemplo mínimo
 
@@ -281,6 +281,8 @@ La referencia es una plataforma mínima ejecutada en una máquina: sin autentica
 | Cabeza de la cadena | Resumen de la última entrada |
 | Tabla amenaza-mecanismo-prueba | Correspondencia que exige una prueba por mecanismo |
 | Expediente | Documentos y evidencias que permiten revisar la plataforma |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cabeza de la cadena](../../../glosario/entradas/c/cabeza-de-la-cadena.md) · [Contrato de ejecución](../../../glosario/entradas/c/contrato-de-ejecucion.md) · [Expediente](../../../glosario/entradas/e/expediente.md) · [Lo que no cubre](../../../glosario/entradas/l/lo-que-no-cubre.md) · [Plataforma de ejecución aislada](../../../glosario/entradas/p/plataforma-de-ejecucion-aislada.md) · [Política de falla](../../../glosario/entradas/p/politica-de-falla.md) · [Registro encadenado](../../../glosario/entradas/r/registro-encadenado.md) · [Tabla amenaza-mecanismo-prueba](../../../glosario/entradas/t/tabla-amenaza-mecanismo-prueba.md) · [Validador de subida](../../../glosario/entradas/v/validador-de-subida.md).
 
 ---
 

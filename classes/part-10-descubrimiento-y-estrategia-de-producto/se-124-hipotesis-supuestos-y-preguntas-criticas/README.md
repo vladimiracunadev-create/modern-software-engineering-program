@@ -141,11 +141,11 @@ Resultado: 64,0 % de las repeticiones tuvo al menos un «hallazgo» sin corregir
 
 ## Definiciones de trabajo
 
-- **supuestos:** creencia sobre personas, mercado, tecnología o negocio que debe ser cierta para que la idea funcione y que aún no ha sido verificada.
-- **hipótesis falsable:** afirmación sobre el mundo, con un umbral y una regla de decisión fijados antes de observar, que algún resultado posible refutaría.
-- **preguntas críticas:** pregunta cuya respuesta, si fuera desfavorable, cambiaría o cancelaría la decisión; se prioriza por riesgo y por costo de responderla.
-- **sensibilidad:** medida de cuánto cambia el resultado de un modelo al variar un supuesto dentro de su rango, con los demás fijos.
-- **evidencia y umbral:** regla que convierte observaciones en una decisión: qué se mide, con qué muestra, con qué umbral y con qué control del error por contrastar varias cosas.
+- **[supuestos](../../../glosario/entradas/s/supuestos.md):** creencia sobre personas, mercado, tecnología o negocio que debe ser cierta para que la idea funcione y que aún no ha sido verificada.
+- **[hipótesis falsable](../../../glosario/entradas/h/hipotesis-falsable.md):** afirmación sobre el mundo, con un umbral y una regla de decisión fijados antes de observar, que algún resultado posible refutaría.
+- **[preguntas críticas](../../../glosario/entradas/p/preguntas-criticas.md):** pregunta cuya respuesta, si fuera desfavorable, cambiaría o cancelaría la decisión; se prioriza por riesgo y por costo de responderla.
+- **[sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** medida de cuánto cambia el resultado de un modelo al variar un supuesto dentro de su rango, con los demás fijos.
+- **[evidencia y umbral](../../../glosario/entradas/e/evidencia-y-umbral.md):** regla que convierte observaciones en una decisión: qué se mide, con qué muestra, con qué umbral y con qué control del error por contrastar varias cosas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y U
 
 ## Glosario
 
-- **supuestos:** creencia sobre personas, mercado, tecnología o negocio que debe ser cierta para que la idea funcione y que aún no ha sido verificada.
-- **hipótesis falsable:** afirmación sobre el mundo, con un umbral y una regla de decisión fijados antes de observar, que algún resultado posible refutaría.
-- **preguntas críticas:** pregunta cuya respuesta, si fuera desfavorable, cambiaría o cancelaría la decisión; se prioriza por riesgo y por costo de responderla.
-- **sensibilidad:** medida de cuánto cambia el resultado de un modelo al variar un supuesto dentro de su rango, con los demás fijos.
-- **evidencia y umbral:** regla que convierte observaciones en una decisión: qué se mide, con qué muestra, con qué umbral y con qué control del error por contrastar varias cosas.
+- **[supuestos](../../../glosario/entradas/s/supuestos.md):** creencia sobre personas, mercado, tecnología o negocio que debe ser cierta para que la idea funcione y que aún no ha sido verificada.
+- **[hipótesis falsable](../../../glosario/entradas/h/hipotesis-falsable.md):** afirmación sobre el mundo, con un umbral y una regla de decisión fijados antes de observar, que algún resultado posible refutaría.
+- **[preguntas críticas](../../../glosario/entradas/p/preguntas-criticas.md):** pregunta cuya respuesta, si fuera desfavorable, cambiaría o cancelaría la decisión; se prioriza por riesgo y por costo de responderla.
+- **[sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** medida de cuánto cambia el resultado de un modelo al variar un supuesto dentro de su rango, con los demás fijos.
+- **[evidencia y umbral](../../../glosario/entradas/e/evidencia-y-umbral.md):** regla que convierte observaciones en una decisión: qué se mide, con qué muestra, con qué umbral y con qué control del error por contrastar varias cosas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evidencia y umbral](../../../glosario/entradas/e/evidencia-y-umbral.md) · [Hipótesis falsable](../../../glosario/entradas/h/hipotesis-falsable.md) · [Preguntas críticas](../../../glosario/entradas/p/preguntas-criticas.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md) · [Supuestos](../../../glosario/entradas/s/supuestos.md).
 
 ---
 

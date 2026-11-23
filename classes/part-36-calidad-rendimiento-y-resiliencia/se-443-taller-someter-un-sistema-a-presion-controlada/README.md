@@ -156,11 +156,11 @@ Cada celda da la probabilidad de detección y las solicitudes erróneas esperada
 
 ## Definiciones de trabajo
 
-- **hipótesis de estado estable:** afirmación comprobable, con umbral, sobre el comportamiento normal del sistema que el experimento busca refutar.
-- **radio de impacto:** fracción del sistema o del tráfico que un experimento afecta.
-- **criterio de aborto:** condición, escrita antes, que detiene el experimento.
-- **inyección de fallos:** introducción deliberada de un fallo (latencia, error, caída, carga) para observar la respuesta del sistema.
-- **día de simulacro (game day):** ejercicio planificado en que un equipo responde a un fallo inyectado.
+- **[hipótesis de estado estable](../../../glosario/entradas/h/hipotesis-de-estado-estable.md):** afirmación comprobable, con umbral, sobre el comportamiento normal del sistema que el experimento busca refutar.
+- **[radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md):** fracción del sistema o del tráfico que un experimento afecta.
+- **[criterio de aborto](../../../glosario/entradas/c/criterio-de-aborto.md):** condición, escrita antes, que detiene el experimento.
+- **[inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md):** introducción deliberada de un fallo (latencia, error, caída, carga) para observar la respuesta del sistema.
+- **[día de simulacro (game day)](../../../glosario/entradas/d/dia-de-practica.md):** ejercicio planificado en que un equipo responde a un fallo inyectado.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -298,11 +298,13 @@ Se ejecutó el experimento con tiempo virtual y semillas fijas en Windows y Ubun
 
 ## Glosario
 
-- **hipótesis de estado estable:** afirmación comprobable, con umbral, sobre el comportamiento normal del sistema que el experimento busca refutar.
-- **radio de impacto:** fracción del sistema o del tráfico que un experimento afecta.
-- **criterio de aborto:** condición, escrita antes, que detiene el experimento.
-- **inyección de fallos:** introducción deliberada de un fallo (latencia, error, caída, carga) para observar la respuesta del sistema.
-- **día de simulacro (game day):** ejercicio planificado en que un equipo responde a un fallo inyectado.
+- **[hipótesis de estado estable](../../../glosario/entradas/h/hipotesis-de-estado-estable.md):** afirmación comprobable, con umbral, sobre el comportamiento normal del sistema que el experimento busca refutar.
+- **[radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md):** fracción del sistema o del tráfico que un experimento afecta.
+- **[criterio de aborto](../../../glosario/entradas/c/criterio-de-aborto.md):** condición, escrita antes, que detiene el experimento.
+- **[inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md):** introducción deliberada de un fallo (latencia, error, caída, carga) para observar la respuesta del sistema.
+- **[día de simulacro (game day)](../../../glosario/entradas/d/dia-de-practica.md):** ejercicio planificado en que un equipo responde a un fallo inyectado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Criterio de aborto](../../../glosario/entradas/c/criterio-de-aborto.md) · [Día de práctica](../../../glosario/entradas/d/dia-de-practica.md) · [Hipótesis de estado estable](../../../glosario/entradas/h/hipotesis-de-estado-estable.md) · [Inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md) · [Radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md).
 
 ---
 

@@ -135,13 +135,13 @@ La tercera figura muestra cómo una compactación no rompe a un lector.
 
 ## Definiciones de trabajo
 
-- **Almacén (warehouse):** sistema que gestiona el almacenamiento, el esquema y las transacciones de datos analíticos.
-- **Lago (lake):** archivos en almacenamiento de objetos con esquema al leer.
-- **Lakehouse:** lago con una capa de metadatos que da transacciones, versiones y esquema.
-- **Formato columnar:** archivo que guarda cada columna por separado, en grupos de filas.
-- **Estadísticas por grupo:** mínimo y máximo de cada columna en un grupo de filas.
-- **Codificación por diccionario:** sustituir valores repetidos por índices.
-- **Compactación:** reescribir muchos archivos pequeños en pocos grandes.
+- **[Almacén (warehouse)](../../../glosario/entradas/a/almacen.md):** sistema que gestiona el almacenamiento, el esquema y las transacciones de datos analíticos.
+- **[Lago (lake)](../../../glosario/entradas/l/lago.md):** archivos en almacenamiento de objetos con esquema al leer.
+- **[Lakehouse](../../../glosario/entradas/l/lakehouse.md):** lago con una capa de metadatos que da transacciones, versiones y esquema.
+- **[Formato columnar](../../../glosario/entradas/f/formato-columnar.md):** archivo que guarda cada columna por separado, en grupos de filas.
+- **[Estadísticas por grupo](../../../glosario/entradas/e/estadisticas-por-grupo.md):** mínimo y máximo de cada columna en un grupo de filas.
+- **[Codificación por diccionario](../../../glosario/entradas/c/codificacion-por-diccionario.md):** sustituir valores repetidos por índices.
+- **[Compactación](../../../glosario/entradas/c/compactacion.md):** reescribir muchos archivos pequeños en pocos grandes.
 
 ## Ejemplo mínimo
 
@@ -277,6 +277,8 @@ El formato columnar es un archivo didáctico, los datos son sintéticos y los ti
 | Poda de columnas | Leer solo las columnas usadas |
 | Estadísticas por grupo | Mínimo y máximo por grupo de filas |
 | Compactación | Reescribir muchos archivos en pocos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Almacén](../../../glosario/entradas/a/almacen.md) · [Codificación por diccionario](../../../glosario/entradas/c/codificacion-por-diccionario.md) · [Compactación](../../../glosario/entradas/c/compactacion.md) · [Estadísticas por grupo](../../../glosario/entradas/e/estadisticas-por-grupo.md) · [Formato columnar](../../../glosario/entradas/f/formato-columnar.md) · [Lago](../../../glosario/entradas/l/lago.md) · [Lakehouse](../../../glosario/entradas/l/lakehouse.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md).
 
 ---
 

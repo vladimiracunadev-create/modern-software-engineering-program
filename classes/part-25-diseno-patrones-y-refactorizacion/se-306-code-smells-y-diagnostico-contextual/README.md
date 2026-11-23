@@ -163,11 +163,11 @@ Tres verdaderos positivos, una falsa alarma (el serializador), ningún falso neg
 
 ## Definiciones de trabajo
 
-- **olor de código:** característica de la estructura que sugiere un problema más profundo, sin demostrarlo.
-- **falsa alarma:** código señalado por una regla que, mirado en su contexto, no es un problema.
-- **complejidad ciclomática:** número de caminos independientes que atraviesan una función.
-- **duplicación accidental:** código repetido que cambia por la misma razón y debería cambiarse junto.
-- **envidia de características:** método que usa más datos de otro objeto que de su propia clase.
+- **[olor de código](../../../glosario/entradas/o/olor-de-codigo.md):** característica de la estructura que sugiere un problema más profundo, sin demostrarlo.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** código señalado por una regla que, mirado en su contexto, no es un problema.
+- **[complejidad ciclomática](../../../glosario/entradas/c/complejidad-ciclomatica.md):** número de caminos independientes que atraviesan una función.
+- **[duplicación accidental](../../../glosario/entradas/d/duplicacion-accidental.md):** código repetido que cambia por la misma razón y debería cambiarse junto.
+- **[envidia de características](../../../glosario/entradas/e/envidia-de-caracteristicas.md):** método que usa más datos de otro objeto que de su propia clase.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres análisis con código de ejemplo, un repositorio fijado por c
 
 ## Glosario
 
-- **olor de código:** característica de la estructura que sugiere un problema más profundo, sin demostrarlo.
-- **falsa alarma:** código señalado por una regla que, mirado en su contexto, no es un problema.
-- **complejidad ciclomática:** número de caminos independientes que atraviesan una función.
-- **duplicación accidental:** código repetido que cambia por la misma razón y debería cambiarse junto.
-- **envidia de características:** método que usa más datos de otro objeto que de su propia clase.
+- **[olor de código](../../../glosario/entradas/o/olor-de-codigo.md):** característica de la estructura que sugiere un problema más profundo, sin demostrarlo.
+- **[falsa alarma](../../../glosario/entradas/f/falsa-alarma.md):** código señalado por una regla que, mirado en su contexto, no es un problema.
+- **[complejidad ciclomática](../../../glosario/entradas/c/complejidad-ciclomatica.md):** número de caminos independientes que atraviesan una función.
+- **[duplicación accidental](../../../glosario/entradas/d/duplicacion-accidental.md):** código repetido que cambia por la misma razón y debería cambiarse junto.
+- **[envidia de características](../../../glosario/entradas/e/envidia-de-caracteristicas.md):** método que usa más datos de otro objeto que de su propia clase.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Complejidad ciclomática](../../../glosario/entradas/c/complejidad-ciclomatica.md) · [Duplicación accidental](../../../glosario/entradas/d/duplicacion-accidental.md) · [Envidia de características](../../../glosario/entradas/e/envidia-de-caracteristicas.md) · [Falsa alarma](../../../glosario/entradas/f/falsa-alarma.md) · [Olor de código](../../../glosario/entradas/o/olor-de-codigo.md).
 
 ---
 

@@ -141,15 +141,15 @@ La tercera medida pregunta cuánto se puede confiar en el AUC según el tamaño 
 
 ## Definiciones de trabajo
 
-- **Prevalencia:** fracción de casos positivos en la población.
-- **Recall o TPR:** fracción de positivos que el modelo marca.
-- **FPR:** fracción de negativos que el modelo marca.
-- **AUC:** probabilidad de que un positivo reciba un puntaje mayor que un negativo.
-- **PR-AUC:** área bajo la curva de precisión y recall; su línea base es la prevalencia.
-- **Calibración:** correspondencia entre probabilidad predicha y frecuencia observada.
-- **ECE:** error de calibración esperado, promedio ponderado de la distancia entre ambas por tramos.
-- **Paridad demográfica:** igualdad de la tasa de marcados entre grupos.
-- **Igualdad de oportunidad:** igualdad del recall entre grupos.
+- **[Prevalencia](../../../glosario/entradas/p/prevalencia.md):** fracción de casos positivos en la población.
+- **[Recall o TPR](../../../glosario/entradas/r/recall-o-tpr.md):** fracción de positivos que el modelo marca.
+- **[FPR](../../../glosario/entradas/f/fpr.md):** fracción de negativos que el modelo marca.
+- **[AUC](../../../glosario/entradas/a/auc.md):** probabilidad de que un positivo reciba un puntaje mayor que un negativo.
+- **[PR-AUC](../../../glosario/entradas/p/pr-auc.md):** área bajo la curva de precisión y recall; su línea base es la prevalencia.
+- **[Calibración](../../../glosario/entradas/c/calibracion.md):** correspondencia entre probabilidad predicha y frecuencia observada.
+- **[ECE](../../../glosario/entradas/e/ece.md):** error de calibración esperado, promedio ponderado de la distancia entre ambas por tramos.
+- **[Paridad demográfica](../../../glosario/entradas/p/paridad-demografica.md):** igualdad de la tasa de marcados entre grupos.
+- **[Igualdad de oportunidad](../../../glosario/entradas/i/igualdad-de-oportunidad.md):** igualdad del recall entre grupos.
 
 ## Ejemplo mínimo
 
@@ -285,6 +285,8 @@ El modelo, el grupo, la prevalencia y los costos son construcciones del autor so
 | Calibración | Las probabilidades coinciden con las frecuencias |
 | ECE | Error esperado de calibración por tramos |
 | Igualdad de oportunidad | Igual recall entre grupos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [AUC](../../../glosario/entradas/a/auc.md) · [Calibración](../../../glosario/entradas/c/calibracion.md) · [ECE](../../../glosario/entradas/e/ece.md) · [FPR](../../../glosario/entradas/f/fpr.md) · [Igualdad de oportunidad](../../../glosario/entradas/i/igualdad-de-oportunidad.md) · [Incertidumbre](../../../glosario/entradas/i/incertidumbre.md) · [Paridad demográfica](../../../glosario/entradas/p/paridad-demografica.md) · [PR-AUC](../../../glosario/entradas/p/pr-auc.md) · [Prevalencia](../../../glosario/entradas/p/prevalencia.md) · [Recall o TPR](../../../glosario/entradas/r/recall-o-tpr.md).
 
 ---
 

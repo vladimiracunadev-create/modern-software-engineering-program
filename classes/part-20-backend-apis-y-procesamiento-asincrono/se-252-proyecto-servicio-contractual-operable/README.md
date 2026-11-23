@@ -125,11 +125,11 @@ Una comprobación que solo mira si existen las rutas detecta **64**; añadir los
 
 ## Definiciones de trabajo
 
-- **indicador de nivel de servicio:** medida de la fracción de solicitudes que cumplen un criterio de calidad.
-- **objetivo de nivel de servicio:** valor mínimo del indicador que se compromete a mantener en una ventana de tiempo.
-- **presupuesto de error:** fracción de solicitudes que pueden fallar sin incumplir el objetivo.
-- **tasa de consumo:** cociente entre el error observado y el presupuesto; mide la velocidad a la que se agota.
-- **conformidad:** grado en que la implementación cumple lo que el contrato declara.
+- **[indicador de nivel de servicio](../../../glosario/entradas/i/indicador-de-nivel-de-servicio.md):** medida de la fracción de solicitudes que cumplen un criterio de calidad.
+- **[objetivo de nivel de servicio](../../../glosario/entradas/o/objetivo-de-nivel-de-servicio.md):** valor mínimo del indicador que se compromete a mantener en una ventana de tiempo.
+- **[presupuesto de error](../../../glosario/entradas/p/presupuesto-de-error.md):** fracción de solicitudes que pueden fallar sin incumplir el objetivo.
+- **[tasa de consumo](../../../glosario/entradas/t/tasa-de-consumo.md):** cociente entre el error observado y el presupuesto; mide la velocidad a la que se agota.
+- **[conformidad](../../../glosario/entradas/c/conformidad.md):** grado en que la implementación cumple lo que el contrato declara.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -271,11 +271,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **SLO:** objetivo de nivel de servicio: valor mínimo comprometido de un indicador en una ventana de tiempo.
-- **burn rate:** velocidad a la que un incidente consume el presupuesto de error, en múltiplos de la tasa que lo agotaría justo en la ventana.
-- **invariante:** condición que debe cumplirse en todo estado alcanzable del servicio.
-- **conformidad:** grado en que una implementación cumple su contrato.
-- **promesa declarada:** garantía escrita en el contrato que todavía no tiene una comprobación que la ejecute.
+- **[SLO](../../../glosario/entradas/s/slo.md):** objetivo de nivel de servicio: valor mínimo comprometido de un indicador en una ventana de tiempo.
+- **[burn rate](../../../glosario/entradas/b/burn-rate.md):** velocidad a la que un incidente consume el presupuesto de error, en múltiplos de la tasa que lo agotaría justo en la ventana.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** condición que debe cumplirse en todo estado alcanzable del servicio.
+- **[conformidad](../../../glosario/entradas/c/conformidad.md):** grado en que una implementación cumple su contrato.
+- **[promesa declarada](../../../glosario/entradas/p/promesa-declarada.md):** garantía escrita en el contrato que todavía no tiene una comprobación que la ejecute.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alertas por consumo](../../../glosario/entradas/a/alertas-por-consumo.md) · [Burn rate](../../../glosario/entradas/b/burn-rate.md) · [Conformidad](../../../glosario/entradas/c/conformidad.md) · [Indicador de nivel de servicio](../../../glosario/entradas/i/indicador-de-nivel-de-servicio.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Objetivo de nivel de servicio](../../../glosario/entradas/o/objetivo-de-nivel-de-servicio.md) · [Presupuesto de error](../../../glosario/entradas/p/presupuesto-de-error.md) · [Promesa declarada](../../../glosario/entradas/p/promesa-declarada.md) · [SLO](../../../glosario/entradas/s/slo.md) · [Tasa de consumo](../../../glosario/entradas/t/tasa-de-consumo.md).
 
 ---
 

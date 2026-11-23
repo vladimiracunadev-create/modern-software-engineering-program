@@ -113,11 +113,11 @@ El criterio de diseño es que el SDK haga visible lo que la red hace visible. Un
 
 ## Definiciones de trabajo
 
-- **biblioteca:** una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone.
-- **framework e inversión de control:** un framework define estructura y llama código del usuario en puntos de extensión.
-- **runtime:** el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
-- **plataforma:** una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
-- **sdk:** un sdk reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación.
+- **[biblioteca](../../../glosario/entradas/b/biblioteca.md):** una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone.
+- **[framework e inversión de control](../../../glosario/entradas/f/framework-e-inversion-de-control.md):** un framework define estructura y llama código del usuario en puntos de extensión.
+- **[runtime](../../../glosario/entradas/r/runtime.md):** el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
+- **[plataforma](../../../glosario/entradas/p/plataforma.md):** una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
+- **[sdk](../../../glosario/entradas/s/sdk.md):** un sdk reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ Nombrar el producto no define qué cambios son compatibles. La siguiente clase d
 
 ## Glosario
 
-- **biblioteca:** una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone.
-- **framework e inversión de control:** un framework define estructura y llama código del usuario en puntos de extensión.
-- **runtime:** el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
-- **plataforma:** una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
-- **sdk:** un sdk reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación.
+- **[biblioteca](../../../glosario/entradas/b/biblioteca.md):** una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone.
+- **[framework e inversión de control](../../../glosario/entradas/f/framework-e-inversion-de-control.md):** un framework define estructura y llama código del usuario en puntos de extensión.
+- **[runtime](../../../glosario/entradas/r/runtime.md):** el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
+- **[plataforma](../../../glosario/entradas/p/plataforma.md):** una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
+- **[sdk](../../../glosario/entradas/s/sdk.md):** un sdk reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Biblioteca](../../../glosario/entradas/b/biblioteca.md) · [Framework e inversión de control](../../../glosario/entradas/f/framework-e-inversion-de-control.md) · [Plataforma](../../../glosario/entradas/p/plataforma.md) · [Runtime](../../../glosario/entradas/r/runtime.md) · [Sdk](../../../glosario/entradas/s/sdk.md).
 
 ---
 

@@ -106,11 +106,11 @@ El tiempo de resolver el viajante por fuerza bruta fue de 0,002 s con 7 ciudades
 
 ## Definiciones de trabajo
 
-- **heurística:** regla práctica sin garantía universal de optimalidad.
-- **aproximación:** algoritmo con calidad acotada respecto al óptimo.
-- **óptimo:** mejor solución según objetivo y restricciones.
-- **anytime:** procedimiento que mejora una solución válida mientras dispone de recursos.
-- **decidibilidad:** existencia de un algoritmo que termina y responde todos los casos.
+- **[heurística](../../../glosario/entradas/h/heuristica.md):** regla práctica sin garantía universal de optimalidad.
+- **[aproximación](../../../glosario/entradas/a/aproximacion.md):** algoritmo con calidad acotada respecto al óptimo.
+- **[óptimo](../../../glosario/entradas/o/optimo.md):** mejor solución según objetivo y restricciones.
+- **[anytime](../../../glosario/entradas/a/anytime.md):** procedimiento que mejora una solución válida mientras dispone de recursos.
+- **[decidibilidad](../../../glosario/entradas/d/decidibilidad.md):** existencia de un algoritmo que termina y responde todos los casos.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -255,11 +255,13 @@ La clase no prueba NP-completitud de un problema nuevo. Enseña a reconocer el t
 
 ## Glosario
 
-- **heurística:** regla práctica sin garantía universal de optimalidad.
-- **aproximación:** algoritmo con calidad acotada respecto al óptimo.
-- **óptimo:** mejor solución según objetivo y restricciones.
-- **anytime:** procedimiento que mejora una solución válida mientras dispone de recursos.
-- **decidibilidad:** existencia de un algoritmo que termina y responde todos los casos.
+- **[heurística](../../../glosario/entradas/h/heuristica.md):** regla práctica sin garantía universal de optimalidad.
+- **[aproximación](../../../glosario/entradas/a/aproximacion.md):** algoritmo con calidad acotada respecto al óptimo.
+- **[óptimo](../../../glosario/entradas/o/optimo.md):** mejor solución según objetivo y restricciones.
+- **[anytime](../../../glosario/entradas/a/anytime.md):** procedimiento que mejora una solución válida mientras dispone de recursos.
+- **[decidibilidad](../../../glosario/entradas/d/decidibilidad.md):** existencia de un algoritmo que termina y responde todos los casos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Anytime](../../../glosario/entradas/a/anytime.md) · [Aproximación](../../../glosario/entradas/a/aproximacion.md) · [Decidibilidad](../../../glosario/entradas/d/decidibilidad.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Heurística](../../../glosario/entradas/h/heuristica.md) · [Óptimo](../../../glosario/entradas/o/optimo.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

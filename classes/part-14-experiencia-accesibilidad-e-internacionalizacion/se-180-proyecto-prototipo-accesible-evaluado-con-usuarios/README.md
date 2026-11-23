@@ -133,11 +133,11 @@ kappa = (po - pe) / (1 - pe)
 
 ## Definiciones de trabajo
 
-- **prototipo:** versión mínima de un producto que permite comprobar decisiones de diseño con personas y con pruebas.
-- **modalidad de uso:** manera en que una persona interactúa con un producto, como teclado, lector de pantalla, ampliación o voz.
-- **declaración de conformidad:** afirmación con alcance, evidencia y política para lo no probado sobre el cumplimiento de criterios.
-- **kappa de Cohen:** medida del acuerdo entre dos evaluadores corregida por el acuerdo esperado por azar.
-- **política de lo no probado:** regla escrita que decide cómo cuenta un criterio sin probar en una declaración.
+- **[prototipo](../../../glosario/entradas/p/prototipo.md):** versión mínima de un producto que permite comprobar decisiones de diseño con personas y con pruebas.
+- **[modalidad de uso](../../../glosario/entradas/m/modalidad-de-uso.md):** manera en que una persona interactúa con un producto, como teclado, lector de pantalla, ampliación o voz.
+- **[declaración de conformidad](../../../glosario/entradas/d/declaracion-de-conformidad.md):** afirmación con alcance, evidencia y política para lo no probado sobre el cumplimiento de criterios.
+- **[kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md):** medida del acuerdo entre dos evaluadores corregida por el acuerdo esperado por azar.
+- **[política de lo no probado](../../../glosario/entradas/p/politica-de-lo-no-probado.md):** regla escrita que decide cómo cuenta un criterio sin probar en una declaración.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **prototipo:** versión mínima de un producto que permite comprobar decisiones de diseño con personas y con pruebas.
-- **modalidad de uso:** manera en que una persona interactúa con un producto, como teclado, lector de pantalla, ampliación o voz.
-- **declaración de conformidad:** afirmación con alcance, evidencia y política para lo no probado sobre el cumplimiento de criterios.
-- **kappa de Cohen:** medida del acuerdo entre dos evaluadores corregida por el acuerdo esperado por azar.
-- **política de lo no probado:** regla escrita que decide cómo cuenta un criterio sin probar en una declaración.
+- **[prototipo](../../../glosario/entradas/p/prototipo.md):** versión mínima de un producto que permite comprobar decisiones de diseño con personas y con pruebas.
+- **[modalidad de uso](../../../glosario/entradas/m/modalidad-de-uso.md):** manera en que una persona interactúa con un producto, como teclado, lector de pantalla, ampliación o voz.
+- **[declaración de conformidad](../../../glosario/entradas/d/declaracion-de-conformidad.md):** afirmación con alcance, evidencia y política para lo no probado sobre el cumplimiento de criterios.
+- **[kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md):** medida del acuerdo entre dos evaluadores corregida por el acuerdo esperado por azar.
+- **[política de lo no probado](../../../glosario/entradas/p/politica-de-lo-no-probado.md):** regla escrita que decide cómo cuenta un criterio sin probar en una declaración.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acuerdo entre evaluadores](../../../glosario/entradas/a/acuerdo-entre-evaluadores.md) · [Declaración de conformidad](../../../glosario/entradas/d/declaracion-de-conformidad.md) · [Kappa de Cohen](../../../glosario/entradas/k/kappa-de-cohen.md) · [Modalidad de uso](../../../glosario/entradas/m/modalidad-de-uso.md) · [Política de lo no probado](../../../glosario/entradas/p/politica-de-lo-no-probado.md) · [Prototipo](../../../glosario/entradas/p/prototipo.md).
 
 ---
 

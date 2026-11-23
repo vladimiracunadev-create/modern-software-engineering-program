@@ -128,12 +128,12 @@ No hay una regla universal, hay criterios por colaborador. Un colaborador lento,
 
 ## Definiciones de trabajo
 
-- **Doble:** objeto que sustituye a un colaborador en una prueba.
-- **Fake / doble con estado:** implementación simplificada que se puede consultar después.
-- **Simulado (mock):** doble programado con expectativas sobre las llamadas que recibirá.
-- **Verificación de estado:** aserción sobre el resultado que queda tras ejecutar.
-- **Verificación de comportamiento:** aserción sobre las llamadas que el sujeto hizo.
-- **Cambio de contrato:** alteración de la interfaz de un colaborador; no es un refactor.
+- **[Doble](../../../glosario/entradas/d/doble.md):** objeto que sustituye a un colaborador en una prueba.
+- **[Fake / doble con estado](../../../glosario/entradas/f/fake-doble-con-estado.md):** implementación simplificada que se puede consultar después.
+- **[Simulado (mock)](../../../glosario/entradas/s/simulado.md):** doble programado con expectativas sobre las llamadas que recibirá.
+- **[Verificación de estado](../../../glosario/entradas/v/verificacion-de-estado.md):** aserción sobre el resultado que queda tras ejecutar.
+- **[Verificación de comportamiento](../../../glosario/entradas/v/verificacion-de-comportamiento.md):** aserción sobre las llamadas que el sujeto hizo.
+- **[Cambio de contrato](../../../glosario/entradas/c/cambio-de-contrato.md):** alteración de la interfaz de un colaborador; no es un refactor.
 
 ## Ejemplo mínimo
 
@@ -273,6 +273,8 @@ Las dos suites son del autor sobre un servicio pequeño; no se midió ningún eq
 | Verificación de estado | Aserción sobre el resultado que queda |
 | Verificación de comportamiento | Aserción sobre las llamadas hechas |
 | Cambio de contrato | Alteración de la interfaz de un colaborador |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio de contrato](../../../glosario/entradas/c/cambio-de-contrato.md) · [Doble](../../../glosario/entradas/d/doble.md) · [Fake / doble con estado](../../../glosario/entradas/f/fake-doble-con-estado.md) · [Simulado](../../../glosario/entradas/s/simulado.md) · [Verificación de comportamiento](../../../glosario/entradas/v/verificacion-de-comportamiento.md) · [Verificación de estado](../../../glosario/entradas/v/verificacion-de-estado.md).
 
 ---
 

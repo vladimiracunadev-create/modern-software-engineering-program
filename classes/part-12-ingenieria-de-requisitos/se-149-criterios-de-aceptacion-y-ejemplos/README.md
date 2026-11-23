@@ -138,11 +138,11 @@ De las 61 notas de 1,0 a 7,0 con un decimal, difieren 3: 2,5 (A da 2, B da 3), 4
 
 ## Definiciones de trabajo
 
-- **criterios de aceptación:** condiciones binarias que, si se cumplen, hacen que una historia se considere completa para quien la pidió.
-- **ejemplos concretos:** casos con datos específicos que ilustran una regla y permiten distinguir interpretaciones.
-- **Given-When-Then:** forma de escribir un ejemplo como contexto, acción y resultado observable.
-- **particiones y fronteras:** agrupación de entradas en clases tratadas igual y elección de valores en el borde de cada clase.
-- **cobertura combinatoria:** conjunto de casos que garantiza que cada combinación de t valores aparece al menos una vez.
+- **[criterios de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condiciones binarias que, si se cumplen, hacen que una historia se considere completa para quien la pidió.
+- **[ejemplos concretos](../../../glosario/entradas/e/ejemplos-concretos.md):** casos con datos específicos que ilustran una regla y permiten distinguir interpretaciones.
+- **[Given-When-Then](../../../glosario/entradas/g/given-when-then.md):** forma de escribir un ejemplo como contexto, acción y resultado observable.
+- **[particiones y fronteras](../../../glosario/entradas/p/particiones-y-fronteras.md):** agrupación de entradas en clases tratadas igual y elección de valores en el borde de cada clase.
+- **[cobertura combinatoria](../../../glosario/entradas/c/cobertura-combinatoria.md):** conjunto de casos que garantiza que cada combinación de t valores aparece al menos una vez.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **criterios de aceptación:** condiciones binarias que, si se cumplen, hacen que una historia se considere completa para quien la pidió.
-- **ejemplos concretos:** casos con datos específicos que ilustran una regla y permiten distinguir interpretaciones.
-- **Given-When-Then:** forma de escribir un ejemplo como contexto, acción y resultado observable.
-- **particiones y fronteras:** agrupación de entradas en clases tratadas igual y elección de valores en el borde de cada clase.
-- **cobertura combinatoria:** conjunto de casos que garantiza que cada combinación de t valores aparece al menos una vez.
+- **[criterios de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condiciones binarias que, si se cumplen, hacen que una historia se considere completa para quien la pidió.
+- **[ejemplos concretos](../../../glosario/entradas/e/ejemplos-concretos.md):** casos con datos específicos que ilustran una regla y permiten distinguir interpretaciones.
+- **[Given-When-Then](../../../glosario/entradas/g/given-when-then.md):** forma de escribir un ejemplo como contexto, acción y resultado observable.
+- **[particiones y fronteras](../../../glosario/entradas/p/particiones-y-fronteras.md):** agrupación de entradas en clases tratadas igual y elección de valores en el borde de cada clase.
+- **[cobertura combinatoria](../../../glosario/entradas/c/cobertura-combinatoria.md):** conjunto de casos que garantiza que cada combinación de t valores aparece al menos una vez.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura combinatoria](../../../glosario/entradas/c/cobertura-combinatoria.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Ejemplos concretos](../../../glosario/entradas/e/ejemplos-concretos.md) · [Given-When-Then](../../../glosario/entradas/g/given-when-then.md) · [Particiones y fronteras](../../../glosario/entradas/p/particiones-y-fronteras.md).
 
 ---
 

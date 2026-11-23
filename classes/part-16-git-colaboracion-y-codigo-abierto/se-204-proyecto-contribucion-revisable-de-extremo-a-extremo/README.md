@@ -112,11 +112,11 @@ Dos contribuciones dejaron las pruebas en verde. En la primera, el tope pasó de
 
 ## Definiciones de trabajo
 
-- **contribución revisable:** conjunto de cambios, descripción, pruebas y declaraciones que otra persona puede revisar y fusionar sin preguntar al autor.
-- **comprobación de forma:** verificación mecánica de una propiedad del paquete que no depende del sentido del cambio.
-- **solape:** situación en que un defecto dispara varias comprobaciones porque tiene varios síntomas.
-- **`Signed-off-by`:** línea de un commit con la que su autora afirma el origen del cambio según el Developer Certificate of Origin.
-- **mutación:** versión deliberadamente errónea del código usada para comprobar que una prueba falla.
+- **[contribución revisable](../../../glosario/entradas/c/contribucion-revisable.md):** conjunto de cambios, descripción, pruebas y declaraciones que otra persona puede revisar y fusionar sin preguntar al autor.
+- **[comprobación de forma](../../../glosario/entradas/c/comprobacion-de-forma.md):** verificación mecánica de una propiedad del paquete que no depende del sentido del cambio.
+- **[solape](../../../glosario/entradas/s/solape.md):** situación en que un defecto dispara varias comprobaciones porque tiene varios síntomas.
+- **[`Signed-off-by`](../../../glosario/entradas/s/signed-off-by.md):** línea de un commit con la que su autora afirma el origen del cambio según el Developer Certificate of Origin.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** versión deliberadamente errónea del código usada para comprobar que una prueba falla.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -261,11 +261,13 @@ Se ejecutó un experimento con repositorios temporales, claves desechables y def
 
 ## Glosario
 
-- **contribución revisable:** conjunto de cambios, descripción, pruebas y declaraciones que otra persona puede revisar y fusionar sin preguntar al autor.
-- **comprobación de forma:** verificación mecánica de una propiedad del paquete que no depende del sentido del cambio.
-- **solape:** situación en que un defecto dispara varias comprobaciones porque tiene varios síntomas.
-- **`Signed-off-by`:** línea de un commit con la que su autora afirma el origen del cambio según el Developer Certificate of Origin.
-- **mutación:** versión deliberadamente errónea del código usada para comprobar que una prueba falla.
+- **[contribución revisable](../../../glosario/entradas/c/contribucion-revisable.md):** conjunto de cambios, descripción, pruebas y declaraciones que otra persona puede revisar y fusionar sin preguntar al autor.
+- **[comprobación de forma](../../../glosario/entradas/c/comprobacion-de-forma.md):** verificación mecánica de una propiedad del paquete que no depende del sentido del cambio.
+- **[solape](../../../glosario/entradas/s/solape.md):** situación en que un defecto dispara varias comprobaciones porque tiene varios síntomas.
+- **[`Signed-off-by`](../../../glosario/entradas/s/signed-off-by.md):** línea de un commit con la que su autora afirma el origen del cambio según el Developer Certificate of Origin.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** versión deliberadamente errónea del código usada para comprobar que una prueba falla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comprobación de forma](../../../glosario/entradas/c/comprobacion-de-forma.md) · [Contribución revisable](../../../glosario/entradas/c/contribucion-revisable.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Signed-off-by](../../../glosario/entradas/s/signed-off-by.md) · [Solape](../../../glosario/entradas/s/solape.md).
 
 ---
 

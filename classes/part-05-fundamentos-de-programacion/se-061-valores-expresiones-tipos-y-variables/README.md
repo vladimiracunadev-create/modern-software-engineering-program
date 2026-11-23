@@ -116,11 +116,11 @@ Un último matiz: ausencia y cero son valores distintos. `None` no es 0; un pres
 
 ## Definiciones de trabajo
 
-- **valor:** dato concreto manipulable por el programa.
-- **tipo:** conjunto de valores y operaciones asociadas.
-- **expresión:** combinación evaluable que produce un valor.
-- **enlace:** asociación entre un nombre y un objeto.
-- **mutabilidad:** capacidad de cambiar un objeto conservando identidad.
+- **[valor](../../../glosario/entradas/v/valor.md):** dato concreto manipulable por el programa.
+- **[tipo](../../../glosario/entradas/t/tipo.md):** conjunto de valores y operaciones asociadas.
+- **[expresión](../../../glosario/entradas/e/expresion.md):** combinación evaluable que produce un valor.
+- **[enlace](../../../glosario/entradas/e/enlace.md):** asociación entre un nombre y un objeto.
+- **[mutabilidad](../../../glosario/entradas/m/mutabilidad.md):** capacidad de cambiar un objeto conservando identidad.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -274,11 +274,13 @@ Los tipos incorporados no expresan todas las reglas del dominio ni eliminan prec
 
 ## Glosario
 
-- **valor:** dato concreto manipulable por el programa.
-- **tipo:** conjunto de valores y operaciones asociadas.
-- **expresión:** combinación evaluable que produce un valor.
-- **enlace:** asociación entre un nombre y un objeto.
-- **mutabilidad:** capacidad de cambiar un objeto conservando identidad.
+- **[valor](../../../glosario/entradas/v/valor.md):** dato concreto manipulable por el programa.
+- **[tipo](../../../glosario/entradas/t/tipo.md):** conjunto de valores y operaciones asociadas.
+- **[expresión](../../../glosario/entradas/e/expresion.md):** combinación evaluable que produce un valor.
+- **[enlace](../../../glosario/entradas/e/enlace.md):** asociación entre un nombre y un objeto.
+- **[mutabilidad](../../../glosario/entradas/m/mutabilidad.md):** capacidad de cambiar un objeto conservando identidad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Enlace](../../../glosario/entradas/e/enlace.md) · [Expresión](../../../glosario/entradas/e/expresion.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Mutabilidad](../../../glosario/entradas/m/mutabilidad.md) · [Tipo](../../../glosario/entradas/t/tipo.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

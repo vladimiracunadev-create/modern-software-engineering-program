@@ -136,13 +136,13 @@ La tercera figura sitúa qué se guarda y qué se compara.
 
 ## Definiciones de trabajo
 
-- **Corrida:** una ejecución de entrenamiento con datos, configuración, semilla y entorno determinados.
-- **Huella:** resumen criptográfico corto de un conjunto de datos o de una configuración.
-- **Semilla:** valor inicial de un generador pseudoaleatorio.
-- **Dispersión:** desviación estándar o rango de una métrica en corridas repetidas.
-- **Comparación pareada:** comparación de dos configuraciones sobre los mismos datos y las mismas particiones.
-- **Optimismo de la selección:** diferencia entre la métrica del mejor candidato en la validación y su métrica en datos no usados.
-- **Registro de modelos:** sistema que liga cada modelo con su corrida, su versión y su estado.
+- **[Corrida](../../../glosario/entradas/c/corrida.md):** una ejecución de entrenamiento con datos, configuración, semilla y entorno determinados.
+- **[Huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico corto de un conjunto de datos o de una configuración.
+- **[Semilla](../../../glosario/entradas/s/semilla.md):** valor inicial de un generador pseudoaleatorio.
+- **[Dispersión](../../../glosario/entradas/d/dispersion.md):** desviación estándar o rango de una métrica en corridas repetidas.
+- **[Comparación pareada](../../../glosario/entradas/c/comparacion-pareada.md):** comparación de dos configuraciones sobre los mismos datos y las mismas particiones.
+- **[Optimismo de la selección](../../../glosario/entradas/o/optimismo-de-la-seleccion.md):** diferencia entre la métrica del mejor candidato en la validación y su métrica en datos no usados.
+- **[Registro de modelos](../../../glosario/entradas/r/registro-de-modelos.md):** sistema que liga cada modelo con su corrida, su versión y su estado.
 
 ## Ejemplo mínimo
 
@@ -275,6 +275,8 @@ Las dispersiones, el optimismo y el porcentaje de victorias son resultados de bo
 | Comparación pareada | Dos configuraciones sobre los mismos datos |
 | Optimismo de la selección | Brecha entre la validación del elegido y datos no usados |
 | Registro de modelos | Enlace entre cada modelo y su corrida |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comparación pareada](../../../glosario/entradas/c/comparacion-pareada.md) · [Corrida](../../../glosario/entradas/c/corrida.md) · [Dispersión](../../../glosario/entradas/d/dispersion.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Optimismo de la selección](../../../glosario/entradas/o/optimismo-de-la-seleccion.md) · [Registro de modelos](../../../glosario/entradas/r/registro-de-modelos.md) · [Semilla](../../../glosario/entradas/s/semilla.md).
 
 ---
 

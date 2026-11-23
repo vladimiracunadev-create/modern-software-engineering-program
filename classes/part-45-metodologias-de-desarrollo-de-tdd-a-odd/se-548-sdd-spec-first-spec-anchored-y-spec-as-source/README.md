@@ -126,12 +126,12 @@ Las cuatro familias de comprobación mecánica (estructura, valores declarados, 
 
 ## Definiciones de trabajo
 
-- **SDD (desarrollo guiado por especificaciones):** forma de trabajar donde la especificación es el artefacto principal.
-- **Spec-first, spec-anchored, spec-as-source:** los tres niveles de compromiso con mantener la especificación.
-- **Deriva:** separación entre lo que la especificación dice y lo que el sistema hace.
-- **Anclaje:** comprobación mecánica que liga especificación, código y pruebas.
-- **Archivo generado:** código producido desde la especificación que no se edita a mano.
-- **Huella:** resumen criptográfico de la especificación incluido en el archivo generado.
+- **[SDD (desarrollo guiado por especificaciones)](../../../glosario/entradas/s/sdd.md):** forma de trabajar donde la especificación es el artefacto principal.
+- **[Spec-first, spec-anchored, spec-as-source](../../../glosario/entradas/s/spec-first-spec-anchored-spec-as-source.md):** los tres niveles de compromiso con mantener la especificación.
+- **[Deriva](../../../glosario/entradas/d/deriva.md):** separación entre lo que la especificación dice y lo que el sistema hace.
+- **[Anclaje](../../../glosario/entradas/a/anclaje.md):** comprobación mecánica que liga especificación, código y pruebas.
+- **[Archivo generado](../../../glosario/entradas/a/archivo-generado.md):** código producido desde la especificación que no se edita a mano.
+- **[Huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico de la especificación incluido en el archivo generado.
 
 ## Ejemplo mínimo
 
@@ -266,6 +266,8 @@ El generador es una plantilla y el comprobador y las diez derivas son del autor;
 | Spec-as-source | El código se genera de la especificación |
 | Deriva | Separación entre la especificación y el sistema |
 | Huella | Resumen que detecta que lo generado quedó viejo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Anclaje](../../../glosario/entradas/a/anclaje.md) · [Archivo generado](../../../glosario/entradas/a/archivo-generado.md) · [Deriva](../../../glosario/entradas/d/deriva.md) · [Huella](../../../glosario/entradas/h/huella.md) · [SDD](../../../glosario/entradas/s/sdd.md) · [Spec-anchored](../../../glosario/entradas/s/spec-anchored.md) · [Spec-as-source](../../../glosario/entradas/s/spec-as-source.md) · [Spec-first](../../../glosario/entradas/s/spec-first.md) · [Spec-first, spec-anchored, spec-as-source](../../../glosario/entradas/s/spec-first-spec-anchored-spec-as-source.md).
 
 ---
 

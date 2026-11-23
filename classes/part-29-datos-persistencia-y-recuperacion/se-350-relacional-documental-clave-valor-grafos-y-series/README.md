@@ -158,11 +158,11 @@ q_uni = "with recursive a(req) as (select req from pre where curso=200 union sel
 
 ## Definiciones de trabajo
 
-- **documento embebido:** entidad relacionada copiada dentro de otra para poder leerla en una sola operación.
-- **índice secundario:** estructura adicional que permite buscar por un atributo distinto de la clave.
-- **consulta recursiva:** consulta que se define en términos de su propio resultado parcial y se repite hasta que no añade filas.
-- **ciclo:** recorrido que vuelve a un nodo ya visitado.
-- **retención:** política que decide cuánto tiempo se conserva el detalle de los datos.
+- **[documento embebido](../../../glosario/entradas/d/documento-embebido.md):** entidad relacionada copiada dentro de otra para poder leerla en una sola operación.
+- **[índice secundario](../../../glosario/entradas/i/indice-secundario.md):** estructura adicional que permite buscar por un atributo distinto de la clave.
+- **[consulta recursiva](../../../glosario/entradas/c/consulta-recursiva.md):** consulta que se define en términos de su propio resultado parcial y se repite hasta que no añade filas.
+- **[ciclo](../../../glosario/entradas/c/ciclo.md):** recorrido que vuelve a un nodo ya visitado.
+- **[retención](../../../glosario/entradas/r/retencion.md):** política que decide cuánto tiempo se conserva el detalle de los datos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **documento embebido:** entidad relacionada copiada dentro de otra para poder leerla en una sola operación.
-- **índice secundario:** estructura adicional que permite buscar por un atributo distinto de la clave.
-- **consulta recursiva:** consulta que se define en términos de su propio resultado parcial y se repite hasta que no añade filas.
-- **ciclo:** recorrido que vuelve a un nodo ya visitado.
-- **retención:** política que decide cuánto tiempo se conserva el detalle de los datos.
+- **[documento embebido](../../../glosario/entradas/d/documento-embebido.md):** entidad relacionada copiada dentro de otra para poder leerla en una sola operación.
+- **[índice secundario](../../../glosario/entradas/i/indice-secundario.md):** estructura adicional que permite buscar por un atributo distinto de la clave.
+- **[consulta recursiva](../../../glosario/entradas/c/consulta-recursiva.md):** consulta que se define en términos de su propio resultado parcial y se repite hasta que no añade filas.
+- **[ciclo](../../../glosario/entradas/c/ciclo.md):** recorrido que vuelve a un nodo ya visitado.
+- **[retención](../../../glosario/entradas/r/retencion.md):** política que decide cuánto tiempo se conserva el detalle de los datos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ciclo](../../../glosario/entradas/c/ciclo.md) · [Consulta recursiva](../../../glosario/entradas/c/consulta-recursiva.md) · [Documento](../../../glosario/entradas/d/documento.md) · [Documento embebido](../../../glosario/entradas/d/documento-embebido.md) · [Grafo](../../../glosario/entradas/g/grafo.md) · [Índice secundario](../../../glosario/entradas/i/indice-secundario.md) · [Retención](../../../glosario/entradas/r/retencion.md).
 
 ---
 

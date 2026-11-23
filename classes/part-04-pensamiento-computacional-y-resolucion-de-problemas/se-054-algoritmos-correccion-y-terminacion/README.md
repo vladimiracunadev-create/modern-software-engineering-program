@@ -106,11 +106,11 @@ Comparar una implementación con una referencia fiable (un *oráculo*) es una t�
 
 ## Definiciones de trabajo
 
-- **algoritmo:** procedimiento finito y no ambiguo para un problema.
-- **corrección parcial:** si termina, satisface la especificación.
-- **terminación:** propiedad de finalizar para toda entrada del dominio.
-- **variante:** medida bien fundada que disminuye.
-- **corrección total:** corrección parcial más terminación.
+- **[algoritmo](../../../glosario/entradas/a/algoritmo.md):** procedimiento finito y no ambiguo para un problema.
+- **[corrección parcial](../../../glosario/entradas/c/correccion-parcial.md):** si termina, satisface la especificación.
+- **[terminación](../../../glosario/entradas/t/terminacion.md):** propiedad de finalizar para toda entrada del dominio.
+- **[variante](../../../glosario/entradas/v/variante.md):** medida bien fundada que disminuye.
+- **[corrección total](../../../glosario/entradas/c/correccion-total.md):** corrección parcial más terminación.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -255,11 +255,13 @@ Una demostración depende de un modelo preciso y no garantiza rendimiento adecua
 
 ## Glosario
 
-- **algoritmo:** procedimiento finito y no ambiguo para un problema.
-- **corrección parcial:** si termina, satisface la especificación.
-- **terminación:** propiedad de finalizar para toda entrada del dominio.
-- **variante:** medida bien fundada que disminuye.
-- **corrección total:** corrección parcial más terminación.
+- **[algoritmo](../../../glosario/entradas/a/algoritmo.md):** procedimiento finito y no ambiguo para un problema.
+- **[corrección parcial](../../../glosario/entradas/c/correccion-parcial.md):** si termina, satisface la especificación.
+- **[terminación](../../../glosario/entradas/t/terminacion.md):** propiedad de finalizar para toda entrada del dominio.
+- **[variante](../../../glosario/entradas/v/variante.md):** medida bien fundada que disminuye.
+- **[corrección total](../../../glosario/entradas/c/correccion-total.md):** corrección parcial más terminación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Algoritmo](../../../glosario/entradas/a/algoritmo.md) · [Corrección parcial](../../../glosario/entradas/c/correccion-parcial.md) · [Corrección total](../../../glosario/entradas/c/correccion-total.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Regla](../../../glosario/entradas/r/regla.md) · [Terminación](../../../glosario/entradas/t/terminacion.md) · [Variante](../../../glosario/entradas/v/variante.md).
 
 ---
 

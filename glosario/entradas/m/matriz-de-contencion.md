@@ -1,0 +1,61 @@
+# Matriz de contención
+
+[↑ Glosario](../../README.md) · [← Matriz de confusión](./matriz-de-confusion.md) · [Matriz de decisión →](./matriz-de-decision.md)
+
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md)
+
+## Definición
+
+Tabla de qué mecanismo contiene qué comportamiento.
+
+Definición de trabajo de [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md).
+
+## Por qué importa
+
+En [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md), el tema «Matriz de contención» importa porque muestra qué mecanismo es responsable de cada propiedad.
+
+## Cómo funciona
+
+[SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+
+## Ejemplo
+
+La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md):
+
+*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+
+## Errores y confusiones comunes
+
+Las clases no registran errores específicos de este término.
+
+## Límites y cuándo no aplica
+
+Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md)) son: El taller probó tres candidatos con seis comportamientos en una máquina Windows; no probó contenedores, microVM, núcleo de aplicación, perfiles de llamadas de sistema ni límites de memoria del sistema operativo, y dos celdas del primer candidato quedaron sin ejecutar. El siguiente paso, `SE-288`, integra los candidatos en una plataforma con validación, límites, evidencia encadenada e informe firmado.
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-277](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md), [SE-278](../../../classes/part-23-runtimes-y-plataformas-modernas/se-278-webassembly-en-servidor-y-borde-component-model/README.md), [SE-282](../../../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md), [SE-283](../../../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Mecanismo](./mecanismo.md), [Alcance](../a/alcance.md), [Batería hostil](../b/bateria-hostil.md), [Capacidad](../c/capacidad.md), [Condición de revisión](../c/condicion-de-revision.md), [Contención](../c/contencion.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) — [Parte 23](../../../classes/part-23-runtimes-y-plataformas-modernas/README.md), Runtimes y plataformas modernas.
+
+**También se usa en** (1 clases más lo mencionan; las que más):
+
+[SE-288](../../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md).
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Las fuentes de este concepto están en las clases enlazadas (sección «Fuentes» de cada clase).
+
+---
+
+[↑ Glosario](../../README.md) · [← Matriz de confusión](./matriz-de-confusion.md) · [Matriz de decisión →](./matriz-de-decision.md)

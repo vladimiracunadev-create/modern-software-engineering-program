@@ -143,11 +143,11 @@ Resultado: con el **1 %** del catálogo la tasa de aciertos es **30,3 %**; con *
 
 ## Definiciones de trabajo
 
-- **presupuesto de recursos:** conjunto de límites medibles de tiempo de respuesta, energía y memoria que el producto acepta en un dispositivo de referencia.
-- **virtualización de lista:** técnica que construye solo los elementos visibles de una lista larga y recicla los demás.
-- **cola de radio:** tiempo durante el cual la radio sigue activa tras transmitir y que puede costar más energía que la transmisión.
-- **caché LRU:** caché que, al llenarse, descarta el elemento menos usado recientemente.
-- **tasa de aciertos:** fracción de los accesos que se sirven desde la caché sin reconstruir o descargar el elemento.
+- **[presupuesto de recursos](../../../glosario/entradas/p/presupuesto-de-recursos.md):** conjunto de límites medibles de tiempo de respuesta, energía y memoria que el producto acepta en un dispositivo de referencia.
+- **[virtualización de lista](../../../glosario/entradas/v/virtualizacion-de-lista.md):** técnica que construye solo los elementos visibles de una lista larga y recicla los demás.
+- **[cola de radio](../../../glosario/entradas/c/cola-de-radio.md):** tiempo durante el cual la radio sigue activa tras transmitir y que puede costar más energía que la transmisión.
+- **[caché LRU](../../../glosario/entradas/c/cache-lru.md):** caché que, al llenarse, descarta el elemento menos usado recientemente.
+- **[tasa de aciertos](../../../glosario/entradas/t/tasa-de-aciertos.md):** fracción de los accesos que se sirven desde la caché sin reconstruir o descargar el elemento.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **presupuesto de recursos:** conjunto de límites medibles de tiempo de respuesta, energía y memoria que el producto acepta en un dispositivo de referencia.
-- **virtualización de lista:** técnica que construye solo los elementos visibles de una lista larga y recicla los demás.
-- **cola de radio:** tiempo durante el cual la radio sigue activa tras transmitir y que puede costar más energía que la transmisión.
-- **caché LRU:** caché que, al llenarse, descarta el elemento menos usado recientemente.
-- **tasa de aciertos:** fracción de los accesos que se sirven desde la caché sin reconstruir o descargar el elemento.
+- **[presupuesto de recursos](../../../glosario/entradas/p/presupuesto-de-recursos.md):** conjunto de límites medibles de tiempo de respuesta, energía y memoria que el producto acepta en un dispositivo de referencia.
+- **[virtualización de lista](../../../glosario/entradas/v/virtualizacion-de-lista.md):** técnica que construye solo los elementos visibles de una lista larga y recicla los demás.
+- **[cola de radio](../../../glosario/entradas/c/cola-de-radio.md):** tiempo durante el cual la radio sigue activa tras transmitir y que puede costar más energía que la transmisión.
+- **[caché LRU](../../../glosario/entradas/c/cache-lru.md):** caché que, al llenarse, descarta el elemento menos usado recientemente.
+- **[tasa de aciertos](../../../glosario/entradas/t/tasa-de-aciertos.md):** fracción de los accesos que se sirven desde la caché sin reconstruir o descargar el elemento.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caché LRU](../../../glosario/entradas/c/cache-lru.md) · [Cola de radio](../../../glosario/entradas/c/cola-de-radio.md) · [Presupuesto de recursos](../../../glosario/entradas/p/presupuesto-de-recursos.md) · [Tasa de aciertos](../../../glosario/entradas/t/tasa-de-aciertos.md) · [Virtualización de lista](../../../glosario/entradas/v/virtualizacion-de-lista.md).
 
 ---
 

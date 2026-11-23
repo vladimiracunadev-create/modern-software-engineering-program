@@ -165,11 +165,11 @@ Los bytes aleatorios no hallaron ninguno en 20 × 20 000 entradas: casi ninguna 
 
 ## Definiciones de trabajo
 
-- **mutante:** copia del código con un cambio mecánico pequeño.
-- **puntuación de mutación:** fracción de mutantes no equivalentes que alguna prueba mata.
-- **mutante equivalente:** mutante de comportamiento observable igual al original.
-- **fuzzing:** generación automática de entradas para provocar fallos del programa.
-- **corpus:** conjunto de entradas que un fuzzer conserva y muta.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mecánico pequeño.
+- **[puntuación de mutación](../../../glosario/entradas/p/puntuacion-de-mutacion.md):** fracción de mutantes no equivalentes que alguna prueba mata.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** mutante de comportamiento observable igual al original.
+- **[fuzzing](../../../glosario/entradas/f/fuzzing.md):** generación automática de entradas para provocar fallos del programa.
+- **[corpus](../../../glosario/entradas/c/corpus.md):** conjunto de entradas que un fuzzer conserva y muta.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -315,11 +315,13 @@ Se ejecutaron tres experimentos con un módulo sintético de 21 líneas, 18 muta
 
 ## Glosario
 
-- **mutante:** copia del código con un cambio mecánico pequeño.
-- **puntuación de mutación:** fracción de mutantes no equivalentes que alguna prueba mata.
-- **mutante equivalente:** mutante de comportamiento observable igual al original.
-- **fuzzing:** generación automática de entradas para provocar fallos del programa.
-- **corpus:** conjunto de entradas que un fuzzer conserva y muta.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mecánico pequeño.
+- **[puntuación de mutación](../../../glosario/entradas/p/puntuacion-de-mutacion.md):** fracción de mutantes no equivalentes que alguna prueba mata.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** mutante de comportamiento observable igual al original.
+- **[fuzzing](../../../glosario/entradas/f/fuzzing.md):** generación automática de entradas para provocar fallos del programa.
+- **[corpus](../../../glosario/entradas/c/corpus.md):** conjunto de entradas que un fuzzer conserva y muta.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Corpus](../../../glosario/entradas/c/corpus.md) · [Fuzzing](../../../glosario/entradas/f/fuzzing.md) · [Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md) · [Puntuación de mutación](../../../glosario/entradas/p/puntuacion-de-mutacion.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

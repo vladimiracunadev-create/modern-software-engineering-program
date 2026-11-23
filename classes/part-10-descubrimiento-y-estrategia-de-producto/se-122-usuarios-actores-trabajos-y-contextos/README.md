@@ -126,11 +126,11 @@ La causa es léxica: «enviar», «subir» y «entregar» son el mismo acto con 
 
 ## Definiciones de trabajo
 
-- **personas y promedios:** descripción de un grupo por una medida central; útil para resumir, engañosa para representar a un individuo.
-- **actores y cadena de decisión:** cada persona o rol que interviene en la compra, el uso, la administración o los efectos del producto, con su capacidad de decidir o vetar.
-- **trabajos por hacer:** progreso que una persona intenta lograr en una circunstancia concreta, formulado como «cuando… quiero… para…».
-- **contextos:** conjunto de condiciones físicas, sociales y técnicas en que ocurre un trabajo y que alteran su probabilidad de éxito.
-- **agregación y segmentos:** forma de combinar o separar grupos al calcular una medida; decide si una diferencia aparece, desaparece o se invierte.
+- **[personas y promedios](../../../glosario/entradas/p/personas-y-promedios.md):** descripción de un grupo por una medida central; útil para resumir, engañosa para representar a un individuo.
+- **[actores y cadena de decisión](../../../glosario/entradas/a/actores-y-cadena-de-decision.md):** cada persona o rol que interviene en la compra, el uso, la administración o los efectos del producto, con su capacidad de decidir o vetar.
+- **[trabajos por hacer](../../../glosario/entradas/t/trabajos-por-hacer.md):** progreso que una persona intenta lograr en una circunstancia concreta, formulado como «cuando… quiero… para…».
+- **[contextos](../../../glosario/entradas/c/contextos.md):** conjunto de condiciones físicas, sociales y técnicas en que ocurre un trabajo y que alteran su probabilidad de éxito.
+- **[agregación y segmentos](../../../glosario/entradas/a/agregacion-y-segmentos.md):** forma de combinar o separar grupos al calcular una medida; decide si una diferencia aparece, desaparece o se invierte.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -281,11 +281,13 @@ Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y U
 
 ## Glosario
 
-- **personas y promedios:** descripción de un grupo por una medida central; útil para resumir, engañosa para representar a un individuo.
-- **actores y cadena de decisión:** cada persona o rol que interviene en la compra, el uso, la administración o los efectos del producto, con su capacidad de decidir o vetar.
-- **trabajos por hacer:** progreso que una persona intenta lograr en una circunstancia concreta, formulado como «cuando… quiero… para…».
-- **contextos:** conjunto de condiciones físicas, sociales y técnicas en que ocurre un trabajo y que alteran su probabilidad de éxito.
-- **agregación y segmentos:** forma de combinar o separar grupos al calcular una medida; decide si una diferencia aparece, desaparece o se invierte.
+- **[personas y promedios](../../../glosario/entradas/p/personas-y-promedios.md):** descripción de un grupo por una medida central; útil para resumir, engañosa para representar a un individuo.
+- **[actores y cadena de decisión](../../../glosario/entradas/a/actores-y-cadena-de-decision.md):** cada persona o rol que interviene en la compra, el uso, la administración o los efectos del producto, con su capacidad de decidir o vetar.
+- **[trabajos por hacer](../../../glosario/entradas/t/trabajos-por-hacer.md):** progreso que una persona intenta lograr en una circunstancia concreta, formulado como «cuando… quiero… para…».
+- **[contextos](../../../glosario/entradas/c/contextos.md):** conjunto de condiciones físicas, sociales y técnicas en que ocurre un trabajo y que alteran su probabilidad de éxito.
+- **[agregación y segmentos](../../../glosario/entradas/a/agregacion-y-segmentos.md):** forma de combinar o separar grupos al calcular una medida; decide si una diferencia aparece, desaparece o se invierte.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actores y cadena de decisión](../../../glosario/entradas/a/actores-y-cadena-de-decision.md) · [Agregación y segmentos](../../../glosario/entradas/a/agregacion-y-segmentos.md) · [Contextos](../../../glosario/entradas/c/contextos.md) · [Personas y promedios](../../../glosario/entradas/p/personas-y-promedios.md) · [Trabajos por hacer](../../../glosario/entradas/t/trabajos-por-hacer.md).
 
 ---
 

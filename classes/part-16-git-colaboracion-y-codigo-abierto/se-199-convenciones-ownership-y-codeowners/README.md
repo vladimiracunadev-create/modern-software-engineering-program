@@ -112,11 +112,11 @@ Un archivo de 300 líneas escrito por una persona recibió anotaciones en 30 lí
 
 ## Definiciones de trabajo
 
-- **propietario de código:** persona o equipo responsable de una ruta y a quien se pide revisión cuando cambia.
-- **regla muerta:** regla de propietarios que nunca gana porque otras, posteriores, cubren todo lo que ella cubre.
-- **convención de mensajes:** forma común de los mensajes de commit legible por máquinas.
-- **cambio rompedor:** cambio que puede romper a quien usa una interfaz y se marca con `!` o con el pie `BREAKING CHANGE`.
-- **revisiones a ignorar:** lista de commits (normalmente reformateos) que `git blame` salta al atribuir líneas.
+- **[propietario de código](../../../glosario/entradas/p/propietario-de-codigo.md):** persona o equipo responsable de una ruta y a quien se pide revisión cuando cambia.
+- **[regla muerta](../../../glosario/entradas/r/regla-muerta.md):** regla de propietarios que nunca gana porque otras, posteriores, cubren todo lo que ella cubre.
+- **[convención de mensajes](../../../glosario/entradas/c/convencion-de-mensajes.md):** forma común de los mensajes de commit legible por máquinas.
+- **[cambio rompedor](../../../glosario/entradas/c/cambio-rompedor.md):** cambio que puede romper a quien usa una interfaz y se marca con `!` o con el pie `BREAKING CHANGE`.
+- **[revisiones a ignorar](../../../glosario/entradas/r/revisiones-a-ignorar.md):** lista de commits (normalmente reformateos) que `git blame` salta al atribuir líneas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -260,11 +260,13 @@ Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos 
 
 ## Glosario
 
-- **propietario de código:** persona o equipo responsable de una ruta y a quien se pide revisión cuando cambia.
-- **regla muerta:** regla de propietarios que nunca gana porque otras, posteriores, cubren todo lo que ella cubre.
-- **convención de mensajes:** forma común de los mensajes de commit legible por máquinas.
-- **cambio rompedor:** cambio que puede romper a quien usa una interfaz y se marca con `!` o con el pie `BREAKING CHANGE`.
-- **revisiones a ignorar:** lista de commits (normalmente reformateos) que `git blame` salta al atribuir líneas.
+- **[propietario de código](../../../glosario/entradas/p/propietario-de-codigo.md):** persona o equipo responsable de una ruta y a quien se pide revisión cuando cambia.
+- **[regla muerta](../../../glosario/entradas/r/regla-muerta.md):** regla de propietarios que nunca gana porque otras, posteriores, cubren todo lo que ella cubre.
+- **[convención de mensajes](../../../glosario/entradas/c/convencion-de-mensajes.md):** forma común de los mensajes de commit legible por máquinas.
+- **[cambio rompedor](../../../glosario/entradas/c/cambio-rompedor.md):** cambio que puede romper a quien usa una interfaz y se marca con `!` o con el pie `BREAKING CHANGE`.
+- **[revisiones a ignorar](../../../glosario/entradas/r/revisiones-a-ignorar.md):** lista de commits (normalmente reformateos) que `git blame` salta al atribuir líneas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio rompedor](../../../glosario/entradas/c/cambio-rompedor.md) · [Convención de mensajes](../../../glosario/entradas/c/convencion-de-mensajes.md) · [Propietario de código](../../../glosario/entradas/p/propietario-de-codigo.md) · [Regla muerta](../../../glosario/entradas/r/regla-muerta.md) · [Revisiones a ignorar](../../../glosario/entradas/r/revisiones-a-ignorar.md).
 
 ---
 

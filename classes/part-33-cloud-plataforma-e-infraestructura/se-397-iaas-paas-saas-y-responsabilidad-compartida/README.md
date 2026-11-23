@@ -165,11 +165,11 @@ La simulación coincidió con la fórmula con diferencias de un punto porcentual
 
 ## Definiciones de trabajo
 
-- **IaaS:** servicio que entrega cómputo, red y almacenamiento virtualizados sobre los que el cliente instala y opera su propio sistema operativo y software.
-- **PaaS:** servicio que entrega un entorno de ejecución gestionado donde el cliente despliega código sin operar el sistema operativo.
-- **SaaS:** aplicación completa operada por el proveedor, de la que el cliente solo configura, administra identidades y es dueño de sus datos.
-- **responsabilidad compartida:** reparto de qué seguridad y operación corresponde al proveedor y al cliente, que cambia con el tipo de servicio.
-- **ventana de exposición:** tiempo que transcurre entre que existe una vulnerabilidad y que se corrige o se mitiga.
+- **[IaaS](../../../glosario/entradas/i/iaas.md):** servicio que entrega cómputo, red y almacenamiento virtualizados sobre los que el cliente instala y opera su propio sistema operativo y software.
+- **[PaaS](../../../glosario/entradas/p/paas.md):** servicio que entrega un entorno de ejecución gestionado donde el cliente despliega código sin operar el sistema operativo.
+- **[SaaS](../../../glosario/entradas/s/saas.md):** aplicación completa operada por el proveedor, de la que el cliente solo configura, administra identidades y es dueño de sus datos.
+- **[responsabilidad compartida](../../../glosario/entradas/r/responsabilidad-compartida.md):** reparto de qué seguridad y operación corresponde al proveedor y al cliente, que cambia con el tipo de servicio.
+- **[ventana de exposición](../../../glosario/entradas/v/ventana-de-exposicion.md):** tiempo que transcurre entre que existe una vulnerabilidad y que se corrige o se mitiga.
 
 Las definiciones son operativas para la plataforma de entregas. Cada proveedor llama a sus servicios con sus propias palabras, y el modelo de tres letras es una simplificación de NIST que conviene contrastar con la documentación de cada producto.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **IaaS:** servicio que entrega cómputo, red y almacenamiento virtualizados sobre los que el cliente instala y opera su propio sistema operativo y software.
-- **PaaS:** servicio que entrega un entorno de ejecución gestionado donde el cliente despliega código sin operar el sistema operativo.
-- **SaaS:** aplicación completa operada por el proveedor, de la que el cliente solo configura, administra identidades y es dueño de sus datos.
-- **responsabilidad compartida:** reparto de qué seguridad y operación corresponde al proveedor y al cliente, que cambia con el tipo de servicio.
-- **ventana de exposición:** tiempo que transcurre entre que existe una vulnerabilidad y que se corrige o se mitiga.
+- **[IaaS](../../../glosario/entradas/i/iaas.md):** servicio que entrega cómputo, red y almacenamiento virtualizados sobre los que el cliente instala y opera su propio sistema operativo y software.
+- **[PaaS](../../../glosario/entradas/p/paas.md):** servicio que entrega un entorno de ejecución gestionado donde el cliente despliega código sin operar el sistema operativo.
+- **[SaaS](../../../glosario/entradas/s/saas.md):** aplicación completa operada por el proveedor, de la que el cliente solo configura, administra identidades y es dueño de sus datos.
+- **[responsabilidad compartida](../../../glosario/entradas/r/responsabilidad-compartida.md):** reparto de qué seguridad y operación corresponde al proveedor y al cliente, que cambia con el tipo de servicio.
+- **[ventana de exposición](../../../glosario/entradas/v/ventana-de-exposicion.md):** tiempo que transcurre entre que existe una vulnerabilidad y que se corrige o se mitiga.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [IaaS](../../../glosario/entradas/i/iaas.md) · [PaaS](../../../glosario/entradas/p/paas.md) · [Responsabilidad compartida](../../../glosario/entradas/r/responsabilidad-compartida.md) · [SaaS](../../../glosario/entradas/s/saas.md) · [Ventana de exposición](../../../glosario/entradas/v/ventana-de-exposicion.md).
 
 ---
 

@@ -105,11 +105,11 @@ Explorando desde el estado nuevo se alcanzan los seis estados del pedido. Los in
 
 ## Definiciones de trabajo
 
-- **estado:** resumen de historia relevante para comportamiento futuro.
-- **evento:** hecho que puede activar una transición.
-- **guarda:** condición para habilitar una transición.
-- **safety:** propiedad que excluye estados malos.
-- **liveness:** propiedad de progreso eventual bajo supuestos.
+- **[estado](../../../glosario/entradas/e/estado.md):** resumen de historia relevante para comportamiento futuro.
+- **[evento](../../../glosario/entradas/e/evento.md):** hecho que puede activar una transición.
+- **[guarda](../../../glosario/entradas/g/guarda.md):** condición para habilitar una transición.
+- **[safety](../../../glosario/entradas/s/safety.md):** propiedad que excluye estados malos.
+- **[liveness](../../../glosario/entradas/l/liveness.md):** propiedad de progreso eventual bajo supuestos.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -253,11 +253,13 @@ El modelo secuencial no resuelve concurrencia distribuida ni orden global. La pr
 
 ## Glosario
 
-- **estado:** resumen de historia relevante para comportamiento futuro.
-- **evento:** hecho que puede activar una transición.
-- **guarda:** condición para habilitar una transición.
-- **safety:** propiedad que excluye estados malos.
-- **liveness:** propiedad de progreso eventual bajo supuestos.
+- **[estado](../../../glosario/entradas/e/estado.md):** resumen de historia relevante para comportamiento futuro.
+- **[evento](../../../glosario/entradas/e/evento.md):** hecho que puede activar una transición.
+- **[guarda](../../../glosario/entradas/g/guarda.md):** condición para habilitar una transición.
+- **[safety](../../../glosario/entradas/s/safety.md):** propiedad que excluye estados malos.
+- **[liveness](../../../glosario/entradas/l/liveness.md):** propiedad de progreso eventual bajo supuestos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dominio](../../../glosario/entradas/d/dominio.md) · [Estado](../../../glosario/entradas/e/estado.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Evento](../../../glosario/entradas/e/evento.md) · [Guarda](../../../glosario/entradas/g/guarda.md) · [Liveness](../../../glosario/entradas/l/liveness.md) · [Regla](../../../glosario/entradas/r/regla.md) · [Safety](../../../glosario/entradas/s/safety.md).
 
 ---
 

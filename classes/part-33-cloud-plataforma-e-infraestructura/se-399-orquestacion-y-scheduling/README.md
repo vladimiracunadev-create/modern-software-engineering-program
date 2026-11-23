@@ -168,11 +168,11 @@ El riesgo no crece de forma lineal: de 1,25 a 1,5 pasa de 0,1 % a 4,3 % y de 1,5
 
 ## Definiciones de trabajo
 
-- **planificador:** componente que decide en qué nodo se ejecuta cada unidad a partir de lo que pide y de lo que hay libre.
-- **bucle de reconciliación:** ciclo en el que un controlador compara el estado actual con el deseado y actúa para acercarlos.
-- **petición de recursos:** cantidad que una unidad reserva y que se usa para decidir dónde cabe.
-- **límite de recursos:** techo que el sistema aplica a una unidad mientras se ejecuta.
-- **sobreasignación:** admitir peticiones por una suma mayor que la capacidad del nodo, apostando a que no se usarán a la vez.
+- **[planificador](../../../glosario/entradas/p/planificador.md):** componente que decide en qué nodo se ejecuta cada unidad a partir de lo que pide y de lo que hay libre.
+- **[bucle de reconciliación](../../../glosario/entradas/b/bucle-de-reconciliacion.md):** ciclo en el que un controlador compara el estado actual con el deseado y actúa para acercarlos.
+- **[petición de recursos](../../../glosario/entradas/p/peticion-de-recursos.md):** cantidad que una unidad reserva y que se usa para decidir dónde cabe.
+- **[límite de recursos](../../../glosario/entradas/l/limite-de-recursos.md):** techo que el sistema aplica a una unidad mientras se ejecuta.
+- **[sobreasignación](../../../glosario/entradas/s/sobreasignacion.md):** admitir peticiones por una suma mayor que la capacidad del nodo, apostando a que no se usarán a la vez.
 
 Las definiciones son operativas para la plataforma de entregas. Cada orquestador usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **planificador:** componente que decide en qué nodo se ejecuta cada unidad a partir de lo que pide y de lo que hay libre.
-- **bucle de reconciliación:** ciclo en el que un controlador compara el estado actual con el deseado y actúa para acercarlos.
-- **petición de recursos:** cantidad que una unidad reserva y que se usa para decidir dónde cabe.
-- **límite de recursos:** techo que el sistema aplica a una unidad mientras se ejecuta.
-- **sobreasignación:** admitir peticiones por una suma mayor que la capacidad del nodo, apostando a que no se usarán a la vez.
+- **[planificador](../../../glosario/entradas/p/planificador.md):** componente que decide en qué nodo se ejecuta cada unidad a partir de lo que pide y de lo que hay libre.
+- **[bucle de reconciliación](../../../glosario/entradas/b/bucle-de-reconciliacion.md):** ciclo en el que un controlador compara el estado actual con el deseado y actúa para acercarlos.
+- **[petición de recursos](../../../glosario/entradas/p/peticion-de-recursos.md):** cantidad que una unidad reserva y que se usa para decidir dónde cabe.
+- **[límite de recursos](../../../glosario/entradas/l/limite-de-recursos.md):** techo que el sistema aplica a una unidad mientras se ejecuta.
+- **[sobreasignación](../../../glosario/entradas/s/sobreasignacion.md):** admitir peticiones por una suma mayor que la capacidad del nodo, apostando a que no se usarán a la vez.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bucle de reconciliación](../../../glosario/entradas/b/bucle-de-reconciliacion.md) · [Límite de recursos](../../../glosario/entradas/l/limite-de-recursos.md) · [Petición de recursos](../../../glosario/entradas/p/peticion-de-recursos.md) · [Planificador](../../../glosario/entradas/p/planificador.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md) · [Sobreasignación](../../../glosario/entradas/s/sobreasignacion.md).
 
 ---
 

@@ -140,11 +140,11 @@ cinco partes; la misma cadena leída con `PurePosixPath` *no tiene ancla* y es u
 
 ## Definiciones de trabajo
 
-- **ruta:** expresión interpretada bajo reglas y una base;
-- **entrada de directorio:** asociación entre un nombre y un objeto del sistema de archivos;
-- **resolución:** proceso de recorrer componentes, montajes y enlaces;
-- **metadatos:** propiedades del objeto distintas de su contenido principal;
-- **reemplazo atómico:** transición indivisible para observadores según garantías del sistema concreto.
+- **[ruta](../../../glosario/entradas/r/ruta.md):** expresión interpretada bajo reglas y una base;
+- **[entrada de directorio](../../../glosario/entradas/e/entrada-de-directorio.md):** asociación entre un nombre y un objeto del sistema de archivos;
+- **[resolución](../../../glosario/entradas/r/resolucion.md):** proceso de recorrer componentes, montajes y enlaces;
+- **[metadatos](../../../glosario/entradas/m/metadatos.md):** propiedades del objeto distintas de su contenido principal;
+- **[reemplazo atómico](../../../glosario/entradas/r/reemplazo-atomico.md):** transición indivisible para observadores según garantías del sistema concreto.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma localiza la configuración
 
@@ -273,11 +273,13 @@ No cubrimos recuperación forense, sistemas distribuidos ni todas las garantías
 - [path_resolution(7)](https://man7.org/linux/man-pages/man7/path_resolution.7.html): cómo Linux resuelve nombres, directorios y enlaces simbólicos.
 ## Glosario
 
-- **Directorio de trabajo:** base que el proceso usa para interpretar rutas relativas.
-- **Enlace simbólico:** objeto que referencia otra ruta y puede quedar sin destino.
-- **Metadatos:** información que describe un objeto sin ser su contenido principal.
-- **Ruta canónica:** representación resuelta bajo reglas concretas; no implica autorización.
-- **Volumen:** unidad lógica con espacio de nombres y sistema de archivos asociados.
+- **[Directorio de trabajo](../../../glosario/entradas/d/directorio-de-trabajo.md):** base que el proceso usa para interpretar rutas relativas.
+- **[Enlace simbólico](../../../glosario/entradas/e/enlace-simbolico.md):** objeto que referencia otra ruta y puede quedar sin destino.
+- **[Metadatos](../../../glosario/entradas/m/metadatos.md):** información que describe un objeto sin ser su contenido principal.
+- **[Ruta canónica](../../../glosario/entradas/r/ruta-canonica.md):** representación resuelta bajo reglas concretas; no implica autorización.
+- **[Volumen](../../../glosario/entradas/v/volumen.md):** unidad lógica con espacio de nombres y sistema de archivos asociados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Directorio de trabajo](../../../glosario/entradas/d/directorio-de-trabajo.md) · [Enlace simbólico](../../../glosario/entradas/e/enlace-simbolico.md) · [Entrada de directorio](../../../glosario/entradas/e/entrada-de-directorio.md) · [Espacio de nombres](../../../glosario/entradas/e/espacio-de-nombres.md) · [Metadatos](../../../glosario/entradas/m/metadatos.md) · [Reemplazo atómico](../../../glosario/entradas/r/reemplazo-atomico.md) · [Resolución](../../../glosario/entradas/r/resolucion.md) · [Ruta](../../../glosario/entradas/r/ruta.md) · [Ruta canónica](../../../glosario/entradas/r/ruta-canonica.md) · [Volumen](../../../glosario/entradas/v/volumen.md).
 
 ---
 [← SE-025](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-027 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)

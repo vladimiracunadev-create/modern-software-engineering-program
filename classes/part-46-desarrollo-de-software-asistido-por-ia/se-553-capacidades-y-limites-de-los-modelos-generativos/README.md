@@ -152,11 +152,11 @@ Ninguna ventana contiene el repositorio: la mayor cubre el 17,4 %. Pero el traba
 
 ## Definiciones de trabajo
 
-- **modelo generativo:** sistema que produce texto (o código) muestreando de una distribución de probabilidad aprendida sobre secuencias.
-- **temperatura:** parámetro de muestreo que concentra o reparte la probabilidad entre las continuaciones posibles.
-- **calibración:** relación entre la confianza declarada de una respuesta y la frecuencia con que acierta.
-- **ventana de contexto:** cantidad máxima de tokens que el modelo considera en una misma interacción.
-- **confabulación:** producción de contenido falso expresado con seguridad, sin señal de que lo sea.
+- **[modelo generativo](../../../glosario/entradas/m/modelo-generativo.md):** sistema que produce texto (o código) muestreando de una distribución de probabilidad aprendida sobre secuencias.
+- **[temperatura](../../../glosario/entradas/t/temperatura.md):** parámetro de muestreo que concentra o reparte la probabilidad entre las continuaciones posibles.
+- **[calibración](../../../glosario/entradas/c/calibracion.md):** relación entre la confianza declarada de una respuesta y la frecuencia con que acierta.
+- **[ventana de contexto](../../../glosario/entradas/v/ventana-de-contexto.md):** cantidad máxima de tokens que el modelo considera en una misma interacción.
+- **[confabulación](../../../glosario/entradas/c/confabulacion.md):** producción de contenido falso expresado con seguridad, sin señal de que lo sea.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,12 +301,14 @@ Se ejecutaron tres experimentos con procesos sintéticos en Windows y Ubuntu (WS
 
 ## Glosario
 
-- **modelo generativo:** sistema que produce texto (o código) muestreando de una distribución de probabilidad aprendida sobre secuencias.
-- **temperatura:** parámetro de muestreo que concentra o reparte la probabilidad entre las continuaciones posibles.
-- **calibración:** relación entre la confianza declarada de una respuesta y la frecuencia con que acierta.
-- **ventana de contexto:** cantidad máxima de tokens que el modelo considera en una misma interacción.
-- **confabulación:** producción de contenido falso expresado con seguridad, sin señal de que lo sea.
-- **pass@k:** probabilidad de que al menos una de k muestras pase las pruebas.
+- **[modelo generativo](../../../glosario/entradas/m/modelo-generativo.md):** sistema que produce texto (o código) muestreando de una distribución de probabilidad aprendida sobre secuencias.
+- **[temperatura](../../../glosario/entradas/t/temperatura.md):** parámetro de muestreo que concentra o reparte la probabilidad entre las continuaciones posibles.
+- **[calibración](../../../glosario/entradas/c/calibracion.md):** relación entre la confianza declarada de una respuesta y la frecuencia con que acierta.
+- **[ventana de contexto](../../../glosario/entradas/v/ventana-de-contexto.md):** cantidad máxima de tokens que el modelo considera en una misma interacción.
+- **[confabulación](../../../glosario/entradas/c/confabulacion.md):** producción de contenido falso expresado con seguridad, sin señal de que lo sea.
+- **[pass@k](../../../glosario/entradas/p/pass-k.md):** probabilidad de que al menos una de k muestras pase las pruebas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Calibración](../../../glosario/entradas/c/calibracion.md) · [Confabulación](../../../glosario/entradas/c/confabulacion.md) · [Modelo generativo](../../../glosario/entradas/m/modelo-generativo.md) · [Modo de fallo](../../../glosario/entradas/m/modo-de-fallo.md) · [Pass@k](../../../glosario/entradas/p/pass-k.md) · [Temperatura](../../../glosario/entradas/t/temperatura.md) · [Ventana de contexto](../../../glosario/entradas/v/ventana-de-contexto.md) · [Verificabilidad](../../../glosario/entradas/v/verificabilidad.md).
 
 ---
 

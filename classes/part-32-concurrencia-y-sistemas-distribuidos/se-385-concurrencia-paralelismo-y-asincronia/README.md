@@ -169,11 +169,11 @@ Pasar de 8 a 64 trabajadores con un 25 % secuencial mejora la aceleración de 2,
 
 ## Definiciones de trabajo
 
-- **concurrencia:** propiedad de un programa en el que varias tareas están en curso y pueden avanzar de forma independiente, haya o no ejecución simultánea.
-- **paralelismo:** ejecución simultánea de varias tareas en unidades de cálculo distintas.
-- **corrutina:** función que puede suspenderse en un `await` y reanudarse después, gestionada por un bucle de eventos.
-- **GIL (bloqueo global del intérprete):** mecanismo del CPython estándar que permite ejecutar bytecode de Python en un solo hilo a la vez.
-- **ley de Amdahl:** relación que acota la aceleración de una carga por la fracción que no puede dividirse.
+- **[concurrencia](../../../glosario/entradas/c/concurrencia.md):** propiedad de un programa en el que varias tareas están en curso y pueden avanzar de forma independiente, haya o no ejecución simultánea.
+- **[paralelismo](../../../glosario/entradas/p/paralelismo.md):** ejecución simultánea de varias tareas en unidades de cálculo distintas.
+- **[corrutina](../../../glosario/entradas/c/corrutina.md):** función que puede suspenderse en un `await` y reanudarse después, gestionada por un bucle de eventos.
+- **[GIL (bloqueo global del intérprete)](../../../glosario/entradas/g/gil.md):** mecanismo del CPython estándar que permite ejecutar bytecode de Python en un solo hilo a la vez.
+- **[ley de Amdahl](../../../glosario/entradas/l/ley-de-amdahl.md):** relación que acota la aceleración de una carga por la fracción que no puede dividirse.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con res
 
 ## Glosario
 
-- **concurrencia:** propiedad de un programa en el que varias tareas están en curso y pueden avanzar de forma independiente, haya o no ejecución simultánea.
-- **paralelismo:** ejecución simultánea de varias tareas en unidades de cálculo distintas.
-- **corrutina:** función que puede suspenderse en un `await` y reanudarse después, gestionada por un bucle de eventos.
-- **GIL (bloqueo global del intérprete):** mecanismo del CPython estándar que permite ejecutar bytecode de Python en un solo hilo a la vez.
-- **ley de Amdahl:** relación que acota la aceleración de una carga por la fracción que no puede dividirse.
+- **[concurrencia](../../../glosario/entradas/c/concurrencia.md):** propiedad de un programa en el que varias tareas están en curso y pueden avanzar de forma independiente, haya o no ejecución simultánea.
+- **[paralelismo](../../../glosario/entradas/p/paralelismo.md):** ejecución simultánea de varias tareas en unidades de cálculo distintas.
+- **[corrutina](../../../glosario/entradas/c/corrutina.md):** función que puede suspenderse en un `await` y reanudarse después, gestionada por un bucle de eventos.
+- **[GIL (bloqueo global del intérprete)](../../../glosario/entradas/g/gil.md):** mecanismo del CPython estándar que permite ejecutar bytecode de Python en un solo hilo a la vez.
+- **[ley de Amdahl](../../../glosario/entradas/l/ley-de-amdahl.md):** relación que acota la aceleración de una carga por la fracción que no puede dividirse.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Concurrencia](../../../glosario/entradas/c/concurrencia.md) · [Corrutina](../../../glosario/entradas/c/corrutina.md) · [GIL](../../../glosario/entradas/g/gil.md) · [Ley de Amdahl](../../../glosario/entradas/l/ley-de-amdahl.md) · [Paralelismo](../../../glosario/entradas/p/paralelismo.md).
 
 ---
 

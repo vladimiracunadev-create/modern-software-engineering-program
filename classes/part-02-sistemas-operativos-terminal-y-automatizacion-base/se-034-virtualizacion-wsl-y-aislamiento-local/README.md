@@ -131,11 +131,11 @@ afecta a todos. Un proceso aislado con `unshare` es el bloque de construcción b
 
 ## Definiciones de trabajo
 
-- **anfitrión:** sistema que posee o administra recursos físicos;
-- **invitado:** sistema operativo ejecutado sobre hardware virtualizado;
-- **contenedor:** conjunto de procesos con vistas y límites que suele compartir kernel;
-- **montaje:** exposición de un sistema o ruta dentro de otro espacio de nombres;
-- **frontera:** punto donde cambian autoridad, semántica, rendimiento o propiedad.
+- **[anfitrión](../../../glosario/entradas/a/anfitrion.md):** sistema que posee o administra recursos físicos;
+- **[invitado](../../../glosario/entradas/i/invitado.md):** sistema operativo ejecutado sobre hardware virtualizado;
+- **[contenedor](../../../glosario/entradas/c/contenedor.md):** conjunto de procesos con vistas y límites que suele compartir kernel;
+- **[montaje](../../../glosario/entradas/m/montaje.md):** exposición de un sistema o ruta dentro de otro espacio de nombres;
+- **[frontera](../../../glosario/entradas/f/frontera.md):** punto donde cambian autoridad, semántica, rendimiento o propiedad.
 
 ## Caso conductor: el kit de diagnóstico multiplataforma dibuja sus fronteras
 
@@ -263,11 +263,13 @@ No cubrimos orquestación, hardening avanzado ni escapes. Con el modelo de plata
 - [WSL: arquitectura y sistemas de archivos](https://learn.microsoft.com/windows/wsl/about) y [systemd-detect-virt](https://www.freedesktop.org/software/systemd/man/latest/systemd-detect-virt.html): descripción de WSL y de la detección de virtualización usadas en la figura 1.
 ## Glosario
 
-- **Bind mount:** exposición de una ruta del anfitrión dentro de otro contexto.
-- **Contenedor:** conjunto de procesos aislados que normalmente comparte kernel.
-- **Hipervisor:** capa que administra máquinas virtuales y recursos virtualizados.
-- **Imagen:** plantilla de sistema de archivos y metadatos para crear instancias.
-- **Namespace:** mecanismo que proporciona a procesos una vista aislada de un recurso del kernel.
+- **[Bind mount](../../../glosario/entradas/b/bind-mount.md):** exposición de una ruta del anfitrión dentro de otro contexto.
+- **[Contenedor](../../../glosario/entradas/c/contenedor.md):** conjunto de procesos aislados que normalmente comparte kernel.
+- **[Hipervisor](../../../glosario/entradas/h/hipervisor.md):** capa que administra máquinas virtuales y recursos virtualizados.
+- **[Imagen](../../../glosario/entradas/i/imagen.md):** plantilla de sistema de archivos y metadatos para crear instancias.
+- **[Namespace](../../../glosario/entradas/n/namespace.md):** mecanismo que proporciona a procesos una vista aislada de un recurso del kernel.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Anfitrión](../../../glosario/entradas/a/anfitrion.md) · [Bind mount](../../../glosario/entradas/b/bind-mount.md) · [Contenedor](../../../glosario/entradas/c/contenedor.md) · [Frontera](../../../glosario/entradas/f/frontera.md) · [Hipervisor](../../../glosario/entradas/h/hipervisor.md) · [Imagen](../../../glosario/entradas/i/imagen.md) · [Invitado](../../../glosario/entradas/i/invitado.md) · [Montaje](../../../glosario/entradas/m/montaje.md) · [Namespace](../../../glosario/entradas/n/namespace.md) · [Persistencia](../../../glosario/entradas/p/persistencia.md) · [VM](../../../glosario/entradas/v/vm.md).
 
 ---
 [← SE-033](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [SE-035 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)

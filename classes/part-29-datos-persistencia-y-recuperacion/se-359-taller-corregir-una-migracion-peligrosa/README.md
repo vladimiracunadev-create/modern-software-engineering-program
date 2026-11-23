@@ -167,11 +167,11 @@ Con los pasos confirmados por separado, cuatro de seis cortes dejan un estado en
 
 ## Definiciones de trabajo
 
-- **defecto de forma:** defecto de una migración visible en el texto de sus sentencias.
-- **defecto de sentido:** defecto de una migración que solo se aprecia al comparar su efecto con los datos.
-- **ensayo en copia:** ejecución de una migración sobre una copia de los datos con invariantes comprobadas después.
-- **DDL transaccional:** propiedad de un motor en la que los cambios de esquema pueden confirmarse o revertirse junto con una transacción.
-- **invariante de migración:** consulta con un resultado esperado que se ejecuta tras la migración para demostrar que los datos son correctos.
+- **[defecto de forma](../../../glosario/entradas/d/defecto-de-forma.md):** defecto de una migración visible en el texto de sus sentencias.
+- **[defecto de sentido](../../../glosario/entradas/d/defecto-de-sentido.md):** defecto de una migración que solo se aprecia al comparar su efecto con los datos.
+- **[ensayo en copia](../../../glosario/entradas/e/ensayo-en-copia.md):** ejecución de una migración sobre una copia de los datos con invariantes comprobadas después.
+- **[DDL transaccional](../../../glosario/entradas/d/ddl-transaccional.md):** propiedad de un motor en la que los cambios de esquema pueden confirmarse o revertirse junto con una transacción.
+- **[invariante de migración](../../../glosario/entradas/i/invariante-de-migracion.md):** consulta con un resultado esperado que se ejecuta tras la migración para demostrar que los datos son correctos.
 
 Las definiciones son operativas para el taller. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -315,11 +315,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **defecto de forma:** defecto de una migración visible en el texto de sus sentencias.
-- **defecto de sentido:** defecto de una migración que solo se aprecia al comparar su efecto con los datos.
-- **ensayo en copia:** ejecución de una migración sobre una copia de los datos con invariantes comprobadas después.
-- **DDL transaccional:** propiedad de un motor en la que los cambios de esquema pueden confirmarse o revertirse junto con una transacción.
-- **invariante de migración:** consulta con un resultado esperado que se ejecuta tras la migración para demostrar que los datos son correctos.
+- **[defecto de forma](../../../glosario/entradas/d/defecto-de-forma.md):** defecto de una migración visible en el texto de sus sentencias.
+- **[defecto de sentido](../../../glosario/entradas/d/defecto-de-sentido.md):** defecto de una migración que solo se aprecia al comparar su efecto con los datos.
+- **[ensayo en copia](../../../glosario/entradas/e/ensayo-en-copia.md):** ejecución de una migración sobre una copia de los datos con invariantes comprobadas después.
+- **[DDL transaccional](../../../glosario/entradas/d/ddl-transaccional.md):** propiedad de un motor en la que los cambios de esquema pueden confirmarse o revertirse junto con una transacción.
+- **[invariante de migración](../../../glosario/entradas/i/invariante-de-migracion.md):** consulta con un resultado esperado que se ejecuta tras la migración para demostrar que los datos son correctos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [DDL transaccional](../../../glosario/entradas/d/ddl-transaccional.md) · [Defecto de forma](../../../glosario/entradas/d/defecto-de-forma.md) · [Defecto de sentido](../../../glosario/entradas/d/defecto-de-sentido.md) · [Ensayo en copia](../../../glosario/entradas/e/ensayo-en-copia.md) · [Invariante de migración](../../../glosario/entradas/i/invariante-de-migracion.md).
 
 ---
 

@@ -106,11 +106,11 @@ Las tres estrategias medidas necesitaron 403 pruebas (un carácter cada vez), 24
 
 ## Definiciones de trabajo
 
-- **reproducción determinista:** se fija entrada, semilla, reloj, versión y comando hasta que el síntoma aparece con tasa conocida.
-- **reducción por dimensiones:** se minimizan datos, código, configuración, tiempo y entorno por separado.
-- **una variable por experimento:** cada ejecución cambia una condición y conserva las demás.
-- **primera divergencia:** se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error.
-- **caso mínimo y representatividad:** reducir demasiado puede cambiar el mecanismo: quitar concurrencia elimina la carrera o acortar datos evita resize.
+- **[reproducción determinista](../../../glosario/entradas/r/reproduccion-determinista.md):** se fija entrada, semilla, reloj, versión y comando hasta que el síntoma aparece con tasa conocida.
+- **[reducción por dimensiones](../../../glosario/entradas/r/reduccion-por-dimensiones.md):** se minimizan datos, código, configuración, tiempo y entorno por separado.
+- **[una variable por experimento](../../../glosario/entradas/u/una-variable-por-experimento.md):** cada ejecución cambia una condición y conserva las demás.
+- **[primera divergencia](../../../glosario/entradas/p/primera-divergencia.md):** se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error.
+- **[caso mínimo y representatividad](../../../glosario/entradas/c/caso-minimo-y-representatividad.md):** reducir demasiado puede cambiar el mecanismo: quitar concurrencia elimina la carrera o acortar datos evita resize.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -257,11 +257,13 @@ El caso mínimo aún debe poder ejecutarlo otra persona con modalidades distinta
 
 ## Glosario
 
-- **reproducción determinista:** se fija entrada, semilla, reloj, versión y comando hasta que el síntoma aparece con tasa conocida.
-- **reducción por dimensiones:** se minimizan datos, código, configuración, tiempo y entorno por separado.
-- **una variable por experimento:** cada ejecución cambia una condición y conserva las demás.
-- **primera divergencia:** se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error.
-- **caso mínimo y representatividad:** reducir demasiado puede cambiar el mecanismo: quitar concurrencia elimina la carrera o acortar datos evita resize.
+- **[reproducción determinista](../../../glosario/entradas/r/reproduccion-determinista.md):** se fija entrada, semilla, reloj, versión y comando hasta que el síntoma aparece con tasa conocida.
+- **[reducción por dimensiones](../../../glosario/entradas/r/reduccion-por-dimensiones.md):** se minimizan datos, código, configuración, tiempo y entorno por separado.
+- **[una variable por experimento](../../../glosario/entradas/u/una-variable-por-experimento.md):** cada ejecución cambia una condición y conserva las demás.
+- **[primera divergencia](../../../glosario/entradas/p/primera-divergencia.md):** se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error.
+- **[caso mínimo y representatividad](../../../glosario/entradas/c/caso-minimo-y-representatividad.md):** reducir demasiado puede cambiar el mecanismo: quitar concurrencia elimina la carrera o acortar datos evita resize.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caso mínimo y representatividad](../../../glosario/entradas/c/caso-minimo-y-representatividad.md) · [Primera divergencia](../../../glosario/entradas/p/primera-divergencia.md) · [Reducción por dimensiones](../../../glosario/entradas/r/reduccion-por-dimensiones.md) · [Reproducción determinista](../../../glosario/entradas/r/reproduccion-determinista.md) · [Una variable por experimento](../../../glosario/entradas/u/una-variable-por-experimento.md).
 
 ---
 

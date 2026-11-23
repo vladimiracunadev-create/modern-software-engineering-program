@@ -112,11 +112,11 @@ Qué prueba y qué no: el hash demuestra que los bytes son los que alguien revis
 
 ## Definiciones de trabajo
 
-- **dependencia directa y transitiva:** el manifest declara relaciones directas; cada paquete añade transitivas.
-- **restricciones y marcadores:** rangos expresan versiones aceptables; marcadores condicionan por runtime, sistema o extra.
-- **resolución:** el resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema.
-- **lockfile:** un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos.
-- **integridad y dependency confusion:** nombre, índice y hash definen procedencia.
+- **[dependencia directa y transitiva](../../../glosario/entradas/d/dependencia-directa-y-transitiva.md):** el manifest declara relaciones directas; cada paquete añade transitivas.
+- **[restricciones y marcadores](../../../glosario/entradas/r/restricciones-y-marcadores.md):** rangos expresan versiones aceptables; marcadores condicionan por runtime, sistema o extra.
+- **[resolución](../../../glosario/entradas/r/resolucion.md):** el resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema.
+- **[lockfile](../../../glosario/entradas/l/lockfile.md):** un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos.
+- **[integridad y dependency confusion](../../../glosario/entradas/i/integridad-y-dependency-confusion.md):** nombre, índice y hash definen procedencia.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Resolver dependencias no produce un artefacto publicable ni garantiza que conten
 
 ## Glosario
 
-- **dependencia directa y transitiva:** el manifest declara relaciones directas; cada paquete añade transitivas.
-- **restricciones y marcadores:** rangos expresan versiones aceptables; marcadores condicionan por runtime, sistema o extra.
-- **resolución:** el resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema.
-- **lockfile:** un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos.
-- **integridad y dependency confusion:** nombre, índice y hash definen procedencia.
+- **[dependencia directa y transitiva](../../../glosario/entradas/d/dependencia-directa-y-transitiva.md):** el manifest declara relaciones directas; cada paquete añade transitivas.
+- **[restricciones y marcadores](../../../glosario/entradas/r/restricciones-y-marcadores.md):** rangos expresan versiones aceptables; marcadores condicionan por runtime, sistema o extra.
+- **[resolución](../../../glosario/entradas/r/resolucion.md):** el resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema.
+- **[lockfile](../../../glosario/entradas/l/lockfile.md):** un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos.
+- **[integridad y dependency confusion](../../../glosario/entradas/i/integridad-y-dependency-confusion.md):** nombre, índice y hash definen procedencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dependencia directa y transitiva](../../../glosario/entradas/d/dependencia-directa-y-transitiva.md) · [Integridad y dependency confusion](../../../glosario/entradas/i/integridad-y-dependency-confusion.md) · [Lockfile](../../../glosario/entradas/l/lockfile.md) · [Resolución](../../../glosario/entradas/r/resolucion.md) · [Restricciones y marcadores](../../../glosario/entradas/r/restricciones-y-marcadores.md).
 
 ---
 

@@ -123,11 +123,11 @@ Se reconstruye el artefacto desde la fuente revisada y se compara con el release
 
 ## Definiciones de trabajo
 
-- **verificación:** comprobación de que la evidencia de un release es coherente con valores esperados fijados de antemano.
-- **valor esperado:** dato (clave, constructor, repositorio, secuencia) que el verificador conoce por fuera del release.
-- **caso coherente:** release maliciosa o dudosa que supera todas las comprobaciones porque su evidencia es consistente.
-- **reconstrucción independiente:** construcción del artefacto desde la fuente por una parte distinta del constructor original.
-- **no verificable:** afirmación sobre la cual ninguna comprobación disponible puede decidir.
+- **[verificación](../../../glosario/entradas/v/verificacion.md):** comprobación de que la evidencia de un release es coherente con valores esperados fijados de antemano.
+- **[valor esperado](../../../glosario/entradas/v/valor-esperado.md):** dato (clave, constructor, repositorio, secuencia) que el verificador conoce por fuera del release.
+- **[caso coherente](../../../glosario/entradas/c/caso-coherente.md):** release maliciosa o dudosa que supera todas las comprobaciones porque su evidencia es consistente.
+- **[reconstrucción independiente](../../../glosario/entradas/r/reconstruccion-independiente.md):** construcción del artefacto desde la fuente por una parte distinta del constructor original.
+- **[no verificable](../../../glosario/entradas/n/no-verificable.md):** afirmación sobre la cual ninguna comprobación disponible puede decidir.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -271,11 +271,13 @@ Se ejecutó un taller con releases sintéticos (zip de 42 archivos, SBOM y proce
 
 ## Glosario
 
-- **verificación:** comprobación de que la evidencia de un release es coherente con valores esperados fijados de antemano.
-- **valor esperado:** dato (clave, constructor, repositorio, secuencia) que el verificador conoce por fuera del release.
-- **caso coherente:** release maliciosa o dudosa que supera todas las comprobaciones porque su evidencia es consistente.
-- **reconstrucción independiente:** construcción del artefacto desde la fuente por una parte distinta del constructor original.
-- **no verificable:** afirmación sobre la cual ninguna comprobación disponible puede decidir.
+- **[verificación](../../../glosario/entradas/v/verificacion.md):** comprobación de que la evidencia de un release es coherente con valores esperados fijados de antemano.
+- **[valor esperado](../../../glosario/entradas/v/valor-esperado.md):** dato (clave, constructor, repositorio, secuencia) que el verificador conoce por fuera del release.
+- **[caso coherente](../../../glosario/entradas/c/caso-coherente.md):** release maliciosa o dudosa que supera todas las comprobaciones porque su evidencia es consistente.
+- **[reconstrucción independiente](../../../glosario/entradas/r/reconstruccion-independiente.md):** construcción del artefacto desde la fuente por una parte distinta del constructor original.
+- **[no verificable](../../../glosario/entradas/n/no-verificable.md):** afirmación sobre la cual ninguna comprobación disponible puede decidir.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caso coherente](../../../glosario/entradas/c/caso-coherente.md) · [No verificable](../../../glosario/entradas/n/no-verificable.md) · [Reconstrucción independiente](../../../glosario/entradas/r/reconstruccion-independiente.md) · [Valor esperado](../../../glosario/entradas/v/valor-esperado.md) · [Verificación](../../../glosario/entradas/v/verificacion.md).
 
 ---
 

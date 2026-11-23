@@ -155,11 +155,11 @@ Sin retardo, el 87 % de las peticiones se desperdicia (467 enviadas para 60 úti
 
 ## Definiciones de trabajo
 
-- **autocompletado:** sugerencia de continuación mientras se escribe, aceptada o rechazada en el momento.
-- **edición asistida:** propuesta de cambio sobre código existente, presentada como diff.
-- **generación:** producción de código nuevo a partir de una descripción.
-- **sesgo de automatización:** tendencia a aceptar la recomendación automatizada y a vigilar menos.
-- **retardo antes de pedir (debounce):** espera tras la última pulsación antes de enviar una petición.
+- **[autocompletado](../../../glosario/entradas/a/autocompletado.md):** sugerencia de continuación mientras se escribe, aceptada o rechazada en el momento.
+- **[edición asistida](../../../glosario/entradas/e/edicion-asistida.md):** propuesta de cambio sobre código existente, presentada como diff.
+- **[generación](../../../glosario/entradas/g/generacion.md):** producción de código nuevo a partir de una descripción.
+- **[sesgo de automatización](../../../glosario/entradas/s/sesgo-de-automatizacion.md):** tendencia a aceptar la recomendación automatizada y a vigilar menos.
+- **[retardo antes de pedir (debounce)](../../../glosario/entradas/r/retardo-antes-de-pedir.md):** espera tras la última pulsación antes de enviar una petición.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **autocompletado:** sugerencia de continuación mientras se escribe, aceptada o rechazada en el momento.
-- **edición asistida:** propuesta de cambio sobre código existente, presentada como diff.
-- **generación:** producción de código nuevo a partir de una descripción.
-- **sesgo de automatización:** tendencia a aceptar la recomendación automatizada y a vigilar menos.
-- **retardo antes de pedir (debounce):** espera tras la última pulsación antes de enviar una petición.
+- **[autocompletado](../../../glosario/entradas/a/autocompletado.md):** sugerencia de continuación mientras se escribe, aceptada o rechazada en el momento.
+- **[edición asistida](../../../glosario/entradas/e/edicion-asistida.md):** propuesta de cambio sobre código existente, presentada como diff.
+- **[generación](../../../glosario/entradas/g/generacion.md):** producción de código nuevo a partir de una descripción.
+- **[sesgo de automatización](../../../glosario/entradas/s/sesgo-de-automatizacion.md):** tendencia a aceptar la recomendación automatizada y a vigilar menos.
+- **[retardo antes de pedir (debounce)](../../../glosario/entradas/r/retardo-antes-de-pedir.md):** espera tras la última pulsación antes de enviar una petición.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Autocompletado](../../../glosario/entradas/a/autocompletado.md) · [Edición](../../../glosario/entradas/e/edicion.md) · [Edición asistida](../../../glosario/entradas/e/edicion-asistida.md) · [Generación](../../../glosario/entradas/g/generacion.md) · [Retardo antes de pedir](../../../glosario/entradas/r/retardo-antes-de-pedir.md) · [Sesgo de automatización](../../../glosario/entradas/s/sesgo-de-automatizacion.md).
 
 ---
 

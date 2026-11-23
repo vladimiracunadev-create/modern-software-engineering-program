@@ -117,12 +117,12 @@ Se ejecutaron siete configuraciones sobre las seis tareas (`T1` a `T6`: funcione
 
 ## Definiciones de trabajo
 
-- **Harness:** todo lo que rodea al modelo en un agente: instrucciones, contexto, herramientas, permisos, bucle, parada, verificación y registro.
-- **Bucle del agente:** secuencia repetida de acción, ejecución, observación y nueva decisión.
-- **Observación:** resultado de una acción que el harness devuelve al contexto.
-- **Terminación en falso:** el agente declara terminada una tarea cuya verificación no pasa.
-- **Ablación:** quitar una pieza para medir qué cambia.
-- **Traza:** registro ordenado de cada acción, su resultado y el estado del harness en ese paso.
+- **[Harness](../../../glosario/entradas/h/harness.md):** todo lo que rodea al modelo en un agente: instrucciones, contexto, herramientas, permisos, bucle, parada, verificación y registro.
+- **[Bucle del agente](../../../glosario/entradas/b/bucle-del-agente.md):** secuencia repetida de acción, ejecución, observación y nueva decisión.
+- **[Observación](../../../glosario/entradas/o/observacion.md):** resultado de una acción que el harness devuelve al contexto.
+- **[Terminación en falso](../../../glosario/entradas/t/terminacion-en-falso.md):** el agente declara terminada una tarea cuya verificación no pasa.
+- **[Ablación](../../../glosario/entradas/a/ablacion.md):** quitar una pieza para medir qué cambia.
+- **[Traza](../../../glosario/entradas/t/traza.md):** registro ordenado de cada acción, su resultado y el estado del harness en ese paso.
 
 ## Ejemplo mínimo
 
@@ -241,6 +241,8 @@ Se midieron siete configuraciones sobre seis tareas con una política guionizada
 | Terminación en falso | Declarar terminada una tarea que no pasa su verificación |
 | Ablación | Quitar una pieza para medir su efecto |
 | Traza | Registro ordenado de cada paso del agente |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ablación](../../../glosario/entradas/a/ablacion.md) · [Bucle del agente](../../../glosario/entradas/b/bucle-del-agente.md) · [Harness](../../../glosario/entradas/h/harness.md) · [Herramientas](../../../glosario/entradas/h/herramientas.md) · [Instrucción](../../../glosario/entradas/i/instruccion.md) · [Observación](../../../glosario/entradas/o/observacion.md) · [Terminación en falso](../../../glosario/entradas/t/terminacion-en-falso.md) · [Traza](../../../glosario/entradas/t/traza.md) · [Verificación](../../../glosario/entradas/v/verificacion.md).
 
 ---
 

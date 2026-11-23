@@ -131,13 +131,13 @@ La tercera figura reúne el efecto del contexto, del número de equipos y del su
 
 ## Definiciones de trabajo
 
-- **Árbol de utilidad:** jerarquía de atributos de calidad refinada en escenarios priorizados por importancia y dificultad.
-- **Utilidad graduada:** valor de 0 a 1 que mide cuánto de un escenario se cumple.
-- **Punto de sensibilidad:** parámetro cuyo cambio pequeño invierte la decisión o cambia mucho una medida.
-- **Punto de compromiso:** decisión que mejora un atributo empeorando otro.
-- **Barrido de parámetros:** evaluar la decisión para un rango de valores de un parámetro de contexto.
-- **Importancia por contexto:** peso de cada escenario según la situación del negocio.
-- **Supuesto de vigilancia:** supuesto del modelo cuya medición real decide si se reconsidera la decisión.
+- **[Árbol de utilidad](../../../glosario/entradas/a/arbol-de-utilidad.md):** jerarquía de atributos de calidad refinada en escenarios priorizados por importancia y dificultad.
+- **[Utilidad graduada](../../../glosario/entradas/u/utilidad-graduada.md):** valor de 0 a 1 que mide cuánto de un escenario se cumple.
+- **[Punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md):** parámetro cuyo cambio pequeño invierte la decisión o cambia mucho una medida.
+- **[Punto de compromiso](../../../glosario/entradas/p/punto-de-compromiso.md):** decisión que mejora un atributo empeorando otro.
+- **[Barrido de parámetros](../../../glosario/entradas/b/barrido-de-parametros.md):** evaluar la decisión para un rango de valores de un parámetro de contexto.
+- **[Importancia por contexto](../../../glosario/entradas/i/importancia-por-contexto.md):** peso de cada escenario según la situación del negocio.
+- **[Supuesto de vigilancia](../../../glosario/entradas/s/supuesto-de-vigilancia.md):** supuesto del modelo cuya medición real decide si se reconsidera la decisión.
 
 ## Ejemplo mínimo
 
@@ -265,6 +265,8 @@ El modelo, las importancias, la función de utilidad y los dos contextos son con
 | Punto de compromiso | Mejora un atributo empeorando otro |
 | Barrido | Evaluación para un rango de valores de un parámetro |
 | Supuesto de vigilancia | Supuesto cuya medición reabre la decisión |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol de utilidad](../../../glosario/entradas/a/arbol-de-utilidad.md) · [Barrido de parámetros](../../../glosario/entradas/b/barrido-de-parametros.md) · [Importancia por contexto](../../../glosario/entradas/i/importancia-por-contexto.md) · [Punto de compromiso](../../../glosario/entradas/p/punto-de-compromiso.md) · [Punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md) · [Supuesto de vigilancia](../../../glosario/entradas/s/supuesto-de-vigilancia.md) · [Utilidad graduada](../../../glosario/entradas/u/utilidad-graduada.md).
 
 ---
 

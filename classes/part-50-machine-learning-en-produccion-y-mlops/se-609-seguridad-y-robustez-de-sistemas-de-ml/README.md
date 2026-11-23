@@ -145,13 +145,13 @@ La tercera medida compara dos bosques frente al ataque de pertenencia.
 
 ## Definiciones de trabajo
 
-- **Evasión:** entrada construida para que el modelo decida mal.
-- **Envenenamiento:** manipulación de los datos de entrenamiento para alterar el modelo.
-- **Puerta trasera:** comportamiento que solo aparece ante un disparador elegido por el atacante.
-- **Extracción:** copia del comportamiento de un modelo mediante consultas.
-- **Inferencia de pertenencia:** determinar si un registro formó parte del entrenamiento.
-- **Característica autodeclarada:** entrada que el usuario controla.
-- **Presupuesto de consultas:** número de consultas que un atacante puede hacer.
+- **[Evasión](../../../glosario/entradas/e/evasion.md):** entrada construida para que el modelo decida mal.
+- **[Envenenamiento](../../../glosario/entradas/e/envenenamiento.md):** manipulación de los datos de entrenamiento para alterar el modelo.
+- **[Puerta trasera](../../../glosario/entradas/p/puerta-trasera.md):** comportamiento que solo aparece ante un disparador elegido por el atacante.
+- **[Extracción](../../../glosario/entradas/e/extraccion.md):** copia del comportamiento de un modelo mediante consultas.
+- **[Inferencia de pertenencia](../../../glosario/entradas/i/inferencia-de-pertenencia.md):** determinar si un registro formó parte del entrenamiento.
+- **[Característica autodeclarada](../../../glosario/entradas/c/caracteristica-autodeclarada.md):** entrada que el usuario controla.
+- **[Presupuesto de consultas](../../../glosario/entradas/p/presupuesto-de-consultas.md):** número de consultas que un atacante puede hacer.
 
 ## Ejemplo mínimo
 
@@ -284,6 +284,8 @@ Los ataques son implementaciones propias y simples sobre modelos y datos sintét
 | Extracción | Copia de un modelo mediante consultas |
 | Inferencia de pertenencia | Averiguar si un dato estuvo en el entrenamiento |
 | Característica autodeclarada | Entrada que controla el usuario |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Característica autodeclarada](../../../glosario/entradas/c/caracteristica-autodeclarada.md) · [Envenenamiento](../../../glosario/entradas/e/envenenamiento.md) · [Evasión](../../../glosario/entradas/e/evasion.md) · [Extracción](../../../glosario/entradas/e/extraccion.md) · [Inferencia de pertenencia](../../../glosario/entradas/i/inferencia-de-pertenencia.md) · [Presupuesto de consultas](../../../glosario/entradas/p/presupuesto-de-consultas.md) · [Puerta trasera](../../../glosario/entradas/p/puerta-trasera.md).
 
 ---
 

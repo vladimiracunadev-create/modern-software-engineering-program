@@ -165,11 +165,11 @@ Con un coste medio de 8 ms, ya el 7,4 % de los fotogramas excede el presupuesto,
 
 ## Definiciones de trabajo
 
-- **aliasing:** efecto por el cual una frecuencia por encima de la mitad de la tasa de muestreo se mide como otra más baja.
-- **búfer de audio:** bloque de muestras que se entrega al dispositivo de una vez, cuya duración fija la latencia mínima.
-- **subcarga (underrun):** situación en que el dispositivo reclama un bloque y la aplicación no lo tiene listo a tiempo.
-- **presupuesto de fotograma:** tiempo disponible para preparar un fotograma, igual al periodo de refresco de la pantalla.
-- **reproyección:** ajuste del último fotograma con la pose más reciente de la cabeza para compensar la latencia.
+- **[aliasing](../../../glosario/entradas/a/aliasing.md):** efecto por el cual una frecuencia por encima de la mitad de la tasa de muestreo se mide como otra más baja.
+- **[búfer de audio](../../../glosario/entradas/b/bufer-de-audio.md):** bloque de muestras que se entrega al dispositivo de una vez, cuya duración fija la latencia mínima.
+- **[subcarga (underrun)](../../../glosario/entradas/s/subcarga.md):** situación en que el dispositivo reclama un bloque y la aplicación no lo tiene listo a tiempo.
+- **[presupuesto de fotograma](../../../glosario/entradas/p/presupuesto-de-fotograma.md):** tiempo disponible para preparar un fotograma, igual al periodo de refresco de la pantalla.
+- **[reproyección](../../../glosario/entradas/r/reproyeccion.md):** ajuste del último fotograma con la pose más reciente de la cabeza para compensar la latencia.
 
 Las definiciones son operativas para la sala virtual. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **aliasing:** efecto por el cual una frecuencia por encima de la mitad de la tasa de muestreo se mide como otra más baja.
-- **búfer de audio:** bloque de muestras que se entrega al dispositivo de una vez, cuya duración fija la latencia mínima.
-- **subcarga (underrun):** situación en que el dispositivo reclama un bloque y la aplicación no lo tiene listo a tiempo.
-- **presupuesto de fotograma:** tiempo disponible para preparar un fotograma, igual al periodo de refresco de la pantalla.
-- **reproyección:** ajuste del último fotograma con la pose más reciente de la cabeza para compensar la latencia.
+- **[aliasing](../../../glosario/entradas/a/aliasing.md):** efecto por el cual una frecuencia por encima de la mitad de la tasa de muestreo se mide como otra más baja.
+- **[búfer de audio](../../../glosario/entradas/b/bufer-de-audio.md):** bloque de muestras que se entrega al dispositivo de una vez, cuya duración fija la latencia mínima.
+- **[subcarga (underrun)](../../../glosario/entradas/s/subcarga.md):** situación en que el dispositivo reclama un bloque y la aplicación no lo tiene listo a tiempo.
+- **[presupuesto de fotograma](../../../glosario/entradas/p/presupuesto-de-fotograma.md):** tiempo disponible para preparar un fotograma, igual al periodo de refresco de la pantalla.
+- **[reproyección](../../../glosario/entradas/r/reproyeccion.md):** ajuste del último fotograma con la pose más reciente de la cabeza para compensar la latencia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Aliasing](../../../glosario/entradas/a/aliasing.md) · [Búfer de audio](../../../glosario/entradas/b/bufer-de-audio.md) · [Presupuesto de fotograma](../../../glosario/entradas/p/presupuesto-de-fotograma.md) · [Reproyección](../../../glosario/entradas/r/reproyeccion.md) · [Subcarga](../../../glosario/entradas/s/subcarga.md).
 
 ---
 

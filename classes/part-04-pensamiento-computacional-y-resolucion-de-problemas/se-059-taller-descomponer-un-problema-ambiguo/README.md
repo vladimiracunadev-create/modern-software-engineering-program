@@ -105,11 +105,11 @@ Una contradicción detectada se registra con: el conflicto (0 de 4 configuracion
 
 ## Definiciones de trabajo
 
-- **ambigüedad:** pluralidad de interpretaciones posibles.
-- **incertidumbre:** falta de conocimiento relevante.
-- **conflicto:** objetivos o restricciones incompatibles.
-- **actor:** persona o sistema afectado o participante.
-- **criterio de salida:** condición observable para cerrar una fase.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** pluralidad de interpretaciones posibles.
+- **[incertidumbre](../../../glosario/entradas/i/incertidumbre.md):** falta de conocimiento relevante.
+- **[conflicto](../../../glosario/entradas/c/conflicto.md):** objetivos o restricciones incompatibles.
+- **[actor](../../../glosario/entradas/a/actor.md):** persona o sistema afectado o participante.
+- **[criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md):** condición observable para cerrar una fase.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -254,11 +254,13 @@ El taller produce una base contrastable, no consenso automático ni validación 
 
 ## Glosario
 
-- **ambigüedad:** pluralidad de interpretaciones posibles.
-- **incertidumbre:** falta de conocimiento relevante.
-- **conflicto:** objetivos o restricciones incompatibles.
-- **actor:** persona o sistema afectado o participante.
-- **criterio de salida:** condición observable para cerrar una fase.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** pluralidad de interpretaciones posibles.
+- **[incertidumbre](../../../glosario/entradas/i/incertidumbre.md):** falta de conocimiento relevante.
+- **[conflicto](../../../glosario/entradas/c/conflicto.md):** objetivos o restricciones incompatibles.
+- **[actor](../../../glosario/entradas/a/actor.md):** persona o sistema afectado o participante.
+- **[criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md):** condición observable para cerrar una fase.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actor](../../../glosario/entradas/a/actor.md) · [Ambigüedad](../../../glosario/entradas/a/ambiguedad.md) · [Conflicto](../../../glosario/entradas/c/conflicto.md) · [Criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Incertidumbre](../../../glosario/entradas/i/incertidumbre.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

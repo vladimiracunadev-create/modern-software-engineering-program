@@ -113,12 +113,12 @@ Cada tarea es de uno de tres tipos con probabilidades fijas. Cada vuelta cuenta 
 
 ## Definiciones de trabajo
 
-- **Tope de iteraciones:** número máximo de vueltas del bucle.
-- **Presupuesto:** límite de costo (fichas, tiempo, dinero) del bucle.
-- **Falta de progreso:** repetición del mismo resultado sin mejora observable.
-- **Cambio de plan:** alteración deliberada del enfoque tras detectar falta de progreso.
-- **Escalada:** entrega de la tarea a una persona con la evidencia necesaria.
-- **Criterio de parada:** condición que termina el bucle.
+- **[Tope de iteraciones](../../../glosario/entradas/t/tope-de-iteraciones.md):** número máximo de vueltas del bucle.
+- **[Presupuesto](../../../glosario/entradas/p/presupuesto.md):** límite de costo (fichas, tiempo, dinero) del bucle.
+- **[Falta de progreso](../../../glosario/entradas/f/falta-de-progreso.md):** repetición del mismo resultado sin mejora observable.
+- **[Cambio de plan](../../../glosario/entradas/c/cambio-de-plan.md):** alteración deliberada del enfoque tras detectar falta de progreso.
+- **[Escalada](../../../glosario/entradas/e/escalada.md):** entrega de la tarea a una persona con la evidencia necesaria.
+- **[Criterio de parada](../../../glosario/entradas/c/criterio-de-parada.md):** condición que termina el bucle.
 
 ## Ejemplo mínimo
 
@@ -244,6 +244,8 @@ Se simularon cinco reglas sobre 4 000 tareas sintéticas con parámetros del aut
 | Cambio de plan | Alterar el enfoque tras un atasco |
 | Escalada | Entregar la tarea a una persona con evidencia |
 | Criterio de parada | Condición que termina el bucle |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio de plan](../../../glosario/entradas/c/cambio-de-plan.md) · [Criterio de parada](../../../glosario/entradas/c/criterio-de-parada.md) · [Escalada](../../../glosario/entradas/e/escalada.md) · [Falta de progreso](../../../glosario/entradas/f/falta-de-progreso.md) · [Presupuesto](../../../glosario/entradas/p/presupuesto.md) · [Tope de iteraciones](../../../glosario/entradas/t/tope-de-iteraciones.md).
 
 ---
 

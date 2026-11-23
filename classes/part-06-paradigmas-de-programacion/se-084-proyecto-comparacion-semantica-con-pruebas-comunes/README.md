@@ -115,11 +115,11 @@ Las afirmaciones sin evidencia reproducible se marcan como juicio. Eso incluye l
 
 ## Definiciones de trabajo
 
-- **contrato y corpus de comparación:** el proyecto congela vocabulario, esquema de entrada, resultados y errores.
-- **oráculo y propiedades:** un oráculo de referencia produce resultados esperados, pero también puede estar equivocado.
-- **métricas interpretadas:** se observa superficie de cambio, complejidad de traza, aislamiento de pruebas y costo bajo carga representativa.
-- **informe de decisión:** el informe conecta fuerza, observación, consecuencia y elección por contexto.
-- **reproducción y revisión:** otra persona ejecuta un comando documentado, obtiene el mismo corpus y revisa diferencias.
+- **[contrato y corpus de comparación](../../../glosario/entradas/c/contrato-y-corpus-de-comparacion.md):** el proyecto congela vocabulario, esquema de entrada, resultados y errores.
+- **[oráculo y propiedades](../../../glosario/entradas/o/oraculo-y-propiedades.md):** un oráculo de referencia produce resultados esperados, pero también puede estar equivocado.
+- **[métricas interpretadas](../../../glosario/entradas/m/metricas-interpretadas.md):** se observa superficie de cambio, complejidad de traza, aislamiento de pruebas y costo bajo carga representativa.
+- **[informe de decisión](../../../glosario/entradas/i/informe-de-decision.md):** el informe conecta fuerza, observación, consecuencia y elección por contexto.
+- **[reproducción y revisión](../../../glosario/entradas/r/reproduccion-y-revision.md):** otra persona ejecuta un comando documentado, obtiene el mismo corpus y revisa diferencias.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ El proyecto demuestra equivalencia para el corpus y propiedades declaradas, no p
 
 ## Glosario
 
-- **contrato y corpus de comparación:** el proyecto congela vocabulario, esquema de entrada, resultados y errores.
-- **oráculo y propiedades:** un oráculo de referencia produce resultados esperados, pero también puede estar equivocado.
-- **métricas interpretadas:** se observa superficie de cambio, complejidad de traza, aislamiento de pruebas y costo bajo carga representativa.
-- **informe de decisión:** el informe conecta fuerza, observación, consecuencia y elección por contexto.
-- **reproducción y revisión:** otra persona ejecuta un comando documentado, obtiene el mismo corpus y revisa diferencias.
+- **[contrato y corpus de comparación](../../../glosario/entradas/c/contrato-y-corpus-de-comparacion.md):** el proyecto congela vocabulario, esquema de entrada, resultados y errores.
+- **[oráculo y propiedades](../../../glosario/entradas/o/oraculo-y-propiedades.md):** un oráculo de referencia produce resultados esperados, pero también puede estar equivocado.
+- **[métricas interpretadas](../../../glosario/entradas/m/metricas-interpretadas.md):** se observa superficie de cambio, complejidad de traza, aislamiento de pruebas y costo bajo carga representativa.
+- **[informe de decisión](../../../glosario/entradas/i/informe-de-decision.md):** el informe conecta fuerza, observación, consecuencia y elección por contexto.
+- **[reproducción y revisión](../../../glosario/entradas/r/reproduccion-y-revision.md):** otra persona ejecuta un comando documentado, obtiene el mismo corpus y revisa diferencias.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato y corpus de comparación](../../../glosario/entradas/c/contrato-y-corpus-de-comparacion.md) · [Informe de decisión](../../../glosario/entradas/i/informe-de-decision.md) · [Métricas interpretadas](../../../glosario/entradas/m/metricas-interpretadas.md) · [Oráculo y propiedades](../../../glosario/entradas/o/oraculo-y-propiedades.md) · [Reproducción y revisión](../../../glosario/entradas/r/reproduccion-y-revision.md).
 
 ---
 

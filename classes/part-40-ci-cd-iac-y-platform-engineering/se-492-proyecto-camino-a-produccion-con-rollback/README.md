@@ -147,11 +147,11 @@ Los 10 paquetes sin mutar pasan las tres capas. Las 20 mutaciones de juicio no l
 
 ## Definiciones de trabajo
 
-- **camino a producción:** secuencia de etapas, compuertas y evidencia por las que pasa una versión hasta servir tráfico real.
-- **cambio en paralelo:** patrón de expandir, migrar y contraer para modificar una interfaz o un esquema sin romper a sus consumidores.
-- **ablación:** retirada de un componente para medir qué dejaba de ocurrir sin él.
-- **paquete de evidencia:** conjunto de datos que prueban cómo se construyó, verificó, aprobó y ensayó una versión.
-- **criterio de salida:** condición comprobable que debe cumplirse para dar un trabajo por terminado.
+- **[camino a producción](../../../glosario/entradas/c/camino-a-produccion.md):** secuencia de etapas, compuertas y evidencia por las que pasa una versión hasta servir tráfico real.
+- **[cambio en paralelo](../../../glosario/entradas/c/cambio-en-paralelo.md):** patrón de expandir, migrar y contraer para modificar una interfaz o un esquema sin romper a sus consumidores.
+- **[ablación](../../../glosario/entradas/a/ablacion.md):** retirada de un componente para medir qué dejaba de ocurrir sin él.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto de datos que prueban cómo se construyó, verificó, aprobó y ensayó una versión.
+- **[criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md):** condición comprobable que debe cumplirse para dar un trabajo por terminado.
 
 Las definiciones son operativas para el proyecto de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -297,11 +297,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con cifras publicadas
 
 ## Glosario
 
-- **camino a producción:** secuencia de etapas, compuertas y evidencia por las que pasa una versión hasta servir tráfico real.
-- **cambio en paralelo:** patrón de expandir, migrar y contraer para modificar una interfaz o un esquema sin romper a sus consumidores.
-- **ablación:** retirada de un componente para medir qué dejaba de ocurrir sin él.
-- **paquete de evidencia:** conjunto de datos que prueban cómo se construyó, verificó, aprobó y ensayó una versión.
-- **criterio de salida:** condición comprobable que debe cumplirse para dar un trabajo por terminado.
+- **[camino a producción](../../../glosario/entradas/c/camino-a-produccion.md):** secuencia de etapas, compuertas y evidencia por las que pasa una versión hasta servir tráfico real.
+- **[cambio en paralelo](../../../glosario/entradas/c/cambio-en-paralelo.md):** patrón de expandir, migrar y contraer para modificar una interfaz o un esquema sin romper a sus consumidores.
+- **[ablación](../../../glosario/entradas/a/ablacion.md):** retirada de un componente para medir qué dejaba de ocurrir sin él.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto de datos que prueban cómo se construyó, verificó, aprobó y ensayó una versión.
+- **[criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md):** condición comprobable que debe cumplirse para dar un trabajo por terminado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ablación](../../../glosario/entradas/a/ablacion.md) · [Cambio en paralelo](../../../glosario/entradas/c/cambio-en-paralelo.md) · [Camino a producción](../../../glosario/entradas/c/camino-a-produccion.md) · [Criterio de salida](../../../glosario/entradas/c/criterio-de-salida.md) · [Paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md).
 
 ---
 

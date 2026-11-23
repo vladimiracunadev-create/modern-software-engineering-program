@@ -163,11 +163,11 @@ El promedio simple (345 ms) sobreestima el valor real (323 ms) porque da el mism
 
 ## Definiciones de trabajo
 
-- **utilización:** fracción del tiempo que un servidor está ocupado, igual a la tasa de llegadas dividida por la tasa de servicio.
-- **saturación:** estado en que la utilización se acerca a 1 y la cola crece sin que aumente el trabajo útil.
-- **ley de Little:** en un sistema estable, el número medio de elementos dentro es la tasa de llegadas por el tiempo medio que cada uno permanece.
-- **coeficiente de variación:** desviación estándar dividida por la media; su cuadrado mide la variabilidad relativa del servicio.
-- **latencia de cola:** latencia de las peticiones más lentas, resumida con percentiles altos como el p99.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo que un servidor está ocupado, igual a la tasa de llegadas dividida por la tasa de servicio.
+- **[saturación](../../../glosario/entradas/s/saturacion.md):** estado en que la utilización se acerca a 1 y la cola crece sin que aumente el trabajo útil.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** en un sistema estable, el número medio de elementos dentro es la tasa de llegadas por el tiempo medio que cada uno permanece.
+- **[coeficiente de variación](../../../glosario/entradas/c/coeficiente-de-variacion.md):** desviación estándar dividida por la media; su cuadrado mide la variabilidad relativa del servicio.
+- **[latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md):** latencia de las peticiones más lentas, resumida con percentiles altos como el p99.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **utilización:** fracción del tiempo que un servidor está ocupado, igual a la tasa de llegadas dividida por la tasa de servicio.
-- **saturación:** estado en que la utilización se acerca a 1 y la cola crece sin que aumente el trabajo útil.
-- **ley de Little:** en un sistema estable, el número medio de elementos dentro es la tasa de llegadas por el tiempo medio que cada uno permanece.
-- **coeficiente de variación:** desviación estándar dividida por la media; su cuadrado mide la variabilidad relativa del servicio.
-- **latencia de cola:** latencia de las peticiones más lentas, resumida con percentiles altos como el p99.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo que un servidor está ocupado, igual a la tasa de llegadas dividida por la tasa de servicio.
+- **[saturación](../../../glosario/entradas/s/saturacion.md):** estado en que la utilización se acerca a 1 y la cola crece sin que aumente el trabajo útil.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** en un sistema estable, el número medio de elementos dentro es la tasa de llegadas por el tiempo medio que cada uno permanece.
+- **[coeficiente de variación](../../../glosario/entradas/c/coeficiente-de-variacion.md):** desviación estándar dividida por la media; su cuadrado mide la variabilidad relativa del servicio.
+- **[latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md):** latencia de las peticiones más lentas, resumida con percentiles altos como el p99.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Coeficiente de variación](../../../glosario/entradas/c/coeficiente-de-variacion.md) · [Latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md) · [Ley de Little](../../../glosario/entradas/l/ley-de-little.md) · [Saturación](../../../glosario/entradas/s/saturacion.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

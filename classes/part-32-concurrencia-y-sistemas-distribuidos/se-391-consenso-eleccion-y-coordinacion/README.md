@@ -191,8 +191,8 @@ Esta clase usa la mayoría y el cerco sin abrir los protocolos que las garantiza
 
 ## Definiciones de trabajo
 
-- **consenso:** acuerdo de un conjunto de nodos sobre un único valor, con acuerdo, validez y terminación.
-- **mayoría absoluta:** más de la mitad de los nodos del grupo completo, no de los que se ven.
+- **[consenso](../../../glosario/entradas/c/consenso.md):** acuerdo de un conjunto de nodos sobre un único valor, con acuerdo, validez y terminación.
+- **[mayoría absoluta](../../../glosario/entradas/m/mayoria-absoluta.md):** más de la mitad de los nodos del grupo completo, no de los que se ven.
 - **mandato (*term*):** periodo numerado durante el cual a lo sumo un líder puede ejercer.
 - **arrendamiento (*lease*):** derecho concedido por un tiempo limitado que caduca solo.
 - **testigo de cerco (*fencing token*):** número creciente concedido con cada derecho y comprobado por el recurso para rechazar titulares caducados.
@@ -338,11 +338,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **consenso:** acuerdo de un conjunto de nodos sobre un único valor, con acuerdo, validez y terminación.
-- **mayoría absoluta:** más de la mitad de los nodos del grupo completo, no de los que se ven.
+- **[consenso](../../../glosario/entradas/c/consenso.md):** acuerdo de un conjunto de nodos sobre un único valor, con acuerdo, validez y terminación.
+- **[mayoría absoluta](../../../glosario/entradas/m/mayoria-absoluta.md):** más de la mitad de los nodos del grupo completo, no de los que se ven.
 - **mandato (*term*):** periodo numerado durante el cual a lo sumo un líder puede ejercer.
 - **arrendamiento (*lease*):** derecho concedido por un tiempo limitado que caduca solo.
 - **testigo de cerco (*fencing token*):** número creciente concedido con cada derecho y comprobado por el recurso para rechazar titulares caducados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consenso](../../../glosario/entradas/c/consenso.md) · [Mayoría absoluta](../../../glosario/entradas/m/mayoria-absoluta.md).
 
 ---
 

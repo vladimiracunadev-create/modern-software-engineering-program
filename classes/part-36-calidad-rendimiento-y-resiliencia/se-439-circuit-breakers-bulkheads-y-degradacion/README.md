@@ -151,11 +151,11 @@ Sin control, el sistema ocupa el 100 % de sus trabajadores y entrega 5,6 respues
 
 ## Definiciones de trabajo
 
-- **circuit breaker:** componente que deja de llamar a una dependencia tras cierto número o fracción de fallos y la vuelve a probar tras un tiempo.
-- **bulkhead (mamparo):** reparto de un recurso finito en compartimentos para que el fallo de un uso no consuma el de los demás.
-- **descarte de carga (load shedding):** rechazo deliberado de solicitudes cuando la demanda supera la capacidad.
-- **degradación elegante:** respuesta reducida pero útil que se ofrece cuando la respuesta completa no es posible.
-- **criticidad:** importancia relativa de una solicitud para el negocio, usada para decidir a quién se atiende primero.
+- **[circuit breaker](../../../glosario/entradas/c/circuit-breaker.md):** componente que deja de llamar a una dependencia tras cierto número o fracción de fallos y la vuelve a probar tras un tiempo.
+- **[bulkhead (mamparo)](../../../glosario/entradas/b/bulkhead.md):** reparto de un recurso finito en compartimentos para que el fallo de un uso no consuma el de los demás.
+- **[descarte de carga (load shedding)](../../../glosario/entradas/d/descarte-de-carga.md):** rechazo deliberado de solicitudes cuando la demanda supera la capacidad.
+- **[degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md):** respuesta reducida pero útil que se ofrece cuando la respuesta completa no es posible.
+- **[criticidad](../../../glosario/entradas/c/criticidad.md):** importancia relativa de una solicitud para el negocio, usada para decidir a quién se atiende primero.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **circuit breaker:** componente que deja de llamar a una dependencia tras cierto número o fracción de fallos y la vuelve a probar tras un tiempo.
-- **bulkhead (mamparo):** reparto de un recurso finito en compartimentos para que el fallo de un uso no consuma el de los demás.
-- **descarte de carga (load shedding):** rechazo deliberado de solicitudes cuando la demanda supera la capacidad.
-- **degradación elegante:** respuesta reducida pero útil que se ofrece cuando la respuesta completa no es posible.
-- **criticidad:** importancia relativa de una solicitud para el negocio, usada para decidir a quién se atiende primero.
+- **[circuit breaker](../../../glosario/entradas/c/circuit-breaker.md):** componente que deja de llamar a una dependencia tras cierto número o fracción de fallos y la vuelve a probar tras un tiempo.
+- **[bulkhead (mamparo)](../../../glosario/entradas/b/bulkhead.md):** reparto de un recurso finito en compartimentos para que el fallo de un uso no consuma el de los demás.
+- **[descarte de carga (load shedding)](../../../glosario/entradas/d/descarte-de-carga.md):** rechazo deliberado de solicitudes cuando la demanda supera la capacidad.
+- **[degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md):** respuesta reducida pero útil que se ofrece cuando la respuesta completa no es posible.
+- **[criticidad](../../../glosario/entradas/c/criticidad.md):** importancia relativa de una solicitud para el negocio, usada para decidir a quién se atiende primero.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bulkhead](../../../glosario/entradas/b/bulkhead.md) · [Circuit breaker](../../../glosario/entradas/c/circuit-breaker.md) · [Criticidad](../../../glosario/entradas/c/criticidad.md) · [Degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md) · [Descarte de carga](../../../glosario/entradas/d/descarte-de-carga.md) · [Interruptor de circuito](../../../glosario/entradas/i/interruptor-de-circuito.md).
 
 ---
 

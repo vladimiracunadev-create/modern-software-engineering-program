@@ -175,11 +175,11 @@ El lector estricto es compatible en 7 pares de 25 y el tolerante en 9. El tolera
 
 ## Definiciones de trabajo
 
-- **compatibilidad hacia atrás:** los consumidores existentes siguen funcionando con la nueva versión del productor.
-- **portabilidad:** capacidad de ejecutar el mismo software en otro entorno con el mismo resultado.
-- **interoperabilidad:** capacidad de dos sistemas de intercambiar datos conservando su significado.
-- **lector tolerante:** consumidor que extrae lo que necesita de un mensaje e ignora los campos que no conoce.
-- **normalización Unicode:** conversión de un texto a una forma canónica (por ejemplo, NFC) para que secuencias equivalentes se comparen como iguales.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** los consumidores existentes siguen funcionando con la nueva versión del productor.
+- **[portabilidad](../../../glosario/entradas/p/portabilidad.md):** capacidad de ejecutar el mismo software en otro entorno con el mismo resultado.
+- **[interoperabilidad](../../../glosario/entradas/i/interoperabilidad.md):** capacidad de dos sistemas de intercambiar datos conservando su significado.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que extrae lo que necesita de un mensaje e ignora los campos que no conoce.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** conversión de un texto a una forma canónica (por ejemplo, NFC) para que secuencias equivalentes se comparen como iguales.
 
 Las definiciones son operativas para el mensaje de entrega de la plataforma. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -317,11 +317,13 @@ Se ejecutaron tres experimentos, uno de ellos con sondas reales en Windows 11 y 
 
 ## Glosario
 
-- **compatibilidad hacia atrás:** los consumidores existentes siguen funcionando con la nueva versión del productor.
-- **portabilidad:** capacidad de ejecutar el mismo software en otro entorno con el mismo resultado.
-- **interoperabilidad:** capacidad de dos sistemas de intercambiar datos conservando su significado.
-- **lector tolerante:** consumidor que extrae lo que necesita de un mensaje e ignora los campos que no conoce.
-- **normalización Unicode:** conversión de un texto a una forma canónica (por ejemplo, NFC) para que secuencias equivalentes se comparen como iguales.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** los consumidores existentes siguen funcionando con la nueva versión del productor.
+- **[portabilidad](../../../glosario/entradas/p/portabilidad.md):** capacidad de ejecutar el mismo software en otro entorno con el mismo resultado.
+- **[interoperabilidad](../../../glosario/entradas/i/interoperabilidad.md):** capacidad de dos sistemas de intercambiar datos conservando su significado.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que extrae lo que necesita de un mensaje e ignora los campos que no conoce.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** conversión de un texto a una forma canónica (por ejemplo, NFC) para que secuencias equivalentes se comparen como iguales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compatibilidad entre versiones](../../../glosario/entradas/c/compatibilidad-entre-versiones.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Interoperabilidad](../../../glosario/entradas/i/interoperabilidad.md) · [Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md) · [Matriz de compatibilidad](../../../glosario/entradas/m/matriz-de-compatibilidad.md) · [Normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md) · [Portabilidad](../../../glosario/entradas/p/portabilidad.md).
 
 ---
 

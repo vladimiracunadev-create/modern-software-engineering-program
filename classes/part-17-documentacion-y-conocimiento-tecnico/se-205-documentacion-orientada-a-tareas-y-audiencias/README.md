@@ -141,11 +141,11 @@ El texto para estudiantes (25 palabras, 2 frases) da 93,1; el del docente (16 pa
 
 ## Definiciones de trabajo
 
-- **audiencia:** grupo de personas descrito por lo que sabe, lo que quiere conseguir y el tiempo del que dispone al leer; no es un cargo ni una etiqueta de rol.
-- **tarea:** acción con verbo y resultado observable que una audiencia quiere completar usando la documentación.
-- **vista:** presentación de un hecho o de un procedimiento adaptada a una audiencia, que cita su fuente y no la contradice.
-- **fuente única:** lugar donde un dato se escribe una vez; las demás menciones lo enlazan, lo incluyen o se generan desde él.
-- **prueba de recorrido:** observación de una persona de la audiencia cumpliendo una tarea con la página, sin ayuda de quien la escribió.
+- **[audiencia](../../../glosario/entradas/a/audiencia.md):** grupo de personas descrito por lo que sabe, lo que quiere conseguir y el tiempo del que dispone al leer; no es un cargo ni una etiqueta de rol.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** acción con verbo y resultado observable que una audiencia quiere completar usando la documentación.
+- **[vista](../../../glosario/entradas/v/vista.md):** presentación de un hecho o de un procedimiento adaptada a una audiencia, que cita su fuente y no la contradice.
+- **[fuente única](../../../glosario/entradas/f/fuente-unica.md):** lugar donde un dato se escribe una vez; las demás menciones lo enlazan, lo incluyen o se generan desde él.
+- **[prueba de recorrido](../../../glosario/entradas/p/prueba-de-recorrido.md):** observación de una persona de la audiencia cumpliendo una tarea con la página, sin ayuda de quien la escribió.
 
 Las definiciones son operativas para el portal de la plataforma de entregas; no sustituyen las de la bibliografía enlazada al final.
 
@@ -298,11 +298,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **audiencia:** grupo de personas descrito por lo que sabe, lo que quiere conseguir y el tiempo del que dispone al leer.
-- **tarea:** acción con verbo y resultado observable que una audiencia quiere completar con la documentación.
-- **vista:** presentación de un hecho adaptada a una audiencia que cita su fuente y no la contradice.
-- **fuente única:** lugar donde un dato se escribe una sola vez; las demás menciones lo enlazan o se generan desde él.
-- **prueba de recorrido:** observación de una persona de la audiencia cumpliendo una tarea con la página sin ayuda.
+- **[audiencia](../../../glosario/entradas/a/audiencia.md):** grupo de personas descrito por lo que sabe, lo que quiere conseguir y el tiempo del que dispone al leer.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** acción con verbo y resultado observable que una audiencia quiere completar con la documentación.
+- **[vista](../../../glosario/entradas/v/vista.md):** presentación de un hecho adaptada a una audiencia que cita su fuente y no la contradice.
+- **[fuente única](../../../glosario/entradas/f/fuente-unica.md):** lugar donde un dato se escribe una sola vez; las demás menciones lo enlazan o se generan desde él.
+- **[prueba de recorrido](../../../glosario/entradas/p/prueba-de-recorrido.md):** observación de una persona de la audiencia cumpliendo una tarea con la página sin ayuda.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Audiencia](../../../glosario/entradas/a/audiencia.md) · [Fuente única](../../../glosario/entradas/f/fuente-unica.md) · [Prueba de recorrido](../../../glosario/entradas/p/prueba-de-recorrido.md) · [Tarea](../../../glosario/entradas/t/tarea.md) · [Vista](../../../glosario/entradas/v/vista.md).
 
 ---
 

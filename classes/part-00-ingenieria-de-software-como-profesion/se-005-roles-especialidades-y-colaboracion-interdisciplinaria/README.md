@@ -175,15 +175,17 @@ temporal importan más que el diagrama.
 
 ## Definiciones de trabajo
 
-- **rol:** conjunto contextual de responsabilidades;
-- **especialidad:** profundidad para emitir juicio en un dominio;
-- **handoff:** transferencia de trabajo y contexto con aceptación;
-- **revisión independiente:** evaluación sin autoría directa ni incentivo dominante;
-- **escalamiento:** traslado explícito a autoridad capaz de decidir.
+- **[rol](../../../glosario/entradas/r/rol.md):** conjunto contextual de responsabilidades;
+- **[especialidad](../../../glosario/entradas/e/especialidad.md):** profundidad para emitir juicio en un dominio;
+- **[handoff](../../../glosario/entradas/h/handoff.md):** transferencia de trabajo y contexto con aceptación;
+- **[revisión independiente](../../../glosario/entradas/r/revision-independiente.md):** evaluación sin autoría directa ni incentivo dominante;
+- **[escalamiento](../../../glosario/entradas/e/escalamiento.md):** traslado explícito a autoridad capaz de decidir.
 
 ## Glosario
 
-**Bus factor** mide concentración de conocimiento. **Team topology** describe límites e interacción de equipos. **Facilitación** estructura participación sin apropiarse de la decisión.
+**[Bus factor](../../../glosario/entradas/b/bus-factor.md)** mide concentración de conocimiento. **[Team topology](../../../glosario/entradas/t/team-topology.md)** describe límites e interacción de equipos. **[Facilitación](../../../glosario/entradas/f/facilitacion.md)** estructura participación sin apropiarse de la decisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bus factor](../../../glosario/entradas/b/bus-factor.md) · [Escalamiento](../../../glosario/entradas/e/escalamiento.md) · [Especialidad](../../../glosario/entradas/e/especialidad.md) · [Facilitación](../../../glosario/entradas/f/facilitacion.md) · [Handoff](../../../glosario/entradas/h/handoff.md) · [Ingeniería](../../../glosario/entradas/i/ingenieria.md) · [Producto](../../../glosario/entradas/p/producto.md) · [Revisión independiente](../../../glosario/entradas/r/revision-independiente.md) · [Rol](../../../glosario/entradas/r/rol.md) · [Team topology](../../../glosario/entradas/t/team-topology.md).
 
 ## Ejemplo mínimo
 

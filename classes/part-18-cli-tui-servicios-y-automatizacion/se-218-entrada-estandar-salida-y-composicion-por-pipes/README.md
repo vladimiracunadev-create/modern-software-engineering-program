@@ -130,11 +130,11 @@ Un archivo sintético de 9,6 MB con 400 000 líneas CRLF se procesó de dos form
 
 ## Definiciones de trabajo
 
-- **flujo estándar:** canal numerado de un proceso: entrada (0), salida (1) y error (2).
-- **tubería (pipe):** conexión de la salida estándar de un proceso con la entrada estándar de otro.
-- **búfer:** memoria intermedia que acumula lo escrito antes de entregarlo al destino.
-- **tubería rota:** condición en que se escribe en una tubería cuyo lector ya cerró.
-- **modo texto y modo binario:** formas de abrir un flujo con o sin decodificación y traducción de saltos de línea.
+- **[flujo estándar](../../../glosario/entradas/f/flujos-estandar.md):** canal numerado de un proceso: entrada (0), salida (1) y error (2).
+- **[tubería (pipe)](../../../glosario/entradas/t/tuberia.md):** conexión de la salida estándar de un proceso con la entrada estándar de otro.
+- **[búfer](../../../glosario/entradas/b/bufer.md):** memoria intermedia que acumula lo escrito antes de entregarlo al destino.
+- **[tubería rota](../../../glosario/entradas/t/tuberia-rota.md):** condición en que se escribe en una tubería cuyo lector ya cerró.
+- **[modo texto y modo binario](../../../glosario/entradas/m/modo-texto-y-modo-binario.md):** formas de abrir un flujo con o sin decodificación y traducción de saltos de línea.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -283,11 +283,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **flujo estándar:** canal numerado de un proceso: entrada (0), salida (1) y error (2).
-- **tubería (pipe):** conexión de la salida estándar de un proceso con la entrada estándar de otro.
-- **búfer:** memoria intermedia que acumula lo escrito antes de entregarlo al destino.
-- **tubería rota:** condición en que se escribe en una tubería cuyo lector ya cerró.
-- **modo texto y modo binario:** formas de abrir un flujo con o sin decodificación y traducción de saltos de línea.
+- **[flujo estándar](../../../glosario/entradas/f/flujos-estandar.md):** canal numerado de un proceso: entrada (0), salida (1) y error (2).
+- **[tubería (pipe)](../../../glosario/entradas/t/tuberia.md):** conexión de la salida estándar de un proceso con la entrada estándar de otro.
+- **[búfer](../../../glosario/entradas/b/bufer.md):** memoria intermedia que acumula lo escrito antes de entregarlo al destino.
+- **[tubería rota](../../../glosario/entradas/t/tuberia-rota.md):** condición en que se escribe en una tubería cuyo lector ya cerró.
+- **[modo texto y modo binario](../../../glosario/entradas/m/modo-texto-y-modo-binario.md):** formas de abrir un flujo con o sin decodificación y traducción de saltos de línea.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Búfer](../../../glosario/entradas/b/bufer.md) · [Flujos estándar](../../../glosario/entradas/f/flujos-estandar.md) · [Modo texto y modo binario](../../../glosario/entradas/m/modo-texto-y-modo-binario.md) · [Tubería](../../../glosario/entradas/t/tuberia.md) · [Tubería rota](../../../glosario/entradas/t/tuberia-rota.md).
 
 ---
 

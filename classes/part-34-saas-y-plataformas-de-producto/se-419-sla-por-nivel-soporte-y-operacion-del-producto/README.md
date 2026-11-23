@@ -135,14 +135,14 @@ Un SLA no hace más fiable el producto: lo que lo hace es la ingeniería. Tampoc
 
 ## Definiciones de trabajo
 
-- **SLI:** medición de un aspecto de lo que el usuario experimenta.
-- **SLO:** valor objetivo de un SLI en una ventana.
-- **SLA:** acuerdo contractual con consecuencias si no se cumple.
-- **Presupuesto de errores:** complemento del objetivo, expresado como cantidad de fallo tolerable.
-- **Disponibilidad compuesta:** disponibilidad de una cadena en serie, igual al producto de las disponibilidades.
-- **Crédito de servicio:** compensación contractual, normalmente un porcentaje de la factura.
-- **Severidad:** clasificación de un incidente o solicitud por su impacto.
-- **Primera respuesta / resolución:** tiempo hasta el primer contacto frente al tiempo hasta solucionar.
+- **[SLI](../../../glosario/entradas/s/sli.md):** medición de un aspecto de lo que el usuario experimenta.
+- **[SLO](../../../glosario/entradas/s/slo.md):** valor objetivo de un SLI en una ventana.
+- **[SLA](../../../glosario/entradas/s/sla.md):** acuerdo contractual con consecuencias si no se cumple.
+- **[Presupuesto de errores](../../../glosario/entradas/p/presupuesto-de-error.md):** complemento del objetivo, expresado como cantidad de fallo tolerable.
+- **[Disponibilidad compuesta](../../../glosario/entradas/d/disponibilidad-compuesta.md):** disponibilidad de una cadena en serie, igual al producto de las disponibilidades.
+- **[Crédito de servicio](../../../glosario/entradas/c/credito-de-servicio.md):** compensación contractual, normalmente un porcentaje de la factura.
+- **[Severidad](../../../glosario/entradas/s/severidad.md):** clasificación de un incidente o solicitud por su impacto.
+- **[Primera respuesta / resolución](../../../glosario/entradas/p/primera-respuesta-resolucion.md):** tiempo hasta el primer contacto frente al tiempo hasta solucionar.
 
 ## Ejemplo mínimo
 
@@ -295,6 +295,8 @@ Se calcularon minutos permitidos, una disponibilidad compuesta y una simulación
 | Crédito de servicio | Compensación contractual por incumplimiento |
 | Severidad | Clasificación por impacto |
 | Primera respuesta | Tiempo hasta el primer contacto de soporte |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Crédito de servicio](../../../glosario/entradas/c/credito-de-servicio.md) · [Disponibilidad compuesta](../../../glosario/entradas/d/disponibilidad-compuesta.md) · [Presupuesto de error](../../../glosario/entradas/p/presupuesto-de-error.md) · [Primera respuesta / resolución](../../../glosario/entradas/p/primera-respuesta-resolucion.md) · [Severidad](../../../glosario/entradas/s/severidad.md) · [SLA](../../../glosario/entradas/s/sla.md) · [SLI](../../../glosario/entradas/s/sli.md) · [SLO](../../../glosario/entradas/s/slo.md).
 
 ---
 

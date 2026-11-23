@@ -151,11 +151,11 @@ Con 10 elementos, el percentil 85 estimado puede quedar entre la mitad y casi el
 
 ## Definiciones de trabajo
 
-- **tiempo de ciclo o plazo:** tiempo desde que un elemento empieza a trabajarse hasta que se termina.
-- **rendimiento:** número de elementos terminados por unidad de tiempo.
-- **antigüedad del trabajo en curso:** tiempo que lleva en curso cada elemento no terminado; anticipa los plazos largos antes de que ocurran.
-- **escape:** defecto descubierto después de dar un incremento por terminado.
-- **ley de Goodhart:** cuando una medida se convierte en objetivo, deja de ser una buena medida.
+- **[tiempo de ciclo o plazo](../../../glosario/entradas/t/tiempo-de-ciclo-o-plazo.md):** tiempo desde que un elemento empieza a trabajarse hasta que se termina.
+- **[rendimiento](../../../glosario/entradas/r/rendimiento.md):** número de elementos terminados por unidad de tiempo.
+- **[antigüedad del trabajo en curso](../../../glosario/entradas/a/antiguedad-del-trabajo-en-curso.md):** tiempo que lleva en curso cada elemento no terminado; anticipa los plazos largos antes de que ocurran.
+- **[escape](../../../glosario/entradas/e/escape.md):** defecto descubierto después de dar un incremento por terminado.
+- **[ley de Goodhart](../../../glosario/entradas/l/ley-de-goodhart.md):** cuando una medida se convierte en objetivo, deja de ser una buena medida.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **tiempo de ciclo o plazo:** tiempo desde que un elemento empieza a trabajarse hasta que se termina.
-- **rendimiento:** número de elementos terminados por unidad de tiempo.
-- **antigüedad del trabajo en curso:** tiempo que lleva en curso cada elemento no terminado; anticipa los plazos largos antes de que ocurran.
-- **escape:** defecto descubierto después de dar un incremento por terminado.
-- **ley de Goodhart:** cuando una medida se convierte en objetivo, deja de ser una buena medida.
+- **[tiempo de ciclo o plazo](../../../glosario/entradas/t/tiempo-de-ciclo-o-plazo.md):** tiempo desde que un elemento empieza a trabajarse hasta que se termina.
+- **[rendimiento](../../../glosario/entradas/r/rendimiento.md):** número de elementos terminados por unidad de tiempo.
+- **[antigüedad del trabajo en curso](../../../glosario/entradas/a/antiguedad-del-trabajo-en-curso.md):** tiempo que lleva en curso cada elemento no terminado; anticipa los plazos largos antes de que ocurran.
+- **[escape](../../../glosario/entradas/e/escape.md):** defecto descubierto después de dar un incremento por terminado.
+- **[ley de Goodhart](../../../glosario/entradas/l/ley-de-goodhart.md):** cuando una medida se convierte en objetivo, deja de ser una buena medida.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Antigüedad del trabajo en curso](../../../glosario/entradas/a/antiguedad-del-trabajo-en-curso.md) · [Escape](../../../glosario/entradas/e/escape.md) · [Ley de Goodhart](../../../glosario/entradas/l/ley-de-goodhart.md) · [Rendimiento](../../../glosario/entradas/r/rendimiento.md) · [Tiempo de ciclo o plazo](../../../glosario/entradas/t/tiempo-de-ciclo-o-plazo.md).
 
 ---
 

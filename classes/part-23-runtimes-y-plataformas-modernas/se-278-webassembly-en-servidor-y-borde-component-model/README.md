@@ -127,14 +127,14 @@ La tercera figura es un diagrama del camino de composición en el modelo de comp
 
 ## Definiciones de trabajo
 
-- **Motor (`Engine`):** configuración y compilador compartidos por los módulos de un anfitrión.
-- **Almacén (`Store`):** estado de una ejecución: memoria, combustible, límites y datos del anfitrión.
-- **Módulo serializado:** módulo ya compilado a código nativo guardado para cargarlo sin recompilar.
-- **Instancia por petición:** política que crea y destruye una instancia en cada llamada.
-- **Enlace (`Linker`):** objeto que resuelve las importaciones de un módulo con funciones del anfitrión.
-- **WIT:** lenguaje de descripción de interfaces del modelo de componentes.
+- **[Motor (`Engine`)](../../../glosario/entradas/m/motor.md):** configuración y compilador compartidos por los módulos de un anfitrión.
+- **[Almacén (`Store`)](../../../glosario/entradas/a/almacen.md):** estado de una ejecución: memoria, combustible, límites y datos del anfitrión.
+- **[Módulo serializado](../../../glosario/entradas/m/modulo-serializado.md):** módulo ya compilado a código nativo guardado para cargarlo sin recompilar.
+- **[Instancia por petición](../../../glosario/entradas/i/instancia-por-peticion.md):** política que crea y destruye una instancia en cada llamada.
+- **[Enlace (`Linker`)](../../../glosario/entradas/e/enlace.md):** objeto que resuelve las importaciones de un módulo con funciones del anfitrión.
+- **[WIT](../../../glosario/entradas/w/wit.md):** lenguaje de descripción de interfaces del modelo de componentes.
 - **Mundo (*world*):** declaración de lo que un componente importa y exporta.
-- **Borde:** ubicación de cómputo cercana al usuario con recursos acotados por inquilino.
+- **[Borde](../../../glosario/entradas/b/borde.md):** ubicación de cómputo cercana al usuario con recursos acotados por inquilino.
 
 ## Ejemplo mínimo
 
@@ -276,6 +276,8 @@ Se midió un módulo trivial con `wasmtime` desde Python; no se midió una plata
 | WIT | Lenguaje de interfaces del modelo de componentes |
 | Mundo | Declaración de importaciones y exportaciones de un componente |
 | Borde | Cómputo cercano al usuario con recursos acotados |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Almacén](../../../glosario/entradas/a/almacen.md) · [Borde](../../../glosario/entradas/b/borde.md) · [Enlace](../../../glosario/entradas/e/enlace.md) · [Instancia por petición](../../../glosario/entradas/i/instancia-por-peticion.md) · [Módulo serializado](../../../glosario/entradas/m/modulo-serializado.md) · [Motor](../../../glosario/entradas/m/motor.md) · [WIT](../../../glosario/entradas/w/wit.md).
 
 ---
 

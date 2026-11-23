@@ -127,13 +127,13 @@ La tercera figura dibuja el costo por millón de peticiones de las dos opciones 
 ## Definiciones de trabajo
 
 - **Lote (*batch*):** conjunto de peticiones que se procesan en una sola llamada.
-- **Throughput:** peticiones atendidas por unidad de tiempo.
-- **Latencia de cola:** latencia que no supera el p95 o el p99 de las peticiones.
-- **Ley de Amdahl:** cota de la aceleración total por la parte no acelerada.
-- **Transferencia:** movimiento de datos entre memoria del anfitrión y del acelerador.
-- **Utilización:** fracción de la capacidad comprada que se usa.
-- **Unidad entera:** la capacidad se compra en unidades indivisibles.
-- **Sensibilidad:** cuánto cambia el resultado al variar un supuesto.
+- **[Throughput](../../../glosario/entradas/t/throughput.md):** peticiones atendidas por unidad de tiempo.
+- **[Latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md):** latencia que no supera el p95 o el p99 de las peticiones.
+- **[Ley de Amdahl](../../../glosario/entradas/l/ley-de-amdahl.md):** cota de la aceleración total por la parte no acelerada.
+- **[Transferencia](../../../glosario/entradas/t/transferencia.md):** movimiento de datos entre memoria del anfitrión y del acelerador.
+- **[Utilización](../../../glosario/entradas/u/utilizacion.md):** fracción de la capacidad comprada que se usa.
+- **[Unidad entera](../../../glosario/entradas/u/unidad-entera.md):** la capacidad se compra en unidades indivisibles.
+- **[Sensibilidad](../../../glosario/entradas/s/sensibilidad.md):** cuánto cambia el resultado al variar un supuesto.
 
 ## Ejemplo mínimo
 
@@ -264,6 +264,8 @@ Las medidas son de una CPU con NumPy; el modelo de costo usa supuestos del autor
 | Utilización | Fracción de capacidad comprada que se usa |
 | Unidad entera | Capacidad indivisible que se compra completa |
 | Sensibilidad | Efecto de variar un supuesto en el resultado |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Latencia de cola](../../../glosario/entradas/l/latencia-de-cola.md) · [Ley de Amdahl](../../../glosario/entradas/l/ley-de-amdahl.md) · [Lote](../../../glosario/entradas/l/lote.md) · [Precisión](../../../glosario/entradas/p/precision.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md) · [Throughput](../../../glosario/entradas/t/throughput.md) · [Transferencia](../../../glosario/entradas/t/transferencia.md) · [Unidad entera](../../../glosario/entradas/u/unidad-entera.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

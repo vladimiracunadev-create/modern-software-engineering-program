@@ -127,13 +127,13 @@ La tercera figura resume las partes de un caso de seguridad.
 
 ## Definiciones de trabajo
 
-- **Caso de seguridad:** argumento estructurado, con evidencia, de que un sistema es aceptablemente seguro en un contexto.
-- **Afirmación (meta):** enunciado que se debe justificar.
-- **Estrategia:** forma de descomponer una afirmación en subafirmaciones.
-- **Evidencia (solución):** resultado concreto que sostiene una afirmación.
-- **Supuesto:** condición que se da por cierta y que acota el argumento.
-- **Trazabilidad bidireccional:** vínculos de peligros a requisitos a pruebas y de vuelta.
-- **Enlace sospechoso:** vínculo cuyo requisito cambió después de enlazarse.
+- **[Caso de seguridad](../../../glosario/entradas/c/caso-de-seguridad.md):** argumento estructurado, con evidencia, de que un sistema es aceptablemente seguro en un contexto.
+- **[Afirmación (meta)](../../../glosario/entradas/a/afirmacion.md):** enunciado que se debe justificar.
+- **[Estrategia](../../../glosario/entradas/e/estrategia.md):** forma de descomponer una afirmación en subafirmaciones.
+- **[Evidencia (solución)](../../../glosario/entradas/e/evidencia.md):** resultado concreto que sostiene una afirmación.
+- **[Supuesto](../../../glosario/entradas/s/supuestos.md):** condición que se da por cierta y que acota el argumento.
+- **[Trazabilidad bidireccional](../../../glosario/entradas/t/trazabilidad-bidireccional.md):** vínculos de peligros a requisitos a pruebas y de vuelta.
+- **[Enlace sospechoso](../../../glosario/entradas/e/enlace-sospechoso.md):** vínculo cuyo requisito cambió después de enlazarse.
 
 ## Ejemplo mínimo
 
@@ -269,6 +269,8 @@ El argumento y la matriz son datos sintéticos del autor; el comprobador verific
 | Supuesto | Condición dada por cierta que acota el argumento |
 | Trazabilidad | Vínculos entre peligros, requisitos y pruebas |
 | Enlace sospechoso | Vínculo cuyo requisito cambió después |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Afirmación](../../../glosario/entradas/a/afirmacion.md) · [Caso de seguridad](../../../glosario/entradas/c/caso-de-seguridad.md) · [Enlace sospechoso](../../../glosario/entradas/e/enlace-sospechoso.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Evidencia](../../../glosario/entradas/e/evidencia.md) · [Supuestos](../../../glosario/entradas/s/supuestos.md) · [Trazabilidad](../../../glosario/entradas/t/trazabilidad.md) · [Trazabilidad bidireccional](../../../glosario/entradas/t/trazabilidad-bidireccional.md).
 
 ---
 

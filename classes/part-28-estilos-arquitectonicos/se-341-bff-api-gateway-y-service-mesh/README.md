@@ -132,13 +132,13 @@ La tercera comparación mide proxies reales de reenvío de bytes en cadena.
 
 ## Definiciones de trabajo
 
-- **API gateway:** punto de entrada que centraliza enrutamiento, autenticación y límites para clientes externos.
-- **Agregación:** combinar en una respuesta datos de varios servicios.
-- **BFF:** backend propio de un tipo de cliente, que proyecta lo que su interfaz necesita.
-- **Malla de servicios:** capa de proxies y control que gobierna el tráfico entre servicios.
-- **Sidecar:** proceso auxiliar desplegado junto a un servicio que intercepta su tráfico.
-- **Defensa en profundidad:** validar en cada capa en lugar de confiar en una sola barrera.
-- **Tráfico norte-sur y este-oeste:** el que entra al sistema y el que circula entre servicios.
+- **[API gateway](../../../glosario/entradas/a/api-gateway.md):** punto de entrada que centraliza enrutamiento, autenticación y límites para clientes externos.
+- **[Agregación](../../../glosario/entradas/a/agregacion.md):** combinar en una respuesta datos de varios servicios.
+- **[BFF](../../../glosario/entradas/b/bff.md):** backend propio de un tipo de cliente, que proyecta lo que su interfaz necesita.
+- **[Malla de servicios](../../../glosario/entradas/m/malla-de-servicios.md):** capa de proxies y control que gobierna el tráfico entre servicios.
+- **[Sidecar](../../../glosario/entradas/s/sidecar.md):** proceso auxiliar desplegado junto a un servicio que intercepta su tráfico.
+- **[Defensa en profundidad](../../../glosario/entradas/d/defensa-en-profundidad.md):** validar en cada capa en lugar de confiar en una sola barrera.
+- **[Tráfico norte-sur y este-oeste](../../../glosario/entradas/t/trafico-norte-sur-y-este-oeste.md):** el que entra al sistema y el que circula entre servicios.
 
 ## Ejemplo mínimo
 
@@ -275,6 +275,8 @@ Los tamaños son de datos sintéticos, los tiempos de ronda son un modelo con su
 | Sidecar | Proceso auxiliar junto a un servicio |
 | Defensa en profundidad | Validar en cada capa |
 | Tráfico norte-sur | El que entra al sistema desde fuera |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Agregación](../../../glosario/entradas/a/agregacion.md) · [API gateway](../../../glosario/entradas/a/api-gateway.md) · [BFF](../../../glosario/entradas/b/bff.md) · [Defensa en profundidad](../../../glosario/entradas/d/defensa-en-profundidad.md) · [Gateway](../../../glosario/entradas/g/gateway.md) · [Malla de servicios](../../../glosario/entradas/m/malla-de-servicios.md) · [Sidecar](../../../glosario/entradas/s/sidecar.md) · [Tráfico norte-sur y este-oeste](../../../glosario/entradas/t/trafico-norte-sur-y-este-oeste.md).
 
 ---
 

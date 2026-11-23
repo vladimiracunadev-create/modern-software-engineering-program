@@ -112,12 +112,12 @@ La tabla resume lo medido en la clase. La lectura útil no es «cuál es mejor»
 
 ## Definiciones de trabajo
 
-- **Adapter:** objeto que traduce una interfaz a otra que el cliente espera.
-- **Facade:** interfaz simplificada a un subsistema.
-- **Proxy:** sustituto con la misma interfaz que controla el acceso al objeto real.
-- **Composite:** estructura en árbol donde grupos y elementos comparten interfaz.
-- **Decorator:** envoltura con la misma interfaz que añade comportamiento.
-- **Prueba de contrato:** batería común que debe pasar toda implementación de una interfaz.
+- **[Adapter](../../../glosario/entradas/a/adapter.md):** objeto que traduce una interfaz a otra que el cliente espera.
+- **[Facade](../../../glosario/entradas/f/facade.md):** interfaz simplificada a un subsistema.
+- **[Proxy](../../../glosario/entradas/p/proxy.md):** sustituto con la misma interfaz que controla el acceso al objeto real.
+- **[Composite](../../../glosario/entradas/c/composite.md):** estructura en árbol donde grupos y elementos comparten interfaz.
+- **[Decorator](../../../glosario/entradas/d/decorator.md):** envoltura con la misma interfaz que añade comportamiento.
+- **[Prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** batería común que debe pasar toda implementación de una interfaz.
 
 ## Ejemplo mínimo
 
@@ -245,6 +245,8 @@ La simulación usa una distribución elegida por el autor y no incluye fallos co
 | Composite | Grupo tratado como un elemento |
 | Decorator | Envoltura que añade comportamiento |
 | Política de pila | Promesa que resulta del orden de las envolturas |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Adapter](../../../glosario/entradas/a/adapter.md) · [Composite](../../../glosario/entradas/c/composite.md) · [Decorator](../../../glosario/entradas/d/decorator.md) · [Facade](../../../glosario/entradas/f/facade.md) · [Proxy](../../../glosario/entradas/p/proxy.md) · [Prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md).
 
 ---
 

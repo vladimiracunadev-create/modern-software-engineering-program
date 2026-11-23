@@ -133,14 +133,14 @@ La tercera figura es un diagrama de lo que se comparte con el anfitrión en cada
 
 ## Definiciones de trabajo
 
-- **Frontera de aislamiento:** mecanismo que limita lo que una carga puede ver, usar o alterar de otras.
-- **Espacio de nombres:** vista restringida de un recurso del sistema (procesos, red, montajes, usuarios).
+- **[Frontera de aislamiento](../../../glosario/entradas/f/frontera-de-aislamiento.md):** mecanismo que limita lo que una carga puede ver, usar o alterar de otras.
+- **[Espacio de nombres](../../../glosario/entradas/e/espacio-de-nombres.md):** vista restringida de un recurso del sistema (procesos, red, montajes, usuarios).
 - **Grupo de control (*cgroup*):** límite de consumo de CPU, memoria o E/S para un conjunto de procesos.
 - **Filtro de llamadas de sistema (*seccomp*):** lista de llamadas de sistema que un proceso puede hacer.
-- **Núcleo de aplicación:** núcleo en espacio de usuario que atiende las llamadas de un contenedor.
-- **microVM:** máquina virtual con núcleo propio y un modelo mínimo de dispositivos.
-- **Superficie compartida:** código y dispositivos del anfitrión alcanzables desde la carga.
-- **Causa común:** fallo que afecta a varias capas a la vez.
+- **[Núcleo de aplicación](../../../glosario/entradas/n/nucleo-de-aplicacion.md):** núcleo en espacio de usuario que atiende las llamadas de un contenedor.
+- **[microVM](../../../glosario/entradas/m/microvm.md):** máquina virtual con núcleo propio y un modelo mínimo de dispositivos.
+- **[Superficie compartida](../../../glosario/entradas/s/superficie-compartida.md):** código y dispositivos del anfitrión alcanzables desde la carga.
+- **[Causa común](../../../glosario/entradas/c/causa-comun.md):** fallo que afecta a varias capas a la vez.
 
 ## Ejemplo mínimo
 
@@ -278,6 +278,8 @@ Se midieron tres fronteras y se ejecutaron cuatro comprobaciones de un sandbox c
 | microVM | Máquina virtual con núcleo propio y dispositivos mínimos |
 | Superficie compartida | Código del anfitrión alcanzable desde la carga |
 | Causa común | Fallo que afecta a varias capas a la vez |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Espacio de nombres](../../../glosario/entradas/e/espacio-de-nombres.md) · [Frontera de aislamiento](../../../glosario/entradas/f/frontera-de-aislamiento.md) · [MicroVM](../../../glosario/entradas/m/microvm.md) · [Núcleo de aplicación](../../../glosario/entradas/n/nucleo-de-aplicacion.md) · [Superficie compartida](../../../glosario/entradas/s/superficie-compartida.md).
 
 ---
 

@@ -106,11 +106,11 @@ Un contrato separa tres obligaciones. La **precondición** es lo que el llamador
 
 ## Definiciones de trabajo
 
-- **precondición:** propiedad requerida al iniciar una operación.
-- **poscondición:** propiedad garantizada al terminar bajo el contrato.
-- **invariante:** propiedad preservada en puntos definidos.
-- **estado válido:** estado que satisface restricciones del modelo.
-- **composición:** encadenamiento donde garantías alimentan requisitos.
+- **[precondición](../../../glosario/entradas/p/precondicion.md):** propiedad requerida al iniciar una operación.
+- **[poscondición](../../../glosario/entradas/p/poscondicion.md):** propiedad garantizada al terminar bajo el contrato.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** propiedad preservada en puntos definidos.
+- **[estado válido](../../../glosario/entradas/e/estado-valido.md):** estado que satisface restricciones del modelo.
+- **[composición](../../../glosario/entradas/c/composicion.md):** encadenamiento donde garantías alimentan requisitos.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -255,11 +255,13 @@ Los contratos no cubren por sí solos propiedades temporales, concurrencia o int
 
 ## Glosario
 
-- **precondición:** propiedad requerida al iniciar una operación.
-- **poscondición:** propiedad garantizada al terminar bajo el contrato.
-- **invariante:** propiedad preservada en puntos definidos.
-- **estado válido:** estado que satisface restricciones del modelo.
-- **composición:** encadenamiento donde garantías alimentan requisitos.
+- **[precondición](../../../glosario/entradas/p/precondicion.md):** propiedad requerida al iniciar una operación.
+- **[poscondición](../../../glosario/entradas/p/poscondicion.md):** propiedad garantizada al terminar bajo el contrato.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** propiedad preservada en puntos definidos.
+- **[estado válido](../../../glosario/entradas/e/estado-valido.md):** estado que satisface restricciones del modelo.
+- **[composición](../../../glosario/entradas/c/composicion.md):** encadenamiento donde garantías alimentan requisitos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Composición](../../../glosario/entradas/c/composicion.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estado válido](../../../glosario/entradas/e/estado-valido.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Poscondición](../../../glosario/entradas/p/poscondicion.md) · [Precondición](../../../glosario/entradas/p/precondicion.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

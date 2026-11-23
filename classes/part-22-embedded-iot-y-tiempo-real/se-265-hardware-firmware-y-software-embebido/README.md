@@ -147,11 +147,11 @@ Tres de las ocho variantes son equivalentes y no se pueden matar. De las cinco d
 
 ## Definiciones de trabajo
 
-- **firmware:** programa almacenado en la memoria no volátil de un dispositivo que controla su hardware y se actualiza con procedimientos propios.
-- **capa de acceso al hardware:** módulo que aísla los registros y periféricos detrás de una interfaz que puede reemplazarse por datos simulados.
-- **latencia de un evento:** tiempo entre que ocurre un evento y el firmware empieza a atenderlo.
-- **desbordamiento:** resultado de una operación que no cabe en el ancho del tipo y da la vuelta sin avisar.
-- **mutante equivalente:** variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
+- **[firmware](../../../glosario/entradas/f/firmware.md):** programa almacenado en la memoria no volátil de un dispositivo que controla su hardware y se actualiza con procedimientos propios.
+- **[capa de acceso al hardware](../../../glosario/entradas/c/capa-de-acceso-al-hardware.md):** módulo que aísla los registros y periféricos detrás de una interfaz que puede reemplazarse por datos simulados.
+- **[latencia de un evento](../../../glosario/entradas/l/latencia-de-un-evento.md):** tiempo entre que ocurre un evento y el firmware empieza a atenderlo.
+- **[desbordamiento](../../../glosario/entradas/d/desbordamiento.md):** resultado de una operación que no cabe en el ancho del tipo y da la vuelta sin avisar.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
 
 Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **firmware:** programa almacenado en la memoria no volátil de un dispositivo que controla su hardware y se actualiza con procedimientos propios.
-- **capa de acceso al hardware:** módulo que aísla los registros y periféricos detrás de una interfaz que puede reemplazarse por datos simulados.
-- **latencia de un evento:** tiempo entre que ocurre un evento y el firmware empieza a atenderlo.
-- **desbordamiento:** resultado de una operación que no cabe en el ancho del tipo y da la vuelta sin avisar.
-- **mutante equivalente:** variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
+- **[firmware](../../../glosario/entradas/f/firmware.md):** programa almacenado en la memoria no volátil de un dispositivo que controla su hardware y se actualiza con procedimientos propios.
+- **[capa de acceso al hardware](../../../glosario/entradas/c/capa-de-acceso-al-hardware.md):** módulo que aísla los registros y periféricos detrás de una interfaz que puede reemplazarse por datos simulados.
+- **[latencia de un evento](../../../glosario/entradas/l/latencia-de-un-evento.md):** tiempo entre que ocurre un evento y el firmware empieza a atenderlo.
+- **[desbordamiento](../../../glosario/entradas/d/desbordamiento.md):** resultado de una operación que no cabe en el ancho del tipo y da la vuelta sin avisar.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capa de acceso al hardware](../../../glosario/entradas/c/capa-de-acceso-al-hardware.md) · [Desbordamiento](../../../glosario/entradas/d/desbordamiento.md) · [Firmware](../../../glosario/entradas/f/firmware.md) · [Latencia de un evento](../../../glosario/entradas/l/latencia-de-un-evento.md) · [Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md).
 
 ---
 

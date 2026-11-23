@@ -157,11 +157,11 @@ El comprobador detecta 16 de las 26 violaciones y ninguna de las 4 permitidas (0
 
 ## Definiciones de trabajo
 
-- **monolito:** sistema que se despliega como una sola unidad.
-- **monolito modular:** monolito con fronteras entre módulos que se verifican, de modo que cada módulo expone una API y oculta sus detalles.
-- **servicio:** componente que se despliega y escala de forma independiente y se comunica por red.
-- **saga:** secuencia de pasos locales con acciones compensatorias que sustituye a una transacción atómica global.
-- **frontera de módulo:** límite que una regla comprobable impide cruzar salvo por la API pública.
+- **[monolito](../../../glosario/entradas/m/monolito.md):** sistema que se despliega como una sola unidad.
+- **[monolito modular](../../../glosario/entradas/m/monolito-modular.md):** monolito con fronteras entre módulos que se verifican, de modo que cada módulo expone una API y oculta sus detalles.
+- **[servicio](../../../glosario/entradas/s/servicio.md):** componente que se despliega y escala de forma independiente y se comunica por red.
+- **[saga](../../../glosario/entradas/s/saga.md):** secuencia de pasos locales con acciones compensatorias que sustituye a una transacción atómica global.
+- **[frontera de módulo](../../../glosario/entradas/f/frontera-de-modulo.md):** límite que una regla comprobable impide cruzar salvo por la API pública.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres experimentos con Windows y Ubuntu (WSL2): dos simulaciones co
 
 ## Glosario
 
-- **monolito:** sistema que se despliega como una sola unidad.
-- **monolito modular:** monolito con fronteras entre módulos que se verifican, de modo que cada módulo expone una API y oculta sus detalles.
-- **servicio:** componente que se despliega y escala de forma independiente y se comunica por red.
-- **saga:** secuencia de pasos locales con acciones compensatorias que sustituye a una transacción atómica global.
-- **frontera de módulo:** límite que una regla comprobable impide cruzar salvo por la API pública.
+- **[monolito](../../../glosario/entradas/m/monolito.md):** sistema que se despliega como una sola unidad.
+- **[monolito modular](../../../glosario/entradas/m/monolito-modular.md):** monolito con fronteras entre módulos que se verifican, de modo que cada módulo expone una API y oculta sus detalles.
+- **[servicio](../../../glosario/entradas/s/servicio.md):** componente que se despliega y escala de forma independiente y se comunica por red.
+- **[saga](../../../glosario/entradas/s/saga.md):** secuencia de pasos locales con acciones compensatorias que sustituye a una transacción atómica global.
+- **[frontera de módulo](../../../glosario/entradas/f/frontera-de-modulo.md):** límite que una regla comprobable impide cruzar salvo por la API pública.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Frontera de módulo](../../../glosario/entradas/f/frontera-de-modulo.md) · [Monolito](../../../glosario/entradas/m/monolito.md) · [Monolito modular](../../../glosario/entradas/m/monolito-modular.md) · [Saga](../../../glosario/entradas/s/saga.md) · [Servicio](../../../glosario/entradas/s/servicio.md).
 
 ---
 

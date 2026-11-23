@@ -115,11 +115,11 @@ sensibles. En este diagnóstico no hizo falta una captura: los tiempos por fase 
 
 ## Definiciones de trabajo
 
-- **latencia:** tiempo entre un inicio definido y un resultado definido.
-- **RTT:** tiempo aproximado de ida y vuelta.
-- **throughput:** cantidad útil transferida por unidad de tiempo.
-- **punto de captura:** ubicación e interfaz desde la que se observa tráfico.
-- **correlación:** vínculo entre señales que podrían pertenecer al mismo evento.
+- **[latencia](../../../glosario/entradas/l/latencia.md):** tiempo entre un inicio definido y un resultado definido.
+- **[RTT](../../../glosario/entradas/r/rtt.md):** tiempo aproximado de ida y vuelta.
+- **[throughput](../../../glosario/entradas/t/throughput.md):** cantidad útil transferida por unidad de tiempo.
+- **[punto de captura](../../../glosario/entradas/p/punto-de-captura.md):** ubicación e interfaz desde la que se observa tráfico.
+- **[correlación](../../../glosario/entradas/c/correlacion.md):** vínculo entre señales que podrían pertenecer al mismo evento.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -270,11 +270,13 @@ Cifrado impide leer payload y eso es una propiedad deseable. Capturas no sustitu
 
 ## Glosario
 
-- **latencia:** tiempo entre un inicio definido y un resultado definido.
-- **RTT:** tiempo aproximado de ida y vuelta.
-- **throughput:** cantidad útil transferida por unidad de tiempo.
-- **punto de captura:** ubicación e interfaz desde la que se observa tráfico.
-- **correlación:** vínculo entre señales que podrían pertenecer al mismo evento.
+- **[latencia](../../../glosario/entradas/l/latencia.md):** tiempo entre un inicio definido y un resultado definido.
+- **[RTT](../../../glosario/entradas/r/rtt.md):** tiempo aproximado de ida y vuelta.
+- **[throughput](../../../glosario/entradas/t/throughput.md):** cantidad útil transferida por unidad de tiempo.
+- **[punto de captura](../../../glosario/entradas/p/punto-de-captura.md):** ubicación e interfaz desde la que se observa tráfico.
+- **[correlación](../../../glosario/entradas/c/correlacion.md):** vínculo entre señales que podrían pertenecer al mismo evento.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Correlación](../../../glosario/entradas/c/correlacion.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Latencia](../../../glosario/entradas/l/latencia.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Punto de captura](../../../glosario/entradas/p/punto-de-captura.md) · [RTT](../../../glosario/entradas/r/rtt.md) · [Throughput](../../../glosario/entradas/t/throughput.md).
 
 ---
 

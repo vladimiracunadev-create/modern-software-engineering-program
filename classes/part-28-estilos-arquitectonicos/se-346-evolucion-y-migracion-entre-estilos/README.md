@@ -135,13 +135,13 @@ La tercera medida calcula el efecto de cada escalón sobre un defecto visible.
 
 ## Definiciones de trabajo
 
-- **Estrangulamiento (strangler fig):** reemplazo gradual de un sistema desviando su funcionalidad a uno nuevo a través de una fachada.
-- **Fachada:** componente que decide qué sistema atiende cada petición.
-- **Abstracción de rama (branch by abstraction):** interfaz que permite cambiar la implementación sin ramas largas.
-- **Modo sombra:** ejecutar el sistema nuevo con tráfico real sin devolver su respuesta, solo para compararla.
-- **Escalón de tráfico (canary):** fracción creciente del tráfico dirigida al sistema nuevo.
-- **Expandir, migrar y contraer:** secuencia de tres fases para cambiar una interfaz o un dato.
-- **Criterio de retroceso:** condición medible que devuelve el tráfico al sistema antiguo.
+- **[Estrangulamiento (strangler fig)](../../../glosario/entradas/e/estrangulamiento.md):** reemplazo gradual de un sistema desviando su funcionalidad a uno nuevo a través de una fachada.
+- **[Fachada](../../../glosario/entradas/f/fachada.md):** componente que decide qué sistema atiende cada petición.
+- **[Abstracción de rama (branch by abstraction)](../../../glosario/entradas/a/abstraccion-de-rama.md):** interfaz que permite cambiar la implementación sin ramas largas.
+- **[Modo sombra](../../../glosario/entradas/m/modo-sombra.md):** ejecutar el sistema nuevo con tráfico real sin devolver su respuesta, solo para compararla.
+- **[Escalón de tráfico (canary)](../../../glosario/entradas/e/escalon-de-trafico.md):** fracción creciente del tráfico dirigida al sistema nuevo.
+- **[Expandir, migrar y contraer](../../../glosario/entradas/e/expandir-migrar-y-contraer.md):** secuencia de tres fases para cambiar una interfaz o un dato.
+- **[Criterio de retroceso](../../../glosario/entradas/c/criterio-de-retroceso.md):** condición medible que devuelve el tráfico al sistema antiguo.
 
 ## Ejemplo mínimo
 
@@ -268,6 +268,8 @@ Los dos módulos, las tres diferencias, las tasas y las peticiones son construcc
 | Modo sombra | Ejecutar lo nuevo con tráfico real sin devolver su respuesta |
 | Escalón de tráfico | Fracción creciente del tráfico dirigida a lo nuevo |
 | Expandir, migrar y contraer | Cambio de interfaz o de dato en tres fases |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abstracción de rama](../../../glosario/entradas/a/abstraccion-de-rama.md) · [Criterio de retroceso](../../../glosario/entradas/c/criterio-de-retroceso.md) · [Escalón de tráfico](../../../glosario/entradas/e/escalon-de-trafico.md) · [Estrangulamiento](../../../glosario/entradas/e/estrangulamiento.md) · [Expandir, migrar y contraer](../../../glosario/entradas/e/expandir-migrar-y-contraer.md) · [Fachada](../../../glosario/entradas/f/fachada.md) · [Modo sombra](../../../glosario/entradas/m/modo-sombra.md).
 
 ---
 

@@ -166,11 +166,11 @@ Con una caída de dos horas, tres reintentos en tres segundos son un descarte r�
 
 ## Definiciones de trabajo
 
-- **webhook:** petición HTTP que un sistema envía a una dirección de otro para avisarle de un evento.
-- **sondeo:** consulta periódica de un sistema a otro para saber si hubo cambios.
-- **HMAC:** código de autenticación de mensajes calculado con una función hash y un secreto compartido.
-- **petición condicional:** petición que incluye el validador de una respuesta anterior para que el servidor responda sin cuerpo si no hay cambios.
-- **reconciliación:** comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
+- **[webhook](../../../glosario/entradas/w/webhook.md):** petición HTTP que un sistema envía a una dirección de otro para avisarle de un evento.
+- **[sondeo](../../../glosario/entradas/s/sondeo.md):** consulta periódica de un sistema a otro para saber si hubo cambios.
+- **[HMAC](../../../glosario/entradas/h/hmac.md):** código de autenticación de mensajes calculado con una función hash y un secreto compartido.
+- **[petición condicional](../../../glosario/entradas/p/peticion-condicional.md):** petición que incluye el validador de una respuesta anterior para que el servidor responda sin cuerpo si no hay cambios.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **webhook:** petición HTTP que un sistema envía a una dirección de otro para avisarle de un evento.
-- **sondeo:** consulta periódica de un sistema a otro para saber si hubo cambios.
-- **HMAC:** código de autenticación de mensajes calculado con una función hash y un secreto compartido.
-- **petición condicional:** petición que incluye el validador de una respuesta anterior para que el servidor responda sin cuerpo si no hay cambios.
-- **reconciliación:** comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
+- **[webhook](../../../glosario/entradas/w/webhook.md):** petición HTTP que un sistema envía a una dirección de otro para avisarle de un evento.
+- **[sondeo](../../../glosario/entradas/s/sondeo.md):** consulta periódica de un sistema a otro para saber si hubo cambios.
+- **[HMAC](../../../glosario/entradas/h/hmac.md):** código de autenticación de mensajes calculado con una función hash y un secreto compartido.
+- **[petición condicional](../../../glosario/entradas/p/peticion-condicional.md):** petición que incluye el validador de una respuesta anterior para que el servidor responda sin cuerpo si no hay cambios.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [HMAC](../../../glosario/entradas/h/hmac.md) · [Petición condicional](../../../glosario/entradas/p/peticion-condicional.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md) · [Sondeo](../../../glosario/entradas/s/sondeo.md) · [Webhook](../../../glosario/entradas/w/webhook.md).
 
 ---
 

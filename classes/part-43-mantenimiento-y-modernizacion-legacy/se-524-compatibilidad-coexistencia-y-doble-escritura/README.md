@@ -147,11 +147,11 @@ El lector estricto falla en 11 de las 12 celdas; el tolerante, en 4 de las 12. C
 
 ## Definiciones de trabajo
 
-- **doble escritura:** escritura del mismo dato en dos almacenes mediante operaciones independientes.
-- **bandeja de salida (outbox):** tabla de eventos que se confirma en la misma transacción que el dato y que un proceso aparte aplica a otro sistema.
-- **reconciliación:** comparación de dos copias para encontrar y reparar diferencias.
-- **compatibilidad hacia atrás y hacia adelante:** capacidad de un lector nuevo de leer datos viejos y de un lector viejo de leer datos nuevos.
-- **lector tolerante:** lector que ignora lo desconocido y aplica valores por defecto a lo ausente.
+- **[doble escritura](../../../glosario/entradas/d/doble-escritura.md):** escritura del mismo dato en dos almacenes mediante operaciones independientes.
+- **[bandeja de salida (outbox)](../../../glosario/entradas/b/bandeja-de-salida.md):** tabla de eventos que se confirma en la misma transacción que el dato y que un proceso aparte aplica a otro sistema.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación de dos copias para encontrar y reparar diferencias.
+- **[compatibilidad hacia atrás y hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-atras-y-hacia-adelante.md):** capacidad de un lector nuevo de leer datos viejos y de un lector viejo de leer datos nuevos.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** lector que ignora lo desconocido y aplica valores por defecto a lo ausente.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **doble escritura:** escritura del mismo dato en dos almacenes mediante operaciones independientes.
-- **bandeja de salida (outbox):** tabla de eventos que se confirma en la misma transacción que el dato y que un proceso aparte aplica a otro sistema.
-- **reconciliación:** comparación de dos copias para encontrar y reparar diferencias.
-- **compatibilidad hacia atrás y hacia adelante:** capacidad de un lector nuevo de leer datos viejos y de un lector viejo de leer datos nuevos.
-- **lector tolerante:** lector que ignora lo desconocido y aplica valores por defecto a lo ausente.
+- **[doble escritura](../../../glosario/entradas/d/doble-escritura.md):** escritura del mismo dato en dos almacenes mediante operaciones independientes.
+- **[bandeja de salida (outbox)](../../../glosario/entradas/b/bandeja-de-salida.md):** tabla de eventos que se confirma en la misma transacción que el dato y que un proceso aparte aplica a otro sistema.
+- **[reconciliación](../../../glosario/entradas/r/reconciliacion.md):** comparación de dos copias para encontrar y reparar diferencias.
+- **[compatibilidad hacia atrás y hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-atras-y-hacia-adelante.md):** capacidad de un lector nuevo de leer datos viejos y de un lector viejo de leer datos nuevos.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** lector que ignora lo desconocido y aplica valores por defecto a lo ausente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bandeja de salida](../../../glosario/entradas/b/bandeja-de-salida.md) · [Compatibilidad hacia atrás y hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-atras-y-hacia-adelante.md) · [Doble escritura](../../../glosario/entradas/d/doble-escritura.md) · [Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md) · [Reconciliación](../../../glosario/entradas/r/reconciliacion.md).
 
 ---
 

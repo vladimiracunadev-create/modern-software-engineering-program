@@ -141,11 +141,11 @@ Tras doce meses hay 36 banderas si no se retira ninguna y 12 si se retira una de
 
 ## Definiciones de trabajo
 
-- **entrega continua:** capacidad de que todo cambio verificado pueda desplegarse a producción en cualquier momento por decisión humana.
-- **despliegue continuo:** despliegue automático a producción de todo cambio que pasa la canalización.
-- **canario:** exposición de una versión nueva a una fracción pequeña del tráfico real para decidir si se amplía.
-- **bandera de funcionalidad:** condición en el código que activa o desactiva un comportamiento sin desplegar.
-- **potencia:** probabilidad de que un contraste detecte un efecto real de un tamaño dado.
+- **[entrega continua](../../../glosario/entradas/e/entrega-continua.md):** capacidad de que todo cambio verificado pueda desplegarse a producción en cualquier momento por decisión humana.
+- **[despliegue continuo](../../../glosario/entradas/d/despliegue-continuo.md):** despliegue automático a producción de todo cambio que pasa la canalización.
+- **[canario](../../../glosario/entradas/c/canario.md):** exposición de una versión nueva a una fracción pequeña del tráfico real para decidir si se amplía.
+- **[bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md):** condición en el código que activa o desactiva un comportamiento sin desplegar.
+- **[potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de que un contraste detecte un efecto real de un tamaño dado.
 
 Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -293,11 +293,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **entrega continua:** capacidad de que todo cambio verificado pueda desplegarse a producción en cualquier momento por decisión humana.
-- **despliegue continuo:** despliegue automático a producción de todo cambio que pasa la canalización.
-- **canario:** exposición de una versión nueva a una fracción pequeña del tráfico real para decidir si se amplía.
-- **bandera de funcionalidad:** condición en el código que activa o desactiva un comportamiento sin desplegar.
-- **potencia:** probabilidad de que un contraste detecte un efecto real de un tamaño dado.
+- **[entrega continua](../../../glosario/entradas/e/entrega-continua.md):** capacidad de que todo cambio verificado pueda desplegarse a producción en cualquier momento por decisión humana.
+- **[despliegue continuo](../../../glosario/entradas/d/despliegue-continuo.md):** despliegue automático a producción de todo cambio que pasa la canalización.
+- **[canario](../../../glosario/entradas/c/canario.md):** exposición de una versión nueva a una fracción pequeña del tráfico real para decidir si se amplía.
+- **[bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md):** condición en el código que activa o desactiva un comportamiento sin desplegar.
+- **[potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de que un contraste detecte un efecto real de un tamaño dado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md) · [Canario](../../../glosario/entradas/c/canario.md) · [Despliegue continuo](../../../glosario/entradas/d/despliegue-continuo.md) · [Entrega continua](../../../glosario/entradas/e/entrega-continua.md) · [Estrategias de despliegue](../../../glosario/entradas/e/estrategias-de-despliegue.md) · [Potencia](../../../glosario/entradas/p/potencia.md).
 
 ---
 

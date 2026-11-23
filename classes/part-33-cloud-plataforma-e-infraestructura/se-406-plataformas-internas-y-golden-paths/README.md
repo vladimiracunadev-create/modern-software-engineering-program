@@ -160,11 +160,11 @@ El verificador detectó las 25 mutaciones de cada una de las ocho reglas, y por 
 
 ## Definiciones de trabajo
 
-- **plataforma interna:** conjunto de capacidades de infraestructura y entrega que un equipo ofrece como producto a otros equipos de la organización.
-- **camino dorado:** forma recomendada, soportada y automatizada de realizar una tarea frecuente, con las guardas incorporadas.
-- **carga cognitiva:** esfuerzo mental que un equipo dedica a recordar y decidir cosas ajenas a su trabajo principal.
-- **política como código:** regla de configuración escrita de forma que una herramienta pueda comprobarla de manera automática.
-- **excepción registrada:** apartamiento deliberado del camino, con su motivo, dueño y fecha de revisión.
+- **[plataforma interna](../../../glosario/entradas/p/plataforma-interna.md):** conjunto de capacidades de infraestructura y entrega que un equipo ofrece como producto a otros equipos de la organización.
+- **[camino dorado](../../../glosario/entradas/c/camino-dorado.md):** forma recomendada, soportada y automatizada de realizar una tarea frecuente, con las guardas incorporadas.
+- **[carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md):** esfuerzo mental que un equipo dedica a recordar y decidir cosas ajenas a su trabajo principal.
+- **[política como código](../../../glosario/entradas/p/politica-como-codigo.md):** regla de configuración escrita de forma que una herramienta pueda comprobarla de manera automática.
+- **[excepción registrada](../../../glosario/entradas/e/excepcion-registrada.md):** apartamiento deliberado del camino, con su motivo, dueño y fecha de revisión.
 
 Las definiciones son operativas para la plataforma de entregas. Cada autor y cada herramienta usan estos términos con matices y deben contrastarse con las fuentes enlazadas al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **plataforma interna:** conjunto de capacidades de infraestructura y entrega que un equipo ofrece como producto a otros equipos de la organización.
-- **camino dorado:** forma recomendada, soportada y automatizada de realizar una tarea frecuente, con las guardas incorporadas.
-- **carga cognitiva:** esfuerzo mental que un equipo dedica a recordar y decidir cosas ajenas a su trabajo principal.
-- **política como código:** regla de configuración escrita de forma que una herramienta pueda comprobarla de manera automática.
-- **excepción registrada:** apartamiento deliberado del camino, con su motivo, dueño y fecha de revisión.
+- **[plataforma interna](../../../glosario/entradas/p/plataforma-interna.md):** conjunto de capacidades de infraestructura y entrega que un equipo ofrece como producto a otros equipos de la organización.
+- **[camino dorado](../../../glosario/entradas/c/camino-dorado.md):** forma recomendada, soportada y automatizada de realizar una tarea frecuente, con las guardas incorporadas.
+- **[carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md):** esfuerzo mental que un equipo dedica a recordar y decidir cosas ajenas a su trabajo principal.
+- **[política como código](../../../glosario/entradas/p/politica-como-codigo.md):** regla de configuración escrita de forma que una herramienta pueda comprobarla de manera automática.
+- **[excepción registrada](../../../glosario/entradas/e/excepcion-registrada.md):** apartamiento deliberado del camino, con su motivo, dueño y fecha de revisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Camino dorado](../../../glosario/entradas/c/camino-dorado.md) · [Carga cognitiva](../../../glosario/entradas/c/carga-cognitiva.md) · [Excepción registrada](../../../glosario/entradas/e/excepcion-registrada.md) · [Plataforma como producto](../../../glosario/entradas/p/plataforma-como-producto.md) · [Plataforma interna](../../../glosario/entradas/p/plataforma-interna.md) · [Política como código](../../../glosario/entradas/p/politica-como-codigo.md).
 
 ---
 

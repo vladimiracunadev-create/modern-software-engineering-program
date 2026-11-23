@@ -112,11 +112,11 @@ Los recorridos completan el cuadro. Sumar un millón de enteros con `sum(lista)`
 
 ## Definiciones de trabajo
 
-- **interfaz de secuencia:** una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación.
-- **arreglo contiguo y localidad:** un arreglo coloca elementos o referencias en posiciones contiguas, permite índice constante bajo el modelo ram y aprovecha caché.
-- **lista dinámica y capacidad:** una lista dinámica mantiene tamaño lógico y capacidad reservada.
-- **estructuras enlazadas:** los nodos enlazados insertan localmente cuando ya se posee el nodo, pero localizar una posición sigue siendo lineal.
-- **slicing, vistas y copias:** una rebanada puede copiar o crear una vista según tipo y biblioteca.
+- **[interfaz de secuencia](../../../glosario/entradas/i/interfaz-de-secuencia.md):** una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación.
+- **[arreglo contiguo y localidad](../../../glosario/entradas/a/arreglo-contiguo-y-localidad.md):** un arreglo coloca elementos o referencias en posiciones contiguas, permite índice constante bajo el modelo ram y aprovecha caché.
+- **[lista dinámica y capacidad](../../../glosario/entradas/l/lista-dinamica-y-capacidad.md):** una lista dinámica mantiene tamaño lógico y capacidad reservada.
+- **[estructuras enlazadas](../../../glosario/entradas/e/estructuras-enlazadas.md):** los nodos enlazados insertan localmente cuando ya se posee el nodo, pero localizar una posición sigue siendo lineal.
+- **[slicing, vistas y copias](../../../glosario/entradas/s/slicing-vistas-y-copias.md):** una rebanada puede copiar o crear una vista según tipo y biblioteca.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ La secuencia preserva orden pero no expresa por sí sola disciplina LIFO, FIFO o
 
 ## Glosario
 
-- **interfaz de secuencia:** una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación.
-- **arreglo contiguo y localidad:** un arreglo coloca elementos o referencias en posiciones contiguas, permite índice constante bajo el modelo ram y aprovecha caché.
-- **lista dinámica y capacidad:** una lista dinámica mantiene tamaño lógico y capacidad reservada.
-- **estructuras enlazadas:** los nodos enlazados insertan localmente cuando ya se posee el nodo, pero localizar una posición sigue siendo lineal.
-- **slicing, vistas y copias:** una rebanada puede copiar o crear una vista según tipo y biblioteca.
+- **[interfaz de secuencia](../../../glosario/entradas/i/interfaz-de-secuencia.md):** una secuencia ofrece orden, longitud, acceso e iteración; la interfaz no fija representación.
+- **[arreglo contiguo y localidad](../../../glosario/entradas/a/arreglo-contiguo-y-localidad.md):** un arreglo coloca elementos o referencias en posiciones contiguas, permite índice constante bajo el modelo ram y aprovecha caché.
+- **[lista dinámica y capacidad](../../../glosario/entradas/l/lista-dinamica-y-capacidad.md):** una lista dinámica mantiene tamaño lógico y capacidad reservada.
+- **[estructuras enlazadas](../../../glosario/entradas/e/estructuras-enlazadas.md):** los nodos enlazados insertan localmente cuando ya se posee el nodo, pero localizar una posición sigue siendo lineal.
+- **[slicing, vistas y copias](../../../glosario/entradas/s/slicing-vistas-y-copias.md):** una rebanada puede copiar o crear una vista según tipo y biblioteca.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Arreglo contiguo y localidad](../../../glosario/entradas/a/arreglo-contiguo-y-localidad.md) · [Estructuras enlazadas](../../../glosario/entradas/e/estructuras-enlazadas.md) · [Interfaz de secuencia](../../../glosario/entradas/i/interfaz-de-secuencia.md) · [Lista dinámica y capacidad](../../../glosario/entradas/l/lista-dinamica-y-capacidad.md) · [Slicing, vistas y copias](../../../glosario/entradas/s/slicing-vistas-y-copias.md).
 
 ---
 

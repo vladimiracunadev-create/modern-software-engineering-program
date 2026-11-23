@@ -130,11 +130,11 @@ breves = sum(1 for x in latencias if 0.3 <= x < 0.5)             # indicador vis
 
 ## Definiciones de trabajo
 
-- **estado vacío:** estado de una vista que pidió datos y no recibió ninguno, distinto del estado de carga inicial.
-- **estado imposible:** combinación de valores que el modelo permite representar y que no corresponde a ninguna situación del producto.
-- **unión etiquetada:** tipo cuyo valor es exactamente uno de varios casos con nombre.
-- **espera exponencial con aleatoriedad:** política de reintento cuya espera crece de forma exponencial con un componente aleatorio.
-- **indicador de carga:** señal visible de que una operación está en curso.
+- **[estado vacío](../../../glosario/entradas/e/estado-vacio.md):** estado de una vista que pidió datos y no recibió ninguno, distinto del estado de carga inicial.
+- **[estado imposible](../../../glosario/entradas/e/estado-imposible.md):** combinación de valores que el modelo permite representar y que no corresponde a ninguna situación del producto.
+- **[unión etiquetada](../../../glosario/entradas/u/union-etiquetada.md):** tipo cuyo valor es exactamente uno de varios casos con nombre.
+- **[espera exponencial con aleatoriedad](../../../glosario/entradas/e/espera-exponencial-con-aleatoriedad.md):** política de reintento cuya espera crece de forma exponencial con un componente aleatorio.
+- **[indicador de carga](../../../glosario/entradas/i/indicador-de-carga.md):** señal visible de que una operación está en curso.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -283,11 +283,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **estado vacío:** estado de una vista que pidió datos y no recibió ninguno, distinto del estado de carga inicial.
-- **estado imposible:** combinación de valores que el modelo permite representar y que no corresponde a ninguna situación del producto.
-- **unión etiquetada:** tipo cuyo valor es exactamente uno de varios casos con nombre.
-- **espera exponencial con aleatoriedad:** política de reintento cuya espera crece de forma exponencial con un componente aleatorio.
-- **indicador de carga:** señal visible de que una operación está en curso.
+- **[estado vacío](../../../glosario/entradas/e/estado-vacio.md):** estado de una vista que pidió datos y no recibió ninguno, distinto del estado de carga inicial.
+- **[estado imposible](../../../glosario/entradas/e/estado-imposible.md):** combinación de valores que el modelo permite representar y que no corresponde a ninguna situación del producto.
+- **[unión etiquetada](../../../glosario/entradas/u/union-etiquetada.md):** tipo cuyo valor es exactamente uno de varios casos con nombre.
+- **[espera exponencial con aleatoriedad](../../../glosario/entradas/e/espera-exponencial-con-aleatoriedad.md):** política de reintento cuya espera crece de forma exponencial con un componente aleatorio.
+- **[indicador de carga](../../../glosario/entradas/i/indicador-de-carga.md):** señal visible de que una operación está en curso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Espera exponencial con aleatoriedad](../../../glosario/entradas/e/espera-exponencial-con-aleatoriedad.md) · [Estado imposible](../../../glosario/entradas/e/estado-imposible.md) · [Estado vacío](../../../glosario/entradas/e/estado-vacio.md) · [Indicador de carga](../../../glosario/entradas/i/indicador-de-carga.md) · [Unión etiquetada](../../../glosario/entradas/u/union-etiquetada.md).
 
 ---
 

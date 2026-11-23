@@ -203,15 +203,17 @@ de tecnología, el mapa todavía describe inventario, no una capacidad.
 
 ## Definiciones de trabajo
 
-- **capacidad:** resultado que un sistema produce bajo condiciones declaradas;
-- **componente:** elemento con responsabilidades e interfaces delimitadas;
-- **entorno:** elementos fuera de la frontera que condicionan el comportamiento;
-- **interfaz:** punto de intercambio de información, control o responsabilidad;
-- **stakeholder:** persona o grupo afectado, use o no la interfaz.
+- **[capacidad](../../../glosario/entradas/c/capacidad.md):** resultado que un sistema produce bajo condiciones declaradas;
+- **[componente](../../../glosario/entradas/c/componente.md):** elemento con responsabilidades e interfaces delimitadas;
+- **[entorno](../../../glosario/entradas/e/entorno.md):** elementos fuera de la frontera que condicionan el comportamiento;
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** punto de intercambio de información, control o responsabilidad;
+- **[stakeholder](../../../glosario/entradas/s/stakeholder.md):** persona o grupo afectado, use o no la interfaz.
 
 ## Glosario
 
-**Sociotécnico** indica que conducta humana, reglas y tecnología se afectan mutuamente. **Contexto de uso** reúne usuarios, tareas, recursos y entorno. **Propietario** tiene autoridad y obligación de sostener una decisión, no necesariamente escribió el código.
+**[Sociotécnico](../../../glosario/entradas/s/sociotecnico.md)** indica que conducta humana, reglas y tecnología se afectan mutuamente. **[Contexto de uso](../../../glosario/entradas/c/contexto-de-uso.md)** reúne usuarios, tareas, recursos y entorno. **[Propietario](../../../glosario/entradas/p/propietario.md)** tiene autoridad y obligación de sostener una decisión, no necesariamente escribió el código.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capacidad](../../../glosario/entradas/c/capacidad.md) · [Componente](../../../glosario/entradas/c/componente.md) · [Contexto de uso](../../../glosario/entradas/c/contexto-de-uso.md) · [Entorno](../../../glosario/entradas/e/entorno.md) · [Frontera](../../../glosario/entradas/f/frontera.md) · [Interfaz](../../../glosario/entradas/i/interfaz.md) · [Producto](../../../glosario/entradas/p/producto.md) · [Propietario](../../../glosario/entradas/p/propietario.md) · [Sociotécnico](../../../glosario/entradas/s/sociotecnico.md) · [Stakeholder](../../../glosario/entradas/s/stakeholder.md).
 
 ## Ejemplo mínimo
 

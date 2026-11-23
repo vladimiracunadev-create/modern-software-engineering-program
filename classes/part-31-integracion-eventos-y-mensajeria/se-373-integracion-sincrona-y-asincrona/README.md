@@ -166,11 +166,11 @@ Los 600 errores de la versión síncrona son 600 mensajes con retraso en la vers
 
 ## Definiciones de trabajo
 
-- **acoplamiento temporal:** dependencia de que dos componentes estén disponibles al mismo tiempo para completar una operación.
-- **disponibilidad en cadena:** probabilidad de que una operación termine bien cuando necesita que varias dependencias respondan; con fallos independientes es el producto de las de cada una.
-- **amplificación de reintentos:** multiplicación de la carga sobre un servicio cuando varias capas reintentan sin coordinarse.
-- **backlog:** conjunto de mensajes aceptados y no procesados; crece a la diferencia entre llegada y capacidad.
-- **presupuesto de reintentos:** límite a la fracción de llamadas que pueden ser reintentos, para que insistir no empeore el fallo.
+- **[acoplamiento temporal](../../../glosario/entradas/a/acoplamiento-temporal.md):** dependencia de que dos componentes estén disponibles al mismo tiempo para completar una operación.
+- **[disponibilidad en cadena](../../../glosario/entradas/d/disponibilidad-en-cadena.md):** probabilidad de que una operación termine bien cuando necesita que varias dependencias respondan; con fallos independientes es el producto de las de cada una.
+- **[amplificación de reintentos](../../../glosario/entradas/a/amplificacion-de-reintentos.md):** multiplicación de la carga sobre un servicio cuando varias capas reintentan sin coordinarse.
+- **[backlog](../../../glosario/entradas/b/backlog.md):** conjunto de mensajes aceptados y no procesados; crece a la diferencia entre llegada y capacidad.
+- **[presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite a la fracción de llamadas que pueden ser reintentos, para que insistir no empeore el fallo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **acoplamiento temporal:** dependencia de que dos componentes estén disponibles al mismo tiempo para completar una operación.
-- **disponibilidad en cadena:** probabilidad de que una operación termine bien cuando necesita que varias dependencias respondan; con fallos independientes es el producto de las de cada una.
-- **amplificación de reintentos:** multiplicación de la carga sobre un servicio cuando varias capas reintentan sin coordinarse.
-- **backlog:** conjunto de mensajes aceptados y no procesados; crece a la diferencia entre llegada y capacidad.
-- **presupuesto de reintentos:** límite a la fracción de llamadas que pueden ser reintentos, para que insistir no empeore el fallo.
+- **[acoplamiento temporal](../../../glosario/entradas/a/acoplamiento-temporal.md):** dependencia de que dos componentes estén disponibles al mismo tiempo para completar una operación.
+- **[disponibilidad en cadena](../../../glosario/entradas/d/disponibilidad-en-cadena.md):** probabilidad de que una operación termine bien cuando necesita que varias dependencias respondan; con fallos independientes es el producto de las de cada una.
+- **[amplificación de reintentos](../../../glosario/entradas/a/amplificacion-de-reintentos.md):** multiplicación de la carga sobre un servicio cuando varias capas reintentan sin coordinarse.
+- **[backlog](../../../glosario/entradas/b/backlog.md):** conjunto de mensajes aceptados y no procesados; crece a la diferencia entre llegada y capacidad.
+- **[presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md):** límite a la fracción de llamadas que pueden ser reintentos, para que insistir no empeore el fallo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acoplamiento temporal](../../../glosario/entradas/a/acoplamiento-temporal.md) · [Amplificación de reintentos](../../../glosario/entradas/a/amplificacion-de-reintentos.md) · [Backlog](../../../glosario/entradas/b/backlog.md) · [Disponibilidad en cadena](../../../glosario/entradas/d/disponibilidad-en-cadena.md) · [Presupuesto de reintentos](../../../glosario/entradas/p/presupuesto-de-reintentos.md).
 
 ---
 

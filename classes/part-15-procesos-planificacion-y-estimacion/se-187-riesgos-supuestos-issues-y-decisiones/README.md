@@ -160,11 +160,11 @@ El verificador detecta 142 de 200 mutaciones, y falla en las 58 que cambian el s
 
 ## Definiciones de trabajo
 
-- **riesgo:** evento incierto futuro con una causa, un efecto, una probabilidad, un impacto, un disparador y una respuesta.
-- **exposición:** producto de la probabilidad y el impacto de un riesgo; su suma mide el retraso esperado, no su dispersión.
-- **supuesto:** creencia que se da por cierta para planificar y que puede comprobarse; si es falsa, el plan estaba mal.
-- **issue:** problema que ya ocurrió y requiere acción, con responsable, fecha y criterio de cierre.
-- **registro de decisión:** documento breve con contexto, opciones, decisión, responsable, fecha y condición de revisión.
+- **[riesgo](../../../glosario/entradas/r/riesgo.md):** evento incierto futuro con una causa, un efecto, una probabilidad, un impacto, un disparador y una respuesta.
+- **[exposición](../../../glosario/entradas/e/exposicion.md):** producto de la probabilidad y el impacto de un riesgo; su suma mide el retraso esperado, no su dispersión.
+- **[supuesto](../../../glosario/entradas/s/supuestos.md):** creencia que se da por cierta para planificar y que puede comprobarse; si es falsa, el plan estaba mal.
+- **[issue](../../../glosario/entradas/i/issue.md):** problema que ya ocurrió y requiere acción, con responsable, fecha y criterio de cierre.
+- **[registro de decisión](../../../glosario/entradas/r/registro-de-decisiones.md):** documento breve con contexto, opciones, decisión, responsable, fecha y condición de revisión.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **riesgo:** evento incierto futuro con una causa, un efecto, una probabilidad, un impacto, un disparador y una respuesta.
-- **exposición:** producto de la probabilidad y el impacto de un riesgo; su suma mide el retraso esperado, no su dispersión.
-- **supuesto:** creencia que se da por cierta para planificar y que puede comprobarse; si es falsa, el plan estaba mal.
-- **issue:** problema que ya ocurrió y requiere acción, con responsable, fecha y criterio de cierre.
-- **registro de decisión:** documento breve con contexto, opciones, decisión, responsable, fecha y condición de revisión.
+- **[riesgo](../../../glosario/entradas/r/riesgo.md):** evento incierto futuro con una causa, un efecto, una probabilidad, un impacto, un disparador y una respuesta.
+- **[exposición](../../../glosario/entradas/e/exposicion.md):** producto de la probabilidad y el impacto de un riesgo; su suma mide el retraso esperado, no su dispersión.
+- **[supuesto](../../../glosario/entradas/s/supuestos.md):** creencia que se da por cierta para planificar y que puede comprobarse; si es falsa, el plan estaba mal.
+- **[issue](../../../glosario/entradas/i/issue.md):** problema que ya ocurrió y requiere acción, con responsable, fecha y criterio de cierre.
+- **[registro de decisión](../../../glosario/entradas/r/registro-de-decisiones.md):** documento breve con contexto, opciones, decisión, responsable, fecha y condición de revisión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Exposición](../../../glosario/entradas/e/exposicion.md) · [Issue](../../../glosario/entradas/i/issue.md) · [Registro de decisiones](../../../glosario/entradas/r/registro-de-decisiones.md) · [Riesgo](../../../glosario/entradas/r/riesgo.md) · [Supuestos](../../../glosario/entradas/s/supuestos.md).
 
 ---
 

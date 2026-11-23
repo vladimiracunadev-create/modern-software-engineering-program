@@ -132,13 +132,13 @@ La tercera figura resume el recorrido del proyecto.
 
 ## Definiciones de trabajo
 
-- **ADR (registro de decisión arquitectónica):** documento breve que registra una decisión, su contexto, sus alternativas y sus consecuencias.
-- **Consecuencia negativa:** costo o limitación que la decisión acepta, declarada por quien decide.
-- **Reversibilidad:** estimación de lo que cuesta deshacer la decisión.
-- **Disparador de revisión:** condición medible (métrica, umbral y duración) que reabre la decisión.
-- **Función de aptitud:** comprobación automática de una propiedad arquitectónica.
-- **Prueba de arquitectura:** prueba que comprueba reglas de dependencia o estructura del código.
-- **Deriva arquitectónica:** pérdida gradual de una restricción por cambios que nadie decidió.
+- **[ADR (registro de decisión arquitectónica)](../../../glosario/entradas/a/adr.md):** documento breve que registra una decisión, su contexto, sus alternativas y sus consecuencias.
+- **[Consecuencia negativa](../../../glosario/entradas/c/consecuencia-negativa.md):** costo o limitación que la decisión acepta, declarada por quien decide.
+- **[Reversibilidad](../../../glosario/entradas/r/reversibilidad.md):** estimación de lo que cuesta deshacer la decisión.
+- **[Disparador de revisión](../../../glosario/entradas/d/disparador-de-revision.md):** condición medible (métrica, umbral y duración) que reabre la decisión.
+- **[Función de aptitud](../../../glosario/entradas/f/funcion-de-aptitud.md):** comprobación automática de una propiedad arquitectónica.
+- **[Prueba de arquitectura](../../../glosario/entradas/p/prueba-de-arquitectura.md):** prueba que comprueba reglas de dependencia o estructura del código.
+- **[Deriva arquitectónica](../../../glosario/entradas/d/deriva-arquitectonica.md):** pérdida gradual de una restricción por cambios que nadie decidió.
 
 ## Ejemplo mínimo
 
@@ -290,6 +290,8 @@ El analizador, la función de aptitud y la serie son herramientas del autor sobr
 | Disparador de revisión | Métrica, umbral y duración que reabren la decisión |
 | Función de aptitud | Comprobación automática de una propiedad arquitectónica |
 | Deriva arquitectónica | Pérdida gradual de una restricción por cambios no decididos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ADR](../../../glosario/entradas/a/adr.md) · [Consecuencia negativa](../../../glosario/entradas/c/consecuencia-negativa.md) · [Deriva arquitectónica](../../../glosario/entradas/d/deriva-arquitectonica.md) · [Disparador de revisión](../../../glosario/entradas/d/disparador-de-revision.md) · [Evidencia](../../../glosario/entradas/e/evidencia.md) · [Función de aptitud](../../../glosario/entradas/f/funcion-de-aptitud.md) · [Prueba de arquitectura](../../../glosario/entradas/p/prueba-de-arquitectura.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md).
 
 ---
 

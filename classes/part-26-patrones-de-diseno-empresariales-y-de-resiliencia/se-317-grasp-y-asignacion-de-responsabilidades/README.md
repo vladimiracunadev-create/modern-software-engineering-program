@@ -109,13 +109,13 @@ La herramienta de trabajo es una tabla: una fila por responsabilidad, con tres c
 
 ## Definiciones de trabajo
 
-- **Responsabilidad:** algo que un objeto sabe o hace.
-- **Experto en información:** asignar a quien tiene los datos necesarios.
-- **Creador:** asignar la creación a quien contiene o usa el objeto.
-- **Controlador:** objeto que recibe y coordina un evento externo.
-- **Acoplamiento:** grado en que una clase depende de otras.
-- **Cohesión:** grado en que lo que hace una clase tiene un propósito común.
-- **Fabricación pura:** pieza sin correspondencia con el dominio creada para sostener cohesión o bajo acoplamiento.
+- **[Responsabilidad](../../../glosario/entradas/r/responsabilidad.md):** algo que un objeto sabe o hace.
+- **[Experto en información](../../../glosario/entradas/e/experto-en-informacion.md):** asignar a quien tiene los datos necesarios.
+- **[Creador](../../../glosario/entradas/c/creador.md):** asignar la creación a quien contiene o usa el objeto.
+- **[Controlador](../../../glosario/entradas/c/controlador.md):** objeto que recibe y coordina un evento externo.
+- **[Acoplamiento](../../../glosario/entradas/a/acoplamiento.md):** grado en que una clase depende de otras.
+- **[Cohesión](../../../glosario/entradas/c/cohesion.md):** grado en que lo que hace una clase tiene un propósito común.
+- **[Fabricación pura](../../../glosario/entradas/f/fabricacion-pura.md):** pieza sin correspondencia con el dominio creada para sostener cohesión o bajo acoplamiento.
 
 ## Ejemplo mínimo
 
@@ -239,6 +239,8 @@ Los diseños y las métricas son del autor, la cohesión se aproxima con atribut
 | Acoplamiento | Dependencia entre clases |
 | Fabricación pura | Pieza artificial que baja el acoplamiento |
 | Move Function | Refactor que mueve una función a su clase natural |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acoplamiento](../../../glosario/entradas/a/acoplamiento.md) · [Cohesión](../../../glosario/entradas/c/cohesion.md) · [Controlador](../../../glosario/entradas/c/controlador.md) · [Creador](../../../glosario/entradas/c/creador.md) · [Experto en información](../../../glosario/entradas/e/experto-en-informacion.md) · [Fabricación pura](../../../glosario/entradas/f/fabricacion-pura.md) · [Responsabilidad](../../../glosario/entradas/r/responsabilidad.md).
 
 ---
 

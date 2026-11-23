@@ -163,11 +163,11 @@ Con los recorridos, la media es 2,71 interfaces sospechosas por fallo: en 857 de
 
 ## Definiciones de trabajo
 
-- **prueba de integración:** prueba que ejecuta dos o más piezas reales juntas y comprueba el acuerdo entre ellas.
-- **contrato:** descripción verificable de lo que un consumidor espera de un proveedor (campos, tipos, valores, orden).
-- **contrato dirigido por el consumidor:** contrato escrito por quien consume, que expresa solo lo que usa.
-- **cambio compatible:** cambio del proveedor que no rompe ningún contrato de consumidor.
-- **interfaz:** punto en el que un componente expone o consume datos de otro.
+- **[prueba de integración](../../../glosario/entradas/p/prueba-de-integracion.md):** prueba que ejecuta dos o más piezas reales juntas y comprueba el acuerdo entre ellas.
+- **[contrato](../../../glosario/entradas/c/contrato.md):** descripción verificable de lo que un consumidor espera de un proveedor (campos, tipos, valores, orden).
+- **[contrato dirigido por el consumidor](../../../glosario/entradas/c/contrato-dirigido-por-el-consumidor.md):** contrato escrito por quien consume, que expresa solo lo que usa.
+- **[cambio compatible](../../../glosario/entradas/c/cambio-compatible.md):** cambio del proveedor que no rompe ningún contrato de consumidor.
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** punto en el que un componente expone o consume datos de otro.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -312,11 +312,13 @@ Se ejecutaron tres experimentos con un proveedor y un consumidor sintéticos en 
 
 ## Glosario
 
-- **prueba de integración:** prueba que ejecuta dos o más piezas reales juntas y comprueba el acuerdo entre ellas.
-- **contrato:** descripción verificable de lo que un consumidor espera de un proveedor (campos, tipos, valores, orden).
-- **contrato dirigido por el consumidor:** contrato escrito por quien consume, que expresa solo lo que usa.
-- **cambio compatible:** cambio del proveedor que no rompe ningún contrato de consumidor.
-- **interfaz:** punto en el que un componente expone o consume datos de otro.
+- **[prueba de integración](../../../glosario/entradas/p/prueba-de-integracion.md):** prueba que ejecuta dos o más piezas reales juntas y comprueba el acuerdo entre ellas.
+- **[contrato](../../../glosario/entradas/c/contrato.md):** descripción verificable de lo que un consumidor espera de un proveedor (campos, tipos, valores, orden).
+- **[contrato dirigido por el consumidor](../../../glosario/entradas/c/contrato-dirigido-por-el-consumidor.md):** contrato escrito por quien consume, que expresa solo lo que usa.
+- **[cambio compatible](../../../glosario/entradas/c/cambio-compatible.md):** cambio del proveedor que no rompe ningún contrato de consumidor.
+- **[interfaz](../../../glosario/entradas/i/interfaz.md):** punto en el que un componente expone o consume datos de otro.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cambio compatible](../../../glosario/entradas/c/cambio-compatible.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Contrato dirigido por el consumidor](../../../glosario/entradas/c/contrato-dirigido-por-el-consumidor.md) · [Interfaz](../../../glosario/entradas/i/interfaz.md) · [Prueba de integración](../../../glosario/entradas/p/prueba-de-integracion.md).
 
 ---
 

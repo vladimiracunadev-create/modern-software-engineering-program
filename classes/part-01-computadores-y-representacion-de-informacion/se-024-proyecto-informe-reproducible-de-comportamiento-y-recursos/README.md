@@ -160,16 +160,18 @@ pregunta. El resto sirve como control o límite, no como excusa para un informe 
 
 ## Definiciones de trabajo
 
-- **variable independiente:** factor que se cambia deliberadamente;
-- **variable respuesta:** observación comparada;
-- **control:** condición mantenida o referencia;
-- **amenaza a validez:** mecanismo que ofrece otra explicación;
-- **procedencia:** cadena que permite rastrear evidencia.
+- **[variable independiente](../../../glosario/entradas/v/variable-independiente.md):** factor que se cambia deliberadamente;
+- **[variable respuesta](../../../glosario/entradas/v/variable-respuesta.md):** observación comparada;
+- **[control](../../../glosario/entradas/c/control.md):** condición mantenida o referencia;
+- **[amenaza a validez](../../../glosario/entradas/a/amenaza-a-validez.md):** mecanismo que ofrece otra explicación;
+- **[procedencia](../../../glosario/entradas/p/procedencia.md):** cadena que permite rastrear evidencia.
 
 ## Glosario
 
-**Raw data** son observaciones sin resumen. **Replication** repite método; **reproduction**
+**[Raw data](../../../glosario/entradas/r/raw-data.md)** son observaciones sin resumen. **[Replication](../../../glosario/entradas/r/replication.md)** repite método; **[reproduction](../../../glosario/entradas/r/reproduction.md)**
 puede recalcular desde artefactos según convención declarada. Aquí se exige repetir el procedimiento documentado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Amenaza a validez](../../../glosario/entradas/a/amenaza-a-validez.md) · [Control](../../../glosario/entradas/c/control.md) · [Evidencia](../../../glosario/entradas/e/evidencia.md) · [Procedencia](../../../glosario/entradas/p/procedencia.md) · [Raw data](../../../glosario/entradas/r/raw-data.md) · [Replication](../../../glosario/entradas/r/replication.md) · [Reproduction](../../../glosario/entradas/r/reproduction.md) · [Variable independiente](../../../glosario/entradas/v/variable-independiente.md) · [Variable respuesta](../../../glosario/entradas/v/variable-respuesta.md).
 
 ## Ejemplo mínimo
 

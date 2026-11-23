@@ -133,11 +133,11 @@ elif rr.expovariate(1 / 45) > ventana: quedan += 1
 
 ## Definiciones de trabajo
 
-- **compatibilidad hacia atrás:** un lector nuevo entiende datos escritos con el contrato anterior.
-- **compatibilidad hacia adelante:** un lector viejo entiende datos escritos con el contrato nuevo.
-- **lector tolerante:** consumidor que ignora los campos que no conoce.
-- **lector estricto:** consumidor que rechaza los campos que no conoce.
-- **ventana de deprecación:** periodo entre el aviso de retirada de una característica y su eliminación efectiva.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** un lector nuevo entiende datos escritos con el contrato anterior.
+- **[compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md):** un lector viejo entiende datos escritos con el contrato nuevo.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que ignora los campos que no conoce.
+- **[lector estricto](../../../glosario/entradas/l/lector-estricto.md):** consumidor que rechaza los campos que no conoce.
+- **[ventana de deprecación](../../../glosario/entradas/v/ventana-de-deprecacion.md):** periodo entre el aviso de retirada de una característica y su eliminación efectiva.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -290,11 +290,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **compatibilidad hacia atrás:** un lector nuevo entiende datos escritos con el contrato anterior.
-- **compatibilidad hacia adelante:** un lector viejo entiende datos escritos con el contrato nuevo.
-- **lector tolerante:** consumidor que ignora los campos que no conoce.
-- **lector estricto:** consumidor que rechaza los campos que no conoce.
-- **ventana de deprecación:** periodo entre el aviso de retirada de una característica y su eliminación efectiva.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** un lector nuevo entiende datos escritos con el contrato anterior.
+- **[compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md):** un lector viejo entiende datos escritos con el contrato nuevo.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que ignora los campos que no conoce.
+- **[lector estricto](../../../glosario/entradas/l/lector-estricto.md):** consumidor que rechaza los campos que no conoce.
+- **[ventana de deprecación](../../../glosario/entradas/v/ventana-de-deprecacion.md):** periodo entre el aviso de retirada de una característica y su eliminación efectiva.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Compatibilidad hacia atrás y hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-atras-y-hacia-adelante.md) · [Lector estricto](../../../glosario/entradas/l/lector-estricto.md) · [Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md) · [Ventana de deprecación](../../../glosario/entradas/v/ventana-de-deprecacion.md) · [Versionado semántico](../../../glosario/entradas/v/versionado-semantico.md).
 
 ---
 

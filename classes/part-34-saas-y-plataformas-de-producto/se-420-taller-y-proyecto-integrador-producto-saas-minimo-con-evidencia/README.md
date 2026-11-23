@@ -134,13 +134,13 @@ Que las seis comprobaciones detecten los seis defectos sembrados dice que la bat
 
 ## Definiciones de trabajo
 
-- **Invariante:** propiedad que el producto debe mantener siempre.
-- **Defecto sembrado:** error introducido a propósito para comprobar que una prueba lo detecta.
-- **Falso positivo:** prueba que falla sin que haya un defecto.
-- **Falso negativo:** defecto que ninguna prueba detecta.
-- **Matriz defecto por prueba:** tabla de qué prueba falla con cada defecto.
-- **Red de seguridad:** comprobación que vigila en operación lo que las pruebas vigilan en el cambio.
-- **Expediente:** conjunto de evidencia reproducible con sus límites.
+- **[Invariante](../../../glosario/entradas/i/invariante.md):** propiedad que el producto debe mantener siempre.
+- **[Defecto sembrado](../../../glosario/entradas/d/defecto-sembrado.md):** error introducido a propósito para comprobar que una prueba lo detecta.
+- **[Falso positivo](../../../glosario/entradas/f/falso-positivo.md):** prueba que falla sin que haya un defecto.
+- **[Falso negativo](../../../glosario/entradas/f/falso-negativo.md):** defecto que ninguna prueba detecta.
+- **[Matriz defecto por prueba](../../../glosario/entradas/m/matriz-defecto-por-prueba.md):** tabla de qué prueba falla con cada defecto.
+- **[Red de seguridad](../../../glosario/entradas/r/red-de-seguridad.md):** comprobación que vigila en operación lo que las pruebas vigilan en el cambio.
+- **[Expediente](../../../glosario/entradas/e/expediente.md):** conjunto de evidencia reproducible con sus límites.
 
 ## Ejemplo mínimo
 
@@ -288,6 +288,8 @@ El taller usa un producto mínimo en memoria con seis defectos elegidos por el a
 | Matriz defecto por prueba | Tabla de qué prueba falla con cada defecto |
 | Red de seguridad | Comprobación que vigila en operación |
 | Expediente | Evidencia reproducible con sus límites |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Defecto sembrado](../../../glosario/entradas/d/defecto-sembrado.md) · [Expediente](../../../glosario/entradas/e/expediente.md) · [Falso negativo](../../../glosario/entradas/f/falso-negativo.md) · [Falso positivo](../../../glosario/entradas/f/falso-positivo.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Matriz defecto por prueba](../../../glosario/entradas/m/matriz-defecto-por-prueba.md) · [Red de seguridad](../../../glosario/entradas/r/red-de-seguridad.md) · [Reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md).
 
 ---
 

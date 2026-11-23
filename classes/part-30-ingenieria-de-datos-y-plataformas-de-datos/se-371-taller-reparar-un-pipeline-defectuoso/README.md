@@ -135,13 +135,13 @@ La tercera figura es el procedimiento.
 
 ## Definiciones de trabajo
 
-- **Verdad de referencia:** resultado correcto calculado de forma independiente.
-- **Conciliación:** comparar totales (filas, importes) entre dos capas o fuentes.
-- **Réplica pequeña:** muestra que reproduce el defecto con poco costo.
-- **Defecto enmascarado:** defecto cuyo efecto lo compensa otro.
-- **Prueba de frontera:** caso de ejemplo en el borde de una regla (medianoche, límites de rango).
-- **Importe en unidad mínima:** entero en centavos, sin coma flotante.
-- **Acotar:** reducir el lugar donde puede estar el defecto.
+- **[Verdad de referencia](../../../glosario/entradas/v/verdad-de-referencia.md):** resultado correcto calculado de forma independiente.
+- **[Conciliación](../../../glosario/entradas/c/conciliacion.md):** comparar totales (filas, importes) entre dos capas o fuentes.
+- **[Réplica pequeña](../../../glosario/entradas/r/replica-pequena.md):** muestra que reproduce el defecto con poco costo.
+- **[Defecto enmascarado](../../../glosario/entradas/d/defecto-enmascarado.md):** defecto cuyo efecto lo compensa otro.
+- **[Prueba de frontera](../../../glosario/entradas/p/prueba-de-frontera.md):** caso de ejemplo en el borde de una regla (medianoche, límites de rango).
+- **[Importe en unidad mínima](../../../glosario/entradas/i/importe-en-unidad-minima.md):** entero en centavos, sin coma flotante.
+- **[Acotar](../../../glosario/entradas/a/acotar.md):** reducir el lugar donde puede estar el defecto.
 
 ## Ejemplo mínimo
 
@@ -277,6 +277,8 @@ Los pedidos, los defectos, las comprobaciones y el orden de corrección son cons
 | Prueba de frontera | Caso en el borde de una regla |
 | Réplica pequeña | Muestra que reproduce el defecto |
 | Unidad mínima | Entero en centavos |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acotar](../../../glosario/entradas/a/acotar.md) · [Conciliación](../../../glosario/entradas/c/conciliacion.md) · [Defecto enmascarado](../../../glosario/entradas/d/defecto-enmascarado.md) · [Importe en unidad mínima](../../../glosario/entradas/i/importe-en-unidad-minima.md) · [Prueba de frontera](../../../glosario/entradas/p/prueba-de-frontera.md) · [Réplica pequeña](../../../glosario/entradas/r/replica-pequena.md) · [Verdad de referencia](../../../glosario/entradas/v/verdad-de-referencia.md).
 
 ---
 

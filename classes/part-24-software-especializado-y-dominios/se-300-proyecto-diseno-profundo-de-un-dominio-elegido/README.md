@@ -174,11 +174,11 @@ Los cuatro primeros cambios no alteran el contenido y sí alteran la huella sobr
 
 ## Definiciones de trabajo
 
-- **afirmación refutable:** enunciado con objeto, medida, umbral y población que un resultado concreto podría contradecir.
-- **oráculo:** modelo de referencia independiente y más simple que lo probado, con el que se compara el resultado.
-- **análisis de sensibilidad global:** estudio del efecto de variar a la vez los supuestos inciertos sobre una decisión.
-- **canonicalización:** transformación que lleva distintas representaciones equivalentes de un contenido a una única forma antes de calcular su huella.
-- **manifiesto:** lista de los ficheros de un paquete con la huella de cada uno.
+- **[afirmación refutable](../../../glosario/entradas/a/afirmacion-refutable.md):** enunciado con objeto, medida, umbral y población que un resultado concreto podría contradecir.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** modelo de referencia independiente y más simple que lo probado, con el que se compara el resultado.
+- **[análisis de sensibilidad global](../../../glosario/entradas/a/analisis-de-sensibilidad-global.md):** estudio del efecto de variar a la vez los supuestos inciertos sobre una decisión.
+- **[canonicalización](../../../glosario/entradas/c/canonicalizacion.md):** transformación que lleva distintas representaciones equivalentes de un contenido a una única forma antes de calcular su huella.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de los ficheros de un paquete con la huella de cada uno.
 
 Las definiciones son operativas para el proyecto. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -324,11 +324,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **afirmación refutable:** enunciado con objeto, medida, umbral y población que un resultado concreto podría contradecir.
-- **oráculo:** modelo de referencia independiente y más simple que lo probado, con el que se compara el resultado.
-- **análisis de sensibilidad global:** estudio del efecto de variar a la vez los supuestos inciertos sobre una decisión.
-- **canonicalización:** transformación que lleva distintas representaciones equivalentes de un contenido a una única forma antes de calcular su huella.
-- **manifiesto:** lista de los ficheros de un paquete con la huella de cada uno.
+- **[afirmación refutable](../../../glosario/entradas/a/afirmacion-refutable.md):** enunciado con objeto, medida, umbral y población que un resultado concreto podría contradecir.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** modelo de referencia independiente y más simple que lo probado, con el que se compara el resultado.
+- **[análisis de sensibilidad global](../../../glosario/entradas/a/analisis-de-sensibilidad-global.md):** estudio del efecto de variar a la vez los supuestos inciertos sobre una decisión.
+- **[canonicalización](../../../glosario/entradas/c/canonicalizacion.md):** transformación que lleva distintas representaciones equivalentes de un contenido a una única forma antes de calcular su huella.
+- **[manifiesto](../../../glosario/entradas/m/manifiesto.md):** lista de los ficheros de un paquete con la huella de cada uno.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Afirmación refutable](../../../glosario/entradas/a/afirmacion-refutable.md) · [Análisis de sensibilidad global](../../../glosario/entradas/a/analisis-de-sensibilidad-global.md) · [Canonicalización](../../../glosario/entradas/c/canonicalizacion.md) · [Manifiesto](../../../glosario/entradas/m/manifiesto.md) · [Oráculo](../../../glosario/entradas/o/oraculo.md).
 
 ---
 

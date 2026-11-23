@@ -159,13 +159,15 @@ tiene método, umbral, señal de protección y limitación. El resultado deja de
 “score de calidad” único y se convierte en evidencia para decidir.
 
 ## Definiciones de trabajo
-- **calidad interna:** propiedades estáticas que influyen en evolución;
-- **calidad del producto:** características observables del producto;
-- **calidad en uso:** resultados al utilizarlo en contexto;
-- **escenario de calidad:** situación y respuesta medible.
+- **[calidad interna](../../../glosario/entradas/c/calidad-interna.md):** propiedades estáticas que influyen en evolución;
+- **[calidad del producto](../../../glosario/entradas/c/calidad-del-producto.md):** características observables del producto;
+- **[calidad en uso](../../../glosario/entradas/c/calidad-en-uso.md):** resultados al utilizarlo en contexto;
+- **[escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** situación y respuesta medible.
 
 ## Glosario
-**Atributo** es una dimensión evaluable. **Guardrail** limita daño mientras se optimiza otra métrica. **p95** es el valor bajo el cual cae 95% de observaciones.
+**[Atributo](../../../glosario/entradas/a/atributo.md)** es una dimensión evaluable. **[Guardrail](../../../glosario/entradas/g/guardrail.md)** limita daño mientras se optimiza otra métrica. **[p95](../../../glosario/entradas/p/p95.md)** es el valor bajo el cual cae 95% de observaciones.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Atributo](../../../glosario/entradas/a/atributo.md) · [Calidad del producto](../../../glosario/entradas/c/calidad-del-producto.md) · [Calidad en uso](../../../glosario/entradas/c/calidad-en-uso.md) · [Calidad interna](../../../glosario/entradas/c/calidad-interna.md) · [Escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md) · [Guardrail](../../../glosario/entradas/g/guardrail.md) · [P95](../../../glosario/entradas/p/p95.md).
 
 ## Ejemplo mínimo
 Renombrar variables mejora analizabilidad sin cambiar salida. Añadir validación cambia comportamiento externo. Simplificar el flujo puede mejorar efectividad en uso; debe probarse con tareas y personas representativas.

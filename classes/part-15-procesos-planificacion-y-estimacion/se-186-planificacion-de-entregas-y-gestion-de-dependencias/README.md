@@ -156,11 +156,11 @@ Ordenar por valor sobre coste duplica el valor del primer cuarto (21,7 % → 43,
 
 ## Definiciones de trabajo
 
-- **camino crítico:** secuencia de elementos dependientes de mayor duración; define la duración mínima de la entrega si las duraciones fueran las supuestas.
-- **dependencia:** relación por la cual un elemento no puede empezar o terminar hasta que otro llegue a cierto estado.
-- **dependencia externa:** dependencia cuya fecha y calidad controla alguien ajeno al equipo.
-- **holgura:** tiempo que un elemento puede retrasarse sin retrasar la entrega.
-- **interruptor de función:** mecanismo que permite integrar y desplegar trabajo incompleto sin que sea visible o activo para las usuarias.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** secuencia de elementos dependientes de mayor duración; define la duración mínima de la entrega si las duraciones fueran las supuestas.
+- **[dependencia](../../../glosario/entradas/d/dependencia.md):** relación por la cual un elemento no puede empezar o terminar hasta que otro llegue a cierto estado.
+- **[dependencia externa](../../../glosario/entradas/d/dependencia-externa.md):** dependencia cuya fecha y calidad controla alguien ajeno al equipo.
+- **[holgura](../../../glosario/entradas/h/holgura.md):** tiempo que un elemento puede retrasarse sin retrasar la entrega.
+- **[interruptor de función](../../../glosario/entradas/i/interruptor-de-funcion.md):** mecanismo que permite integrar y desplegar trabajo incompleto sin que sea visible o activo para las usuarias.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **camino crítico:** secuencia de elementos dependientes de mayor duración; define la duración mínima de la entrega si las duraciones fueran las supuestas.
-- **dependencia:** relación por la cual un elemento no puede empezar o terminar hasta que otro llegue a cierto estado.
-- **dependencia externa:** dependencia cuya fecha y calidad controla alguien ajeno al equipo.
-- **holgura:** tiempo que un elemento puede retrasarse sin retrasar la entrega.
-- **interruptor de función:** mecanismo que permite integrar y desplegar trabajo incompleto sin que sea visible o activo para las usuarias.
+- **[camino crítico](../../../glosario/entradas/c/camino-critico.md):** secuencia de elementos dependientes de mayor duración; define la duración mínima de la entrega si las duraciones fueran las supuestas.
+- **[dependencia](../../../glosario/entradas/d/dependencia.md):** relación por la cual un elemento no puede empezar o terminar hasta que otro llegue a cierto estado.
+- **[dependencia externa](../../../glosario/entradas/d/dependencia-externa.md):** dependencia cuya fecha y calidad controla alguien ajeno al equipo.
+- **[holgura](../../../glosario/entradas/h/holgura.md):** tiempo que un elemento puede retrasarse sin retrasar la entrega.
+- **[interruptor de función](../../../glosario/entradas/i/interruptor-de-funcion.md):** mecanismo que permite integrar y desplegar trabajo incompleto sin que sea visible o activo para las usuarias.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Camino crítico](../../../glosario/entradas/c/camino-critico.md) · [Dependencia](../../../glosario/entradas/d/dependencia.md) · [Dependencia externa](../../../glosario/entradas/d/dependencia-externa.md) · [Holgura](../../../glosario/entradas/h/holgura.md) · [Interruptor de función](../../../glosario/entradas/i/interruptor-de-funcion.md).
 
 ---
 

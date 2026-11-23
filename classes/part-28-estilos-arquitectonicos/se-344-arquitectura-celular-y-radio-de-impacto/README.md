@@ -130,13 +130,13 @@ La tercera medida estima el costo de repartir en términos de capacidad y de dis
 
 ## Definiciones de trabajo
 
-- **Celda:** copia completa e independiente de la pila que atiende a un subconjunto de inquilinos.
-- **Radio de impacto:** fracción de clientes afectada por un fallo.
-- **Enrutador de celdas:** capa mínima que lleva cada petición a la celda de su inquilino.
-- **Hash por encuentro (rendezvous):** función de asignación que elige el elemento de mayor puntaje por clave y elemento.
-- **Fragmentación aleatoria (shuffle sharding):** asignar a cada cliente un subconjunto aleatorio de recursos.
-- **Inquilino venenoso:** inquilino cuya petición provoca un fallo repetible en el recurso que la atiende.
-- **Multiplexación estadística:** ahorro de capacidad por promediar cargas independientes.
+- **[Celda](../../../glosario/entradas/c/celda.md):** copia completa e independiente de la pila que atiende a un subconjunto de inquilinos.
+- **[Radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md):** fracción de clientes afectada por un fallo.
+- **[Enrutador de celdas](../../../glosario/entradas/e/enrutador-de-celdas.md):** capa mínima que lleva cada petición a la celda de su inquilino.
+- **[Hash por encuentro (rendezvous)](../../../glosario/entradas/h/hash-por-encuentro.md):** función de asignación que elige el elemento de mayor puntaje por clave y elemento.
+- **[Fragmentación aleatoria (shuffle sharding)](../../../glosario/entradas/f/fragmentacion-aleatoria.md):** asignar a cada cliente un subconjunto aleatorio de recursos.
+- **[Inquilino venenoso](../../../glosario/entradas/i/inquilino-venenoso.md):** inquilino cuya petición provoca un fallo repetible en el recurso que la atiende.
+- **[Multiplexación estadística](../../../glosario/entradas/m/multiplexacion-estadistica.md):** ahorro de capacidad por promediar cargas independientes.
 
 ## Ejemplo mínimo
 
@@ -270,6 +270,8 @@ Los inquilinos, la carga y el comportamiento del venenoso son construcciones del
 | Hash por encuentro | Asignación por puntaje máximo entre clave y celda |
 | Fragmentación aleatoria | Subconjunto aleatorio de recursos por cliente |
 | Inquilino venenoso | Inquilino cuya petición provoca un fallo repetible |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Celda](../../../glosario/entradas/c/celda.md) · [Enrutador](../../../glosario/entradas/e/enrutador.md) · [Enrutador de celdas](../../../glosario/entradas/e/enrutador-de-celdas.md) · [Fragmentación aleatoria](../../../glosario/entradas/f/fragmentacion-aleatoria.md) · [Hash por encuentro](../../../glosario/entradas/h/hash-por-encuentro.md) · [Inquilino venenoso](../../../glosario/entradas/i/inquilino-venenoso.md) · [Multiplexación estadística](../../../glosario/entradas/m/multiplexacion-estadistica.md) · [Radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md).
 
 ---
 

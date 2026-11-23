@@ -119,11 +119,11 @@ Una prueba de regresión nace de un defecto observado: se escribe primero la ent
 
 ## Definiciones de trabajo
 
-- **oráculo:** criterio que decide el resultado esperado.
-- **fixture:** estado preparado para una prueba.
-- **doble:** sustituto controlado de un colaborador.
-- **regresión:** defecto corregido que reaparece.
-- **flaky:** prueba con resultado no determinista sin cambio relevante.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** criterio que decide el resultado esperado.
+- **[fixture](../../../glosario/entradas/f/fixture.md):** estado preparado para una prueba.
+- **[doble](../../../glosario/entradas/d/doble.md):** sustituto controlado de un colaborador.
+- **[regresión](../../../glosario/entradas/r/regresion.md):** defecto corregido que reaparece.
+- **[flaky](../../../glosario/entradas/p/prueba-inestable.md):** prueba con resultado no determinista sin cambio relevante.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -281,11 +281,13 @@ Pruebas no demuestran ausencia de defectos ni sustituyen revisión y análisis. 
 
 ## Glosario
 
-- **oráculo:** criterio que decide el resultado esperado.
-- **fixture:** estado preparado para una prueba.
-- **doble:** sustituto controlado de un colaborador.
-- **regresión:** defecto corregido que reaparece.
-- **flaky:** prueba con resultado no determinista sin cambio relevante.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** criterio que decide el resultado esperado.
+- **[fixture](../../../glosario/entradas/f/fixture.md):** estado preparado para una prueba.
+- **[doble](../../../glosario/entradas/d/doble.md):** sustituto controlado de un colaborador.
+- **[regresión](../../../glosario/entradas/r/regresion.md):** defecto corregido que reaparece.
+- **[flaky](../../../glosario/entradas/p/prueba-inestable.md):** prueba con resultado no determinista sin cambio relevante.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Doble](../../../glosario/entradas/d/doble.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Ejemplo como especificación](../../../glosario/entradas/e/ejemplo-como-especificacion.md) · [Fixture](../../../glosario/entradas/f/fixture.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Oráculo](../../../glosario/entradas/o/oraculo.md) · [Prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md) · [Prueba inestable](../../../glosario/entradas/p/prueba-inestable.md) · [Regresión](../../../glosario/entradas/r/regresion.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

@@ -143,11 +143,11 @@ Con ramas de un día la probabilidad de algún conflicto es **36,2 %**; con dos 
 
 ## Definiciones de trabajo
 
-- **principio ágil:** enunciado del efecto que una forma de trabajar debe producir (por ejemplo, entregar con frecuencia o aceptar cambios), independiente de la práctica que lo logre.
-- **práctica:** actividad concreta y repetible que se adopta para lograr el efecto de un principio.
-- **ceremonia ritual:** práctica que se mantiene sin que ninguna decisión del equipo dependa de ella.
-- **retroalimentación con uso real:** información sobre el producto obtenida de personas que lo usan en su contexto, y no de quienes lo construyen o lo financian.
-- **integración frecuente:** fusión de los cambios de cada persona en la línea principal en intervalos cortos, para que las diferencias se detecten mientras son pequeñas.
+- **[principio ágil](../../../glosario/entradas/p/principio-agil.md):** enunciado del efecto que una forma de trabajar debe producir (por ejemplo, entregar con frecuencia o aceptar cambios), independiente de la práctica que lo logre.
+- **[práctica](../../../glosario/entradas/p/practica.md):** actividad concreta y repetible que se adopta para lograr el efecto de un principio.
+- **[ceremonia ritual](../../../glosario/entradas/c/ceremonia-ritual.md):** práctica que se mantiene sin que ninguna decisión del equipo dependa de ella.
+- **[retroalimentación con uso real](../../../glosario/entradas/r/retroalimentacion-con-uso-real.md):** información sobre el producto obtenida de personas que lo usan en su contexto, y no de quienes lo construyen o lo financian.
+- **[integración frecuente](../../../glosario/entradas/i/integracion-frecuente.md):** fusión de los cambios de cada persona en la línea principal en intervalos cortos, para que las diferencias se detecten mientras son pequeñas.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -292,11 +292,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **principio ágil:** enunciado del efecto que una forma de trabajar debe producir (por ejemplo, entregar con frecuencia o aceptar cambios), independiente de la práctica que lo logre.
-- **práctica:** actividad concreta y repetible que se adopta para lograr el efecto de un principio.
-- **ceremonia ritual:** práctica que se mantiene sin que ninguna decisión del equipo dependa de ella.
-- **retroalimentación con uso real:** información sobre el producto obtenida de personas que lo usan en su contexto, y no de quienes lo construyen o lo financian.
-- **integración frecuente:** fusión de los cambios de cada persona en la línea principal en intervalos cortos, para que las diferencias se detecten mientras son pequeñas.
+- **[principio ágil](../../../glosario/entradas/p/principio-agil.md):** enunciado del efecto que una forma de trabajar debe producir (por ejemplo, entregar con frecuencia o aceptar cambios), independiente de la práctica que lo logre.
+- **[práctica](../../../glosario/entradas/p/practica.md):** actividad concreta y repetible que se adopta para lograr el efecto de un principio.
+- **[ceremonia ritual](../../../glosario/entradas/c/ceremonia-ritual.md):** práctica que se mantiene sin que ninguna decisión del equipo dependa de ella.
+- **[retroalimentación con uso real](../../../glosario/entradas/r/retroalimentacion-con-uso-real.md):** información sobre el producto obtenida de personas que lo usan en su contexto, y no de quienes lo construyen o lo financian.
+- **[integración frecuente](../../../glosario/entradas/i/integracion-frecuente.md):** fusión de los cambios de cada persona en la línea principal en intervalos cortos, para que las diferencias se detecten mientras son pequeñas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ceremonia ritual](../../../glosario/entradas/c/ceremonia-ritual.md) · [Integración frecuente](../../../glosario/entradas/i/integracion-frecuente.md) · [Práctica](../../../glosario/entradas/p/practica.md) · [Principio ágil](../../../glosario/entradas/p/principio-agil.md) · [Retroalimentación con uso real](../../../glosario/entradas/r/retroalimentacion-con-uso-real.md).
 
 ---
 

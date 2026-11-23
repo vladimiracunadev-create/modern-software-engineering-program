@@ -141,13 +141,13 @@ Tres decisiones se toman pronto y cuestan mucho cambiar después: si un usuario 
 
 ## Definiciones de trabajo
 
-- **Silo, puente, pool:** aislamiento dedicado por cliente, mixto o totalmente compartido.
-- **Vecino ruidoso:** inquilino cuyo consumo degrada el servicio de otros.
-- **Cuota:** límite de uso por inquilino y periodo; en tasa, un número de solicitudes por unidad de tiempo.
-- **Cubo de fichas:** mecanismo de cuota que recarga fichas a ritmo fijo hasta un máximo y gasta una por solicitud.
-- **Cola justa:** una cola por inquilino con un planificador que atiende por turnos.
-- **Contexto del inquilino:** identificador que acompaña a cada petición, mensaje, clave de caché y línea de registro.
-- **Radio de impacto:** conjunto de clientes afectados por un fallo.
+- **[Silo, puente, pool](../../../glosario/entradas/s/silo-puente-pool.md):** aislamiento dedicado por cliente, mixto o totalmente compartido.
+- **[Vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md):** inquilino cuyo consumo degrada el servicio de otros.
+- **[Cuota](../../../glosario/entradas/c/cuota.md):** límite de uso por inquilino y periodo; en tasa, un número de solicitudes por unidad de tiempo.
+- **[Cubo de fichas](../../../glosario/entradas/c/cubo-de-fichas.md):** mecanismo de cuota que recarga fichas a ritmo fijo hasta un máximo y gasta una por solicitud.
+- **[Cola justa](../../../glosario/entradas/c/cola-justa.md):** una cola por inquilino con un planificador que atiende por turnos.
+- **[Contexto del inquilino](../../../glosario/entradas/c/contexto-del-inquilino.md):** identificador que acompaña a cada petición, mensaje, clave de caché y línea de registro.
+- **[Radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md):** conjunto de clientes afectados por un fallo.
 
 ## Ejemplo mínimo
 
@@ -298,6 +298,8 @@ Se simularon ocho clientes sobre una capacidad compartida con semilla 34 y se mo
 | Cubo de fichas | Cuota con recarga fija y máximo |
 | Cola justa | Cola por inquilino con turnos |
 | Radio de impacto | Clientes afectados por un fallo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola justa](../../../glosario/entradas/c/cola-justa.md) · [Contexto del inquilino](../../../glosario/entradas/c/contexto-del-inquilino.md) · [Cubo de fichas](../../../glosario/entradas/c/cubo-de-fichas.md) · [Cuota](../../../glosario/entradas/c/cuota.md) · [Radio de impacto](../../../glosario/entradas/r/radio-de-impacto.md) · [Silo, puente, pool](../../../glosario/entradas/s/silo-puente-pool.md) · [Vecino ruidoso](../../../glosario/entradas/v/vecino-ruidoso.md).
 
 ---
 

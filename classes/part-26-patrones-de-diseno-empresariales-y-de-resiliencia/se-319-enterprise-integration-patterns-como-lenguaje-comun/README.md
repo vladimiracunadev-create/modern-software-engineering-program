@@ -110,12 +110,12 @@ La figura siguiente resume la regla de diseño de la clase: cada garantía débi
 
 ## Definiciones de trabajo
 
-- **Entrega al menos una vez:** el mensaje llega una o más veces; no se pierde, puede duplicarse.
-- **Receptor idempotente:** receptor para el que procesar un mensaje repetido no cambia el resultado.
-- **Mensaje veneno:** mensaje que falla en cada intento de proceso.
-- **Cola de cartas muertas:** destino de los mensajes que no se pueden procesar tras un tope de intentos.
-- **Reordenador:** componente que restaura el orden de una secuencia con un buffer.
-- **Identificador de correlación:** valor que enlaza una respuesta con su solicitud.
+- **[Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md):** el mensaje llega una o más veces; no se pierde, puede duplicarse.
+- **[Receptor idempotente](../../../glosario/entradas/r/receptor-idempotente.md):** receptor para el que procesar un mensaje repetido no cambia el resultado.
+- **[Mensaje veneno](../../../glosario/entradas/m/mensaje-veneno.md):** mensaje que falla en cada intento de proceso.
+- **[Cola de cartas muertas](../../../glosario/entradas/c/cola-de-cartas-muertas.md):** destino de los mensajes que no se pueden procesar tras un tope de intentos.
+- **[Reordenador](../../../glosario/entradas/r/reordenador.md):** componente que restaura el orden de una secuencia con un buffer.
+- **[Identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor que enlaza una respuesta con su solicitud.
 
 ## Ejemplo mínimo
 
@@ -242,6 +242,8 @@ El canal es un modelo con semilla fija, con tasas elegidas por el autor; no se m
 | Cartas muertas | Destino de los mensajes no procesables |
 | Reordenador | Restaura el orden con un buffer |
 | Correlación | Enlace entre solicitud y respuesta |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cola de cartas muertas](../../../glosario/entradas/c/cola-de-cartas-muertas.md) · [Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md) · [Garantías de entrega](../../../glosario/entradas/g/garantias-de-entrega.md) · [Identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md) · [Mensaje veneno](../../../glosario/entradas/m/mensaje-veneno.md) · [Receptor idempotente](../../../glosario/entradas/r/receptor-idempotente.md) · [Reordenador](../../../glosario/entradas/r/reordenador.md).
 
 ---
 

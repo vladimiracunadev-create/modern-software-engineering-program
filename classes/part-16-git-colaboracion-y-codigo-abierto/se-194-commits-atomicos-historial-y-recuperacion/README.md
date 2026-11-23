@@ -112,11 +112,11 @@ Una persona publicó cinco commits en un remoto local; otra clonó, hizo un comm
 
 ## Definiciones de trabajo
 
-- **commit atómico:** commit que hace una cosa, deja el repositorio en un estado comprobable y puede revertirse sin arrastrar otra.
-- **bisección:** búsqueda binaria en el historial entre un commit bueno y uno malo para localizar el que introdujo un cambio.
-- **reflog:** registro local de los movimientos de las referencias, que permite volver a commits ya no alcanzables.
-- **commit colgante:** objeto que ninguna referencia alcanza y que sigue en la base hasta la poda.
-- **reescribir historia:** crear commits nuevos y mover una referencia, de modo que los identificadores cambian para todos los descendientes.
+- **[commit atómico](../../../glosario/entradas/c/commit-atomico.md):** commit que hace una cosa, deja el repositorio en un estado comprobable y puede revertirse sin arrastrar otra.
+- **[bisección](../../../glosario/entradas/b/biseccion.md):** búsqueda binaria en el historial entre un commit bueno y uno malo para localizar el que introdujo un cambio.
+- **[reflog](../../../glosario/entradas/r/reflog.md):** registro local de los movimientos de las referencias, que permite volver a commits ya no alcanzables.
+- **[commit colgante](../../../glosario/entradas/c/commit-colgante.md):** objeto que ninguna referencia alcanza y que sigue en la base hasta la poda.
+- **[reescribir historia](../../../glosario/entradas/r/reescribir-historia.md):** crear commits nuevos y mover una referencia, de modo que los identificadores cambian para todos los descendientes.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Se ejecutaron tres experimentos con repositorios temporales en Windows y Ubuntu 
 
 ## Glosario
 
-- **commit atómico:** commit que hace una cosa, deja el repositorio en un estado comprobable y puede revertirse sin arrastrar otra.
-- **bisección:** búsqueda binaria en el historial entre un commit bueno y uno malo para localizar el que introdujo un cambio.
-- **reflog:** registro local de los movimientos de las referencias, que permite volver a commits ya no alcanzables.
-- **commit colgante:** objeto que ninguna referencia alcanza y que sigue en la base hasta la poda.
-- **reescribir historia:** crear commits nuevos y mover una referencia, de modo que los identificadores cambian para todos los descendientes.
+- **[commit atómico](../../../glosario/entradas/c/commit-atomico.md):** commit que hace una cosa, deja el repositorio en un estado comprobable y puede revertirse sin arrastrar otra.
+- **[bisección](../../../glosario/entradas/b/biseccion.md):** búsqueda binaria en el historial entre un commit bueno y uno malo para localizar el que introdujo un cambio.
+- **[reflog](../../../glosario/entradas/r/reflog.md):** registro local de los movimientos de las referencias, que permite volver a commits ya no alcanzables.
+- **[commit colgante](../../../glosario/entradas/c/commit-colgante.md):** objeto que ninguna referencia alcanza y que sigue en la base hasta la poda.
+- **[reescribir historia](../../../glosario/entradas/r/reescribir-historia.md):** crear commits nuevos y mover una referencia, de modo que los identificadores cambian para todos los descendientes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bisección](../../../glosario/entradas/b/biseccion.md) · [Commit atómico](../../../glosario/entradas/c/commit-atomico.md) · [Commit colgante](../../../glosario/entradas/c/commit-colgante.md) · [Recuperación](../../../glosario/entradas/r/recuperacion.md) · [Reescribir historia](../../../glosario/entradas/r/reescribir-historia.md) · [Reflog](../../../glosario/entradas/r/reflog.md).
 
 ---
 

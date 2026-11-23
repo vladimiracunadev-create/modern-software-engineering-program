@@ -135,13 +135,13 @@ La tercera figura mide el efecto de las reentregas.
 
 ## Definiciones de trabajo
 
-- **Tiempo del evento:** instante en que ocurrió lo que el dato describe.
-- **Tiempo de llegada:** instante en que el sistema lo recibió.
-- **Ventana:** intervalo del tiempo del evento sobre el que se agrega.
-- **Marca de agua:** instante de llegada hasta el que se espera a los rezagados de una ventana.
-- **Dato tardío:** evento que llega después de la marca de agua de su ventana.
-- **Entrega al menos una vez:** garantía de que cada mensaje llega una o más veces.
-- **Idempotencia:** aplicar la misma operación varias veces deja el mismo resultado que aplicarla una.
+- **[Tiempo del evento](../../../glosario/entradas/t/tiempo-del-evento.md):** instante en que ocurrió lo que el dato describe.
+- **[Tiempo de llegada](../../../glosario/entradas/t/tiempo-de-llegada.md):** instante en que el sistema lo recibió.
+- **[Ventana](../../../glosario/entradas/v/ventana.md):** intervalo del tiempo del evento sobre el que se agrega.
+- **[Marca de agua](../../../glosario/entradas/m/marca-de-agua.md):** instante de llegada hasta el que se espera a los rezagados de una ventana.
+- **[Dato tardío](../../../glosario/entradas/d/dato-tardio.md):** evento que llega después de la marca de agua de su ventana.
+- **[Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md):** garantía de que cada mensaje llega una o más veces.
+- **[Idempotencia](../../../glosario/entradas/i/idempotencia.md):** aplicar la misma operación varias veces deja el mismo resultado que aplicarla una.
 
 ## Ejemplo mínimo
 
@@ -282,6 +282,8 @@ La mezcla de retrasos, el 3 % de tardíos y el 2 % de reentregas son construccio
 | Dato tardío | Llega después de la marca de agua |
 | Idempotencia | Repetir no cambia el resultado |
 | Microlote | Lote muy frecuente que imita un flujo |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dato tardío](../../../glosario/entradas/d/dato-tardio.md) · [Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Marca de agua](../../../glosario/entradas/m/marca-de-agua.md) · [Tiempo de llegada](../../../glosario/entradas/t/tiempo-de-llegada.md) · [Tiempo del evento](../../../glosario/entradas/t/tiempo-del-evento.md) · [Ventana](../../../glosario/entradas/v/ventana.md).
 
 ---
 

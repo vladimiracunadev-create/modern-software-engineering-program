@@ -112,11 +112,11 @@ El modelo no elimina los problemas. Dos hilos que toman dos cerrojos en orden op
 
 ## Definiciones de trabajo
 
-- **concurrencia, paralelismo e intercalación:** concurrencia permite progresar en tareas solapadas; paralelismo ejecuta simultáneamente.
-- **actor, buzón y propiedad del estado:** cada actor posee estado privado y procesa mensajes de su buzón.
-- **protocolos de mensajes:** un mensaje necesita tipo, datos, correlación y respuesta esperada.
-- **fallo, enlaces y supervisión:** un actor puede fallar mientras otros continúan.
-- **consistencia y presión del buzón:** procesar un mensaje a la vez serializa el estado del actor, no todo el sistema.
+- **[concurrencia, paralelismo e intercalación](../../../glosario/entradas/c/concurrencia-paralelismo-e-intercalacion.md):** concurrencia permite progresar en tareas solapadas; paralelismo ejecuta simultáneamente.
+- **[actor, buzón y propiedad del estado](../../../glosario/entradas/a/actor-buzon-y-propiedad-del-estado.md):** cada actor posee estado privado y procesa mensajes de su buzón.
+- **[protocolos de mensajes](../../../glosario/entradas/p/protocolos-de-mensajes.md):** un mensaje necesita tipo, datos, correlación y respuesta esperada.
+- **[fallo, enlaces y supervisión](../../../glosario/entradas/f/fallo-enlaces-y-supervision.md):** un actor puede fallar mientras otros continúan.
+- **[consistencia y presión del buzón](../../../glosario/entradas/c/consistencia-y-presion-del-buzon.md):** procesar un mensaje a la vez serializa el estado del actor, no todo el sistema.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -270,11 +270,13 @@ Actores desplazan problemas hacia protocolos, supervisión y entrega; no vuelven
 
 ## Glosario
 
-- **concurrencia, paralelismo e intercalación:** concurrencia permite progresar en tareas solapadas; paralelismo ejecuta simultáneamente.
-- **actor, buzón y propiedad del estado:** cada actor posee estado privado y procesa mensajes de su buzón.
-- **protocolos de mensajes:** un mensaje necesita tipo, datos, correlación y respuesta esperada.
-- **fallo, enlaces y supervisión:** un actor puede fallar mientras otros continúan.
-- **consistencia y presión del buzón:** procesar un mensaje a la vez serializa el estado del actor, no todo el sistema.
+- **[concurrencia, paralelismo e intercalación](../../../glosario/entradas/c/concurrencia-paralelismo-e-intercalacion.md):** concurrencia permite progresar en tareas solapadas; paralelismo ejecuta simultáneamente.
+- **[actor, buzón y propiedad del estado](../../../glosario/entradas/a/actor-buzon-y-propiedad-del-estado.md):** cada actor posee estado privado y procesa mensajes de su buzón.
+- **[protocolos de mensajes](../../../glosario/entradas/p/protocolos-de-mensajes.md):** un mensaje necesita tipo, datos, correlación y respuesta esperada.
+- **[fallo, enlaces y supervisión](../../../glosario/entradas/f/fallo-enlaces-y-supervision.md):** un actor puede fallar mientras otros continúan.
+- **[consistencia y presión del buzón](../../../glosario/entradas/c/consistencia-y-presion-del-buzon.md):** procesar un mensaje a la vez serializa el estado del actor, no todo el sistema.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Actor, buzón y propiedad del estado](../../../glosario/entradas/a/actor-buzon-y-propiedad-del-estado.md) · [Concurrencia, paralelismo e intercalación](../../../glosario/entradas/c/concurrencia-paralelismo-e-intercalacion.md) · [Consistencia y presión del buzón](../../../glosario/entradas/c/consistencia-y-presion-del-buzon.md) · [Fallo, enlaces y supervisión](../../../glosario/entradas/f/fallo-enlaces-y-supervision.md) · [Protocolos de mensajes](../../../glosario/entradas/p/protocolos-de-mensajes.md).
 
 ---
 

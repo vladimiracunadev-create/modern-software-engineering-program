@@ -105,11 +105,11 @@ Un editor trabaja casi siempre con código incompleto. La biblioteca estándar, 
 
 ## Definiciones de trabajo
 
-- **editor e ide:** un editor manipula texto y puede integrar capacidades; un ide reúne proyecto, build, ejecución, depuración y navegación.
-- **modelo sintáctico y semántico:** resaltado por tokens no equivale a resolver nombres o tipos.
-- **language server protocol:** lsp estandariza mensajes json-rpc entre cliente y servidor para completado, definición, referencias y diagnósticos.
-- **workspace y configuración:** la raíz del workspace condiciona búsqueda de configuración, módulos y herramientas.
-- **confianza y extensiones:** una extensión ejecuta código con acceso relevante al workspace.
+- **[editor e ide](../../../glosario/entradas/e/editor-e-ide.md):** un editor manipula texto y puede integrar capacidades; un ide reúne proyecto, build, ejecución, depuración y navegación.
+- **[modelo sintáctico y semántico](../../../glosario/entradas/m/modelo-sintactico-y-semantico.md):** resaltado por tokens no equivale a resolver nombres o tipos.
+- **[language server protocol](../../../glosario/entradas/l/language-server-protocol.md):** lsp estandariza mensajes json-rpc entre cliente y servidor para completado, definición, referencias y diagnósticos.
+- **[workspace y configuración](../../../glosario/entradas/w/workspace-y-configuracion.md):** la raíz del workspace condiciona búsqueda de configuración, módulos y herramientas.
+- **[confianza y extensiones](../../../glosario/entradas/c/confianza-y-extensiones.md):** una extensión ejecuta código con acceso relevante al workspace.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ Un diagnóstico estático no muestra necesariamente el estado que llevó al fall
 
 ## Glosario
 
-- **editor e ide:** un editor manipula texto y puede integrar capacidades; un ide reúne proyecto, build, ejecución, depuración y navegación.
-- **modelo sintáctico y semántico:** resaltado por tokens no equivale a resolver nombres o tipos.
-- **language server protocol:** lsp estandariza mensajes json-rpc entre cliente y servidor para completado, definición, referencias y diagnósticos.
-- **workspace y configuración:** la raíz del workspace condiciona búsqueda de configuración, módulos y herramientas.
-- **confianza y extensiones:** una extensión ejecuta código con acceso relevante al workspace.
+- **[editor e ide](../../../glosario/entradas/e/editor-e-ide.md):** un editor manipula texto y puede integrar capacidades; un ide reúne proyecto, build, ejecución, depuración y navegación.
+- **[modelo sintáctico y semántico](../../../glosario/entradas/m/modelo-sintactico-y-semantico.md):** resaltado por tokens no equivale a resolver nombres o tipos.
+- **[language server protocol](../../../glosario/entradas/l/language-server-protocol.md):** lsp estandariza mensajes json-rpc entre cliente y servidor para completado, definición, referencias y diagnósticos.
+- **[workspace y configuración](../../../glosario/entradas/w/workspace-y-configuracion.md):** la raíz del workspace condiciona búsqueda de configuración, módulos y herramientas.
+- **[confianza y extensiones](../../../glosario/entradas/c/confianza-y-extensiones.md):** una extensión ejecuta código con acceso relevante al workspace.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Confianza y extensiones](../../../glosario/entradas/c/confianza-y-extensiones.md) · [Editor e ide](../../../glosario/entradas/e/editor-e-ide.md) · [Language server protocol](../../../glosario/entradas/l/language-server-protocol.md) · [Modelo sintáctico y semántico](../../../glosario/entradas/m/modelo-sintactico-y-semantico.md) · [Workspace y configuración](../../../glosario/entradas/w/workspace-y-configuracion.md).
 
 ---
 

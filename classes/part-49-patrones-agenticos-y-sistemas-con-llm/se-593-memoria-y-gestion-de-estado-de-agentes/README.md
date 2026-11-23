@@ -112,12 +112,12 @@ Las capas no compiten, se combinan. El contexto de trabajo es lo que el modelo v
 
 ## Definiciones de trabajo
 
-- **Contexto de trabajo:** el texto que se envía al modelo en una llamada.
-- **Memoria de largo plazo:** información que sobrevive a la sesión, normalmente fuera del contexto.
-- **Compactación:** sustituir parte del historial por un resumen más corto.
-- **Extractor:** componente que detecta hechos en la conversación y los convierte en registros.
-- **Versión:** marca que permite decidir qué valor de una clave es el vigente.
-- **Caducidad:** momento a partir del cual un registro deja de valer o se borra.
+- **[Contexto de trabajo](../../../glosario/entradas/c/contexto-de-trabajo.md):** el texto que se envía al modelo en una llamada.
+- **[Memoria de largo plazo](../../../glosario/entradas/m/memoria-de-largo-plazo.md):** información que sobrevive a la sesión, normalmente fuera del contexto.
+- **[Compactación](../../../glosario/entradas/c/compactacion.md):** sustituir parte del historial por un resumen más corto.
+- **[Extractor](../../../glosario/entradas/e/extractor.md):** componente que detecta hechos en la conversación y los convierte en registros.
+- **[Versión](../../../glosario/entradas/v/version.md):** marca que permite decidir qué valor de una clave es el vigente.
+- **[Caducidad](../../../glosario/entradas/c/caducidad.md):** momento a partir del cual un registro deja de valer o se borra.
 
 ## Ejemplo mínimo
 
@@ -259,6 +259,8 @@ Las conversaciones, la fracción de turnos con hechos, el acierto del extractor 
 | Extractor | Componente que convierte la conversación en registros |
 | Versión | Marca que indica el valor vigente de una clave |
 | Caducidad | Momento en que un registro deja de valer |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caducidad](../../../glosario/entradas/c/caducidad.md) · [Compactación](../../../glosario/entradas/c/compactacion.md) · [Contexto de trabajo](../../../glosario/entradas/c/contexto-de-trabajo.md) · [Extractor](../../../glosario/entradas/e/extractor.md) · [Memoria de largo plazo](../../../glosario/entradas/m/memoria-de-largo-plazo.md) · [Resumen con pérdida](../../../glosario/entradas/r/resumen-con-perdida.md) · [Versión](../../../glosario/entradas/v/version.md).
 
 ---
 

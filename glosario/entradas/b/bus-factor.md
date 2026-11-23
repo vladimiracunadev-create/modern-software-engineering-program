@@ -1,0 +1,64 @@
+# Bus factor
+
+[↑ Glosario](../../README.md) · [← Burn rate](./burn-rate.md) · [Búsqueda lineal y binaria →](./busqueda-lineal-y-binaria.md)
+
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+
+## Definición
+
+Bus factor mide concentración de conocimiento.
+
+Tomado del glosario de [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md).
+
+## Por qué importa
+
+Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
+
+## Cómo funciona
+
+[SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) no desarrolla este término en una sección propia. Lo usa como pieza de su tema: consulta la clase para el mecanismo completo.
+
+## Ejemplo
+
+La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md):
+
+En recuperación de cuenta, producto define resultado, UX diseña prueba comprensible, seguridad modela abuso, soporte aporta casos y plataforma implementa identidad. La decisión sobre fricción pertenece al conjunto porque reduce fraude y puede excluir usuarios.
+
+## Errores y confusiones comunes
+
+Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son:
+
+- **el mapa replica cargos** — causa: se modeló estructura, no decisiones. Corrección: parte de decisiones y asigna competencia, autoridad y operación.
+- **todos son “responsables”** — causa: se evitó declarar autoridad. Corrección: nombra quién acepta, detiene y escala cada decisión.
+
+## Límites y cuándo no aplica
+
+Las clases no fijan un límite propio para este término. Los límites del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son: La matriz no garantiza buenas decisiones. `SE-006` evalúa la calidad de la evidencia con que se decide.
+
+## Relación con otros conceptos
+
+- **Prerrequisito:** las clases previas [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md), [SE-004](../../../classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md) (sin término del glosario que lo sustituya).
+- **Ver también:** [Concentración de conocimiento](../c/concentracion-de-conocimiento.md), [Concentración](../c/concentracion.md), [Escalamiento](../e/escalamiento.md), [Especialidad](../e/especialidad.md), [Facilitación](../f/facilitacion.md), [Handoff](../h/handoff.md).
+- **Se confunde con:** las clases no registran una confusión específica; contrasta su definición con la de los conceptos de «Ver también».
+
+## Dónde se enseña
+
+**Se define o se desarrolla en:**
+
+- [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) — [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md), Ingeniería de software como profesión.
+
+**También se usa en** (2 clases más lo mencionan; las que más):
+
+[SE-518](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md), [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md).
+
+## Sinónimos y traducción
+
+El programa no registra sinónimos ni traducciones distintas de la forma del título.
+
+## Fuentes
+
+Las fuentes de este concepto están en las clases enlazadas (sección «Fuentes» de cada clase).
+
+---
+
+[↑ Glosario](../../README.md) · [← Burn rate](./burn-rate.md) · [Búsqueda lineal y binaria →](./busqueda-lineal-y-binaria.md)

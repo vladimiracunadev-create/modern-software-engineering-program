@@ -112,11 +112,11 @@ La frase de la recomendación debe llevar esa condición: «construir un set com
 
 ## Definiciones de trabajo
 
-- **perfil de operaciones:** el taller expresa porcentajes y ráfagas de insertar, extraer, buscar, recorrer y borrar.
-- **candidatos equivalentes:** cada candidato implementa la misma interfaz y errores.
-- **matriz de compromisos:** se registran tiempo, espacio, orden, estabilidad, complejidad de implementación y recuperación.
-- **cargas adversarias:** entradas ordenadas, hashes conflictivos, prioridades iguales y grafos cíclicos revelan peor caso.
-- **recomendación condicionada:** la conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`.
+- **[perfil de operaciones](../../../glosario/entradas/p/perfil-de-operaciones.md):** el taller expresa porcentajes y ráfagas de insertar, extraer, buscar, recorrer y borrar.
+- **[candidatos equivalentes](../../../glosario/entradas/c/candidatos-equivalentes.md):** cada candidato implementa la misma interfaz y errores.
+- **[matriz de compromisos](../../../glosario/entradas/m/matriz-de-compromisos.md):** se registran tiempo, espacio, orden, estabilidad, complejidad de implementación y recuperación.
+- **[cargas adversarias](../../../glosario/entradas/c/cargas-adversarias.md):** entradas ordenadas, hashes conflictivos, prioridades iguales y grafos cíclicos revelan peor caso.
+- **[recomendación condicionada](../../../glosario/entradas/r/recomendacion-condicionada.md):** la conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ El taller cubre cargas sintéticas y una plataforma. El proyecto siguiente empaq
 
 ## Glosario
 
-- **perfil de operaciones:** el taller expresa porcentajes y ráfagas de insertar, extraer, buscar, recorrer y borrar.
-- **candidatos equivalentes:** cada candidato implementa la misma interfaz y errores.
-- **matriz de compromisos:** se registran tiempo, espacio, orden, estabilidad, complejidad de implementación y recuperación.
-- **cargas adversarias:** entradas ordenadas, hashes conflictivos, prioridades iguales y grafos cíclicos revelan peor caso.
-- **recomendación condicionada:** la conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`.
+- **[perfil de operaciones](../../../glosario/entradas/p/perfil-de-operaciones.md):** el taller expresa porcentajes y ráfagas de insertar, extraer, buscar, recorrer y borrar.
+- **[candidatos equivalentes](../../../glosario/entradas/c/candidatos-equivalentes.md):** cada candidato implementa la misma interfaz y errores.
+- **[matriz de compromisos](../../../glosario/entradas/m/matriz-de-compromisos.md):** se registran tiempo, espacio, orden, estabilidad, complejidad de implementación y recuperación.
+- **[cargas adversarias](../../../glosario/entradas/c/cargas-adversarias.md):** entradas ordenadas, hashes conflictivos, prioridades iguales y grafos cíclicos revelan peor caso.
+- **[recomendación condicionada](../../../glosario/entradas/r/recomendacion-condicionada.md):** la conclusión usa forma `si carga y garantía, entonces opción; si cambia umbral, revisar`.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Candidatos equivalentes](../../../glosario/entradas/c/candidatos-equivalentes.md) · [Cargas adversarias](../../../glosario/entradas/c/cargas-adversarias.md) · [Matriz de compromisos](../../../glosario/entradas/m/matriz-de-compromisos.md) · [Perfil de operaciones](../../../glosario/entradas/p/perfil-de-operaciones.md) · [Recomendación condicionada](../../../glosario/entradas/r/recomendacion-condicionada.md).
 
 ---
 

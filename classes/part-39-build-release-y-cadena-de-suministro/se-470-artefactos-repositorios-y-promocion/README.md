@@ -121,11 +121,11 @@ Se simula la profundidad de 10 000 retrocesos con una cola geométrica (30 % de 
 
 ## Definiciones de trabajo
 
-- **artefacto:** salida inmutable de un build, identificada por su contenido.
-- **huella o digest:** resultado de aplicar una función hash a los bytes de un artefacto.
-- **etiqueta:** nombre legible que apunta a una huella y que normalmente se puede reasignar.
-- **promoción:** avance de un mismo artefacto a la siguiente etapa sin reconstruirlo.
-- **retención:** política que decide qué artefactos se conservan y durante cuánto tiempo.
+- **[artefacto](../../../glosario/entradas/a/artefacto.md):** salida inmutable de un build, identificada por su contenido.
+- **[huella o digest](../../../glosario/entradas/h/huella-o-digest.md):** resultado de aplicar una función hash a los bytes de un artefacto.
+- **[etiqueta](../../../glosario/entradas/e/etiqueta.md):** nombre legible que apunta a una huella y que normalmente se puede reasignar.
+- **[promoción](../../../glosario/entradas/p/promocion.md):** avance de un mismo artefacto a la siguiente etapa sin reconstruirlo.
+- **[retención](../../../glosario/entradas/r/retencion.md):** política que decide qué artefactos se conservan y durante cuánto tiempo.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -271,11 +271,13 @@ Se ejecutaron tres simulaciones con semilla fija en Windows y Ubuntu (WSL2) con 
 
 ## Glosario
 
-- **artefacto:** salida inmutable de un build, identificada por su contenido.
-- **huella o digest:** resultado de aplicar una función hash a los bytes de un artefacto.
-- **etiqueta:** nombre legible que apunta a una huella y que normalmente se puede reasignar.
-- **promoción:** avance de un mismo artefacto a la siguiente etapa sin reconstruirlo.
-- **retención:** política que decide qué artefactos se conservan y durante cuánto tiempo.
+- **[artefacto](../../../glosario/entradas/a/artefacto.md):** salida inmutable de un build, identificada por su contenido.
+- **[huella o digest](../../../glosario/entradas/h/huella-o-digest.md):** resultado de aplicar una función hash a los bytes de un artefacto.
+- **[etiqueta](../../../glosario/entradas/e/etiqueta.md):** nombre legible que apunta a una huella y que normalmente se puede reasignar.
+- **[promoción](../../../glosario/entradas/p/promocion.md):** avance de un mismo artefacto a la siguiente etapa sin reconstruirlo.
+- **[retención](../../../glosario/entradas/r/retencion.md):** política que decide qué artefactos se conservan y durante cuánto tiempo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Artefacto](../../../glosario/entradas/a/artefacto.md) · [Etiqueta](../../../glosario/entradas/e/etiqueta.md) · [Huella o digest](../../../glosario/entradas/h/huella-o-digest.md) · [Promoción](../../../glosario/entradas/p/promocion.md) · [Retención](../../../glosario/entradas/r/retencion.md).
 
 ---
 

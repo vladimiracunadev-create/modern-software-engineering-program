@@ -126,11 +126,11 @@ Desde el arranque se sirven 1 800 solicitudes y **640 (35,6 %)** superan el obje
 
 ## Definiciones de trabajo
 
-- **sondeo de vida:** comprobación de que el proceso no está bloqueado; su fallo provoca un reinicio.
-- **sondeo de disponibilidad:** comprobación de que la instancia puede atender solicitudes; su fallo la retira del reparto.
-- **drenaje:** espera controlada a que terminen las solicitudes en curso antes de salir.
-- **plazo de gracia:** tiempo que el orquestador concede entre la señal de terminación y la salida forzada.
-- **calentamiento:** periodo en que una instancia nueva llena sus cachés y conexiones antes de rendir con normalidad.
+- **[sondeo de vida](../../../glosario/entradas/s/sondeo-de-vida.md):** comprobación de que el proceso no está bloqueado; su fallo provoca un reinicio.
+- **[sondeo de disponibilidad](../../../glosario/entradas/s/sondeo-de-disponibilidad.md):** comprobación de que la instancia puede atender solicitudes; su fallo la retira del reparto.
+- **[drenaje](../../../glosario/entradas/d/drenaje.md):** espera controlada a que terminen las solicitudes en curso antes de salir.
+- **[plazo de gracia](../../../glosario/entradas/p/plazo-de-gracia.md):** tiempo que el orquestador concede entre la señal de terminación y la salida forzada.
+- **[calentamiento](../../../glosario/entradas/c/calentamiento.md):** periodo en que una instancia nueva llena sus cachés y conexiones antes de rendir con normalidad.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -274,11 +274,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **orquestador:** sistema que arranca, para y reparte tráfico entre instancias de un servicio.
-- **señal de terminación:** aviso del sistema operativo a un proceso para que termine de forma ordenada.
-- **retirar del reparto:** dejar de enviar tráfico a una instancia sin detenerla.
-- **sondeo de arranque:** comprobación que da tiempo a una instancia lenta a iniciarse sin que se la considere muerta.
-- **cascada de reinicios:** efecto por el que el fallo de una dependencia provoca reinicios de todas las instancias.
+- **[orquestador](../../../glosario/entradas/o/orquestador.md):** sistema que arranca, para y reparte tráfico entre instancias de un servicio.
+- **[señal de terminación](../../../glosario/entradas/s/senal-de-terminacion.md):** aviso del sistema operativo a un proceso para que termine de forma ordenada.
+- **[retirar del reparto](../../../glosario/entradas/r/retirar-del-reparto.md):** dejar de enviar tráfico a una instancia sin detenerla.
+- **[sondeo de arranque](../../../glosario/entradas/s/sondeo-de-arranque.md):** comprobación que da tiempo a una instancia lenta a iniciarse sin que se la considere muerta.
+- **[cascada de reinicios](../../../glosario/entradas/c/cascada-de-reinicios.md):** efecto por el que el fallo de una dependencia provoca reinicios de todas las instancias.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Calentamiento](../../../glosario/entradas/c/calentamiento.md) · [Cascada de reinicios](../../../glosario/entradas/c/cascada-de-reinicios.md) · [Drenaje](../../../glosario/entradas/d/drenaje.md) · [Orquestador](../../../glosario/entradas/o/orquestador.md) · [Plazo de gracia](../../../glosario/entradas/p/plazo-de-gracia.md) · [Retirar del reparto](../../../glosario/entradas/r/retirar-del-reparto.md) · [Señal de terminación](../../../glosario/entradas/s/senal-de-terminacion.md) · [Sondeo de arranque](../../../glosario/entradas/s/sondeo-de-arranque.md) · [Sondeo de disponibilidad](../../../glosario/entradas/s/sondeo-de-disponibilidad.md) · [Sondeo de vida](../../../glosario/entradas/s/sondeo-de-vida.md).
 
 ---
 

@@ -113,11 +113,11 @@ Una comparación de implementaciones «los k menores» mostró otro riesgo: la v
 
 ## Definiciones de trabajo
 
-- **contrato de la biblioteca:** la api define tipos, operaciones, errores, orden y complejidad esperada.
-- **invariantes y pruebas de propiedades:** cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política.
-- **casos límite y oráculo:** vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus.
-- **benchmark versionado:** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
-- **informe y decisión:** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
+- **[contrato de la biblioteca](../../../glosario/entradas/c/contrato-de-la-biblioteca.md):** la api define tipos, operaciones, errores, orden y complejidad esperada.
+- **[invariantes y pruebas de propiedades](../../../glosario/entradas/i/invariantes-y-pruebas-de-propiedades.md):** cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política.
+- **[casos límite y oráculo](../../../glosario/entradas/c/casos-limite-y-oraculo.md):** vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus.
+- **[benchmark versionado](../../../glosario/entradas/b/benchmark-versionado.md):** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
+- **[informe y decisión](../../../glosario/entradas/i/informe-y-decision.md):** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no s
 
 ## Glosario
 
-- **contrato de la biblioteca:** la api define tipos, operaciones, errores, orden y complejidad esperada.
-- **invariantes y pruebas de propiedades:** cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política.
-- **casos límite y oráculo:** vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus.
-- **benchmark versionado:** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
-- **informe y decisión:** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
+- **[contrato de la biblioteca](../../../glosario/entradas/c/contrato-de-la-biblioteca.md):** la api define tipos, operaciones, errores, orden y complejidad esperada.
+- **[invariantes y pruebas de propiedades](../../../glosario/entradas/i/invariantes-y-pruebas-de-propiedades.md):** cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política.
+- **[casos límite y oráculo](../../../glosario/entradas/c/casos-limite-y-oraculo.md):** vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus.
+- **[benchmark versionado](../../../glosario/entradas/b/benchmark-versionado.md):** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
+- **[informe y decisión](../../../glosario/entradas/i/informe-y-decision.md):** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Benchmark versionado](../../../glosario/entradas/b/benchmark-versionado.md) · [Casos límite y oráculo](../../../glosario/entradas/c/casos-limite-y-oraculo.md) · [Contrato de la biblioteca](../../../glosario/entradas/c/contrato-de-la-biblioteca.md) · [Informe y decisión](../../../glosario/entradas/i/informe-y-decision.md) · [Invariantes y pruebas de propiedades](../../../glosario/entradas/i/invariantes-y-pruebas-de-propiedades.md).
 
 ---
 

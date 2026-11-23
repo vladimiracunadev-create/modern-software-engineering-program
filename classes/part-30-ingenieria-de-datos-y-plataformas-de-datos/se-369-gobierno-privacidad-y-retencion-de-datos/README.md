@@ -135,13 +135,13 @@ La tercera medida compara dos formas de borrar.
 
 ## Definiciones de trabajo
 
-- **Dato personal:** información sobre una persona identificada o identificable.
-- **Seudonimización:** sustituir un identificador por un seudónimo que solo se puede asociar con la persona con información adicional.
-- **HMAC:** código de autenticación con clave construido sobre una función hash.
-- **Cuasi-identificador:** atributo que, combinado con otros, puede identificar a una persona.
-- **K-anonimato:** cada combinación de cuasi-identificadores aparece en al menos k personas.
-- **Supresión:** borrado de los datos de una persona, incluidas sus copias derivadas.
-- **Retención:** plazo máximo durante el que se conserva un dato.
+- **[Dato personal](../../../glosario/entradas/d/dato-personal.md):** información sobre una persona identificada o identificable.
+- **[Seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustituir un identificador por un seudónimo que solo se puede asociar con la persona con información adicional.
+- **[HMAC](../../../glosario/entradas/h/hmac.md):** código de autenticación con clave construido sobre una función hash.
+- **[Cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** atributo que, combinado con otros, puede identificar a una persona.
+- **[K-anonimato](../../../glosario/entradas/k/k-anonimato.md):** cada combinación de cuasi-identificadores aparece en al menos k personas.
+- **[Supresión](../../../glosario/entradas/s/supresion.md):** borrado de los datos de una persona, incluidas sus copias derivadas.
+- **[Retención](../../../glosario/entradas/r/retencion.md):** plazo máximo durante el que se conserva un dato.
 
 ## Ejemplo mínimo
 
@@ -284,6 +284,8 @@ Los usuarios, los correos, la lista de candidatos y los atributos son construcci
 | K-anonimato | Cada combinación aparece en al menos k personas |
 | Supresión | Borrar a una persona y sus copias |
 | Retención | Plazo máximo de conservación |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md) · [Dato personal](../../../glosario/entradas/d/dato-personal.md) · [HMAC](../../../glosario/entradas/h/hmac.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Retención](../../../glosario/entradas/r/retencion.md) · [Seudonimización](../../../glosario/entradas/s/seudonimizacion.md) · [Supresión](../../../glosario/entradas/s/supresion.md).
 
 ---
 

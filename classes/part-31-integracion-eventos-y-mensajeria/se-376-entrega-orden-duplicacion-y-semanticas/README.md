@@ -161,11 +161,11 @@ Una ventana de 5 minutos parece generosa para una media de 60 s y aun así deja 
 
 ## Definiciones de trabajo
 
-- **a lo sumo una vez:** semántica en la que cada mensaje se entrega cero o una vez; puede perderse y no se duplica.
-- **al menos una vez:** semántica en la que cada mensaje se entrega una o más veces; no se pierde, pero puede duplicarse.
-- **consumidor idempotente:** receptor que, ante un mensaje repetido, no repite el efecto.
-- **guarda de versión:** regla que aplica un mensaje solo si su versión es mayor que la ya aplicada a esa entidad.
-- **ventana de deduplicación:** periodo durante el cual el receptor recuerda los identificadores de los mensajes aplicados.
+- **[a lo sumo una vez](../../../glosario/entradas/a/a-lo-sumo-una-vez.md):** semántica en la que cada mensaje se entrega cero o una vez; puede perderse y no se duplica.
+- **[al menos una vez](../../../glosario/entradas/a/al-menos-una-vez.md):** semántica en la que cada mensaje se entrega una o más veces; no se pierde, pero puede duplicarse.
+- **[consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md):** receptor que, ante un mensaje repetido, no repite el efecto.
+- **[guarda de versión](../../../glosario/entradas/g/guarda-de-version.md):** regla que aplica un mensaje solo si su versión es mayor que la ya aplicada a esa entidad.
+- **[ventana de deduplicación](../../../glosario/entradas/v/ventana-de-deduplicacion.md):** periodo durante el cual el receptor recuerda los identificadores de los mensajes aplicados.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -305,11 +305,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **a lo sumo una vez:** semántica en la que cada mensaje se entrega cero o una vez; puede perderse y no se duplica.
-- **al menos una vez:** semántica en la que cada mensaje se entrega una o más veces; no se pierde, pero puede duplicarse.
-- **consumidor idempotente:** receptor que, ante un mensaje repetido, no repite el efecto.
-- **guarda de versión:** regla que aplica un mensaje solo si su versión es mayor que la ya aplicada a esa entidad.
-- **ventana de deduplicación:** periodo durante el cual el receptor recuerda los identificadores de los mensajes aplicados.
+- **[a lo sumo una vez](../../../glosario/entradas/a/a-lo-sumo-una-vez.md):** semántica en la que cada mensaje se entrega cero o una vez; puede perderse y no se duplica.
+- **[al menos una vez](../../../glosario/entradas/a/al-menos-una-vez.md):** semántica en la que cada mensaje se entrega una o más veces; no se pierde, pero puede duplicarse.
+- **[consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md):** receptor que, ante un mensaje repetido, no repite el efecto.
+- **[guarda de versión](../../../glosario/entradas/g/guarda-de-version.md):** regla que aplica un mensaje solo si su versión es mayor que la ya aplicada a esa entidad.
+- **[ventana de deduplicación](../../../glosario/entradas/v/ventana-de-deduplicacion.md):** periodo durante el cual el receptor recuerda los identificadores de los mensajes aplicados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [A lo sumo una vez](../../../glosario/entradas/a/a-lo-sumo-una-vez.md) · [Al menos una vez](../../../glosario/entradas/a/al-menos-una-vez.md) · [Consumidor idempotente](../../../glosario/entradas/c/consumidor-idempotente.md) · [Guarda de versión](../../../glosario/entradas/g/guarda-de-version.md) · [Semánticas de entrega](../../../glosario/entradas/s/semanticas-de-entrega.md) · [Ventana de deduplicación](../../../glosario/entradas/v/ventana-de-deduplicacion.md).
 
 ---
 

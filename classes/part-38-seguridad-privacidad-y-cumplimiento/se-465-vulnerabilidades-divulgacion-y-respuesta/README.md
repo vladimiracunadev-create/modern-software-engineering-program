@@ -151,11 +151,11 @@ La segunda persona recorta la mediana de 27,7 a 10,6 horas y el percentil 90 de 
 
 ## Definiciones de trabajo
 
-- **vulnerabilidad:** debilidad en un sistema que una persona atacante puede aprovechar para vulnerar una propiedad de seguridad.
-- **divulgación coordinada:** proceso en que quien reporta, quien corrige y, si procede, terceros afectados acuerdan cuándo y cómo se hará pública una vulnerabilidad.
-- **CVSS:** sistema de puntuación de 0 a 10 de las características técnicas de una vulnerabilidad según métricas de explotabilidad e impacto.
-- **explotación conocida:** evidencia de que una vulnerabilidad se está aprovechando contra sistemas reales.
-- **triaje:** primera revisión de un reporte para decidir si es válido, reproducirlo y asignarle prioridad.
+- **[vulnerabilidad](../../../glosario/entradas/v/vulnerabilidad.md):** debilidad en un sistema que una persona atacante puede aprovechar para vulnerar una propiedad de seguridad.
+- **[divulgación coordinada](../../../glosario/entradas/d/divulgacion-coordinada.md):** proceso en que quien reporta, quien corrige y, si procede, terceros afectados acuerdan cuándo y cómo se hará pública una vulnerabilidad.
+- **[CVSS](../../../glosario/entradas/c/cvss.md):** sistema de puntuación de 0 a 10 de las características técnicas de una vulnerabilidad según métricas de explotabilidad e impacto.
+- **[explotación conocida](../../../glosario/entradas/e/explotacion-conocida.md):** evidencia de que una vulnerabilidad se está aprovechando contra sistemas reales.
+- **[triaje](../../../glosario/entradas/t/triaje.md):** primera revisión de un reporte para decidir si es válido, reproducirlo y asignarle prioridad.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -294,11 +294,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **vulnerabilidad:** debilidad en un sistema que una persona atacante puede aprovechar para vulnerar una propiedad de seguridad.
-- **divulgación coordinada:** proceso en que quien reporta, quien corrige y, si procede, terceros afectados acuerdan cuándo y cómo se hará pública una vulnerabilidad.
-- **CVSS:** sistema de puntuación de 0 a 10 de las características técnicas de una vulnerabilidad según métricas de explotabilidad e impacto.
-- **explotación conocida:** evidencia de que una vulnerabilidad se está aprovechando contra sistemas reales.
-- **triaje:** primera revisión de un reporte para decidir si es válido, reproducirlo y asignarle prioridad.
+- **[vulnerabilidad](../../../glosario/entradas/v/vulnerabilidad.md):** debilidad en un sistema que una persona atacante puede aprovechar para vulnerar una propiedad de seguridad.
+- **[divulgación coordinada](../../../glosario/entradas/d/divulgacion-coordinada.md):** proceso en que quien reporta, quien corrige y, si procede, terceros afectados acuerdan cuándo y cómo se hará pública una vulnerabilidad.
+- **[CVSS](../../../glosario/entradas/c/cvss.md):** sistema de puntuación de 0 a 10 de las características técnicas de una vulnerabilidad según métricas de explotabilidad e impacto.
+- **[explotación conocida](../../../glosario/entradas/e/explotacion-conocida.md):** evidencia de que una vulnerabilidad se está aprovechando contra sistemas reales.
+- **[triaje](../../../glosario/entradas/t/triaje.md):** primera revisión de un reporte para decidir si es válido, reproducirlo y asignarle prioridad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [CVSS](../../../glosario/entradas/c/cvss.md) · [Divulgación coordinada](../../../glosario/entradas/d/divulgacion-coordinada.md) · [Explotación conocida](../../../glosario/entradas/e/explotacion-conocida.md) · [Triaje](../../../glosario/entradas/t/triaje.md) · [Vulnerabilidad](../../../glosario/entradas/v/vulnerabilidad.md).
 
 ---
 

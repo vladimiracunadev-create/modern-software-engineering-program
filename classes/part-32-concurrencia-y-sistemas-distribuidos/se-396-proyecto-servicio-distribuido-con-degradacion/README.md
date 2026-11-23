@@ -164,11 +164,11 @@ El validador detecta 101 de 200 mutaciones y falla exactamente en las cuatro que
 
 ## Definiciones de trabajo
 
-- **garantía:** compromiso verificable sobre el comportamiento de una operación bajo condiciones y fallos declarados.
-- **escalera de degradación:** secuencia ordenada de estados de menor servicio que adopta un sistema ante un fallo, cada uno con su límite declarado.
+- **[garantía](../../../glosario/entradas/g/garantia.md):** compromiso verificable sobre el comportamiento de una operación bajo condiciones y fallos declarados.
+- **[escalera de degradación](../../../glosario/entradas/e/escalera-de-degradacion.md):** secuencia ordenada de estados de menor servicio que adopta un sistema ante un fallo, cada uno con su límite declarado.
 - **descarte de carga (*load shedding*):** rechazo deliberado de parte de las solicitudes para proteger la capacidad de atender el resto.
-- **ley de Little:** relación `L = λ · W` entre el número medio de elementos en un sistema, la tasa de llegada y el tiempo medio de estancia.
-- **archivo de límites:** documento que lista lo que no se midió, lo que es supuesto y los entornos no probados.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** relación `L = λ · W` entre el número medio de elementos en un sistema, la tasa de llegada y el tiempo medio de estancia.
+- **[archivo de límites](../../../glosario/entradas/a/archivo-de-limites.md):** documento que lista lo que no se midió, lo que es supuesto y los entornos no probados.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -313,11 +313,13 @@ Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con res
 
 ## Glosario
 
-- **garantía:** compromiso verificable sobre el comportamiento de una operación bajo condiciones y fallos declarados.
-- **escalera de degradación:** secuencia ordenada de estados de menor servicio que adopta un sistema ante un fallo, cada uno con su límite declarado.
+- **[garantía](../../../glosario/entradas/g/garantia.md):** compromiso verificable sobre el comportamiento de una operación bajo condiciones y fallos declarados.
+- **[escalera de degradación](../../../glosario/entradas/e/escalera-de-degradacion.md):** secuencia ordenada de estados de menor servicio que adopta un sistema ante un fallo, cada uno con su límite declarado.
 - **descarte de carga (*load shedding*):** rechazo deliberado de parte de las solicitudes para proteger la capacidad de atender el resto.
-- **ley de Little:** relación `L = λ · W` entre el número medio de elementos en un sistema, la tasa de llegada y el tiempo medio de estancia.
-- **archivo de límites:** documento que lista lo que no se midió, lo que es supuesto y los entornos no probados.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** relación `L = λ · W` entre el número medio de elementos en un sistema, la tasa de llegada y el tiempo medio de estancia.
+- **[archivo de límites](../../../glosario/entradas/a/archivo-de-limites.md):** documento que lista lo que no se midió, lo que es supuesto y los entornos no probados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Archivo de límites](../../../glosario/entradas/a/archivo-de-limites.md) · [Escalera de degradación](../../../glosario/entradas/e/escalera-de-degradacion.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Ley de Little](../../../glosario/entradas/l/ley-de-little.md).
 
 ---
 

@@ -145,11 +145,11 @@ Con σ = 0,5 el mayor cliente aporta 3,1 % del ingreso, los cinco mayores 11,5 %
 
 ## Definiciones de trabajo
 
-- **pagador, usuario y decisor:** quien paga el servicio, quien lo usa y quien decide comprarlo o renovarlo; pueden ser personas distintas.
-- **modelo de ingreso:** regla que convierte uso o presencia de un cliente en dinero (por alumno, plano, gratuito con conversión).
-- **margen de contribución:** ingreso de un cliente menos el costo variable de servirlo.
-- **valor de vida y costo de adquisición:** margen futuro esperado de un cliente (margen mensual dividido por abandono mensual) y lo que cuesta conseguirlo.
-- **concentración:** parte del ingreso que aportan los mayores clientes; el índice de Herfindahl-Hirschman es la suma de los cuadrados de las participaciones.
+- **[pagador, usuario y decisor](../../../glosario/entradas/p/pagador-usuario-y-decisor.md):** quien paga el servicio, quien lo usa y quien decide comprarlo o renovarlo; pueden ser personas distintas.
+- **[modelo de ingreso](../../../glosario/entradas/m/modelo-de-ingreso.md):** regla que convierte uso o presencia de un cliente en dinero (por alumno, plano, gratuito con conversión).
+- **[margen de contribución](../../../glosario/entradas/m/margen-de-contribucion.md):** ingreso de un cliente menos el costo variable de servirlo.
+- **[valor de vida y costo de adquisición](../../../glosario/entradas/v/valor-de-vida-y-costo-de-adquisicion.md):** margen futuro esperado de un cliente (margen mensual dividido por abandono mensual) y lo que cuesta conseguirlo.
+- **[concentración](../../../glosario/entradas/c/concentracion.md):** parte del ingreso que aportan los mayores clientes; el índice de Herfindahl-Hirschman es la suma de los cuadrados de las participaciones.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -294,11 +294,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **pagador, usuario y decisor:** quien paga el servicio, quien lo usa y quien decide comprarlo o renovarlo; pueden ser personas distintas.
-- **modelo de ingreso:** regla que convierte uso o presencia de un cliente en dinero (por alumno, plano, gratuito con conversión).
-- **margen de contribución:** ingreso de un cliente menos el costo variable de servirlo.
-- **valor de vida y costo de adquisición:** margen futuro esperado de un cliente (margen mensual dividido por abandono mensual) y lo que cuesta conseguirlo.
-- **concentración:** parte del ingreso que aportan los mayores clientes; el índice de Herfindahl-Hirschman es la suma de los cuadrados de las participaciones.
+- **[pagador, usuario y decisor](../../../glosario/entradas/p/pagador-usuario-y-decisor.md):** quien paga el servicio, quien lo usa y quien decide comprarlo o renovarlo; pueden ser personas distintas.
+- **[modelo de ingreso](../../../glosario/entradas/m/modelo-de-ingreso.md):** regla que convierte uso o presencia de un cliente en dinero (por alumno, plano, gratuito con conversión).
+- **[margen de contribución](../../../glosario/entradas/m/margen-de-contribucion.md):** ingreso de un cliente menos el costo variable de servirlo.
+- **[valor de vida y costo de adquisición](../../../glosario/entradas/v/valor-de-vida-y-costo-de-adquisicion.md):** margen futuro esperado de un cliente (margen mensual dividido por abandono mensual) y lo que cuesta conseguirlo.
+- **[concentración](../../../glosario/entradas/c/concentracion.md):** parte del ingreso que aportan los mayores clientes; el índice de Herfindahl-Hirschman es la suma de los cuadrados de las participaciones.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Concentración](../../../glosario/entradas/c/concentracion.md) · [Margen de contribución](../../../glosario/entradas/m/margen-de-contribucion.md) · [Modelo de ingreso](../../../glosario/entradas/m/modelo-de-ingreso.md) · [Pagador, usuario y decisor](../../../glosario/entradas/p/pagador-usuario-y-decisor.md) · [Valor de vida y costo de adquisición](../../../glosario/entradas/v/valor-de-vida-y-costo-de-adquisicion.md).
 
 ---
 

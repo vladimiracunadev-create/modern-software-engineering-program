@@ -163,11 +163,11 @@ for i in range(0, 60, b):
 
 ## Definiciones de trabajo
 
-- **refactorización:** cambio de la estructura interna de un código sin cambiar su comportamiento observable.
-- **mutante:** variante del programa con un cambio pequeño que sirve para evaluar cuánto detecta una suite.
-- **puntuación de mutación:** fracción de mutantes no equivalentes que una suite detecta.
-- **valor de borde:** valor justo en el límite de una condición, y los vecinos inmediatos.
-- **red de pruebas:** conjunto de comprobaciones que debe fallar si el comportamiento cambia.
+- **[refactorización](../../../glosario/entradas/r/refactorizacion.md):** cambio de la estructura interna de un código sin cambiar su comportamiento observable.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** variante del programa con un cambio pequeño que sirve para evaluar cuánto detecta una suite.
+- **[puntuación de mutación](../../../glosario/entradas/p/puntuacion-de-mutacion.md):** fracción de mutantes no equivalentes que una suite detecta.
+- **[valor de borde](../../../glosario/entradas/v/valor-de-borde.md):** valor justo en el límite de una condición, y los vecinos inmediatos.
+- **[red de pruebas](../../../glosario/entradas/r/red-de-pruebas.md):** conjunto de comprobaciones que debe fallar si el comportamiento cambia.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windo
 
 ## Glosario
 
-- **refactorización:** cambio de la estructura interna de un código sin cambiar su comportamiento observable.
-- **mutante:** variante del programa con un cambio pequeño que sirve para evaluar cuánto detecta una suite.
-- **puntuación de mutación:** fracción de mutantes no equivalentes que una suite detecta.
-- **valor de borde:** valor justo en el límite de una condición, y los vecinos inmediatos.
-- **red de pruebas:** conjunto de comprobaciones que debe fallar si el comportamiento cambia.
+- **[refactorización](../../../glosario/entradas/r/refactorizacion.md):** cambio de la estructura interna de un código sin cambiar su comportamiento observable.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** variante del programa con un cambio pequeño que sirve para evaluar cuánto detecta una suite.
+- **[puntuación de mutación](../../../glosario/entradas/p/puntuacion-de-mutacion.md):** fracción de mutantes no equivalentes que una suite detecta.
+- **[valor de borde](../../../glosario/entradas/v/valor-de-borde.md):** valor justo en el límite de una condición, y los vecinos inmediatos.
+- **[red de pruebas](../../../glosario/entradas/r/red-de-pruebas.md):** conjunto de comprobaciones que debe fallar si el comportamiento cambia.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Puntuación de mutación](../../../glosario/entradas/p/puntuacion-de-mutacion.md) · [Red de pruebas](../../../glosario/entradas/r/red-de-pruebas.md) · [Refactorización](../../../glosario/entradas/r/refactorizacion.md) · [Valor de borde](../../../glosario/entradas/v/valor-de-borde.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

@@ -158,11 +158,11 @@ Cien terabytes tardan casi dos semanas incluso a un gigabit, y el costo de salid
 
 ## Definiciones de trabajo
 
-- **multi-cloud:** uso de más de un proveedor de nube para una misma carga o plataforma.
-- **nube híbrida:** combinación de una instalación propia con servicios de nube que operan de forma coordinada.
-- **portabilidad:** capacidad de mover una carga entre entornos con un esfuerzo acotado y conocido.
-- **mínimo común denominador:** conjunto de funciones que ofrecen a la vez todos los entornos considerados.
-- **gravedad de los datos:** tendencia de las aplicaciones a ubicarse donde están los datos, por el costo y el tiempo de moverlos.
+- **[multi-cloud](../../../glosario/entradas/m/multi-cloud.md):** uso de más de un proveedor de nube para una misma carga o plataforma.
+- **[nube híbrida](../../../glosario/entradas/n/nube-hibrida.md):** combinación de una instalación propia con servicios de nube que operan de forma coordinada.
+- **[portabilidad](../../../glosario/entradas/p/portabilidad.md):** capacidad de mover una carga entre entornos con un esfuerzo acotado y conocido.
+- **[mínimo común denominador](../../../glosario/entradas/m/minimo-comun-denominador.md):** conjunto de funciones que ofrecen a la vez todos los entornos considerados.
+- **[gravedad de los datos](../../../glosario/entradas/g/gravedad-de-los-datos.md):** tendencia de las aplicaciones a ubicarse donde están los datos, por el costo y el tiempo de moverlos.
 
 Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada guía usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -299,11 +299,13 @@ Se ejecutaron tres cálculos y simulaciones sintéticos en Windows y Ubuntu (WSL
 
 ## Glosario
 
-- **multi-cloud:** uso de más de un proveedor de nube para una misma carga o plataforma.
-- **nube híbrida:** combinación de una instalación propia con servicios de nube que operan de forma coordinada.
-- **portabilidad:** capacidad de mover una carga entre entornos con un esfuerzo acotado y conocido.
-- **mínimo común denominador:** conjunto de funciones que ofrecen a la vez todos los entornos considerados.
-- **gravedad de los datos:** tendencia de las aplicaciones a ubicarse donde están los datos, por el costo y el tiempo de moverlos.
+- **[multi-cloud](../../../glosario/entradas/m/multi-cloud.md):** uso de más de un proveedor de nube para una misma carga o plataforma.
+- **[nube híbrida](../../../glosario/entradas/n/nube-hibrida.md):** combinación de una instalación propia con servicios de nube que operan de forma coordinada.
+- **[portabilidad](../../../glosario/entradas/p/portabilidad.md):** capacidad de mover una carga entre entornos con un esfuerzo acotado y conocido.
+- **[mínimo común denominador](../../../glosario/entradas/m/minimo-comun-denominador.md):** conjunto de funciones que ofrecen a la vez todos los entornos considerados.
+- **[gravedad de los datos](../../../glosario/entradas/g/gravedad-de-los-datos.md):** tendencia de las aplicaciones a ubicarse donde están los datos, por el costo y el tiempo de moverlos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Disponibilidad compuesta](../../../glosario/entradas/d/disponibilidad-compuesta.md) · [Gravedad de los datos](../../../glosario/entradas/g/gravedad-de-los-datos.md) · [Mínimo común denominador](../../../glosario/entradas/m/minimo-comun-denominador.md) · [Multi-cloud](../../../glosario/entradas/m/multi-cloud.md) · [Nube híbrida](../../../glosario/entradas/n/nube-hibrida.md) · [Portabilidad](../../../glosario/entradas/p/portabilidad.md).
 
 ---
 

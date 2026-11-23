@@ -111,11 +111,11 @@ Lo que compra ese costo es otra cosa: las reglas son datos que se pueden listar,
 
 ## Definiciones de trabajo
 
-- **intención declarada y estrategia de ejecución:** una descripción declarativa especifica qué relación debe cumplirse y delega parte del cómo a un motor.
-- **hechos, reglas y condiciones:** un hecho representa una observación; una regla deriva una consecuencia cuando su antecedente se satisface.
-- **prioridad y conflictos:** dos reglas pueden habilitar acciones incompatibles.
-- **evaluación incremental y explicación:** un motor puede reevaluar todo o actualizar solo consecuencias afectadas por hechos nuevos.
-- **límites de lenguajes declarativos:** expresar estado temporal, efectos externos o algoritmos irregulares puede volverse difícil.
+- **[intención declarada y estrategia de ejecución](../../../glosario/entradas/i/intencion-declarada-y-estrategia-de-ejecucion.md):** una descripción declarativa especifica qué relación debe cumplirse y delega parte del cómo a un motor.
+- **[hechos, reglas y condiciones](../../../glosario/entradas/h/hechos-reglas-y-condiciones.md):** un hecho representa una observación; una regla deriva una consecuencia cuando su antecedente se satisface.
+- **[prioridad y conflictos](../../../glosario/entradas/p/prioridad-y-conflictos.md):** dos reglas pueden habilitar acciones incompatibles.
+- **[evaluación incremental y explicación](../../../glosario/entradas/e/evaluacion-incremental-y-explicacion.md):** un motor puede reevaluar todo o actualizar solo consecuencias afectadas por hechos nuevos.
+- **[límites de lenguajes declarativos](../../../glosario/entradas/l/limites-de-lenguajes-declarativos.md):** expresar estado temporal, efectos externos o algoritmos irregulares puede volverse difícil.
 
 Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Una tabla de reglas no prueba consistencia ni completitud. La siguiente clase us
 
 ## Glosario
 
-- **intención declarada y estrategia de ejecución:** una descripción declarativa especifica qué relación debe cumplirse y delega parte del cómo a un motor.
-- **hechos, reglas y condiciones:** un hecho representa una observación; una regla deriva una consecuencia cuando su antecedente se satisface.
-- **prioridad y conflictos:** dos reglas pueden habilitar acciones incompatibles.
-- **evaluación incremental y explicación:** un motor puede reevaluar todo o actualizar solo consecuencias afectadas por hechos nuevos.
-- **límites de lenguajes declarativos:** expresar estado temporal, efectos externos o algoritmos irregulares puede volverse difícil.
+- **[intención declarada y estrategia de ejecución](../../../glosario/entradas/i/intencion-declarada-y-estrategia-de-ejecucion.md):** una descripción declarativa especifica qué relación debe cumplirse y delega parte del cómo a un motor.
+- **[hechos, reglas y condiciones](../../../glosario/entradas/h/hechos-reglas-y-condiciones.md):** un hecho representa una observación; una regla deriva una consecuencia cuando su antecedente se satisface.
+- **[prioridad y conflictos](../../../glosario/entradas/p/prioridad-y-conflictos.md):** dos reglas pueden habilitar acciones incompatibles.
+- **[evaluación incremental y explicación](../../../glosario/entradas/e/evaluacion-incremental-y-explicacion.md):** un motor puede reevaluar todo o actualizar solo consecuencias afectadas por hechos nuevos.
+- **[límites de lenguajes declarativos](../../../glosario/entradas/l/limites-de-lenguajes-declarativos.md):** expresar estado temporal, efectos externos o algoritmos irregulares puede volverse difícil.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evaluación incremental y explicación](../../../glosario/entradas/e/evaluacion-incremental-y-explicacion.md) · [Hechos, reglas y condiciones](../../../glosario/entradas/h/hechos-reglas-y-condiciones.md) · [Intención declarada y estrategia de ejecución](../../../glosario/entradas/i/intencion-declarada-y-estrategia-de-ejecucion.md) · [Límites de lenguajes declarativos](../../../glosario/entradas/l/limites-de-lenguajes-declarativos.md) · [Prioridad y conflictos](../../../glosario/entradas/p/prioridad-y-conflictos.md).
 
 ---
 

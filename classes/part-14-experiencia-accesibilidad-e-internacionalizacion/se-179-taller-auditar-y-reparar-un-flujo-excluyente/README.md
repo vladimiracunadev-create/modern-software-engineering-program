@@ -131,11 +131,11 @@ print(sum(d for _, d in resultados), 'de', len(MUTACIONES))   # 8 de 13
 
 ## Definiciones de trabajo
 
-- **hallazgo:** observación de un incumplimiento con su criterio, lugar, reproducción, afectados, gravedad y evidencia.
-- **alcance de la auditoría:** conjunto de pantallas, estados y entornos que se evalúan y lo que se excluye de forma explícita.
-- **gravedad:** escala escrita que mide el impacto de un hallazgo sobre la capacidad de completar la tarea.
-- **regresión:** reaparición de un defecto ya reparado.
-- **mutación:** cambio pequeño de una solución que reintroduce un defecto para comprobar si las pruebas lo detectan.
+- **[hallazgo](../../../glosario/entradas/h/hallazgo.md):** observación de un incumplimiento con su criterio, lugar, reproducción, afectados, gravedad y evidencia.
+- **[alcance de la auditoría](../../../glosario/entradas/a/alcance-de-la-auditoria.md):** conjunto de pantallas, estados y entornos que se evalúan y lo que se excluye de forma explícita.
+- **[gravedad](../../../glosario/entradas/g/gravedad.md):** escala escrita que mide el impacto de un hallazgo sobre la capacidad de completar la tarea.
+- **[regresión](../../../glosario/entradas/r/regresion.md):** reaparición de un defecto ya reparado.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** cambio pequeño de una solución que reintroduce un defecto para comprobar si las pruebas lo detectan.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -294,11 +294,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **hallazgo:** observación de un incumplimiento con su criterio, lugar, reproducción, afectados, gravedad y evidencia.
-- **alcance de la auditoría:** conjunto de pantallas, estados y entornos que se evalúan y lo que se excluye de forma explícita.
-- **gravedad:** escala escrita que mide el impacto de un hallazgo sobre la capacidad de completar la tarea.
-- **regresión:** reaparición de un defecto ya reparado.
-- **mutación:** cambio pequeño de una solución que reintroduce un defecto para comprobar si las pruebas lo detectan.
+- **[hallazgo](../../../glosario/entradas/h/hallazgo.md):** observación de un incumplimiento con su criterio, lugar, reproducción, afectados, gravedad y evidencia.
+- **[alcance de la auditoría](../../../glosario/entradas/a/alcance-de-la-auditoria.md):** conjunto de pantallas, estados y entornos que se evalúan y lo que se excluye de forma explícita.
+- **[gravedad](../../../glosario/entradas/g/gravedad.md):** escala escrita que mide el impacto de un hallazgo sobre la capacidad de completar la tarea.
+- **[regresión](../../../glosario/entradas/r/regresion.md):** reaparición de un defecto ya reparado.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** cambio pequeño de una solución que reintroduce un defecto para comprobar si las pruebas lo detectan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance de la auditoría](../../../glosario/entradas/a/alcance-de-la-auditoria.md) · [Gravedad](../../../glosario/entradas/g/gravedad.md) · [Hallazgo](../../../glosario/entradas/h/hallazgo.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Regresión](../../../glosario/entradas/r/regresion.md).
 
 ---
 

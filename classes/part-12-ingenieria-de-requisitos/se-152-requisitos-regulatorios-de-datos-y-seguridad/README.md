@@ -145,11 +145,11 @@ Resultado: modificar la entrada 40 se detecta en la 40; borrarla también; trunc
 
 ## Definiciones de trabajo
 
-- **obligaciones externas:** exigencias de una ley, un contrato o una norma que el equipo no puede negociar como preferencias.
-- **requisitos de datos:** condiciones sobre qué datos se guardan, por cuánto tiempo, quién accede, cómo se borran y qué excepciones existen.
-- **amenazas y requisitos de seguridad:** hipótesis de ataque enumeradas por elemento del sistema y los requisitos que las mitigan o las aceptan.
-- **registros de auditoría:** historial de acciones con quién, qué, cuándo y resultado, con protección frente a alteración.
-- **evidencia de cumplimiento:** artefactos fechados que sostienen una afirmación de que se cumple una obligación.
+- **[obligaciones externas](../../../glosario/entradas/o/obligaciones-externas.md):** exigencias de una ley, un contrato o una norma que el equipo no puede negociar como preferencias.
+- **[requisitos de datos](../../../glosario/entradas/r/requisitos-de-datos.md):** condiciones sobre qué datos se guardan, por cuánto tiempo, quién accede, cómo se borran y qué excepciones existen.
+- **[amenazas y requisitos de seguridad](../../../glosario/entradas/a/amenazas-y-requisitos-de-seguridad.md):** hipótesis de ataque enumeradas por elemento del sistema y los requisitos que las mitigan o las aceptan.
+- **[registros de auditoría](../../../glosario/entradas/r/registro-de-auditoria.md):** historial de acciones con quién, qué, cuándo y resultado, con protección frente a alteración.
+- **[evidencia de cumplimiento](../../../glosario/entradas/e/evidencia-de-cumplimiento.md):** artefactos fechados que sostienen una afirmación de que se cumple una obligación.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **obligaciones externas:** exigencias de una ley, un contrato o una norma que el equipo no puede negociar como preferencias.
-- **requisitos de datos:** condiciones sobre qué datos se guardan, por cuánto tiempo, quién accede, cómo se borran y qué excepciones existen.
-- **amenazas y requisitos de seguridad:** hipótesis de ataque enumeradas por elemento del sistema y los requisitos que las mitigan o las aceptan.
-- **registros de auditoría:** historial de acciones con quién, qué, cuándo y resultado, con protección frente a alteración.
-- **evidencia de cumplimiento:** artefactos fechados que sostienen una afirmación de que se cumple una obligación.
+- **[obligaciones externas](../../../glosario/entradas/o/obligaciones-externas.md):** exigencias de una ley, un contrato o una norma que el equipo no puede negociar como preferencias.
+- **[requisitos de datos](../../../glosario/entradas/r/requisitos-de-datos.md):** condiciones sobre qué datos se guardan, por cuánto tiempo, quién accede, cómo se borran y qué excepciones existen.
+- **[amenazas y requisitos de seguridad](../../../glosario/entradas/a/amenazas-y-requisitos-de-seguridad.md):** hipótesis de ataque enumeradas por elemento del sistema y los requisitos que las mitigan o las aceptan.
+- **[registros de auditoría](../../../glosario/entradas/r/registro-de-auditoria.md):** historial de acciones con quién, qué, cuándo y resultado, con protección frente a alteración.
+- **[evidencia de cumplimiento](../../../glosario/entradas/e/evidencia-de-cumplimiento.md):** artefactos fechados que sostienen una afirmación de que se cumple una obligación.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Amenazas y requisitos de seguridad](../../../glosario/entradas/a/amenazas-y-requisitos-de-seguridad.md) · [Evidencia de cumplimiento](../../../glosario/entradas/e/evidencia-de-cumplimiento.md) · [Obligaciones externas](../../../glosario/entradas/o/obligaciones-externas.md) · [Registro de auditoría](../../../glosario/entradas/r/registro-de-auditoria.md) · [Requisitos de datos](../../../glosario/entradas/r/requisitos-de-datos.md).
 
 ---
 

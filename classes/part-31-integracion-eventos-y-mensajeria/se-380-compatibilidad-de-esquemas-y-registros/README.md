@@ -169,11 +169,11 @@ La excepción convierte un valor nuevo en una parada: el primer mensaje con `rev
 
 ## Definiciones de trabajo
 
-- **compatibilidad hacia atrás:** propiedad de un cambio de esquema por la cual un lector con el esquema nuevo lee datos escritos con el viejo.
-- **compatibilidad hacia adelante:** propiedad por la cual un lector con el esquema viejo lee datos escritos con el nuevo.
-- **lector tolerante:** consumidor que usa los campos que conoce e ignora los demás.
-- **registro de esquemas:** servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
-- **expandir y contraer:** estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un cambio de esquema por la cual un lector con el esquema nuevo lee datos escritos con el viejo.
+- **[compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md):** propiedad por la cual un lector con el esquema viejo lee datos escritos con el nuevo.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que usa los campos que conoce e ignora los demás.
+- **[registro de esquemas](../../../glosario/entradas/r/registro-de-esquemas.md):** servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **compatibilidad hacia atrás:** propiedad de un cambio de esquema por la cual un lector con el esquema nuevo lee datos escritos con el viejo.
-- **compatibilidad hacia adelante:** propiedad por la cual un lector con el esquema viejo lee datos escritos con el nuevo.
-- **lector tolerante:** consumidor que usa los campos que conoce e ignora los demás.
-- **registro de esquemas:** servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
-- **expandir y contraer:** estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un cambio de esquema por la cual un lector con el esquema nuevo lee datos escritos con el viejo.
+- **[compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md):** propiedad por la cual un lector con el esquema viejo lee datos escritos con el nuevo.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que usa los campos que conoce e ignora los demás.
+- **[registro de esquemas](../../../glosario/entradas/r/registro-de-esquemas.md):** servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
+- **[expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md):** estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compatibilidad hacia adelante](../../../glosario/entradas/c/compatibilidad-hacia-adelante.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Expandir y contraer](../../../glosario/entradas/e/expandir-y-contraer.md) · [Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md) · [Registro de esquemas](../../../glosario/entradas/r/registro-de-esquemas.md).
 
 ---
 

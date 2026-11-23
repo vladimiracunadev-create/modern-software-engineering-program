@@ -197,11 +197,11 @@ El diccionario tardó unas 146 veces menos en la corrida usada en esta tabla; en
 
 ## Definiciones de trabajo
 
-- **escalado reactivo:** ajuste del número de instancias según una métrica observada, con un retardo hasta que las nuevas estén listas.
-- **escalado programado:** ajuste del número de instancias según un calendario basado en un patrón conocido.
-- **utilización:** fracción del tiempo o de la capacidad que un recurso está ocupado.
-- **ley de Little:** relación L = λW entre el número medio de elementos en un sistema estable, la tasa de llegada y el tiempo medio que pasan en él.
-- **compromiso de capacidad:** acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
+- **[escalado reactivo](../../../glosario/entradas/e/escalado-reactivo.md):** ajuste del número de instancias según una métrica observada, con un retardo hasta que las nuevas estén listas.
+- **[escalado programado](../../../glosario/entradas/e/escalado-programado.md):** ajuste del número de instancias según un calendario basado en un patrón conocido.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo o de la capacidad que un recurso está ocupado.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** relación L = λW entre el número medio de elementos en un sistema estable, la tasa de llegada y el tiempo medio que pasan en él.
+- **[compromiso de capacidad](../../../glosario/entradas/c/compromiso-de-capacidad.md):** acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
 
 Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada herramienta usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -342,11 +342,13 @@ Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resul
 
 ## Glosario
 
-- **escalado reactivo:** ajuste del número de instancias según una métrica observada, con un retardo hasta que las nuevas estén listas.
-- **escalado programado:** ajuste del número de instancias según un calendario basado en un patrón conocido.
-- **utilización:** fracción del tiempo o de la capacidad que un recurso está ocupado.
-- **ley de Little:** relación L = λW entre el número medio de elementos en un sistema estable, la tasa de llegada y el tiempo medio que pasan en él.
-- **compromiso de capacidad:** acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
+- **[escalado reactivo](../../../glosario/entradas/e/escalado-reactivo.md):** ajuste del número de instancias según una métrica observada, con un retardo hasta que las nuevas estén listas.
+- **[escalado programado](../../../glosario/entradas/e/escalado-programado.md):** ajuste del número de instancias según un calendario basado en un patrón conocido.
+- **[utilización](../../../glosario/entradas/u/utilizacion.md):** fracción del tiempo o de la capacidad que un recurso está ocupado.
+- **[ley de Little](../../../glosario/entradas/l/ley-de-little.md):** relación L = λW entre el número medio de elementos en un sistema estable, la tasa de llegada y el tiempo medio que pasan en él.
+- **[compromiso de capacidad](../../../glosario/entradas/c/compromiso-de-capacidad.md):** acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compromiso de capacidad](../../../glosario/entradas/c/compromiso-de-capacidad.md) · [Escalado programado](../../../glosario/entradas/e/escalado-programado.md) · [Escalado reactivo](../../../glosario/entradas/e/escalado-reactivo.md) · [Ley de Little](../../../glosario/entradas/l/ley-de-little.md) · [Revisión](../../../glosario/entradas/r/revision.md) · [Utilización](../../../glosario/entradas/u/utilizacion.md).
 
 ---
 

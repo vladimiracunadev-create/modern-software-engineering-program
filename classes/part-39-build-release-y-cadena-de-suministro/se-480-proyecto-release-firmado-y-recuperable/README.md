@@ -122,11 +122,11 @@ Se mide el tiempo de los pasos del canal sintético en cada sistema.
 
 ## Definiciones de trabajo
 
-- **expediente de release:** conjunto de documentos y pruebas que permite verificar un release sin recurrir a quien lo produjo.
-- **criterio de aceptación:** afirmación sobre el canal con una prueba ejecutable y un resultado esperado.
-- **simulacro:** ensayo controlado de una pérdida (de una versión, de un repositorio, de una clave) con resultado registrado.
-- **rotación declarada:** cambio de clave anunciado con una declaración firmada por la clave vigente antes de usar la nueva.
-- **caducidad de la evidencia:** fecha tras la cual un expediente deja de describir el canal actual.
+- **[expediente de release](../../../glosario/entradas/e/expediente-de-release.md):** conjunto de documentos y pruebas que permite verificar un release sin recurrir a quien lo produjo.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** afirmación sobre el canal con una prueba ejecutable y un resultado esperado.
+- **[simulacro](../../../glosario/entradas/s/simulacro.md):** ensayo controlado de una pérdida (de una versión, de un repositorio, de una clave) con resultado registrado.
+- **[rotación declarada](../../../glosario/entradas/r/rotacion-declarada.md):** cambio de clave anunciado con una declaración firmada por la clave vigente antes de usar la nueva.
+- **[caducidad de la evidencia](../../../glosario/entradas/c/caducidad-de-la-evidencia.md):** fecha tras la cual un expediente deja de describir el canal actual.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -278,11 +278,13 @@ Se ejecutó un proyecto de integración con un canal sintético (zip de 42 archi
 
 ## Glosario
 
-- **expediente de release:** conjunto de documentos y pruebas que permite verificar un release sin recurrir a quien lo produjo.
-- **criterio de aceptación:** afirmación sobre el canal con una prueba ejecutable y un resultado esperado.
-- **simulacro:** ensayo controlado de una pérdida (de una versión, de un repositorio, de una clave) con resultado registrado.
-- **rotación declarada:** cambio de clave anunciado con una declaración firmada por la clave vigente antes de usar la nueva.
-- **caducidad de la evidencia:** fecha tras la cual un expediente deja de describir el canal actual.
+- **[expediente de release](../../../glosario/entradas/e/expediente-de-release.md):** conjunto de documentos y pruebas que permite verificar un release sin recurrir a quien lo produjo.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** afirmación sobre el canal con una prueba ejecutable y un resultado esperado.
+- **[simulacro](../../../glosario/entradas/s/simulacro.md):** ensayo controlado de una pérdida (de una versión, de un repositorio, de una clave) con resultado registrado.
+- **[rotación declarada](../../../glosario/entradas/r/rotacion-declarada.md):** cambio de clave anunciado con una declaración firmada por la clave vigente antes de usar la nueva.
+- **[caducidad de la evidencia](../../../glosario/entradas/c/caducidad-de-la-evidencia.md):** fecha tras la cual un expediente deja de describir el canal actual.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caducidad de la evidencia](../../../glosario/entradas/c/caducidad-de-la-evidencia.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Expediente de release](../../../glosario/entradas/e/expediente-de-release.md) · [Recuperación](../../../glosario/entradas/r/recuperacion.md) · [Rotación declarada](../../../glosario/entradas/r/rotacion-declarada.md) · [Simulacro](../../../glosario/entradas/s/simulacro.md).
 
 ---
 

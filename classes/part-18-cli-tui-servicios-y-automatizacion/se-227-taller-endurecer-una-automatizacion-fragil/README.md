@@ -125,11 +125,11 @@ Se pasaron doce nombres de archivo a un proceso hijo que imprime sus argumentos,
 
 ## Definiciones de trabajo
 
-- **inyección de fallos:** provocar deliberadamente una condición de error para observar cómo responde el sistema.
-- **fallo silencioso:** terminación con éxito aparente después de un error que dejó el sistema en peor estado.
-- **endurecimiento:** conjunto de cambios que hace que una automatización rechace o tolere condiciones adversas sin dañar el estado.
-- **bloqueo (lock):** mecanismo de exclusión mutua; aquí, un archivo creado en exclusiva.
-- **inyección de comandos:** ejecución de órdenes no previstas porque un dato se interpretó como parte de la orden.
+- **[inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md):** provocar deliberadamente una condición de error para observar cómo responde el sistema.
+- **[fallo silencioso](../../../glosario/entradas/f/fallo-silencioso.md):** terminación con éxito aparente después de un error que dejó el sistema en peor estado.
+- **[endurecimiento](../../../glosario/entradas/e/endurecimiento.md):** conjunto de cambios que hace que una automatización rechace o tolere condiciones adversas sin dañar el estado.
+- **[bloqueo (lock)](../../../glosario/entradas/b/bloqueo.md):** mecanismo de exclusión mutua; aquí, un archivo creado en exclusiva.
+- **[inyección de comandos](../../../glosario/entradas/i/inyeccion-de-comandos.md):** ejecución de órdenes no previstas porque un dato se interpretó como parte de la orden.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -275,11 +275,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la matriz de fallos 
 
 ## Glosario
 
-- **inyección de fallos:** provocar deliberadamente una condición de error para observar cómo responde el sistema.
-- **fallo silencioso:** terminación con éxito aparente después de un error que dejó el sistema en peor estado.
-- **endurecimiento:** conjunto de cambios que hace que una automatización rechace o tolere condiciones adversas sin dañar el estado.
-- **bloqueo (lock):** mecanismo de exclusión mutua; aquí, un archivo creado en exclusiva.
-- **inyección de comandos:** ejecución de órdenes no previstas porque un dato se interpretó como parte de la orden.
+- **[inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md):** provocar deliberadamente una condición de error para observar cómo responde el sistema.
+- **[fallo silencioso](../../../glosario/entradas/f/fallo-silencioso.md):** terminación con éxito aparente después de un error que dejó el sistema en peor estado.
+- **[endurecimiento](../../../glosario/entradas/e/endurecimiento.md):** conjunto de cambios que hace que una automatización rechace o tolere condiciones adversas sin dañar el estado.
+- **[bloqueo (lock)](../../../glosario/entradas/b/bloqueo.md):** mecanismo de exclusión mutua; aquí, un archivo creado en exclusiva.
+- **[inyección de comandos](../../../glosario/entradas/i/inyeccion-de-comandos.md):** ejecución de órdenes no previstas porque un dato se interpretó como parte de la orden.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloqueo](../../../glosario/entradas/b/bloqueo.md) · [Concurrencia](../../../glosario/entradas/c/concurrencia.md) · [Endurecimiento](../../../glosario/entradas/e/endurecimiento.md) · [Fallo silencioso](../../../glosario/entradas/f/fallo-silencioso.md) · [Inyección de comandos](../../../glosario/entradas/i/inyeccion-de-comandos.md) · [Inyección de fallos](../../../glosario/entradas/i/inyeccion-de-fallos.md).
 
 ---
 

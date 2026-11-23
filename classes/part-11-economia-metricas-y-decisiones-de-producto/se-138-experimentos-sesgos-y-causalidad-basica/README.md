@@ -138,11 +138,11 @@ Con ruido 2 (fiabilidad 0,94) los peores «mejoran» 0,91 puntos; con ruido 5 (0
 
 ## Definiciones de trabajo
 
-- **contrafactual:** lo que habría ocurrido a las mismas personas sin la intervención; no se observa.
-- **asignación aleatoria:** reparto por azar de las unidades entre grupos para que solo la intervención los distinga en promedio.
-- **sesgo de selección:** diferencia previa entre quienes eligen una opción y quienes no, mezclada con el efecto.
-- **desajuste de proporción de muestra:** diferencia entre el reparto esperado y el observado mayor que la que explica el azar.
-- **regresión a la media:** tendencia de los casos extremos de una medición ruidosa a acercarse al promedio en la siguiente.
+- **[contrafactual](../../../glosario/entradas/c/contrafactual.md):** lo que habría ocurrido a las mismas personas sin la intervención; no se observa.
+- **[asignación aleatoria](../../../glosario/entradas/a/asignacion-aleatoria.md):** reparto por azar de las unidades entre grupos para que solo la intervención los distinga en promedio.
+- **[sesgo de selección](../../../glosario/entradas/s/sesgo-de-seleccion.md):** diferencia previa entre quienes eligen una opción y quienes no, mezclada con el efecto.
+- **[desajuste de proporción de muestra](../../../glosario/entradas/d/desajuste-de-proporcion-de-muestra.md):** diferencia entre el reparto esperado y el observado mayor que la que explica el azar.
+- **[regresión a la media](../../../glosario/entradas/r/regresion-a-la-media.md):** tendencia de los casos extremos de una medición ruidosa a acercarse al promedio en la siguiente.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -287,11 +287,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **contrafactual:** lo que habría ocurrido a las mismas personas sin la intervención; no se observa.
-- **asignación aleatoria:** reparto por azar de las unidades entre grupos para que solo la intervención los distinga en promedio.
-- **sesgo de selección:** diferencia previa entre quienes eligen una opción y quienes no, mezclada con el efecto.
-- **desajuste de proporción de muestra:** diferencia entre el reparto esperado y el observado mayor que la que explica el azar.
-- **regresión a la media:** tendencia de los casos extremos de una medición ruidosa a acercarse al promedio en la siguiente.
+- **[contrafactual](../../../glosario/entradas/c/contrafactual.md):** lo que habría ocurrido a las mismas personas sin la intervención; no se observa.
+- **[asignación aleatoria](../../../glosario/entradas/a/asignacion-aleatoria.md):** reparto por azar de las unidades entre grupos para que solo la intervención los distinga en promedio.
+- **[sesgo de selección](../../../glosario/entradas/s/sesgo-de-seleccion.md):** diferencia previa entre quienes eligen una opción y quienes no, mezclada con el efecto.
+- **[desajuste de proporción de muestra](../../../glosario/entradas/d/desajuste-de-proporcion-de-muestra.md):** diferencia entre el reparto esperado y el observado mayor que la que explica el azar.
+- **[regresión a la media](../../../glosario/entradas/r/regresion-a-la-media.md):** tendencia de los casos extremos de una medición ruidosa a acercarse al promedio en la siguiente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asignación aleatoria](../../../glosario/entradas/a/asignacion-aleatoria.md) · [Contrafactual](../../../glosario/entradas/c/contrafactual.md) · [Desajuste de proporción de muestra](../../../glosario/entradas/d/desajuste-de-proporcion-de-muestra.md) · [Regresión a la media](../../../glosario/entradas/r/regresion-a-la-media.md) · [Sesgo de selección](../../../glosario/entradas/s/sesgo-de-seleccion.md).
 
 ---
 

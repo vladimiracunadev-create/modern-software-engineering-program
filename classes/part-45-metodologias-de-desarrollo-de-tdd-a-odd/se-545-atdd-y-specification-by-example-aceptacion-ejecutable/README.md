@@ -123,12 +123,12 @@ La forma más barata de saber qué protege un conjunto no es ejecutarlo: es mira
 
 ## Definiciones de trabajo
 
-- **Ejemplo de aceptación:** caso concreto con entrada y resultado esperado acordado con negocio.
-- **ATDD:** desarrollo guiado por pruebas de aceptación; ciclo externo sobre TDD.
-- **Specification by Example:** práctica de especificar con ejemplos concretos acordados.
-- **Dimensión:** variable del problema cuyos valores definen casos.
-- **Valor de frontera:** valor en el límite donde cambia la regla.
-- **Conjunto combinatorio:** ejemplos con todas las combinaciones de valores de varias dimensiones.
+- **[Ejemplo de aceptación](../../../glosario/entradas/e/ejemplo-de-aceptacion.md):** caso concreto con entrada y resultado esperado acordado con negocio.
+- **[ATDD](../../../glosario/entradas/a/atdd.md):** desarrollo guiado por pruebas de aceptación; ciclo externo sobre TDD.
+- **[Specification by Example](../../../glosario/entradas/s/specification-by-example.md):** práctica de especificar con ejemplos concretos acordados.
+- **[Dimensión](../../../glosario/entradas/d/dimension.md):** variable del problema cuyos valores definen casos.
+- **[Valor de frontera](../../../glosario/entradas/v/valor-de-frontera.md):** valor en el límite donde cambia la regla.
+- **[Conjunto combinatorio](../../../glosario/entradas/c/conjunto-combinatorio.md):** ejemplos con todas las combinaciones de valores de varias dimensiones.
 
 ## Ejemplo mínimo
 
@@ -259,6 +259,8 @@ Los conjuntos y los mutantes son del autor y los resultados esperados vienen de 
 | Valor de frontera | Valor en el límite de una regla |
 | Conjunto combinatorio | Ejemplos con todas las combinaciones de valores |
 | Resultado esperado | Salida que alguien acordó como correcta |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ATDD](../../../glosario/entradas/a/atdd.md) · [Combinación](../../../glosario/entradas/c/combinacion.md) · [Conjunto combinatorio](../../../glosario/entradas/c/conjunto-combinatorio.md) · [Dimensión](../../../glosario/entradas/d/dimension.md) · [Ejemplo de aceptación](../../../glosario/entradas/e/ejemplo-de-aceptacion.md) · [Specification by Example](../../../glosario/entradas/s/specification-by-example.md) · [Valor de frontera](../../../glosario/entradas/v/valor-de-frontera.md).
 
 ---
 

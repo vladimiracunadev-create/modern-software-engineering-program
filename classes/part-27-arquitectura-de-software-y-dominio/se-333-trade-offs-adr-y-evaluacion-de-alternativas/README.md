@@ -157,11 +157,11 @@ Si revertir cuesta 5 o 30 semanas-equipo, conviene decidir ya (coste esperado de
 
 ## Definiciones de trabajo
 
-- **ADR:** registro corto de una decisión de arquitectura con contexto, alternativas, decisión y consecuencias.
-- **trade-off:** pareja de ganancia y sacrificio que implica elegir una alternativa.
-- **análisis de sensibilidad:** estudio de cuánto cambian los pesos o los supuestos para que otra alternativa gane.
-- **reversibilidad:** coste y plazo de volver atrás tras una decisión.
-- **último momento responsable:** punto en el que seguir esperando cuesta más que el riesgo de decidir con la evidencia disponible.
+- **[ADR](../../../glosario/entradas/a/adr.md):** registro corto de una decisión de arquitectura con contexto, alternativas, decisión y consecuencias.
+- **[trade-off](../../../glosario/entradas/t/trade-off.md):** pareja de ganancia y sacrificio que implica elegir una alternativa.
+- **[análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md):** estudio de cuánto cambian los pesos o los supuestos para que otra alternativa gane.
+- **[reversibilidad](../../../glosario/entradas/r/reversibilidad.md):** coste y plazo de volver atrás tras una decisión.
+- **[último momento responsable](../../../glosario/entradas/u/ultimo-momento-responsable.md):** punto en el que seguir esperando cuesta más que el riesgo de decidir con la evidencia disponible.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -318,11 +318,13 @@ Se ejecutaron tres cálculos con datos sintéticos en Windows y Ubuntu (WSL2) co
 
 ## Glosario
 
-- **ADR:** registro corto de una decisión de arquitectura con contexto, alternativas, decisión y consecuencias.
-- **trade-off:** pareja de ganancia y sacrificio que implica elegir una alternativa.
-- **análisis de sensibilidad:** estudio de cuánto cambian los pesos o los supuestos para que otra alternativa gane.
-- **reversibilidad:** coste y plazo de volver atrás tras una decisión.
-- **último momento responsable:** punto en el que seguir esperando cuesta más que el riesgo de decidir con la evidencia disponible.
+- **[ADR](../../../glosario/entradas/a/adr.md):** registro corto de una decisión de arquitectura con contexto, alternativas, decisión y consecuencias.
+- **[trade-off](../../../glosario/entradas/t/trade-off.md):** pareja de ganancia y sacrificio que implica elegir una alternativa.
+- **[análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md):** estudio de cuánto cambian los pesos o los supuestos para que otra alternativa gane.
+- **[reversibilidad](../../../glosario/entradas/r/reversibilidad.md):** coste y plazo de volver atrás tras una decisión.
+- **[último momento responsable](../../../glosario/entradas/u/ultimo-momento-responsable.md):** punto en el que seguir esperando cuesta más que el riesgo de decidir con la evidencia disponible.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [ADR](../../../glosario/entradas/a/adr.md) · [Análisis de sensibilidad](../../../glosario/entradas/a/analisis-de-sensibilidad.md) · [Registro de decisiones](../../../glosario/entradas/r/registro-de-decisiones.md) · [Reversibilidad](../../../glosario/entradas/r/reversibilidad.md) · [Trade-off](../../../glosario/entradas/t/trade-off.md) · [Último momento responsable](../../../glosario/entradas/u/ultimo-momento-responsable.md).
 
 ---
 

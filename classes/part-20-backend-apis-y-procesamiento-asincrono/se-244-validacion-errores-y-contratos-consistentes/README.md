@@ -125,11 +125,11 @@ Reintentar todo envía **20 749 solicitudes adicionales** y recupera **5 677** f
 
 ## Definiciones de trabajo
 
-- **lista de permitidos:** regla de validación que enumera lo aceptable y rechaza todo lo demás.
-- **esquema cerrado:** esquema que rechaza campos no declarados.
-- **error permanente:** fallo que se repite igual si se reintenta la misma solicitud.
-- **error transitorio:** fallo que puede desaparecer al reintentar más tarde.
-- **deriva del contrato:** diferencia creciente entre lo que el contrato dice y lo que la implementación hace.
+- **[lista de permitidos](../../../glosario/entradas/l/lista-de-permitidos.md):** regla de validación que enumera lo aceptable y rechaza todo lo demás.
+- **[esquema cerrado](../../../glosario/entradas/e/esquema-cerrado.md):** esquema que rechaza campos no declarados.
+- **[error permanente](../../../glosario/entradas/e/error-permanente.md):** fallo que se repite igual si se reintenta la misma solicitud.
+- **[error transitorio](../../../glosario/entradas/e/error-transitorio.md):** fallo que puede desaparecer al reintentar más tarde.
+- **[deriva del contrato](../../../glosario/entradas/d/deriva-del-contrato.md):** diferencia creciente entre lo que el contrato dice y lo que la implementación hace.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -265,11 +265,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **frontera de validación:** punto del servicio donde la entrada cruda se convierte en datos admitidos o se rechaza.
-- **asignación masiva:** vulnerabilidad por la que el servicio acepta campos que el cliente no debería poder fijar.
-- **identificador de correlación:** valor que une la respuesta al cliente con el registro interno de la misma solicitud.
-- **mutación:** cambio deliberado de una respuesta para comprobar si una comprobación lo detecta.
-- **enumeración:** conjunto cerrado de valores válidos de un campo.
+- **[frontera de validación](../../../glosario/entradas/f/frontera-de-validacion.md):** punto del servicio donde la entrada cruda se convierte en datos admitidos o se rechaza.
+- **[asignación masiva](../../../glosario/entradas/a/asignacion-masiva.md):** vulnerabilidad por la que el servicio acepta campos que el cliente no debería poder fijar.
+- **[identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md):** valor que une la respuesta al cliente con el registro interno de la misma solicitud.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** cambio deliberado de una respuesta para comprobar si una comprobación lo detecta.
+- **[enumeración](../../../glosario/entradas/e/enumeracion.md):** conjunto cerrado de valores válidos de un campo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asignación masiva](../../../glosario/entradas/a/asignacion-masiva.md) · [Deriva del contrato](../../../glosario/entradas/d/deriva-del-contrato.md) · [Enumeración](../../../glosario/entradas/e/enumeracion.md) · [Error permanente](../../../glosario/entradas/e/error-permanente.md) · [Error transitorio](../../../glosario/entradas/e/error-transitorio.md) · [Esquema cerrado](../../../glosario/entradas/e/esquema-cerrado.md) · [Frontera de validación](../../../glosario/entradas/f/frontera-de-validacion.md) · [Identificador de correlación](../../../glosario/entradas/i/identificador-de-correlacion.md) · [Lista de permitidos](../../../glosario/entradas/l/lista-de-permitidos.md) · [Mutación](../../../glosario/entradas/m/mutacion.md).
 
 ---
 

@@ -140,13 +140,13 @@ Para saber cuánto del resultado viene de la matriz y cuánto de los pesos, se s
 
 ## Definiciones de trabajo
 
-- **Estilo arquitectónico:** conjunto de restricciones sobre las unidades, sus conexiones y su despliegue que favorece unos atributos de calidad.
-- **Táctica:** técnica puntual que mueve un atributo, independiente del estilo.
-- **Escenario de calidad:** situación con fuente, estímulo, artefacto, entorno, respuesta y medida de la respuesta.
-- **Matriz de decisión:** tabla de estilos por atributos con valoraciones y pesos.
-- **Margen:** diferencia de puntaje entre el primero y el segundo.
-- **Punto de sensibilidad:** parámetro cuyo cambio pequeño invierte la decisión.
-- **Punto de compromiso:** decisión que mejora un atributo empeorando otro.
+- **[Estilo arquitectónico](../../../glosario/entradas/e/estilo-arquitectonico.md):** conjunto de restricciones sobre las unidades, sus conexiones y su despliegue que favorece unos atributos de calidad.
+- **[Táctica](../../../glosario/entradas/t/tactica.md):** técnica puntual que mueve un atributo, independiente del estilo.
+- **[Escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md):** situación con fuente, estímulo, artefacto, entorno, respuesta y medida de la respuesta.
+- **[Matriz de decisión](../../../glosario/entradas/m/matriz-de-decision.md):** tabla de estilos por atributos con valoraciones y pesos.
+- **[Margen](../../../glosario/entradas/m/margen.md):** diferencia de puntaje entre el primero y el segundo.
+- **[Punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md):** parámetro cuyo cambio pequeño invierte la decisión.
+- **[Punto de compromiso](../../../glosario/entradas/p/punto-de-compromiso.md):** decisión que mejora un atributo empeorando otro.
 
 ## Ejemplo mínimo
 
@@ -278,6 +278,8 @@ La matriz, los pesos y los cuatro contextos son construcciones del autor; los re
 | Margen | Diferencia de puntaje entre el primero y el segundo |
 | Punto de sensibilidad | Parámetro cuyo cambio pequeño invierte la decisión |
 | Punto de compromiso | Decisión que mejora un atributo y empeora otro |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Escenario de calidad](../../../glosario/entradas/e/escenario-de-calidad.md) · [Estilo arquitectónico](../../../glosario/entradas/e/estilo-arquitectonico.md) · [Margen](../../../glosario/entradas/m/margen.md) · [Matriz de decisión](../../../glosario/entradas/m/matriz-de-decision.md) · [Organización](../../../glosario/entradas/o/organizacion.md) · [Punto de compromiso](../../../glosario/entradas/p/punto-de-compromiso.md) · [Punto de sensibilidad](../../../glosario/entradas/p/punto-de-sensibilidad.md) · [Sensibilidad](../../../glosario/entradas/s/sensibilidad.md) · [Táctica](../../../glosario/entradas/t/tactica.md).
 
 ---
 

@@ -164,11 +164,11 @@ La medida es exacta y encuentra algo concreto: la etiqueta `eyebrow` del portal,
 
 ## Definiciones de trabajo
 
-- **presupuesto de rendimiento:** límite medible sobre una magnitud de la experiencia, con dueño y acción al superarse.
-- **medición de campo:** medición recogida de cargas reales de personas usuarias.
-- **percentil 75:** valor bajo el cual queda el 75 % de las cargas; es el indicador de campo recomendado para el LCP.
-- **deriva:** cambio acumulado lento de una magnitud a lo largo de muchos cambios pequeños.
-- **razón de contraste:** cociente (L1 + 0,05)/(L2 + 0,05) entre las luminancias relativas del color más claro y del más oscuro.
+- **[presupuesto de rendimiento](../../../glosario/entradas/p/presupuesto-de-rendimiento.md):** límite medible sobre una magnitud de la experiencia, con dueño y acción al superarse.
+- **[medición de campo](../../../glosario/entradas/m/medicion-de-campo.md):** medición recogida de cargas reales de personas usuarias.
+- **[percentil 75](../../../glosario/entradas/p/percentil-75.md):** valor bajo el cual queda el 75 % de las cargas; es el indicador de campo recomendado para el LCP.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** cambio acumulado lento de una magnitud a lo largo de muchos cambios pequeños.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente (L1 + 0,05)/(L2 + 0,05) entre las luminancias relativas del color más claro y del más oscuro.
 
 Las definiciones son operativas para el portal de la plataforma. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **presupuesto de rendimiento:** límite medible sobre una magnitud de la experiencia, con dueño y acción al superarse.
-- **medición de campo:** medición recogida de cargas reales de personas usuarias.
-- **percentil 75:** valor bajo el cual queda el 75 % de las cargas; es el indicador de campo recomendado para el LCP.
-- **deriva:** cambio acumulado lento de una magnitud a lo largo de muchos cambios pequeños.
-- **razón de contraste:** cociente (L1 + 0,05)/(L2 + 0,05) entre las luminancias relativas del color más claro y del más oscuro.
+- **[presupuesto de rendimiento](../../../glosario/entradas/p/presupuesto-de-rendimiento.md):** límite medible sobre una magnitud de la experiencia, con dueño y acción al superarse.
+- **[medición de campo](../../../glosario/entradas/m/medicion-de-campo.md):** medición recogida de cargas reales de personas usuarias.
+- **[percentil 75](../../../glosario/entradas/p/percentil-75.md):** valor bajo el cual queda el 75 % de las cargas; es el indicador de campo recomendado para el LCP.
+- **[deriva](../../../glosario/entradas/d/deriva.md):** cambio acumulado lento de una magnitud a lo largo de muchos cambios pequeños.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente (L1 + 0,05)/(L2 + 0,05) entre las luminancias relativas del color más claro y del más oscuro.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deriva](../../../glosario/entradas/d/deriva.md) · [Medición de campo](../../../glosario/entradas/m/medicion-de-campo.md) · [Percentil 75](../../../glosario/entradas/p/percentil-75.md) · [Presupuesto de rendimiento](../../../glosario/entradas/p/presupuesto-de-rendimiento.md) · [Razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md).
 
 ---
 

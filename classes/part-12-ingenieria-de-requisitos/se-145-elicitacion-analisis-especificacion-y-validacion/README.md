@@ -158,11 +158,11 @@ Resultado: retención de borradores (Auditoría ≥ 730 días, Privacidad ≤ 36
 
 ## Definiciones de trabajo
 
-- **elicitación:** conjunto de técnicas para hacer aparecer el conocimiento sobre lo que se necesita, incluida la parte que nadie escribe ni enuncia.
-- **análisis:** tratamiento del conjunto recogido para encontrar duplicados, conflictos, dependencias y huecos y convertirlos en decisiones o preguntas.
-- **especificación:** texto acordado de lo que el sistema debe hacer, escrito para que pueda construirse, probarse y auditarse sin preguntar a su autor.
-- **validación:** comprobación, con las personas que tienen la necesidad, de que lo especificado es lo que se necesita.
-- **conocimiento tácito y supuestos:** lo que quienes participan saben o creen sin decirlo, y lo que se da por cierto del mundo sin haberlo comprobado.
+- **[elicitación](../../../glosario/entradas/e/elicitacion.md):** conjunto de técnicas para hacer aparecer el conocimiento sobre lo que se necesita, incluida la parte que nadie escribe ni enuncia.
+- **[análisis](../../../glosario/entradas/a/analisis.md):** tratamiento del conjunto recogido para encontrar duplicados, conflictos, dependencias y huecos y convertirlos en decisiones o preguntas.
+- **[especificación](../../../glosario/entradas/e/especificacion.md):** texto acordado de lo que el sistema debe hacer, escrito para que pueda construirse, probarse y auditarse sin preguntar a su autor.
+- **[validación](../../../glosario/entradas/v/validacion.md):** comprobación, con las personas que tienen la necesidad, de que lo especificado es lo que se necesita.
+- **[conocimiento tácito y supuestos](../../../glosario/entradas/c/conocimiento-tacito-y-supuestos.md):** lo que quienes participan saben o creen sin decirlo, y lo que se da por cierto del mundo sin haberlo comprobado.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -314,11 +314,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **elicitación:** conjunto de técnicas para hacer aparecer el conocimiento sobre lo que se necesita, incluida la parte que nadie escribe ni enuncia.
-- **análisis:** tratamiento del conjunto recogido para encontrar duplicados, conflictos, dependencias y huecos y convertirlos en decisiones o preguntas.
-- **especificación:** texto acordado de lo que el sistema debe hacer, escrito para que pueda construirse, probarse y auditarse sin preguntar a su autor.
-- **validación:** comprobación, con las personas que tienen la necesidad, de que lo especificado es lo que se necesita.
-- **conocimiento tácito y supuestos:** lo que quienes participan saben o creen sin decirlo, y lo que se da por cierto del mundo sin haberlo comprobado.
+- **[elicitación](../../../glosario/entradas/e/elicitacion.md):** conjunto de técnicas para hacer aparecer el conocimiento sobre lo que se necesita, incluida la parte que nadie escribe ni enuncia.
+- **[análisis](../../../glosario/entradas/a/analisis.md):** tratamiento del conjunto recogido para encontrar duplicados, conflictos, dependencias y huecos y convertirlos en decisiones o preguntas.
+- **[especificación](../../../glosario/entradas/e/especificacion.md):** texto acordado de lo que el sistema debe hacer, escrito para que pueda construirse, probarse y auditarse sin preguntar a su autor.
+- **[validación](../../../glosario/entradas/v/validacion.md):** comprobación, con las personas que tienen la necesidad, de que lo especificado es lo que se necesita.
+- **[conocimiento tácito y supuestos](../../../glosario/entradas/c/conocimiento-tacito-y-supuestos.md):** lo que quienes participan saben o creen sin decirlo, y lo que se da por cierto del mundo sin haberlo comprobado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis](../../../glosario/entradas/a/analisis.md) · [Conocimiento tácito y supuestos](../../../glosario/entradas/c/conocimiento-tacito-y-supuestos.md) · [Elicitación](../../../glosario/entradas/e/elicitacion.md) · [Especificación](../../../glosario/entradas/e/especificacion.md) · [Validación](../../../glosario/entradas/v/validacion.md).
 
 ---
 

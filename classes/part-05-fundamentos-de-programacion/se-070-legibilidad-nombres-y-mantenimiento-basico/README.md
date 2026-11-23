@@ -119,11 +119,11 @@ La duplicación se trata con el mismo cuidado. En el paquete no hay ventanas de 
 
 ## Definiciones de trabajo
 
-- **legibilidad:** facilidad para reconstruir intención y comportamiento.
-- **abstracción:** concepto que oculta detalle bajo contrato.
-- **duplicación de conocimiento:** misma regla mantenida en varios lugares.
-- **refactorización:** cambio de estructura que preserva comportamiento.
-- **caracterización:** prueba que captura conducta existente.
+- **[legibilidad](../../../glosario/entradas/l/legibilidad.md):** facilidad para reconstruir intención y comportamiento.
+- **[abstracción](../../../glosario/entradas/a/abstraccion.md):** concepto que oculta detalle bajo contrato.
+- **[duplicación de conocimiento](../../../glosario/entradas/d/duplicacion-de-conocimiento.md):** misma regla mantenida en varios lugares.
+- **[refactorización](../../../glosario/entradas/r/refactorizacion.md):** cambio de estructura que preserva comportamiento.
+- **[caracterización](../../../glosario/entradas/c/caracterizacion.md):** prueba que captura conducta existente.
 
 Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
@@ -277,11 +277,13 @@ Legibilidad depende de audiencia y contexto; una métrica no la certifica. La si
 
 ## Glosario
 
-- **legibilidad:** facilidad para reconstruir intención y comportamiento.
-- **abstracción:** concepto que oculta detalle bajo contrato.
-- **duplicación de conocimiento:** misma regla mantenida en varios lugares.
-- **refactorización:** cambio de estructura que preserva comportamiento.
-- **caracterización:** prueba que captura conducta existente.
+- **[legibilidad](../../../glosario/entradas/l/legibilidad.md):** facilidad para reconstruir intención y comportamiento.
+- **[abstracción](../../../glosario/entradas/a/abstraccion.md):** concepto que oculta detalle bajo contrato.
+- **[duplicación de conocimiento](../../../glosario/entradas/d/duplicacion-de-conocimiento.md):** misma regla mantenida en varios lugares.
+- **[refactorización](../../../glosario/entradas/r/refactorizacion.md):** cambio de estructura que preserva comportamiento.
+- **[caracterización](../../../glosario/entradas/c/caracterizacion.md):** prueba que captura conducta existente.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abstracción](../../../glosario/entradas/a/abstraccion.md) · [Caracterización](../../../glosario/entradas/c/caracterizacion.md) · [Contrato](../../../glosario/entradas/c/contrato.md) · [Control](../../../glosario/entradas/c/control.md) · [Duplicación de conocimiento](../../../glosario/entradas/d/duplicacion-de-conocimiento.md) · [Efecto](../../../glosario/entradas/e/efecto.md) · [Legibilidad](../../../glosario/entradas/l/legibilidad.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Nivel de abstracción](../../../glosario/entradas/n/nivel-de-abstraccion.md) · [Refactorización](../../../glosario/entradas/r/refactorizacion.md) · [Valor](../../../glosario/entradas/v/valor.md).
 
 ---
 

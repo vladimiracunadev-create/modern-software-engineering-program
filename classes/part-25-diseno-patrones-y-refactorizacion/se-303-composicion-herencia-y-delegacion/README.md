@@ -150,11 +150,11 @@ De las 3000 jerarquías, el 65,2 % (1956) no se puede crear por un orden de reso
 
 ## Definiciones de trabajo
 
-- **herencia:** mecanismo por el que una clase reutiliza la implementación y la interfaz de otra y puede sustituirla.
-- **composición:** diseño en que un objeto contiene a otros y los usa para cumplir su trabajo.
-- **delegación:** reenvío de una operación del objeto a otro objeto que la realiza.
-- **clase base frágil:** situación en que un cambio interno de la base, sin cambiar su interfaz, rompe a sus subclases.
-- **orden de resolución de métodos (MRO):** orden lineal en que el lenguaje busca un método entre una clase y sus bases.
+- **[herencia](../../../glosario/entradas/h/herencia.md):** mecanismo por el que una clase reutiliza la implementación y la interfaz de otra y puede sustituirla.
+- **[composición](../../../glosario/entradas/c/composicion.md):** diseño en que un objeto contiene a otros y los usa para cumplir su trabajo.
+- **[delegación](../../../glosario/entradas/d/delegacion.md):** reenvío de una operación del objeto a otro objeto que la realiza.
+- **[clase base frágil](../../../glosario/entradas/c/clase-base-fragil.md):** situación en que un cambio interno de la base, sin cambiar su interfaz, rompe a sus subclases.
+- **[orden de resolución de métodos (MRO)](../../../glosario/entradas/o/orden-de-resolucion-de-metodos.md):** orden lineal en que el lenguaje busca un método entre una clase y sus bases.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres análisis con clases reales de Python y datos sintéticos en 
 
 ## Glosario
 
-- **herencia:** mecanismo por el que una clase reutiliza la implementación y la interfaz de otra y puede sustituirla.
-- **composición:** diseño en que un objeto contiene a otros y los usa para cumplir su trabajo.
-- **delegación:** reenvío de una operación del objeto a otro objeto que la realiza.
-- **clase base frágil:** situación en que un cambio interno de la base, sin cambiar su interfaz, rompe a sus subclases.
-- **orden de resolución de métodos (MRO):** orden lineal en que el lenguaje busca un método entre una clase y sus bases.
+- **[herencia](../../../glosario/entradas/h/herencia.md):** mecanismo por el que una clase reutiliza la implementación y la interfaz de otra y puede sustituirla.
+- **[composición](../../../glosario/entradas/c/composicion.md):** diseño en que un objeto contiene a otros y los usa para cumplir su trabajo.
+- **[delegación](../../../glosario/entradas/d/delegacion.md):** reenvío de una operación del objeto a otro objeto que la realiza.
+- **[clase base frágil](../../../glosario/entradas/c/clase-base-fragil.md):** situación en que un cambio interno de la base, sin cambiar su interfaz, rompe a sus subclases.
+- **[orden de resolución de métodos (MRO)](../../../glosario/entradas/o/orden-de-resolucion-de-metodos.md):** orden lineal en que el lenguaje busca un método entre una clase y sus bases.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clase base frágil](../../../glosario/entradas/c/clase-base-fragil.md) · [Composición](../../../glosario/entradas/c/composicion.md) · [Delegación](../../../glosario/entradas/d/delegacion.md) · [Herencia](../../../glosario/entradas/h/herencia.md) · [Orden de resolución de métodos](../../../glosario/entradas/o/orden-de-resolucion-de-metodos.md).
 
 ---
 

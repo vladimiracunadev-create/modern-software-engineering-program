@@ -105,11 +105,11 @@ Cuando el dominio es finito, «todos» se comprueba con `all` y «existe» con `
 
 ## Definiciones de trabajo
 
-- **proposición:** afirmación con valor de verdad bajo una interpretación.
-- **predicado:** afirmación parametrizada.
-- **implicación:** relación lógica que excluye antecedente verdadero y consecuente falso.
-- **cuantificador:** operador sobre elementos de un dominio.
-- **inferencia:** derivación de una conclusión desde premisas.
+- **[proposición](../../../glosario/entradas/p/proposicion.md):** afirmación con valor de verdad bajo una interpretación.
+- **[predicado](../../../glosario/entradas/p/predicado.md):** afirmación parametrizada.
+- **[implicación](../../../glosario/entradas/i/implicacion.md):** relación lógica que excluye antecedente verdadero y consecuente falso.
+- **[cuantificador](../../../glosario/entradas/c/cuantificador.md):** operador sobre elementos de un dominio.
+- **[inferencia](../../../glosario/entradas/i/inferencia.md):** derivación de una conclusión desde premisas.
 
 Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
@@ -253,11 +253,13 @@ La lógica valida forma, no verdad de premisas ni causalidad. La siguiente clase
 
 ## Glosario
 
-- **proposición:** afirmación con valor de verdad bajo una interpretación.
-- **predicado:** afirmación parametrizada.
-- **implicación:** relación lógica que excluye antecedente verdadero y consecuente falso.
-- **cuantificador:** operador sobre elementos de un dominio.
-- **inferencia:** derivación de una conclusión desde premisas.
+- **[proposición](../../../glosario/entradas/p/proposicion.md):** afirmación con valor de verdad bajo una interpretación.
+- **[predicado](../../../glosario/entradas/p/predicado.md):** afirmación parametrizada.
+- **[implicación](../../../glosario/entradas/i/implicacion.md):** relación lógica que excluye antecedente verdadero y consecuente falso.
+- **[cuantificador](../../../glosario/entradas/c/cuantificador.md):** operador sobre elementos de un dominio.
+- **[inferencia](../../../glosario/entradas/i/inferencia.md):** derivación de una conclusión desde premisas.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cuantificador](../../../glosario/entradas/c/cuantificador.md) · [Dominio](../../../glosario/entradas/d/dominio.md) · [Estrategia](../../../glosario/entradas/e/estrategia.md) · [Estructura](../../../glosario/entradas/e/estructura.md) · [Implicación](../../../glosario/entradas/i/implicacion.md) · [Inferencia](../../../glosario/entradas/i/inferencia.md) · [Predicado](../../../glosario/entradas/p/predicado.md) · [Proposición](../../../glosario/entradas/p/proposicion.md) · [Regla](../../../glosario/entradas/r/regla.md).
 
 ---
 

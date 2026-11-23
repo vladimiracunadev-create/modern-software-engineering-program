@@ -113,11 +113,11 @@ La versión de la API es la otra mitad del contrato. Con un host en la versión 
 
 ## Definiciones de trabajo
 
-- **punto de extensión:** un extension point define interfaz, lifecycle, errores y compatibilidad.
-- **descubrimiento:** entry points o registro explícito enumeran proveedores con metadata.
-- **capacidades y aislamiento:** el plugin recibe solo servicios necesarios mediante interfaz.
-- **versionado del protocolo:** host y plugin negocian versión/capacidades antes de ejecutar.
-- **fallo y desactivación:** timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar.
+- **[punto de extensión](../../../glosario/entradas/p/punto-de-extension.md):** un extension point define interfaz, lifecycle, errores y compatibilidad.
+- **[descubrimiento](../../../glosario/entradas/d/descubrimiento.md):** entry points o registro explícito enumeran proveedores con metadata.
+- **[capacidades y aislamiento](../../../glosario/entradas/c/capacidades-y-aislamiento.md):** el plugin recibe solo servicios necesarios mediante interfaz.
+- **[versionado del protocolo](../../../glosario/entradas/v/versionado-del-protocolo.md):** host y plugin negocian versión/capacidades antes de ejecutar.
+- **[fallo y desactivación](../../../glosario/entradas/f/fallo-y-desactivacion.md):** timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -271,11 +271,13 @@ Un protocolo reduce acoplamiento, no hace seguro código arbitrario. La siguient
 
 ## Glosario
 
-- **punto de extensión:** un extension point define interfaz, lifecycle, errores y compatibilidad.
-- **descubrimiento:** entry points o registro explícito enumeran proveedores con metadata.
-- **capacidades y aislamiento:** el plugin recibe solo servicios necesarios mediante interfaz.
-- **versionado del protocolo:** host y plugin negocian versión/capacidades antes de ejecutar.
-- **fallo y desactivación:** timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar.
+- **[punto de extensión](../../../glosario/entradas/p/punto-de-extension.md):** un extension point define interfaz, lifecycle, errores y compatibilidad.
+- **[descubrimiento](../../../glosario/entradas/d/descubrimiento.md):** entry points o registro explícito enumeran proveedores con metadata.
+- **[capacidades y aislamiento](../../../glosario/entradas/c/capacidades-y-aislamiento.md):** el plugin recibe solo servicios necesarios mediante interfaz.
+- **[versionado del protocolo](../../../glosario/entradas/v/versionado-del-protocolo.md):** host y plugin negocian versión/capacidades antes de ejecutar.
+- **[fallo y desactivación](../../../glosario/entradas/f/fallo-y-desactivacion.md):** timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capacidades y aislamiento](../../../glosario/entradas/c/capacidades-y-aislamiento.md) · [Descubrimiento](../../../glosario/entradas/d/descubrimiento.md) · [Fallo y desactivación](../../../glosario/entradas/f/fallo-y-desactivacion.md) · [Punto de extensión](../../../glosario/entradas/p/punto-de-extension.md) · [Versionado del protocolo](../../../glosario/entradas/v/versionado-del-protocolo.md).
 
 ---
 

@@ -164,11 +164,11 @@ Con `s = 1,5`, la partición más cargada recibe 3,4 veces la media: el trabajo 
 
 ## Definiciones de trabajo
 
-- **idempotencia:** propiedad de una operación que, repetida con la misma entrada, deja el mismo estado que ejecutada una vez.
-- **tiempo del evento:** instante en que ocurrió el hecho, distinto del instante en que llegó al sistema.
-- **marca de agua:** estimación del tiempo del evento hasta el cual se espera que hayan llegado todos los datos.
-- **evento tardío:** evento que llega después de que su ventana se cerró según la marca de agua.
-- **sal de una clave:** sufijo aleatorio que reparte una clave frecuente entre varias particiones a costa de recombinar después.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación que, repetida con la misma entrada, deja el mismo estado que ejecutada una vez.
+- **[tiempo del evento](../../../glosario/entradas/t/tiempo-del-evento.md):** instante en que ocurrió el hecho, distinto del instante en que llegó al sistema.
+- **[marca de agua](../../../glosario/entradas/m/marca-de-agua.md):** estimación del tiempo del evento hasta el cual se espera que hayan llegado todos los datos.
+- **[evento tardío](../../../glosario/entradas/e/evento-tardio.md):** evento que llega después de que su ventana se cerró según la marca de agua.
+- **[sal de una clave](../../../glosario/entradas/s/sal-de-una-clave.md):** sufijo aleatorio que reparte una clave frecuente entre varias particiones a costa de recombinar después.
 
 Las definiciones son operativas para la cadena de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -313,11 +313,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **idempotencia:** propiedad de una operación que, repetida con la misma entrada, deja el mismo estado que ejecutada una vez.
-- **tiempo del evento:** instante en que ocurrió el hecho, distinto del instante en que llegó al sistema.
-- **marca de agua:** estimación del tiempo del evento hasta el cual se espera que hayan llegado todos los datos.
-- **evento tardío:** evento que llega después de que su ventana se cerró según la marca de agua.
-- **sal de una clave:** sufijo aleatorio que reparte una clave frecuente entre varias particiones a costa de recombinar después.
+- **[idempotencia](../../../glosario/entradas/i/idempotencia.md):** propiedad de una operación que, repetida con la misma entrada, deja el mismo estado que ejecutada una vez.
+- **[tiempo del evento](../../../glosario/entradas/t/tiempo-del-evento.md):** instante en que ocurrió el hecho, distinto del instante en que llegó al sistema.
+- **[marca de agua](../../../glosario/entradas/m/marca-de-agua.md):** estimación del tiempo del evento hasta el cual se espera que hayan llegado todos los datos.
+- **[evento tardío](../../../glosario/entradas/e/evento-tardio.md):** evento que llega después de que su ventana se cerró según la marca de agua.
+- **[sal de una clave](../../../glosario/entradas/s/sal-de-una-clave.md):** sufijo aleatorio que reparte una clave frecuente entre varias particiones a costa de recombinar después.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Evento tardío](../../../glosario/entradas/e/evento-tardio.md) · [Idempotencia](../../../glosario/entradas/i/idempotencia.md) · [Marca de agua](../../../glosario/entradas/m/marca-de-agua.md) · [Sal de una clave](../../../glosario/entradas/s/sal-de-una-clave.md) · [Tiempo del evento](../../../glosario/entradas/t/tiempo-del-evento.md).
 
 ---
 

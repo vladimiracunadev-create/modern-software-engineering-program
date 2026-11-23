@@ -137,11 +137,11 @@ Resultado: A1 («no confían en el guardado automático») tiene 2 citas verific
 
 ## Definiciones de trabajo
 
-- **entrevista como método:** conversación estructurada con una persona para obtener descripciones de su experiencia, que se registran y analizan como evidencia situada.
-- **preguntas sobre el pasado:** pregunta que pide a la persona describir algo que hizo en una situación concreta, en lugar de opinar, predecir o confirmar una idea del entrevistador.
-- **muestreo y saturación:** elección de a quién entrevistar y criterio de cuándo parar, ligado a la probabilidad de encontrar los temas que importan.
-- **codificación y acuerdo:** asignación de etiquetas (códigos) a fragmentos de transcripción, comprobada por el acuerdo entre dos o más personas.
-- **de la cita a la afirmación:** cadena verificable que une una afirmación del informe con fragmentos literales de transcripciones y con los participantes que los dijeron.
+- **[entrevista como método](../../../glosario/entradas/e/entrevista-como-metodo.md):** conversación estructurada con una persona para obtener descripciones de su experiencia, que se registran y analizan como evidencia situada.
+- **[preguntas sobre el pasado](../../../glosario/entradas/p/preguntas-sobre-el-pasado.md):** pregunta que pide a la persona describir algo que hizo en una situación concreta, en lugar de opinar, predecir o confirmar una idea del entrevistador.
+- **[muestreo y saturación](../../../glosario/entradas/m/muestreo-y-saturacion.md):** elección de a quién entrevistar y criterio de cuándo parar, ligado a la probabilidad de encontrar los temas que importan.
+- **[codificación y acuerdo](../../../glosario/entradas/c/codificacion-y-acuerdo.md):** asignación de etiquetas (códigos) a fragmentos de transcripción, comprobada por el acuerdo entre dos o más personas.
+- **[de la cita a la afirmación](../../../glosario/entradas/d/de-la-cita-a-la-afirmacion.md):** cadena verificable que une una afirmación del informe con fragmentos literales de transcripciones y con los participantes que los dijeron.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **entrevista como método:** conversación estructurada con una persona para obtener descripciones de su experiencia, que se registran y analizan como evidencia situada.
-- **preguntas sobre el pasado:** pregunta que pide a la persona describir algo que hizo en una situación concreta, en lugar de opinar, predecir o confirmar una idea del entrevistador.
-- **muestreo y saturación:** elección de a quién entrevistar y criterio de cuándo parar, ligado a la probabilidad de encontrar los temas que importan.
-- **codificación y acuerdo:** asignación de etiquetas (códigos) a fragmentos de transcripción, comprobada por el acuerdo entre dos o más personas.
-- **de la cita a la afirmación:** cadena verificable que une una afirmación del informe con fragmentos literales de transcripciones y con los participantes que los dijeron.
+- **[entrevista como método](../../../glosario/entradas/e/entrevista-como-metodo.md):** conversación estructurada con una persona para obtener descripciones de su experiencia, que se registran y analizan como evidencia situada.
+- **[preguntas sobre el pasado](../../../glosario/entradas/p/preguntas-sobre-el-pasado.md):** pregunta que pide a la persona describir algo que hizo en una situación concreta, en lugar de opinar, predecir o confirmar una idea del entrevistador.
+- **[muestreo y saturación](../../../glosario/entradas/m/muestreo-y-saturacion.md):** elección de a quién entrevistar y criterio de cuándo parar, ligado a la probabilidad de encontrar los temas que importan.
+- **[codificación y acuerdo](../../../glosario/entradas/c/codificacion-y-acuerdo.md):** asignación de etiquetas (códigos) a fragmentos de transcripción, comprobada por el acuerdo entre dos o más personas.
+- **[de la cita a la afirmación](../../../glosario/entradas/d/de-la-cita-a-la-afirmacion.md):** cadena verificable que une una afirmación del informe con fragmentos literales de transcripciones y con los participantes que los dijeron.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Codificación y acuerdo](../../../glosario/entradas/c/codificacion-y-acuerdo.md) · [De la cita a la afirmación](../../../glosario/entradas/d/de-la-cita-a-la-afirmacion.md) · [Entrevista como método](../../../glosario/entradas/e/entrevista-como-metodo.md) · [Muestreo y saturación](../../../glosario/entradas/m/muestreo-y-saturacion.md) · [Preguntas sobre el pasado](../../../glosario/entradas/p/preguntas-sobre-el-pasado.md).
 
 ---
 

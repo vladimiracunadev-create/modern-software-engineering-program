@@ -164,11 +164,11 @@ A 90 lat/min el sistema detecta casi todos los deterioros a costa de 272 avisos 
 
 ## Definiciones de trabajo
 
-- **cuasi-identificador:** atributo que no identifica por sí solo pero sí en combinación con otros (edad, sexo, código postal).
-- **seudonimización:** sustitución de un identificador por un código, reversible para quien posea la tabla de equivalencias.
-- **k-anonimato:** propiedad por la cual cada combinación de cuasi-identificadores aparece en al menos k registros.
-- **fusión errónea:** unión de las fichas de dos personas distintas como si fueran una.
-- **fatiga de alarmas:** reducción de la respuesta a los avisos por exceso de avisos poco útiles.
+- **[cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** atributo que no identifica por sí solo pero sí en combinación con otros (edad, sexo, código postal).
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustitución de un identificador por un código, reversible para quien posea la tabla de equivalencias.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad por la cual cada combinación de cuasi-identificadores aparece en al menos k registros.
+- **[fusión errónea](../../../glosario/entradas/f/fusion-erronea.md):** unión de las fichas de dos personas distintas como si fueran una.
+- **[fatiga de alarmas](../../../glosario/entradas/f/fatiga-de-alarmas.md):** reducción de la respuesta a los avisos por exceso de avisos poco útiles.
 
 Las definiciones son operativas para el módulo de enfermería escolar. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -313,11 +313,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **cuasi-identificador:** atributo que no identifica por sí solo pero sí en combinación con otros (edad, sexo, código postal).
-- **seudonimización:** sustitución de un identificador por un código, reversible para quien posea la tabla de equivalencias.
-- **k-anonimato:** propiedad por la cual cada combinación de cuasi-identificadores aparece en al menos k registros.
-- **fusión errónea:** unión de las fichas de dos personas distintas como si fueran una.
-- **fatiga de alarmas:** reducción de la respuesta a los avisos por exceso de avisos poco útiles.
+- **[cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md):** atributo que no identifica por sí solo pero sí en combinación con otros (edad, sexo, código postal).
+- **[seudonimización](../../../glosario/entradas/s/seudonimizacion.md):** sustitución de un identificador por un código, reversible para quien posea la tabla de equivalencias.
+- **[k-anonimato](../../../glosario/entradas/k/k-anonimato.md):** propiedad por la cual cada combinación de cuasi-identificadores aparece en al menos k registros.
+- **[fusión errónea](../../../glosario/entradas/f/fusion-erronea.md):** unión de las fichas de dos personas distintas como si fueran una.
+- **[fatiga de alarmas](../../../glosario/entradas/f/fatiga-de-alarmas.md):** reducción de la respuesta a los avisos por exceso de avisos poco útiles.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cuasi-identificador](../../../glosario/entradas/c/cuasi-identificador.md) · [Fatiga de alarmas](../../../glosario/entradas/f/fatiga-de-alarmas.md) · [Fusión errónea](../../../glosario/entradas/f/fusion-erronea.md) · [K-anonimato](../../../glosario/entradas/k/k-anonimato.md) · [Seudonimización](../../../glosario/entradas/s/seudonimizacion.md).
 
 ---
 

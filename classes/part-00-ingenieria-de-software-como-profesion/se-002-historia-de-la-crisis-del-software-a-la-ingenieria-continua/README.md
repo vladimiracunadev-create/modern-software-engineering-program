@@ -186,14 +186,16 @@ diseño, no en una lista de fechas.
 
 ## Definiciones de trabajo
 
-- **crisis del software:** dificultad persistente para entregar y evolucionar software confiable bajo restricciones;
-- **retroalimentación:** información que llega a tiempo para modificar una decisión;
-- **integración continua:** integrar y verificar cambios con frecuencia;
-- **ingeniería continua:** especificar, construir, observar y corregir de forma sostenida.
+- **[crisis del software](../../../glosario/entradas/c/crisis-del-software.md):** dificultad persistente para entregar y evolucionar software confiable bajo restricciones;
+- **[retroalimentación](../../../glosario/entradas/r/retroalimentacion.md):** información que llega a tiempo para modificar una decisión;
+- **[integración continua](../../../glosario/entradas/i/integracion-continua.md):** integrar y verificar cambios con frecuencia;
+- **[ingeniería continua](../../../glosario/entradas/i/ingenieria-continua.md):** especificar, construir, observar y corregir de forma sostenida.
 
 ## Glosario
 
-**Lote** es un grupo grande de cambios validado tarde. **Lead time** mide desde petición hasta disponibilidad. **Deuda** es costo futuro creado por una decisión, no sinónimo de código viejo.
+**[Lote](../../../glosario/entradas/l/lote.md)** es un grupo grande de cambios validado tarde. **[Lead time](../../../glosario/entradas/l/lead-time.md)** mide desde petición hasta disponibilidad. **[Deuda](../../../glosario/entradas/d/deuda.md)** es costo futuro creado por una decisión, no sinónimo de código viejo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Crisis del software](../../../glosario/entradas/c/crisis-del-software.md) · [Deuda](../../../glosario/entradas/d/deuda.md) · [Ingeniería](../../../glosario/entradas/i/ingenieria.md) · [Ingeniería continua](../../../glosario/entradas/i/ingenieria-continua.md) · [Integración continua](../../../glosario/entradas/i/integracion-continua.md) · [Lead time](../../../glosario/entradas/l/lead-time.md) · [Lote](../../../glosario/entradas/l/lote.md) · [Retroalimentación](../../../glosario/entradas/r/retroalimentacion.md).
 
 ## Ejemplo mínimo
 

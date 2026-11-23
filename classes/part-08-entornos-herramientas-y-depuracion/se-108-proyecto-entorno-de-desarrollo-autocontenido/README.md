@@ -106,11 +106,11 @@ El proyecto se acepta por lo que se puede comprobar: reconstruir el entorno desd
 
 ## Definiciones de trabajo
 
-- **contrato de bootstrap:** la guía parte de host soportado y termina en una prueba verde.
-- **configuración versionada mínima:** se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor.
-- **diagnóstico incorporado:** un comando imprime versiones, ejecutable, plataforma y checks sin secretos.
-- **rebuild y prueba cruzada:** la aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles.
-- **limpieza y recuperación:** la guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace.
+- **[contrato de bootstrap](../../../glosario/entradas/c/contrato-de-bootstrap.md):** la guía parte de host soportado y termina en una prueba verde.
+- **[configuración versionada mínima](../../../glosario/entradas/c/configuracion-versionada-minima.md):** se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor.
+- **[diagnóstico incorporado](../../../glosario/entradas/d/diagnostico-incorporado.md):** un comando imprime versiones, ejecutable, plataforma y checks sin secretos.
+- **[rebuild y prueba cruzada](../../../glosario/entradas/r/rebuild-y-prueba-cruzada.md):** la aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles.
+- **[limpieza y recuperación](../../../glosario/entradas/l/limpieza-y-recuperacion.md):** la guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ El entorno reduce variabilidad conocida, no congela hardware, red o servicios ex
 
 ## Glosario
 
-- **contrato de bootstrap:** la guía parte de host soportado y termina en una prueba verde.
-- **configuración versionada mínima:** se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor.
-- **diagnóstico incorporado:** un comando imprime versiones, ejecutable, plataforma y checks sin secretos.
-- **rebuild y prueba cruzada:** la aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles.
-- **limpieza y recuperación:** la guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace.
+- **[contrato de bootstrap](../../../glosario/entradas/c/contrato-de-bootstrap.md):** la guía parte de host soportado y termina en una prueba verde.
+- **[configuración versionada mínima](../../../glosario/entradas/c/configuracion-versionada-minima.md):** se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor.
+- **[diagnóstico incorporado](../../../glosario/entradas/d/diagnostico-incorporado.md):** un comando imprime versiones, ejecutable, plataforma y checks sin secretos.
+- **[rebuild y prueba cruzada](../../../glosario/entradas/r/rebuild-y-prueba-cruzada.md):** la aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles.
+- **[limpieza y recuperación](../../../glosario/entradas/l/limpieza-y-recuperacion.md):** la guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Configuración versionada mínima](../../../glosario/entradas/c/configuracion-versionada-minima.md) · [Contrato de bootstrap](../../../glosario/entradas/c/contrato-de-bootstrap.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Diagnóstico incorporado](../../../glosario/entradas/d/diagnostico-incorporado.md) · [Limpieza y recuperación](../../../glosario/entradas/l/limpieza-y-recuperacion.md) · [Rebuild y prueba cruzada](../../../glosario/entradas/r/rebuild-y-prueba-cruzada.md).
 
 ---
 

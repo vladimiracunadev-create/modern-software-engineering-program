@@ -143,11 +143,11 @@ else:
 
 ## Definiciones de trabajo
 
-- **criterio de éxito:** condición verificable de una pauta de accesibilidad con un nivel de conformidad.
-- **razón de contraste:** cociente (L1 + 0,05) / (L2 + 0,05) entre las luminancias relativas del color claro y del oscuro.
-- **texto alternativo:** texto que sustituye a una imagen para quien no la percibe y que describe su función o contenido.
-- **tecnología de apoyo:** software o dispositivo que usa una persona con discapacidad para acceder a un producto, como un lector de pantalla.
-- **declaración de alcance:** texto que dice qué se evaluó, cómo, con qué criterios y qué quedó fuera.
+- **[criterio de éxito](../../../glosario/entradas/c/criterio-de-exito.md):** condición verificable de una pauta de accesibilidad con un nivel de conformidad.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente (L1 + 0,05) / (L2 + 0,05) entre las luminancias relativas del color claro y del oscuro.
+- **[texto alternativo](../../../glosario/entradas/t/texto-alternativo.md):** texto que sustituye a una imagen para quien no la percibe y que describe su función o contenido.
+- **[tecnología de apoyo](../../../glosario/entradas/t/tecnologia-de-apoyo.md):** software o dispositivo que usa una persona con discapacidad para acceder a un producto, como un lector de pantalla.
+- **[declaración de alcance](../../../glosario/entradas/d/declaracion-de-alcance.md):** texto que dice qué se evaluó, cómo, con qué criterios y qué quedó fuera.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -301,11 +301,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **criterio de éxito:** condición verificable de una pauta de accesibilidad con un nivel de conformidad.
-- **razón de contraste:** cociente (L1 + 0,05) / (L2 + 0,05) entre las luminancias relativas del color claro y del oscuro.
-- **texto alternativo:** texto que sustituye a una imagen para quien no la percibe y que describe su función o contenido.
-- **tecnología de apoyo:** software o dispositivo que usa una persona con discapacidad para acceder a un producto, como un lector de pantalla.
-- **declaración de alcance:** texto que dice qué se evaluó, cómo, con qué criterios y qué quedó fuera.
+- **[criterio de éxito](../../../glosario/entradas/c/criterio-de-exito.md):** condición verificable de una pauta de accesibilidad con un nivel de conformidad.
+- **[razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md):** cociente (L1 + 0,05) / (L2 + 0,05) entre las luminancias relativas del color claro y del oscuro.
+- **[texto alternativo](../../../glosario/entradas/t/texto-alternativo.md):** texto que sustituye a una imagen para quien no la percibe y que describe su función o contenido.
+- **[tecnología de apoyo](../../../glosario/entradas/t/tecnologia-de-apoyo.md):** software o dispositivo que usa una persona con discapacidad para acceder a un producto, como un lector de pantalla.
+- **[declaración de alcance](../../../glosario/entradas/d/declaracion-de-alcance.md):** texto que dice qué se evaluó, cómo, con qué criterios y qué quedó fuera.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Criterio de éxito](../../../glosario/entradas/c/criterio-de-exito.md) · [Declaración de alcance](../../../glosario/entradas/d/declaracion-de-alcance.md) · [Razón de contraste](../../../glosario/entradas/r/razon-de-contraste.md) · [Tecnología de apoyo](../../../glosario/entradas/t/tecnologia-de-apoyo.md) · [Texto alternativo](../../../glosario/entradas/t/texto-alternativo.md).
 
 ---
 

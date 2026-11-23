@@ -162,11 +162,11 @@ Un cerrojo global deja avanzar a 1 de cada 8 peticiones por ronda, por construcc
 
 ## Definiciones de trabajo
 
-- **carrera de datos:** acceso concurrente a una posición de memoria, con al menos una escritura y sin sincronización que ordene los accesos.
-- **sección crítica:** tramo de código que debe ejecutarse sin que otro hilo acceda al mismo dato.
-- **interbloqueo:** situación en que un grupo de tareas espera cada una un recurso que retiene otra del grupo.
-- **orden global de adquisición:** regla que obliga a tomar los cerrojos siempre en el mismo orden para impedir la espera circular.
-- **contención:** fracción del tiempo que las tareas pasan esperando un cerrojo.
+- **[carrera de datos](../../../glosario/entradas/c/carrera-de-datos.md):** acceso concurrente a una posición de memoria, con al menos una escritura y sin sincronización que ordene los accesos.
+- **[sección crítica](../../../glosario/entradas/s/seccion-critica.md):** tramo de código que debe ejecutarse sin que otro hilo acceda al mismo dato.
+- **[interbloqueo](../../../glosario/entradas/i/interbloqueo.md):** situación en que un grupo de tareas espera cada una un recurso que retiene otra del grupo.
+- **[orden global de adquisición](../../../glosario/entradas/o/orden-global-de-adquisicion.md):** regla que obliga a tomar los cerrojos siempre en el mismo orden para impedir la espera circular.
+- **[contención](../../../glosario/entradas/c/contencion.md):** fracción del tiempo que las tareas pasan esperando un cerrojo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2); los conteos fueron i
 
 ## Glosario
 
-- **carrera de datos:** acceso concurrente a una posición de memoria, con al menos una escritura y sin sincronización que ordene los accesos.
-- **sección crítica:** tramo de código que debe ejecutarse sin que otro hilo acceda al mismo dato.
-- **interbloqueo:** situación en que un grupo de tareas espera cada una un recurso que retiene otra del grupo.
-- **orden global de adquisición:** regla que obliga a tomar los cerrojos siempre en el mismo orden para impedir la espera circular.
-- **contención:** fracción del tiempo que las tareas pasan esperando un cerrojo.
+- **[carrera de datos](../../../glosario/entradas/c/carrera-de-datos.md):** acceso concurrente a una posición de memoria, con al menos una escritura y sin sincronización que ordene los accesos.
+- **[sección crítica](../../../glosario/entradas/s/seccion-critica.md):** tramo de código que debe ejecutarse sin que otro hilo acceda al mismo dato.
+- **[interbloqueo](../../../glosario/entradas/i/interbloqueo.md):** situación en que un grupo de tareas espera cada una un recurso que retiene otra del grupo.
+- **[orden global de adquisición](../../../glosario/entradas/o/orden-global-de-adquisicion.md):** regla que obliga a tomar los cerrojos siempre en el mismo orden para impedir la espera circular.
+- **[contención](../../../glosario/entradas/c/contencion.md):** fracción del tiempo que las tareas pasan esperando un cerrojo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Carrera de datos](../../../glosario/entradas/c/carrera-de-datos.md) · [Contención](../../../glosario/entradas/c/contencion.md) · [Interbloqueo](../../../glosario/entradas/i/interbloqueo.md) · [Orden global de adquisición](../../../glosario/entradas/o/orden-global-de-adquisicion.md) · [Sección crítica](../../../glosario/entradas/s/seccion-critica.md).
 
 ---
 

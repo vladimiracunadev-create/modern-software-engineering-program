@@ -176,11 +176,11 @@ La parte final del informe lista lo que se hizo, lo que no y lo que no se puede 
 
 ## Definiciones de trabajo
 
-- **paquete operativo:** conjunto versionado de documentos y datos que describen cómo se observa, se responde y se recupera un servicio.
-- **validador de referencias:** programa que comprueba que las piezas de un paquete se refieren entre sí de forma coherente y están al día.
-- **cadena de respuesta:** secuencia de etapas (detección, llegada, diagnóstico, mitigación y verificación) cuya probabilidad conjunta es el producto de las de cada una.
-- **huella:** resumen criptográfico de un resultado serializado de forma determinista, usado para comparar ejecuciones.
-- **declaración de límites:** apartado que dice qué se probó, cómo y qué no se puede afirmar.
+- **[paquete operativo](../../../glosario/entradas/p/paquete-operativo.md):** conjunto versionado de documentos y datos que describen cómo se observa, se responde y se recupera un servicio.
+- **[validador de referencias](../../../glosario/entradas/v/validador-de-referencias.md):** programa que comprueba que las piezas de un paquete se refieren entre sí de forma coherente y están al día.
+- **[cadena de respuesta](../../../glosario/entradas/c/cadena-de-respuesta.md):** secuencia de etapas (detección, llegada, diagnóstico, mitigación y verificación) cuya probabilidad conjunta es el producto de las de cada una.
+- **[huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico de un resultado serializado de forma determinista, usado para comparar ejecuciones.
+- **[declaración de límites](../../../glosario/entradas/d/declaracion-de-limites.md):** apartado que dice qué se probó, cómo y qué no se puede afirmar.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -335,11 +335,13 @@ Se ejecutaron tres experimentos de tiempo virtual con semillas fijas y sondas de
 
 ## Glosario
 
-- **paquete operativo:** conjunto versionado de documentos y datos que describen cómo se observa, se responde y se recupera un servicio.
-- **validador de referencias:** programa que comprueba que las piezas de un paquete se refieren entre sí de forma coherente y están al día.
-- **cadena de respuesta:** secuencia de etapas (detección, llegada, diagnóstico, mitigación y verificación) cuya probabilidad conjunta es el producto de las de cada una.
-- **huella:** resumen criptográfico de un resultado serializado de forma determinista, usado para comparar ejecuciones.
-- **declaración de límites:** apartado que dice qué se probó, cómo y qué no se puede afirmar.
+- **[paquete operativo](../../../glosario/entradas/p/paquete-operativo.md):** conjunto versionado de documentos y datos que describen cómo se observa, se responde y se recupera un servicio.
+- **[validador de referencias](../../../glosario/entradas/v/validador-de-referencias.md):** programa que comprueba que las piezas de un paquete se refieren entre sí de forma coherente y están al día.
+- **[cadena de respuesta](../../../glosario/entradas/c/cadena-de-respuesta.md):** secuencia de etapas (detección, llegada, diagnóstico, mitigación y verificación) cuya probabilidad conjunta es el producto de las de cada una.
+- **[huella](../../../glosario/entradas/h/huella.md):** resumen criptográfico de un resultado serializado de forma determinista, usado para comparar ejecuciones.
+- **[declaración de límites](../../../glosario/entradas/d/declaracion-de-limites.md):** apartado que dice qué se probó, cómo y qué no se puede afirmar.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cadena de respuesta](../../../glosario/entradas/c/cadena-de-respuesta.md) · [Declaración de límites](../../../glosario/entradas/d/declaracion-de-limites.md) · [Huella](../../../glosario/entradas/h/huella.md) · [Paquete operativo](../../../glosario/entradas/p/paquete-operativo.md) · [Reproducibilidad](../../../glosario/entradas/r/reproducibilidad.md) · [Reproducibilidad entre sistemas](../../../glosario/entradas/r/reproducibilidad-entre-sistemas.md) · [Validador de referencias](../../../glosario/entradas/v/validador-de-referencias.md).
 
 ---
 

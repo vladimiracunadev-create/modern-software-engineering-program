@@ -131,13 +131,13 @@ La tercera medida reúne la parada ordenada, un artefacto con tres configuracion
 
 ## Definiciones de trabajo
 
-- **Doce factores:** conjunto de prácticas para escribir aplicaciones portables, escalables y fáciles de operar.
-- **Proceso sin estado:** proceso que no guarda entre peticiones nada que no esté en un servicio de apoyo.
-- **Servicio de apoyo:** recurso externo (base de datos, cola, caché) que se engancha por configuración.
-- **Desechabilidad:** capacidad de arrancar rápido y terminar limpiamente en cualquier momento.
-- **Drenaje:** terminar el trabajo en curso y devolver el pendiente antes de salir.
-- **Paridad entre entornos:** diferencia mínima entre desarrollo, pruebas y producción.
-- **Artefacto inmutable:** resultado de una construcción que se promueve sin modificarse entre entornos.
+- **[Doce factores](../../../glosario/entradas/d/doce-factores.md):** conjunto de prácticas para escribir aplicaciones portables, escalables y fáciles de operar.
+- **[Proceso sin estado](../../../glosario/entradas/p/proceso-sin-estado.md):** proceso que no guarda entre peticiones nada que no esté en un servicio de apoyo.
+- **[Servicio de apoyo](../../../glosario/entradas/s/servicio-de-apoyo.md):** recurso externo (base de datos, cola, caché) que se engancha por configuración.
+- **[Desechabilidad](../../../glosario/entradas/d/desechabilidad.md):** capacidad de arrancar rápido y terminar limpiamente en cualquier momento.
+- **[Drenaje](../../../glosario/entradas/d/drenaje.md):** terminar el trabajo en curso y devolver el pendiente antes de salir.
+- **[Paridad entre entornos](../../../glosario/entradas/p/paridad-entre-entornos.md):** diferencia mínima entre desarrollo, pruebas y producción.
+- **[Artefacto inmutable](../../../glosario/entradas/a/artefacto-inmutable.md):** resultado de una construcción que se promueve sin modificarse entre entornos.
 
 ## Ejemplo mínimo
 
@@ -268,6 +268,8 @@ El linter y las simulaciones son de juguete; no se auditó una aplicación real 
 | Desechabilidad | Arranque rápido y parada limpia |
 | Drenaje | Terminar lo en curso y devolver lo pendiente |
 | Artefacto inmutable | Construcción que se promueve sin cambios |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Artefacto inmutable](../../../glosario/entradas/a/artefacto-inmutable.md) · [Concurrencia](../../../glosario/entradas/c/concurrencia.md) · [Desechabilidad](../../../glosario/entradas/d/desechabilidad.md) · [Doce factores](../../../glosario/entradas/d/doce-factores.md) · [Drenaje](../../../glosario/entradas/d/drenaje.md) · [Paridad](../../../glosario/entradas/p/paridad.md) · [Paridad entre entornos](../../../glosario/entradas/p/paridad-entre-entornos.md) · [Proceso sin estado](../../../glosario/entradas/p/proceso-sin-estado.md) · [Servicio de apoyo](../../../glosario/entradas/s/servicio-de-apoyo.md).
 
 ---
 

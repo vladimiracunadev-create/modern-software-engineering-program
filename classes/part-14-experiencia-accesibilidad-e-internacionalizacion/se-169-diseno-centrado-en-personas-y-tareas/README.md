@@ -133,11 +133,11 @@ todas_mas_2 = prod(min(1, p + 0.02) for p in pasos)  # 0.5264
 
 ## Definiciones de trabajo
 
-- **tarea:** objetivo de una persona con un resultado observable, independiente de la pantalla que se use para lograrlo.
-- **escenario de uso:** descripción de persona, contexto, dispositivo, objetivo y condiciones que se usa para comprobar un diseño.
-- **modelo de nivel de teclado:** método que estima el tiempo de una tarea de una persona experta sumando operadores elementales.
-- **embudo:** serie de etapas cuya tasa de paso se multiplica para dar la tasa de completar la tarea.
-- **persona de diseño:** representación de un grupo de usuarios para razonar; no sustituye observar a personas reales.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** objetivo de una persona con un resultado observable, independiente de la pantalla que se use para lograrlo.
+- **[escenario de uso](../../../glosario/entradas/e/escenario-de-uso.md):** descripción de persona, contexto, dispositivo, objetivo y condiciones que se usa para comprobar un diseño.
+- **[modelo de nivel de teclado](../../../glosario/entradas/m/modelo-de-nivel-de-teclado.md):** método que estima el tiempo de una tarea de una persona experta sumando operadores elementales.
+- **[embudo](../../../glosario/entradas/e/embudo.md):** serie de etapas cuya tasa de paso se multiplica para dar la tasa de completar la tarea.
+- **[persona de diseño](../../../glosario/entradas/p/persona-de-diseno.md):** representación de un grupo de usuarios para razonar; no sustituye observar a personas reales.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -284,11 +284,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **tarea:** objetivo de una persona con un resultado observable, independiente de la pantalla que se use para lograrlo.
-- **escenario de uso:** descripción de persona, contexto, dispositivo, objetivo y condiciones que se usa para comprobar un diseño.
-- **modelo de nivel de teclado:** método que estima el tiempo de una tarea de una persona experta sumando operadores elementales.
-- **embudo:** serie de etapas cuya tasa de paso se multiplica para dar la tasa de completar la tarea.
-- **persona de diseño:** representación de un grupo de usuarios para razonar; no sustituye observar a personas reales.
+- **[tarea](../../../glosario/entradas/t/tarea.md):** objetivo de una persona con un resultado observable, independiente de la pantalla que se use para lograrlo.
+- **[escenario de uso](../../../glosario/entradas/e/escenario-de-uso.md):** descripción de persona, contexto, dispositivo, objetivo y condiciones que se usa para comprobar un diseño.
+- **[modelo de nivel de teclado](../../../glosario/entradas/m/modelo-de-nivel-de-teclado.md):** método que estima el tiempo de una tarea de una persona experta sumando operadores elementales.
+- **[embudo](../../../glosario/entradas/e/embudo.md):** serie de etapas cuya tasa de paso se multiplica para dar la tasa de completar la tarea.
+- **[persona de diseño](../../../glosario/entradas/p/persona-de-diseno.md):** representación de un grupo de usuarios para razonar; no sustituye observar a personas reales.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Embudo](../../../glosario/entradas/e/embudo.md) · [Escenario de uso](../../../glosario/entradas/e/escenario-de-uso.md) · [Modelo de nivel de teclado](../../../glosario/entradas/m/modelo-de-nivel-de-teclado.md) · [Persona de diseño](../../../glosario/entradas/p/persona-de-diseno.md) · [Tarea](../../../glosario/entradas/t/tarea.md).
 
 ---
 

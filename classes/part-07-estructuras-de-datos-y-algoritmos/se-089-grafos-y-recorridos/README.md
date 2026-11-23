@@ -112,11 +112,11 @@ Otros dos fallos se midieron. Un recorrido sin conjunto de visitados sobre una r
 
 ## Definiciones de trabajo
 
-- **vértices, aristas y dirección:** un grafo modela entidades y relaciones.
-- **lista y matriz de adyacencia:** una lista almacena vecinos y favorece grafos dispersos; una matriz permite consultar arista directa de forma constante a costo cuadrático de espacio.
-- **bfs y distancia no ponderada:** bfs usa cola y descubre por capas; el primer camino hallado tiene menos aristas en un grafo no ponderado.
-- **dfs, ciclos y orden:** dfs usa pila implícita o explícita y profundiza antes de retroceder.
-- **componentes y alcanzabilidad:** alcanzabilidad responde si existe camino; componentes agrupan conectividad bajo definición dirigida o no dirigida.
+- **[vértices, aristas y dirección](../../../glosario/entradas/v/vertices-aristas-y-direccion.md):** un grafo modela entidades y relaciones.
+- **[lista y matriz de adyacencia](../../../glosario/entradas/l/lista-y-matriz-de-adyacencia.md):** una lista almacena vecinos y favorece grafos dispersos; una matriz permite consultar arista directa de forma constante a costo cuadrático de espacio.
+- **[bfs y distancia no ponderada](../../../glosario/entradas/b/bfs-y-distancia-no-ponderada.md):** bfs usa cola y descubre por capas; el primer camino hallado tiene menos aristas en un grafo no ponderado.
+- **[dfs, ciclos y orden](../../../glosario/entradas/d/dfs-ciclos-y-orden.md):** dfs usa pila implícita o explícita y profundiza antes de retroceder.
+- **[componentes y alcanzabilidad](../../../glosario/entradas/c/componentes-y-alcanzabilidad.md):** alcanzabilidad responde si existe camino; componentes agrupan conectividad bajo definición dirigida o no dirigida.
 
 Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -270,11 +270,13 @@ BFS no resuelve pesos negativos ni toda forma de optimización de caminos. La si
 
 ## Glosario
 
-- **vértices, aristas y dirección:** un grafo modela entidades y relaciones.
-- **lista y matriz de adyacencia:** una lista almacena vecinos y favorece grafos dispersos; una matriz permite consultar arista directa de forma constante a costo cuadrático de espacio.
-- **bfs y distancia no ponderada:** bfs usa cola y descubre por capas; el primer camino hallado tiene menos aristas en un grafo no ponderado.
-- **dfs, ciclos y orden:** dfs usa pila implícita o explícita y profundiza antes de retroceder.
-- **componentes y alcanzabilidad:** alcanzabilidad responde si existe camino; componentes agrupan conectividad bajo definición dirigida o no dirigida.
+- **[vértices, aristas y dirección](../../../glosario/entradas/v/vertices-aristas-y-direccion.md):** un grafo modela entidades y relaciones.
+- **[lista y matriz de adyacencia](../../../glosario/entradas/l/lista-y-matriz-de-adyacencia.md):** una lista almacena vecinos y favorece grafos dispersos; una matriz permite consultar arista directa de forma constante a costo cuadrático de espacio.
+- **[bfs y distancia no ponderada](../../../glosario/entradas/b/bfs-y-distancia-no-ponderada.md):** bfs usa cola y descubre por capas; el primer camino hallado tiene menos aristas en un grafo no ponderado.
+- **[dfs, ciclos y orden](../../../glosario/entradas/d/dfs-ciclos-y-orden.md):** dfs usa pila implícita o explícita y profundiza antes de retroceder.
+- **[componentes y alcanzabilidad](../../../glosario/entradas/c/componentes-y-alcanzabilidad.md):** alcanzabilidad responde si existe camino; componentes agrupan conectividad bajo definición dirigida o no dirigida.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bfs y distancia no ponderada](../../../glosario/entradas/b/bfs-y-distancia-no-ponderada.md) · [Componentes y alcanzabilidad](../../../glosario/entradas/c/componentes-y-alcanzabilidad.md) · [Dfs, ciclos y orden](../../../glosario/entradas/d/dfs-ciclos-y-orden.md) · [Lista y matriz de adyacencia](../../../glosario/entradas/l/lista-y-matriz-de-adyacencia.md) · [Vértices, aristas y dirección](../../../glosario/entradas/v/vertices-aristas-y-direccion.md).
 
 ---
 

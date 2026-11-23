@@ -155,11 +155,11 @@ El explicador que repite el comentario acierta en las 21 funciones con comentari
 
 ## Definiciones de trabajo
 
-- **precisión:** fracción de lo que el revisor marca que era un defecto real.
-- **cobertura (recall):** fracción de los defectos reales que el revisor marca.
-- **refactorización:** cambio de la estructura interna que no altera el comportamiento observable.
-- **comparación diferencial:** ejecución de dos versiones con las mismas entradas para comparar sus salidas.
-- **explicación fiel:** descripción que coincide con lo que el código hace al ejecutarse, no con lo que dice su comentario.
+- **[precisión](../../../glosario/entradas/p/precision.md):** fracción de lo que el revisor marca que era un defecto real.
+- **[cobertura (recall)](../../../glosario/entradas/c/cobertura.md):** fracción de los defectos reales que el revisor marca.
+- **[refactorización](../../../glosario/entradas/r/refactorizacion.md):** cambio de la estructura interna que no altera el comportamiento observable.
+- **[comparación diferencial](../../../glosario/entradas/c/comparacion-diferencial.md):** ejecución de dos versiones con las mismas entradas para comparar sus salidas.
+- **[explicación fiel](../../../glosario/entradas/e/explicacion-fiel.md):** descripción que coincide con lo que el código hace al ejecutarse, no con lo que dice su comentario.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **precisión:** fracción de lo que el revisor marca que era un defecto real.
-- **cobertura (recall):** fracción de los defectos reales que el revisor marca.
-- **refactorización:** cambio de la estructura interna que no altera el comportamiento observable.
-- **comparación diferencial:** ejecución de dos versiones con las mismas entradas para comparar sus salidas.
-- **explicación fiel:** descripción que coincide con lo que el código hace al ejecutarse, no con lo que dice su comentario.
+- **[precisión](../../../glosario/entradas/p/precision.md):** fracción de lo que el revisor marca que era un defecto real.
+- **[cobertura (recall)](../../../glosario/entradas/c/cobertura.md):** fracción de los defectos reales que el revisor marca.
+- **[refactorización](../../../glosario/entradas/r/refactorizacion.md):** cambio de la estructura interna que no altera el comportamiento observable.
+- **[comparación diferencial](../../../glosario/entradas/c/comparacion-diferencial.md):** ejecución de dos versiones con las mismas entradas para comparar sus salidas.
+- **[explicación fiel](../../../glosario/entradas/e/explicacion-fiel.md):** descripción que coincide con lo que el código hace al ejecutarse, no con lo que dice su comentario.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura](../../../glosario/entradas/c/cobertura.md) · [Comparación diferencial](../../../glosario/entradas/c/comparacion-diferencial.md) · [Explicación fiel](../../../glosario/entradas/e/explicacion-fiel.md) · [Precisión](../../../glosario/entradas/p/precision.md) · [Refactorización](../../../glosario/entradas/r/refactorizacion.md).
 
 ---
 

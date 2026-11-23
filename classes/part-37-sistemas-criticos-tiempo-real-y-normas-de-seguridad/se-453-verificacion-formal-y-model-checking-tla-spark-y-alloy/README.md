@@ -128,13 +128,13 @@ La tercera medida cuenta estados para tamaños crecientes de un modelo trivial.
 
 ## Definiciones de trabajo
 
-- **Modelo de estados:** descripción de un sistema como estados y transiciones posibles.
-- **Invariante:** propiedad que se cumple en todos los estados alcanzables.
-- **Propiedad de seguridad:** algo malo nunca ocurre.
-- **Propiedad de vivacidad:** algo bueno ocurre alguna vez.
-- **Contraejemplo:** traza de pasos desde el estado inicial hasta una violación.
-- **Bloqueo:** estado sin transiciones que no es un estado final.
-- **Explosión de estados:** crecimiento exponencial del espacio de estados con el tamaño del modelo.
+- **[Modelo de estados](../../../glosario/entradas/m/modelo-de-estados.md):** descripción de un sistema como estados y transiciones posibles.
+- **[Invariante](../../../glosario/entradas/i/invariante.md):** propiedad que se cumple en todos los estados alcanzables.
+- **[Propiedad de seguridad](../../../glosario/entradas/p/propiedad-de-seguridad.md):** algo malo nunca ocurre.
+- **[Propiedad de vivacidad](../../../glosario/entradas/p/propiedad-de-vivacidad.md):** algo bueno ocurre alguna vez.
+- **[Contraejemplo](../../../glosario/entradas/c/contraejemplo.md):** traza de pasos desde el estado inicial hasta una violación.
+- **[Bloqueo](../../../glosario/entradas/b/bloqueo.md):** estado sin transiciones que no es un estado final.
+- **[Explosión de estados](../../../glosario/entradas/e/explosion-de-estados.md):** crecimiento exponencial del espacio de estados con el tamaño del modelo.
 
 ## Ejemplo mínimo
 
@@ -280,6 +280,8 @@ El verificador es propio y de estados explícitos, los modelos son diminutos y d
 | Contraejemplo | Traza que lleva a una violación |
 | Bloqueo | Estado sin salida que no es final |
 | Explosión de estados | Crecimiento exponencial del espacio de estados |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bloqueo](../../../glosario/entradas/b/bloqueo.md) · [Contraejemplo](../../../glosario/entradas/c/contraejemplo.md) · [Explosión de estados](../../../glosario/entradas/e/explosion-de-estados.md) · [Herramientas](../../../glosario/entradas/h/herramientas.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Modelo de estados](../../../glosario/entradas/m/modelo-de-estados.md) · [Propiedad de seguridad](../../../glosario/entradas/p/propiedad-de-seguridad.md) · [Propiedad de vivacidad](../../../glosario/entradas/p/propiedad-de-vivacidad.md).
 
 ---
 

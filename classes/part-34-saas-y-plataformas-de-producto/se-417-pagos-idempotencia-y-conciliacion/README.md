@@ -137,14 +137,14 @@ Los procesadores permiten que los datos de tarjeta nunca toquen tu sistema (el n
 
 ## Definiciones de trabajo
 
-- **Autorización, captura, liquidación:** reserva de un importe, reclamo de lo reservado y transferencia efectiva de fondos.
-- **Clave de idempotencia:** identificador de una operación de negocio que permite repetirla sin duplicar su efecto.
-- **Asiento:** movimiento contable con apuntes cuyos débitos y créditos suman lo mismo.
-- **Partida doble:** método en el que cada movimiento afecta a dos o más cuentas con sumas iguales.
-- **Referencia externa única:** identificador del hecho original, con restricción de unicidad en el libro.
-- **Conciliación:** comparación de dos fuentes del mismo hecho y explicación de sus diferencias.
-- **Contracargo (disputa):** impugnación de un cargo por el titular de la tarjeta.
-- **Liquidación:** informe y transferencia de fondos que el procesador entrega tras descontar comisiones.
+- **[Autorización, captura, liquidación](../../../glosario/entradas/a/autorizacion-captura-liquidacion.md):** reserva de un importe, reclamo de lo reservado y transferencia efectiva de fondos.
+- **[Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de una operación de negocio que permite repetirla sin duplicar su efecto.
+- **[Asiento](../../../glosario/entradas/a/asiento.md):** movimiento contable con apuntes cuyos débitos y créditos suman lo mismo.
+- **[Partida doble](../../../glosario/entradas/p/partida-doble.md):** método en el que cada movimiento afecta a dos o más cuentas con sumas iguales.
+- **[Referencia externa única](../../../glosario/entradas/r/referencia-externa-unica.md):** identificador del hecho original, con restricción de unicidad en el libro.
+- **[Conciliación](../../../glosario/entradas/c/conciliacion.md):** comparación de dos fuentes del mismo hecho y explicación de sus diferencias.
+- **[Contracargo (disputa)](../../../glosario/entradas/c/contracargo.md):** impugnación de un cargo por el titular de la tarjeta.
+- **[Liquidación](../../../glosario/entradas/l/liquidacion.md):** informe y transferencia de fondos que el procesador entrega tras descontar comisiones.
 
 ## Ejemplo mínimo
 
@@ -304,6 +304,8 @@ Se ejecutaron un procesador simulado, un libro de partida doble con sqlite3 y un
 | Partida doble | Cada movimiento afecta a dos o más cuentas con sumas iguales |
 | Conciliación | Comparación de fuentes y explicación de diferencias |
 | Contracargo | Impugnación de un cargo por el titular |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asiento](../../../glosario/entradas/a/asiento.md) · [Autorización, captura, liquidación](../../../glosario/entradas/a/autorizacion-captura-liquidacion.md) · [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Conciliación](../../../glosario/entradas/c/conciliacion.md) · [Contracargo](../../../glosario/entradas/c/contracargo.md) · [Liquidación](../../../glosario/entradas/l/liquidacion.md) · [Partida doble](../../../glosario/entradas/p/partida-doble.md) · [Referencia externa única](../../../glosario/entradas/r/referencia-externa-unica.md).
 
 ---
 

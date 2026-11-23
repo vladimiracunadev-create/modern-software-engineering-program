@@ -127,11 +127,11 @@ Ante la ráfaga, la ventana fija acepta **200** (el doble del nominal en dos seg
 
 ## Definiciones de trabajo
 
-- **TTL:** tiempo durante el cual una respuesta guardada se considera fresca.
-- **lectura obsoleta:** lectura de una caché cuyo dato ya cambió en el origen.
-- **single-flight:** mecanismo por el que, ante varios fallos de la misma clave, solo uno carga y los demás esperan.
-- **cubeta de fichas:** limitador que acumula fichas a ritmo constante y consume una por solicitud, con una capacidad máxima.
-- **429:** código de estado que indica que el cliente superó su tasa permitida.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo durante el cual una respuesta guardada se considera fresca.
+- **[lectura obsoleta](../../../glosario/entradas/l/lectura-obsoleta.md):** lectura de una caché cuyo dato ya cambió en el origen.
+- **[single-flight](../../../glosario/entradas/r/recarga-unica.md):** mecanismo por el que, ante varios fallos de la misma clave, solo uno carga y los demás esperan.
+- **[cubeta de fichas](../../../glosario/entradas/c/cubeta-de-fichas.md):** limitador que acumula fichas a ritmo constante y consume una por solicitud, con una capacidad máxima.
+- **[429](../../../glosario/entradas/0-9/429.md):** código de estado que indica que el cliente superó su tasa permitida.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -274,11 +274,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **LRU:** política que expulsa la entrada usada hace más tiempo.
-- **revalidación:** comprobación con el origen de si una respuesta obsoleta sigue siendo válida.
-- **clave de caché:** valor que identifica una respuesta guardada e incluye todo lo que la hace variar.
-- **ráfaga:** grupo de solicitudes concentradas en un intervalo corto.
-- **degradación elegante:** reducción controlada de funciones para mantener lo esencial bajo sobrecarga.
+- **[LRU](../../../glosario/entradas/l/lru.md):** política que expulsa la entrada usada hace más tiempo.
+- **[revalidación](../../../glosario/entradas/r/revalidacion.md):** comprobación con el origen de si una respuesta obsoleta sigue siendo válida.
+- **[clave de caché](../../../glosario/entradas/c/clave-de-cache.md):** valor que identifica una respuesta guardada e incluye todo lo que la hace variar.
+- **[ráfaga](../../../glosario/entradas/r/rafaga.md):** grupo de solicitudes concentradas en un intervalo corto.
+- **[degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md):** reducción controlada de funciones para mantener lo esencial bajo sobrecarga.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [429](../../../glosario/entradas/0-9/429.md) · [Clave de caché](../../../glosario/entradas/c/clave-de-cache.md) · [Cubeta de fichas](../../../glosario/entradas/c/cubeta-de-fichas.md) · [Degradación elegante](../../../glosario/entradas/d/degradacion-elegante.md) · [Lectura obsoleta](../../../glosario/entradas/l/lectura-obsoleta.md) · [LRU](../../../glosario/entradas/l/lru.md) · [Ráfaga](../../../glosario/entradas/r/rafaga.md) · [Recarga única](../../../glosario/entradas/r/recarga-unica.md) · [Revalidación](../../../glosario/entradas/r/revalidacion.md) · [Vigencia de la caché](../../../glosario/entradas/v/vigencia-de-la-cache.md).
 
 ---
 

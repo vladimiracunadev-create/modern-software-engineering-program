@@ -135,13 +135,13 @@ La tercera figura es la matriz.
 
 ## Definiciones de trabajo
 
-- **Comprobación de calidad:** consulta o regla con umbral que se evalúa sobre un conjunto de datos.
-- **Volumen:** número de filas de una carga o partición.
-- **Integridad referencial:** cada clave extranjera apunta a una fila existente.
-- **Frescura:** edad del dato más reciente.
-- **Deriva de distribución:** cambio de la forma de los valores sin que cambie el esquema.
-- **MAD:** desviación absoluta mediana, medida de dispersión robusta.
-- **Observabilidad de datos:** registro de señales de calidad a lo largo del tiempo para detectar y explicar desvíos.
+- **[Comprobación de calidad](../../../glosario/entradas/c/comprobacion-de-calidad.md):** consulta o regla con umbral que se evalúa sobre un conjunto de datos.
+- **[Volumen](../../../glosario/entradas/v/volumen.md):** número de filas de una carga o partición.
+- **[Integridad referencial](../../../glosario/entradas/i/integridad-referencial.md):** cada clave extranjera apunta a una fila existente.
+- **[Frescura](../../../glosario/entradas/f/frescura.md):** edad del dato más reciente.
+- **[Deriva de distribución](../../../glosario/entradas/d/deriva-de-distribucion.md):** cambio de la forma de los valores sin que cambie el esquema.
+- **[MAD](../../../glosario/entradas/m/mad.md):** desviación absoluta mediana, medida de dispersión robusta.
+- **[Observabilidad de datos](../../../glosario/entradas/o/observabilidad-de-datos.md):** registro de señales de calidad a lo largo del tiempo para detectar y explicar desvíos.
 
 ## Ejemplo mínimo
 
@@ -279,6 +279,8 @@ La serie, los incidentes, las variantes defectuosas y los umbrales son construcc
 | Integridad referencial | Toda clave apunta a algo |
 | Frescura | Edad del dato más reciente |
 | Conciliación | Comparar totales entre dos fuentes |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Comprobación de calidad](../../../glosario/entradas/c/comprobacion-de-calidad.md) · [Deriva de distribución](../../../glosario/entradas/d/deriva-de-distribucion.md) · [Frescura](../../../glosario/entradas/f/frescura.md) · [Integridad referencial](../../../glosario/entradas/i/integridad-referencial.md) · [MAD](../../../glosario/entradas/m/mad.md) · [Observabilidad de datos](../../../glosario/entradas/o/observabilidad-de-datos.md) · [Volumen](../../../glosario/entradas/v/volumen.md).
 
 ---
 

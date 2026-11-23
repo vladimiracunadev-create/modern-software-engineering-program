@@ -113,12 +113,12 @@ Una norma o un auditor no pide que el sistema sea seguro: pide **evidencia** de 
 
 ## Definiciones de trabajo
 
-- **caos de seguridad:** aplicación del método de la ingeniería del caos a los controles de seguridad.
-- **ensayo:** una repetición del evento con el que se comprueba un control.
-- **criterio de aceptación:** número de ensayos y tolerancia de fallas escritos antes del experimento.
-- **regla de tres:** con n ensayos sin fallas, la tasa de fallas es menor que 3/n con 95 % de confianza.
-- **vigencia de la caché (TTL):** tiempo durante el cual un cliente reutiliza una decisión de autorización sin consultarla.
-- **evidencia de cumplimiento:** registro verificable de un procedimiento de prueba, su criterio y su resultado.
+- **[caos de seguridad](../../../glosario/entradas/c/caos-de-seguridad.md):** aplicación del método de la ingeniería del caos a los controles de seguridad.
+- **[ensayo](../../../glosario/entradas/e/ensayo.md):** una repetición del evento con el que se comprueba un control.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** número de ensayos y tolerancia de fallas escritos antes del experimento.
+- **[regla de tres](../../../glosario/entradas/r/regla-de-tres.md):** con n ensayos sin fallas, la tasa de fallas es menor que 3/n con 95 % de confianza.
+- **[vigencia de la caché (TTL)](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo durante el cual un cliente reutiliza una decisión de autorización sin consultarla.
+- **[evidencia de cumplimiento](../../../glosario/entradas/e/evidencia-de-cumplimiento.md):** registro verificable de un procedimiento de prueba, su criterio y su resultado.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -259,12 +259,14 @@ Se ejecutaron tres experimentos con semilla fija en Windows y Ubuntu (WSL2) con 
 
 ## Glosario
 
-- **caos de seguridad:** aplicación del método de la ingeniería del caos a los controles de seguridad.
-- **ensayo:** una repetición del evento con el que se comprueba un control.
-- **criterio de aceptación:** número de ensayos y tolerancia de fallas escritos antes del experimento.
-- **regla de tres:** con n ensayos sin fallas, la tasa de fallas es menor que 3/n con 95 % de confianza.
-- **vigencia de la caché (TTL):** tiempo durante el cual un cliente reutiliza una decisión de autorización.
-- **evidencia de cumplimiento:** registro verificable de un procedimiento de prueba, su criterio y su resultado.
+- **[caos de seguridad](../../../glosario/entradas/c/caos-de-seguridad.md):** aplicación del método de la ingeniería del caos a los controles de seguridad.
+- **[ensayo](../../../glosario/entradas/e/ensayo.md):** una repetición del evento con el que se comprueba un control.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** número de ensayos y tolerancia de fallas escritos antes del experimento.
+- **[regla de tres](../../../glosario/entradas/r/regla-de-tres.md):** con n ensayos sin fallas, la tasa de fallas es menor que 3/n con 95 % de confianza.
+- **[vigencia de la caché (TTL)](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo durante el cual un cliente reutiliza una decisión de autorización.
+- **[evidencia de cumplimiento](../../../glosario/entradas/e/evidencia-de-cumplimiento.md):** registro verificable de un procedimiento de prueba, su criterio y su resultado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caos de seguridad](../../../glosario/entradas/c/caos-de-seguridad.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Ensayo](../../../glosario/entradas/e/ensayo.md) · [Evidencia de cumplimiento](../../../glosario/entradas/e/evidencia-de-cumplimiento.md) · [Regla de tres](../../../glosario/entradas/r/regla-de-tres.md) · [Vigencia de la caché](../../../glosario/entradas/v/vigencia-de-la-cache.md).
 
 ---
 

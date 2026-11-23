@@ -183,11 +183,11 @@ Un **CRDT** (tipo de datos replicado sin conflicto, [crdt.tech](https://crdt.tec
 
 ## Definiciones de trabajo
 
-- **partición de red:** situación en que dos grupos de nodos no pueden comunicarse entre sí.
-- **linealizabilidad:** garantía de que cada operación parece ocurrir de forma instantánea entre su inicio y su fin, en un orden compatible con el tiempo real.
-- **consistencia eventual:** garantía de que, si cesan las escrituras, todas las réplicas convergen al mismo valor.
-- **cuórum:** número mínimo de réplicas que deben participar en una operación.
-- **CRDT:** tipo de dato replicado cuyas copias convergen sin coordinación porque sus operaciones conmutan.
+- **[partición de red](../../../glosario/entradas/p/particion-de-red.md):** situación en que dos grupos de nodos no pueden comunicarse entre sí.
+- **[linealizabilidad](../../../glosario/entradas/l/linealizabilidad.md):** garantía de que cada operación parece ocurrir de forma instantánea entre su inicio y su fin, en un orden compatible con el tiempo real.
+- **[consistencia eventual](../../../glosario/entradas/c/consistencia-eventual.md):** garantía de que, si cesan las escrituras, todas las réplicas convergen al mismo valor.
+- **[cuórum](../../../glosario/entradas/c/cuorum.md):** número mínimo de réplicas que deben participar en una operación.
+- **[CRDT](../../../glosario/entradas/c/crdt.md):** tipo de dato replicado cuyas copias convergen sin coordinación porque sus operaciones conmutan.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -327,11 +327,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **partición de red:** situación en que dos grupos de nodos no pueden comunicarse entre sí.
-- **linealizabilidad:** garantía de que cada operación parece ocurrir de forma instantánea entre su inicio y su fin, en un orden compatible con el tiempo real.
-- **consistencia eventual:** garantía de que, si cesan las escrituras, todas las réplicas convergen al mismo valor.
-- **cuórum:** número mínimo de réplicas que deben participar en una operación.
-- **CRDT:** tipo de dato replicado cuyas copias convergen sin coordinación porque sus operaciones conmutan.
+- **[partición de red](../../../glosario/entradas/p/particion-de-red.md):** situación en que dos grupos de nodos no pueden comunicarse entre sí.
+- **[linealizabilidad](../../../glosario/entradas/l/linealizabilidad.md):** garantía de que cada operación parece ocurrir de forma instantánea entre su inicio y su fin, en un orden compatible con el tiempo real.
+- **[consistencia eventual](../../../glosario/entradas/c/consistencia-eventual.md):** garantía de que, si cesan las escrituras, todas las réplicas convergen al mismo valor.
+- **[cuórum](../../../glosario/entradas/c/cuorum.md):** número mínimo de réplicas que deben participar en una operación.
+- **[CRDT](../../../glosario/entradas/c/crdt.md):** tipo de dato replicado cuyas copias convergen sin coordinación porque sus operaciones conmutan.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Consistencia eventual](../../../glosario/entradas/c/consistencia-eventual.md) · [CRDT](../../../glosario/entradas/c/crdt.md) · [Cuórum](../../../glosario/entradas/c/cuorum.md) · [Linealizabilidad](../../../glosario/entradas/l/linealizabilidad.md) · [Partición de red](../../../glosario/entradas/p/particion-de-red.md).
 
 ---
 

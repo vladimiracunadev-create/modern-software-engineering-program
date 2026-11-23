@@ -145,11 +145,11 @@ Resultado, idéntico en ambos sistemas: el caso base no tiene errores. De las 16
 
 ## Definiciones de trabajo
 
-- **caso de viabilidad:** documento que expone supuestos, modelo, resultado con incertidumbre, regla de salida y decisión, de modo que otra persona pueda recalcularlo.
-- **valor presente con incertidumbre:** distribución del valor presente neto resultante de muestrear los rangos de los supuestos.
-- **oscilación por supuesto:** cambio del resultado al mover un supuesto de su percentil 10 al 90 con los demás en su valor central.
-- **compuerta de abandono:** regla que detiene el proyecto en una fecha si una métrica no alcanza un umbral, con responsable.
-- **mutación:** copia del caso con un defecto conocido que se usa para evaluar el validador.
+- **[caso de viabilidad](../../../glosario/entradas/c/caso-de-viabilidad.md):** documento que expone supuestos, modelo, resultado con incertidumbre, regla de salida y decisión, de modo que otra persona pueda recalcularlo.
+- **[valor presente con incertidumbre](../../../glosario/entradas/v/valor-presente-con-incertidumbre.md):** distribución del valor presente neto resultante de muestrear los rangos de los supuestos.
+- **[oscilación por supuesto](../../../glosario/entradas/o/oscilacion-por-supuesto.md):** cambio del resultado al mover un supuesto de su percentil 10 al 90 con los demás en su valor central.
+- **[compuerta de abandono](../../../glosario/entradas/c/compuerta-de-abandono.md):** regla que detiene el proyecto en una fecha si una métrica no alcanza un umbral, con responsable.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** copia del caso con un defecto conocido que se usa para evaluar el validador.
 
 Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **caso de viabilidad:** documento que expone supuestos, modelo, resultado con incertidumbre, regla de salida y decisión, de modo que otra persona pueda recalcularlo.
-- **valor presente con incertidumbre:** distribución del valor presente neto resultante de muestrear los rangos de los supuestos.
-- **oscilación por supuesto:** cambio del resultado al mover un supuesto de su percentil 10 al 90 con los demás en su valor central.
-- **compuerta de abandono:** regla que detiene el proyecto en una fecha si una métrica no alcanza un umbral, con responsable.
-- **mutación:** copia del caso con un defecto conocido que se usa para evaluar el validador.
+- **[caso de viabilidad](../../../glosario/entradas/c/caso-de-viabilidad.md):** documento que expone supuestos, modelo, resultado con incertidumbre, regla de salida y decisión, de modo que otra persona pueda recalcularlo.
+- **[valor presente con incertidumbre](../../../glosario/entradas/v/valor-presente-con-incertidumbre.md):** distribución del valor presente neto resultante de muestrear los rangos de los supuestos.
+- **[oscilación por supuesto](../../../glosario/entradas/o/oscilacion-por-supuesto.md):** cambio del resultado al mover un supuesto de su percentil 10 al 90 con los demás en su valor central.
+- **[compuerta de abandono](../../../glosario/entradas/c/compuerta-de-abandono.md):** regla que detiene el proyecto en una fecha si una métrica no alcanza un umbral, con responsable.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** copia del caso con un defecto conocido que se usa para evaluar el validador.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Caso de viabilidad](../../../glosario/entradas/c/caso-de-viabilidad.md) · [Compuerta de abandono](../../../glosario/entradas/c/compuerta-de-abandono.md) · [Decisión revisable](../../../glosario/entradas/d/decision-revisable.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Oscilación por supuesto](../../../glosario/entradas/o/oscilacion-por-supuesto.md) · [Valor presente con incertidumbre](../../../glosario/entradas/v/valor-presente-con-incertidumbre.md).
 
 ---
 

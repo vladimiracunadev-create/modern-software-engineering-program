@@ -134,11 +134,11 @@ Tiempo total medido: un solo hilo **3,42 s en Windows y 2,60 s en Ubuntu** (el m
 
 ## Definiciones de trabajo
 
-- **frontera de confirmación:** punto de la secuencia de una solicitud a partir del cual lo anterior se cuenta como hecho y lo posterior como intención.
-- **outbox transaccional:** tabla escrita en la misma transacción que el cambio de estado, de la que un relevo lee los eventos pendientes para publicarlos después.
-- **entrega al menos una vez:** garantía de que un mensaje llega una o más veces; exige que quien lo recibe tolere duplicados.
-- **cola larga:** porción de las solicitudes más lentas de una distribución, que domina el tiempo que perciben los clientes en servicios compuestos.
-- **tope de solicitudes en curso:** límite de solicitudes simultáneas que un proceso acepta; las que exceden reciben 503 y no consumen recursos.
+- **[frontera de confirmación](../../../glosario/entradas/f/frontera-de-confirmacion.md):** punto de la secuencia de una solicitud a partir del cual lo anterior se cuenta como hecho y lo posterior como intención.
+- **[outbox transaccional](../../../glosario/entradas/o/outbox-transaccional.md):** tabla escrita en la misma transacción que el cambio de estado, de la que un relevo lee los eventos pendientes para publicarlos después.
+- **[entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md):** garantía de que un mensaje llega una o más veces; exige que quien lo recibe tolere duplicados.
+- **[cola larga](../../../glosario/entradas/c/cola-larga.md):** porción de las solicitudes más lentas de una distribución, que domina el tiempo que perciben los clientes en servicios compuestos.
+- **[tope de solicitudes en curso](../../../glosario/entradas/t/tope-de-solicitudes-en-curso.md):** límite de solicitudes simultáneas que un proceso acepta; las que exceden reciben 503 y no consumen recursos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -278,11 +278,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **backend:** parte del sistema que recibe solicitudes de otros programas, aplica reglas y modifica estado persistente.
-- **contrato público:** conjunto de solicitudes, respuestas, códigos y garantías de las que dependen quienes llaman al servicio.
-- **trabajo diferido:** tarea que se acepta ahora y se ejecuta después, fuera de la solicitud que la originó.
-- **invariante:** condición que debe cumplirse en todo estado alcanzable, como que toda fila tenga su archivo.
-- **relevo:** proceso que lee eventos pendientes de una tabla y los publica, marcándolos como enviados.
+- **[backend](../../../glosario/entradas/b/backend.md):** parte del sistema que recibe solicitudes de otros programas, aplica reglas y modifica estado persistente.
+- **[contrato público](../../../glosario/entradas/c/contrato-publico.md):** conjunto de solicitudes, respuestas, códigos y garantías de las que dependen quienes llaman al servicio.
+- **[trabajo diferido](../../../glosario/entradas/t/trabajo-diferido.md):** tarea que se acepta ahora y se ejecuta después, fuera de la solicitud que la originó.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** condición que debe cumplirse en todo estado alcanzable, como que toda fila tenga su archivo.
+- **[relevo](../../../glosario/entradas/r/relevo.md):** proceso que lee eventos pendientes de una tabla y los publica, marcándolos como enviados.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Backend](../../../glosario/entradas/b/backend.md) · [Cola larga](../../../glosario/entradas/c/cola-larga.md) · [Contrato público](../../../glosario/entradas/c/contrato-publico.md) · [Entrega al menos una vez](../../../glosario/entradas/e/entrega-al-menos-una-vez.md) · [Frontera de confirmación](../../../glosario/entradas/f/frontera-de-confirmacion.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Outbox transaccional](../../../glosario/entradas/o/outbox-transaccional.md) · [Relevo](../../../glosario/entradas/r/relevo.md) · [Tope de solicitudes en curso](../../../glosario/entradas/t/tope-de-solicitudes-en-curso.md) · [Trabajo diferido](../../../glosario/entradas/t/trabajo-diferido.md).
 
 ---
 

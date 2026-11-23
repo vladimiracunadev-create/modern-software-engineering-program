@@ -126,11 +126,11 @@ Con SQL concatenado, **3 de 12** cargas devuelven filas de otro usuario y **2** 
 
 ## Definiciones de trabajo
 
-- **asignación masiva:** vulnerabilidad por la que se aceptan campos que el cliente no debería fijar.
-- **defecto dormido:** defecto que no tiene síntoma observable hasta que otro fallo lo activa.
-- **prueba de regresión:** prueba que falla si se reintroduce un defecto ya reparado.
-- **suite adversaria:** conjunto de pruebas que envía entradas hostiles o inesperadas.
-- **consulta parametrizada:** consulta en la que los datos se pasan separados de la instrucción SQL.
+- **[asignación masiva](../../../glosario/entradas/a/asignacion-masiva.md):** vulnerabilidad por la que se aceptan campos que el cliente no debería fijar.
+- **[defecto dormido](../../../glosario/entradas/d/defecto-dormido.md):** defecto que no tiene síntoma observable hasta que otro fallo lo activa.
+- **[prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md):** prueba que falla si se reintroduce un defecto ya reparado.
+- **[suite adversaria](../../../glosario/entradas/s/suite-adversaria.md):** conjunto de pruebas que envía entradas hostiles o inesperadas.
+- **[consulta parametrizada](../../../glosario/entradas/c/consulta-parametrizada.md):** consulta en la que los datos se pasan separados de la instrucción SQL.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -274,11 +274,13 @@ Se ejecutaron tres experimentos con una API de laboratorio en proceso en Windows
 
 ## Glosario
 
-- **camino feliz:** recorrido de uso en el que todo se hace como el diseñador espera.
-- **superficie de ataque:** conjunto de puntos por los que una persona puede intentar interactuar con un sistema de forma no prevista.
-- **mutación:** cambio deliberado del código para comprobar si una prueba lo detecta.
-- **falso verde:** resultado satisfactorio de una prueba que no ejercita el defecto que debería detectar.
-- **registro de reparación:** tabla de defecto, causa, corrección y prueba de regresión.
+- **[camino feliz](../../../glosario/entradas/c/camino-feliz.md):** recorrido de uso en el que todo se hace como el diseñador espera.
+- **[superficie de ataque](../../../glosario/entradas/s/superficie-de-ataque.md):** conjunto de puntos por los que una persona puede intentar interactuar con un sistema de forma no prevista.
+- **[mutación](../../../glosario/entradas/m/mutacion.md):** cambio deliberado del código para comprobar si una prueba lo detecta.
+- **[falso verde](../../../glosario/entradas/f/falso-verde.md):** resultado satisfactorio de una prueba que no ejercita el defecto que debería detectar.
+- **[registro de reparación](../../../glosario/entradas/r/registro-de-reparacion.md):** tabla de defecto, causa, corrección y prueba de regresión.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asignación masiva](../../../glosario/entradas/a/asignacion-masiva.md) · [Camino feliz](../../../glosario/entradas/c/camino-feliz.md) · [Consulta parametrizada](../../../glosario/entradas/c/consulta-parametrizada.md) · [Defecto dormido](../../../glosario/entradas/d/defecto-dormido.md) · [Falso verde](../../../glosario/entradas/f/falso-verde.md) · [Mutación](../../../glosario/entradas/m/mutacion.md) · [Prueba de regresión](../../../glosario/entradas/p/prueba-de-regresion.md) · [Registro de reparación](../../../glosario/entradas/r/registro-de-reparacion.md) · [Suite adversaria](../../../glosario/entradas/s/suite-adversaria.md) · [Superficie de ataque](../../../glosario/entradas/s/superficie-de-ataque.md).
 
 ---
 

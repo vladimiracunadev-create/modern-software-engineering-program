@@ -112,11 +112,11 @@ Los nombres necesitan su propia defensa. `str.isidentifier()` y la lista de `key
 
 ## Definiciones de trabajo
 
-- **fuente de verdad y transformación:** generar es aplicar una transformación determinista a esquema, plantilla y versión.
-- **plantillas y ast:** plantillas concatenan texto y son simples pero frágiles ante escaping o sintaxis; transformar ast preserva estructura con mayor complejidad.
-- **metaprogramación:** decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código.
-- **determinismo y diff:** misma entrada, versión y entorno deben producir salida equivalente.
-- **escape hatch y ownership:** no toda excepción cabe en generador.
+- **[fuente de verdad y transformación](../../../glosario/entradas/f/fuente-de-verdad-y-transformacion.md):** generar es aplicar una transformación determinista a esquema, plantilla y versión.
+- **[plantillas y ast](../../../glosario/entradas/p/plantillas-y-ast.md):** plantillas concatenan texto y son simples pero frágiles ante escaping o sintaxis; transformar ast preserva estructura con mayor complejidad.
+- **[metaprogramación](../../../glosario/entradas/m/metaprogramacion.md):** decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código.
+- **[determinismo y diff](../../../glosario/entradas/d/determinismo-y-diff.md):** misma entrada, versión y entorno deben producir salida equivalente.
+- **[escape hatch y ownership](../../../glosario/entradas/e/escape-hatch-y-ownership.md):** no toda excepción cabe en generador.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ La generación legalmente reutilizable depende de licencias y procedencia de ent
 
 ## Glosario
 
-- **fuente de verdad y transformación:** generar es aplicar una transformación determinista a esquema, plantilla y versión.
-- **plantillas y ast:** plantillas concatenan texto y son simples pero frágiles ante escaping o sintaxis; transformar ast preserva estructura con mayor complejidad.
-- **metaprogramación:** decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código.
-- **determinismo y diff:** misma entrada, versión y entorno deben producir salida equivalente.
-- **escape hatch y ownership:** no toda excepción cabe en generador.
+- **[fuente de verdad y transformación](../../../glosario/entradas/f/fuente-de-verdad-y-transformacion.md):** generar es aplicar una transformación determinista a esquema, plantilla y versión.
+- **[plantillas y ast](../../../glosario/entradas/p/plantillas-y-ast.md):** plantillas concatenan texto y son simples pero frágiles ante escaping o sintaxis; transformar ast preserva estructura con mayor complejidad.
+- **[metaprogramación](../../../glosario/entradas/m/metaprogramacion.md):** decoradores, macros, reflexión o generación en build modifican comportamiento desde código sobre código.
+- **[determinismo y diff](../../../glosario/entradas/d/determinismo-y-diff.md):** misma entrada, versión y entorno deben producir salida equivalente.
+- **[escape hatch y ownership](../../../glosario/entradas/e/escape-hatch-y-ownership.md):** no toda excepción cabe en generador.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Determinismo y diff](../../../glosario/entradas/d/determinismo-y-diff.md) · [Escape hatch y ownership](../../../glosario/entradas/e/escape-hatch-y-ownership.md) · [Fuente de verdad y transformación](../../../glosario/entradas/f/fuente-de-verdad-y-transformacion.md) · [Metaprogramación](../../../glosario/entradas/m/metaprogramacion.md) · [Plantillas y ast](../../../glosario/entradas/p/plantillas-y-ast.md).
 
 ---
 

@@ -164,11 +164,11 @@ Trabajar más horas sin cambiar el sistema deja la espera igual (41,2 frente a 4
 
 ## Definiciones de trabajo
 
-- **retrospectiva:** reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
-- **capacidad de mejora:** tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
-- **potencia:** probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
-- **mirada repetida:** comprobación de un resultado varias veces antes de decidir, que aumenta la probabilidad de declarar un efecto que no existe.
-- **intervención sobre el sistema:** cambio en una variable que determina el comportamiento del flujo (capacidad, lotes, variabilidad, límite de trabajo), no en el esfuerzo individual.
+- **[retrospectiva](../../../glosario/entradas/r/retrospectiva.md):** reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
+- **[capacidad de mejora](../../../glosario/entradas/c/capacidad-de-mejora.md):** tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
+- **[potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
+- **[mirada repetida](../../../glosario/entradas/m/mirada-repetida.md):** comprobación de un resultado varias veces antes de decidir, que aumenta la probabilidad de declarar un efecto que no existe.
+- **[intervención sobre el sistema](../../../glosario/entradas/i/intervencion-sobre-el-sistema.md):** cambio en una variable que determina el comportamiento del flujo (capacidad, lotes, variabilidad, límite de trabajo), no en el esfuerzo individual.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -311,11 +311,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **retrospectiva:** reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
-- **capacidad de mejora:** tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
-- **potencia:** probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
-- **mirada repetida:** comprobación de un resultado varias veces antes de decidir, que aumenta la probabilidad de declarar un efecto que no existe.
-- **intervención sobre el sistema:** cambio en una variable que determina el comportamiento del flujo (capacidad, lotes, variabilidad, límite de trabajo), no en el esfuerzo individual.
+- **[retrospectiva](../../../glosario/entradas/r/retrospectiva.md):** reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
+- **[capacidad de mejora](../../../glosario/entradas/c/capacidad-de-mejora.md):** tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
+- **[potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
+- **[mirada repetida](../../../glosario/entradas/m/mirada-repetida.md):** comprobación de un resultado varias veces antes de decidir, que aumenta la probabilidad de declarar un efecto que no existe.
+- **[intervención sobre el sistema](../../../glosario/entradas/i/intervencion-sobre-el-sistema.md):** cambio en una variable que determina el comportamiento del flujo (capacidad, lotes, variabilidad, límite de trabajo), no en el esfuerzo individual.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capacidad de mejora](../../../glosario/entradas/c/capacidad-de-mejora.md) · [Intervención sobre el sistema](../../../glosario/entradas/i/intervencion-sobre-el-sistema.md) · [Mirada repetida](../../../glosario/entradas/m/mirada-repetida.md) · [Potencia](../../../glosario/entradas/p/potencia.md) · [Retrospectiva](../../../glosario/entradas/r/retrospectiva.md).
 
 ---
 

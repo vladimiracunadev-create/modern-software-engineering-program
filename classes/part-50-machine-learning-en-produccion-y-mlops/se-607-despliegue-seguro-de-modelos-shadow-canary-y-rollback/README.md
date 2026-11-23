@@ -139,13 +139,13 @@ La tercera medida estima el daño según la estrategia.
 
 ## Definiciones de trabajo
 
-- **Registro de modelos:** sistema que guarda versiones de modelo con su huella, su corrida y su estado.
-- **Ejecución en sombra:** el candidato calcula con tráfico real sin que sus decisiones se usen.
-- **Canary:** despliegue de un cambio a una fracción pequeña y limitada del tráfico.
-- **Guarda:** métrica con umbral cuyo incumplimiento detiene o revierte el despliegue.
-- **Rollback:** vuelta a una versión anterior ya validada.
-- **Segmento:** subpoblación definida de antemano que se vigila por separado.
-- **Potencia:** probabilidad de detectar un efecto real.
+- **[Registro de modelos](../../../glosario/entradas/r/registro-de-modelos.md):** sistema que guarda versiones de modelo con su huella, su corrida y su estado.
+- **[Ejecución en sombra](../../../glosario/entradas/e/ejecucion-en-sombra.md):** el candidato calcula con tráfico real sin que sus decisiones se usen.
+- **[Canary](../../../glosario/entradas/e/escalon-de-trafico.md):** despliegue de un cambio a una fracción pequeña y limitada del tráfico.
+- **[Guarda](../../../glosario/entradas/g/guarda.md):** métrica con umbral cuyo incumplimiento detiene o revierte el despliegue.
+- **[Rollback](../../../glosario/entradas/r/retroceso.md):** vuelta a una versión anterior ya validada.
+- **[Segmento](../../../glosario/entradas/s/segmento.md):** subpoblación definida de antemano que se vigila por separado.
+- **[Potencia](../../../glosario/entradas/p/potencia.md):** probabilidad de detectar un efecto real.
 
 ## Ejemplo mínimo
 
@@ -277,6 +277,8 @@ El candidato, la anomalía de etiquetado, el tráfico y la simulación de potenc
 | Rollback | Vuelta a una versión anterior validada |
 | Segmento | Subpoblación vigilada por separado |
 | Potencia | Probabilidad de detectar un efecto real |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ejecución en sombra](../../../glosario/entradas/e/ejecucion-en-sombra.md) · [Escalón de tráfico](../../../glosario/entradas/e/escalon-de-trafico.md) · [Guarda](../../../glosario/entradas/g/guarda.md) · [Potencia](../../../glosario/entradas/p/potencia.md) · [Registro de modelos](../../../glosario/entradas/r/registro-de-modelos.md) · [Retroceso](../../../glosario/entradas/r/retroceso.md) · [Segmento](../../../glosario/entradas/s/segmento.md).
 
 ---
 

@@ -163,11 +163,11 @@ La tasa de pagos cobrados dos veces o más coincide con la de respuestas perdida
 
 ## Definiciones de trabajo
 
-- **unidad menor:** la unidad mínima de una moneda en que se expresan los importes enteros, por ejemplo el céntimo.
-- **asiento de doble entrada:** registro de un movimiento con apuntes que suman cero entre las cuentas implicadas.
-- **invariante:** condición que debe cumplirse tras cualquier operación válida del sistema.
-- **oráculo:** modelo de referencia independiente con el que se compara el resultado de una operación.
-- **clave de idempotencia:** identificador de una intención de operación que permite repetir la petición sin repetir el efecto.
+- **[unidad menor](../../../glosario/entradas/u/unidad-menor.md):** la unidad mínima de una moneda en que se expresan los importes enteros, por ejemplo el céntimo.
+- **[asiento de doble entrada](../../../glosario/entradas/a/asiento-de-doble-entrada.md):** registro de un movimiento con apuntes que suman cero entre las cuentas implicadas.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** condición que debe cumplirse tras cualquier operación válida del sistema.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** modelo de referencia independiente con el que se compara el resultado de una operación.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de una intención de operación que permite repetir la petición sin repetir el efecto.
 
 Las definiciones son operativas para el cobro de matrículas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -310,11 +310,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **unidad menor:** la unidad mínima de una moneda en que se expresan los importes enteros, por ejemplo el céntimo.
-- **asiento de doble entrada:** registro de un movimiento con apuntes que suman cero entre las cuentas implicadas.
-- **invariante:** condición que debe cumplirse tras cualquier operación válida del sistema.
-- **oráculo:** modelo de referencia independiente con el que se compara el resultado de una operación.
-- **clave de idempotencia:** identificador de una intención de operación que permite repetir la petición sin repetir el efecto.
+- **[unidad menor](../../../glosario/entradas/u/unidad-menor.md):** la unidad mínima de una moneda en que se expresan los importes enteros, por ejemplo el céntimo.
+- **[asiento de doble entrada](../../../glosario/entradas/a/asiento-de-doble-entrada.md):** registro de un movimiento con apuntes que suman cero entre las cuentas implicadas.
+- **[invariante](../../../glosario/entradas/i/invariante.md):** condición que debe cumplirse tras cualquier operación válida del sistema.
+- **[oráculo](../../../glosario/entradas/o/oraculo.md):** modelo de referencia independiente con el que se compara el resultado de una operación.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de una intención de operación que permite repetir la petición sin repetir el efecto.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Asiento de doble entrada](../../../glosario/entradas/a/asiento-de-doble-entrada.md) · [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Invariante](../../../glosario/entradas/i/invariante.md) · [Oráculo](../../../glosario/entradas/o/oraculo.md) · [Unidad menor](../../../glosario/entradas/u/unidad-menor.md).
 
 ---
 

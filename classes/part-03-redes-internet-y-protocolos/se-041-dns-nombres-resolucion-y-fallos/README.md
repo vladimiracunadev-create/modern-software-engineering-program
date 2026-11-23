@@ -121,11 +121,11 @@ configurado, de la caché y del orden de preferencia. Por eso un diagnóstico de
 
 ## Definiciones de trabajo
 
-- **resolver:** componente que obtiene respuestas DNS para un cliente.
-- **autoritativo:** servidor que publica datos de una zona.
-- **zona:** porción administrada del espacio DNS.
-- **TTL:** tiempo máximo indicado para reutilizar un dato en caché.
-- **NXDOMAIN:** respuesta que afirma que el nombre consultado no existe.
+- **[resolver](../../../glosario/entradas/r/resolver.md):** componente que obtiene respuestas DNS para un cliente.
+- **[autoritativo](../../../glosario/entradas/a/autoritativo.md):** servidor que publica datos de una zona.
+- **[zona](../../../glosario/entradas/z/zona.md):** porción administrada del espacio DNS.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo máximo indicado para reutilizar un dato en caché.
+- **[NXDOMAIN](../../../glosario/entradas/n/nxdomain.md):** respuesta que afirma que el nombre consultado no existe.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -278,11 +278,13 @@ No cubre operación completa de DNSSEC ni registradores. Las herramientas pueden
 
 ## Glosario
 
-- **resolver:** componente que obtiene respuestas DNS para un cliente.
-- **autoritativo:** servidor que publica datos de una zona.
-- **zona:** porción administrada del espacio DNS.
-- **TTL:** tiempo máximo indicado para reutilizar un dato en caché.
-- **NXDOMAIN:** respuesta que afirma que el nombre consultado no existe.
+- **[resolver](../../../glosario/entradas/r/resolver.md):** componente que obtiene respuestas DNS para un cliente.
+- **[autoritativo](../../../glosario/entradas/a/autoritativo.md):** servidor que publica datos de una zona.
+- **[zona](../../../glosario/entradas/z/zona.md):** porción administrada del espacio DNS.
+- **[TTL](../../../glosario/entradas/v/vigencia-de-la-cache.md):** tiempo máximo indicado para reutilizar un dato en caché.
+- **[NXDOMAIN](../../../glosario/entradas/n/nxdomain.md):** respuesta que afirma que el nombre consultado no existe.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Autoritativo](../../../glosario/entradas/a/autoritativo.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [NXDOMAIN](../../../glosario/entradas/n/nxdomain.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Resolver](../../../glosario/entradas/r/resolver.md) · [Vigencia de la caché](../../../glosario/entradas/v/vigencia-de-la-cache.md) · [Zona](../../../glosario/entradas/z/zona.md).
 
 ---
 

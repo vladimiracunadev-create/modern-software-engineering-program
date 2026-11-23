@@ -151,12 +151,12 @@ Con la misma distribución de dificultad se midió la repetibilidad en 5 000 tar
 
 ## Definiciones de trabajo
 
-- **condición de parada:** regla explícita que detiene a un agente y define qué se hace después.
-- **punto de control:** estado mínimo guardado en almacenamiento duradero que permite reanudar una tarea sin repetirla entera.
-- **clave de idempotencia:** identificador de un efecto que permite al receptor ignorar los repetidos.
-- **transacción única:** operación atómica que incluye el efecto y el registro de que ocurrió.
-- **intervalo de confianza de Wilson:** rango plausible de una proporción verdadera dada una proporción observada y un tamaño de muestra.
-- **acierto en tres de tres:** proporción de tareas que el agente resuelve en todos sus intentos; mide fiabilidad, no capacidad media.
+- **[condición de parada](../../../glosario/entradas/c/condicion-de-parada.md):** regla explícita que detiene a un agente y define qué se hace después.
+- **[punto de control](../../../glosario/entradas/p/punto-de-control.md):** estado mínimo guardado en almacenamiento duradero que permite reanudar una tarea sin repetirla entera.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de un efecto que permite al receptor ignorar los repetidos.
+- **[transacción única](../../../glosario/entradas/t/transaccion-unica.md):** operación atómica que incluye el efecto y el registro de que ocurrió.
+- **[intervalo de confianza de Wilson](../../../glosario/entradas/i/intervalo-de-confianza-de-wilson.md):** rango plausible de una proporción verdadera dada una proporción observada y un tamaño de muestra.
+- **[acierto en tres de tres](../../../glosario/entradas/a/acierto-en-tres-de-tres.md):** proporción de tareas que el agente resuelve en todos sus intentos; mide fiabilidad, no capacidad media.
 
 Las definiciones son operativas para el servicio *Avisos*. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,12 +302,14 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idént
 
 ## Glosario
 
-- **condición de parada:** regla explícita que detiene a un agente y define qué se hace después.
-- **punto de control:** estado mínimo guardado en almacenamiento duradero que permite reanudar una tarea sin repetirla entera.
-- **clave de idempotencia:** identificador de un efecto que permite al receptor ignorar los repetidos.
-- **transacción única:** operación atómica que incluye el efecto y el registro de que ocurrió.
-- **intervalo de confianza de Wilson:** rango plausible de una proporción verdadera dada una proporción observada y un tamaño de muestra.
-- **acierto en tres de tres:** proporción de tareas que el agente resuelve en todos sus intentos; mide fiabilidad, no capacidad media.
+- **[condición de parada](../../../glosario/entradas/c/condicion-de-parada.md):** regla explícita que detiene a un agente y define qué se hace después.
+- **[punto de control](../../../glosario/entradas/p/punto-de-control.md):** estado mínimo guardado en almacenamiento duradero que permite reanudar una tarea sin repetirla entera.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador de un efecto que permite al receptor ignorar los repetidos.
+- **[transacción única](../../../glosario/entradas/t/transaccion-unica.md):** operación atómica que incluye el efecto y el registro de que ocurrió.
+- **[intervalo de confianza de Wilson](../../../glosario/entradas/i/intervalo-de-confianza-de-wilson.md):** rango plausible de una proporción verdadera dada una proporción observada y un tamaño de muestra.
+- **[acierto en tres de tres](../../../glosario/entradas/a/acierto-en-tres-de-tres.md):** proporción de tareas que el agente resuelve en todos sus intentos; mide fiabilidad, no capacidad media.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acierto en tres de tres](../../../glosario/entradas/a/acierto-en-tres-de-tres.md) · [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Condición de parada](../../../glosario/entradas/c/condicion-de-parada.md) · [Intervalo de confianza de Wilson](../../../glosario/entradas/i/intervalo-de-confianza-de-wilson.md) · [Punto de control](../../../glosario/entradas/p/punto-de-control.md) · [Transacción única](../../../glosario/entradas/t/transaccion-unica.md).
 
 ---
 

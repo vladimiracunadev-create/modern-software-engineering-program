@@ -127,13 +127,13 @@ La tercera medida corre una planta simulada con el controlador cumpliendo su esp
 
 ## Definiciones de trabajo
 
-- **Peligro:** condición o estado del sistema que, con ciertas circunstancias, puede llevar a daño.
-- **Riesgo:** combinación de la gravedad de un daño posible y la probabilidad de que ocurra.
-- **Corte mínimo:** conjunto mínimo de eventos básicos que, juntos, producen el evento tope.
-- **Causa común:** un solo evento o condición que degrada varios canales que se suponían independientes.
-- **RPN:** producto de las valoraciones de gravedad, ocurrencia y detección de un modo de fallo.
-- **Acción de control no segura (UCA):** una acción de control que, en cierto contexto, lleva a un peligro.
-- **Evento tope:** el suceso no deseado que un árbol de fallos descompone.
+- **[Peligro](../../../glosario/entradas/p/peligro.md):** condición o estado del sistema que, con ciertas circunstancias, puede llevar a daño.
+- **[Riesgo](../../../glosario/entradas/r/riesgo.md):** combinación de la gravedad de un daño posible y la probabilidad de que ocurra.
+- **[Corte mínimo](../../../glosario/entradas/c/corte-minimo.md):** conjunto mínimo de eventos básicos que, juntos, producen el evento tope.
+- **[Causa común](../../../glosario/entradas/c/causa-comun.md):** un solo evento o condición que degrada varios canales que se suponían independientes.
+- **[RPN](../../../glosario/entradas/r/rpn.md):** producto de las valoraciones de gravedad, ocurrencia y detección de un modo de fallo.
+- **[Acción de control no segura (UCA)](../../../glosario/entradas/a/accion-de-control-no-segura.md):** una acción de control que, en cierto contexto, lleva a un peligro.
+- **[Evento tope](../../../glosario/entradas/e/evento-tope.md):** el suceso no deseado que un árbol de fallos descompone.
 
 ## Ejemplo mínimo
 
@@ -266,6 +266,8 @@ Las tasas de fallo, las valoraciones y los parámetros de la planta son del auto
 | Causa común | Un evento que degrada varios canales independientes |
 | RPN | Producto de gravedad, ocurrencia y detección |
 | UCA | Acción de control que en cierto contexto es insegura |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acción de control no segura](../../../glosario/entradas/a/accion-de-control-no-segura.md) · [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Corte mínimo](../../../glosario/entradas/c/corte-minimo.md) · [Evento tope](../../../glosario/entradas/e/evento-tope.md) · [Peligro](../../../glosario/entradas/p/peligro.md) · [Riesgo](../../../glosario/entradas/r/riesgo.md) · [RPN](../../../glosario/entradas/r/rpn.md).
 
 ---
 

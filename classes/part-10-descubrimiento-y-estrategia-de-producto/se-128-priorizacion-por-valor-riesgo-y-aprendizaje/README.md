@@ -138,11 +138,11 @@ Resultados: coste 5 y precisión 0,90 → +11,3; coste 10 y 0,80 → +1,6; coste
 
 ## Definiciones de trabajo
 
-- **valor y esfuerzo:** razón entre el beneficio esperado de un ítem y su costo estimado; ordena ítems comparables, no mide su valor real.
-- **riesgo y confianza:** grado de respaldo empírico de las estimaciones de un ítem, expresado como factor que reduce su puntuación cuando la evidencia es débil.
-- **coste del retraso:** pérdida económica o de beneficio por unidad de tiempo en que un trabajo no está disponible; sirve para ordenar trabajos de distinta duración.
-- **valor del aprendizaje:** mejora esperada de una decisión gracias a información obtenida antes de decidir, menos el costo de obtenerla.
-- **decisión revisable:** regla de priorización escrita con sus entradas, fecha, responsable y condiciones de revisión, de modo que otra persona pueda reproducir y cuestionar el orden.
+- **[valor y esfuerzo](../../../glosario/entradas/v/valor-y-esfuerzo.md):** razón entre el beneficio esperado de un ítem y su costo estimado; ordena ítems comparables, no mide su valor real.
+- **[riesgo y confianza](../../../glosario/entradas/r/riesgo-y-confianza.md):** grado de respaldo empírico de las estimaciones de un ítem, expresado como factor que reduce su puntuación cuando la evidencia es débil.
+- **[coste del retraso](../../../glosario/entradas/c/coste-del-retraso.md):** pérdida económica o de beneficio por unidad de tiempo en que un trabajo no está disponible; sirve para ordenar trabajos de distinta duración.
+- **[valor del aprendizaje](../../../glosario/entradas/v/valor-del-aprendizaje.md):** mejora esperada de una decisión gracias a información obtenida antes de decidir, menos el costo de obtenerla.
+- **[decisión revisable](../../../glosario/entradas/d/decision-revisable.md):** regla de priorización escrita con sus entradas, fecha, responsable y condiciones de revisión, de modo que otra persona pueda reproducir y cuestionar el orden.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -295,11 +295,13 @@ Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y U
 
 ## Glosario
 
-- **valor y esfuerzo:** razón entre el beneficio esperado de un ítem y su costo estimado; ordena ítems comparables, no mide su valor real.
-- **riesgo y confianza:** grado de respaldo empírico de las estimaciones de un ítem, expresado como factor que reduce su puntuación cuando la evidencia es débil.
-- **coste del retraso:** pérdida económica o de beneficio por unidad de tiempo en que un trabajo no está disponible; sirve para ordenar trabajos de distinta duración.
-- **valor del aprendizaje:** mejora esperada de una decisión gracias a información obtenida antes de decidir, menos el costo de obtenerla.
-- **decisión revisable:** regla de priorización escrita con sus entradas, fecha, responsable y condiciones de revisión, de modo que otra persona pueda reproducir y cuestionar el orden.
+- **[valor y esfuerzo](../../../glosario/entradas/v/valor-y-esfuerzo.md):** razón entre el beneficio esperado de un ítem y su costo estimado; ordena ítems comparables, no mide su valor real.
+- **[riesgo y confianza](../../../glosario/entradas/r/riesgo-y-confianza.md):** grado de respaldo empírico de las estimaciones de un ítem, expresado como factor que reduce su puntuación cuando la evidencia es débil.
+- **[coste del retraso](../../../glosario/entradas/c/coste-del-retraso.md):** pérdida económica o de beneficio por unidad de tiempo en que un trabajo no está disponible; sirve para ordenar trabajos de distinta duración.
+- **[valor del aprendizaje](../../../glosario/entradas/v/valor-del-aprendizaje.md):** mejora esperada de una decisión gracias a información obtenida antes de decidir, menos el costo de obtenerla.
+- **[decisión revisable](../../../glosario/entradas/d/decision-revisable.md):** regla de priorización escrita con sus entradas, fecha, responsable y condiciones de revisión, de modo que otra persona pueda reproducir y cuestionar el orden.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Coste del retraso](../../../glosario/entradas/c/coste-del-retraso.md) · [Decisión revisable](../../../glosario/entradas/d/decision-revisable.md) · [Riesgo y confianza](../../../glosario/entradas/r/riesgo-y-confianza.md) · [Valor del aprendizaje](../../../glosario/entradas/v/valor-del-aprendizaje.md) · [Valor y esfuerzo](../../../glosario/entradas/v/valor-y-esfuerzo.md).
 
 ---
 

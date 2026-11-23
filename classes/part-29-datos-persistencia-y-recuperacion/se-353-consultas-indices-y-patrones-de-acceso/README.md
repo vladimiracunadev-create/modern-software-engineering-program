@@ -160,11 +160,11 @@ Cada índice añade unos 120 000 pasos a 20 000 inserciones (unos 6 por fila) y 
 
 ## Definiciones de trabajo
 
-- **plan de ejecución:** secuencia de operaciones que el motor elige para resolver una consulta.
-- **selectividad:** fracción de las filas que cumple una condición.
-- **índice compuesto:** índice sobre varias columnas ordenado por la primera, luego por la segunda, y así sucesivamente.
-- **recorrido por saltos (skip scan):** técnica que usa un índice compuesto sin condición sobre su primera columna recorriendo cada uno de sus valores.
-- **N+1:** patrón de una consulta inicial más una consulta por cada elemento de su resultado.
+- **[plan de ejecución](../../../glosario/entradas/p/plan-de-ejecucion.md):** secuencia de operaciones que el motor elige para resolver una consulta.
+- **[selectividad](../../../glosario/entradas/s/selectividad.md):** fracción de las filas que cumple una condición.
+- **[índice compuesto](../../../glosario/entradas/i/indice-compuesto.md):** índice sobre varias columnas ordenado por la primera, luego por la segunda, y así sucesivamente.
+- **[recorrido por saltos (skip scan)](../../../glosario/entradas/r/recorrido-por-saltos.md):** técnica que usa un índice compuesto sin condición sobre su primera columna recorriendo cada uno de sus valores.
+- **[N+1](../../../glosario/entradas/n/n-mas-1.md):** patrón de una consulta inicial más una consulta por cada elemento de su resultado.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -307,11 +307,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **plan de ejecución:** secuencia de operaciones que el motor elige para resolver una consulta.
-- **selectividad:** fracción de las filas que cumple una condición.
-- **índice compuesto:** índice sobre varias columnas ordenado por la primera, luego por la segunda, y así sucesivamente.
-- **recorrido por saltos (skip scan):** técnica que usa un índice compuesto sin condición sobre su primera columna recorriendo cada uno de sus valores.
-- **N+1:** patrón de una consulta inicial más una consulta por cada elemento de su resultado.
+- **[plan de ejecución](../../../glosario/entradas/p/plan-de-ejecucion.md):** secuencia de operaciones que el motor elige para resolver una consulta.
+- **[selectividad](../../../glosario/entradas/s/selectividad.md):** fracción de las filas que cumple una condición.
+- **[índice compuesto](../../../glosario/entradas/i/indice-compuesto.md):** índice sobre varias columnas ordenado por la primera, luego por la segunda, y así sucesivamente.
+- **[recorrido por saltos (skip scan)](../../../glosario/entradas/r/recorrido-por-saltos.md):** técnica que usa un índice compuesto sin condición sobre su primera columna recorriendo cada uno de sus valores.
+- **[N+1](../../../glosario/entradas/n/n-mas-1.md):** patrón de una consulta inicial más una consulta por cada elemento de su resultado.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Índice compuesto](../../../glosario/entradas/i/indice-compuesto.md) · [N+1](../../../glosario/entradas/n/n-mas-1.md) · [Plan de ejecución](../../../glosario/entradas/p/plan-de-ejecucion.md) · [Recorrido por saltos](../../../glosario/entradas/r/recorrido-por-saltos.md) · [Selectividad](../../../glosario/entradas/s/selectividad.md).
 
 ---
 

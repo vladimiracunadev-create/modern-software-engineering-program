@@ -115,11 +115,11 @@ bytes. En una comparación entre dos entornos, el mismo nombre (`example.com`) d
 
 ## Definiciones de trabajo
 
-- **prefijo:** cantidad de bits iniciales que identifican una red.
-- **ruta:** regla para elegir interfaz y siguiente salto.
-- **CIDR:** notación y asignación basada en prefijos de longitud variable.
-- **NAT:** traducción de direcciones entre dominios.
-- **MTU:** máximo tamaño de unidad que un enlace puede transportar sin tratamiento adicional.
+- **[prefijo](../../../glosario/entradas/p/prefijo.md):** cantidad de bits iniciales que identifican una red.
+- **[ruta](../../../glosario/entradas/r/ruta.md):** regla para elegir interfaz y siguiente salto.
+- **[CIDR](../../../glosario/entradas/c/cidr.md):** notación y asignación basada en prefijos de longitud variable.
+- **[NAT](../../../glosario/entradas/n/nat.md):** traducción de direcciones entre dominios.
+- **[MTU](../../../glosario/entradas/m/mtu.md):** máximo tamaño de unidad que un enlace puede transportar sin tratamiento adicional.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -270,11 +270,13 @@ No cubre protocolos de enrutamiento entre organizaciones ni diseño avanzado de 
 
 ## Glosario
 
-- **prefijo:** cantidad de bits iniciales que identifican una red.
-- **ruta:** regla para elegir interfaz y siguiente salto.
-- **CIDR:** notación y asignación basada en prefijos de longitud variable.
-- **NAT:** traducción de direcciones entre dominios.
-- **MTU:** máximo tamaño de unidad que un enlace puede transportar sin tratamiento adicional.
+- **[prefijo](../../../glosario/entradas/p/prefijo.md):** cantidad de bits iniciales que identifican una red.
+- **[ruta](../../../glosario/entradas/r/ruta.md):** regla para elegir interfaz y siguiente salto.
+- **[CIDR](../../../glosario/entradas/c/cidr.md):** notación y asignación basada en prefijos de longitud variable.
+- **[NAT](../../../glosario/entradas/n/nat.md):** traducción de direcciones entre dominios.
+- **[MTU](../../../glosario/entradas/m/mtu.md):** máximo tamaño de unidad que un enlace puede transportar sin tratamiento adicional.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [CIDR](../../../glosario/entradas/c/cidr.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [MTU](../../../glosario/entradas/m/mtu.md) · [NAT](../../../glosario/entradas/n/nat.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Prefijo](../../../glosario/entradas/p/prefijo.md) · [Ruta](../../../glosario/entradas/r/ruta.md).
 
 ---
 

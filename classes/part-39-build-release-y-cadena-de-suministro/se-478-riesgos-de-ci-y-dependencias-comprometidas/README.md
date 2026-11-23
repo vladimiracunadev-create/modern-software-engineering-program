@@ -123,11 +123,11 @@ Se razona qué puede alcanzar un paso comprometido en cuatro configuraciones, a 
 
 ## Definiciones de trabajo
 
-- **CI (integración continua):** sistema que construye y prueba el código de forma automática ante cada cambio.
-- **acción de terceros:** componente reutilizable de un flujo de trabajo escrito por otra persona.
-- **SHA de commit:** identificador inmutable de un estado del repositorio; fijar una acción a él evita que la referencia cambie.
-- **inyección de scripts:** interpolación de un dato controlado por un atacante en un comando que se ejecuta.
-- **mínimo privilegio:** conceder a cada flujo y trabajo solo los permisos que necesita.
+- **[CI (integración continua)](../../../glosario/entradas/c/ci.md):** sistema que construye y prueba el código de forma automática ante cada cambio.
+- **[acción de terceros](../../../glosario/entradas/a/accion-de-terceros.md):** componente reutilizable de un flujo de trabajo escrito por otra persona.
+- **[SHA de commit](../../../glosario/entradas/s/sha-de-commit.md):** identificador inmutable de un estado del repositorio; fijar una acción a él evita que la referencia cambie.
+- **[inyección de scripts](../../../glosario/entradas/i/inyeccion-de-scripts.md):** interpolación de un dato controlado por un atacante en un comando que se ejecuta.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** conceder a cada flujo y trabajo solo los permisos que necesita.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -269,11 +269,13 @@ Se ejecutó un escaneo real de los tres flujos de este repositorio, un experimen
 
 ## Glosario
 
-- **CI (integración continua):** sistema que construye y prueba el código de forma automática ante cada cambio.
-- **acción de terceros:** componente reutilizable de un flujo de trabajo escrito por otra persona.
-- **SHA de commit:** identificador inmutable de un estado del repositorio; fijar una acción a él evita que la referencia cambie.
-- **inyección de scripts:** interpolación de un dato controlado por un atacante en un comando que se ejecuta.
-- **mínimo privilegio:** conceder a cada flujo y trabajo solo los permisos que necesita.
+- **[CI (integración continua)](../../../glosario/entradas/c/ci.md):** sistema que construye y prueba el código de forma automática ante cada cambio.
+- **[acción de terceros](../../../glosario/entradas/a/accion-de-terceros.md):** componente reutilizable de un flujo de trabajo escrito por otra persona.
+- **[SHA de commit](../../../glosario/entradas/s/sha-de-commit.md):** identificador inmutable de un estado del repositorio; fijar una acción a él evita que la referencia cambie.
+- **[inyección de scripts](../../../glosario/entradas/i/inyeccion-de-scripts.md):** interpolación de un dato controlado por un atacante en un comando que se ejecuta.
+- **[mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md):** conceder a cada flujo y trabajo solo los permisos que necesita.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acción de terceros](../../../glosario/entradas/a/accion-de-terceros.md) · [CI](../../../glosario/entradas/c/ci.md) · [Entradas no confiables](../../../glosario/entradas/e/entradas-no-confiables.md) · [Inyección de scripts](../../../glosario/entradas/i/inyeccion-de-scripts.md) · [Mínimo privilegio](../../../glosario/entradas/m/minimo-privilegio.md) · [SHA de commit](../../../glosario/entradas/s/sha-de-commit.md).
 
 ---
 

@@ -108,13 +108,13 @@ La clase termina con una vista de conjunto: cada patrón conductual mueve una de
 
 ## Definiciones de trabajo
 
-- **Strategy:** algoritmo intercambiable detrás de una interfaz.
-- **Observer:** emisor que notifica a receptores que no conoce.
-- **Command:** acción representada como objeto, con posibilidad de encolar y deshacer.
-- **State:** comportamiento que depende de un estado nombrado y de transiciones explícitas.
-- **Template Method:** esqueleto de un algoritmo con pasos que las subclases redefinen.
-- **Referencia débil:** referencia que no impide que el objeto sea recolectado.
-- **Propiedad:** afirmación que debe cumplirse para toda entrada de una clase, comprobada con muchas entradas generadas.
+- **[Strategy](../../../glosario/entradas/s/strategy.md):** algoritmo intercambiable detrás de una interfaz.
+- **[Observer](../../../glosario/entradas/o/observer.md):** emisor que notifica a receptores que no conoce.
+- **[Command](../../../glosario/entradas/c/command.md):** acción representada como objeto, con posibilidad de encolar y deshacer.
+- **[State](../../../glosario/entradas/s/state.md):** comportamiento que depende de un estado nombrado y de transiciones explícitas.
+- **[Template Method](../../../glosario/entradas/t/template-method.md):** esqueleto de un algoritmo con pasos que las subclases redefinen.
+- **[Referencia débil](../../../glosario/entradas/r/referencia-debil.md):** referencia que no impide que el objeto sea recolectado.
+- **[Propiedad](../../../glosario/entradas/p/propiedad.md):** afirmación que debe cumplirse para toda entrada de una clase, comprobada con muchas entradas generadas.
 
 ## Ejemplo mínimo
 
@@ -245,6 +245,8 @@ La definición de «imposible», las secuencias y los oyentes son del autor; no 
 | Referencia débil | Referencia que no retiene al objeto |
 | Command | Acción como objeto que se puede encolar y deshacer |
 | Propiedad | Afirmación sobre toda una clase de entradas |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Command](../../../glosario/entradas/c/command.md) · [Observer](../../../glosario/entradas/o/observer.md) · [Propiedad](../../../glosario/entradas/p/propiedad.md) · [Referencia débil](../../../glosario/entradas/r/referencia-debil.md) · [State](../../../glosario/entradas/s/state.md) · [Strategy](../../../glosario/entradas/s/strategy.md) · [Template Method](../../../glosario/entradas/t/template-method.md).
 
 ---
 

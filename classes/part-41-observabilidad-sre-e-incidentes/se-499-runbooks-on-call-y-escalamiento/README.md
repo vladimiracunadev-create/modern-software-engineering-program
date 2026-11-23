@@ -168,11 +168,11 @@ Un runbook envejece cuando cambia el sistema: se renombra un servicio, cambia el
 
 ## Definiciones de trabajo
 
-- **runbook:** documento operativo que acompaña a una alerta y describe diagnóstico, mitigación, verificación, reversión y escalamiento.
-- **guardia (on-call):** turno en que una persona o grupo responde a las páginas de un servicio.
-- **escalamiento:** paso de una página al siguiente nivel de respuesta cuando el anterior no contesta a tiempo.
-- **causa común:** origen compartido por varios fallos que los hace dejar de ser independientes.
-- **ejercicio de runbook:** ejecución programada de un runbook por alguien distinto de su autor para comprobar que funciona.
+- **[runbook](../../../glosario/entradas/r/runbook.md):** documento operativo que acompaña a una alerta y describe diagnóstico, mitigación, verificación, reversión y escalamiento.
+- **[guardia (on-call)](../../../glosario/entradas/g/guardia.md):** turno en que una persona o grupo responde a las páginas de un servicio.
+- **[escalamiento](../../../glosario/entradas/e/escalamiento.md):** paso de una página al siguiente nivel de respuesta cuando el anterior no contesta a tiempo.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** origen compartido por varios fallos que los hace dejar de ser independientes.
+- **[ejercicio de runbook](../../../glosario/entradas/e/ejercicio-de-runbook.md):** ejecución programada de un runbook por alguien distinto de su autor para comprobar que funciona.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -309,11 +309,13 @@ Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y
 
 ## Glosario
 
-- **runbook:** documento operativo que acompaña a una alerta y describe diagnóstico, mitigación, verificación, reversión y escalamiento.
-- **guardia (on-call):** turno en que una persona o grupo responde a las páginas de un servicio.
-- **escalamiento:** paso de una página al siguiente nivel de respuesta cuando el anterior no contesta a tiempo.
-- **causa común:** origen compartido por varios fallos que los hace dejar de ser independientes.
-- **ejercicio de runbook:** ejecución programada de un runbook por alguien distinto de su autor para comprobar que funciona.
+- **[runbook](../../../glosario/entradas/r/runbook.md):** documento operativo que acompaña a una alerta y describe diagnóstico, mitigación, verificación, reversión y escalamiento.
+- **[guardia (on-call)](../../../glosario/entradas/g/guardia.md):** turno en que una persona o grupo responde a las páginas de un servicio.
+- **[escalamiento](../../../glosario/entradas/e/escalamiento.md):** paso de una página al siguiente nivel de respuesta cuando el anterior no contesta a tiempo.
+- **[causa común](../../../glosario/entradas/c/causa-comun.md):** origen compartido por varios fallos que los hace dejar de ser independientes.
+- **[ejercicio de runbook](../../../glosario/entradas/e/ejercicio-de-runbook.md):** ejecución programada de un runbook por alguien distinto de su autor para comprobar que funciona.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Causa común](../../../glosario/entradas/c/causa-comun.md) · [Ejercicio de runbook](../../../glosario/entradas/e/ejercicio-de-runbook.md) · [Escalamiento](../../../glosario/entradas/e/escalamiento.md) · [Guardia](../../../glosario/entradas/g/guardia.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Runbook](../../../glosario/entradas/r/runbook.md).
 
 ---
 

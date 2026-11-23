@@ -149,11 +149,11 @@ def estado_entrega(plazo, ahora):
 
 ## Definiciones de trabajo
 
-- **prueba unitaria:** comprobación de una unidad pequeña cuyo resultado no depende de recursos que la prueba no controla.
-- **frontera:** valor de entrada donde cambia la clase de comportamiento; allí la comparación (`<` o `<=`) decide.
-- **costura:** punto del código donde se puede reemplazar una dependencia sin editar la unidad.
-- **mutante:** copia del código con un cambio mecánico pequeño; «muerto» si alguna prueba falla, «superviviente» si todas pasan.
-- **mutante equivalente:** mutante cuyo comportamiento observable es igual al original; no hay caso que lo mate.
+- **[prueba unitaria](../../../glosario/entradas/p/prueba-unitaria.md):** comprobación de una unidad pequeña cuyo resultado no depende de recursos que la prueba no controla.
+- **[frontera](../../../glosario/entradas/f/frontera.md):** valor de entrada donde cambia la clase de comportamiento; allí la comparación (`<` o `<=`) decide.
+- **[costura](../../../glosario/entradas/c/costura.md):** punto del código donde se puede reemplazar una dependencia sin editar la unidad.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mecánico pequeño; «muerto» si alguna prueba falla, «superviviente» si todas pasan.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** mutante cuyo comportamiento observable es igual al original; no hay caso que lo mate.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con una función sintética en Windows y Ubuntu 
 
 ## Glosario
 
-- **prueba unitaria:** comprobación de una unidad pequeña cuyo resultado no depende de recursos que la prueba no controla.
-- **frontera:** valor de entrada donde cambia la clase de comportamiento; allí la comparación (`<` o `<=`) decide.
-- **costura:** punto del código donde se puede reemplazar una dependencia sin editar la unidad.
-- **mutante:** copia del código con un cambio mecánico pequeño; «muerto» si alguna prueba falla, «superviviente» si todas pasan.
-- **mutante equivalente:** mutante cuyo comportamiento observable es igual al original; no hay caso que lo mate.
+- **[prueba unitaria](../../../glosario/entradas/p/prueba-unitaria.md):** comprobación de una unidad pequeña cuyo resultado no depende de recursos que la prueba no controla.
+- **[frontera](../../../glosario/entradas/f/frontera.md):** valor de entrada donde cambia la clase de comportamiento; allí la comparación (`<` o `<=`) decide.
+- **[costura](../../../glosario/entradas/c/costura.md):** punto del código donde se puede reemplazar una dependencia sin editar la unidad.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código con un cambio mecánico pequeño; «muerto» si alguna prueba falla, «superviviente» si todas pasan.
+- **[mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md):** mutante cuyo comportamiento observable es igual al original; no hay caso que lo mate.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Costura](../../../glosario/entradas/c/costura.md) · [Frontera](../../../glosario/entradas/f/frontera.md) · [Mutante equivalente](../../../glosario/entradas/m/mutante-equivalente.md) · [Prueba unitaria](../../../glosario/entradas/p/prueba-unitaria.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

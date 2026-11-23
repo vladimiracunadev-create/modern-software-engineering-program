@@ -126,12 +126,12 @@ Hay una consecuencia de diseño. La misma versión puede dar 0,72 o 0,95 con 100
 
 ## Definiciones de trabajo
 
-- **Evaluación (eval):** conjunto de casos con un criterio que mide la calidad de un componente.
-- **Puerta de release:** regla de decisión que usa una evaluación para publicar o retener.
-- **Falso pase:** la puerta publica una versión peor.
-- **Falso rechazo:** la puerta retiene una versión sana.
-- **pass@k y pass^k:** probabilidad de al menos un acierto en k intentos y de k aciertos en k intentos.
-- **Conjunto curado:** casos elegidos por su dificultad o importancia, no al azar.
+- **[Evaluación (eval)](../../../glosario/entradas/e/evaluacion.md):** conjunto de casos con un criterio que mide la calidad de un componente.
+- **[Puerta de release](../../../glosario/entradas/p/puerta-de-release.md):** regla de decisión que usa una evaluación para publicar o retener.
+- **[Falso pase](../../../glosario/entradas/f/falso-pase.md):** la puerta publica una versión peor.
+- **[Falso rechazo](../../../glosario/entradas/f/falso-rechazo.md):** la puerta retiene una versión sana.
+- **[pass@k y pass^k](../../../glosario/entradas/p/pass-k-y-pass-k.md):** probabilidad de al menos un acierto en k intentos y de k aciertos en k intentos.
+- **[Conjunto curado](../../../glosario/entradas/c/conjunto-curado.md):** casos elegidos por su dificultad o importancia, no al azar.
 
 ## Ejemplo mínimo
 
@@ -261,6 +261,8 @@ La simulación modela casos como lanzamientos independientes con probabilidades 
 | Falso rechazo | Se retiene una versión sana |
 | pass@k | Probabilidad de al menos un acierto en k intentos |
 | Conjunto curado | Casos elegidos por dificultad o importancia |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Conjunto curado](../../../glosario/entradas/c/conjunto-curado.md) · [Evaluación](../../../glosario/entradas/e/evaluacion.md) · [Falso pase](../../../glosario/entradas/f/falso-pase.md) · [Falso rechazo](../../../glosario/entradas/f/falso-rechazo.md) · [Pass@k y pass^k](../../../glosario/entradas/p/pass-k-y-pass-k.md) · [Puerta de release](../../../glosario/entradas/p/puerta-de-release.md) · [Repetición](../../../glosario/entradas/r/repeticion.md).
 
 ---
 

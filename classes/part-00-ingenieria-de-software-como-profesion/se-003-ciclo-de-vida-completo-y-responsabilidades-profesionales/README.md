@@ -171,15 +171,17 @@ demuestra que la autoridad existe.
 
 ## Definiciones de trabajo
 
-- **verificación:** conformidad con especificación;
-- **validación:** utilidad en contexto;
-- **transición:** cambio controlado entre configuraciones;
-- **mantenimiento:** corrección, adaptación o mejora posterior;
-- **retiro:** eliminación controlada de capacidad, dependencias y datos.
+- **[verificación](../../../glosario/entradas/v/verificacion.md):** conformidad con especificación;
+- **[validación](../../../glosario/entradas/v/validacion.md):** utilidad en contexto;
+- **[transición](../../../glosario/entradas/t/transicion.md):** cambio controlado entre configuraciones;
+- **[mantenimiento](../../../glosario/entradas/m/mantenimiento.md):** corrección, adaptación o mejora posterior;
+- **[retiro](../../../glosario/entradas/r/retiro.md):** eliminación controlada de capacidad, dependencias y datos.
 
 ## Glosario
 
-**Baseline** es una versión acordada. **Owner** posee autoridad de decisión. **Custodio** conserva un activo bajo reglas sin poseer su propósito.
+**[Baseline](../../../glosario/entradas/b/baseline.md)** es una versión acordada. **[Owner](../../../glosario/entradas/o/owner.md)** posee autoridad de decisión. **[Custodio](../../../glosario/entradas/c/custodio.md)** conserva un activo bajo reglas sin poseer su propósito.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Baseline](../../../glosario/entradas/b/baseline.md) · [Custodio](../../../glosario/entradas/c/custodio.md) · [Mantenimiento](../../../glosario/entradas/m/mantenimiento.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Owner](../../../glosario/entradas/o/owner.md) · [Retiro](../../../glosario/entradas/r/retiro.md) · [Transición](../../../glosario/entradas/t/transicion.md) · [Validación](../../../glosario/entradas/v/validacion.md) · [Verificación](../../../glosario/entradas/v/verificacion.md).
 
 ## Ejemplo mínimo
 

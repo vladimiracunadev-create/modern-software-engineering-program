@@ -152,11 +152,11 @@ Resultado: 10 celdas definidas, 11 imposibles por la regla escrita y 21 pregunta
 
 ## Definiciones de trabajo
 
-- **ambigüedad:** propiedad de un texto que admite más de una lectura razonable con consecuencias distintas.
-- **contradicción:** relación entre requisitos que no pueden cumplirse todos a la vez, directa o a través de otros.
-- **incompletitud:** ausencia de un comportamiento para una situación que el sistema podrá encontrar.
-- **técnicas de detección:** procedimientos para buscar un tipo de defecto, cada uno ciego a los demás.
-- **resolución:** decisión registrada, con responsable, que elimina un defecto o acepta el riesgo.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** propiedad de un texto que admite más de una lectura razonable con consecuencias distintas.
+- **[contradicción](../../../glosario/entradas/c/contradiccion.md):** relación entre requisitos que no pueden cumplirse todos a la vez, directa o a través de otros.
+- **[incompletitud](../../../glosario/entradas/i/incompletitud.md):** ausencia de un comportamiento para una situación que el sistema podrá encontrar.
+- **[técnicas de detección](../../../glosario/entradas/t/tecnicas-de-deteccion.md):** procedimientos para buscar un tipo de defecto, cada uno ciego a los demás.
+- **[resolución](../../../glosario/entradas/r/resolucion.md):** decisión registrada, con responsable, que elimina un defecto o acepta el riesgo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -308,11 +308,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **ambigüedad:** propiedad de un texto que admite más de una lectura razonable con consecuencias distintas.
-- **contradicción:** relación entre requisitos que no pueden cumplirse todos a la vez, directa o a través de otros.
-- **incompletitud:** ausencia de un comportamiento para una situación que el sistema podrá encontrar.
-- **técnicas de detección:** procedimientos para buscar un tipo de defecto, cada uno ciego a los demás.
-- **resolución:** decisión registrada, con responsable, que elimina un defecto o acepta el riesgo.
+- **[ambigüedad](../../../glosario/entradas/a/ambiguedad.md):** propiedad de un texto que admite más de una lectura razonable con consecuencias distintas.
+- **[contradicción](../../../glosario/entradas/c/contradiccion.md):** relación entre requisitos que no pueden cumplirse todos a la vez, directa o a través de otros.
+- **[incompletitud](../../../glosario/entradas/i/incompletitud.md):** ausencia de un comportamiento para una situación que el sistema podrá encontrar.
+- **[técnicas de detección](../../../glosario/entradas/t/tecnicas-de-deteccion.md):** procedimientos para buscar un tipo de defecto, cada uno ciego a los demás.
+- **[resolución](../../../glosario/entradas/r/resolucion.md):** decisión registrada, con responsable, que elimina un defecto o acepta el riesgo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ambigüedad](../../../glosario/entradas/a/ambiguedad.md) · [Contradicción](../../../glosario/entradas/c/contradiccion.md) · [Incompletitud](../../../glosario/entradas/i/incompletitud.md) · [Resolución](../../../glosario/entradas/r/resolucion.md) · [Técnicas de detección](../../../glosario/entradas/t/tecnicas-de-deteccion.md).
 
 ---
 

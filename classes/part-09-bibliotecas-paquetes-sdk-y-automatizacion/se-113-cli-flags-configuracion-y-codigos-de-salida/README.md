@@ -113,11 +113,11 @@ Cuando el consumidor cierra la tubería mientras el productor escribe, Windows t
 
 ## Definiciones de trabajo
 
-- **comandos, argumentos y flags:** un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento.
-- **configuración y precedencia:** defaults, archivo, entorno y cli necesitan orden documentado y opción de explicar valor efectivo sin revelar secreto.
-- **stdout, stderr y formatos:** stdout transporta resultado consumible; stderr contiene diagnóstico.
-- **códigos de salida:** cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
-- **señales, cancelación y atomicidad:** ctrl+c solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable.
+- **[comandos, argumentos y flags](../../../glosario/entradas/c/comandos-argumentos-y-flags.md):** un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento.
+- **[configuración y precedencia](../../../glosario/entradas/c/configuracion-y-precedencia.md):** defaults, archivo, entorno y cli necesitan orden documentado y opción de explicar valor efectivo sin revelar secreto.
+- **[stdout, stderr y formatos](../../../glosario/entradas/s/stdout-stderr-y-formatos.md):** stdout transporta resultado consumible; stderr contiene diagnóstico.
+- **[códigos de salida](../../../glosario/entradas/c/codigo-de-salida.md):** cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
+- **[señales, cancelación y atomicidad](../../../glosario/entradas/s/senales-cancelacion-y-atomicidad.md):** ctrl+c solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable.
 
 Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ Una CLI clara puede ejecutar efectos repetidos de forma peligrosa. La siguiente 
 
 ## Glosario
 
-- **comandos, argumentos y flags:** un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento.
-- **configuración y precedencia:** defaults, archivo, entorno y cli necesitan orden documentado y opción de explicar valor efectivo sin revelar secreto.
-- **stdout, stderr y formatos:** stdout transporta resultado consumible; stderr contiene diagnóstico.
-- **códigos de salida:** cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
-- **señales, cancelación y atomicidad:** ctrl+c solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable.
+- **[comandos, argumentos y flags](../../../glosario/entradas/c/comandos-argumentos-y-flags.md):** un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento.
+- **[configuración y precedencia](../../../glosario/entradas/c/configuracion-y-precedencia.md):** defaults, archivo, entorno y cli necesitan orden documentado y opción de explicar valor efectivo sin revelar secreto.
+- **[stdout, stderr y formatos](../../../glosario/entradas/s/stdout-stderr-y-formatos.md):** stdout transporta resultado consumible; stderr contiene diagnóstico.
+- **[códigos de salida](../../../glosario/entradas/c/codigo-de-salida.md):** cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
+- **[señales, cancelación y atomicidad](../../../glosario/entradas/s/senales-cancelacion-y-atomicidad.md):** ctrl+c solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Código de salida](../../../glosario/entradas/c/codigo-de-salida.md) · [Comandos, argumentos y flags](../../../glosario/entradas/c/comandos-argumentos-y-flags.md) · [Configuración y precedencia](../../../glosario/entradas/c/configuracion-y-precedencia.md) · [Señales, cancelación y atomicidad](../../../glosario/entradas/s/senales-cancelacion-y-atomicidad.md) · [Stdout, stderr y formatos](../../../glosario/entradas/s/stdout-stderr-y-formatos.md).
 
 ---
 

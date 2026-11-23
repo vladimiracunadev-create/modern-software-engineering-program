@@ -144,11 +144,11 @@ Resultado: 12 de 216 perfiles (5,56 %) producen un ciclo de mayoría; en 54 de 2
 
 ## Definiciones de trabajo
 
-- **valor, costo y riesgo:** beneficio que aporta un requisito, esfuerzo que consume e incertidumbre sobre ambos.
-- **dependencias:** relaciones por las cuales un requisito no puede entregarse, probarse o usarse sin otro.
-- **MoSCoW:** clasificación en Must, Should, Could y Won't para decir qué debe estar, qué debería, qué podría y qué no estará esta vez.
-- **negociación por intereses:** acuerdo que parte de las razones de cada posición y no de las posiciones mismas.
-- **decisión colectiva:** regla para transformar preferencias de varias personas en una elección del grupo.
+- **[valor, costo y riesgo](../../../glosario/entradas/v/valor-costo-y-riesgo.md):** beneficio que aporta un requisito, esfuerzo que consume e incertidumbre sobre ambos.
+- **[dependencias](../../../glosario/entradas/d/dependencia.md):** relaciones por las cuales un requisito no puede entregarse, probarse o usarse sin otro.
+- **[MoSCoW](../../../glosario/entradas/m/moscow.md):** clasificación en Must, Should, Could y Won't para decir qué debe estar, qué debería, qué podría y qué no estará esta vez.
+- **[negociación por intereses](../../../glosario/entradas/n/negociacion-por-intereses.md):** acuerdo que parte de las razones de cada posición y no de las posiciones mismas.
+- **[decisión colectiva](../../../glosario/entradas/d/decision-colectiva.md):** regla para transformar preferencias de varias personas en una elección del grupo.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **valor, costo y riesgo:** beneficio que aporta un requisito, esfuerzo que consume e incertidumbre sobre ambos.
-- **dependencias:** relaciones por las cuales un requisito no puede entregarse, probarse o usarse sin otro.
-- **MoSCoW:** clasificación en Must, Should, Could y Won't para decir qué debe estar, qué debería, qué podría y qué no estará esta vez.
-- **negociación por intereses:** acuerdo que parte de las razones de cada posición y no de las posiciones mismas.
-- **decisión colectiva:** regla para transformar preferencias de varias personas en una elección del grupo.
+- **[valor, costo y riesgo](../../../glosario/entradas/v/valor-costo-y-riesgo.md):** beneficio que aporta un requisito, esfuerzo que consume e incertidumbre sobre ambos.
+- **[dependencias](../../../glosario/entradas/d/dependencia.md):** relaciones por las cuales un requisito no puede entregarse, probarse o usarse sin otro.
+- **[MoSCoW](../../../glosario/entradas/m/moscow.md):** clasificación en Must, Should, Could y Won't para decir qué debe estar, qué debería, qué podría y qué no estará esta vez.
+- **[negociación por intereses](../../../glosario/entradas/n/negociacion-por-intereses.md):** acuerdo que parte de las razones de cada posición y no de las posiciones mismas.
+- **[decisión colectiva](../../../glosario/entradas/d/decision-colectiva.md):** regla para transformar preferencias de varias personas en una elección del grupo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Decisión colectiva](../../../glosario/entradas/d/decision-colectiva.md) · [Dependencia](../../../glosario/entradas/d/dependencia.md) · [MoSCoW](../../../glosario/entradas/m/moscow.md) · [Negociación por intereses](../../../glosario/entradas/n/negociacion-por-intereses.md) · [Valor, costo y riesgo](../../../glosario/entradas/v/valor-costo-y-riesgo.md).
 
 ---
 

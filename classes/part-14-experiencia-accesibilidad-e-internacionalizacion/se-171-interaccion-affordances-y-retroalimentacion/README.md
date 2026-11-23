@@ -137,11 +137,11 @@ if error and r.random() > 0.70:     # no nota el error en la ventana
 
 ## Definiciones de trabajo
 
-- **affordance percibida:** señal de una acción posible que la persona reconoce a partir del aspecto y el contexto del objeto.
-- **ley de Fitts:** relación entre el tiempo de apuntar a un objetivo y el logaritmo de la razón entre la distancia y su tamaño.
-- **retroalimentación:** respuesta perceptible de un sistema a una acción de la persona.
-- **operación idempotente:** operación cuyo efecto en el estado es el mismo al aplicarla una vez o varias.
-- **clave de idempotencia:** identificador único de una intención enviado con la petición para reconocer reintentos.
+- **[affordance percibida](../../../glosario/entradas/a/affordance-percibida.md):** señal de una acción posible que la persona reconoce a partir del aspecto y el contexto del objeto.
+- **[ley de Fitts](../../../glosario/entradas/l/ley-de-fitts.md):** relación entre el tiempo de apuntar a un objetivo y el logaritmo de la razón entre la distancia y su tamaño.
+- **[retroalimentación](../../../glosario/entradas/r/retroalimentacion.md):** respuesta perceptible de un sistema a una acción de la persona.
+- **[operación idempotente](../../../glosario/entradas/o/operaciones-idempotentes.md):** operación cuyo efecto en el estado es el mismo al aplicarla una vez o varias.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador único de una intención enviado con la petición para reconocer reintentos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -289,11 +289,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **affordance percibida:** señal de una acción posible que la persona reconoce a partir del aspecto y el contexto del objeto.
-- **ley de Fitts:** relación entre el tiempo de apuntar a un objetivo y el logaritmo de la razón entre la distancia y su tamaño.
-- **retroalimentación:** respuesta perceptible de un sistema a una acción de la persona.
-- **operación idempotente:** operación cuyo efecto en el estado es el mismo al aplicarla una vez o varias.
-- **clave de idempotencia:** identificador único de una intención enviado con la petición para reconocer reintentos.
+- **[affordance percibida](../../../glosario/entradas/a/affordance-percibida.md):** señal de una acción posible que la persona reconoce a partir del aspecto y el contexto del objeto.
+- **[ley de Fitts](../../../glosario/entradas/l/ley-de-fitts.md):** relación entre el tiempo de apuntar a un objetivo y el logaritmo de la razón entre la distancia y su tamaño.
+- **[retroalimentación](../../../glosario/entradas/r/retroalimentacion.md):** respuesta perceptible de un sistema a una acción de la persona.
+- **[operación idempotente](../../../glosario/entradas/o/operaciones-idempotentes.md):** operación cuyo efecto en el estado es el mismo al aplicarla una vez o varias.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador único de una intención enviado con la petición para reconocer reintentos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Affordance percibida](../../../glosario/entradas/a/affordance-percibida.md) · [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Ley de Fitts](../../../glosario/entradas/l/ley-de-fitts.md) · [Operaciones idempotentes](../../../glosario/entradas/o/operaciones-idempotentes.md) · [Retroalimentación](../../../glosario/entradas/r/retroalimentacion.md).
 
 ---
 

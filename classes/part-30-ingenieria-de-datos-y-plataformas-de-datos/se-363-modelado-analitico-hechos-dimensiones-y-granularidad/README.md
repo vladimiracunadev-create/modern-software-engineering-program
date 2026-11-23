@@ -135,13 +135,13 @@ La tercera figura muestra las tablas del vault y lo que dejó la carga.
 
 ## Definiciones de trabajo
 
-- **Hecho:** medición de un evento de negocio con su granularidad.
-- **Dimensión:** contexto con el que se agrupa o filtra un hecho.
-- **Granularidad:** qué es exactamente una fila de una tabla.
-- **Dimensión de cambio lento:** dimensión cuyos atributos cambian con el tiempo y cuya política de historia debe decidirse.
-- **Clave sustituta:** identificador generado por el modelo, distinto de la clave de negocio.
-- **Hub, enlace y satélite:** tablas de identidad, de relación y de atributos con historia de un Data Vault.
-- **Abanico de uniones:** error por unir tablas de distinto grano y sumar el lado «uno».
+- **[Hecho](../../../glosario/entradas/h/hecho.md):** medición de un evento de negocio con su granularidad.
+- **[Dimensión](../../../glosario/entradas/d/dimension.md):** contexto con el que se agrupa o filtra un hecho.
+- **[Granularidad](../../../glosario/entradas/g/granularidad.md):** qué es exactamente una fila de una tabla.
+- **[Dimensión de cambio lento](../../../glosario/entradas/d/dimension-de-cambio-lento.md):** dimensión cuyos atributos cambian con el tiempo y cuya política de historia debe decidirse.
+- **[Clave sustituta](../../../glosario/entradas/c/clave-sustituta.md):** identificador generado por el modelo, distinto de la clave de negocio.
+- **[Hub, enlace y satélite](../../../glosario/entradas/h/hub-enlace-y-satelite.md):** tablas de identidad, de relación y de atributos con historia de un Data Vault.
+- **[Abanico de uniones](../../../glosario/entradas/a/abanico-de-uniones.md):** error por unir tablas de distinto grano y sumar el lado «uno».
 
 ## Ejemplo mínimo
 
@@ -278,6 +278,8 @@ Los 20 000 pedidos, las 132 mudanzas y las líneas por pedido son construcciones
 | Tipo 2 | Dimensión con filas de vigencia |
 | Abanico de uniones | Suma repetida por unir distintos grados |
 | Satélite | Atributos con historia en un vault |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Abanico de uniones](../../../glosario/entradas/a/abanico-de-uniones.md) · [Clave sustituta](../../../glosario/entradas/c/clave-sustituta.md) · [Dimensión](../../../glosario/entradas/d/dimension.md) · [Dimensión de cambio lento](../../../glosario/entradas/d/dimension-de-cambio-lento.md) · [Granularidad](../../../glosario/entradas/g/granularidad.md) · [Hecho](../../../glosario/entradas/h/hecho.md) · [Hub, enlace y satélite](../../../glosario/entradas/h/hub-enlace-y-satelite.md).
 
 ---
 

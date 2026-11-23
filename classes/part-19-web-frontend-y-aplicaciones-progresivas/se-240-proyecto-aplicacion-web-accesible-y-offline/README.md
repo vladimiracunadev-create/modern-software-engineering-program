@@ -142,11 +142,11 @@ Resultado: los 12 casos cubren todos los pares y el **60,2 %** de las combinacio
 
 ## Definiciones de trabajo
 
-- **criterio de aceptación:** condición comprobable, con valor, método y responsable, que debe cumplirse para dar por entregado un requisito.
-- **manifiesto de aplicación web:** archivo JSON que declara el nombre, los iconos, la URL de inicio y el alcance de una aplicación instalable.
-- **cobertura de pares:** propiedad de una suite en la que cada par de valores de dos factores aparece en al menos un caso.
-- **paquete de evidencia:** conjunto de artefactos y comprobaciones con enlaces y huellas que permite repetir una verificación.
-- **declaración de límites:** lista de lo que no se verificó, con el motivo y lo que haría falta para verificarlo.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición comprobable, con valor, método y responsable, que debe cumplirse para dar por entregado un requisito.
+- **[manifiesto de aplicación web](../../../glosario/entradas/m/manifiesto-de-aplicacion-web.md):** archivo JSON que declara el nombre, los iconos, la URL de inicio y el alcance de una aplicación instalable.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** propiedad de una suite en la que cada par de valores de dos factores aparece en al menos un caso.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto de artefactos y comprobaciones con enlaces y huellas que permite repetir una verificación.
+- **[declaración de límites](../../../glosario/entradas/d/declaracion-de-limites.md):** lista de lo que no se verificó, con el motivo y lo que haría falta para verificarlo.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -304,11 +304,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **criterio de aceptación:** condición comprobable, con valor, método y responsable, que debe cumplirse para dar por entregado un requisito.
-- **manifiesto de aplicación web:** archivo JSON que declara el nombre, los iconos, la URL de inicio y el alcance de una aplicación instalable.
-- **cobertura de pares:** propiedad de una suite en la que cada par de valores de dos factores aparece en al menos un caso.
-- **paquete de evidencia:** conjunto de artefactos y comprobaciones con enlaces y huellas que permite repetir una verificación.
-- **declaración de límites:** lista de lo que no se verificó, con el motivo y lo que haría falta para verificarlo.
+- **[criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md):** condición comprobable, con valor, método y responsable, que debe cumplirse para dar por entregado un requisito.
+- **[manifiesto de aplicación web](../../../glosario/entradas/m/manifiesto-de-aplicacion-web.md):** archivo JSON que declara el nombre, los iconos, la URL de inicio y el alcance de una aplicación instalable.
+- **[cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md):** propiedad de una suite en la que cada par de valores de dos factores aparece en al menos un caso.
+- **[paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md):** conjunto de artefactos y comprobaciones con enlaces y huellas que permite repetir una verificación.
+- **[declaración de límites](../../../glosario/entradas/d/declaracion-de-limites.md):** lista de lo que no se verificó, con el motivo y lo que haría falta para verificarlo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cobertura de pares](../../../glosario/entradas/c/cobertura-de-pares.md) · [Criterio de aceptación](../../../glosario/entradas/c/criterio-de-aceptacion.md) · [Declaración de límites](../../../glosario/entradas/d/declaracion-de-limites.md) · [Manifiesto de aplicación web](../../../glosario/entradas/m/manifiesto-de-aplicacion-web.md) · [Paquete de evidencia](../../../glosario/entradas/p/paquete-de-evidencia.md).
 
 ---
 

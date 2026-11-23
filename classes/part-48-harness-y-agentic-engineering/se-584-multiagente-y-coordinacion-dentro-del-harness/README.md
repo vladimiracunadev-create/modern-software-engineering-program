@@ -113,12 +113,12 @@ Cada escenario crea un repositorio local con un módulo, un archivo de notas y u
 
 ## Definiciones de trabajo
 
-- **Propiedad de archivos:** asignación exclusiva de quién puede modificar cada archivo.
-- **Árbol de trabajo (`worktree`):** copia de trabajo adicional del mismo repositorio.
-- **Conflicto textual:** dos ramas modifican las mismas líneas.
-- **Conflicto semántico:** cambios compatibles para la fusión e incompatibles para el programa.
-- **Integrador:** quien fusiona las ramas y ejecuta la verificación.
-- **Canal de coordinación:** vía por la que dos agentes se comunican.
+- **[Propiedad de archivos](../../../glosario/entradas/p/propiedad-de-archivos.md):** asignación exclusiva de quién puede modificar cada archivo.
+- **[Árbol de trabajo (`worktree`)](../../../glosario/entradas/a/arbol-de-trabajo.md):** copia de trabajo adicional del mismo repositorio.
+- **[Conflicto textual](../../../glosario/entradas/c/conflicto-textual.md):** dos ramas modifican las mismas líneas.
+- **[Conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md):** cambios compatibles para la fusión e incompatibles para el programa.
+- **[Integrador](../../../glosario/entradas/i/integrador.md):** quien fusiona las ramas y ejecuta la verificación.
+- **[Canal de coordinación](../../../glosario/entradas/c/canal-de-coordinacion.md):** vía por la que dos agentes se comunican.
 
 ## Ejemplo mínimo
 
@@ -235,6 +235,8 @@ Se ejecutaron cuatro fusiones con ramas reales de Git y una simulación de solap
 | Conflicto semántico | Compatible para la fusión, incompatible para el programa |
 | Integrador | Quien fusiona y verifica |
 | Canal de coordinación | Vía de comunicación entre dos agentes |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Árbol de trabajo](../../../glosario/entradas/a/arbol-de-trabajo.md) · [Canal de coordinación](../../../glosario/entradas/c/canal-de-coordinacion.md) · [Conflicto semántico](../../../glosario/entradas/c/conflicto-semantico.md) · [Conflicto textual](../../../glosario/entradas/c/conflicto-textual.md) · [Integrador](../../../glosario/entradas/i/integrador.md) · [Propiedad de archivos](../../../glosario/entradas/p/propiedad-de-archivos.md).
 
 ---
 

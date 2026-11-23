@@ -139,14 +139,14 @@ La tercera figura compara el tiempo por evento del contador en el núcleo con el
 
 ## Definiciones de trabajo
 
-- **eBPF:** máquina virtual dentro del núcleo de Linux que ejecuta programas cargados desde el espacio de usuario tras una verificación.
-- **Verificador:** análisis estático que acepta o rechaza un programa antes de ejecutarlo.
-- **Mapa:** estructura de datos del núcleo compartida entre programas y espacio de usuario.
+- **[eBPF](../../../glosario/entradas/e/ebpf.md):** máquina virtual dentro del núcleo de Linux que ejecuta programas cargados desde el espacio de usuario tras una verificación.
+- **[Verificador](../../../glosario/entradas/v/verificador.md):** análisis estático que acepta o rechaza un programa antes de ejecutarlo.
+- **[Mapa](../../../glosario/entradas/m/mapa.md):** estructura de datos del núcleo compartida entre programas y espacio de usuario.
 - **Ayudante (*helper*):** función del núcleo que un programa puede llamar.
-- **Compilación JIT:** traducción del bytecode a instrucciones nativas al cargar el programa.
-- **Tipo de programa:** categoría que fija dónde se engancha, qué recibe y qué ayudantes puede usar.
-- **`BPF_PROG_TEST_RUN`:** orden que ejecuta un programa sobre datos de prueba sin enganchar tráfico real.
-- **Presupuesto de complejidad:** límite de instrucciones que el verificador explora.
+- **[Compilación JIT](../../../glosario/entradas/c/compilacion-jit.md):** traducción del bytecode a instrucciones nativas al cargar el programa.
+- **[Tipo de programa](../../../glosario/entradas/t/tipo-de-programa.md):** categoría que fija dónde se engancha, qué recibe y qué ayudantes puede usar.
+- **[`BPF_PROG_TEST_RUN`](../../../glosario/entradas/b/bpf-prog-test-run.md):** orden que ejecuta un programa sobre datos de prueba sin enganchar tráfico real.
+- **[Presupuesto de complejidad](../../../glosario/entradas/p/presupuesto-de-complejidad.md):** límite de instrucciones que el verificador explora.
 
 ## Ejemplo mínimo
 
@@ -279,6 +279,8 @@ Se cargaron nueve programas de tipo filtro de socket en un núcleo de WSL2 y se 
 | Tipo de programa | Categoría que fija enganche, entradas y ayudantes |
 | `BPF_PROG_TEST_RUN` | Ejecución de prueba sin tráfico real |
 | Presupuesto de complejidad | Límite de instrucciones exploradas por el verificador |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [BPF_PROG_TEST_RUN](../../../glosario/entradas/b/bpf-prog-test-run.md) · [Compilación JIT](../../../glosario/entradas/c/compilacion-jit.md) · [EBPF](../../../glosario/entradas/e/ebpf.md) · [Mapa](../../../glosario/entradas/m/mapa.md) · [Presupuesto de complejidad](../../../glosario/entradas/p/presupuesto-de-complejidad.md) · [Tipo de programa](../../../glosario/entradas/t/tipo-de-programa.md) · [Verificador](../../../glosario/entradas/v/verificador.md).
 
 ---
 

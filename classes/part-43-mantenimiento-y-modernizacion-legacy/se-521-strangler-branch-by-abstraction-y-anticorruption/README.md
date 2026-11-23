@@ -146,11 +146,11 @@ La traducción ingenua se cae con el 88 % de los registros. La capa no lanza nin
 
 ## Definiciones de trabajo
 
-- **estrangulamiento:** reemplazo de un sistema desviando su funcionalidad, rebanada por rebanada, hacia uno nuevo detrás de una fachada.
-- **rebanada:** unidad de funcionalidad migrable y reversible de forma independiente.
-- **rama por abstracción:** técnica que introduce una abstracción para cambiar una implementación sin ramas largas, con una bandera que elige la implementación.
-- **comparación en sombra:** ejecución del sistema nuevo con una copia del tráfico real, sin servir su respuesta, para compararla con la del antiguo.
-- **capa anticorrupción:** traductor que impide que el modelo del sistema antiguo se imponga al del nuevo.
+- **[estrangulamiento](../../../glosario/entradas/e/estrangulamiento.md):** reemplazo de un sistema desviando su funcionalidad, rebanada por rebanada, hacia uno nuevo detrás de una fachada.
+- **[rebanada](../../../glosario/entradas/r/rebanada.md):** unidad de funcionalidad migrable y reversible de forma independiente.
+- **[rama por abstracción](../../../glosario/entradas/r/rama-por-abstraccion.md):** técnica que introduce una abstracción para cambiar una implementación sin ramas largas, con una bandera que elige la implementación.
+- **[comparación en sombra](../../../glosario/entradas/c/comparacion-en-sombra.md):** ejecución del sistema nuevo con una copia del tráfico real, sin servir su respuesta, para compararla con la del antiguo.
+- **[capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md):** traductor que impide que el modelo del sistema antiguo se imponga al del nuevo.
 
 Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -291,11 +291,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **estrangulamiento:** reemplazo de un sistema desviando su funcionalidad, rebanada por rebanada, hacia uno nuevo detrás de una fachada.
-- **rebanada:** unidad de funcionalidad migrable y reversible de forma independiente.
-- **rama por abstracción:** técnica que introduce una abstracción para cambiar una implementación sin ramas largas, con una bandera que elige la implementación.
-- **comparación en sombra:** ejecución del sistema nuevo con una copia del tráfico real, sin servir su respuesta, para compararla con la del antiguo.
-- **capa anticorrupción:** traductor que impide que el modelo del sistema antiguo se imponga al del nuevo.
+- **[estrangulamiento](../../../glosario/entradas/e/estrangulamiento.md):** reemplazo de un sistema desviando su funcionalidad, rebanada por rebanada, hacia uno nuevo detrás de una fachada.
+- **[rebanada](../../../glosario/entradas/r/rebanada.md):** unidad de funcionalidad migrable y reversible de forma independiente.
+- **[rama por abstracción](../../../glosario/entradas/r/rama-por-abstraccion.md):** técnica que introduce una abstracción para cambiar una implementación sin ramas largas, con una bandera que elige la implementación.
+- **[comparación en sombra](../../../glosario/entradas/c/comparacion-en-sombra.md):** ejecución del sistema nuevo con una copia del tráfico real, sin servir su respuesta, para compararla con la del antiguo.
+- **[capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md):** traductor que impide que el modelo del sistema antiguo se imponga al del nuevo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Capa anticorrupción](../../../glosario/entradas/c/capa-anticorrupcion.md) · [Comparación en sombra](../../../glosario/entradas/c/comparacion-en-sombra.md) · [Estrangulamiento](../../../glosario/entradas/e/estrangulamiento.md) · [Rama por abstracción](../../../glosario/entradas/r/rama-por-abstraccion.md) · [Rebanada](../../../glosario/entradas/r/rebanada.md).
 
 ---
 

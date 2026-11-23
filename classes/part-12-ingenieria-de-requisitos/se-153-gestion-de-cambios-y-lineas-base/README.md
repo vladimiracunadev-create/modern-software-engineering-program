@@ -147,11 +147,11 @@ Resultado: con reuniones cada 0,2 semanas, espera media de 0,10 semanas, percent
 
 ## Definiciones de trabajo
 
-- **línea base:** versión acordada del conjunto de requisitos que sirve de referencia y solo cambia por un proceso controlado.
-- **solicitud de cambio:** propuesta registrada de modificar la línea base, con motivo, alcance y decisión.
-- **análisis de alcance:** determinación de los elementos que un cambio obliga a revisar, a partir de las dependencias y los enlaces.
-- **comité y cadencia:** grupo que decide los cambios y frecuencia con que lo hace.
-- **identidad de una versión:** identificador estable (etiqueta, commit o hash) que permite saber de qué versión se habla.
+- **[línea base](../../../glosario/entradas/l/linea-base.md):** versión acordada del conjunto de requisitos que sirve de referencia y solo cambia por un proceso controlado.
+- **[solicitud de cambio](../../../glosario/entradas/s/solicitud-de-cambio.md):** propuesta registrada de modificar la línea base, con motivo, alcance y decisión.
+- **[análisis de alcance](../../../glosario/entradas/a/analisis-de-alcance.md):** determinación de los elementos que un cambio obliga a revisar, a partir de las dependencias y los enlaces.
+- **[comité y cadencia](../../../glosario/entradas/c/comite-y-cadencia.md):** grupo que decide los cambios y frecuencia con que lo hace.
+- **[identidad de una versión](../../../glosario/entradas/i/identidad-de-una-version.md):** identificador estable (etiqueta, commit o hash) que permite saber de qué versión se habla.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres experimentos y una demostración con `git` en Windows y Ubunt
 
 ## Glosario
 
-- **línea base:** versión acordada del conjunto de requisitos que sirve de referencia y solo cambia por un proceso controlado.
-- **solicitud de cambio:** propuesta registrada de modificar la línea base, con motivo, alcance y decisión.
-- **análisis de alcance:** determinación de los elementos que un cambio obliga a revisar, a partir de las dependencias y los enlaces.
-- **comité y cadencia:** grupo que decide los cambios y frecuencia con que lo hace.
-- **identidad de una versión:** identificador estable (etiqueta, commit o hash) que permite saber de qué versión se habla.
+- **[línea base](../../../glosario/entradas/l/linea-base.md):** versión acordada del conjunto de requisitos que sirve de referencia y solo cambia por un proceso controlado.
+- **[solicitud de cambio](../../../glosario/entradas/s/solicitud-de-cambio.md):** propuesta registrada de modificar la línea base, con motivo, alcance y decisión.
+- **[análisis de alcance](../../../glosario/entradas/a/analisis-de-alcance.md):** determinación de los elementos que un cambio obliga a revisar, a partir de las dependencias y los enlaces.
+- **[comité y cadencia](../../../glosario/entradas/c/comite-y-cadencia.md):** grupo que decide los cambios y frecuencia con que lo hace.
+- **[identidad de una versión](../../../glosario/entradas/i/identidad-de-una-version.md):** identificador estable (etiqueta, commit o hash) que permite saber de qué versión se habla.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Análisis de alcance](../../../glosario/entradas/a/analisis-de-alcance.md) · [Comité y cadencia](../../../glosario/entradas/c/comite-y-cadencia.md) · [Identidad de una versión](../../../glosario/entradas/i/identidad-de-una-version.md) · [Línea base](../../../glosario/entradas/l/linea-base.md) · [Solicitud de cambio](../../../glosario/entradas/s/solicitud-de-cambio.md).
 
 ---
 

@@ -105,11 +105,11 @@ Se construyó una rueda local de un paquete diminuto (`demo-pkg`) y se instaló 
 
 ## Definiciones de trabajo
 
-- **entorno virtual:** `venv` crea un prefijo con scripts y configuración que usa una instalación base.
-- **activación y ejecutable explícito:** activar antepone scripts al path para conveniencia.
-- **dependencias de proyecto y herramientas:** runtime, dependencias de ejecución, desarrollo y herramientas globales tienen ciclos distintos.
-- **recreación y comprobación:** el test real borra o ignora el entorno, crea uno nuevo, instala desde fuentes declaradas y ejecuta.
-- **secretos y configuración:** variables y archivos locales pueden entrar al proceso pese al aislamiento de paquetes.
+- **[entorno virtual](../../../glosario/entradas/e/entorno-virtual.md):** `venv` crea un prefijo con scripts y configuración que usa una instalación base.
+- **[activación y ejecutable explícito](../../../glosario/entradas/a/activacion-y-ejecutable-explicito.md):** activar antepone scripts al path para conveniencia.
+- **[dependencias de proyecto y herramientas](../../../glosario/entradas/d/dependencias-de-proyecto-y-herramientas.md):** runtime, dependencias de ejecución, desarrollo y herramientas globales tienen ciclos distintos.
+- **[recreación y comprobación](../../../glosario/entradas/r/recreacion-y-comprobacion.md):** el test real borra o ignora el entorno, crea uno nuevo, instala desde fuentes declaradas y ejecuta.
+- **[secretos y configuración](../../../glosario/entradas/s/secretos-y-configuracion.md):** variables y archivos locales pueden entrar al proceso pese al aislamiento de paquetes.
 
 Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -258,11 +258,13 @@ El venv comparte sistema operativo y toolchain nativa. La siguiente clase encaps
 
 ## Glosario
 
-- **entorno virtual:** `venv` crea un prefijo con scripts y configuración que usa una instalación base.
-- **activación y ejecutable explícito:** activar antepone scripts al path para conveniencia.
-- **dependencias de proyecto y herramientas:** runtime, dependencias de ejecución, desarrollo y herramientas globales tienen ciclos distintos.
-- **recreación y comprobación:** el test real borra o ignora el entorno, crea uno nuevo, instala desde fuentes declaradas y ejecuta.
-- **secretos y configuración:** variables y archivos locales pueden entrar al proceso pese al aislamiento de paquetes.
+- **[entorno virtual](../../../glosario/entradas/e/entorno-virtual.md):** `venv` crea un prefijo con scripts y configuración que usa una instalación base.
+- **[activación y ejecutable explícito](../../../glosario/entradas/a/activacion-y-ejecutable-explicito.md):** activar antepone scripts al path para conveniencia.
+- **[dependencias de proyecto y herramientas](../../../glosario/entradas/d/dependencias-de-proyecto-y-herramientas.md):** runtime, dependencias de ejecución, desarrollo y herramientas globales tienen ciclos distintos.
+- **[recreación y comprobación](../../../glosario/entradas/r/recreacion-y-comprobacion.md):** el test real borra o ignora el entorno, crea uno nuevo, instala desde fuentes declaradas y ejecuta.
+- **[secretos y configuración](../../../glosario/entradas/s/secretos-y-configuracion.md):** variables y archivos locales pueden entrar al proceso pese al aislamiento de paquetes.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Activación y ejecutable explícito](../../../glosario/entradas/a/activacion-y-ejecutable-explicito.md) · [Dependencias de proyecto y herramientas](../../../glosario/entradas/d/dependencias-de-proyecto-y-herramientas.md) · [Entorno virtual](../../../glosario/entradas/e/entorno-virtual.md) · [Recreación y comprobación](../../../glosario/entradas/r/recreacion-y-comprobacion.md) · [Secretos y configuración](../../../glosario/entradas/s/secretos-y-configuracion.md).
 
 ---
 

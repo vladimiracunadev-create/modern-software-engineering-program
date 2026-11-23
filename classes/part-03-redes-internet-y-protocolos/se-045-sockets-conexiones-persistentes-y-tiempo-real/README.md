@@ -115,11 +115,11 @@ cable desconectado): hacen falta *heartbeats* a nivel de aplicación o *keepaliv
 
 ## Definiciones de trabajo
 
-- **socket:** endpoint de comunicación administrado por el sistema operativo.
-- **framing:** regla para delimitar mensajes sobre un transporte.
-- **heartbeat:** mensaje periódico para comprobar continuidad.
-- **backpressure:** mecanismo que limita al productor cuando el consumidor no alcanza.
-- **cursor:** posición reanudable dentro de una secuencia de eventos.
+- **[socket](../../../glosario/entradas/s/socket.md):** endpoint de comunicación administrado por el sistema operativo.
+- **[framing](../../../glosario/entradas/f/framing.md):** regla para delimitar mensajes sobre un transporte.
+- **[heartbeat](../../../glosario/entradas/h/heartbeat.md):** mensaje periódico para comprobar continuidad.
+- **[backpressure](../../../glosario/entradas/b/backpressure.md):** mecanismo que limita al productor cuando el consumidor no alcanza.
+- **[cursor](../../../glosario/entradas/c/cursor.md):** posición reanudable dentro de una secuencia de eventos.
 
 Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
@@ -269,11 +269,13 @@ Tiempo real aquí significa baja latencia percibida, no garantía hard real-time
 
 ## Glosario
 
-- **socket:** endpoint de comunicación administrado por el sistema operativo.
-- **framing:** regla para delimitar mensajes sobre un transporte.
-- **heartbeat:** mensaje periódico para comprobar continuidad.
-- **backpressure:** mecanismo que limita al productor cuando el consumidor no alcanza.
-- **cursor:** posición reanudable dentro de una secuencia de eventos.
+- **[socket](../../../glosario/entradas/s/socket.md):** endpoint de comunicación administrado por el sistema operativo.
+- **[framing](../../../glosario/entradas/f/framing.md):** regla para delimitar mensajes sobre un transporte.
+- **[heartbeat](../../../glosario/entradas/h/heartbeat.md):** mensaje periódico para comprobar continuidad.
+- **[backpressure](../../../glosario/entradas/b/backpressure.md):** mecanismo que limita al productor cuando el consumidor no alcanza.
+- **[cursor](../../../glosario/entradas/c/cursor.md):** posición reanudable dentro de una secuencia de eventos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Backpressure](../../../glosario/entradas/b/backpressure.md) · [Cursor](../../../glosario/entradas/c/cursor.md) · [Diagnóstico](../../../glosario/entradas/d/diagnostico.md) · [Framing](../../../glosario/entradas/f/framing.md) · [Garantía](../../../glosario/entradas/g/garantia.md) · [Heartbeat](../../../glosario/entradas/h/heartbeat.md) · [Mecanismo](../../../glosario/entradas/m/mecanismo.md) · [Operación](../../../glosario/entradas/o/operacion.md) · [Socket](../../../glosario/entradas/s/socket.md).
 
 ---
 

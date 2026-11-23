@@ -144,11 +144,11 @@ Se simulan 12 meses con 10 000 visitas mensuales y una suscripción de 10 por me
 
 ## Definiciones de trabajo
 
-- **licencia de software:** permiso que concede el titular de los derechos para usar, modificar o distribuir un programa bajo condiciones.
-- **expresión de licencia:** combinación de identificadores de licencia con `AND`, `OR` y `WITH` que declara bajo qué condiciones se ofrece un componente.
-- **copyleft:** familia de licencias que exigen que las obras derivadas se distribuyan bajo condiciones análogas.
-- **certificación de origen (DCO):** declaración de quien contribuye de que tiene derecho a enviar el cambio bajo la licencia del proyecto, expresada con un pie `Signed-off-by`.
-- **patrón oscuro:** decisión de diseño que induce a las personas usuarias a actuar contra su interés mediante engaño o fricción deliberada.
+- **[licencia de software](../../../glosario/entradas/l/licencia-de-software.md):** permiso que concede el titular de los derechos para usar, modificar o distribuir un programa bajo condiciones.
+- **[expresión de licencia](../../../glosario/entradas/e/expresion-de-licencia.md):** combinación de identificadores de licencia con `AND`, `OR` y `WITH` que declara bajo qué condiciones se ofrece un componente.
+- **[copyleft](../../../glosario/entradas/c/copyleft.md):** familia de licencias que exigen que las obras derivadas se distribuyan bajo condiciones análogas.
+- **[certificación de origen (DCO)](../../../glosario/entradas/c/certificacion-de-origen.md):** declaración de quien contribuye de que tiene derecho a enviar el cambio bajo la licencia del proyecto, expresada con un pie `Signed-off-by`.
+- **[patrón oscuro](../../../glosario/entradas/p/patron-oscuro.md):** decisión de diseño que induce a las personas usuarias a actuar contra su interés mediante engaño o fricción deliberada.
 
 Las definiciones son operativas para el equipo de plataforma educativa. No convierten términos con una historia más amplia en sinónimos, no son asesoría legal y deben contrastarse con las fuentes primarias enlazadas al final.
 
@@ -296,11 +296,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **licencia de software:** permiso que concede el titular de los derechos para usar, modificar o distribuir un programa bajo condiciones.
-- **expresión de licencia:** combinación de identificadores de licencia con `AND`, `OR` y `WITH` que declara bajo qué condiciones se ofrece un componente.
-- **copyleft:** familia de licencias que exigen que las obras derivadas se distribuyan bajo condiciones análogas.
-- **certificación de origen (DCO):** declaración de quien contribuye de que tiene derecho a enviar el cambio bajo la licencia del proyecto, expresada con un pie `Signed-off-by`.
-- **patrón oscuro:** decisión de diseño que induce a las personas usuarias a actuar contra su interés mediante engaño o fricción deliberada.
+- **[licencia de software](../../../glosario/entradas/l/licencia-de-software.md):** permiso que concede el titular de los derechos para usar, modificar o distribuir un programa bajo condiciones.
+- **[expresión de licencia](../../../glosario/entradas/e/expresion-de-licencia.md):** combinación de identificadores de licencia con `AND`, `OR` y `WITH` que declara bajo qué condiciones se ofrece un componente.
+- **[copyleft](../../../glosario/entradas/c/copyleft.md):** familia de licencias que exigen que las obras derivadas se distribuyan bajo condiciones análogas.
+- **[certificación de origen (DCO)](../../../glosario/entradas/c/certificacion-de-origen.md):** declaración de quien contribuye de que tiene derecho a enviar el cambio bajo la licencia del proyecto, expresada con un pie `Signed-off-by`.
+- **[patrón oscuro](../../../glosario/entradas/p/patron-oscuro.md):** decisión de diseño que induce a las personas usuarias a actuar contra su interés mediante engaño o fricción deliberada.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Certificación de origen](../../../glosario/entradas/c/certificacion-de-origen.md) · [Copyleft](../../../glosario/entradas/c/copyleft.md) · [Expresión de licencia](../../../glosario/entradas/e/expresion-de-licencia.md) · [Licencia de software](../../../glosario/entradas/l/licencia-de-software.md) · [Patrón oscuro](../../../glosario/entradas/p/patron-oscuro.md).
 
 ---
 

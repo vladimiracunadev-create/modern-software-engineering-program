@@ -140,14 +140,14 @@ La tercera medida sube la carga por encima de la capacidad sin lotes.
 
 ## Definiciones de trabajo
 
-- **Latencia:** tiempo desde que llega una petición hasta que se responde.
-- **Rendimiento:** peticiones atendidas por unidad de tiempo.
-- **Lote:** conjunto de peticiones procesadas en una sola ejecución del modelo.
-- **Lote dinámico:** agrupación de peticiones hasta un tamaño o una espera máximos.
-- **Cuantización:** representación de pesos con menos bits.
-- **Arranque en frío:** tiempo desde que se pide una réplica hasta que sirve.
-- **Sobrecarga:** carga mayor que la capacidad del servicio.
-- **Acelerador:** hardware (GPU y similares) que ejecuta en paralelo masivo operaciones de matrices.
+- **[Latencia](../../../glosario/entradas/l/latencia.md):** tiempo desde que llega una petición hasta que se responde.
+- **[Rendimiento](../../../glosario/entradas/r/rendimiento.md):** peticiones atendidas por unidad de tiempo.
+- **[Lote](../../../glosario/entradas/l/lote.md):** conjunto de peticiones procesadas en una sola ejecución del modelo.
+- **[Lote dinámico](../../../glosario/entradas/l/lote-dinamico.md):** agrupación de peticiones hasta un tamaño o una espera máximos.
+- **[Cuantización](../../../glosario/entradas/c/cuantizacion.md):** representación de pesos con menos bits.
+- **[Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md):** tiempo desde que se pide una réplica hasta que sirve.
+- **[Sobrecarga](../../../glosario/entradas/s/sobrecarga.md):** carga mayor que la capacidad del servicio.
+- **[Acelerador](../../../glosario/entradas/a/acelerador.md):** hardware (GPU y similares) que ejecuta en paralelo masivo operaciones de matrices.
 
 ## Ejemplo mínimo
 
@@ -286,6 +286,8 @@ La red, los pesos aleatorios, las llegadas de Poisson y el precio son construcci
 | Cuantización | Pesos con menos bits |
 | Arranque en frío | Tiempo hasta que una réplica nueva sirve |
 | Sobrecarga | Carga mayor que la capacidad |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Acelerador](../../../glosario/entradas/a/acelerador.md) · [Arranque en frío](../../../glosario/entradas/a/arranque-en-frio.md) · [Cuantización](../../../glosario/entradas/c/cuantizacion.md) · [Latencia](../../../glosario/entradas/l/latencia.md) · [Lote](../../../glosario/entradas/l/lote.md) · [Lote dinámico](../../../glosario/entradas/l/lote-dinamico.md) · [Rendimiento](../../../glosario/entradas/r/rendimiento.md) · [Sobrecarga](../../../glosario/entradas/s/sobrecarga.md).
 
 ---
 

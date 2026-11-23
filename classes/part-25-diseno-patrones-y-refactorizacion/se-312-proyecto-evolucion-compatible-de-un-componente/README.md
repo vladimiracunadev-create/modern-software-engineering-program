@@ -168,11 +168,11 @@ Diez de los doce campos los lee algún consumidor.
 
 ## Definiciones de trabajo
 
-- **compatibilidad hacia atrás:** propiedad de un cambio por la que todo consumidor que funcionaba con la versión anterior sigue funcionando.
-- **prueba de contrato dirigida por el consumidor:** prueba en que cada consumidor declara lo que espera del proveedor y el proveedor la ejecuta antes de publicar.
-- **lector tolerante:** consumidor que lee solo los campos que necesita y no falla ante los campos que no conoce.
-- **ventana de deprecación:** periodo entre el aviso de retirada de una versión y su retirada efectiva.
-- **ampliar, migrar y contraer:** estrategia de cambio en tres fases: añadir la forma nueva, mover a los consumidores y retirar la vieja.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un cambio por la que todo consumidor que funcionaba con la versión anterior sigue funcionando.
+- **[prueba de contrato dirigida por el consumidor](../../../glosario/entradas/p/prueba-de-contrato-dirigida-por-el-consumidor.md):** prueba en que cada consumidor declara lo que espera del proveedor y el proveedor la ejecuta antes de publicar.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que lee solo los campos que necesita y no falla ante los campos que no conoce.
+- **[ventana de deprecación](../../../glosario/entradas/v/ventana-de-deprecacion.md):** periodo entre el aviso de retirada de una versión y su retirada efectiva.
+- **[ampliar, migrar y contraer](../../../glosario/entradas/a/ampliar-migrar-y-contraer.md):** estrategia de cambio en tres fases: añadir la forma nueva, mover a los consumidores y retirar la vieja.
 
 Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
@@ -325,11 +325,13 @@ Se ejecutaron tres análisis con consumidores y clientes sintéticos en Windows 
 
 ## Glosario
 
-- **compatibilidad hacia atrás:** propiedad de un cambio por la que todo consumidor que funcionaba con la versión anterior sigue funcionando.
-- **prueba de contrato dirigida por el consumidor:** prueba en que cada consumidor declara lo que espera del proveedor y el proveedor la ejecuta antes de publicar.
-- **lector tolerante:** consumidor que lee solo los campos que necesita y no falla ante los campos que no conoce.
-- **ventana de deprecación:** periodo entre el aviso de retirada de una versión y su retirada efectiva.
-- **ampliar, migrar y contraer:** estrategia de cambio en tres fases: añadir la forma nueva, mover a los consumidores y retirar la vieja.
+- **[compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md):** propiedad de un cambio por la que todo consumidor que funcionaba con la versión anterior sigue funcionando.
+- **[prueba de contrato dirigida por el consumidor](../../../glosario/entradas/p/prueba-de-contrato-dirigida-por-el-consumidor.md):** prueba en que cada consumidor declara lo que espera del proveedor y el proveedor la ejecuta antes de publicar.
+- **[lector tolerante](../../../glosario/entradas/l/lector-tolerante.md):** consumidor que lee solo los campos que necesita y no falla ante los campos que no conoce.
+- **[ventana de deprecación](../../../glosario/entradas/v/ventana-de-deprecacion.md):** periodo entre el aviso de retirada de una versión y su retirada efectiva.
+- **[ampliar, migrar y contraer](../../../glosario/entradas/a/ampliar-migrar-y-contraer.md):** estrategia de cambio en tres fases: añadir la forma nueva, mover a los consumidores y retirar la vieja.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Ampliar, migrar y contraer](../../../glosario/entradas/a/ampliar-migrar-y-contraer.md) · [Compatibilidad hacia atrás](../../../glosario/entradas/c/compatibilidad-hacia-atras.md) · [Contrato de consumidor](../../../glosario/entradas/c/contrato-de-consumidor.md) · [Lector tolerante](../../../glosario/entradas/l/lector-tolerante.md) · [Prueba de contrato dirigida por el consumidor](../../../glosario/entradas/p/prueba-de-contrato-dirigida-por-el-consumidor.md) · [Ventana de deprecación](../../../glosario/entradas/v/ventana-de-deprecacion.md).
 
 ---
 

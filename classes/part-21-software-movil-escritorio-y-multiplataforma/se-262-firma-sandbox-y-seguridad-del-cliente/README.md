@@ -144,11 +144,11 @@ Resultado: el secreto en claro lo encuentra la búsqueda de texto; el de base64,
 
 ## Definiciones de trabajo
 
-- **modelo de amenazas:** descripción de qué activos hay, quién puede atacarlos, con qué capacidades y qué defensas se derivan.
-- **firma digital:** valor que se calcula con una clave privada y se verifica con una pública y que prueba procedencia e integridad; quien no tiene la privada no puede producirlo.
-- **sandbox:** aislamiento que el sistema impone entre aplicaciones y que no protege contra errores de la propia aplicación.
-- **confinamiento de rutas:** comprobación de que una ruta resuelta queda dentro de una carpeta permitida, tras normalizarla.
-- **secreto incrustado:** credencial o clave guardada dentro del paquete de un cliente; es recuperable por quien tenga el paquete.
+- **[modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md):** descripción de qué activos hay, quién puede atacarlos, con qué capacidades y qué defensas se derivan.
+- **[firma digital](../../../glosario/entradas/f/firma-digital.md):** valor que se calcula con una clave privada y se verifica con una pública y que prueba procedencia e integridad; quien no tiene la privada no puede producirlo.
+- **[sandbox](../../../glosario/entradas/s/sandbox.md):** aislamiento que el sistema impone entre aplicaciones y que no protege contra errores de la propia aplicación.
+- **[confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md):** comprobación de que una ruta resuelta queda dentro de una carpeta permitida, tras normalizarla.
+- **[secreto incrustado](../../../glosario/entradas/s/secreto-incrustado.md):** credencial o clave guardada dentro del paquete de un cliente; es recuperable por quien tenga el paquete.
 
 Las definiciones son operativas para el cliente de la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -302,11 +302,13 @@ Se ejecutaron tres experimentos con datos ficticios en Windows y Ubuntu (WSL2) c
 
 ## Glosario
 
-- **modelo de amenazas:** descripción de qué activos hay, quién puede atacarlos, con qué capacidades y qué defensas se derivan.
-- **firma digital:** valor que se calcula con una clave privada y se verifica con una pública y que prueba procedencia e integridad; quien no tiene la privada no puede producirlo.
-- **sandbox:** aislamiento que el sistema impone entre aplicaciones y que no protege contra errores de la propia aplicación.
-- **confinamiento de rutas:** comprobación de que una ruta resuelta queda dentro de una carpeta permitida, tras normalizarla.
-- **secreto incrustado:** credencial o clave guardada dentro del paquete de un cliente; es recuperable por quien tenga el paquete.
+- **[modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md):** descripción de qué activos hay, quién puede atacarlos, con qué capacidades y qué defensas se derivan.
+- **[firma digital](../../../glosario/entradas/f/firma-digital.md):** valor que se calcula con una clave privada y se verifica con una pública y que prueba procedencia e integridad; quien no tiene la privada no puede producirlo.
+- **[sandbox](../../../glosario/entradas/s/sandbox.md):** aislamiento que el sistema impone entre aplicaciones y que no protege contra errores de la propia aplicación.
+- **[confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md):** comprobación de que una ruta resuelta queda dentro de una carpeta permitida, tras normalizarla.
+- **[secreto incrustado](../../../glosario/entradas/s/secreto-incrustado.md):** credencial o clave guardada dentro del paquete de un cliente; es recuperable por quien tenga el paquete.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Confinamiento de rutas](../../../glosario/entradas/c/confinamiento-de-rutas.md) · [Firma digital](../../../glosario/entradas/f/firma-digital.md) · [Modelo de amenazas](../../../glosario/entradas/m/modelo-de-amenazas.md) · [Sandbox](../../../glosario/entradas/s/sandbox.md) · [Secreto incrustado](../../../glosario/entradas/s/secreto-incrustado.md).
 
 ---
 

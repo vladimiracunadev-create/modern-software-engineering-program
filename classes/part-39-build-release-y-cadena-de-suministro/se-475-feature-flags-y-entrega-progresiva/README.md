@@ -122,11 +122,11 @@ Se simulan 60 meses con 3 banderas nuevas por mes y tres políticas: ninguna ret
 
 ## Definiciones de trabajo
 
-- **bandera de funcionalidad:** condición de ejecución que activa o desactiva una función sin desplegar código nuevo.
-- **huella de segmentación:** número derivado de un hash del identificador y la bandera que asigna a cada persona un cubo.
-- **sal:** texto que se añade a la entrada del hash para que dos banderas produzcan asignaciones independientes.
-- **cubrimiento de pares:** conjunto de configuraciones en el que todo par de parámetros aparece en todas sus combinaciones.
-- **deuda de banderas:** banderas que ya no cumplen su propósito y siguen en el código.
+- **[bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md):** condición de ejecución que activa o desactiva una función sin desplegar código nuevo.
+- **[huella de segmentación](../../../glosario/entradas/h/huella-de-segmentacion.md):** número derivado de un hash del identificador y la bandera que asigna a cada persona un cubo.
+- **[sal](../../../glosario/entradas/s/sal.md):** texto que se añade a la entrada del hash para que dos banderas produzcan asignaciones independientes.
+- **[cubrimiento de pares](../../../glosario/entradas/c/cubrimiento-de-pares.md):** conjunto de configuraciones en el que todo par de parámetros aparece en todas sus combinaciones.
+- **[deuda de banderas](../../../glosario/entradas/d/deuda-de-banderas.md):** banderas que ya no cumplen su propósito y siguen en el código.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -266,11 +266,13 @@ Se ejecutaron cuatro experimentos con usuarios sintéticos y SHA-256 real, idén
 
 ## Glosario
 
-- **bandera de funcionalidad:** condición de ejecución que activa o desactiva una función sin desplegar código nuevo.
-- **huella de segmentación:** número derivado de un hash del identificador y la bandera que asigna a cada persona un cubo.
-- **sal:** texto que se añade a la entrada del hash para que dos banderas produzcan asignaciones independientes.
-- **cubrimiento de pares:** conjunto de configuraciones en el que todo par de parámetros aparece en todas sus combinaciones.
-- **deuda de banderas:** banderas que ya no cumplen su propósito y siguen en el código.
+- **[bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md):** condición de ejecución que activa o desactiva una función sin desplegar código nuevo.
+- **[huella de segmentación](../../../glosario/entradas/h/huella-de-segmentacion.md):** número derivado de un hash del identificador y la bandera que asigna a cada persona un cubo.
+- **[sal](../../../glosario/entradas/s/sal.md):** texto que se añade a la entrada del hash para que dos banderas produzcan asignaciones independientes.
+- **[cubrimiento de pares](../../../glosario/entradas/c/cubrimiento-de-pares.md):** conjunto de configuraciones en el que todo par de parámetros aparece en todas sus combinaciones.
+- **[deuda de banderas](../../../glosario/entradas/d/deuda-de-banderas.md):** banderas que ya no cumplen su propósito y siguen en el código.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Bandera de funcionalidad](../../../glosario/entradas/b/bandera-de-funcionalidad.md) · [Cubrimiento de pares](../../../glosario/entradas/c/cubrimiento-de-pares.md) · [Deuda de banderas](../../../glosario/entradas/d/deuda-de-banderas.md) · [Huella de segmentación](../../../glosario/entradas/h/huella-de-segmentacion.md) · [Sal](../../../glosario/entradas/s/sal.md).
 
 ---
 

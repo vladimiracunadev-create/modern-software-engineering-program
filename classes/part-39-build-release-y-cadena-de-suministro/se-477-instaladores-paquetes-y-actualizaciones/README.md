@@ -122,11 +122,11 @@ Se cuentan las actualizaciones realizadas según cuántas versiones saltan.
 
 ## Definiciones de trabajo
 
-- **instalación atómica:** instalación cuyo estado observable ante cualquier interrupción es el anterior completo o el nuevo completo.
-- **activación:** operación única que hace que el sistema use la versión nueva.
-- **auto-actualización:** mecanismo por el cual la aplicación consulta, descarga e instala su propia versión nueva.
-- **versión mínima soportada:** versión más antigua desde la que se admite actualizar directamente.
-- **sesgo de versiones:** coexistencia de versiones distintas en uso por la cola larga de clientes que actualizan con retraso.
+- **[instalación atómica](../../../glosario/entradas/i/instalacion-atomica.md):** instalación cuyo estado observable ante cualquier interrupción es el anterior completo o el nuevo completo.
+- **[activación](../../../glosario/entradas/a/activacion.md):** operación única que hace que el sistema use la versión nueva.
+- **[auto-actualización](../../../glosario/entradas/a/auto-actualizacion.md):** mecanismo por el cual la aplicación consulta, descarga e instala su propia versión nueva.
+- **[versión mínima soportada](../../../glosario/entradas/v/version-minima-soportada.md):** versión más antigua desde la que se admite actualizar directamente.
+- **[sesgo de versiones](../../../glosario/entradas/s/sesgo-de-versiones.md):** coexistencia de versiones distintas en uso por la cola larga de clientes que actualizan con retraso.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -268,11 +268,13 @@ Se ejecutaron cuatro experimentos: una inyección de fallos con archivos reales 
 
 ## Glosario
 
-- **instalación atómica:** instalación cuyo estado observable ante cualquier interrupción es el anterior completo o el nuevo completo.
-- **activación:** operación única que hace que el sistema use la versión nueva.
-- **auto-actualización:** mecanismo por el cual la aplicación consulta, descarga e instala su propia versión nueva.
-- **versión mínima soportada:** versión más antigua desde la que se admite actualizar directamente.
-- **sesgo de versiones:** coexistencia de versiones distintas en uso por la cola larga de clientes que actualizan con retraso.
+- **[instalación atómica](../../../glosario/entradas/i/instalacion-atomica.md):** instalación cuyo estado observable ante cualquier interrupción es el anterior completo o el nuevo completo.
+- **[activación](../../../glosario/entradas/a/activacion.md):** operación única que hace que el sistema use la versión nueva.
+- **[auto-actualización](../../../glosario/entradas/a/auto-actualizacion.md):** mecanismo por el cual la aplicación consulta, descarga e instala su propia versión nueva.
+- **[versión mínima soportada](../../../glosario/entradas/v/version-minima-soportada.md):** versión más antigua desde la que se admite actualizar directamente.
+- **[sesgo de versiones](../../../glosario/entradas/s/sesgo-de-versiones.md):** coexistencia de versiones distintas en uso por la cola larga de clientes que actualizan con retraso.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Activación](../../../glosario/entradas/a/activacion.md) · [Auto-actualización](../../../glosario/entradas/a/auto-actualizacion.md) · [Instalación atómica](../../../glosario/entradas/i/instalacion-atomica.md) · [Sesgo de versiones](../../../glosario/entradas/s/sesgo-de-versiones.md) · [Versión mínima soportada](../../../glosario/entradas/v/version-minima-soportada.md).
 
 ---
 

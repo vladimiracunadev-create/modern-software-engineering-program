@@ -124,11 +124,11 @@ Una prueba arranca un proceso que tarda 0,15 s en estar listo y comprueba que lo
 
 ## Definiciones de trabajo
 
-- **manifiesto de operabilidad:** documento estructurado que declara las promesas operativas de una herramienta.
-- **prueba de contrato:** prueba que ejecuta la herramienta como lo haría un consumidor y comprueba código, flujos y efectos.
-- **mutante:** copia del código o del manifiesto con un defecto inyectado para comprobar que una prueba lo detecta.
-- **tabla de diferencias:** registro de qué salidas cambian entre plataformas y por qué.
-- **decisión humana abierta:** punto que el paquete no puede resolver y que debe tomar una persona con autoridad.
+- **[manifiesto de operabilidad](../../../glosario/entradas/m/manifiesto-de-operabilidad.md):** documento estructurado que declara las promesas operativas de una herramienta.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** prueba que ejecuta la herramienta como lo haría un consumidor y comprueba código, flujos y efectos.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código o del manifiesto con un defecto inyectado para comprobar que una prueba lo detecta.
+- **[tabla de diferencias](../../../glosario/entradas/t/tabla-de-diferencias.md):** registro de qué salidas cambian entre plataformas y por qué.
+- **[decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md):** punto que el paquete no puede resolver y que debe tomar una persona con autoridad.
 
 Las definiciones son operativas para la herramienta `notas`. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -279,11 +279,13 @@ Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la suite, los mutant
 
 ## Glosario
 
-- **manifiesto de operabilidad:** documento estructurado que declara las promesas operativas de una herramienta.
-- **prueba de contrato:** prueba que ejecuta la herramienta como lo haría un consumidor y comprueba código, flujos y efectos.
-- **mutante:** copia del código o del manifiesto con un defecto inyectado para comprobar que una prueba lo detecta.
-- **tabla de diferencias:** registro de qué salidas cambian entre plataformas y por qué.
-- **decisión humana abierta:** punto que el paquete no puede resolver y que debe tomar una persona con autoridad.
+- **[manifiesto de operabilidad](../../../glosario/entradas/m/manifiesto-de-operabilidad.md):** documento estructurado que declara las promesas operativas de una herramienta.
+- **[prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md):** prueba que ejecuta la herramienta como lo haría un consumidor y comprueba código, flujos y efectos.
+- **[mutante](../../../glosario/entradas/v/variante-defectuosa.md):** copia del código o del manifiesto con un defecto inyectado para comprobar que una prueba lo detecta.
+- **[tabla de diferencias](../../../glosario/entradas/t/tabla-de-diferencias.md):** registro de qué salidas cambian entre plataformas y por qué.
+- **[decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md):** punto que el paquete no puede resolver y que debe tomar una persona con autoridad.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Decisión humana abierta](../../../glosario/entradas/d/decision-humana-abierta.md) · [Manifiesto de operabilidad](../../../glosario/entradas/m/manifiesto-de-operabilidad.md) · [Prueba de contrato](../../../glosario/entradas/p/prueba-de-contrato.md) · [Tabla de diferencias](../../../glosario/entradas/t/tabla-de-diferencias.md) · [Variante defectuosa](../../../glosario/entradas/v/variante-defectuosa.md).
 
 ---
 

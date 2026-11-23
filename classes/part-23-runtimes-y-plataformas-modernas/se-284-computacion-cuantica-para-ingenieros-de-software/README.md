@@ -133,14 +133,14 @@ La tercera figura es el mapa de calor del porcentaje de aciertos de un estado GH
 
 ## Definiciones de trabajo
 
-- **Qubit:** unidad de información cuántica descrita por dos amplitudes complejas.
-- **Amplitud:** número complejo cuyo módulo al cuadrado es la probabilidad de un resultado.
-- **Puerta:** transformación unitaria aplicada a uno o varios qubits.
-- **Interferencia:** suma de amplitudes que se refuerzan o se cancelan.
-- **Entrelazamiento:** correlación entre qubits que impide describirlos por separado.
-- **Qubit lógico y físico:** el lógico es el protegido con corrección de errores; se construye con muchos físicos.
-- **NISQ:** dispositivos ruidosos de escala intermedia, sin corrección de errores completa.
-- **Cosechar ahora, descifrar después:** almacenar hoy datos cifrados para descifrarlos cuando exista hardware capaz.
+- **[Qubit](../../../glosario/entradas/q/qubit.md):** unidad de información cuántica descrita por dos amplitudes complejas.
+- **[Amplitud](../../../glosario/entradas/a/amplitud.md):** número complejo cuyo módulo al cuadrado es la probabilidad de un resultado.
+- **[Puerta](../../../glosario/entradas/p/puerta.md):** transformación unitaria aplicada a uno o varios qubits.
+- **[Interferencia](../../../glosario/entradas/i/interferencia.md):** suma de amplitudes que se refuerzan o se cancelan.
+- **[Entrelazamiento](../../../glosario/entradas/e/entrelazamiento.md):** correlación entre qubits que impide describirlos por separado.
+- **[Qubit lógico y físico](../../../glosario/entradas/q/qubit-logico-y-fisico.md):** el lógico es el protegido con corrección de errores; se construye con muchos físicos.
+- **[NISQ](../../../glosario/entradas/n/nisq.md):** dispositivos ruidosos de escala intermedia, sin corrección de errores completa.
+- **[Cosechar ahora, descifrar después](../../../glosario/entradas/c/cosechar-ahora-descifrar-despues.md):** almacenar hoy datos cifrados para descifrarlos cuando exista hardware capaz.
 
 ## Ejemplo mínimo
 
@@ -277,6 +277,8 @@ Todo se simuló de forma clásica con NumPy; no hubo acceso a hardware cuántico
 | Qubit lógico | Qubit protegido por corrección de errores |
 | NISQ | Dispositivos ruidosos de escala intermedia |
 | Cosechar ahora, descifrar después | Guardar datos cifrados para descifrarlos más tarde |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Amplitud](../../../glosario/entradas/a/amplitud.md) · [Cosechar ahora, descifrar después](../../../glosario/entradas/c/cosechar-ahora-descifrar-despues.md) · [Entrelazamiento](../../../glosario/entradas/e/entrelazamiento.md) · [Interferencia](../../../glosario/entradas/i/interferencia.md) · [NISQ](../../../glosario/entradas/n/nisq.md) · [Puerta](../../../glosario/entradas/p/puerta.md) · [Qubit](../../../glosario/entradas/q/qubit.md) · [Qubit lógico y físico](../../../glosario/entradas/q/qubit-logico-y-fisico.md) · [Ruido](../../../glosario/entradas/r/ruido.md).
 
 ---
 

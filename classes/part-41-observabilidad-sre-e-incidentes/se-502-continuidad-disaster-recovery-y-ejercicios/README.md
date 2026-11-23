@@ -154,11 +154,11 @@ Un **ejercicio de recuperación** prueba el plan con un alcance declarado. Hay t
 
 ## Definiciones de trabajo
 
-- **RPO (objetivo de punto de recuperación):** cantidad máxima de datos, medida en tiempo, que se acepta perder tras una recuperación.
-- **RTO (objetivo de tiempo de recuperación):** tiempo máximo aceptable hasta volver a un servicio utilizable.
-- **réplica asíncrona:** copia que se actualiza con retraso variable respecto de la original.
-- **dependencia circular:** relación en la que dos componentes se necesitan mutuamente para arrancar.
-- **ejercicio de recuperación:** prueba programada del plan de recuperación con alcance, criterios y registro de hallazgos.
+- **[RPO (objetivo de punto de recuperación)](../../../glosario/entradas/r/rpo-objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos, medida en tiempo, que se acepta perder tras una recuperación.
+- **[RTO (objetivo de tiempo de recuperación)](../../../glosario/entradas/r/rto-objetivo-de-tiempo-de-recuperacion.md):** tiempo máximo aceptable hasta volver a un servicio utilizable.
+- **[réplica asíncrona](../../../glosario/entradas/r/replica-asincrona.md):** copia que se actualiza con retraso variable respecto de la original.
+- **[dependencia circular](../../../glosario/entradas/d/dependencia-circular.md):** relación en la que dos componentes se necesitan mutuamente para arrancar.
+- **[ejercicio de recuperación](../../../glosario/entradas/e/ejercicio-de-recuperacion.md):** prueba programada del plan de recuperación con alcance, criterios y registro de hallazgos.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -303,11 +303,13 @@ Se ejecutaron tres experimentos en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (
 
 ## Glosario
 
-- **RPO (objetivo de punto de recuperación):** cantidad máxima de datos, medida en tiempo, que se acepta perder tras una recuperación.
-- **RTO (objetivo de tiempo de recuperación):** tiempo máximo aceptable hasta volver a un servicio utilizable.
-- **réplica asíncrona:** copia que se actualiza con retraso variable respecto de la original.
-- **dependencia circular:** relación en la que dos componentes se necesitan mutuamente para arrancar.
-- **ejercicio de recuperación:** prueba programada del plan de recuperación con alcance, criterios y registro de hallazgos.
+- **[RPO (objetivo de punto de recuperación)](../../../glosario/entradas/r/rpo-objetivo-de-punto-de-recuperacion.md):** cantidad máxima de datos, medida en tiempo, que se acepta perder tras una recuperación.
+- **[RTO (objetivo de tiempo de recuperación)](../../../glosario/entradas/r/rto-objetivo-de-tiempo-de-recuperacion.md):** tiempo máximo aceptable hasta volver a un servicio utilizable.
+- **[réplica asíncrona](../../../glosario/entradas/r/replica-asincrona.md):** copia que se actualiza con retraso variable respecto de la original.
+- **[dependencia circular](../../../glosario/entradas/d/dependencia-circular.md):** relación en la que dos componentes se necesitan mutuamente para arrancar.
+- **[ejercicio de recuperación](../../../glosario/entradas/e/ejercicio-de-recuperacion.md):** prueba programada del plan de recuperación con alcance, criterios y registro de hallazgos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Dependencia circular](../../../glosario/entradas/d/dependencia-circular.md) · [Ejercicio de recuperación](../../../glosario/entradas/e/ejercicio-de-recuperacion.md) · [Réplica asíncrona](../../../glosario/entradas/r/replica-asincrona.md) · [RPO (objetivo de punto de recuperación)](../../../glosario/entradas/r/rpo-objetivo-de-punto-de-recuperacion.md) · [RTO (objetivo de tiempo de recuperación)](../../../glosario/entradas/r/rto-objetivo-de-tiempo-de-recuperacion.md).
 
 ---
 

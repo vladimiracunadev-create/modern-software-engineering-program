@@ -112,12 +112,12 @@ Una confirmación solo vale para la falla, la intensidad, el tráfico y el estad
 
 ## Definiciones de trabajo
 
-- **costo de un experimento:** minutos equivalentes de caída total que consume del presupuesto de error.
-- **compuerta de presupuesto:** regla que omite un experimento si el presupuesto restante no cubre su costo con margen.
-- **selección por petición:** elegir al azar peticiones individuales para recibir la falla.
-- **selección por cliente:** elegir clientes enteros para recibir la falla.
-- **privilegio mínimo:** permiso limitado a lo imprescindible para la tarea y no más.
-- **interruptor general:** orden independiente de la herramienta que detiene todos los experimentos.
+- **[costo de un experimento](../../../glosario/entradas/c/costo-de-un-experimento.md):** minutos equivalentes de caída total que consume del presupuesto de error.
+- **[compuerta de presupuesto](../../../glosario/entradas/c/compuerta-de-presupuesto.md):** regla que omite un experimento si el presupuesto restante no cubre su costo con margen.
+- **[selección por petición](../../../glosario/entradas/s/seleccion-por-peticion.md):** elegir al azar peticiones individuales para recibir la falla.
+- **[selección por cliente](../../../glosario/entradas/s/seleccion-por-cliente.md):** elegir clientes enteros para recibir la falla.
+- **[privilegio mínimo](../../../glosario/entradas/p/privilegio-minimo.md):** permiso limitado a lo imprescindible para la tarea y no más.
+- **[interruptor general](../../../glosario/entradas/i/interruptor-general.md):** orden independiente de la herramienta que detiene todos los experimentos.
 
 Las definiciones son operativas para la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con las fuentes enlazadas.
 
@@ -255,12 +255,14 @@ Se ejecutaron dos experimentos con semilla fija en Windows y Ubuntu (WSL2) con r
 
 ## Glosario
 
-- **costo de un experimento:** minutos equivalentes de caída total que consume del presupuesto de error.
-- **compuerta de presupuesto:** regla que omite un experimento si el presupuesto restante no cubre su costo con margen.
-- **selección por petición:** elegir al azar peticiones individuales para recibir la falla.
-- **selección por cliente:** elegir clientes enteros para recibir la falla.
-- **privilegio mínimo:** permiso limitado a lo imprescindible para la tarea.
-- **interruptor general:** orden independiente de la herramienta que detiene todos los experimentos.
+- **[costo de un experimento](../../../glosario/entradas/c/costo-de-un-experimento.md):** minutos equivalentes de caída total que consume del presupuesto de error.
+- **[compuerta de presupuesto](../../../glosario/entradas/c/compuerta-de-presupuesto.md):** regla que omite un experimento si el presupuesto restante no cubre su costo con margen.
+- **[selección por petición](../../../glosario/entradas/s/seleccion-por-peticion.md):** elegir al azar peticiones individuales para recibir la falla.
+- **[selección por cliente](../../../glosario/entradas/s/seleccion-por-cliente.md):** elegir clientes enteros para recibir la falla.
+- **[privilegio mínimo](../../../glosario/entradas/p/privilegio-minimo.md):** permiso limitado a lo imprescindible para la tarea.
+- **[interruptor general](../../../glosario/entradas/i/interruptor-general.md):** orden independiente de la herramienta que detiene todos los experimentos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Compuerta de presupuesto](../../../glosario/entradas/c/compuerta-de-presupuesto.md) · [Costo de un experimento](../../../glosario/entradas/c/costo-de-un-experimento.md) · [Interruptor general](../../../glosario/entradas/i/interruptor-general.md) · [Privilegio mínimo](../../../glosario/entradas/p/privilegio-minimo.md) · [Selección por cliente](../../../glosario/entradas/s/seleccion-por-cliente.md) · [Selección por petición](../../../glosario/entradas/s/seleccion-por-peticion.md).
 
 ---
 

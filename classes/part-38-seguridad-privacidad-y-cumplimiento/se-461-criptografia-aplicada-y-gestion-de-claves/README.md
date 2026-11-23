@@ -154,11 +154,11 @@ Con 96 bits, una probabilidad de 2^-32 llega con unos 6,07 × 10^9 mensajes por 
 
 ## Definiciones de trabajo
 
-- **cifrado autenticado (AEAD):** primitiva que entrega confidencialidad e integridad de un mensaje y de los datos asociados con una sola clave y un nonce único.
-- **nonce:** valor que no debe repetirse con la misma clave; no es secreto.
-- **código de autenticación de mensaje (MAC):** etiqueta calculada con una clave secreta que permite verificar la integridad y el origen de un mensaje.
-- **comparación de tiempo constante:** comparación cuyo tiempo no depende de en qué posición difieren los valores comparados.
-- **cifrado de sobre:** estructura en la que cada dato se cifra con una clave propia y esa clave se cifra con otra superior, de modo que rotar la superior no obliga a recifrar los datos.
+- **[cifrado autenticado (AEAD)](../../../glosario/entradas/c/cifrado-autenticado.md):** primitiva que entrega confidencialidad e integridad de un mensaje y de los datos asociados con una sola clave y un nonce único.
+- **[nonce](../../../glosario/entradas/n/nonce.md):** valor que no debe repetirse con la misma clave; no es secreto.
+- **[código de autenticación de mensaje (MAC)](../../../glosario/entradas/c/codigo-de-autenticacion-de-mensaje.md):** etiqueta calculada con una clave secreta que permite verificar la integridad y el origen de un mensaje.
+- **[comparación de tiempo constante](../../../glosario/entradas/c/comparacion-de-tiempo-constante.md):** comparación cuyo tiempo no depende de en qué posición difieren los valores comparados.
+- **[cifrado de sobre](../../../glosario/entradas/c/cifrado-de-sobre.md):** estructura en la que cada dato se cifra con una clave propia y esa clave se cifra con otra superior, de modo que rotar la superior no obliga a recifrar los datos.
 
 Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -300,11 +300,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **cifrado autenticado (AEAD):** primitiva que entrega confidencialidad e integridad de un mensaje y de los datos asociados con una sola clave y un nonce único.
-- **nonce:** valor que no debe repetirse con la misma clave; no es secreto.
-- **código de autenticación de mensaje (MAC):** etiqueta calculada con una clave secreta que permite verificar la integridad y el origen de un mensaje.
-- **comparación de tiempo constante:** comparación cuyo tiempo no depende de en qué posición difieren los valores comparados.
-- **cifrado de sobre:** estructura en la que cada dato se cifra con una clave propia y esa clave se cifra con otra superior, de modo que rotar la superior no obliga a recifrar los datos.
+- **[cifrado autenticado (AEAD)](../../../glosario/entradas/c/cifrado-autenticado.md):** primitiva que entrega confidencialidad e integridad de un mensaje y de los datos asociados con una sola clave y un nonce único.
+- **[nonce](../../../glosario/entradas/n/nonce.md):** valor que no debe repetirse con la misma clave; no es secreto.
+- **[código de autenticación de mensaje (MAC)](../../../glosario/entradas/c/codigo-de-autenticacion-de-mensaje.md):** etiqueta calculada con una clave secreta que permite verificar la integridad y el origen de un mensaje.
+- **[comparación de tiempo constante](../../../glosario/entradas/c/comparacion-de-tiempo-constante.md):** comparación cuyo tiempo no depende de en qué posición difieren los valores comparados.
+- **[cifrado de sobre](../../../glosario/entradas/c/cifrado-de-sobre.md):** estructura en la que cada dato se cifra con una clave propia y esa clave se cifra con otra superior, de modo que rotar la superior no obliga a recifrar los datos.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Cifrado autenticado](../../../glosario/entradas/c/cifrado-autenticado.md) · [Cifrado de sobre](../../../glosario/entradas/c/cifrado-de-sobre.md) · [Código de autenticación de mensaje](../../../glosario/entradas/c/codigo-de-autenticacion-de-mensaje.md) · [Comparación de tiempo constante](../../../glosario/entradas/c/comparacion-de-tiempo-constante.md) · [Nonce](../../../glosario/entradas/n/nonce.md).
 
 ---
 

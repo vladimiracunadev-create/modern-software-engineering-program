@@ -130,11 +130,11 @@ for i in range(1, len(texto) + 1):
 
 ## Definiciones de trabajo
 
-- **validación del servidor:** comprobación que se ejecuta donde la persona no puede alterarla y que decide si un dato se acepta.
-- **normalización Unicode:** transformación de una cadena a una forma canónica para que secuencias equivalentes se comparen como iguales.
-- **plegado de mayúsculas (`casefold`):** transformación para comparar sin distinguir mayúsculas, más completa que pasar a minúsculas.
-- **clave de idempotencia:** identificador enviado con una operación para que el servidor reconozca y no repita un reintento.
-- **mensaje de error asociado:** texto de error vinculado programáticamente a su campo para que lo anuncien las tecnologías de apoyo.
+- **[validación del servidor](../../../glosario/entradas/v/validacion-del-servidor.md):** comprobación que se ejecuta donde la persona no puede alterarla y que decide si un dato se acepta.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** transformación de una cadena a una forma canónica para que secuencias equivalentes se comparen como iguales.
+- **[plegado de mayúsculas (`casefold`)](../../../glosario/entradas/p/plegado-de-mayusculas.md):** transformación para comparar sin distinguir mayúsculas, más completa que pasar a minúsculas.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador enviado con una operación para que el servidor reconozca y no repita un reintento.
+- **[mensaje de error asociado](../../../glosario/entradas/m/mensaje-de-error-asociado.md):** texto de error vinculado programáticamente a su campo para que lo anuncien las tecnologías de apoyo.
 
 Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
 
@@ -278,11 +278,13 @@ Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **validación del servidor:** comprobación que se ejecuta donde la persona no puede alterarla y que decide si un dato se acepta.
-- **normalización Unicode:** transformación de una cadena a una forma canónica para que secuencias equivalentes se comparen como iguales.
-- **plegado de mayúsculas (`casefold`):** transformación para comparar sin distinguir mayúsculas, más completa que pasar a minúsculas.
-- **clave de idempotencia:** identificador enviado con una operación para que el servidor reconozca y no repita un reintento.
-- **mensaje de error asociado:** texto de error vinculado programáticamente a su campo para que lo anuncien las tecnologías de apoyo.
+- **[validación del servidor](../../../glosario/entradas/v/validacion-del-servidor.md):** comprobación que se ejecuta donde la persona no puede alterarla y que decide si un dato se acepta.
+- **[normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md):** transformación de una cadena a una forma canónica para que secuencias equivalentes se comparen como iguales.
+- **[plegado de mayúsculas (`casefold`)](../../../glosario/entradas/p/plegado-de-mayusculas.md):** transformación para comparar sin distinguir mayúsculas, más completa que pasar a minúsculas.
+- **[clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md):** identificador enviado con una operación para que el servidor reconozca y no repita un reintento.
+- **[mensaje de error asociado](../../../glosario/entradas/m/mensaje-de-error-asociado.md):** texto de error vinculado programáticamente a su campo para que lo anuncien las tecnologías de apoyo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Clave de idempotencia](../../../glosario/entradas/c/clave-de-idempotencia.md) · [Mensaje de error asociado](../../../glosario/entradas/m/mensaje-de-error-asociado.md) · [Normalización Unicode](../../../glosario/entradas/n/normalizacion-unicode.md) · [Plegado de mayúsculas](../../../glosario/entradas/p/plegado-de-mayusculas.md) · [Validación del servidor](../../../glosario/entradas/v/validacion-del-servidor.md).
 
 ---
 

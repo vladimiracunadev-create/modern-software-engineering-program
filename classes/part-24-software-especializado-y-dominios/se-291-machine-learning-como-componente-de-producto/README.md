@@ -161,11 +161,11 @@ El valor del índice con 200 000 puntos por lado (semilla 3) es 0,0001, 0,0104, 
 
 ## Definiciones de trabajo
 
-- **fuga de datos:** presencia en los datos de entrenamiento o prueba de información que no estará disponible en el momento de predecir y que infla el rendimiento estimado.
-- **prevalencia:** proporción de casos positivos en la población considerada.
-- **valor predictivo positivo:** proporción de los avisos que corresponden a casos reales.
-- **deriva de los datos:** cambio en la distribución de las entradas respecto de la de entrenamiento.
-- **tarjeta de modelo:** documento que declara el uso previsto, la evaluación y las limitaciones de un modelo.
+- **[fuga de datos](../../../glosario/entradas/f/fuga-de-datos.md):** presencia en los datos de entrenamiento o prueba de información que no estará disponible en el momento de predecir y que infla el rendimiento estimado.
+- **[prevalencia](../../../glosario/entradas/p/prevalencia.md):** proporción de casos positivos en la población considerada.
+- **[valor predictivo positivo](../../../glosario/entradas/v/valor-predictivo-positivo.md):** proporción de los avisos que corresponden a casos reales.
+- **[deriva de los datos](../../../glosario/entradas/d/deriva-de-los-datos.md):** cambio en la distribución de las entradas respecto de la de entrenamiento.
+- **[tarjeta de modelo](../../../glosario/entradas/t/tarjeta-de-modelo.md):** documento que declara el uso previsto, la evaluación y las limitaciones de un modelo.
 
 Las definiciones son operativas para el aviso de riesgo. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
@@ -306,11 +306,13 @@ Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2)
 
 ## Glosario
 
-- **fuga de datos:** presencia en los datos de entrenamiento o prueba de información que no estará disponible en el momento de predecir y que infla el rendimiento estimado.
-- **prevalencia:** proporción de casos positivos en la población considerada.
-- **valor predictivo positivo:** proporción de los avisos que corresponden a casos reales.
-- **deriva de los datos:** cambio en la distribución de las entradas respecto de la de entrenamiento.
-- **tarjeta de modelo:** documento que declara el uso previsto, la evaluación y las limitaciones de un modelo.
+- **[fuga de datos](../../../glosario/entradas/f/fuga-de-datos.md):** presencia en los datos de entrenamiento o prueba de información que no estará disponible en el momento de predecir y que infla el rendimiento estimado.
+- **[prevalencia](../../../glosario/entradas/p/prevalencia.md):** proporción de casos positivos en la población considerada.
+- **[valor predictivo positivo](../../../glosario/entradas/v/valor-predictivo-positivo.md):** proporción de los avisos que corresponden a casos reales.
+- **[deriva de los datos](../../../glosario/entradas/d/deriva-de-los-datos.md):** cambio en la distribución de las entradas respecto de la de entrenamiento.
+- **[tarjeta de modelo](../../../glosario/entradas/t/tarjeta-de-modelo.md):** documento que declara el uso previsto, la evaluación y las limitaciones de un modelo.
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Deriva de los datos](../../../glosario/entradas/d/deriva-de-los-datos.md) · [Fuga de datos](../../../glosario/entradas/f/fuga-de-datos.md) · [Prevalencia](../../../glosario/entradas/p/prevalencia.md) · [Tarjeta de modelo](../../../glosario/entradas/t/tarjeta-de-modelo.md) · [Valor predictivo positivo](../../../glosario/entradas/v/valor-predictivo-positivo.md).
 
 ---
 

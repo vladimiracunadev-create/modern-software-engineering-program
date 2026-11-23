@@ -127,14 +127,14 @@ La tercera figura es el árbol de decisión que usa el taller.
 
 ## Definiciones de trabajo
 
-- **Batería hostil:** conjunto de comportamientos que ejercen una propiedad de aislamiento cada uno.
-- **Matriz de contención:** tabla de qué mecanismo contiene qué comportamiento.
-- **Contención:** el comportamiento no alcanza lo que no debería (tiempo, memoria, archivos, entorno, red).
-- **Predicción:** respuesta anotada antes de ejecutar para contrastarla.
-- **Capacidad:** lo que un candidato puede ejecutar.
-- **Condición de revisión:** hecho o medida que cambiaría una decisión.
-- **Falso sentido de aislamiento:** creer que algo contiene lo que no se ha probado.
-- **Regla de decisión:** criterio escrito que asigna un candidato a una carga.
+- **[Batería hostil](../../../glosario/entradas/b/bateria-hostil.md):** conjunto de comportamientos que ejercen una propiedad de aislamiento cada uno.
+- **[Matriz de contención](../../../glosario/entradas/m/matriz-de-contencion.md):** tabla de qué mecanismo contiene qué comportamiento.
+- **[Contención](../../../glosario/entradas/c/contencion.md):** el comportamiento no alcanza lo que no debería (tiempo, memoria, archivos, entorno, red).
+- **[Predicción](../../../glosario/entradas/p/prediccion.md):** respuesta anotada antes de ejecutar para contrastarla.
+- **[Capacidad](../../../glosario/entradas/c/capacidad.md):** lo que un candidato puede ejecutar.
+- **[Condición de revisión](../../../glosario/entradas/c/condicion-de-revision.md):** hecho o medida que cambiaría una decisión.
+- **[Falso sentido de aislamiento](../../../glosario/entradas/f/falso-sentido-de-aislamiento.md):** creer que algo contiene lo que no se ha probado.
+- **[Regla de decisión](../../../glosario/entradas/r/regla-de-decision.md):** criterio escrito que asigna un candidato a una carga.
 
 ## Ejemplo mínimo
 
@@ -267,6 +267,8 @@ El taller probó tres candidatos con seis comportamientos en una máquina Window
 | Condición de revisión | Hecho que cambiaría una decisión |
 | Falso sentido de aislamiento | Creer contenido lo que no se probó |
 | Regla de decisión | Criterio escrito que asigna un candidato a una carga |
+
+Conceptos de esta clase en el [glosario del programa](../../../glosario/README.md): [Alcance](../../../glosario/entradas/a/alcance.md) · [Batería hostil](../../../glosario/entradas/b/bateria-hostil.md) · [Capacidad](../../../glosario/entradas/c/capacidad.md) · [Condición de revisión](../../../glosario/entradas/c/condicion-de-revision.md) · [Contención](../../../glosario/entradas/c/contencion.md) · [Costo](../../../glosario/entradas/c/costo.md) · [Falso sentido de aislamiento](../../../glosario/entradas/f/falso-sentido-de-aislamiento.md) · [Matriz de contención](../../../glosario/entradas/m/matriz-de-contencion.md) · [Predicción](../../../glosario/entradas/p/prediccion.md) · [Regla de decisión](../../../glosario/entradas/r/regla-de-decision.md).
 
 ---
 

@@ -10,7 +10,7 @@
 - nuevas guías `roles/saas-product-platform-engineer.md` (38 clases núcleo en las Partes 11, 20, 28, 29, 31, 33, 36, 38 y 41) y `roles/chaos-resilience-engineer.md` (32 clases núcleo en las Partes 26, 28, 32, 36, 39, 40 y 41); las Partes 34 y 42 figuran como ampliación planificada y enlazarán su primera, sexta y última clase al publicarse, sin más edición.
 - la columna «Ruta principal» y los conteos de `roles/README.md` y del README salen ahora de `scripts/build_role_guides.py` desde el núcleo de cada perfil (antes conservaban la numeración anterior); 47 guías.
 - vecinos recíprocos en siete guías existentes; `tests/test_roles.py` y el About pasan a 47.
-- commit `04c90da8` (Validate y Security en verde); las Partes 34 y 42, ya publicadas, pasan al núcleo de los dos roles (10 clases cada una); detalle en `docs/PART-EXECUTION-TRACKER.md`.
+- commit `04c90da8` y `8a72f24b` (Validate y Security en verde); las Partes 34 y 42, ya publicadas, pasan al núcleo de los dos roles (10 clases cada una); detalle en `docs/PART-EXECUTION-TRACKER.md`.
 ## 2026-11-23 — Parte 34 desarrollada: SaaS y plataformas de producto
 
 - `content/part-34/` añade el README y las doce clases `SE-409`–`SE-420` (aislamiento y vecino ruidoso con y sin cuotas, alta reanudable, suscripciones y dunning, medición de uso idempotente, motor de derechos, precios y límites, marketplaces, pagos con libro de partida doble y conciliación, tienda con inventario atómico y niveles de servicio por inquilino), con 36 figuras (`scripts/figures_part34_a.py` y `_b.py`) y cinco experimentos reproducibles (`scripts/experiments_part34_*.py`, semilla 34).

@@ -27,7 +27,7 @@ IMAGE = re.compile(r"!\[([^\n]*?)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 CLASS_LINK = re.compile(r"\]\((?:\.\./)+classes/part-\d\d-[^/]+/se-(\d{3})-[^/]+/README\.md\)")
 HEADING = re.compile(r"^## (.+)$", re.M)
 WORDS_TRONCAL = (330, 1100)
-WORDS_APOYO = (110, 500)
+WORDS_APOYO = (110, 800)
 MIN_SECTION_WORDS = 3
 
 

@@ -2,53 +2,33 @@
 
 [↑ Glosario](../../README.md) · [← Retroceso catastrófico](./retroceso-catastrofico.md) · [Retrospectiva →](./retrospectiva.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** D — Superficies y formas de software · **Primera aparición:** [Parte 19](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)
 
 ## Definición
 
-Espera que crece de forma exponencial entre reintentos.
-
-Definición de trabajo de [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-246 — Idempotencia, reintentos y deduplicación](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md): Estrategia que multiplica la espera entre reintentos por un factor fijo.
-- En [SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md): Política de reintento que multiplica la espera tras cada fallo.
-- En [SE-270 — Protocolos IoT y conectividad intermitente](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md): Política que duplica el intervalo entre reintentos tras cada fallo hasta un máximo.
+El **retroceso exponencial** (*exponential backoff*) es una política de reintento que multiplica la espera tras cada fallo: [SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) la define como la política que multiplica la espera tras cada fallo, [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) como la estrategia que multiplica la espera entre reintentos por un factor fijo, [SE-270](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md) como la que duplica el intervalo hasta un máximo y [SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md) como la espera que crece de forma exponencial entre reintentos. Un ejemplo de [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md): esperas de 1, 2, 4 y 8 segundos.
 
 ## Por qué importa
 
-La clase donde se define, [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md), existe con este propósito: la clase existe para que un sistema con LLM **sobreviva a sus propias interrupciones sin repetir ni perder efectos**.
+El cliente que reintenta debe esperar, y [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) dice que esperar mal es peor que no reintentar. Un intervalo fijo concentra a todos los clientes en los mismos instantes y puede volver a tumbar al servicio justo cuando se recupera. El retroceso exponencial dispersa los reintentos en el tiempo y da margen al servicio para recuperarse.
 
 ## Cómo funciona
 
-Según [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md):
-
-Cuando una llamada falla de forma transitoria (tiempo de espera, error 503), reintentar es razonable; pero **cuándo** reintentar importa tanto como cuántas veces. Con mil clientes sincronizados y un servicio caído cinco segundos, tres políticas dan resultados distintos. Con intervalo fijo de un segundo: 6 000 solicitudes, picos de 1 000 por medio segundo, y mil clientes golpean a la vez tras la recuperación. Con retroceso exponencial **sin aleatoriedad**: 4 000 solicitudes, pero los clientes siguen sincronizados y el pico tras la recuperación vuelve a ser de 1 000. Con retroceso exponencial y **jitter completo** (esperar un valor aleatorio entre 0 y el tope): 5 061 solicitudes y un pico tras la recuperación de 145.
-
-Según [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md):
-
-El equipo de *Avisos* revisa su flujo de aviso masivo. Lista los pasos: leer pendientes (idempotente), calcular umbrales (determinista), enviar por correo (efecto), registrar el envío (efecto interno con clave natural) y notificar a coordinación (efecto). Para el envío, la clave es `aviso:{curso}:{estudiante}:{umbral}` y el proveedor de correo la acepta en una cabecera con retención de 24 horas; para la notificación a coordinación, que no admite claves, el diario guarda el identificador devuelto y, antes de repetir, consulta si el mensaje existe. Los reintentos usan retroceso exponencial con jitter completo, un máximo de cinco intentos y un tiempo total de dos minutos; pasado ese límite, la ejecución se marca «pendiente de revisión» y aparece en la cola humana.
+Cada fallo multiplica la espera por un factor, hasta un máximo. La causa de su efecto es que los clientes que fallaron a la vez dejan de reintentar a la vez. Pero [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) señala su límite: si todos fallaron al mismo tiempo, siguen reintentando en sincronía, solo que en oleadas más espaciadas. Por eso se añade **jitter**, aleatoriedad en cada espera, que rompe la sincronía. Además se limita el número de intentos y el tiempo total, y se respeta `Retry-After` cuando el servidor lo envía. [SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md) aplica el conjunto en un flujo con agentes: retroceso exponencial con jitter completo, máximo de cinco intentos y dos minutos en total; pasado el límite, la ejecución queda «pendiente de revisión» y llega a una cola humana. [SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) añade un límite de tasa. Los reintentos solo son seguros si la operación es idempotente (véase idempotencia).
 
 ## Ejemplo
 
-Ejemplo de [SE-596 — Ejecución durable, reintentos e idempotencia](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* revisa su flujo de aviso masivo. Lista los pasos: leer pendientes (idempotente), calcular umbrales (determinista), enviar por correo (efecto), registrar el envío (efecto interno con clave natural) y notificar a coordinación (efecto). Para el envío, la clave es `aviso:{curso}:{estudiante}:{umbral}` y el proveedor de correo la acepta en una cabecera con retención de 24 horas; para la notificación a coordinación, que no admite claves, el diario guarda el identificador devuelto y, antes de repetir, consulta si el mensaje existe.
+[SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) simula 2 000 clientes que fallan a la vez durante una caída de 5 s contra un servicio con capacidad de 400 solicitudes por segundo; cada cliente se rinde tras 8 intentos. Tras la caída, el intervalo fijo produce un pico de 2 000 solicitudes por segundo, 3 s por encima de la capacidad y 800 clientes que abandonan; el exponencial sin jitter mantiene el pico en 2 000 y 4 s por encima de la capacidad, sin abandonos; con jitter total el pico baja a 372 y la capacidad no se supera en ningún segundo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El servicio vuelve a caer al recuperarse** — causa: reintentos sincronizados sin jitter. Corrección: retroceso exponencial con jitter y límite de intentos. ([SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md))
-- **Mil clientes agotan al servidor al recuperarse** — causa: reintentos sincronizados sin dispersión. Corrección: retroceso exponencial con dispersión, máximo de intentos y límite de tasa. ([SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md))
+- **El servicio vuelve a caer al recuperarse.** Reintentos sincronizados sin jitter; corrección ([SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md)): retroceso exponencial con jitter y límite de intentos.
+- **Mil clientes agotan al servidor al recuperarse.** Reintentos sincronizados sin dispersión; corrección ([SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md)): dispersión, máximo de intentos y límite de tasa.
+- **Creer que exponencial basta.** Sin jitter el pico sigue siendo de 2 000 en la simulación de [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con retroceso exponencial **sin aleatoriedad**: 4 000 solicitudes, pero los clientes siguen sincronizados y el pico tras la recuperación vuelve a ser de 1 000. ([SE-596](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia/README.md))
-- **reintentos con retroceso exponencial sin jitter tras un corte general**. ([SE-270](../../../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md))
+El modelo de [SE-246](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) supone clientes idénticos y capacidad fija; no incluye colas ni que el servicio empeore con la carga. Con 2 000 clientes el efecto es claro; con 20, todas las políticas serían inocuas. El retroceso no sustituye a la idempotencia ni a un interruptor de circuito (véase circuit breaker): dispersa los reintentos, no decide si conviene reintentar.
 
 ## Relación con otros conceptos
 

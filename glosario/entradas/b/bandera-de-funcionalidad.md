@@ -2,47 +2,33 @@
 
 [↑ Glosario](../../README.md) · [← Bandeja de salida](./bandeja-de-salida.md) · [Barrera independiente →](./barrera-independiente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 34](../../../classes/part-34-saas-y-plataformas-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 34](../../../classes/part-34-saas-y-plataformas-de-producto/README.md)
 
 ## Definición
 
-Condición en el código que activa o desactiva un comportamiento sin desplegar.
-
-Definición de trabajo de [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-414 — Planes, derechos de uso y banderas de funcionalidad](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md): Interruptor que decide qué código se ejecuta.
-- En [SE-475 — Feature flags y entrega progresiva](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md): Condición de ejecución que activa o desactiva una función sin desplegar código nuevo.
+Una **bandera de funcionalidad** (*feature flag*) es una condición en el código que activa o desactiva un comportamiento sin desplegar código nuevo. [SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md) la define así, [SE-475](../../../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md) como una condición de ejecución que activa o desactiva una función sin desplegar y [SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) como un interruptor que decide qué código se ejecuta. [SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) insiste en no mezclarla con otras dos cosas que los productos SaaS suelen confundir: el **plan** (un paquete comercial que se vende) y el **derecho** (lo que una cuenta concreta puede hacer hoy, con límites y vencimientos).
 
 ## Por qué importa
 
-En [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md), el tema «Banderas de funcionalidad» importa porque separan despliegue de exposición y crean una deuda con combinaciones.
+Permite separar la **exposición** del **despliegue** ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)): se despliega apagada, se enciende para unas personas y se apaga ante un problema sin volver a la versión anterior. Eso reduce el costo de revertir y habilita lanzamientos graduales.
 
 ## Cómo funciona
 
-Según [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md), en la sección «Banderas de funcionalidad»:
-
-Una **bandera** (feature flag) es una condición en el código que activa o desactiva un comportamiento sin desplegar. Permite separar la exposición del despliegue: se despliega apagada, se enciende para unas personas y se apaga ante un problema sin volver a la versión anterior. Fowler distingue banderas de lanzamiento (de corta vida), de experimento, operativas (para apagar una dependencia) y de permisos. Tienen un costo: cada bandera duplica las configuraciones posibles del sistema, las combinaciones dejan de probarse y las banderas olvidadas se convierten en código que nadie se atreve a borrar. La disciplina consiste en darle a cada bandera un dueño y una fecha de retiro, y en probar la bandera encendida y apagada. Las banderas de lanzamiento que sobreviven a su lanzamiento son deuda.
+El código contiene la condición y el valor se lee de configuración, de modo que cambiarlo no requiere un nuevo despliegue. [SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md) toma de Fowler una tipología: banderas de **lanzamiento** (de corta vida), de **experimento**, **operativas** (para apagar una dependencia) y de **permisos**. Cada tipo tiene ciclo de vida distinto. [SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) separa su rol del de los derechos de uso: la bandera es un interruptor técnico, el derecho es una regla de negocio por cuenta.
 
 ## Ejemplo
 
-La clase no ilustra este término por separado; el ejemplo de su tema está en la sección «Ejemplo profesional» de [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md):
-
-El equipo de la API de entregas fija su criterio de despliegue. Un canario del 5 % durante diez minutos, porque con el 1 % no podrían ver una degradación de un punto y sus picos de cierre de plazo no dejan margen para un error sutil; si la señal es buena amplían a 25 %, 50 % y 100 % con cinco minutos entre cada paso.
+[SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md): una función nueva se despliega con la bandera apagada, se activa para un grupo de personas y, si aparece un problema, se apaga sin desplegar de nuevo. [SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) muestra el error contrario: usar la misma tabla o el mismo `if` para plan, derecho y bandera.
 
 ## Errores y confusiones comunes
 
-Las clases no registran un error exclusivo de este término. Los errores frecuentes del tema donde se enseña ([SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)) son:
-
-- **El canario dice «sin errores» y producción falla** — causa: tráfico insuficiente para ver el cambio. Corrección: calcular la potencia y exigir tráfico mínimo.
-- **Se retiran versiones buenas** — causa: umbral laxo o tasa base inestable. Corrección: calcular la tasa de falsas alarmas y usar ventanas comparables.
+- **Mezclar plan, derecho y bandera** en una misma condición ([SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md)).
+- **Banderas olvidadas.** Se convierten en código que nadie se atreve a borrar ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)).
+- **Ignorar las combinaciones.** Cada bandera duplica las configuraciones posibles del sistema y las combinaciones dejan de probarse ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **bandera de funcionalidad** controla qué código se ejecuta y lo gobierna ingeniería con el objetivo de desplegar sin exponer y retirarse después. ([SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md))
+[SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md) nombra el costo: duplicación de configuraciones, combinaciones sin probar y banderas olvidadas; la disciplina consiste en darle a cada bandera un dueño y un plazo de retiro. Una bandera cambia la ruta de ejecución en producción, de modo que apagarla no equivale a deshacer cambios de datos ya realizados con ella encendida.
 
 ## Relación con otros conceptos
 

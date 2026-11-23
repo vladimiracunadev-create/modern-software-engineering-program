@@ -2,41 +2,35 @@
 
 [↑ Glosario](../../README.md) · [← Monitor](./monitor.md) · [Monolito distribuido →](./monolito-distribuido.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Sistema que se despliega como una sola unidad.
-
-Definición de trabajo de [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md).
+Un **monolito** es un sistema que se despliega como una sola unidad ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)). El término no habla del tamaño del código sino de la unidad de despliegue. [SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md) lo contrasta con el **monolito modular**, que mantiene una única unidad de despliegue pero impone fronteras entre módulos, y con los servicios o microservicios, que se despliegan por separado.
 
 ## Por qué importa
 
-En [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md), el tema «Monolito» importa porque una unidad de despliegue y transacciones locales: simple de operar y de probar.
+Elegir entre monolito, monolito modular y servicios es una decisión de fronteras y de costos operativos. [SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md) enumera las ventajas prácticas del monolito: las llamadas entre módulos son llamadas de función, una transacción de base de datos cubre varias entidades, una prueba de extremo a extremo corre en un proceso y el equipo opera una sola cosa.
 
 ## Cómo funciona
 
-Según [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md), en la sección «Monolito»:
+El defecto característico del monolito no es el tamaño sino la **falta de fronteras internas**: cuando cualquier módulo puede importar cualquier otro, un cambio en uno afecta a todos y desplegar una corrección pequeña exige probar el sistema entero. Dice [SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md): un monolito sin fronteras no es una decisión, es la ausencia de una.
 
-Un **monolito** se despliega como una sola unidad. Sus ventajas son prácticas: las llamadas entre módulos son llamadas de función, una transacción de base de datos cubre varias entidades, una prueba de extremo a extremo corre en un proceso y el equipo opera una cosa. Su defecto característico no es el tamaño sino la falta de fronteras internas: cuando cualquier módulo puede importar cualquier otro, el cambio en uno afecta a todos y el despliegue de una corrección pequeña exige probar el sistema entero. Un monolito sin fronteras no es una decisión: es la ausencia de una.
+El **monolito modular** mantiene la unidad de despliegue pero cada módulo expone una API pública y oculta sus detalles, y una regla comprobable prohíbe importar lo demás. Sigue el criterio de Parnas de ocultar la decisión que puede cambiar. Conserva las transacciones locales y las pruebas rápidas y deja abierta la puerta a separar un módulo más adelante, porque la frontera ya existe y se comprueba. Su riesgo es que la regla se erosione si nadie la verifica: por eso el comprobador es parte de la arquitectura.
 
 ## Ejemplo
 
-Ejemplo de [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma mantiene el sistema como monolito modular y añade al CI un comprobador de fronteras que falla si un módulo importa algo que no sea la `api` de otro, y otro que prohíbe `importlib` y `__import__` con nombres de módulos internos. Mide que la operación «calificar» hace 14 llamadas entre `notas` y `entregas` y decide que, si algún día se separan, esas dos son una sola frontera mal puesta: primero deberían fusionarse o reducir las llamadas.
+En [SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md), un cambio pequeño exige probar todo el sistema porque el monolito no tiene fronteras internas; la corrección es imponer API públicas y un comprobador de importaciones, es decir, pasar a un monolito modular, sin pagar el costo de la red.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un cambio pequeño exige probar todo el sistema** — causa: monolito sin fronteras internas. Corrección: imponer API públicas y un comprobador de importaciones. ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md))
+- **Creer que «monolito» y «microservicios» son dos bandos.** Son extremos de un continuo de fronteras, y la mayor parte del beneficio de una frontera (límites claros entre módulos) puede obtenerse sin pagar el costo de la red ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)).
+- **Un monolito sin fronteras internas.** Un cambio pequeño exige probar todo el sistema.
+- **Fronteras sin comprobador.** La regla se erosiona si nadie la verifica.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un monolito sin fronteras no es una decisión: es la ausencia de una. ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md))
+El monolito modular conserva una sola unidad de despliegue: si se necesita desplegar o escalar partes por separado, hay que cruzar fronteras de red, con los costos que [SE-340](../../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md) trata. El ejemplo de la clase es sintético y no prescribe cuándo conviene cada opción.
 
 ## Relación con otros conceptos
 

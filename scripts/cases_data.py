@@ -121,6 +121,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "aws-s3-2017", "kind": "fallo", "name": "Interrupción de Amazon S3 en 2017", "year": "2017",
      "who": "Amazon Web Services (organización)", "place": "Norte de Virginia (EE. UU.)",
      "hook": "Un comando con una entrada mal escrita retiró demasiada capacidad de los subsistemas de índice y ubicación de S3 y la región US-EAST-1 dejó de servir peticiones durante unas cuatro horas."},
+    {"slug": "southwest-2022", "kind": "fallo", "name": "Southwest Airlines 2022", "year": "2022",
+     "who": "Southwest Airlines (organización)", "place": "Dallas, Texas (EE. UU.)",
+     "hook": "Una tormenta invernal dejó a Southwest sin capacidad de reasignar tripulaciones: unos 16 900 vuelos cancelados y más de dos millones de pasajeros afectados."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

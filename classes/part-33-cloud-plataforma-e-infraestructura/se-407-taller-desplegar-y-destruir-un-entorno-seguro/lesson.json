@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-407",
+  "title": "Taller: desplegar y destruir un entorno seguro",
+  "stage": "E",
+  "part": "33",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro"
+}

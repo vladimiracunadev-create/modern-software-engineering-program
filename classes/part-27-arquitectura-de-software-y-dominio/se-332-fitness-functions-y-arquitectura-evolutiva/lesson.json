@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-332",
+  "title": "Fitness functions y arquitectura evolutiva",
+  "stage": "E",
+  "part": "27",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-27-arquitectura-de-software-y-dominio/se-332-fitness-functions-y-arquitectura-evolutiva"
+}

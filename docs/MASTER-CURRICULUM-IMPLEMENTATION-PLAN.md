@@ -4,7 +4,7 @@ Estado: **fuente canónica operativa**
 
 Creado: 2026-10-06
 
-Alcance base: `SE-001`–`SE-480`; ampliado a `SE-001`–`SE-540` por ADR-004 y a `SE-001`–`SE-588` por ADR-006
+Alcance base: 480 clases; ampliado a 540 por ADR-004, a 588 por ADR-006 y puesto en secuencia pedagógica con 612 posiciones (`SE-001`–`SE-612`, Partes 34 y 42 reservadas) por ADR-007
 
 ## Cómo recuperar el contexto
 
@@ -112,7 +112,7 @@ se actualizan en cada incremento; no se dejan archivos huérfanos.
 
 ## Reglas de expansión y control de cambios
 
-La línea base original fue de 480 clases; el alcance vigente es de 540 (ADR-004). No se crea un ID nuevo hasta demostrar que una
+La línea base original fue de 480 clases; el alcance vigente es de 612 posiciones en 51 partes (ADR-004, ADR-006 y ADR-007). No se crea un ID nuevo hasta demostrar que una
 brecha posee competencia, artefacto, prerrequisitos y secuencia propios y que integrarla
 en una clase existente degradaría su profundidad. Se puede superar ligeramente 500 si
 la cobertura lo exige o permanecer por debajo mientras añadir contenido sería relleno.
@@ -127,26 +127,29 @@ arquitectura, auditoría, portal y About cuando corresponda.
 ## Línea base verificada y brechas transversales
 
 Al crear este plan existen 8 etapas, 40 partes, 480 IDs consecutivos y 521 páginas.
-`SE-001`–`SE-024` están desarrolladas; `SE-025`–`SE-360` son borradores publicados y
-`SE-361`–`SE-480` son estructuras curriculares. Solo la Parte 01 tiene un laboratorio
+`SE-001`–`SE-024` están desarrolladas; `SE-025`–`SE-408` son borradores publicados y
+`SE-421`–`SE-576` son estructuras curriculares. Solo la Parte 01 tiene un laboratorio
 ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de estado se
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
-Estado actual (2026-11-17): las 49 partes (00–48, `SE-001`–`SE-588`) están desarrolladas y
-publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. No quedan partes
-planificadas sin publicar. Falta la revisión editorial humana independiente.
+Estado actual (2026-11-23): 49 de las 51 partes están desarrolladas y publicadas con CI verde
+(`SE-001`–`SE-612` salvo `SE-409`–`SE-420` y `SE-505`–`SE-516`); sus hitos figuran como hechos en
+las listas de abajo. Las Partes 34 y 42 están planificadas y reservadas por
+[ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md), que también reordenó las partes en
+secuencia pedagógica; los IDs de esta lista son los vigentes y el mapa con los anteriores está en
+[`ID-MIGRATION.md`](ID-MIGRATION.md). Falta la revisión editorial humana independiente.
 
 Brechas detectadas que se atienden parte a parte:
 
 - actividades y rúbricas genéricas fuera de las partes aprobadas;
-- guías de parte insuficientes en Partes 10–39;
+- guías de parte insuficientes en Partes 10–22, 24–25, 27, 29, 31–33, 35–36, 38–41, 43–44 y 46–47;
 - párrafos repetidos en numerosos borradores, aunque la Parte 02 tiene menor deriva;
 - validadores que detectan duplicados de documento completo pero no boilerplate interno;
 - fuentes por clase demasiado gruesas y ausencia de registros estructurados para SLSA,
   OpenSSF, DORA, SPACE, OpenTelemetry, Google SRE, Backstage, Team Topologies, TLA+,
   Alloy, Function Points, COCOMO II y Monte Carlo;
 - laboratorios, casos reales, proyectos y evidencia operativa insuficientes;
-- Partes 30–39 no enseñables todavía y afirmaciones de madurez que deben seguir
+- Partes 35–36, 38–41, 43–44 y 46–47 no enseñables todavía y afirmaciones de madurez que deben seguir
   bloqueadas hasta su desarrollo real.
 
 ## Plan de mejora clase por clase
@@ -154,6 +157,11 @@ Brechas detectadas que se atienden parte a parte:
 Cada línea nombra la mejora mínima específica que debe sobrevivir a la revisión de la
 clase. No sustituye el temario vigente: lo enfoca y añade el artefacto o límite que
 evita una explicación genérica.
+
+Las Partes 23, 26, 28, 30, 37, 45 y 46–50 se añadieron por ADR-004 y ADR-006; las Partes 34 y 42 se reservaron por
+ADR-007 y siguen planificadas. Cada casilla se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md`
+y la parte completa está validada. Los IDs siguen la secuencia pedagógica vigente; el mapa con la numeración
+anterior está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
 ### Parte 00 — Profesión
 
@@ -500,401 +508,425 @@ evita una explicación genérica.
 - [x] `SE-275` — simular fallos físicos y digitales con honestidad.
 - [x] `SE-276` — entregar dispositivo simulado actualizable y recuperable.
 
-### Parte 23 — Dominios especializados
+### Parte 23 — Runtimes y plataformas modernas
 
-- [x] `SE-277` — exigir reproducibilidad científica.
-- [x] `SE-278` — asegurar calidad en pipelines de datos.
-- [x] `SE-279` — evaluar drift y modelos ML.
-- [x] `SE-280` — controlar determinismo en game loops.
-- [x] `SE-281` — tratar latencia y accesibilidad en AV.
-- [x] `SE-282` — formalizar invariantes contables.
-- [x] `SE-283` — separar privacidad, safety y cumplimiento médico.
-- [x] `SE-284` — explicar cuándo no usar blockchain.
-- [x] `SE-285` — manejar CRS, tiempo y precisión geoespacial.
-- [x] `SE-286` — delimitar low-code y escape hatches.
-- [x] `SE-287` — comparar riesgos entre dominios.
-- [x] `SE-288` — entregar un diseño profundo de dominio.
+- [x] `SE-277` — WebAssembly y WASI.
+- [x] `SE-278` — WebAssembly en servidor y borde: component model.
+- [x] `SE-279` — eBPF: observabilidad, red y seguridad en el kernel.
+- [x] `SE-280` — GPU y aceleradores: modelo de ejecución.
+- [x] `SE-281` — Rendimiento y costo en aceleradores.
+- [x] `SE-282` — Contenedores, microVM y sandboxes.
+- [x] `SE-283` — Hardware seguro: TEE y atestación.
+- [x] `SE-284` — Computación cuántica para ingenieros de software.
+- [x] `SE-285` — Criptografía poscuántica y migración.
+- [x] `SE-286` — Confianza cero en la práctica.
+- [x] `SE-287` — Taller: elegir y aislar un runtime para una carga no confiable.
+- [x] `SE-288` — Proyecto: plataforma de ejecución aislada con evidencia.
 
-### Parte 24 — Diseño y refactorización
+### Parte 24 — Dominios especializados
 
-- [x] `SE-289` — interpretar cohesión y acoplamiento en contexto.
-- [x] `SE-290` — aplicar SOLID con sus límites.
-- [x] `SE-291` — preferir composición cuando las fuerzas lo justifiquen.
-- [x] `SE-292` — elegir patrones por fuerzas, no por catálogo.
-- [x] `SE-293` — tratar efectos y concurrencia en patrones.
-- [x] `SE-294` — usar contraejemplos para code smells.
-- [x] `SE-295` — construir pruebas de caracterización.
-- [x] `SE-296` — diseñar para observabilidad.
-- [x] `SE-297` — distinguir complejidad accidental y esencial.
-- [x] `SE-298` — modelar economía de deuda técnica.
-- [x] `SE-299` — refactorizar con regresión protegida.
-- [x] `SE-300` — evolucionar diseño conservando compatibilidad.
+- [x] `SE-289` — exigir reproducibilidad científica.
+- [x] `SE-290` — asegurar calidad en pipelines de datos.
+- [x] `SE-291` — evaluar drift y modelos ML.
+- [x] `SE-292` — controlar determinismo en game loops.
+- [x] `SE-293` — tratar latencia y accesibilidad en AV.
+- [x] `SE-294` — formalizar invariantes contables.
+- [x] `SE-295` — separar privacidad, safety y cumplimiento médico.
+- [x] `SE-296` — explicar cuándo no usar blockchain.
+- [x] `SE-297` — manejar CRS, tiempo y precisión geoespacial.
+- [x] `SE-298` — delimitar low-code y escape hatches.
+- [x] `SE-299` — comparar riesgos entre dominios.
+- [x] `SE-300` — entregar un diseño profundo de dominio.
 
-### Parte 25 — Arquitectura
+### Parte 25 — Diseño y refactorización
 
-- [x] `SE-301` — derivar arquitectura desde drivers medibles.
-- [x] `SE-302` — mantener vistas consistentes.
-- [x] `SE-303` — evaluar primero un monolito modular.
-- [x] `SE-304` — comparar layered, hexagonal, clean y onion.
-- [x] `SE-305` — delimitar bounded contexts.
-- [x] `SE-306` — explicar fallos de CQRS y event sourcing.
-- [x] `SE-307` — comparar serverless, edge y P2P.
-- [x] `SE-308` — automatizar fitness functions.
-- [x] `SE-309` — cuantificar coste y reversibilidad en ADR.
-- [x] `SE-310` — relacionar Conway y Team Topologies.
-- [x] `SE-311` — probar escenarios de atributos de calidad.
-- [x] `SE-312` — defender una arquitectura y su evolución.
+- [x] `SE-301` — interpretar cohesión y acoplamiento en contexto.
+- [x] `SE-302` — aplicar SOLID con sus límites.
+- [x] `SE-303` — preferir composición cuando las fuerzas lo justifiquen.
+- [x] `SE-304` — elegir patrones por fuerzas, no por catálogo.
+- [x] `SE-305` — tratar efectos y concurrencia en patrones.
+- [x] `SE-306` — usar contraejemplos para code smells.
+- [x] `SE-307` — construir pruebas de caracterización.
+- [x] `SE-308` — diseñar para observabilidad.
+- [x] `SE-309` — distinguir complejidad accidental y esencial.
+- [x] `SE-310` — modelar economía de deuda técnica.
+- [x] `SE-311` — refactorizar con regresión protegida.
+- [x] `SE-312` — evolucionar diseño conservando compatibilidad.
 
-### Parte 26 — Datos
+### Parte 26 — Patrones de diseño, empresariales y de resiliencia
 
-- [x] `SE-313` — explicar modelos y pérdida de información.
-- [x] `SE-314` — diseñar desde patrones de acceso.
-- [x] `SE-315` — reproducir anomalías de aislamiento.
-- [x] `SE-316` — proteger invariantes transaccionales.
-- [x] `SE-317` — interpretar planes e índices.
-- [x] `SE-318` — aplicar expand-contract a esquemas.
-- [x] `SE-319` — comparar replicación y partición.
-- [x] `SE-320` — tratar invalidación de caché.
-- [x] `SE-321` — probar restore, no solo backup.
-- [x] `SE-322` — ejecutar retención y borrado.
-- [x] `SE-323` — migrar con rollback.
-- [x] `SE-324` — entregar un sistema de datos recuperable.
+- [x] `SE-313` — criterios para usar un catálogo de patrones.
+- [x] `SE-314` — goF creacionales: Factory, Builder, Singleton y Prototype.
+- [x] `SE-315` — goF estructurales: Adapter, Decorator, Facade, Proxy y Composite.
+- [x] `SE-316` — goF conductuales: Strategy, Observer, Command, State y Template Method.
+- [x] `SE-317` — gRASP y asignación de responsabilidades.
+- [x] `SE-318` — repository, Unit of Work y Active Record.
+- [x] `SE-319` — enterprise Integration Patterns como lenguaje común.
+- [x] `SE-320` — resiliencia: timeout, retry con jitter y circuit breaker.
+- [x] `SE-321` — resiliencia: bulkhead, sidecar, ambassador y degradación.
+- [x] `SE-322` — antipatrones y deuda de diseño.
+- [x] `SE-323` — taller: refactorizar con patrones y medir su costo.
+- [x] `SE-324` — proyecto: catálogo de patrones de un sistema real.
 
-### Parte 27 — Integración y eventos
+### Parte 27 — Arquitectura
 
-- [x] `SE-325` — elegir sincronía o asincronía por fuerzas.
-- [x] `SE-326` — formalizar semántica de mensajes.
-- [x] `SE-327` — comparar modelos de broker.
-- [x] `SE-328` — probar entrega, orden y duplicación.
-- [x] `SE-329` — combinar outbox, inbox y saga.
-- [x] `SE-330` — evolucionar CDC y esquemas.
-- [x] `SE-331` — comparar webhook, polling y suscripción.
-- [x] `SE-332` — gobernar schemas.
-- [x] `SE-333` — traducir ACL entre dominios.
-- [x] `SE-334` — conservar trazas y autorización.
-- [x] `SE-335` — inyectar duplicados y reconciliar.
-- [x] `SE-336` — entregar retries y compensaciones verificadas.
+- [x] `SE-325` — derivar arquitectura desde drivers medibles.
+- [x] `SE-326` — mantener vistas consistentes.
+- [x] `SE-327` — evaluar primero un monolito modular.
+- [x] `SE-328` — comparar layered, hexagonal, clean y onion.
+- [x] `SE-329` — delimitar bounded contexts.
+- [x] `SE-330` — explicar fallos de CQRS y event sourcing.
+- [x] `SE-331` — comparar serverless, edge y P2P.
+- [x] `SE-332` — automatizar fitness functions.
+- [x] `SE-333` — cuantificar coste y reversibilidad en ADR.
+- [x] `SE-334` — relacionar Conway y Team Topologies.
+- [x] `SE-335` — probar escenarios de atributos de calidad.
+- [x] `SE-336` — defender una arquitectura y su evolución.
 
-### Parte 28 — Sistemas distribuidos
+### Parte 28 — Estilos arquitectónicos
 
-- [x] `SE-337` — distinguir concurrencia, paralelismo y distribución.
-- [x] `SE-338` — reproducir y diagnosticar una race.
-- [x] `SE-339` — aplicar cancelación estructurada.
-- [x] `SE-340` — razonar con relojes y orden parcial.
-- [x] `SE-341` — definir el modelo de fallos.
-- [x] `SE-342` — aplicar CAP y PACELC sin eslóganes.
-- [x] `SE-343` — explicar consenso y elección de líder.
-- [x] `SE-344` — implementar idempotencia distribuida.
-- [x] `SE-345` — comparar replicación y sharding.
-- [x] `SE-346` — diseñar hipótesis de chaos.
-- [x] `SE-347` — combinar race y partición controlada.
-- [x] `SE-348` — demostrar degradación y recuperación.
+- [x] `SE-337` — estilos como respuestas a fuerzas de calidad.
+- [x] `SE-338` — microkernel y arquitecturas de plugins.
+- [x] `SE-339` — pipes and filters y arquitecturas de flujo.
+- [x] `SE-340` — microservicios y sus costes reales.
+- [x] `SE-341` — bFF, API gateway y service mesh.
+- [x] `SE-342` — multi-tenancy y aislamiento.
+- [x] `SE-343` — data mesh y propiedad de los datos.
+- [x] `SE-344` — arquitectura celular y radio de impacto.
+- [x] `SE-345` — 12-factor y aplicaciones nativas de la nube.
+- [x] `SE-346` — evolución y migración entre estilos.
+- [x] `SE-347` — taller: seleccionar un estilo con escenarios de calidad.
+- [x] `SE-348` — proyecto: decisión arquitectónica defendida con ADR.
 
-### Parte 29 — Cloud y plataforma
+### Parte 29 — Datos
 
-- [x] `SE-349` — aplicar responsabilidad compartida.
-- [x] `SE-350` — comparar aislamiento de cómputo.
-- [x] `SE-351` — diseñar scheduling y capacidad.
-- [x] `SE-352` — medir cold start y lock-in serverless.
-- [x] `SE-353` — aplicar IAM y secretos con mínimo privilegio.
-- [x] `SE-354` — gestionar estado y drift de IaC.
-- [x] `SE-355` — separar cuentas y entornos.
-- [x] `SE-356` — integrar FinOps y carbono.
-- [x] `SE-357` — probar portabilidad sin prometer neutralidad total.
-- [x] `SE-358` — construir platform-as-product y golden path.
-- [x] `SE-359` — desplegar y destruir de forma segura.
-- [x] `SE-360` — reconstruir una plataforma desde evidencia.
+- [x] `SE-349` — explicar modelos y pérdida de información.
+- [x] `SE-350` — diseñar desde patrones de acceso.
+- [x] `SE-351` — reproducir anomalías de aislamiento.
+- [x] `SE-352` — proteger invariantes transaccionales.
+- [x] `SE-353` — interpretar planes e índices.
+- [x] `SE-354` — aplicar expand-contract a esquemas.
+- [x] `SE-355` — comparar replicación y partición.
+- [x] `SE-356` — tratar invalidación de caché.
+- [x] `SE-357` — probar restore, no solo backup.
+- [x] `SE-358` — ejecutar retención y borrado.
+- [x] `SE-359` — migrar con rollback.
+- [x] `SE-360` — entregar un sistema de datos recuperable.
 
-### Parte 30 — Testing
+### Parte 30 — Ingeniería de datos y plataformas de datos
 
-- [x] `SE-361` — seleccionar por riesgo y declarar qué no probar.
-- [x] `SE-362` — conectar unit tests y testabilidad.
-- [x] `SE-363` — probar integración y contratos.
-- [x] `SE-364` — delimitar E2E, aceptación y snapshots.
-- [x] `SE-365` — aplicar property-based y model-based testing.
-- [x] `SE-366` — medir mutation y fuzzing.
-- [x] `SE-367` — usar dobles y virtualización con límites.
-- [x] `SE-368` — controlar fixtures y determinismo.
-- [x] `SE-369` — integrar exploración, accesibilidad y seguridad.
-- [x] `SE-370` — diagnosticar flakiness.
-- [x] `SE-371` — demostrar que una prueba detecta el defecto.
-- [x] `SE-372` — entregar una estrategia ejecutable.
+- [x] `SE-361` — Del dato operacional al analítico.
+- [x] `SE-362` — Ingesta batch y streaming.
+- [x] `SE-363` — Modelado analítico: hechos, dimensiones y granularidad.
+- [x] `SE-364` — Transformación y orquestación idempotente con backfills.
+- [x] `SE-365` — Calidad y observabilidad de datos.
+- [x] `SE-366` — Contratos de datos y evolución de esquemas.
+- [x] `SE-367` — Linaje, catálogo y metadatos.
+- [x] `SE-368` — Warehouse, lake, lakehouse y formatos columnares.
+- [x] `SE-369` — Gobierno, privacidad y retención de datos.
+- [x] `SE-370` — Costos y operación de plataformas de datos.
+- [x] `SE-371` — Taller: reparar un pipeline defectuoso.
+- [x] `SE-372` — Proyecto: plataforma de datos mínima gobernada.
 
-### Parte 31 — Calidad, rendimiento y resiliencia
+### Parte 31 — Integración y eventos
 
-- [x] `SE-373` — aplicar las nueve características ISO 25010:2023.
-- [x] `SE-374` — usar métricas y gates con límites explícitos.
-- [x] `SE-375` — ejecutar load, stress, spike y soak.
-- [x] `SE-376` — trabajar percentiles y capacidad.
-- [x] `SE-377` — validar metodología de benchmark.
-- [x] `SE-378` — diseñar retries con presupuesto.
-- [x] `SE-379` — probar aislamiento y degradación.
-- [x] `SE-380` — contrastar RTO/RPO mediante restore.
-- [x] `SE-381` — verificar compatibilidad.
-- [x] `SE-382` — fijar performance budgets.
-- [x] `SE-383` — ejecutar un game day.
-- [x] `SE-384` — entregar informe con evidencia cruda.
+- [x] `SE-373` — elegir sincronía o asincronía por fuerzas.
+- [x] `SE-374` — formalizar semántica de mensajes.
+- [x] `SE-375` — comparar modelos de broker.
+- [x] `SE-376` — probar entrega, orden y duplicación.
+- [x] `SE-377` — combinar outbox, inbox y saga.
+- [x] `SE-378` — evolucionar CDC y esquemas.
+- [x] `SE-379` — comparar webhook, polling y suscripción.
+- [x] `SE-380` — gobernar schemas.
+- [x] `SE-381` — traducir ACL entre dominios.
+- [x] `SE-382` — conservar trazas y autorización.
+- [x] `SE-383` — inyectar duplicados y reconciliar.
+- [x] `SE-384` — entregar retries y compensaciones verificadas.
 
-### Parte 32 — Seguridad, privacidad y compliance
+### Parte 32 — Sistemas distribuidos
 
-- [x] `SE-385` — crear un threat model mantenible.
-- [x] `SE-386` — endurecer autenticación y sesiones.
-- [x] `SE-387` — ejecutar pruebas negativas de autorización.
-- [x] `SE-388` — prevenir y probar inyección.
-- [x] `SE-389` — gestionar claves y criptografía por contrato.
-- [x] `SE-390` — rotar secretos sin caída.
-- [x] `SE-391` — aplicar minimización y privacidad.
-- [x] `SE-392` — usar SSDF y abuse cases.
-- [x] `SE-393` — operar divulgación de vulnerabilidades.
-- [x] `SE-394` — trazar regulación, control, prueba y evidencia.
-- [x] `SE-395` — explotar un control ficticio y repararlo.
-- [x] `SE-396` — entregar un producto evaluado con ASVS.
+- [x] `SE-385` — distinguir concurrencia, paralelismo y distribución.
+- [x] `SE-386` — reproducir y diagnosticar una race.
+- [x] `SE-387` — aplicar cancelación estructurada.
+- [x] `SE-388` — razonar con relojes y orden parcial.
+- [x] `SE-389` — definir el modelo de fallos.
+- [x] `SE-390` — aplicar CAP y PACELC sin eslóganes.
+- [x] `SE-391` — explicar consenso y elección de líder.
+- [x] `SE-392` — implementar idempotencia distribuida.
+- [x] `SE-393` — comparar replicación y sharding.
+- [x] `SE-394` — diseñar hipótesis de chaos.
+- [x] `SE-395` — combinar race y partición controlada.
+- [x] `SE-396` — demostrar degradación y recuperación.
 
-### Parte 33 — Supply chain y release
+### Parte 33 — Cloud y plataforma
 
-- [x] `SE-397` — producir un build hermético.
-- [x] `SE-398` — promover artefactos inmutables.
-- [x] `SE-399` — simular typosquatting y dependency confusion.
-- [x] `SE-400` — generar SBOM y provenance conforme a SLSA vigente.
-- [x] `SE-401` — verificar antes de consumir.
-- [x] `SE-402` — operar release y SemVer.
-- [x] `SE-403` — retirar feature flags.
-- [x] `SE-404` — comparar canary y blue/green.
-- [x] `SE-405` — diseñar actualizaciones seguras.
-- [x] `SE-406` — responder a un paquete comprometido.
-- [x] `SE-407` — verificar un release externo.
-- [x] `SE-408` — entregar release firmado y reconstruible.
+- [x] `SE-397` — aplicar responsabilidad compartida.
+- [x] `SE-398` — comparar aislamiento de cómputo.
+- [x] `SE-399` — diseñar scheduling y capacidad.
+- [x] `SE-400` — medir cold start y lock-in serverless.
+- [x] `SE-401` — aplicar IAM y secretos con mínimo privilegio.
+- [x] `SE-402` — gestionar estado y drift de IaC.
+- [x] `SE-403` — separar cuentas y entornos.
+- [x] `SE-404` — integrar FinOps y carbono.
+- [x] `SE-405` — probar portabilidad sin prometer neutralidad total.
+- [x] `SE-406` — construir platform-as-product y golden path.
+- [x] `SE-407` — desplegar y destruir de forma segura.
+- [x] `SE-408` — reconstruir una plataforma desde evidencia.
 
-### Parte 34 — CI/CD y Platform Engineering
+### Parte 34 — SaaS y plataformas de producto
 
-- [x] `SE-409` — acortar feedback sin ocultar riesgo.
-- [x] `SE-410` — asegurar matrices y cachés de CI.
-- [x] `SE-411` — diseñar gates según riesgo.
-- [x] `SE-412` — usar OIDC y credenciales efímeras.
-- [x] `SE-413` — desplegar progresivamente.
-- [x] `SE-414` — validar una pipeline de IaC.
-- [x] `SE-415` — explicar GitOps y reconciliación.
-- [x] `SE-416` — crear previews con datos seguros.
-- [x] `SE-417` — estudiar Backstage como caso, no receta.
-- [x] `SE-418` — usar DORA y SPACE sin gaming.
-- [x] `SE-419` — reparar una pipeline vulnerable.
-- [x] `SE-420` — entregar rollback probado.
+- [ ] `SE-409` — saaS como producto y como operación: del software al servicio continuo.
+- [ ] `SE-410` — tenencia, organizaciones e identidad en un producto SaaS.
+- [ ] `SE-411` — planes, derechos de uso y control de funcionalidades.
+- [ ] `SE-412` — medición de uso, facturación y suscripciones.
+- [ ] `SE-413` — activación, onboarding y ciclo de vida de la cuenta.
+- [ ] `SE-414` — ciclo de vida del tenant: aprovisionamiento, migración y baja.
+- [ ] `SE-415` — aPIs públicas, webhooks y ecosistema de integraciones.
+- [ ] `SE-416` — plataformas extensibles: plugins, SDK y marketplaces.
+- [ ] `SE-417` — confiabilidad como promesa comercial: SLA, SLO y créditos.
+- [ ] `SE-418` — economía unitaria y costo de servir por tenant.
+- [ ] `SE-419` — Taller: diseñar los planes y el aislamiento de un SaaS.
+- [ ] `SE-420` — Proyecto: núcleo de un SaaS multi-tenant con facturación por uso.
 
-### Parte 35 — Observabilidad, SRE e incidentes
+### Parte 35 — Testing
 
-- [x] `SE-421` — elegir señales que respondan preguntas operativas.
-- [x] `SE-422` — producir logs estructurados y seguros.
-- [x] `SE-423` — controlar cardinalidad de métricas.
-- [x] `SE-424` — propagar contexto de traza.
-- [x] `SE-425` — derivar SLI, SLO y error budget.
-- [x] `SE-426` — diseñar alertas accionables.
-- [x] `SE-427` — ensayar runbook y on-call.
-- [x] `SE-428` — practicar incident command.
-- [x] `SE-429` — escribir postmortem sin culpa.
-- [x] `SE-430` — probar recuperación ante desastre.
-- [x] `SE-431` — diagnosticar con telemetría incompleta.
-- [x] `SE-432` — completar detectar, contener, diagnosticar, recuperar y aprender.
+- [x] `SE-421` — seleccionar por riesgo y declarar qué no probar.
+- [x] `SE-422` — conectar unit tests y testabilidad.
+- [x] `SE-423` — probar integración y contratos.
+- [x] `SE-424` — delimitar E2E, aceptación y snapshots.
+- [x] `SE-425` — aplicar property-based y model-based testing.
+- [x] `SE-426` — medir mutation y fuzzing.
+- [x] `SE-427` — usar dobles y virtualización con límites.
+- [x] `SE-428` — controlar fixtures y determinismo.
+- [x] `SE-429` — integrar exploración, accesibilidad y seguridad.
+- [x] `SE-430` — diagnosticar flakiness.
+- [x] `SE-431` — demostrar que una prueba detecta el defecto.
+- [x] `SE-432` — entregar una estrategia ejecutable.
 
-### Parte 36 — Legacy y retiro
+### Parte 36 — Calidad, rendimiento y resiliencia
 
-- [x] `SE-433` — clasificar mantenimiento y riesgo.
-- [x] `SE-434` — practicar arqueología de software.
-- [x] `SE-435` — crear caracterización y seams.
-- [x] `SE-436` — gestionar runtime obsoleto y EOL.
-- [x] `SE-437` — comparar strangler, branch by abstraction y ACL.
-- [x] `SE-438` — migrar runtime con compatibilidad.
-- [x] `SE-439` — migrar datos progresivamente.
-- [x] `SE-440` — controlar coexistencia y double write.
-- [x] `SE-441` — ejecutar EOL, retención y borrado seguro.
-- [x] `SE-442` — comparar TCO de reescritura y evolución.
-- [x] `SE-443` — estabilizar un sistema ajeno.
-- [x] `SE-444` — entregar una migración reversible.
+- [x] `SE-433` — aplicar las nueve características ISO 25010:2023.
+- [x] `SE-434` — usar métricas y gates con límites explícitos.
+- [x] `SE-435` — ejecutar load, stress, spike y soak.
+- [x] `SE-436` — trabajar percentiles y capacidad.
+- [x] `SE-437` — validar metodología de benchmark.
+- [x] `SE-438` — diseñar retries con presupuesto.
+- [x] `SE-439` — probar aislamiento y degradación.
+- [x] `SE-440` — contrastar RTO/RPO mediante restore.
+- [x] `SE-441` — verificar compatibilidad.
+- [x] `SE-442` — fijar performance budgets.
+- [x] `SE-443` — ejecutar un game day.
+- [x] `SE-444` — entregar informe con evidencia cruda.
 
-### Parte 37 — Liderazgo
+### Parte 37 — Sistemas críticos, tiempo real y normas de seguridad
 
-- [x] `SE-445` — liderar mediante contexto y decisiones.
-- [x] `SE-446` — diseñar ownership y reducir bus factor.
-- [x] `SE-447` — resolver conflicto técnico-organizacional.
-- [x] `SE-448` — practicar mentoring observable.
-- [x] `SE-449` — comunicar compromisos probabilísticos.
-- [x] `SE-450` — presentar una decisión ejecutiva.
-- [x] `SE-451` — defender build-vs-buy.
-- [x] `SE-452` — considerar IP y contratos.
-- [x] `SE-453` — calcular TCO, ROI, CAPEX y OPEX.
-- [x] `SE-454` — diferenciar niveles y rutas profesionales.
-- [x] `SE-455` — superar una revisión técnica adversarial.
-- [x] `SE-456` — entregar dossier de portafolio defendible.
+- [x] `SE-445` — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA.
+- [x] `SE-446` — IEC 61508 y niveles de integridad de seguridad.
+- [x] `SE-447` — Automoción: ISO 26262 y niveles ASIL.
+- [x] `SE-448` — Aviación: DO-178C, DO-254 y ARP4754.
+- [x] `SE-449` — Dispositivos médicos: IEC 62304.
+- [x] `SE-450` — Casos de seguridad y trazabilidad.
+- [x] `SE-451` — RTOS y planificación de tiempo real.
+- [x] `SE-452` — Codificación segura: MISRA y CERT.
+- [x] `SE-453` — Verificación formal y model checking: TLA+, SPARK y Alloy.
+- [x] `SE-454` — Verificación y cobertura: MC/DC, HIL y SIL.
+- [x] `SE-455` — Taller: analizar un fallo real frente a las normas.
+- [x] `SE-456` — Proyecto: paquete de aseguramiento de un controlador.
 
-### Parte 38 — Ingeniería asistida por IA
+### Parte 38 — Seguridad, privacidad y compliance
 
-- [x] `SE-457` — medir límites y APIs alucinadas.
-- [x] `SE-458` — especificar criterios antes de generar.
-- [x] `SE-459` — probar pérdida de contexto y memoria.
-- [x] `SE-460` — comparar trabajo manual y asistido.
-- [x] `SE-461` — detectar deuda de scaffolding.
-- [x] `SE-462` — encontrar tests y docs convincentes pero incorrectos.
-- [x] `SE-463` — detectar drift arquitectónico.
-- [x] `SE-464` — practicar context engineering.
-- [x] `SE-465` — ejecutar evals de coste, latencia y regresión.
-- [x] `SE-466` — revisar privacidad, licencias y provenance.
-- [x] `SE-467` — comparar flujo manual, asistido y agentic.
-- [x] `SE-468` — entregar un cambio real con revisión humana.
+- [x] `SE-457` — crear un threat model mantenible.
+- [x] `SE-458` — endurecer autenticación y sesiones.
+- [x] `SE-459` — ejecutar pruebas negativas de autorización.
+- [x] `SE-460` — prevenir y probar inyección.
+- [x] `SE-461` — gestionar claves y criptografía por contrato.
+- [x] `SE-462` — rotar secretos sin caída.
+- [x] `SE-463` — aplicar minimización y privacidad.
+- [x] `SE-464` — usar SSDF y abuse cases.
+- [x] `SE-465` — operar divulgación de vulnerabilidades.
+- [x] `SE-466` — trazar regulación, control, prueba y evidencia.
+- [x] `SE-467` — explotar un control ficticio y repararlo.
+- [x] `SE-468` — entregar un producto evaluado con ASVS.
 
-### Parte 39 — SPEC y agentes
+### Parte 39 — Supply chain y release
 
-- [x] `SE-469` — escribir una SPEC durable.
-- [x] `SE-470` — convertir ambigüedad en plan y tareas verificables.
-- [x] `SE-471` — definir convergencia y stop conditions.
-- [x] `SE-472` — comparar agentes en greenfield, brownfield y bugs.
-- [x] `SE-473` — operar con mínima autoridad.
-- [x] `SE-474` — aislar skills, hooks y herramientas.
-- [x] `SE-475` — aplicar el modelo de confianza de MCP vigente.
-- [x] `SE-476` — resolver conflictos multiagente.
-- [x] `SE-477` — diseñar aprobaciones y reversibilidad.
-- [x] `SE-478` — resistir prompt injection y conservar auditoría.
-- [x] `SE-479` — detener, recuperar y evaluar loops.
-- [x] `SE-480` — entregar un producto validado por el sistema, no por autodeclaración.
+- [x] `SE-469` — producir un build hermético.
+- [x] `SE-470` — promover artefactos inmutables.
+- [x] `SE-471` — simular typosquatting y dependency confusion.
+- [x] `SE-472` — generar SBOM y provenance conforme a SLSA vigente.
+- [x] `SE-473` — verificar antes de consumir.
+- [x] `SE-474` — operar release y SemVer.
+- [x] `SE-475` — retirar feature flags.
+- [x] `SE-476` — comparar canary y blue/green.
+- [x] `SE-477` — diseñar actualizaciones seguras.
+- [x] `SE-478` — responder a un paquete comprometido.
+- [x] `SE-479` — verificar un release externo.
+- [x] `SE-480` — entregar release firmado y reconstruible.
 
-Las Partes 40–44 (`SE-481`–`SE-540`) se añadieron por ADR-004; cada casilla se marca `[x]`
-solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validada.
+### Parte 40 — CI/CD y Platform Engineering
 
-### Parte 40 — Metodologías de TDD a ODD
+- [x] `SE-481` — acortar feedback sin ocultar riesgo.
+- [x] `SE-482` — asegurar matrices y cachés de CI.
+- [x] `SE-483` — diseñar gates según riesgo.
+- [x] `SE-484` — usar OIDC y credenciales efímeras.
+- [x] `SE-485` — desplegar progresivamente.
+- [x] `SE-486` — validar una pipeline de IaC.
+- [x] `SE-487` — explicar GitOps y reconciliación.
+- [x] `SE-488` — crear previews con datos seguros.
+- [x] `SE-489` — estudiar Backstage como caso, no receta.
+- [x] `SE-490` — usar DORA y SPACE sin gaming.
+- [x] `SE-491` — reparar una pipeline vulnerable.
+- [x] `SE-492` — entregar rollback probado.
 
-- [x] `SE-481` — mapa de metodologías: qué decide cada una y cómo elegir.
-- [x] `SE-482` — tDD: ciclo rojo-verde-refactor y diseño emergente.
-- [x] `SE-483` — tDD en la práctica: escuelas de Londres y clásica, y sus límites.
-- [x] `SE-484` — bDD: ejemplos, conversación y lenguaje compartido.
-- [x] `SE-485` — aTDD y Specification by Example: aceptación ejecutable.
-- [x] `SE-486` — dDD como lenguaje ubicuo y contexto para agentes.
-- [x] `SE-487` — diseño por contrato y pruebas de contrato como oráculo.
-- [x] `SE-488` — sDD: spec-first, spec-anchored y spec-as-source.
-- [x] `SE-489` — eDD: evaluaciones como especificación y puerta de release.
-- [x] `SE-490` — oDD: desarrollo orgánico y su contraste con SDD.
-- [x] `SE-491` — taller: un mismo cambio con cinco metodologías.
-- [x] `SE-492` — proyecto: política metodológica de equipo con evidencia.
+### Parte 41 — Observabilidad, SRE e incidentes
 
-### Parte 41 — Harness y agentic engineering
+- [x] `SE-493` — elegir señales que respondan preguntas operativas.
+- [x] `SE-494` — producir logs estructurados y seguros.
+- [x] `SE-495` — controlar cardinalidad de métricas.
+- [x] `SE-496` — propagar contexto de traza.
+- [x] `SE-497` — derivar SLI, SLO y error budget.
+- [x] `SE-498` — diseñar alertas accionables.
+- [x] `SE-499` — ensayar runbook y on-call.
+- [x] `SE-500` — practicar incident command.
+- [x] `SE-501` — escribir postmortem sin culpa.
+- [x] `SE-502` — probar recuperación ante desastre.
+- [x] `SE-503` — diagnosticar con telemetría incompleta.
+- [x] `SE-504` — completar detectar, contener, diagnosticar, recuperar y aprender.
 
-- [x] `SE-493` — anatomía de un harness: modelo, contexto, herramientas y bucles.
-- [x] `SE-494` — instrucciones de repositorio y cumplimiento determinista.
-- [x] `SE-495` — herramientas, permisos y superficies de acción.
-- [x] `SE-496` — gestión de contexto, resets y handoffs.
-- [x] `SE-497` — loops de agentes y criterios de parada.
-- [x] `SE-498` — sandboxes, reversibilidad y control de daño.
-- [x] `SE-499` — verificación, gates y menú único de validación.
-- [x] `SE-500` — multiagente y coordinación dentro del harness.
-- [x] `SE-501` — observabilidad y evals del propio harness.
-- [x] `SE-502` — aI-DLC, gobierno y vibe coding frente a agentic engineering.
-- [x] `SE-503` — taller: diagnosticar el fallo de un harness.
-- [x] `SE-504` — proyecto: harness mínimo gobernado y evaluado.
+### Parte 42 — Ingeniería del caos
 
-### Parte 42 — Patrones agénticos y sistemas con LLM
+- [ ] `SE-505` — principios de la ingeniería del caos: estado estable e hipótesis.
+- [ ] `SE-506` — diseñar experimentos de fallo: alcance y radio de impacto.
+- [ ] `SE-507` — inyección de fallos de red, latencia y dependencias.
+- [ ] `SE-508` — fallos de recursos e infraestructura: CPU, memoria, disco y nodos.
+- [ ] `SE-509` — caos en Kubernetes y en plataformas cloud.
+- [ ] `SE-510` — fallos de datos y de estado: réplicas, particiones y corrupción.
+- [ ] `SE-511` — game days y ejercicios de respuesta a incidentes.
+- [ ] `SE-512` — caos continuo: automatización en CI/CD y en producción.
+- [ ] `SE-513` — seguridad y gobernanza de los experimentos: abortar, autorizar y registrar.
+- [ ] `SE-514` — aprender de los experimentos: hallazgos, métricas y mejora.
+- [ ] `SE-515` — Taller: ejecutar un experimento de caos acotado con criterio de aborto.
+- [ ] `SE-516` — Proyecto: programa de caos de un servicio con evidencia y remediación.
 
-- [x] `SE-505` — workflows frente a agentes: cuándo no usar un agente.
-- [x] `SE-506` — encadenado, enrutamiento y paralelización.
-- [x] `SE-507` — orquestador-trabajadores y evaluador-optimizador.
-- [x] `SE-508` — reAct, plan-and-execute y reflexión.
-- [x] `SE-509` — memoria y gestión de estado de agentes.
-- [x] `SE-510` — embeddings, recuperación y agentic RAG.
-- [x] `SE-511` — interoperabilidad entre agentes: MCP y A2A.
-- [x] `SE-512` — ejecución durable, reintentos e idempotencia.
-- [x] `SE-513` — evals y LLMOps de sistemas con LLM.
-- [x] `SE-514` — costo, latencia y seguridad en sistemas con LLM.
-- [x] `SE-515` — taller: elegir y degradar un patrón agéntico.
-- [x] `SE-516` — proyecto: sistema con LLM evaluado y operable.
+### Parte 43 — Legacy y retiro
 
-### Parte 43 — Patrones de diseño, empresariales y de resiliencia
+- [x] `SE-517` — clasificar mantenimiento y riesgo.
+- [x] `SE-518` — practicar arqueología de software.
+- [x] `SE-519` — crear caracterización y seams.
+- [x] `SE-520` — gestionar runtime obsoleto y EOL.
+- [x] `SE-521` — comparar strangler, branch by abstraction y ACL.
+- [x] `SE-522` — migrar runtime con compatibilidad.
+- [x] `SE-523` — migrar datos progresivamente.
+- [x] `SE-524` — controlar coexistencia y double write.
+- [x] `SE-525` — ejecutar EOL, retención y borrado seguro.
+- [x] `SE-526` — comparar TCO de reescritura y evolución.
+- [x] `SE-527` — estabilizar un sistema ajeno.
+- [x] `SE-528` — entregar una migración reversible.
 
-- [x] `SE-517` — criterios para usar un catálogo de patrones.
-- [x] `SE-518` — goF creacionales: Factory, Builder, Singleton y Prototype.
-- [x] `SE-519` — goF estructurales: Adapter, Decorator, Facade, Proxy y Composite.
-- [x] `SE-520` — goF conductuales: Strategy, Observer, Command, State y Template Method.
-- [x] `SE-521` — gRASP y asignación de responsabilidades.
-- [x] `SE-522` — repository, Unit of Work y Active Record.
-- [x] `SE-523` — enterprise Integration Patterns como lenguaje común.
-- [x] `SE-524` — resiliencia: timeout, retry con jitter y circuit breaker.
-- [x] `SE-525` — resiliencia: bulkhead, sidecar, ambassador y degradación.
-- [x] `SE-526` — antipatrones y deuda de diseño.
-- [x] `SE-527` — taller: refactorizar con patrones y medir su costo.
-- [x] `SE-528` — proyecto: catálogo de patrones de un sistema real.
+### Parte 44 — Liderazgo
 
-### Parte 44 — Estilos arquitectónicos
+- [x] `SE-529` — liderar mediante contexto y decisiones.
+- [x] `SE-530` — diseñar ownership y reducir bus factor.
+- [x] `SE-531` — resolver conflicto técnico-organizacional.
+- [x] `SE-532` — practicar mentoring observable.
+- [x] `SE-533` — comunicar compromisos probabilísticos.
+- [x] `SE-534` — presentar una decisión ejecutiva.
+- [x] `SE-535` — defender build-vs-buy.
+- [x] `SE-536` — considerar IP y contratos.
+- [x] `SE-537` — calcular TCO, ROI, CAPEX y OPEX.
+- [x] `SE-538` — diferenciar niveles y rutas profesionales.
+- [x] `SE-539` — superar una revisión técnica adversarial.
+- [x] `SE-540` — entregar dossier de portafolio defendible.
 
-- [x] `SE-529` — estilos como respuestas a fuerzas de calidad.
-- [x] `SE-530` — microkernel y arquitecturas de plugins.
-- [x] `SE-531` — pipes and filters y arquitecturas de flujo.
-- [x] `SE-532` — microservicios y sus costes reales.
-- [x] `SE-533` — bFF, API gateway y service mesh.
-- [x] `SE-534` — multi-tenancy y aislamiento.
-- [x] `SE-535` — data mesh y propiedad de los datos.
-- [x] `SE-536` — arquitectura celular y radio de impacto.
-- [x] `SE-537` — 12-factor y aplicaciones nativas de la nube.
-- [x] `SE-538` — evolución y migración entre estilos.
-- [x] `SE-539` — taller: seleccionar un estilo con escenarios de calidad.
-- [x] `SE-540` — proyecto: decisión arquitectónica defendida con ADR.
+### Parte 45 — Metodologías de TDD a ODD
 
-Las Partes 45–48 (`SE-541`–`SE-588`) se añadieron por ADR-006 y nacieron planificadas: cada casilla
-se marcó `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validada.
+- [x] `SE-541` — mapa de metodologías: qué decide cada una y cómo elegir.
+- [x] `SE-542` — tDD: ciclo rojo-verde-refactor y diseño emergente.
+- [x] `SE-543` — tDD en la práctica: escuelas de Londres y clásica, y sus límites.
+- [x] `SE-544` — bDD: ejemplos, conversación y lenguaje compartido.
+- [x] `SE-545` — aTDD y Specification by Example: aceptación ejecutable.
+- [x] `SE-546` — dDD como lenguaje ubicuo y contexto para agentes.
+- [x] `SE-547` — diseño por contrato y pruebas de contrato como oráculo.
+- [x] `SE-548` — sDD: spec-first, spec-anchored y spec-as-source.
+- [x] `SE-549` — eDD: evaluaciones como especificación y puerta de release.
+- [x] `SE-550` — oDD: desarrollo orgánico y su contraste con SDD.
+- [x] `SE-551` — taller: un mismo cambio con cinco metodologías.
+- [x] `SE-552` — proyecto: política metodológica de equipo con evidencia.
 
-### Parte 45 — Ingeniería de datos y plataformas de datos
+### Parte 46 — Ingeniería asistida por IA
 
-- [x] `SE-541` — Del dato operacional al analítico.
-- [x] `SE-542` — Ingesta batch y streaming.
-- [x] `SE-543` — Modelado analítico: hechos, dimensiones y granularidad.
-- [x] `SE-544` — Transformación y orquestación idempotente con backfills.
-- [x] `SE-545` — Calidad y observabilidad de datos.
-- [x] `SE-546` — Contratos de datos y evolución de esquemas.
-- [x] `SE-547` — Linaje, catálogo y metadatos.
-- [x] `SE-548` — Warehouse, lake, lakehouse y formatos columnares.
-- [x] `SE-549` — Gobierno, privacidad y retención de datos.
-- [x] `SE-550` — Costos y operación de plataformas de datos.
-- [x] `SE-551` — Taller: reparar un pipeline defectuoso.
-- [x] `SE-552` — Proyecto: plataforma de datos mínima gobernada.
+- [x] `SE-553` — medir límites y APIs alucinadas.
+- [x] `SE-554` — especificar criterios antes de generar.
+- [x] `SE-555` — probar pérdida de contexto y memoria.
+- [x] `SE-556` — comparar trabajo manual y asistido.
+- [x] `SE-557` — detectar deuda de scaffolding.
+- [x] `SE-558` — encontrar tests y docs convincentes pero incorrectos.
+- [x] `SE-559` — detectar drift arquitectónico.
+- [x] `SE-560` — practicar context engineering.
+- [x] `SE-561` — ejecutar evals de coste, latencia y regresión.
+- [x] `SE-562` — revisar privacidad, licencias y provenance.
+- [x] `SE-563` — comparar flujo manual, asistido y agentic.
+- [x] `SE-564` — entregar un cambio real con revisión humana.
 
-### Parte 46 — Machine learning en producción y MLOps
+### Parte 47 — SPEC y agentes
 
-- [x] `SE-553` — Ciclo de vida de ML y por qué falla en producción.
-- [x] `SE-554` — Datos de entrenamiento, etiquetas y feature stores.
-- [x] `SE-555` — Experimentos y entrenamiento reproducible.
-- [x] `SE-556` — Evaluación, sesgos y validación de modelos.
-- [x] `SE-557` — Ajuste fino, adaptación y costo.
-- [x] `SE-558` — Servir modelos: latencia, lotes y GPU.
-- [x] `SE-559` — Despliegue seguro de modelos: shadow, canary y rollback.
-- [x] `SE-560` — Monitoreo, deriva y reentrenamiento.
-- [x] `SE-561` — Seguridad y robustez de sistemas de ML.
-- [x] `SE-562` — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF.
-- [x] `SE-563` — Taller: degradar y recuperar un modelo.
-- [x] `SE-564` — Proyecto: sistema de ML operable con evidencia.
+- [x] `SE-565` — escribir una SPEC durable.
+- [x] `SE-566` — convertir ambigüedad en plan y tareas verificables.
+- [x] `SE-567` — definir convergencia y stop conditions.
+- [x] `SE-568` — comparar agentes en greenfield, brownfield y bugs.
+- [x] `SE-569` — operar con mínima autoridad.
+- [x] `SE-570` — aislar skills, hooks y herramientas.
+- [x] `SE-571` — aplicar el modelo de confianza de MCP vigente.
+- [x] `SE-572` — resolver conflictos multiagente.
+- [x] `SE-573` — diseñar aprobaciones y reversibilidad.
+- [x] `SE-574` — resistir prompt injection y conservar auditoría.
+- [x] `SE-575` — detener, recuperar y evaluar loops.
+- [x] `SE-576` — entregar un producto validado por el sistema, no por autodeclaración.
 
-### Parte 47 — Sistemas críticos, tiempo real y normas de seguridad
+### Parte 48 — Harness y agentic engineering
 
-- [x] `SE-565` — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA.
-- [x] `SE-566` — IEC 61508 y niveles de integridad de seguridad.
-- [x] `SE-567` — Automoción: ISO 26262 y niveles ASIL.
-- [x] `SE-568` — Aviación: DO-178C, DO-254 y ARP4754.
-- [x] `SE-569` — Dispositivos médicos: IEC 62304.
-- [x] `SE-570` — Casos de seguridad y trazabilidad.
-- [x] `SE-571` — RTOS y planificación de tiempo real.
-- [x] `SE-572` — Codificación segura: MISRA y CERT.
-- [x] `SE-573` — Verificación formal y model checking: TLA+, SPARK y Alloy.
-- [x] `SE-574` — Verificación y cobertura: MC/DC, HIL y SIL.
-- [x] `SE-575` — Taller: analizar un fallo real frente a las normas.
-- [x] `SE-576` — Proyecto: paquete de aseguramiento de un controlador.
+- [x] `SE-577` — anatomía de un harness: modelo, contexto, herramientas y bucles.
+- [x] `SE-578` — instrucciones de repositorio y cumplimiento determinista.
+- [x] `SE-579` — herramientas, permisos y superficies de acción.
+- [x] `SE-580` — gestión de contexto, resets y handoffs.
+- [x] `SE-581` — loops de agentes y criterios de parada.
+- [x] `SE-582` — sandboxes, reversibilidad y control de daño.
+- [x] `SE-583` — verificación, gates y menú único de validación.
+- [x] `SE-584` — multiagente y coordinación dentro del harness.
+- [x] `SE-585` — observabilidad y evals del propio harness.
+- [x] `SE-586` — aI-DLC, gobierno y vibe coding frente a agentic engineering.
+- [x] `SE-587` — taller: diagnosticar el fallo de un harness.
+- [x] `SE-588` — proyecto: harness mínimo gobernado y evaluado.
 
-### Parte 48 — Runtimes y plataformas modernas
+### Parte 49 — Patrones agénticos y sistemas con LLM
 
-- [x] `SE-577` — WebAssembly y WASI.
-- [x] `SE-578` — WebAssembly en servidor y borde: component model.
-- [x] `SE-579` — eBPF: observabilidad, red y seguridad en el kernel.
-- [x] `SE-580` — GPU y aceleradores: modelo de ejecución.
-- [x] `SE-581` — Rendimiento y costo en aceleradores.
-- [x] `SE-582` — Contenedores, microVM y sandboxes.
-- [x] `SE-583` — Hardware seguro: TEE y atestación.
-- [x] `SE-584` — Computación cuántica para ingenieros de software.
-- [x] `SE-585` — Criptografía poscuántica y migración.
-- [x] `SE-586` — Confianza cero en la práctica.
-- [x] `SE-587` — Taller: elegir y aislar un runtime para una carga no confiable.
-- [x] `SE-588` — Proyecto: plataforma de ejecución aislada con evidencia.
+- [x] `SE-589` — workflows frente a agentes: cuándo no usar un agente.
+- [x] `SE-590` — encadenado, enrutamiento y paralelización.
+- [x] `SE-591` — orquestador-trabajadores y evaluador-optimizador.
+- [x] `SE-592` — reAct, plan-and-execute y reflexión.
+- [x] `SE-593` — memoria y gestión de estado de agentes.
+- [x] `SE-594` — embeddings, recuperación y agentic RAG.
+- [x] `SE-595` — interoperabilidad entre agentes: MCP y A2A.
+- [x] `SE-596` — ejecución durable, reintentos e idempotencia.
+- [x] `SE-597` — evals y LLMOps de sistemas con LLM.
+- [x] `SE-598` — costo, latencia y seguridad en sistemas con LLM.
+- [x] `SE-599` — taller: elegir y degradar un patrón agéntico.
+- [x] `SE-600` — proyecto: sistema con LLM evaluado y operable.
+
+### Parte 50 — Machine learning en producción y MLOps
+
+- [x] `SE-601` — Ciclo de vida de ML y por qué falla en producción.
+- [x] `SE-602` — Datos de entrenamiento, etiquetas y feature stores.
+- [x] `SE-603` — Experimentos y entrenamiento reproducible.
+- [x] `SE-604` — Evaluación, sesgos y validación de modelos.
+- [x] `SE-605` — Ajuste fino, adaptación y costo.
+- [x] `SE-606` — Servir modelos: latencia, lotes y GPU.
+- [x] `SE-607` — Despliegue seguro de modelos: shadow, canary y rollback.
+- [x] `SE-608` — Monitoreo, deriva y reentrenamiento.
+- [x] `SE-609` — Seguridad y robustez de sistemas de ML.
+- [x] `SE-610` — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF.
+- [x] `SE-611` — Taller: degradar y recuperar un modelo.
+- [x] `SE-612` — Proyecto: sistema de ML operable con evidencia.
 
 ## Orden de ejecución y registro
 
@@ -905,11 +937,12 @@ se marcó `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte comple
 | 3 | Partes 03–04 | siguientes | laboratorios de red y razonamiento, un commit por parte |
 | 4 | Partes 05–09 | borradores | construcción y transferencia ejecutables |
 | 5 | Partes 10–14 | borradores | evidencia de producto, requisitos, contratos y accesibilidad |
-| 6 | Partes 15–29 | borradores | prácticas profesionales e integración por dominio |
-| 7 | Partes 30–37 | estructuras | enseñanza completa, casos y laboratorios operativos |
-| 8 | Partes 38–39 | estructuras | evals, guardrails, coste, seguridad y regresión |
+| 6 | Partes 15–22, 24–25, 27, 29 y 31–33 | borradores | prácticas profesionales e integración por dominio |
+| 7 | Partes 35–36, 38–41 y 43–44 | estructuras | enseñanza completa, casos y laboratorios operativos |
+| 8 | Partes 46–47 | estructuras | evals, guardrails, coste, seguridad y regresión |
 | 9 | Integración | parcial | glosario, bibliografía, rutas y proyectos reconciliados |
-| 10 | Expansión (Partes 40–44, ADR-004) | habilitada | una parte por commit; solo se marca como desarrollada con su contenido completo, figuras y CI verde |
+| 10 | Expansión desarrollada (Partes 26, 28, 45 y 48–49 por ADR-004; 23, 30, 37 y 50 por ADR-006) | completada | una parte por commit, con su contenido completo, figuras y CI verde |
+| 11 | Expansión reservada (Partes 34 y 42, ADR-007) | habilitada | una parte por commit; solo se marca como desarrollada con su contenido completo, figuras y CI verde |
 
 ## Validación final obligatoria
 

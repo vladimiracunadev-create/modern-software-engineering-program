@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-476",
+  "title": "Canary, blue-green y rollback",
+  "stage": "F",
+  "part": "39",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback"
+}

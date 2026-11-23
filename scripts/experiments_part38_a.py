@@ -1,611 +1,832 @@
-"""Experimentos de SE-457 a SE-462 (desarrollo asistido por IA).
+"""Experimentos de SE-457 a SE-462 (datos sintéticos, semilla fija, solo biblioteca estándar).
 
-Ningún experimento llama a un modelo real: los «modelos» son procesos sintéticos con
-parámetros declarados y semilla fija, o código estándar que se ejecuta de verdad
-(recuperación BM25, difflib, ast, doctest, sqlite3). Solo biblioteca estándar.
-Uso: python scripts/experiments_part38_a.py  -> imprime JSON con todas las cifras.
+Uso: python scripts/experiments_part38_a.py   (imprime una línea JSON por experimento)
+
+Todo lo que ataca es código de juguete escrito aquí, en memoria y sin red. Ninguna cadena
+generada es una credencial real. Las lecturas de reloj (e386_hash) cambian en cada ejecución.
 """
-from __future__ import annotations
-
-import ast
-import difflib
-import doctest
+import hashlib
+import heapq
+import hmac
 import json
 import math
 import random
 import re
+import secrets
 import sqlite3
-import statistics
 import sys
-import textwrap
-from collections import Counter
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-
-
-def pct(x: float, digits: int = 1) -> float:
-    return round(100 * x, digits)
-
-
-# ------------------------------------------------------------------ SE-457
-def e457_temperatura() -> dict:
-    """Cinco respuestas candidatas con logits fijos; la correcta no es la más probable a T=1."""
-    logits = [2.0, 1.6, 1.2, 0.4, 0.0]  # la correcta es la segunda (índice 1)
-    correcta = 1
-    rng = random.Random(457)
-    out = []
-    for temp in (0.2, 0.7, 1.0, 1.5):
-        w = [math.exp(l / temp) for l in logits]
-        s = sum(w)
-        p = [x / s for x in w]
-        n = 20000
-        uno = 0
-        mayoria = 0
-        al_menos = 0
-        for _ in range(n // 5):
-            muestras = rng.choices(range(5), weights=p, k=5)
-            uno += muestras[0] == correcta
-            c = Counter(muestras).most_common(1)[0][0]
-            mayoria += c == correcta
-            al_menos += correcta in muestras
-        t = n // 5
-        out.append({"T": temp, "p_correcta": round(p[correcta], 3), "una_muestra": pct(uno / t),
-                    "mayoria_de_5": pct(mayoria / t), "alguna_de_5": pct(al_menos / t)})
-    return {"filas": out}
-
-
-def e457_calibracion() -> dict:
-    """1000 preguntas; la confianza declarada excede la exactitud en las difíciles."""
-    rng = random.Random(4572)
-    datos = []
-    for _ in range(1000):
-        dificil = rng.random() < 0.4
-        conf = min(0.99, max(0.5, rng.gauss(0.88 if dificil else 0.90, 0.07)))
-        acierto = rng.random() < (0.55 if dificil else 0.93)
-        datos.append((conf, acierto, dificil))
-    def tramo(sel):
-        n = len(sel)
-        return {"n": n, "confianza": pct(statistics.mean(c for c, _, _ in sel)),
-                "exactitud": pct(sum(a for _, a, _ in sel) / n)}
-    bins = []
-    for lo, hi in ((0.5, 0.8), (0.8, 0.9), (0.9, 1.0)):
-        sel = [d for d in datos if lo <= d[0] < hi]
-        bins.append({"tramo": f"{int(lo*100)}–{int(hi*100)} %", **tramo(sel)})
-    ece = sum(b["n"] / 1000 * abs(b["confianza"] - b["exactitud"]) for b in bins)
-    return {"tramos": bins, "global": tramo(datos), "ece": round(ece, 1),
-            "faciles": tramo([d for d in datos if not d[2]]), "dificiles": tramo([d for d in datos if d[2]])}
-
-
-def e457_ventana() -> dict:
-    """120 archivos de tamaño lognormal (mediana ≈ 5 800 tokens); qué fracción de conjuntos de trabajo de 8 archivos cabe en una ventana."""
-    rng = random.Random(4573)
-    tam = [int(rng.lognormvariate(math.log(5800), 0.9)) for _ in range(120)]
-    total = sum(tam)
-    filas = []
-    for ventana in (8_000, 32_000, 128_000, 200_000):
-        cabe = 0
-        reps = 4000
-        for _ in range(reps):
-            cabe += sum(rng.sample(tam, 8)) <= ventana
-        filas.append({"ventana": ventana, "conjuntos_que_caben": pct(cabe / reps), "fraccion_del_repositorio": pct(min(1.0, ventana / total))})
-    return {"archivos": len(tam), "tokens_totales": total, "mediana": int(statistics.median(tam)), "maximo": max(tam), "filas": filas}
-
-
-# ------------------------------------------------------------------ SE-458
-def e458_requisitos() -> dict:
-    """Seis requisitos ocultos; cada requisito no especificado se cumple con p=0.5, el especificado con 0.95."""
-    rng = random.Random(458)
-    filas = []
-    n = 20000
-    for k in range(0, 7):
-        todos = 0
-        medios = 0
-        for _ in range(n):
-            cumplidos = sum(rng.random() < (0.95 if i < k else 0.5) for i in range(6))
-            todos += cumplidos == 6
-            medios += cumplidos
-        filas.append({"especificados": k, "todos": pct(todos / n), "media": round(medios / n, 2)})
-    return {"filas": filas}
-
-
-def _valida_formato(o):
-    try:
-        d = json.loads(o)
-    except ValueError:
-        return False
-    return isinstance(d, dict) and set(d) >= {"nota", "estado"} and isinstance(d["nota"], (int, float))
-
-
-def _valida_rango(o):
-    d = json.loads(o)
-    return 1.0 <= d["nota"] <= 7.0 and d["estado"] in {"A", "R"}
-
-
-def _valida_coherencia(o):
-    d = json.loads(o)
-    return (d["estado"] == "A") == (d["nota"] >= 4.0)
-
-
-def e458_validadores() -> dict:
-    """Doscientas salidas sintéticas con un defecto cada una; qué capas de validación lo detectan."""
-    rng = random.Random(4582)
-    tipos = ["texto_extra", "falta_clave", "fuera_de_rango", "estado_invalido", "incoherente", "redondeo"]
-    casos = []
-    for i in range(200):
-        t = tipos[i % 6]
-        nota = round(rng.uniform(1.0, 7.0), 1)
-        estado = "A" if nota >= 4.0 else "R"
-        d = {"nota": nota, "estado": estado}
-        if t == "texto_extra":
-            s = "Aquí está el resultado: " + json.dumps(d)
-        elif t == "falta_clave":
-            s = json.dumps({"nota": nota})
-        elif t == "fuera_de_rango":
-            s = json.dumps({"nota": round(rng.uniform(7.5, 9.0), 1), "estado": "A"})
-        elif t == "estado_invalido":
-            s = json.dumps({"nota": nota, "estado": "aprobado"})
-        elif t == "incoherente":
-            s = json.dumps({"nota": nota, "estado": "R" if estado == "A" else "A"})
-        else:
-            s = json.dumps({"nota": round(nota + 0.04, 2), "estado": estado})  # nota con dos decimales indebidos pero válida
-        casos.append((t, s))
-    res = {}
-    for t in tipos:
-        sub = [s for tt, s in casos if tt == t]
-        c1 = sum(not _valida_formato(s) for s in sub)
-        c2 = sum((not _valida_formato(s)) or (not _valida_rango(s)) for s in sub)
-        c3 = sum((not _valida_formato(s)) or (not _valida_rango(s)) or (not _valida_coherencia(s)) for s in sub)
-        res[t] = {"n": len(sub), "formato": c1, "formato_rango": c2, "formato_rango_coherencia": c3}
-    tot = {k: sum(r[k] for r in res.values()) for k in ("formato", "formato_rango", "formato_rango_coherencia")}
-    return {"por_defecto": res, "total": tot, "n": len(casos)}
-
-
-def e458_conflicto() -> dict:
-    """Probabilidad de que un conjunto de n instrucciones sea consistente si cada par choca con prob. q."""
-    filas = []
-    for n in (3, 5, 8, 12, 20):
-        fila = {"n": n, "pares": n * (n - 1) // 2}
-        for q in (0.005, 0.02):
-            fila[f"q{q}"] = pct((1 - q) ** fila["pares"])
-        filas.append(fila)
-    return {"filas": filas}
-
-
-# ------------------------------------------------------------------ SE-459
-TEMAS = {
-    "redondeo": "redondeo nota decimal media ponderada entero mitad hacia arriba",
-    "exportacion": "exportacion archivo ministerio formato columna cabecera delimitador",
-    "matricula": "matricula inscripcion curso cupo periodo alumno plazo",
-    "auditoria": "auditoria registro cambio autor fecha bitacora traza",
-    "calendario": "calendario feriado semestre zona horaria fecha cierre acta",
-    "permisos": "permisos rol docente coordinador lectura escritura acceso",
-}
-RUIDO = "sistema plataforma modulo servicio proceso configuracion datos usuario regla caso manera tipo lista valor campo".split()
-
-
-def _corpus(rng: random.Random, n_docs: int = 240):
-    docs = []
-    for i in range(n_docs):
-        tema = list(TEMAS)[i % 6]
-        voc = TEMAS[tema].split()
-        palabras = []
-        for _ in range(900):
-            palabras.append(rng.choice(voc) if rng.random() < 0.18 else rng.choice(RUIDO))
-        docs.append((tema, i, palabras))
-    return docs
-
-
-class BM25:
-    def __init__(self, chunks, k1=1.5, b=0.75):
-        self.chunks = chunks
-        self.k1, self.b = k1, b
-        self.tf = [Counter(c) for c in chunks]
-        self.len = [len(c) for c in chunks]
-        self.avg = sum(self.len) / len(self.len)
-        df = Counter()
-        for t in self.tf:
-            df.update(t.keys())
-        n = len(chunks)
-        self.idf = {w: math.log(1 + (n - d + 0.5) / (d + 0.5)) for w, d in df.items()}
-
-    def puntaje(self, q, i):
-        s = 0.0
-        for w in q:
-            f = self.tf[i].get(w, 0)
-            if f:
-                s += self.idf.get(w, 0) * f * (self.k1 + 1) / (f + self.k1 * (1 - self.b + self.b * self.len[i] / self.avg))
-        return s
-
-    def top(self, q, k):
-        return sorted(range(len(self.chunks)), key=lambda i: -self.puntaje(q, i))[:k]
-
-
-def e459_fragmentos() -> dict:
-    """Cada documento esconde, en una posición aleatoria, un hecho único (clave rara); tamaño de fragmento vs recuperación."""
-    rng = random.Random(459)
-    docs = _corpus(rng)
-    hechos = {}
-    for tema, i, palabras in docs:
-        clave = f"clave{i:03d}"
-        pos = rng.randrange(0, 880)
-        palabras[pos:pos + 3] = [clave, "valor", f"v{i:03d}"]
-        hechos[i] = (clave, pos)
-    filas = []
-    for tam in (50, 150, 300, 900):
-        paso = max(1, int(tam * 0.8)) if tam < 900 else 900
-        chunks, dueno = [], []
-        for _, i, palabras in docs:
-            for ini in range(0, len(palabras), paso):
-                chunks.append(palabras[ini:ini + tam])
-                dueno.append((i, ini, ini + tam))
-        bm = BM25(chunks)
-        aciertos = 0
-        cobertura = 0
-        for tema, i, palabras in docs[:120]:
-            clave, pos = hechos[i]
-            top = bm.top([clave, "valor"], 3)
-            if any(dueno[j][0] == i and dueno[j][1] <= pos and pos + 3 <= dueno[j][2] for j in top[:1]):
-                aciertos += 1
-            if any(dueno[j][0] == i for j in top):
-                cobertura += 1
-        filas.append({"tam": tam, "fragmentos": len(chunks), "exacto_top1": pct(aciertos / 120),
-                      "doc_en_top3": pct(cobertura / 120), "tokens_por_consulta": tam * 3})
-    return {"filas": filas}
-
-
-def e459_memoria() -> dict:
-    """Hechos que cambian con tasa 1 %/día: respuestas erróneas y refrescos según la caducidad (TTL) de la memoria."""
-    rng = random.Random(4593)
-    dias, n = 180, 400
-    filas = []
-    for ttl in (None, 90, 30, 7):
-        erroneas = consultas = refrescos = 0
-        guardado = [0] * n
-        for d in range(1, dias + 1):
-            if ttl is not None:
-                for h in range(n):
-                    if d - guardado[h] >= ttl:
-                        guardado[h] = d
-                        refrescos += 1
-            for h in rng.sample(range(n), 50):
-                consultas += 1
-                if rng.random() < 1 - 0.99 ** (d - guardado[h]):
-                    erroneas += 1
-        filas.append({"ttl": "sin caducidad" if ttl is None else f"{ttl} días", "erroneas": pct(erroneas / consultas),
-                      "refrescos_por_hecho": round(refrescos / n, 1)})
-    return {"filas": filas}
-
-
-def e459_presupuesto() -> dict:
-    """Empaquetar fragmentos con relevancia conocida en un presupuesto de tokens: por relevancia o por relevancia/tamaño."""
-    rng = random.Random(4594)
-    res = {"relevancia": [], "densidad": [], "aleatorio": []}
-    for _ in range(300):
-        frag = [(rng.random() ** 2, rng.choice((200, 400, 800, 1600))) for _ in range(30)]
-        presup = 3000
-        def llenar(orden):
-            usado = 0
-            val = 0.0
-            for r, t in orden:
-                if usado + t <= presup:
-                    usado += t
-                    val += r
-            return val
-        res["relevancia"].append(llenar(sorted(frag, key=lambda x: -x[0])))
-        res["densidad"].append(llenar(sorted(frag, key=lambda x: -x[0] / x[1])))
-        o = frag[:]
-        rng.shuffle(o)
-        res["aleatorio"].append(llenar(o))
-    tot = {k: round(statistics.mean(v), 3) for k, v in res.items()}
-    return {"medias": tot, "mejora_densidad_vs_relevancia": pct(tot["densidad"] / tot["relevancia"] - 1)}
-
-
-# ------------------------------------------------------------------ SE-460
-def e460_aceptacion() -> dict:
-    """1000 sugerencias, 78 % correctas; revisor con sesgo de automatización según su política."""
-    rng = random.Random(460)
-    filas = []
-    politicas = [("Aceptar con Tab sin leer", 0.00), ("Leer solo si es larga", None), ("Leer siempre y ejecutar", 0.85)]
-    for nombre, det in politicas:
-        malas_aceptadas = aceptadas = rechazadas_buenas = 0
-        for _ in range(1000):
-            buena = rng.random() < 0.78
-            larga = rng.random() < 0.3
-            d = det if det is not None else (0.7 if larga else 0.05)
-            if buena:
-                aceptadas += 1
-                if det == 0.85 and rng.random() < 0.03:
-                    rechazadas_buenas += 1
-                    aceptadas -= 1
-            else:
-                if rng.random() < d:
-                    continue
-                malas_aceptadas += 1
-                aceptadas += 1
-        filas.append({"politica": nombre, "defectos_aceptados": malas_aceptadas, "aceptadas": aceptadas})
-    return {"filas": filas}
-
-
-ARCHIVO = "\n".join(
-    ["import os", "import sys", ""] + [
-        f"def regla_{i}(x):\n    '''Regla {i}.'''\n    if x > {i}:\n        return x * {i + 1}\n    return 'otro'\n" for i in range(30)
-    ])
-
-
-def _deriva_cosmetica(src: str) -> str:
-    s = src.replace("'''", '"""').replace("'otro'", '"otro"')
-    s = s.replace("import os\nimport sys", "import sys\nimport os")
-    return s
-
-
-def e460_alcance() -> dict:
-    """Corregir una regla: edición dirigida frente a regenerar el archivo con deriva cosmética."""
-    objetivo = ARCHIVO.replace("if x > 17:", "if x >= 17:")
-    regenerado = _deriva_cosmetica(objetivo)
-    def cambios(a, b):
-        return sum(1 for l in difflib.unified_diff(a.splitlines(), b.splitlines(), lineterm="", n=0) if l[:1] in "+-" and l[:3] not in ("+++", "---"))
-    d1, d2 = cambios(ARCHIVO, objetivo), cambios(ARCHIVO, regenerado)
-    # probabilidad de que el revisor encuentre el único cambio semántico: p = base / (1 + líneas/escala)
-    def p(lineas):
-        return 0.95 / (1 + lineas / 20)
-    return {"lineas_archivo": len(ARCHIVO.splitlines()), "diff_dirigido": d1, "diff_regenerado": d2,
-            "p_detectar_dirigido": pct(p(d1)), "p_detectar_regenerado": pct(p(d2))}
-
-
-def e460_debounce() -> dict:
-    """Traza de pulsaciones determinista: peticiones enviadas, canceladas y útiles según el retardo."""
-    rng = random.Random(4604)
-    t = 0.0
-    tecla = []
-    for palabra in range(60):
-        for _ in range(rng.randint(4, 12)):
-            t += rng.uniform(0.06, 0.35)
-            tecla.append(t)
-        t += rng.uniform(0.6, 2.0)  # pausa para pensar
-    filas = []
-    for retardo in (0.0, 0.15, 0.3, 0.6):
-        enviadas = utiles = 0
-        for i, ti in enumerate(tecla):
-            siguiente = tecla[i + 1] if i + 1 < len(tecla) else float("inf")
-            if retardo == 0 or siguiente - ti >= retardo:
-                enviadas += 1
-                if siguiente - ti >= 0.5:  # la respuesta llega a tiempo de mostrarse
-                    utiles += 1
-        filas.append({"retardo_ms": int(retardo * 1000), "pulsaciones": len(tecla), "peticiones": enviadas, "utiles": utiles})
-    return {"filas": filas}
-
-
-# ------------------------------------------------------------------ SE-461
-def e461_mejor_de_n() -> dict:
-    """Calidad real ~ N(0,1) de cada alternativa; el evaluador mide con ruido sigma. Calidad real de la elegida."""
-    rng = random.Random(461)
-    filas = []
-    for n in (1, 3, 5, 10, 20):
-        fila = {"n": n}
-        for sigma in (0.0, 1.0, 2.0):
-            tot = ver = 0.0
-            for _ in range(20000 // 10):
-                q = [rng.gauss(0, 1) for _ in range(n)]
-                m = [x + rng.gauss(0, sigma) for x in q]
-                i = max(range(n), key=lambda j: m[j])
-                tot += q[i]
-                ver += m[i]
-            t = 2000
-            fila[f"real_s{sigma}"] = round(tot / t, 2)
-            fila[f"medida_s{sigma}"] = round(ver / t, 2)
-        filas.append(fila)
-    return {"filas": filas}
-
-
-PLANTILLA = '''
-"""Servicio {nombre}."""
-import logging
-import os
-
-log = logging.getLogger(__name__)
-TIEMPO = int(os.environ.get("TIEMPO", "30"))
-
-def crear_{nombre}(datos):
-    log.info("crear")
-    return datos
-
-def leer_{nombre}(id_):
-    log.info("leer")
-    return {{"id": id_}}
-
-def actualizar_{nombre}(id_, datos):
-    log.info("actualizar")
-    return datos
-
-def borrar_{nombre}(id_):
-    log.info("borrar")
-    return None
-
-def _ayuda_{nombre}(x):
-    return x
-'''
-
-
-def e461_andamiaje() -> dict:
-    """Se genera el andamiaje de 8 entidades; ast cuenta definiciones y las que ningún otro código usa."""
-    entidades = ["curso", "alumno", "docente", "nota", "acta", "periodo", "sala", "inscripcion"]
-    fuente = {n: PLANTILLA.format(nombre=n) for n in entidades}
-    defs = {}
-    for n, s in fuente.items():
-        arbol = ast.parse(s)
-        defs[n] = [f.name for f in arbol.body if isinstance(f, ast.FunctionDef)]
-    # código propio: solo usa crear y leer de nota, crear de alumno y leer de curso
-    uso = {"crear_nota", "leer_nota", "crear_alumno", "leer_curso"}
-    total = sum(len(v) for v in defs.values())
-    sin_uso = sum(1 for v in defs.values() for f in v if f not in uso)
-    lineas = sum(len(s.strip().splitlines()) for s in fuente.values())
-    return {"entidades": len(entidades), "lineas_generadas": lineas, "funciones": total, "funciones_sin_uso": sin_uso,
-            "pct_sin_uso": pct(sin_uso / total), "lineas_de_dominio": 0}
-
-
-def e461_brecha() -> dict:
-    """Atributos que un prototipo no tiene y producción exige: probabilidad de presencia y trabajo restante."""
-    rng = random.Random(4612)
-    atributos = [("validación de entradas", 0.25, 5), ("manejo de errores", 0.30, 8), ("autenticación", 0.10, 13),
-                 ("pruebas", 0.15, 13), ("registro y métricas", 0.20, 5), ("migraciones de datos", 0.05, 8),
-                 ("accesibilidad", 0.10, 8), ("límites de tamaño y tiempo", 0.10, 5)]
-    total = sum(c for _, _, c in atributos)
-    resultados = []
-    for _ in range(5000):
-        resultados.append(sum(c for _, p, c in atributos if rng.random() > p))
-    return {"trabajo_total": total, "mediana_restante": statistics.median(resultados),
-            "p90_restante": sorted(resultados)[int(0.9 * len(resultados))],
-            "fraccion_pendiente_mediana": pct(statistics.median(resultados) / total), "atributos": len(atributos)}
-
-
-# ------------------------------------------------------------------ SE-462
-def nota_final(trabajos, examen):
-    """Calcula la nota final: 40 % trabajos (promedio) y 60 % examen; redondea a un decimal; aprueba con 4,0."""
-    prom = sum(trabajos) / len(trabajos)
-    nota = round(0.4 * prom + 0.6 * examen, 1)
-    return nota, "A" if nota >= 4.0 else "R"
-
-
-MUTANTES = {
-    "peso_40_cambiado": "0.4 * prom + 0.6 * examen -> 0.5 * prom + 0.5 * examen",
-    "umbral_mayor": "nota >= 4.0 -> nota > 4.0",
-    "sin_redondeo": "round(..., 1) -> ...",
-    "redondeo_cero": "round(..., 1) -> round(..., 0)",
-    "examen_ignorado": "0.6 * examen -> 0.6 * prom",
-    "promedio_max": "sum(trabajos) / len -> max(trabajos)",
-    "estado_invertido": "A if >= -> R if >=",
-    "peso_60_cambiado": "0.6 -> 0.7 y 0.4 -> 0.3",
-}
-
-
-def _construye(m):
-    def f(trabajos, examen):
-        prom = sum(trabajos) / len(trabajos)
-        if m == "promedio_max":
-            prom = max(trabajos)
-        a, b = 0.4, 0.6
-        if m == "peso_40_cambiado":
-            a, b = 0.5, 0.5
-        if m == "peso_60_cambiado":
-            a, b = 0.3, 0.7
-        e = examen if m != "examen_ignorado" else prom
-        nota = a * prom + b * e
-        if m == "sin_redondeo":
-            pass
-        elif m == "redondeo_cero":
-            nota = round(nota, 0)
-        else:
-            nota = round(nota, 1)
-        ok = nota > 4.0 if m == "umbral_mayor" else nota >= 4.0
-        est = "A" if ok else "R"
-        if m == "estado_invertido":
-            est = "R" if ok else "A"
-        return nota, est
-    return f
-
-
-def e462_pruebas() -> dict:
-    """Pruebas que copian la salida actual (snapshot en entradas típicas) frente a pruebas derivadas de la especificación."""
-    tipicas = [([5.0, 6.0], 5.5), ([4.5, 4.5, 4.5], 4.5), ([6.0], 6.0), ([3.0, 5.0], 4.0), ([5.5, 6.5], 6.0)]
-    snapshot = [((t, e), nota_final(t, e)) for t, e in tipicas]
-    espec = snapshot + [
-        (([4.0, 4.0], 4.0), (4.0, "A")),       # frontera exacta de aprobación
-        (([3.0], 4.0), (3.6, "R")),            # un solo trabajo y examen que no basta
-        (([7.0, 1.0], 2.0), (2.8, "R")),       # distingue promedio de máximo
-        (([5.0, 5.0], 3.0), (3.8, "R")),       # las dos ponderaciones importan; 3,8 no se redondea a 4
-        (([4.4, 4.5], 3.9), (4.1, "A")),       # el resultado 4,12 se redondea a un decimal
+import time
+import unicodedata
+from html import escape
+from urllib.parse import quote, unquote
+
+sys.stdout.reconfigure(encoding="utf-8")
+
+
+# ----------------------------------------------------------------- SE-457
+def e385_grafo():
+    edges = [
+        ("internet", "cuenta_estudiante", 4, "robo de credenciales"),
+        ("internet", "cuenta_docente", 6, "phishing dirigido"),
+        ("internet", "token_servicio", 7, "token en repositorio público"),
+        ("internet", "inyeccion_sql", 5, "consulta armada con texto"),
+        ("cuenta_estudiante", "rol_elevado", 3, "campo rol aceptado en el registro"),
+        ("cuenta_estudiante", "nota_ajena", 2, "identificador adivinable"),
+        ("nota_ajena", "alterar_nota", 5, "escritura sin comprobar dueño"),
+        ("rol_elevado", "alterar_nota", 1, "rol docente"),
+        ("cuenta_docente", "alterar_nota", 1, "rol docente"),
+        ("token_servicio", "alterar_nota", 1, "token con permiso de escritura"),
+        ("inyeccion_sql", "bd_directa", 2, "lectura de la tabla de sesiones"),
+        ("bd_directa", "alterar_nota", 1, "escritura directa"),
     ]
-    res = {"snapshot": 0, "espec": 0}
-    detalle = {}
-    for nombre, m in MUTANTES.items():
-        f = _construye(nombre)
-        s = any(f(*args) != esp for args, esp in snapshot)
-        e = any(f(*args) != esp for args, esp in espec)
-        detalle[nombre] = {"snapshot": s, "espec": e}
-        res["snapshot"] += s
-        res["espec"] += e
-    # el original pasa ambos
-    ok = all(nota_final(*a) == esp for a, esp in espec)
-    return {"mutantes": len(MUTANTES), "detectados_snapshot": res["snapshot"], "detectados_espec": res["espec"],
-            "original_pasa_espec": ok, "detalle": detalle}
 
+    def dijkstra(es):
+        g = {}
+        for a, b, c, _ in es:
+            g.setdefault(a, []).append((b, c))
+        dist = {"internet": 0}
+        prev = {}
+        pq = [(0, "internet")]
+        while pq:
+            d, u = heapq.heappop(pq)
+            if d > dist.get(u, 1e9):
+                continue
+            for v, c in g.get(u, []):
+                if d + c < dist.get(v, 1e9):
+                    dist[v] = d + c
+                    prev[v] = u
+                    heapq.heappush(pq, (d + c, v))
+        path, n = [], "alterar_nota"
+        while n in prev:
+            path.append(n)
+            n = prev[n]
+        path.append("internet")
+        return dist.get("alterar_nota", None), path[::-1]
 
-def e462_documentacion() -> dict:
-    """Veinte funciones con ejemplos en la docstring; en 8 el comportamiento cambió sin actualizar el ejemplo."""
-    import importlib.util
-    import tempfile
-    funciones = []
-    for i in range(20):
-        k = i + 2
-        deriva = i % 5 in (1, 3) or i in (0, 10)
-        funciones.append((f"f{i}", k, k * 2, 1 if deriva else 0, deriva))
-    fuente = ""
-    for n, k, doc, extra, _ in funciones:
-        fuente += (f'def {n}(x):' + chr(10) + f'    """Duplica.' + chr(10) + chr(10) + f'    >>> {n}({k})' + chr(10) + f'    {doc}' + chr(10) + '    """' + chr(10) + f'    return x * 2 + {extra}' + chr(10) + chr(10))
-    for i in range(10):
-        fuente += ("def g%d(x):" % i + chr(10) + '    """Duplica el valor recibido."""' + chr(10)
-                   + "    return x * 2 + %d" % (1 if i < 4 else 0) + chr(10) + chr(10))
-    with tempfile.TemporaryDirectory() as carpeta:
-        ruta = Path(carpeta) / "generado.py"
-        ruta.write_text(fuente, encoding="utf-8")
-        spec = importlib.util.spec_from_file_location("generado", ruta)
-        modulo = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(modulo)
-        finder = doctest.DocTestFinder()
-        runner = doctest.DocTestRunner(verbose=False)
-        fallos = 0
-        for n, *_ in funciones:
-            for t in finder.find(getattr(modulo, n), n, globs=vars(modulo)):
-                fallos += runner.run(t, out=lambda s: None).failed > 0
-        fallos_prosa = 0
-        for i in range(10):
-            for t in finder.find(getattr(modulo, "g%d" % i), "g%d" % i, globs=vars(modulo)):
-                fallos_prosa += runner.run(t, out=lambda s: None).failed > 0
-    return {"funciones": 20, "con_deriva": sum(f[4] for f in funciones), "detectadas_doctest": fallos,
-            "prosa_funciones": 10, "prosa_con_deriva": 4, "prosa_detectadas_doctest": fallos_prosa}
+    def con_control(es, nodo_a, nodo_b, extra):
+        return [(a, b, c + extra if (a, b) == (nodo_a, nodo_b) else c, t) for a, b, c, t in es]
 
-
-def e462_migracion() -> dict:
-    """2 000 notas como texto con coma; migración ingenua frente a migración con validación y cuarentena."""
-    rng = random.Random(4623)
-    filas = []
-    for i in range(2000):
-        r = rng.random()
-        if r < 0.90:
-            v = f"{rng.randint(10, 70) / 10:.1f}".replace(".", ",")
-        elif r < 0.95:
-            v = f"{rng.randint(10, 70) / 10:.1f}"  # punto decimal
-        elif r < 0.98:
-            v = ""
-        else:
-            v = rng.choice(["NP", "5,5,0", "ex", "7.1.0"])
-        filas.append((i, v))
-    db = sqlite3.connect(":memory:")
-    db.execute("create table notas(id integer, valor text)")
-    db.executemany("insert into notas values (?,?)", filas)
-    # ingenua: replace(',', '.') y CAST
-    ing = db.execute("select count(*), sum(cast(replace(valor, ',', '.') as real) = 0) from notas").fetchone()
-    ceros_ing = db.execute("select count(*) from notas where cast(replace(valor, ',', '.') as real) = 0 and valor not in ('0','0,0')").fetchone()[0]
-    # validada
-    patron = re.compile(r"^[1-7][,.]\d$")
-    buenas = [(i, float(v.replace(",", "."))) for i, v in filas if patron.match(v)]
-    cuarentena = [(i, v) for i, v in filas if not patron.match(v)]
-    return {"filas": len(filas), "invalidas": len(cuarentena), "ceros_silenciosos_ingenua": ceros_ing,
-            "parciales_silenciosos_ingenua": len(cuarentena) - ceros_ing, "migradas_validada": len(buenas),
-            "cuarentena": len(cuarentena), "tipos_en_cuarentena": sorted({v for _, v in cuarentena})}
-
-
-def todo() -> dict:
+    base, ruta0 = dijkstra(edges)
+    # estrategia A: arreglar lo que parece más grave (la inyección SQL) y luego lo siguiente por orden de lista
+    ea = con_control(edges, "internet", "inyeccion_sql", 20)
+    a1, ra1 = dijkstra(ea)
+    # estrategia B: bloquear el camino más barato cada vez (subir a +20 la primera arista del camino más barato)
+    eb, trace_b = list(edges), []
+    for _ in range(4):
+        d, r = dijkstra(eb)
+        trace_b.append((d, r))
+        eb = con_control(eb, r[0], r[1], 20)
+    d_final, r_final = dijkstra(eb)
+    trace_b.append((d_final, r_final))
+    # rutas con coste <= 10
+    def rutas(es, limite):
+        g = {}
+        for a, b, c, _ in es:
+            g.setdefault(a, []).append((b, c))
+        n = 0
+        def dfs(u, cost):
+            nonlocal n
+            if cost > limite:
+                return
+            if u == "alterar_nota":
+                n += 1
+                return
+            for v, c in g.get(u, []):
+                dfs(v, cost + c)
+        dfs("internet", 0)
+        return n
     return {
-        "e457_temperatura": e457_temperatura(), "e457_calibracion": e457_calibracion(), "e457_ventana": e457_ventana(),
-        "e458_requisitos": e458_requisitos(), "e458_validadores": e458_validadores(), "e458_conflicto": e458_conflicto(),
-        "e459_fragmentos": e459_fragmentos(), "e459_memoria": e459_memoria(), "e459_presupuesto": e459_presupuesto(),
-        "e460_aceptacion": e460_aceptacion(), "e460_alcance": e460_alcance(), "e460_debounce": e460_debounce(),
-        "e461_mejor_de_n": e461_mejor_de_n(), "e461_andamiaje": e461_andamiaje(), "e461_brecha": e461_brecha(),
-        "e462_pruebas": e462_pruebas(), "e462_documentacion": e462_documentacion(), "e462_migracion": e462_migracion(),
+        "base": (base, ruta0), "rutas_le10_base": rutas(edges, 10),
+        "tras_arreglar_sql": (a1, ra1), "rutas_le10_sql": rutas(ea, 10),
+        "estrategia_b": trace_b, "rutas_le10_b": rutas(eb, 10),
     }
 
 
+def _kendall(a, b):
+    n = len(a)
+    c = d = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            s = (a[i] - a[j]) * (b[i] - b[j])
+            if s > 0:
+                c += 1
+            elif s < 0:
+                d += 1
+    return (c - d) / (n * (n - 1) / 2)
+
+
+def e385_ruido():
+    r = random.Random(3851)
+    n_amenazas, reps = 30, 300
+    sig = 0.9
+    sol_num, tau_num, sol_cat, tau_cat = [], [], [], []
+    for _ in range(reps):
+        # verdad latente: tres hechos de cada amenaza
+        hechos = [(r.random() < 0.35, r.random() < 0.40, r.random() < 0.50) for _ in range(n_amenazas)]
+        sev = [ (2 * a + 2 * b + c) for a, b, c in hechos ]
+        # impacto y probabilidad latentes
+        imp = [1 + 4 * r.random() for _ in range(n_amenazas)]
+        pro = [1 + 4 * r.random() for _ in range(n_amenazas)]
+        pun_num, pun_cat = [], []
+        for _rev in range(3):
+            pn = []
+            for i in range(n_amenazas):
+                ii = min(5, max(1, round(imp[i] + r.gauss(0, sig))))
+                pp = min(5, max(1, round(pro[i] + r.gauss(0, sig))))
+                pn.append(ii * pp)
+            pun_num.append(pn)
+            pc = []
+            for h, s in zip(hechos, sev):
+                resp = [x if r.random() > 0.10 else (not x) for x in h]
+                pc.append(2 * resp[0] + 2 * resp[1] + resp[2])
+            pun_cat.append(pc)
+        def top5(p):
+            idx = sorted(range(n_amenazas), key=lambda i: (-p[i], i))
+            return set(idx[:5])
+        for (x, y) in ((0, 1), (0, 2), (1, 2)):
+            sol_num.append(len(top5(pun_num[x]) & top5(pun_num[y])) / 5)
+            tau_num.append(_kendall(pun_num[x], pun_num[y]))
+            sol_cat.append(len(top5(pun_cat[x]) & top5(pun_cat[y])) / 5)
+            tau_cat.append(_kendall(pun_cat[x], pun_cat[y]))
+    m = lambda v: round(sum(v) / len(v), 3)
+    return {"solape_top5_numerico": m(sol_num), "tau_numerico": m(tau_num), "solape_top5_categorico": m(sol_cat), "tau_categorico": m(tau_cat)}
+
+
+def e385_deriva():
+    r = random.Random(3852)
+    cambios = 300
+    dias = [int(i * 365 / cambios) for i in range(cambios)]
+    frontera = [r.random() < 0.09 for _ in range(cambios)]
+    detecta = [r.random() < 0.70 for _ in range(cambios)]
+    fronteras = [d for d, f in zip(dias, frontera) if f]
+    def expo(revisiones, gatillo):
+        res = []
+        for d, f, det in zip(dias, frontera, detecta):
+            if not f:
+                continue
+            fin = 365 + 1
+            for rv in revisiones:
+                if rv >= d:
+                    fin = min(fin, rv)
+                    break
+            if gatillo and det:
+                fin = d
+            res.append(fin - d)
+        return res
+    out = {}
+    for nombre, rev, g in (("una_vez", [], False), ("trimestral", [90, 180, 270, 360], False), ("por_cambio", [], True), ("por_cambio_y_trimestral", [90, 180, 270, 360], True)):
+        e = expo(rev, g)
+        out[nombre] = {"cambios_de_frontera": len(e), "media_dias": round(sum(e) / len(e), 1), "max_dias": max(e), "sin_modelar_fin_de_ano": sum(1 for x in e if x == 366 - 0 or False)}
+    out["frontera_total"] = len(fronteras)
+    out["detectadas_por_regla"] = sum(1 for f, d in zip(frontera, detecta) if f and d)
+    return out
+
+
+# ----------------------------------------------------------------- SE-458
+def e386_hash():
+    pw, salt = b"correct horse battery", b"0123456789abcdef"
+    res = []
+    for nombre, fn in (
+        ("sha256 simple", lambda: hashlib.sha256(salt + pw).digest()),
+        ("pbkdf2 1 000", lambda: hashlib.pbkdf2_hmac("sha256", pw, salt, 1000)),
+        ("pbkdf2 600 000", lambda: hashlib.pbkdf2_hmac("sha256", pw, salt, 600000)),
+        ("scrypt n=2^14", lambda: hashlib.scrypt(pw, salt=salt, n=2 ** 14, r=8, p=1, maxmem=64 * 1024 * 1024)),
+    ):
+        reps = 5 if "simple" not in nombre else 20000
+        t0 = time.perf_counter()
+        for _ in range(reps):
+            fn()
+        dt = (time.perf_counter() - t0) / reps
+        res.append((nombre, dt))
+    usuarios, N, s = 10000, 1_000_000, 0.8
+    # suma parcial de r^-s aproximada por integral (suficiente para el modelo)
+    def H(g):
+        g = max(1, g)
+        return (g ** (1 - s) - 1) / (1 - s) + 1
+    tot = H(N)
+    filas = []
+    for nombre, dt in res:
+        presupuesto = 3600.0 / dt  # hashes en una hora de un núcleo
+        g_sin_sal = presupuesto
+        g_con_sal = presupuesto / usuarios
+        f = lambda g: round(0.7 * H(min(N, int(g))) / tot * 100, 1)
+        filas.append((nombre, round(dt * 1e3, 4), int(presupuesto), f(g_sin_sal), f(g_con_sal)))
+    # conteo determinista de sal
+    dic = 1000
+    return {"filas": filas, "hashes_sin_sal": dic, "hashes_con_sal": dic * usuarios}
+
+
+def e386_relleno():
+    r = random.Random(3861)
+    cuentas, ips = 5000, 2000
+    pares = []  # lista del atacante: (cuenta, contraseña) una por cuenta
+    reuso = set(r.sample(range(cuentas), 100))  # 2 % reutilizan la contraseña de la lista
+    mfa = {i for i in range(cuentas) if r.random() < 0.30}
+    expuestas = {i for i in reuso if r.random() < 0.60}  # contraseñas presentes en un corpus filtrado
+    out = {}
+    out["sin_defensa"] = {"comprometidas": len(reuso), "bloqueadas_legitimas": 0}
+    # límite por IP: 5 intentos/hora/IP; 2 000 IPs; el atacante necesita 5 000 intentos
+    horas = math.ceil(cuentas / (ips * 5))
+    out["limite_por_ip"] = {"comprometidas": len(reuso), "bloqueadas_legitimas": 0, "horas_para_probar_todo": horas}
+    # bloqueo por cuenta tras 5 fallos: el relleno usa 1 intento por cuenta, no se activa; el atacante 'dedicado' bloquea a todos
+    out["bloqueo_por_cuenta"] = {"comprometidas": len(reuso), "bloqueadas_legitimas": 0, "si_el_atacante_falla_a_propósito": cuentas}
+    out["mfa_30"] = {"comprometidas": len(reuso - mfa), "bloqueadas_legitimas": 0}
+    out["rechazo_de_contraseñas_filtradas"] = {"comprometidas": len(reuso - expuestas), "bloqueadas_legitimas": 0}
+    out["mfa_y_rechazo"] = {"comprometidas": len(reuso - mfa - expuestas), "bloqueadas_legitimas": 0}
+    return out
+
+
+def e386_sesion():
+    r = random.Random(3862)
+    activas = 10000
+    # (1) contador secuencial dentro de un espacio de 1 000 000
+    espacio = 1_000_000
+    ids = set(r.sample(range(espacio), activas))
+    intentos, hit = 0, 0
+    while hit == 0:
+        intentos += 1
+        if r.randrange(espacio) in ids:
+            hit = 1
+    seq_intentos = intentos
+    # (2) semilla por segundo de login
+    t_login = 1_700_000_123
+    victima = random.Random(t_login).getrandbits(64)
+    ventana = 3600
+    cand = 0
+    recuperado = False
+    for ts in range(t_login - ventana, t_login + ventana + 1):
+        cand += 1
+        if random.Random(ts).getrandbits(64) == victima:
+            recuperado = True
+            break
+    # intentos hasta recuperar en orden creciente de ts
+    # (3) 128 bits aleatorios del sistema
+    esperados = 2 ** 128 / activas
+    tok = secrets.token_hex(16)
+    return {
+        "secuencial_intentos_hasta_acertar": seq_intentos, "secuencial_esperados": espacio // activas,
+        "semilla_por_segundo_candidatos": cand, "semilla_recuperada": recuperado, "ventana_candidatos": 2 * ventana + 1,
+        "aleatorio_128_esperados_e": f"{esperados:.2e}", "largo_token_hex": len(tok),
+    }
+
+
+# ----------------------------------------------------------------- SE-459
+ACCIONES = ["submit", "view_submission", "list_submissions", "view_grade", "set_grade", "delete_submission", "export_course"]
+ROLES = ["estudiante", "docente", "ayudante", "coordinador", "admin", "servicio"]
+RELS = ["owner", "in_course", "other_course_same_program", "other_course", "missing"]
+ESTADOS = ["normal", "unpublished", "revoked", "past_deadline"]
+
+
+def decide(role, action, rel, state, override, m=frozenset()):
+    if action not in ACCIONES:
+        return "M9" in m
+    if override and "M5" in m:
+        role = override
+    if rel == "missing" and "M13" not in m:
+        return False
+    if state == "revoked" and "M7" not in m:
+        return False
+    staff_ok = rel == "in_course" or ("M3" in m and rel in ("other_course_same_program", "other_course"))
+    if role == "estudiante":
+        if action == "submit":
+            return rel in ("owner", "in_course") and (state != "past_deadline" or "M10" in m)
+        if action == "view_submission":
+            return rel == "owner" or ("M1" in m and rel == "in_course") or ("M2" in m and rel in ("in_course", "other_course_same_program"))
+        if action == "view_grade":
+            return rel == "owner" and (state != "unpublished" or "M6" in m)
+        return False
+    if role == "docente":
+        if action in ("view_submission", "list_submissions", "set_grade", "export_course"):
+            return staff_ok
+        return False
+    if role == "ayudante":
+        if action in ("view_submission", "list_submissions"):
+            return staff_ok
+        if action == "set_grade":
+            return "M4" in m and staff_ok
+        return False
+    if role == "coordinador":
+        if action in ("list_submissions", "export_course"):
+            return rel in ("in_course", "other_course_same_program") or ("M8" in m and rel == "other_course")
+        return False
+    if role == "admin":
+        if action in ("delete_submission", "export_course"):
+            return True
+        return "M11" in m and action == "set_grade"
+    if role == "servicio":
+        return action == "export_course" or ("M12" in m and action == "list_submissions")
+    return "M9" in m
+
+
+MUTANTES = {
+    "M1": "el estudiante ve las entregas de quien comparte curso",
+    "M2": "el estudiante ve entregas de su programa",
+    "M3": "el docente actúa sobre cualquier curso",
+    "M4": "el ayudante puede calificar",
+    "M5": "se confía en el rol que declara el cliente",
+    "M6": "se ve la nota antes de publicarla",
+    "M7": "la pertenencia revocada sigue valiendo",
+    "M8": "el coordinador actúa fuera de su programa",
+    "M9": "acción desconocida permitida por defecto",
+    "M10": "se entrega después del plazo",
+    "M11": "el administrador califica",
+    "M12": "el servicio lista entregas",
+    "M13": "un recurso inexistente se autoriza",
+}
+
+
+def e387_matriz():
+    universo = [(ro, a, re_, es, ov) for ro in ROLES for a in ACCIONES for re_ in RELS for es in ESTADOS for ov in (None, "admin")]
+    def ref(t):
+        return decide(*t)
+    felices = [t for t in universo if t[2] in ("owner", "in_course") and t[3] == "normal" and t[4] is None and ref(t)]
+    por_rol = [t for t in universo if t[2] in ("owner", "in_course") and t[3] == "normal" and t[4] is None]
+    completa = universo
+    # variante: 'por_rol' + relaciones, sin estado ni override
+    por_relacion = [t for t in universo if t[3] == "normal" and t[4] is None]
+    suites = {"solo ruta feliz": felices, "negativas por rol (relación típica)": por_rol, "rol x relación": por_relacion, "rol x relación x estado x override": completa}
+    # M9: acción desconocida
+    extra = [(ro, "accion_desconocida", "in_course", "normal", None) for ro in ROLES]
+    res = {}
+    for nombre, suite in suites.items():
+        s = suite + (extra if nombre.endswith("override") else [])
+        vivos, muertos = [], []
+        for mid in MUTANTES:
+            killed = any(decide(*t, m=frozenset([mid])) != decide(*t) for t in s)
+            (muertos if killed else vivos).append(mid)
+        res[nombre] = {"pruebas": len(s), "detectados": len(muertos), "vivos": vivos}
+    # un mismo mutante: ¿cuál es la prueba mínima que lo mata?
+    return {"suites": res, "mutantes": len(MUTANTES)}
+
+
+def e387_idor():
+    r = random.Random(3871)
+    total_ids, entregas = 20000, 5000
+    ids_seq = set(r.sample(range(1, total_ids + 1), entregas))
+    propias = set(list(ids_seq)[:12])
+    filtrados = set(r.sample(sorted(ids_seq), 150))  # 3 % aparecen en listados, correos o registros públicos
+    out = {}
+    # secuencial sin control: el atacante recorre 1..20 000
+    hits = sum(1 for i in range(1, total_ids + 1) if i in ids_seq and i not in propias)
+    out["secuencial_sin_control"] = {"peticiones": total_ids, "ajenas_leidas": hits}
+    out["aleatorio_sin_control_adivinando"] = {"peticiones": 1_000_000, "ajenas_leidas": 0}
+    out["aleatorio_sin_control_con_ids_filtrados"] = {"peticiones": len(filtrados), "ajenas_leidas": len(filtrados)}
+    out["secuencial_con_control"] = {"peticiones": total_ids, "ajenas_leidas": 0}
+    out["aleatorio_con_control"] = {"peticiones": 1_000_000, "ajenas_leidas": 0}
+    return out
+
+
+def e387_deriva():
+    r = random.Random(3872)
+    usuarios, meses, catalogo = 300, 24, 40
+    def sim(politica):
+        necesarios = [set(r2.sample(range(catalogo), 5)) for r2 in [random.Random(i) for i in range(usuarios)]]
+        tiene = [set(s) for s in necesarios]
+        rr = random.Random(38720 + politica)
+        for mes in range(1, meses + 1):
+            for u in range(usuarios):
+                if rr.random() < 0.05:
+                    nuevo = set(rr.sample(range(catalogo), 5))
+                    necesarios[u] = nuevo
+                    tiene[u] |= nuevo
+                    if politica == 3:
+                        tiene[u] = set(nuevo)  # al cambiar de rol se reasignan los permisos
+            if politica == 1 and mes % 3 == 0:
+                for u in range(usuarios):
+                    sobrantes = tiene[u] - necesarios[u]
+                    for p in list(sobrantes):
+                        if rr.random() < 0.80:
+                            tiene[u].discard(p)
+            if politica == 2:
+                # permisos con caducidad de 30 días: se renuevan solo los necesarios
+                for u in range(usuarios):
+                    tiene[u] = set(necesarios[u])
+        total = sum(len(t) for t in tiene)
+        sobr = sum(len(t - n) for t, n in zip(tiene, necesarios))
+        return round(total / usuarios, 1), round(sobr / usuarios, 1), round(100 * sobr / total, 1)
+    return {"acumular": sim(0), "revision_trimestral": sim(1), "caducidad_30_dias": sim(2), "reasignar_al_cambiar_de_rol": sim(3)}
+
+
+# ----------------------------------------------------------------- SE-460
+def _db():
+    c = sqlite3.connect(":memory:")
+    c.executescript("""
+    CREATE TABLE usuarios(id INTEGER PRIMARY KEY, email TEXT, clave TEXT, rol TEXT);
+    CREATE TABLE entregas(id INTEGER PRIMARY KEY, dueno TEXT, curso TEXT, titulo TEXT);
+    INSERT INTO usuarios VALUES (1,'ana@ejemplo.test','h-ana','estudiante'),(2,'bruno@ejemplo.test','h-bruno','estudiante'),(3,'docente@ejemplo.test','h-doc','docente');
+    INSERT INTO entregas VALUES (1,'ana@ejemplo.test','C1','Ensayo de Ana'),(2,'bruno@ejemplo.test','C1','Ensayo de Bruno'),(3,'bruno@ejemplo.test','C2','Borrador de Bruno'),(4,'ana@ejemplo.test','C2','Informe de Ana');
+    """)
+    return c
+
+
+PAY_TEXTO = ["' OR '1'='1", "' OR 1=1 --", "'; DROP TABLE entregas; --", "' UNION SELECT 1,email,clave,rol FROM usuarios --", "' UNION SELECT id,email,clave,rol FROM usuarios WHERE rol='docente' --",
+             "x' OR 'a'='a", "' OR ''='", "ana@ejemplo.test'--", "' oR '1'='1", "' UnIoN sElEcT 1,email,clave,rol FROM usuarios --",
+             "' UN/**/ION SELECT 1,email,clave,rol FROM usuarios --", "'||(SELECT clave FROM usuarios WHERE id=3)||'"]
+PAY_NUM = ["0 OR 1=1", "1 OR 1=1", "1 UNION SELECT 1,email,clave,rol FROM usuarios", "1; DELETE FROM entregas", "0 oR 1=1", "1 UNION/**/SELECT 1,email,clave,rol FROM usuarios",
+           "(SELECT id FROM usuarios WHERE rol='docente')", "id", "1 OR id>0", "9 OR 1", "-1 OR 1=1", "0 UnIoN SeLeCt 1,email,clave,rol FROM usuarios"]
+PAY_IDENT = ["titulo", "titulo DESC", "id; DROP TABLE entregas", "(SELECT clave FROM usuarios LIMIT 1)", "CASE WHEN 1=1 THEN id ELSE titulo END", "titulo--", "1", "dueno,(SELECT 1/0)", "clave", "rol", "id) UNION SELECT 1", "titulo COLLATE NOCASE"]
+LISTA_NEGRA = re.compile(r"\b(union|select|drop|delete)\b", re.I)
+
+
+def _pregunta(contexto, defensa, carga, c):
+    # devuelve (filas, error) con las filas que no corresponden a la persona 'ana' del curso C1
+    try:
+        if contexto == "texto":
+            if defensa == "concatenar":
+                q = "SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' AND titulo LIKE '%" + carga + "%'"  # nosec B608
+                return c.execute(q).fetchall(), None
+            if defensa == "duplicar_comilla":
+                q = "SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' AND titulo LIKE '%" + carga.replace("'", "''") + "%'"  # nosec B608
+                return c.execute(q).fetchall(), None
+            if defensa == "lista_negra":
+                if LISTA_NEGRA.search(carga):
+                    return [], "rechazada"
+                q = "SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' AND titulo LIKE '%" + carga + "%'"  # nosec B608
+                return c.execute(q).fetchall(), None
+            return c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno=? AND titulo LIKE ?", ("ana@ejemplo.test", "%" + carga + "%")).fetchall(), None
+        if contexto == "numero":
+            if defensa == "concatenar":
+                return c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' AND id = " + carga).fetchall(), None  # nosec B608
+            if defensa == "duplicar_comilla":
+                return c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' AND id = " + carga.replace("'", "''")).fetchall(), None  # nosec B608
+            if defensa == "lista_negra":
+                if LISTA_NEGRA.search(carga):
+                    return [], "rechazada"
+                return c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' AND id = " + carga).fetchall(), None  # nosec B608
+            return c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno=? AND id = ?", ("ana@ejemplo.test", carga)).fetchall(), None
+        # identificador (ORDER BY)
+        base = "SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' ORDER BY "
+        if defensa == "concatenar":
+            return c.execute(base + carga).fetchall(), None  # nosec B608
+        if defensa == "duplicar_comilla":
+            return c.execute(base + carga.replace("'", "''")).fetchall(), None  # nosec B608
+        if defensa == "lista_negra":
+            if LISTA_NEGRA.search(carga):
+                return [], "rechazada"
+            return c.execute(base + carga).fetchall(), None  # nosec B608
+        if defensa == "parametro":
+            return c.execute(base + "?", (carga,)).fetchall(), None  # el parámetro es un valor, no un nombre
+        if defensa == "lista_blanca":
+            return c.execute(base + (carga if carga in ("id", "titulo", "curso") else "id")).fetchall(), None  # nosec B608
+    except sqlite3.Error as e:
+        return [], "error"
+
+
+def e388_sql():
+    res = {}
+    for contexto, pays in (("texto", PAY_TEXTO), ("numero", PAY_NUM), ("identificador", PAY_IDENT)):
+        defensas = ["concatenar", "duplicar_comilla", "lista_negra", "parametro"] + (["lista_blanca"] if contexto == "identificador" else [])
+        for d in defensas:
+            efectivos = 0
+            for p in pays:
+                c = _db()
+                filas, err = _pregunta(contexto, d, p, c)
+                n_entregas = c.execute("SELECT COUNT(*) FROM entregas").fetchone()[0] if c.execute("SELECT name FROM sqlite_master WHERE name='entregas'").fetchone() else -1
+                fuga = any(f[1] != "ana@ejemplo.test" for f in filas) or (contexto == "texto" and len(filas) > 2) or (contexto == "numero" and len(filas) > 2)
+                if contexto == "identificador":
+                    fuga = fuga or (err is None and False)
+                if err is None and (fuga or n_entregas != 4):
+                    efectivos += 1
+                elif contexto == "identificador" and err is None:
+                    # el ORDER BY con subconsulta sí se ejecuta: cuenta si el texto del payload fue interpretado como SQL
+                    if p not in ("titulo", "titulo DESC", "1", "id", "curso", "titulo COLLATE NOCASE") and d in ("concatenar", "duplicar_comilla", "lista_negra"):
+                        efectivos += 1
+            res[f"{contexto}/{d}"] = efectivos
+    res["_payloads"] = {"texto": len(PAY_TEXTO), "numero": len(PAY_NUM), "identificador": len(PAY_IDENT)}
+    c = _db()
+    esperado = [f[0] for f in c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' ORDER BY titulo DESC").fetchall()]  # nosec B608
+    obtenido = [f[0] for f in c.execute("SELECT id,dueno,curso,titulo FROM entregas WHERE dueno='ana@ejemplo.test' ORDER BY ?", ("titulo DESC",)).fetchall()]
+    res["_order_by_parametro_ordena_como_se_pide"] = esperado == obtenido
+    return res
+
+
+def e388_codificacion():
+    cargas = ["<script>x</script>", '"><img src=x>', "' onmouseover='x", "x onmouseover=x", "</script><script>x", "'-x-'", "javascript:x", "\\'; x //"]
+    def rompe(ctx, s):
+        if ctx == "texto_html":
+            return "<" in s or "&" in s and False
+        if ctx == "atributo_con_comillas":
+            return '"' in s
+        if ctx == "atributo_sin_comillas":
+            return any(ch in s for ch in " \t\n\"'=<>`")
+        if ctx == "cadena_js":
+            i = 0
+            while i < len(s):
+                if s[i] == "\\":
+                    i += 2
+                    continue
+                if s[i] in "'\n" or s[i:i + 2] == "</":
+                    return True
+                i += 1
+            return False
+        if ctx == "url_href":
+            return s.strip().lower().startswith(("javascript:", "data:", "vbscript:"))
+    def enc_js(s):
+        return json.dumps(s).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")[1:-1].replace("'", "\\u0027")
+    codificadores = {
+        "ninguno": lambda s: s,
+        "html.escape (sin comillas)": lambda s: escape(s, quote=False),
+        "html.escape (con comillas)": lambda s: escape(s, quote=True),
+        "codificación para JavaScript": enc_js,
+        "urllib.parse.quote": lambda s: quote(s, safe=""),
+    }
+    contextos = ["texto_html", "atributo_con_comillas", "atributo_sin_comillas", "cadena_js", "url_href"]
+    out = {}
+    for nc, f in codificadores.items():
+        out[nc] = {c: sum(1 for p in cargas if rompe(c, f(p))) for c in contextos}
+    out["_cargas"] = len(cargas)
+    return out
+
+
+def e388_orden():
+    bases = ["<script>x</script>", "../../etc/passwd", "' OR 1=1 --", "javascript:x", "..\\..\\secreto", "<img src=x onerror=x>", "%2e%2e/secreto", "ſcript", "<svg onload=x>", "; cat /etc/passwd", "../clave", "$(x)"]
+    def variantes(s):
+        yield s
+        yield quote(s, safe="")
+        yield quote(quote(s, safe=""), safe="")
+        yield s.upper()
+        yield "".join(chr(ord(c) + 0xFEE0) if 0x21 <= ord(c) <= 0x7E else c for c in s)  # ancho completo
+        yield s.replace("<", "＜").replace(">", "＞").replace(".", "．").replace("/", "／")
+        yield s + "\x00.png"
+    cargas = [v for b in bases for v in variantes(b)]
+    peligrosa = re.compile(r"(<|\.\./|\.\.\\|'|;|\$\(|javascript:|\x00)", re.I)
+    lista_negra = re.compile(r"(<script|\.\./|' or|javascript:)", re.I)
+    def peligrosa_final(s):
+        return bool(peligrosa.search(s))
+    def decodificar(s):
+        return unquote(s)
+    def a_validar_luego_decodificar(s):
+        if lista_negra.search(s):
+            return None
+        return unicodedata.normalize("NFKC", decodificar(s))
+    def b_decodificar_normalizar_validar(s):
+        t = unicodedata.normalize("NFKC", decodificar(s))
+        if lista_negra.search(t):
+            return None
+        return t
+    def c_lista_blanca(s):
+        t = unicodedata.normalize("NFKC", decodificar(s))
+        if re.fullmatch(r"[A-Za-z0-9_\-]{1,40}(\.(pdf|png|txt))?", t):
+            return t
+        return None
+    res = {}
+    for nombre, f in (("validar la forma recibida y luego decodificar", a_validar_luego_decodificar), ("decodificar, normalizar y validar con lista negra", b_decodificar_normalizar_validar), ("decodificar, normalizar y validar con lista blanca", c_lista_blanca)):
+        pasan = [f(c) for c in cargas]
+        aceptadas = [p for p in pasan if p is not None]
+        res[nombre] = {"aceptadas": len(aceptadas), "peligrosas_tras_aceptar": sum(1 for p in aceptadas if peligrosa_final(p))}
+    legit = ["entrega-final.pdf", "informe_2.pdf", "Maria_Lopez.pdf", "María_López.pdf", "informe final.pdf", "ensayo-1.txt", "tarea.PNG", "Resumen (2).pdf", "datos_2026.txt", "ñandú.png"]
+    for nombre, f in (("validar la forma recibida y luego decodificar", a_validar_luego_decodificar), ("decodificar, normalizar y validar con lista negra", b_decodificar_normalizar_validar), ("decodificar, normalizar y validar con lista blanca", c_lista_blanca)):
+        res[nombre]["legitimos_rechazados"] = sum(1 for n in legit if f(n) is None)
+    res["_total"] = len(cargas)
+    res["_legitimos"] = len(legit)
+    return res
+
+
+# ----------------------------------------------------------------- SE-461
+def _ks(key, nonce, n):
+    out = b""
+    c = 0
+    while len(out) < n:
+        out += hmac.new(key, nonce + c.to_bytes(4, "big"), hashlib.sha256).digest()
+        c += 1
+    return out[:n]
+
+
+def _xor(a, b):
+    return bytes(x ^ y for x, y in zip(a, b))
+
+
+def e389_nonce():
+    r = random.Random(3891)
+    key = r.randbytes(32)
+    plantilla = "Nota final: {:2d}/70. Comentario: {}"
+    coments = ["buen trabajo", "falta la sección de pruebas", "revisar la bibliografía", "excelente análisis", "corregir el formato de las citas", "añadir un caso límite"]
+    def sample():
+        return plantilla.format(r.randint(1, 70), r.choice(coments)).encode()
+    res = {}
+    for modo in ("nonce fijo", "nonce único"):
+        recup, total, crib_ok = 0, 0, 0
+        for i in range(200):
+            m1, m2 = sample(), sample()
+            n = min(len(m1), len(m2))
+            if modo == "nonce fijo":
+                n1 = n2 = b"\x00" * 12
+            else:
+                n1, n2 = r.randbytes(12), r.randbytes(12)
+            c1, c2 = _xor(m1, _ks(key, n1, len(m1))), _xor(m2, _ks(key, n2, len(m2)))
+            # el atacante conoce m1 (su propia entrega) y obtiene m2 sin la clave
+            guess = _xor(_xor(c1[:n], c2[:n]), m1[:n])
+            recup += sum(1 for a, b in zip(guess, m2[:n]) if a == b)
+            total += n
+            # ataque sin conocer m1: prueba que la plantilla "Nota final: " aparece en ambos
+            crib = b"Nota final: "
+            p1_parcial = _xor(_xor(c1[:len(crib)], c2[:len(crib)]), crib)
+            crib_ok += (p1_parcial == m2[:len(crib)])
+        res[modo] = {"bytes_recuperados_pct": round(100 * recup / total, 1), "criba_de_plantilla_acierta": crib_ok}
+    return res
+
+
+def e389_comparacion():
+    r = random.Random(3892)
+    largo = 8
+    tag = bytes(r.randrange(256) for _ in range(largo))
+    def oracle_temprano(g):
+        pasos = 0
+        for a, b in zip(g, tag):
+            pasos += 1
+            if a != b:
+                return False, pasos
+        return True, pasos
+    def oracle_constante(g):
+        return g == tag, largo
+    conocido = bytearray(largo)
+    consultas = 0
+    for pos in range(largo):
+        mejor, mp = 0, -1
+        for v in range(256):
+            g = bytes(conocido[:pos]) + bytes([v]) + b"\x00" * (largo - pos - 1)
+            ok, pasos = oracle_temprano(g)
+            consultas += 1
+            if pasos > mp:
+                mp, mejor = pasos, v
+            if ok:
+                mejor = v
+                break
+        conocido[pos] = mejor
+    ok_final, _ = oracle_temprano(bytes(conocido))
+    # con oráculo constante: pasos siempre iguales: el atacante no tiene señal
+    señal = len({oracle_constante(bytes([v]) + b"\x00" * 7)[1] for v in range(256)})
+    return {"consultas_comparacion_temprana": consultas, "recupera": ok_final, "espacio": 2 ** (8 * largo), "valores_distintos_de_señal_constante": señal, "esperadas_fuerza_bruta_e": f"{2 ** (8 * largo - 1):.2e}"}
+
+
+def e389_cumpleanos():
+    r = random.Random(3893)
+    filas = []
+    k = 24
+    espacio = 2 ** k
+    for n in (500, 1000, 2000, 4000, 8000):
+        emp, reps = 0, 1500
+        for _ in range(reps):
+            vistos = set()
+            col = False
+            for _ in range(n):
+                v = r.randrange(espacio)
+                if v in vistos:
+                    col = True
+                    break
+                vistos.add(v)
+            emp += col
+        teo = 1 - math.exp(-n * (n - 1) / (2 * espacio))
+        filas.append((n, round(100 * emp / reps, 1), round(100 * teo, 1)))
+    n96 = math.sqrt(2 * 2.0 ** -32 * 2.0 ** 96)
+    llaves = 1_000_000
+    return {"filas_24_bits": filas, "n_para_2e-32_con_96_bits": f"{n96:.2e}", "limite_nist_2e32": 2 ** 32,
+            "reenvoltura": {"envolver_dek_bytes": llaves * 48, "reencriptar_datos_bytes": 2 * 10 ** 12}}
+
+
+# ----------------------------------------------------------------- SE-462
+def e390_escaner():
+    r = random.Random(3901)
+    ALF = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    def rs(n, a=ALF):
+        return "".join(r.choice(a) for _ in range(n))
+    def secretos():
+        t = r.randrange(6)
+        if t == 0:
+            return "clave_acceso=AKIA" + rs(16, "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"), "proveedor"
+        if t == 1:
+            return "token = ghp_" + rs(36), "proveedor"
+        if t == 2:
+            return "password = '" + rs(14) + "'", "asignacion"
+        if t == 3:
+            return "API_SECRET=" + rs(40, ALF + "+/"), "asignacion"
+        if t == 4:
+            return "-" * 5 + "BEGIN PRIVATE" + " KEY" + "-" * 5, "proveedor"
+        return "jwt = eyJ" + rs(30) + "." + rs(40) + "." + rs(43), "proveedor"
+    def señuelos():
+        t = r.randrange(7)
+        if t == 0:
+            return "commit " + rs(40, "0123456789abcdef")
+        if t == 1:
+            return "id = " + "-".join(rs(n, "0123456789abcdef") for n in (8, 4, 4, 4, 12))
+        if t == 2:
+            return "sha256: " + rs(64, "0123456789abcdef")
+        if t == 3:
+            return "imagen = data:image/png;base64," + rs(60, ALF + "+/")
+        if t == 4:
+            return "password = 'changeme'"
+        if t == 5:
+            return "nombre_largo = " + rs(12, "abcdefghijklmnopqrstuvwxyz") + "_" + rs(12, "abcdefghijklmnopqrstuvwxyz")
+        return "ejemplo: token = ghp_" + "x" * 36
+    lineas = []
+    for _ in range(60):
+        s, k = secretos()
+        lineas.append((s, True))
+    for _ in range(140):
+        lineas.append((señuelos(), False))
+    for _ in range(300):
+        lineas.append((" ".join(rs(r.randrange(3, 9), "abcdefghijklmnopqrstuvwxyz") for _ in range(r.randrange(2, 6))), False))
+    r.shuffle(lineas)
+    pat = [re.compile(p) for p in (r"AKIA[A-Z2-7]{16}", r"ghp_[A-Za-z0-9]{36}", r"-{5}BEGIN [A-Z ]*PRIVATE KEY-{5}", r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}")]
+    kw = re.compile(r"(password|passwd|secret|token|api_key|apikey)\s*[:=]\s*['\"]?([^\s'\"]{6,})", re.I)
+    def entropia(s):
+        from collections import Counter
+        c = Counter(s)
+        return -sum(v / len(s) * math.log2(v / len(s)) for v in c.values())
+    def cand(l):
+        return re.findall(r"[A-Za-z0-9+/=_\-]{20,}", l)
+    def regex_proveedor(l):
+        return any(p.search(l) for p in pat)
+    def regex_asignacion(l):
+        m = kw.search(l)
+        return bool(m)
+    def solo_entropia(l):
+        return any(entropia(c) >= 4.0 for c in cand(l))
+    def combinado(l):
+        if regex_proveedor(l):
+            return True
+        m = kw.search(l)
+        if m:
+            v = m.group(2)
+            return entropia(v) >= 3.0 and v.lower() not in ("changeme", "password", "secret") and not v.startswith("x")
+        return False
+    def evalua(f):
+        tp = sum(1 for l, s in lineas if s and f(l))
+        fp = sum(1 for l, s in lineas if not s and f(l))
+        fn = sum(1 for l, s in lineas if s and not f(l))
+        prec = tp / (tp + fp) if tp + fp else 0
+        rec = tp / (tp + fn)
+        return {"detectados": tp, "falsas_alarmas": fp, "perdidos": fn, "precision": round(prec * 100, 1), "recall": round(rec * 100, 1)}
+    return {"solo_patrones_de_proveedor": evalua(regex_proveedor), "solo_palabra_clave": evalua(regex_asignacion), "solo_entropia": evalua(solo_entropia), "patrones_y_clave_con_entropia": evalua(combinado), "_lineas": len(lineas), "_secretos": 60}
+
+
+def e390_rotacion():
+    def sim(estrategia, semilla):
+        r = random.Random(semilla)
+        inst, rps, T = 20, 100, 600
+        recarga = [r.uniform(0, 300) for _ in range(inst)]
+        if r.random() < 0.6:
+            recarga[r.randrange(inst)] = 10 ** 9  # una instancia no recarga la configuración
+        falla = tot = 0
+        vigente_vieja = 0.0
+        for t in range(T * rps):
+            ts = t / rps
+            i = r.randrange(inst)
+            clave_inst = "nueva" if ts >= recarga[i] else "vieja"
+            if estrategia == "corte":
+                aceptadas = {"nueva"}
+            elif estrategia == "cierre fijo":
+                aceptadas = {"vieja", "nueva"} if ts < 360 else {"nueva"}
+            else:
+                pendiente = any(rr > ts for rr in recarga)
+                aceptadas = {"vieja", "nueva"} if pendiente else {"nueva"}
+            tot += 1
+            if clave_inst not in aceptadas:
+                falla += 1
+            if "vieja" in aceptadas and t % rps == 0:
+                vigente_vieja += 1
+        return falla, tot, vigente_vieja, any(rr > T for rr in recarga)
+    out = {}
+    for e in ("corte", "cierre fijo", "cierre condicionado"):
+        fs, vig, atasc = [], [], 0
+        for s_ in range(10):
+            f, t, v, a_ = sim(e, 39000 + s_)
+            fs.append(f)
+            vig.append(v)
+            atasc += a_
+        out[e] = {"fallidas_media": round(sum(fs) / 10), "total": t, "porcentaje": round(100 * sum(fs) / (10 * t), 2),
+                  "segundos_con_la_clave_vieja_aceptada_media": round(sum(vig) / 10), "semillas_con_instancia_atascada": atasc}
+    return out
+
+
+def e390_radio():
+    r = random.Random(3903)
+    servicios = ["api", "worker", "reportes", "correo", "pagos"]
+    amb = ["dev", "staging", "prod"]
+    recursos = {(a, s, k) for a in amb for s in servicios for k in range(6)}
+    prod = [x for x in recursos if x[0] == "prod"]
+    def alcance(esquema, fuga):
+        a, s = fuga
+        if esquema == "una credencial en todos los ambientes":
+            return set(recursos)
+        if esquema == "una credencial por ambiente":
+            return {x for x in recursos if x[0] == a}
+        return {x for x in recursos if x[0] == a and x[1] == s}
+    out = {}
+    for esquema in ("una credencial en todos los ambientes", "una credencial por ambiente", "una credencial por servicio y ambiente"):
+        n_prod, n_todo = [], []
+        for _ in range(3000):
+            fuga = (r.choice(amb), r.choice(servicios))
+            al = alcance(esquema, fuga)
+            n_prod.append(sum(1 for x in al if x[0] == "prod"))
+            n_todo.append(len(al))
+        out[esquema] = {"recursos_alcanzados_media": round(sum(n_todo) / 3000, 1), "de_prod_media": round(sum(n_prod) / 3000, 1), "de_total": len(recursos), "de_prod_total": len(prod)}
+    return out
+
+
 if __name__ == "__main__":
-    json.dump(todo(), sys.stdout, ensure_ascii=False, indent=1)
+    for nombre, fn in sorted(globals().items()):
+        if nombre.startswith("e3") and callable(fn):
+            if len(sys.argv) > 1 and not any(nombre.startswith(a) for a in sys.argv[1:]):
+                continue
+            print(json.dumps({nombre: fn()}, ensure_ascii=False))

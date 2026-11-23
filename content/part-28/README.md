@@ -1,187 +1,193 @@
-# Parte 28 — Concurrencia y sistemas distribuidos
+# Parte 28 — Estilos arquitectónicos
 
-La Parte 27 dejó servicios que se hablan por mensajes y toleran reintentos. La pregunta cambia de «cómo se conectan» a «qué sabe cada participante cuando muchas cosas ocurren a la vez, el reloj no coincide y una respuesta no llega». Esta parte trabaja sobre **el servicio de entregas de la plataforma en el cierre de plazo**, un caso sintético: cientos de estudiantes entregan en los últimos minutos, un contador y un cupo se actualizan desde varios procesos, una réplica se aísla de la red y una dependencia falla de forma intermitente. El servicio debe seguir siendo correcto, rápido y diagnosticable, y quien lo opera debe poder decir qué promete cuando algo falla.
+La Parte 26 enseñó patrones de diseño, empresariales y de resiliencia a escala de clases y módulos. La pregunta cambia de «¿cómo organizo este código?» a «¿qué unidades se despliegan, cómo se hablan y qué fallo puede cruzar entre ellas?». Esta parte compara once estilos y técnicas de arquitectura (la decisión por fuerzas de calidad, el microkernel, pipes and filters, los microservicios, el BFF con el gateway y la malla, la multi-tenencia, el data mesh, las celdas, los doce factores y la migración entre estilos) por lo que compran, lo que cuestan y la evidencia que permite decidir. Todo se mide sobre un único caso sintético: **el servicio *Avisos***, el que decide qué recordatorio de entrega se envía a cada estudiante, que crece de un módulo escrito por seis personas a una plataforma con doce equipos, ciento cuarenta universidades y un cliente que concentra el 40 % del tráfico.
 
 ## Pregunta rectora
 
-> ¿Qué puede conocer cada participante de un sistema concurrente o distribuido, qué propiedad se mantiene cuando algo falla y qué evidencia lo demuestra?
+> Para este sistema, ¿qué fuerza de calidad exige cambiar la arquitectura, qué estilo la atiende, qué se acepta perder, qué medida vigila la decisión y qué número la reabre?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un lenguaje de programación concurrente, un sistema de actores ni un producto de coordinación. Enseña a distinguir lo que dos tareas comparten de lo que se envían, a enumerar las intercalaciones que rompen una invariante, a decidir qué reloj usar para medir, mostrar y ordenar, a leer un tiempo agotado como un resultado desconocido y no como un error, a elegir por operación qué se rechaza y qué se reconcilia durante una partición, a exigir mayorías y testigos de cerco donde solo puede haber un titular, a hacer repetible cada efecto, a repartir y replicar con una métrica de cola larga, a probar con fallos acotados y semillas guardadas, y a declarar qué garantías ofrece un servicio y cuáles no.
+Esta parte no defiende un estilo ni recomienda una moda. Enseña a leer un estilo como un **paquete de restricciones con un costo medible**: qué propiedad compra, qué se paga y qué supuesto lo invalida. La primera clase construye el método de decisión con escenarios de calidad (`SE-337`). Las seis siguientes miden el costo de cada estilo con código: la extensión por complementos y su contrato (`SE-338`), la memoria y el orden de una cadena de filtros (`SE-339`), el precio de cruzar un proceso y la aritmética de una cadena de servicios (`SE-340`), los bytes y las rondas de una pantalla con un BFF y la confianza en el borde (`SE-341`) y las fugas entre inquilinos con el vecino ruidoso (`SE-342`). Después se trata la propiedad de los datos con una cola y cinco comprobaciones (`SE-343`), el radio de impacto de las celdas (`SE-344`), las propiedades de una aplicación que se puede copiar y reemplazar (`SE-345`) y el viaje de un estilo a otro con un comparador y escalones de tráfico (`SE-346`). La parte termina con un taller que decide con escenarios y sensibilidad (`SE-347`) y un proyecto que convierte la decisión en un registro con su prueba y su disparador (`SE-348`).
 
 ```mermaid
 flowchart LR
-    A[Concurrencia, paralelismo y asincronía] --> B[Memoria compartida y cerrojos]
-    B --> C[Actores, canales y concurrencia estructurada]
-    C --> D[Tiempo, relojes y orden parcial]
-    D --> E[Fallos parciales y modelos de red]
-    E --> F[Consistencia, disponibilidad y particiones]
-    F --> G[Consenso, elección y coordinación]
-    G --> H[Idempotencia y procesamiento distribuido]
-    H --> I[Replicación, sharding y balanceo]
-    I --> J[Caos controlado y pruebas de distribución]
-    J --> K[Taller: reproducir una carrera y un fallo parcial]
-    K --> L[Proyecto: servicio distribuido con degradación]
-    L -->|incidente o hallazgo| A
+    A[Fuerzas de calidad] --> B[Microkernel]
+    B --> C[Pipes and filters]
+    C --> D[Microservicios]
+    D --> E[BFF, gateway y malla]
+    E --> F[Multi-tenancy]
+    F --> G[Data mesh]
+    G --> H[Celdas]
+    H --> I[12-factor]
+    I --> J[Migración entre estilos]
+    J --> K[Taller: escenarios y sensibilidad]
+    K --> L[Proyecto: ADR defendido]
+    L -->|disparador cumplido| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un fallo reproducido o un cambio en la carga reabre el diseño; un paquete aprobado no cierra la discusión, la fecha.
+El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los costos. El retorno indica que una decisión registrada se reabre cuando su disparador se cumple, y vuelve a empezar por las fuerzas.
 
 ## Resultados acumulativos
 
-Podrás clasificar el trabajo de un servicio en espera y cálculo y elegir entre asincronía, hilos y procesos con un modelo de tiempo y con el límite de Amdahl; enumerar las intercalaciones de un contador compartido, medir cuántas dejan un valor correcto, reproducir un interbloqueo por orden de cerrojos y ver cuánto trabajo avanza según la granularidad; comparar el orden que garantiza un buzón, el efecto de una cola sin límite y el de una acotada y lo que deja un grupo de tareas frente a tareas sueltas ante un fallo o una cancelación; distinguir relojes de pared, monotónicos, de Lamport y vectoriales y medir desde qué desfase una regla de último escritor pierde escrituras; repartir un tiempo agotado entre sus tres historias, calcular la amplificación de los reintentos y elegir el límite de un detector de fallos; decidir por operación entre rechazar y aceptar durante una partición, calcular un cuórum y comparar una reparación por último escritor con tipos fusionables; mostrar por qué la mayoría impide dos líderes, medir el daño de un titular caducado con y sin testigo de cerco y ajustar plazos de elección; comparar semánticas de entrega, retención de claves de idempotencia y escritura por clave en un trabajo distribuido; comparar políticas de balanceo con cola pesada, la pérdida al conmutar según el modo de replicación y el reparto por hash o por rango; diseñar un experimento de caos y explorar intercalaciones con semillas; y reproducir, reducir y blindar una carrera y un fallo parcial.
+Podrás escribir un escenario de calidad con medida, valorar estilos contra atributos, calcular el margen del ganador y la estabilidad del resultado bajo perturbación, y reconocer que con la misma matriz el contexto cambia el ganador; construir un núcleo que descubre complementos, medir las líneas del núcleo que toca una alta, el costo de aislar por excepción y por proceso y las tres políticas ante un cambio de contrato.
 
-Al finalizar podrás defender un servicio distribuido con garantías declaradas por operación, presupuestos de tiempo y de reintentos, una escalera de degradación, protección ante la sobrecarga, una prueba por promesa y una lista de lo que ninguna prueba ni validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Podrás medir el pico de memoria de una cadena de filtros por lotes y en flujo, el efecto del orden de los filtros y de una cola acotada; calcular la disponibilidad y la latencia de cola de una cadena de servicios, medir una llamada entre procesos y contar los servicios que se coordinan ante un cambio incompatible; medir bytes y rondas de una pantalla con y sin BFF, demostrar que confiar solo en el borde acepta una petición falsificada y medir el costo de un salto de proxy.
+
+Podrás probar fugas entre inquilinos sobre una tabla compartida, implementar una barrera que no dependa de cada consulta, medir el costo de una base por inquilino y simular un vecino ruidoso; simular la cola de un equipo central de datos, calcular las personas que necesita cada modelo de propiedad y comprobar un contrato de datos contra ocho derivas; medir cuántos inquilinos se mueven al añadir una celda, el radio de impacto de tres diseños y el costo de capacidad; auditar una aplicación con un linter, probar sesiones con varias instancias, medir el arranque y comparar parada ordenada y corte.
+
+Podrás comparar un módulo heredado con su reemplazo en modo sombra, calcular con qué fracción del tráfico se ve cada divergencia y el daño de cada escalón, modelar tres candidatos contra seis escenarios y encontrar el supuesto que invierte la decisión, y escribir un registro de decisión con alternativas, consecuencias negativas, reversibilidad, disparador numérico y una prueba de arquitectura que lo protege.
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
-- [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): colas, costos y estructuras de búsqueda.
-- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y consistencia en el servidor.
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): transacciones, intercalaciones, replicación y cachés.
-- [Parte 27 — Integración, eventos y mensajería](../../classes/part-27-integracion-eventos-y-mensajeria/): mensajes, reintentos y flujos tolerantes a fallos.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (incluidos `asyncio`, `threading` y `sqlite3`) y datos o modelos sintéticos.
+- [Parte 25 — Diseño, patrones y refactorización](../../classes/part-25-diseno-patrones-y-refactorizacion/): cohesión, acoplamiento y refactor con red de seguridad.
+- [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): drivers y atributos (`SE-325`), monolito y servicios (`SE-327`), fitness functions (`SE-332`), trade-offs y ADR (`SE-333`) y arquitectura socio-técnica (`SE-334`).
+- [Parte 35 — Estrategia y técnicas de prueba](../../classes/part-35-estrategia-y-tecnicas-de-prueba/): pruebas de contrato y de integración (`SE-423`).
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): modelos de calidad (`SE-433`), latencia y capacidad (`SE-436`), circuit breakers y bulkheads (`SE-439`) y disponibilidad (`SE-440`).
+- [Parte 45 — Metodologías de desarrollo: de TDD a ODD](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/): pruebas de contrato como oráculo (`SE-547`) y el caso *Avisos*.
+- [Parte 26 — Patrones de diseño, empresariales y de resiliencia](../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/): Strategy, Adapter y sidecar como antecedentes de escala menor.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar. `SE-340` y `SE-341` abren servidores y proxies en `127.0.0.1` y `SE-345` lanza procesos de Python propios.
 
 ## Bloques y progresión
 
-1. **Concurrencia dentro de un proceso:** las clases 337 a 339 separan concurrencia, paralelismo y asincronía, enumeran las intercalaciones de un dato compartido y sustituyen el estado compartido por mensajes con buzones acotados y tareas atadas a un bloque.
-2. **Tiempo, fallos y garantías:** las clases 340 a 342 miden qué orden inventa cada reloj, qué significa un silencio y qué se rechaza o se reconcilia durante una partición.
-3. **Acuerdo y repetición:** las clases 343 y 344 exigen mayorías y testigos de cerco donde solo cabe un titular y hacen que cada efecto sea repetible.
-4. **Reparto y evidencia:** las clases 345 y 346 miden balanceo, replicación y reparto y prueban con fallos acotados y planificadores con semilla.
-5. **Aplicar e integrar:** las clases 347 y 348 reproducen una carrera y un fallo parcial hasta un caso mínimo y entregan un servicio con degradación declarada.
+1. **Elegir y estructurar:** las clases 529 a 531 fijan el método de decisión por fuerzas de calidad y miden dos estilos de estructura interna: complementos y flujo de filtros.
+2. **Separar y proteger:** las clases 532 a 534 miden el costo de separar procesos, de poner capas de entrada delante y de aislar a los clientes entre sí.
+3. **Propiedad, fallo y viaje:** las clases 535 a 538 tratan quién responde por los datos, cuánto daña un fallo, qué debe cumplir una aplicación para copiarse y cómo se pasa de un estilo a otro.
+4. **Decidir y defender:** las clases 539 y 540 aplican el método a un caso con escenarios y sensibilidad, y lo convierten en un registro con su prueba y su disparador.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos y modelos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. No se midió ningún servicio, red, base de datos distribuida, cola de mensajes ni equipo real: los datos son **sintéticos**, las semillas están fijadas y los parámetros son supuestos del autor. Las salidas de los doce experimentos fueron idénticas en ambos sistemas en todas las cifras salvo dos excepciones propias del entorno, no del método: la resolución de los relojes de Python (15,6 ms en Windows y 1 ns en Ubuntu, `SE-340`) y el resultado de una versión real con dos hilos, dos cerrojos y un tiempo límite, que depende de la temporización (en Windows ambos hilos agotaron el tiempo y en Ubuntu uno completó, `SE-338`).
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11; los recuentos y los resultados de las simulaciones con semilla fija se repiten idénticos, y los tiempos de reloj y de arranque varían entre equipos. **No se invocó ningún modelo de lenguaje, no se ejecutó ninguna herramienta de terceros (Envoy, Istio, Kong, Kubernetes, plataformas de datos, herramientas de ADR o de arquitectura) y no se evaluó ningún sistema real.** Lo que se ejecutó es código propio de la parte con la biblioteca estándar. La parte se ejecutó solo en Windows; no se repitió en Linux.
 
-Los experimentos son: la comparación de un planificador en tiempo virtual entre ejecución secuencial, concurrente y paralela, los latidos que emite un bucle de eventos de `asyncio` según cada cuánto cede un cálculo y la tabla de la ley de Amdahl (`SE-337`); las 70 intercalaciones de un contador con y sin cerrojo (y cuatro hilos reales que no mostraron la carrera en tres ejecuciones), el modelo exhaustivo de dos hilos y dos cerrojos y la fracción de trabajo que avanza con tres granularidades de cerrojo (`SE-338`); el orden que conserva un buzón de `asyncio` en 2 000 ejecuciones, una cola sin límite y dos acotadas frente a un productor tres veces más rápido, y `TaskGroup` frente a `gather` y la cancelación de una transferencia de cuatro pasos con y sin escudo (`SE-339`); relojes de Lamport y vectoriales sobre 300 sucesos de tres nodos, la pérdida de escrituras por desfase con la regla del último escritor y la resolución y el retroceso de los relojes de Python (`SE-340`); la proporción de tiempos agotados que corresponden a una operación ejecutada, la amplificación de reintentos con presupuesto y jitter y un detector de fallos con cinco tiempos límite (`SE-341`); una partición de 300 de 1 000 operaciones con rechazo o aceptación, la enumeración de cuórums de tres réplicas y una reparación con último escritor frente a un contador por réplica y una unión de conjuntos (`SE-342`); las biparticiones de cinco nodos con una regla ingenua y con mayoría, titulares caducados con y sin testigo de cerco y una elección con plazos aleatorios (`SE-343`); tres órdenes de aplicar y confirmar sobre SQLite real, una tabla de claves con huella y retención, y un trabajo de 200 tareas con anexión o escritura por clave (`SE-344`); cuatro políticas de balanceo con tamaños de cola pesada, la pérdida al conmutar con tres modos de replicación y el reparto por hash o por rango (`SE-345`); un cliente con reintentos e interruptor frente a un fallo creciente, cuatro planificadores que exploran un defecto de concurrencia y un linter de planes de caos sobre 200 mutaciones (`SE-346`); la reducción de un calendario fallido de 40 pasos a 6, la enumeración de puntos de fallo de un flujo de cinco pasos y las repeticiones necesarias para ver un fallo raro (`SE-347`); y una caída de la base con tres estrategias, una sobrecarga del 50 % con tres políticas y un validador de paquete sobre 200 mutaciones (`SE-348`).
+Los experimentos son: una matriz de seis estilos y siete atributos con cuatro perfiles de pesos, 10 000 juegos de pesos al azar y 2 000 perturbaciones de las valoraciones por perfil (`SE-337`); un núcleo que descubre complementos en un directorio temporal, con altas de tres canales, un complemento que falla y otro lento, ejecución por proceso con límite de tiempo y tres políticas ante un cambio de contrato (`SE-338`); una cadena de cuatro filtros sobre 100 000 registros medida con `tracemalloc`, dos órdenes de filtros contados y un productor y un consumidor con y sin cola acotada (`SE-339`); una llamada medida en proceso, serializada y por HTTP local en el mismo equipo, una cadena de uno a ocho servicios simulada con 20 000 peticiones, una espera en paralelo de uno a 16 servicios y dos topologías de ocho servicios (`SE-340`); cuatro servicios con respuestas JSON sintéticas, un modelo de red declarado, una petición interna falsificada contra dos políticas y un proxy TCP de verdad con uno y dos saltos en ocho rondas intercaladas de 500 llamadas (`SE-341`); doce consultas sobre una tabla de SQLite compartida por cinco inquilinos, una barrera con vistas temporales, 200 bases de SQLite en un directorio temporal y una simulación de eventos de un inquilino ruidoso (`SE-342`).
 
-Los parámetros (las 200 solicitudes de 10 ms de CPU y 90 de espera, el 5 % de serie de Amdahl, los 8 trabajadores con claves Zipf 1,1, los tres emisores con retardos de 0 a 3 turnos, la tasa de 3 mensajes por turno frente a 1, los desfases de ±50 a ±1 000 ms, el ajuste de reloj de −80 ms, las probabilidades de pérdida y de lentitud, la distribución lognormal del retardo, la partición de 300 de 1 000 operaciones, las pausas exponenciales de media 4 s, los retardos de mensajes de hasta 25 ms, la caída del 5 % del consumidor, la carga del 85 % con tamaños Pareto de forma 1,5, el retraso de réplica de 30 ms, los ocho fragmentos, la capacidad de 100, los 4,84 % del planificador pegajoso, la caída de 60 s y la sobrecarga de 150 contra 100) son construcciones del autor y no se extrapolan a otros sistemas, cargas ni redes. Los verificadores de forma (el linter de planes de caos y el validador de paquetes) se escribieron conociendo las mutaciones, de modo que cada tipo sale al 0 % o al 100 % y su exactitud real sobre material de personas es desconocida. No se evaluó ningún producto concreto, no se ejecutó Raft ni Paxos, y no se mide el costo de operar nada de lo descrito. Las ampliaciones añaden un modelo reducido de Raft con 20 000 calendarios aleatorios (`SE-343`) y tres diseños de conjunto replicado con 5 000 corridas cada uno (`SE-342`).
+Siguen una simulación de una cola de varios servidores validada con la fórmula de Erlang C, un cálculo de personas por modelo de propiedad y un producto de datos de 1 000 filas con ocho derivas y un cambio legítimo (`SE-343`); una asignación de 100 000 inquilinos a ocho y nueve celdas con dos funciones, tres diseños ante un inquilino venenoso y un cálculo de capacidad con cargas lognormales (`SE-344`); un linter de cuatro señales sobre dos aplicaciones, una simulación de sesiones con tres instancias, el arranque de procesos Python reales, un modelo de parada y un mismo artefacto con tres configuraciones (`SE-345`); dos módulos de avisos sobre 20 000 peticiones, la detección en sombra con 500 repeticiones por fracción y la probabilidad de detectar un defecto por escalón (`SE-346`); un modelo de tres candidatos contra seis escenarios con un barrido de 2 a 30 equipos (`SE-347`); y un analizador de ADR con once criterios, una prueba de capas con árbol sintáctico sobre cuatro variantes de un paquete y una serie de 30 días para un disparador (`SE-348`).
+
+Los parámetros (las valoraciones y los pesos, los complementos, los registros, las latencias lognormales, las topologías, las consultas, las tasas de llegada y de servicio, la penalización de contexto, las derivas, el comportamiento del inquilino venenoso, las aplicaciones de ejemplo, los dos módulos de avisos con sus defectos sembrados, los escenarios y la función de utilidad, los ADR de ejemplo y la serie de mediciones) son construcciones del autor. Ninguna cifra es una medición de un sistema de producción: las mediciones de red, memoria, SQLite y arranque son de una máquina concreta, y las simulaciones son modelos con supuestos declarados. El 100 % de la flota compartida de `SE-344` y el 99,601 % de la cadena de microservicios de `SE-347` son supuestos de peor caso, no hechos.
+
+Lo que **no se hizo**: no se midió ningún equipo, esfuerzo humano, costo económico ni calidad de una organización; no se evaluó ninguna plataforma de microservicios, de malla, de datos ni de celdas; no se comprobó que ningún estilo mejore un atributo en la práctica más allá de los mecanismos ejecutados; y la cifra de 26 equipos de `SE-347` es un resultado del modelo, no una regla. Las afirmaciones sobre estilos se atribuyen a sus fuentes y se tratan como descripciones, no como resultados. Una revisión editorial humana independiente de la parte sigue pendiente.
 
 ## Guía razonada clase por clase
 
-El servicio de entregas mantiene un contador, un cupo, una réplica y una dependencia estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+*Avisos* crece mientras cambian las fuerzas que lo presionan. Cada clase explica qué fuerza atiende el estilo, qué experimento lo mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
 
-### Bloque 1 — Concurrencia dentro de un proceso
+### Bloque 1 — Elegir y estructurar
 
-#### SE-337 — Concurrencia, paralelismo y asincronía
+#### SE-337 — Estilos como respuestas a fuerzas de calidad
 
-Elegir mal entre solapar esperas y repartir cálculo significa pagar complejidad sin ganar tiempo. La clase compara cuatro modelos de ejecución de un mismo lote con tres proporciones de espera y cálculo, cuenta cuántos latidos alcanza a emitir un servicio mientras otra tarea calcula sin ceder y calcula cuántos trabajadores justifica una parte secuencial.
+Una arquitectura es una respuesta a fuerzas de calidad, y cada fuerza necesita una medida. La clase evalúa seis estilos contra siete atributos en cuatro contextos, mide el margen del ganador y prueba cuánto aguanta el resultado si cambian los pesos o las valoraciones.
 
-El estudiante entrega una clasificación de tareas en espera y cálculo con una regla de decisión. `SE-338` pregunta qué ocurre cuando dos de esas tareas tocan el mismo dato.
+El estudiante entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión. `SE-338` estudia el primer estilo concreto.
 
-#### SE-338 — Memoria compartida, locks y condiciones de carrera
+#### SE-338 — Microkernel y arquitecturas de plugins
 
-Un cerrojo resuelve la carrera a cambio de dos problemas nuevos. La clase enumera las 70 intercalaciones de un contador, explora el interbloqueo de dos hilos con orden opuesto y mide cuánto trabajo avanza con un cerrojo global, por fragmentos y por curso con claves uniformes y con popularidad concentrada.
+Extender sin tocar el núcleo es una propiedad que se mide. La clase construye un núcleo que descubre complementos, añade tres canales sin cambiar una línea del núcleo y mide qué cuesta aislar a un complemento que falla o se bloquea y qué ocurre cuando el contrato sube de versión.
 
-El estudiante entrega un orden global de adquisición y la clasificación de cada dato compartido. `SE-339` propone evitar el problema pasando mensajes.
+El estudiante entrega el contrato de un complemento con su política de versión y su nivel de aislamiento. `SE-339` cambia la pregunta: cómo fluyen los datos.
 
-#### SE-339 — Actores, canales y structured concurrency
+#### SE-339 — Pipes and filters y arquitecturas de flujo
 
-Un dueño único y un buzón sustituyen al estado compartido, pero el orden global no existe y una cola sin límite solo traslada el problema a la memoria. La clase cuenta los órdenes de tres emisores, compara colas sin límite y acotadas ante un productor más rápido y observa qué dejan un grupo de tareas y tareas sueltas ante un error y una cancelación.
+Un flujo de filtros solo escala si cada paso procesa un elemento a la vez. La clase compara por lotes y en flujo sobre 100 000 registros, mide el efecto de un filtro que necesita todo, el orden de los filtros y la contrapresión de una cola acotada.
 
-El estudiante entrega el diseño de un actor con buzón acotado y operaciones cancelables clasificadas. `SE-340` pregunta cómo ordenar sucesos sin reloj común.
+El estudiante entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos. `SE-340` pasa a separar procesos.
 
-### Bloque 2 — Tiempo, fallos y garantías
+### Bloque 2 — Separar y proteger
 
-#### SE-340 — Tiempo, relojes y orden parcial
+#### SE-340 — Microservicios y sus costes reales
 
-La hora no es un orden. La clase mide cuántos pares de sucesos son concurrentes y cuántos de ellos ordena un reloj de Lamport de forma aparente, calcula desde qué desfase una regla de último escritor pierde escrituras posteriores y compara la resolución y los retrocesos de los relojes de dos sistemas operativos.
+Separar en servicios compra autonomía y se paga con latencia, disponibilidad y acoplamiento de contratos. La clase mide una llamada en proceso, serializada y por HTTP local, simula cadenas de uno a ocho servicios y cuenta cuántos se coordinan ante un cambio incompatible.
 
-El estudiante entrega la decisión de reloj por uso y la política ante vectores incomparables. `SE-341` pregunta qué se sabe cuando una respuesta no llega.
+El estudiante entrega el costo de separar un módulo suyo con su camino crítico y su criterio. `SE-341` trata lo que se interpone entre clientes y servicios.
 
-#### SE-341 — Fallos parciales y modelos de red
+#### SE-341 — BFF, API gateway y service mesh
 
-Un tiempo agotado es un resultado desconocido. La clase reparte los silencios entre petición perdida, respuesta perdida y respuesta tardía, calcula cuántos intentos recibe el servicio final cuando varias capas reintentan y mide las falsas sospechas y el retraso de un detector con cinco tiempos límite.
+Gateway, BFF y malla responden preguntas distintas y confundirlos es caro. La clase mide bytes y rondas de una pantalla con cuatro servicios, demuestra que confiar solo en el borde acepta una petición falsificada y mide lo que añade cada salto de proxy.
 
-El estudiante entrega un modelo de fallos, una política de reintentos y el límite de un detector justificado. `SE-342` pregunta qué se mantiene cuando la red se parte.
+El estudiante entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde. `SE-342` trata la identidad del inquilino.
 
-#### SE-342 — Consistencia, disponibilidad y particiones
+#### SE-342 — Multi-tenancy y aislamiento
 
-La elección entre consistencia y disponibilidad se hace por operación y mientras dura la partición. La clase compara rechazar y aceptar con una réplica aislada, enumera los cuórums de tres réplicas con su disponibilidad y compara una reparación por último escritor con tipos que se fusionan. La ampliación compara tres diseños de conjunto replicado (orden de llegada, último escritor y OR-Set) y separa converger de ser correcto.
+El aislamiento entre clientes se prueba y no se supone. La clase ejecuta doce consultas sobre una tabla compartida, prueba una barrera que no depende de cada consulta, mide el costo de una base por inquilino y simula un vecino ruidoso con y sin tope.
 
-El estudiante entrega la decisión por operación y el cuórum por dato. `SE-343` pregunta cómo se ponen de acuerdo los nodos cuando no cabe divergir.
+El estudiante entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas. `SE-343` trata la propiedad de los datos.
 
-### Bloque 3 — Acuerdo y repetición
+### Bloque 3 — Propiedad, fallo y viaje
 
-#### SE-343 — Consenso, elección y coordinación
+#### SE-343 — Data mesh y propiedad de los datos
 
-La mayoría impide dos líderes y el testigo de cerco impide que un titular caducado escriba. La clase enumera las biparticiones de cinco nodos con dos reglas, mide cuántas escrituras de un titular pausado acepta un almacén con y sin cerco y ajusta los plazos de una elección aleatoria. La ampliación abre Raft y Paxos: explica las tres reglas de seguridad de Raft y mide con un modelo reducido qué pasa si se quita cada una.
+El data mesh es una decisión sobre quién responde por los datos, no una herramienta. La clase simula la cola del equipo central, calcula las personas que necesita cada modelo y pasa ocho derivas y un cambio legítimo por cinco comprobaciones de un contrato de datos.
 
-El estudiante entrega la clasificación de funciones con titular único y el cerco por recurso. `SE-344` hace repetible lo que aun así se ejecuta dos veces.
+El estudiante entrega el contrato de un producto de datos con la matriz de derivas detectadas. `SE-344` convierte la propiedad en frontera de fallo.
 
-#### SE-344 — Idempotencia y procesamiento distribuido
+#### SE-344 — Arquitectura celular y radio de impacto
 
-No hay exactamente una vez entre sistemas; hay efecto único. La clase compara tres órdenes de aplicar y confirmar sobre SQLite, mide cuántos duplicados escapan a una clave según su retención y compara anexar con escribir por clave en un trabajo con reintentos.
+El radio de impacto es una propiedad que se diseña. La clase mide cuántos inquilinos se mueven al añadir una celda con dos funciones de asignación, compara flota compartida, celdas y fragmentación aleatoria ante un inquilino venenoso y calcula el costo de capacidad.
 
-El estudiante entrega la clasificación de operaciones y la retención de claves justificada. `SE-345` reparte el trabajo ya repetible.
+El estudiante entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos. `SE-345` baja a la aplicación.
 
-### Bloque 4 — Reparto y evidencia
+#### SE-345 — 12-factor y aplicaciones nativas de la nube
 
-#### SE-345 — Replicación, sharding y balanceo
+Una aplicación se puede copiar y reemplazar si cumple ciertas propiedades verificables. La clase audita con un linter, simula sesiones en tres instancias, mide el arranque de procesos reales, compara parada ordenada y corte, y ejecuta un mismo artefacto con tres configuraciones.
 
-Igualar solicitudes no iguala trabajo y confirmar antes de replicar cuesta escrituras. La clase compara cuatro políticas de balanceo con cola pesada, mide la pérdida al conmutar con tres modos de replicación y cuenta dónde caen las escrituras y cuántos fragmentos toca una consulta con hash y con rango.
+El estudiante entrega una auditoría de los doce factores con evidencia por fila. `SE-346` trata el cambio de un estilo a otro.
 
-El estudiante entrega la política de balanceo, el RPO por dato y la clave de reparto con su consulta cara. `SE-346` comprueba que todo esto resiste fallos.
+#### SE-346 — Evolución y migración entre estilos
 
-#### SE-346 — Caos controlado y pruebas de distribución
+Una migración incremental sustituye la apuesta única por pasos reversibles y medidos. La clase compara un módulo heredado con su reemplazo sobre 20 000 peticiones, calcula con qué fracción del tráfico se ve cada divergencia y cuántos usuarios afecta un defecto según el escalón.
 
-Una suite verde no demuestra resistencia a fallos. La clase mide el éxito y las llamadas de tres estrategias de cliente ante un fallo creciente, cuenta cuántas ejecuciones expone un defecto según el planificador y evalúa un linter de planes de caos sobre 200 mutaciones.
+El estudiante entrega un plan de migración con comparador, escalones y criterio de retiro. `SE-347` aplica todo el método a un caso.
 
-El estudiante entrega un plan de experimento completo y una estrategia de exploración con semillas. `SE-347` reproduce los fallos hasta lo esencial.
+### Bloque 4 — Decidir y defender
 
-### Bloque 5 — Aplicar e integrar
+#### SE-347 — Taller: seleccionar un estilo con escenarios de calidad
 
-#### SE-347 — Taller: reproducir una carrera y un fallo parcial
+El resultado del taller no es el ganador sino el mapa de qué lo cambia. La clase modela tres candidatos contra seis escenarios, pondera en dos contextos, barre el número de equipos y encuentra que un solo supuesto de disponibilidad invierte la decisión.
 
-Un fallo que no se reproduce no se corrige. El taller enumera las intercalaciones de un cupo, reduce un calendario de 40 pasos a 6, separa corte y respuesta perdida en un flujo de cinco pasos y calcula cuántas repeticiones hacen falta para ver un fallo raro.
+El estudiante entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia. `SE-348` la convierte en un registro defendido.
 
-El estudiante entrega un reproductor mínimo con una regresión que falla antes y pasa después. `SE-348` lo integra en un servicio.
+#### SE-348 — Proyecto: decisión arquitectónica defendida con ADR
 
-#### SE-348 — Proyecto: servicio distribuido con degradación
+Un ADR bueno es una hipótesis con fecha de revisión. La clase analiza tres registros con once criterios, protege una restricción con una prueba de arquitectura que detecta una violación y un ciclo y no ve una importación dinámica, y evalúa un disparador sobre una serie de 30 días.
 
-Un paquete completo no es un paquete correcto. El proyecto compara tres estrategias ante una caída de la base, tres políticas ante una sobrecarga del 50 % y mide qué detecta un validador de forma sobre 200 mutaciones de un paquete.
-
-El estudiante entrega un paquete de servicio con garantías, presupuestos, escalera de degradación, protección ante sobrecarga, pruebas por promesa y `LIMITES.md`. La Parte 29 lleva ese servicio a una plataforma de nube.
+El estudiante entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador. Con esta clase se cierra la parte.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-337](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-337-concurrencia-paralelismo-y-asincronia/) | Concurrencia, paralelismo y asincronía | Entrega una clasificación de tareas en espera y cálculo con una regla de decisión |
-| [SE-338](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera/) | Memoria compartida, locks y condiciones de carrera | Entrega un orden global de adquisición y la clasificación de cada dato compartido |
-| [SE-339](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-339-actores-canales-y-structured-concurrency/) | Actores, canales y structured concurrency | Entrega el diseño de un actor con buzón acotado y operaciones cancelables clasificadas |
-| [SE-340](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-340-tiempo-relojes-y-orden-parcial/) | Tiempo, relojes y orden parcial | Entrega la decisión de reloj por uso y la política ante vectores incomparables |
-| [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/) | Fallos parciales y modelos de red | Entrega un modelo de fallos, una política de reintentos y el límite de un detector justificado |
-| [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/) | Consistencia, disponibilidad y particiones | Entrega la decisión por operación y el cuórum por dato |
-| [SE-343](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-343-consenso-eleccion-y-coordinacion/) | Consenso, elección y coordinación | Entrega la clasificación de funciones con titular único y el cerco por recurso |
-| [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/) | Idempotencia y procesamiento distribuido | Entrega la clasificación de operaciones y la retención de claves justificada |
-| [SE-345](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/) | Replicación, sharding y balanceo | Entrega la política de balanceo, el RPO por dato y la clave de reparto con su consulta cara |
-| [SE-346](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-346-caos-controlado-y-pruebas-de-distribucion/) | Caos controlado y pruebas de distribución | Entrega un plan de experimento completo y una estrategia de exploración con semillas |
-| [SE-347](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-347-taller-reproducir-una-carrera-y-un-fallo-parcial/) | Taller: reproducir una carrera y un fallo parcial | Entrega un reproductor mínimo con una regresión que falla antes y pasa después |
-| [SE-348](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-348-proyecto-servicio-distribuido-con-degradacion/) | Proyecto: servicio distribuido con degradación | Entrega un paquete de servicio con garantías, presupuestos, escalera de degradación, protección ante sobrecarga, pruebas por promesa y `LIMITES.md` |
+| [SE-337](../../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/) | Estilos como respuestas a fuerzas de calidad | Entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión |
+| [SE-338](../../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/) | Microkernel y arquitecturas de plugins | Entrega el contrato de un complemento con su política de versión y su nivel de aislamiento |
+| [SE-339](../../classes/part-28-estilos-arquitectonicos/se-339-pipes-and-filters-y-arquitecturas-de-flujo/) | Pipes and filters y arquitecturas de flujo | Entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos |
+| [SE-340](../../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/) | Microservicios y sus costes reales | Entrega el costo de separar un módulo suyo con su camino crítico y su criterio |
+| [SE-341](../../classes/part-28-estilos-arquitectonicos/se-341-bff-api-gateway-y-service-mesh/) | BFF, API gateway y service mesh | Entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde |
+| [SE-342](../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/) | Multi-tenancy y aislamiento | Entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas |
+| [SE-343](../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/) | Data mesh y propiedad de los datos | Entrega el contrato de un producto de datos con la matriz de derivas detectadas |
+| [SE-344](../../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/) | Arquitectura celular y radio de impacto | Entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos |
+| [SE-345](../../classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube/) | 12-factor y aplicaciones nativas de la nube | Entrega una auditoría de los doce factores con evidencia por fila |
+| [SE-346](../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/) | Evolución y migración entre estilos | Entrega un plan de migración con comparador, escalones y criterio de retiro |
+| [SE-347](../../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/) | Taller: seleccionar un estilo con escenarios de calidad | Entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia |
+| [SE-348](../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/) | Proyecto: decisión arquitectónica defendida con ADR | Entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador |
 
 ## Fuentes
 
-- [Lamport, «Time, clocks, and the ordering of events in a distributed system»](https://doi.org/10.1145/359545.359563) — orden parcial y relojes lógicos; autoridad: artículo original.
-- [Fischer, Lynch y Paterson, «Impossibility of distributed consensus with one faulty process»](https://doi.org/10.1145/3149.214121) — límite del consenso asíncrono; autoridad: artículo original.
-- [Gilbert y Lynch, «Brewer's conjecture…»](https://doi.org/10.1145/564585.564601) y [Brewer, «CAP twelve years later»](https://doi.org/10.1109/MC.2012.37) — compromiso entre consistencia y disponibilidad; autoridad: artículos de los autores.
-- [Ongaro y Ousterhout, Raft](https://raft.github.io/raft.pdf) y [Lamport, «The part-time parliament»](https://doi.org/10.1145/279227.279229) — consenso con mayorías; autoridad: artículos originales.
-- [Kleppmann, «Designing Data-Intensive Applications»](https://dataintensive.net/) — modelos de fallo, consistencia y procesamiento; autoridad: autor del libro.
-- [Jepsen](https://jepsen.io/) — pruebas de sistemas distribuidos con inyección de fallos; autoridad: Jepsen.
-- [Python: asyncio](https://docs.python.org/3/library/asyncio.html) y [threading](https://docs.python.org/3/library/threading.html) — herramientas usadas en los experimentos; autoridad: documentación de Python.
-- [Principios de la ingeniería del caos](https://principlesofchaos.org/) y [Google SRE: manejo de sobrecarga](https://sre.google/sre-book/handling-overload/) — experimentos acotados y protección del servicio; autoridad: autores del manifiesto y Google.
-- [Amdahl (1967)](https://doi.org/10.1145/1465482.1465560) y [Little (1961)](https://doi.org/10.1287/opre.9.3.383) — límites de aceleración y relación entre cola y espera; autoridad: artículos originales.
-- [Lamport, «Paxos made simple»](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf), [Howard y Mortier, «Paxos vs Raft»](https://arxiv.org/abs/2004.05074) y [crdt.tech](https://crdt.tech/) — consenso por mayorías y tipos de datos replicados sin conflicto; autoridad: artículos de los autores y sitio de la comunidad CRDT.
+- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html), [SEI, «ATAM»](https://www.sei.cmu.edu/library/atam-method-for-architecture-evaluation/) y [SEI, «Quality Attribute Workshops»](https://www.sei.cmu.edu/library/quality-attribute-workshops-qaws-third-edition/) — vocabulario de calidad y evaluación por escenarios; autoridad: ISO y el Software Engineering Institute.
+- [Lewis y Fowler, «Microservices»](https://martinfowler.com/articles/microservices.html), [Fowler, «MonolithFirst»](https://martinfowler.com/bliki/MonolithFirst.html), [«Microservice Premium»](https://martinfowler.com/bliki/MicroservicePremium.html) y [Conway, «How Do Committees Invent?»](https://www.melconway.com/Home/Conways_Law.html) — descripción y costos de los microservicios y relación entre organización y sistema; autoría de Lewis, Fowler y Conway.
+- [PyPA, «Entry points specification»](https://packaging.python.org/en/latest/specifications/entry-points/), [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) y [Fowler, «TolerantReader»](https://martinfowler.com/bliki/TolerantReader.html) — complementos, versiones y compatibilidad de contratos; autoridad: PyPA, semver.org y Fowler.
+- [Azure Architecture Center, «Pipes and Filters»](https://learn.microsoft.com/en-us/azure/architecture/patterns/pipes-and-filters), [«Backends for Frontends»](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends), [«Gateway Aggregation»](https://learn.microsoft.com/en-us/azure/architecture/patterns/gateway-aggregation) y [«Strangler Fig»](https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig), junto con [Newman, «Backends For Frontends»](https://samnewman.io/patterns/architectural/bff/) y [Istio, «Architecture»](https://istio.io/latest/docs/ops/deployment/architecture/) — patrones de flujo, de entrada y de migración y arquitectura de una malla; autoridad: Microsoft, Newman y el proyecto Istio.
+- [Azure Architecture Center, «Architecting multitenant solutions»](https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview), [AWS, «Cell-Based Architecture»](https://docs.aws.amazon.com/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/reducing-scope-of-impact-with-cell-based-architecture.html) y [Amazon Builders' Library, «Shuffle-sharding»](https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/) — tenencia, celdas y fragmentación aleatoria; autoridad: Microsoft y AWS.
+- [Dehghani, «Data Mesh Principles»](https://martinfowler.com/articles/data-mesh-principles.html) y [«Beyond a Monolithic Data Lake»](https://martinfowler.com/articles/data-monolith-to-mesh.html) — principios y motivación del data mesh; autoría de Dehghani.
+- [The Twelve-Factor App](https://12factor.net/) y [Kubernetes, «Pod Lifecycle»](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/) — factores de una aplicación portable y terminación de procesos; autoridad: Wiggins y la documentación de Kubernetes.
+- [Fowler, «StranglerFigApplication»](https://martinfowler.com/bliki/StranglerFigApplication.html), [«BranchByAbstraction»](https://martinfowler.com/bliki/BranchByAbstraction.html) y [«ParallelChange»](https://martinfowler.com/bliki/ParallelChange.html) — migración incremental; autoría de Fowler.
+- [Nygard, «Documenting Architecture Decisions»](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), [adr.github.io](https://adr.github.io/), [Azure, «Architecture decision record»](https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record) y [ArchUnit](https://www.archunit.org/) — registros de decisión y pruebas de arquitectura; autoridad: Nygard, la comunidad ADR, Microsoft y TNG.
+- [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104), [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/), [SQLite, «CREATE VIEW»](https://www.sqlite.org/lang_createview.html) y la [documentación de Python](https://docs.python.org/3/) (`ast`, `hashlib`, `hmac`, `http.client`, `importlib`, `queue`, `sqlite3`, `subprocess`, `tracemalloc`) — protocolos, seguridad y herramientas usadas por los experimentos; autoridad: IETF, OWASP, SQLite y la Python Software Foundation.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones del servicio se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen prácticas; que un estilo convenga a un equipo se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente. Varias son documentación de proveedores sobre sus propios patrones y se leen como tales.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas;
-- ninguna afirmación sobre una red, un producto o personas reales se apoya en una simulación;
-- los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj, que declaran por qué no;
+- ninguna afirmación sobre un equipo, una herramienta de terceros, una plataforma o el efecto real de un estilo se apoya en una simulación o en un modelo de juguete;
+- el ADR final se puede aplicar a una decisión nueva por otra persona y declara sus supuestos, su disparador y lo que su prueba no ve.
 
 [Volver al índice de clases](../../classes/README.md)

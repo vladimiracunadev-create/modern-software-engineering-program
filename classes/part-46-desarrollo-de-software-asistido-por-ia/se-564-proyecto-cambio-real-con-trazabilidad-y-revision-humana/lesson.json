@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-564",
+  "title": "Proyecto: cambio real con trazabilidad y revisión humana",
+  "stage": "H",
+  "part": "46",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "NIST-AI-RMF",
+    "NIST-AI-600-1",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana"
+}

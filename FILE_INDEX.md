@@ -22,12 +22,12 @@
 | Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
 | Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 contratos |
 | Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 contratos |
-| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 contratos |
-| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 contratos |
+| Contratos de actividad de fase 4 | `classes/part-*/se-*/activity.yaml` (Partes 15–22, 24–25, 27, 29, 31–33) | 180 contratos |
+| Rúbricas de fase 4 | `classes/part-*/se-*/rubric.json` (Partes 15–22, 24–25, 27, 29, 31–33) | 180 contratos |
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
-| Páginas del sitio | `site/**/*.html` (sin `site/casos/`) | 638 |
+| Páginas del sitio | `site/**/*.html` (sin `site/casos/`, `site/legacy/` ni `site/404.html`) | 638 |
 | Casos de estudio | `casos/GUIDE.md`, `casos/{exito,fallo}/*.md` | 1 guía, 2 páginas de grupo y 16 casos |
 | Páginas de casos | `site/casos/**/*.html` | 18 |
 

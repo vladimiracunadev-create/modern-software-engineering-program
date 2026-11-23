@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-480",
+  "title": "Proyecto: release firmado y recuperable",
+  "stage": "F",
+  "part": "39",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable"
+}

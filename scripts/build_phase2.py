@@ -16,6 +16,7 @@ except ModuleNotFoundError:  # importado como scripts.build_phase2
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_cases  # noqa: E402
+import legacy_pages  # noqa: E402
 from role_profiles import PROFILES as ROLE_PROFILES  # noqa: E402
 
 ROLE_COUNT = len(ROLE_PROFILES)
@@ -71,23 +72,23 @@ PART_SOURCE_MAP = {
     "20": ["IETF-RFC-9110", "OPENAPI-LATEST"],
     "21": ["ISO-25010-2023"],
     "22": ["ISO-25010-2023", "NIST-SSDF-800-218"],
-    "23": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
-    "24": ["IEEE-SWEBOK-4A"],
-    "25": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
-    "26": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
-    "27": ["IEEE-SWEBOK-4A", "OPENAPI-LATEST"],
-    "28": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
-    "29": ["IEEE-SWEBOK-4A", "NIST-SSDF-800-218"],
-    "30": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
-    "31": ["ISO-25010-2023"],
-    "32": ["NIST-SSDF-800-218", "OWASP-ASVS"],
-    "33": ["NIST-SSDF-800-218", "GITHUB-ACTIONS-SHA"],
-    "34": ["NIST-SSDF-800-218", "GITHUB-ACTIONS-SHA"],
+    "24": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
+    "25": ["IEEE-SWEBOK-4A"],
+    "27": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
+    "29": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
+    "31": ["IEEE-SWEBOK-4A", "OPENAPI-LATEST"],
+    "32": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
+    "33": ["IEEE-SWEBOK-4A", "NIST-SSDF-800-218"],
     "35": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
-    "36": ["IEEE-SWEBOK-4A"],
-    "37": ["IEEE-SWEBOK-4A", "ACM-IEEE-SE2014"],
-    "38": ["NIST-AI-RMF", "NIST-AI-600-1", "NIST-SSDF-800-218"],
-    "39": ["GITHUB-SPEC-KIT", "MCP-2026-07-28", "NIST-AI-RMF", "NIST-AI-600-1"],
+    "36": ["ISO-25010-2023"],
+    "38": ["NIST-SSDF-800-218", "OWASP-ASVS"],
+    "39": ["NIST-SSDF-800-218", "GITHUB-ACTIONS-SHA"],
+    "40": ["NIST-SSDF-800-218", "GITHUB-ACTIONS-SHA"],
+    "41": ["IEEE-SWEBOK-4A", "ISO-25010-2023"],
+    "43": ["IEEE-SWEBOK-4A"],
+    "44": ["IEEE-SWEBOK-4A", "ACM-IEEE-SE2014"],
+    "46": ["NIST-AI-RMF", "NIST-AI-600-1", "NIST-SSDF-800-218"],
+    "47": ["GITHUB-SPEC-KIT", "MCP-2026-07-28", "NIST-AI-RMF", "NIST-AI-600-1"],
 }
 
 README_FOCUS = {
@@ -114,32 +115,34 @@ README_FOCUS = {
     "20": "servicios, contratos, workers y tiempo real",
     "21": "plataformas, distribución y ciclo de vida",
     "22": "firmware, hardware, OTA y temporización",
-    "23": "ciencia, industria, regulación y safety",
-    "24": "modularidad, patrones y deuda",
-    "25": "límites, estilos, DDD y evolución",
-    "26": "modelos, transacciones, índices y backup",
-    "27": "colas, streams, sagas y compatibilidad",
-    "28": "coordinación, fallos, consistencia y consenso",
-    "29": "nube, contenedores, IaC y costes",
-    "30": "niveles, propiedades, contratos y E2E",
-    "31": "atributos, carga, degradación y recuperación",
-    "32": "amenazas, controles, privacidad y evidencia",
-    "33": "artefactos, SBOM, firma y procedencia",
-    "34": "pipelines, despliegue y autoservicio",
-    "35": "señales, SLO, guardias y aprendizaje",
-    "36": "arqueología, migración, EOL y retiro",
-    "37": "equipos, comunicación y decisiones",
-    "38": "copilots, contexto, evals y seguridad",
-    "39": "MCP, agentes, delegación y control",
-    "40": "TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD",
-    "41": "contexto, herramientas, bucles y recuperación",
-    "42": "patrones de agentes, evaluación y límites",
-    "43": "GoF, GRASP, repositorio, mensajería y resiliencia",
-    "44": "microkernel, microservicios, celular, data mesh y 12-factor",
-    "45": "ingesta, modelado, calidad, contratos, linaje y gobierno de datos",
-    "46": "MLOps, ajuste fino, servicio, deriva y regulación de IA",
-    "47": "HARA, IEC 61508, ISO 26262, DO-178C, RTOS y verificación",
-    "48": "WebAssembly, eBPF, GPU, sandboxes, TEE, cuántica y confianza cero",
+    "23": "WebAssembly, eBPF, GPU, sandboxes, TEE, cuántica y confianza cero",
+    "24": "ciencia, industria, regulación y safety",
+    "25": "modularidad, patrones y deuda",
+    "26": "GoF, GRASP, repositorio, mensajería y resiliencia",
+    "27": "límites, estilos, DDD y evolución",
+    "28": "microkernel, microservicios, celular, data mesh y 12-factor",
+    "29": "modelos, transacciones, índices y backup",
+    "30": "ingesta, modelado, calidad, contratos, linaje y gobierno de datos",
+    "31": "colas, streams, sagas y compatibilidad",
+    "32": "coordinación, fallos, consistencia y consenso",
+    "33": "nube, contenedores, IaC y costes",
+    "34": "tenencia, planes, facturación por uso, ciclo de vida del tenant y economía unitaria",
+    "35": "niveles, propiedades, contratos y E2E",
+    "36": "atributos, carga, degradación y recuperación",
+    "37": "HARA, IEC 61508, ISO 26262, DO-178C, RTOS y verificación",
+    "38": "amenazas, controles, privacidad y evidencia",
+    "39": "artefactos, SBOM, firma y procedencia",
+    "40": "pipelines, despliegue y autoservicio",
+    "41": "señales, SLO, guardias y aprendizaje",
+    "42": "hipótesis de estado estable, inyección de fallos, game days y radio de impacto",
+    "43": "arqueología, migración, EOL y retiro",
+    "44": "equipos, comunicación y decisiones",
+    "45": "TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD",
+    "46": "copilots, contexto, evals y seguridad",
+    "47": "MCP, agentes, delegación y control",
+    "48": "contexto, herramientas, bucles y recuperación",
+    "49": "patrones de agentes, evaluación y límites",
+    "50": "MLOps, ajuste fino, servicio, deriva y regulación de IA",
 }
 
 
@@ -184,9 +187,11 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
         )
     blocks["parts-note"] = (
         "> Una parte cuenta como desarrollada solo cuando existe su contenido completo; el estado de revisión"
-        "\n> se declara una vez, en el encabezado. El alcance se fijó en"
-        "\n> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) (540 clases, Partes 00–44) y se amplió en"
-        "\n> [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) (588 clases, Partes 45–48)."
+        "\n> se declara una vez, en el encabezado. El alcance y el orden pedagógico de las partes los fija"
+        "\n> [`ADR-007`](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md), que reordenó la secuencia histórica de"
+        "\n> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) y"
+        "\n> [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md); el mapa de IDs antiguos está en"
+        "\n> [`ID-MIGRATION.md`](docs/ID-MIGRATION.md)."
         + (f"\n>{plan_clause}" if planned else "")
     )
     plan_by_id = {part["id"]: part for part in build_full_plan_cached()}
@@ -207,7 +212,7 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
     blocks["coverage"] = "\n".join([
         "| Superficie | Evidencia verificable |",
         "| --- | --- |",
-        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; " + (f"el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004 y ADR-006)" if planned else "alcance fijado por ADR-004 y ADR-006") + " |",
+        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; " + (f"el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-007)" if planned else "alcance fijado por ADR-007") + " |",
         f"| clases | {n_classes} desarrolladas ({dev_label}, {dev_ranges})" + (f"; {plan_clause_short}" if planned else "") + " |",
         f"| contratos | {n_classes} metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |",
         "| fuentes | línea base y registros por clase y por parte |",
@@ -616,12 +621,12 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
 {pending_row}| Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
-| Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
+| Alcance de fase 4 | {phase4['classes']} clases ({ps.parts_label(list(ps.PHASE4_PARTS))}) |
 | Horas | {hours_state}; pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Rutas profesionales | {ROLE_COUNT} guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/` |
+| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
 | Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
@@ -664,12 +669,12 @@ def file_index(program: dict) -> str:
 | Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
 | Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 contratos |
 | Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 contratos |
-| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 contratos |
-| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 contratos |
+| Contratos de actividad de fase 4 | `classes/part-*/se-*/activity.yaml` (Partes 15–22, 24–25, 27, 29, 31–33) | 180 contratos |
+| Rúbricas de fase 4 | `classes/part-*/se-*/rubric.json` (Partes 15–22, 24–25, 27, 29, 31–33) | 180 contratos |
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
-| Páginas del sitio | `site/**/*.html` (sin `site/casos/`) | {1 + program['part_count'] + program['class_count']} |
+| Páginas del sitio | `site/**/*.html` (sin `site/casos/`, `site/legacy/` ni `site/404.html`) | {1 + program['part_count'] + program['class_count']} |
 | Casos de estudio | `casos/GUIDE.md`, `casos/{{exito,fallo}}/*.md` | 1 guía, 2 páginas de grupo y 16 casos |
 | Páginas de casos | `site/casos/**/*.html` | 18 |
 
@@ -742,6 +747,7 @@ def site_index(program: dict) -> str:
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
 <div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>{program['part_count']}</strong><span>partes desarrolladas</span></div><div class="metric"><strong>{program['class_count']}</strong><span>clases desarrolladas</span></div><div class="metric"><strong>{ps.format_thousands(program['estimated_hours'])}</strong><span>horas estimadas</span></div></div></header>
 <main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> {notice_text}</div>
+<div class="notice" style="margin-top:1rem"><strong>Secuencia pedagógica:</strong> desde el 23 de noviembre de 2026 las partes siguen el orden de estudio. Si guardaste un identificador o una dirección anteriores, consulta el <a href="legacy/index.html">mapa de identificadores antiguos</a>.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
 <h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · contenido desarrollado y laboratorio ejecutable</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Estudiar la Parte 01 →</a></div>
@@ -944,7 +950,7 @@ def build(check: bool) -> tuple[list[str], list[str]]:
             scaffold_path = lesson_dir / "README.md"
             if check:
                 validate_scaffold(scaffold_path, lesson, failures)
-            elif lesson["number"] > 360 and not has_editorial_class(part, lesson):
+            elif ps.part_phase(int(part["id"])) is None and not has_editorial_class(part, lesson):
                 # Las clases con texto editorial en content/ las publica build_phase4.
                 write_generated(
                     scaffold_path,
@@ -958,11 +964,7 @@ def build(check: bool) -> tuple[list[str], list[str]]:
                 check,
                 stale,
             )
-            generated_target = program.get("phase_4_target", {}).get("last_class", "SE-180")
-            generated_number = int(generated_target.split("-")[1])
-            if lesson["number"] > generated_number and not (
-                lesson["number"] > 360 and has_editorial_class(part, lesson)
-            ):
+            if ps.part_phase(int(part["id"])) is None and not has_editorial_class(part, lesson):
                 write_generated(
                     ROOT / "site/classes" / f"{lesson['id']}.html",
                     class_page(part, lesson, source_ids, previous, following),
@@ -977,12 +979,14 @@ def build(check: bool) -> tuple[list[str], list[str]]:
                 "stage": part["stage"],
                 "kind": lesson["kind"],
                 "hours": lesson["estimated_hours"],
-                "phase": 3 if lesson["number"] <= 180 else 4 if lesson["number"] <= 360 else "futura",
+                "phase": ps.part_phase(int(part["id"])) or "futura",
                 "url": f"classes/{lesson['id']}.html",
             })
 
     for case_path, case_content in build_cases.expected_files().items():
         write_generated(case_path, case_content, check, stale)
+    for legacy_path, legacy_content in legacy_pages.expected_files(program).items():
+        write_generated(legacy_path, legacy_content, check, stale)
     write_generated(ROOT / "site/index.html", site_index(program), check, stale)
     write_generated(ROOT / "site/assets/styles.css", site_css() + site_visual_enhancements(), check, stale)
     write_generated(ROOT / "site/assets/app.js", site_js(), check, stale)

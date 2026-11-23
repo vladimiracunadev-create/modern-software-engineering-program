@@ -9,16 +9,18 @@
 
 ## About publicado
 
-> 🧭 Currículo abierto en español para aprender ingeniería de software de los fundamentos a la operación, la arquitectura y la IA con agentes · 588 clases en 49 partes, 45 rutas por rol y 16 casos de estudio de plataformas reales · práctica reproducible, figuras y fuentes verificadas · Python + Pages
+> 🧭 Currículo abierto en español para aprender ingeniería de software de los fundamentos a la operación, la arquitectura y la IA con agentes · 588 clases desarrolladas en 49 partes y dos partes en preparación, 45 rutas por rol y 16 casos de estudio de plataformas reales · práctica reproducible, figuras y fuentes verificadas · Python + Pages
 
 Reglas del texto:
 
 - no repite el nombre del repositorio, que GitHub ya muestra encima de la descripción;
-- cada cifra aparece una sola vez (aquí, «588 clases»; el resto va en el README y en `STATUS.md`);
+- cada cifra aparece una sola vez (aquí, «588 clases desarrolladas»; el resto va en el README y en `STATUS.md`);
 - las cifras (clases, partes, rutas por rol y casos de estudio) salen del repositorio y las comprueba
   `tests/test_about.py` contra `catalog.json`, `roles/` y `casos/`; también comprueba el límite de 350
   caracteres de GitHub y que este documento cite el texto exacto;
-- no usa «planificadas» mientras no haya partes sin publicar; el estado de cada parte vive en `STATUS.md`.
+- no usa «planificadas»: mientras haya partes sin publicar dice «dos partes en preparación» (texto provisional
+  hasta desarrollar las Partes 34 y 42; `tests/test_about.py` comprueba que coincide con `catalog.json`);
+  el estado de cada parte vive en `STATUS.md`.
 
 ## Topics publicados
 
@@ -44,4 +46,4 @@ Reglas del texto:
 - Portal: <https://vladimiracunadev-create.github.io/modern-software-engineering-program/>
 - Validación multiplataforma: verde en Python 3.11–3.14, Windows y macOS.
 - Pages: artefacto y despliegue en verde.
-- Respuesta del portal: HTTP 200 y catálogo de 588 clases en 49 partes (se comprobará tras publicar este cambio; las comprobaciones de 540 clases del 2026-11-16 y de 480 del 3 de octubre de 2026 quedan como antecedente).
+- Respuesta del portal: HTTP 200 y catálogo de 588 clases en 49 partes y dos partes planificadas (se comprobará tras publicar la secuencia pedagógica de ADR-007; las comprobaciones de 588 clases del 2026-11-17, de 540 del 2026-11-16 y de 480 del 3 de octubre de 2026 quedan como antecedente).

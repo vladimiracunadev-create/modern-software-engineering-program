@@ -46,6 +46,9 @@ REQUIRED = [
     "docs/WORKFLOW-ARCHITECTURE.md",
     "docs/adr/ADR-002-expand-to-480-class-program.md",
     "docs/adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md",
+    "docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md",
+    "docs/ID-MIGRATION.json",
+    "docs/ID-MIGRATION.md",
     "docs/ARCHITECTURE.md",
     "docs/INTEGRATION-CONTRACT.md",
     "docs/SOURCES.md",
@@ -167,8 +170,7 @@ def validate_program_blueprint() -> None:
             "classes": 180,
         },
         "phase_4_target": {
-            "first_class": "SE-181",
-            "last_class": "SE-360",
+            "parts": [f"{number:02d}" for number in ps.PHASE4_PARTS],
             "classes": 180,
         },
     }
@@ -183,6 +185,35 @@ def validate_legacy_curriculum() -> None:
     expected = [f"{number:02d}" for number in range(17)]
     if prefixes != expected:
         raise AssertionError(f"Legacy baseline expected documents 00 through 16, found {prefixes}")
+
+
+def validate_id_migration() -> None:
+    """El mapa de la renumeración (ADR-007) es una biyección coherente con el programa vigente."""
+    payload = read_json("docs/ID-MIGRATION.json")
+    classes = payload["classes"]
+    parts = payload["parts"]
+    if payload["new_scope"] != {"parts": ps.PLANNED_PART_COUNT, "classes": ps.PLANNED_CLASS_COUNT}:
+        raise AssertionError("ID-MIGRATION.json: new_scope does not match program_state.py")
+    old_ids = [item["old"] for item in classes]
+    new_ids = [item["new"] for item in classes]
+    if old_ids != [f"SE-{n:03d}" for n in range(1, payload["old_scope"]["classes"] + 1)]:
+        raise AssertionError("ID-MIGRATION.json: old IDs must be SE-001 through the historical last class, once each")
+    if len(set(new_ids)) != len(new_ids):
+        raise AssertionError("ID-MIGRATION.json: duplicated new IDs")
+    reserved = {class_id for number in payload["reserved_parts"] for class_id in ps.class_ids(int(number))}
+    if set(new_ids) & reserved:
+        raise AssertionError("ID-MIGRATION.json: a reserved class ID is the target of a migrated class")
+    if len(set(new_ids) | reserved) != ps.PLANNED_CLASS_COUNT:
+        raise AssertionError("ID-MIGRATION.json: migrated plus reserved IDs must cover the planned scope exactly")
+    for item in classes:
+        old_number, new_number = int(item["old"][3:]), int(item["new"][3:])
+        old_part, offset = divmod(old_number - 1, ps.CLASSES_PER_PART)
+        part_row = next(row for row in parts if row["old"] == f"{old_part:02d}")
+        if new_number != int(part_row["new"]) * ps.CLASSES_PER_PART + offset + 1:
+            raise AssertionError(f"ID-MIGRATION.json: {item['old']} does not follow the ID rule")
+    for number in payload["reserved_parts"]:
+        if ps.is_developed(int(number)) != (ROOT / "content" / f"part-{number}" / "README.md").is_file():
+            raise AssertionError(f"Reserved part {number} state does not match its content")
 
 
 def validate_relative_links() -> None:
@@ -331,7 +362,12 @@ def validate_phase2_outputs() -> None:
     part_directories = sorted((ROOT / "classes").glob("part-*"))
     metadata = sorted((ROOT / "classes").glob("part-*/se-*/lesson.json"))
     scaffolds = sorted((ROOT / "classes").glob("part-*/se-*/README.md"))
-    pages = sorted(page for page in (ROOT / "site").rglob("*.html") if page.relative_to(ROOT / "site").parts[0] != "casos")
+    pages = sorted(
+        page
+        for page in (ROOT / "site").rglob("*.html")
+        if page.relative_to(ROOT / "site").parts[0] not in ("casos", "legacy")
+        and page.relative_to(ROOT / "site").as_posix() != "404.html"
+    )
     activities = sorted((ROOT / "classes").glob("part-*/se-*/activity.yaml"))
     rubrics = sorted((ROOT / "classes").glob("part-*/se-*/rubric.json"))
     developed_parts = len(ps.developed_parts())
@@ -392,7 +428,7 @@ def validate_program_roadmap() -> None:
         "## Proyectos integradores",
         "## Fases de implementación",
         "## Criterio de término del programa",
-        f"{ps.PLANNED_CLASS_COUNT} clases (ADR-004 y ADR-006)",
+        f"{ps.PLANNED_CLASS_COUNT} posiciones de clase en {ps.PLANNED_PART_COUNT} partes (ADR-007)",
         "HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN",
         "calidad > profundidad > coherencia > cantidad",
     )
@@ -545,6 +581,7 @@ def main() -> int:
         validate_manifest()
         validate_program_blueprint()
         validate_legacy_curriculum()
+        validate_id_migration()
         validate_relative_links()
         validate_role_guides()
         validate_sources()

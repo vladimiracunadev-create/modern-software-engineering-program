@@ -1,187 +1,194 @@
-# Parte 45 — Ingeniería de datos y plataformas de datos
+# Parte 45 — Metodologías de desarrollo: de TDD a ODD
 
-La Parte 44 enseñó a elegir estilos arquitectónicos con escenarios de calidad y a defender la elección con un registro de decisión. Esta parte trata el dato como un producto de ingeniería con su propio ciclo de vida: sale de la base que sirve a la aplicación, llega a una plataforma, se organiza para responder preguntas, se transforma de forma repetible, se vigila, se promete a quienes lo consumen, se rastrea, se almacena en un formato con costo, se gobierna y se paga. El recorrido está pensado para quien debe responder a la pregunta «¿puedo confiar en este número y qué pasa si lo cambio?» con evidencia y no con una captura de pantalla.
+La Parte 47 enseñó a especificar, delegar y detener a un agente. La pregunta cambia de «¿cómo especifico y controlo a un agente?» a «¿qué prácticas ordenan el desarrollo alrededor de un oráculo, cuáles son sus costos y qué defectos deja pasar cada una?». Esta parte compara ocho metodologías de desarrollo (TDD, BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD, EDD y ODD) por la pregunta que ordena cada una, el oráculo que deja y su punto ciego, usando un único caso sintético: **el núcleo de *Avisos***, la regla que decide qué recordatorio de entrega se envía a cada estudiante (72, 24 y 1 horas antes del vencimiento, nunca a quien ya entregó ni tras el vencimiento, solo el más urgente tras una caída y con silencio por curso salvo en la última hora). Cada metodología se mide sobre ese mismo núcleo con mutantes escritos a mano.
 
 ## Pregunta rectora
 
-> Para este dato, ¿qué decisión lo mueve del sistema operacional al analítico, qué lo hace repetible y verificable, quién responde por él, qué cuesta conservarlo y qué cambio podría llegar a un informe sin que nada lo detenga?
+> Para este cambio, ¿qué evidencia exige cada práctica, quién la produce, qué defectos deja pasar y cuánto cuesta, y cómo se decide con eso qué práctica se usa y cuál se descarta?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no defiende una herramienta ni una arquitectura de moda. Enseña a leer cada decisión de una plataforma de datos como un **mecanismo con un costo medible y un punto ciego**: qué problema resuelve, qué experimento lo mide, qué no demuestra y qué evidencia permitiría abandonarlo. La primera clase fija la frontera entre lo operacional y lo analítico (`SE-541`). Las siguientes siguen el dato en el orden en que se le hacen preguntas: cómo entra, cómo se organiza, cómo se construye sin duplicar, cómo se sabe que es correcto, cómo se promete y cómo se cambia sin romper, cómo se rastrea, dónde se guarda, cómo se protege y cuánto cuesta. El taller (`SE-551`) pone a prueba todo con ocho defectos sembrados y el proyecto (`SE-552`) lo integra en una plataforma mínima que se puede romper a propósito.
+Esta parte no enseña una herramienta ni defiende una escuela. Enseña a leer una metodología como un **oráculo con un costo y un punto ciego**: qué cosa decide que el resultado es correcto, qué defectos no ve y cuándo se ejecuta. Compara cinco oráculos sobre el mismo núcleo y 18 defectos sembrados (`SE-541`), reconstruye el ciclo rojo-verde-refactor paso a paso (`SE-542`), mide el costo de acoplar las pruebas a la implementación en dos estilos (`SE-543`), ejecuta escenarios en lenguaje de negocio (`SE-544`) y compara conjuntos de ejemplos de aceptación (`SE-545`), mide una palabra con tres sentidos y una traducción entre contextos (`SE-546`), compara tres detectores de cambios de un proveedor (`SE-547`), comprueba la deriva entre una especificación y su código (`SE-548`), simula la puerta de una evaluación con ruido (`SE-549`) y evalúa un historial de Git contra un flujo para agentes (`SE-550`). Después aplica cinco metodologías al mismo cambio (`SE-551`) y escribe una política de equipo (`SE-552`).
 
 ```mermaid
 flowchart LR
-    A[Operacional frente a analítico] --> B[Ingesta batch y streaming]
-    B --> C[Modelado: hechos y dimensiones]
-    C --> D[Transformación idempotente y backfills]
-    D --> E[Calidad y observabilidad]
-    E --> F[Contratos y evolución de esquemas]
-    F --> G[Linaje, catálogo y metadatos]
-    G --> H[Warehouse, lake, lakehouse y formatos]
-    H --> I[Gobierno, privacidad y retención]
-    I --> J[Costos y operación]
-    J --> K[Taller: pipeline defectuoso]
-    K --> L[Proyecto: plataforma gobernada]
-    L -->|cambio que el control no ve| E
+    A[Mapa de metodologías] --> B[TDD: ciclo]
+    B --> C[TDD: escuelas y límites]
+    C --> D[BDD]
+    D --> E[ATDD y ejemplos]
+    E --> F[DDD y lenguaje]
+    F --> G[Contratos]
+    G --> H[SDD]
+    H --> I[EDD]
+    I --> J[ODD]
+    J --> K[Taller: cinco metodologías]
+    K --> L[Proyecto: política de equipo]
+    L -->|defectos escapados| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un orden de adopción: es el orden en que se explican los costos. El retorno indica que lo que el control de la plataforma no detecta se cubre con otra capa de comprobación, y vuelve a empezar por la calidad.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que los defectos que escapan a la política vuelven al mapa: una política se revisa con la evidencia de lo que no vio.
 
 ## Resultados acumulativos
 
-Podrás clasificar una consulta como operacional o analítica por su patrón de acceso, medir cuántos bytes toca y cuándo una lectura larga bloquea una escritura, y reconstruir con un registro de eventos una pregunta sobre el pasado que la tabla de estado no puede responder (`SE-541`); medir cuántos eventos deja fuera cada política de ingesta, qué retraso paga cada una y cuánto infla un conteo la entrega al menos una vez (`SE-542`); declarar la granularidad de un hecho, medir el efecto de sobrescribir una dimensión, provocar y corregir un abanico de uniones y cargar un Data Vault repetible (`SE-543`).
+Podrás medir qué defectos mata cada tipo de oráculo (caso feliz, ejemplos, escenarios con reloj, contrato y modelo de referencia) y reconocer los mutantes equivalentes; reconstruir un ciclo de TDD de ocho pasos comprobando el rojo y el verde de cada uno y usar los mutantes sobrevivientes para decidir la prueba siguiente; comparar un estilo de pruebas con dobles con estado y otro con dobles simulados ante cuatro refactores, un cambio de contrato y seis defectos.
 
-Podrás cargar particiones con tres estrategias y comprobar cuál sobrevive a un fallo y a una repetición, reescribir una ventana histórica y calcular qué recalcular desde un grafo de dependencias (`SE-544`); comparar tres detectores de volumen con incidentes sembrados y construir la matriz de qué comprobación ve cada defecto (`SE-545`); clasificar diez cambios de esquema en los dos sentidos de compatibilidad y ejecutar un renombre en tres pasos (`SE-546`); y medir el linaje de columnas por perturbación frente a lo que predicen tres tipos de linaje (`SE-547`).
+Podrás formular escenarios con el vocabulario del negocio, medir la contribución de cada uno a la detección de defectos y encontrar los que no afirman nada; construir conjuntos de ejemplos de aceptación y explicar por qué más ejemplos no es mejor si no varían las dimensiones del problema; contar los sentidos de una palabra del dominio en un corpus y probar que una traducción entre contextos evita un error silencioso.
 
-Podrás construir un formato columnar mínimo, medir su tamaño y los bytes que lee con y sin orden, mostrar el costo de los archivos pequeños y publicar una compactación con un manifiesto de versiones (`SE-548`); medir qué columnas esconde la clasificación por nombre, revertir un hash sin clave, calcular los grupos pequeños de un agregado y propagar un borrado (`SE-549`); estimar el costo de una consulta, de un refresco y de una ruta crítica (`SE-550`); diagnosticar ocho defectos y corregirlos uno a uno midiendo tras cada paso (`SE-551`); y construir un control de siete reglas, probarlo con diez cambios inyectados y declarar el que no ve (`SE-552`).
+Podrás demostrar que una aserción desaparece bajo la opción de optimización de Python, comparar tres formas de detectar cambios de un proveedor por aciertos y falsas alarmas y escribir el contrato mínimo de un consumidor; generar código desde una especificación legible por máquina y comprobar diez derivas, incluida la que ninguna máquina ve; simular una puerta de release con ruido y fijar umbral y margen; evaluar con Git real un historial contra las reglas de un flujo para agentes y contrastar ODD con SDD con sus evidencias declaradas.
+
+Podrás aplicar cinco metodologías al mismo cambio con los mismos mutantes, recomendar una combinación y escribir una política de equipo con clasificación de cambios, evidencia exigida, excepciones y revisión.
 
 ## Prerrequisitos enlazados
 
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): modelado (`SE-313`), transacciones (`SE-315`), índices y patrones de acceso (`SE-317`), migraciones compatibles (`SE-318`), privacidad y retención (`SE-322`) y proyecto de capa de datos (`SE-324`).
-- [Parte 27 — Integración, eventos y mensajería](../../classes/part-27-integracion-eventos-y-mensajeria/): semánticas de entrega (`SE-328`), idempotencia y sagas (`SE-329`), CDC, ETL y ELT (`SE-330`) y compatibilidad de esquemas (`SE-332`).
-- [Parte 31 — Calidad, rendimiento y resiliencia](../../classes/part-31-calidad-rendimiento-y-resiliencia/): modelos de calidad (`SE-373`), latencia y capacidad (`SE-376`) y reintentos (`SE-378`).
-- [Parte 32 — Seguridad, privacidad y cumplimiento](../../classes/part-32-seguridad-privacidad-y-cumplimiento/): secretos (`SE-390`), privacidad por diseño (`SE-391`) y cumplimiento y sus límites (`SE-394`).
-- [Parte 35 — Observabilidad, SRE e incidentes](../../classes/part-35-observabilidad-sre-e-incidentes/): señales (`SE-421`), SLO (`SE-425`), alertas accionables (`SE-426`) y diagnóstico con telemetría incompleta (`SE-431`).
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (`sqlite3`, `zlib`, `array`, `hmac`, `tempfile`) y escriben únicamente en directorios temporales.
+- [Parte 12 — Ingeniería de requisitos](../../classes/part-12-ingenieria-de-requisitos/): criterios de aceptación y ambigüedad.
+- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): ejemplos de especificación y contratos de API.
+- [Parte 25 — Diseño, patrones y refactorización](../../classes/part-25-diseno-patrones-y-refactorizacion/): costuras, inyección de dependencias y refactor con red de seguridad.
+- [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): DDD estratégico y táctico (`SE-329`).
+- [Parte 35 — Estrategia y técnicas de prueba](../../classes/part-35-estrategia-y-tecnicas-de-prueba/): análisis de valores límite, dobles de prueba y mutación.
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): riesgo y escenarios de calidad.
+- [Parte 46 — Desarrollo de software asistido por IA](../../classes/part-46-desarrollo-de-software-asistido-por-ia/): evaluaciones de asistentes.
+- [Parte 47 — SPEC, agentes y ciclo de vida agentic](../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/): especificación durable, agentes y ciclo agentic.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar, y la clase `SE-550` además requiere Git instalado.
 
 ## Bloques y progresión
 
-1. **Del origen al modelo:** las clases 541 a 543 separan lo operacional de lo analítico, miden cómo entra el dato y cómo se organiza para consultarlo sin errores de granularidad.
-2. **Repetible y verificable:** las clases 544 a 546 construyen el dato sin duplicar, lo vigilan con comprobaciones y lo prometen con un contrato que sobrevive a los cambios de esquema.
-3. **Dónde vive, quién lo ve y cuánto cuesta:** las clases 547 a 550 rastrean de dónde viene, eligen el formato y el lugar, gobiernan la privacidad y la retención y estiman el costo.
-4. **Probar e integrar:** las clases 551 y 552 diagnostican un pipeline con ocho defectos sembrados y construyen una plataforma mínima con un control probado con cambios inyectados.
+1. **Elegir y construir con pruebas:** las clases 481 a 483 miden qué defectos deja pasar cada oráculo, reconstruyen el ciclo de TDD y comparan los dos estilos de prueba.
+2. **Acordar el qué y el con qué palabras:** las clases 484 a 486 llevan los ejemplos al lenguaje del negocio, eligen los de aceptación y delimitan el vocabulario por contexto.
+3. **Prometer, mantener y medir:** las clases 487 a 490 tratan los contratos, la especificación como fuente, las evaluaciones con ruido y un flujo de trabajo para agentes.
+4. **Aplicar e integrar:** las clases 491 y 492 comparan cinco metodologías sobre un cambio y escriben la política del equipo.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 y SQLite 3.45.3 en Windows 11; los recuentos y los resultados de las simulaciones con semilla fija 45 se repiten idénticos, y los tiempos de lectura, de agregación y de refresco varían entre ejecuciones y equipos. **No se invocó ningún modelo de lenguaje, no se ejecutó ninguna herramienta de terceros (Airflow, dbt, Kafka, Spark, Parquet, Iceberg, Delta Lake, OpenLineage, Great Expectations, catálogos o almacenes de datos) y no se evaluó ningún sistema real.** Lo que se ejecutó fueron bases de SQLite, archivos temporales y simulaciones escritas para la clase.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2; los recuentos son idénticos en ambos sistemas y los tiempos de reloj varían entre equipos. **No se invocó ningún modelo de lenguaje, no se ejecutó ninguna herramienta de agentes de terceros (Gentle AI, Spec Kit, Kiro, OpenSpec, Tessl, Pact, Cucumber) y no se evaluó ningún producto real.** Lo que se ejecutó es código propio de la parte, con la biblioteca estándar.
 
-Los experimentos son: una tabla de 200 000 pedidos consultada por clave y por agregación, una prueba de lectura larga contra una escritura con dos modos de diario y una pregunta sobre el pasado respondida con 70 745 cambios de estado (`SE-541`); 10 000 eventos con llegadas tardías y reentregas procesados con cinco marcas de agua y dos lotes (`SE-542`); 20 000 pedidos con una dimensión de clientes con historia, un abanico de uniones y un Data Vault de cuatro tablas (`SE-543`); 30 particiones cargadas con tres estrategias, un backfill de cinco días, un grafo de nueve tareas y una ventana de reproceso sobre 6 000 filas (`SE-544`); una serie de 120 días con tres detectores y una tabla de 5 000 pedidos con seis variantes defectuosas (`SE-545`); un verificador de compatibilidad con diez cambios, 1 000 registros y un renombre en tres pasos (`SE-546`); un pipeline de seis sentencias analizado y perturbado en nueve columnas (`SE-547`); 200 000 pedidos en cuatro formatos, un formato columnar propio, 1 000 archivos pequeños y un manifiesto (`SE-548`); 5 000 usuarios con una clasificación, una reversión de hashes, un k-anonimato y un borrado propagado (`SE-549`); un escalado de bytes a 1 TB con precios inventados, refrescos completos e incrementales y una ruta crítica (`SE-550`); 20 000 pedidos con ocho defectos sembrados y ocho comprobaciones (`SE-551`); y una plataforma de tres conjuntos con un control de siete reglas y diez mutaciones (`SE-552`).
+Los experimentos son: un núcleo de 20 líneas con 20 variantes (18 que cambian el comportamiento y 2 equivalentes) y cinco oráculos, de los que el caso feliz mata 7, las ocho pruebas de ejemplo 15, los escenarios 17, el contrato 13 y el modelo de referencia 18 de 18 (`SE-541`); un ciclo de ocho versiones sucesivas con la curva de mutantes muertos 1, 6, 8, 9, 9, 11, 14 y 15 y tres pruebas guiadas por los sobrevivientes que llevan a 18 de 18 (`SE-542`); dos suites sobre el mismo servicio con cuatro refactores, un cambio de contrato y seis defectos (`SE-543`); nueve escenarios con 32 pasos y 10 definiciones de paso, que matan 15 de 18 (`SE-544`); cuatro conjuntos de ejemplos de 5, 12, 20 y 144 casos que matan 10, 11, 8 y 17 de 18 (`SE-545`); un recuento léxico de 4 249 frases sobre «entrega» en las Partes 00–22, 24–25, 27, 29, 31–33, 35–36, 38–41, 43–44 y 46–47 y una traducción de ocho entregas (`SE-546`).
 
-Los parámetros (los volúmenes, las mezclas de retrasos, las tasas de duplicado, los porcentajes de mudanza, los umbrales de calidad, los precios y los factores de escalado, las duraciones de las tareas, los defectos y las mutaciones) son construcciones del autor. Ninguna cifra es una medición de un sistema real ni una tarifa de un proveedor.
+Siguen una ejecución con y sin `-O` en dos procesos reales y doce cambios de un proveedor evaluados con tres detectores (`SE-547`); un generador de código desde una especificación y diez derivas inyectadas, de las que se detectan 9 (`SE-548`); una simulación con 4 000 repeticiones por celda de una puerta de evaluación con 20 a 1 600 casos y 1 o 3 repeticiones (`SE-549`); dos historiales de Git reales creados en un directorio temporal y evaluados con tres reglas (`SE-550`); la comparación de cinco metodologías sobre siete silencios mal hechos (`SE-551`); y una simulación de cinco políticas sobre 300 cambios sintéticos (`SE-552`).
 
-Lo que **no se hizo**: no se midió ninguna plataforma de datos, ningún almacén, ninguna factura ni la calidad de datos de ninguna organización; no se evaluó el cumplimiento de ninguna norma de protección de datos, y esta parte no sustituye la asesoría legal; el formato columnar del laboratorio no es Parquet ni se midió Parquet; y el control de siete reglas detecta 9 de 10 mutaciones inyectadas, un resultado que mide la cobertura por familias de defectos y no la tasa de defectos reales. Las afirmaciones sobre herramientas y normas se atribuyen a sus fuentes y se tratan como descripciones; varias son documentación de proyectos sobre sí mismos y se leen como tales.
+Los parámetros (los 20 mutantes, los artefactos de cada metodología, los escenarios, los doce cambios del proveedor, las diez derivas, las probabilidades de acierto de la evaluación, los dos historiales de Git, los costos y las probabilidades de la simulación de políticas) son construcciones del autor. Ninguna cifra es una tasa de defectos real, y la simulación de `SE-549` y la de `SE-552` son modelos con supuestos declarados: solo las tasas de detección de la segunda proceden de un experimento real. La clasificación de «entrega» de `SE-546` usa reglas léxicas burdas que dejan sin sentido reconocible el 83 % de las frases.
+
+Lo que **no se hizo**: no se midió ningún equipo, productividad, esfuerzo humano ni mantenimiento; no se evaluó el efecto de ninguna metodología en la calidad del diseño; no se comparó ODD con SDD más allá de su documentación; no se ejecutó Gentle AI ni ninguna herramienta; y la afirmación de que TDD mejora el diseño no se midió ni se defiende. Las afirmaciones sobre metodologías se atribuyen a sus fuentes y se tratan como descripciones, no como resultados. Una revisión editorial humana independiente de la parte sigue pendiente.
 
 ## Guía razonada clase por clase
 
-*Avisos* deja de ser una aplicación que guarda datos y pasa a ser una organización que debe responder con ellos. Cada clase explica qué decisión de la plataforma de datos atiende, qué experimento la mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
+*Avisos* mantiene su regla de recordatorios mientras cambia la práctica con que se verifica. Cada clase explica qué pregunta ordena la metodología, qué experimento la mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
 
-### Bloque 1 — Del origen al modelo
+### Bloque 1 — Elegir y construir con pruebas
 
-#### SE-541 — Del dato operacional al analítico
+#### SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir
 
-Una base operacional y una analítica responden a preguntas distintas con patrones de acceso opuestos, y mezclarlas produce dos fallos que se confunden con lentitud: un informe pesado que bloquea a la aplicación y una pregunta sobre el pasado que la base ya no puede responder porque sobrescribió la respuesta. La clase mide los bytes que toca una búsqueda frente a una agregación sobre 200 000 pedidos, prueba una lectura abierta contra una escritura con y sin registro anticipado y reconstruye con eventos una pregunta que la tabla de estado no contesta.
+Una metodología es un oráculo con un costo y un punto ciego. La clase ejecuta cinco oráculos sobre 18 defectos sembrados, mira qué deja vivo cada uno y muestra que las parejas de naturaleza distinta cubren lo que uno solo no ve.
 
-El estudiante entrega un documento con las cinco preguntas analíticas más frecuentes de un sistema suyo, su patrón de acceso, si necesitan historia y qué cambia de significado en cada traspaso. `SE-542` trata cómo llegan los datos a la zona cruda.
+El estudiante entrega el mapa de las ocho metodologías con pregunta, oráculo y punto ciego. `SE-542` reconstruye el ciclo de TDD.
 
-#### SE-542 — Ingesta batch y streaming
+#### SE-542 — TDD: ciclo rojo-verde-refactor y diseño emergente
 
-Lote y flujo son dos modelos de completitud, no dos velocidades: uno espera y cierra, el otro nunca sabe si llegó todo y debe declarar cuánto espera. La clase simula 10 000 eventos con llegadas tardías y reentregas, mide cuántos deja fuera cada marca de agua y cada lote y cuánto infla el conteo contar entregas en lugar de eventos únicos.
+Una prueba que nunca falló no tiene información. La clase reconstruye ocho pasos, comprueba el rojo y el verde de cada uno, mide la curva de mutantes muertos y usa los tres sobrevivientes para escribir las pruebas que faltan.
 
-El estudiante entrega la política de ingesta de una fuente suya con los percentiles de retraso, la tolerancia, la clave de deduplicación y el destino de lo tardío. `SE-543` organiza lo que llega.
+El estudiante entrega el registro del ciclo con la evidencia de cada rojo. `SE-543` compara los dos estilos de prueba.
 
-#### SE-543 — Modelado analítico: hechos, dimensiones y granularidad
+#### SE-543 — TDD en la práctica: escuelas de Londres y clásica, y sus límites
 
-Un modelo analítico existe para que una pregunta tenga una sola respuesta. La clase mide cuánto cambia un reparto de ventas si una dimensión se sobrescribe frente a si conserva versiones, provoca y corrige un abanico de uniones que triplica un costo de envío y carga un Data Vault cuya repetición no añade filas.
+La diferencia entre estilos aparece cuando el interior cambia sin cambiar el resultado. La clase aplica cuatro refactores, un cambio de contrato y seis defectos a dos suites del mismo servicio.
 
-El estudiante entrega la granularidad de cada hecho de un dominio suyo, la política de historia de sus dimensiones y la consulta que detecta un abanico. `SE-544` construye esas tablas sin duplicar ni perder filas.
+El estudiante entrega las dos suites y una regla de doble por colaborador. `SE-544` pasa de las pruebas a la conversación.
 
-### Bloque 2 — Repetible y verificable
+### Bloque 2 — Acordar el qué y con qué palabras
 
-#### SE-544 — Transformación y orquestación idempotente con backfills
+#### SE-544 — BDD: ejemplos, conversación y lenguaje compartido
 
-Un pipeline que solo funciona si se ejecuta una vez no es un pipeline. La clase carga 30 particiones con tres estrategias, provoca un fallo a mitad con y sin transacción, corrige cinco días de origen reescribiendo solo esas particiones, calcula qué recalcular en un grafo de nueve tareas y mide cuántos datos tardíos recoge cada ventana de reproceso.
+BDD es descubrimiento, formulación y automatización; la herramienta es solo la tercera. La clase ejecuta nueve escenarios, mide la contribución de cada uno y encuentra los que no afirman nada.
 
-El estudiante entrega el plan de backfill de una tabla suya con la prueba de idempotencia y las tareas que se recalculan. `SE-545` vigila que lo construido sea correcto.
+El estudiante entrega una sesión de descubrimiento y sus escenarios medidos. `SE-545` trata qué ejemplos elegir.
 
-#### SE-545 — Calidad y observabilidad de datos
+#### SE-545 — ATDD y Specification by Example: aceptación ejecutable
 
-Un pipeline en verde no prueba que los datos sean correctos. La clase compara tres detectores de volumen con incidentes sembrados en una serie con caída de fin de semana, detecta una deriva del importe que ninguna comprobación de volumen ve y construye la matriz de qué familia de comprobación detecta cada defecto de una tabla.
+Más ejemplos no es mejor si no varían las dimensiones del problema. La clase compara cuatro conjuntos de ejemplos y explica por qué uno de 144 deja vivo un mutante que un ejemplo bien elegido mataría.
 
-El estudiante entrega las comprobaciones de un conjunto suyo con su umbral, su dueño, el detector de volumen elegido y la lista de lo que ninguna ve. `SE-546` convierte las expectativas en un contrato.
+El estudiante entrega la tabla de dimensiones de una regla suya y un conjunto de ejemplos medido. `SE-546` trata las palabras de esos ejemplos.
 
-#### SE-546 — Contratos de datos y evolución de esquemas
+#### SE-546 — DDD como lenguaje ubicuo y contexto para agentes
 
-Un contrato convierte una costumbre en un acuerdo comprobable, y la compatibilidad depende de quién actualiza primero. La clase clasifica diez cambios de esquema en los dos sentidos, lee 1 000 registros con el esquema nuevo, ejecuta un renombre de golpe y en tres pasos y muestra el cambio de unidad que el verificador aprueba y que rompe el significado.
+Una palabra con varios sentidos sin frontera produce errores silenciosos. La clase cuenta los sentidos de «entrega» en el corpus del programa y prueba que sin traducción entre contextos el servicio no envía ningún aviso.
 
-El estudiante entrega el contrato de un conjunto suyo con la tabla de cambios por sentido y el plan de expandir y contraer de un cambio incompatible. `SE-547` construye el mapa de quién consume qué.
+El estudiante entrega un glosario, un mapa de contextos y la prueba de la frontera. `SE-547` trata lo que se promete en cada frontera.
 
-### Bloque 3 — Dónde vive, quién lo ve y cuánto cuesta
+### Bloque 3 — Prometer, mantener y medir
 
-#### SE-547 — Linaje, catálogo y metadatos
+#### SE-547 — Diseño por contrato y pruebas de contrato como oráculo
 
-El linaje responde de dónde sale un número y qué se rompe si cambia una columna, y cada método ve una parte. La clase analiza seis sentencias SQL, perturba nueve columnas de origen y compara lo medido con tres predicciones: el linaje de valores omite 31 cambios que las condiciones sí explican, y el de tablas avisa de todo o de nada.
+Una aserción puede desaparecer en producción y una alerta falsa enseña a ignorar. La clase ejecuta una precondición con y sin `-O` y compara tres detectores de cambios de un proveedor sobre doce cambios.
 
-El estudiante entrega el linaje de columnas de un conjunto suyo con el método de cada arista, la prueba de perturbación y la ficha de catálogo de un activo. `SE-548` pasa a dónde y cómo se guardan los datos.
+El estudiante entrega el contrato mínimo de un consumidor suyo. `SE-548` lleva la idea de contrato a la especificación.
 
-#### SE-548 — Warehouse, lake, lakehouse y formatos columnares
+#### SE-548 — SDD: spec-first, spec-anchored y spec-as-source
 
-Almacén, lago y lakehouse son arquitecturas con garantías distintas, y debajo de ellas el formato y el orden deciden los bytes que se leen. La clase construye un formato columnar mínimo, lo compara con CSV, JSON y un binario por filas sobre 200 000 pedidos, mide el efecto del orden y de los archivos pequeños y publica una compactación con un manifiesto de versiones.
+La deriva se desplaza hacia lo que la máquina no sabe comprobar. La clase genera código desde una especificación y mide qué derivas ve un comprobador mecánico y cuál no.
 
-El estudiante entrega el formato, la partición, el orden y el tamaño de archivo de una tabla suya con la consulta representativa y sus bytes leídos. `SE-549` trata lo que esos archivos contienen sobre personas.
+El estudiante entrega una especificación legible por máquina con su comprobador. `SE-549` pasa a los componentes probabilísticos.
 
-#### SE-549 — Gobierno, privacidad y retención de datos
+#### SE-549 — EDD: evaluaciones como especificación y puerta de release
 
-Gobernar es un conjunto de mecanismos comprobables sobre el recorrido del dato. La clase mide qué columnas personales escapan a una clasificación por nombre, demuestra que un hash sin clave se revierte con candidatos y un HMAC no, calcula los grupos pequeños de un agregado y propaga un borrado por el linaje encontrando la copia que queda fuera.
+Una evaluación es un instrumento con ruido. La clase simula una puerta con 20 a 1 600 casos y 1 o 3 repeticiones y muestra que con 100 casos y una corrida más de una de cada cuatro regresiones de 5 puntos pasa.
 
-El estudiante entrega el inventario de datos personales de un conjunto suyo, su método de seudonimización con la prueba de reversión, el umbral de agregación y el recorrido de borrado. `SE-550` pone precio a todo eso.
+El estudiante entrega una puerta con umbral, margen y zona de duda. `SE-550` trata un flujo de trabajo para agentes.
 
-#### SE-550 — Costos y operación de plataformas de datos
+#### SE-550 — ODD: desarrollo orgánico y su contraste con SDD
 
-El costo es una propiedad de cada decisión técnica. La clase escala bytes medidos a una tabla de 1 TB con un precio inventado, compara refrescos completos e incrementales por frecuencia, calcula la ruta crítica de un pipeline de ocho tareas y muestra que acelerar una tarea fuera de ella no mueve la hora de entrega.
+Un flujo documentado no es evidencia de efectividad; su forma sí se puede comprobar. La clase evalúa dos historiales de Git reales contra tres reglas y contrasta ODD con SDD con sus evidencias declaradas.
 
-El estudiante entrega el costo mensual de tres decisiones de una plataforma suya con la fórmula y la ruta crítica de su pipeline principal. `SE-551` pone a prueba todo lo anterior.
+El estudiante entrega un documento de tarea y un comprobador de dos reglas. `SE-551` compara las metodologías sobre un cambio.
 
-### Bloque 4 — Probar e integrar
+### Bloque 4 — Aplicar e integrar
 
-#### SE-551 — Taller: reparar un pipeline defectuoso
+#### SE-551 — Taller: un mismo cambio con cinco metodologías
 
-Los defectos de un pipeline se enmascaran entre sí. El taller entrega un pipeline con ocho defectos sembrados, la verdad de referencia y ocho comprobaciones, y pide diagnosticarlos con método: reproducir, acotar la capa, conciliar y corregir una causa por paso midiendo tras cada una, con el error subiendo en medio de la reparación.
+El mismo cambio con cinco artefactos y la misma medida. El modelo ejecutable mata los siete silencios mal hechos y el contrato tres; lo que importa es qué deja vivo cada uno y por qué.
 
-El estudiante entrega el diagnóstico de cada defecto con el antes y el después, la matriz defecto por comprobación y la comprobación nueva para el más difícil de ver. `SE-552` integra el control que debería haberlos detenido.
+El estudiante entrega la comparación de sus cinco artefactos y una combinación justificada. `SE-552` la convierte en política.
 
-#### SE-552 — Proyecto: plataforma de datos mínima gobernada
+#### SE-552 — Proyecto: política metodológica de equipo con evidencia
 
-Una plataforma gobernada se distingue de una que lo parece por su control: reglas que comparan lo declarado con lo construido y que se prueban con cambios inyectados. La clase construye tres conjuntos con un registro de metadatos, un control de siete reglas y diez mutaciones, detecta 9 y declara la décima, un cambio de significado que atraviesa todo.
+Una política asigna menos evidencia a lo de bajo riesgo y más a lo de alto, y reconoce los cambios sin reglas deterministas. La clase simula cinco políticas sobre 300 cambios y escribe la del equipo con excepciones y revisión.
 
-El estudiante entrega su registro de metadatos, las reglas con su evidencia, la matriz de mutaciones, el cambio que su control no ve y el costo estimado. Con esta clase se cierra la parte.
+El estudiante entrega la política con su clasificación, su tabla de evidencia y su métrica de revisión. La Parte 48 la usa como entrada para estudiar el harness de un agente.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-541](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-541-del-dato-operacional-al-analitico/) | Del dato operacional al analítico | Entrega un documento con las cinco preguntas analíticas más frecuentes de un sistema suyo, su patrón de acceso, si necesitan historia y qué cambia de significado en cada traspaso |
-| [SE-542](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-542-ingesta-batch-y-streaming/) | Ingesta batch y streaming | Entrega la política de ingesta de una fuente suya con los percentiles de retraso, la tolerancia, la clave de deduplicación y el destino de lo tardío |
-| [SE-543](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-543-modelado-analitico-hechos-dimensiones-y-granularidad/) | Modelado analítico: hechos, dimensiones y granularidad | Entrega la granularidad de cada hecho de un dominio suyo, la política de historia de sus dimensiones y la consulta que detecta un abanico |
-| [SE-544](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-544-transformacion-y-orquestacion-idempotente-con-backfills/) | Transformación y orquestación idempotente con backfills | Entrega el plan de backfill de una tabla suya con la prueba de idempotencia y las tareas que se recalculan |
-| [SE-545](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-545-calidad-y-observabilidad-de-datos/) | Calidad y observabilidad de datos | Entrega las comprobaciones de un conjunto suyo con su umbral, su dueño, el detector de volumen elegido y la lista de lo que ninguna ve |
-| [SE-546](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-546-contratos-de-datos-y-evolucion-de-esquemas/) | Contratos de datos y evolución de esquemas | Entrega el contrato de un conjunto suyo con la tabla de cambios por sentido y el plan de expandir y contraer de un cambio incompatible |
-| [SE-547](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-547-linaje-catalogo-y-metadatos/) | Linaje, catálogo y metadatos | Entrega el linaje de columnas de un conjunto suyo con el método de cada arista, la prueba de perturbación y la ficha de catálogo de un activo |
-| [SE-548](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-548-warehouse-lake-lakehouse-y-formatos-columnares/) | Warehouse, lake, lakehouse y formatos columnares | Entrega el formato, la partición, el orden y el tamaño de archivo de una tabla suya con la consulta representativa y sus bytes leídos |
-| [SE-549](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-549-gobierno-privacidad-y-retencion-de-datos/) | Gobierno, privacidad y retención de datos | Entrega el inventario de datos personales de un conjunto suyo, su método de seudonimización con la prueba de reversión, el umbral de agregación y el recorrido de borrado |
-| [SE-550](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-550-costos-y-operacion-de-plataformas-de-datos/) | Costos y operación de plataformas de datos | Entrega el costo mensual de tres decisiones de una plataforma suya con la fórmula y la ruta crítica de su pipeline principal |
-| [SE-551](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-551-taller-reparar-un-pipeline-defectuoso/) | Taller: reparar un pipeline defectuoso | Entrega el diagnóstico de cada defecto con el antes y el después, la matriz defecto por comprobación y la comprobación nueva para el más difícil de ver |
-| [SE-552](../../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-552-proyecto-plataforma-de-datos-minima-gobernada/) | Proyecto: plataforma de datos mínima gobernada | Entrega su registro de metadatos, las reglas con su evidencia, la matriz de mutaciones, el cambio que su control no ve y el costo estimado |
+| [SE-541](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/) | Mapa de metodologías: qué decide cada una y cómo elegir | Entrega el mapa de las ocho metodologías con pregunta, oráculo y punto ciego |
+| [SE-542](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/) | TDD: ciclo rojo-verde-refactor y diseño emergente | Entrega el registro del ciclo con la evidencia de cada rojo |
+| [SE-543](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-543-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/) | TDD en la práctica: escuelas de Londres y clásica, y sus límites | Entrega las dos suites y una regla de doble por colaborador |
+| [SE-544](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/) | BDD: ejemplos, conversación y lenguaje compartido | Entrega una sesión de descubrimiento y sus escenarios medidos |
+| [SE-545](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/) | ATDD y Specification by Example: aceptación ejecutable | Entrega la tabla de dimensiones de una regla suya y un conjunto de ejemplos medido |
+| [SE-546](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/) | DDD como lenguaje ubicuo y contexto para agentes | Entrega un glosario, un mapa de contextos y la prueba de la frontera |
+| [SE-547](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-547-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/) | Diseño por contrato y pruebas de contrato como oráculo | Entrega el contrato mínimo de un consumidor suyo |
+| [SE-548](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/) | SDD: spec-first, spec-anchored y spec-as-source | Entrega una especificación legible por máquina con su comprobador |
+| [SE-549](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release/) | EDD: evaluaciones como especificación y puerta de release | Entrega una puerta con umbral, margen y zona de duda |
+| [SE-550](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/) | ODD: desarrollo orgánico y su contraste con SDD | Entrega un documento de tarea y un comprobador de dos reglas |
+| [SE-551](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias/) | Taller: un mismo cambio con cinco metodologías | Entrega la comparación de sus cinco artefactos y una combinación justificada |
+| [SE-552](../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/) | Proyecto: política metodológica de equipo con evidencia | Entrega la política con su clasificación, su tabla de evidencia y su métrica de revisión |
 
 ## Fuentes
 
-- [Kleppmann, «Designing Data-Intensive Applications»](https://dataintensive.net/), [Kimball Group, «Dimensional Modeling Techniques»](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/), [Data Vault Alliance](https://datavaultalliance.com/) y [Fowler, «Data Lake»](https://martinfowler.com/bliki/DataLake.html) — procesamiento transaccional y analítico, modelado dimensional y de bóveda, y zona cruda; autoría de Kleppmann, Kimball Group, la comunidad del vault y Fowler.
-- [Akidau et al., «The Dataflow Model»](https://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf) y [Apache Kafka, «Message Delivery Semantics»](https://kafka.apache.org/documentation/#semantics) — tiempo del evento, marcas de agua y semánticas de entrega; autoría de los autores del artículo y del proyecto Kafka.
-- [Apache Airflow, «DAGs»](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html) y [«DAG Runs»](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dag-run.html), [dbt, «Incremental models»](https://docs.getdbt.com/docs/build/incremental-models) y [SQLite, «UPSERT»](https://www.sqlite.org/lang_upsert.html) — grafos de tareas, ejecuciones por intervalo, construcción incremental y escritura por clave; autoridad: los proyectos y SQLite.
-- [Great Expectations](https://docs.greatexpectations.io/docs/), [Google, «Monitoring Distributed Systems»](https://sre.google/sre-book/monitoring-distributed-systems/) y [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — comprobaciones de calidad de datos, alertas sobre síntomas y vocabulario de calidad; autoridad: el proyecto, Google e ISO.
-- [Open Data Contract Standard](https://bitol-io.github.io/open-data-contract-standard/latest/), [Apache Avro, «Schema Resolution»](https://avro.apache.org/docs/current/specification/), [Confluent, «Schema Evolution and Compatibility»](https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html), [Fowler, «ParallelChange»](https://martinfowler.com/bliki/ParallelChange.html) y [SQLite, «ALTER TABLE»](https://www.sqlite.org/lang_altertable.html) — contratos de datos, compatibilidad de esquemas y cambios en pasos; autoría de Bitol, Avro, Confluent, Fowler y SQLite.
-- [OpenLineage](https://openlineage.io/docs/) y [DAMA, DMBOK](https://www.dama.org/cpages/body-of-knowledge) — linaje, metadatos y gobierno de datos; autoridad: OpenLineage y DAMA International.
-- [Apache Parquet](https://parquet.apache.org/docs/), [Apache Arrow](https://arrow.apache.org/docs/format/Columnar.html), [Armbrust et al., «Lakehouse» (CIDR 2021)](https://www.cidrdb.org/cidr2021/papers/cidr2021_paper17.pdf), [Apache Iceberg](https://iceberg.apache.org/spec/) y [Delta Lake](https://github.com/delta-io/delta/blob/master/PROTOCOL.md) — formatos columnares y capas de tabla con manifiesto; autoría de los proyectos y de los autores del artículo.
-- [Reglamento (UE) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj), [NIST SP 800-188](https://csrc.nist.gov/pubs/sp/800/188/final), [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104) y [FinOps Framework](https://www.finops.org/framework/) — principios de protección de datos, desidentificación, HMAC y gestión financiera de la nube; autoridad: la Unión Europea, NIST, el IETF y la FinOps Foundation.
-- Documentación de Python: [`sqlite3`](https://docs.python.org/3/library/sqlite3.html), [`random`](https://docs.python.org/3/library/random.html), [`statistics`](https://docs.python.org/3/library/statistics.html), [`hashlib`](https://docs.python.org/3/library/hashlib.html), [`hmac`](https://docs.python.org/3/library/hmac.html), [`zlib`](https://docs.python.org/3/library/zlib.html), [`array`](https://docs.python.org/3/library/array.html) y [`datetime`](https://docs.python.org/3/library/datetime.html) — herramientas usadas por los experimentos; autoridad: la Python Software Foundation.
+- [Beck, «Canon TDD»](https://tidyfirst.substack.com/p/canon-tdd), [Fowler, «Test Driven Development»](https://martinfowler.com/bliki/TestDrivenDevelopment.html) y [Fowler, Beck y Heinemeier Hansson, «Is TDD Dead?»](https://martinfowler.com/articles/is-tdd-dead/) — definición del flujo de TDD y debate sobre su valor de diseño; autoría de Beck y Fowler.
+- [Fowler, «Mocks Aren't Stubs»](https://martinfowler.com/articles/mocksArentStubs.html) y [`unittest.mock`](https://docs.python.org/3/library/unittest.mock.html) — dobles, verificación de estado y de comportamiento, y estilos clásico y de Londres; autoría de Fowler y documentación de Python.
+- [Cucumber, «Behaviour-Driven Development»](https://cucumber.io/docs/bdd/), [«Gherkin Reference»](https://cucumber.io/docs/gherkin/reference/), [North, «Introducing BDD»](https://dannorth.net/introducing-bdd/), [Agile Alliance, «Three Amigos»](https://www.agilealliance.org/glossary/three-amigos/) y [Adzic, «Specification by Example»](https://gojko.net/books/specification-by-example/) — BDD, ATDD y especificación por ejemplos; autoridad: Cucumber, North, Agile Alliance y Adzic.
+- [Evans, «Domain-Driven Design Reference»](https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf) y [Domain Language](https://www.domainlanguage.com/ddd/) — lenguaje ubicuo, contextos delimitados y capa anticorrupción; autoría de Evans.
+- [Meyer, «Applying Design by Contract»](https://doi.org/10.1109/2.161279), [la sentencia `assert`](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement), [opciones de línea de comandos de Python](https://docs.python.org/3/using/cmdline.html), [Pact](https://docs.pact.io/) y [JSON Schema](https://json-schema.org/understanding-json-schema/) — contratos y pruebas de contrato; autoridad: IEEE Computer, documentación de Python, Pact y JSON Schema.
+- [Böckeler, «Understanding Spec-Driven-Development»](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html), [Spec Kit](https://github.com/github/spec-kit), [OpenSpec](https://github.com/Fission-AI/OpenSpec) y [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) — niveles de SDD y vocabulario de especificación; autoridad: martinfowler.com, GitHub, Fission AI e IETF.
+- [Anthropic, «Demystifying evals for AI agents»](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Husain, «Your AI Product Needs Evals»](https://hamel.dev/blog/posts/evals/), [Braintrust](https://braintrust.dev/articles/eval-driven-development), [DeepEval](https://deepeval.com/blog/eval-driven-development) y [Xia et al.](https://arxiv.org/abs/2411.13768) — evaluaciones y no determinismo; autoridad: Anthropic, un autor reconocido, dos proveedores de herramientas y un preprint.
+- [Gentle AI, «Intended Usage»](https://github.com/Gentleman-Programming/gentle-ai/blob/main/docs/intended-usage.md), [su repositorio](https://github.com/Gentleman-Programming/gentle-ai) y [un artículo de terceros](https://cursosdesarrolloweb.com/articulos/organic-driven-development-odd/) — flujo ODD; autoridad: documentación del propio proyecto y opinión de terceros, no un estudio independiente.
+- [DeMillo, Lipton y Sayward](https://doi.org/10.1109/C-M.1978.218136), [Jia y Harman](https://doi.org/10.1109/TSE.2010.62) y [`git log`](https://git-scm.com/docs/git-log) — prueba de mutación y medición de commits; autoridad: IEEE Computer, IEEE TSE y documentación de Git.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen prácticas; que un diseño convenga a un equipo se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente. Varias son documentación de proyectos sobre sus propias herramientas y se leen como tales.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen prácticas; que una práctica convenga a un equipo se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj y los tamaños de archivo, que declaran por qué varían;
-- ninguna afirmación sobre una herramienta, una plataforma, una factura o el efecto real de una decisión se apoya en una simulación o en un modelo de juguete;
-- el proyecto final se puede aplicar a un conjunto de datos nuevo por otra persona y declara qué cambio no detecta su control y qué capa lo vería.
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj, que declaran por qué no;
+- ninguna afirmación sobre un equipo, una herramienta de terceros, un modelo o el diseño que produce una práctica se apoya en una simulación o en un mutante sembrado;
+- la política final se puede aplicar a un cambio nuevo por otra persona y declara sus supuestos.
 
 [Volver al índice de clases](../../classes/README.md)

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-526",
+  "title": "Economía de reescribir frente a evolucionar",
+  "stage": "G",
+  "part": "43",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar"
+}

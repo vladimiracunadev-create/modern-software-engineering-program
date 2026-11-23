@@ -1,29 +1,33 @@
-# Cómo añadir una parte nueva (Partes 40–48)
+# Cómo desarrollar una parte reservada (Partes 34 y 42)
 
-Procedimiento operativo derivado de [ADR-005](adr/ADR-005-publish-parts-40-44-from-content.md) y
-[ADR-006](adr/ADR-006-extend-program-parts-45-48-and-roles.md).
-Una parte entra en el programa cuando existe su contenido completo; no hay que editar
-constantes, contadores ni tablas compartidas. Antes de empezar, lee `AGENTS.md`,
+Procedimiento operativo derivado de [ADR-005](adr/ADR-005-publish-parts-40-44-from-content.md),
+[ADR-006](adr/ADR-006-extend-program-parts-45-48-and-roles.md) y
+[ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md). Una parte entra en el
+programa cuando existe su contenido completo; no hay que editar constantes, contadores ni
+tablas compartidas. Antes de empezar, lee `AGENTS.md`,
 [`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md) y la nota de traspaso de la parte
-anterior si existe.
+anterior si existe. Las citas anteriores al 2026-11-23 usan la numeración histórica: el mapa
+está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
 ## Qué define el programa y qué lo cumple
 
-- **Títulos y rangos fijos.** `scripts/build_program_blueprint.py` ya define las 49 partes
-  y sus 588 títulos: Parte 40 = `SE-481`–`SE-492`, 41 = `SE-493`–`SE-504`,
-  42 = `SE-505`–`SE-516`, 43 = `SE-517`–`SE-528`, 44 = `SE-529`–`SE-540` y, añadidas por ADR-006
-  (todas desarrolladas), Parte 45 = `SE-541`–`SE-552`, 46 = `SE-553`–`SE-564`,
-  47 = `SE-565`–`SE-576` y 48 = `SE-577`–`SE-588`. El primer
-  encabezado de cada clase debe ser exactamente `# SE-NNN — <título del blueprint>`; si un
-  título necesita cambiar, se cambia en el blueprint (un solo lugar) y se regenera.
+- **Títulos y rangos fijos.** `scripts/build_program_blueprint.py` ya define las 51 partes y
+  sus 612 títulos en secuencia pedagógica; las Partes 00–22 conservan el número de siempre.
+  La regla de ID es `12 × parte + posición` (la posición va de 1 a 12). Las partes por
+  desarrollar son la **34** (`SE-409`–`SE-420`, etapa E) y la **42** (`SE-505`–`SE-516`,
+  etapa G). El primer encabezado de cada clase debe ser exactamente
+  `# SE-NNN — <título del blueprint>`; si un título necesita cambiar, se cambia en el
+  blueprint (un solo lugar) con un ADR y se regenera.
 - **Estado derivado.** Una parte está desarrollada si existen `content/part-NN/README.md`
   y los doce `content/part-NN/SE-NNN.md`. Con menos, sigue planificada (y el validador
-  avisa si el contenido está a medias).
+  avisa si el contenido está a medias). Mientras una parte esté planificada, su hueco no
+  rompe nada: la navegación anterior/siguiente salta a la clase desarrollada vecina y el
+  portal sirve la página `404.html`, que explica el cambio de numeración, en las URL vacantes.
 
 Cada clase debe llevar las dieciséis secciones del contrato (`REQUIRED_CLASS_SECTIONS` en
 `scripts/build_phase2.py`: Prerrequisitos, Problema auténtico, … Fuentes, Límites y siguiente
 paso); `validate_class_contracts.py` lo exige. El modelo de profundidad y forma es
-`content/part-39/`.
+`content/part-47/`.
 
 ## Archivos que añade cada parte (y solo esos)
 
@@ -35,6 +39,7 @@ paso); `validate_class_contracts.py` lo exige. El modelo de profundidad y forma 
 | `scripts/figures_partNN_a.py`, `_b.py` | diccionario `FIGURES` (nombre de archivo → constructor); tres figuras por clase |
 | `scripts/experiments_partNN_*.py` | experimentos reproducibles (semilla fija o mediciones reales) |
 | `content/part-NN/figures/*.svg` | las genera `build_figures.py`; no se escriben a mano |
+| `roles/<rol>.md` y su perfil | solo si la parte crea un rol (ver abajo) |
 
 Además, en archivos compartidos y **solo en sus propias líneas**:
 
@@ -44,8 +49,9 @@ Además, en archivos compartidos y **solo en sus propias líneas**:
   casillas de la parte (el validador exige `[x]` si y solo si existe el contenido).
 
 No se editan `README.md`, `ROADMAP.md`, `STATUS.md`, `classes/`, `site/`, `catalog.json`,
-`curriculum.yaml`, `roles/` ni los scripts de generación o validación: se regeneran.
-`tests/test_figures.py` ya incluye automáticamente toda parte desarrollada.
+`curriculum.yaml` ni los scripts de generación o validación: se regeneran.
+`tests/test_figures.py` y `tests/test_navigation_gaps.py` ya incluyen automáticamente toda
+parte desarrollada.
 
 ## Comandos, en este orden
 
@@ -92,94 +98,67 @@ CHANGELOG y el plan maestro solo requieren conservar ambas filas o casillas.
 - Alt text de figuras sin corchetes (MD039) y con las secciones
   «Cómo leer la figura» y «Dónde deja de valer».
 
-## Partes 45–48: rangos y títulos finales (ADR-006)
+## Partes reservadas: rangos y títulos fijos (ADR-007)
 
-Estos títulos y rangos están fijados en el blueprint y no cambian sin un ADR. Las cuatro partes
-nacieron **planificadas** y hoy están desarrolladas. Una parte nueva sigue el mismo camino: no existe en
-`classes/`, `site/` ni en las guías de rol hasta que exista su contenido completo
+Estos títulos y rangos están fijados en el blueprint y no cambian sin un ADR. Las dos partes
+nacieron **planificadas**: no existen en `classes/`, `site/` (salvo la página-aviso de la URL
+vacante) ni en las guías de rol hasta que exista su contenido completo
 (`content/part-NN/README.md` más los doce `SE-NNN.md`).
 
-### Parte 45 — Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`)
+### Parte 34 — SaaS y plataformas de producto (`SE-409`–`SE-420`)
 
 | Clase | Tipo | Título exacto |
 | --- | --- | --- |
-| `SE-541` | clase | Del dato operacional al analítico |
-| `SE-542` | clase | Ingesta batch y streaming |
-| `SE-543` | clase | Modelado analítico: hechos, dimensiones y granularidad |
-| `SE-544` | clase | Transformación y orquestación idempotente con backfills |
-| `SE-545` | clase | Calidad y observabilidad de datos |
-| `SE-546` | clase | Contratos de datos y evolución de esquemas |
-| `SE-547` | clase | Linaje, catálogo y metadatos |
-| `SE-548` | clase | Warehouse, lake, lakehouse y formatos columnares |
-| `SE-549` | clase | Gobierno, privacidad y retención de datos |
-| `SE-550` | clase | Costos y operación de plataformas de datos |
-| `SE-551` | taller | Taller: reparar un pipeline defectuoso |
-| `SE-552` | proyecto | Proyecto: plataforma de datos mínima gobernada |
+| `SE-409` | clase | SaaS como producto y como operación: del software al servicio continuo |
+| `SE-410` | clase | Tenencia, organizaciones e identidad en un producto SaaS |
+| `SE-411` | clase | Planes, derechos de uso y control de funcionalidades |
+| `SE-412` | clase | Medición de uso, facturación y suscripciones |
+| `SE-413` | clase | Activación, onboarding y ciclo de vida de la cuenta |
+| `SE-414` | clase | Ciclo de vida del tenant: aprovisionamiento, migración y baja |
+| `SE-415` | clase | APIs públicas, webhooks y ecosistema de integraciones |
+| `SE-416` | clase | Plataformas extensibles: plugins, SDK y marketplaces |
+| `SE-417` | clase | Confiabilidad como promesa comercial: SLA, SLO y créditos |
+| `SE-418` | clase | Economía unitaria y costo de servir por tenant |
+| `SE-419` | taller | Taller: diseñar los planes y el aislamiento de un SaaS |
+| `SE-420` | proyecto | Proyecto: núcleo de un SaaS multi-tenant con facturación por uso |
 
-### Parte 46 — Machine learning en producción y MLOps (`SE-553`–`SE-564`)
-
-| Clase | Tipo | Título exacto |
-| --- | --- | --- |
-| `SE-553` | clase | Ciclo de vida de ML y por qué falla en producción |
-| `SE-554` | clase | Datos de entrenamiento, etiquetas y feature stores |
-| `SE-555` | clase | Experimentos y entrenamiento reproducible |
-| `SE-556` | clase | Evaluación, sesgos y validación de modelos |
-| `SE-557` | clase | Ajuste fino, adaptación y costo |
-| `SE-558` | clase | Servir modelos: latencia, lotes y GPU |
-| `SE-559` | clase | Despliegue seguro de modelos: shadow, canary y rollback |
-| `SE-560` | clase | Monitoreo, deriva y reentrenamiento |
-| `SE-561` | clase | Seguridad y robustez de sistemas de ML |
-| `SE-562` | clase | Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF |
-| `SE-563` | taller | Taller: degradar y recuperar un modelo |
-| `SE-564` | proyecto | Proyecto: sistema de ML operable con evidencia |
-
-### Parte 47 — Sistemas críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`)
+### Parte 42 — Ingeniería del caos (`SE-505`–`SE-516`)
 
 | Clase | Tipo | Título exacto |
 | --- | --- | --- |
-| `SE-565` | clase | Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA |
-| `SE-566` | clase | IEC 61508 y niveles de integridad de seguridad |
-| `SE-567` | clase | Automoción: ISO 26262 y niveles ASIL |
-| `SE-568` | clase | Aviación: DO-178C, DO-254 y ARP4754 |
-| `SE-569` | clase | Dispositivos médicos: IEC 62304 |
-| `SE-570` | clase | Casos de seguridad y trazabilidad |
-| `SE-571` | clase | RTOS y planificación de tiempo real |
-| `SE-572` | clase | Codificación segura: MISRA y CERT |
-| `SE-573` | clase | Verificación formal y model checking: TLA+, SPARK y Alloy |
-| `SE-574` | clase | Verificación y cobertura: MC/DC, HIL y SIL |
-| `SE-575` | taller | Taller: analizar un fallo real frente a las normas |
-| `SE-576` | proyecto | Proyecto: paquete de aseguramiento de un controlador |
+| `SE-505` | clase | Principios de la ingeniería del caos: estado estable e hipótesis |
+| `SE-506` | clase | Diseñar experimentos de fallo: alcance y radio de impacto |
+| `SE-507` | clase | Inyección de fallos de red, latencia y dependencias |
+| `SE-508` | clase | Fallos de recursos e infraestructura: CPU, memoria, disco y nodos |
+| `SE-509` | clase | Caos en Kubernetes y en plataformas cloud |
+| `SE-510` | clase | Fallos de datos y de estado: réplicas, particiones y corrupción |
+| `SE-511` | clase | Game days y ejercicios de respuesta a incidentes |
+| `SE-512` | clase | Caos continuo: automatización en CI/CD y en producción |
+| `SE-513` | clase | Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar |
+| `SE-514` | clase | Aprender de los experimentos: hallazgos, métricas y mejora |
+| `SE-515` | taller | Taller: ejecutar un experimento de caos acotado con criterio de aborto |
+| `SE-516` | proyecto | Proyecto: programa de caos de un servicio con evidencia y remediación |
 
-### Parte 48 — Runtimes y plataformas modernas (`SE-577`–`SE-588`)
-
-| Clase | Tipo | Título exacto |
-| --- | --- | --- |
-| `SE-577` | clase | WebAssembly y WASI |
-| `SE-578` | clase | WebAssembly en servidor y borde: component model |
-| `SE-579` | clase | eBPF: observabilidad, red y seguridad en el kernel |
-| `SE-580` | clase | GPU y aceleradores: modelo de ejecución |
-| `SE-581` | clase | Rendimiento y costo en aceleradores |
-| `SE-582` | clase | Contenedores, microVM y sandboxes |
-| `SE-583` | clase | Hardware seguro: TEE y atestación |
-| `SE-584` | clase | Computación cuántica para ingenieros de software |
-| `SE-585` | clase | Criptografía poscuántica y migración |
-| `SE-586` | clase | Confianza cero en la práctica |
-| `SE-587` | taller | Taller: elegir y aislar un runtime para una carga no confiable |
-| `SE-588` | proyecto | Proyecto: plataforma de ejecución aislada con evidencia |
 
 ### Qué debe hacer cada sesión de contenido
 
-- **Parte 45** (datos): usa `SE-278`, `SE-313`–`SE-324` y `SE-325`–`SE-336` como antecedentes y
-  evita duplicarlos; esta parte trata la plataforma de datos como disciplina propia.
-- **Parte 46** (ML): se apoya en `SE-279`, `SE-457`–`SE-468` y `SE-505`–`SE-516`; trata
-  el modelo como artefacto operado, con costo de aceleradores y gobierno de IA.
-- **Parte 47** (críticos): se apoya en `SE-265`–`SE-276`, `SE-283` y `SE-160`; explica las normas
-  sin reproducir su texto protegido y declara que no sustituye una certificación.
-- **Parte 48** (runtimes): se apoya en `SE-021`, `SE-350`–`SE-352` y `SE-389`; trata WebAssembly,
-  eBPF, GPU, microVM, TEE, criptografía poscuántica y confianza cero con modelo de amenaza y medición.
-- **Ampliaciones de clases existentes** (CRDT y consenso, software verde, InnerSource): se hacen
-  dentro del ID existente (`SE-260`, `SE-343`, `SE-022`, `SE-200`), sin renumerar ni añadir IDs.
-- **Roles:** las guías de las tres rutas nuevas (`mlops-ml-platform-engineer.md`,
-  `ai-governance-responsible-ai-engineer.md`, `runtime-systems-engineer.md`) y las de los roles
-  afectados ya declaran qué cambiará con cada parte (`PLANNED_BY_ROLE` en `scripts/role_profiles.py`).
-  Al publicarse una parte, `build_role_guides.py` enlaza su primera, sexta y última clase sin más edición.
+- **Parte 34** (SaaS): se apoya en la tenencia y el aislamiento de la Parte 28 (estilos
+  arquitectónicos), en la integración de la Parte 31, en la nube de la Parte 33, en la
+  economía de producto de la Parte 11 y en la observabilidad de la Parte 41; no duplica esas
+  clases: trata el producto SaaS como disciplina propia (planes, medición, facturación, ciclo
+  de vida del tenant y costo de servir). Cada afirmación sobre un proveedor o una norma cita
+  fuente oficial vigente.
+- **Parte 42** (caos): se apoya en la resiliencia de la Parte 36, en los incidentes y los SLO de
+  la Parte 41 y en la concurrencia y los sistemas distribuidos de la Parte 32. Todo
+  experimento declara hipótesis, radio de impacto, criterio de aborto y datos sintéticos; no
+  se prueba en sistemas ajenos ni se recomienda caos sin observabilidad previa.
+- **Roles:** ADR-007 decidió dos guías nuevas, *SaaS & Product Platform Engineer* (Parte 34) y
+  *Chaos Engineer* (Parte 42). Se crean con su parte: perfil en `scripts/role_profiles.py`
+  (con núcleo, flujo, decisiones, métricas, escenario, proyecto, fuentes y adyacentes), guía
+  en `roles/` con más de 2.200 palabras y dos gráficos interpretables, y su nombre en las
+  listas `EXTRA_ADJACENT` de los roles vecinos. Hoy las partes figuran como contexto
+  planificado en `PLANNED_BY_ROLE`; al publicarse, `build_role_guides.py` enlaza su primera,
+  sexta y última clase sin más edición. El programa tiene 45 roles hasta entonces.
+- **Ampliaciones de clases existentes** (CRDT y consenso, software verde, InnerSource):
+  se hacen dentro del ID existente (`SE-260`, `SE-391`, `SE-022` y
+  `SE-200`), sin renumerar ni añadir IDs.

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
+  "schema_version": 1,
+  "class_id": "SE-383",
+  "mode": "studio",
+  "environment": "broker local o simulador, validador de esquemas y trazas",
+  "duration_hours": 6,
+  "steps": [
+    "frame-problem",
+    "separate-evidence",
+    "compare-options",
+    "produce-artifact",
+    "inject-safe-failure",
+    "peer-review",
+    "revise"
+  ],
+  "outputs": [
+    "asyncapi.yaml",
+    "flow.md",
+    "reconciliation.md"
+  ],
+  "safety": {
+    "real_personal_data": false,
+    "production_access": false,
+    "secrets": false
+  },
+  "source_ids": [
+    "ASYNCAPI",
+    "CLOUDEVENTS",
+    "OPENAPI",
+    "SWEBOK-4A"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-433",
+  "title": "Modelos de calidad y atributos medibles",
+  "stage": "F",
+  "part": "36",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles"
+}

@@ -1,6 +1,6 @@
 # Programa de Ingeniería de Software Moderna
 
-Purpose: coordinate a professional, evidence-based software engineering program across specialized repositories. The curriculum plans 588 classes in 49 parts (SE-001..SE-588; ADR-004 and ADR-006). A part counts as developed only when its full content exists in content/part-NN/; the current developed and planned counts are generated in STATUS.md, catalog.json and curriculum.yaml (planned_scope). All developed classes are pending independent human editorial review; parts without content are planned only, with no published classes.
+Purpose: coordinate a professional, evidence-based software engineering program across specialized repositories. The curriculum plans 612 class positions in 51 parts (SE-001..SE-612, in pedagogical order; ADR-007); parts 34 and 42 are reserved and planned. The old numbering is mapped in docs/ID-MIGRATION.md. A part counts as developed only when its full content exists in content/part-NN/; the current developed and planned counts are generated in STATUS.md, catalog.json and curriculum.yaml (planned_scope). All developed classes are pending independent human editorial review; parts without content are planned only, with no published classes.
 
 Read first:
 - README.md

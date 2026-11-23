@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "SE-572",
+  "title": "Delegación, subagentes y sistemas multiagente",
+  "stage": "H",
+  "part": "47",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "GITHUB-SPEC-KIT",
+    "MCP-2026-07-28",
+    "NIST-AI-RMF",
+    "NIST-AI-600-1"
+  ],
+  "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente"
+}

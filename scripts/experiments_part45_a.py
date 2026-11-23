@@ -1,396 +1,727 @@
-"""Experimentos de las clases SE-541 a SE-544 (Parte 45): del dato operacional al analítico, ingesta,
-modelado analítico y transformación idempotente.
+"""Experimentos de las clases SE-541 a SE-546 (Parte 45): metodologías de desarrollo.
 
-Uso: python scripts/experiments_part45_a.py [541|542|543|544]
+Uso: python scripts/experiments_part45_a.py [481|482|483|484|485|486]
 
-No se invoca ningún modelo de lenguaje. Biblioteca estándar y el caso conductor *Avisos*. Los
-parámetros (volúmenes, retrasos, tasas de duplicado) los fija el autor y se declaran en la salida; los
-tiempos y los tamaños en disco se miden de verdad y varían de un equipo a otro.
+No se invoca ningún modelo de lenguaje. Todo es código ejecutado de verdad con la biblioteca
+estándar sobre el núcleo de *Avisos* (`experiments_part45_lab.py`): mutantes, oráculos, un ciclo
+rojo-verde-refactor, dos estilos de pruebas, un ejecutor de escenarios y un recuento léxico del corpus.
 """
 from __future__ import annotations
 
-import hashlib
 import itertools
-import os
-import random
-import sqlite3
+import re
 import sys
-import tempfile
-from collections import defaultdict
+import unittest.mock as um
+from pathlib import Path
 
-from experiments_part45_lab import SEED, fmt, mem_db, pct, table, timed
+import experiments_part45_lab as L
+
+
+def table(rows):
+    for r in rows:
+        print("  " + " | ".join(str(c) for c in r))
+
+
+def pct(x, d=1):
+    return f"{100 * x:.{d}f} %".replace(".", ",")
+
+
+REAL = [m for m in L.MUTANTS if not m[4]]
+REAL_IDS = [m[0] for m in REAL]
 
 
 # ====================================================================== SE-541
-def e541():
-    print("SE-541 — del dato operacional al analítico")
-    rng = random.Random(SEED)
-    n = 200_000
-    con = mem_db()
-    con.execute("CREATE TABLE orders(id INTEGER PRIMARY KEY, customer INT, day INT, amount INT, status TEXT, note TEXT)")
-    rows = [(i, rng.randrange(5000), rng.randrange(365), rng.randrange(500, 50000), rng.choice(["new", "paid", "shipped", "delivered"]),
-             "nota-" + "x" * rng.randrange(20, 60)) for i in range(n)]
-    con.executemany("INSERT INTO orders VALUES(?,?,?,?,?,?)", rows)
-    con.commit()
-    page_size = con.execute("PRAGMA page_size").fetchone()[0]
-    pages = con.execute("PRAGMA page_count").fetchone()[0]
-    table_bytes = page_size * pages
-    needed = n * 8 * 2  # dos columnas enteras de 8 bytes
-    ids = [rng.randrange(n) for _ in range(2000)]
-    t_point, _ = timed(lambda: [con.execute("SELECT * FROM orders WHERE id=?", (i,)).fetchone() for i in ids], 3)
-    t_scan, res = timed(lambda: con.execute("SELECT day, SUM(amount) FROM orders GROUP BY day").fetchall(), 3)
-    con.execute("CREATE INDEX ix_day_amount ON orders(day, amount)")
-    t_cover, _ = timed(lambda: con.execute("SELECT day, SUM(amount) FROM orders GROUP BY day").fetchall(), 3)
-    plan = con.execute("EXPLAIN QUERY PLAN SELECT day, SUM(amount) FROM orders GROUP BY day").fetchall()[0][-1]
-    print(f"  tabla de {n} pedidos: {table_bytes/1e6:.1f} MB en {pages} páginas de {page_size} bytes; las dos columnas que necesita la agregación suman {needed/1e6:.1f} MB ({fmt(needed/table_bytes*100,1)} % de la tabla)")
-    print(f"  2000 búsquedas por clave: {fmt(t_point,1)} ms en total ({fmt(t_point/2000*1000,1)} µs por búsqueda); agregación por día sobre toda la tabla: {fmt(t_scan,1)} ms ({fmt(t_scan/(t_point/2000),0)} veces una búsqueda)")
-    print(f"  con un índice que cubre día e importe: {fmt(t_cover,1)} ms; plan: {plan}")
-    # historia: la tabla operacional guarda solo el estado actual
-    m = 20_000
-    states = ["created", "paid", "shipped", "delivered"]
-    events, current = [], {}
-    for oid in range(m):
-        day = rng.randrange(0, 200)
-        for st in states:
-            events.append((oid, st, day))
-            current[oid] = st
-            day += rng.randrange(1, 6)
-            if rng.random() < 0.08:
-                break
-    d = 100
-    stay = defaultdict(list)
-    for oid, st, day in events:
-        stay[oid].append((st, day))
-    in_paid = 0
-    for oid, hist in stay.items():
-        for i, (st, day) in enumerate(hist):
-            nxt = hist[i + 1][1] if i + 1 < len(hist) else 10**9
-            if st == "paid" and day <= d < nxt:
-                in_paid += 1
-    from_current = sum(1 for s in current.values() if s == "paid")
-    print(f"  {m} pedidos con {len(events)} cambios de estado: «¿cuántos estaban pagados y sin enviar el día {d}?» respuesta con el registro de eventos: {in_paid}; con la tabla de estado actual solo se puede decir cuántos están pagados hoy: {from_current}")
-    # bloqueo entre lectura larga y escritura (diario de reversión frente a WAL)
-    out = []
-    for mode in ("delete", "wal"):
-        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
-            path = os.path.join(tmp, "o.db")
-            w = sqlite3.connect(path, timeout=0, isolation_level=None)
-            w.execute(f"PRAGMA journal_mode={mode}")
-            w.execute("CREATE TABLE t(a INT)")
-            w.executemany("INSERT INTO t VALUES(?)", [(i,) for i in range(1000)])
-            r = sqlite3.connect(path, timeout=0, isolation_level=None)
-            r.execute("BEGIN")
-            cur = r.execute("SELECT a FROM t")
-            cur.fetchone()
-            try:
-                w.execute("BEGIN IMMEDIATE")
-                w.execute("INSERT INTO t VALUES(-1)")
-                w.execute("COMMIT")
-                res_w = "la escritura se confirma mientras la lectura sigue abierta"
-            except sqlite3.OperationalError as exc:
-                res_w = f"la escritura falla: {exc}"
-                try:
-                    w.execute("ROLLBACK")
-                except sqlite3.OperationalError:
-                    pass
-            cur.close()
-            r.execute("COMMIT")
-            out.append((mode, res_w))
-            r.close()
-            w.close()
-    for mode, res_w in out:
-        print(f"  modo {mode}: {res_w}")
-    rows_t = [["Consulta", "Filas que toca", "Bytes que necesita", "Tiempo"],
-              ["Búsqueda por clave", 1, "una página", f"{fmt(t_point/2000*1000,1)} µs"],
-              ["Agregación por día", n, f"{needed/1e6:.1f} MB de {table_bytes/1e6:.1f} MB", f"{fmt(t_scan,1)} ms"]]
-    table(rows_t)
+def e481():
+    print("SE-541 — mapa de metodologías: qué mutantes mata cada tipo de oráculo")
+    matrix, base = L.kill_matrix()
+    labels = list(L.ORACLES)
+    print("  todos los oráculos pasan con el original:", all(base.values()))
+    print("  mutantes:", len(L.MUTANTS), "de los cuales equivalentes:", sum(m[4] for m in L.MUTANTS))
+    rows = [["Oráculo", "Mata", "Solo él", "Tiempo (ms)"]]
+    versions = L.all_versions()
+    for label in labels:
+        killed = {k for k in REAL_IDS if matrix[k][label]}
+        others = {k for k in REAL_IDS if any(matrix[k][o] for o in labels if o != label)}
+        ms = L.timed(lambda lab=label: L.ORACLES[lab](versions["ORIGINAL"]))
+        rows.append([label, f"{len(killed)} de {len(REAL_IDS)}", len(killed - others), f"{ms:.2f}"])
+    table(rows)
+    survivors = [k for k in REAL_IDS if not any(matrix[k].values())]
+    print("  mutantes no equivalentes que ningún oráculo mata:", survivors)
+    print("  equivalentes (sobreviven a todos):", [m[0] for m in L.MUTANTS if m[4]], [not any(matrix[m[0]].values()) for m in L.MUTANTS if m[4]])
+    print("  por parejas (unión de muertes):")
+    pairs = []
+    for a, b in itertools.combinations(labels, 2):
+        n = sum(1 for k in REAL_IDS if matrix[k][a] or matrix[k][b])
+        pairs.append((n, a, b))
+    for n, a, b in sorted(pairs, reverse=True)[:5]:
+        print(f"    {a} + {b}: {n} de {len(REAL_IDS)}")
+    print("  los que no mata cada oráculo:")
+    for label in labels:
+        print(f"    {label}: {[k for k in REAL_IDS if not matrix[k][label]]}")
 
 
 # ====================================================================== SE-542
-def gen_events(rng, n=10_000):
-    ev = []
-    for i in range(n):
-        t = rng.uniform(0, 86400)
-        delay = rng.expovariate(1 / 20)
-        if rng.random() < 0.03:
-            delay = rng.uniform(3600, 6 * 3600)
-        ev.append({"id": i, "t": t, "arr": t + delay})
-        if rng.random() < 0.02:  # redelivery: at-least-once
-            ev.append({"id": i, "t": t, "arr": t + delay + rng.uniform(5, 600)})
-    return ev
+V0 = "def due_reminders(deliveries, now, silenced, sent):\n    return []\n"
+V1 = '''def due_reminders(deliveries, now, silenced, sent):
+    out = []
+    for d in deliveries:
+        if d["due"] - now <= 72:
+            out.append((d["id"], 72))
+    return out
+'''
+V2 = '''def due_reminders(deliveries, now, silenced, sent):
+    out = []
+    for d in deliveries:
+        if d["due"] - now <= 72 and (d["id"], 72) not in sent:
+            out.append((d["id"], 72))
+    return out
+'''
+V3 = '''def due_reminders(deliveries, now, silenced, sent):
+    out = []
+    for d in deliveries:
+        if d["submitted"]:
+            continue
+        if d["due"] - now <= 72 and (d["id"], 72) not in sent:
+            out.append((d["id"], 72))
+    return out
+'''
+V4 = '''def due_reminders(deliveries, now, silenced, sent):
+    out = []
+    for d in deliveries:
+        if d["submitted"] or d["due"] - now <= 0:
+            continue
+        if d["due"] - now <= 72 and (d["id"], 72) not in sent:
+            out.append((d["id"], 72))
+    return out
+'''
+V5 = L.SOURCE.replace('        if (d["student"], d["course"]) in silenced and offset != 1:\n            continue\n', "")
+V6 = L.SOURCE.replace('(d["student"], d["course"]) in silenced', 'd["student"] in [s for s, c in silenced]')
+V7 = L.SOURCE
+VERSIONS = [V0, V1, V2, V3, V4, V5, V6, V7]
 
 
-def e542():
-    print("SE-542 — ingesta batch y streaming")
-    rng = random.Random(SEED)
-    ev = gen_events(rng)
-    uniq = {e["id"] for e in ev}
-    print(f"  {len(ev)} entregas de {len(uniq)} eventos únicos ({len(ev)-len(uniq)} duplicados por reentrega); 3 % llegan entre 1 y 6 horas tarde")
-    hour = lambda t: int(t // 3600)
-    truth = defaultdict(int)
-    first = {}
-    for e in ev:
-        if e["id"] not in first:
-            first[e["id"]] = e
-    for e in first.values():
-        truth[hour(e["t"])] += 1
-    # sin deduplicar
-    raw = defaultdict(int)
-    for e in ev:
-        raw[hour(e["t"])] += 1
-    err_nodedup = sum(abs(raw[h] - truth[h]) for h in truth) / sum(truth.values()) * 100
-    print(f"  contar entregas sin deduplicar infla las ventanas un {fmt(err_nodedup,2)} % del total")
-    rows = [["Política", "Eventos fuera de su ventana", "Error en ventanas (% del total)", "Retraso hasta emitir"]]
-    for name, lateness in [("flujo sin tolerancia", 0), ("flujo con marca de agua de 1 min", 60), ("flujo con marca de agua de 10 min", 600),
-                           ("flujo con marca de agua de 1 h", 3600), ("flujo con marca de agua de 6 h", 6 * 3600)]:
-        got = defaultdict(int)
-        seen = set()
-        dropped = 0
-        for e in sorted(ev, key=lambda x: x["arr"]):
-            if e["id"] in seen:
-                continue
-            win_end = (hour(e["t"]) + 1) * 3600
-            if e["arr"] > win_end + lateness:
-                dropped += 1
-                seen.add(e["id"])
-                continue
-            seen.add(e["id"])
-            got[hour(e["t"])] += 1
-        err = sum(abs(got[h] - truth[h]) for h in truth) / sum(truth.values()) * 100
-        rows.append([name, dropped, fmt(err, 2), f"{lateness/60:g} min"])
-    # lotes: nocturno a las 02:00 del día siguiente, y reproceso a los 3 días
-    for name, cutoff in [("lote nocturno a las 02:00 del día siguiente", 86400 + 7200), ("lote con reproceso 3 días después", 86400 * 4)]:
-        got = defaultdict(int)
-        seen = set()
-        dropped = 0
-        for e in sorted(ev, key=lambda x: x["arr"]):
-            if e["id"] in seen:
-                continue
-            seen.add(e["id"])
-            if e["arr"] > cutoff:
-                dropped += 1
-                continue
-            got[hour(e["t"])] += 1
-        err = sum(abs(got[h] - truth[h]) for h in truth) / sum(truth.values()) * 100
-        rows.append([name, dropped, fmt(err, 2), f"{(cutoff-86400)/3600:g} h tras cerrar el día"])
+def e482():
+    print("SE-542 — ciclo rojo-verde-refactor sobre ocho pruebas")
+    tests = L.TDD_TESTS
+    fns = [L.load(v) if "OFFSETS" in v else None for v in VERSIONS]
+    # las versiones sin OFFSETS no lo necesitan
+    fns = [L.load(v) for v in VERSIONS]
+
+    def passes(test, fn):
+        try:
+            test(fn)
+            return True
+        except Exception:  # noqa: BLE001
+            return False
+
+    rows = [["Paso", "Prueba nueva", "Roja con la versión anterior", "Verde con la nueva", "Anteriores siguen verdes"]]
+    for k, test in enumerate(tests):
+        prev = fns[k]
+        new = fns[k]  # V_k pasa t_k ; V_(k-1) debe fallar
+        red = not passes(test, fns[k - 1]) if k > 0 else not passes(test, L.load("def due_reminders(a, b, c, d):\n    raise NotImplementedError\n"))
+        green = passes(test, fns[k])
+        regress = all(passes(t, fns[k]) for t in tests[:k])
+        rows.append([k + 1, test.__name__, "sí" if red else "no", "sí" if green else "no", "sí" if regress else "no"])
     table(rows)
-    # latencia de reflejo: tiempo entre el evento y su aparición en el resultado
-    lat_stream = [e["arr"] - e["t"] for e in first.values()]
-    print(f"  retraso entre el evento y su llegada al sistema: mediana {fmt(pct(lat_stream,0.5),1)} s, p99 {fmt(pct(lat_stream,0.99),0)} s; un lote nocturno añade hasta 24 h")
-    # idempotencia de la entrega por clave
-    sink = {}
-    applied = 0
-    for e in sorted(ev, key=lambda x: x["arr"]):
-        if e["id"] not in sink:
-            sink[e["id"]] = e["t"]
-            applied += 1
-    print(f"  escritura por clave: {applied} filas aplicadas de {len(ev)} entregas (las {len(ev)-applied} reentregas no cambian el resultado)")
+    print("  versión final idéntica al original:", VERSIONS[-1] == L.SOURCE)
+    print("  curva de mutantes muertos tras cada prueba (de 18):")
+    versions = L.all_versions()
+    for k in range(1, len(tests) + 1):
+        killed = sum(1 for m in REAL_IDS if not L.oracle_tdd(versions[m], k))
+        print(f"    {k} pruebas: {killed}")
+    # sobrevivientes de las ocho pruebas
+    survivors = [m for m in REAL_IDS if L.oracle_tdd(versions[m])]
+    print("  sobreviven a las ocho:", survivors, [dict((x[0], x[3]) for x in L.MUTANTS)[s] for s in survivors])
+    # añadir pruebas en el límite (refactor del conjunto: los sobrevivientes piden pruebas)
+    extra = []
+
+    def t09(fn):
+        assert fn([L.delivery("a", 100)], 100, frozenset(), set()) == []
+
+    def t10(fn):
+        assert fn([L.delivery("a", 100)], 27, frozenset(), set()) == []
+        assert fn([L.delivery("a", 100)], 28, frozenset(), set()) == [("a", 72)]
+
+    def t11(fn):
+        assert fn([L.delivery("a", 100)], 70, frozenset(), {("a", 24)}) == []
+        assert fn([L.delivery("a", 100)], 75, frozenset(), {("a", 72)}) == []
+        assert fn([L.delivery("a", 100)], 76, frozenset(), {("a", 72)}) == [("a", 24)]
+
+    extra = [t09, t10, t11]
+    tests2 = tests + extra
+    print("  tras añadir tres pruebas guiadas por los sobrevivientes:")
+    for t in extra:
+        ok = all(passes(t, versions["ORIGINAL"]) for _ in [0])
+        print(f"    {t.__name__} pasa con el original: {ok}")
+    killed = sum(1 for m in REAL_IDS if any(not passes(t, versions[m]) for t in tests2))
+    print(f"    mutantes muertos: {killed} de {len(REAL_IDS)}")
 
 
 # ====================================================================== SE-543
-def e543():
-    print("SE-543 — modelado analítico: dimensional y Data Vault")
-    rng = random.Random(SEED)
-    con = mem_db()
-    con.executescript("""
-    CREATE TABLE customer_hist(customer_id INT, city TEXT, valid_from INT, valid_to INT);
-    CREATE TABLE orders(order_id INT PRIMARY KEY, customer_id INT, day INT, shipping_fee INT);
-    CREATE TABLE items(order_id INT, line INT, product INT, qty INT, price INT);
-    """)
-    cities = ["Santiago", "Valparaiso", "Concepcion", "Temuco"]
-    n_c, moved = 1000, 0
-    cur_city = {}
-    for c in range(n_c):
-        city = rng.choice(cities)
-        if rng.random() < 0.15:
-            day_move = rng.randrange(100, 250)
-            new = rng.choice([x for x in cities if x != city])
-            con.execute("INSERT INTO customer_hist VALUES(?,?,?,?)", (c, city, 0, day_move))
-            con.execute("INSERT INTO customer_hist VALUES(?,?,?,?)", (c, new, day_move, 10_000))
-            cur_city[c] = new
-            moved += 1
-        else:
-            con.execute("INSERT INTO customer_hist VALUES(?,?,?,?)", (c, city, 0, 10_000))
-            cur_city[c] = city
-    oid = 0
-    for _ in range(20_000):
-        c, day = rng.randrange(n_c), rng.randrange(365)
-        con.execute("INSERT INTO orders VALUES(?,?,?,?)", (oid, c, day, 500))
-        for line in range(rng.randrange(1, 6)):
-            con.execute("INSERT INTO items VALUES(?,?,?,?,?)", (oid, line, rng.randrange(200), rng.randrange(1, 4), rng.randrange(1000, 9000)))
-        oid += 1
-    con.execute("CREATE TABLE dim_customer_cur AS SELECT customer_id, city FROM customer_hist WHERE valid_to=10000")
-    q_cur = dict(con.execute("""SELECT d.city, SUM(i.qty*i.price) FROM items i JOIN orders o USING(order_id)
-                               JOIN dim_customer_cur d USING(customer_id) GROUP BY d.city""").fetchall())
-    q_scd2 = dict(con.execute("""SELECT d.city, SUM(i.qty*i.price) FROM items i JOIN orders o USING(order_id)
-                                JOIN customer_hist d ON d.customer_id=o.customer_id AND o.day>=d.valid_from AND o.day<d.valid_to GROUP BY d.city""").fetchall())
-    total = con.execute("SELECT SUM(qty*price) FROM items").fetchone()[0]
-    print(f"  {n_c} clientes, {moved} se mudaron; {oid} pedidos con {con.execute('SELECT COUNT(*) FROM items').fetchone()[0]} líneas; ventas totales {total}")
-    rows = [["Ciudad", "Ventas con la ciudad actual", "Ventas con la ciudad de la fecha", "Diferencia"]]
-    for c in cities:
-        rows.append([c, q_cur[c], q_scd2[c], q_scd2[c] - q_cur[c]])
-    table(rows)
-    print(f"  suma de las dos columnas: {sum(q_cur.values())} y {sum(q_scd2.values())} (ambas igual al total; cambia el reparto, no el total)")
-    # fan-out: sumar un atributo del pedido tras unirlo con las líneas
-    true_fee = con.execute("SELECT SUM(shipping_fee) FROM orders").fetchone()[0]
-    fan = con.execute("SELECT SUM(o.shipping_fee) FROM orders o JOIN items i USING(order_id)").fetchone()[0]
-    fan_fixed = con.execute("SELECT SUM(fee) FROM (SELECT o.shipping_fee AS fee FROM orders o WHERE EXISTS(SELECT 1 FROM items i WHERE i.order_id=o.order_id))").fetchone()[0]
-    print(f"  envío total real {true_fee}; sumado tras unir con las líneas {fan} ({fmt((fan/true_fee-1)*100,1)} % de más); con un grano por pedido {fan_fixed}")
-    # Data Vault: carga insertar-solamente e idempotente
-    con.executescript("""
-    CREATE TABLE hub_customer(hk TEXT PRIMARY KEY, customer_id INT, load_day INT);
-    CREATE TABLE sat_customer(hk TEXT, load_day INT, hashdiff TEXT, city TEXT, PRIMARY KEY(hk, hashdiff));
-    CREATE TABLE hub_order(hk TEXT PRIMARY KEY, order_id INT, load_day INT);
-    CREATE TABLE link_order_customer(hk TEXT PRIMARY KEY, hk_order TEXT, hk_customer TEXT, load_day INT);
-    """)
-    h = lambda *p: hashlib.md5("|".join(str(x) for x in p).encode(), usedforsecurity=False).hexdigest()
+class FakeRepo:
+    def __init__(self, deliveries):
+        self.deliveries = deliveries
+        self.sent = set()
 
-    def load(day):
-        for (c, city, vf, vt) in con.execute("SELECT * FROM customer_hist WHERE valid_from<=? AND valid_to>?", (day, day)).fetchall():
-            con.execute("INSERT OR IGNORE INTO hub_customer VALUES(?,?,?)", (h(c), c, day))
-            con.execute("INSERT OR IGNORE INTO sat_customer VALUES(?,?,?,?)", (h(c), day, h(city), city))
-        for (o, c, d, fee) in con.execute("SELECT * FROM orders WHERE day<=?", (day,)).fetchall():
-            con.execute("INSERT OR IGNORE INTO hub_order VALUES(?,?,?)", (h(o), o, day))
-            con.execute("INSERT OR IGNORE INTO link_order_customer VALUES(?,?,?,?)", (h(o, c), h(o), h(c), day))
+    def pending_deliveries(self):
+        return [d for d in self.deliveries if not d["submitted"]]
 
-    counts = []
-    for day in (0, 100, 250, 250):
-        load(day)
-        counts.append((day, *[con.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in ("hub_customer", "sat_customer", "hub_order", "link_order_customer")]))  # nosec B608
-    rows = [["Carga del día", "hub_customer", "sat_customer", "hub_order", "link_order_customer"]] + [list(c) for c in counts]
+    def all_deliveries(self):
+        return list(self.deliveries)
+
+    def mark_sent(self, delivery_id, offset):
+        self.sent.add((delivery_id, offset))
+
+    def sent_for(self, delivery_id):
+        return {o for (i, o) in self.sent if i == delivery_id}
+
+
+class FakeChannel:
+    def __init__(self, fail_for=()):
+        self.messages = []
+        self.fail_for = set(fail_for)
+
+    def send(self, student, text):
+        if student in self.fail_for:
+            raise ConnectionError("canal caído")
+        self.messages.append((student, text))
+
+
+class FakeClock:
+    def __init__(self, t):
+        self.t = t
+
+    def now(self):
+        return self.t
+
+
+class ReminderService:
+    """Versión base: el cómo de cada colaboración es privado del servicio."""
+
+    def __init__(self, repo, channel, clock):
+        self.repo, self.channel, self.clock = repo, channel, clock
+
+    def candidates(self):
+        return self.repo.pending_deliveries()
+
+    def now(self):
+        return self.clock.now()
+
+    def run(self):
+        for d in self.candidates():
+            remaining = d["due"] - self.now()
+            if remaining <= 0:
+                continue
+            done = self.repo.sent_for(d["id"])
+            pending = [o for o in L.OFFSETS if remaining <= o and not any(s <= o for s in done)]
+            if not pending:
+                continue
+            offset = min(pending)
+            try:
+                self.channel.send(d["student"], f"Entrega {d['id']} vence en {remaining} h")
+            except ConnectionError:
+                continue
+            for o in L.OFFSETS:
+                if o >= offset:
+                    self.repo.mark_sent(d["id"], o)
+
+
+class R1ClockOnce(ReminderService):  # refactor: leer el reloj una sola vez por ejecución
+    def run(self):
+        t = self.clock.now()
+        self.now = lambda: t
+        super().run()
+
+
+class R2AllThenFilter(ReminderService):  # refactor: pedir todas y filtrar en el servicio
+    def candidates(self):
+        return [d for d in self.repo.all_deliveries() if not d["submitted"]]
+
+
+class R3ExtractHelper(ReminderService):  # refactor: extraer el cálculo del umbral
+    @staticmethod
+    def _offset(remaining, done):
+        pending = [o for o in L.OFFSETS if remaining <= o and not any(s <= o for s in done)]
+        return min(pending) if pending else None
+
+    def run(self):
+        for d in self.candidates():
+            remaining = d["due"] - self.now()
+            if remaining <= 0:
+                continue
+            offset = self._offset(remaining, self.repo.sent_for(d["id"]))
+            if offset is None:
+                continue
+            try:
+                self.channel.send(d["student"], f"Entrega {d['id']} vence en {remaining} h")
+            except ConnectionError:
+                continue
+            for o in L.OFFSETS:
+                if o >= offset:
+                    self.repo.mark_sent(d["id"], o)
+
+
+class R4ReadOrder(ReminderService):  # refactor: leer lo registrado antes de calcular el tiempo restante
+    def run(self):
+        for d in self.candidates():
+            done = self.repo.sent_for(d["id"])
+            remaining = d["due"] - self.now()
+            if remaining <= 0:
+                continue
+            pending = [o for o in L.OFFSETS if remaining <= o and not any(s <= o for s in done)]
+            if not pending:
+                continue
+            offset = min(pending)
+            try:
+                self.channel.send(d["student"], f"Entrega {d['id']} vence en {remaining} h")
+            except ConnectionError:
+                continue
+            for o in sorted(L.OFFSETS, reverse=True):
+                if o >= offset:
+                    self.repo.mark_sent(d["id"], o)
+
+
+class R5RenamedPort(ReminderService):  # cambio de interfaz: el puerto de registro cambia de nombre
+    def run(self):
+        for d in self.candidates():
+            remaining = d["due"] - self.now()
+            if remaining <= 0:
+                continue
+            done = self.repo.sent_for(d["id"])
+            pending = [o for o in L.OFFSETS if remaining <= o and not any(s <= o for s in done)]
+            if not pending:
+                continue
+            offset = min(pending)
+            try:
+                self.channel.send(d["student"], f"Entrega {d['id']} vence en {remaining} h")
+            except ConnectionError:
+                continue
+            for o in L.OFFSETS:
+                if o >= offset:
+                    self.repo.record_notice(d["id"], o)
+
+
+class D1NoMark(ReminderService):  # defecto: no registra el envío
+    def run(self):
+        original = self.repo.mark_sent
+        self.repo.mark_sent = lambda i, o: None
+        try:
+            super().run()
+        finally:
+            self.repo.mark_sent = original
+
+
+class D2MarkBeforeSend(ReminderService):  # defecto: marca antes de enviar y pierde el aviso si el canal falla
+    def run(self):
+        for d in self.candidates():
+            remaining = d["due"] - self.now()
+            if remaining <= 0:
+                continue
+            done = self.repo.sent_for(d["id"])
+            pending = [o for o in L.OFFSETS if remaining <= o and not any(s <= o for s in done)]
+            if not pending:
+                continue
+            offset = min(pending)
+            for o in L.OFFSETS:
+                if o >= offset:
+                    self.repo.mark_sent(d["id"], o)
+            try:
+                self.channel.send(d["student"], f"Entrega {d['id']} vence en {remaining} h")
+            except ConnectionError:
+                continue
+
+
+class D3AllCandidates(ReminderService):  # defecto: incluye entregas ya entregadas
+    def candidates(self):
+        return self.repo.all_deliveries()
+
+
+class D4WrongRecipient(ReminderService):  # defecto: avisa a un estudiante fijo
+    def run(self):
+        original = self.channel.send
+        self.channel.send = lambda student, text: original("e-docente", text)
+        try:
+            super().run()
+        finally:
+            self.channel.send = original
+
+
+class D5RetryForever(ReminderService):  # defecto: reintenta enviando dos veces
+    def run(self):
+        original = self.channel.send
+
+        def twice(student, text):
+            original(student, text)
+            original(student, text)
+
+        self.channel.send = twice
+        try:
+            super().run()
+        finally:
+            self.channel.send = original
+
+
+class D6MarkOne(ReminderService):  # defecto: registra solo el umbral enviado y deja pasar los anteriores
+    def run(self):
+        for d in self.candidates():
+            remaining = d["due"] - self.now()
+            if remaining <= 0:
+                continue
+            done = self.repo.sent_for(d["id"])
+            pending = [o for o in L.OFFSETS if remaining <= o and not any(s <= o for s in done)]
+            if not pending:
+                continue
+            offset = min(pending)
+            try:
+                self.channel.send(d["student"], f"Entrega {d['id']} vence en {remaining} h")
+            except ConnectionError:
+                continue
+            self.repo.mark_sent(d["id"], offset)
+
+
+REFACTORS = {"R1 leer el reloj una vez": R1ClockOnce, "R2 pedir todas y filtrar en el servicio": R2AllThenFilter,
+             "R3 extraer el cálculo del umbral": R3ExtractHelper, "R4 leer lo registrado antes del reloj": R4ReadOrder}
+DEFECTS = {"D1 no registra el envío": D1NoMark, "D6 registra solo el umbral enviado": D6MarkOne, "D2 marca antes de enviar": D2MarkBeforeSend,
+           "D3 incluye entregas ya entregadas": D3AllCandidates, "D4 destinatario equivocado": D4WrongRecipient,
+           "D5 envía dos veces": D5RetryForever}
+
+
+def classical_suite(cls):
+    """Estilo clásico: dobles con estado y aserciones sobre el resultado observable."""
+    try:
+        repo = FakeRepo([L.delivery("a", 100), L.delivery("b", 100, student="e2", submitted=True)])
+        ch = FakeChannel()
+        cls(repo, ch, FakeClock(76)).run()
+        assert [m[0] for m in ch.messages] == ["e1"], ch.messages
+        assert repo.sent_for("a") == {24, 72}, repo.sent
+        cls(repo, ch, FakeClock(77)).run()
+        assert len(ch.messages) == 1, "no repite"
+        repo = FakeRepo([L.delivery("a", 100)])
+        ch = FakeChannel(fail_for=["e1"])
+        cls(repo, ch, FakeClock(99)).run()
+        assert repo.sent_for("a") == set(), "no registra si el canal falla"
+        ch.fail_for = set()
+        cls(repo, ch, FakeClock(99.5)).run()
+        assert [m[0] for m in ch.messages] == ["e1"] and repo.sent_for("a") == {1, 24, 72}
+    except Exception:  # noqa: BLE001
+        return False
+    return True
+
+
+def mockist_suite(cls):
+    """Estilo de Londres: colaboradores simulados; consultas con valores fijos y verificación de órdenes."""
+    try:
+        d = L.delivery("a", 100)
+        manager = um.Mock()
+        repo, ch, clock = manager.repo, manager.channel, manager.clock
+        repo.pending_deliveries.return_value = [d]
+        repo.sent_for.return_value = set()
+        clock.now.return_value = 76
+        cls(repo, ch, clock).run()
+        repo.pending_deliveries.assert_called_once_with()
+        ch.send.assert_called_once()
+        assert ch.send.call_args[0][0] == "e1"
+        assert repo.mark_sent.call_args_list == [um.call("a", 72), um.call("a", 24)], repo.mark_sent.call_args_list
+        names = [c[0] for c in manager.mock_calls if c[0] in ("channel.send", "repo.mark_sent")]
+        assert names[0] == "channel.send", names
+        manager2 = um.Mock()
+        repo2, ch2, clock2 = manager2.repo, manager2.channel, manager2.clock
+        ch2.send.side_effect = ConnectionError()
+        repo2.pending_deliveries.return_value = [d]
+        repo2.sent_for.return_value = set()
+        clock2.now.return_value = 99
+        cls(repo2, ch2, clock2).run()
+        repo2.mark_sent.assert_not_called()
+    except Exception:  # noqa: BLE001
+        return False
+    return True
+
+
+def e483():
+    print("SE-543 — escuelas clásica y de Londres frente a refactores y defectos")
+    for name, suite in (("clásica", classical_suite), ("Londres", mockist_suite)):
+        print(f"  {name}: pasa con la versión base:", suite(ReminderService))
+    rows = [["Cambio", "Tipo", "Clásica", "Londres"]]
+    false_fail = {"clásica": 0, "Londres": 0}
+    caught = {"clásica": 0, "Londres": 0}
+    for label, cls in REFACTORS.items():
+        c, m = classical_suite(cls), mockist_suite(cls)
+        false_fail["clásica"] += (not c)
+        false_fail["Londres"] += (not m)
+        rows.append([label, "refactor (conserva el comportamiento)", "pasa" if c else "FALLA", "pasa" if m else "FALLA"])
+    c, m = classical_suite(R5RenamedPort), mockist_suite(R5RenamedPort)
+    rows.append(["R5 cambio de interfaz (el puerto se renombra)", "cambio de contrato (no es refactor)", "pasa" if c else "FALLA", "pasa" if m else "FALLA"])
+    for label, cls in DEFECTS.items():
+        c, m = classical_suite(cls), mockist_suite(cls)
+        caught["clásica"] += (not c)
+        caught["Londres"] += (not m)
+        rows.append([label, "defecto (cambia el comportamiento)", "detecta" if not c else "NO", "detecta" if not m else "NO"])
     table(rows)
-    print(f"  la carga repetida del día 250 no añade filas: {counts[-1][1:] == counts[-2][1:]}")
-    # consulta de «cómo era en una fecha» sobre el satélite
-    when = con.execute("SELECT COUNT(*) FROM sat_customer").fetchone()[0]
-    print(f"  satélite de clientes con {when} filas: {n_c} versiones iniciales y {when-n_c} cambios de ciudad conservados")
-    # costo de consulta: estrella frente a vault con uniones
-    q1 = "SELECT d.city, SUM(i.qty*i.price) FROM items i JOIN orders o USING(order_id) JOIN dim_customer_cur d USING(customer_id) GROUP BY d.city"
-    q2 = """SELECT s.city, SUM(i.qty*i.price) FROM items i JOIN hub_order ho ON ho.order_id=i.order_id JOIN link_order_customer l ON l.hk_order=ho.hk
-            JOIN sat_customer s ON s.hk=l.hk_customer GROUP BY s.city"""
-    t1, _ = timed(lambda: con.execute(q1).fetchall(), 3)
-    t2, _ = timed(lambda: con.execute(q2).fetchall(), 3)
-    print(f"  la misma pregunta: estrella con una unión por dimensión {fmt(t1,1)} ms; vault con hub, enlace y satélite {fmt(t2,1)} ms (el vault no se consulta directo: se construye una vista de negocio encima)")
+    print("  falsas alarmas (refactores que rompen la prueba):", false_fail, "de", len(REFACTORS))
+    print("  defectos detectados:", caught, "de", len(DEFECTS))
 
 
 # ====================================================================== SE-544
-def run_load(strategy, src, fail_day=None, fail_after=None, txn=True, retry=True):
-    con = mem_db()
-    con.execute("CREATE TABLE fact(day INT, key INT, amount INT, PRIMARY KEY(day, key) ON CONFLICT REPLACE)" if strategy == "merge"
-                else "CREATE TABLE fact(day INT, key INT, amount INT)")
-    def load_day(day, boom):
-        rows = src[day]
-        if txn:
-            con.execute("BEGIN")
-        if strategy == "delete-insert":
-            con.execute("DELETE FROM fact WHERE day=?", (day,))
-        for i, (k, a) in enumerate(rows):
-            if boom and i == len(rows) // 2:
-                if txn:
-                    con.execute("ROLLBACK")
-                raise RuntimeError("fallo a mitad de la partición")
-            con.execute("INSERT INTO fact VALUES(?,?,?)", (day, k, a))
-        if txn:
-            con.execute("COMMIT")
-    con.isolation_level = None
-    for day in sorted(src):
-        try:
-            load_day(day, boom=(day == fail_day))
-        except RuntimeError:
-            if retry:
-                load_day(day, boom=False)
-    return con
+FEATURE = """
+Escenario: avisa a las 72 horas
+  Dado una entrega que vence en la hora 100
+  Cuando el reloj marca la hora 28
+  Entonces se envía el aviso de 72 horas
+
+Escenario: no repite un aviso enviado
+  Dado una entrega que vence en la hora 100
+  Y el aviso de 72 horas ya se envió
+  Cuando el reloj marca la hora 29
+  Entonces no se envía ningún aviso
+
+Escenario: quien ya entregó no recibe avisos
+  Dado una entrega que vence en la hora 100
+  Y la entrega ya fue entregada
+  Cuando el reloj marca la hora 76
+  Entonces no se envía ningún aviso
+
+Escenario: tras una caída solo llega el aviso más urgente
+  Dado una entrega que vence en la hora 100
+  Cuando el reloj marca la hora 90
+  Entonces se envía el aviso de 24 horas
+
+Escenario: un curso silenciado conserva el aviso de la última hora
+  Dado una entrega que vence en la hora 100
+  Y el curso está silenciado
+  Cuando el reloj marca la hora 99
+  Entonces se envía el aviso de 1 horas
+
+Escenario: un curso silenciado no recibe el de 24 horas
+  Dado una entrega que vence en la hora 100
+  Y el curso está silenciado
+  Cuando el reloj marca la hora 76
+  Entonces no se envía ningún aviso
+
+Escenario: el silencio de un curso no afecta a otro
+  Dado una entrega que vence en la hora 100 en el curso c2
+  Y el curso c1 está silenciado
+  Cuando el reloj marca la hora 76
+  Entonces se envía el aviso de 24 horas
+
+Escenario: una entrega vencida no avisa
+  Dado una entrega que vence en la hora 100
+  Cuando el reloj marca la hora 101
+  Entonces no se envía ningún aviso
+
+Escenario: la interfaz es agradable
+  Dado una entrega que vence en la hora 100
+  Cuando el reloj marca la hora 76
+  Entonces la experiencia es satisfactoria
+"""
+
+STEPS = [
+    (r"una entrega que vence en la hora (\d+)$", lambda w, h: w.update(due=int(h), course="c1")),
+    (r"una entrega que vence en la hora (\d+) en el curso (\w+)$", lambda w, h, c: w.update(due=int(h), course=c)),
+    (r"el aviso de (\d+) horas ya se envió$", lambda w, o: w["sent"].add(("a", int(o)))),
+    (r"la entrega ya fue entregada$", lambda w: w.update(submitted=True)),
+    (r"el curso está silenciado$", lambda w: w["silenced"].add(("e1", "c1"))),
+    (r"el curso (\w+) está silenciado$", lambda w, c: w["silenced"].add(("e1", c))),
+    (r"el reloj marca la hora (\d+)$", lambda w, h: w.update(out=w["fn"]([L.delivery("a", w["due"], course=w["course"], submitted=w.get("submitted", False))], int(h), frozenset(w["silenced"]), set(w["sent"])))),
+    (r"se envía el aviso de (\d+) horas$", lambda w, o: _assert(w["out"] == [("a", int(o))], f"esperaba [('a', {o})] y salió {w['out']}")),
+    (r"no se envía ningún aviso$", lambda w: _assert(w["out"] == [], f"esperaba nada y salió {w['out']}")),
+    (r"la experiencia es satisfactoria$", lambda w: _assert(True, "")),
+]
 
 
-def e544():
-    print("SE-544 — transformación y orquestación idempotente con backfills")
-    rng = random.Random(SEED)
-    src = {d: [(k, rng.randrange(100, 9000)) for k in range(rng.randrange(40, 80))] for d in range(30)}
-    truth_rows = sum(len(v) for v in src.values())
-    truth_sum = sum(a for v in src.values() for _, a in v)
-    rows = [["Estrategia", "Escenario", "Filas", "Suma de importes", "¿Coincide con la verdad?"]]
-    cases = [("append", "ejecución limpia", {}), ("append", "fallo en el día 17 y reintento, con transacción", {"fail_day": 17}),
-             ("append", "fallo en el día 17 y reintento, sin transacción", {"fail_day": 17, "txn": False}),
-             ("delete-insert", "fallo en el día 17 y reintento, sin transacción", {"fail_day": 17, "txn": False}),
-             ("merge", "fallo en el día 17 y reintento, sin transacción", {"fail_day": 17, "txn": False}),
-             ("delete-insert", "fallo en el día 17 y reintento, con transacción", {"fail_day": 17})]
-    for strat, name, kw in cases:
-        con = run_load(strat, src, **kw)
-        n, s = con.execute("SELECT COUNT(*), SUM(amount) FROM fact").fetchone()
-        rows.append([strat, name, n, s, "sí" if (n, s) == (truth_rows, truth_sum) else f"no ({n-truth_rows:+d} filas)"])
+def _assert(cond, message):
+    if not cond:
+        raise AssertionError(message)
+
+
+def parse_feature(text):
+    scenarios, current = [], None
+    for raw in text.splitlines():
+        line = raw.strip()
+        if line.startswith("Escenario:"):
+            current = {"name": line[len("Escenario:"):].strip(), "steps": []}
+            scenarios.append(current)
+        elif current and line:
+            keyword, _, rest = line.partition(" ")
+            current["steps"].append((keyword, rest))
+    return scenarios
+
+
+def bind(step_text):
+    for pattern, action in STEPS:
+        m = re.match(pattern, step_text)
+        if m:
+            return pattern, action, m.groups()
+    raise LookupError(step_text)
+
+
+def run_scenario(fn, scenario, skip_step=None):
+    world = {"fn": fn, "silenced": set(), "sent": set()}
+    for index, (keyword, text) in enumerate(scenario["steps"]):
+        if index == skip_step:
+            continue
+        _, action, args = bind(text)
+        action(world, *args)
+
+
+def feature_oracle(fn, scenarios=None, drop=None):
+    scenarios = scenarios if scenarios is not None else parse_feature(FEATURE)
+    try:
+        for s in scenarios:
+            run_scenario(fn, s)
+    except Exception:  # noqa: BLE001
+        return False
+    return True
+
+
+def e484():
+    print("SE-544 — escenarios Gherkin ejecutados contra los mutantes")
+    scenarios = parse_feature(FEATURE)
+    steps = [(k, t) for s in scenarios for k, t in s["steps"]]
+    patterns = {bind(t)[0] for _, t in steps}
+    print(f"  escenarios: {len(scenarios)}; pasos: {len(steps)}; definiciones de paso distintas: {len(patterns)}")
+    print(f"  reutilización: {len(steps) / len(patterns):.2f} pasos por definición".replace(".", ","))
+    versions = L.all_versions()
+    print("  el original pasa todo:", feature_oracle(versions["ORIGINAL"]))
+    killed = [m for m in REAL_IDS if not feature_oracle(versions[m])]
+    print(f"  mutantes muertos por los escenarios: {len(killed)} de {len(REAL_IDS)}; sobreviven {[m for m in REAL_IDS if m not in killed]}")
+    # qué pasos «Entonces» importan: quitar cada Entonces de un escenario y contar lo que se pierde
+    print("  contribución de cada escenario (mutantes que solo él mata):")
+    rows = [["Escenario", "Mutantes que mata", "Solo él"]]
+    per = {}
+    for s in scenarios:
+        ok_set = set()
+        for m in REAL_IDS:
+            try:
+                run_scenario(versions[m], s)
+            except Exception:  # noqa: BLE001
+                ok_set.add(m)
+        per[s["name"]] = ok_set
+    for name, ks in per.items():
+        others = set().union(*[v for n, v in per.items() if n != name])
+        rows.append([name, len(ks), len(ks - others)])
     table(rows)
-    # doble ejecución de todo el trabajo
-    for strat in ("append", "delete-insert", "merge"):
-        con = run_load(strat, src)
-        for day in sorted(src):
-            if strat == "delete-insert":
-                con.execute("DELETE FROM fact WHERE day=?", (day,))
-            for k, a in src[day]:
-                con.execute("INSERT INTO fact VALUES(?,?,?)", (day, k, a))
-        n = con.execute("SELECT COUNT(*) FROM fact").fetchone()[0]
-        print(f"  {strat}: tras ejecutar los 30 días dos veces hay {n} filas (verdad {truth_rows})")
-    # backfill: la fuente se corrige en los días 5 a 9
-    con = run_load("delete-insert", src)
-    for d in range(5, 10):
-        src[d] = [(k, a + 100) for k, a in src[d]]
-    stale = con.execute("SELECT COUNT(*) FROM fact WHERE day BETWEEN 5 AND 9").fetchone()[0]
-    con.execute("BEGIN")
-    for d in range(5, 10):
-        con.execute("DELETE FROM fact WHERE day=?", (d,))
-        for k, a in src[d]:
-            con.execute("INSERT INTO fact VALUES(?,?,?)", (d, k, a))
-    con.execute("COMMIT")
-    s = con.execute("SELECT SUM(amount) FROM fact").fetchone()[0]
-    print(f"  backfill de los días 5 a 9: se reescriben {stale} filas de {truth_rows} ({fmt(stale/truth_rows*100,1)} %); la suma pasa a coincidir con la fuente corregida: {s == sum(a for v in src.values() for _, a in v)}")
-    # grafo de dependencias y qué hay que recalcular
-    deps = {"raw_orders": [], "raw_customers": [], "stg_orders": ["raw_orders"], "stg_customers": ["raw_customers"],
-            "dim_customer": ["stg_customers"], "fact_sales": ["stg_orders", "dim_customer"], "mart_daily": ["fact_sales"],
-            "mart_city": ["fact_sales", "dim_customer"], "report_exec": ["mart_daily", "mart_city"]}
-    order, ready, indeg = [], [k for k, v in deps.items() if not v], {k: len(v) for k, v in deps.items()}
-    rev = defaultdict(list)
-    for k, v in deps.items():
-        for p in v:
-            rev[p].append(k)
-    while ready:
-        ready.sort()
-        n = ready.pop(0)
-        order.append(n)
-        for c in rev[n]:
-            indeg[c] -= 1
-            if indeg[c] == 0:
-                ready.append(c)
-    def downstream(x):
-        out, stack = set(), [x]
-        while stack:
-            for c in rev[stack.pop()]:
-                if c not in out:
-                    out.add(c)
-                    stack.append(c)
-        return out
-    print(f"  orden topológico de {len(order)} tareas: {' > '.join(order)}")
-    for x in ("raw_customers", "raw_orders", "fact_sales"):
-        print(f"  si cambia {x}, hay que recalcular {len(downstream(x))} tareas: {sorted(downstream(x))}")
-    # datos tardíos y ventana de reproceso
-    rows = [["Ventana de reproceso (días)", "Filas tardías perdidas", "Filas reprocesadas por ejecución"]]
-    late = []
-    for d in range(60):
-        for _ in range(100):
-            delay = 0 if rng.random() < 0.9 else rng.choice([1, 1, 2, 3, 5])
-            late.append((d, d + delay))  # (día del evento, día de llegada)
-    for w in (0, 1, 2, 3, 6):
-        captured = set()
-        for run in range(60 + 6):
-            lo = run - w
-            for i, (ev, arr) in enumerate(late):
-                if arr <= run and ev >= lo and ev <= run:
-                    captured.add(i)
-        lost = len(late) - len(captured)
-        rows.append([w, lost, 100 * (w + 1)])
+    # un paso «Entonces» vaciado: ¿cuántos mutantes dejan de morir?
+    print("  si se reemplaza el «Entonces» de cada escenario por un paso que no afirma nada:")
+    full = len(killed)
+    for s in scenarios:
+        stripped = {"name": s["name"], "steps": [st for st in s["steps"] if st[0] != "Entonces"] + [("Entonces", "la experiencia es satisfactoria")]}
+        trial = [x if x is not s else stripped for x in scenarios]
+        k = sum(1 for m in REAL_IDS if not feature_oracle(versions[m], trial))
+        print(f"    {s['name']}: {k} de {len(REAL_IDS)} (pierde {full - k})")
+
+
+# ====================================================================== SE-545
+def classes_of_remaining():
+    return [100, 73, 72, 71, 25, 24, 23, 2, 1, 0.5, 0, -1]
+
+
+def example_oracle(fn, examples):
+    try:
+        for deliveries, now, silenced, sent in examples:
+            assert fn(deliveries, now, silenced, sent) == L.reference(deliveries, now, silenced, sent)
+    except Exception:  # noqa: BLE001
+        return False
+    return True
+
+
+def make_example(remaining, submitted=False, silenced=False, sent=()):
+    d = L.delivery("a", 100 + 0, submitted=submitted)
+    now = 100 - remaining
+    sil = frozenset({("e1", "c1")}) if silenced else frozenset()
+    return ([d], now, sil, {("a", o) for o in sent})
+
+
+def e485():
+    print("SE-545 — ejemplos de aceptación: típicos, de frontera, combinatorios y al azar")
+    versions = L.all_versions()
+    typical = [make_example(r) for r in (100, 48, 10)] + [make_example(10, submitted=True), make_example(10, silenced=True)]
+    boundary = [make_example(r) for r in classes_of_remaining()]
+    combos = [make_example(r, s, z, sent)
+              for r in classes_of_remaining()
+              for s in (False, True)
+              for z in (False, True)
+              for sent in ((), (72,), (24,))]
+    rng = L.random.Random(485)
+    import random as _r
+    rnd = []
+    for _ in range(20):
+        rnd.append(make_example(rng.choice(range(-5, 120)), rng.random() < 0.3, rng.random() < 0.3,
+                                rng.choice([(), (72,), (24,), (1,)])))
+    sets = {"5 típicos": typical, "12 de frontera": boundary, "20 al azar": rnd,
+            f"{len(combos)} combinatorios": combos}
+    rows = [["Conjunto de ejemplos", "Ejemplos", "Mutantes muertos", "Sobreviven"]]
+    for name, ex in sets.items():
+        killed = [m for m in REAL_IDS if not example_oracle(versions[m], ex)]
+        rows.append([name, len(ex), f"{len(killed)} de {len(REAL_IDS)}", ", ".join(m for m in REAL_IDS if m not in killed) or "ninguno"])
     table(rows)
+    both = boundary + typical
+    killed = [m for m in REAL_IDS if not example_oracle(versions[m], both)]
+    print(f"  frontera + típicos ({len(both)}): {len(killed)} de {len(REAL_IDS)}")
+    print("  el original pasa todos los conjuntos:", all(example_oracle(versions["ORIGINAL"], e) for e in sets.values()))
+    print("  nota: los resultados esperados salen de un modelo escrito aparte; un ejemplo real los redacta una persona.")
+
+
+# ====================================================================== SE-546
+ROOT = Path(__file__).resolve().parents[1]
+SENSES = {
+    "tarea o trabajo de una persona estudiante": re.compile(r"estudiant|docente|curso|vencimiento|vence|entregada|aviso", re.I),
+    "liberar o desplegar software": re.compile(r"entrega continua|continuous delivery|despliegu|pipeline|release|CI/CD|rollback|canar", re.I),
+    "hacer llegar un mensaje o resultado": re.compile(r"entrega (del )?(mensaje|evento|evidencia|resultado)|at-least-once|al menos una vez|exactamente una vez|cola|broker", re.I),
+}
+
+
+# Corpus fijo: las 40 partes que existían al medir (numeración histórica 00–39, ADR-007).
+CORPUS_PARTS = frozenset([*range(0, 23), 24, 25, 27, 29, 31, 32, 33, 35, 36, 38, 39, 40, 41, 43, 44, 46, 47])
+
+
+def e486():
+    print("SE-546 — polisemia de «entrega» en el corpus del programa y traducción entre contextos")
+    pattern = re.compile(r"[^.\n]*\bentreg\w+[^.\n]*", re.I)
+    counts = {k: 0 for k in SENSES}
+    unclassified = 0
+    total = 0
+    parts_by_sense = {k: set() for k in SENSES}
+    for path in sorted((ROOT / "content").glob("part-*/SE-*.md")):
+        part = path.parent.name
+        if int(part.split("-")[1]) not in CORPUS_PARTS:
+            continue  # el corpus medido son las 40 partes de la numeración histórica 00–39 (hoy Partes 00–22, 24–25, 27, 29, 31–33, 35–36, 38–41, 43–44 y 46–47), para que el recuento no cambie al añadir partes
+        text = path.read_text(encoding="utf-8")
+        for m in pattern.finditer(text):
+            sentence = m.group(0)
+            total += 1
+            labels = [k for k, rx in SENSES.items() if rx.search(sentence)]
+            if len(labels) == 1:
+                counts[labels[0]] += 1
+                parts_by_sense[labels[0]].add(part)
+            elif not labels:
+                unclassified += 1
+            else:
+                # varios sentidos en la misma frase: la ambigüedad que un glosario debe resolver
+                counts.setdefault("ambigua (varios sentidos a la vez)", 0)
+                counts["ambigua (varios sentidos a la vez)"] += 1
+    print(f"  frases con «entrega» en las 40 partes del corpus fijo: {total}")
+    for k, v in counts.items():
+        extra = f", en {len(parts_by_sense[k])} partes" if k in parts_by_sense else ""
+        print(f"    {k}: {v}{extra}")
+    print(f"    sin sentido reconocible por las reglas: {unclassified}")
+
+    # traducción entre dos contextos con una capa anticorrupción mínima
+    academico = [{"entrega_id": f"E{i}", "estudiante": f"e{i % 3}", "vence_en": 20 + i, "estado": "pendiente" if i % 4 else "recibida"} for i in range(8)]
+
+    def traducir(item):
+        return {"id": item["entrega_id"], "student": item["estudiante"], "due": item["vence_en"],
+                "submitted": item["estado"] == "recibida", "course": "c1"}
+
+    traducidos = [traducir(i) for i in academico]
+    avisos = L.load(L.SOURCE)(traducidos, 0, frozenset(), set())
+    print(f"  8 entregas del contexto académico traducidas: {sum(t['submitted'] for t in traducidos)} recibidas, {len(avisos)} avisos")
+    # sin traducción, el contexto Avisos lee el estado como si fuera booleano
+    crudo_out = L.load(L.SOURCE)([{**i, "id": i["entrega_id"], "student": i["estudiante"], "course": "c1", "due": i["vence_en"], "submitted": i["estado"]} for i in academico], 0, frozenset(), set())
+    print(f"  sin traducir (estado como texto): {len(crudo_out)} avisos; los textos «pendiente» y «recibida» cuentan ambos como verdaderos")
 
 
 if __name__ == "__main__":
-    sys.stdout.reconfigure(encoding="utf-8")
-    which = sys.argv[1:] or ["541", "542", "543", "544"]
+    which = sys.argv[1:] or ["481", "482", "483", "484", "485", "486"]
     for key in which:
         globals()[f"e{key}"]()
         print()

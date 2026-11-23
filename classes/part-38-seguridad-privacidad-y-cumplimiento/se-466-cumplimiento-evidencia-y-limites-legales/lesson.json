@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-466",
+  "title": "Cumplimiento, evidencia y límites legales",
+  "stage": "F",
+  "part": "38",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "OWASP-ASVS"
+  ],
+  "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales"
+}

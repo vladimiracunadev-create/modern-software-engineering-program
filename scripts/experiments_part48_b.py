@@ -1,420 +1,449 @@
-"""Experimentos de la Parte 48, bloque B: hardware seguro, computación cuántica, criptografía poscuántica y confianza cero.
+"""Experimentos de las clases SE-583 a SE-588 (Parte 48): harness y agentic engineering.
 
-Uso: python scripts/experiments_part48_b.py [tee|quantum|limits|pqc|zerotrust]
+Uso: python scripts/experiments_part48_b.py [499|500|501|502|503|504]
 
-No se invoca ningún modelo de lenguaje. La criptografía poscuántica se ejecuta de verdad con las
-implementaciones puras de Python ``kyber-py`` (ML-KEM, FIPS 203) y ``dilithium-py`` (ML-DSA,
-FIPS 204); sus tiempos NO representan implementaciones de producción en C o ensamblador. Los
-circuitos cuánticos se simulan de forma clásica con NumPy: no hay ordenador cuántico ni acceso a
-uno. El hardware seguro (TEE) no se ejecuta: la máquina de desarrollo no expone un TEE utilizable
-desde este script, y lo que se modela es la lógica de medición y atestación con HMAC y SHA-256.
+No se invoca ningún modelo de lenguaje. Semilla fija en las simulaciones; archivos y repositorios Git reales
+en directorios temporales.
 """
 from __future__ import annotations
 
-import hashlib
-import hmac
-import json
+import ast
 import math
 import random
-import secrets
+import re
+import shutil
+import statistics
+import subprocess
 import sys
+import tempfile
 import time
-
-import numpy as np
+from pathlib import Path
 
 import experiments_part48_lab as L
-from experiments_part48_lab import fmt, table, timeit_ms
-
-SEED = 48
+from experiments_part48_lab import pct, table
 
 
-# ====================================================================== hardware seguro (modelo)
-def sha(b: bytes) -> bytes:
-    return hashlib.sha256(b).digest()
+# ====================================================================== SE-583
+def _gate_syntax(d: Path) -> bool:
+    try:
+        for f in d.glob("*.py"):
+            compile(f.read_text(encoding="utf-8"), str(f), "exec")
+        return True
+    except SyntaxError:
+        return False
 
 
-def extend(pcr: bytes, component: bytes) -> bytes:
-    """Operación de extensión de un registro de medición: pcr' = H(pcr || H(componente))."""
-    return sha(pcr + sha(component))
+def _gate_lint(d: Path) -> bool:
+    tree = ast.parse((d / "pkg.py").read_text(encoding="utf-8"))
+    imported = {a.asname or a.name.split(".")[0] for n in ast.walk(tree) if isinstance(n, (ast.Import, ast.ImportFrom)) for a in n.names}
+    used = {n.id for n in ast.walk(tree) if isinstance(n, ast.Name)}
+    bad = bool(imported - used)
+    for n in ast.walk(tree):
+        if isinstance(n, ast.ExceptHandler) and n.type is None:
+            bad = True
+        if isinstance(n, ast.FunctionDef) and any(isinstance(x, (ast.List, ast.Dict)) for x in n.args.defaults):
+            bad = True
+        if isinstance(n, ast.Call) and getattr(n.func, "id", "") == "print":
+            bad = True
+    return not bad
 
 
-def boot_chain(components):
-    pcr = bytes(32)
-    for c in components:
-        pcr = extend(pcr, c)
-    return pcr
+def _gate_tests(d: Path) -> bool:
+    r = subprocess.run([sys.executable, "-B", "-m", "unittest", "-q", "test_pkg"], cwd=d, capture_output=True, text=True, timeout=60)
+    return r.returncode == 0
 
 
-def tee():
-    print("Hardware seguro: lógica de medición, atestación y sellado (modelo con HMAC y SHA-256; no se ejecutó ningún TEE)")
-    print("  NO EJECUTADO en hardware: ni Intel SGX/TDX, ni AMD SEV-SNP, ni Arm CCA, ni un TPM: este script no usa ni consulta un TEE ni un TPM (la consulta del TPM exige permisos de administrador que no se usaron); el HMAC con una clave del dispositivo simula la firma de la raíz de confianza.")
-    good = [b"firmware-1.0", b"cargador-2.3", b"nucleo-6.1", b"servicio-avisos-v7"]
-    ref = boot_chain(good)
-    print(f"  cadena de arranque de 4 componentes: medición final {ref.hex()[:16]}…")
-    swapped = [good[0], good[2], good[1], good[3]]
-    tampered = good[:3] + [b"servicio-avisos-v7-con-puerta-trasera"]
-    print(f"  mismo contenido en otro orden: {boot_chain(swapped).hex()[:16]}… (distinta: {boot_chain(swapped) != ref}); un byte distinto en el último componente: {boot_chain(tampered).hex()[:16]}… (distinta: {boot_chain(tampered) != ref})")
-    print(f"  la extensión no se puede «deshacer» ni reescribir: para llegar a un valor dado hay que haber ejecutado la misma secuencia; un componente que se añade después solo cambia la medición hacia adelante")
-
-    device_key = secrets.token_bytes(32)  # clave de la raíz de confianza del dispositivo (simulada)
-
-    def quote(measurement: bytes, nonce: bytes) -> bytes:
-        return hmac.new(device_key, measurement + nonce, hashlib.sha256).digest()
-
-    def verify(q: bytes, nonce: bytes, expected: bytes) -> bool:
-        return hmac.compare_digest(q, quote(expected, nonce))
-
-    n1 = secrets.token_bytes(16)
-    q = quote(ref, n1)
-    print(f"  verificador con un desafío fresco: cita legítima aceptada = {verify(q, n1, ref)}; cita de la cadena alterada aceptada = {verify(quote(boot_chain(tampered), n1), n1, ref)}")
-    # Repetición: sin nonce una cita vieja de un estado bueno sirve para esconder uno malo
-    q_viejo = quote(ref, b"")
-    print(f"  sin desafío fresco, una cita vieja de un estado bueno se reproduce y se acepta = {verify(q_viejo, b'', ref)} (aunque el nodo ya esté alterado)")
-    n2 = secrets.token_bytes(16)
-    print(f"  con desafío fresco, la misma cita vieja reproducida contra un desafío nuevo se acepta = {verify(q, n2, ref)}")
-
-    # Sellado: clave derivada de la medición
-    def seal_key(measurement: bytes) -> bytes:
-        return hmac.new(device_key, b"sellado" + measurement, hashlib.sha256).digest()
-
-    print(f"  clave de sellado con la medición esperada coincide con la derivada al arrancar la misma cadena: {seal_key(ref) == seal_key(boot_chain(good))}; con la cadena alterada: {seal_key(boot_chain(tampered)) == seal_key(ref)} (los datos sellados no se pueden abrir)")
-
-    # Lo que la atestación NO prueba: un binario medido y conocido puede tener una vulnerabilidad
-    random.seed(SEED)
-    flota = 1000
-    comprometidas_por_firmware = 0.01
-    vulnerables_en_ejecucion = 0.03
-    total_mal = 0
-    detecta_atest = 0
-    for _ in range(flota):
-        alterado = random.random() < comprometidas_por_firmware
-        explotado = random.random() < vulnerables_en_ejecucion
-        if alterado or explotado:
-            total_mal += 1
-        if alterado:
-            detecta_atest += 1
-    print(f"  modelo con semilla {SEED}: flota de {flota} nodos, 1 % con software alterado en el arranque y 3 % explotados en ejecución con el software legítimo: {total_mal} nodos mal en total; la atestación de arranque detecta {detecta_atest} ({fmt(100 * detecta_atest / max(1, total_mal), 0)} %): lo explotado en ejecución no cambia la medición")
-    tiempos = timeit_ms(lambda: boot_chain(good), repeat=15, number=200)
-    print(f"  costo de medir una cadena de 4 componentes con SHA-256 (solo el cálculo, sin hardware): {fmt(tiempos * 1000, 1)} µs")
+def _gate_secrets(d: Path) -> bool:
+    return not any(re.search(r"ghp_[A-Za-z0-9]{20,}", f.read_text(encoding="utf-8")) for f in d.glob("*.py"))
 
 
-# ====================================================================== cuántica: simulación clásica
-def apply_1q(state: np.ndarray, gate: np.ndarray, q: int, n: int) -> np.ndarray:
-    psi = state.reshape([2] * n)
-    psi = np.moveaxis(psi, q, 0)
-    psi = np.tensordot(gate, psi, axes=([1], [0]))
-    psi = np.moveaxis(psi, 0, q)
-    return psi.reshape(-1)
+def _gate_tests_not_weakened(d: Path, base_tests: str) -> bool:
+    now = (d / "test_pkg.py").read_text(encoding="utf-8")
+    return now.count("assert") >= base_tests.count("assert") and "skip" not in now
 
 
-def apply_cnot(state: np.ndarray, c: int, t: int, n: int) -> np.ndarray:
-    psi = state.reshape([2] * n).copy()
-    idx = [slice(None)] * n
-    idx[c] = 1
-    sub = psi[tuple(idx)]
-    # el eje del objetivo en el subarreglo (se eliminó el eje del control)
-    axis = t if t < c else t - 1
-    psi[tuple(idx)] = np.flip(sub, axis=axis)
-    return psi.reshape(-1)
+BASE_PKG = "def fee(amount):\n    if amount < 0:\n        raise ValueError('negativo')\n    return round(amount * 0.02, 2)\n\ndef total(items):\n    return sum(items)\n"
+BASE_TEST = ("import unittest\nfrom pkg import fee, total\n\nclass T(unittest.TestCase):\n    def test_fee(self):\n        self.assertEqual(fee(100), 2.0)\n"
+             "        self.assertRaises(ValueError, fee, -1)\n\n    def test_total(self):\n        self.assertEqual(total([1, 2, 3]), 6)\n\nif __name__ == '__main__':\n    unittest.main()\n")
+SECRET_LINE = "TOKEN = '" + "ghp_" + "y" * 30 + "'\n"
+
+CHANGES = {
+    "D01 error de sintaxis": (BASE_PKG + "def broken(:\n    pass\n", BASE_TEST),
+    "D02 importación sin usar": ("import os\n" + BASE_PKG, BASE_TEST),
+    "D03 except desnudo": (BASE_PKG + "def safe(x):\n    try:\n        return fee(x)\n    except:\n        return 0\n", BASE_TEST),
+    "D04 error de lógica que una prueba ve": (BASE_PKG.replace("0.02", "0.2"), BASE_TEST),
+    "D05 secreto literal": (SECRET_LINE + BASE_PKG, BASE_TEST),
+    "D06 prueba debilitada para ocultar el error": (BASE_PKG.replace("0.02", "0.2"), BASE_TEST.replace("        self.assertEqual(fee(100), 2.0)\n", "")),
+    "D07 error de lógica que ninguna prueba ve": (BASE_PKG.replace("return sum(items)", "return sum(items[:-1]) + items[-1] if items else 0").replace("def total(items):", "def total(items):\n    if len(items) > 50:\n        return 0"), BASE_TEST),
+    "D08 prueba que falla marcada como omitida": (BASE_PKG.replace("0.02", "0.2"), BASE_TEST.replace("    def test_fee", "    @unittest.skip('luego')\n    def test_fee")),
+    "D09 argumento mutable por defecto": (BASE_PKG + "def acc(x, seen=[]):\n    seen.append(x)\n    return seen\n", BASE_TEST),
+    "D10 impresión de depuración": (BASE_PKG.replace("    return round", "    print(amount)\n    return round"), BASE_TEST),
+    "D11 prueba que replica el error": (BASE_PKG.replace("0.02", "0.2"), BASE_TEST.replace("2.0)", "20.0)")),
+    "D12 cambio correcto": (BASE_PKG + "def net(amount):\n    return amount - fee(amount)\n", BASE_TEST),
+}
+GATES = [("sintaxis", _gate_syntax), ("estilo", _gate_lint), ("secretos", _gate_secrets), ("pruebas", _gate_tests)]
 
 
-H = np.array([[1, 1], [1, -1]], dtype=np.complex128) / math.sqrt(2)
-X_GATE = np.array([[0, 1], [1, 0]], dtype=np.complex128)
-Z_GATE = np.array([[1, 0], [0, -1]], dtype=np.complex128)
-
-
-def zero_state(n: int) -> np.ndarray:
-    s = np.zeros(2 ** n, dtype=np.complex128)
-    s[0] = 1
-    return s
-
-
-def sample(state: np.ndarray, shots: int, rng: np.random.Generator):
-    p = np.abs(state) ** 2
-    p = p / p.sum()
-    out = rng.choice(len(p), size=shots, p=p)
-    counts = {}
-    for v in out:
-        counts[int(v)] = counts.get(int(v), 0) + 1
-    return counts
-
-
-def quantum():
-    print("Computación cuántica para ingenieros: simulación clásica de circuitos pequeños con NumPy (no hay ordenador cuántico)")
-    rng = np.random.default_rng(SEED)
-    n = 2
-    s = apply_cnot(apply_1q(zero_state(n), H, 0, n), 0, 1, n)
-    print(f"  estado de Bell: amplitudes {np.round(s, 4).tolist()}")
-    c = sample(s, 1000, rng)
-    print(f"  1000 mediciones con semilla {SEED}: {{{', '.join(f'{k:0{n}b}: {v}' for k, v in sorted(c.items()))}}}: solo aparecen 00 y 11, nunca 01 ni 10")
-    # interferencia: H dos veces
-    s1 = apply_1q(zero_state(1), H, 0, 1)
-    s2 = apply_1q(s1, H, 0, 1)
-    print(f"  H una vez: probabilidades {np.round(np.abs(s1) ** 2, 3).tolist()}; H dos veces: {np.round(np.abs(s2) ** 2, 3).tolist()} (la amplitud negativa cancela: interferencia, no azar)")
-    # GHZ
-    n = 5
-    g = zero_state(n)
-    g = apply_1q(g, H, 0, n)
-    for t in range(1, n):
-        g = apply_cnot(g, 0, t, n)
-    cg = sample(g, 1000, rng)
-    print(f"  GHZ de 5 qubits, 1000 mediciones: {{{', '.join(f'{k:0{n}b}: {v}' for k, v in sorted(cg.items()))}}}")
-    # Crecimiento exponencial de la simulación
-    print("  costo de simular n qubits con vector de estado (complex128, 16 bytes por amplitud): memoria y tiempo de aplicar H a todos los qubits")
-    rows = [["Qubits", "Amplitudes", "Memoria del vector", "Tiempo de H en todos los qubits (ms)"]]
-    for nq in (10, 14, 18, 20, 22, 24):
-        st = zero_state(nq)
-        t0 = time.perf_counter()
-        for q in range(nq):
-            st = apply_1q(st, H, q, nq)
-        dt = (time.perf_counter() - t0) * 1000
-        mem = 16 * 2 ** nq
-        rows.append([nq, 2 ** nq, f"{mem / 2 ** 20:.2f} MiB".replace(".", ","), fmt(dt, 1)])
-        del st
+def se499() -> dict:
+    print("SE-583 compuertas de verificación sobre 12 cambios con un único punto de entrada")
+    rows = [("cambio", "sintaxis", "estilo", "secretos", "pruebas", "no debilitar pruebas", "menú completo", "solo pruebas")]
+    per_gate = {g: 0 for g, _ in GATES}
+    per_gate["no debilitar pruebas"] = 0
+    full_catch = only_tests_catch = 0
+    timings: dict[str, list[float]] = {g: [] for g, _ in GATES}
+    defects = [k for k in CHANGES if not k.startswith("D12")]
+    for name, (pkg, test) in CHANGES.items():
+        d = Path(tempfile.mkdtemp(prefix="p41_gate_"))
+        try:
+            (d / "pkg.py").write_text(pkg, encoding="utf-8")
+            (d / "test_pkg.py").write_text(test, encoding="utf-8")
+            results = {}
+            for g, fn in GATES:
+                t0 = time.perf_counter()
+                try:
+                    results[g] = fn(d)
+                except Exception:
+                    results[g] = False
+                timings[g].append((time.perf_counter() - t0) * 1000)
+            results["no debilitar pruebas"] = _gate_tests_not_weakened(d, BASE_TEST)
+            full = all(results.values())
+            only = results["pruebas"]
+            if name in defects:
+                for g, ok in results.items():
+                    per_gate[g] += (not ok)
+                full_catch += (not full)
+                only_tests_catch += (not only)
+            rows.append((name, *["pasa" if results[g] else "FALLA" for g in ("sintaxis", "estilo", "secretos", "pruebas", "no debilitar pruebas")],
+                         "pasa" if full else "FALLA", "pasa" if only else "FALLA"))
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
     table(rows)
-    print(f"  extrapolación (aritmética, no medida): 50 qubits = {2 ** 50} amplitudes = 16 PiB; 100 qubits = 2^100 amplitudes = 2^54 PiB (el número de amplitudes crece como 2^n)")
+    print(f"  defectos={len(defects)} atrapados por el menú completo={full_catch} por las pruebas solas={only_tests_catch}")
+    print("  atrapados por compuerta: " + ", ".join(f"{g}={n}" for g, n in per_gate.items()))
+    print("  mediana ms por compuerta: " + ", ".join(f"{g}={statistics.median(v):.1f}" for g, v in timings.items()))
+    return dict(full=full_catch, only=only_tests_catch, per_gate=per_gate)
 
 
-def grover_probability(n: int, k: int, marked: int = 0) -> float:
-    N = 2 ** n
-    s = np.full(N, 1 / math.sqrt(N), dtype=np.float64)
-    for _ in range(k):
-        s[marked] *= -1
-        s = 2 * s.mean() - s
-    return float(s[marked] ** 2)
+# ====================================================================== SE-584
+def _git(d: Path, *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "core.autocrlf=false", *args],
+                          cwd=d, capture_output=True, text=True)
 
 
-def order_finding_n15(a: int, rng: np.random.Generator):
-    """Búsqueda de periodo para N=15 con 8 qubits de conteo, simulada clásicamente con NumPy."""
-    N = 15
-    t = 8
-    Q = 2 ** t
-    # estado tras aplicar la superposición y la función modular, medir el registro de trabajo
-    vals = np.array([pow(a, x, N) for x in range(Q)])
-    measured = vals[int(rng.integers(0, Q))]  # medir el segundo registro colapsa el primero
-    amp = np.where(vals == measured, 1.0, 0.0)
-    amp = amp / np.linalg.norm(amp)
-    spectrum = np.abs(np.fft.fft(amp)) ** 2 / Q  # QFT = FFT unitaria
-    spectrum = spectrum / spectrum.sum()
-    return spectrum, Q
+def _merge_case(name: str, a_edits: dict, b_edits: dict):
+    d = Path(tempfile.mkdtemp(prefix="p41_mg_"))
+    try:
+        _git(d, "init", "-q", "-b", "main")
+        base = "\n".join(f"linea {i}" for i in range(1, 21)) + "\n"
+        filler = "".join(f"def f{i}():\n    return {i}\n\n\n" for i in range(1, 9))
+        (d / "a.py").write_text("def calc(x):\n    return x + 1\n\n\n" + filler + "def uso():\n    return calc(1)\n", encoding="utf-8")
+        (d / "notas.txt").write_text(base, encoding="utf-8")
+        (d / "test_a.py").write_text("import unittest\nimport a\n\nclass T(unittest.TestCase):\n    def test(self):\n        self.assertEqual(a.uso(), 2)\n        self.assertEqual(a.f5(), 5)\n\nif __name__ == '__main__':\n    unittest.main()\n", encoding="utf-8")
+        _git(d, "add", "."); _git(d, "commit", "-q", "-m", "base")
+        for branch, edits in (("agente-a", a_edits), ("agente-b", b_edits)):
+            _git(d, "checkout", "-q", "-b", branch, "main")
+            for f, fn in edits.items():
+                p = d / f
+                p.write_text(fn(p.read_text(encoding="utf-8")), encoding="utf-8")
+            _git(d, "commit", "-aq", "-m", branch)
+        _git(d, "checkout", "-q", "agente-a")
+        m = _git(d, "merge", "--no-edit", "agente-b")
+        clean = m.returncode == 0
+        tests_ok = None
+        if clean:
+            r = subprocess.run([sys.executable, "-B", "-m", "unittest", "-q", "test_a"], cwd=d, capture_output=True, text=True)
+            tests_ok = r.returncode == 0
+        return clean, tests_ok
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
 
 
-def limits():
-    print("Cuántica: qué ofrece y qué no (Grover, Shor para N = 15 y ruido), todo simulado de forma clásica")
-    print("  Grover: probabilidad de medir el elemento buscado según las iteraciones; óptimo cerca de (π/4)·√N")
-    rows = [["Qubits n", "N = 2^n", "Iteraciones óptimas", "Probabilidad al óptimo", "Con el doble de iteraciones", "Consultas clásicas esperadas (N/2)"]]
-    for n in (4, 8, 12, 16):
-        N = 2 ** n
-        k = int(round(math.pi / 4 * math.sqrt(N) - 0.5))
-        rows.append([n, N, k, fmt(grover_probability(n, k), 4), fmt(grover_probability(n, 2 * k), 4), N // 2])
+def se500() -> dict:
+    cases = [
+        ("archivos distintos", {"a.py": lambda t: t + "\n\ndef extra():\n    return 3\n"}, {"notas.txt": lambda t: t.replace("linea 20", "linea 20 editada")}),
+        ("mismo archivo, zonas lejanas", {"notas.txt": lambda t: t.replace("linea 2\n", "linea 2 a\n")}, {"notas.txt": lambda t: t.replace("linea 19\n", "linea 19 b\n")}),
+        ("mismas líneas", {"notas.txt": lambda t: t.replace("linea 10\n", "linea 10 a\n")}, {"notas.txt": lambda t: t.replace("linea 10\n", "linea 10 b\n")}),
+        ("renombrar y usar (conflicto semántico)", {"a.py": lambda t: t.replace("def calc(x)", "def sumar(x)").replace("return calc(1)", "return sumar(1)")}, {"a.py": lambda t: t.replace("def f5():\n    return 5", "def f5():\n    return calc(4)")}),
+    ]
+    print("SE-584 coordinación de dos agentes con ramas de Git reales")
+    rows = [("escenario", "fusión", "pruebas tras fusionar")]
+    out = {}
+    for name, a, b in cases:
+        clean, tests_ok = _merge_case(name, a, b)
+        rows.append((name, "limpia" if clean else "conflicto", "—" if tests_ok is None else ("pasan" if tests_ok else "FALLAN")))
+        out[name] = (clean, tests_ok)
     table(rows)
-    print("  con el doble de iteraciones la probabilidad cae: pasarse del óptimo empeora el resultado (el algoritmo no es «más pasos, mejor respuesta»)")
-    print(f"  ventaja de Grover: de N/2 consultas esperadas a unas (π/4)·√N: para N = 2^40 son {fmt(2 ** 39 / (math.pi / 4 * 2 ** 20), 0)} veces menos consultas, y cada consulta es una evaluación de un circuito completo, no una lectura de memoria")
+    # simulación de superposición: F archivos, k por tarea
+    rng = random.Random(500)
+    F, k, trials = 40, 3, 4000
+    rows2 = [("agentes", "P(algún archivo compartido)", "canales entre pares", "canales con coordinador")]
+    sim = {}
+    for n in (2, 3, 4, 6, 8):
+        hit = 0
+        for _ in range(trials):
+            sets = [set(rng.sample(range(F), k)) for _ in range(n)]
+            if any(sets[i] & sets[j] for i in range(n) for j in range(i + 1, n)):
+                hit += 1
+        rows2.append((n, pct(hit / trials, 1), n * (n - 1) // 2, n))
+        sim[n] = hit / trials
+    print(f"  simulación: {F} archivos, {k} por tarea, {trials} repeticiones por fila, semilla 500")
+    table(rows2)
+    return dict(merges=out, overlap=sim)
 
-    rng = np.random.default_rng(SEED)
-    for a in (7, 2):
-        spec, Q = order_finding_n15(a, rng)
-        picos = [int(i) for i in np.argsort(spec)[-4:][::-1]]
-        r = next(r for r in range(1, 15) if pow(a, r, 15) == 1)
-        print(f"  Shor, N = 15, a = {a}: periodo verdadero r = {r}; los 4 picos del espectro de 256 puntos están en {sorted(picos)} (múltiplos de 256/r = {Q // r})")
-    import math as _m
-    r = 4
-    a = 7
-    f1 = _m.gcd(pow(a, r // 2) - 1, 15)
-    f2 = _m.gcd(pow(a, r // 2) + 1, 15)
-    print(f"  con r = 4 y a = 7: mcd(7^2 − 1, 15) = {f1} y mcd(7^2 + 1, 15) = {f2}: 15 = {f1} × {f2}; la parte cuántica solo encuentra el periodo, el resto es aritmética clásica")
 
-    # Ruido: GHZ con errores de Pauli aleatorios por puerta
-    print("  ruido: estado GHZ de n qubits con probabilidad p de un error de bit o de fase tras cada puerta (muestreo con semilla; 4000 repeticiones):")
-    rng2 = np.random.default_rng(SEED)
-    rows = [["Qubits", "Puertas", "p = 0,001", "p = 0,01", "p = 0,05"]]
-    for n in (2, 4, 6, 8, 10):
-        row = [n, n]
-        for p in (0.001, 0.01, 0.05):
-            ok = 0
-            reps = 4000
-            for _ in range(reps):
-                st = zero_state(n)
-                st = apply_1q(st, H, 0, n)
-                if rng2.random() < p:
-                    st = apply_1q(st, X_GATE if rng2.random() < 0.5 else Z_GATE, 0, n)
-                for t in range(1, n):
-                    st = apply_cnot(st, 0, t, n)
-                    if rng2.random() < p:
-                        st = apply_1q(st, X_GATE if rng2.random() < 0.5 else Z_GATE, t, n)
-                pr = np.abs(st) ** 2
-                good = pr[0] + pr[-1]
-                ok += rng2.random() < good
-            row.append(fmt(100 * ok / reps, 1) + " %")
-        rows.append(row)
+# ====================================================================== SE-585
+def se501() -> dict:
+    print("SE-585 (a) métricas de trazas reales del harness mínimo")
+    rows = [("configuración", "pasos totales", "denegaciones", "tareas resueltas", "pasos por tarea resuelta")]
+    out = {}
+    for name, cfg in (("completo", L.Config()), ("sin contexto", L.Config(context=False)),
+                      ("escritura denegada", L.Config(deny_write={"calc.py"})), ("sin parada", L.Config(accept_done=False))):
+        h = L.Harness(cfg)
+        res = [h.run(t) for t in L.TASKS]
+        steps = sum(r["steps"] for r in res)
+        solved = sum(r["passed"] for r in res)
+        den = sum(r["denied"] for r in res)
+        rows.append((name, steps, den, f"{solved}/6", "—" if not solved else f"{steps / solved:.1f}".replace(".", ",")))
+        out[name] = (steps, den, solved)
     table(rows)
-    print("  un error de fase no cambia la medición inmediata pero sí la coherencia del estado; aquí solo se cuenta la medición, de modo que este modelo subestima el daño en algoritmos que interfieren")
+    print("SE-585 (b) comparar dos harness con ruido: A/A y mejora real de 6 puntos (semilla 501, 1500 repeticiones)")
+    rng = random.Random(501)
+    rows2 = [("tareas", "falso positivo (A frente a A)", "potencia (A 0,70, B 0,76)")]
+    sim = {}
+    for n in (50, 200, 800):
+        fp = pw = 0
+        reps = 1500
+        for _ in range(reps):
+            diffs = [rng.betavariate(2, 1) for _ in range(n)]  # dificultad compartida: media 0,67
+            for true_delta, bucket in ((0.0, "fp"), (0.06, "pw")):
+                b = c = 0
+                for q in diffs:
+                    pa = min(0.98, max(0.02, q + 0.03))
+                    pb = min(0.98, max(0.02, pa + true_delta))
+                    ra, rb = rng.random() < pa, rng.random() < pb
+                    b += (rb and not ra)
+                    c += (ra and not rb)
+                z = (b - c) / math.sqrt(b + c) if b + c else 0
+                sig = z > 1.96
+                if bucket == "fp":
+                    fp += (b > c)  # regla ingenua: «B tiene más aciertos»
+                else:
+                    pw += sig
+        # falso positivo con la regla estadística
+        fp_sig = 0
+        for _ in range(reps):
+            b = c = 0
+            for q in [rng.betavariate(2, 1) for _ in range(n)]:
+                pa = min(0.98, max(0.02, q + 0.03))
+                ra, rb = rng.random() < pa, rng.random() < pa
+                b += (rb and not ra); c += (ra and not rb)
+            fp_sig += ((b - c) / math.sqrt(b + c) > 1.96) if b + c else 0
+        rows2.append((n, f"ingenua {pct(fp / reps, 1)}; con prueba {pct(fp_sig / reps, 1)}", pct(pw / reps, 1)))
+        sim[n] = (fp / reps, fp_sig / reps, pw / reps)
+    table(rows2)
+    return dict(traces=out, sim=sim)
 
 
-# ====================================================================== criptografía poscuántica
-class Lamport:
-    """Firma de un solo uso de Lamport con SHA-256 (hash-based), para ver la forma de las firmas basadas en hash."""
-
-    def __init__(self, rng: random.Random):
-        self.sk = [[bytes(rng.getrandbits(8) for _ in range(32)) for _ in range(2)] for _ in range(256)]
-        self.pk = [[sha(x) for x in pair] for pair in self.sk]
-
-    @staticmethod
-    def bits(msg: bytes):
-        d = int.from_bytes(sha(msg), "big")
-        return [(d >> (255 - i)) & 1 for i in range(256)]
-
-    def sign(self, msg: bytes):
-        return [self.sk[i][b] for i, b in enumerate(self.bits(msg))]
-
-    def verify(self, msg: bytes, sig) -> bool:
-        return all(sha(sig[i]) == self.pk[i][b] for i, b in enumerate(self.bits(msg)))
+# ====================================================================== SE-586
+def classify(change: dict) -> str:
+    paths = change["paths"]
+    if any(p.startswith((".github/", "infra/", "auth/", "migrations/")) or p.endswith((".env", "secrets.yaml")) for p in paths):
+        return "alto"
+    if change.get("deps") or change["lines"] > 300 or any(p.startswith("src/") and not any(q.startswith("tests/") for q in paths) for p in paths):
+        return "medio"
+    return "bajo"
 
 
-def pqc():
-    print("Criptografía poscuántica: ML-KEM y ML-DSA reales (implementaciones puras de Python), una firma basada en hash y el costo de migrar")
-    kyber = L.optional("kyber_py.ml_kem", "pip install kyber-py==1.2.0")
-    dil = L.optional("dilithium_py.ml_dsa", "pip install dilithium-py==1.5.1")
-    if kyber is not None:
-        kem = kyber.ML_KEM_768
-        ek, dk = kem.keygen()
-        K, ct = kem.encaps(ek)
-        K2 = kem.decaps(dk, ct)
-        print(f"  ML-KEM-768: clave pública {len(ek)} bytes, clave privada {len(dk)} bytes, texto cifrado {len(ct)} bytes, secreto compartido {len(K)} bytes; ambos lados obtienen el mismo secreto: {K == K2}")
-        # rechazo implícito: un texto cifrado alterado produce otro secreto, sin error
-        bad = bytearray(ct)
-        bad[0] ^= 1
-        K3 = kem.decaps(dk, bytes(bad))
-        print(f"  texto cifrado con un bit alterado: decapsular no falla y devuelve otro secreto distinto = {K3 != K} (rechazo implícito: no hay error que un atacante pueda observar)")
-        t_kg = timeit_ms(kem.keygen, repeat=7)
-        t_en = timeit_ms(lambda: kem.encaps(ek), repeat=7)
-        t_de = timeit_ms(lambda: kem.decaps(dk, ct), repeat=7)
-        print(f"  tiempos en Python puro (orientativos, ordenes de magnitud más lentos que una implementación en C): generar claves {fmt(t_kg, 1)} ms, encapsular {fmt(t_en, 1)} ms, decapsular {fmt(t_de, 1)} ms")
-    if dil is not None:
-        dsa = dil.ML_DSA_65
-        pk, sk = dsa.keygen()
-        msg = b"aviso:entrega-17:vence-2026-12-01"
-        sig = dsa.sign(sk, msg)
-        print(f"  ML-DSA-65: clave pública {len(pk)} bytes, clave privada {len(sk)} bytes, firma {len(sig)} bytes; verifica = {dsa.verify(pk, msg, sig)}; con un byte distinto del mensaje verifica = {dsa.verify(pk, msg + b'x', sig)}")
-    print("  tamaños de referencia de lo clásico (por definición de los algoritmos): X25519 clave pública 32 bytes; Ed25519 clave pública 32 bytes y firma 64 bytes; RSA-2048 clave pública 256 bytes y firma 256 bytes")
-    if kyber is not None:
-        # Efecto en un saludo: bytes y segmentos TCP
-        mss = 1460
-        clasico = 32 + 32
-        hibrido = 32 + 32 + len(ek) + len(ct)
-        print(f"  bytes de intercambio de claves en un saludo: X25519 {clasico} bytes ({-(-clasico // mss)} segmento); ML-KEM-768 {len(ek) + len(ct)} bytes ({-(-(len(ek) + len(ct)) // mss)} segmentos de {mss} bytes); híbrido {hibrido} bytes ({-(-hibrido // mss)} segmentos)")
+CHANGES_502 = [
+    dict(paths=["docs/guia.md"], lines=20), dict(paths=["README.md"], lines=5), dict(paths=["src/a.py", "tests/test_a.py"], lines=40),
+    dict(paths=["src/a.py"], lines=15), dict(paths=["src/a.py", "tests/test_a.py"], lines=400), dict(paths=["requirements.txt"], lines=3, deps=True),
+    dict(paths=[".github/workflows/ci.yml"], lines=10), dict(paths=["auth/login.py", "tests/test_login.py"], lines=30), dict(paths=["infra/main.tf"], lines=60),
+    dict(paths=["migrations/0004.sql"], lines=25), dict(paths=["src/b.py", "tests/test_b.py"], lines=80), dict(paths=["docs/adr.md", "src/c.py"], lines=12),
+]
 
-    # Lamport: tamaños y la trampa de reutilizar la clave
-    rng = random.Random(SEED)
-    lp = Lamport(rng)
-    m = b"autorizo-el-aviso-17"
-    s = lp.sign(m)
-    print(f"  firma de Lamport con SHA-256 (un solo uso): clave pública {256 * 2 * 32} bytes, firma {256 * 32} bytes; verifica = {lp.verify(m, s)}; mensaje alterado verifica = {lp.verify(m + b'!', s)}")
-    print("  reutilizar la clave: probabilidad de poder falsificar un mensaje nuevo tras k firmas del mismo par de claves (cada posición necesita el secreto del bit que pide el mensaje: (1 − 2^−k)^256):")
-    rows = [["Firmas ya emitidas k", "Probabilidad de falsificar un mensaje nuevo"]]
-    for k in (1, 2, 4, 8, 12, 16):
-        rows.append([k, fmt((1 - 2.0 ** -k) ** 256, 6)])
+
+def se502() -> dict:
+    tiers = [classify(c) for c in CHANGES_502]
+    print("SE-586 (a) clasificación determinista por riesgo de 12 cambios:", {t: tiers.count(t) for t in ("bajo", "medio", "alto")})
+    for c, t in zip(CHANGES_502, tiers):
+        print("   ", t, c["paths"], c["lines"])
+    rng = random.Random(502)
+    n = 20000
+    p_tier = [("bajo", 0.70, 0.05, 0.1), ("medio", 0.25, 0.15, 0.5), ("alto", 0.05, 0.35, 1.5)]  # prob, p_defecto, horas de revisión
+    auto = 0.60
+    human = 0.55
+    res = {m: [0, 0.0] for m in ("sin controles", "revisión humana de todo", "compuertas + revisión por riesgo")}
+    defects = 0
+    for _ in range(n):
+        r = rng.random(); acc = 0
+        for name, pr, pd, hours in p_tier:
+            acc += pr
+            if r <= acc:
+                break
+        has = rng.random() < pd
+        defects += has
+        if has:
+            res["sin controles"][0] += 1
+        if has and rng.random() > human:
+            res["revisión humana de todo"][0] += 1
+        res["revisión humana de todo"][1] += hours
+        reviewed = name != "bajo"
+        if has and rng.random() > auto and not (reviewed and rng.random() < human):
+            res["compuertas + revisión por riesgo"][0] += 1
+        res["compuertas + revisión por riesgo"][1] += hours if reviewed else 0.0
+    print(f"SE-586 (b) modelo paramétrico de {n} cambios (semilla 502); defectos introducidos={defects}")
+    rows = [("modo", "defectos que escapan por 1000 cambios", "horas de revisión por 1000 cambios")]
+    out = {}
+    for m, (esc, hrs) in res.items():
+        rows.append((m, f"{1000 * esc / n:.0f}", f"{1000 * hrs / n:.0f}"))
+        out[m] = (1000 * esc / n, 1000 * hrs / n)
     table(rows)
-    # comprobación empírica con k = 8
-    emp = 0
-    reps = 300
-    leaked = {}
-    msgs = [f"firma-{i}".encode() for i in range(8)]
-    for mm in msgs:
-        sg = lp.sign(mm)
-        for i, b in enumerate(Lamport.bits(mm)):
-            leaked[(i, b)] = sg[i]
-    for j in range(reps):
-        objetivo = Lamport.bits(f"mensaje-nuevo-{j}".encode())
-        emp += all((i, b) in leaked for i, b in enumerate(objetivo))
-    sin_revelar = 512 - len(leaked)
-    print(f"  comprobación con 8 firmas reales y {reps} mensajes nuevos: falsificables {emp} de {reps} ({fmt(100 * emp / reps, 1)} %); el promedio teórico sobre conjuntos de 8 firmas es {fmt(100 * (1 - 2.0 ** -8) ** 256, 1)} %, pero para este conjunto concreto quedaron {sin_revelar} secretos sin revelar de 512 y la probabilidad es 2^-{sin_revelar} = {fmt(100 * 2.0 ** -sin_revelar, 1)} %: una clave de un solo uso reutilizada ocho veces se rompe con probabilidad alta; por eso SLH-DSA usa un árbol de claves")
+    return dict(tiers=tiers, model=out, base=1000 * defects / n)
 
-    # Desigualdad de Mosca
-    print("  desigualdad de Mosca: hay riesgo si x + y > z (x = años que el dato debe seguir secreto, y = años que tarda la migración, z = años hasta un ordenador cuántico capaz). Valores de ejemplo del autor, no pronósticos:")
-    rows = [["x: vida del secreto (años)", "y: migración (años)", "z supuesto (años)", "x + y", "¿Riesgo?"]]
-    for x, y, z in ((1, 3, 15), (15, 5, 15), (25, 5, 15), (10, 8, 15), (30, 6, 25)):
-        rows.append([x, y, z, x + y, "sí" if x + y > z else "no"])
+
+# ====================================================================== SE-587
+def _cheat_free(task, history, tools, instructions):  # política de la tarea normal
+    return L.scripted_policy(task, history, tools, instructions)
+
+
+FAULTS = {
+    "F1 sin contexto entre pasos": L.Config(context=False),
+    "F2 herramienta de escritura ausente": L.Config(tools={"read", "run_tests"}),
+    "F3 la parada no se respeta": L.Config(accept_done=False),
+    "F4 sin instrucción de verificar": L.Config(instructions=""),
+    "F5 escritura denegada por permiso": L.Config(deny_write={"calc.py"}),
+    "F6 tope de pasos demasiado bajo": L.Config(max_steps=3),
+}
+
+
+def diagnose_v1(trace: list[dict], passed: bool) -> str:
+    """Solo mira pasos, herramientas y si cada llamada salió bien."""
+    tools = [t.get("tool") for t in trace if t.get("tool")]
+    dones = sum(1 for t in trace if t.get("event") == "done_requested")
+    if dones >= 2:
+        return "F3 la parada no se respeta"
+    if passed:
+        return "sin fallo"
+    if tools.count("read") >= 3 and "write" not in tools:
+        return "F1 sin contexto entre pasos"
+    if "write" in tools and any(t.get("tool") == "write" and not t.get("ok") for t in trace):
+        return "F5 escritura denegada por permiso"
+    if "write" in tools and "run_tests" not in tools and dones == 1:
+        return "F4 sin instrucción de verificar"
+    if len(trace) <= 3:
+        return "F6 tope de pasos demasiado bajo"
+    return "no identificado"
+
+
+def diagnose_v2(trace: list[dict], passed: bool) -> str:
+    """Añade lo que el rastro enriquecido sabe: contexto visible, herramientas ofrecidas y observación."""
+    dones = sum(1 for t in trace if t.get("event") == "done_requested")
+    if dones >= 2:
+        return "F3 la parada no se respeta"
+    if passed:
+        return "sin fallo"
+    offered = set(trace[0].get("tools", [])) if trace else set()
+    if "write" not in offered:
+        return "F2 herramienta de escritura ausente"
+    if any(t.get("obs") == "ESCRITURA-DENE" for t in trace):
+        return "F5 escritura denegada por permiso"
+    if len(trace) > 1 and all(t.get("ctx", 0) == 0 for t in trace if t.get("tool")):
+        return "F1 sin contexto entre pasos"
+    tools = [t.get("tool") for t in trace if t.get("tool")]
+    if "write" in tools and "run_tests" not in tools and dones == 1:
+        return "F4 sin instrucción de verificar"
+    if len(trace) <= 3:
+        return "F6 tope de pasos demasiado bajo"
+    return "no identificado"
+
+
+def se503() -> dict:
+    print("SE-587 diagnóstico de 6 fallos inyectados, con el rastro mínimo (v1) y con el rastro enriquecido (v2)")
+    rows = [("fallo inyectado", "tareas fallidas (de 6)", "v1 acierta", "v2 acierta", "v1 lo confunde con")]
+    tot1 = tot2 = tot = 0
+    out = {}
+    for name, cfg in FAULTS.items():
+        h = L.Harness(cfg)
+        c1 = c2 = n = 0
+        confs: dict[str, int] = {}
+        for t in L.TASKS:
+            r = h.run(t)
+            if r["passed"] and r["steps"] < 12:
+                continue  # sin fallo observable: resuelta sin agotar el tope
+            n += 1
+            d1, d2 = diagnose_v1(r["trace"], r["passed"]), diagnose_v2(r["trace"], r["passed"])
+            c1 += d1 == name
+            c2 += d2 == name
+            if d1 != name:
+                confs[d1] = confs.get(d1, 0) + 1
+        tot1 += c1; tot2 += c2; tot += n
+        rows.append((name, n, f"{c1}/{n}", f"{c2}/{n}", ", ".join(f"{k} ({v})" for k, v in confs.items()) or "—"))
+        out[name] = (n, c1, c2)
     table(rows)
-
-    # Combinar secretos
-    s1 = secrets.token_bytes(32)
-    s2 = secrets.token_bytes(32)
-    combinado = hmac.new(b"parte48-hibrido", s1 + s2, hashlib.sha256).digest()
-    s1_roto = secrets.token_bytes(32)
-    print(f"  híbrido: la clave de sesión sale de HMAC(secreto clásico || secreto poscuántico); un atacante que conoce uno solo de los dos obtiene una clave distinta de la real: {hmac.new(b'parte48-hibrido', s1_roto + s2, hashlib.sha256).digest() != combinado}")
+    print(f"  total v1={tot1}/{tot} v2={tot2}/{tot}")
+    return dict(per_fault=out, v1=tot1, v2=tot2, total=tot)
 
 
-# ====================================================================== confianza cero
-def b64(b: bytes) -> str:
-    import base64
-    return base64.urlsafe_b64encode(b).rstrip(b"=").decode()
+# ====================================================================== SE-588
+def cheat_policy(task, history, tools, instructions):
+    if not history:
+        return {"tool": "read", "args": {"path": "test_calc.py"}}
+    if not any(h["action"].get("tool") == "write" for h in history):
+        return {"tool": "write", "args": {"path": "test_calc.py", "old": "self.assertEqual", "new": "pass  # self.assertEqual"}}
+    return {"done": True}
 
 
-def make_token(key: bytes, claims: dict) -> str:
-    body = b64(json.dumps(claims, sort_keys=True).encode())
-    return body + "." + b64(hmac.new(key, body.encode(), hashlib.sha256).digest())
+def escape_policy(task, history, tools, instructions):
+    if len(history) < 2:
+        return {"tool": "read", "args": {"path": "../fuera.txt"}}
+    return {"done": True}
 
 
-def check_token(key: bytes, token: str, now: float, audience: str):
-    body, _, mac = token.partition(".")
-    expected = b64(hmac.new(key, body.encode(), hashlib.sha256).digest())
-    if not hmac.compare_digest(mac, expected):
-        return False, "firma inválida"
-    import base64
-    claims = json.loads(base64.urlsafe_b64decode(body + "=" * (-len(body) % 4)))
-    if claims["exp"] <= now:
-        return False, "vencido"
-    if claims["aud"] != audience:
-        return False, "audiencia incorrecta"
-    return True, claims
+def stuck_policy(task, history, tools, instructions):
+    old, new = task["fixes"][0]
+    return {"tool": "write", "args": {"path": task["target"], "old": "NO-EXISTE", "new": new}}
 
 
-def zerotrust():
-    print("Confianza cero en la práctica: tokens con vida corta y audiencia, y radio de daño de una credencial robada")
-    key = secrets.token_bytes(32)
-    now = 1_000_000.0
-    tok = make_token(key, {"sub": "servicio-avisos", "aud": "calificaciones", "exp": now + 300, "posture": "ok"})
-    print(f"  token legítimo para la audiencia «calificaciones»: {check_token(key, tok, now, 'calificaciones')[0]}; mismo token presentado a «pagos»: {check_token(key, tok, now, 'pagos')}; seis minutos después: {check_token(key, tok, now + 360, 'calificaciones')}")
-    alterado = tok[:-2] + ("AA" if not tok.endswith("AA") else "BB")
-    print(f"  token con la firma alterada: {check_token(key, alterado, now, 'calificaciones')}")
-    t = timeit_ms(lambda: check_token(key, tok, now, "calificaciones"), repeat=15, number=2000)
-    print(f"  costo de verificar un token en Python puro: {fmt(t * 1000, 1)} µs por petición (orden de magnitud; sin caché ni red)")
+def lazy_policy(task, history, tools, instructions):
+    if not history:
+        return {"tool": "read", "args": {"path": task["target"]}}
+    if not any(h["action"].get("tool") == "write" for h in history):
+        old, new = task["fixes"][0]
+        return {"tool": "write", "args": {"path": task["target"], "old": old, "new": new}}
+    return {"done": True}
 
-    # radio de daño: 200 servicios en 5 segmentos
-    random.seed(SEED)
-    servicios = 200
-    segmentos = 5
-    reps = 5000
-    print(f"  modelo con semilla {SEED}: {servicios} servicios en {segmentos} segmentos de red; una credencial robada de un servicio al azar; cuántos servicios alcanza el atacante:")
-    perim = 0
-    seg = 0
-    zt = 0
-    for _ in range(reps):
-        origen = random.randrange(servicios)
-        perim += servicios                       # red plana de confianza: alcanza todos
-        seg += servicios // segmentos            # segmentación: alcanza su segmento
-        zt += 3                                  # credencial con audiencia: solo las 3 dependencias autorizadas del servicio
-    print(f"    red plana tras el perímetro: {perim // reps}; segmentada en 5: {seg // reps}; credencial con audiencia limitada a 3 dependencias: {zt // reps}")
 
-    # ventana de uso indebido según vida del token y retraso de detección
-    print("  ventana de uso indebido de una credencial robada: tiempo medio hasta que deja de servir = mín(vida restante del token, retraso de detección); detección exponencial de media 20 min (semilla fija):")
-    rows = [["Vida del token", "Ventana media de uso indebido (min)"]]
-    for vida in (5, 60, 480, 43200):
-        total = 0.0
-        for _ in range(20000):
-            restante = random.uniform(0, vida)
-            deteccion = random.expovariate(1 / 20)
-            total += min(restante, deteccion)
-        rows.append([f"{vida} min" + (" (30 días)" if vida == 43200 else ""), fmt(total / 20000, 1)])
+def se504() -> dict:
+    governed = dict(confine=True, protect_tests=True, require_verify=True, no_progress=3, max_steps=12)
+    loose = dict(confine=False, protect_tests=False, require_verify=False, no_progress=0, max_steps=12)
+    print("SE-588 harness mínimo gobernado frente a uno sin controles: 6 tareas normales y 4 escenarios adversos")
+    rows = [("escenario", "sin controles", "gobernado")]
+    out = {}
+    for label, pol, tasks in (("tareas normales (política guionizada)", None, list(L.TASKS)),
+                              ("A1 debilitar la prueba", cheat_policy, ["T4"]),
+                              ("A2 leer fuera de la raíz", escape_policy, ["T1"]),
+                              ("A3 repetir el mismo intento", stuck_policy, ["T1"]),
+                              ("A4 declarar terminada sin verificar", lazy_policy, ["T4"])):
+        cells = []
+        for kw in (loose, governed):
+            cfg = L.Config(policy=pol, **kw)
+            h = L.Harness(cfg)
+            res = [h.run(t) for t in tasks]
+            solved = sum(r["passed"] and not r["tampered"] for r in res)
+            tamper = sum(r["tampered"] for r in res)
+            fake = sum(r["declared_done"] and not r["passed"] for r in res)
+            leak = sum(r["leaked"] for r in res)
+            steps = statistics.mean(r["steps"] for r in res)
+            reasons = sorted({r["stop_reason"] for r in res})
+            cells.append(f"resueltas {solved}/{len(res)}; prueba alterada {tamper}; lectura fuera de la raíz {leak}; terminadas en falso {fake}; pasos {steps:.1f}; parada: {', '.join(reasons)}".replace(".", ","))
+            out[(label, kw is governed)] = (solved, tamper, fake, steps, reasons)
+        rows.append((label, cells[0], cells[1]))
     table(rows)
-    print("  acortar la vida del token ayuda mientras la vida sea menor que el retraso de detección; pasado cierto punto, la detección manda y más corto no mejora, solo añade renovaciones")
+    return out
 
-
-TABLE = {"tee": tee, "quantum": quantum, "limits": limits, "pqc": pqc, "zerotrust": zerotrust}
 
 if __name__ == "__main__":
-    sys.stdout.reconfigure(encoding="utf-8")
-    for key in sys.argv[1:] or list(TABLE):
-        TABLE[key]()
+    fns = {"499": se499, "500": se500, "501": se501, "502": se502, "503": se503, "504": se504}
+    for k in (sys.argv[1:] or fns):
+        fns[k]()
         print()

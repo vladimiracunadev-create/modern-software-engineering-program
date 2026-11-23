@@ -1,196 +1,194 @@
-# Parte 36 — Mantenimiento y modernización legacy
+# Parte 36 — Calidad, rendimiento y resiliencia
 
-La Parte 35 dejó un sistema que se puede ver, operar y recuperar. La pregunta cambia de «¿cómo observamos y recuperamos lo que corre?» a «¿cómo se sostiene, se entiende y se transforma, durante años y sin detenerlo, un sistema que otras personas escribieron con reglas que nadie anotó?». Esta parte trabaja sobre **el módulo legado de calificaciones de la plataforma educativa**, un caso sintético: un monolito de doce años con una función que calcula la nota final, notas guardadas como texto con coma, estados de una letra, fechas de dos dígitos y un archivo de intercambio con un ministerio. Cada clase mira el mismo módulo con una lente más exigente: qué trabajo hay que hacer, dónde está el riesgo, cómo se fija su comportamiento, qué dependencias acumula, cómo se reemplaza por partes, cómo se migran su plataforma y sus datos, cómo coexisten dos versiones, cómo se retira, si conviene reescribir y qué base estable hace falta antes de empezar.
+La Parte 35 decidió qué pruebas ejecutar según el riesgo y cómo demostrar que una prueba detecta defectos. La pregunta cambia de «¿esta prueba ve el defecto?» a «¿qué promesa de calidad hace el sistema, con qué medida, y qué ocurre cuando se le somete a presión?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo. Cada clase convierte una palabra vaga (rápido, fiable, compatible, usable) en una medida, mide cómo se engaña quien la usa mal y declara qué no demuestra.
 
 ## Pregunta rectora
 
-> ¿Qué cambio puedes hacer hoy sobre un sistema que no puedes detener, con qué evidencia de que no rompe a quien lo usa, qué cuesta volver atrás en cada paso y en qué momento exacto deja de ser posible?
+> ¿Qué promesa de calidad se puede hacer, con qué medida y qué evidencia reproducible permite a otra persona comprobarla, refutarla o decir cuándo deja de valer?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña una herramienta de migración ni un producto de refactorización. Enseña a clasificar el trabajo de mantenimiento y a repartir la capacidad sin que lo correctivo devore lo preventivo, a preguntar al historial y a la ejecución dónde está el riesgo y qué conocimiento se perdió, a fijar el comportamiento actual con pruebas de caracterización y costuras antes de tocarlo, a medir el costo creciente de esperar para actualizar dependencias, a sustituir un sistema por rebanadas con comparación en sombra y una capa que traduce su modelo, a catalogar los cambios silenciosos de una plataforma, a rellenar datos sin bloquear ni pisar escrituras, a mantener dos copias alineadas y dos formatos compatibles, a retirar un sistema con una ventana que cubra los ciclos de uso, a decidir entre reescribir y evolucionar con incertidumbre y a estabilizar la base antes de cruzar la puerta.
+Esta parte no enseña una herramienta de pruebas de carga ni un producto de observabilidad. Enseña a escribir un requisito de calidad como un escenario con una medida, a ver qué esconde cada estadístico y cada ventana, a decidir qué comprueba una revisión, un análisis estático y una compuerta y qué se les escapa, a elegir la forma de una prueba de carga y a distinguir un generador que oculta la espera de uno que no, a explicar con teoría de colas por qué la latencia se dispara cerca de la saturación y a planificar la capacidad desde un objetivo de cola, a medir con relojes y perfiladores sin creer que miden lo que no miden, a decidir timeouts y reintentos con presupuesto, a limitar el daño de una dependencia caída con interruptores, mamparos y respuestas degradadas, a calcular disponibilidad y durabilidad con la causa común a la vista, a comprobar la compatibilidad entre sistemas y versiones ejecutándola, a fijar presupuestos de experiencia con dueño y a someter un sistema a presión con una hipótesis, un radio acotado y un criterio de aborto. Cada clase ejecuta experimentos con datos sintéticos o sondas reales que muestran un mecanismo (una media de 157 ms sobre un p99 de 1 929 ms, un p99 de 232 ms que oculta una pausa de diez segundos, tres capas que envían 27 intentos a una base caída, siete de doce sondas que lanzan una excepción en un sistema y no en otro) y declara lo que esa medida no demuestra.
 
 ```mermaid
 flowchart LR
-    A[Mantenimiento correctivo, adaptativo y perfectivo] --> B[Arqueología de código]
-    B --> C[Pruebas de caracterización y seams]
-    C --> D[Dependencias obsoletas]
-    D --> E[Strangler, branch by abstraction y anticorruption]
-    E --> F[Migraciones de runtime, lenguaje y framework]
-    F --> G[Migraciones de datos sin interrupción]
-    G --> H[Compatibilidad, coexistencia y doble escritura]
-    H --> I[Retiro, archivado y disposición]
-    I --> J[Economía de reescribir frente a evolucionar]
-    J --> K[Taller: estabilizar antes de modernizar]
-    K --> L[Proyecto: migración incremental reversible]
+    A[Modelos de calidad y atributos medibles] --> B[Revisión, análisis estático y quality gates]
+    B --> C[Carga, estrés, picos y endurance]
+    C --> D[Latencia, throughput, saturación y capacidad]
+    D --> E[Perfiles, benchmarks y errores de medición]
+    E --> F[Timeouts, retries, backoff y jitter]
+    F --> G[Circuit breakers, bulkheads y degradación]
+    G --> H[Disponibilidad, durabilidad y recuperación]
+    H --> I[Compatibilidad, portabilidad e interoperabilidad]
+    I --> J[Calidad de experiencia y presupuestos]
+    J --> K[Taller de presión controlada]
+    K --> L[Informe reproducible de calidad]
     L -->|incidente o hallazgo| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo de la migración o una nueva fecha impuesta por el entorno reabre la cartera de mantenimiento; una migración terminada no cierra el mantenimiento, lo fecha.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo del ensayo de presión o una queja de una persona usuaria reabre los escenarios de calidad; un informe aprobado no cierra la calidad, la fecha.
 
 ## Resultados acumulativos
 
-Podrás clasificar una cartera de solicitudes en las cuatro categorías de mantenimiento, simular el reparto de capacidad con y sin una reserva preventiva, medir el acuerdo entre dos revisoras y calcular la probabilidad de cumplir una fecha impuesta según el margen; ordenar archivos por frecuencia de cambio, tamaño y su producto contra las correcciones reales, estimar los archivos huérfanos tras la salida de autores y comparar el análisis por nombre y la traza de ejecución para detectar código muerto; escribir pruebas de caracterización, medir su cobertura frente a los mutantes que detectan, encontrar el orden variable de un conjunto entre procesos y medir el costo de no tener una costura;
+Podrás escribir un requisito de calidad como un escenario de seis partes y comprobar con un verificador de forma qué detecta y qué deja pasar; calcular la media, la mediana y los percentiles de una misma muestra y aplicar varias definiciones del mismo objetivo a una ventana para ver cuál oculta un incidente; escribir reglas de análisis estático con `ast`, medir su precisión y sus defectos no vistos, comparar una compuerta de cobertura total con una del cambio y contar los bloqueos espurios al encadenar comprobaciones; elegir entre carga, estrés, pico y resistencia por la pregunta que cada una responde, medir el colapso por trabajo para clientes ausentes y la omisión coordinada de un generador cerrado; explicar con la fórmula de una cola por qué la espera crece como 1/(1 − utilización), cuánto añade la variabilidad del servicio, por qué no se promedian percentiles y cuántos servidores exige un objetivo de p99;
 
-calcular cuánto cuesta esperar a actualizar una dependencia según la cadencia, cuánto tiempo queda expuesto un aviso de seguridad según la política y cuántos paquetes arrastra actualizar uno según su posición en el grafo; comparar un corte único, uno escalonado y uno con sombra previa por peticiones afectadas, calcular cuántas peticiones comparar en sombra y cuándo aparece el tráfico raro, y evaluar una capa anticorrupción sobre 5 000 registros; medir cuatro cambios silenciosos de comportamiento del intérprete, comparar tres formas de reescribir una llamada y tres políticas de seguimiento de versiones;
+medir la variación de una misma función entre procesos, el efecto de un perfilador y de una caché sobre un benchmark y la tasa de falsas diferencias entre dos copias idénticas; comparar políticas de reintento tras una degradación y una oleada, calcular la amplificación por capas y elegir un timeout con la distribución de latencias; medir qué evita un interruptor, qué confina un mamparo y qué respuesta útil produce cada política de sobrecarga; calcular disponibilidad en serie y en paralelo con y sin causa común, la pérdida de datos según el tiempo de reparación y el umbral de un detector de fallos; ejecutar sondas de portabilidad en dos sistemas, medir datos que cambian de significado al cruzar una frontera y construir una matriz de compatibilidad de versiones; comparar el laboratorio con el campo, tres compuertas ante una deriva de peso y el contraste de los colores del propio repositorio; fijar umbrales de estado estable, inyectar cuatro fallos sobre una referencia y una variante endurecida y calcular la detección frente al radio de impacto; y validar un paquete de informe, medir qué artefactos se reproducen entre sistemas y estimar cuántos informes declararían una mejora falsa según cómo se elija el resultado.
 
-medir cómo el tamaño de lote afecta al bloqueo, ejecutar un relleno real con SQLite bajo cuatro estrategias y contar las filas obsoletas, y medir el costo de añadir una columna frente a reconstruir la tabla; comparar tres formas de escribir en dos almacenes, el costo de detectar la divergencia y una matriz de compatibilidad ejecutable; medir qué ventana de observación rompe a los consumidores raros, comparar una retención única con reglas por tipo y tres formatos de archivo con una suma de verificación; simular tres opciones económicas con incertidumbre, su sensibilidad y su horizonte; medir el ruido de las pruebas inestables, la reproducibilidad de dos construcciones y la incertidumbre de una línea base;
-
-y ejecutar una migración incremental de seis fases con su verificación, el costo de volver atrás y el reposo antes de contraer. Al finalizar podrás defender un paquete de migración con su plan de fases, su ejecutor, su verificación de contenido, su ensayo de vuelta atrás y sus límites declarados, e indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Al finalizar podrás defender un informe de calidad con su plan fijado de antemano, sus datos crudos con huella, sus escenarios medibles, sus políticas de resiliencia, sus presupuestos, su ensayo de presión y una lista de lo que ninguna medición ni validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
-- [Parte 16 — Git, colaboración y código abierto](../../classes/part-16-git-colaboracion-y-codigo-abierto/): historial de versiones y consultas sobre él.
-- [Parte 17 — Documentación y conocimiento técnico](../../classes/part-17-documentacion-y-conocimiento-tecnico/): registros de decisión y recuperación de conocimiento.
-- [Parte 24 — Diseño, patrones y refactorización](../../classes/part-24-diseno-patrones-y-refactorizacion/): costuras, abstracciones y refactorización con red de seguridad.
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): esquemas, copias y restauración.
-- [Parte 27 — Integración, eventos y mensajería](../../classes/part-27-integracion-eventos-y-mensajeria/): entrega, orden y bandejas de salida.
-- [Parte 30 — Estrategia y técnicas de prueba](../../classes/part-30-estrategia-y-tecnicas-de-prueba/): pruebas de mutación, pruebas inestables y capacidad de detección.
-- [Parte 31 — Calidad, rendimiento y resiliencia](../../classes/part-31-calidad-rendimiento-y-resiliencia/): escenarios de calidad, percentiles y compatibilidad.
-- [Parte 35 — Observabilidad, SRE e incidentes](../../classes/part-35-observabilidad-sre-e-incidentes/): señales, operación y recuperación.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (con `sqlite3` incluido) y datos sintéticos, salvo las sondas de comportamiento del intérprete, los tiempos de reloj y la construcción de artefactos, que son ejecuciones reales de código en el equipo.
+- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): costo de las operaciones, colas y montículos.
+- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): contratos comprobables y compatibilidad entre versiones.
+- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y consistencia en el servidor.
+- [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): atributos de calidad, fronteras y decisiones registradas.
+- [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): copias, restauración y réplicas.
+- [Parte 35 — Estrategia y técnicas de prueba](../../classes/part-35-estrategia-y-tecnicas-de-prueba/): riesgo, pruebas y capacidad de detección.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos, salvo las sondas de portabilidad y las mediciones de tiempo, que son lecturas reales del equipo.
 
 ## Bloques y progresión
 
-1. **Entender el sistema y fijar su comportamiento:** las clases 433 a 435 clasifican el trabajo de mantenimiento, recuperan el conocimiento perdido y fijan el comportamiento actual antes de tocarlo.
-2. **Reducir el riesgo acumulado y sustituir por partes:** las clases 436 y 437 miden el costo de esperar en las dependencias y reemplazan el sistema por rebanadas con comparación en sombra y una capa de traducción.
-3. **Mover la plataforma y los datos:** las clases 438 a 440 migran el runtime, los datos y los formatos con coexistencia verificada.
-4. **Retirar y decidir:** las clases 441 y 442 retiran un sistema con evidencia y deciden con incertidumbre si reescribir o evolucionar.
-5. **Aplicar e integrar:** las clases 443 y 444 estabilizan la base y ejecutan una migración incremental reversible de principio a fin.
+1. **Definir y vigilar la calidad:** las clases 373 y 374 convierten una promesa en un escenario con medida y deciden qué comprueban la revisión, el análisis estático y las compuertas.
+2. **Medir bajo carga:** las clases 375 a 377 eligen la forma de la prueba de carga, explican la latencia con teoría de colas y miden con relojes sin engañarse.
+3. **Resistir el fallo:** las clases 378 a 380 deciden timeouts, reintentos, interruptores, mamparos, degradación, disponibilidad y recuperación.
+4. **Compatibilidad y experiencia:** las clases 381 y 382 miden diferencias entre sistemas y versiones y fijan presupuestos de experiencia.
+5. **Aplicar e integrar:** las clases 383 y 384 someten el sistema a presión controlada y entregan un informe reproducible de calidad.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, las semillas están fijadas y las simulaciones (capacidad, historial de cambios, rotación, dependencias, estrategias de corte, lotes, doble escritura, ventanas de observación, economía, ruido y migración por fases) son de tiempo virtual o de recuento: las salidas de los experimentos con semilla fueron idénticas en ambos sistemas, cifra por cifra. Hay excepciones intencionales. Las **ejecuciones reales** de código (cuatro comportamientos del intérprete, la reescritura con `ast`, el relleno y los costos con SQLite, los formatos de archivo y la construcción de bytecode y de archivos comprimidos) dieron los mismos recuentos y veredictos en los dos sistemas, salvo la versión del intérprete y de SQLite, que se declara. Los **tiempos de reloj** (la costura de `SE-435` y los costos de esquema de `SE-439`) difieren entre sistemas y entre ejecuciones y solo se interpretan como razones, y las huellas de la construcción de `SE-443` difieren entre sistemas porque incluyen rutas y versiones del intérprete.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, las semillas están fijadas y la mayoría de los experimentos (colas, reintentos, interruptores, disponibilidad, presupuestos, estabilidad y selección) corren en **tiempo virtual**: no hay reloj, red ni servidor reales, y las salidas de los experimentos de tiempo virtual fueron idénticas en ambos sistemas, cifra por cifra. Hay tres excepciones, todas intencionales: las **sondas de portabilidad** de `SE-441` y los artefactos dependientes del sistema de `SE-444` difieren entre Windows y Ubuntu por diseño, porque eso es lo que miden, y las **mediciones de tiempo de reloj** de `SE-437` (variación entre procesos, factor del perfilador y efecto de una caché) son lecturas de un equipo concreto que cambian en cada ejecución y no se reproducen al milisegundo; lo que se reproduce es la conclusión.
 
-Los experimentos son: la clasificación de 600 solicitudes, 24 meses de capacidad y la probabilidad de llegar a una fecha (`SE-433`); puntos calientes en un historial de 4 000 commits, archivos huérfanos con una rotación del 2 % mensual y dos técnicas de detección de código muerto (`SE-434`); cobertura de líneas frente a doce mutantes, ocho procesos con semilla de hash distinta y el costo de una costura (`SE-435`); cuatro cadencias de actualización, la exposición a 31 avisos y el radio de impacto en 200 grafos (`SE-436`); tres estrategias de corte, el tamaño de muestra de la sombra y 5 000 registros traducidos (`SE-437`); cuatro cambios silenciosos, tres métodos de reescritura sobre 400 fragmentos y tres políticas de versiones (`SE-438`); cinco tamaños de lote, cuatro estrategias de relleno y el costo de los cambios de esquema (`SE-439`); tres formas de escribir en dos almacenes, el costo de detectar y una matriz de compatibilidad (`SE-440`); seis ventanas de observación, una retención por reglas y tres formatos de archivo (`SE-441`); tres opciones con 20 000 escenarios, su sensibilidad y el horizonte (`SE-442`); cinco configuraciones de pruebas inestables, cinco construcciones y la incertidumbre de una línea base (`SE-443`); y una migración de seis fases con el costo de volver y el reposo (`SE-444`).
+Los experimentos son: la media y los percentiles de 20 000 latencias con una cola lenta, un mes con seis definiciones del mismo objetivo y un verificador de forma frente a 180 mutaciones de escenarios (`SE-433`); tres reglas de análisis estático sobre 300 funciones generadas, tres compuertas de cobertura sobre 500 cambios y los bloqueos espurios de una cadena de comprobaciones (`SE-434`); cuatro pruebas sobre una cola de cuatro servidores, tres generadores de carga ante una pausa de diez segundos y la duración y el calentamiento de una prueba (`SE-435`); la latencia de una cola M/M/1 frente a su fórmula, cuatro formas de variabilidad del servicio con la ley de Little y la agregación de percentiles de ocho servidores (`SE-436`); la variación de una ordenación entre cinco procesos, un perfilador y una caché que distorsionan un benchmark y la comparación de dos copias idénticas con tres estadísticos (`SE-437`); cinco políticas de reintento tras un brownout de diez segundos y tras una oleada sincronizada de 400 clientes, tres capas encadenadas y seis timeouts (`SE-438`); un interruptor de circuito con cuatro configuraciones, un pool compartido frente a tres mamparos y cuatro políticas bajo una sobrecarga del doble (`SE-439`); la disponibilidad de 400 años simulados con y sin causa común, la pérdida de datos con dos y tres réplicas y seis umbrales de detección de fallos (`SE-440`); doce sondas de portabilidad, cinco fronteras de datos y una matriz de compatibilidad de 25 pares (`SE-441`); la misma página en el laboratorio y en tres segmentos, tres compuertas ante una deriva de peso y el contraste de los colores del repositorio (`SE-442`); tres umbrales de estabilidad, una matriz de cuatro fallos sobre dos configuraciones y la detección frente al radio de impacto (`SE-443`); y un validador de paquetes frente a 240 mutaciones, ocho artefactos entre dos sistemas y la selección de resultados favorables (`SE-444`).
 
-Los parámetros (la realimentación entre deuda e incidencias, el historial y la rotación, los doce mutantes, el 12 % de versiones incompatibles, el 10 % de rutas con regresión, el calendario de cierre, el calendario de versiones, los costos por fila y por lote, la tasa de fallo de la segunda escritura, la mezcla de consumidores, los plazos de retención, los siete parámetros económicos, el 5 % de inestabilidad y las 60 escrituras diarias) son supuestos del autor, y los resultados dependen de ellos. Que en la simulación económica evolucionar gane en la mayoría de los escenarios es una consecuencia de esos supuestos, no un hallazgo sobre reescrituras reales.
+Los parámetros (los 20 000 y los 2 000 diarios de peticiones, la cola del 1,5 %, los 4 servidores de 50 ms, la paciencia de 2 s, la fuga de una conexión cada 5 000 solicitudes, el calentamiento del 30 %, el ruido del 4 % con interferencias del 8 %, el timeout de 1 s con tres reintentos, el 3 % de peticiones lentas, el pool de 150 y el de 20, el costo de 5 ms de la respuesta degradada, el MTBF de 500 h y el MTTR de 0,5 h, las tasas anuales de fallo del 2 y del 20 %, los latidos con pérdida del 0,5 %, los tres segmentos de dispositivos, la deriva del 0,6 % por compilación, los seis trabajadores y los 40 solicitudes por segundo del modelo del taller y las doce mutaciones del validador) son **supuestos del autor**, no mediciones. Cada clase los lista y dice qué cambiaría si fueran otros.
 
-Lo que **no se hizo**: no se migró, estabilizó, clasificó ni analizó ningún sistema, repositorio, base de datos, equipo, institución ni persona reales; no se usó ninguna herramienta de migración, de análisis de dependencias, de pruebas de mutación ni de reescritura automática de terceros; no se consultó ninguna base de vulnerabilidades ni ningún repositorio de paquetes; no se usó ningún motor de bases de datos distinto de SQLite en memoria ni hay concurrencia real, solo intercalaciones deterministas; no se probó macOS ni otras versiones de Python; los plazos de retención y los formatos de archivo no son asesoría legal ni se probaron a largo plazo; el clasificador, el verificador de mutantes y las técnicas de código muerto se evaluaron con casos escritos sabiendo qué buscan; y no se asegura revisión humana independiente de estas clases: sigue pendiente.
+Lo que **no se hizo**: no se midió ninguna API, base de datos, red ni servicio reales, ni se envió una sola petición a un sistema; no se usó ninguna herramienta de carga, de observabilidad, de interruptores ni de caos; no se midió ninguna persona usuaria, dispositivo ni navegador, ni se evaluó conformidad con WCAG, más allá de la razón de contraste de los colores declarados en el repositorio, que encontró una etiqueta del portal por debajo del 4,5:1 y queda registrada como seguimiento; no se probó macOS ni otras versiones de Python; el validador, el verificador de escenarios y las reglas de análisis se afinaron con los mismos casos que los evalúan, de modo que sus porcentajes muestran una frontera y no una tasa; y el resultado sobre el jitter de `SE-438` es propio de su modelo. La parte no tiene laboratorio en `labs/`, y su contenido sigue pendiente de revisión humana independiente.
 
 ## Guía razonada clase por clase
 
-El módulo de calificaciones mantiene un contrato, una cartera y un paquete estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+La API de entregas mantiene un contrato, un conjunto de escenarios y un informe estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-### Bloque 1 — Entender el sistema y fijar su comportamiento
+### Bloque 1 — Definir y vigilar la calidad
 
-#### SE-433 — Mantenimiento correctivo, adaptativo y perfectivo
+#### SE-433 — Modelos de calidad y atributos medibles
 
-Si solo se corrige lo urgente, lo urgente crece. La clase reparte 24 meses de capacidad con y sin una reserva del 20 % para trabajo preventivo, clasifica 600 solicitudes y mide el acuerdo entre dos revisoras, y calcula la probabilidad de llegar a una fecha impuesta según el margen.
+Una promesa de calidad sin estadístico, ventana y alcance admite conclusiones opuestas con los mismos datos. La clase mide cuánto oculta la media de una cola lenta, aplica seis definiciones del objetivo «p95 ≤ 300 ms» a un mes con un incidente de tres horas y evalúa un verificador de forma de escenarios frente a 180 mutaciones.
 
-El estudiante entrega la cartera clasificada con una política de reserva. `SE-434` pregunta dónde está el riesgo y qué conocimiento se perdió.
+El estudiante entrega cuatro escenarios de seis partes con medida y un árbol de utilidad. `SE-434` pregunta cómo se vigila que cada cambio no los empeore.
 
-#### SE-434 — Arqueología de código y recuperación de conocimiento
+#### SE-434 — Revisión, análisis estático y quality gates
 
-El historial responde lo que el código no responde, y cada técnica de detección se equivoca por una razón distinta. La clase compara tres criterios para elegir puntos calientes, estima los archivos huérfanos con la salida de autores y mide el análisis por nombre y la traza de ejecución para encontrar código muerto.
+Una compuerta convierte una medida en una decisión y puede dejar pasar lo malo o bloquear lo bueno. La clase mide la precisión y los defectos no vistos de tres reglas con `ast`, compara una compuerta de cobertura total con una del cambio y calcula cuántos cambios bloquea el ruido al encadenar comprobaciones y qué pasa al reintentar.
 
-El estudiante entrega un mapa de riesgo con entrevistas por hacer. `SE-435` fija el comportamiento de esos puntos calientes.
+El estudiante entrega las comprobaciones del cambio con su regla de decisión. `SE-435` pone a prueba el escenario de eficiencia con carga.
 
-#### SE-435 — Pruebas de caracterización y seams
+### Bloque 2 — Medir bajo carga
 
-Una prueba de caracterización fija lo que el sistema hace, no lo que debería hacer, y la cobertura no mide cuánto detecta. La clase mide líneas cubiertas frente a mutantes detectados para seis conjuntos de entradas, muestra ocho salidas distintas del mismo programa por el orden de un conjunto y mide el costo de ejecutar sin una costura.
+#### SE-435 — Carga, estrés, picos y endurance
 
-El estudiante entrega la prueba de caracterización de una función con su costura. `SE-436` mide el riesgo que acumulan las dependencias.
+Cada forma de carga responde una pregunta distinta y el generador es parte del experimento. La clase compara carga, estrés, pico y resistencia sobre la misma cola, muestra cómo un generador cerrado reduce un p99 de 9 071 ms a 232 ms ante una pausa y mide cuánto sesga el arranque.
 
-### Bloque 2 — Reducir el riesgo acumulado y sustituir por partes
+El estudiante entrega un plan de pruebas con pregunta, generador, duración y criterio de parada. `SE-436` explica por qué la latencia crece como crece.
 
-#### SE-436 — Dependencias obsoletas y riesgo acumulado
+#### SE-436 — Latencia, throughput, saturación y capacidad
 
-Esperar para actualizar no es neutro: el salto cuesta más que la suma de los pasos. La clase simula cuatro cadencias de actualización, calcula la exposición a 31 avisos según la política y mide el radio de impacto de actualizar un paquete en 200 grafos.
+La espera crece como 1/(1 − utilización), se multiplica con la variabilidad del servicio y no se promedia. La clase contrasta una simulación con la fórmula de una cola, cambia solo la variabilidad con el mismo promedio y agrega los percentiles de ocho servidores de cuatro maneras.
 
-El estudiante entrega el inventario y la política de actualización. `SE-437` reemplaza el módulo por partes.
+El estudiante entrega un modelo de capacidad con su objetivo de cola. `SE-437` pregunta cómo se mide el tiempo sin engañarse.
 
-#### SE-437 — Strangler, branch by abstraction y anticorruption
+#### SE-437 — Perfiles, benchmarks y errores de medición
 
-Un reemplazo incremental compra daño por paso menor con tiempo. La clase compara un corte único, uno escalonado y uno con sombra previa, calcula cuántas peticiones comparar y cuándo aparece el tráfico raro, y evalúa una capa anticorrupción sobre 5 000 registros.
+Un benchmark devuelve una muestra de una distribución que depende del equipo y de lo que haga el instrumento. La clase mide la variación de una ordenación entre cinco procesos de un equipo real, el efecto de un perfilador y de una caché y cuántas veces dos copias idénticas «difieren» según el estadístico y las repeticiones.
 
-El estudiante entrega el plan de rebanadas con su sombra y su capa. `SE-438` mueve la plataforma bajo el código.
+El estudiante entrega un protocolo de benchmark con su prueba A/A. `SE-438` usa la forma de la cola de latencias para decidir timeouts y reintentos.
 
-### Bloque 3 — Mover la plataforma y los datos
+### Bloque 3 — Resistir el fallo
 
-#### SE-438 — Migraciones de runtime, lenguaje y framework
+#### SE-438 — Timeouts, retries, backoff y jitter
 
-Lo más peligroso de una migración no hace ruido. La clase mide cuatro comportamientos que cambian sin excepción, compara tres formas de reescribir una llamada obsoleta y tres políticas de seguimiento de versiones frente a un calendario de soporte.
+El calendario de los reintentos reparte la carga y no limita su cantidad. La clase simula un brownout y una oleada sincronizada con cinco políticas y diez semillas, calcula los 27 intentos de tres capas sobre una base caída y compara seis timeouts frente a una distribución con cola.
 
-El estudiante entrega el catálogo de diferencias con sus sondas. `SE-439` migra los datos.
+El estudiante entrega una política de timeouts y reintentos con presupuesto y plazo propagado. `SE-439` limita el daño cuando la dependencia no se recupera.
 
-#### SE-439 — Migraciones de datos sin interrupción
+#### SE-439 — Circuit breakers, bulkheads y degradación
 
-Un relleno que lee y luego escribe puede pisar una escritura concurrente con recuentos iguales. La clase simula cinco tamaños de lote, ejecuta cuatro estrategias de relleno sobre SQLite y mide lo instantáneo y lo que reconstruye.
+Cada defensa tiene un costo y una señal. La clase mide cuántas llamadas evita un interruptor y cuánto retrasa la recuperación, cuánto arrastra una dependencia lenta a un pool compartido y qué respuestas útiles produce cada política bajo una sobrecarga del doble.
 
-El estudiante entrega el plan de fases con un relleno condicional verificado. `SE-440` examina la coexistencia.
+El estudiante entrega un mapa de dependencias con sus defensas. `SE-440` cuantifica qué disponibilidad y durabilidad se logran.
 
-#### SE-440 — Compatibilidad, coexistencia y doble escritura
+#### SE-440 — Disponibilidad, durabilidad y recuperación
 
-Escribir en dos sitios no es atómico y tolerar un formato no es conservar el dato. La clase compara tres formas de escribir dos veces, el costo de detectar la divergencia y una matriz de compatibilidad entre lectores estrictos y tolerantes.
+La redundancia solo ayuda a la capa donde se aplica y una causa común la anula. La clase simula 400 años de operación con y sin despliegues que tumban ambas réplicas, calcula la pérdida de datos con dos y tres réplicas según el tiempo de reparación y compara seis umbrales de detección de fallos.
 
-El estudiante entrega el diseño de coexistencia con su reconciliación y su contrato. `SE-441` retira el sistema antiguo.
+El estudiante entrega un presupuesto de fiabilidad con RTO y RPO medibles. `SE-441` pregunta qué ocurre con la compatibilidad.
 
-### Bloque 4 — Retirar y decidir
+### Bloque 4 — Compatibilidad y experiencia
 
-#### SE-441 — Retiro, archivado y disposición de sistemas
+#### SE-441 — Compatibilidad, portabilidad e interoperabilidad
 
-«Nadie lo usa» depende de la ventana con que se mire. La clase mide qué consumidores rompe cada ventana, compara un corte único de retención con reglas por tipo y archiva 100 000 filas en tres formatos con una suma de verificación.
+El mismo software cambia de comportamiento con el sistema, la versión y el lector, casi siempre sin una excepción. La clase ejecuta doce sondas en Windows y Ubuntu, mide cuántos datos cambian de significado al cruzar una frontera y construye una matriz de compatibilidad de 25 pares con lectores estrictos y tolerantes.
 
-El estudiante entrega la secuencia de retiro con su archivo verificado. `SE-442` pregunta si todo esto vale la pena frente a reescribir.
+El estudiante entrega un contrato de interoperabilidad con una matriz ejecutable. `SE-442` fija presupuestos de experiencia.
 
-#### SE-442 — Economía de reescribir frente a evolucionar
+#### SE-442 — Calidad de experiencia y presupuestos
 
-La decisión se toma con parámetros inciertos y se revisa cuando se miden. La clase simula tres opciones en 20 000 escenarios, mueve siete parámetros para ver cuál domina y busca el horizonte de equilibrio.
+Un presupuesto es una restricción con dueño y con medida, y el percentil de la población puede cumplir mientras un segmento no. La clase compara el laboratorio con el campo, tres compuertas ante una deriva de peso del 0,6 % por compilación y el contraste de los colores del repositorio, que encuentra una etiqueta del portal por debajo del 4,5:1.
 
-El estudiante entrega el modelo con su sensibilidad y una decisión reversible. `SE-443` prepara el terreno.
+El estudiante entrega un presupuesto de experiencia con compuerta de tendencia. `SE-443` reúne las defensas en una prueba de presión.
 
 ### Bloque 5 — Aplicar e integrar
 
-#### SE-443 — Taller: estabilizar antes de modernizar
+#### SE-443 — Taller: someter un sistema a presión controlada
 
-Sin una base estable, un rojo no significa nada. El taller mide el ruido de las pruebas inestables y lo que esconden los reintentos, compara dos construcciones del mismo código y calcula cuántos cambios hacen creíble una línea base.
+Un experimento de presión enseña si la hipótesis, el radio y el aborto se decidieron antes. El taller compara tres umbrales de estado estable, inyecta cuatro fallos sobre una configuración ingenua y una endurecida y calcula cuánto tráfico hay que afectar para detectar un fallo débil.
 
-El estudiante entrega la puerta de entrada con su evidencia. `SE-444` la cruza.
+El estudiante entrega un plan de experimento con sus hallazgos. `SE-444` lo integra en un informe reproducible.
 
-#### SE-444 — Proyecto: migración incremental reversible
+#### SE-444 — Proyecto: informe reproducible de calidad
 
-La reversibilidad es una propiedad de cada fase, no del conjunto. El proyecto ejecuta una migración de seis fases sobre 5 000 filas, mide las filas que difieren en cada fase, cuánto cuesta volver atrás según los días y qué reposo hace falta antes de contraer.
+Un paquete completo no es un paquete honesto. El proyecto mide qué detecta un validador sobre 240 mutaciones, qué artefactos de un canal coinciden entre dos ejecuciones y entre Windows y Ubuntu y cuántos informes de dos versiones idénticas declararían una mejora según cómo se elija el resultado.
 
-El estudiante entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md`. La Parte 37 lleva la mirada a la gestión, el liderazgo y la práctica profesional.
+El estudiante entrega un paquete de informe con plan registrado, datos con huella, validador, ejecución en dos sistemas y `LIMITES.md`. La Parte 38 lleva la mirada a la seguridad, la privacidad y el cumplimiento.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-433](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-433-mantenimiento-correctivo-adaptativo-y-perfectivo/) | Mantenimiento correctivo, adaptativo y perfectivo | Entrega la cartera clasificada con una política de reserva |
-| [SE-434](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-434-arqueologia-de-codigo-y-recuperacion-de-conocimiento/) | Arqueología de código y recuperación de conocimiento | Entrega un mapa de riesgo con entrevistas por hacer |
-| [SE-435](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-435-pruebas-de-caracterizacion-y-seams/) | Pruebas de caracterización y seams | Entrega la prueba de caracterización de una función con su costura |
-| [SE-436](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-436-dependencias-obsoletas-y-riesgo-acumulado/) | Dependencias obsoletas y riesgo acumulado | Entrega el inventario y la política de actualización |
-| [SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/) | Strangler, branch by abstraction y anticorruption | Entrega el plan de rebanadas con su sombra y su capa |
-| [SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/) | Migraciones de runtime, lenguaje y framework | Entrega el catálogo de diferencias con sus sondas |
-| [SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/) | Migraciones de datos sin interrupción | Entrega el plan de fases con un relleno condicional verificado |
-| [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/) | Compatibilidad, coexistencia y doble escritura | Entrega el diseño de coexistencia con su reconciliación y su contrato |
-| [SE-441](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas/) | Retiro, archivado y disposición de sistemas | Entrega la secuencia de retiro con su archivo verificado |
-| [SE-442](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-442-economia-de-reescribir-frente-a-evolucionar/) | Economía de reescribir frente a evolucionar | Entrega el modelo con su sensibilidad y una decisión reversible |
-| [SE-443](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-443-taller-estabilizar-antes-de-modernizar/) | Taller: estabilizar antes de modernizar | Entrega la puerta de entrada con su evidencia |
-| [SE-444](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/) | Proyecto: migración incremental reversible | Entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md` |
+| [SE-433](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles/) | Modelos de calidad y atributos medibles | Entrega cuatro escenarios de seis partes con medida y un árbol de utilidad |
+| [SE-434](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-434-revision-analisis-estatico-y-quality-gates/) | Revisión, análisis estático y quality gates | Entrega las comprobaciones del cambio con su regla de decisión |
+| [SE-435](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/) | Carga, estrés, picos y endurance | Entrega un plan de pruebas con pregunta, generador, duración y criterio de parada |
+| [SE-436](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/) | Latencia, throughput, saturación y capacidad | Entrega un modelo de capacidad con su objetivo de cola |
+| [SE-437](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/) | Perfiles, benchmarks y errores de medición | Entrega un protocolo de benchmark con su prueba A/A |
+| [SE-438](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/) | Timeouts, retries, backoff y jitter | Entrega una política de timeouts y reintentos con presupuesto y plazo propagado |
+| [SE-439](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/) | Circuit breakers, bulkheads y degradación | Entrega un mapa de dependencias con sus defensas |
+| [SE-440](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/) | Disponibilidad, durabilidad y recuperación | Entrega un presupuesto de fiabilidad con RTO y RPO medibles |
+| [SE-441](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/) | Compatibilidad, portabilidad e interoperabilidad | Entrega un contrato de interoperabilidad con una matriz ejecutable |
+| [SE-442](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/) | Calidad de experiencia y presupuestos | Entrega un presupuesto de experiencia con compuerta de tendencia |
+| [SE-443](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/) | Taller: someter un sistema a presión controlada | Entrega un plan de experimento con sus hallazgos |
+| [SE-444](../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/) | Proyecto: informe reproducible de calidad | Entrega un paquete de informe con plan registrado, datos con huella, validador, ejecución en dos sistemas y `LIMITES.md` |
 
 ## Fuentes
 
-- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) y [Lehman, «Programs, life cycles, and laws of software evolution»](https://doi.org/10.1109/PROC.1980.11805) — mantenimiento y evolución del software; autoridad: IEEE Computer Society y Proceedings of the IEEE.
-- [Nagappan y Ball](https://doi.org/10.1145/1062455.1062514) y [Avelino et al.](https://doi.org/10.1109/ICPC.2016.7503718) — rotación del código y factor de camión; autoridad: ICSE 2005 e ICPC 2016.
-- [Feathers, «Working Effectively with Legacy Code»](https://www.pearson.com/en-us/subject-catalog/p/working-effectively-with-legacy-code/P200000009466/9780131177055) y [Jia y Harman](https://doi.org/10.1109/TSE.2010.62) — caracterización, costuras y pruebas de mutación; autoridad: libro de referencia e IEEE Transactions on Software Engineering.
-- [Versionado semántico](https://semver.org/), [OSV](https://osv.dev/), [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) y [NIST SP 800-218](https://csrc.nist.gov/pubs/sp/800/218/final) — dependencias y vulnerabilidades; autoridad: especificación de la comunidad, proyecto abierto, CISA y NIST.
-- [Fowler, «StranglerFigApplication»](https://martinfowler.com/bliki/StranglerFigApplication.html), [«BranchByAbstraction»](https://martinfowler.com/bliki/BranchByAbstraction.html), [«ParallelChange»](https://martinfowler.com/bliki/ParallelChange.html) y [Anti-corruption Layer](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer) — reemplazo incremental, cambio paralelo y traducción entre modelos; autoridad: autor del texto y documentación de Microsoft.
-- [Python: Porting Python 2 Code to Python 3](https://docs.python.org/3/howto/pyporting.html), [PEP 602](https://peps.python.org/pep-0602/) y [Unicode UAX #15](https://unicode.org/reports/tr15/) — portado, calendario de versiones y normalización de texto; autoridad: Python Software Foundation y Unicode Consortium.
-- [Fowler y Sadalage, «Evolutionary Database Design»](https://martinfowler.com/articles/evodb.html), [SQLite: ALTER TABLE](https://www.sqlite.org/lang_altertable.html) y [Transactional Outbox](https://microservices.io/patterns/data/transactional-outbox.html) — migraciones de datos y coexistencia; autoridad: autores del texto, documentación de SQLite y catálogo de patrones.
-- [NIST SP 800-88 Rev. 1](https://csrc.nist.gov/pubs/sp/800/88/r1/final), [CCSDS 650.0-B-2 (OAIS)](https://public.ccsds.org/Pubs/650x0m2.pdf) y [Library of Congress: Recommended Formats](https://www.loc.gov/preservation/resources/rfs/) — disposición, archivo y formatos; autoridad: NIST, CCSDS y Library of Congress.
-- [Brooks, «No Silver Bullet»](https://doi.org/10.1109/MC.1987.1663532) y [Spolsky, «Things You Should Never Do, Part I»](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/) — complejidad y reescrituras; autoridad: IEEE Computer y ensayo de opinión.
-- [Luo et al.](https://doi.org/10.1145/2635868.2635920), [Reproducible Builds](https://reproducible-builds.org/docs/), [PEP 552](https://peps.python.org/pep-0552/) y [DORA](https://dora.dev/guides/dora-metrics-four-keys/) — pruebas inestables, construcciones reproducibles y métricas de entrega; autoridad: FSE 2014, proyecto Reproducible Builds, Python Software Foundation y DORA.
+- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — modelo de calidad del producto; autoridad: organismo de normalización.
+- [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/), [Embracing Risk](https://sre.google/sre-book/embracing-risk/) y [Handling Overload](https://sre.google/sre-book/handling-overload/) — objetivos, riesgo y sobrecarga; autoridad: Google, libro de ingeniería de confiabilidad.
+- [Little, «A proof for the queuing formula: L = λW»](https://doi.org/10.1287/opre.9.3.383) y [Dean y Barroso, «The tail at scale»](https://doi.org/10.1145/2408776.2408794) — colas y latencia de cola; autoridad: artículos originales.
+- [Mytkowicz et al.](https://doi.org/10.1145/1508244.1508275) y [Kalibera y Jones](https://doi.org/10.1145/2464157.2464160) — errores de medición y rigor en benchmarks; autoridad: ASPLOS 2009 e ISMM 2013.
+- [AWS Builders' Library: timeouts, retries y jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/) y [Bronson et al., «Metastable failures»](https://doi.org/10.1145/3458336.3465286) — reintentos y fallos metaestables; autoridad: Amazon Web Services y HotOS 2021.
+- [Fowler, «CircuitBreaker»](https://martinfowler.com/bliki/CircuitBreaker.html) y [Microsoft Azure Architecture: Bulkhead](https://learn.microsoft.com/en-us/azure/architecture/patterns/bulkhead) — interruptores y mamparos; autoridad: autor del texto y documentación de Microsoft.
+- [Ford et al.](https://www.usenix.org/legacy/event/osdi10/tech/full_papers/Ford.pdf) y [NIST SP 800-34 Rev. 1](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final) — fallos correlacionados y objetivos de recuperación; autoridad: OSDI 2010 y NIST.
+- [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259) y [Unicode UAX #15](https://unicode.org/reports/tr15/) — interoperabilidad de números y de texto; autoridad: IETF y Unicode Consortium.
+- [web.dev: LCP](https://web.dev/articles/lcp) y [W3C: contraste mínimo](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) — experiencia medible; autoridad: Google y W3C.
+- [Basiri et al., «Chaos Engineering»](https://doi.org/10.1109/MS.2016.60) y [Principios del caos](https://principlesofchaos.org/) — experimentos de presión; autoridad: IEEE Software 2016 y comunidad de ingeniería del caos.
+- [Peng, «Reproducible research in computational science»](https://doi.org/10.1126/science.1213847) y [Simmons, Nelson y Simonsohn](https://doi.org/10.1177/0956797611417632) — reproducibilidad y flexibilidad analítica; autoridad: Science 2011 y Psychological Science 2011.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de mantenimiento y modernización se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de calidad se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj y las huellas de construcción, que declaran por qué no;
-- ninguna afirmación sobre un sistema, una institución, una persona o una base de datos reales se apoya en una simulación;
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj, que declaran por qué no;
+- ninguna afirmación sobre una API, una persona usuaria o un sistema real se apoya en una simulación;
 - los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
 
 [Volver al índice de clases](../../classes/README.md)

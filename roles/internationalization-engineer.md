@@ -4,7 +4,7 @@
 
 [![Familia](https://img.shields.io/badge/familia-Globalizaci%C3%B3n-6f42c1?style=for-the-badge)](README.md)
 [![Nivel](https://img.shields.io/badge/recorrido-semi--senior%20%E2%86%92%20lead-0969da?style=for-the-badge)](../ROADMAP.md)
-[![Núcleo](https://img.shields.io/badge/n%C3%BAcleo-P01%20%C2%B7%20P12%20%C2%B7%20P14%20%C2%B7%20P17%20%C2%B7%20P19%20%C2%B7%20P21%20%C2%B7%20P26%20%C2%B7%20P30-2da44e?style=for-the-badge)](#-partes-y-clases-asociadas)
+[![Núcleo](https://img.shields.io/badge/n%C3%BAcleo-P01%20%C2%B7%20P12%20%C2%B7%20P14%20%C2%B7%20P17%20%C2%B7%20P19%20%C2%B7%20P21%20%C2%B7%20P29%20%C2%B7%20P35-2da44e?style=for-the-badge)](#-partes-y-clases-asociadas)
 
 **La guía conecta trabajo real, decisiones, clases concretas y evidencia defendible.**
 
@@ -50,8 +50,8 @@ testing y workflow de traducción.
 1. Partes 01 y 03–09 para representación y software base.
 2. Partes 10–13 para usuarios, dominio y contratos.
 3. [Parte 14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) como núcleo.
-4. Partes 19–21 y 26 para interfaces, APIs y persistencia.
-5. Partes 30, 33–34 para pruebas, release y automatización.
+4. Partes 19–21 y 29 para interfaces, APIs y persistencia.
+5. Partes 35, 39–40 para pruebas, release y automatización.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -122,40 +122,51 @@ propias páginas ni convierten en opcional la base común.
 | 4 | [Parte 17 · Documentación y conocimiento técnico](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) | desarrollada | [SE-205 · Documentación orientada a tareas y audiencias](../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)<br>[SE-207 · README, instalación y primer éxito](../classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md)<br>[SE-212 · Docs as code, revisión y publicación](../classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md)<br>[SE-213 · Búsqueda, glosarios y arquitectura de conocimiento](../classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md) | Profundiza **documentación, decisiones y conocimiento operativo** desde la responsabilidad del rol. | Paquete documental probado por terceros. |
 | 5 | [Parte 19 · Web, frontend y aplicaciones progresivas](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) | desarrollada | [SE-229 · Plataforma web, HTML semántico y CSS](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md)<br>[SE-233 · Formularios, validación y experiencia de error](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md)<br>[SE-234 · Navegación, routing y URLs durables](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md)<br>[SE-238 · SEO, metadatos y descubribilidad](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/README.md)<br>[SE-240 · Proyecto: aplicación web accesible y offline](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md) | Profundiza **plataforma web, estado y experiencia cliente** desde la responsabilidad del rol. | Aplicación accesible y observable. |
 | 6 | [Parte 21 · Software móvil, escritorio y multiplataforma](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) | desarrollada | [SE-256 · Almacenamiento local y sincronización](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md)<br>[SE-259 · Actualizaciones, tiendas y distribución empresarial](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md)<br>[SE-260 · Offline-first y resolución de conflictos](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md)<br>[SE-263 · Taller: adaptar un producto a dos plataformas](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md) | Profundiza **clientes, sincronización y distribución** desde la responsabilidad del rol. | Cliente offline con actualización segura. |
-| 7 | [Parte 26 · Datos, persistencia y recuperación](../classes/part-26-datos-persistencia-y-recuperacion/README.md) | desarrollada | [SE-313 · Modelado conceptual, lógico y físico](../classes/part-26-datos-persistencia-y-recuperacion/se-313-modelado-conceptual-logico-y-fisico/README.md)<br>[SE-316 · Restricciones, invariantes y consistencia](../classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/README.md)<br>[SE-317 · Consultas, índices y patrones de acceso](../classes/part-26-datos-persistencia-y-recuperacion/se-317-consultas-indices-y-patrones-de-acceso/README.md)<br>[SE-322 · Privacidad, retención y ciclo de vida del dato](../classes/part-26-datos-persistencia-y-recuperacion/se-322-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) | Profundiza **persistencia, transacciones y recuperación** desde la responsabilidad del rol. | Capa de datos restaurable. |
-| 8 | [Parte 30 · Estrategia y técnicas de prueba](../classes/part-30-estrategia-y-tecnicas-de-prueba/README.md) | desarrollada | [SE-365 · Pruebas basadas en propiedades y modelos](../classes/part-30-estrategia-y-tecnicas-de-prueba/se-365-pruebas-basadas-en-propiedades-y-modelos/README.md)<br>[SE-366 · Mutación, fuzzing y generación de casos](../classes/part-30-estrategia-y-tecnicas-de-prueba/se-366-mutacion-fuzzing-y-generacion-de-casos/README.md)<br>[SE-368 · Datos deterministas y gestión de fixtures](../classes/part-30-estrategia-y-tecnicas-de-prueba/se-368-datos-deterministas-y-gestion-de-fixtures/README.md)<br>[SE-371 · Taller: demostrar que una prueba detecta defectos](../classes/part-30-estrategia-y-tecnicas-de-prueba/se-371-taller-demostrar-que-una-prueba-detecta-defectos/README.md) | Profundiza **estrategia de pruebas guiada por riesgo** desde la responsabilidad del rol. | Suite que demuestra detección de defectos. |
+| 7 | [Parte 29 · Datos, persistencia y recuperación](../classes/part-29-datos-persistencia-y-recuperacion/README.md) | desarrollada | [SE-349 · Modelado conceptual, lógico y físico](../classes/part-29-datos-persistencia-y-recuperacion/se-349-modelado-conceptual-logico-y-fisico/README.md)<br>[SE-352 · Restricciones, invariantes y consistencia](../classes/part-29-datos-persistencia-y-recuperacion/se-352-restricciones-invariantes-y-consistencia/README.md)<br>[SE-353 · Consultas, índices y patrones de acceso](../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md)<br>[SE-358 · Privacidad, retención y ciclo de vida del dato](../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) | Profundiza **persistencia, transacciones y recuperación** desde la responsabilidad del rol. | Capa de datos restaurable. |
+| 8 | [Parte 35 · Estrategia y técnicas de prueba](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) | desarrollada | [SE-425 · Pruebas basadas en propiedades y modelos](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md)<br>[SE-426 · Mutación, fuzzing y generación de casos](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)<br>[SE-428 · Datos deterministas y gestión de fixtures](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md)<br>[SE-431 · Taller: demostrar que una prueba detecta defectos](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md) | Profundiza **estrategia de pruebas guiada por riesgo** desde la responsabilidad del rol. | Suite que demuestra detección de defectos. |
 
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–48 (`SE-001`–`SE-588`), también tienen contenido desarrollado y
+de las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
 | [SE-067 · Entrada, salida y serialización](../classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion/README.md) | Parte 05 |
-| [SE-391 · Privacidad por diseño y minimización](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md) | Parte 32 |
-| [SE-394 · Cumplimiento, evidencia y límites legales](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/README.md) | Parte 32 |
-| [SE-484 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | Parte 40 |
-| [SE-485 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) | Parte 40 |
+| [SE-463 · Privacidad por diseño y minimización](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md) | Parte 38 |
+| [SE-466 · Cumplimiento, evidencia y límites legales](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) | Parte 38 |
+| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | Parte 45 |
+| [SE-545 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) | Parte 45 |
 
 **Cómo recorrerla.** Empieza por [SE-014](../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) para fijar el
 primer mecanismo, usa [SE-229](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) para integrar el
-centro de la especialidad y llega a [SE-371](../classes/part-30-estrategia-y-tecnicas-de-prueba/se-371-taller-demostrar-que-una-prueba-detecta-defectos/README.md) cuando ya
+centro de la especialidad y llega a [SE-431](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md) cuando ya
 puedas explicar cómo detectar y recuperar un fallo. Una clase se considera estudiada
 sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los enlaces
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–48 (`SE-001`–`SE-588`) están
+> El mapa expresa el currículo vigente. Las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## ✅ Ampliación completada: Partes 40–48
+## 🔭 Ampliación planificada: Partes 34 y 42 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–48 (`SE-481`–`SE-588`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y [ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
+> Las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) están **planificadas**; sus números están reservados desde el 23 de
+> noviembre de 2026 ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
 
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+| — | — | Las partes que este rol esperaba ya están desarrolladas y figuran en el núcleo o en las clases de apoyo. |
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

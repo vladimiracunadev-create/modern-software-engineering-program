@@ -9,25 +9,56 @@
     "classes": 180
   },
   "phase_4_target": {
-    "first_class": "SE-181",
-    "last_class": "SE-360",
+    "parts": [
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "24",
+      "25",
+      "27",
+      "29",
+      "31",
+      "32",
+      "33"
+    ],
     "classes": 180
   },
   "part_count": 49,
   "class_count": 588,
   "estimated_hours": 2646,
   "planned_scope": {
-    "decision": "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
+    "decision": "docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md",
     "decisions": [
       "docs/adr/ADR-004-expand-to-540-class-scope.md",
-      "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md"
+      "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
+      "docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md"
     ],
-    "part_count": 49,
-    "class_count": 588,
-    "estimated_hours": 2646,
+    "part_count": 51,
+    "class_count": 612,
+    "estimated_hours": 2754,
     "first_class": "SE-001",
-    "last_class": "SE-588",
-    "unpublished_parts": []
+    "last_class": "SE-612",
+    "unpublished_parts": [
+      {
+        "id": "34",
+        "title": "SaaS y plataformas de producto",
+        "first_class": "SE-409",
+        "last_class": "SE-420",
+        "status": "planned"
+      },
+      {
+        "id": "42",
+        "title": "Ingeniería del caos",
+        "first_class": "SE-505",
+        "last_class": "SE-516",
+        "status": "planned"
+      }
+    ]
   },
   "stages": [
     {
@@ -2506,211 +2537,211 @@
       "id": "23",
       "stage": "D",
       "stage_title": "Superficies y formas de software",
-      "title": "Software especializado y dominios",
+      "title": "Runtimes y plataformas modernas",
       "owner": "suite",
-      "path": "classes/part-23-software-especializado-y-dominios",
+      "path": "classes/part-23-runtimes-y-plataformas-modernas",
       "lessons": [
         {
           "id": "SE-277",
           "number": 277,
-          "title": "Software científico y reproducibilidad",
+          "title": "WebAssembly y WASI",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-277-software-cientifico-y-reproducibilidad"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi"
         },
         {
           "id": "SE-278",
           "number": 278,
-          "title": "Ingeniería de datos y procesamiento analítico",
+          "title": "WebAssembly en servidor y borde: component model",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-278-webassembly-en-servidor-y-borde-component-model"
         },
         {
           "id": "SE-279",
           "number": 279,
-          "title": "Machine learning como componente de producto",
+          "title": "eBPF: observabilidad, red y seguridad en el kernel",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-279-ebpf-observabilidad-red-y-seguridad-en-el-kernel"
         },
         {
           "id": "SE-280",
           "number": 280,
-          "title": "Videojuegos, loops, entidades y simulación",
+          "title": "GPU y aceleradores: modelo de ejecución",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-280-videojuegos-loops-entidades-y-simulacion"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion"
         },
         {
           "id": "SE-281",
           "number": 281,
-          "title": "Gráficos, audio, XR y experiencias inmersivas",
+          "title": "Rendimiento y costo en aceleradores",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-281-graficos-audio-xr-y-experiencias-inmersivas"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores"
         },
         {
           "id": "SE-282",
           "number": 282,
-          "title": "Fintech, contabilidad e invariantes monetarias",
+          "title": "Contenedores, microVM y sandboxes",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-282-fintech-contabilidad-e-invariantes-monetarias"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes"
         },
         {
           "id": "SE-283",
           "number": 283,
-          "title": "Salud, datos sensibles y sistemas regulados",
+          "title": "Hardware seguro: TEE y atestación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-283-salud-datos-sensibles-y-sistemas-regulados"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion"
         },
         {
           "id": "SE-284",
           "number": 284,
-          "title": "Blockchain, consenso y contratos inteligentes",
+          "title": "Computación cuántica para ingenieros de software",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-284-blockchain-consenso-y-contratos-inteligentes"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software"
         },
         {
           "id": "SE-285",
           "number": 285,
-          "title": "Sistemas geoespaciales y temporales",
+          "title": "Criptografía poscuántica y migración",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-285-sistemas-geoespaciales-y-temporales"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion"
         },
         {
           "id": "SE-286",
           "number": 286,
-          "title": "Low-code, no-code y automatización visual",
+          "title": "Confianza cero en la práctica",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-23-software-especializado-y-dominios/se-286-low-code-no-code-y-automatizacion-visual"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica"
         },
         {
           "id": "SE-287",
           "number": 287,
-          "title": "Taller: comparar riesgos entre dominios",
+          "title": "Taller: elegir y aislar un runtime para una carga no confiable",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-23-software-especializado-y-dominios/se-287-taller-comparar-riesgos-entre-dominios"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable"
         },
         {
           "id": "SE-288",
           "number": 288,
-          "title": "Proyecto: diseño profundo de un dominio elegido",
+          "title": "Proyecto: plataforma de ejecución aislada con evidencia",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido"
+          "path": "classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia"
         }
       ]
     },
     {
       "id": "24",
-      "stage": "E",
-      "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Diseño, patrones y refactorización",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Software especializado y dominios",
       "owner": "suite",
-      "path": "classes/part-24-diseno-patrones-y-refactorizacion",
+      "path": "classes/part-24-software-especializado-y-dominios",
       "lessons": [
         {
           "id": "SE-289",
           "number": 289,
-          "title": "Cohesión, acoplamiento y encapsulación",
+          "title": "Software científico y reproducibilidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-289-cohesion-acoplamiento-y-encapsulacion"
+          "path": "classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad"
         },
         {
           "id": "SE-290",
           "number": 290,
-          "title": "SOLID y sus límites",
+          "title": "Ingeniería de datos y procesamiento analítico",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-290-solid-y-sus-limites"
+          "path": "classes/part-24-software-especializado-y-dominios/se-290-ingenieria-de-datos-y-procesamiento-analitico"
         },
         {
           "id": "SE-291",
           "number": 291,
-          "title": "Composición, herencia y delegación",
+          "title": "Machine learning como componente de producto",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-291-composicion-herencia-y-delegacion"
+          "path": "classes/part-24-software-especializado-y-dominios/se-291-machine-learning-como-componente-de-producto"
         },
         {
           "id": "SE-292",
           "number": 292,
-          "title": "Patrones creacionales, estructurales y conductuales",
+          "title": "Videojuegos, loops, entidades y simulación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-292-patrones-creacionales-estructurales-y-conductuales"
+          "path": "classes/part-24-software-especializado-y-dominios/se-292-videojuegos-loops-entidades-y-simulacion"
         },
         {
           "id": "SE-293",
           "number": 293,
-          "title": "Patrones funcionales, reactivos y concurrentes",
+          "title": "Gráficos, audio, XR y experiencias inmersivas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-293-patrones-funcionales-reactivos-y-concurrentes"
+          "path": "classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas"
         },
         {
           "id": "SE-294",
           "number": 294,
-          "title": "Code smells y diagnóstico contextual",
+          "title": "Fintech, contabilidad e invariantes monetarias",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-294-code-smells-y-diagnostico-contextual"
+          "path": "classes/part-24-software-especializado-y-dominios/se-294-fintech-contabilidad-e-invariantes-monetarias"
         },
         {
           "id": "SE-295",
           "number": 295,
-          "title": "Refactorización segura apoyada por pruebas",
+          "title": "Salud, datos sensibles y sistemas regulados",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-295-refactorizacion-segura-apoyada-por-pruebas"
+          "path": "classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados"
         },
         {
           "id": "SE-296",
           "number": 296,
-          "title": "Diseño para cambio, prueba y operación",
+          "title": "Blockchain, consenso y contratos inteligentes",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-296-diseno-para-cambio-prueba-y-operacion"
+          "path": "classes/part-24-software-especializado-y-dominios/se-296-blockchain-consenso-y-contratos-inteligentes"
         },
         {
           "id": "SE-297",
           "number": 297,
-          "title": "Complejidad accidental y esencial",
+          "title": "Sistemas geoespaciales y temporales",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-297-complejidad-accidental-y-esencial"
+          "path": "classes/part-24-software-especializado-y-dominios/se-297-sistemas-geoespaciales-y-temporales"
         },
         {
           "id": "SE-298",
           "number": 298,
-          "title": "Deuda técnica, interés y opciones",
+          "title": "Low-code, no-code y automatización visual",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-298-deuda-tecnica-interes-y-opciones"
+          "path": "classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual"
         },
         {
           "id": "SE-299",
           "number": 299,
-          "title": "Taller: refactorizar sin alterar comportamiento",
+          "title": "Taller: comparar riesgos entre dominios",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-299-taller-refactorizar-sin-alterar-comportamiento"
+          "path": "classes/part-24-software-especializado-y-dominios/se-299-taller-comparar-riesgos-entre-dominios"
         },
         {
           "id": "SE-300",
           "number": 300,
-          "title": "Proyecto: evolución compatible de un componente",
+          "title": "Proyecto: diseño profundo de un dominio elegido",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-300-proyecto-evolucion-compatible-de-un-componente"
+          "path": "classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido"
         }
       ]
     },
@@ -2718,105 +2749,105 @@
       "id": "25",
       "stage": "E",
       "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Arquitectura de software y dominio",
+      "title": "Diseño, patrones y refactorización",
       "owner": "suite",
-      "path": "classes/part-25-arquitectura-de-software-y-dominio",
+      "path": "classes/part-25-diseno-patrones-y-refactorizacion",
       "lessons": [
         {
           "id": "SE-301",
           "number": 301,
-          "title": "Drivers, restricciones y atributos de arquitectura",
+          "title": "Cohesión, acoplamiento y encapsulación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-301-drivers-restricciones-y-atributos-de-arquitectura"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion"
         },
         {
           "id": "SE-302",
           "number": 302,
-          "title": "Vistas lógica, runtime, datos y despliegue",
+          "title": "SOLID y sus límites",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-302-vistas-logica-runtime-datos-y-despliegue"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites"
         },
         {
           "id": "SE-303",
           "number": 303,
-          "title": "Monolito, modular monolith y servicios",
+          "title": "Composición, herencia y delegación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion"
         },
         {
           "id": "SE-304",
           "number": 304,
-          "title": "Capas, hexagonal, clean y ports and adapters",
+          "title": "Patrones creacionales, estructurales y conductuales",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-304-capas-hexagonal-clean-y-ports-and-adapters"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales"
         },
         {
           "id": "SE-305",
           "number": 305,
-          "title": "Domain-Driven Design estratégico y táctico",
+          "title": "Patrones funcionales, reactivos y concurrentes",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-305-domain-driven-design-estrategico-y-tactico"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes"
         },
         {
           "id": "SE-306",
           "number": 306,
-          "title": "Event-driven, CQRS y event sourcing",
+          "title": "Code smells y diagnóstico contextual",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-306-event-driven-cqrs-y-event-sourcing"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-306-code-smells-y-diagnostico-contextual"
         },
         {
           "id": "SE-307",
           "number": 307,
-          "title": "Arquitecturas serverless, edge y peer-to-peer",
+          "title": "Refactorización segura apoyada por pruebas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-307-arquitecturas-serverless-edge-y-peer-to-peer"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas"
         },
         {
           "id": "SE-308",
           "number": 308,
-          "title": "Fitness functions y arquitectura evolutiva",
+          "title": "Diseño para cambio, prueba y operación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-308-fitness-functions-y-arquitectura-evolutiva"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion"
         },
         {
           "id": "SE-309",
           "number": 309,
-          "title": "Trade-offs, ADR y evaluación de alternativas",
+          "title": "Complejidad accidental y esencial",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-309-trade-offs-adr-y-evaluacion-de-alternativas"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial"
         },
         {
           "id": "SE-310",
           "number": 310,
-          "title": "Arquitectura socio-técnica y límites de equipo",
+          "title": "Deuda técnica, interés y opciones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones"
         },
         {
           "id": "SE-311",
           "number": 311,
-          "title": "Taller: revisar una arquitectura contra escenarios",
+          "title": "Taller: refactorizar sin alterar comportamiento",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-311-taller-revisar-una-arquitectura-contra-escenarios"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento"
         },
         {
           "id": "SE-312",
           "number": 312,
-          "title": "Proyecto: arquitectura defendible y verificable",
+          "title": "Proyecto: evolución compatible de un componente",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-25-arquitectura-de-software-y-dominio/se-312-proyecto-arquitectura-defendible-y-verificable"
+          "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-312-proyecto-evolucion-compatible-de-un-componente"
         }
       ]
     },
@@ -2824,105 +2855,105 @@
       "id": "26",
       "stage": "E",
       "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Datos, persistencia y recuperación",
-      "owner": "database-systems-labs",
-      "path": "classes/part-26-datos-persistencia-y-recuperacion",
+      "title": "Patrones de diseño, empresariales y de resiliencia",
+      "owner": "suite",
+      "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia",
       "lessons": [
         {
           "id": "SE-313",
           "number": 313,
-          "title": "Modelado conceptual, lógico y físico",
+          "title": "Criterios para usar un catálogo de patrones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-313-modelado-conceptual-logico-y-fisico"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones"
         },
         {
           "id": "SE-314",
           "number": 314,
-          "title": "Relacional, documental, clave-valor, grafos y series",
+          "title": "GoF creacionales: Factory, Builder, Singleton y Prototype",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-314-gof-creacionales-factory-builder-singleton-y-prototype"
         },
         {
           "id": "SE-315",
           "number": 315,
-          "title": "Transacciones, aislamiento y concurrencia",
+          "title": "GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite"
         },
         {
           "id": "SE-316",
           "number": 316,
-          "title": "Restricciones, invariantes y consistencia",
+          "title": "GoF conductuales: Strategy, Observer, Command, State y Template Method",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-316-gof-conductuales-strategy-observer-command-state-y-template-method"
         },
         {
           "id": "SE-317",
           "number": 317,
-          "title": "Consultas, índices y patrones de acceso",
+          "title": "GRASP y asignación de responsabilidades",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-317-consultas-indices-y-patrones-de-acceso"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-317-grasp-y-asignacion-de-responsabilidades"
         },
         {
           "id": "SE-318",
           "number": 318,
-          "title": "Migraciones compatibles y evolución de esquema",
+          "title": "Repository, Unit of Work y Active Record",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-318-repository-unit-of-work-y-active-record"
         },
         {
           "id": "SE-319",
           "number": 319,
-          "title": "Replicación, partición y distribución",
+          "title": "Enterprise Integration Patterns como lenguaje común",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun"
         },
         {
           "id": "SE-320",
           "number": 320,
-          "title": "Cachés y consistencia entre capas",
+          "title": "Resiliencia: timeout, retry con jitter y circuit breaker",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker"
         },
         {
           "id": "SE-321",
           "number": 321,
-          "title": "Backups, restauración y pruebas de recuperación",
+          "title": "Resiliencia: bulkhead, sidecar, ambassador y degradación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion"
         },
         {
           "id": "SE-322",
           "number": 322,
-          "title": "Privacidad, retención y ciclo de vida del dato",
+          "title": "Antipatrones y deuda de diseño",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-322-privacidad-retencion-y-ciclo-de-vida-del-dato"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-322-antipatrones-y-deuda-de-diseno"
         },
         {
           "id": "SE-323",
           "number": 323,
-          "title": "Taller: corregir una migración peligrosa",
+          "title": "Taller: refactorizar con patrones y medir su costo",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-323-taller-corregir-una-migracion-peligrosa"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo"
         },
         {
           "id": "SE-324",
           "number": 324,
-          "title": "Proyecto: capa de datos recuperable",
+          "title": "Proyecto: catálogo de patrones de un sistema real",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable"
+          "path": "classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-324-proyecto-catalogo-de-patrones-de-un-sistema-real"
         }
       ]
     },
@@ -2930,105 +2961,105 @@
       "id": "27",
       "stage": "E",
       "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Integración, eventos y mensajería",
+      "title": "Arquitectura de software y dominio",
       "owner": "suite",
-      "path": "classes/part-27-integracion-eventos-y-mensajeria",
+      "path": "classes/part-27-arquitectura-de-software-y-dominio",
       "lessons": [
         {
           "id": "SE-325",
           "number": 325,
-          "title": "Integración síncrona y asíncrona",
+          "title": "Drivers, restricciones y atributos de arquitectura",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura"
         },
         {
           "id": "SE-326",
           "number": 326,
-          "title": "Mensajes, eventos, comandos y documentos",
+          "title": "Vistas lógica, runtime, datos y despliegue",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-326-mensajes-eventos-comandos-y-documentos"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue"
         },
         {
           "id": "SE-327",
           "number": 327,
-          "title": "Brokers, colas, topics y logs distribuidos",
+          "title": "Monolito, modular monolith y servicios",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-327-brokers-colas-topics-y-logs-distribuidos"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios"
         },
         {
           "id": "SE-328",
           "number": 328,
-          "title": "Entrega, orden, duplicación y semánticas",
+          "title": "Capas, hexagonal, clean y ports and adapters",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters"
         },
         {
           "id": "SE-329",
           "number": 329,
-          "title": "Outbox, inbox, sagas y compensación",
+          "title": "Domain-Driven Design estratégico y táctico",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-329-domain-driven-design-estrategico-y-tactico"
         },
         {
           "id": "SE-330",
           "number": 330,
-          "title": "CDC, ETL, ELT y sincronización",
+          "title": "Event-driven, CQRS y event sourcing",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing"
         },
         {
           "id": "SE-331",
           "number": 331,
-          "title": "Webhooks, polling y suscripciones",
+          "title": "Arquitecturas serverless, edge y peer-to-peer",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer"
         },
         {
           "id": "SE-332",
           "number": 332,
-          "title": "Compatibilidad de esquemas y registros",
+          "title": "Fitness functions y arquitectura evolutiva",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-332-fitness-functions-y-arquitectura-evolutiva"
         },
         {
           "id": "SE-333",
           "number": 333,
-          "title": "Anti-corruption layers y traducción de modelos",
+          "title": "Trade-offs, ADR y evaluación de alternativas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-333-anti-corruption-layers-y-traduccion-de-modelos"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas"
         },
         {
           "id": "SE-334",
           "number": 334,
-          "title": "Observabilidad y seguridad de integraciones",
+          "title": "Arquitectura socio-técnica y límites de equipo",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-334-observabilidad-y-seguridad-de-integraciones"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-334-arquitectura-socio-tecnica-y-limites-de-equipo"
         },
         {
           "id": "SE-335",
           "number": 335,
-          "title": "Taller: provocar y contener mensajes duplicados",
+          "title": "Taller: revisar una arquitectura contra escenarios",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-335-taller-provocar-y-contener-mensajes-duplicados"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-335-taller-revisar-una-arquitectura-contra-escenarios"
         },
         {
           "id": "SE-336",
           "number": 336,
-          "title": "Proyecto: flujo integrado tolerante a reintentos",
+          "title": "Proyecto: arquitectura defendible y verificable",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-27-integracion-eventos-y-mensajeria/se-336-proyecto-flujo-integrado-tolerante-a-reintentos"
+          "path": "classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable"
         }
       ]
     },
@@ -3036,105 +3067,105 @@
       "id": "28",
       "stage": "E",
       "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Concurrencia y sistemas distribuidos",
+      "title": "Estilos arquitectónicos",
       "owner": "suite",
-      "path": "classes/part-28-concurrencia-y-sistemas-distribuidos",
+      "path": "classes/part-28-estilos-arquitectonicos",
       "lessons": [
         {
           "id": "SE-337",
           "number": 337,
-          "title": "Concurrencia, paralelismo y asincronía",
+          "title": "Estilos como respuestas a fuerzas de calidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-337-concurrencia-paralelismo-y-asincronia"
+          "path": "classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad"
         },
         {
           "id": "SE-338",
           "number": 338,
-          "title": "Memoria compartida, locks y condiciones de carrera",
+          "title": "Microkernel y arquitecturas de plugins",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera"
+          "path": "classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins"
         },
         {
           "id": "SE-339",
           "number": 339,
-          "title": "Actores, canales y structured concurrency",
+          "title": "Pipes and filters y arquitecturas de flujo",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-339-actores-canales-y-structured-concurrency"
+          "path": "classes/part-28-estilos-arquitectonicos/se-339-pipes-and-filters-y-arquitecturas-de-flujo"
         },
         {
           "id": "SE-340",
           "number": 340,
-          "title": "Tiempo, relojes y orden parcial",
+          "title": "Microservicios y sus costes reales",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-340-tiempo-relojes-y-orden-parcial"
+          "path": "classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales"
         },
         {
           "id": "SE-341",
           "number": 341,
-          "title": "Fallos parciales y modelos de red",
+          "title": "BFF, API gateway y service mesh",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red"
+          "path": "classes/part-28-estilos-arquitectonicos/se-341-bff-api-gateway-y-service-mesh"
         },
         {
           "id": "SE-342",
           "number": 342,
-          "title": "Consistencia, disponibilidad y particiones",
+          "title": "Multi-tenancy y aislamiento",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones"
+          "path": "classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento"
         },
         {
           "id": "SE-343",
           "number": 343,
-          "title": "Consenso, elección y coordinación",
+          "title": "Data mesh y propiedad de los datos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-343-consenso-eleccion-y-coordinacion"
+          "path": "classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos"
         },
         {
           "id": "SE-344",
           "number": 344,
-          "title": "Idempotencia y procesamiento distribuido",
+          "title": "Arquitectura celular y radio de impacto",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido"
+          "path": "classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto"
         },
         {
           "id": "SE-345",
           "number": 345,
-          "title": "Replicación, sharding y balanceo",
+          "title": "12-factor y aplicaciones nativas de la nube",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo"
+          "path": "classes/part-28-estilos-arquitectonicos/se-345-12-factor-y-aplicaciones-nativas-de-la-nube"
         },
         {
           "id": "SE-346",
           "number": 346,
-          "title": "Caos controlado y pruebas de distribución",
+          "title": "Evolución y migración entre estilos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-346-caos-controlado-y-pruebas-de-distribucion"
+          "path": "classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos"
         },
         {
           "id": "SE-347",
           "number": 347,
-          "title": "Taller: reproducir una carrera y un fallo parcial",
+          "title": "Taller: seleccionar un estilo con escenarios de calidad",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-347-taller-reproducir-una-carrera-y-un-fallo-parcial"
+          "path": "classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad"
         },
         {
           "id": "SE-348",
           "number": 348,
-          "title": "Proyecto: servicio distribuido con degradación",
+          "title": "Proyecto: decisión arquitectónica defendida con ADR",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-348-proyecto-servicio-distribuido-con-degradacion"
+          "path": "classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr"
         }
       ]
     },
@@ -3142,1801 +3173,1589 @@
       "id": "29",
       "stage": "E",
       "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Cloud, plataforma e infraestructura",
-      "owner": "suite",
-      "path": "classes/part-29-cloud-plataforma-e-infraestructura",
+      "title": "Datos, persistencia y recuperación",
+      "owner": "database-systems-labs",
+      "path": "classes/part-29-datos-persistencia-y-recuperacion",
       "lessons": [
         {
           "id": "SE-349",
           "number": 349,
-          "title": "IaaS, PaaS, SaaS y responsabilidad compartida",
+          "title": "Modelado conceptual, lógico y físico",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-349-modelado-conceptual-logico-y-fisico"
         },
         {
           "id": "SE-350",
           "number": 350,
-          "title": "Máquinas virtuales, contenedores y aislamiento",
+          "title": "Relacional, documental, clave-valor, grafos y series",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-350-maquinas-virtuales-contenedores-y-aislamiento"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series"
         },
         {
           "id": "SE-351",
           "number": 351,
-          "title": "Orquestación y scheduling",
+          "title": "Transacciones, aislamiento y concurrencia",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-351-orquestacion-y-scheduling"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia"
         },
         {
           "id": "SE-352",
           "number": 352,
-          "title": "Serverless y ejecución gestionada",
+          "title": "Restricciones, invariantes y consistencia",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-352-serverless-y-ejecucion-gestionada"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-352-restricciones-invariantes-y-consistencia"
         },
         {
           "id": "SE-353",
           "number": 353,
-          "title": "Redes, identidad y secretos en cloud",
+          "title": "Consultas, índices y patrones de acceso",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-353-redes-identidad-y-secretos-en-cloud"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso"
         },
         {
           "id": "SE-354",
           "number": 354,
-          "title": "Infraestructura como código y estado",
+          "title": "Migraciones compatibles y evolución de esquema",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-354-infraestructura-como-codigo-y-estado"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema"
         },
         {
           "id": "SE-355",
           "number": 355,
-          "title": "Entornos, cuentas y separación de responsabilidades",
+          "title": "Replicación, partición y distribución",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-355-entornos-cuentas-y-separacion-de-responsabilidades"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion"
         },
         {
           "id": "SE-356",
           "number": 356,
-          "title": "Escalado, capacidad y costos",
+          "title": "Cachés y consistencia entre capas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-356-escalado-capacidad-y-costos"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas"
         },
         {
           "id": "SE-357",
           "number": 357,
-          "title": "Multi-cloud, híbrido y portabilidad real",
+          "title": "Backups, restauración y pruebas de recuperación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-357-multi-cloud-hibrido-y-portabilidad-real"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion"
         },
         {
           "id": "SE-358",
           "number": 358,
-          "title": "Plataformas internas y golden paths",
+          "title": "Privacidad, retención y ciclo de vida del dato",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato"
         },
         {
           "id": "SE-359",
           "number": 359,
-          "title": "Taller: desplegar y destruir un entorno seguro",
+          "title": "Taller: corregir una migración peligrosa",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-359-taller-desplegar-y-destruir-un-entorno-seguro"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-359-taller-corregir-una-migracion-peligrosa"
         },
         {
           "id": "SE-360",
           "number": 360,
-          "title": "Proyecto: plataforma mínima reproducible",
+          "title": "Proyecto: capa de datos recuperable",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-360-proyecto-plataforma-minima-reproducible"
+          "path": "classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable"
         }
       ]
     },
     {
       "id": "30",
-      "stage": "F",
-      "stage_title": "Calidad, seguridad y entrega",
-      "title": "Estrategia y técnicas de prueba",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Ingeniería de datos y plataformas de datos",
       "owner": "suite",
-      "path": "classes/part-30-estrategia-y-tecnicas-de-prueba",
+      "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos",
       "lessons": [
         {
           "id": "SE-361",
           "number": 361,
-          "title": "Calidad por riesgo y propósito de las pruebas",
+          "title": "Del dato operacional al analítico",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico"
         },
         {
           "id": "SE-362",
           "number": 362,
-          "title": "Pruebas unitarias y diseño testable",
+          "title": "Ingesta batch y streaming",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-362-pruebas-unitarias-y-diseno-testable"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming"
         },
         {
           "id": "SE-363",
           "number": 363,
-          "title": "Integración, componentes y contratos",
+          "title": "Modelado analítico: hechos, dimensiones y granularidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-363-integracion-componentes-y-contratos"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-363-modelado-analitico-hechos-dimensiones-y-granularidad"
         },
         {
           "id": "SE-364",
           "number": 364,
-          "title": "End-to-end, aceptación y recorridos críticos",
+          "title": "Transformación y orquestación idempotente con backfills",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-364-end-to-end-aceptacion-y-recorridos-criticos"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills"
         },
         {
           "id": "SE-365",
           "number": 365,
-          "title": "Pruebas basadas en propiedades y modelos",
+          "title": "Calidad y observabilidad de datos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-365-pruebas-basadas-en-propiedades-y-modelos"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos"
         },
         {
           "id": "SE-366",
           "number": 366,
-          "title": "Mutación, fuzzing y generación de casos",
+          "title": "Contratos de datos y evolución de esquemas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-366-mutacion-fuzzing-y-generacion-de-casos"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas"
         },
         {
           "id": "SE-367",
           "number": 367,
-          "title": "Dobles, virtualización y entornos de prueba",
+          "title": "Linaje, catálogo y metadatos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-367-dobles-virtualizacion-y-entornos-de-prueba"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos"
         },
         {
           "id": "SE-368",
           "number": 368,
-          "title": "Datos deterministas y gestión de fixtures",
+          "title": "Warehouse, lake, lakehouse y formatos columnares",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-368-datos-deterministas-y-gestion-de-fixtures"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares"
         },
         {
           "id": "SE-369",
           "number": 369,
-          "title": "Pruebas exploratorias y sesiones",
+          "title": "Gobierno, privacidad y retención de datos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-369-pruebas-exploratorias-y-sesiones"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos"
         },
         {
           "id": "SE-370",
           "number": 370,
-          "title": "Flakiness, diagnóstico y mantenimiento",
+          "title": "Costos y operación de plataformas de datos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-370-flakiness-diagnostico-y-mantenimiento"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos"
         },
         {
           "id": "SE-371",
           "number": 371,
-          "title": "Taller: demostrar que una prueba detecta defectos",
+          "title": "Taller: reparar un pipeline defectuoso",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-371-taller-demostrar-que-una-prueba-detecta-defectos"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-371-taller-reparar-un-pipeline-defectuoso"
         },
         {
           "id": "SE-372",
           "number": 372,
-          "title": "Proyecto: estrategia ejecutable por riesgo",
+          "title": "Proyecto: plataforma de datos mínima gobernada",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo"
+          "path": "classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada"
         }
       ]
     },
     {
       "id": "31",
-      "stage": "F",
-      "stage_title": "Calidad, seguridad y entrega",
-      "title": "Calidad, rendimiento y resiliencia",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Integración, eventos y mensajería",
       "owner": "suite",
-      "path": "classes/part-31-calidad-rendimiento-y-resiliencia",
+      "path": "classes/part-31-integracion-eventos-y-mensajeria",
       "lessons": [
         {
           "id": "SE-373",
           "number": 373,
-          "title": "Modelos de calidad y atributos medibles",
+          "title": "Integración síncrona y asíncrona",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-373-modelos-de-calidad-y-atributos-medibles"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona"
         },
         {
           "id": "SE-374",
           "number": 374,
-          "title": "Revisión, análisis estático y quality gates",
+          "title": "Mensajes, eventos, comandos y documentos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-374-revision-analisis-estatico-y-quality-gates"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos"
         },
         {
           "id": "SE-375",
           "number": 375,
-          "title": "Carga, estrés, picos y endurance",
+          "title": "Brokers, colas, topics y logs distribuidos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-375-carga-estres-picos-y-endurance"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-375-brokers-colas-topics-y-logs-distribuidos"
         },
         {
           "id": "SE-376",
           "number": 376,
-          "title": "Latencia, throughput, saturación y capacidad",
+          "title": "Entrega, orden, duplicación y semánticas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-376-entrega-orden-duplicacion-y-semanticas"
         },
         {
           "id": "SE-377",
           "number": 377,
-          "title": "Perfiles, benchmarks y errores de medición",
+          "title": "Outbox, inbox, sagas y compensación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-377-perfiles-benchmarks-y-errores-de-medicion"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion"
         },
         {
           "id": "SE-378",
           "number": 378,
-          "title": "Timeouts, retries, backoff y jitter",
+          "title": "CDC, ETL, ELT y sincronización",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion"
         },
         {
           "id": "SE-379",
           "number": 379,
-          "title": "Circuit breakers, bulkheads y degradación",
+          "title": "Webhooks, polling y suscripciones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones"
         },
         {
           "id": "SE-380",
           "number": 380,
-          "title": "Disponibilidad, durabilidad y recuperación",
+          "title": "Compatibilidad de esquemas y registros",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros"
         },
         {
           "id": "SE-381",
           "number": 381,
-          "title": "Compatibilidad, portabilidad e interoperabilidad",
+          "title": "Anti-corruption layers y traducción de modelos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-381-compatibilidad-portabilidad-e-interoperabilidad"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos"
         },
         {
           "id": "SE-382",
           "number": 382,
-          "title": "Calidad de experiencia y presupuestos",
+          "title": "Observabilidad y seguridad de integraciones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-382-calidad-de-experiencia-y-presupuestos"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones"
         },
         {
           "id": "SE-383",
           "number": 383,
-          "title": "Taller: someter un sistema a presión controlada",
+          "title": "Taller: provocar y contener mensajes duplicados",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-383-taller-someter-un-sistema-a-presion-controlada"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-383-taller-provocar-y-contener-mensajes-duplicados"
         },
         {
           "id": "SE-384",
           "number": 384,
-          "title": "Proyecto: informe reproducible de calidad",
+          "title": "Proyecto: flujo integrado tolerante a reintentos",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-384-proyecto-informe-reproducible-de-calidad"
+          "path": "classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos"
         }
       ]
     },
     {
       "id": "32",
-      "stage": "F",
-      "stage_title": "Calidad, seguridad y entrega",
-      "title": "Seguridad, privacidad y cumplimiento",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Concurrencia y sistemas distribuidos",
       "owner": "suite",
-      "path": "classes/part-32-seguridad-privacidad-y-cumplimiento",
+      "path": "classes/part-32-concurrencia-y-sistemas-distribuidos",
       "lessons": [
         {
           "id": "SE-385",
           "number": 385,
-          "title": "Principios de seguridad y modelos de amenaza",
+          "title": "Concurrencia, paralelismo y asincronía",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-385-concurrencia-paralelismo-y-asincronia"
         },
         {
           "id": "SE-386",
           "number": 386,
-          "title": "Identidad, autenticación y sesiones",
+          "title": "Memoria compartida, locks y condiciones de carrera",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-386-identidad-autenticacion-y-sesiones"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera"
         },
         {
           "id": "SE-387",
           "number": 387,
-          "title": "Autorización, recursos y mínimo privilegio",
+          "title": "Actores, canales y structured concurrency",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-387-autorizacion-recursos-y-minimo-privilegio"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-387-actores-canales-y-structured-concurrency"
         },
         {
           "id": "SE-388",
           "number": 388,
-          "title": "Validación, codificación y clases de inyección",
+          "title": "Tiempo, relojes y orden parcial",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-388-validacion-codificacion-y-clases-de-inyeccion"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-388-tiempo-relojes-y-orden-parcial"
         },
         {
           "id": "SE-389",
           "number": 389,
-          "title": "Criptografía aplicada y gestión de claves",
+          "title": "Fallos parciales y modelos de red",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-389-criptografia-aplicada-y-gestion-de-claves"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red"
         },
         {
           "id": "SE-390",
           "number": 390,
-          "title": "Secretos, configuración y separación de ambientes",
+          "title": "Consistencia, disponibilidad y particiones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones"
         },
         {
           "id": "SE-391",
           "number": 391,
-          "title": "Privacidad por diseño y minimización",
+          "title": "Consenso, elección y coordinación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-391-consenso-eleccion-y-coordinacion"
         },
         {
           "id": "SE-392",
           "number": 392,
-          "title": "Secure SDLC, abuso y pruebas negativas",
+          "title": "Idempotencia y procesamiento distribuido",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-392-secure-sdlc-abuso-y-pruebas-negativas"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido"
         },
         {
           "id": "SE-393",
           "number": 393,
-          "title": "Vulnerabilidades, divulgación y respuesta",
+          "title": "Replicación, sharding y balanceo",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-393-vulnerabilidades-divulgacion-y-respuesta"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo"
         },
         {
           "id": "SE-394",
           "number": 394,
-          "title": "Cumplimiento, evidencia y límites legales",
+          "title": "Caos controlado y pruebas de distribución",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion"
         },
         {
           "id": "SE-395",
           "number": 395,
-          "title": "Taller: explotar y reparar un control aparente",
+          "title": "Taller: reproducir una carrera y un fallo parcial",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-395-taller-explotar-y-reparar-un-control-aparente"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-395-taller-reproducir-una-carrera-y-un-fallo-parcial"
         },
         {
           "id": "SE-396",
           "number": 396,
-          "title": "Proyecto: producto con seguridad verificable",
+          "title": "Proyecto: servicio distribuido con degradación",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-396-proyecto-producto-con-seguridad-verificable"
+          "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion"
         }
       ]
     },
     {
       "id": "33",
-      "stage": "F",
-      "stage_title": "Calidad, seguridad y entrega",
-      "title": "Build, release y cadena de suministro",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Cloud, plataforma e infraestructura",
       "owner": "suite",
-      "path": "classes/part-33-build-release-y-cadena-de-suministro",
+      "path": "classes/part-33-cloud-plataforma-e-infraestructura",
       "lessons": [
         {
           "id": "SE-397",
           "number": 397,
-          "title": "Build reproducible y hermético",
+          "title": "IaaS, PaaS, SaaS y responsabilidad compartida",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida"
         },
         {
           "id": "SE-398",
           "number": 398,
-          "title": "Artefactos, repositorios y promoción",
+          "title": "Máquinas virtuales, contenedores y aislamiento",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-398-artefactos-repositorios-y-promocion"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento"
         },
         {
           "id": "SE-399",
           "number": 399,
-          "title": "Dependencias directas, transitivas y vendorización",
+          "title": "Orquestación y scheduling",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-399-dependencias-directas-transitivas-y-vendorizacion"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-399-orquestacion-y-scheduling"
         },
         {
           "id": "SE-400",
           "number": 400,
-          "title": "SBOM, procedencia y atestaciones",
+          "title": "Serverless y ejecución gestionada",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada"
         },
         {
           "id": "SE-401",
           "number": 401,
-          "title": "Firmas, checksums y verificación",
+          "title": "Redes, identidad y secretos en cloud",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-401-firmas-checksums-y-verificacion"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud"
         },
         {
           "id": "SE-402",
           "number": 402,
-          "title": "Versionado, compatibilidad y changelog",
+          "title": "Infraestructura como código y estado",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado"
         },
         {
           "id": "SE-403",
           "number": 403,
-          "title": "Feature flags y entrega progresiva",
+          "title": "Entornos, cuentas y separación de responsabilidades",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-403-feature-flags-y-entrega-progresiva"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades"
         },
         {
           "id": "SE-404",
           "number": 404,
-          "title": "Canary, blue-green y rollback",
+          "title": "Escalado, capacidad y costos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos"
         },
         {
           "id": "SE-405",
           "number": 405,
-          "title": "Instaladores, paquetes y actualizaciones",
+          "title": "Multi-cloud, híbrido y portabilidad real",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-405-instaladores-paquetes-y-actualizaciones"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real"
         },
         {
           "id": "SE-406",
           "number": 406,
-          "title": "Riesgos de CI y dependencias comprometidas",
+          "title": "Plataformas internas y golden paths",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths"
         },
         {
           "id": "SE-407",
           "number": 407,
-          "title": "Taller: verificar la procedencia de un release",
+          "title": "Taller: desplegar y destruir un entorno seguro",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-407-taller-verificar-la-procedencia-de-un-release"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro"
         },
         {
           "id": "SE-408",
           "number": 408,
-          "title": "Proyecto: release firmado y recuperable",
+          "title": "Proyecto: plataforma mínima reproducible",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-33-build-release-y-cadena-de-suministro/se-408-proyecto-release-firmado-y-recuperable"
-        }
-      ]
-    },
-    {
-      "id": "34",
-      "stage": "F",
-      "stage_title": "Calidad, seguridad y entrega",
-      "title": "CI/CD, IaC y platform engineering",
-      "owner": "suite",
-      "path": "classes/part-34-ci-cd-iac-y-platform-engineering",
-      "lessons": [
-        {
-          "id": "SE-409",
-          "number": 409,
-          "title": "Integración continua y feedback temprano",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-409-integracion-continua-y-feedback-temprano"
-        },
-        {
-          "id": "SE-410",
-          "number": 410,
-          "title": "Pipelines, jobs, matrices y cachés",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-410-pipelines-jobs-matrices-y-caches"
-        },
-        {
-          "id": "SE-411",
-          "number": 411,
-          "title": "Tests, seguridad y políticas como gates",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-411-tests-seguridad-y-politicas-como-gates"
-        },
-        {
-          "id": "SE-412",
-          "number": 412,
-          "title": "Credenciales efímeras y OIDC",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-412-credenciales-efimeras-y-oidc"
-        },
-        {
-          "id": "SE-413",
-          "number": 413,
-          "title": "Entrega y despliegue continuos",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-413-entrega-y-despliegue-continuos"
-        },
-        {
-          "id": "SE-414",
-          "number": 414,
-          "title": "Infraestructura como código en pipeline",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-414-infraestructura-como-codigo-en-pipeline"
-        },
-        {
-          "id": "SE-415",
-          "number": 415,
-          "title": "GitOps y reconciliación",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-415-gitops-y-reconciliacion"
-        },
-        {
-          "id": "SE-416",
-          "number": 416,
-          "title": "Entornos preview y datos seguros",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-416-entornos-preview-y-datos-seguros"
-        },
-        {
-          "id": "SE-417",
-          "number": 417,
-          "title": "Developer portals y capacidades de plataforma",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-417-developer-portals-y-capacidades-de-plataforma"
-        },
-        {
-          "id": "SE-418",
-          "number": 418,
-          "title": "Métricas DORA y mejora sin gaming",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-418-metricas-dora-y-mejora-sin-gaming"
-        },
-        {
-          "id": "SE-419",
-          "number": 419,
-          "title": "Taller: endurecer un pipeline vulnerable",
-          "kind": "studio",
-          "estimated_hours": 6,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-419-taller-endurecer-un-pipeline-vulnerable"
-        },
-        {
-          "id": "SE-420",
-          "number": 420,
-          "title": "Proyecto: camino a producción con rollback",
-          "kind": "project",
-          "estimated_hours": 8,
-          "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-420-proyecto-camino-a-produccion-con-rollback"
+          "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible"
         }
       ]
     },
     {
       "id": "35",
-      "stage": "G",
-      "stage_title": "Operación, evolución y liderazgo",
-      "title": "Observabilidad, SRE e incidentes",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Estrategia y técnicas de prueba",
       "owner": "suite",
-      "path": "classes/part-35-observabilidad-sre-e-incidentes",
+      "path": "classes/part-35-estrategia-y-tecnicas-de-prueba",
       "lessons": [
         {
           "id": "SE-421",
           "number": 421,
-          "title": "Señales, eventos y observabilidad útil",
+          "title": "Calidad por riesgo y propósito de las pruebas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas"
         },
         {
           "id": "SE-422",
           "number": 422,
-          "title": "Logs estructurados y correlación",
+          "title": "Pruebas unitarias y diseño testable",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-422-logs-estructurados-y-correlacion"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable"
         },
         {
           "id": "SE-423",
           "number": 423,
-          "title": "Métricas, dimensiones y cardinalidad",
+          "title": "Integración, componentes y contratos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos"
         },
         {
           "id": "SE-424",
           "number": 424,
-          "title": "Trazas distribuidas y contexto",
+          "title": "End-to-end, aceptación y recorridos críticos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-424-trazas-distribuidas-y-contexto"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos"
         },
         {
           "id": "SE-425",
           "number": 425,
-          "title": "SLI, SLO, SLA y presupuestos de error",
+          "title": "Pruebas basadas en propiedades y modelos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos"
         },
         {
           "id": "SE-426",
           "number": 426,
-          "title": "Alertas accionables y fatiga",
+          "title": "Mutación, fuzzing y generación de casos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-426-alertas-accionables-y-fatiga"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos"
         },
         {
           "id": "SE-427",
           "number": 427,
-          "title": "Runbooks, on-call y escalamiento",
+          "title": "Dobles, virtualización y entornos de prueba",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-427-runbooks-on-call-y-escalamiento"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba"
         },
         {
           "id": "SE-428",
           "number": 428,
-          "title": "Gestión de incidentes y comunicación",
+          "title": "Datos deterministas y gestión de fixtures",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures"
         },
         {
           "id": "SE-429",
           "number": 429,
-          "title": "Postmortems sin culpa y aprendizaje",
+          "title": "Pruebas exploratorias y sesiones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-429-postmortems-sin-culpa-y-aprendizaje"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones"
         },
         {
           "id": "SE-430",
           "number": 430,
-          "title": "Continuidad, disaster recovery y ejercicios",
+          "title": "Flakiness, diagnóstico y mantenimiento",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento"
         },
         {
           "id": "SE-431",
           "number": 431,
-          "title": "Taller: diagnosticar con telemetría incompleta",
+          "title": "Taller: demostrar que una prueba detecta defectos",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-431-taller-diagnosticar-con-telemetria-incompleta"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos"
         },
         {
           "id": "SE-432",
           "number": 432,
-          "title": "Proyecto: operación observable y recuperable",
+          "title": "Proyecto: estrategia ejecutable por riesgo",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-35-observabilidad-sre-e-incidentes/se-432-proyecto-operacion-observable-y-recuperable"
+          "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo"
         }
       ]
     },
     {
       "id": "36",
-      "stage": "G",
-      "stage_title": "Operación, evolución y liderazgo",
-      "title": "Mantenimiento y modernización legacy",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Calidad, rendimiento y resiliencia",
       "owner": "suite",
-      "path": "classes/part-36-mantenimiento-y-modernizacion-legacy",
+      "path": "classes/part-36-calidad-rendimiento-y-resiliencia",
       "lessons": [
         {
           "id": "SE-433",
           "number": 433,
-          "title": "Mantenimiento correctivo, adaptativo y perfectivo",
+          "title": "Modelos de calidad y atributos medibles",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-433-mantenimiento-correctivo-adaptativo-y-perfectivo"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-433-modelos-de-calidad-y-atributos-medibles"
         },
         {
           "id": "SE-434",
           "number": 434,
-          "title": "Arqueología de código y recuperación de conocimiento",
+          "title": "Revisión, análisis estático y quality gates",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-434-arqueologia-de-codigo-y-recuperacion-de-conocimiento"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-434-revision-analisis-estatico-y-quality-gates"
         },
         {
           "id": "SE-435",
           "number": 435,
-          "title": "Pruebas de caracterización y seams",
+          "title": "Carga, estrés, picos y endurance",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-435-pruebas-de-caracterizacion-y-seams"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance"
         },
         {
           "id": "SE-436",
           "number": 436,
-          "title": "Dependencias obsoletas y riesgo acumulado",
+          "title": "Latencia, throughput, saturación y capacidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-436-dependencias-obsoletas-y-riesgo-acumulado"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad"
         },
         {
           "id": "SE-437",
           "number": 437,
-          "title": "Strangler, branch by abstraction y anticorruption",
+          "title": "Perfiles, benchmarks y errores de medición",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion"
         },
         {
           "id": "SE-438",
           "number": 438,
-          "title": "Migraciones de runtime, lenguaje y framework",
+          "title": "Timeouts, retries, backoff y jitter",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter"
         },
         {
           "id": "SE-439",
           "number": 439,
-          "title": "Migraciones de datos sin interrupción",
+          "title": "Circuit breakers, bulkheads y degradación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion"
         },
         {
           "id": "SE-440",
           "number": 440,
-          "title": "Compatibilidad, coexistencia y doble escritura",
+          "title": "Disponibilidad, durabilidad y recuperación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion"
         },
         {
           "id": "SE-441",
           "number": 441,
-          "title": "Retiro, archivado y disposición de sistemas",
+          "title": "Compatibilidad, portabilidad e interoperabilidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad"
         },
         {
           "id": "SE-442",
           "number": 442,
-          "title": "Economía de reescribir frente a evolucionar",
+          "title": "Calidad de experiencia y presupuestos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-442-economia-de-reescribir-frente-a-evolucionar"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos"
         },
         {
           "id": "SE-443",
           "number": 443,
-          "title": "Taller: estabilizar antes de modernizar",
+          "title": "Taller: someter un sistema a presión controlada",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-443-taller-estabilizar-antes-de-modernizar"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada"
         },
         {
           "id": "SE-444",
           "number": 444,
-          "title": "Proyecto: migración incremental reversible",
+          "title": "Proyecto: informe reproducible de calidad",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible"
+          "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad"
         }
       ]
     },
     {
       "id": "37",
-      "stage": "G",
-      "stage_title": "Operación, evolución y liderazgo",
-      "title": "Gestión, liderazgo y práctica profesional",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Sistemas críticos, tiempo real y normas de seguridad",
       "owner": "suite",
-      "path": "classes/part-37-gestion-liderazgo-y-practica-profesional",
+      "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad",
       "lessons": [
         {
           "id": "SE-445",
           "number": 445,
-          "title": "Liderazgo técnico sin autoridad formal",
+          "title": "Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-445-liderazgo-tecnico-sin-autoridad-formal"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa"
         },
         {
           "id": "SE-446",
           "number": 446,
-          "title": "Diseño de equipos y ownership",
+          "title": "IEC 61508 y niveles de integridad de seguridad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-446-iec-61508-y-niveles-de-integridad-de-seguridad"
         },
         {
           "id": "SE-447",
           "number": 447,
-          "title": "Comunicación, facilitación y conflicto",
+          "title": "Automoción: ISO 26262 y niveles ASIL",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-447-comunicacion-facilitacion-y-conflicto"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil"
         },
         {
           "id": "SE-448",
           "number": 448,
-          "title": "Mentoría, feedback y crecimiento",
+          "title": "Aviación: DO-178C, DO-254 y ARP4754",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-448-mentoria-feedback-y-crecimiento"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754"
         },
         {
           "id": "SE-449",
           "number": 449,
-          "title": "Estimación organizacional y compromisos",
+          "title": "Dispositivos médicos: IEC 62304",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-449-estimacion-organizacional-y-compromisos"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304"
         },
         {
           "id": "SE-450",
           "number": 450,
-          "title": "Gestión de riesgos y decisiones ejecutivas",
+          "title": "Casos de seguridad y trazabilidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad"
         },
         {
           "id": "SE-451",
           "number": 451,
-          "title": "Compras, proveedores y evaluación técnica",
+          "title": "RTOS y planificación de tiempo real",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-451-rtos-y-planificacion-de-tiempo-real"
         },
         {
           "id": "SE-452",
           "number": 452,
-          "title": "Propiedad intelectual, contratos y ética",
+          "title": "Codificación segura: MISRA y CERT",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert"
         },
         {
           "id": "SE-453",
           "number": 453,
-          "title": "Economía del software y costo total",
+          "title": "Verificación formal y model checking: TLA+, SPARK y Alloy",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy"
         },
         {
           "id": "SE-454",
           "number": 454,
-          "title": "Portafolio, entrevistas y defensa profesional",
+          "title": "Verificación y cobertura: MC/DC, HIL y SIL",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-454-portafolio-entrevistas-y-defensa-profesional"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil"
         },
         {
           "id": "SE-455",
           "number": 455,
-          "title": "Taller: conducir una revisión de decisión difícil",
+          "title": "Taller: analizar un fallo real frente a las normas",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-455-taller-conducir-una-revision-de-decision-dificil"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-455-taller-analizar-un-fallo-real-frente-a-las-normas"
         },
         {
           "id": "SE-456",
           "number": 456,
-          "title": "Proyecto: dossier profesional defendible",
+          "title": "Proyecto: paquete de aseguramiento de un controlador",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-456-proyecto-dossier-profesional-defendible"
+          "path": "classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador"
         }
       ]
     },
     {
       "id": "38",
-      "stage": "H",
-      "stage_title": "Ingeniería de software nativa con IA",
-      "title": "Desarrollo de software asistido por IA",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Seguridad, privacidad y cumplimiento",
       "owner": "suite",
-      "path": "classes/part-38-desarrollo-de-software-asistido-por-ia",
+      "path": "classes/part-38-seguridad-privacidad-y-cumplimiento",
       "lessons": [
         {
           "id": "SE-457",
           "number": 457,
-          "title": "Capacidades y límites de los modelos generativos",
+          "title": "Principios de seguridad y modelos de amenaza",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-457-capacidades-y-limites-de-los-modelos-generativos"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-457-principios-de-seguridad-y-modelos-de-amenaza"
         },
         {
           "id": "SE-458",
           "number": 458,
-          "title": "Prompting, instrucciones y criterios de salida",
+          "title": "Identidad, autenticación y sesiones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-458-prompting-instrucciones-y-criterios-de-salida"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones"
         },
         {
           "id": "SE-459",
           "number": 459,
-          "title": "Contexto, archivos, memoria y recuperación",
+          "title": "Autorización, recursos y mínimo privilegio",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-459-contexto-archivos-memoria-y-recuperacion"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio"
         },
         {
           "id": "SE-460",
           "number": 460,
-          "title": "Autocompletado, chat, edición y generación",
+          "title": "Validación, codificación y clases de inyección",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-460-autocompletado-chat-edicion-y-generacion"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-460-validacion-codificacion-y-clases-de-inyeccion"
         },
         {
           "id": "SE-461",
           "number": 461,
-          "title": "Prototipado, scaffolding y exploración de alternativas",
+          "title": "Criptografía aplicada y gestión de claves",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-461-prototipado-scaffolding-y-exploracion-de-alternativas"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves"
         },
         {
           "id": "SE-462",
           "number": 462,
-          "title": "Generación de pruebas, documentación y migraciones",
+          "title": "Secretos, configuración y separación de ambientes",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-462-generacion-de-pruebas-documentacion-y-migraciones"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes"
         },
         {
           "id": "SE-463",
           "number": 463,
-          "title": "Revisión, refactorización y explicación asistidas",
+          "title": "Privacidad por diseño y minimización",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-463-revision-refactorizacion-y-explicacion-asistidas"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion"
         },
         {
           "id": "SE-464",
           "number": 464,
-          "title": "Context engineering y reducción de ambigüedad",
+          "title": "Secure SDLC, abuso y pruebas negativas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-464-context-engineering-y-reduccion-de-ambiguedad"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas"
         },
         {
           "id": "SE-465",
           "number": 465,
-          "title": "Evals de exactitud, utilidad, costo y latencia",
+          "title": "Vulnerabilidades, divulgación y respuesta",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta"
         },
         {
           "id": "SE-466",
           "number": 466,
-          "title": "Privacidad, propiedad intelectual y código inseguro",
+          "title": "Cumplimiento, evidencia y límites legales",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-466-privacidad-propiedad-intelectual-y-codigo-inseguro"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales"
         },
         {
           "id": "SE-467",
           "number": 467,
-          "title": "Taller: comparar flujos manual, asistido y automatizado",
+          "title": "Taller: explotar y reparar un control aparente",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente"
         },
         {
           "id": "SE-468",
           "number": 468,
-          "title": "Proyecto: cambio real con trazabilidad y revisión humana",
+          "title": "Proyecto: producto con seguridad verificable",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-468-proyecto-cambio-real-con-trazabilidad-y-revision-humana"
+          "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable"
         }
       ]
     },
     {
       "id": "39",
-      "stage": "H",
-      "stage_title": "Ingeniería de software nativa con IA",
-      "title": "SPEC, agentes y ciclo de vida agentic",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Build, release y cadena de suministro",
       "owner": "suite",
-      "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic",
+      "path": "classes/part-39-build-release-y-cadena-de-suministro",
       "lessons": [
         {
           "id": "SE-469",
           "number": 469,
-          "title": "De la intención a la especificación durable",
+          "title": "Build reproducible y hermético",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-469-de-la-intencion-a-la-especificacion-durable"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-469-build-reproducible-y-hermetico"
         },
         {
           "id": "SE-470",
           "number": 470,
-          "title": "Constitución, specify, clarify, plan y tasks",
+          "title": "Artefactos, repositorios y promoción",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-470-constitucion-specify-clarify-plan-y-tasks"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-470-artefactos-repositorios-y-promocion"
         },
         {
           "id": "SE-471",
           "number": 471,
-          "title": "Implementación, análisis y convergencia contra SPEC",
+          "title": "Dependencias directas, transitivas y vendorización",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-471-implementacion-analisis-y-convergencia-contra-spec"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion"
         },
         {
           "id": "SE-472",
           "number": 472,
-          "title": "Greenfield, brownfield, bug fixing e idea assessment",
+          "title": "SBOM, procedencia y atestaciones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-472-greenfield-brownfield-bug-fixing-e-idea-assessment"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones"
         },
         {
           "id": "SE-473",
           "number": 473,
-          "title": "Agentes, herramientas, permisos y límites de autoridad",
+          "title": "Firmas, checksums y verificación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-473-agentes-herramientas-permisos-y-limites-de-autoridad"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion"
         },
         {
           "id": "SE-474",
           "number": 474,
-          "title": "Skills, plugins, hooks y entornos aislados",
+          "title": "Versionado, compatibilidad y changelog",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-474-skills-plugins-hooks-y-entornos-aislados"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog"
         },
         {
           "id": "SE-475",
           "number": 475,
-          "title": "MCP, recursos, prompts, tools y confianza",
+          "title": "Feature flags y entrega progresiva",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-475-mcp-recursos-prompts-tools-y-confianza"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva"
         },
         {
           "id": "SE-476",
           "number": 476,
-          "title": "Delegación, subagentes y sistemas multiagente",
+          "title": "Canary, blue-green y rollback",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-476-delegacion-subagentes-y-sistemas-multiagente"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback"
         },
         {
           "id": "SE-477",
           "number": 477,
-          "title": "Human-in-the-loop, aprobación y acciones reversibles",
+          "title": "Instaladores, paquetes y actualizaciones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-477-human-in-the-loop-aprobacion-y-acciones-reversibles"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones"
         },
         {
           "id": "SE-478",
           "number": 478,
-          "title": "Seguridad agentic, prompt injection y auditoría",
+          "title": "Riesgos de CI y dependencias comprometidas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-478-seguridad-agentic-prompt-injection-y-auditoria"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas"
         },
         {
           "id": "SE-479",
           "number": 479,
-          "title": "Taller: detener, recuperar y evaluar un agente",
+          "title": "Taller: verificar la procedencia de un release",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-479-taller-detener-recuperar-y-evaluar-un-agente"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release"
         },
         {
           "id": "SE-480",
           "number": 480,
-          "title": "Proyecto final: producto operable construido desde SPEC",
+          "title": "Proyecto: release firmado y recuperable",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-480-proyecto-final-producto-operable-construido-desde-spec"
+          "path": "classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable"
         }
       ]
     },
     {
       "id": "40",
-      "stage": "H",
-      "stage_title": "Ingeniería de software nativa con IA",
-      "title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "CI/CD, IaC y platform engineering",
       "owner": "suite",
-      "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd",
+      "path": "classes/part-40-ci-cd-iac-y-platform-engineering",
       "lessons": [
         {
           "id": "SE-481",
           "number": 481,
-          "title": "Mapa de metodologías: qué decide cada una y cómo elegir",
+          "title": "Integración continua y feedback temprano",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano"
         },
         {
           "id": "SE-482",
           "number": 482,
-          "title": "TDD: ciclo rojo-verde-refactor y diseño emergente",
+          "title": "Pipelines, jobs, matrices y cachés",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-482-pipelines-jobs-matrices-y-caches"
         },
         {
           "id": "SE-483",
           "number": 483,
-          "title": "TDD en la práctica: escuelas de Londres y clásica, y sus límites",
+          "title": "Tests, seguridad y políticas como gates",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-483-tests-seguridad-y-politicas-como-gates"
         },
         {
           "id": "SE-484",
           "number": 484,
-          "title": "BDD: ejemplos, conversación y lenguaje compartido",
+          "title": "Credenciales efímeras y OIDC",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc"
         },
         {
           "id": "SE-485",
           "number": 485,
-          "title": "ATDD y Specification by Example: aceptación ejecutable",
+          "title": "Entrega y despliegue continuos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos"
         },
         {
           "id": "SE-486",
           "number": 486,
-          "title": "DDD como lenguaje ubicuo y contexto para agentes",
+          "title": "Infraestructura como código en pipeline",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline"
         },
         {
           "id": "SE-487",
           "number": 487,
-          "title": "Diseño por contrato y pruebas de contrato como oráculo",
+          "title": "GitOps y reconciliación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion"
         },
         {
           "id": "SE-488",
           "number": 488,
-          "title": "SDD: spec-first, spec-anchored y spec-as-source",
+          "title": "Entornos preview y datos seguros",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-488-entornos-preview-y-datos-seguros"
         },
         {
           "id": "SE-489",
           "number": 489,
-          "title": "EDD: evaluaciones como especificación y puerta de release",
+          "title": "Developer portals y capacidades de plataforma",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-489-developer-portals-y-capacidades-de-plataforma"
         },
         {
           "id": "SE-490",
           "number": 490,
-          "title": "ODD: desarrollo orgánico y su contraste con SDD",
+          "title": "Métricas DORA y mejora sin gaming",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming"
         },
         {
           "id": "SE-491",
           "number": 491,
-          "title": "Taller: un mismo cambio con cinco metodologías",
+          "title": "Taller: endurecer un pipeline vulnerable",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable"
         },
         {
           "id": "SE-492",
           "number": 492,
-          "title": "Proyecto: política metodológica de equipo con evidencia",
+          "title": "Proyecto: camino a producción con rollback",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia"
+          "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback"
         }
       ]
     },
     {
       "id": "41",
-      "stage": "H",
-      "stage_title": "Ingeniería de software nativa con IA",
-      "title": "Harness y agentic engineering",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Observabilidad, SRE e incidentes",
       "owner": "suite",
-      "path": "classes/part-41-harness-y-agentic-engineering",
+      "path": "classes/part-41-observabilidad-sre-e-incidentes",
       "lessons": [
         {
           "id": "SE-493",
           "number": 493,
-          "title": "Anatomía de un harness: modelo, contexto, herramientas y bucles",
+          "title": "Señales, eventos y observabilidad útil",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util"
         },
         {
           "id": "SE-494",
           "number": 494,
-          "title": "Instrucciones de repositorio y cumplimiento determinista",
+          "title": "Logs estructurados y correlación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion"
         },
         {
           "id": "SE-495",
           "number": 495,
-          "title": "Herramientas, permisos y superficies de acción",
+          "title": "Métricas, dimensiones y cardinalidad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad"
         },
         {
           "id": "SE-496",
           "number": 496,
-          "title": "Gestión de contexto, resets y handoffs",
+          "title": "Trazas distribuidas y contexto",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto"
         },
         {
           "id": "SE-497",
           "number": 497,
-          "title": "Loops de agentes y criterios de parada",
+          "title": "SLI, SLO, SLA y presupuestos de error",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error"
         },
         {
           "id": "SE-498",
           "number": 498,
-          "title": "Sandboxes, reversibilidad y control de daño",
+          "title": "Alertas accionables y fatiga",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-498-alertas-accionables-y-fatiga"
         },
         {
           "id": "SE-499",
           "number": 499,
-          "title": "Verificación, gates y menú único de validación",
+          "title": "Runbooks, on-call y escalamiento",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento"
         },
         {
           "id": "SE-500",
           "number": 500,
-          "title": "Multiagente y coordinación dentro del harness",
+          "title": "Gestión de incidentes y comunicación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion"
         },
         {
           "id": "SE-501",
           "number": 501,
-          "title": "Observabilidad y evals del propio harness",
+          "title": "Postmortems sin culpa y aprendizaje",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje"
         },
         {
           "id": "SE-502",
           "number": 502,
-          "title": "AI-DLC, gobierno y vibe coding frente a agentic engineering",
+          "title": "Continuidad, disaster recovery y ejercicios",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios"
         },
         {
           "id": "SE-503",
           "number": 503,
-          "title": "Taller: diagnosticar el fallo de un harness",
+          "title": "Taller: diagnosticar con telemetría incompleta",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta"
         },
         {
           "id": "SE-504",
           "number": 504,
-          "title": "Proyecto: harness mínimo gobernado y evaluado",
+          "title": "Proyecto: operación observable y recuperable",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado"
-        }
-      ]
-    },
-    {
-      "id": "42",
-      "stage": "H",
-      "stage_title": "Ingeniería de software nativa con IA",
-      "title": "Patrones agénticos y sistemas con LLM",
-      "owner": "suite",
-      "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm",
-      "lessons": [
-        {
-          "id": "SE-505",
-          "number": 505,
-          "title": "Workflows frente a agentes: cuándo no usar un agente",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente"
-        },
-        {
-          "id": "SE-506",
-          "number": 506,
-          "title": "Encadenado, enrutamiento y paralelización",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-506-encadenado-enrutamiento-y-paralelizacion"
-        },
-        {
-          "id": "SE-507",
-          "number": 507,
-          "title": "Orquestador-trabajadores y evaluador-optimizador",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador"
-        },
-        {
-          "id": "SE-508",
-          "number": 508,
-          "title": "ReAct, plan-and-execute y reflexión",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion"
-        },
-        {
-          "id": "SE-509",
-          "number": 509,
-          "title": "Memoria y gestión de estado de agentes",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes"
-        },
-        {
-          "id": "SE-510",
-          "number": 510,
-          "title": "Embeddings, recuperación y agentic RAG",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag"
-        },
-        {
-          "id": "SE-511",
-          "number": 511,
-          "title": "Interoperabilidad entre agentes: MCP y A2A",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a"
-        },
-        {
-          "id": "SE-512",
-          "number": 512,
-          "title": "Ejecución durable, reintentos e idempotencia",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia"
-        },
-        {
-          "id": "SE-513",
-          "number": 513,
-          "title": "Evals y LLMOps de sistemas con LLM",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm"
-        },
-        {
-          "id": "SE-514",
-          "number": 514,
-          "title": "Costo, latencia y seguridad en sistemas con LLM",
-          "kind": "class",
-          "estimated_hours": 4,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm"
-        },
-        {
-          "id": "SE-515",
-          "number": 515,
-          "title": "Taller: elegir y degradar un patrón agéntico",
-          "kind": "studio",
-          "estimated_hours": 6,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico"
-        },
-        {
-          "id": "SE-516",
-          "number": 516,
-          "title": "Proyecto: sistema con LLM evaluado y operable",
-          "kind": "project",
-          "estimated_hours": 8,
-          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable"
+          "path": "classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable"
         }
       ]
     },
     {
       "id": "43",
-      "stage": "E",
-      "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Mantenimiento y modernización legacy",
       "owner": "suite",
-      "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia",
+      "path": "classes/part-43-mantenimiento-y-modernizacion-legacy",
       "lessons": [
         {
           "id": "SE-517",
           "number": 517,
-          "title": "Criterios para usar un catálogo de patrones",
+          "title": "Mantenimiento correctivo, adaptativo y perfectivo",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo"
         },
         {
           "id": "SE-518",
           "number": 518,
-          "title": "GoF creacionales: Factory, Builder, Singleton y Prototype",
+          "title": "Arqueología de código y recuperación de conocimiento",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-518-gof-creacionales-factory-builder-singleton-y-prototype"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento"
         },
         {
           "id": "SE-519",
           "number": 519,
-          "title": "GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite",
+          "title": "Pruebas de caracterización y seams",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams"
         },
         {
           "id": "SE-520",
           "number": 520,
-          "title": "GoF conductuales: Strategy, Observer, Command, State y Template Method",
+          "title": "Dependencias obsoletas y riesgo acumulado",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado"
         },
         {
           "id": "SE-521",
           "number": 521,
-          "title": "GRASP y asignación de responsabilidades",
+          "title": "Strangler, branch by abstraction y anticorruption",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption"
         },
         {
           "id": "SE-522",
           "number": 522,
-          "title": "Repository, Unit of Work y Active Record",
+          "title": "Migraciones de runtime, lenguaje y framework",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework"
         },
         {
           "id": "SE-523",
           "number": 523,
-          "title": "Enterprise Integration Patterns como lenguaje común",
+          "title": "Migraciones de datos sin interrupción",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion"
         },
         {
           "id": "SE-524",
           "number": 524,
-          "title": "Resiliencia: timeout, retry con jitter y circuit breaker",
+          "title": "Compatibilidad, coexistencia y doble escritura",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura"
         },
         {
           "id": "SE-525",
           "number": 525,
-          "title": "Resiliencia: bulkhead, sidecar, ambassador y degradación",
+          "title": "Retiro, archivado y disposición de sistemas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas"
         },
         {
           "id": "SE-526",
           "number": 526,
-          "title": "Antipatrones y deuda de diseño",
+          "title": "Economía de reescribir frente a evolucionar",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar"
         },
         {
           "id": "SE-527",
           "number": 527,
-          "title": "Taller: refactorizar con patrones y medir su costo",
+          "title": "Taller: estabilizar antes de modernizar",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar"
         },
         {
           "id": "SE-528",
           "number": 528,
-          "title": "Proyecto: catálogo de patrones de un sistema real",
+          "title": "Proyecto: migración incremental reversible",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real"
+          "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-528-proyecto-migracion-incremental-reversible"
         }
       ]
     },
     {
       "id": "44",
-      "stage": "E",
-      "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Estilos arquitectónicos",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Gestión, liderazgo y práctica profesional",
       "owner": "suite",
-      "path": "classes/part-44-estilos-arquitectonicos",
+      "path": "classes/part-44-gestion-liderazgo-y-practica-profesional",
       "lessons": [
         {
           "id": "SE-529",
           "number": 529,
-          "title": "Estilos como respuestas a fuerzas de calidad",
+          "title": "Liderazgo técnico sin autoridad formal",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal"
         },
         {
           "id": "SE-530",
           "number": 530,
-          "title": "Microkernel y arquitecturas de plugins",
+          "title": "Diseño de equipos y ownership",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership"
         },
         {
           "id": "SE-531",
           "number": 531,
-          "title": "Pipes and filters y arquitecturas de flujo",
+          "title": "Comunicación, facilitación y conflicto",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto"
         },
         {
           "id": "SE-532",
           "number": 532,
-          "title": "Microservicios y sus costes reales",
+          "title": "Mentoría, feedback y crecimiento",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento"
         },
         {
           "id": "SE-533",
           "number": 533,
-          "title": "BFF, API gateway y service mesh",
+          "title": "Estimación organizacional y compromisos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos"
         },
         {
           "id": "SE-534",
           "number": 534,
-          "title": "Multi-tenancy y aislamiento",
+          "title": "Gestión de riesgos y decisiones ejecutivas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas"
         },
         {
           "id": "SE-535",
           "number": 535,
-          "title": "Data mesh y propiedad de los datos",
+          "title": "Compras, proveedores y evaluación técnica",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica"
         },
         {
           "id": "SE-536",
           "number": 536,
-          "title": "Arquitectura celular y radio de impacto",
+          "title": "Propiedad intelectual, contratos y ética",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica"
         },
         {
           "id": "SE-537",
           "number": 537,
-          "title": "12-factor y aplicaciones nativas de la nube",
+          "title": "Economía del software y costo total",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-537-economia-del-software-y-costo-total"
         },
         {
           "id": "SE-538",
           "number": 538,
-          "title": "Evolución y migración entre estilos",
+          "title": "Portafolio, entrevistas y defensa profesional",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional"
         },
         {
           "id": "SE-539",
           "number": 539,
-          "title": "Taller: seleccionar un estilo con escenarios de calidad",
+          "title": "Taller: conducir una revisión de decisión difícil",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil"
         },
         {
           "id": "SE-540",
           "number": 540,
-          "title": "Proyecto: decisión arquitectónica defendida con ADR",
+          "title": "Proyecto: dossier profesional defendible",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr"
+          "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible"
         }
       ]
     },
     {
       "id": "45",
-      "stage": "E",
-      "stage_title": "Diseño, arquitectura, datos e integración",
-      "title": "Ingeniería de datos y plataformas de datos",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Metodologías de desarrollo: de TDD a ODD",
       "owner": "suite",
-      "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos",
+      "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd",
       "lessons": [
         {
           "id": "SE-541",
           "number": 541,
-          "title": "Del dato operacional al analítico",
+          "title": "Mapa de metodologías: qué decide cada una y cómo elegir",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-541-del-dato-operacional-al-analitico"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir"
         },
         {
           "id": "SE-542",
           "number": 542,
-          "title": "Ingesta batch y streaming",
+          "title": "TDD: ciclo rojo-verde-refactor y diseño emergente",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-542-ingesta-batch-y-streaming"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente"
         },
         {
           "id": "SE-543",
           "number": 543,
-          "title": "Modelado analítico: hechos, dimensiones y granularidad",
+          "title": "TDD en la práctica: escuelas de Londres y clásica, y sus límites",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-543-modelado-analitico-hechos-dimensiones-y-granularidad"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-543-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites"
         },
         {
           "id": "SE-544",
           "number": 544,
-          "title": "Transformación y orquestación idempotente con backfills",
+          "title": "BDD: ejemplos, conversación y lenguaje compartido",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-544-transformacion-y-orquestacion-idempotente-con-backfills"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido"
         },
         {
           "id": "SE-545",
           "number": 545,
-          "title": "Calidad y observabilidad de datos",
+          "title": "ATDD y Specification by Example: aceptación ejecutable",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-545-calidad-y-observabilidad-de-datos"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable"
         },
         {
           "id": "SE-546",
           "number": 546,
-          "title": "Contratos de datos y evolución de esquemas",
+          "title": "DDD como lenguaje ubicuo y contexto para agentes",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-546-contratos-de-datos-y-evolucion-de-esquemas"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes"
         },
         {
           "id": "SE-547",
           "number": 547,
-          "title": "Linaje, catálogo y metadatos",
+          "title": "Diseño por contrato y pruebas de contrato como oráculo",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-547-linaje-catalogo-y-metadatos"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-547-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo"
         },
         {
           "id": "SE-548",
           "number": 548,
-          "title": "Warehouse, lake, lakehouse y formatos columnares",
+          "title": "SDD: spec-first, spec-anchored y spec-as-source",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-548-warehouse-lake-lakehouse-y-formatos-columnares"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source"
         },
         {
           "id": "SE-549",
           "number": 549,
-          "title": "Gobierno, privacidad y retención de datos",
+          "title": "EDD: evaluaciones como especificación y puerta de release",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-549-gobierno-privacidad-y-retencion-de-datos"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-549-edd-evaluaciones-como-especificacion-y-puerta-de-release"
         },
         {
           "id": "SE-550",
           "number": 550,
-          "title": "Costos y operación de plataformas de datos",
+          "title": "ODD: desarrollo orgánico y su contraste con SDD",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-550-costos-y-operacion-de-plataformas-de-datos"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd"
         },
         {
           "id": "SE-551",
           "number": 551,
-          "title": "Taller: reparar un pipeline defectuoso",
+          "title": "Taller: un mismo cambio con cinco metodologías",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-551-taller-reparar-un-pipeline-defectuoso"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-551-taller-un-mismo-cambio-con-cinco-metodologias"
         },
         {
           "id": "SE-552",
           "number": 552,
-          "title": "Proyecto: plataforma de datos mínima gobernada",
+          "title": "Proyecto: política metodológica de equipo con evidencia",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-552-proyecto-plataforma-de-datos-minima-gobernada"
+          "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia"
         }
       ]
     },
@@ -4944,317 +4763,529 @@
       "id": "46",
       "stage": "H",
       "stage_title": "Ingeniería de software nativa con IA",
-      "title": "Machine learning en producción y MLOps",
+      "title": "Desarrollo de software asistido por IA",
       "owner": "suite",
-      "path": "classes/part-46-machine-learning-en-produccion-y-mlops",
+      "path": "classes/part-46-desarrollo-de-software-asistido-por-ia",
       "lessons": [
         {
           "id": "SE-553",
           "number": 553,
-          "title": "Ciclo de vida de ML y por qué falla en producción",
+          "title": "Capacidades y límites de los modelos generativos",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-553-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos"
         },
         {
           "id": "SE-554",
           "number": 554,
-          "title": "Datos de entrenamiento, etiquetas y feature stores",
+          "title": "Prompting, instrucciones y criterios de salida",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-554-datos-de-entrenamiento-etiquetas-y-feature-stores"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-554-prompting-instrucciones-y-criterios-de-salida"
         },
         {
           "id": "SE-555",
           "number": 555,
-          "title": "Experimentos y entrenamiento reproducible",
+          "title": "Contexto, archivos, memoria y recuperación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-555-experimentos-y-entrenamiento-reproducible"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion"
         },
         {
           "id": "SE-556",
           "number": 556,
-          "title": "Evaluación, sesgos y validación de modelos",
+          "title": "Autocompletado, chat, edición y generación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-556-evaluacion-sesgos-y-validacion-de-modelos"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-556-autocompletado-chat-edicion-y-generacion"
         },
         {
           "id": "SE-557",
           "number": 557,
-          "title": "Ajuste fino, adaptación y costo",
+          "title": "Prototipado, scaffolding y exploración de alternativas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-557-ajuste-fino-adaptacion-y-costo"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas"
         },
         {
           "id": "SE-558",
           "number": 558,
-          "title": "Servir modelos: latencia, lotes y GPU",
+          "title": "Generación de pruebas, documentación y migraciones",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-558-servir-modelos-latencia-lotes-y-gpu"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones"
         },
         {
           "id": "SE-559",
           "number": 559,
-          "title": "Despliegue seguro de modelos: shadow, canary y rollback",
+          "title": "Revisión, refactorización y explicación asistidas",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-559-despliegue-seguro-de-modelos-shadow-canary-y-rollback"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas"
         },
         {
           "id": "SE-560",
           "number": 560,
-          "title": "Monitoreo, deriva y reentrenamiento",
+          "title": "Context engineering y reducción de ambigüedad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-560-monitoreo-deriva-y-reentrenamiento"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-560-context-engineering-y-reduccion-de-ambiguedad"
         },
         {
           "id": "SE-561",
           "number": 561,
-          "title": "Seguridad y robustez de sistemas de ML",
+          "title": "Evals de exactitud, utilidad, costo y latencia",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-561-seguridad-y-robustez-de-sistemas-de-ml"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia"
         },
         {
           "id": "SE-562",
           "number": 562,
-          "title": "Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF",
+          "title": "Privacidad, propiedad intelectual y código inseguro",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-562-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-562-privacidad-propiedad-intelectual-y-codigo-inseguro"
         },
         {
           "id": "SE-563",
           "number": 563,
-          "title": "Taller: degradar y recuperar un modelo",
+          "title": "Taller: comparar flujos manual, asistido y automatizado",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-563-taller-degradar-y-recuperar-un-modelo"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-563-taller-comparar-flujos-manual-asistido-y-automatizado"
         },
         {
           "id": "SE-564",
           "number": 564,
-          "title": "Proyecto: sistema de ML operable con evidencia",
+          "title": "Proyecto: cambio real con trazabilidad y revisión humana",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-564-proyecto-sistema-de-ml-operable-con-evidencia"
+          "path": "classes/part-46-desarrollo-de-software-asistido-por-ia/se-564-proyecto-cambio-real-con-trazabilidad-y-revision-humana"
         }
       ]
     },
     {
       "id": "47",
-      "stage": "F",
-      "stage_title": "Calidad, seguridad y entrega",
-      "title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "SPEC, agentes y ciclo de vida agentic",
       "owner": "suite",
-      "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad",
+      "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic",
       "lessons": [
         {
           "id": "SE-565",
           "number": 565,
-          "title": "Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA",
+          "title": "De la intención a la especificación durable",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-565-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable"
         },
         {
           "id": "SE-566",
           "number": 566,
-          "title": "IEC 61508 y niveles de integridad de seguridad",
+          "title": "Constitución, specify, clarify, plan y tasks",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-566-iec-61508-y-niveles-de-integridad-de-seguridad"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-566-constitucion-specify-clarify-plan-y-tasks"
         },
         {
           "id": "SE-567",
           "number": 567,
-          "title": "Automoción: ISO 26262 y niveles ASIL",
+          "title": "Implementación, análisis y convergencia contra SPEC",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-567-automocion-iso-26262-y-niveles-asil"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec"
         },
         {
           "id": "SE-568",
           "number": 568,
-          "title": "Aviación: DO-178C, DO-254 y ARP4754",
+          "title": "Greenfield, brownfield, bug fixing e idea assessment",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-568-aviacion-do-178c-do-254-y-arp4754"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment"
         },
         {
           "id": "SE-569",
           "number": 569,
-          "title": "Dispositivos médicos: IEC 62304",
+          "title": "Agentes, herramientas, permisos y límites de autoridad",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-569-dispositivos-medicos-iec-62304"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-569-agentes-herramientas-permisos-y-limites-de-autoridad"
         },
         {
           "id": "SE-570",
           "number": 570,
-          "title": "Casos de seguridad y trazabilidad",
+          "title": "Skills, plugins, hooks y entornos aislados",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-570-casos-de-seguridad-y-trazabilidad"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-570-skills-plugins-hooks-y-entornos-aislados"
         },
         {
           "id": "SE-571",
           "number": 571,
-          "title": "RTOS y planificación de tiempo real",
+          "title": "MCP, recursos, prompts, tools y confianza",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-571-rtos-y-planificacion-de-tiempo-real"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza"
         },
         {
           "id": "SE-572",
           "number": 572,
-          "title": "Codificación segura: MISRA y CERT",
+          "title": "Delegación, subagentes y sistemas multiagente",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-572-codificacion-segura-misra-y-cert"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-572-delegacion-subagentes-y-sistemas-multiagente"
         },
         {
           "id": "SE-573",
           "number": 573,
-          "title": "Verificación formal y model checking: TLA+, SPARK y Alloy",
+          "title": "Human-in-the-loop, aprobación y acciones reversibles",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-573-verificacion-formal-y-model-checking-tla-spark-y-alloy"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-573-human-in-the-loop-aprobacion-y-acciones-reversibles"
         },
         {
           "id": "SE-574",
           "number": 574,
-          "title": "Verificación y cobertura: MC/DC, HIL y SIL",
+          "title": "Seguridad agentic, prompt injection y auditoría",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-574-verificacion-y-cobertura-mc-dc-hil-y-sil"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria"
         },
         {
           "id": "SE-575",
           "number": 575,
-          "title": "Taller: analizar un fallo real frente a las normas",
+          "title": "Taller: detener, recuperar y evaluar un agente",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-575-taller-analizar-un-fallo-real-frente-a-las-normas"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente"
         },
         {
           "id": "SE-576",
           "number": 576,
-          "title": "Proyecto: paquete de aseguramiento de un controlador",
+          "title": "Proyecto final: producto operable construido desde SPEC",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-576-proyecto-paquete-de-aseguramiento-de-un-controlador"
+          "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec"
         }
       ]
     },
     {
       "id": "48",
-      "stage": "D",
-      "stage_title": "Superficies y formas de software",
-      "title": "Runtimes y plataformas modernas",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Harness y agentic engineering",
       "owner": "suite",
-      "path": "classes/part-48-runtimes-y-plataformas-modernas",
+      "path": "classes/part-48-harness-y-agentic-engineering",
       "lessons": [
         {
           "id": "SE-577",
           "number": 577,
-          "title": "WebAssembly y WASI",
+          "title": "Anatomía de un harness: modelo, contexto, herramientas y bucles",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles"
         },
         {
           "id": "SE-578",
           "number": 578,
-          "title": "WebAssembly en servidor y borde: component model",
+          "title": "Instrucciones de repositorio y cumplimiento determinista",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-578-webassembly-en-servidor-y-borde-component-model"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista"
         },
         {
           "id": "SE-579",
           "number": 579,
-          "title": "eBPF: observabilidad, red y seguridad en el kernel",
+          "title": "Herramientas, permisos y superficies de acción",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-579-ebpf-observabilidad-red-y-seguridad-en-el-kernel"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-579-herramientas-permisos-y-superficies-de-accion"
         },
         {
           "id": "SE-580",
           "number": 580,
-          "title": "GPU y aceleradores: modelo de ejecución",
+          "title": "Gestión de contexto, resets y handoffs",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-580-gpu-y-aceleradores-modelo-de-ejecucion"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-580-gestion-de-contexto-resets-y-handoffs"
         },
         {
           "id": "SE-581",
           "number": 581,
-          "title": "Rendimiento y costo en aceleradores",
+          "title": "Loops de agentes y criterios de parada",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-581-rendimiento-y-costo-en-aceleradores"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-581-loops-de-agentes-y-criterios-de-parada"
         },
         {
           "id": "SE-582",
           "number": 582,
-          "title": "Contenedores, microVM y sandboxes",
+          "title": "Sandboxes, reversibilidad y control de daño",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-582-contenedores-microvm-y-sandboxes"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano"
         },
         {
           "id": "SE-583",
           "number": 583,
-          "title": "Hardware seguro: TEE y atestación",
+          "title": "Verificación, gates y menú único de validación",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-583-hardware-seguro-tee-y-atestacion"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion"
         },
         {
           "id": "SE-584",
           "number": 584,
-          "title": "Computación cuántica para ingenieros de software",
+          "title": "Multiagente y coordinación dentro del harness",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-584-computacion-cuantica-para-ingenieros-de-software"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness"
         },
         {
           "id": "SE-585",
           "number": 585,
-          "title": "Criptografía poscuántica y migración",
+          "title": "Observabilidad y evals del propio harness",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-585-criptografia-poscuantica-y-migracion"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness"
         },
         {
           "id": "SE-586",
           "number": 586,
-          "title": "Confianza cero en la práctica",
+          "title": "AI-DLC, gobierno y vibe coding frente a agentic engineering",
           "kind": "class",
           "estimated_hours": 4,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-586-confianza-cero-en-la-practica"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering"
         },
         {
           "id": "SE-587",
           "number": 587,
-          "title": "Taller: elegir y aislar un runtime para una carga no confiable",
+          "title": "Taller: diagnosticar el fallo de un harness",
           "kind": "studio",
           "estimated_hours": 6,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-587-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-587-taller-diagnosticar-el-fallo-de-un-harness"
         },
         {
           "id": "SE-588",
           "number": 588,
-          "title": "Proyecto: plataforma de ejecución aislada con evidencia",
+          "title": "Proyecto: harness mínimo gobernado y evaluado",
           "kind": "project",
           "estimated_hours": 8,
-          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-588-proyecto-plataforma-de-ejecucion-aislada-con-evidencia"
+          "path": "classes/part-48-harness-y-agentic-engineering/se-588-proyecto-harness-minimo-gobernado-y-evaluado"
+        }
+      ]
+    },
+    {
+      "id": "49",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Patrones agénticos y sistemas con LLM",
+      "owner": "suite",
+      "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm",
+      "lessons": [
+        {
+          "id": "SE-589",
+          "number": 589,
+          "title": "Workflows frente a agentes: cuándo no usar un agente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente"
+        },
+        {
+          "id": "SE-590",
+          "number": 590,
+          "title": "Encadenado, enrutamiento y paralelización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion"
+        },
+        {
+          "id": "SE-591",
+          "number": 591,
+          "title": "Orquestador-trabajadores y evaluador-optimizador",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador"
+        },
+        {
+          "id": "SE-592",
+          "number": 592,
+          "title": "ReAct, plan-and-execute y reflexión",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion"
+        },
+        {
+          "id": "SE-593",
+          "number": 593,
+          "title": "Memoria y gestión de estado de agentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes"
+        },
+        {
+          "id": "SE-594",
+          "number": 594,
+          "title": "Embeddings, recuperación y agentic RAG",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag"
+        },
+        {
+          "id": "SE-595",
+          "number": 595,
+          "title": "Interoperabilidad entre agentes: MCP y A2A",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a"
+        },
+        {
+          "id": "SE-596",
+          "number": 596,
+          "title": "Ejecución durable, reintentos e idempotencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-596-ejecucion-durable-reintentos-e-idempotencia"
+        },
+        {
+          "id": "SE-597",
+          "number": 597,
+          "title": "Evals y LLMOps de sistemas con LLM",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm"
+        },
+        {
+          "id": "SE-598",
+          "number": 598,
+          "title": "Costo, latencia y seguridad en sistemas con LLM",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm"
+        },
+        {
+          "id": "SE-599",
+          "number": 599,
+          "title": "Taller: elegir y degradar un patrón agéntico",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico"
+        },
+        {
+          "id": "SE-600",
+          "number": 600,
+          "title": "Proyecto: sistema con LLM evaluado y operable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable"
+        }
+      ]
+    },
+    {
+      "id": "50",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Machine learning en producción y MLOps",
+      "owner": "suite",
+      "path": "classes/part-50-machine-learning-en-produccion-y-mlops",
+      "lessons": [
+        {
+          "id": "SE-601",
+          "number": 601,
+          "title": "Ciclo de vida de ML y por qué falla en producción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion"
+        },
+        {
+          "id": "SE-602",
+          "number": 602,
+          "title": "Datos de entrenamiento, etiquetas y feature stores",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-602-datos-de-entrenamiento-etiquetas-y-feature-stores"
+        },
+        {
+          "id": "SE-603",
+          "number": 603,
+          "title": "Experimentos y entrenamiento reproducible",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible"
+        },
+        {
+          "id": "SE-604",
+          "number": 604,
+          "title": "Evaluación, sesgos y validación de modelos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos"
+        },
+        {
+          "id": "SE-605",
+          "number": 605,
+          "title": "Ajuste fino, adaptación y costo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-605-ajuste-fino-adaptacion-y-costo"
+        },
+        {
+          "id": "SE-606",
+          "number": 606,
+          "title": "Servir modelos: latencia, lotes y GPU",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu"
+        },
+        {
+          "id": "SE-607",
+          "number": 607,
+          "title": "Despliegue seguro de modelos: shadow, canary y rollback",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback"
+        },
+        {
+          "id": "SE-608",
+          "number": 608,
+          "title": "Monitoreo, deriva y reentrenamiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento"
+        },
+        {
+          "id": "SE-609",
+          "number": 609,
+          "title": "Seguridad y robustez de sistemas de ML",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml"
+        },
+        {
+          "id": "SE-610",
+          "number": 610,
+          "title": "Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf"
+        },
+        {
+          "id": "SE-611",
+          "number": 611,
+          "title": "Taller: degradar y recuperar un modelo",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo"
+        },
+        {
+          "id": "SE-612",
+          "number": 612,
+          "title": "Proyecto: sistema de ML operable con evidencia",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-50-machine-learning-en-produccion-y-mlops/se-612-proyecto-sistema-de-ml-operable-con-evidencia"
         }
       ]
     }

@@ -1,192 +1,201 @@
-# Parte 41 — Harness y agentic engineering
+# Parte 41 — Observabilidad, SRE e incidentes
 
-La Parte 40 comparó metodologías como oráculos: qué evidencia produce cada una y qué defectos deja pasar. La pregunta cambia de «¿qué práctica ordena el desarrollo?» a «¿qué entorno hace que un agente de código cumpla lo que esas prácticas exigen?». Esta parte estudia el **harness**, todo lo que rodea al modelo en un agente: instrucciones del repositorio, contexto, herramientas, permisos, bucle, parada, aislamiento, verificación, coordinación, observabilidad y gobierno. Lo hace con un único caso, **el arnés del equipo de *Avisos***: un entorno mínimo en Python con seis tareas de mantenimiento, una política guionizada que hace de «modelo» y controles que se quitan, se ponen y se miden uno por uno.
+La Parte 40 llevó el código a producción por un camino con compuertas y un retorno seguro. La pregunta cambia de «¿cómo llega una versión a producción?» a «¿cómo sabemos qué le está pasando una vez allí, qué promesa defendemos, qué hacemos cuando falla y cómo volvemos si todo se pierde?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa operada en producción**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo y cinco servicios que cooperan. Cada clase convierte una práctica de operación (observar, medir, avisar, responder, aprender, recuperar) en un mecanismo que se puede medir, mide cómo se engaña quien la usa mal y declara qué no demuestra.
 
 ## Pregunta rectora
 
-> Para este agente y este repositorio, ¿qué puede tocar, cuándo se detiene, qué debe demostrar antes de dar algo por terminado, qué queda registrado y qué parte de lo que pasó se debe al modelo y qué parte al entorno?
+> ¿Qué señales, qué promesa, qué alertas y qué respuesta hacen falta para operar un servicio, y qué evidencia reproducible permite a otra persona comprobar que funcionan, refutarlas o decir cuándo dejan de valer?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un producto de agentes ni defiende uno. Enseña a leer un agente como **un modelo dentro de una arquitectura de control** y a diagnosticar y mejorar esa arquitectura con evidencia. La primera clase quita piezas a un harness mínimo y muestra que cada ausencia deja un patrón de fallo distinto (`SE-493`); la segunda reparte las reglas del repositorio entre prosa, hook y compuerta según se puedan mecanizar (`SE-494`); la tercera compara dos políticas de permisos sobre treinta comandos (`SE-495`); la cuarta modela qué sobrevive en el contexto de una sesión larga (`SE-496`); la quinta compara reglas de parada sobre miles de tareas simuladas (`SE-497`); la sexta mide qué recuperan el confinamiento, la copia y Git tras acciones destructivas (`SE-498`); la séptima ejecuta cinco compuertas sobre doce cambios (`SE-499`); la octava fusiona ramas reales de Git (`SE-500`); la novena calcula métricas de trazas y simula comparaciones con ruido (`SE-501`); la décima clasifica cambios por riesgo y modela tres modos de gobierno (`SE-502`); el taller diagnostica seis fallos inyectados (`SE-503`) y el proyecto ensambla y evalúa un harness mínimo gobernado (`SE-504`).
+Esta parte no enseña un producto de observabilidad, una plataforma de alertas ni una herramienta de gestión de guardias. Enseña a distinguir lo que un sistema emite de lo que se puede preguntar durante un incidente y a localizar una lentitud con duraciones inclusivas, a escribir registros que una máquina consulta y a unir las líneas de una petición entre servicios, a presupuestar las series de una métrica antes de añadir una dimensión y a saber qué reconstruye un muestreo periódico, a seguir una petición con trazas, auditar las fronteras donde se pierde el contexto y leer la ruta crítica antes de optimizar, a convertir una promesa en un indicador, un objetivo, un presupuesto y una política, a derivar alertas del consumo del presupuesto y medir el ruido que producen, a escribir un runbook que una persona cansada pueda seguir y dimensionar una guardia y su escalamiento, a coordinar un incidente con roles, severidades medibles y una cadencia de comunicación sin creer en promedios de pocos casos, a escribir un postmortem sin culpa con factores y acciones verificables, a restaurar una copia en lugar de confiar en que se creó, a descubrir el orden real de una recuperación y sus ciclos, y a diagnosticar con telemetría incompleta distinguiendo lo normal de lo que no tiene datos. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (una cadena de cuatro servicios donde el p99 absoluto acierta 50 de 200 veces y el aumento relativo 196, un umbral global que ve en 8,7 % de los casos la falla total de un cliente pequeño, 463 GB para una métrica con un identificador de persona, 59,4 % de peticiones en una sola traza, 166 % del presupuesto mensual consumido por un corte de 30 minutos en hora punta, 12 622 páginas de una regla corta frente a 13 de una de consumo, 77 noches interrumpidas al año con dos personas de guardia, un kappa de 0,29 con criterios vagos, 100 de 180 defectos de un postmortem detectados por forma, 20 de 40 copias dañadas que un chequeo de integridad no ve, una tasa de error leída a la mitad por la pérdida selectiva de líneas y una recuperación completa del 55,4 % con cinco etapas buenas) y declara lo que esa medida no demuestra.
 
 ```mermaid
 flowchart LR
-    A[Anatomía del harness] --> B[Instrucciones y comprobador]
-    B --> C[Herramientas y permisos]
-    C --> D[Contexto y relevo]
-    D --> E[Bucles y parada]
-    E --> F[Sandbox y daño]
-    F --> G[Verificación y menú]
-    G --> H[Multiagente]
-    H --> I[Trazas y evals]
-    I --> J[Gobierno]
-    J --> K[Taller: diagnóstico]
-    K --> L[Proyecto: harness gobernado]
-    L -->|fallos nuevos| A
+    A[Señales, eventos y observabilidad útil] --> B[Logs estructurados y correlación]
+    B --> C[Métricas, dimensiones y cardinalidad]
+    C --> D[Trazas distribuidas y contexto]
+    D --> E[SLI, SLO, SLA y presupuestos de error]
+    E --> F[Alertas accionables y fatiga]
+    F --> G[Runbooks, on-call y escalamiento]
+    G --> H[Gestión de incidentes y comunicación]
+    H --> I[Postmortems sin culpa y aprendizaje]
+    I --> J[Continuidad, disaster recovery y ejercicios]
+    J --> K[Taller de diagnóstico con telemetría incompleta]
+    K --> L[Paquete operativo observable y recuperable]
+    L -->|incidente o ejercicio| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio: cada clase puede aplicarse a un harness existente. El retorno indica que los fallos nuevos vuelven a la anatomía: un harness se corrige con la evidencia de lo que falló.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo de un ejercicio reabre la pregunta de qué señales hacían falta; un paquete operativo validado no cierra la operación, la fecha.
 
 ## Resultados acumulativos
 
-Podrás identificar las piezas de un harness y medir qué falla cuando falta cada una, distinguiendo una falla del modelo de una del entorno; clasificar las reglas de un archivo de instrucciones en mecanizables y semánticas, escribir un comprobador y medir sus aciertos, falsas alarmas y omisiones; comparar una lista de permisos por prefijo con un análisis del comando y decidir qué herramientas ofrecer.
+Podrás escribir una tabla de preguntas con la señal que responde cada una, localizar el servicio lento de una cadena comparando cada duración con su línea base en lugar de elegir la mayor, medir qué fracción de una falla en un cliente pequeño detecta un umbral global frente a una sonda rotativa y contar cuántas preguntas posteriores a un incidente responden unas métricas frente a un evento ancho; diseñar el esquema de un registro con campos versionados, medir cuánto sobrevive una extracción por expresión regular y una lectura por campos a cuatro versiones de una línea, calcular la fracción de peticiones con la cadena completa según la propagación del identificador y las líneas huérfanas atribuibles por el reloj, y comparar políticas de muestreo y de redacción;
 
-Podrás explicar por qué una ventana de contexto más grande no sustituye al relevo en disco y comparar truncar, resumir y anotar; diseñar reglas de parada con tres salidas (éxito verificado, cambio de plan, escalada con evidencia) y compararlas por simulación; separar impedir de deshacer y comprobar una restauración real.
+calcular el número de series de una métrica como producto de cardinalidades y su memoria estimada, reconstruir un contador con reinicios y estimar la probabilidad de ver un pico según el intervalo de lectura, y comparar tres diseños de cubetas de histograma por su error en p50, p95 y p99; validar la cabecera `traceparent`, calcular la fragmentación de una traza según las fronteras asíncronas, comparar el ahorro de optimizar un span al azar, el más largo o el de la ruta crítica, y contrastar el muestreo de cabeza con el de cola y su exigencia de enrutado coherente; escribir un SLI como proporción de eventos buenos sobre válidos, calcular el presupuesto de un SLO en minutos y en peticiones, ver por qué contar minutos y contar peticiones dan consumos opuestos, medir el servidor frente al cliente y los reintentos, y calcular la composición de dependencias en serie y los meses que incumplen un objetivo;
 
-Podrás escribir un menú único de validación con compuertas ordenadas por costo y una compuerta contra la manipulación de las pruebas; coordinar más de un agente con propiedad de archivos, aislamiento por rama e integrador, y reconocer un conflicto semántico que Git no ve; diseñar trazas y comparar dos versiones de un harness decidiendo con una regla que considera el ruido y la potencia.
+derivar alertas del consumo del presupuesto con dos ventanas, comparar seis reglas por páginas, detecciones, retraso y falsos positivos sobre 180 días con tráfico nocturno bajo, medir el efecto de la duración mínima y de la agrupación sobre la fatiga y elegir una ventana por el equilibrio entre ruido y retraso; escribir un runbook con salida esperada, reversión y escalamiento, calcular la carga de una guardia según el tamaño del equipo y las ausencias, estimar la cobertura de un escalamiento con y sin causa común y medir qué detecta un verificador de forma frente a 240 mutaciones; asignar roles de incidente, comprobar con kappa el acuerdo de tres personas sobre la severidad, descomponer el tiempo de resolución por tramos, ver cuánto varía por azar la media de un trimestre y encontrar la cadencia de actualizaciones que minimiza las interrupciones;
 
-Podrás escribir una política de gobierno proporcional al riesgo, distinguir *vibe coding* de ingeniería agéntica con un criterio verificable, diagnosticar fallos de un harness desde su traza y entregar un harness mínimo gobernado con su evaluación y su informe de límites.
+escribir un postmortem sin culpa con impacto cuantificado, línea de tiempo, factores y acciones verificables, ver cuántas causas raíz declaran 400 analistas sobre el mismo grafo, calcular el efecto del cumplimiento de las acciones sobre la recurrencia y medir qué detecta un verificador de postmortems; fijar RPO y RTO, calcular los datos perdidos por copias y réplicas, comparar seis comprobaciones sobre 40 copias dañadas de una base SQLite, dibujar el mapa de dependencias de una restauración, hallar un ciclo y calcular la ruta crítica; representar un diagnóstico como una tabla de firmas, contar las fallas indistinguibles al faltar señales, comparar tres estrategias de observación y estimar el sesgo de una tasa de error leída en registros con pérdida selectiva; y validar un paquete operativo frente a 360 mutaciones, calcular la probabilidad de una respuesta completa como producto de etapas y comprobar la reproducibilidad con una huella en dos sistemas.
+
+Al finalizar podrás defender un paquete operativo con sus señales, su objetivo y su presupuesto, sus alertas, sus runbooks y su guardia, su protocolo de incidentes, su plantilla de postmortem, su restauración verificada y su ejercicio, con un validador, una huella reproducible y una lista de lo que ningún validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
-- [Parte 24 — Diseño, patrones y refactorización](../../classes/part-24-diseno-patrones-y-refactorizacion/): seguridad para cambiar código mediante pruebas.
-- [Parte 30 — Estrategia y técnicas de prueba](../../classes/part-30-estrategia-y-tecnicas-de-prueba/): diseño de pruebas, dobles y mutación.
-- [Parte 31 — Calidad, rendimiento y resiliencia](../../classes/part-31-calidad-rendimiento-y-resiliencia/): riesgo y escenarios de calidad.
-- [Parte 38 — Desarrollo de software asistido por IA](../../classes/part-38-desarrollo-de-software-asistido-por-ia/): uso de asistentes y sus riesgos.
-- [Parte 39 — SPEC, agentes y ciclo de vida agentic](../../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/): especificación durable, delegación y detención de agentes.
-- [Parte 40 — Metodologías de desarrollo: de TDD a ODD](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/): oráculos, evaluaciones con ruido y política metodológica.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar, y las clases `SE-498` y `SE-500` además requieren Git instalado.
+- [Parte 18 — CLI, TUI, servicios y automatización](../../classes/part-18-cli-tui-servicios-y-automatizacion/): servicios, registros y procesos de larga duración.
+- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, colas y reintentos.
+- [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): atributos de calidad, fronteras y decisiones registradas.
+- [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): copias, restauración y réplicas.
+- [Parte 32 — Concurrencia y sistemas distribuidos](../../classes/part-32-concurrencia-y-sistemas-distribuidos/): fallos parciales, relojes y causalidad.
+- [Parte 33 — Cloud, plataforma e infraestructura](../../classes/part-33-cloud-plataforma-e-infraestructura/): regiones, cuentas y dependencias de plataforma.
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): percentiles, colas, reintentos, disponibilidad y presión controlada.
+- [Parte 40 — CI/CD, IaC y platform engineering](../../classes/part-40-ci-cd-iac-y-platform-engineering/): camino a producción y reversión.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos, salvo las copias de SQLite de `SE-502` y las sondas de plataforma de `SE-504`, que son lecturas reales del equipo.
 
 ## Bloques y progresión
 
-1. **Anatomía, instrucciones y herramientas:** las clases 493 a 495 definen las piezas del harness, reparten las reglas entre prosa y mecanismo y acotan lo que el agente puede hacer.
-2. **Contexto, bucles y control de daño:** las clases 496 a 498 tratan lo que el agente recuerda, cuándo debe detenerse y hasta dónde puede llegar el daño.
-3. **Verificar, coordinar y medir:** las clases 499 a 501 construyen el menú de validación, coordinan varios agentes y miden el harness con trazas y evaluaciones.
-4. **Gobernar, diagnosticar e integrar:** las clases 502 a 504 escriben la política de gobierno, diagnostican fallos desde la traza y ensamblan el harness del proyecto.
+1. **Observar:** las clases 421 a 424 definen las señales, estructuran los registros, presupuestan las métricas y siguen una petición con trazas.
+2. **Prometer y avisar:** las clases 425 y 426 convierten una promesa en un objetivo con presupuesto y lo vigilan con alertas que merecen una página.
+3. **Responder y aprender:** las clases 427 a 429 organizan la respuesta (runbooks, guardia, incidentes) y la convierten en cambios del sistema.
+4. **Recuperar:** la clase 430 prepara el desastre con RPO, RTO, restauraciones y ejercicios.
+5. **Aplicar e integrar:** las clases 431 y 432 diagnostican con telemetría incompleta y reúnen la parte en un paquete operativo reproducible.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 y Git 2.55 en Windows 11; las simulaciones usan semilla fija y reproducen sus resultados, y los tiempos de reloj varían entre equipos. **No se invocó ningún modelo de lenguaje, no se ejecutó ningún producto de agentes de terceros y no se evaluó ninguna herramienta comercial.** El «modelo» de todos los laboratorios es una política guionizada y determinista (`scripts/experiments_part41_lab.py`): los experimentos miden el efecto del entorno sobre esa política, no el comportamiento de un modelo real. Los experimentos no se repitieron en otro sistema operativo.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, las semillas están fijadas y casi todos los experimentos (atribución, segmentos, registros, series, contadores, histogramas, contexto, ruta crítica, muestreo, objetivos, alertas, guardia, incidentes, postmortems, recuperación, diagnóstico y cadena de respuesta) corren en **tiempo virtual**: no hay reloj, red ni servidor reales, y las salidas de esos experimentos fueron idénticas en ambos sistemas, cifra por cifra. Hay tres excepciones, todas intencionales: las **sondas de plataforma** de `SE-504` (separador de línea, bytes escritos, lectura con la codificación local, separador de rutas y distinción de mayúsculas) difieren entre Windows y Ubuntu por diseño, porque eso es lo que miden; la **memoria por serie** de `SE-495` (429 bytes) es una medición de `tracemalloc` sobre CPython que coincidió en los dos intérpretes y puede variar con otra versión; y las **copias de SQLite** de `SE-502`, una medición real en un directorio temporal con un daño inyectado por el autor, cuya detección fue idéntica en ambos sistemas y cuyos tiempos de reloj (decenas de milisegundos) no se reproducen al milisegundo.
 
-Los experimentos son: siete configuraciones de un harness mínimo sobre seis tareas, de las que el harness completo resuelve 6 de 6 con 5 pasos, tres configuraciones resuelven 0 y dos terminan tres tareas en falso (`SE-493`); un comprobador de seis reglas sobre diecisiete casos con 9 aciertos, 1 falsa alarma y 4 omisiones (`SE-494`); treinta comandos analizados sin ejecutar, de los que una lista de prefijos deja pasar 13 de 18 inseguros y un análisis del comando ninguno (`SE-495`); un modelo determinista de 120 turnos de contexto con diez hechos y tres estrategias (`SE-496`); una simulación con semilla 497 de cinco reglas de parada sobre 4 000 tareas (`SE-497`); cinco acciones destructivas contra quince archivos en directorios temporales con cuatro configuraciones, incluido un repositorio de Git real (`SE-498`).
+Los experimentos son: la localización de un servicio lento en una cadena de cuatro con cuatro conjuntos de señales, la falla total de un cliente según tres señales y 60 preguntas posteriores a un incidente sobre ocho dimensiones (`SE-493`); cuatro versiones de una línea de registro con regex y con campos por nombre, la propagación del identificador en cuatro saltos con las líneas huérfanas, y el volumen, el muestreo y la redacción sobre 200 000 líneas y quince variantes de datos personales (`SE-494`); el número de series y la memoria de una métrica, un contador con tres reinicios con picos de un indicador y tres diseños de cubetas sobre 100 000 latencias (`SE-495`); el contexto de una petición de seis saltos con la validación de once cabeceras, 600 árboles de spans con tres reglas de optimización y 100 000 trazas con dos políticas de muestreo y tres recolectores (`SE-496`); un presupuesto de 99,9 % medido por peticiones y por minutos en tres incidentes, el servidor frente al cliente con 200 000 solicitudes y la composición de dependencias con 20 000 meses (`SE-497`); seis reglas de alerta sobre 180 días con 26 incidentes, 200 incidentes en cascada con 3 000 destellos y cuatro ventanas sobre 120 días (`SE-498`); la carga de una guardia con 300 años por tamaño de equipo, 20 000 páginas con tres niveles de escalamiento y un verificador de runbooks frente a 240 mutaciones (`SE-499`); 2 000 incidentes descompuestos en cinco tramos con 4 000 trimestres, cinco cadencias de actualización y 400 incidentes clasificados por tres personas con tres criterios (`SE-500`); tres años de incidentes según el cumplimiento de acciones, 400 analistas sobre un grafo de 12 factores y un verificador de postmortems frente a 180 mutaciones (`SE-501`); 20 000 fallos con cuatro estrategias de copia y réplica, 40 copias dañadas de una base de 20 000 filas con seis comprobaciones y la restauración de 12 componentes con un ciclo (`SE-502`); diez fallas y doce señales con todas las combinaciones de señales ausentes, tres estrategias de observación sobre 4 000 diagnósticos y una tasa de error con pérdida selectiva de líneas (`SE-503`); y un validador de paquetes frente a 360 mutaciones, 20 000 incidentes en una cadena de cinco etapas y la huella de los resultados en dos sistemas (`SE-504`).
 
-Siguen cinco compuertas sobre doce cambios, de las que el menú completo atrapa 9 de 11 defectos y las pruebas solas 2 (`SE-499`); cuatro fusiones con ramas reales de Git y una simulación con semilla 500 del solapamiento de dos a ocho agentes (`SE-500`); métricas de trazas reales y una simulación con semilla 501 de la comparación de dos harness con 50, 200 y 800 tareas (`SE-501`); una clasificación por riesgo de doce cambios y un modelo paramétrico con semilla 502 de 20 000 cambios y tres modos de trabajo (`SE-502`); seis fallos inyectados con dos diagnosticadores, que aciertan 24 y 30 de 30 (`SE-503`); y un harness de referencia con seis controles evaluado en seis tareas normales y cuatro escenarios adversos, con y sin controles (`SE-504`).
+Los parámetros (los cuatro servicios y sus duraciones, el reparto de 40 clientes con tráfico 1/k, las ocho dimensiones y sus cardinalidades, las cuatro versiones del mensaje, las probabilidades de propagación, el 2 % de errores de los registros, los 429 bytes por serie, las probabilidades de pérdida de contexto por frontera, el 1 % de errores y el 2 % de lentas de las trazas, el perfil de tráfico de 5 a 100 peticiones por segundo, el 1,2 de incidentes por mes con duración lognormal, el 0,1 % de errores basales, los 26 incidentes de las alertas, las 8,1 alertas por incidente, las 1,5 páginas diarias de la guardia, el 85 % de respuesta por nivel y el 30 % de causa común, las medianas por tramo de los incidentes, el ruido de percepción de la severidad, los costes de 3 y 4 minutos de las preguntas y las actualizaciones, las 12 causas con tasas 1/k, el grafo de 12 factores, el 1 % de picos del retraso de la réplica, los 12 componentes de la restauración, las diez fallas y su tabla binaria de firmas, las pérdidas selectivas de líneas y las cinco etapas de la respuesta con sus probabilidades) son **supuestos del autor**, no mediciones. Cada clase los lista y dice qué cambiaría si fueran otros.
 
-Los parámetros (las seis tareas, los diecisiete casos del comprobador, los treinta comandos, los diez hechos de contexto, la mezcla de tareas de la simulación de parada, los quince archivos, los doce cambios y las cinco compuertas, los cuatro escenarios de fusión, las probabilidades de las simulaciones, los seis fallos y los cuatro escenarios adversos) son construcciones del autor. Ninguna cifra es una tasa real de ningún agente, equipo o producto, y las simulaciones de `SE-496`, `SE-497`, `SE-501` y `SE-502` muestran mecanismos con supuestos explícitos.
-
-Lo que **no se hizo**: no se midió ningún modelo de lenguaje, ningún producto de agentes (Claude Code, Codex, Cursor, Copilot u otros) ni ningún sandbox del sistema operativo; no se probó un adversario adaptativo; no se midió productividad, costo en dinero ni esfuerzo humano; no se evaluó la eficacia de AI-DLC ni del marco de NIST más allá de describir lo que sus fuentes dicen; y las afirmaciones sobre productos documentan lo que su documentación declara, no su comportamiento. No hay revisión editorial humana independiente de esta parte.
+Lo que **no se hizo**: no se instrumentó, observó ni operó ningún servicio, base de datos, red ni sistema reales, ni se envió una sola petición a ninguno; no se usó ninguna herramienta de observabilidad, de trazado, de métricas, de alertas, de gestión de guardias ni de incidentes; no se midió ninguna guardia, equipo ni persona, y el estudio de fatiga que se cita es de un entorno clínico y se usa solo como respaldo del fenómeno; no se ejecutó ningún runbook ni ningún ejercicio de recuperación contra un sistema, y los comandos de los runbooks son ilustrativos; no se probó macOS ni otras versiones de Python; los verificadores de runbooks, de postmortems y de paquetes, las reglas de alerta y las estrategias se afinaron con los mismos casos que los evalúan, de modo que sus porcentajes muestran una frontera y no una tasa; y los resultados sobre cadencia, severidad y causas raíz son propios de sus modelos. La parte no tiene laboratorio en `labs/`, y su contenido sigue pendiente de revisión humana independiente.
 
 ## Guía razonada clase por clase
 
-*Avisos* mantiene su servicio de recordatorios mientras un asistente de código lo mantiene a él. Cada clase explica qué pieza del harness estudia, qué experimento la mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
+La API de entregas mantiene un contrato, un conjunto de señales y un paquete operativo estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-### Bloque 1 — Anatomía, instrucciones y herramientas
+### Bloque 1 — Observar
 
-#### SE-493 — Anatomía de un harness: modelo, contexto, herramientas y bucles
+#### SE-493 — Señales, eventos y observabilidad útil
 
-Un agente es un modelo más todo lo que lo rodea. La clase quita una pieza por vez a un harness mínimo (contexto, escritura, bucle, parada, verificación, instrucciones) y mide cómo falla cada configuración: resolver con 12 pasos en vez de 5 y terminar en falso son fallos distintos.
+Una señal sirve si responde una pregunta que se hará durante el incidente. La clase compara cuatro conjuntos de señales para localizar al servicio lento de una cadena, mide cuánto del tráfico global ve una falla total de un cliente pequeño y cuenta cuántas de 60 preguntas posteriores responden las métricas y los eventos anchos.
 
-El estudiante entrega la anatomía de un harness real y su tabla de ablación con la predicción previa. `SE-494` trata la pieza más frágil, las instrucciones.
+El estudiante entrega una tabla pregunta → señal → señal que falta. `SE-494` pregunta cómo escribir el evento que responde esas preguntas.
 
-#### SE-494 — Instrucciones de repositorio y cumplimiento determinista
+#### SE-494 — Logs estructurados y correlación
 
-Una regla en prosa es una petición; una regla mecanizada es una garantía. La clase escribe un comprobador de seis reglas, lo mide sobre diecisiete casos (9 aciertos, 1 falsa alarma, 4 omisiones) y reparte cada regla entre prosa, hook y compuerta.
+Un registro es una interfaz con quien investiga. La clase mide qué sobrevive de una extracción por regex y por campos a cuatro versiones de una línea, calcula la fracción de peticiones completas según la propagación del identificador y compara políticas de muestreo y de redacción.
 
-El estudiante entrega la clasificación de las reglas de su repositorio con sus casos. `SE-495` acota lo que el agente puede hacer.
+El estudiante entrega un esquema de registros con su política de muestreo y de redacción. `SE-495` resume los eventos como métricas.
 
-#### SE-495 — Herramientas, permisos y superficies de acción
+#### SE-495 — Métricas, dimensiones y cardinalidad
 
-Un permiso por prefijo describe cómo empieza un comando, no qué hace. La clase compara una lista de prefijos con un análisis del comando sobre treinta casos: los prefijos dejan pasar 13 de 18 comandos inseguros y el análisis, ninguno, a costa de denegar uno seguro.
+Cada combinación de etiquetas es una serie. La clase calcula el crecimiento del número de series y su memoria, reconstruye un contador con reinicios y estima qué picos ve cada intervalo de lectura, y compara tres diseños de cubetas de histograma por su error de percentil.
 
-El estudiante entrega su política de permisos con treinta comandos de prueba. `SE-496` trata lo que el agente recuerda mientras trabaja bajo esos permisos.
+El estudiante entrega un catálogo de métricas con presupuesto de series. `SE-496` sigue una petición entre servicios.
 
-### Bloque 2 — Contexto, bucles y control de daño
+#### SE-496 — Trazas distribuidas y contexto
 
-#### SE-496 — Gestión de contexto, resets y handoffs
+El contexto se pierde donde cambia el medio o la unidad de ejecución. La clase calcula la fragmentación de las trazas, mide cuánto ahorra optimizar según la ruta crítica y compara el muestreo de cabeza con el de cola y su enrutado.
 
-El contexto es un recurso escaso, no una memoria. La clase modela 120 turnos con diez hechos y compara truncar, resumir y escribir notas; el relevo en disco conserva 8 de 10 con una ventana de 12 000 fichas frente a 1 de truncar.
+El estudiante entrega un inventario de fronteras con una prueba por frontera asíncrona. `SE-497` usa las señales para fijar un objetivo.
 
-El estudiante entrega un archivo de relevo verificable por otra persona. `SE-497` trata el bucle que llena el contexto.
+### Bloque 2 — Prometer y avisar
 
-#### SE-497 — Loops de agentes y criterios de parada
+#### SE-497 — SLI, SLO, SLA y presupuestos de error
 
-Un tope de pasos limita el daño y no distingue casi resuelto de inviable. La clase simula cinco reglas de parada sobre 4 000 tareas: la regla de falta de progreso con cambio de plan resuelve 77,0 % con 3,5 iteraciones medias y escala con evidencia.
+Un objetivo sin ventana ni punto de medición admite lecturas opuestas. La clase mide el mismo presupuesto por peticiones y por minutos, compara el servidor con el cliente y los reintentos y calcula la composición de dependencias y los meses que incumplen.
 
-El estudiante entrega las reglas de parada de su harness con sus tres salidas. `SE-498` trata qué pasa cuando, pese a todo, el agente daña.
+El estudiante entrega un SLI, un SLO, un SLA y una política de presupuesto. `SE-498` los convierte en alertas.
 
-#### SE-498 — Sandboxes, reversibilidad y control de daño
+#### SE-498 — Alertas accionables y fatiga
 
-Impedir y deshacer son controles distintos. La clase ejecuta cinco acciones destructivas contra quince archivos con cuatro configuraciones: el confinamiento deja 2 intactos, Git recupera 10 y confinamiento más copia previa recupera los 15.
+Una página que no pide acción cuesta credibilidad. La clase compara seis reglas de alerta por páginas, detecciones y falsos positivos, mide el efecto de la duración mínima y la agrupación y elige una ventana por el equilibrio entre ruido y retraso.
 
-El estudiante entrega el inventario de efectos de su agente con el control de cada uno. `SE-499` decide qué cambios se aceptan.
+El estudiante entrega un conjunto de alertas clasificadas en página, ticket y registro. `SE-499` define qué hace quien la recibe.
 
-### Bloque 3 — Verificar, coordinar y medir
+### Bloque 3 — Responder y aprender
 
-#### SE-499 — Verificación, gates y menú único de validación
+#### SE-499 — Runbooks, on-call y escalamiento
 
-«Las pruebas pasan» es una compuerta, no la compuerta. La clase ejecuta cinco compuertas sobre doce cambios: las pruebas solas atrapan 2 de 11 defectos y el menú único 9; los dos restantes marcan el límite.
+Una persona cansada necesita pasos, no explicaciones. La clase calcula la carga de una guardia según el tamaño del equipo, la cobertura de un escalamiento con causa común y lo que un verificador de forma ve y no ve en un runbook.
 
-El estudiante entrega el comando único de validación con sus compuertas ordenadas por costo. `SE-500` trata más de un agente.
+El estudiante entrega un runbook ejecutado por otra persona y una rotación dimensionada. `SE-500` coordina varias personas.
 
-#### SE-500 — Multiagente y coordinación dentro del harness
+#### SE-500 — Gestión de incidentes y comunicación
 
-Una fusión limpia no es una integración correcta. La clase fusiona ramas reales de Git en cuatro escenarios, muestra un conflicto semántico que Git no ve y simula cuántas veces coinciden de dos a ocho agentes en algún archivo.
+Mitigar viene antes que entender y comunicar es parte de resolver. La clase mide el acuerdo sobre la severidad con kappa, descompone el tiempo en tramos, muestra cuánto varía la media por azar y busca la cadencia de actualizaciones que minimiza las interrupciones.
 
-El estudiante entrega la decisión de coordinación con propiedad de archivos e integrador. `SE-501` trata cómo saber qué hace el harness.
+El estudiante entrega un protocolo con roles, severidades medibles y cadencia. `SE-501` convierte el incidente en aprendizaje.
 
-#### SE-501 — Observabilidad y evals del propio harness
+#### SE-501 — Postmortems sin culpa y aprendizaje
 
-Sin traza no hay diagnóstico y sin comparación honesta no hay mejora. La clase calcula métricas de trazas reales y simula la comparación de dos harness: la regla «tiene más aciertos» declara mejor a uno idéntico entre 45 % y 49 % de las veces.
+Un postmortem se mide por los cambios que produce. La clase calcula el efecto del cumplimiento de las acciones sobre la recurrencia, muestra que 400 analistas declaran seis causas raíz sobre el mismo grafo y mide qué detecta un verificador de forma.
 
-El estudiante entrega el esquema de traza y un protocolo de evaluación con su potencia. `SE-502` sube un nivel: el gobierno.
+El estudiante entrega un postmortem con factores y acciones verificables. `SE-502` prepara lo que no ha ocurrido.
 
-### Bloque 4 — Gobernar, diagnosticar e integrar
+### Bloque 4 — Recuperar
 
-#### SE-502 — AI-DLC, gobierno y vibe coding frente a agentic engineering
+#### SE-502 — Continuidad, disaster recovery y ejercicios
 
-Gobernar es proporcionalidad: más control donde el daño potencial es mayor. La clase clasifica doce cambios con reglas, modela tres modos de trabajo y distingue *vibe coding* de ingeniería agéntica con AI-DLC y NIST como ejemplos descritos, no como resultados medidos.
+Un plan de recuperación que no se ha ejecutado es una hipótesis. La clase calcula los datos perdidos por cada estrategia, compara seis comprobaciones sobre 40 copias dañadas de una base real y calcula la ruta crítica y el ciclo de una restauración de 12 componentes.
 
-El estudiante entrega la política de gobierno de una página con su registro y su métrica. `SE-503` pone el harness a prueba.
+El estudiante entrega un plan con RPO, RTO, restauración verificada y calendario de ejercicios. `SE-503` diagnostica cuando la telemetría falta.
 
-#### SE-503 — Taller: diagnosticar el fallo de un harness
+### Bloque 5 — Aplicar e integrar
 
-El diagnóstico se entrena desde la traza. La clase inyecta seis fallos y compara un diagnosticador con traza mínima (24 de 30) y enriquecida (30 de 30): el campo que faltaba decidía entre dos fallos con síntomas idénticos.
+#### SE-503 — Taller: diagnosticar con telemetría incompleta
 
-El estudiante entrega el diagnóstico de los seis fallos con una tarea de regresión por cada uno. `SE-504` integra todo.
+Una señal sin datos no es una señal normal. El taller cuenta las fallas indistinguibles al faltar señales, compara tres estrategias de observación y mide cuánto se subestima la tasa de error cuando el agente pierde más líneas de error.
 
-#### SE-504 — Proyecto: harness mínimo gobernado y evaluado
+El estudiante entrega una bitácora de diagnóstico y la lista de telemetría a vigilar. `SE-504` lo integra en un paquete.
 
-Un control sin escenario que lo ejerza es una creencia. El proyecto ensambla un harness mínimo con seis controles y lo evalúa con seis tareas normales y cuatro escenarios adversos: sin controles se contiene 1 de 4 comportamientos descuidados y con ellos 4 de 4, sin costo en las tareas normales.
+#### SE-504 — Proyecto: operación observable y recuperable
 
-El estudiante entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites. La Parte 42 usa un harness como este para estudiar patrones agénticos.
+Un paquete coherente no es un servicio operable. El proyecto mide qué detecta un validador sobre 360 mutaciones, calcula la recuperación completa como producto de cinco etapas y compara la huella de los resultados en dos sistemas.
+
+El estudiante entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites. La Parte 43 lleva la mirada al mantenimiento y la modernización de sistemas existentes.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-493](../../classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/) | Anatomía de un harness: modelo, contexto, herramientas y bucles | Entrega la anatomía de un harness real y su tabla de ablación con la predicción previa |
-| [SE-494](../../classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/) | Instrucciones de repositorio y cumplimiento determinista | Entrega la clasificación de las reglas de su repositorio con sus casos |
-| [SE-495](../../classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion/) | Herramientas, permisos y superficies de acción | Entrega su política de permisos con treinta comandos de prueba |
-| [SE-496](../../classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs/) | Gestión de contexto, resets y handoffs | Entrega un archivo de relevo verificable por otra persona |
-| [SE-497](../../classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada/) | Loops de agentes y criterios de parada | Entrega las reglas de parada de su harness con sus tres salidas |
-| [SE-498](../../classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/) | Sandboxes, reversibilidad y control de daño | Entrega el inventario de efectos de su agente con el control de cada uno |
-| [SE-499](../../classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion/) | Verificación, gates y menú único de validación | Entrega el comando único de validación con sus compuertas ordenadas por costo |
-| [SE-500](../../classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness/) | Multiagente y coordinación dentro del harness | Entrega la decisión de coordinación con propiedad de archivos e integrador |
-| [SE-501](../../classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness/) | Observabilidad y evals del propio harness | Entrega el esquema de traza y un protocolo de evaluación con su potencia |
-| [SE-502](../../classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/) | AI-DLC, gobierno y vibe coding frente a agentic engineering | Entrega la política de gobierno de una página con su registro y su métrica |
-| [SE-503](../../classes/part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness/) | Taller: diagnosticar el fallo de un harness | Entrega el diagnóstico de los seis fallos con una tarea de regresión por cada uno |
-| [SE-504](../../classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/) | Proyecto: harness mínimo gobernado y evaluado | Entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites |
+| [SE-493](../../classes/part-41-observabilidad-sre-e-incidentes/se-493-senales-eventos-y-observabilidad-util/) | Señales, eventos y observabilidad útil | Entrega una tabla pregunta → señal → señal que falta |
+| [SE-494](../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/) | Logs estructurados y correlación | Entrega un esquema de registros con su política de muestreo y de redacción |
+| [SE-495](../../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/) | Métricas, dimensiones y cardinalidad | Entrega un catálogo de métricas con presupuesto de series |
+| [SE-496](../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/) | Trazas distribuidas y contexto | Entrega un inventario de fronteras con una prueba por frontera asíncrona |
+| [SE-497](../../classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error/) | SLI, SLO, SLA y presupuestos de error | Entrega un SLI, un SLO, un SLA y una política de presupuesto |
+| [SE-498](../../classes/part-41-observabilidad-sre-e-incidentes/se-498-alertas-accionables-y-fatiga/) | Alertas accionables y fatiga | Entrega un conjunto de alertas clasificadas en página, ticket y registro |
+| [SE-499](../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/) | Runbooks, on-call y escalamiento | Entrega un runbook ejecutado por otra persona y una rotación dimensionada |
+| [SE-500](../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/) | Gestión de incidentes y comunicación | Entrega un protocolo con roles, severidades medibles y cadencia |
+| [SE-501](../../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/) | Postmortems sin culpa y aprendizaje | Entrega un postmortem con factores y acciones verificables |
+| [SE-502](../../classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/) | Continuidad, disaster recovery y ejercicios | Entrega un plan con RPO, RTO, restauración verificada y calendario de ejercicios |
+| [SE-503](../../classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/) | Taller: diagnosticar con telemetría incompleta | Entrega una bitácora de diagnóstico y la lista de telemetría a vigilar |
+| [SE-504](../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/) | Proyecto: operación observable y recuperable | Entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites |
 
 ## Fuentes
 
-- [Böckeler, «Harness engineering for coding agent users»](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html), [Anthropic, «Building effective agents»](https://www.anthropic.com/engineering/building-effective-agents) y [Yao et al., «ReAct»](https://arxiv.org/abs/2210.03629) — definición de harness, bucle del agente y recomendación de simplicidad; autoridad: Thoughtworks / martinfowler.com, Anthropic y arXiv; usadas en `SE-493`.
-- [AGENTS.md](https://agents.md/) y [Claude Code: hooks](https://code.claude.com/docs/en/hooks) — archivo de instrucciones para agentes y hooks que bloquean acciones; autoridad: proyecto AGENTS.md y Anthropic; usadas en `SE-494`.
-- [OWASP, «LLM06:2025 Excessive Agency»](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/), [Claude Code: permisos](https://code.claude.com/docs/en/permissions), [Anthropic, «Writing effective tools for agents»](https://www.anthropic.com/engineering/writing-tools-for-agents) y [Model Context Protocol](https://modelcontextprotocol.io/specification/latest) — agencia excesiva, permisos y diseño de herramientas; usadas en `SE-495`.
-- [Anthropic, «Effective context engineering for AI agents»](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents), [Anthropic, «Effective harnesses for long-running agents»](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) y [Liu et al., «Lost in the Middle»](https://aclanthology.org/2024.tacl-1.9/) — contexto, relevo y uso desigual de contextos largos; usadas en `SE-496`.
-- [Jimenez et al., «SWE-bench»](https://arxiv.org/abs/2310.06770) y [Anthropic, «Demystifying evals for AI agents»](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) — evaluación de agentes sobre tareas reales; usadas en `SE-497`, `SE-501` y `SE-503`.
-- [Anthropic, «Making Claude Code more secure and autonomous with sandboxing»](https://www.anthropic.com/engineering/claude-code-sandboxing) y [`git-worktree`](https://git-scm.com/docs/git-worktree) — aislamiento y árboles de trabajo; usadas en `SE-498` y `SE-500`.
-- [Anthropic, «How we built our multi-agent research system»](https://www.anthropic.com/engineering/multi-agent-research-system) y [Cognition, «Don't Build Multi-Agents»](https://cognition.ai/blog/dont-build-multi-agents) — dos posturas sobre sistemas multiagente; usadas en `SE-500`.
-- [AWS, AI-DLC](https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/), [Willison, «Not all AI-assisted programming is vibe coding»](https://simonwillison.net/2025/Mar/19/vibe-coding/) y [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) — flujo gobernado, definición de *vibe coding* y gestión de riesgos de IA; usadas en `SE-502`.
-- Documentación de Python: [`subprocess`](https://docs.python.org/3/library/subprocess.html), [`tempfile`](https://docs.python.org/3/library/tempfile.html), [`pathlib`](https://docs.python.org/3/library/pathlib.html) y [`unittest`](https://docs.python.org/3/library/unittest.html) — herramientas de los laboratorios.
+- [Google SRE: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/), [Practical Alerting](https://sre.google/sre-book/practical-alerting/) y [Effective Troubleshooting](https://sre.google/sre-book/effective-troubleshooting/) — señales, alertas y diagnóstico; autoridad: Google, libro de ingeniería de confiabilidad.
+- [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/), [Implementing SLOs](https://sre.google/workbook/implementing-slos/) y [Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/) — objetivos, presupuestos y alertas por consumo; autoridad: Google, SRE Book y SRE Workbook.
+- [Google SRE: Being On-Call](https://sre.google/sre-book/being-on-call/), [Managing Incidents](https://sre.google/sre-book/managing-incidents/) y [Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) — guardia, incidentes y postmortems; autoridad: Google, libro de ingeniería de confiabilidad.
+- [OpenTelemetry: Signals](https://opentelemetry.io/docs/concepts/signals/), [modelo de datos de registros](https://opentelemetry.io/docs/specs/otel/logs/data-model/), [propagación de contexto](https://opentelemetry.io/docs/concepts/context-propagation/) y [muestreo](https://opentelemetry.io/docs/concepts/sampling/) — señales, registros, contexto y muestreo; autoridad: proyecto OpenTelemetry (CNCF).
+- [W3C Trace Context](https://www.w3.org/TR/trace-context/) y [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339) — contexto de traza y marcas de tiempo; autoridad: W3C e IETF.
+- [Prometheus: modelo de datos](https://prometheus.io/docs/concepts/data_model/), [tipos de métricas](https://prometheus.io/docs/concepts/metric_types/), [nombres](https://prometheus.io/docs/practices/naming/), [histogramas](https://prometheus.io/docs/practices/histograms/) y [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) — métricas y alertas; autoridad: documentación del proyecto Prometheus.
+- [Sigelman et al., «Dapper»](https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/) y [Dean y Barroso, «The tail at scale»](https://doi.org/10.1145/2408776.2408794) — trazado distribuido y latencia de cola; autoridad: Google Research y Communications of the ACM.
+- [Cook, «How Complex Systems Fail»](https://how.complexsystems.fail/), [Fischhoff, «Hindsight ≠ foresight»](https://doi.org/10.1037/0096-1523.1.3.288) y [Dekker, «The Field Guide to Understanding “Human Error”»](https://openlibrary.org/isbn/9781472439055) — causas múltiples, sesgo de retrospectiva y error humano; autoridad: texto del autor, Journal of Experimental Psychology y libro con ISBN.
+- [Cohen, «A coefficient of agreement for nominal scales»](https://doi.org/10.1177/001316446002000104) y [Ancker et al.](https://doi.org/10.1186/s12911-017-0430-8) — acuerdo entre evaluadores y fatiga de alertas; autoridad: Educational and Psychological Measurement 1960 y BMC Medical Informatics and Decision Making 2017.
+- [NIST SP 800-34 Rev. 1](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final), [AWS Well-Architected: DR](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html), [Google Cloud: guía de DR](https://cloud.google.com/architecture/dr-scenarios-planning-guide) y [SQLite: copia en línea](https://www.sqlite.org/backup.html) — planes de contingencia, RPO y RTO y copias consistentes; autoridad: NIST y documentación de los proveedores.
+- [GitLab, postmortem de 2017](https://about.gitlab.com/blog/2017/02/10/postmortem-of-database-outage-of-january-31/) y [Meta, «More details about the October 4 outage»](https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/) — ejemplos públicos de recuperación y de dependencias circulares; autoridad: publicaciones de las propias organizaciones.
+- [PagerDuty Incident Response](https://response.pagerduty.com/) y [Atlassian Incident Management Handbook](https://www.atlassian.com/incident-management/handbook) — roles y comunicación en incidentes; autoridad: documentación pública de PagerDuty y Atlassian.
+- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — qué registrar y qué no; autoridad: proyecto OWASP.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen prácticas; que una práctica convenga a un equipo se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones operativas se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj, que declaran por qué no;
-- ninguna afirmación sobre un modelo, un producto de agentes, un equipo o un marco de gobierno se apoya en una simulación o en una política guionizada;
-- el harness del proyecto se evalúa con escenarios que ejercen cada control y declara lo que no contiene.
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj de las copias de `SE-502`, que declaran por qué no;
+- ninguna afirmación sobre un servicio, un equipo o un sistema real se apoya en una simulación;
+- los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
 
 [Volver al índice de clases](../../classes/README.md)

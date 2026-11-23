@@ -73,7 +73,7 @@ prefijo del título). Las marcadas «solo fallo» van únicamente en `casos/fall
 - **Profundidad**: cada sección explica mecanismo, causa, ejemplo y límite. Un caso no se da por
   terminado por tener las secciones o un número de palabras; se revisa completo de forma cualitativa.
 - **Vínculo real**: los enlaces a clases usan la ruta real, por ejemplo
-  `../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-337-.../README.md`, y el validador
+  `../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-385-.../README.md`, y el validador
   comprueba que el archivo existe.
 - **Neutralidad**: ni propaganda de la empresa ni juicio retrospectivo injusto; el caso explica por qué
   tenía sentido decidir como se decidió con la información de entonces.

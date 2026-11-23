@@ -1,5 +1,10 @@
 # Seguimiento de ejecución por partes
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](ID-MIGRATION.md) ([ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 Registro recuperable del trabajo de profundización visual y pedagógica. Complementa
 `ROADMAP.md`, `docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md` y
 `docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md`. El estado de una parte solo cambia cuando
@@ -144,3 +149,4 @@ su commit está en `main` con CI verde.
 | 47 | Desarrollada con experimentos reales y simulaciones sintéticas de sistemas críticos y normas de seguridad (análisis de peligros con FTA, FMEA y STPA, probabilidad de fallo bajo demanda con causa común, inyección de fallos y métricas de diagnóstico, cobertura estructural, clases de seguridad por segregación, caso de seguridad con trazabilidad, planificación con inversión de prioridad, reglas de código, verificador de estados, MC/DC por mutantes, modelos del caso Therac-25 y paquete de aseguramiento; las normas de pago se describen sin reproducir su texto; sin revisión humana ni afirmación de conformidad) y 36 figuras (SE-565 a SE-576) | `pendiente` |
 | mapa de roles (15 técnicos) | Núcleo rediseñado de software-engineer, systems-programmer, backend, frontend, full-stack, mobile, desktop, embedded-iot, safety-critical, api, data, database-reliability, distributed-systems, qa-test y performance: de 4 partes y 12 clases a entre 7 y 9 partes y entre 30 y 41 clases cada uno, con las Partes 40 y 43-48 donde el rol decide con ellas; texto de `PLANNED_BY_ROLE` retirado de esos roles, guías y mapa regenerados, sin cambio de contadores (CI verde: Validate y Security sobre `c179c69d`; Pages verde en el head posterior) | `c179c69d` |
 | mapa de roles (15 plataforma, entrega y conocimiento) | Núcleo rediseñado de accessibility, internationalization, requirements, devops, build-release, cloud, site-reliability, observability, platform, developer-experience, security, compliance, finops, green-software y technical-writer: de 4 partes y 12 clases a entre 7 y 9 partes y entre 34 y 40 clases, con las Partes 40 a 48 donde el rol decide con ellas y sin filas pendientes de partes ya publicadas; sin cambio de contadores (Validate y Security verdes sobre `04fb0b00`; Pages verde sobre `cb29db35`, que lo contiene) | `04fb0b00` |
+| 00–50 | Secuencia pedagógica (ADR-007): 51 partes y 612 posiciones, IA al final; las Partes 00–22 conservan número y las antiguas 23–48 se renumeran (312 clases); Partes 34 y 42 reservadas y planificadas; mapa `docs/ID-MIGRATION.json` y portal `site/legacy/`; Parte 06 como núcleo de cuatro roles; 45 roles y 16 casos intactos; etiqueta `pre-reorder-2026-11-23` | _pendiente_ |

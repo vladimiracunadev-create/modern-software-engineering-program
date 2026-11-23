@@ -1,255 +1,275 @@
-"""Figures for SE-355 to SE-360 (synthetic models with fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-355 to SE-360 (synthetic data, fixed seeds, SQLite 3.45; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3).
+
+Every figure is a chart or a diagram of the mechanism; the Markdown tables of the classes keep the exact values.
+"""
 from __future__ import annotations
 
-from figure_kit import Fig, dumbbell, fmt_exact, grouped_bars, heatmap, line_chart, percentile_intervals, scatter, stacked_bars
+from figure_kit import Fig, fmt_exact, grouped_bars, line_chart, scatter, stacked_bars, timeline
 from figures_part07_a import bars
-from figures_part40_a import flow
 
-SINT = "Modelo sintético con semilla fija; Windows y Ubuntu (WSL2) con cifras idénticas. Los parámetros son supuestos del autor."
+SINT = "Datos sintéticos con semilla fija; SQLite 3.45 en Windows y Ubuntu (WSL2); cifras idénticas salvo donde se indica."
 
 
 # ---------------------------------------------------------------- SE-355
-def se355_radio() -> Fig:
-    return scatter(
-        "Un error cometido en desarrollo o preproducción (20 000 ensayos): ¿llega a producción y cuánto daña?",
-        "Dispersión con tres estructuras de cuentas, con el porcentaje de errores que tocan producción en el eje vertical y los recursos afectados por error en el horizontal: una sola cuenta, 5,54 por ciento y 2,28 recursos; una cuenta por entorno, 0 y 1,39; una por entorno y servicio, 0 y 1,06. Separar cuentas baja ambos.",
-        [("Una sola cuenta", [(2.28, 5.54, "5,54 %", "l")], "coral"),
-         ("Una cuenta por entorno", [(1.39, 0, "0 %", "t")], "gold"),
-         ("Una cuenta por entorno y servicio", [(1.06, 0, "0 %", "t")], "teal")],
-        x_label="Recursos afectados por error (media)", y_label="Errores que tocan producción (%)",
-        x_ticks=[(1, "1,0"), (1.5, "1,5"), (2, "2,0"), (2.5, "2,5")], y_ticks=[0, 2, 4, 6], y_zero=True, point_labels="none",
-        note="La frontera de la cuenta no evita el error, acota su alcance: con una cuenta por entorno el comodín destruye más en desarrollo, pero ya no cruza. Los 24 recursos (3 entornos, 4 servicios, 2 clases), el 5 % de acciones comodín y la intención uniforme son supuestos del autor.",
+def se319_replicas() -> Fig:
+    return grouped_bars(
+        "Lecturas obsoletas tras una escritura propia: réplicas asíncronas y cuórum (100 000 y 60 000 pruebas)",
+        "Barras horizontales con el porcentaje de lecturas obsoletas inmediatas a la propia escritura: leer del líder o de una réplica con la versión, 0; de una réplica al azar o siempre de la misma, cerca del 24 por ciento; con tres réplicas, escribir en 1 y leer 1 falla el 66,7 por ciento, escribir 1 y leer 2 o escribir 2 y leer 1 cerca del 33, y con R más W mayor que N ninguna.",
+        ["Leer del líder", "Réplica al azar (retardo medio 50 ms, lectura a 0–200 ms)", "Siempre la misma réplica",
+         "Réplica con la versión de la escritura (8,3 % van al líder)", "Cuórum de 3: escribir en 1 y leer 1", "Cuórum de 3: escribir en 1 y leer 2",
+         "Cuórum de 3: escribir en 2 y leer 1", "Cuórum de 3: escribir en 2 y leer 2 (R + W > N)", "Escribir en las 3 y leer 1, o escribir en 1 y leer 3"],
+        [("Lecturas obsoletas (%)", [0, 24.37, 24.46, 0, 66.7, 33.4, 33.1, 0, 0], "coral")],
+        unit="Lecturas obsoletas tras la propia escritura (%)", horizontal=True, label_w=390, ticks=[0, 20, 40, 60, 80],
+        value_fmt=lambda v: fmt_exact(v) + " %",
+        note="Que el 24 % sea alto depende de un retardo medio de 50 ms y una lectura uniforme entre 0 y 200 ms: son supuestos del autor, no medidas de una base real. Lo que se mantiene es la forma: la lectura propia necesita la versión o el líder, y el cuórum solo acierta si las dos mitades se solapan.",
+        note_kind="coral", foot=SINT)
+
+
+def se319_movimiento() -> Fig:
+    return line_chart(
+        "Claves que cambian de nodo al pasar de 4 a 5 nodos con un anillo de hash (100 000 claves)",
+        "Líneas con el porcentaje de claves que cambian de nodo al añadir uno según los puntos del anillo por nodo: con 1 punto se mueve el 41,5 por ciento y el nodo más cargado recibe 2,07 veces la media; con 16 puntos 17,0 por ciento; con 128, 21,1 y 1,06 veces; con 512, 20,8 y 1,04 veces. El reparto por módulo mueve el 79,9 por ciento de 4 a 5 nodos y el 94,2 de 16 a 17.",
+        [("Anillo de hash", [(1, 41.5, "41,5 % · máx./media 2,07", "r"), (16, 17.0, "17,0 % · 1,20", "b"),
+                            (128, 21.1, "21,1 % · 1,06", "t"), (512, 20.8, "20,8 % · 1,04", "b")], "teal")],
+        x_label="Puntos del anillo por nodo", y_label="Claves que cambian de nodo (%)", log_x=True,
+        x_ticks=[(1, "1"), (16, "16"), (128, "128"), (512, "512")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        hlines=[(20, "Ideal al pasar de 4 a 5 nodos: 20 %"), (79.9, "Módulo, 4 → 5 nodos: 79,9 %"), (94.2, "Módulo, 16 → 17 nodos: 94,2 %")],
+        note="El módulo es sencillo y obliga a mover casi todo; el anillo mueve solo lo que llega al nodo nuevo, pero con pocos puntos reparte desigual (el rótulo de cada punto da el cociente entre la carga del nodo más cargado y la media con 5 nodos). El ideal al pasar de 4 a 5 nodos es mover 1/5 = 20 %. Hash MD5 de claves sintéticas; ningún motor de bases de datos real.",
         note_kind="teal", foot=SINT)
 
 
-def se355_divergencia() -> Fig:
-    return line_chart(
-        "Semanas con divergencia entre preproducción y producción en 52 semanas, según las ediciones manuales por semana",
-        "Líneas con las semanas con divergencia de 52 según las ediciones manuales por semana (0,1, 0,3 y 0,6): sin promoción son 38,0, 48,3 y 50,5; con una promoción que copia la configuración cada 4 semanas son 5,0, 13,7 y 24,1. Sin promoción, además, quedan 3,34, 9,32 y 17,39 claves distintas al final; con ella, 0.",
-        [("Sin promoción", [(0.1, 38.0, "38,0", "t"), (0.3, 48.3, "48,3", "t"), (0.6, 50.5, "50,5", "t")], "coral"),
-         ("Con promoción cada 4 semanas", [(0.1, 5.0, "5,0", "t"), (0.3, 13.7, "13,7", "t"), (0.6, 24.1, "24,1", "t")], "teal")],
-        x_label="Ediciones manuales por semana", y_label="Semanas con divergencia (de 52)",
-        x_ticks=[(0.1, "0,1"), (0.3, "0,3"), (0.6, "0,6")], y_ticks=[0, 13, 26, 39, 52], hlines=[(52, "52 semanas: todo el año")], point_labels="none",
-        note="La promoción no impide la divergencia, la acota en el tiempo: dura hasta la siguiente copia. Sin ella las diferencias se acumulan, la probabilidad de la edición manual es un supuesto del autor, y la experiencia de «en preproducción funcionaba» deja de significar nada tras unas semanas.",
-        note_kind="gold", foot=SINT)
-
-
-def se355_toxicas() -> Fig:
+def se319_sesgo() -> Fig:
     items = [
-        ("1 rol", 27.1, "teal", "27,1 %"),
-        ("2 roles", 61.8, "gold", "61,8 %"),
-        ("3 roles", 82.7, "coral", "82,7 %"),
-        ("4 roles", 92.3, "coral", "92,3 %"),
+        ("Claves uniformes, hash por estudiante", 1.05, "teal", "1,05 ×"),
+        ("Estudiantes con popularidad Zipf, hash por estudiante", 1.77, "gold", "1,77 ×"),
+        ("Zipf con la clave caliente repartida en 4 subclaves", 1.39, "gold", "1,39 ×"),
+        ("Zipf, partición por curso (50 cursos)", 1.92, "coral", "1,92 ×"),
+        ("Zipf, rangos contiguos de identificador", 6.76, "coral", "6,76 ×"),
     ]
-    return bars("Personas con una combinación tóxica de permisos según cuántos roles se les asignan (40 roles, 6 pares prohibidos)",
-                "Barras: con 40 roles de 2 a 4 permisos entre 12 y seis pares de permisos incompatibles, el 27,1 por ciento de las personas con un solo rol ya tiene una combinación tóxica; con dos roles el 61,8, con tres el 82,7 y con cuatro el 92,3.",
-                items, 7.5, "Once de los 40 roles ya contienen un par tóxico dentro de sí mismos; los demás se vuelven tóxicos al sumarse. Revisar cada rol por separado no detecta el problema: el riesgo está en la unión de los roles de una persona. Los 12 permisos, los 6 pares y los 40 roles son sintéticos.",
-                label_w=120, width=900, note_kind="coral", foot=SINT)
+    return bars("Carga de la partición más cargada frente a la media (8 particiones, 100 000 peticiones)",
+                "Barras: con peticiones uniformes la partición más cargada recibe 1,05 veces la media; con popularidad Zipf y hash por estudiante, 1,77; repartiendo la clave caliente en cuatro subclaves, 1,39; particionando por curso, 1,92; y con rangos contiguos de identificador, 6,76.",
+                items, 80, "Una sola clave recibe el 15,8 % de las peticiones: ninguna función de reparto la divide, hay que cambiar la clave. Repartirla en subclaves mejora la escritura y obliga a leer las cuatro. La popularidad Zipf con exponente 1,1 es un supuesto del autor.",
+                label_w=430, width=960, note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-356
-def se356_politicas() -> Fig:
-    return scatter(
-        "Siete días de tráfico con picos: demanda sin atender frente a instancias-hora, según la política",
-        "Dispersión con seis políticas de escalado, con las instancias-hora en el eje horizontal y el porcentaje de demanda sin atender en el vertical: 12 instancias fijas, 2 016 y 1,64; 30 fijas, 5 040 y 0; reactivo inmediato, 1 910 y 0; reactivo con arranque de 2 y 5 minutos, 1 866 y 0,34 y 1 813 y 0,84; programado, 1 762 y 1,85. Reservar para el pico cuesta 2,6 veces más.",
-        [("Fijo", [(2016, 1.64, "12 fijas", "r"), (5040, 0, "30 fijas", "t")], "coral"),
-         ("Reactivo", [(1910, 0, "Inmediato", "r"), (1866, 0.34, "2 min", "l"), (1813, 0.84, "5 min", "l")], "teal"),
-         ("Programado", [(1762, 1.85, "Programado", "t")], "gold")],
-        x_label="Instancias-hora en siete días", y_label="Demanda sin atender (%)",
-        x_ticks=[(1500, "1 500"), (2500, "2 500"), (3500, "3 500"), (4500, "4 500"), (5500, "5 500")], y_ticks=[0, 0.5, 1.0, 1.5, 2.0], y_zero=True, point_labels="none",
-        note="El arranque tarda y eso se paga en demanda perdida: cada minuto de retardo añade unos 0,17 puntos porcentuales de demanda perdida en este tráfico. Reservar para el peor pico cuesta 2,6 veces más que escalar con reacción. Capacidad de 20 solicitudes por segundo por instancia, objetivo del 60 % y picos de 2,5 a 4 veces son supuestos del autor.",
+def se320_politicas() -> Fig:
+    return line_chart(
+        "Lecturas obsoletas frente a aciertos según la política de caché (200 000 operaciones, 5 % escrituras)",
+        "Líneas con las lecturas obsoletas según los aciertos de la caché: subir el TTL de 10 a 100 y 1 000 operaciones sube los aciertos de 12,7 a 37,5 y 64,6 por ciento y las lecturas obsoletas de 0,21 a 4,41 y 23,73; sin TTL ni invalidación 98,9 por ciento de aciertos y 85,49 de obsoletas; invalidar al escribir o escribir también en la caché logra 62,9 y 66,2 por ciento de aciertos con 0 obsoletas.",
+        [("TTL de 10, 100, 1 000 operaciones y sin TTL", [(12.7, 0.21, "TTL 10", "t"), (37.5, 4.41, "TTL 100", "t"), (64.6, 23.73, "TTL 1 000", "l"),
+                                                         (98.9, 85.49, "Sin TTL ni invalidación", "l")], "coral"),
+         ("Con invalidación o escritura en la caché (TTL de 1 000)", [(62.9, 0, "", "t"), (66.2, 0, "", "t")], "teal")],
+        x_label="Aciertos de la caché (% de lecturas)", y_label="Lecturas obsoletas (%)",
+        x_ticks=[(0, "0"), (20, "20"), (40, "40"), (60, "60"), (80, "80"), (100, "100")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        annotations=[(62.9, 0, "Invalidar al escribir: 62,9 %, 0 obsoletas", -34, -44), (66.2, 0, "Escribir también en la caché: 66,2 %, 0 obsoletas", 36, -62)],
+        note="El TTL cambia frescura por aciertos; la invalidación elimina la obsolescencia sin perder aciertos, pero solo si la invalidación llega siempre. Las consultas a la base bajan de 165 849 con TTL de 10 a 2 000 sin TTL. Las obsolescencias no incluyen las carreras de la figura siguiente: aquí el modelo es secuencial.",
         note_kind="gold", foot=SINT)
 
 
-def se356_cola() -> Fig:
-    return line_chart(
-        "Una cola de un servidor: tiempo en el sistema según la utilización, en unidades del tiempo de servicio",
-        "Líneas con el tiempo medio y el percentil 99 en el sistema, en unidades del tiempo de servicio, según la utilización del 50, 70, 80, 90 y 95 por ciento: la media simulada va de 2,00 a 20,7 y el percentil 99 de 9,3 a 103; las curvas teóricas (2 a 20 y 9,2 a 92) casi las cubren. El tiempo se dispara pasado el 80 por ciento.",
-        [("Media simulada", [(50, 2.00, "", "t"), (70, 3.35, "", "t"), (80, 5.07, "5,07", "t"), (90, 10.1, "10,1", "t"), (95, 20.7, "20,7", "t")], "teal"),
-         ("Media teórica", [(50, 2.0, "", "t"), (70, 3.33, "", "t"), (80, 5.0, "", "t"), (90, 10.0, "", "t"), (95, 20.0, "", "t")], "navy"),
-         ("Percentil 99 simulado", [(50, 9.3, "9,3", "t"), (70, 15.6, "15,6", "t"), (80, 23.7, "23,7", "t"), (90, 48.3, "48,3", "t"), (95, 103, "103", "l")], "coral"),
-         ("Percentil 99 teórico", [(50, 9.2, "", "t"), (70, 15.4, "", "t"), (80, 23.0, "", "t"), (90, 46.1, "", "t"), (95, 92, "", "t")], "gold")],
-        x_label="Utilización del servidor (%)", y_label="Tiempo en el sistema (veces el de servicio)",
-        x_ticks=[(50, "50"), (70, "70"), (80, "80"), (90, "90"), (95, "95")], y_ticks=[0, 25, 50, 75, 100, 125], point_labels="none",
-        note="De 80 a 95 % de utilización el tiempo medio se cuadruplica: ese es el codo que el escalado debe evitar. La simulación de 200 000 clientes de Poisson con servicio exponencial coincide con la fórmula 1 ÷ (μ − λ); no representa colas con ráfagas, prioridades ni varios servidores.",
+def se320_estampida() -> Fig:
+    return grouped_bars(
+        "Pico de consultas a la base cuando expiran 1 000 claves (TTL de 60 s, recarga de 2 s)",
+        "Barras agrupadas con el pico de consultas por segundo a la base cuando expiran mil claves: si todas expiran a la vez el pico es de 2 000 sin protección y 863 con una sola recarga por clave; con variación del TTL de 10 por ciento baja a 423 y 99; con 30 por ciento, a 167 y 39.",
+        ["Todas expiran a la vez", "TTL con variación de ±10 %", "TTL con variación de ±30 %"],
+        [("Sin protección", [2000, 423, 167], "coral"), ("Una sola recarga por clave", [863, 99, 39], "teal")],
+        unit="Pico de consultas a la base por segundo", plot_h=270,
+        note="El pico y el total miden cosas distintas: la variación del TTL reparte el pico en el tiempo, la recarga única elimina las consultas repetidas (el total en 180 s baja de 8 640 a 2 000 con las claves a la vez, de 10 091 a 2 354 con ±30 %). Combinadas, el pico baja de 2 000 a 39. Es un modelo discreto de un segundo, con 2 000 lecturas por segundo y una recarga de 2 s supuesta.",
+        note_kind="teal", foot=SINT)
+
+
+def se320_carrera() -> Fig:
+    return timeline(
+        "Dos de los seis órdenes posibles de un lector y un escritor que dejan la caché con el valor viejo",
+        "Diagrama de secuencia de dos órdenes de los pasos de un lector (leer la base, llenar la caché) y de un escritor (escribir la base, borrar la clave) que dejan la caché con el valor viejo: en uno de seis órdenes la lectura vieja llega después de borrar la clave; en dos de seis, un lector rellena entre el borrado y la escritura; guardar con versión no deja la caché vieja en ninguno.",
+        [("Escribir y luego borrar (1 de 6): lector", [(0, 1, "R1 lee la base", "gold"), (3, 4, "R2 llena la caché", "coral")]),
+         ("Escribir y luego borrar (1 de 6): escritor", [(1, 2, "W1 escribe la base", "navy"), (2, 3, "W2 borra la clave", "navy")]),
+         ("Borrar y luego escribir (2 de 6): lector", [(1, 2, "R1 lee la base", "gold"), (2, 3, "R2 llena la caché", "coral")]),
+         ("Borrar y luego escribir (2 de 6): escritor", [(0, 1, "W2 borra la clave", "navy"), (3, 4, "W1 escribe la base", "navy")])],
+        unit="Posición en el orden de ejecución (pasos, no segundos)", ticks=[0, 1, 2, 3, 4], t_max=4, lane_h=52, label_w=250,
+        note="Mientras la clave no expire, el valor viejo se sirve para siempre: el TTL solo acota cuánto dura. El error aparece una vez en seis intercalaciones, es decir, es raro, no inexistente, y solo se ve con pruebas de intercalación; con la versión guardada y sin pisar una más nueva, 0 de 6. El modelo tiene un lector y un escritor.",
         note_kind="coral", foot=SINT)
-
-
-def se356_compromiso() -> Fig:
-    items = [
-        ("Todo bajo demanda", 1124.0, "gold", "1 124 (0 comprometidas)"),
-        ("Compromiso de 4", 862.0, "teal", "862"),
-        ("Compromiso de 7 (mediana)", 854.0, "teal", "854 (el mínimo)"),
-        ("Compromiso de 9", 943.0, "gold", "943"),
-        ("Compromiso de 14", 1426.0, "coral", "1 426"),
-        ("Compromiso de 30 (el máximo)", 3024.0, "coral", "3 024"),
-    ]
-    return bars("Coste de siete días de demanda según cuántas instancias se compromete (precio comprometido 0,6; bajo demanda 1,0)",
-                "Barras: pagar todo bajo demanda cuesta 1 124 unidades; comprometer 4 instancias baja a 862, 7 (la mediana de lo necesario) a 854, el mínimo; 9 sube a 943, 14 a 1 426 y 30, el máximo, a 3 024.",
-                items, 0.2, "El compromiso óptimo está en torno a la mediana de la demanda, no en el promedio ni en el máximo: comprometer de más cuesta más que no comprometer. Los precios son unidades inventadas con una rebaja del 40 %; no son tarifas de ningún proveedor, y el óptimo depende de que el patrón se repita durante la duración del compromiso.",
-                label_w=290, width=960, note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-357
-def se357_disponibilidad() -> Fig:
+def se321_perdida() -> Fig:
+    items = [
+        ("Copia diaria", 723.1, "coral", "723 min de media (máx. 1 440)"),
+        ("Copia cada 6 horas", 180.4, "coral", "180 min (máx. 360)"),
+        ("Copia cada hora", 30.0, "gold", "30 min (máx. 60)"),
+        ("Registro archivado cada 5 min", 2.5, "teal", "2,5 min (máx. 5)"),
+        ("Registro archivado cada minuto", 0.5, "teal", "0,5 min (máx. 1)"),
+    ]
+    return bars("Pérdida de datos al fallar a una hora uniforme, según el intervalo entre puntos recuperables",
+                "Barras: con una copia diaria la pérdida media al fallar es de 723 minutos y la máxima de 1 440; con una copia cada hora, 30 y 60; archivando el registro de cambios cada 5 minutos, 2,5 y 5; cada minuto, 0,5 y 1.",
+                items, 0.45, "La pérdida media es la mitad del intervalo y la máxima es el intervalo: el objetivo de punto de recuperación se cumple por diseño, no por buena suerte. 20 000 fallos uniformes en 30 días; una escritura por minuto. La copia no incluye el tiempo para detectar el fallo.",
+                label_w=300, width=980, note_kind="gold", foot=SINT)
+
+
+def se321_caliente() -> Fig:
     return grouped_bars(
-        "Minutos de caída al año al combinar dos proveedores que fallan de forma independiente",
-        "Barras horizontales en escala logarítmica con los minutos de caída al año: un proveedor de 99,95 por ciento pierde 262,8; dos con conmutación perfecta, 0,1; dos con conmutación que acierta el 90 por ciento, 26,4; dos con un DNS compartido de 99,95 por ciento, 262,9; dos exigiendo ambos a la vez, 525,5.",
-        ["Un proveedor (99,95 %)", "Dos, conmutación perfecta (99,99998 %)", "Dos, conmutación acierta el 90 % (99,995 %)", "Dos con un DNS compartido (99,95 %)", "Dos, exigiendo ambos a la vez (99,90 %)"],
-        [("Minutos de caída al año", [262.8, 0.1, 26.4, 262.9, 525.5], "coral")],
-        unit="Minutos de caída al año", horizontal=True, log=True, ticks=[0.1, 1, 10, 100, 1000], label_w=330,
-        note="Redundancia en paralelo ayuda mucho solo si la conmutación funciona y nada se comparte; una dependencia en serie con el mismo 99,95 % anula el beneficio, y exigir ambos lo empeora al doble. El cálculo se verificó con 35 millones de horas simuladas. La independencia de fallos y los 99,95 % son supuestos del autor, no medidas de un proveedor.",
+        "Cupos que faltan en la copia frente a la suma original de 2 000 000, con la comprobación de integridad en «ok» en los tres casos",
+        "Barras horizontales con los cupos que faltan frente a la suma original de 2 000 000 mientras otra transacción mueve 20 000 cupos: la base original no pierde ninguno, la copia del archivo con una transacción sin confirmar pierde 197 aunque integrity_check dice ok, y la API de copia en línea no pierde ninguno.",
+        ["Base original, antes de la transferencia", "Copia del archivo con una transacción sin confirmar", "Copia con la API de copia en línea (backup)"],
+        [("Cupos que faltan", [0, 197, 0], "coral")],
+        unit="Cupos que faltan frente a la suma de 2 000 000", horizontal=True, label_w=290, ticks=[0, 50, 100, 150, 200],
+        note="La copia a medias está estructuralmente sana (la suma queda en 1 999 803) y es lógicamente falsa: integrity_check no ve un invariante de negocio. La API la corrige tomando una instantánea consistente. Con otro tamaño de caché o de transacción, la diferencia sería otra: lo que no cambia es que puede haber alguna.",
         note_kind="coral", foot=SINT)
 
 
-def se357_interseccion() -> Fig:
-    return dumbbell(
-        "Funciones que ofrecen a la vez tres proveedores ficticios, frente a las que ofrece cada uno (media de 2 000 sorteos)",
-        "Mancuernas con las funciones que ofrece cada proveedor y las que ofrecen los tres a la vez: de 20 básicas, 18 y 14,6; de 20 avanzadas, 12 y 4,3; de las 40, 30 y 18,8. La intersección pierde más en las avanzadas, donde cae de 12 a 4,3.",
-        [("20 funciones básicas", 18, 14.6), ("20 funciones avanzadas", 12, 4.3), ("Las 40 funciones", 30, 18.8)],
-        unit="Funciones (de 20 o de 40)", names=("Cada proveedor ofrece", "Los tres a la vez"), lower_is_better=False, label_w=220,
-        note="El mínimo común denominador se lleva más de la mitad de las funciones: 21 de 40 quedan fuera por no estar en alguno. Portabilidad total sale a costa de no usar lo que justificó elegir el proveedor. Probar las 40 en cada uno son 120 casos frente a 56 si se limita a lo común. Los proveedores son ficticios y las probabilidades supuestos del autor; no se comparó ninguna oferta real.",
-        note_kind="gold", foot=SINT)
-
-
-def se357_gravedad() -> Fig:
-    return line_chart(
-        "Tiempo de mover datos entre proveedores según el volumen y el enlace (70 % de eficiencia)",
-        "Líneas en escala logarítmica con las horas para mover 0,1, 1, 10 y 100 terabytes: por un enlace de 100 megabits por segundo, 3,2, 31,7, 317,5 y 3 175 horas; por uno de 1 gigabit, 0,3, 3,2, 31,7 y 317,5. La línea de un día queda superada a partir de 1 terabyte con 100 megabits. El coste de salida crece de 8 a 8 000 unidades.",
-        [("Enlace de 100 Mbps", [(0.1, 3.2, "3,2", "t"), (1, 31.7, "31,7", "t"), (10, 317.5, "317,5", "t"), (100, 3175, "3 175", "l")], "coral"),
-         ("Enlace de 1 Gbps", [(0.1, 0.3, "0,3", "b"), (1, 3.2, "3,2", "b"), (10, 31.7, "31,7", "b"), (100, 317.5, "317,5", "b")], "teal")],
-        x_label="Volumen a mover (TB)", y_label="Horas para moverlo",
-        x_ticks=[(0.1, "0,1"), (1, "1"), (10, "10"), (100, "100")], log_x=True, log_y=True, hlines=[(24, "1 día")], point_labels="none",
-        note="Los datos no se mueven tan rápido como el código: 100 TB tardan 13 días incluso a 1 Gbps. Además la luz limita la latencia: 8 000 km imponen al menos 80 ms de ida y vuelta por la fibra, 20 ms con 2 000 km. El coste de salida (8, 80, 800 y 8 000 unidades) está en la tabla; el precio de 0,08 por GB es una unidad inventada y la eficiencia del 70 % un supuesto.",
+def se321_niveles() -> Fig:
+    return grouped_bars(
+        "Mutaciones de una copia que detecta cada nivel de verificación por separado (200 mutaciones)",
+        "Barras con las mutaciones detectadas de 200 por cada nivel de verificación: comprobar que el archivo existe detecta 10; abrir la base, 25; quick_check, 50; integrity_check, 53; los conteos del manifiesto, 100; los conteos con suma y claves foráneas, 140. Todos los niveles juntos ven 180 y los estructurales solos 88.",
+        ["Existe", "Se abre", "quick_check", "integrity_check", "Conteos", "Conteos + suma + FK"],
+        [("Mutaciones detectadas", [10, 25, 50, 53, 100, 140], "teal")],
+        unit="Mutaciones detectadas de 200", ticks=[0, 50, 100, 150, 200], plot_h=270,
+        ref_lines=[(180, "Todos los niveles juntos: 180"), (200, "Las 200 mutaciones")],
+        note="Los niveles estructurales ven 88 de 200 y ninguna de las 90 mutaciones lógicas; sumar el manifiesto de negocio eleva la cifra a 180. Los 20 bits que quedan sin ver cayeron en texto sin invariante o en espacio libre. Cada nivel es acumulativo en costo: el último exige conocer el negocio. El desglose por familia de alteración está en la tabla de la clase.",
         note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-358
-def se358_camino() -> Fig:
-    return percentile_intervals(
-        "Crear un primer servicio listo para producción: horas hasta terminar, mediana y percentil 90 (20 000 ensayos por fila)",
-        "Intervalos con la mediana y el percentil 90 de las horas hasta crear el servicio: a mano con 23 pasos y 2 por ciento de error por paso, 5,5 y 6,8 horas y el 62,6 por ciento sin retrabajo; camino dorado de 5 pasos con 2 por ciento, 0,28 y 0,50 horas y 90,5 por ciento; con 1 por ciento, 0,28 y 0,40 horas y 95,0 por ciento.",
-        [("A mano, 23 pasos, error 2 % (62,6 % sin retrabajo)", [5.5, 6.8]),
-         ("Camino dorado, 5 pasos, error 2 % (90,5 %)", [0.28, 0.50]),
-         ("Camino dorado, 5 pasos, error 1 % (95,0 %)", [0.28, 0.40])],
-        unit="Horas hasta tener el servicio listo", marks=("Mediana", "Percentil 90"), label_w=330,
-        note="El camino dorado gana porque tiene menos pasos que equivocarse, no porque las personas acierten más: lo que se elimina es la oportunidad de error. El porcentaje entre paréntesis es el éxito sin ningún error (62,8 % teórico para el manual). Los 23 y 5 pasos, el 2 % y los tiempos son supuestos del autor, no medidas de personas ni de un equipo real.",
-        note_kind="teal", foot=SINT)
+def se322_restos() -> Fig:
+    return grouped_bars(
+        "Ocurrencias de un valor identificable en el archivo tras borrar la mitad de 2 000 filas",
+        "Barras agrupadas con las ocurrencias de un valor identificable antes de borrar, tras borrar 1 000 de 2 000 filas y tras VACUUM: con el borrado estándar quedan 2 087 de las 2 090; con secure_delete, 1 001 de 2 000; el borrado estándar con VACUUM deja 1 085; secure_delete con VACUUM deja 1 000, y una copia hecha antes conserva las 2 000.",
+        ["Borrado estándar", "secure_delete activado", "Borrado estándar + VACUUM", "secure_delete + VACUUM y copia previa"],
+        [("Antes de borrar", [2090, 2000, 2090, 2000], "navy"), ("Tras borrar 1 000", [2087, 1001, 2087, 1001], "coral"), ("Tras VACUUM", [2087, 1001, 1085, 1000], "teal")],
+        unit="Ocurrencias del valor en el archivo", plot_h=270,
+        note="DELETE marca el espacio como libre pero no lo sobrescribe: el dato borrado sigue legible en el archivo. El valor de «antes» supera 2 000 porque los desbordes de páginas dejan copias viejas. Ninguna política de borrado alcanza las copias de seguridad: la copia hecha antes del borrado conserva las 2 000 ocurrencias.",
+        note_kind="coral", foot=SINT)
 
 
-def se358_cola() -> Fig:
-    return line_chart(
-        "Equipo de plataforma de 4 personas y 100 servicios: espera por soporte según cuántos usan el camino dorado",
-        "Líneas con la espera media y el percentil 90 de la espera por soporte, en días hábiles, según el porcentaje de servicios que usan el camino dorado: con 20 por ciento, 0,50 y 1,40; con 50, 0,06 y 0,23; con 80, 0,01 y 0,00; con 95, 0,00 y 0,00. El equipo pasa de trabajar al 83 por ciento a hacerlo al 19.",
-        [("Espera media", [(20, 0.50, "0,50", "t"), (50, 0.06, "0,06", "t"), (80, 0.01, "0,01", "t"), (95, 0.0, "0,00", "t")], "teal"),
-         ("Percentil 90", [(20, 1.40, "1,40", "t"), (50, 0.23, "0,23", "t"), (80, 0.0, "", "t"), (95, 0.0, "", "t")], "coral")],
-        x_label="Servicios que usan el camino dorado (%)", y_label="Espera por soporte (días hábiles)",
-        x_ticks=[(20, "20"), (50, "50"), (80, "80"), (95, "95")], y_ticks=[0, 0.5, 1.0, 1.5], point_labels="none",
-        annotations=[(20, 1.40, "Con 20 %: 166 solicitudes al mes y el equipo al 83 %", 30, 8)],
-        note="La espera no baja de forma lineal: de 20 a 50 % se divide por ocho y de 50 a 95 % ya es casi cero, porque el equipo sale de la zona de saturación (de 83 % a 58, 32 y 19 % de uso). Las 0,3 y 2,0 solicitudes por servicio al mes y el 0,4 días por solicitud son supuestos del autor.",
+def se322_retencion() -> Fig:
+    return stacked_bars(
+        "Eventos de acceso tras 36 meses según la retención (20 000 eventos al mes; plazo legítimo de 12 meses)",
+        "Barras apiladas horizontales con las filas de eventos de acceso tras 36 meses: sin límite de retención hay 720 000, de las que 480 000 superan los 12 meses; con 24 meses quedan 480 000 y 240 000 vencidas; con 12 meses quedan 240 000 y con 6 meses 120 000, ninguna vencida.",
+        ["Sin límite de retención", "Conservar 24 meses", "Conservar 12 meses", "Conservar 6 meses"],
+        [("Dentro del plazo de 12 meses", [240000, 240000, 240000, 120000], "teal"), ("Con más de 12 meses (vencidas)", [480000, 240000, 0, 0], "coral")],
+        unit="Filas de eventos tras 36 meses", horizontal=True, label_w=220,
+        note="Es un cálculo aritmético, no una medición: el plazo de 12 meses es un supuesto del autor y cada institución debe fijar el suyo con su base legal (67 % de vencidas sin límite, 50 % con 24 meses). Muestra que una retención sin purga programada convierte datos legítimos en pasivo con el tiempo.",
         note_kind="gold", foot=SINT)
 
 
-def se358_verificador() -> Fig:
-    return stacked_bars(
-        "Un verificador de ocho reglas sobre 150 descriptores de servicio sintéticos: qué señala y qué no",
-        "Barras apiladas horizontales al 100 por ciento: de 100 servicios generados desde la plantilla señala 5 con alguna violación y deja 95 sin señalar; de 50 escritos a mano señala 49 (135 violaciones) y deja 1; de 5 defectos semánticos, como un límite de 1 000 núcleos o una ruta de sonda inexistente, no señala ninguno.",
-        ["Servicios de la plantilla (100)", "Servicios escritos a mano (50)", "Defectos semánticos (5)"],
-        [("Señalados por el verificador", [5, 49, 0], "teal"), ("Sin señalar", [95, 1, 5], "grey")],
-        unit="Elementos de cada conjunto", horizontal=True, percent=True, label_w=250, plot_h=200,
-        note="Las ocho reglas detectaron las 25 mutaciones de cada una, y por eso el verificador es útil y a la vez ciego a lo que no es una regla. La plantilla no elimina las violaciones, las reduce al 4 % de ediciones manuales. Las 5 y 135 violaciones señaladas en los dos primeros conjuntos están en la tabla. Las reglas y los defectos los escribí yo: la exactitud sobre código real es desconocida.",
+def se322_unicidad() -> Fig:
+    return grouped_bars(
+        "Personas únicas y grupos distintos según los atributos que se combinan (5 000 personas sintéticas)",
+        "Barras horizontales con las personas únicas y los grupos distintos de 5 000 personas según los atributos combinados: con solo la edad hay 48 grupos y ninguna persona única; con edad y comuna, 161 únicas; con edad, comuna y año, 3 094; con el curso también, 4 876; generalizar a rangos baja a 2 y a 1 persona única.",
+        ["Edad", "Edad + comuna", "Edad + comuna + año de ingreso", "Edad + comuna + año + curso", "Edad en rangos de 10 + 6 zonas + año",
+         "Edad en rangos de 20 + 3 zonas + año en bloques de 4"],
+        [("Personas únicas", [0, 161, 3094, 4876, 2, 1], "coral"), ("Grupos distintos", [48, 1388, 3969, 4938, 248, 32], "gold")],
+        unit="Personas únicas o grupos (de 5 000 personas)", horizontal=True, label_w=300, ticks=[0, 1000, 2000, 3000, 4000, 5000],
+        note="Quitar el nombre no anonimiza: combinar tres atributos que parecen inofensivos identifica a 3 094 de 5 000. El grupo más pequeño (k mínimo) es de 90 personas con solo la edad y de 1 en cuanto aparece una persona única. Aparte, con un diccionario de 200 000 correos plausibles, el hash SHA-256 sin clave recuperó 2 000 de 2 000 correos; con HMAC y clave aparte, 0.",
         note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-359
-def se359_cortes() -> Fig:
-    return heatmap(
-        "Una creación de 12 recursos interrumpida en cada paso: restos sin rastro y conflictos al reintentar",
-        "Mapa de calor con restos sin rastro y conflictos al reintentar según la estrategia de estado y el punto del corte: si el estado se guarda solo al final, 66 y 66 con corte antes de crear y 78 y 78 con corte tras crear y antes de anotar; si se guarda tras cada recurso, 0 y 0 y 12 y 12; con intención previa, 0 y 0, y 0 restos (12 sospechosos) y 12 conflictos.",
-        ["Estado solo al final", "Estado tras cada recurso", "Intención antes, confirmación después"],
-        ["Antes de crear: restos", "Antes de crear: conflictos", "Tras crear: restos", "Tras crear: conflictos"],
-        [[66, 66, 78, 78], [0, 0, 12, 12], [0, 0, 0, 12]],
-        unit="restos o conflictos", scale="coral", cell_fmt=fmt_exact, row_title="Estrategia", col_title="Punto del corte y qué se cuenta",
-        highlight=[(2, 2)], label_w=230,
-        note="Guardar el estado tras cada recurso elimina el caso fácil y deja el difícil: el recurso creado cuyo registro no llegó. Anotar la intención antes de crear lo vuelve un sospechoso que se puede reconciliar (el recuadro marca los 0 restos, pero con 12 sospechosos), aunque el reintento sigue chocando con él hasta que se reconcilia. Los recursos son carpetas locales, no recursos de una nube.",
-        note_kind="coral", foot=SINT)
-
-
-def se359_destruccion() -> Fig:
-    return grouped_bars(
-        "Destruir 12 recursos con dependencias: intentos rechazados y pasadas necesarias según el orden",
-        "Barras agrupadas con los rechazos medios y las pasadas medias al destruir los 12 recursos: en un orden al azar (5 000 órdenes) son 13,73 rechazos y 3,88 pasadas; en el inverso del orden de dependencias, 0 rechazos y 1 pasada. Ningún orden al azar sale sin algún rechazo.",
-        ["Rechazos medios", "Pasadas medias"],
-        [("Orden al azar (5 000 órdenes)", [13.73, 3.88], "coral"), ("Inverso del orden de dependencias", [0, 1], "teal")],
-        unit="Intentos rechazados o pasadas (media)", decimals=2, plot_h=260,
-        note="Un bucle que reintenta hasta que no quede nada oculta el orden equivocado: termina, con casi cuatro pasadas y trece rechazos. Pero sin una señal de qué falló no se distingue ese caso de un recurso atascado. Con orden al azar el 0 % de las órdenes sale sin ningún rechazo; con el inverso, el 100 %. El grafo de 12 recursos y sus dependencias es del autor y la destrucción es de carpetas locales.",
+def se323_analizador() -> Fig:
+    nombres = ["Añadir columna NOT NULL sin valor por defecto", "Quitar una columna", "Renombrar una columna", "UPDATE sin WHERE",
+               "Crear un índice que bloquea escrituras", "Sin plan de reversión", "Sin tiempo máximo de espera de bloqueo",
+               "Cambiar el tipo de una columna", "Relleno que omite filas (nota > 0)", "Relleno con la columna equivocada",
+               "Relleno antes de crear la columna", "Valor por defecto equivocado"]
+    total = [13, 17, 25, 18, 17, 18, 15, 18, 17, 22, 11, 9]
+    visto = total[:8] + [0, 0, 0, 0]
+    return stacked_bars(
+        "Analizador de migraciones sobre 200 mutaciones: 141 detectadas",
+        "Barras apiladas horizontales con las mutaciones detectadas y no detectadas por un analizador de texto sobre 200 mutaciones: detecta las 141 de forma, como un NOT NULL sin valor por defecto, un UPDATE sin WHERE o un índice bloqueante, y ninguna de las 59 que cambian el sentido: un relleno que omite filas, con la columna equivocada, en orden inverso o con un valor por defecto equivocado.",
+        nombres,
+        [("Detectadas", visto, "teal"), ("No detectadas", [t - v for t, v in zip(total, visto)], "coral")],
+        unit="Mutaciones de cada tipo", horizontal=True, label_w=330,
+        note="Las cuatro mutaciones que no ve son las que dañan los datos sin romper la sintaxis. Las reglas se escribieron conociendo las mutaciones, así que el 100 % por tipo es optimista. El analizador trabaja sobre texto: no ejecuta nada.",
         note_kind="gold", foot=SINT)
 
 
-def se359_barrido() -> Fig:
-    return stacked_bars(
-        "Barrido por etiqueta de 12 recursos por entorno (2 000 entornos): entornos que quedan limpios",
-        "Barras apiladas horizontales al 100 por ciento con los entornos limpios y los que dejan algún resto según el porcentaje de recursos etiquetados: con 100 por ciento, todos limpios; con 95 por ciento, 54,0 limpios y 46,0 con restos; con 80 por ciento, 7,3 y 92,7.",
-        ["100 % de los recursos etiquetados", "95 % etiquetados", "80 % etiquetados"],
-        [("Entornos sin restos", [100, 54.0, 7.3], "teal"), ("Entornos con algún resto", [0, 46.0, 92.7], "coral")],
-        unit="Entornos", horizontal=True, percent=True, label_w=230, plot_h=200,
-        note="Un barrido por etiqueta solo limpia lo que se dejó etiquetar: con un 95 % de cobertura casi la mitad de los entornos deja algo. Quedan 0, 0,61 y 2,42 restos por entorno, y 100 entornos cuestan 0, 915 y 3 630 unidades en 30 días (tabla). Al medio por día por resto, el coste de un resto olvidado es pequeño y el de un resto con datos o con una credencial no se mide en unidades. La cobertura y el coste son supuestos del autor.",
+def se323_ensayo() -> Fig:
+    return grouped_bars(
+        "Defectos de migración que muestra cada entorno de ensayo (6 migraciones defectuosas, 10 000 filas de origen)",
+        "Barras con los defectos detectados de seis migraciones defectuosas según el entorno de ensayo: un esquema vacío no detecta ninguno; una muestra de 100 filas detecta tres; una copia completa de 10 000 filas detecta las seis, incluidos los que dependen de pocas filas, como siete correos duplicados o treinta notas en cero.",
+        ["Esquema vacío", "Muestra de 100 filas", "Copia completa de 10 000 filas"],
+        [("Defectos detectados", [0, 3, 6], "teal")],
+        unit="Defectos detectados de 6", ticks=[0, 2, 4, 6], plot_h=240,
+        ref_lines=[(6, "6 migraciones defectuosas")],
+        note="Una muestra aleatoria encuentra los defectos frecuentes y no los raros; un ensayo en una copia completa y con invariantes comprobados después encuentra ambos. Los siete duplicados y las treinta notas en cero son construcciones del autor. La tabla de la clase indica qué defecto ve cada entorno.",
+        note_kind="teal", foot=SINT)
+
+
+def se323_cortes() -> Fig:
+    return timeline(
+        "Una migración de cinco pasos cortada antes de cada paso (seis puntos de corte)",
+        "Diagrama de secuencia de una migración de cinco pasos y del estado que deja un corte antes de cada paso: con cada paso confirmado por separado, cuatro de seis cortes dejan un esquema intermedio, con las dos columnas o solo con la nueva; con todos los pasos en una transacción, ninguno deja un estado intermedio, porque SQLite admite DDL transaccional.",
+        [("Pasos de la migración", [(0, 1, "1 añadir", "navy"), (1, 2, "2 copiar", "navy"), (2, 3, "3 índice", "navy"), (3, 4, "4 quitar", "navy"),
+                                    (4, 5, "5 renombrar", "navy"), (5, 6, "fin", "grey")]),
+         ("Cada paso confirmado por separado: esquema si se corta", [(0, 1, "anterior", "teal"), (1, 2, "intermedio", "coral"), (2, 3, "intermedio", "coral"),
+                                                                       (3, 4, "intermedio", "coral"), (4, 5, "intermedio", "coral"), (5, 6, "nuevo", "teal")]),
+         ("Todos los pasos en una transacción: esquema si se corta", [(0, 5, "siempre el esquema anterior, completo", "teal"), (5, 6, "nuevo", "teal")])],
+        unit="Punto de corte: antes del paso indicado (el sexto no corta)", ticks=[0, 1, 2, 3, 4, 5, 6], t_max=6, lane_h=56,
+        note="Los intermedios son dos columnas «estado» y «estado_v2» a la vez, o solo «estado_v2» tras quitar la vieja. La seguridad de un corte depende del motor: SQLite y PostgreSQL permiten DDL transaccional, MySQL confirma implícitamente cada sentencia DDL. El experimento usa SQLite y un corte como excepción en el cliente; no prueba el comportamiento de ningún otro motor.",
         note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-360
-def se360_hashes() -> Fig:
-    return flow(
-        "SHA-256 del mismo paquete de 12 archivos construido en Windows y en Ubuntu, cada vez con más normalización",
-        "Diagrama de cinco construcciones con los primeros 8 caracteres de la suma en Windows y en Ubuntu: sin normalizar, 0bc289f3 y 740aafa8; con fechas y orden fijos, cf351096 y 765d27f7; al fijar además el sistema que crea el archivo, ambas 765d27f7; con deflate de nivel 6 y de nivel 9, ambas c3d29a42. Coinciden la tercera, la cuarta y la quinta construcción.",
-        [[("Sin normalizar, sin compresión. Windows 0bc289f3, Ubuntu 740aafa8: distintas", "coral"),
-          ("Fechas y orden fijos. Windows cf351096, Ubuntu 765d27f7: distintas", "coral"),
-          ("Además se fija el sistema que crea el archivo. Ambas 765d27f7: iguales", "teal")],
-         [("Normalizado con deflate, nivel 6. Ambas c3d29a42: iguales", "teal"),
-          ("Normalizado con deflate, nivel 9. Ambas c3d29a42: iguales", "teal")]],
-        note="El campo «versión creada por» del formato ZIP dice 0 en Windows y 3 en Linux: un detalle invisible que cambia la suma. Con zlib 1.3.1 y 1.3 la compresión dio bytes idénticos para este contenido; no se garantiza con otro contenido ni otra versión de zlib. El paquete se generó con semilla, no con archivos del repositorio.",
-        note_kind="gold", foot=SINT, box_h=96)
-
-
-def se360_validador() -> Fig:
+def se324_validador() -> Fig:
+    nombres = ["Campo del respaldo ausente", "Migración sin down", "RPO objetivo menor que el intervalo de copia", "Copia en el mismo volumen que los datos",
+               "Prueba de restauración vencida (más de 90 días)", "Retención mayor que el plazo legal", "Responsable colectivo",
+               "Índice sin consulta que lo justifique", "Evidencia de restauración copiada de otro entorno", "Invariante sin prueba ejecutable",
+               "Purga de retención nunca programada", "Clave de cifrado junto a la copia"]
+    total = [18, 13, 23, 14, 17, 20, 11, 18, 9, 22, 17, 18]
+    visto = total[:8] + [0, 0, 0, 0]
     return stacked_bars(
-        "Un validador de paquetes frente a 208 mutaciones: las que detecta y las que no",
-        "Barras apiladas horizontales con las mutaciones detectadas y no detectadas: de las 128 de ocho familias estructurales (sección faltante, módulo duplicado, hash alterado, secreto literal y otras) detecta las 128; de las 80 de cinco familias que exigen interpretar el contenido, como una prueba de destrucción caducada o un gasto muy superior al tope, no detecta ninguna.",
-        ["Ocho familias estructurales (16 mutaciones cada una)", "Cinco familias de contenido (16 cada una)"],
-        [("Detectadas", [128, 0], "teal"), ("No detectadas", [0, 80], "coral")],
-        unit="Mutaciones sembradas", horizontal=True, label_w=270, plot_h=180,
-        note="El validador ve la forma y las coincidencias exactas; no ve la verdad de lo que el paquete afirma. Que apruebe un paquete solo significa que está completo y coherente en forma. Cada familia detectó 16 de 16 o 0 de 16, y la tabla las nombra una por una. Las mutaciones y las reglas las escribí yo, así que 16 de 16 describe estas reglas contra estos defectos, no una cobertura general.",
-        note_kind="coral", foot=SINT)
+        "Validador del paquete de datos sobre 200 mutaciones: 134 detectadas",
+        "Barras apiladas horizontales con las mutaciones detectadas y no detectadas por un verificador de forma y de coherencia sobre 200 mutaciones de un paquete de capa de datos: detecta las 134 de campos ausentes, plazos o números incoherentes, y ninguna de las 66 que dejan los campos plausibles: evidencia copiada de otro entorno, un invariante sin prueba que exista, una purga nunca programada o la clave junto a la copia.",
+        nombres,
+        [("Detectadas", visto, "teal"), ("No detectadas", [t - v for t, v in zip(total, visto)], "coral")],
+        unit="Mutaciones de cada tipo", horizontal=True, label_w=330,
+        note="Las cuatro que no ve son las que ocurren en la realidad cuando un paquete se rellena para aprobar. Las reglas se escribieron conociendo las mutaciones y cada tipo sale al 100 % o al 0 %: la exactitud real sobre paquetes reales es desconocida.",
+        note_kind="gold", foot=SINT)
 
 
-def se360_olvidados() -> Fig:
-    return grouped_bars(
-        "Gasto de un mes con entornos de laboratorio de 5 unidades por día y un 15 % que se olvida (500 meses)",
-        "Barras horizontales agrupadas con el gasto mediano y el percentil 90 del mes: sin plazo, 340 y 570 unidades; con plazo de 24 horas y barrido diario, 110 y 110, el mínimo sin olvidos; con el mismo plazo pero un barrido que falla el 20 por ciento de los días, 110 y 120.",
-        ["A mano, sin plazo", "Plazo de 24 h con barrido diario", "Plazo de 24 h, el barrido falla el 20 % de los días"],
-        [("Gasto mediano del mes", [340, 110, 110], "teal"), ("Percentil 90", [570, 110, 120], "coral")],
-        unit="Unidades de gasto en un mes", horizontal=True, label_w=270,
-        note="El plazo convierte un coste abierto en uno acotado: el olvido pasa de costar hasta 30 días a costar uno o dos. Los 110 son 22 días hábiles por 5 unidades. El precio, la tasa de olvido del 15 % y el fallo del barrido son supuestos del autor, no medidas de un equipo.",
+def se324_mes() -> Fig:
+    return timeline(
+        "Un mes con un borrado accidental (día 10) y una corrupción silenciosa (día 18, detectada el día 21)",
+        "Línea de tiempo de un mes de 30 días con tres estrategias de respaldo: la copia diaria sin verificar solo conserva las copias de los días 28 a 30, todas posteriores a la corrupción del día 18; la copia diaria verificada conserva 14 copias sanas, de los días 4 a 17, y rechaza las del 18 en adelante; con una bitácora de cambios se recuperan además las 800 filas posteriores a la última copia sana.",
+        [("A · diaria sin verificar: solo 3 copias retenidas", [(28, 30, "3", "coral")]),
+         ("B · copia diaria verificada, 14 días", [(4, 17, "14 copias sanas", "teal"), (18, 30, "copias rechazadas", "coral")]),
+         ("C · copias, igual que B", [(4, 17, "14 copias sanas", "teal"), (18, 30, "copias rechazadas", "coral")]),
+         ("C · bitácora de cambios", [(0, 30, "bitácora: recupera las 800 filas posteriores a la última copia sana", "gold")])],
+        unit="Día del mes", ticks=[0, 5, 10, 15, 20, 25, 30], t_max=30, lane_h=52, label_w=270,
+        events=[(10, "10: borrado"), (18, "18: corrupción"), (21, "21: detectada")],
+        note="La verificación convierte una corrupción detectada el día 21 en una detectada el día 18, y la retención larga deja una copia sana para usar; la bitácora cierra la brecha entre copias. Resultado del borrado del día 10: 200 de 2 000 filas perdidas en A y B, ninguna en C; en A quedan 68 valores alterados sin recuperar. Las cifras son de un sistema sintético de 200 filas nuevas al día y dos incidentes inyectados.",
         note_kind="teal", foot=SINT)
 
 
+def se324_retencion() -> Fig:
+    return scatter(
+        "Retener 30 días de una base de 40 000 filas: bytes comprimidos frente a piezas al restaurar",
+        "Dispersión con tres políticas de retención de 30 días: 30 copias completas comprimidas ocupan 16 237 980 bytes y se restauran con una sola pieza; cuatro completas semanales y 26 incrementales ocupan 11 614 707 y exigen hasta 7 piezas; una completa y 29 incrementales ocupan 11 081 253 y exigen hasta 30.",
+        [("30 copias completas", [(1, 16.237980, "16 237 980 B", "r")], "coral"),
+         ("4 completas semanales + 26 incrementales", [(7, 11.614707, "11 614 707 B", "t")], "gold"),
+         ("1 completa + 29 incrementales", [(30, 11.081253, "11 081 253 B", "t")], "teal")],
+        x_label="Piezas que hay que aplicar al restaurar, en el peor caso", y_label="Bytes comprimidos (millones)",
+        x_ticks=[(1, "1"), (7, "7"), (30, "30")], y_ticks=[0, 5, 10, 15, 20], y_zero=True, decimals=2,
+        note="La compresión reduce una copia completa al 18 % y un incremental por páginas, aunque toque el 67 % de las páginas, al 12 %. Los incrementales ahorran un 30 %, pero cada eslabón es un punto de fallo. Con la zlib de Ubuntu las cifras difieren en menos de un 1 %.",
+        note_kind="gold", foot=SINT)
+
+
 FIGURES = {
-    "se-355-radio-de-un-error-segun-las-cuentas.svg": se355_radio,
-    "se-355-divergencia-entre-entornos.svg": se355_divergencia,
-    "se-355-combinaciones-toxicas-de-permisos.svg": se355_toxicas,
-    "se-356-politicas-de-escalado.svg": se356_politicas,
-    "se-356-latencia-segun-la-utilizacion.svg": se356_cola,
-    "se-356-nivel-de-compromiso-y-coste.svg": se356_compromiso,
-    "se-357-disponibilidad-segun-la-composicion.svg": se357_disponibilidad,
-    "se-357-interseccion-de-funciones.svg": se357_interseccion,
-    "se-357-tiempo-y-coste-de-mover-datos.svg": se357_gravedad,
-    "se-358-camino-dorado-frente-a-pasos-manuales.svg": se358_camino,
-    "se-358-cola-del-equipo-de-plataforma.svg": se358_cola,
-    "se-358-lo-que-el-verificador-ve-y-no-ve.svg": se358_verificador,
-    "se-359-cortes-y-huerfanos.svg": se359_cortes,
-    "se-359-orden-de-destruccion.svg": se359_destruccion,
-    "se-359-barrido-por-etiquetas.svg": se359_barrido,
-    "se-360-hashes-entre-sistemas.svg": se360_hashes,
-    "se-360-validador-del-paquete.svg": se360_validador,
-    "se-360-entornos-olvidados.svg": se360_olvidados,
+    "se-355-lecturas-obsoletas-y-cuorum.svg": se319_replicas,
+    "se-355-claves-que-se-mueven.svg": se319_movimiento,
+    "se-355-sesgo-de-carga-por-clave.svg": se319_sesgo,
+    "se-356-politicas-de-cache.svg": se320_politicas,
+    "se-356-estampida-tras-expirar.svg": se320_estampida,
+    "se-356-carrera-de-invalidacion.svg": se320_carrera,
+    "se-357-perdida-segun-el-intervalo.svg": se321_perdida,
+    "se-357-copia-en-caliente.svg": se321_caliente,
+    "se-357-niveles-de-verificacion.svg": se321_niveles,
+    "se-358-restos-tras-borrar.svg": se322_restos,
+    "se-358-retencion-y-datos-vencidos.svg": se322_retencion,
+    "se-358-personas-unicas.svg": se322_unicidad,
+    "se-359-analizador-de-migraciones.svg": se323_analizador,
+    "se-359-ensayo-en-datos-reales.svg": se323_ensayo,
+    "se-359-cortes-durante-una-migracion.svg": se323_cortes,
+    "se-360-validador-del-paquete-de-datos.svg": se324_validador,
+    "se-360-un-mes-con-dos-incidentes.svg": se324_mes,
+    "se-360-coste-de-retener-respaldos.svg": se324_retencion,
 }

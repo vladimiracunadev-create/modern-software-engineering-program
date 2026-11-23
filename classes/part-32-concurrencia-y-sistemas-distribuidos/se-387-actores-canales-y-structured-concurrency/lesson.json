@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-387",
+  "title": "Actores, canales y structured concurrency",
+  "stage": "E",
+  "part": "32",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-387-actores-canales-y-structured-concurrency"
+}

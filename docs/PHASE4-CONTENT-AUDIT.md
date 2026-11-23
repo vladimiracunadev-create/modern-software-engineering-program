@@ -1,5 +1,10 @@
 # Auditoría de contenido de fase 4
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](ID-MIGRATION.md) ([ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 ## Alcance
 
 La fase 4 comprende 180 clases consecutivas, `SE-181`–`SE-360`, distribuidas en

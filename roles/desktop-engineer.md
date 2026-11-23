@@ -4,7 +4,7 @@
 
 [![Familia](https://img.shields.io/badge/familia-Clientes-6f42c1?style=for-the-badge)](README.md)
 [![Nivel](https://img.shields.io/badge/recorrido-junior%20%E2%86%92%20principal-0969da?style=for-the-badge)](../ROADMAP.md)
-[![Núcleo](https://img.shields.io/badge/n%C3%BAcleo-P02%20%C2%B7%20P14%20%C2%B7%20P18%20%C2%B7%20P21%20%C2%B7%20P32%20%C2%B7%20P33%20%C2%B7%20P43-2da44e?style=for-the-badge)](#-partes-y-clases-asociadas)
+[![Núcleo](https://img.shields.io/badge/n%C3%BAcleo-P02%20%C2%B7%20P14%20%C2%B7%20P18%20%C2%B7%20P21%20%C2%B7%20P26%20%C2%B7%20P38%20%C2%B7%20P39-2da44e?style=for-the-badge)](#-partes-y-clases-asociadas)
 
 **La guía conecta trabajo real, decisiones, clases concretas y evidencia defendible.**
 
@@ -50,8 +50,8 @@ seguridad de plugins y diferencias entre plataformas.
 1. Partes 01–09 para máquina, sistema operativo y construcción.
 2. Partes 13–14 y 17–18 para contratos, UX, documentación y procesos.
 3. [Parte 21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) como núcleo.
-4. Partes 26, 30–33 y 35 para persistencia, pruebas, supply chain y diagnóstico.
-5. Parte 36 para migración, compatibilidad y retiro.
+4. Partes 29, 35–39 y 41 para persistencia, pruebas, supply chain y diagnóstico.
+5. Parte 43 para migración, compatibilidad y retiro.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -120,40 +120,51 @@ propias páginas ni convierten en opcional la base común.
 | 2 | [Parte 14 · Experiencia, accesibilidad e internacionalización](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) | desarrollada | [SE-173 · Accesibilidad perceptible, operable y comprensible](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md)<br>[SE-174 · Semántica, teclado, foco y tecnologías de asistencia](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md)<br>[SE-175 · Diseño visual, tipografía, color y contraste](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md)<br>[SE-176 · Responsive, adaptativo y preferencias del usuario](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md) | Profundiza **experiencia, accesibilidad e internacionalización** desde la responsabilidad del rol. | Flujo inclusivo evaluado. |
 | 3 | [Parte 18 · CLI, TUI, servicios y automatización](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) | desarrollada | [SE-222 · Daemons, servicios y ciclo de vida](../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)<br>[SE-224 · Automatización idempotente y reanudable](../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md)<br>[SE-225 · Distribución de binarios y actualizaciones](../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)<br>[SE-226 · Telemetría opt-in y privacidad en herramientas](../classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas/README.md) | Profundiza **interfaces de automatización y procesos durables** desde la responsabilidad del rol. | Herramienta operable e idempotente. |
 | 4 | [Parte 21 · Software móvil, escritorio y multiplataforma](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) | desarrollada | [SE-253 · Modelos de aplicación móvil y de escritorio](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio/README.md)<br>[SE-254 · Ciclo de vida, suspensión y reanudación](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-254-ciclo-de-vida-suspension-y-reanudacion/README.md)<br>[SE-255 · Nativo, híbrido, web wrapper y cross-platform](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)<br>[SE-258 · Interacción táctil, teclado, mouse y accesibilidad](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md)<br>[SE-259 · Actualizaciones, tiendas y distribución empresarial](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md)<br>[SE-262 · Firma, sandbox y seguridad del cliente](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md) | Profundiza **clientes, sincronización y distribución** desde la responsabilidad del rol. | Cliente offline con actualización segura. |
-| 5 | [Parte 32 · Seguridad, privacidad y cumplimiento](../classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) | desarrollada | [SE-387 · Autorización, recursos y mínimo privilegio](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-387-autorizacion-recursos-y-minimo-privilegio/README.md)<br>[SE-389 · Criptografía aplicada y gestión de claves](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-389-criptografia-aplicada-y-gestion-de-claves/README.md)<br>[SE-390 · Secretos, configuración y separación de ambientes](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/README.md)<br>[SE-393 · Vulnerabilidades, divulgación y respuesta](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-393-vulnerabilidades-divulgacion-y-respuesta/README.md) | Profundiza **seguridad, privacidad y cumplimiento** desde la responsabilidad del rol. | Controles con pruebas y evidencia. |
-| 6 | [Parte 33 · Build, release y cadena de suministro](../classes/part-33-build-release-y-cadena-de-suministro/README.md) | desarrollada | [SE-401 · Firmas, checksums y verificación](../classes/part-33-build-release-y-cadena-de-suministro/se-401-firmas-checksums-y-verificacion/README.md)<br>[SE-402 · Versionado, compatibilidad y changelog](../classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/README.md)<br>[SE-405 · Instaladores, paquetes y actualizaciones](../classes/part-33-build-release-y-cadena-de-suministro/se-405-instaladores-paquetes-y-actualizaciones/README.md)<br>[SE-408 · Proyecto: release firmado y recuperable](../classes/part-33-build-release-y-cadena-de-suministro/se-408-proyecto-release-firmado-y-recuperable/README.md) | Profundiza **build, release y cadena de suministro** desde la responsabilidad del rol. | Release firmado y verificable. |
-| 7 | [Parte 43 · Patrones de diseño, empresariales y de resiliencia](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | desarrollada | [SE-517 · Criterios para usar un catálogo de patrones](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/README.md)<br>[SE-519 · GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md)<br>[SE-520 · GoF conductuales: Strategy, Observer, Command, State y Template Method](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method/README.md)<br>[SE-526 · Antipatrones y deuda de diseño](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/README.md) | Profundiza **patrones de diseño, empresariales y de resiliencia** desde la responsabilidad del rol. | Catálogo de patrones con su costo. |
+| 5 | [Parte 26 · Patrones de diseño, empresariales y de resiliencia](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | desarrollada | [SE-313 · Criterios para usar un catálogo de patrones](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-313-criterios-para-usar-un-catalogo-de-patrones/README.md)<br>[SE-315 · GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md)<br>[SE-316 · GoF conductuales: Strategy, Observer, Command, State y Template Method](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-316-gof-conductuales-strategy-observer-command-state-y-template-method/README.md)<br>[SE-322 · Antipatrones y deuda de diseño](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-322-antipatrones-y-deuda-de-diseno/README.md) | Profundiza **patrones de diseño, empresariales y de resiliencia** desde la responsabilidad del rol. | Catálogo de patrones con su costo. |
+| 6 | [Parte 38 · Seguridad, privacidad y cumplimiento](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) | desarrollada | [SE-459 · Autorización, recursos y mínimo privilegio](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md)<br>[SE-461 · Criptografía aplicada y gestión de claves](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-461-criptografia-aplicada-y-gestion-de-claves/README.md)<br>[SE-462 · Secretos, configuración y separación de ambientes](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md)<br>[SE-465 · Vulnerabilidades, divulgación y respuesta](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta/README.md) | Profundiza **seguridad, privacidad y cumplimiento** desde la responsabilidad del rol. | Controles con pruebas y evidencia. |
+| 7 | [Parte 39 · Build, release y cadena de suministro](../classes/part-39-build-release-y-cadena-de-suministro/README.md) | desarrollada | [SE-473 · Firmas, checksums y verificación](../classes/part-39-build-release-y-cadena-de-suministro/se-473-firmas-checksums-y-verificacion/README.md)<br>[SE-474 · Versionado, compatibilidad y changelog](../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)<br>[SE-477 · Instaladores, paquetes y actualizaciones](../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md)<br>[SE-480 · Proyecto: release firmado y recuperable](../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md) | Profundiza **build, release y cadena de suministro** desde la responsabilidad del rol. | Release firmado y verificable. |
 
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–48 (`SE-001`–`SE-588`), también tienen contenido desarrollado y
+de las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
 | [SE-115 · Plugins, extensiones y puntos de integración](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) | Parte 09 |
 | [SE-261 · Rendimiento, batería y recursos limitados](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-261-rendimiento-bateria-y-recursos-limitados/README.md) | Parte 21 |
-| [SE-529 · Estilos como respuestas a fuerzas de calidad](../classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | Parte 44 |
-| [SE-530 · Microkernel y arquitecturas de plugins](../classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/README.md) | Parte 44 |
+| [SE-337 · Estilos como respuestas a fuerzas de calidad](../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | Parte 28 |
+| [SE-338 · Microkernel y arquitecturas de plugins](../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md) | Parte 28 |
 
 **Cómo recorrerla.** Empieza por [SE-025](../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) para fijar el
 primer mecanismo, usa [SE-258](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md) para integrar el
-centro de la especialidad y llega a [SE-526](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/README.md) cuando ya
+centro de la especialidad y llega a [SE-480](../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md) cuando ya
 puedas explicar cómo detectar y recuperar un fallo. Una clase se considera estudiada
 sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los enlaces
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–48 (`SE-001`–`SE-588`) están
+> El mapa expresa el currículo vigente. Las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## ✅ Ampliación completada: Partes 40–48
+## 🔭 Ampliación planificada: Partes 34 y 42 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–48 (`SE-481`–`SE-588`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y [ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
+> Las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) están **planificadas**; sus números están reservados desde el 23 de
+> noviembre de 2026 ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
 
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+| — | — | Las partes que este rol esperaba ya están desarrolladas y figuran en el núcleo o en las clases de apoyo. |
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

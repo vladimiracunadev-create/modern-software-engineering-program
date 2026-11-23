@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-383",
+  "title": "Taller: provocar y contener mensajes duplicados",
+  "stage": "E",
+  "part": "31",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-31-integracion-eventos-y-mensajeria/se-383-taller-provocar-y-contener-mensajes-duplicados"
+}

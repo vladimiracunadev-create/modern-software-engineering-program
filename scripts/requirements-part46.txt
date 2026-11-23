@@ -1,4 +1,4 @@
-# Versiones con las que se ejecutó la Parte 46 (CPython 3.12.9, Windows 11); sin GPU.
+# Versiones con las que se ejecutó la Parte 50 (CPython 3.12.9, Windows 11); sin GPU.
 numpy==2.4.4
 scikit-learn==1.8.0
 scipy==1.17.1

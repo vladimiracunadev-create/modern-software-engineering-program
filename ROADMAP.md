@@ -5,40 +5,43 @@ incorporarse. No es un prompt ni un conjunto de instrucciones para agentes. Las 
 de contribución viven en `AGENTS.md`, `CONTRIBUTING.md` y
 `docs/PEDAGOGICAL-STANDARD.md`; aquí se describe el producto educativo.
 
-El programa vigente es de 588 clases (ADR-004 y ADR-006) en 49 partes, todas desarrolladas. El número
-no es una cuota: cualquier ampliación debe resolver una brecha real y respetar la
+El programa vigente es de 612 posiciones de clase en 51 partes (ADR-007): 588 clases desarrolladas en 49 partes y 24
+planificadas en las dos partes reservadas (34 y 42). El número no es una cuota:
+cualquier ampliación debe resolver una brecha real y respetar la
 prioridad **calidad > profundidad > coherencia > cantidad**.
 
 El mandato completo, las brechas transversales y la acción específica pendiente para
-cada uno de los IDs `SE-001`–`SE-588` se conservan en el
+cada uno de los IDs `SE-001`–`SE-612` se conservan en el
 [`plan maestro de auditoría y mejora curricular`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md).
 Ese plan es el backlog operativo recuperable; este roadmap continúa siendo la fuente
 de verdad sobre el producto educativo y su secuencia.
 
 ## Estado verificable de partida
 
-- La arquitectura curricular define 8 etapas, 49 partes y 588 posiciones de clase,
-  de `SE-001` a `SE-588`, sin renumerar el material existente. Qué partes están
-  desarrolladas lo decide el contenido real (`content/part-NN/`), no este documento: el
-  estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y `catalog.json`
-  (ver [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)
-  y [`docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)).
-- Al 2026-11-17 las 49 partes (00–48) contienen 588 clases desarrolladas y profundizadas con
+- La arquitectura curricular define 8 etapas, 51 partes y 612 posiciones de clase, de
+  `SE-001` a `SE-612`, en secuencia pedagógica (la inteligencia artificial al final). Qué
+  partes están desarrolladas lo decide el contenido real (`content/part-NN/`), no este
+  documento: el estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y
+  `catalog.json` (ver
+  [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)).
+- Al 2026-11-23 las 49 partes desarrolladas contienen 588 clases profundizadas con
   explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
-  navegación (`SE-001`–`SE-588`), con laboratorios ejecutables en las Partes 01–05 y
-  experimentos reproducibles en las Partes 32–48; falta una revisión editorial humana
-  independiente. No quedan borradores, estructuras sin desarrollar ni partes sin publicar
-  entre esas 588 posiciones.
-- El alcance se amplió dos veces, siempre al final y sin renumerar.
-  [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance de 480 a 540 clases
-  con las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD, harness y agentic
-  engineering, patrones agénticos, patrones de diseño y estilos arquitectónicos).
+  navegación, con laboratorios ejecutables en las Partes 01–05 y experimentos reproducibles
+  en las Partes 23, 26, 28, 30, 37–41 y 43–50; falta una revisión editorial humana
+  independiente. No quedan borradores ni estructuras sin desarrollar entre esas 588
+  posiciones. Las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) están planificadas.
+- El alcance se amplió tres veces.
+  [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance de 480 a 540
+  clases con cinco partes (metodologías de TDD a ODD, harness y agentic engineering,
+  patrones agénticos, patrones de diseño y estilos arquitectónicos);
   [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) lo llevó a 588 con
-  cuatro partes más: 45 ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`),
-  46 machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 sistemas críticos, tiempo
-  real y normas de seguridad (`SE-565`–`SE-576`) y 48 runtimes y plataformas modernas
-  (`SE-577`–`SE-588`), y con tres guías de rol nuevas (45 en total). Cualquier ampliación
-  posterior exige un ADR nuevo.
+  cuatro partes más (ingeniería de datos, machine learning en producción, sistemas críticos y
+  runtimes modernos) y con tres guías de rol nuevas (45 en total); y
+  [`ADR-007`](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md) ordenó todas las
+  partes en secuencia pedagógica y reservó dos más: la 34, SaaS y plataformas de producto, y
+  la 42, ingeniería del caos. Los identificadores anteriores al 2026-11-23 se traducen con
+  [`docs/ID-MIGRATION.md`](docs/ID-MIGRATION.md). Cualquier ampliación posterior exige un
+  ADR nuevo.
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
   por sí sola que la enseñanza, los laboratorios o sus resultados hayan sido validados.
 - Los conteos describen archivos y alcance; la calidad se demuestra revisando contenido,
@@ -91,32 +94,34 @@ se demuestra aprendizaje.
 | 20 · Backend, APIs y procesamiento asíncrono (`SE-241`–`SE-252`) | REST, RPC, GraphQL, gRPC, SSE, WebSockets, webhooks, OpenAPI, AsyncAPI, versionado, idempotencia, cuotas y workers. | API y consumidor contractualmente probados, con paginación, autorización, compatibilidad, deprecación y recuperación de duplicados. |
 | 21 · Software móvil, escritorio y multiplataforma (`SE-253`–`SE-264`) | Ciclos de vida, almacenamiento local, sincronización, permisos, offline-first, distribución, actualizaciones, telemetría y trade-offs nativo/híbrido. | Cliente que trabaja sin conexión, reconcilia conflictos y demuestra actualización y rollback seguros. |
 | 22 · Embedded, IoT y tiempo real (`SE-265`–`SE-276`) | Firmware, restricciones, hardware/software, interrupciones, RTOS, deadlines, protocolos, OTA, telemetría, edge y seguridad de dispositivo. | Prototipo o simulación con presupuesto temporal y energético, actualización recuperable y análisis de amenazas físicas y remotas. |
-| 23 · Software especializado y dominios (`SE-277`–`SE-288`) | Modelado de restricciones médicas, financieras, industriales, científicas y públicas; safety, hazard analysis, auditoría y datos sensibles. | Análisis de un dominio regulado que traduce riesgo en requisitos, controles, pruebas y evidencia sin inventar cumplimiento. |
-| 24 · Diseño, patrones y refactorización (`SE-289`–`SE-300`) | Modularidad, cohesión, acoplamiento, encapsulación, SOLID/GRASP críticos, composición, patrones, antipatterns, smells y refactoring. | Refactor incremental protegido por caracterización y métricas pertinentes; ADR que explica costes y alternativas descartadas. |
-| 25 · Arquitectura de software y dominio (`SE-301`–`SE-312`) | Layered, hexagonal, clean/onion, monolito modular, DDD, SOA, microservicios, event-driven, serverless, edge y evolución. | Arquitectura derivada de atributos de calidad, con escenarios de fallo, límites, ADR y estrategia de evolución. |
-| 26 · Datos, persistencia y recuperación (`SE-313`–`SE-324`) | OLTP/OLAP, modelado, transacciones, índices, caché, partición, réplica, CDC, contratos, migración, backup y restore. | Sistema de datos con migración compatible, medición de consultas, calidad de datos y restauración ensayada contra RPO/RTO. |
-| 27 · Integración, eventos y mensajería (`SE-325`–`SE-336`) | Colas, streams, logs, entrega, orden, esquemas, outbox/inbox, sagas, CQRS, event sourcing y compatibilidad entre productores. | Flujo asíncrono sometido a duplicación, retraso, reordenamiento y poison messages, con reconciliación demostrada. |
-| 28 · Concurrencia y sistemas distribuidos (`SE-337`–`SE-348`) | Memoria y coordinación, relojes, fallos parciales, consistencia, CAP/PACELC, consenso, elección, replicación, retries y discovery. | Laboratorio de fallos que mide comportamiento ante partición, latencia y reinicio y explica qué garantías conserva o pierde. |
-| 29 · Cloud, plataforma e infraestructura (`SE-349`–`SE-360`) | Modelos cloud, IAM, redes, cómputo, storage, containers, Kubernetes, IaC, GitOps, multi-entorno, costes y arquitectura cloud-native. | Entorno reproducible con mínimo privilegio, políticas, costes estimados, destrucción segura y recuperación documentada. |
-| 30 · Estrategia y técnicas de prueba (`SE-361`–`SE-372`) | Unitarias, integración, sistema, aceptación, E2E, contrato, property-based, mutation, fuzzing, snapshots y selección de qué no probar. | Estrategia de riesgo con suites ejecutables, oráculos claros, datos controlados y análisis explícito de falsos positivos y huecos. |
-| 31 · Calidad, rendimiento y resiliencia (`SE-373`–`SE-384`) | ISO 25010/SQuaRE, deuda, análisis estático, métricas y límites, profiling, carga, percentiles, capacidad, degradación, DR y chaos. | Informe de calidad y game day con baseline, cuello de botella, mejora medida, recuperación y deuda residual priorizada. |
-| 32 · Seguridad, privacidad y cumplimiento (`SE-385`–`SE-396`) | Threat modeling, secure design/coding, secretos, IAM, OWASP, SAST/DAST/SCA, privacidad, respuesta y trazabilidad regulatoria. | Cadena LEY/REGULACIÓN → REQUISITO → CONTROL → IMPLEMENTACIÓN → PRUEBA → EVIDENCIA → AUDITORÍA aplicada a un caso. |
-| 33 · Build, release y cadena de suministro (`SE-397`–`SE-408`) | Builds reproducibles, artefactos, repositorios, SBOM, provenance, signing, SLSA, OpenSSF, pinning, typosquatting y releases. | Release reconstruible y verificable con inventario, firma, procedencia y simulación de dependencia comprometida. |
-| 34 · CI/CD, IaC y platform engineering (`SE-409`–`SE-420`) | Pipelines, quality gates, ambientes, progressive delivery, canary, blue/green, rollback, IDP, portales, golden paths, DevEx y DORA/SPACE. | Camino autoservicio medido como producto, con despliegue progresivo, rollback probado y evaluación del riesgo de métricas. |
-| 35 · Observabilidad, SRE e incidentes (`SE-421`–`SE-432`) | SLI/SLO/SLA, error budgets, toil, logs, métricas, traces, OpenTelemetry, alertas, runbooks, incident command y postmortems. | Incidente simulado: DETECTAR → CONTENER → DIAGNOSTICAR → RECUPERAR → ANALIZAR → APRENDER, con timeline y acciones verificables. |
-| 36 · Mantenimiento y modernización legacy (`SE-433`–`SE-444`) | Arqueología, ingeniería inversa, caracterización, dependencias, deuda, strangler, branch by abstraction, ACL, migraciones, EOL y retiro. | Modernización incremental de un sistema ajeno con mapa de dependencias, compatibilidad, rollout, archivo y borrado seguro. |
-| 37 · Gestión, liderazgo y práctica profesional (`SE-445`–`SE-456`) | Rutas técnicas y de gestión, mentoring, reviews, negociación, priorización, Conway, Team Topologies, carga cognitiva, ownership y crisis. | Propuesta técnica defendida ante intereses en conflicto, plan organizacional y retrospectiva de una decisión bajo incertidumbre. |
-| 38 · Desarrollo de software asistido por IA (`SE-457`–`SE-468`) | IA en requisitos, diseño, código, review, pruebas, documentación, debugging, DevOps, seguridad, incidentes, legacy, evals y costes. | Cambio asistido con trazabilidad de prompts y herramientas, pruebas deterministas, revisión humana, seguridad y comparación de coste/latencia. |
-| 39 · SPEC, agentes y ciclo de vida agentic (`SE-469`–`SE-480`) | Coding/terminal agents, MCP, tools, skills, memoria, contexto, instrucciones de repositorio, multiagente, guardrails, loops y regresiones. | Flujo agentic evaluable donde HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN → HUMANO REVISA → SISTEMA VALIDA. |
-| 40 · Metodologías de desarrollo: de TDD a ODD (`SE-481`–`SE-492`) | Mapa de metodologías, TDD y sus escuelas, BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD en tres niveles, EDD, ODD y su contraste con SDD. | Un mismo cambio resuelto con cinco metodologías y una política de equipo que dice cuándo usar cada una, con la evidencia que cada una produce. |
-| 41 · Harness y agentic engineering (`SE-493`–`SE-504`) | Anatomía de un harness, instrucciones de repositorio, herramientas y permisos, contexto, loops y paradas, sandboxes, gates, multiagente, evals del harness, AI-DLC y gobierno. | Harness mínimo gobernado y evaluado, con diagnóstico de un fallo real y criterios de parada y recuperación. |
-| 42 · Patrones agénticos y sistemas con LLM (`SE-505`–`SE-516`) | Workflows frente a agentes, encadenado, enrutamiento, paralelización, orquestador-trabajadores, evaluador-optimizador, ReAct, memoria, RAG, MCP y A2A, ejecución durable, evals, coste y seguridad. | Sistema con LLM evaluado y operable, con el patrón elegido justificado frente a un flujo fijo y una degradación probada. |
-| 43 · Patrones de diseño, empresariales y de resiliencia (`SE-517`–`SE-528`) | Criterios de catálogo, GoF en tres clases, GRASP, Repository, Unit of Work y Active Record, Enterprise Integration Patterns, patrones de resiliencia y antipatrones. | Refactorización con patrones medida en coste y catálogo de patrones de un sistema real con sus antipatrones. |
-| 44 · Estilos arquitectónicos (`SE-529`–`SE-540`) | Estilos como respuestas a fuerzas, microkernel, pipes and filters, microservicios y sus costes, BFF, gateway y mesh, multi-tenancy, data mesh, arquitectura celular, 12-factor y migración entre estilos. | Decisión arquitectónica defendida con escenarios de calidad y ADR, con el estilo descartado y su coste explícito. |
-| 45 · Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`) | Del dato operacional al analítico, ingesta batch y streaming, modelado analítico, transformación y orquestación idempotente con backfills, calidad y observabilidad de datos, contratos y evolución de esquemas, linaje, catálogo y metadatos, warehouse, lake y lakehouse con formatos columnares, gobierno, privacidad y retención, y costo y operación de plataformas de datos. | Plataforma de datos mínima gobernada con contratos, linaje y un backfill reconciliado; un pipeline defectuoso se repara con evidencia. |
-| 46 · Machine learning en producción y MLOps (`SE-553`–`SE-564`) | Ciclo de vida de ML y por qué falla en producción, datos de entrenamiento, etiquetas y feature stores, experimentos y entrenamiento reproducible, evaluación, sesgos y validación, ajuste fino y su costo, servir modelos con latencia, lotes y GPU, despliegue seguro (shadow, canary, rollback), deriva y reentrenamiento, seguridad y robustez de ML, y gobierno de IA (EU AI Act, ISO/IEC 42001, NIST AI RMF). | Sistema de ML operable con evidencia: entrenamiento reproducible, evaluación por segmentos, despliegue gradual, monitor de deriva y reversión ejercitada. |
-| 47 · Sistemas críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) | Riesgo y seguridad funcional (HARA, FMEA, FTA, STPA), IEC 61508, ISO 26262, DO-178C, DO-254 y ARP4754, IEC 62304, casos de seguridad y trazabilidad, RTOS y planificación de tiempo real, codificación segura (MISRA, CERT), verificación formal y model checking (TLA+, SPARK, Alloy), y verificación con MC/DC, HIL y SIL. | Paquete de aseguramiento de un controlador con análisis de peligros, trazabilidad, verificación y caso de seguridad; análisis de un fallo real frente a las normas. |
-| 48 · Runtimes y plataformas modernas (`SE-577`–`SE-588`) | WebAssembly y WASI, WebAssembly en servidor y borde con el component model, eBPF, modelo de ejecución en GPU y aceleradores, rendimiento y costo en aceleradores, contenedores, microVM y sandboxes, hardware seguro (TEE y atestación), computación cuántica para ingenieros de software, criptografía poscuántica y migración, y confianza cero en la práctica. | Plataforma de ejecución aislada para una carga no confiable, con modelo de amenaza, capacidades mínimas, medición de arranque y densidad, y runbook de contención. |
+| 23 · Runtimes y plataformas modernas (`SE-277`–`SE-288`) | WebAssembly y WASI, WebAssembly en servidor y borde con el component model, eBPF, modelo de ejecución en GPU y aceleradores, rendimiento y costo en aceleradores, contenedores, microVM y sandboxes, hardware seguro (TEE y atestación), computación cuántica para ingenieros de software, criptografía poscuántica y migración, y confianza cero en la práctica. | Plataforma de ejecución aislada para una carga no confiable, con modelo de amenaza, capacidades mínimas, medición de arranque y densidad, y runbook de contención. |
+| 24 · Software especializado y dominios (`SE-289`–`SE-300`) | Modelado de restricciones médicas, financieras, industriales, científicas y públicas; safety, hazard analysis, auditoría y datos sensibles. | Análisis de un dominio regulado que traduce riesgo en requisitos, controles, pruebas y evidencia sin inventar cumplimiento. |
+| 25 · Diseño, patrones y refactorización (`SE-301`–`SE-312`) | Modularidad, cohesión, acoplamiento, encapsulación, SOLID/GRASP críticos, composición, patrones, antipatterns, smells y refactoring. | Refactor incremental protegido por caracterización y métricas pertinentes; ADR que explica costes y alternativas descartadas. |
+| 26 · Patrones de diseño, empresariales y de resiliencia (`SE-313`–`SE-324`) | Criterios de catálogo, GoF en tres clases, GRASP, Repository, Unit of Work y Active Record, Enterprise Integration Patterns, patrones de resiliencia y antipatrones. | Refactorización con patrones medida en coste y catálogo de patrones de un sistema real con sus antipatrones. |
+| 27 · Arquitectura de software y dominio (`SE-325`–`SE-336`) | Layered, hexagonal, clean/onion, monolito modular, DDD, SOA, microservicios, event-driven, serverless, edge y evolución. | Arquitectura derivada de atributos de calidad, con escenarios de fallo, límites, ADR y estrategia de evolución. |
+| 28 · Estilos arquitectónicos (`SE-337`–`SE-348`) | Estilos como respuestas a fuerzas, microkernel, pipes and filters, microservicios y sus costes, BFF, gateway y mesh, multi-tenancy, data mesh, arquitectura celular, 12-factor y migración entre estilos. | Decisión arquitectónica defendida con escenarios de calidad y ADR, con el estilo descartado y su coste explícito. |
+| 29 · Datos, persistencia y recuperación (`SE-349`–`SE-360`) | OLTP/OLAP, modelado, transacciones, índices, caché, partición, réplica, CDC, contratos, migración, backup y restore. | Sistema de datos con migración compatible, medición de consultas, calidad de datos y restauración ensayada contra RPO/RTO. |
+| 30 · Ingeniería de datos y plataformas de datos (`SE-361`–`SE-372`) | Del dato operacional al analítico, ingesta batch y streaming, modelado analítico, transformación y orquestación idempotente con backfills, calidad y observabilidad de datos, contratos y evolución de esquemas, linaje, catálogo y metadatos, warehouse, lake y lakehouse con formatos columnares, gobierno, privacidad y retención, y costo y operación de plataformas de datos. | Plataforma de datos mínima gobernada con contratos, linaje y un backfill reconciliado; un pipeline defectuoso se repara con evidencia. |
+| 31 · Integración, eventos y mensajería (`SE-373`–`SE-384`) | Colas, streams, logs, entrega, orden, esquemas, outbox/inbox, sagas, CQRS, event sourcing y compatibilidad entre productores. | Flujo asíncrono sometido a duplicación, retraso, reordenamiento y poison messages, con reconciliación demostrada. |
+| 32 · Concurrencia y sistemas distribuidos (`SE-385`–`SE-396`) | Memoria y coordinación, relojes, fallos parciales, consistencia, CAP/PACELC, consenso, elección, replicación, retries y discovery. | Laboratorio de fallos que mide comportamiento ante partición, latencia y reinicio y explica qué garantías conserva o pierde. |
+| 33 · Cloud, plataforma e infraestructura (`SE-397`–`SE-408`) | Modelos cloud, IAM, redes, cómputo, storage, containers, Kubernetes, IaC, GitOps, multi-entorno, costes y arquitectura cloud-native. | Entorno reproducible con mínimo privilegio, políticas, costes estimados, destrucción segura y recuperación documentada. |
+| 34 · SaaS y plataformas de producto (`SE-409`–`SE-420`) | Planificada. SaaS como producto y como operación, tenencia, organizaciones e identidad, planes y derechos de uso, medición y facturación, activación, ciclo de vida del tenant, APIs públicas y webhooks, plataformas extensibles, SLA comercial, economía unitaria, taller de planes y aislamiento y proyecto de núcleo SaaS multi-tenant con facturación por uso. | Por definir al desarrollar la parte: núcleo SaaS multi-tenant con facturación por uso y evidencia medida. |
+| 35 · Estrategia y técnicas de prueba (`SE-421`–`SE-432`) | Unitarias, integración, sistema, aceptación, E2E, contrato, property-based, mutation, fuzzing, snapshots y selección de qué no probar. | Estrategia de riesgo con suites ejecutables, oráculos claros, datos controlados y análisis explícito de falsos positivos y huecos. |
+| 36 · Calidad, rendimiento y resiliencia (`SE-433`–`SE-444`) | ISO 25010/SQuaRE, deuda, análisis estático, métricas y límites, profiling, carga, percentiles, capacidad, degradación, DR y chaos. | Informe de calidad y game day con baseline, cuello de botella, mejora medida, recuperación y deuda residual priorizada. |
+| 37 · Sistemas críticos, tiempo real y normas de seguridad (`SE-445`–`SE-456`) | Riesgo y seguridad funcional (HARA, FMEA, FTA, STPA), IEC 61508, ISO 26262, DO-178C, DO-254 y ARP4754, IEC 62304, casos de seguridad y trazabilidad, RTOS y planificación de tiempo real, codificación segura (MISRA, CERT), verificación formal y model checking (TLA+, SPARK, Alloy), y verificación con MC/DC, HIL y SIL. | Paquete de aseguramiento de un controlador con análisis de peligros, trazabilidad, verificación y caso de seguridad; análisis de un fallo real frente a las normas. |
+| 38 · Seguridad, privacidad y cumplimiento (`SE-457`–`SE-468`) | Threat modeling, secure design/coding, secretos, IAM, OWASP, SAST/DAST/SCA, privacidad, respuesta y trazabilidad regulatoria. | Cadena LEY/REGULACIÓN → REQUISITO → CONTROL → IMPLEMENTACIÓN → PRUEBA → EVIDENCIA → AUDITORÍA aplicada a un caso. |
+| 39 · Build, release y cadena de suministro (`SE-469`–`SE-480`) | Builds reproducibles, artefactos, repositorios, SBOM, provenance, signing, SLSA, OpenSSF, pinning, typosquatting y releases. | Release reconstruible y verificable con inventario, firma, procedencia y simulación de dependencia comprometida. |
+| 40 · CI/CD, IaC y platform engineering (`SE-481`–`SE-492`) | Pipelines, quality gates, ambientes, progressive delivery, canary, blue/green, rollback, IDP, portales, golden paths, DevEx y DORA/SPACE. | Camino autoservicio medido como producto, con despliegue progresivo, rollback probado y evaluación del riesgo de métricas. |
+| 41 · Observabilidad, SRE e incidentes (`SE-493`–`SE-504`) | SLI/SLO/SLA, error budgets, toil, logs, métricas, traces, OpenTelemetry, alertas, runbooks, incident command y postmortems. | Incidente simulado: DETECTAR → CONTENER → DIAGNOSTICAR → RECUPERAR → ANALIZAR → APRENDER, con timeline y acciones verificables. |
+| 42 · Ingeniería del caos (`SE-505`–`SE-516`) | Planificada. Principios y estado estable, experimentos de fallo con radio de impacto, inyección de fallos de red, recursos, nodos, Kubernetes y datos, game days, caos continuo en CI/CD, gobernanza y criterio de aborto, aprendizaje de los hallazgos, taller de experimento acotado y proyecto de programa de caos con evidencia y remediación. | Por definir al desarrollar la parte: programa de caos de un servicio con evidencia y plan de remediación. |
+| 43 · Mantenimiento y modernización legacy (`SE-517`–`SE-528`) | Arqueología, ingeniería inversa, caracterización, dependencias, deuda, strangler, branch by abstraction, ACL, migraciones, EOL y retiro. | Modernización incremental de un sistema ajeno con mapa de dependencias, compatibilidad, rollout, archivo y borrado seguro. |
+| 44 · Gestión, liderazgo y práctica profesional (`SE-529`–`SE-540`) | Rutas técnicas y de gestión, mentoring, reviews, negociación, priorización, Conway, Team Topologies, carga cognitiva, ownership y crisis. | Propuesta técnica defendida ante intereses en conflicto, plan organizacional y retrospectiva de una decisión bajo incertidumbre. |
+| 45 · Metodologías de desarrollo: de TDD a ODD (`SE-541`–`SE-552`) | Mapa de metodologías, TDD y sus escuelas, BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD en tres niveles, EDD, ODD y su contraste con SDD. | Un mismo cambio resuelto con cinco metodologías y una política de equipo que dice cuándo usar cada una, con la evidencia que cada una produce. |
+| 46 · Desarrollo de software asistido por IA (`SE-553`–`SE-564`) | IA en requisitos, diseño, código, review, pruebas, documentación, debugging, DevOps, seguridad, incidentes, legacy, evals y costes. | Cambio asistido con trazabilidad de prompts y herramientas, pruebas deterministas, revisión humana, seguridad y comparación de coste/latencia. |
+| 47 · SPEC, agentes y ciclo de vida agentic (`SE-565`–`SE-576`) | Coding/terminal agents, MCP, tools, skills, memoria, contexto, instrucciones de repositorio, multiagente, guardrails, loops y regresiones. | Flujo agentic evaluable donde HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN → HUMANO REVISA → SISTEMA VALIDA. |
+| 48 · Harness y agentic engineering (`SE-577`–`SE-588`) | Anatomía de un harness, instrucciones de repositorio, herramientas y permisos, contexto, loops y paradas, sandboxes, gates, multiagente, evals del harness, AI-DLC y gobierno. | Harness mínimo gobernado y evaluado, con diagnóstico de un fallo real y criterios de parada y recuperación. |
+| 49 · Patrones agénticos y sistemas con LLM (`SE-589`–`SE-600`) | Workflows frente a agentes, encadenado, enrutamiento, paralelización, orquestador-trabajadores, evaluador-optimizador, ReAct, memoria, RAG, MCP y A2A, ejecución durable, evals, coste y seguridad. | Sistema con LLM evaluado y operable, con el patrón elegido justificado frente a un flujo fijo y una degradación probada. |
+| 50 · Machine learning en producción y MLOps (`SE-601`–`SE-612`) | Ciclo de vida de ML y por qué falla en producción, datos de entrenamiento, etiquetas y feature stores, experimentos y entrenamiento reproducible, evaluación, sesgos y validación, ajuste fino y su costo, servir modelos con latencia, lotes y GPU, despliegue seguro (shadow, canary, rollback), deriva y reentrenamiento, seguridad y robustez de ML, y gobierno de IA (EU AI Act, ISO/IEC 42001, NIST AI RMF). | Sistema de ML operable con evidencia: entrenamiento reproducible, evaluación por segmentos, despliegue gradual, monitor de deriva y reversión ejercitada. |
 
 ## Ejes transversales obligatorios
 
@@ -171,7 +176,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 
 ## Fases de implementación
 
-1. **Consolidar la base:** preservar `SE-001`–`SE-588`, eliminar metadatos editoriales
+1. **Consolidar la base:** preservar las 588 clases desarrolladas, eliminar metadatos editoriales
    que no enseñan, sincronizar índices y mantener validadores estructurales.
 2. **Profundizar por partes:** trabajar una parte completa, revisar cada tema anunciado,
    ejecutar sus prácticas y publicar contenido íntegro; un commit por parte.
@@ -181,7 +186,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 4. **Cerrar brechas verificadas:** contrastar con SWEBOK, ISO/IEC/IEEE 12207, 15288,
    29148, ISO/IEC 25010/SQuaRE, ACM/IEEE CS2023, OWASP, NIST, CNCF, OpenSSF, SLSA,
    DORA, Google SRE, WCAG/W3C y documentación oficial vigente.
-5. **Expandir solo con justificación:** añadir clases después de `SE-588` únicamente si
+5. **Expandir solo con justificación:** añadir clases después de `SE-612` únicamente si
    una auditoría demuestra que una competencia no cabe con profundidad y sin duplicar
    repositorios especializados. Toda adición actualiza navegación, rutas, evaluación,
    bibliografía y métricas en el mismo cambio.
@@ -200,17 +205,18 @@ actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 | 4 | Parte 05 | CLI diagnóstica, fronteras y transferencia Python/Rust | completada con quince contratos y compilación remota del puerto Rust |
 | 5 | Partes 06–09 | paradigmas, algoritmos, depuración y empaquetado | contenido editorial existente; falta aprobación cualitativa y ejecución |
 | 6 | Partes 10–14 | discovery, economía, requisitos, contratos, UX, accesibilidad e i18n | contenido editorial existente; falta aprobación cualitativa y evidencia |
-| 7 | Partes 15–29 | planificación, colaboración, superficies, arquitectura, datos y cloud | Partes 15–29 desarrolladas (`SE-181`–`SE-360`), a falta de revisión editorial humana independiente |
-| 8 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | Partes 30–37 desarrolladas (`SE-361`–`SE-456`), a falta de revisión editorial humana independiente |
-| 9 | Partes 38–39 | IA asistida, SPEC y agentes controlados | Partes 38–39 desarrolladas (`SE-457`–`SE-480`), a falta de revisión editorial humana independiente |
-| 10 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
-| 11 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-588` |
+| 7 | Partes 15–22, 24–25, 27, 29 y 31–33 | planificación, colaboración, superficies, dominios, diseño, arquitectura, datos, integración, concurrencia y cloud | desarrolladas, a falta de revisión editorial humana independiente |
+| 8 | Partes 35–36, 38–41 y 43–44 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | desarrolladas, a falta de revisión editorial humana independiente |
+| 9 | Partes 23, 26, 28, 30, 37, 45 y 46–50 | runtimes, patrones, estilos, ingeniería de datos, sistemas críticos, metodologías, IA asistida, agentes, patrones agénticos y ML en producción | desarrolladas (ampliaciones de ADR-004 y ADR-006), a falta de revisión editorial humana independiente |
+| 10 | Partes 34 y 42 | SaaS y plataformas de producto; ingeniería del caos | planificadas y reservadas por ADR-007; sin clases publicadas |
+| 11 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
+| 12 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-612` |
 
 Las brechas candidatas siguen siendo métodos formales aplicados, GreenOps medible,
 InnerSource/OSPO, DevEx/SPACE, API en tiempo real, estimación probabilística,
 compliance engineering, rutas Staff/Principal/Manager y retiro seguro. Cada candidata
 debe documentar por qué no cabe con profundidad en una clase existente antes de recibir
-un ID posterior a `SE-588`.
+un ID posterior a `SE-612`.
 
 ## Casos de estudio
 
@@ -222,7 +228,7 @@ cambian los contadores ni requieren un ADR de ampliación de clases.
 
 ## Criterio de término del programa
 
-El programa no está terminado porque existan 588 clases o cualquier otra cifra. Está
+El programa no está terminado porque existan 612 posiciones o cualquier otra cifra. Está
 terminado cuando cada tema prometido se desarrolla, cada práctica relevante se puede
 reproducir, las fuentes respaldan afirmaciones, los proyectos integran el ciclo de vida,
 las rutas son transitables, el portal publica el contenido completo y las validaciones

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-384",
+  "title": "Proyecto: flujo integrado tolerante a reintentos",
+  "stage": "E",
+  "part": "31",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos"
+}

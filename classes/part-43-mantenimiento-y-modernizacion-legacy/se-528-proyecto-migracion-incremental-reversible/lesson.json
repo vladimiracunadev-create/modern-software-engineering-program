@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-528",
+  "title": "Proyecto: migración incremental reversible",
+  "stage": "G",
+  "part": "43",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-528-proyecto-migracion-incremental-reversible"
+}

@@ -287,7 +287,7 @@ El cierre es una secuencia con orden propio, aquí más rica que en un incidente
 
 **Cómo leer la figura.** Cada carril es un tipo de actividad del cierre y el eje cuenta días desde la decisión. Las marcas son hitos documentados; las barras son períodos con inicio y fin informados. Mira primero lo corto del tiempo entre la decisión y el anuncio, y lo que se hizo en el medio. **Dónde deja de valer:** el día 0 (30 de septiembre) es tres semanas antes del anuncio, según Katzenberg; la fecha de la decisión es una aproximación a partir de «un par de semanas» que dijo Whitman; el resto son fechas de prensa.
 
-La lectura propia es que un cierre ordenado es un acto de ingeniería de la decisión: comunicar a la plantilla, devolver capital, preservar el activo (el catálogo) y cerrar el servicio con una fecha. Se enseña poco porque casi nunca se estudia. [SE-450 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) trata la gestión de riesgos y las decisiones ejecutivas.
+La lectura propia es que un cierre ordenado es un acto de ingeniería de la decisión: comunicar a la plantilla, devolver capital, preservar el activo (el catálogo) y cerrar el servicio con una fecha. Se enseña poco porque casi nunca se estudia. [SE-534 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) trata la gestión de riesgos y las decisiones ejecutivas.
 
 ### Hardware utilizado: el teléfono y, después, el televisor
 
@@ -345,7 +345,7 @@ El confinamiento no solo redujo el uso en movimiento; también cambió el **cana
 
 ### Una función diferencial cuya propiedad se disputa
 
-La disputa con Eko ilustra un riesgo de propiedad intelectual de las funciones diferenciales. Según The Verge, Quibi presentó una demanda para que se declarara que Turnstyle no infringía la patente de Eko un día antes de que Eko presentara la suya, que además alegaba apropiación de secretos industriales por dos empleados que conocieron la tecnología de Eko bajo acuerdo de confidencialidad cuando trabajaban en otra empresa; Quibi calificó las reclamaciones de carentes de mérito y dijo que había desarrollado Turnstyle internamente y obtenido una patente propia. Variety informó en diciembre de 2020 de que Eko seguía reclamando cerca de 100 millones de dólares. El caso no toma partido. Lo relevante para el curso es que una función diferencial arrastra un riesgo legal que la ingeniería de producto debe evaluar antes del lanzamiento ([SE-452 · Propiedad intelectual, contratos y ética](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/README.md) y [SE-117 · Licencias, procedencia y reutilización](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md)).
+La disputa con Eko ilustra un riesgo de propiedad intelectual de las funciones diferenciales. Según The Verge, Quibi presentó una demanda para que se declarara que Turnstyle no infringía la patente de Eko un día antes de que Eko presentara la suya, que además alegaba apropiación de secretos industriales por dos empleados que conocieron la tecnología de Eko bajo acuerdo de confidencialidad cuando trabajaban en otra empresa; Quibi calificó las reclamaciones de carentes de mérito y dijo que había desarrollado Turnstyle internamente y obtenido una patente propia. Variety informó en diciembre de 2020 de que Eko seguía reclamando cerca de 100 millones de dólares. El caso no toma partido. Lo relevante para el curso es que una función diferencial arrastra un riesgo legal que la ingeniería de producto debe evaluar antes del lanzamiento ([SE-536 · Propiedad intelectual, contratos y ética](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md) y [SE-117 · Licencias, procedencia y reutilización](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md)).
 
 ## Línea de tiempo
 
@@ -502,7 +502,7 @@ El eje 1 a 3 explica **por qué el negocio dependía de que todo saliera bien a 
 - *Producto:* un catálogo inicial pequeño, ampliable según uso.
 - *Proceso:* tramos de capital ligados a hitos de uso, retención y costo por suscriptor.
 - *Gobierno:* los inversores y la dirección acuerdan los hitos y los umbrales de parada al inicio.
-- *Costo y trade-off:* una ronda grande da credibilidad y atrae talento; los tramos pueden reducir el atractivo ante estudios. [SE-141 · Portafolio, opciones y secuenciación de inversión](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md), [SE-133 · Modelos de negocio y sostenibilidad](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md), [SE-453 · Economía del software y costo total](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md).
+- *Costo y trade-off:* una ronda grande da credibilidad y atrae talento; los tramos pueden reducir el atractivo ante estudios. [SE-141 · Portafolio, opciones y secuenciación de inversión](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md), [SE-133 · Modelos de negocio y sostenibilidad](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md), [SE-537 · Economía del software y costo total](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-537-economia-del-software-y-costo-total/README.md).
 
 **Factor 3: lanzamiento de gran escala sin prueba de campo.**
 - *Producto:* un lanzamiento escalonado (por mercado, por segmento o por canal) con medición de la conversión de cada cohorte.
@@ -538,13 +538,13 @@ El eje 1 a 3 explica **por qué el negocio dependía de que todo saliera bien a 
 - *Producto:* un conjunto de umbrales (conversión, retención, costo por suscriptor) con un plazo.
 - *Proceso:* una revisión formal en cada hito.
 - *Gobierno:* los responsables y los inversores firman los criterios antes del gasto.
-- *Costo y trade-off:* incomodidad de pactar el fracaso desde el principio; es lo que permitió, aquí, devolver capital en lugar de agotarlo. [SE-130 · Criterios de no éxito y decisiones de abandono](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-130-criterios-de-no-exito-y-decisiones-de-abandono/README.md), [SE-450 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md).
+- *Costo y trade-off:* incomodidad de pactar el fracaso desde el principio; es lo que permitió, aquí, devolver capital en lugar de agotarlo. [SE-130 · Criterios de no éxito y decisiones de abandono](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-130-criterios-de-no-exito-y-decisiones-de-abandono/README.md), [SE-534 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md).
 
 **Factor 9: función diferencial con riesgo legal.**
 - *Producto:* un análisis de libertad de operación antes de invertir en una función única.
 - *Proceso:* revisión de propiedad intelectual de las funciones diferenciales.
 - *Gobierno:* decidir qué litigios se aceptan como parte del riesgo del proyecto.
-- *Costo y trade-off:* tiempo legal y posible rediseño. [SE-452 · Propiedad intelectual, contratos y ética](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/README.md), [SE-117 · Licencias, procedencia y reutilización](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md).
+- *Costo y trade-off:* tiempo legal y posible rediseño. [SE-536 · Propiedad intelectual, contratos y ética](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md), [SE-117 · Licencias, procedencia y reutilización](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md).
 
 **Factor 10: catálogo como activo y como pasivo.**
 - *Producto:* contratos de contenido con ventanas y opciones de salida pensadas desde el inicio.
@@ -595,8 +595,8 @@ El orden de efecto por costo es instructivo: los factores 1 y 6 son baratos y se
 | Árbol de métricas | [SE-143 · Taller: diseñar un árbol de métricas](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) | De descargas a margen |
 | Viabilidad técnico-económica | [SE-144 · Proyecto: caso de viabilidad técnico-económica](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md) | Cuánto debía costar cada hora de contenido |
 | Plataformas móviles | [SE-255 · Nativo, híbrido, web wrapper y cross-platform](../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) | Elegir según uso real |
-| Gestión de riesgos y decisiones | [SE-450 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) | La decisión ejecutiva de cerrar |
-| Propiedad intelectual | [SE-452 · Propiedad intelectual, contratos y ética](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/README.md) | La disputa por Turnstyle |
+| Gestión de riesgos y decisiones | [SE-534 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) | La decisión ejecutiva de cerrar |
+| Propiedad intelectual | [SE-536 · Propiedad intelectual, contratos y ética](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/README.md) | La disputa por Turnstyle |
 
 ### Preguntas de discusión
 

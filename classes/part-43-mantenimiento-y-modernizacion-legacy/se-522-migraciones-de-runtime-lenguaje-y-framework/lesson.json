@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-522",
+  "title": "Migraciones de runtime, lenguaje y framework",
+  "stage": "G",
+  "part": "43",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework"
+}

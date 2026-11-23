@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import json
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import program_state as ps  # noqa: E402
 
 
 class PhaseFourGenerationTests(unittest.TestCase):
@@ -13,14 +16,15 @@ class PhaseFourGenerationTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.program = json.loads((ROOT / "curriculum.yaml").read_text(encoding="utf-8"))
         cls.lessons = [lesson for part in cls.program["parts"] for lesson in part["lessons"]]
-        cls.target = [lesson for lesson in cls.lessons if 181 <= lesson["number"] <= 360]
+        cls.target = [lesson for lesson in cls.lessons if ps.class_phase(lesson["number"]) == 4]
 
     def test_phase_four_scope(self) -> None:
         self.assertEqual(180, len(self.target))
         self.assertEqual("SE-181", self.target[0]["id"])
-        self.assertEqual("SE-360", self.target[-1]["id"])
+        self.assertEqual("SE-408", self.target[-1]["id"])
+        # ADR-007: la fase 4 se declara por partes (el rango de SE-nnn ya no es contiguo).
         self.assertEqual(
-            {"first_class": "SE-181", "last_class": "SE-360", "classes": 180},
+            {"parts": [f"{number:02d}" for number in ps.PHASE4_PARTS], "classes": 180},
             self.program["phase_4_target"],
         )
 

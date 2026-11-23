@@ -1,432 +1,611 @@
-"""Experimentos de SE-553 a SE-558 (Parte 46): del ciclo de vida del modelo a servirlo.
+"""Experimentos de SE-553 a SE-558 (desarrollo asistido por IA).
 
-Uso: python scripts/experiments_part46_a.py [553|554|555|556|557|558]
-
-Datos sintéticos de *Avisos-ML* (semilla 46), numpy y scikit-learn; sin GPU ni modelos de lenguaje.
-Los recuentos y las métricas con semilla se repiten; los tiempos se miden de verdad y varían.
+Ningún experimento llama a un modelo real: los «modelos» son procesos sintéticos con
+parámetros declarados y semilla fija, o código estándar que se ejecuta de verdad
+(recuperación BM25, difflib, ast, doctest, sqlite3). Solo biblioteca estándar.
+Uso: python scripts/experiments_part46_a.py  -> imprime JSON con todas las cifras.
 """
 from __future__ import annotations
 
-import heapq
+import ast
+import difflib
+import doctest
 import json
-import os
-import tempfile
-import time
+import math
+import random
+import re
+import sqlite3
+import statistics
+import sys
+import textwrap
+from collections import Counter
+from pathlib import Path
 
-import numpy as np
-
-import experiments_part46_lab as L
-from experiments_part46_lab import auc, fmt, table
-
-
-# ====================================================================== SE-553
-def e553():
-    """Un modelo bueno fuera de línea que falla en producción: cuatro causas, medidas por separado."""
-    Xtr, ytr, _ = L.make_data(20000, 1)
-    Xte, yte, _ = L.make_data(10000, 2)
-    m = L.fit_hgb(Xtr, ytr)
-    base = auc(yte, m.predict_proba(Xte)[:, 1])
-    rows = [("Fuera de línea (misma distribución)", fmt(base), "—")]
-
-    # 1. sesgo de entrenamiento-servicio: read_rate llega en porcentaje (0-100) en vez de 0-1
-    Xs = Xte.copy(); Xs[:, 2] = Xs[:, 2] * 100
-    a = auc(yte, m.predict_proba(Xs)[:, 1]); rows.append(("Unidad distinta en servicio (read_rate x100)", fmt(a), fmt(a - base)))
-    # 2. deriva de covariables: más carga
-    Xd, yd, _ = L.make_data(10000, 3, load_shift=2.5)
-    a = auc(yd, m.predict_proba(Xd)[:, 1]); rows.append(("Deriva de covariables (carga +2,5 tareas)", fmt(a), fmt(a - base)))
-    # 3. deriva de concepto: la historia pasada predice menos
-    Xc, yc, _ = L.make_data(10000, 4, concept=0.25)
-    a = auc(yc, m.predict_proba(Xc)[:, 1]); rows.append(("Deriva de concepto (peso de late_rate x0,25)", fmt(a), fmt(a - base)))
-    # 4. columna nula en servicio (un valor faltante imputado con 0)
-    Xn = Xte.copy(); Xn[:, 1] = 0.0
-    a = auc(yte, m.predict_proba(Xn)[:, 1]); rows.append(("Fallo aguas arriba (late_rate llega en 0)", fmt(a), fmt(a - base)))
-    print(table(["Situación", "AUC", "Cambio"], rows))
-    rule = Xte[:, 1] + 0.05 * Xte[:, 3]
-    print(f"Regla sin modelo (late_rate + 0,05 x carga): AUC {auc(yte, rule):.3f}; con late_rate en 0 la regla pierde su señal principal: {auc(yte, Xn[:, 1] + 0.05 * Xn[:, 3]):.3f}")
-    # bucle de realimentación: el modelo decide a quién se le envía recordatorio y solo vemos el resultado de esos
-    Xp, yp, _ = L.make_data(30000, 5)
-    p = m.predict_proba(Xp)[:, 1]
-    # efecto del recordatorio: reduce la probabilidad de entregar tarde a la mitad
-    rng = np.random.default_rng(7)
-    sent = p > 0.5
-    y_obs = np.where(sent & (rng.random(len(p)) < 0.5), 0, yp)
-    print(f"\nBucle de realimentación: se envía recordatorio al {sent.mean()*100:.1f} % ({sent.sum()} de {len(p)}).")
-    print(f"Tasa real de entrega tardía entre los marcados: {yp[sent].mean():.3f}; observada tras recordar: {y_obs[sent].mean():.3f}")
-    # reentrenar con las etiquetas observadas
-    m2 = L.fit_hgb(Xp, y_obs)
-    Xe, ye, _ = L.make_data(10000, 6)
-    print(f"AUC del modelo original en datos sin intervención: {auc(ye, m.predict_proba(Xe)[:, 1]):.3f}")
-    print(f"AUC del modelo reentrenado con etiquetas contaminadas por la intervención: {auc(ye, m2.predict_proba(Xe)[:, 1]):.3f}")
-    # retraso de etiquetas: cuántas semanas hasta saber la verdad
-    print(f"\nPrevalencia de entrega tardía: {yte.mean():.3f}; AUC por mes cuenta con etiqueta 7 días después de la entrega")
-    # componentes: cuántos pasos distintos tiene el ciclo
-    print("Componentes del ciclo (SE-553): datos, etiquetas, características, entrenamiento, evaluación, registro, despliegue, servicio, monitoreo, reentrenamiento")
+ROOT = Path(__file__).resolve().parents[1]
 
 
-# ====================================================================== SE-554
-def point_in_time_join(events_t, feat_t, feat_v):
-    """Para cada evento devuelve el último valor de la característica con tiempo <= t_evento."""
-    idx = np.searchsorted(feat_t, events_t, side="right") - 1
-    return np.where(idx >= 0, feat_v[np.clip(idx, 0, None)], np.nan)
+def pct(x: float, digits: int = 1) -> float:
+    return round(100 * x, digits)
 
 
-def e554():
-    rng = np.random.default_rng(54)
-    # 1. fuga por el futuro: una característica construida con la etiqueta
-    X, y, _ = L.make_data(20000, 11)
-    Xt, yt, _ = L.make_data(10000, 12)
-    clean = L.fit_hgb(X, y)
-    a_clean = auc(yt, clean.predict_proba(Xt)[:, 1])
-    # "entregas_tardias_ultimos_7_dias" calculada incluyendo la propia tarea (mira el futuro)
-    leak_tr = np.column_stack([X, y + rng.normal(0, 0.35, len(y))])
-    leak_te = np.column_stack([Xt, yt + rng.normal(0, 0.35, len(yt))])
-    leaky = L.fit_hgb(leak_tr, y)
-    a_leak_off = auc(yt, leaky.predict_proba(leak_te)[:, 1])
-    # en producción esa característica no existe todavía: llega la media histórica
-    prod = np.column_stack([Xt, np.full(len(yt), y.mean())])
-    a_leak_prod = auc(yt, leaky.predict_proba(prod)[:, 1])
-    print(table(["Modelo", "AUC fuera de línea", "AUC en producción"],
-                [("Sin fuga", fmt(a_clean), fmt(a_clean)), ("Con característica construida con la etiqueta", fmt(a_leak_off), fmt(a_leak_prod))]))
-
-    # 2. ruido de etiquetas
-    print()
-    rows = []
-    Xc, yc, _ = L.make_data(20000, 13)
-    Xv, yv, _ = L.make_data(10000, 14)
-    for noise in (0.0, 0.05, 0.10, 0.20, 0.30, 0.40):
-        _, yn, _ = L.make_data(20000, 13, label_noise=noise)
-        m = L.fit_hgb(Xc, yn)
-        rows.append((f"{int(noise*100)} %", fmt(auc(yv, m.predict_proba(Xv)[:, 1]))))
-    print(table(["Etiquetas invertidas al azar", "AUC en datos limpios"], rows))
-
-    # 3. unión puntual en el tiempo (point-in-time) frente a unión ingenua
-    n_ev = 5000
-    ev_t = np.sort(rng.uniform(0, 100, n_ev))
-    ev_student = rng.integers(0, 50, n_ev)
-    # cada estudiante tiene una característica que cambia cada ~10 días
-    truth_rows = []
-    naive, pit = [], []
-    feat = {}
-    for s in range(50):
-        times = np.sort(rng.uniform(0, 100, 10)); vals = np.cumsum(rng.normal(0.1, 0.2, 10))
-        feat[s] = (times, vals)
-    exact = np.empty(n_ev); naive = np.empty(n_ev); pit = np.empty(n_ev)
-    for i in range(n_ev):
-        times, vals = feat[ev_student[i]]
-        k = np.searchsorted(times, ev_t[i], side="right") - 1
-        pit[i] = vals[k] if k >= 0 else np.nan
-        naive[i] = vals[-1]     # última versión conocida hoy
-        exact[i] = pit[i]
-    valid = ~np.isnan(pit)
-    print(f"\nUnión puntual: {int(valid.sum())} de {n_ev} eventos tienen valor; la unión ingenua usa el valor más reciente de hoy.")
-    print(f"Diferencia media absoluta entre ingenua y puntual: {np.nanmean(np.abs(naive[valid]-pit[valid])):.3f}; eventos con valor distinto: {(np.abs(naive[valid]-pit[valid])>1e-9).mean()*100:.1f} %")
-
-    # 4. sesgo entrenamiento-servicio: dos implementaciones de la misma característica
-    X2, y2, _ = L.make_data(20000, 15)
-    m = L.fit_hgb(X2, y2)
-    Xs, ys, _ = L.make_data(10000, 16)
-    base = auc(ys, m.predict_proba(Xs)[:, 1])
-    rows = [("Idéntica (misma función)", fmt(base), "0,0 %")]
-    Xs_a = Xs.copy(); Xs_a[:, 0] = np.round(Xs_a[:, 0] / 24) * 24     # horas redondeadas a días
-    rows.append(("hours_left redondeado a días en servicio", fmt(auc(ys, m.predict_proba(Xs_a)[:, 1])), f"{(Xs_a[:,0]!=Xs[:,0]).mean()*100:.0f} %"))
-    Xs_b = Xs.copy(); Xs_b[:, 3] = np.floor(Xs_b[:, 3] / 2)             # carga con otra definición
-    rows.append(("load con otra definición (mitad)", fmt(auc(ys, m.predict_proba(Xs_b)[:, 1])), f"{(Xs_b[:,3]!=Xs[:,3]).mean()*100:.0f} %"))
-    print()
-    print(table(["Implementación en servicio", "AUC", "Valores distintos"], rows))
-    # comprobación de paridad: detectar el sesgo con una muestra
-    diff = [np.mean(Xs[:, j] != Xs_b[:, j]) for j in range(Xs.shape[1])]
-    print("\nParidad por característica (fracción distinta) con la definición alternativa de load:", [f"{d:.2f}" for d in diff])
+# ------------------------------------------------------------------ SE-553
+def e457_temperatura() -> dict:
+    """Cinco respuestas candidatas con logits fijos; la correcta no es la más probable a T=1."""
+    logits = [2.0, 1.6, 1.2, 0.4, 0.0]  # la correcta es la segunda (índice 1)
+    correcta = 1
+    rng = random.Random(457)
+    out = []
+    for temp in (0.2, 0.7, 1.0, 1.5):
+        w = [math.exp(l / temp) for l in logits]
+        s = sum(w)
+        p = [x / s for x in w]
+        n = 20000
+        uno = 0
+        mayoria = 0
+        al_menos = 0
+        for _ in range(n // 5):
+            muestras = rng.choices(range(5), weights=p, k=5)
+            uno += muestras[0] == correcta
+            c = Counter(muestras).most_common(1)[0][0]
+            mayoria += c == correcta
+            al_menos += correcta in muestras
+        t = n // 5
+        out.append({"T": temp, "p_correcta": round(p[correcta], 3), "una_muestra": pct(uno / t),
+                    "mayoria_de_5": pct(mayoria / t), "alguna_de_5": pct(al_menos / t)})
+    return {"filas": out}
 
 
-# ====================================================================== SE-555
-def e555():
-    from sklearn.ensemble import RandomForestClassifier
-    X, y, _ = L.make_data(12000, 21)
-    Xt, yt, _ = L.make_data(20000, 23)
-    # 1. mismo código y datos: ¿se repite?
-    a1 = auc(yt, L.fit_forest(X, y, seed=5).predict_proba(Xt)[:, 1])
-    a2 = auc(yt, L.fit_forest(X, y, seed=5).predict_proba(Xt)[:, 1])
-    print(f"Misma semilla, dos ejecuciones: {a1:.6f} y {a2:.6f}; idénticas: {a1 == a2}")
-    # 2. variación con pocos datos (500 filas): por semilla del modelo y por la muestra de entrenamiento
-    rng = np.random.default_rng(3)
-    idx0 = rng.choice(len(X), 500, replace=False)
-    seeds = [auc(yt, RandomForestClassifier(n_estimators=15, max_depth=5, random_state=s, n_jobs=1).fit(X[idx0], y[idx0]).predict_proba(Xt)[:, 1]) for s in range(40)]
-    draws = []
-    for s in range(40):
-        idx = rng.choice(len(X), 500, replace=False)
-        draws.append(auc(yt, RandomForestClassifier(n_estimators=15, max_depth=5, random_state=1, n_jobs=1).fit(X[idx], y[idx]).predict_proba(Xt)[:, 1]))
-    print(f"500 filas, 40 semillas del modelo con los mismos datos: media {np.mean(seeds):.4f}, desviación {np.std(seeds, ddof=1):.4f}, rango {max(seeds)-min(seeds):.4f}")
-    print(f"500 filas, 40 muestras de entrenamiento con la misma semilla: media {np.mean(draws):.4f}, desviación {np.std(draws, ddof=1):.4f}, rango {max(draws)-min(draws):.4f}")
-    # 3. dos configuraciones casi iguales: ¿cuántas veces gana la mejor en una sola ejecución?
-    wins, diffs = 0, []
-    for s in range(60):
-        idx = rng.choice(len(X), 500, replace=False)
-        pa = RandomForestClassifier(n_estimators=15, max_depth=4, random_state=s, n_jobs=1).fit(X[idx], y[idx]).predict_proba(Xt)[:, 1]
-        pb = RandomForestClassifier(n_estimators=15, max_depth=5, random_state=s + 500, n_jobs=1).fit(X[idx], y[idx]).predict_proba(Xt)[:, 1]
-        da = auc(yt, pb) - auc(yt, pa); diffs.append(da); wins += da > 0
-    print(f"Profundidad 5 frente a 4 con 500 filas: diferencia media {np.mean(diffs):+.4f}, desviación {np.std(diffs, ddof=1):.4f}; la 5 gana {wins} de 60 comparaciones de una sola ejecución")
-    # 4. optimismo de la selección: el mejor de N candidatos casi idénticos medido en una validación pequeña
-    res = []
-    for n_cfg in (1, 5, 20, 80):
-        gaps = []
-        for rep in range(40):
-            r = np.random.default_rng(1000 + rep)
-            Xv, yv, _ = L.make_data(300, 5000 + rep)
-            best_v, best_t = -1, 0
-            for c in range(n_cfg):
-                ib = r.choice(len(X), 800, replace=True)
-                mdl = L.fit_logistic(X[ib], y[ib], C=float(10 ** r.uniform(-2, 1)))
-                v = auc(yv, mdl.predict_proba(Xv)[:, 1])
-                if v > best_v:
-                    best_v, best_t = v, auc(yt, mdl.predict_proba(Xt)[:, 1])
-            gaps.append(best_v - best_t)
-        res.append((n_cfg, fmt(np.mean(gaps), 4)))
-    print()
-    print(table(["Candidatos probados", "AUC de validación menos AUC de prueba del elegido (media de 40 repeticiones)"], res))
-    # 5. registro de la corrida
-    cfg = {"model": "forest", "n": 60, "depth": 8, "seed": 5, "features": L.FEATURES}
-    rec = {"data_sha": L.sha(X), "label_sha": L.sha(y), "config_sha": L.sha(cfg), "auc_test": round(a1, 6), "versions": L.check_versions()}
-    with tempfile.TemporaryDirectory() as d:
-        p = os.path.join(d, "run.json")
-        with open(p, "w", encoding="utf-8") as f:
-            json.dump(rec, f, indent=1, ensure_ascii=False)
-        size = os.path.getsize(p)
-    print(f"\nRegistro de corrida: {size} bytes, huellas data={rec['data_sha']} etiquetas={rec['label_sha']} config={rec['config_sha']}")
-    X2, y2, _ = L.make_data(12000, 21)
-    print(f"Regenerar los datos con la misma semilla da la misma huella: {L.sha(X2) == rec['data_sha']}")
-    X3, _, _ = L.make_data(12000, 22)
-    print(f"Con otra semilla la huella cambia: {L.sha(X3) != rec['data_sha']}")
+def e457_calibracion() -> dict:
+    """1000 preguntas; la confianza declarada excede la exactitud en las difíciles."""
+    rng = random.Random(4572)
+    datos = []
+    for _ in range(1000):
+        dificil = rng.random() < 0.4
+        conf = min(0.99, max(0.5, rng.gauss(0.88 if dificil else 0.90, 0.07)))
+        acierto = rng.random() < (0.55 if dificil else 0.93)
+        datos.append((conf, acierto, dificil))
+    def tramo(sel):
+        n = len(sel)
+        return {"n": n, "confianza": pct(statistics.mean(c for c, _, _ in sel)),
+                "exactitud": pct(sum(a for _, a, _ in sel) / n)}
+    bins = []
+    for lo, hi in ((0.5, 0.8), (0.8, 0.9), (0.9, 1.0)):
+        sel = [d for d in datos if lo <= d[0] < hi]
+        bins.append({"tramo": f"{int(lo*100)}–{int(hi*100)} %", **tramo(sel)})
+    ece = sum(b["n"] / 1000 * abs(b["confianza"] - b["exactitud"]) for b in bins)
+    return {"tramos": bins, "global": tramo(datos), "ece": round(ece, 1),
+            "faciles": tramo([d for d in datos if not d[2]]), "dificiles": tramo([d for d in datos if d[2]])}
 
 
-# ====================================================================== SE-556
-def reliability(y, p, bins=10):
-    edges = np.linspace(0, 1, bins + 1)
-    ece, rows = 0.0, []
-    for i in range(bins):
-        m = (p >= edges[i]) & (p < edges[i + 1] if i < bins - 1 else p <= 1)
-        if m.sum() == 0:
-            continue
-        ece += m.mean() * abs(y[m].mean() - p[m].mean())
-        rows.append((edges[i], edges[i + 1], int(m.sum()), float(p[m].mean()), float(y[m].mean())))
-    return ece, rows
+def e457_ventana() -> dict:
+    """120 archivos de tamaño lognormal (mediana ≈ 5 800 tokens); qué fracción de conjuntos de trabajo de 8 archivos cabe en una ventana."""
+    rng = random.Random(4573)
+    tam = [int(rng.lognormvariate(math.log(5800), 0.9)) for _ in range(120)]
+    total = sum(tam)
+    filas = []
+    for ventana in (8_000, 32_000, 128_000, 200_000):
+        cabe = 0
+        reps = 4000
+        for _ in range(reps):
+            cabe += sum(rng.sample(tam, 8)) <= ventana
+        filas.append({"ventana": ventana, "conjuntos_que_caben": pct(cabe / reps), "fraccion_del_repositorio": pct(min(1.0, ventana / total))})
+    return {"archivos": len(tam), "tokens_totales": total, "mediana": int(statistics.median(tam)), "maximo": max(tam), "filas": filas}
 
 
-def e556():
-    from sklearn.metrics import average_precision_score, precision_score, recall_score, accuracy_score, brier_score_loss
-    X, y, g = L.make_data(30000, 31, group_gap=0.6)
-    Xt, yt, gt = L.make_data(20000, 32, group_gap=0.6)
-    m = L.fit_hgb(X, y)
-    p = m.predict_proba(Xt)[:, 1]
-    print(f"Prevalencia de entrega tardía: {yt.mean():.3f}; AUC {auc(yt, p):.3f}; PR-AUC {average_precision_score(yt, p):.3f}; Brier {brier_score_loss(yt, p):.3f}")
-    # exactitud frente a un clasificador trivial con prevalencia baja
-    Xr, yr, _ = L.make_data(60000, 33, intercept=-4.4)
-    Xrt, yrt, _ = L.make_data(30000, 34, intercept=-4.4)
-    mr = L.fit_hgb(Xr, yr)
-    pr = mr.predict_proba(Xrt)[:, 1]
-    print(f"\nPrevalencia baja: {yrt.mean():.3f}. Exactitud del modelo {accuracy_score(yrt, pr>0.5):.3f}; clasificador que siempre dice 0: {accuracy_score(yrt, np.zeros_like(yrt)):.3f}; recall del modelo a 0,5: {recall_score(yrt, pr>0.5):.3f}; AUC {auc(yrt, pr):.3f}; PR-AUC {average_precision_score(yrt, pr):.3f}")
-    # umbral por costo
-    print()
-    rows = []
-    for c_fn in (1, 5, 10):
-        best = None
-        for th in np.linspace(0.02, 0.9, 89):
-            pred = p > th
-            fp = int(((pred == 1) & (yt == 0)).sum()); fn = int(((pred == 0) & (yt == 1)).sum())
-            cost = fp * 1 + fn * c_fn
-            if best is None or cost < best[0]:
-                best = (cost, th, fp, fn)
-        rows.append((f"1 : {c_fn}", fmt(best[1], 2), best[2], best[3], best[0]))
-    print(table(["Costo FP : FN", "Umbral óptimo", "FP", "FN", "Costo total"], rows))
-    # calibración
-    ece, rel = reliability(yt, p)
-    print(f"\nECE del modelo de boosting: {ece:.4f}")
-    from sklearn.ensemble import RandomForestClassifier
-    rf = RandomForestClassifier(n_estimators=60, max_depth=None, min_samples_leaf=1, random_state=3, n_jobs=1).fit(X, y)
-    prf = rf.predict_proba(Xt)[:, 1]
-    print(f"ECE del bosque sin podar: {reliability(yt, prf)[0]:.4f}; AUC {auc(yt, prf):.3f}")
-    from sklearn.isotonic import IsotonicRegression
-    iso = IsotonicRegression(out_of_bounds="clip").fit(rf.predict_proba(Xt[:10000])[:, 1], yt[:10000])
-    prf2 = iso.predict(prf[10000:])
-    print(f"ECE del bosque tras calibrar isotónica con otra muestra: {reliability(yt[10000:], prf2)[0]:.4f}; antes en esa mitad: {reliability(yt[10000:], prf[10000:])[0]:.4f}")
-    # subgrupos
-    print()
-    rows = []
-    for gi in (0, 1):
-        mk = gt == gi
-        pred = p[mk] > 0.35
-        tpr = recall_score(yt[mk], pred); fpr = ((pred == 1) & (yt[mk] == 0)).sum() / (yt[mk] == 0).sum()
-        rows.append((f"Grupo {gi}", int(mk.sum()), fmt(yt[mk].mean()), fmt(auc(yt[mk], p[mk])), fmt(tpr), fmt(fpr), fmt(pred.mean())))
-    print(table(["Grupo", "n", "Prevalencia", "AUC", "TPR", "FPR", "Tasa de marcados"], rows))
-    r = (p[gt == 1] > 0.35).mean() / (p[gt == 0] > 0.35).mean()
-    print(f"Razón de tasas de marcados (grupo 1 / grupo 0): {r:.2f}")
-    # intervalos bootstrap
-    rng = np.random.default_rng(5)
-    for n in (200, 2000, 20000):
-        idx = rng.choice(len(yt), n, replace=False)
-        bs = [auc(yt[idx][b], p[idx][b]) for b in (rng.integers(0, n, n) for _ in range(200))]
-        lo, hi = np.percentile(bs, [2.5, 97.5])
-        print(f"n={n}: AUC {auc(yt[idx], p[idx]):.3f} intervalo 95 % [{lo:.3f}, {hi:.3f}] ancho {hi-lo:.3f}")
-    # validación temporal frente a aleatoria con deriva
-    parts = [L.make_data(8000, 40 + k, load_shift=0.4 * k, concept=1.0 - 0.12 * k) for k in range(6)]
-    Xa = np.vstack([q[0] for q in parts[:4]]); ya = np.concatenate([q[1] for q in parts[:4]])
-    mt = L.fit_hgb(Xa[:24000], ya[:24000])
-    rand_idx = np.random.default_rng(1).permutation(len(Xa)); cut = int(0.75 * len(Xa))
-    mr2 = L.fit_hgb(Xa[rand_idx[:cut]], ya[rand_idx[:cut]])
-    a_rand = auc(ya[rand_idx[cut:]], mr2.predict_proba(Xa[rand_idx[cut:]])[:, 1])
-    a_temp = auc(parts[3][1], mt.predict_proba(parts[3][0])[:, 1])
-    a_future = auc(parts[5][1], mr2.predict_proba(parts[5][0])[:, 1])
-    print(f"\nValidación aleatoria sobre el pasado: AUC {a_rand:.3f}; validación temporal (último periodo): {a_temp:.3f}; el mismo modelo en el periodo futuro: {a_future:.3f}")
+# ------------------------------------------------------------------ SE-554
+def e458_requisitos() -> dict:
+    """Seis requisitos ocultos; cada requisito no especificado se cumple con p=0.5, el especificado con 0.95."""
+    rng = random.Random(458)
+    filas = []
+    n = 20000
+    for k in range(0, 7):
+        todos = 0
+        medios = 0
+        for _ in range(n):
+            cumplidos = sum(rng.random() < (0.95 if i < k else 0.5) for i in range(6))
+            todos += cumplidos == 6
+            medios += cumplidos
+        filas.append({"especificados": k, "todos": pct(todos / n), "media": round(medios / n, 2)})
+    return {"filas": filas}
 
 
-# ====================================================================== SE-557
-def e557():
-    from sklearn.linear_model import SGDClassifier
-    from sklearn.preprocessing import StandardScaler
-    # Dominio fuente: otras universidades (mucho dato); destino: una universidad nueva con otro peso de late_rate
-    Xs, ys, _ = L.make_data(40000, 51)
-    sc = StandardScaler().fit(Xs)
-    Xt_all, yt_all, _ = L.make_data(20000, 52, concept=0.7, load_shift=0.6, intercept=-1.0)
-    Xe, ye, _ = L.make_data(10000, 53, concept=0.7, load_shift=0.6, intercept=-1.0)
-    base = SGDClassifier(loss="log_loss", alpha=1e-4, random_state=1, max_iter=1, tol=None)
-    ep_src = 30
-    t0 = time.perf_counter()
-    for _ in range(ep_src):
-        base.partial_fit(sc.transform(Xs), ys, classes=[0, 1])
-    t_src = time.perf_counter() - t0
-    a_src_on_tgt = auc(ye, base.decision_function(sc.transform(Xe)))
-    a_src_on_src = auc(L.make_data(10000, 54)[1], base.decision_function(sc.transform(L.make_data(10000, 54)[0])))
-    print(f"Modelo base: {ep_src} épocas sobre {len(Xs)} filas en {t_src:.2f} s; AUC en fuente {a_src_on_src:.3f}; en el dominio nuevo sin adaptar {a_src_on_tgt:.3f}")
-    rows = []
-    import copy
-    for n in (50, 200, 1000, 5000, 20000):
-        Xn, yn = sc.transform(Xt_all[:n]), yt_all[:n]
-        # desde cero
-        s = SGDClassifier(loss="log_loss", alpha=1e-4, random_state=1, max_iter=1, tol=None)
-        t0 = time.perf_counter()
-        for _ in range(20):
-            s.partial_fit(Xn, yn, classes=[0, 1])
-        t_s = time.perf_counter() - t0
-        a_s = auc(ye, s.decision_function(sc.transform(Xe)))
-        # ajuste fino desde el modelo base, pocas épocas y paso pequeño
-        b = copy.deepcopy(base)
-        b.set_params(eta0=0.01, learning_rate="constant")
-        t0 = time.perf_counter()
-        for _ in range(5):
-            b.partial_fit(Xn, yn)
-        t_b = time.perf_counter() - t0
-        a_b = auc(ye, b.decision_function(sc.transform(Xe)))
-        a_forget = auc(L.make_data(10000, 54)[1], b.decision_function(sc.transform(L.make_data(10000, 54)[0])))
-        rows.append((n, fmt(a_s), fmt(a_b), fmt(a_forget), fmt(t_s * 1000, 1), fmt(t_b * 1000, 1)))
-    print()
-    print(table(["Filas del dominio nuevo", "AUC desde cero", "AUC ajuste fino", "AUC del ajustado en la fuente", "ms desde cero", "ms ajuste"], rows))
-    # costo en parámetros de una adaptación de rango bajo (aritmética)
-    print("\nParámetros entrenables de una capa d x k con adaptación de rango r (d=k=4096):")
-    d = k = 4096
-    for r in (4, 8, 16, 64):
-        print(f"r={r}: {r*(d+k):,} de {d*k:,} = {r*(d+k)/(d*k)*100:.2f} %".replace(",", "."))
-    # presupuesto de cómputo: aproximación 6 * N * D
-    print("\nCómputo aproximado de entrenamiento (6 N D) para N parámetros y D tokens (aproximación de Kaplan y colaboradores):")
-    for N, D in ((7e9, 1e12), (7e9, 1e9), (7e9, 1e7)):
-        fl = 6 * N * D
-        print(f"N={N:.0e}, D={D:.0e}: {fl:.2e} operaciones; a 1e14 operaciones/s sostenidas: {fl/1e14/3600:.1f} horas")
-    # modelo pequeño de verdad: tiempo del boosting por tamaño
-    print()
-    rows = []
-    for n in (1000, 4000, 16000, 64000):
-        Xn, yn, _ = L.make_data(n, 55)
-        t = L.timed(lambda: L.fit_hgb(Xn, yn), 3)
-        rows.append((n, fmt(t * 1000, 0)))
-    print(table(["Filas", "ms de entrenamiento (HGB, 80 iteraciones)"], rows))
+def _valida_formato(o):
+    try:
+        d = json.loads(o)
+    except ValueError:
+        return False
+    return isinstance(d, dict) and set(d) >= {"nota", "estado"} and isinstance(d["nota"], (int, float))
 
 
-# ====================================================================== SE-558
-def e558():
-    X, y, _ = L.make_data(20000, 61)
-    rng = np.random.default_rng(4)
-    d = X.shape[1]
-    # modelo servido como producto matricial: una red pequeña con pesos fijos (misma forma que sirve un modelo real)
-    W1 = rng.normal(0, 0.3, (d, 256)).astype(np.float32); W2 = rng.normal(0, 0.1, (256, 256)).astype(np.float32); W3 = rng.normal(0, 0.1, (256, 1)).astype(np.float32)
+def _valida_rango(o):
+    d = json.loads(o)
+    return 1.0 <= d["nota"] <= 7.0 and d["estado"] in {"A", "R"}
 
-    def forward(a):
-        h = np.maximum(a @ W1, 0); h = np.maximum(h @ W2, 0); return h @ W3
-    Xf = ((X - X.mean(axis=0)) / X.std(axis=0)).astype(np.float32)      # entradas estandarizadas, como las vería el servicio
-    rows = []
-    t1 = None
-    for b in (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024):
-        batch = Xf[:b]
-        t = L.timed(lambda: forward(batch), 40)
-        t1 = t if b == 1 else t1
-        rows.append((b, fmt(t * 1e6, 1), fmt(t / b * 1e6, 2), fmt(b / t, 0)))
-    print(table(["Lote", "µs por lote", "µs por petición", "peticiones/s"], rows))
-    s = {int(r[0]): float(r[1].replace(",", ".")) * 1e-6 for r in rows}
-    # ajuste lineal del tiempo de servicio s(b) = a + c b
-    bs = np.array(sorted(s)); ts = np.array([s[b] for b in bs])
-    svc = lambda b: float(np.interp(b, bs, ts))      # tiempo de servicio medido, interpolado
-    t1, tmax = svc(1), svc(256)
-    print(f"\nTiempo de servicio medido: 1 petición {t1*1e6:.1f} µs; lote de 256 {tmax*1e6:.1f} µs ({tmax/256*1e6:.2f} µs por petición, {t1/(tmax/256):.1f} veces menos)")
-    # simulación de lote dinámico: llegadas Poisson, espera máxima w, lote máximo B
-    def sim(rate, wait, B, n=40000, seed=3):
-        r = np.random.default_rng(seed)
-        arr = np.cumsum(r.exponential(1 / rate, n))
-        free = 0.0; i = 0; lat = []
-        while i < n:
-            t0 = max(arr[i], free)
-            deadline = arr[i] + wait
-            j = i
-            while j < n and j - i < B and arr[j] <= max(deadline, t0):
-                j += 1
-            j = max(j, i + 1)
-            start = max(t0, min(deadline, arr[j - 1])) if j - i < B else max(t0, arr[j - 1])
-            start = max(start, arr[j - 1])
-            done = start + svc(j - i)
-            lat.extend(done - arr[i:j])
-            free = done; i = j
-        lat = np.array(lat)
-        return np.percentile(lat, 50) * 1e3, np.percentile(lat, 99) * 1e3, n / (free)
-    print()
-    rows = []
-    rate = 0.8 / svc(1)            # 80 % de la capacidad sin lote
-    for wait, B in ((0.0, 1), (0.0005, 8), (0.002, 32), (0.005, 64), (0.020, 256)):
-        p50, p99, thr = sim(rate, wait, B)
-        rows.append((f"{wait*1000:.1f} ms / {B}", fmt(p50, 2), fmt(p99, 2), fmt(thr, 0)))
-    print(f"Tasa de llegada: {rate:.0f}/s (80 % de la capacidad sin lotes: {1/svc(1):.0f}/s)")
-    print(table(["Espera máx. / lote máx.", "p50 ms", "p99 ms", "peticiones/s servidas"], rows))
-    rows = []
-    for mult in (1.0, 2.0, 4.0):
-        rate2 = mult * 1.0 / svc(1)  # superior a la capacidad sin lote
-        p50, p99, thr = sim(rate2, 0.002, 64)
-        p50n, p99n, thrn = sim(rate2, 0.0, 1)
-        rows.append((f"{mult:.0f}x capacidad sin lotes", fmt(p99n, 1), fmt(p99, 2)))
-    print()
-    print(table(["Carga", "p99 ms sin lotes", "p99 ms con lote dinámico (2 ms / 64)"], rows))
-    # cuantización de pesos
-    from sklearn.ensemble import HistGradientBoostingClassifier
-    Xt, yt, _ = L.make_data(10000, 62)
-    m = L.fit_logistic(X, y)
-    coef = m[-1].coef_.ravel(); icp = m[-1].intercept_
-    sc = m[0]
-    Z = sc.transform(Xt)
-    ref = Z @ coef + icp
-    print()
-    rows = [("float64", coef.nbytes, fmt(auc(yt, ref)), "0")]
-    for bits, dt in ((16, np.float16), (8, np.int8)):
-        if dt is np.int8:
-            scale = np.abs(coef).max() / 127
-            q = np.round(coef / scale).astype(np.int8); w = q.astype(np.float64) * scale
+
+def _valida_coherencia(o):
+    d = json.loads(o)
+    return (d["estado"] == "A") == (d["nota"] >= 4.0)
+
+
+def e458_validadores() -> dict:
+    """Doscientas salidas sintéticas con un defecto cada una; qué capas de validación lo detectan."""
+    rng = random.Random(4582)
+    tipos = ["texto_extra", "falta_clave", "fuera_de_rango", "estado_invalido", "incoherente", "redondeo"]
+    casos = []
+    for i in range(200):
+        t = tipos[i % 6]
+        nota = round(rng.uniform(1.0, 7.0), 1)
+        estado = "A" if nota >= 4.0 else "R"
+        d = {"nota": nota, "estado": estado}
+        if t == "texto_extra":
+            s = "Aquí está el resultado: " + json.dumps(d)
+        elif t == "falta_clave":
+            s = json.dumps({"nota": nota})
+        elif t == "fuera_de_rango":
+            s = json.dumps({"nota": round(rng.uniform(7.5, 9.0), 1), "estado": "A"})
+        elif t == "estado_invalido":
+            s = json.dumps({"nota": nota, "estado": "aprobado"})
+        elif t == "incoherente":
+            s = json.dumps({"nota": nota, "estado": "R" if estado == "A" else "A"})
         else:
-            q = coef.astype(dt); w = q.astype(np.float64)
-        out = Z @ w + icp
-        rows.append((f"{dt.__name__}", q.nbytes, fmt(auc(yt, out)), f"{np.mean(np.abs(out-ref)):.5f}"))
-    print(table(["Pesos", "Bytes de pesos", "AUC", "Error medio en la salida"], rows))
-    # arranque en frío: cargar un modelo serializado
-    import pickle
-    big = L.fit_forest(X, y, n=60, depth=None)
-    blob = pickle.dumps(big)
-    t = L.timed(lambda: pickle.loads(blob), 5)  # nosec B301 - bytes producidos por este mismo proceso
-    print(f"\nBosque de 60 árboles serializado: {len(blob)/1e6:.1f} MB; carga {t*1000:.0f} ms; una predicción individual: {L.timed(lambda: big.predict_proba(Xt[:1]), 15)*1e6:.0f} µs; en lote de 1024: {L.timed(lambda: big.predict_proba(Xt[:1024]), 7)/1024*1e6:.1f} µs por petición")
+            s = json.dumps({"nota": round(nota + 0.04, 2), "estado": estado})  # nota con dos decimales indebidos pero válida
+        casos.append((t, s))
+    res = {}
+    for t in tipos:
+        sub = [s for tt, s in casos if tt == t]
+        c1 = sum(not _valida_formato(s) for s in sub)
+        c2 = sum((not _valida_formato(s)) or (not _valida_rango(s)) for s in sub)
+        c3 = sum((not _valida_formato(s)) or (not _valida_rango(s)) or (not _valida_coherencia(s)) for s in sub)
+        res[t] = {"n": len(sub), "formato": c1, "formato_rango": c2, "formato_rango_coherencia": c3}
+    tot = {k: sum(r[k] for r in res.values()) for k in ("formato", "formato_rango", "formato_rango_coherencia")}
+    return {"por_defecto": res, "total": tot, "n": len(casos)}
 
 
-EXPERIMENTS = {"553": e553, "554": e554, "555": e555, "556": e556, "557": e557, "558": e558}
+def e458_conflicto() -> dict:
+    """Probabilidad de que un conjunto de n instrucciones sea consistente si cada par choca con prob. q."""
+    filas = []
+    for n in (3, 5, 8, 12, 20):
+        fila = {"n": n, "pares": n * (n - 1) // 2}
+        for q in (0.005, 0.02):
+            fila[f"q{q}"] = pct((1 - q) ** fila["pares"])
+        filas.append(fila)
+    return {"filas": filas}
+
+
+# ------------------------------------------------------------------ SE-555
+TEMAS = {
+    "redondeo": "redondeo nota decimal media ponderada entero mitad hacia arriba",
+    "exportacion": "exportacion archivo ministerio formato columna cabecera delimitador",
+    "matricula": "matricula inscripcion curso cupo periodo alumno plazo",
+    "auditoria": "auditoria registro cambio autor fecha bitacora traza",
+    "calendario": "calendario feriado semestre zona horaria fecha cierre acta",
+    "permisos": "permisos rol docente coordinador lectura escritura acceso",
+}
+RUIDO = "sistema plataforma modulo servicio proceso configuracion datos usuario regla caso manera tipo lista valor campo".split()
+
+
+def _corpus(rng: random.Random, n_docs: int = 240):
+    docs = []
+    for i in range(n_docs):
+        tema = list(TEMAS)[i % 6]
+        voc = TEMAS[tema].split()
+        palabras = []
+        for _ in range(900):
+            palabras.append(rng.choice(voc) if rng.random() < 0.18 else rng.choice(RUIDO))
+        docs.append((tema, i, palabras))
+    return docs
+
+
+class BM25:
+    def __init__(self, chunks, k1=1.5, b=0.75):
+        self.chunks = chunks
+        self.k1, self.b = k1, b
+        self.tf = [Counter(c) for c in chunks]
+        self.len = [len(c) for c in chunks]
+        self.avg = sum(self.len) / len(self.len)
+        df = Counter()
+        for t in self.tf:
+            df.update(t.keys())
+        n = len(chunks)
+        self.idf = {w: math.log(1 + (n - d + 0.5) / (d + 0.5)) for w, d in df.items()}
+
+    def puntaje(self, q, i):
+        s = 0.0
+        for w in q:
+            f = self.tf[i].get(w, 0)
+            if f:
+                s += self.idf.get(w, 0) * f * (self.k1 + 1) / (f + self.k1 * (1 - self.b + self.b * self.len[i] / self.avg))
+        return s
+
+    def top(self, q, k):
+        return sorted(range(len(self.chunks)), key=lambda i: -self.puntaje(q, i))[:k]
+
+
+def e459_fragmentos() -> dict:
+    """Cada documento esconde, en una posición aleatoria, un hecho único (clave rara); tamaño de fragmento vs recuperación."""
+    rng = random.Random(459)
+    docs = _corpus(rng)
+    hechos = {}
+    for tema, i, palabras in docs:
+        clave = f"clave{i:03d}"
+        pos = rng.randrange(0, 880)
+        palabras[pos:pos + 3] = [clave, "valor", f"v{i:03d}"]
+        hechos[i] = (clave, pos)
+    filas = []
+    for tam in (50, 150, 300, 900):
+        paso = max(1, int(tam * 0.8)) if tam < 900 else 900
+        chunks, dueno = [], []
+        for _, i, palabras in docs:
+            for ini in range(0, len(palabras), paso):
+                chunks.append(palabras[ini:ini + tam])
+                dueno.append((i, ini, ini + tam))
+        bm = BM25(chunks)
+        aciertos = 0
+        cobertura = 0
+        for tema, i, palabras in docs[:120]:
+            clave, pos = hechos[i]
+            top = bm.top([clave, "valor"], 3)
+            if any(dueno[j][0] == i and dueno[j][1] <= pos and pos + 3 <= dueno[j][2] for j in top[:1]):
+                aciertos += 1
+            if any(dueno[j][0] == i for j in top):
+                cobertura += 1
+        filas.append({"tam": tam, "fragmentos": len(chunks), "exacto_top1": pct(aciertos / 120),
+                      "doc_en_top3": pct(cobertura / 120), "tokens_por_consulta": tam * 3})
+    return {"filas": filas}
+
+
+def e459_memoria() -> dict:
+    """Hechos que cambian con tasa 1 %/día: respuestas erróneas y refrescos según la caducidad (TTL) de la memoria."""
+    rng = random.Random(4593)
+    dias, n = 180, 400
+    filas = []
+    for ttl in (None, 90, 30, 7):
+        erroneas = consultas = refrescos = 0
+        guardado = [0] * n
+        for d in range(1, dias + 1):
+            if ttl is not None:
+                for h in range(n):
+                    if d - guardado[h] >= ttl:
+                        guardado[h] = d
+                        refrescos += 1
+            for h in rng.sample(range(n), 50):
+                consultas += 1
+                if rng.random() < 1 - 0.99 ** (d - guardado[h]):
+                    erroneas += 1
+        filas.append({"ttl": "sin caducidad" if ttl is None else f"{ttl} días", "erroneas": pct(erroneas / consultas),
+                      "refrescos_por_hecho": round(refrescos / n, 1)})
+    return {"filas": filas}
+
+
+def e459_presupuesto() -> dict:
+    """Empaquetar fragmentos con relevancia conocida en un presupuesto de tokens: por relevancia o por relevancia/tamaño."""
+    rng = random.Random(4594)
+    res = {"relevancia": [], "densidad": [], "aleatorio": []}
+    for _ in range(300):
+        frag = [(rng.random() ** 2, rng.choice((200, 400, 800, 1600))) for _ in range(30)]
+        presup = 3000
+        def llenar(orden):
+            usado = 0
+            val = 0.0
+            for r, t in orden:
+                if usado + t <= presup:
+                    usado += t
+                    val += r
+            return val
+        res["relevancia"].append(llenar(sorted(frag, key=lambda x: -x[0])))
+        res["densidad"].append(llenar(sorted(frag, key=lambda x: -x[0] / x[1])))
+        o = frag[:]
+        rng.shuffle(o)
+        res["aleatorio"].append(llenar(o))
+    tot = {k: round(statistics.mean(v), 3) for k, v in res.items()}
+    return {"medias": tot, "mejora_densidad_vs_relevancia": pct(tot["densidad"] / tot["relevancia"] - 1)}
+
+
+# ------------------------------------------------------------------ SE-556
+def e460_aceptacion() -> dict:
+    """1000 sugerencias, 78 % correctas; revisor con sesgo de automatización según su política."""
+    rng = random.Random(460)
+    filas = []
+    politicas = [("Aceptar con Tab sin leer", 0.00), ("Leer solo si es larga", None), ("Leer siempre y ejecutar", 0.85)]
+    for nombre, det in politicas:
+        malas_aceptadas = aceptadas = rechazadas_buenas = 0
+        for _ in range(1000):
+            buena = rng.random() < 0.78
+            larga = rng.random() < 0.3
+            d = det if det is not None else (0.7 if larga else 0.05)
+            if buena:
+                aceptadas += 1
+                if det == 0.85 and rng.random() < 0.03:
+                    rechazadas_buenas += 1
+                    aceptadas -= 1
+            else:
+                if rng.random() < d:
+                    continue
+                malas_aceptadas += 1
+                aceptadas += 1
+        filas.append({"politica": nombre, "defectos_aceptados": malas_aceptadas, "aceptadas": aceptadas})
+    return {"filas": filas}
+
+
+ARCHIVO = "\n".join(
+    ["import os", "import sys", ""] + [
+        f"def regla_{i}(x):\n    '''Regla {i}.'''\n    if x > {i}:\n        return x * {i + 1}\n    return 'otro'\n" for i in range(30)
+    ])
+
+
+def _deriva_cosmetica(src: str) -> str:
+    s = src.replace("'''", '"""').replace("'otro'", '"otro"')
+    s = s.replace("import os\nimport sys", "import sys\nimport os")
+    return s
+
+
+def e460_alcance() -> dict:
+    """Corregir una regla: edición dirigida frente a regenerar el archivo con deriva cosmética."""
+    objetivo = ARCHIVO.replace("if x > 17:", "if x >= 17:")
+    regenerado = _deriva_cosmetica(objetivo)
+    def cambios(a, b):
+        return sum(1 for l in difflib.unified_diff(a.splitlines(), b.splitlines(), lineterm="", n=0) if l[:1] in "+-" and l[:3] not in ("+++", "---"))
+    d1, d2 = cambios(ARCHIVO, objetivo), cambios(ARCHIVO, regenerado)
+    # probabilidad de que el revisor encuentre el único cambio semántico: p = base / (1 + líneas/escala)
+    def p(lineas):
+        return 0.95 / (1 + lineas / 20)
+    return {"lineas_archivo": len(ARCHIVO.splitlines()), "diff_dirigido": d1, "diff_regenerado": d2,
+            "p_detectar_dirigido": pct(p(d1)), "p_detectar_regenerado": pct(p(d2))}
+
+
+def e460_debounce() -> dict:
+    """Traza de pulsaciones determinista: peticiones enviadas, canceladas y útiles según el retardo."""
+    rng = random.Random(4604)
+    t = 0.0
+    tecla = []
+    for palabra in range(60):
+        for _ in range(rng.randint(4, 12)):
+            t += rng.uniform(0.06, 0.35)
+            tecla.append(t)
+        t += rng.uniform(0.6, 2.0)  # pausa para pensar
+    filas = []
+    for retardo in (0.0, 0.15, 0.3, 0.6):
+        enviadas = utiles = 0
+        for i, ti in enumerate(tecla):
+            siguiente = tecla[i + 1] if i + 1 < len(tecla) else float("inf")
+            if retardo == 0 or siguiente - ti >= retardo:
+                enviadas += 1
+                if siguiente - ti >= 0.5:  # la respuesta llega a tiempo de mostrarse
+                    utiles += 1
+        filas.append({"retardo_ms": int(retardo * 1000), "pulsaciones": len(tecla), "peticiones": enviadas, "utiles": utiles})
+    return {"filas": filas}
+
+
+# ------------------------------------------------------------------ SE-557
+def e461_mejor_de_n() -> dict:
+    """Calidad real ~ N(0,1) de cada alternativa; el evaluador mide con ruido sigma. Calidad real de la elegida."""
+    rng = random.Random(461)
+    filas = []
+    for n in (1, 3, 5, 10, 20):
+        fila = {"n": n}
+        for sigma in (0.0, 1.0, 2.0):
+            tot = ver = 0.0
+            for _ in range(20000 // 10):
+                q = [rng.gauss(0, 1) for _ in range(n)]
+                m = [x + rng.gauss(0, sigma) for x in q]
+                i = max(range(n), key=lambda j: m[j])
+                tot += q[i]
+                ver += m[i]
+            t = 2000
+            fila[f"real_s{sigma}"] = round(tot / t, 2)
+            fila[f"medida_s{sigma}"] = round(ver / t, 2)
+        filas.append(fila)
+    return {"filas": filas}
+
+
+PLANTILLA = '''
+"""Servicio {nombre}."""
+import logging
+import os
+
+log = logging.getLogger(__name__)
+TIEMPO = int(os.environ.get("TIEMPO", "30"))
+
+def crear_{nombre}(datos):
+    log.info("crear")
+    return datos
+
+def leer_{nombre}(id_):
+    log.info("leer")
+    return {{"id": id_}}
+
+def actualizar_{nombre}(id_, datos):
+    log.info("actualizar")
+    return datos
+
+def borrar_{nombre}(id_):
+    log.info("borrar")
+    return None
+
+def _ayuda_{nombre}(x):
+    return x
+'''
+
+
+def e461_andamiaje() -> dict:
+    """Se genera el andamiaje de 8 entidades; ast cuenta definiciones y las que ningún otro código usa."""
+    entidades = ["curso", "alumno", "docente", "nota", "acta", "periodo", "sala", "inscripcion"]
+    fuente = {n: PLANTILLA.format(nombre=n) for n in entidades}
+    defs = {}
+    for n, s in fuente.items():
+        arbol = ast.parse(s)
+        defs[n] = [f.name for f in arbol.body if isinstance(f, ast.FunctionDef)]
+    # código propio: solo usa crear y leer de nota, crear de alumno y leer de curso
+    uso = {"crear_nota", "leer_nota", "crear_alumno", "leer_curso"}
+    total = sum(len(v) for v in defs.values())
+    sin_uso = sum(1 for v in defs.values() for f in v if f not in uso)
+    lineas = sum(len(s.strip().splitlines()) for s in fuente.values())
+    return {"entidades": len(entidades), "lineas_generadas": lineas, "funciones": total, "funciones_sin_uso": sin_uso,
+            "pct_sin_uso": pct(sin_uso / total), "lineas_de_dominio": 0}
+
+
+def e461_brecha() -> dict:
+    """Atributos que un prototipo no tiene y producción exige: probabilidad de presencia y trabajo restante."""
+    rng = random.Random(4612)
+    atributos = [("validación de entradas", 0.25, 5), ("manejo de errores", 0.30, 8), ("autenticación", 0.10, 13),
+                 ("pruebas", 0.15, 13), ("registro y métricas", 0.20, 5), ("migraciones de datos", 0.05, 8),
+                 ("accesibilidad", 0.10, 8), ("límites de tamaño y tiempo", 0.10, 5)]
+    total = sum(c for _, _, c in atributos)
+    resultados = []
+    for _ in range(5000):
+        resultados.append(sum(c for _, p, c in atributos if rng.random() > p))
+    return {"trabajo_total": total, "mediana_restante": statistics.median(resultados),
+            "p90_restante": sorted(resultados)[int(0.9 * len(resultados))],
+            "fraccion_pendiente_mediana": pct(statistics.median(resultados) / total), "atributos": len(atributos)}
+
+
+# ------------------------------------------------------------------ SE-558
+def nota_final(trabajos, examen):
+    """Calcula la nota final: 40 % trabajos (promedio) y 60 % examen; redondea a un decimal; aprueba con 4,0."""
+    prom = sum(trabajos) / len(trabajos)
+    nota = round(0.4 * prom + 0.6 * examen, 1)
+    return nota, "A" if nota >= 4.0 else "R"
+
+
+MUTANTES = {
+    "peso_40_cambiado": "0.4 * prom + 0.6 * examen -> 0.5 * prom + 0.5 * examen",
+    "umbral_mayor": "nota >= 4.0 -> nota > 4.0",
+    "sin_redondeo": "round(..., 1) -> ...",
+    "redondeo_cero": "round(..., 1) -> round(..., 0)",
+    "examen_ignorado": "0.6 * examen -> 0.6 * prom",
+    "promedio_max": "sum(trabajos) / len -> max(trabajos)",
+    "estado_invertido": "A if >= -> R if >=",
+    "peso_60_cambiado": "0.6 -> 0.7 y 0.4 -> 0.3",
+}
+
+
+def _construye(m):
+    def f(trabajos, examen):
+        prom = sum(trabajos) / len(trabajos)
+        if m == "promedio_max":
+            prom = max(trabajos)
+        a, b = 0.4, 0.6
+        if m == "peso_40_cambiado":
+            a, b = 0.5, 0.5
+        if m == "peso_60_cambiado":
+            a, b = 0.3, 0.7
+        e = examen if m != "examen_ignorado" else prom
+        nota = a * prom + b * e
+        if m == "sin_redondeo":
+            pass
+        elif m == "redondeo_cero":
+            nota = round(nota, 0)
+        else:
+            nota = round(nota, 1)
+        ok = nota > 4.0 if m == "umbral_mayor" else nota >= 4.0
+        est = "A" if ok else "R"
+        if m == "estado_invertido":
+            est = "R" if ok else "A"
+        return nota, est
+    return f
+
+
+def e462_pruebas() -> dict:
+    """Pruebas que copian la salida actual (snapshot en entradas típicas) frente a pruebas derivadas de la especificación."""
+    tipicas = [([5.0, 6.0], 5.5), ([4.5, 4.5, 4.5], 4.5), ([6.0], 6.0), ([3.0, 5.0], 4.0), ([5.5, 6.5], 6.0)]
+    snapshot = [((t, e), nota_final(t, e)) for t, e in tipicas]
+    espec = snapshot + [
+        (([4.0, 4.0], 4.0), (4.0, "A")),       # frontera exacta de aprobación
+        (([3.0], 4.0), (3.6, "R")),            # un solo trabajo y examen que no basta
+        (([7.0, 1.0], 2.0), (2.8, "R")),       # distingue promedio de máximo
+        (([5.0, 5.0], 3.0), (3.8, "R")),       # las dos ponderaciones importan; 3,8 no se redondea a 4
+        (([4.4, 4.5], 3.9), (4.1, "A")),       # el resultado 4,12 se redondea a un decimal
+    ]
+    res = {"snapshot": 0, "espec": 0}
+    detalle = {}
+    for nombre, m in MUTANTES.items():
+        f = _construye(nombre)
+        s = any(f(*args) != esp for args, esp in snapshot)
+        e = any(f(*args) != esp for args, esp in espec)
+        detalle[nombre] = {"snapshot": s, "espec": e}
+        res["snapshot"] += s
+        res["espec"] += e
+    # el original pasa ambos
+    ok = all(nota_final(*a) == esp for a, esp in espec)
+    return {"mutantes": len(MUTANTES), "detectados_snapshot": res["snapshot"], "detectados_espec": res["espec"],
+            "original_pasa_espec": ok, "detalle": detalle}
+
+
+def e462_documentacion() -> dict:
+    """Veinte funciones con ejemplos en la docstring; en 8 el comportamiento cambió sin actualizar el ejemplo."""
+    import importlib.util
+    import tempfile
+    funciones = []
+    for i in range(20):
+        k = i + 2
+        deriva = i % 5 in (1, 3) or i in (0, 10)
+        funciones.append((f"f{i}", k, k * 2, 1 if deriva else 0, deriva))
+    fuente = ""
+    for n, k, doc, extra, _ in funciones:
+        fuente += (f'def {n}(x):' + chr(10) + f'    """Duplica.' + chr(10) + chr(10) + f'    >>> {n}({k})' + chr(10) + f'    {doc}' + chr(10) + '    """' + chr(10) + f'    return x * 2 + {extra}' + chr(10) + chr(10))
+    for i in range(10):
+        fuente += ("def g%d(x):" % i + chr(10) + '    """Duplica el valor recibido."""' + chr(10)
+                   + "    return x * 2 + %d" % (1 if i < 4 else 0) + chr(10) + chr(10))
+    with tempfile.TemporaryDirectory() as carpeta:
+        ruta = Path(carpeta) / "generado.py"
+        ruta.write_text(fuente, encoding="utf-8")
+        spec = importlib.util.spec_from_file_location("generado", ruta)
+        modulo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(modulo)
+        finder = doctest.DocTestFinder()
+        runner = doctest.DocTestRunner(verbose=False)
+        fallos = 0
+        for n, *_ in funciones:
+            for t in finder.find(getattr(modulo, n), n, globs=vars(modulo)):
+                fallos += runner.run(t, out=lambda s: None).failed > 0
+        fallos_prosa = 0
+        for i in range(10):
+            for t in finder.find(getattr(modulo, "g%d" % i), "g%d" % i, globs=vars(modulo)):
+                fallos_prosa += runner.run(t, out=lambda s: None).failed > 0
+    return {"funciones": 20, "con_deriva": sum(f[4] for f in funciones), "detectadas_doctest": fallos,
+            "prosa_funciones": 10, "prosa_con_deriva": 4, "prosa_detectadas_doctest": fallos_prosa}
+
+
+def e462_migracion() -> dict:
+    """2 000 notas como texto con coma; migración ingenua frente a migración con validación y cuarentena."""
+    rng = random.Random(4623)
+    filas = []
+    for i in range(2000):
+        r = rng.random()
+        if r < 0.90:
+            v = f"{rng.randint(10, 70) / 10:.1f}".replace(".", ",")
+        elif r < 0.95:
+            v = f"{rng.randint(10, 70) / 10:.1f}"  # punto decimal
+        elif r < 0.98:
+            v = ""
+        else:
+            v = rng.choice(["NP", "5,5,0", "ex", "7.1.0"])
+        filas.append((i, v))
+    db = sqlite3.connect(":memory:")
+    db.execute("create table notas(id integer, valor text)")
+    db.executemany("insert into notas values (?,?)", filas)
+    # ingenua: replace(',', '.') y CAST
+    ing = db.execute("select count(*), sum(cast(replace(valor, ',', '.') as real) = 0) from notas").fetchone()
+    ceros_ing = db.execute("select count(*) from notas where cast(replace(valor, ',', '.') as real) = 0 and valor not in ('0','0,0')").fetchone()[0]
+    # validada
+    patron = re.compile(r"^[1-7][,.]\d$")
+    buenas = [(i, float(v.replace(",", "."))) for i, v in filas if patron.match(v)]
+    cuarentena = [(i, v) for i, v in filas if not patron.match(v)]
+    return {"filas": len(filas), "invalidas": len(cuarentena), "ceros_silenciosos_ingenua": ceros_ing,
+            "parciales_silenciosos_ingenua": len(cuarentena) - ceros_ing, "migradas_validada": len(buenas),
+            "cuarentena": len(cuarentena), "tipos_en_cuarentena": sorted({v for _, v in cuarentena})}
+
+
+def todo() -> dict:
+    return {
+        "e457_temperatura": e457_temperatura(), "e457_calibracion": e457_calibracion(), "e457_ventana": e457_ventana(),
+        "e458_requisitos": e458_requisitos(), "e458_validadores": e458_validadores(), "e458_conflicto": e458_conflicto(),
+        "e459_fragmentos": e459_fragmentos(), "e459_memoria": e459_memoria(), "e459_presupuesto": e459_presupuesto(),
+        "e460_aceptacion": e460_aceptacion(), "e460_alcance": e460_alcance(), "e460_debounce": e460_debounce(),
+        "e461_mejor_de_n": e461_mejor_de_n(), "e461_andamiaje": e461_andamiaje(), "e461_brecha": e461_brecha(),
+        "e462_pruebas": e462_pruebas(), "e462_documentacion": e462_documentacion(), "e462_migracion": e462_migracion(),
+    }
+
 
 if __name__ == "__main__":
-    raise SystemExit(L.run_cli(EXPERIMENTS, "Parte 46 A: SE-553 a SE-558 (datos sintéticos de Avisos-ML, semilla 46)"))
+    json.dump(todo(), sys.stdout, ensure_ascii=False, indent=1)

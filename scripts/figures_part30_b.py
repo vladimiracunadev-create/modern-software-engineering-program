@@ -1,280 +1,238 @@
-"""Figures for SE-367 to SE-372 (synthetic data, fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-367 to SE-372 (data engineering: runs of real CPython and SQLite code and seeded models over the Avisos case; Windows CPython 3.12.9, SQLite 3.45.3; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig, _kit_finish, _kit_start, fmt_es, grouped_bars, line_chart, stacked_bars
-from figures_part07_a import bars
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, timeline
+from figures_part45_a import flow, mapa
 
-SINT = "Datos sintéticos y modelos del autor con semilla fija; Windows (CPython 3.12.9) y Ubuntu (WSL2, 3.12.3) con cifras idénticas salvo donde se indica."
+EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9 y SQLite 3.45.3; los recuentos se repiten y los tiempos varían de un equipo a otro."
+MODELO = "Modelo con parámetros del autor y semilla fija 45; muestra un mecanismo, no mide un sistema real."
 
 
 # ---------------------------------------------------------------- SE-367
-def se367_fidelidad() -> Fig:
-    return stacked_bars(
-        "Fidelidad de dos dobles de un repositorio medida con las mismas 8 comprobaciones de contrato",
-        "Barras apiladas horizontales: SQLite real pasa las 8 comprobaciones; el diccionario ingenuo pasa 4 y no rechaza el identificador duplicado, la nota fuera de rango, el estudiante nulo ni el correo repetido con otra capitalización; el diccionario con las reglas añadidas pasa las 8.",
-        ["SQLite real (referencia)", "Diccionario ingenuo", "Diccionario con las reglas añadidas"],
-        [("Superadas", [8, 4, 8], "teal"), ("No superadas", [0, 4, 0], "coral")],
-        unit="comprobaciones de contrato (de 8)", horizontal=True, label_w=250, totals=False,
-        note="El doble ingenuo hace pasar pruebas de servicio que con la base real fallarían. Pasar las ocho comprobaciones demuestra que el doble reproduce esas ocho reglas, no que reproduzca la base: una novena comprobación (transacciones, índices, orden de nulos en otra colación) podría separarlos. La batería de contrato debe correr contra ambos.",
-        note_kind="coral", foot=SINT)
-
-
-def se367_interaccion() -> Fig:
+def se547_impacto() -> Fig:
+    cats = ["orders.order_id", "orders.customer_id", "orders.amount", "orders.status", "orders.day", "orders.note", "customers.customer_id", "customers.city", "customers.segment"]
     return grouped_bars(
-        "Tres estilos de prueba frente a tres refactorizaciones neutras y un defecto real del servicio",
-        "Barras agrupadas: ante tres refactorizaciones que no cambian lo que el servicio hace, la prueba con asertos sobre las llamadas falla dos veces y la que además fija las consultas falla una; la prueba de estado con un doble espía no falla ninguna; las tres detectan el defecto real.",
-        ["Mock con asertos de llamadas", "Mock más consultas exactas", "Estado con espía"],
-        [("Falsa alarma ante un refactor neutro (de 3)", [2, 1, 0], "coral"), ("Detecta el defecto real (de 1)", [1, 1, 1], "teal")],
-        unit="versiones del servicio", decimals=0, ticks=[0, 1, 2, 3],
-        note="Dos de tres refactorizaciones rompen la prueba acoplada a la interacción sin que haya un defecto. La prueba de estado comprueba qué se envió y a quién, no cómo. Esto no vuelve inútiles los mocks: verifican que se produzca un efecto cuando el efecto es lo único observable.",
-        note_kind="gold", foot=SINT)
+        "Columnas de salida que cambian al perturbar cada columna de origen, medidas y predichas por tres linajes",
+        "Barras horizontales agrupadas, por columna de origen, con las salidas que cambian de 17: medidas al perturbar, predichas por el linaje de datos solo, por el linaje con condiciones y por el linaje de tablas; por ejemplo orders.status cambia 12 salidas, el linaje de datos solo predice 0 y con condiciones 15; orders.note y customers.segment no cambian ninguna.",
+        cats,
+        [("Medido al perturbar", [2, 9, 5, 12, 3, 0, 9, 6, 0], "teal"), ("Linaje de datos solo", [2, 1, 5, 0, 3, 0, 1, 4, 0], "gold"), ("Datos y condiciones", [2, 12, 6, 15, 4, 0, 12, 7, 0], "navy"), ("Linaje de tablas", [15, 15, 15, 15, 15, 15, 13, 13, 13], "grey")],
+        unit="Columnas de salida afectadas", horizontal=True, decimals=0, label_w=190, plot_h=420,
+        note="El linaje de datos solo omite 31 cambios medidos, casi todos por columnas de filtro y de unión como status y customer_id; el linaje con condiciones no omite ninguno y sobrepredice un poco. El linaje de tablas predice todo o nada: avisa de 13 a 15 columnas aunque note y segment no cambien ninguna. Las 17 salidas son las de seis tablas de un pipeline de juguete.",
+        note_kind="gold", foot=EJEC)
 
 
-def se367_entorno() -> Fig:
-    f, y = _kit_start("Los bytes de «é» seguido de un salto de línea en un mismo script según el sistema",
-                      "Tres secuencias de bytes: en Windows con la codificación por defecto cp1252 se escribe 233, 13, 10; en Windows con PYTHONUTF8=1 se escribe 195, 169, 13, 10; en Ubuntu bajo WSL2 con UTF-8 se escribe 195, 169, 10. La codificación cambia los bytes de la letra y el sistema cambia el salto de línea.",
-                      940, [("Bytes de la letra «é»", "teal", "square"), ("Bytes del salto de línea", "gold", "square")])
-    filas = [
-        ("Windows 11, por defecto (cp1252)", [("233", "teal"), ("13", "gold"), ("10", "gold")]),
-        ("Windows 11 con PYTHONUTF8=1", [("195", "teal"), ("169", "teal"), ("13", "gold"), ("10", "gold")]),
-        ("Ubuntu en WSL2 (UTF-8)", [("195", "teal"), ("169", "teal"), ("10", "gold")]),
-    ]
-    row_h = 64
-    for i, (nombre, bytes_) in enumerate(filas):
-        ry = y + 8 + i * row_h
-        f.text(14, ry + 36, nombre, 14, "start", 700, "#142231")
-        for j, (v, k) in enumerate(bytes_):
-            f.box(330 + j * 96, ry + 8, 84, 46, v, k, 16, bold=True)
-    yy = y + 8 + len(filas) * row_h + 4
-    return _kit_finish(f, yy,
-                       "Una prueba que depende del orden de un conjunto es inestable en cualquier sistema (11 de 12 semillas de hash dan resultados distintos en ambos) y se arregla ordenando. Una que depende de la codificación o del salto de línea cambia de resultado entre sistemas y se arregla declarándolos. Forzar UTF-8 corrige los bytes de la letra y no el salto de línea. El separador de rutas también difiere (\\ y /); el orden alfabético con mayúsculas y «ñ» es igual. Esta es la única figura de la parte cuyos valores difieren por sistema.",
-                       "teal", SINT)
+def se547_cadena() -> Fig:
+    return flow(
+        "Linaje de columnas de un importe: de la tabla cruda al informe y qué lo toca por el camino",
+        "Diagrama en dos filas que sigue la columna amount: raw_orders.amount se convierte en stg_orders.amount_clp dividiendo por cien, pasa a fact_sales.amount_clp tras unirse con los clientes, se suma en mart_city.total_clp y se ordena en report_top.total_clp; las condiciones status, customer_id y city influyen en qué filas llegan sin ser parte del valor.",
+        [[("raw_orders.amount\nCentavos, entero", "teal"), ("stg_orders.amount_clp\nEntre 100 y sin pedidos cancelados", "gold"), ("fact_sales.amount_clp\nUnión por customer_id", "gold")],
+         [("mart_city.total_clp\nSuma por ciudad", "gold"), ("report_top.total_clp\nTres ciudades con más ventas", "coral"), ("Condiciones que filtran\nstatus, customer_id, city: cambian qué filas", "plain")]],
+        note="Una columna de salida depende de los valores que entran en su expresión y de las condiciones que deciden qué filas la forman. Un catálogo que solo guarda la primera relación declara seguro cambiar status, y el cambio se ve al día siguiente en un informe.",
+        note_kind="teal", box_h=96, foot=EJEC)
+
+
+def se547_limites() -> Fig:
+    return mapa(
+        "Cuatro formas de SQL que un analizador de texto no resuelve y de dónde sale el linaje en cada una",
+        "Cuatro casos: un SELECT con comodín no nombra columnas y produce cero aristas, de modo que hay que expandirlo con el catálogo; el SQL armado por concatenación en código no aparece en el texto y se recupera con los metadatos de la ejecución; una condición de filtro no forma parte del valor y se declara como arista de condición; una función definida por el usuario oculta qué columnas lee y pide declararlo.",
+        [("SELECT * FROM fact_sales", "0 aristas de columna", "coral", "Expandir el comodín con las columnas del catálogo"),
+         ("f'SELECT {col} FROM {tabla}' en código", "Invisible al texto", "coral", "Capturar el SQL ejecutado o usar metadatos de la consulta"),
+         ("WHERE status <> 'cancelled'", "No entra en el valor, sí en las filas", "gold", "Registrar condiciones como un tipo de arista propio"),
+         ("Función definida por el usuario", "Entradas ocultas", "gold", "Declarar las columnas que lee en el contrato de la función")],
+        note="Ningún método de linaje es completo: el análisis estático ve el texto, la captura en ejecución ve lo que se corrió y la declaración manual ve lo que alguien recordó. Un catálogo honesto marca de qué método viene cada arista y qué no cubre.",
+        note_kind="gold", foot=EJEC, left_w=280, mid_w=240)
 
 
 # ---------------------------------------------------------------- SE-368
-def se368_fixtures() -> Fig:
+def se548_tamanos() -> Fig:
     return grouped_bars(
-        "Doce pruebas en 500 órdenes aleatorios según cómo se prepara la base",
-        "Barras horizontales con las órdenes que tienen algún fallo de 500: con la base compartida fallan 490 órdenes; con una base nueva por prueba (72 sentencias de preparación) o con una transacción con retroceso (24 sentencias) no falla ninguna.",
-        ["Estado compartido (0 sentencias)", "Base nueva por prueba (72 sentencias)", "Transacción con retroceso (24 sentencias)"],
-        [("Órdenes con algún fallo", [490.0, 0.0, 0.0], "coral")],
-        unit="órdenes con algún fallo (de 500)", horizontal=True, label_w=330, decimals=0, ticks=[0, 100, 200, 300, 400, 500],
-        note="Las doce pruebas incluyen cinco que cambian o cuentan filas compartidas, a propósito. El orden en que se definieron tampoco pasa con la base compartida (234 resultados distintos). La transacción cuesta un tercio de recrear la base, pero solo aísla lo que ocurre dentro de ella: no cubre cambios que hagan commit por su cuenta ni estado fuera de la base.",
-        note_kind="coral", foot=SINT)
+        "Tamaño de los mismos 200 000 pedidos en cuatro formatos de archivo",
+        "Barras con el tamaño en megabytes de 200000 pedidos de ocho columnas: CSV 7,33, JSON por líneas 25,93, binario por filas 11,60 y columnar con compresión 2,00, un 27 por ciento del CSV.",
+        ["CSV", "JSON por líneas", "Binario por filas de ancho fijo", "Columnar con diccionario y compresión"],
+        [("Megabytes", [7.33, 25.93, 11.60, 2.00], "navy")],
+        unit="Megabytes en disco", decimals=2, plot_h=250,
+        note="El binario de ancho fijo es mayor que el CSV porque reserva ocho bytes por entero y por texto; el JSON repite el nombre de cada columna en cada fila. El columnar gana porque cada columna guarda valores parecidos juntos y comprime mejor, y la columna de estado, con tres valores, se reduce a un byte por fila antes de comprimir.",
+        note_kind="gold", foot=EJEC)
 
 
-def se368_semilla() -> Fig:
+def se548_bytes_leidos() -> Fig:
     return grouped_bars(
-        "Una propiedad con datos aleatorios que falla una de cada diez veces",
-        "Barras horizontales en escala logarítmica: la propiedad falla con 0,48 por ciento de las entregas individuales y con 10,9 por ciento de las pruebas de 20 entregas; con la semilla 6 anotada falla 100 por ciento de las repeticiones y sin semilla fija entre 8,7 y 10,1 por ciento de las corridas, sin poder reproducirse.",
-        ["Una entrega individual", "Prueba con 20 entregas (1 000 semillas)", "Semilla 6 anotada (100 repeticiones)", "Sin semilla fija: corrida con menos fallos (87 de 1 000)", "Sin semilla fija: corrida con más fallos (101 de 1 000)"],
-        [("Fallos de la propiedad", [0.48, 10.9, 100.0, 8.7, 10.1], "coral")],
-        unit="% de ejecuciones que violan la propiedad", horizontal=True, log=True, label_w=340, ticks=[0.1, 1, 10, 100],
-        value_fmt=lambda v: {0.48: "0,48 %", 10.9: "10,9 %", 100.0: "100 %", 8.7: "8,7 %", 10.1: "10,1 %"}[v],
-        note="Una probabilidad pequeña por elemento no se queda pequeña en la prueba: con 20 elementos la prueba falla 23 veces más a menudo (10,9 % frente a 0,48 %). Anotar la semilla en el informe convierte un fallo que nadie puede repetir en uno que se repite siempre. La cifra sin semilla varía entre ejecuciones y entre sistemas.",
-        note_kind="gold", foot=SINT)
+        "Megabytes que lee cada formato para sumar el importe de 10 días de 365",
+        "Barras horizontales con los megabytes leídos: el JSON por líneas lee 25,93, el binario por filas 11,60, el CSV 7,33, el columnar sin ordenar por día 0,945, el columnar leyendo solo dos columnas de todo el rango 0,59 y el columnar ordenado por día que salta 18 de 20 grupos 0,059.",
+        ["JSON por líneas", "Binario por filas", "CSV", "Columnar sin ordenar por día (20 de 20 grupos)", "Columnar, dos columnas, todo el rango", "Columnar ordenado por día (2 de 20 grupos)"],
+        [("Megabytes leídos", [25.93, 11.60, 7.33, 0.945, 0.59, 0.059], "teal")],
+        unit="Megabytes leídos", horizontal=True, decimals=3, label_w=330, log=True,
+        note="Los formatos por filas leen el archivo entero aunque la consulta use dos de ocho columnas y 10 de 365 días. El columnar ahorra por dos vías distintas: leer solo las columnas (de 2,00 a 0,59) y saltar grupos con las estadísticas de mínimo y máximo, que solo funcionan si los datos están agrupados por esa columna: sin ordenar por día se leen los 20 grupos.",
+        note_kind="gold", foot=EJEC)
 
 
-def se368_fuentes() -> Fig:
-    items = [
-        ("Reloj (hora actual)", 30.0, "coral", "30 de 30 distintas"),
-        ("Identificador aleatorio (uuid4)", 30.0, "coral", "30 de 30"),
-        ("Número aleatorio sin semilla", 30.0, "coral", "30 de 30"),
-        ("Orden de un conjunto de cadenas", 18.0, "gold", "15 a 18 según la ejecución"),
-        ("Suma de flotantes en orden mezclado", 3.0, "gold", "1 a 3 de 30"),
-        ("Identidad de un objeto (id)", 2.0, "gold", "2 de 30"),
-        ("Datos fijos ordenados · listado de un directorio", 1.0, "teal", "1 (ambos sistemas)"),
-    ]
-    return bars("Salidas distintas de un mismo generador de informe en 30 procesos, según la fuente de no determinismo activada",
-                "Barras: el reloj, el identificador aleatorio y el número aleatorio producen 30 salidas distintas en 30 procesos; el orden de un conjunto produce entre 15 y 18; la suma de flotantes en orden mezclado entre 1 y 3; la identidad de un objeto 2; los datos fijos ordenados y el listado de un directorio de tres archivos 1.",
-                items, 11.0, "Las fuentes se inyectan o se fijan una por una: el reloj y el azar se reciben como parámetros, los conjuntos se ordenan, las sumas de flotantes se hacen en orden fijo. Un listado de directorio dio una sola salida en ambos sistemas con tres archivos pequeños, pero su orden no está garantizado por el sistema de archivos.",
-                label_w=400, width=980, note_kind="teal", foot=SINT)
+def se548_manifiesto() -> Fig:
+    return flow(
+        "Un manifiesto con versiones: cómo una compactación no rompe a quien está leyendo",
+        "Diagrama en dos filas: el lector A abre la versión 1 del manifiesto, que lista 10 archivos; la compactación escribe un archivo nuevo y publica la versión 2 con un único renombrado atómico; el lector A sigue viendo los 10 archivos de la versión 1 y un lector B nuevo ve la versión 2 con 1 archivo; los archivos viejos se borran más tarde, cuando nadie los usa.",
+        [[("Versión 1\nManifiesto con 10 archivos", "teal"), ("Lector A\nAbre la versión 1 y la conserva", "plain"), ("Compactación\nEscribe 1 archivo nuevo", "gold")],
+         [("Publicar versión 2\nUn solo renombrado atómico", "gold"), ("Lector B\nVe la versión 2: 1 archivo", "teal"), ("Limpieza\nBorra archivos viejos cuando nadie los lee", "coral")]],
+        note="La tabla no es la carpeta: es la lista de archivos de una versión. Eso da lecturas consistentes, viaje en el tiempo y compactación sin parar a los lectores, y exige que todos pasen por el manifiesto; quien lee la carpeta directo vuelve a ver archivos a medias.",
+        note_kind="teal", box_h=96, foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-369
-def se369_curva() -> Fig:
-    ns = [30, 60, 120, 240, 480]
-    return line_chart(
-        "Defectos hallados de 12 plantados por tres agentes simulados, media de 300 semillas",
-        "Tres líneas: el guion fijo del camino feliz se queda en 0 defectos en todas las longitudes; la exploración aleatoria sube de 1,1 con 30 acciones a 5,3 con 480; la heurística con valores límite, repetición y deshacer sube de 2,6 a 11,6.",
-        [("Guion fijo", list(zip(ns, [0.0] * 5)), "grey"), ("Aleatorio uniforme", [(30, 1.1, "1,1", "r")] + list(zip(ns[1:], [2.5, 3.9, 4.8, 5.3])), "gold"),
-         ("Heurístico (límites, repetir, deshacer)", list(zip(ns, [2.6, 4.9, 7.9, 10.4, 11.6])), "teal")],
-        x_label="Acciones ejecutadas", y_label="Defectos hallados (de 12)", log_x=True, x_ticks=[(n, str(n)) for n in ns], decimals=1, point_labels="all",
-        hlines=[(12, "12 plantados")],
-        note="Los agentes son programas, no personas: el gráfico muestra el mecanismo de la diversidad de acciones, no el rendimiento de quien explora. El agente heurístico usa los límites que la especificación del formulario declara (10 MB, 500 caracteres), y el diseño de los doce defectos fue del autor, de modo que hay circularidad que el texto declara.",
-        note_kind="gold", foot=SINT)
-
-
-def se369_accesibilidad() -> Fig:
-    clases = [("Imagen sin texto alternativo", 31, 0), ("Campo sin etiqueta", 37, 0), ("Contraste menor de 4,5:1", 32, 0), ("Salto de nivel de encabezado", 44, 0),
-              ("Enlace «clic aquí»", 37, 0), ("Idioma ausente", 42, 0), ("Texto alternativo que describe otra cosa", 0, 39), ("Trampa de teclado", 0, 35),
-              ("Orden de lectura ilógico", 0, 45), ("Mensaje de error ambiguo", 0, 32)]
-    return stacked_bars(
-        "374 defectos de accesibilidad plantados en 30 páginas sintéticas: quién puede decidirlos",
-        "Barras apiladas horizontales de diez clases de defecto: las seis primeras las decide una regla automática y suman 223 de los 374 defectos (59,6 por ciento); las cuatro últimas necesitan a una persona y suman 151.",
-        [c[0] for c in clases],
-        [("Decide una regla (6 clases, 223)", [c[1] for c in clases], "teal"), ("Decide una persona (4 clases, 151)", [c[2] for c in clases], "coral")],
-        unit="defectos plantados", horizontal=True, label_w=300, decimals=0,
-        note="El 59,6 % depende de las clases que el autor eligió y de cuántas plantó de cada una, no es una tasa de la web real. El hecho que se conserva es cuáles clases son decidibles por una regla (un contraste se calcula con la fórmula de WCAG) y cuáles exigen juicio (si un texto alternativo describe la imagen).",
-        note_kind="teal", foot=SINT)
-
-
-def se369_sondas() -> Fig:
+def se549_clasificacion() -> Fig:
     return grouped_bars(
-        "Seis validadores de un nombre de curso, cada uno con un defecto: sondas dirigidas frente a cadenas aleatorias",
-        "Barras horizontales: las quince sondas dirigidas detectan el defecto de los seis validadores; quince cadenas aleatorias lo detectan en 2,0 por ciento de las semillas para el que no recorta espacios, 11,0 por ciento para el límite exclusivo y 0 por ciento para los otros cuatro.",
-        ["No recorta espacios", "Límite de 80 exclusivo", "Acepta caracteres de control", "Cuenta bytes en vez de caracteres", "Rechaza caracteres chinos", "Bloquea nombres que empiezan por «admin»"],
-        [("15 sondas dirigidas", [100.0] * 6, "teal"), ("15 cadenas aleatorias (200 semillas)", [2.0, 11.0, 0.0, 0.0, 0.0, 0.0], "coral")],
-        unit="% de semillas que detectan el defecto (las sondas son deterministas)", horizontal=True, label_w=290, decimals=1, ticks=[0, 25, 50, 75, 100],
-        note="Las sondas son una lista de criterios (vacío, solo espacios, límites 79/80/81, tildes, control, bidireccional, emoji). Se escribieron conociendo qué defectos suelen existir: una lista incompleta deja pasar los que no anticipa. No sustituyen la exploración, la preparan.",
-        note_kind="gold", foot=SINT)
+        "Filas con un correo o un teléfono dentro de cada columna, sobre una muestra de 500 filas",
+        "Barras horizontales con las filas de la muestra que contienen un dato personal: email 500 y phone 500, columnas cuyo nombre lo delata, y contact_ref 150 y note 55, columnas con nombre inocuo que también guardan correos.",
+        ["email (el nombre lo delata)", "phone (el nombre lo delata)", "contact_ref (el nombre no lo delata)", "note (el nombre no lo delata)"],
+        [("Filas con dato personal", [500, 500, 150, 55], "navy")],
+        unit="Filas de 500 con correo o teléfono", horizontal=True, decimals=0, label_w=300,
+        note="Un clasificador por nombre de columna encuentra dos de las cuatro columnas con datos personales; el texto libre y los identificadores externos esconden el resto. Clasificar por contenido sobre una muestra encuentra las cuatro, a costa de leer datos y de errar en ambos sentidos con valores que se parecen a un correo sin serlo.",
+        note_kind="coral", foot=EJEC)
+
+
+def se549_k_anonimato() -> Fig:
+    return grouped_bars(
+        "Grupos pequeños de un agregado liberado según los cuasi-identificadores, con k igual a 5",
+        "Barras agrupadas con los grupos de menos de 5 personas y las personas en ellos: ciudad 0 y 0, ciudad y plan 0 y 0, ciudad plan y año de nacimiento 441 grupos y 1310 personas, y ciudad plan y década de nacimiento 0 y 0.",
+        ["Ciudad", "Ciudad y plan", "Ciudad, plan y año de nacimiento", "Ciudad, plan y década de nacimiento"],
+        [("Grupos con menos de 5 personas", [0, 0, 441, 0], "coral"), ("Personas en esos grupos", [0, 0, 1310, 0], "navy")],
+        unit="Grupos o personas", decimals=0, plot_h=260,
+        note="Añadir el año de nacimiento convierte 18 grupos cómodos en 1 004 grupos, 441 de ellos con menos de cinco personas: 1 310 de 5 000 personas quedan señaladas por su combinación. Generalizar a la década vuelve a 108 grupos sin ninguno pequeño. K-anonimato es una condición necesaria sobre la tabla liberada y no garantiza privacidad frente a quien sabe más.",
+        note_kind="gold", foot=EJEC)
+
+
+def se549_borrado() -> Fig:
+    return grouped_bars(
+        "Dónde queda el usuario 42 tras una solicitud de borrado, según se borre solo el origen o se propague por el linaje",
+        "Barras agrupadas con las filas o copias del usuario 42 que quedan: borrando solo en la tabla de origen quedan 0 en raw, 1 en la tabla intermedia, 3 en la tabla de eventos, 1 en el almacén de variables y 1 en el archivo exportado; propagando por el linaje de tablas queda solo la copia del archivo exportado.",
+        ["raw_users", "stg_users", "fact_events", "feature_store", "export.csv (copia fuera de las tablas)"],
+        [("Borrar solo en el origen", [0, 1, 3, 1, 1], "coral"), ("Propagar por el linaje de tablas", [0, 0, 0, 0, 1], "teal")],
+        unit="Filas o copias que quedan", decimals=0, plot_h=260,
+        note="El linaje de tablas encuentra todas las copias que son tablas; la copia exportada a un archivo no está en el grafo y sobrevive. Por eso el catálogo debe registrar las exportaciones como activos con dueño, y por eso el plazo de un borrado incluye las copias de seguridad, que esta prueba no modeló.",
+        note_kind="gold", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-370
-def se370_suite() -> Fig:
-    ns = [50, 200, 1000, 5000]
-
-    def serie(vals, sides):
-        return [(n, v, " " if s == "-" else fmt_es(v, 1), "b" if s == "-" else s) for n, v, s in zip(ns, vals, sides)]
-
-    return line_chart(
-        "Corridas de la suite que pasan limpias según su tamaño y la inestabilidad de cada prueba: (1 − p)^N",
-        "Cuatro curvas decrecientes con el tamaño de la suite en escala logarítmica: con 0,1 por ciento de inestabilidad por prueba, una suite de 1 000 pruebas pasa limpia 36,8 por ciento de las veces y una de 5 000 solo 0,7 por ciento; con 0,5 por ciento una de 200 pasa 36,7 por ciento.",
-        [("0,01 % por prueba", serie([99.5, 98.0, 90.5, 60.7], "tttt"), "teal"), ("0,1 % por prueba", serie([95.1, 81.9, 36.8, 0.7], "bbtt"), "navy"),
-         ("0,5 % por prueba", serie([77.8, 36.7, 0.7, 0.0], "rrrl"), "gold"), ("1 % por prueba", serie([60.5, 13.4, 0.0, 0.0], "rrt-"), "coral")],
-        x_label="Pruebas en la suite", y_label="Corridas limpias (%)", log_x=True, x_ticks=[(n, str(n)) for n in ns], decimals=1, point_labels="all",
-        note="Un reintento automático lo arregla en apariencia: con una inestabilidad del 2 % y un reintento, la prueba termina en verde el 99,96 % de las veces, pero un defecto real que falla el 30 % de las ejecuciones también termina en verde el 91,2 % con un reintento y el 97,3 % con dos. Reintentar oculta el problema que ahora no se ve.",
-        note_kind="coral", foot=SINT)
+def se550_consulta() -> Fig:
+    return grouped_bars(
+        "Costo mensual de una consulta de 10 días ejecutada 100 veces al día, sobre una tabla escalada a 1 TB",
+        "Barras con el costo mensual en unidades inventadas, a 5 unidades por terabyte escaneado: leer el CSV completo 15000, columnar leyendo dos columnas de todo el rango 1213 y columnar leyendo dos columnas con estadísticas que descartan 18 de 20 grupos 121; escala logarítmica.",
+        ["CSV, lectura completa", "Columnar, dos columnas, todo el rango", "Columnar, dos columnas, 10 días con estadísticas"],
+        [("Costo mensual (unidades)", [15000, 1213, 121], "navy")],
+        unit="Costo mensual (unidades inventadas)", decimals=0, plot_h=250, log=True,
+        note="Los bytes escaneados se midieron sobre 200 000 filas y se escalaron a 1 TB; el precio de 5 unidades por TB es un parámetro del autor, no una tarifa. La proporción entre barras (124 veces entre la primera y la última) es lo que se traslada, y solo para consultas que lean un rango estrecho de un archivo agrupado por esa columna.",
+        note_kind="gold", foot=MODELO)
 
 
-def se370_carrera() -> Fig:
-    return stacked_bars(
-        "La misma condición de carrera: resultados incorrectos según la enumeración exacta y según los hilos reales",
-        "Barras horizontales con el porcentaje de resultados incorrectos: la enumeración exacta da 66,7 por ciento con dos hilos y 93,3 por ciento con tres; los hilos reales de CPython 3.12 no fallan en 100 ejecuciones sin código entre la lectura y la escritura ni en 300 con pocas vueltas, y fallan en las 40 con 200 000 vueltas y un bucle vacío entre ambas.",
-        ["Enumeración exacta, 2 hilos", "Enumeración exacta, 3 hilos", "Hilos reales, sin nada entre leer y escribir (100 ejecuciones)",
-         "Hilos reales, bucle vacío, 1 a 1 000 vueltas (300 ejecuciones)", "Hilos reales, bucle vacío, 200 000 vueltas (40 ejecuciones)"],
-        [("Cálculo de intercalaciones (4 de 6 y 84 de 90)", [66.7, 93.3, 0.0, 0.0, 0.0], "gold"), ("Ejecuciones con hilos reales (Windows y Ubuntu)", [0.0, 0.0, 0.0, 0.0, 100.0], "coral")],
-        unit="% de resultados incorrectos", horizontal=True, label_w=380, decimals=1,
-        note="Ejecutar cien veces y ver verde no prueba que no haya carrera: el intérprete solo cambia de hilo en ciertos puntos y una línea más de código, un tamaño mayor o otra versión de Python mueve el resultado de 0 % a 100 %. La enumeración exacta no depende del planificador; los hilos reales sí.",
-        note_kind="teal", foot=SINT)
+def se550_refresco() -> Fig:
+    return grouped_bars(
+        "Costo mensual de refrescar un mart según la frecuencia, con recálculo completo o incremental de 2 días",
+        "Barras agrupadas en unidades inventadas: cada 5 minutos el recálculo completo cuesta 24335 y el incremental 3042; cada hora 2028 y 253; una vez al día 84 y 11; escala logarítmica.",
+        ["Cada 5 minutos", "Cada hora", "Una vez al día"],
+        [("Recálculo completo", [24335, 2028, 84], "coral"), ("Incremental, últimos 2 días", [3042, 253, 11], "teal")],
+        unit="Costo mensual (unidades inventadas)", decimals=0, plot_h=270, log=True,
+        note="Con los tiempos de esta ejecución (700 ms completo y 78 ms incremental sobre 500 000 filas, escalados 2 000 veces) el incremental cuesta unas 8 veces menos en cada frecuencia, y pasar de diario a cada 5 minutos multiplica el costo por 288 en ambos. La frecuencia es la decisión más cara de la plataforma y la menos discutida.",
+        note_kind="gold", foot=MODELO)
 
 
-def se370_diagnostico() -> Fig:
-    causas = ["Estable (0,2 % de ruido)", "Rota (falla 98 %)", "Falla con carga alta", "Falla tras otra prueba", "Azar puro (8 %)", "Carga y orden a la vez"]
-    return stacked_bars(
-        "Clasificar la causa con un historial de 300 ejecuciones: 440 pruebas sintéticas con causa plantada",
-        "Barras apiladas horizontales: de 440 pruebas con causa conocida, el clasificador por correlaciones acierta 412 (93,6 por ciento); los errores se concentran en la causa mixta, donde confunde 16 de 40 pruebas con una causa de orden, y en las pruebas que fallan tras otra prueba, con 8 errores.",
-        causas,
-        [("Bien clasificadas", [199, 40, 57, 42, 50, 24], "teal"), ("Mal clasificadas", [1, 0, 3, 8, 0, 16], "coral")],
-        unit="pruebas sintéticas", horizontal=True, label_w=230, decimals=0,
-        note="Con solo 30 ejecuciones el historial no basta (70,9 %); con 100, 85,0 %; con 300, 93,6 %. Las reglas se ajustaron con estos mismos casos, de modo que la exactitud real es desconocida. El hecho que se conserva: la carga y el orden se confunden cuando están correlacionados, y solo un experimento que varíe uno de ellos los separa.",
-        note_kind="gold", foot=SINT)
+def se550_ruta_critica() -> Fig:
+    lanes = [("ingest_orders", [(0, 12, "12", "coral")]), ("stg_orders", [(12, 18, "6", "coral")]), ("fact_sales", [(18, 33, "15", "coral")]),
+             ("mart_city", [(33, 38, "5", "coral")]), ("report", [(38, 40, "2", "coral")]),
+             ("ingest_customers", [(0, 4, "4", "teal")]), ("dim_customer", [(4, 7, "3", "teal")]), ("mart_daily", [(33, 37, "4", "teal")])]
+    return timeline(
+        "Ocho tareas de un pipeline: la ruta crítica de 40 minutos y las tareas que tienen holgura",
+        "Diagrama de Gantt con ocho tareas: la ruta crítica, en rojo, es ingest_orders 12 minutos, stg_orders 6, fact_sales 15, mart_city 5 y report 2, en total 40 minutos; ingest_customers 4, dim_customer 3 y mart_daily 4 tienen holgura; la suma de todas las duraciones es 51 minutos.",
+        lanes, unit="Minutos desde el inicio", t_max=42, ticks=[0, 10, 20, 30, 40], lane_h=40, label_w=170,
+        note="Reducir a la mitad fact_sales baja el total de 40 a 32,5 minutos; reducir mart_city, de 40 a 39; reducir ingest_customers no cambia nada. Optimizar fuera de la ruta crítica no mueve la hora de entrega.",
+        note_kind="teal", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-371
-def se371_matriz() -> Fig:
-    pruebas = ["t01 resultado completo", "t02 solo ejecuta", "t03 «no es None»", "t04 compara algo consigo mismo", "t05 rechaza 7,1", "t06 texto exacto del error",
-               "t07 orden de las claves", "t08 bordes de la nota", "t09 línea con 3 campos", "t10 id y estado inválidos", "t11 promedio simple",
-               "t12 promedio sin anuladas", "t13 promedio vacío", "t14 sin nota y con espacios"]
-    muertos = [8, 6, 6, 6, 5, 10, 6, 13, 0, 1, 3, 3, 1, 8]
-    veredicto = ["util", "excepcion", "excepcion", "excepcion", "util", "fragil", "fragil", "util", "debil", "debil", "util", "util", "debil", "util"]
-    def serie(clave: str) -> list[float]:
-        return [float(m) if v == clave else 0.0 for m, v in zip(muertos, veredicto)]
-    return stacked_bars(
-        "Catorce pruebas sobre el mismo módulo: mutantes que matan (de 18) según su veredicto",
-        "Barras apiladas horizontales con los mutantes que mata cada una de catorce pruebas: la de bordes mata 13, tres pruebas sin aserciones útiles matan 6 cada una solo por excepción, dos pruebas (texto del error y orden de las claves) son frágiles ante refactorizaciones benignas y t09 no mata ninguno.",
-        pruebas,
-        [("Útil o la más fuerte", serie("util"), "teal"), ("Mata solo por excepción", serie("excepcion"), "gold"), ("Frágil ante un refactor benigno", serie("fragil"), "coral"), ("Débil o pasa por la razón equivocada", serie("debil"), "grey")],
-        unit="mutantes muertos (de 18)", horizontal=True, label_w=250, decimals=0, width=980,
-        note="Tres pruebas con poder de detección aparente (t02, t03, t04) matan solo porque el mutante hace lanzar una excepción: ninguna comprueba un valor. t09 pasa con el defecto porque el desempaquetado de una línea corta ya lanza ValueError. Una prueba que mata mutantes sin comprobar nada no demuestra lo que dice.",
-        note_kind="coral", foot=SINT)
+def se551_matriz() -> Fig:
+    cols = ["Filas contra origen", "Importe contra origen", "Unicidad", "Frescura", "Repetir ejecución", "Frontera de día", "Esquema de entrada", "Importe medio en banda"]
+    rows = ["D1 carga por append", "D2 día en UTC", "D3 unión sin fecha", "D4 tardíos descartados", "D5 unión interna y nulos", "D6 coma flotante", "D7 columna renombrada", "D8 archivo truncado"]
+    vals = [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 1], [1, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0]]
+    return heatmap(
+        "Ocho defectos sembrados en un pipeline y las ocho comprobaciones que los ven",
+        "Mapa de calor de ocho defectos por ocho comprobaciones: D1 solo lo ve repetir la ejecución; D2 lo ven la frontera de día y el importe medio; D3 lo ven las conciliaciones; D4 y D5 las conciliaciones y el importe medio; D6 solo la conciliación de importe; D7 la conciliación de importe, el esquema de entrada y el importe medio; D8 las conciliaciones; la conciliación del importe ve siete de los ocho; unicidad y frescura no ven ninguno.",
+        rows, cols, vals, unit="falla", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "x" if v else "—", cell_h=34, label_w=210,
+        note="Cada defecto lo ve alguna comprobación, pero ninguna sola ve los ocho: la conciliación del importe ve siete y solo se le escapa D1, que únicamente aparece al repetir la ejecución; unicidad y frescura no vieron ninguno de estos ocho y sirven contra otros fallos. D6 pierde 2 centavos en 912 729 905 y solo lo ve una conciliación exacta del importe.",
+        note_kind="teal", foot=EJEC)
 
 
-def se371_minimo() -> Fig:
-    return grouped_bars(
-        "Qué indicador barato se parece más a los mutantes muertos: correlación de rangos de Spearman con 14 pruebas",
-        "Barras horizontales: la correlación de rangos entre el número de aserciones y los mutantes muertos es 0,45 y entre las líneas ejecutadas y los mutantes muertos es 0,87, con catorce pruebas; tres de las catorce matan los mismos 17 mutantes que la suite entera.",
-        ["Aserciones frente a mutantes muertos", "Líneas ejecutadas frente a mutantes muertos"],
-        [("Correlación de Spearman (n = 14)", [0.45, 0.87], "teal")],
-        unit="coeficiente de correlación de rangos (0 = ninguna, 1 = perfecta)", horizontal=True, label_w=280, decimals=2, ticks=[0, 0.25, 0.5, 0.75, 1],
-        note="Tres de las 14 pruebas (t08, t11 y t12, por un conjunto voraz) matan los mismos 17 mutantes que la suite entera, que mata 17 de 18. Las otras once no son basura: documentan, protegen contra otras regresiones y fallan con mensajes más claros. Con n = 14 las correlaciones son una orientación y no una regla.",
-        note_kind="teal", foot=SINT)
+def se551_arreglar_uno_a_uno() -> Fig:
+    labels = ["Los 8", "−D1", "−D8", "−D5", "−D4", "−D3", "−D2", "−D7", "−D6"]
+    rows = [42384, 11192, 13558, 13731, 19787, 0, 0, 0, 0]
+    days = [15, 15, 15, 15, 15, 15, 15, 2, 0]
+    pts = list(zip(range(9), rows))
+    return line_chart(
+        "Filas de más al corregir los defectos uno a uno, con cada ejecución repetida una vez",
+        "Línea con las filas de más respecto de la verdad al ir corrigiendo defectos: con los ocho defectos 42384, tras corregir D1 11192, D8 13558, D5 13731, D4 19787, D3 0, D2 0, D7 0 y D6 0; los días con un resultado distinto bajan solo al corregir D7, de 15 a 2, y D6, a 0.",
+        [("Filas de más o de menos", pts, "navy")],
+        x_label="Defectos corregidos, de izquierda a derecha", y_label="Filas de más", x_ticks=[(i, l) for i, l in enumerate(labels)], y_ticks=[0, 10000, 20000, 30000, 40000, 50000], point_labels="all", decimals=0, plot_h=280,
+        note="El error no baja de forma monótona: al corregir D4 (que dejaba de descartar los tardíos) las filas de más suben de 13 731 a 19 787 porque ahora el defecto D3 las duplica. Y los días con resultado distinto siguen siendo 15 hasta corregir D7 y bajan a 2 y a 0 solo con D6. Los defectos se enmascaran: corregir en cualquier orden y medir tras cada paso.",
+        note_kind="coral", foot=EJEC)
 
 
-def se371_validador() -> Fig:
-    return grouped_bars(
-        "200 mutaciones de un paquete de evidencia: cuántas detecta el validador al sumar cada nivel",
-        "Barras horizontales acumuladas: el nivel de estructura detecta 77 de 200 mutaciones; con referencias, 139; con re-ejecución de las pruebas contra el defecto, 153; con refactorizaciones benignas, 173; con reglas sobre las aserciones, 200.",
-        ["Estructura", "+ Referencias", "+ Re-ejecución", "+ Refactor benigno", "+ Reglas de aserción"],
-        [("Mutaciones detectadas (acumulado)", [77.0, 139.0, 153.0, 173.0, 200.0], "teal")],
-        unit="mutaciones detectadas de 200", horizontal=True, label_w=200, decimals=0, ticks=[0, 50, 100, 150, 200],
-        note="Cada nivel atrapa lo que el anterior dejó pasar: faltaban campos y afirmaciones negativas (estructura), pruebas y defectos inventados (referencias), pruebas que no detectan el defecto (re-ejecución), pruebas frágiles (refactor) y pruebas sin aserciones o tautológicas (reglas de aserción). El 100 % final es engañoso: las reglas se diseñaron con las nueve mutaciones que se evalúan. Un paquete con una trampa nueva podría pasar los cinco niveles.",
-        note_kind="gold", foot=SINT)
+def se551_metodo() -> Fig:
+    return flow(
+        "Método para diagnosticar un resultado erróneo en un pipeline: acotar antes de arreglar",
+        "Diagrama en dos filas con seis pasos: reproducir con la misma entrada y una réplica pequeña, acotar la capa donde el resultado deja de coincidir con la verdad, conciliar filas e importes entre capas, formular una causa y una prueba que la distinga, corregir una sola causa y medir tras cada corrección, y escribir una comprobación que habría detenido el defecto.",
+        [[("1. Reproducir\nMisma entrada, réplica pequeña", "teal"), ("2. Acotar la capa\nPrimera tabla que difiere de la verdad", "teal"), ("3. Conciliar\nFilas e importes entre capas", "gold")],
+         [("4. Una causa y una prueba\nQué la distingue de las otras", "gold"), ("5. Corregir una y medir\nLas causas se enmascaran", "coral"), ("6. Escribir la comprobación\nQue habría parado el defecto", "teal")]],
+        note="El orden importa: arreglar sin acotar corrige un síntoma, y corregir varias causas a la vez impide saber cuál movió el resultado. El paso 6 es el que convierte una guardia en una mejora permanente.",
+        note_kind="teal", box_h=96, foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-372
-def se372_trimestre() -> Fig:
+def se552_arquitectura() -> Fig:
+    return flow(
+        "Plataforma mínima gobernada de Avisos: tres capas, un registro de metadatos y un control que decide si se publica",
+        "Diagrama en dos filas: la zona cruda raw_orders con datos personales declarados, la capa intermedia stg_orders con un seudónimo en lugar del correo y el mart diario mart_daily; un registro de metadatos con dueño, contrato, comprobaciones, retención y entradas de cada conjunto; y un control de siete reglas sobre dueño, contrato, comprobaciones, datos personales, retención, linaje y frescura que se ejecuta antes de publicar.",
+        [[("raw_orders\nCorreo declarado como dato personal", "teal"), ("stg_orders\nSeudónimo en lugar del correo", "gold"), ("mart_daily\nDía, pedidos e ingreso, sin datos personales", "teal")],
+         [("Registro de metadatos\nDueño, contrato, comprobaciones, retención, entradas", "plain"), ("Control de siete reglas\nSe ejecuta antes de publicar", "coral"), ("Informe de evidencia\nQué se comprobó y qué no se ve", "gold")]],
+        note="Todo lo que el control comprueba está declarado en el registro y verificado contra lo construido: el registro dice lo que debería ser y el control lo compara con lo que es. Sin las dos mitades, o la gobernanza es un documento o es una conjetura.",
+        note_kind="teal", box_h=96, foot=EJEC)
+
+
+def se552_mutaciones() -> Fig:
+    rows = ["Quitar el dueño de un conjunto", "Columna nueva en el mart sin contrato", "Columna de correo en el mart", "Retención de 10 días sin purga", "Quitar todas las comprobaciones", "El mart lee de raw sin declararlo", "Cambiar el tipo declarado", "Datos con 3 días de atraso", "Retención sin declarar", "Ingreso de SUM a MAX (semántico)"]
+    cols = ["R1 dueño", "R2 contrato", "R3 comprobaciones", "R4 datos personales", "R5 retención", "R6 linaje", "R7 frescura"]
+    vals = [[1, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
+    return heatmap(
+        "Diez cambios en la plataforma y la regla del control que cada uno dispara",
+        "Mapa de calor de diez mutaciones por siete reglas: cada una de las nueve primeras mutaciones dispara exactamente una regla y la décima, cambiar el ingreso de suma a máximo, no dispara ninguna.",
+        rows, cols, vals, unit="falla", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "falla" if v else "—", highlight=[(9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6)], cell_h=34, label_w=270,
+        note="Nueve de diez cambios los detiene una regla; el décimo, que mantiene nombres, tipos, dueño, retención, linaje y frescura pero cambia el significado del ingreso, pasa las siete. El control reduce el error posible y no lo elimina: la definición con ejemplos y la conciliación con una fuente independiente son la capa que falta.",
+        note_kind="coral", foot=EJEC)
+
+
+def se552_cobertura() -> Fig:
     return grouped_bars(
-        "2 000 trimestres simulados con 40 horas de pruebas y 240 cambios por trimestre",
-        "Barras horizontales con la pérdida media del trimestre y su percentil 95 para seis estrategias: sin pruebas 42,41 y 62,00; con reparto uniforme 24,09 y 39,30; el marginal con exposición baja a 21,37 y 35,10.",
-        ["Sin pruebas", "Reparto uniforme", "Proporcional al tamaño", "Proporcional a probabilidad × impacto", "Por exposición (× cambios)", "Marginal con exposición"],
-        [("Pérdida media", [42.41, 24.09, 24.17, 22.78, 21.75, 21.37], "teal"), ("Percentil 95", [62.0, 39.3, 39.0, 37.2, 35.6, 35.1], "coral")],
-        unit="pérdida del trimestre (unidades del modelo; menos es mejor)", horizontal=True, label_w=270, decimals=2,
-        note="Pasar de un reparto uniforme al marginal con exposición baja la pérdida media 11 % y el percentil 95 el 11 %; es una mejora real y modesta. La mayor parte del beneficio (42,41 a 24,09) llega con tener pruebas. Los escapes medios (15,69 sin pruebas y entre 7,9 y 8,7 con ellas) están en la tabla. Los cambios se reparten por tamaño del código y la probabilidad por cambio es p/4: ambos supuestos del autor.",
-        note_kind="teal", foot=SINT)
-
-
-def se372_incidente() -> Fig:
-    f, y = _kit_start("Reasignar el presupuesto tras un incidente en plazos y zonas horarias",
-                      "Flujo de cuatro pasos: el incidente multiplica por tres la probabilidad de defecto de plazos y zonas horarias y por la mitad la de notificaciones; 2,3 horas salen de notificaciones y 3,7 llegan a plazos; la pérdida esperada baja de 0,706 a 0,678 y la media simulada de 22,59 a 21,73; tres componentes quedan bajo 2 horas.",
-                      940, None)
-    top = y + 6
-    w, h, gap = 200, 150, 44
-    pasos = [
-        ("Incidente en plazos y zonas horarias", "Probabilidad de defecto de plazos ×3 y de notificaciones ×0,5", "coral"),
-        ("Reasignar las horas", "Notificaciones: de 2,3 h a 0,0 h. Plazos y zonas horarias: de 4,7 h a 8,4 h", "gold"),
-        ("Pérdida esperada", "Del modelo: de 0,706 a 0,678 (−4 %). Media simulada: de 22,59 a 21,73 (−3,8 %)", "teal"),
-        ("Bajo 2 horas", "Autenticación 0,7 h, búsqueda 0,6 h, administración 1,1 h: se declaran y caducan", "navy"),
-    ]
-    for i, (cab, cuerpo, kind) in enumerate(pasos):
-        x = 10 + i * (w + gap)
-        f.box(x, top, w, 40, cab, kind, 13, bold=True)
-        f.box(x, top + 46, w, h - 46, cuerpo, "plain", 13)
-        if i < 3:
-            f.arrow([(x + w, top + 20), (x + w + gap, top + 20)])
-    return _kit_finish(f, top + h + 10,
-                       "Reasignar tras un incidente mejora poco (3,8 %) porque el plan anterior ya era razonable; lo que cambia es que ahora está justificado con el incidente. Tres componentes quedan bajo 2 horas: el paquete los declara como exclusiones con una razón y una fecha de caducidad, no los deja olvidados.",
-                       "gold", SINT)
-
-
-def se372_validador() -> Fig:
-    return stacked_bars(
-        "Validador del paquete de estrategia: en qué nivel se detecta cada una de las 200 mutaciones",
-        "Una barra apilada de 200 mutaciones: 60 las detecta la estructura, 64 la coherencia de riesgo, 29 el presupuesto y 33 la trazabilidad, 186 en total; las 14 restantes son 13 cambios de redacción inocuos y una mutación de nivel equivalente, que no deben detectarse.",
-        ["200 mutaciones del paquete"],
-        [("Estructura (60)", [60], "teal"), ("Coherencia (64)", [64], "navy"), ("Presupuesto (29)", [29], "gold"), ("Trazabilidad (33)", [33], "grey"), ("No detectadas (14)", [14], "coral")],
-        unit="mutaciones", horizontal=True, label_w=190, decimals=0,
-        note="De 187 mutaciones que cambian el contenido se detectan 186: la que falta es un cambio de nivel que cae en otro nivel igualmente válido, es decir, no cambia nada. Las 13 mutaciones inocuas de redacción no deben detectarse. Las reglas se ajustaron con los mismos tipos que se miden; un paquete incorrecto de un tipo no contemplado puede pasar.",
-        note_kind="teal", foot=SINT)
+        "Mutaciones detectadas de 10 según el control que se aplique a la plataforma",
+        "Barras con las mutaciones detectadas de diez: el control de siete reglas detecta 9, un control que solo compara el esquema con el contrato detecta 2 y sin control se detectan 0 antes de que un consumidor las vea.",
+        ["Control de siete reglas", "Solo comparar el esquema con el contrato", "Sin control"],
+        [("Mutaciones detectadas (de 10)", [9, 2, 0], "teal")],
+        unit="Mutaciones detectadas de 10", decimals=0, plot_h=240, ref_lines=[(10, "10")],
+        note="Las diez mutaciones son de autor y cubren las siete reglas con una por regla, más una semántica: miden qué familia de defectos ve cada regla, no la tasa de defectos de una plataforma real. Comparar el esquema detecta solo lo que cambia el contrato; el resto exige reglas sobre dueños, datos personales, retención, linaje y frescura.",
+        note_kind="gold", foot=MODELO)
 
 
 FIGURES = {
-    "se-367-fidelidad-de-los-dobles.svg": se367_fidelidad,
-    "se-367-pruebas-acopladas-a-la-interaccion.svg": se367_interaccion,
-    "se-367-diferencias-de-entorno.svg": se367_entorno,
-    "se-368-fixtures-y-orden-de-ejecucion.svg": se368_fixtures,
-    "se-368-datos-aleatorios-con-semilla.svg": se368_semilla,
-    "se-368-fuentes-de-no-determinismo.svg": se368_fuentes,
-    "se-369-defectos-hallados-por-exploracion.svg": se369_curva,
-    "se-369-accesibilidad-que-una-regla-decide.svg": se369_accesibilidad,
-    "se-369-sondas-de-entrada.svg": se369_sondas,
-    "se-370-suite-limpia-segun-su-tamano.svg": se370_suite,
-    "se-370-carrera-enumerada-y-real.svg": se370_carrera,
-    "se-370-clasificar-la-causa.svg": se370_diagnostico,
-    "se-371-poder-de-deteccion-de-catorce-pruebas.svg": se371_matriz,
-    "se-371-conjunto-minimo-e-indicadores.svg": se371_minimo,
-    "se-371-validador-de-evidencia.svg": se371_validador,
-    "se-372-un-trimestre-simulado.svg": se372_trimestre,
-    "se-372-reasignar-tras-un-incidente.svg": se372_incidente,
-    "se-372-validador-de-la-estrategia.svg": se372_validador,
+    "se-367-impacto.svg": se547_impacto,
+    "se-367-cadena.svg": se547_cadena,
+    "se-367-limites.svg": se547_limites,
+    "se-368-tamanos.svg": se548_tamanos,
+    "se-368-bytes-leidos.svg": se548_bytes_leidos,
+    "se-368-manifiesto.svg": se548_manifiesto,
+    "se-369-clasificacion.svg": se549_clasificacion,
+    "se-369-k-anonimato.svg": se549_k_anonimato,
+    "se-369-borrado.svg": se549_borrado,
+    "se-370-consulta.svg": se550_consulta,
+    "se-370-refresco.svg": se550_refresco,
+    "se-370-ruta-critica.svg": se550_ruta_critica,
+    "se-371-matriz.svg": se551_matriz,
+    "se-371-arreglar-uno-a-uno.svg": se551_arreglar_uno_a_uno,
+    "se-371-metodo.svg": se551_metodo,
+    "se-372-arquitectura.svg": se552_arquitectura,
+    "se-372-mutaciones.svg": se552_mutaciones,
+    "se-372-cobertura.svg": se552_cobertura,
 }

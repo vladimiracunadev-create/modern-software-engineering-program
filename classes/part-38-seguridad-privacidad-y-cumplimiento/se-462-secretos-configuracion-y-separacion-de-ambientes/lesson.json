@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-462",
+  "title": "Secretos, configuración y separación de ambientes",
+  "stage": "F",
+  "part": "38",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "OWASP-ASVS"
+  ],
+  "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes"
+}

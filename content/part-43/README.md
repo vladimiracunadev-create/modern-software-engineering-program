@@ -1,161 +1,196 @@
-# Parte 43 — Patrones de diseño, empresariales y de resiliencia
+# Parte 43 — Mantenimiento y modernización legacy
 
-La Parte 24 presentó los patrones como vocabulario de diseño y la Parte 31 trató la resiliencia como cualidad. Esta parte pone ambos bajo la misma pregunta de ingeniería: **¿qué fuerza concreta resuelve este patrón, qué cuesta tenerlo y cómo sabré cuándo retirarlo?** Un patrón es una solución con nombre a un problema recurrente; el nombre ayuda a conversar y la medida ayuda a decidir. Sin la segunda, el catálogo se convierte en una lista de formas que se aplican por costumbre.
+La Parte 41 dejó un sistema que se puede ver, operar y recuperar. La pregunta cambia de «¿cómo observamos y recuperamos lo que corre?» a «¿cómo se sostiene, se entiende y se transforma, durante años y sin detenerlo, un sistema que otras personas escribieron con reglas que nadie anotó?». Esta parte trabaja sobre **el módulo legado de calificaciones de la plataforma educativa**, un caso sintético: un monolito de doce años con una función que calcula la nota final, notas guardadas como texto con coma, estados de una letra, fechas de dos dígitos y un archivo de intercambio con un ministerio. Cada clase mira el mismo módulo con una lente más exigente: qué trabajo hay que hacer, dónde está el riesgo, cómo se fija su comportamiento, qué dependencias acumula, cómo se reemplaza por partes, cómo se migran su plataforma y sus datos, cómo coexisten dos versiones, cómo se retira, si conviene reescribir y qué base estable hace falta antes de empezar.
 
 ## Pregunta rectora
 
-> Para este problema de diseño, ¿qué fuerza lo causa, qué patrón la ataca, qué costo medible añade, qué deja de resolver y bajo qué condición se retira?
+> ¿Qué cambio puedes hacer hoy sobre un sistema que no puedes detener, con qué evidencia de que no rompe a quien lo usa, qué cuesta volver atrás en cada paso y en qué momento exacto deja de ser posible?
 
 ## Antes del recorrido clase por clase
 
-La parte trata tres familias que suelen enseñarse por separado y que aquí comparten método. Los **patrones de diseño** (GoF y GRASP) organizan responsabilidades dentro de un programa. Los **patrones empresariales y de integración** (Repository, Unit of Work, Active Record y los de mensajería) organizan la frontera entre el modelo, la base de datos y otros sistemas. Los **patrones de resiliencia** (timeout, retry, circuit breaker, bulkhead, degradación) organizan lo que pasa cuando una dependencia falla o se vuelve lenta. Las tres familias responden a una fuerza y tienen un costo.
-
-El caso conductor es *Avisos*, el servicio de recordatorios de entregas que ya apareció en la Parte 40. Cada clase lo mira con un patrón distinto: canales como estrategia y fábrica, un remitente decorado con reintentos, estados del aviso como máquina de estados, persistencia con repositorio, entrega de mensajes con receptor idempotente y llamadas a un proveedor con timeout, jitter y circuit breaker.
+Esta parte no enseña una herramienta de migración ni un producto de refactorización. Enseña a clasificar el trabajo de mantenimiento y a repartir la capacidad sin que lo correctivo devore lo preventivo, a preguntar al historial y a la ejecución dónde está el riesgo y qué conocimiento se perdió, a fijar el comportamiento actual con pruebas de caracterización y costuras antes de tocarlo, a medir el costo creciente de esperar para actualizar dependencias, a sustituir un sistema por rebanadas con comparación en sombra y una capa que traduce su modelo, a catalogar los cambios silenciosos de una plataforma, a rellenar datos sin bloquear ni pisar escrituras, a mantener dos copias alineadas y dos formatos compatibles, a retirar un sistema con una ventana que cubra los ciclos de uso, a decidir entre reescribir y evolucionar con incertidumbre y a estabilizar la base antes de cruzar la puerta.
 
 ```mermaid
 flowchart LR
-    A[Criterios para usar un catálogo] --> B[GoF creacionales]
-    B --> C[GoF estructurales]
-    C --> D[GoF conductuales]
-    D --> E[GRASP]
-    E --> F[Repository, Unit of Work, Active Record]
-    F --> G[Integración empresarial]
-    G --> H[Resiliencia I: timeout, retry, breaker]
-    H --> I[Resiliencia II: bulkhead, sidecar, degradación]
-    I --> J[Antipatrones y deuda]
-    J --> K[Taller: refactorizar y medir]
-    K --> L[Proyecto: catálogo del sistema]
-    L -->|costos que no se justificaron| A
+    A[Mantenimiento correctivo, adaptativo y perfectivo] --> B[Arqueología de código]
+    B --> C[Pruebas de caracterización y seams]
+    C --> D[Dependencias obsoletas]
+    D --> E[Strangler, branch by abstraction y anticorruption]
+    E --> F[Migraciones de runtime, lenguaje y framework]
+    F --> G[Migraciones de datos sin interrupción]
+    G --> H[Compatibilidad, coexistencia y doble escritura]
+    H --> I[Retiro, archivado y disposición]
+    I --> J[Economía de reescribir frente a evolucionar]
+    J --> K[Taller: estabilizar antes de modernizar]
+    K --> L[Proyecto: migración incremental reversible]
+    L -->|incidente o hallazgo| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un catálogo se revisa con la evidencia de los patrones cuyo costo no se justificó.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo de la migración o una nueva fecha impuesta por el entorno reabre la cartera de mantenimiento; una migración terminada no cierra el mantenimiento, lo fecha.
 
 ## Resultados acumulativos
 
-Podrás decidir si un patrón se justifica comparando una fuerza nombrada, el costo en tamaño e indirección y una condición de salida; medir con análisis de sintaxis cuánto cuesta y cuánto simplifica un patrón; y reconocer cuándo el nombre de una clase anuncia un patrón que la estructura no tiene.
+Podrás clasificar una cartera de solicitudes en las cuatro categorías de mantenimiento, simular el reparto de capacidad con y sin una reserva preventiva, medir el acuerdo entre dos revisoras y calcular la probabilidad de cumplir una fecha impuesta según el margen; ordenar archivos por frecuencia de cambio, tamaño y su producto contra las correcciones reales, estimar los archivos huérfanos tras la salida de autores y comparar el análisis por nombre y la traza de ejecución para detectar código muerto; escribir pruebas de caracterización, medir su cobertura frente a los mutantes que detectan, encontrar el orden variable de un conjunto entre procesos y medir el costo de no tener una costura;
 
-Podrás explicar los patrones creacionales, estructurales y conductuales de la Gang of Four por la fuerza que atacan y por el modo en que se estropean: un Singleton con estado que vuelve dependientes las pruebas, una copia superficial que contamina clones, decoradores cuyo orden cambia la política, observadores que no se dan de baja y máquinas de estado reemplazadas por banderas.
+calcular cuánto cuesta esperar a actualizar una dependencia según la cadencia, cuánto tiempo queda expuesto un aviso de seguridad según la política y cuántos paquetes arrastra actualizar uno según su posición en el grafo; comparar un corte único, uno escalonado y uno con sombra previa por peticiones afectadas, calcular cuántas peticiones comparar en sombra y cuándo aparece el tráfico raro, y evaluar una capa anticorrupción sobre 5 000 registros; medir cuatro cambios silenciosos de comportamiento del intérprete, comparar tres formas de reescribir una llamada y tres políticas de seguimiento de versiones;
 
-Podrás asignar responsabilidades con los criterios de GRASP y comprobarlo con un cambio de regla; usar un repositorio y una unidad de trabajo sin ocultar las consultas ni la atomicidad; y escribir los patrones de mensajería de un sistema (receptor idempotente, cartas muertas, reordenador, correlación) con la garantía de entrega que cada uno compensa.
+medir cómo el tamaño de lote afecta al bloqueo, ejecutar un relleno real con SQLite bajo cuatro estrategias y contar las filas obsoletas, y medir el costo de añadir una columna frente a reconstruir la tabla; comparar tres formas de escribir en dos almacenes, el costo de detectar la divergencia y una matriz de compatibilidad ejecutable; medir qué ventana de observación rompe a los consumidores raros, comparar una retención única con reglas por tipo y tres formatos de archivo con una suma de verificación; simular tres opciones económicas con incertidumbre, su sensibilidad y su horizonte; medir el ruido de las pruebas inestables, la reproducibilidad de dos construcciones y la incertidumbre de una línea base;
 
-Podrás configurar timeout, reintentos con jitter y circuit breaker sin crear tormentas de reintentos; aislar dependencias con compartimentos y degradar con honestidad; medir la complejidad de un diseño y distinguir un antipatrón de una incomodidad; refactorizar con un maestro dorado que incluye las fronteras; y escribir un catálogo de patrones de un sistema con evidencia, costo y condición de salida por entrada.
+y ejecutar una migración incremental de seis fases con su verificación, el costo de volver atrás y el reposo antes de contraer. Al finalizar podrás defender un paquete de migración con su plan de fases, su ejecutor, su verificación de contenido, su ensayo de vuelta atrás y sus límites declarados, e indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
-- [Parte 24 — Diseño, patrones y refactorización](../../classes/part-24-diseno-patrones-y-refactorizacion/): costuras, inyección de dependencias y refactorización con red de seguridad.
-- [Parte 25 — Arquitectura de software y dominio](../../classes/part-25-arquitectura-de-software-y-dominio/): límites, dominio y decisiones arquitectónicas.
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): transacciones, consultas y modelos de datos.
-- [Parte 27 — Integración, eventos y mensajería](../../classes/part-27-integracion-eventos-y-mensajeria/): colas, eventos y garantías de entrega.
-- [Parte 28 — Concurrencia y sistemas distribuidos](../../classes/part-28-concurrencia-y-sistemas-distribuidos/): fallos parciales, tiempo y consenso.
-- [Parte 30 — Estrategia y técnicas de prueba](../../classes/part-30-estrategia-y-tecnicas-de-prueba/): dobles de prueba, valores límite y mutación.
-- [Parte 31 — Calidad, rendimiento y resiliencia](../../classes/part-31-calidad-rendimiento-y-resiliencia/): escenarios de calidad y cualidades de resiliencia.
-- [Parte 35 — Observabilidad, SRE e incidentes](../../classes/part-35-observabilidad-sre-e-incidentes/): señales, saturación e incidentes.
-- [Parte 40 — Metodologías de desarrollo: de TDD a ODD](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/): oráculos, mutación y el caso *Avisos*.
-- Python 3.11+ y terminal; todos los experimentos usan solo la biblioteca estándar (`ast`, `sqlite3`, `socket`, `random`, `timeit`).
+- [Parte 16 — Git, colaboración y código abierto](../../classes/part-16-git-colaboracion-y-codigo-abierto/): historial de versiones y consultas sobre él.
+- [Parte 17 — Documentación y conocimiento técnico](../../classes/part-17-documentacion-y-conocimiento-tecnico/): registros de decisión y recuperación de conocimiento.
+- [Parte 25 — Diseño, patrones y refactorización](../../classes/part-25-diseno-patrones-y-refactorizacion/): costuras, abstracciones y refactorización con red de seguridad.
+- [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): esquemas, copias y restauración.
+- [Parte 31 — Integración, eventos y mensajería](../../classes/part-31-integracion-eventos-y-mensajeria/): entrega, orden y bandejas de salida.
+- [Parte 35 — Estrategia y técnicas de prueba](../../classes/part-35-estrategia-y-tecnicas-de-prueba/): pruebas de mutación, pruebas inestables y capacidad de detección.
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): escenarios de calidad, percentiles y compatibilidad.
+- [Parte 41 — Observabilidad, SRE e incidentes](../../classes/part-41-observabilidad-sre-e-incidentes/): señales, operación y recuperación.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (con `sqlite3` incluido) y datos sintéticos, salvo las sondas de comportamiento del intérprete, los tiempos de reloj y la construcción de artefactos, que son ejecuciones reales de código en el equipo.
 
 ## Bloques y progresión
 
-1. **Elegir y reconocer patrones:** las clases 517 a 520 establecen los criterios para usar un catálogo y recorren los patrones de la Gang of Four con una medida por cada familia.
-2. **Responsabilidades y datos:** las clases 521 y 522 asignan responsabilidades con GRASP y tratan el acceso a datos con Repository, Unit of Work y Active Record.
-3. **Integración y resiliencia:** las clases 523 a 525 tratan la mensajería como lenguaje común y los dos grupos de patrones que sostienen un sistema cuando una dependencia falla.
-4. **Evaluar e integrar:** las clases 526 a 528 miden antipatrones y deuda, refactorizan con un maestro dorado y construyen el catálogo de patrones de un sistema.
+1. **Entender el sistema y fijar su comportamiento:** las clases 433 a 435 clasifican el trabajo de mantenimiento, recuperan el conocimiento perdido y fijan el comportamiento actual antes de tocarlo.
+2. **Reducir el riesgo acumulado y sustituir por partes:** las clases 436 y 437 miden el costo de esperar en las dependencias y reemplazan el sistema por rebanadas con comparación en sombra y una capa de traducción.
+3. **Mover la plataforma y los datos:** las clases 438 a 440 migran el runtime, los datos y los formatos con coexistencia verificada.
+4. **Retirar y decidir:** las clases 441 y 442 retiran un sistema con evidencia y deciden con incertidumbre si reescribir o evolucionar.
+5. **Aplicar e integrar:** las clases 443 y 444 estabilizan la base y ejecutan una migración incremental reversible de principio a fin.
 
 ## Evidencia medida y límites
 
-Los experimentos de esta parte se ejecutaron con CPython 3.12 en Windows 11, con la biblioteca estándar y sin dependencias externas; los recuentos son deterministas (análisis de sintaxis, bases `sqlite3` en memoria y simulaciones con semilla fija) y los tiempos de reloj se dan como orden de magnitud porque varían de equipo en equipo. **No se invocó ningún modelo de lenguaje** ni se midió ningún equipo humano.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, las semillas están fijadas y las simulaciones (capacidad, historial de cambios, rotación, dependencias, estrategias de corte, lotes, doble escritura, ventanas de observación, economía, ruido y migración por fases) son de tiempo virtual o de recuento: las salidas de los experimentos con semilla fueron idénticas en ambos sistemas, cifra por cifra. Hay excepciones intencionales. Las **ejecuciones reales** de código (cuatro comportamientos del intérprete, la reescritura con `ast`, el relleno y los costos con SQLite, los formatos de archivo y la construcción de bytecode y de archivos comprimidos) dieron los mismos recuentos y veredictos en los dos sistemas, salvo la versión del intérprete y de SQLite, que se declara. Los **tiempos de reloj** (la costura de `SE-519` y los costos de esquema de `SE-523`) difieren entre sistemas y entre ejecuciones y solo se interpretan como razones, y las huellas de la construcción de `SE-527` difieren entre sistemas porque incluyen rutas y versiones del intérprete.
 
-Las medidas principales son estas: una función de tarifas escrita con `if/elif` y con Strategy en 2 a 12 variantes, donde el patrón usa entre 1,5 y 2,1 veces los nodos de sintaxis y mantiene la complejidad ciclomática máxima en 2 mientras la otra crece de 3 a 13 (`SE-517`); un Singleton con estado mutable que hace fallar 18 de las 24 ordenaciones de cuatro pruebas, y una copia superficial que contamina los 1000 clones (`SE-518`); la misma pila de decoradores en dos órdenes, con 97,5 % de éxito y percentil 99 de 240 ms frente a 71,2 % y 80 ms (`SE-519`); cuatro banderas booleanas que dejan en estados imposibles el 69,7 % de 10.000 secuencias aleatorias (`SE-520`); un descuento hecho en un solo lugar que deja dos totales distintos en un diseño y uno consistente en otro (`SE-521`); y 201 consultas frente a 1 en un listado con N+1, con una transacción que deja 0 filas a medias frente a 1 sin ella (`SE-522`).
+Los experimentos son: la clasificación de 600 solicitudes, 24 meses de capacidad y la probabilidad de llegar a una fecha (`SE-517`); puntos calientes en un historial de 4 000 commits, archivos huérfanos con una rotación del 2 % mensual y dos técnicas de detección de código muerto (`SE-518`); cobertura de líneas frente a doce mutantes, ocho procesos con semilla de hash distinta y el costo de una costura (`SE-519`); cuatro cadencias de actualización, la exposición a 31 avisos y el radio de impacto en 200 grafos (`SE-520`); tres estrategias de corte, el tamaño de muestra de la sombra y 5 000 registros traducidos (`SE-521`); cuatro cambios silenciosos, tres métodos de reescritura sobre 400 fragmentos y tres políticas de versiones (`SE-522`); cinco tamaños de lote, cuatro estrategias de relleno y el costo de los cambios de esquema (`SE-523`); tres formas de escribir en dos almacenes, el costo de detectar y una matriz de compatibilidad (`SE-524`); seis ventanas de observación, una retención por reglas y tres formatos de archivo (`SE-525`); tres opciones con 20 000 escenarios, su sensibilidad y el horizonte (`SE-526`); cinco configuraciones de pruebas inestables, cinco construcciones y la incertidumbre de una línea base (`SE-527`); y una migración de seis fases con el costo de volver y el reposo (`SE-528`).
 
-Siguen un canal con 208 duplicados que infla una suma de pagos en 3077 hasta que se añade un receptor idempotente (`SE-523`); mil clientes que reintentan tras una caída, con picos de 1000 peticiones por cada 100 ms sin jitter y de 537 con jitter completo, y un circuit breaker que ahorra 693 llamadas a una dependencia caída (`SE-524`); un compartimento que mantiene el 100 % de éxito de una dependencia sana mientras otra se degrada (frente al 30,6 % de un grupo compartido), una degradación que sube las respuestas útiles de 60,0 % a 87,5 % y un salto adicional por sockets locales que duplica una latencia de unas decenas de microsegundos (`SE-525`); una clase con 37 de 45 pares de métodos sin estado compartido y un ciclo de tres módulos (`SE-526`); un refactor que baja la complejidad máxima de 15 a 3 con 44 % más de nodos y un maestro dorado que detecta 3 de 6 mutantes con 5000 entradas al azar y 6 de 6 con 384 entradas de frontera (`SE-527`); y dos detectores de patrones sobre un corpus etiquetado de 14 fragmentos, con 29 % de precisión por nombre y 86 % por estructura (`SE-528`).
+Los parámetros (la realimentación entre deuda e incidencias, el historial y la rotación, los doce mutantes, el 12 % de versiones incompatibles, el 10 % de rutas con regresión, el calendario de cierre, el calendario de versiones, los costos por fila y por lote, la tasa de fallo de la segunda escritura, la mezcla de consumidores, los plazos de retención, los siete parámetros económicos, el 5 % de inestabilidad y las 60 escrituras diarias) son supuestos del autor, y los resultados dependen de ellos. Que en la simulación económica evolucionar gane en la mayoría de los escenarios es una consecuencia de esos supuestos, no un hallazgo sobre reescrituras reales.
 
-Los parámetros (los fragmentos de código, las 24 ordenaciones, los 10.000 recorridos, las tasas de duplicados y de fallos, las latencias lognormales, la capacidad del servidor simulado, los seis mutantes del refactor y el corpus de 14 fragmentos) los eligió el autor y las simulaciones son modelos, no sistemas reales. Lo que **no se hizo**: no se midió ningún sistema en producción ni ningún equipo; no se comparó el efecto de usar patrones en la mantenibilidad percibida; los tiempos de sockets son de un equipo y de un protocolo trivial; el modelo del interés de la deuda es una ilustración con supuestos y no una medición; y no se usó ningún conjunto de datos externo. Las cifras deben leerse como la demostración de un método de medir, no como proporciones generales.
+Lo que **no se hizo**: no se migró, estabilizó, clasificó ni analizó ningún sistema, repositorio, base de datos, equipo, institución ni persona reales; no se usó ninguna herramienta de migración, de análisis de dependencias, de pruebas de mutación ni de reescritura automática de terceros; no se consultó ninguna base de vulnerabilidades ni ningún repositorio de paquetes; no se usó ningún motor de bases de datos distinto de SQLite en memoria ni hay concurrencia real, solo intercalaciones deterministas; no se probó macOS ni otras versiones de Python; los plazos de retención y los formatos de archivo no son asesoría legal ni se probaron a largo plazo; el clasificador, el verificador de mutantes y las técnicas de código muerto se evaluaron con casos escritos sabiendo qué buscan; y no se asegura revisión humana independiente de estas clases: sigue pendiente.
 
 ## Guía razonada clase por clase
 
-### Bloque 1 — Elegir y reconocer patrones
+El módulo de calificaciones mantiene un contrato, una cartera y un paquete estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-#### SE-517 — Criterios para usar un catálogo de patrones
+### Bloque 1 — Entender el sistema y fijar su comportamiento
 
-Enseña a tratar un patrón como una decisión con costo y no como una virtud: nombrar la fuerza, comprobar que la variación existe hoy, medir el costo en nodos e indirección y escribir la condición de salida. Aparece primero porque las demás clases aplican el mismo criterio. Produce un `criterio-de-patron.md` con una comparación medida de una función antes y después de un patrón.
+#### SE-517 — Mantenimiento correctivo, adaptativo y perfectivo
 
-#### SE-518 — GoF creacionales: Factory, Builder, Singleton y Prototype
+Si solo se corrige lo urgente, lo urgente crece. La clase reparte 24 meses de capacidad con y sin una reserva del 20 % para trabajo preventivo, clasifica 600 solicitudes y mide el acuerdo entre dos revisoras, y calcula la probabilidad de llegar a una fecha impuesta según el margen.
 
-Enseña cómo se crean los objetos y cuándo cada patrón creacional añade o quita problemas: un Singleton con estado, un Builder que en Python compite con los argumentos con nombre, una fábrica con registro y un Prototype con la trampa de la copia superficial. Aparece después de los criterios porque cada patrón se somete a ellos. Produce un cuaderno con las medidas de orden de pruebas y de contaminación de clones.
+El estudiante entrega la cartera clasificada con una política de reserva. `SE-518` pregunta dónde está el riesgo y qué conocimiento se perdió.
 
-#### SE-519 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite
+#### SE-518 — Arqueología de código y recuperación de conocimiento
 
-Enseña a envolver y componer objetos sin romper su interfaz, y a ver que el orden de los decoradores es una decisión de política. Aparece tras los creacionales porque trabaja con objetos ya creados. Produce un cuaderno con la comparación de dos órdenes de la misma pila y una prueba de contrato común a dos adaptadores.
+El historial responde lo que el código no responde, y cada técnica de detección se equivoca por una razón distinta. La clase compara tres criterios para elegir puntos calientes, estima los archivos huérfanos con la salida de autores y mide el análisis por nombre y la traza de ejecución para encontrar código muerto.
 
-#### SE-520 — GoF conductuales: Strategy, Observer, Command, State y Template Method
+El estudiante entrega un mapa de riesgo con entrevistas por hacer. `SE-519` fija el comportamiento de esos puntos calientes.
 
-Enseña a mover decisiones de condicionales a objetos y a controlar los modos de fallo propios de cada uno: oyentes que no se dan de baja, un fallo que impide el resto de las notificaciones, estados representados con banderas. Aparece después de los estructurales porque combina objetos ya envueltos con reglas de comportamiento. Produce una tabla de transiciones con un fuzzing de secuencias.
+#### SE-519 — Pruebas de caracterización y seams
 
-### Bloque 2 — Responsabilidades y datos
+Una prueba de caracterización fija lo que el sistema hace, no lo que debería hacer, y la cobertura no mide cuánto detecta. La clase mide líneas cubiertas frente a mutantes detectados para seis conjuntos de entradas, muestra ocho salidas distintas del mismo programa por el orden de un conjunto y mide el costo de ejecutar sin una costura.
 
-#### SE-521 — GRASP y asignación de responsabilidades
+El estudiante entrega la prueba de caracterización de una función con su costura. `SE-520` mide el riesgo que acumulan las dependencias.
 
-Enseña los nueve criterios de GRASP como respuestas a la pregunta «¿a quién le toca esto?» y los verifica con un cambio de regla en dos diseños. Aparece aquí porque los patrones anteriores son consecuencias de asignar bien responsabilidades. Produce una tabla de responsabilidades con un cambio de regla comprobado.
+### Bloque 2 — Reducir el riesgo acumulado y sustituir por partes
 
-#### SE-522 — Repository, Unit of Work y Active Record
+#### SE-520 — Dependencias obsoletas y riesgo acumulado
 
-Enseña a separar el modelo de la persistencia sin esconder consultas ni transacciones: contar las consultas con un gancho, agrupar cambios en una unidad de trabajo y reconocer cuándo un Active Record basta. Aparece después de GRASP porque es una decisión de dónde vive la responsabilidad de guardar. Produce un cuaderno con consultas contadas y atomicidad comprobada.
+Esperar para actualizar no es neutro: el salto cuesta más que la suma de los pasos. La clase simula cuatro cadencias de actualización, calcula la exposición a 31 avisos según la política y mide el radio de impacto de actualizar un paquete en 200 grafos.
 
-### Bloque 3 — Integración y resiliencia
+El estudiante entrega el inventario y la política de actualización. `SE-521` reemplaza el módulo por partes.
 
-#### SE-523 — Enterprise Integration Patterns como lenguaje común
+#### SE-521 — Strangler, branch by abstraction y anticorruption
 
-Enseña los patrones de mensajería como respuestas a las garantías débiles de un canal: receptor idempotente, enrutador por contenido, cartas muertas, reordenador e identificador de correlación. Aparece después del acceso a datos porque los mensajes son otro modo de cambiar estado. Produce una simulación con suma de control.
+Un reemplazo incremental compra daño por paso menor con tiempo. La clase compara un corte único, uno escalonado y uno con sombra previa, calcula cuántas peticiones comparar y cuándo aparece el tráfico raro, y evalúa una capa anticorrupción sobre 5 000 registros.
 
-#### SE-524 — Resiliencia: timeout, retry con jitter y circuit breaker
+El estudiante entrega el plan de rebanadas con su sombra y su capa. `SE-522` mueve la plataforma bajo el código.
 
-Enseña los tres patrones que acotan el tiempo y el esfuerzo de una llamada a una dependencia, y a ver la amplificación multiplicativa de los reintentos entre capas. Aparece aquí porque reutiliza decoradores (`SE-519`) y la medida de latencia de las clases previas. Produce una simulación con cuatro políticas de espera y un circuit breaker.
+### Bloque 3 — Mover la plataforma y los datos
 
-#### SE-525 — Resiliencia: bulkhead, sidecar, ambassador y degradación
+#### SE-522 — Migraciones de runtime, lenguaje y framework
 
-Enseña a limitar el radio del daño con compartimentos, a sacar políticas de red de la aplicación con un intermediario y a degradar con honestidad. Aparece después de la clase anterior porque se pregunta qué pasa cuando los límites de tiempo no bastan. Produce una simulación de compartimentos y una medida real del costo de un salto.
+Lo más peligroso de una migración no hace ruido. La clase mide cuatro comportamientos que cambian sin excepción, compara tres formas de reescribir una llamada obsoleta y tres políticas de seguimiento de versiones frente a un calendario de soporte.
 
-### Bloque 4 — Evaluar e integrar
+El estudiante entrega el catálogo de diferencias con sus sondas. `SE-523` migra los datos.
 
-#### SE-526 — Antipatrones y deuda de diseño
+#### SE-523 — Migraciones de datos sin interrupción
 
-Enseña a reconocer antipatrones por sus síntomas medibles (cohesión, acoplamiento, ciclos) y a distinguirlos de una incomodidad, y a hablar de deuda con un modelo explícito de interés. Aparece aquí porque se necesitan los patrones antes para saber qué se desvía de ellos. Produce un informe de métricas.
+Un relleno que lee y luego escribe puede pisar una escritura concurrente con recuentos iguales. La clase simula cinco tamaños de lote, ejecuta cuatro estrategias de relleno sobre SQLite y mide lo instantáneo y lo que reconstruye.
 
-#### SE-527 — Taller: refactorizar con patrones y medir su costo
+El estudiante entrega el plan de fases con un relleno condicional verificado. `SE-524` examina la coexistencia.
 
-Enseña a refactorizar una función con una cadena de condiciones a Strategy con un maestro dorado, a descubrir qué mutantes escapan y a decidir con medidas si el patrón se queda. Produce un registro del taller con la decisión y la condición de salida.
+#### SE-524 — Compatibilidad, coexistencia y doble escritura
 
-#### SE-528 — Proyecto: catálogo de patrones de un sistema real
+Escribir en dos sitios no es atómico y tolerar un formato no es conservar el dato. La clase compara tres formas de escribir dos veces, el costo de detectar la divergencia y una matriz de compatibilidad entre lectores estrictos y tolerantes.
 
-Integra la parte: se hace el inventario de patrones de un sistema, se verifica cada candidato y se escribe un catálogo con fuerza, evidencia, costo y condición de salida. Produce el catálogo y la revisión de por qué se descartó cada patrón rechazado.
+El estudiante entrega el diseño de coexistencia con su reconciliación y su contrato. `SE-525` retira el sistema antiguo.
+
+### Bloque 4 — Retirar y decidir
+
+#### SE-525 — Retiro, archivado y disposición de sistemas
+
+«Nadie lo usa» depende de la ventana con que se mire. La clase mide qué consumidores rompe cada ventana, compara un corte único de retención con reglas por tipo y archiva 100 000 filas en tres formatos con una suma de verificación.
+
+El estudiante entrega la secuencia de retiro con su archivo verificado. `SE-526` pregunta si todo esto vale la pena frente a reescribir.
+
+#### SE-526 — Economía de reescribir frente a evolucionar
+
+La decisión se toma con parámetros inciertos y se revisa cuando se miden. La clase simula tres opciones en 20 000 escenarios, mueve siete parámetros para ver cuál domina y busca el horizonte de equilibrio.
+
+El estudiante entrega el modelo con su sensibilidad y una decisión reversible. `SE-527` prepara el terreno.
+
+### Bloque 5 — Aplicar e integrar
+
+#### SE-527 — Taller: estabilizar antes de modernizar
+
+Sin una base estable, un rojo no significa nada. El taller mide el ruido de las pruebas inestables y lo que esconden los reintentos, compara dos construcciones del mismo código y calcula cuántos cambios hacen creíble una línea base.
+
+El estudiante entrega la puerta de entrada con su evidencia. `SE-528` la cruza.
+
+#### SE-528 — Proyecto: migración incremental reversible
+
+La reversibilidad es una propiedad de cada fase, no del conjunto. El proyecto ejecuta una migración de seis fases sobre 5 000 filas, mide las filas que difieren en cada fase, cuánto cuesta volver atrás según los días y qué reposo hace falta antes de contraer.
+
+El estudiante entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md`. La Parte 44 lleva la mirada a la gestión, el liderazgo y la práctica profesional.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-517](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/) | Criterios para usar un catálogo de patrones | Produce un `criterio-de-patron.md` con una comparación medida de una función antes y después de un patrón |
-| [SE-518](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-518-gof-creacionales-factory-builder-singleton-y-prototype/) | GoF creacionales: Factory, Builder, Singleton y Prototype | Produce un cuaderno con las medidas de orden de pruebas y de contaminación de clones |
-| [SE-519](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite/) | GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite | Produce un cuaderno con la comparación de dos órdenes de la misma pila y una prueba de contrato común a dos adaptadores |
-| [SE-520](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method/) | GoF conductuales: Strategy, Observer, Command, State y Template Method | Produce una tabla de transiciones con un fuzzing de secuencias |
-| [SE-521](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades/) | GRASP y asignación de responsabilidades | Produce una tabla de responsabilidades con un cambio de regla comprobado |
-| [SE-522](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/) | Repository, Unit of Work y Active Record | Produce un cuaderno con consultas contadas y atomicidad comprobada |
-| [SE-523](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun/) | Enterprise Integration Patterns como lenguaje común | Produce una simulación con suma de control |
-| [SE-524](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/) | Resiliencia: timeout, retry con jitter y circuit breaker | Produce una simulación con cuatro políticas de espera y un circuit breaker |
-| [SE-525](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/) | Resiliencia: bulkhead, sidecar, ambassador y degradación | Produce una simulación de compartimentos y una medida real del costo de un salto |
-| [SE-526](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/) | Antipatrones y deuda de diseño | Produce un informe de métricas |
-| [SE-527](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo/) | Taller: refactorizar con patrones y medir su costo | Produce un registro del taller con la decisión y la condición de salida |
-| [SE-528](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/) | Proyecto: catálogo de patrones de un sistema real | Produce el catálogo y la revisión de por qué se descartó cada patrón rechazado |
+| [SE-517](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/) | Mantenimiento correctivo, adaptativo y perfectivo | Entrega la cartera clasificada con una política de reserva |
+| [SE-518](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/) | Arqueología de código y recuperación de conocimiento | Entrega un mapa de riesgo con entrevistas por hacer |
+| [SE-519](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/) | Pruebas de caracterización y seams | Entrega la prueba de caracterización de una función con su costura |
+| [SE-520](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/) | Dependencias obsoletas y riesgo acumulado | Entrega el inventario y la política de actualización |
+| [SE-521](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-521-strangler-branch-by-abstraction-y-anticorruption/) | Strangler, branch by abstraction y anticorruption | Entrega el plan de rebanadas con su sombra y su capa |
+| [SE-522](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/) | Migraciones de runtime, lenguaje y framework | Entrega el catálogo de diferencias con sus sondas |
+| [SE-523](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/) | Migraciones de datos sin interrupción | Entrega el plan de fases con un relleno condicional verificado |
+| [SE-524](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura/) | Compatibilidad, coexistencia y doble escritura | Entrega el diseño de coexistencia con su reconciliación y su contrato |
+| [SE-525](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/) | Retiro, archivado y disposición de sistemas | Entrega la secuencia de retiro con su archivo verificado |
+| [SE-526](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-526-economia-de-reescribir-frente-a-evolucionar/) | Economía de reescribir frente a evolucionar | Entrega el modelo con su sensibilidad y una decisión reversible |
+| [SE-527](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/) | Taller: estabilizar antes de modernizar | Entrega la puerta de entrada con su evidencia |
+| [SE-528](../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-528-proyecto-migracion-incremental-reversible/) | Proyecto: migración incremental reversible | Entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md` |
 
 ## Fuentes
 
-- Gamma, E., Helm, R., Johnson, R. y Vlissides, J. [«Design Patterns: Elements of Reusable Object-Oriented Software»](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-9780201633610).
-- Fowler, M. [«Catalog of Patterns of Enterprise Application Architecture»](https://martinfowler.com/eaaCatalog/).
-- Hohpe, G. y Woolf, B. [«Enterprise Integration Patterns»](https://www.enterpriseintegrationpatterns.com/patterns/messaging/).
-- Nygard, M. [«Release It!, 2.ª edición»](https://pragprog.com/titles/mnee2/release-it-second-edition/).
-- Microsoft. [«Cloud Design Patterns»](https://learn.microsoft.com/azure/architecture/patterns/).
-- Amazon Web Services. [«Timeouts, retries and backoff with jitter»](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/).
-- Google. [«Addressing Cascading Failures»](https://sre.google/sre-book/addressing-cascading-failures/).
-- Python Software Foundation. [«Python 3 Documentation»](https://docs.python.org/3/).
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) y [Lehman, «Programs, life cycles, and laws of software evolution»](https://doi.org/10.1109/PROC.1980.11805) — mantenimiento y evolución del software; autoridad: IEEE Computer Society y Proceedings of the IEEE.
+- [Nagappan y Ball](https://doi.org/10.1145/1062455.1062514) y [Avelino et al.](https://doi.org/10.1109/ICPC.2016.7503718) — rotación del código y factor de camión; autoridad: ICSE 2005 e ICPC 2016.
+- [Feathers, «Working Effectively with Legacy Code»](https://www.pearson.com/en-us/subject-catalog/p/working-effectively-with-legacy-code/P200000009466/9780131177055) y [Jia y Harman](https://doi.org/10.1109/TSE.2010.62) — caracterización, costuras y pruebas de mutación; autoridad: libro de referencia e IEEE Transactions on Software Engineering.
+- [Versionado semántico](https://semver.org/), [OSV](https://osv.dev/), [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) y [NIST SP 800-218](https://csrc.nist.gov/pubs/sp/800/218/final) — dependencias y vulnerabilidades; autoridad: especificación de la comunidad, proyecto abierto, CISA y NIST.
+- [Fowler, «StranglerFigApplication»](https://martinfowler.com/bliki/StranglerFigApplication.html), [«BranchByAbstraction»](https://martinfowler.com/bliki/BranchByAbstraction.html), [«ParallelChange»](https://martinfowler.com/bliki/ParallelChange.html) y [Anti-corruption Layer](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer) — reemplazo incremental, cambio paralelo y traducción entre modelos; autoridad: autor del texto y documentación de Microsoft.
+- [Python: Porting Python 2 Code to Python 3](https://docs.python.org/3/howto/pyporting.html), [PEP 602](https://peps.python.org/pep-0602/) y [Unicode UAX #15](https://unicode.org/reports/tr15/) — portado, calendario de versiones y normalización de texto; autoridad: Python Software Foundation y Unicode Consortium.
+- [Fowler y Sadalage, «Evolutionary Database Design»](https://martinfowler.com/articles/evodb.html), [SQLite: ALTER TABLE](https://www.sqlite.org/lang_altertable.html) y [Transactional Outbox](https://microservices.io/patterns/data/transactional-outbox.html) — migraciones de datos y coexistencia; autoridad: autores del texto, documentación de SQLite y catálogo de patrones.
+- [NIST SP 800-88 Rev. 1](https://csrc.nist.gov/pubs/sp/800/88/r1/final), [CCSDS 650.0-B-2 (OAIS)](https://public.ccsds.org/Pubs/650x0m2.pdf) y [Library of Congress: Recommended Formats](https://www.loc.gov/preservation/resources/rfs/) — disposición, archivo y formatos; autoridad: NIST, CCSDS y Library of Congress.
+- [Brooks, «No Silver Bullet»](https://doi.org/10.1109/MC.1987.1663532) y [Spolsky, «Things You Should Never Do, Part I»](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/) — complejidad y reescrituras; autoridad: IEEE Computer y ensayo de opinión.
+- [Luo et al.](https://doi.org/10.1145/2635868.2635920), [Reproducible Builds](https://reproducible-builds.org/docs/), [PEP 552](https://peps.python.org/pep-0552/) y [DORA](https://dora.dev/guides/dora-metrics-four-keys/) — pruebas inestables, construcciones reproducibles y métricas de entrega; autoridad: FSE 2014, proyecto Reproducible Builds, Python Software Foundation y DORA.
+
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de mantenimiento y modernización se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
-La parte se considera cumplida cuando existen las doce clases con las dieciséis secciones del contrato, tres figuras por clase con su lectura y sus límites, experimentos reproducibles con la salida declarada, fuentes vinculadas a afirmaciones concretas y la evidencia propia de cada clase. No se afirma revisión humana de la parte: los experimentos y los resultados citados son los que produce el código del repositorio.
+- cada clase conecta mecanismo, medida y límite en una conclusión revisable;
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj y las huellas de construcción, que declaran por qué no;
+- ninguna afirmación sobre un sistema, una institución, una persona o una base de datos reales se apoya en una simulación;
+- los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
+
+[Volver al índice de clases](../../classes/README.md)

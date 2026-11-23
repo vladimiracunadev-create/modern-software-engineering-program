@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-441",
+  "title": "Compatibilidad, portabilidad e interoperabilidad",
+  "stage": "F",
+  "part": "36",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad"
+}

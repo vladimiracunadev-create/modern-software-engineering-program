@@ -112,7 +112,7 @@ Qué primitiva usar según el tipo de dato (funciones de `scripts/figure_kit.py`
 | Observaciones individuales y su dispersión | `scatter` | muestra correlación, agrupaciones y atípicos |
 | Intervalos o rangos mínimo–típico–máximo | `percentile_intervals` | un rango por fila con marcadores distintos |
 | Quién hace qué y en qué orden, con plazos | `timeline` | secuencia, solapes y esperas |
-| Estados, flujos, arquitecturas, mecanismos | `Fig.box` / `Fig.arrow` / `Fig.group`, `flow()` de `figures_part40_a.py` | relaciones que no son cantidades |
+| Estados, flujos, arquitecturas, mecanismos | `Fig.box` / `Fig.arrow` / `Fig.group`, `flow()` de `figures_part45_a.py` | relaciones que no son cantidades |
 
 Una tabla Markdown sigue siendo la forma correcta de dar los valores exactos; la figura
 la complementa con lo que el ojo ve y la tabla no.
@@ -163,8 +163,9 @@ presentarlas como aprobadas.
 
 ## Alcance de fase 4
 
-La fase 4 comprende **180 clases consecutivas**, de `SE-181` a `SE-360`, agrupadas
-en las partes 15–29. Las Partes 15–29 (`SE-181`–`SE-360`) están desarrolladas y profundizadas con
+La fase 4 comprende **180 clases** en las partes 15–22, 24–25, 27, 29 y 31–33 (el rango de
+`SE-nnn` ya no es contiguo desde ADR-007; el alcance se declara por parte en
+`scripts/program_state.py`). Esas partes están desarrolladas y profundizadas con
 figuras y evidencia reproducible, a falta de una revisión editorial humana independiente.
 Aplica la misma revisión cualitativa: disponer de guía, actividad,
 rúbrica, fuentes y publicación no demuestra por sí solo que la clase esté terminada.

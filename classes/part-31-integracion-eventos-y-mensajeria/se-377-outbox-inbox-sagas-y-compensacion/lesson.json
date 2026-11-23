@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-377",
+  "title": "Outbox, inbox, sagas y compensación",
+  "stage": "E",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion"
+}

@@ -1,189 +1,187 @@
-# Parte 30 — Estrategia y técnicas de prueba
+# Parte 30 — Ingeniería de datos y plataformas de datos
 
-La Parte 29 dejó una plataforma mínima reproducible. La pregunta cambia de «cómo se construye y se despliega» a «cómo se sabe que funciona, y cuánto se está dispuesto a no saber». Esta parte trabaja sobre **la estrategia de pruebas de la plataforma de entregas de tareas**, un caso sintético: diez componentes, 40 horas de pruebas por trimestre, una integración continua que no debe pasar de diez minutos y una lista de incidentes. Recorre el reparto de un presupuesto de pruebas por riesgo, las pruebas unitarias y el diseño que las permite, las pruebas de integración y de contrato, los recorridos de extremo a extremo y los criterios de aceptación, las pruebas basadas en propiedades y en modelos, la mutación y el fuzzing, los dobles y los entornos, los datos y los fixtures deterministas, la exploración con misiones, las pruebas inestables, un taller para demostrar que una prueba detecta defectos y un proyecto que entrega una estrategia ejecutable y validable.
+La Parte 28 enseñó a elegir estilos arquitectónicos con escenarios de calidad y a defender la elección con un registro de decisión. Esta parte trata el dato como un producto de ingeniería con su propio ciclo de vida: sale de la base que sirve a la aplicación, llega a una plataforma, se organiza para responder preguntas, se transforma de forma repetible, se vigila, se promete a quienes lo consumen, se rastrea, se almacena en un formato con costo, se gobierna y se paga. El recorrido está pensado para quien debe responder a la pregunta «¿puedo confiar en este número y qué pasa si lo cambio?» con evidencia y no con una captura de pantalla.
 
 ## Pregunta rectora
 
-> ¿Qué evidencia demuestra que una prueba detecta el defecto que dice detectar, y qué decisión de no probar queda escrita con su razón y su fecha?
+> Para este dato, ¿qué decisión lo mueve del sistema operacional al analítico, qué lo hace repetible y verificable, quién responde por él, qué cuesta conservarlo y qué cambio podría llegar a un informe sin que nada lo detenga?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un marco de pruebas ni una herramienta. Enseña a repartir un presupuesto limitado entre fallos posibles, a medir qué detecta realmente una batería con cambios mecánicos del código, a separar un cálculo de sus dependencias para poder probarlo, a distinguir lo que un doble copia de lo que el proveedor hace, a calcular cuánto ruido produce una suite de recorridos largos, a elegir generadores que lleguen a las fronteras, a comparar estrategias de generación de entradas, a identificar lo que cambia entre procesos y sistemas sin tocar el código, a explorar con misiones y a diagnosticar una prueba que falla a veces con evidencia en lugar de intuición. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (cinco casos con el 100 % de las líneas ejecutadas que matan 9 de 16 cambios, un doble que acepta una nota de 9,0 que la base rechaza, 490 de 500 órdenes aleatorios con algún fallo por un fixture compartido, una condición de carrera que da verde en 100 ejecuciones y falla en 40 de 40) y declara lo que esa medida no demuestra.
+Esta parte no defiende una herramienta ni una arquitectura de moda. Enseña a leer cada decisión de una plataforma de datos como un **mecanismo con un costo medible y un punto ciego**: qué problema resuelve, qué experimento lo mide, qué no demuestra y qué evidencia permitiría abandonarlo. La primera clase fija la frontera entre lo operacional y lo analítico (`SE-361`). Las siguientes siguen el dato en el orden en que se le hacen preguntas: cómo entra, cómo se organiza, cómo se construye sin duplicar, cómo se sabe que es correcto, cómo se promete y cómo se cambia sin romper, cómo se rastrea, dónde se guarda, cómo se protege y cuánto cuesta. El taller (`SE-371`) pone a prueba todo con ocho defectos sembrados y el proyecto (`SE-372`) lo integra en una plataforma mínima que se puede romper a propósito.
 
 ```mermaid
 flowchart LR
-    A[Calidad por riesgo] --> B[Pruebas unitarias y testabilidad]
-    B --> C[Integración y contratos]
-    C --> D[Extremo a extremo y aceptación]
-    D --> E[Propiedades y modelos]
-    E --> F[Mutación y fuzzing]
-    F --> G[Dobles y entornos]
-    G --> H[Datos y fixtures deterministas]
-    H --> I[Exploración]
-    I --> J[Flakiness y mantenimiento]
-    J --> K[Taller: demostrar la detección]
-    K --> L[Proyecto: estrategia ejecutable]
-    L -->|incidente o hallazgo| A
+    A[Operacional frente a analítico] --> B[Ingesta batch y streaming]
+    B --> C[Modelado: hechos y dimensiones]
+    C --> D[Transformación idempotente y backfills]
+    D --> E[Calidad y observabilidad]
+    E --> F[Contratos y evolución de esquemas]
+    F --> G[Linaje, catálogo y metadatos]
+    G --> H[Warehouse, lake, lakehouse y formatos]
+    H --> I[Gobierno, privacidad y retención]
+    I --> J[Costos y operación]
+    J --> K[Taller: pipeline defectuoso]
+    K --> L[Proyecto: plataforma gobernada]
+    L -->|cambio que el control no ve| E
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo de una sesión de exploración cambia una estimación y obliga a repartir de nuevo; una estrategia aprobada no cierra la discusión, la fecha.
+El diagrama se lee de izquierda a derecha y no es un orden de adopción: es el orden en que se explican los costos. El retorno indica que lo que el control de la plataforma no detecta se cubre con otra capa de comprobación, y vuelve a empezar por la calidad.
 
 ## Resultados acumulativos
 
-Podrás descomponer el riesgo de un componente en probabilidad e impacto, repartir un presupuesto de pruebas con cuatro criterios, medir la pérdida residual y la sensibilidad ante estimaciones erradas y asignar a cada clase de fallo el nivel de prueba que puede verla; escribir pruebas unitarias con fronteras, generar mutantes con `ast`, medir cuántos detecta cada batería y separar las dependencias ocultas de una función; construir un contrato por consumidor, compararlo con una diferencia de esquema completo y localizar un defecto de interfaz; calcular la tasa de ejecuciones limpias de un recorrido, elegir recorridos por tráfico e impacto y comparar una instantánea con aserciones semánticas; enunciar propiedades con un generador sesgado a las fronteras, reducir contraejemplos y comprobar una cola contra un modelo; clasificar los supervivientes de una mutación y comparar tres estrategias de fuzzing; medir la fidelidad de un doble con una batería de contrato, el acoplamiento de las pruebas de interacción y las diferencias de entorno entre dos sistemas; ejecutar una suite en órdenes aleatorios, registrar semillas e inventariar fuentes de no determinismo; explorar con misiones, calcular el contraste de WCAG y usar sondas de entrada; calcular el ruido de una suite grande, el efecto de los reintentos y clasificar la causa de una prueba inestable; demostrar con rojo, verde y refactor lo que detecta cada prueba; y entregar un paquete de estrategia con un validador cuyos límites conoces.
+Podrás clasificar una consulta como operacional o analítica por su patrón de acceso, medir cuántos bytes toca y cuándo una lectura larga bloquea una escritura, y reconstruir con un registro de eventos una pregunta sobre el pasado que la tabla de estado no puede responder (`SE-361`); medir cuántos eventos deja fuera cada política de ingesta, qué retraso paga cada una y cuánto infla un conteo la entrega al menos una vez (`SE-362`); declarar la granularidad de un hecho, medir el efecto de sobrescribir una dimensión, provocar y corregir un abanico de uniones y cargar un Data Vault repetible (`SE-363`).
 
-Al finalizar podrás defender una estrategia de pruebas con su tabla de riesgos y sus supuestos, el nivel de cada clase de fallo, la demostración de cada prueba, sus criterios de bloqueo, sus exclusiones con caducidad y una lista de lo que ningún nivel cubre, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Podrás cargar particiones con tres estrategias y comprobar cuál sobrevive a un fallo y a una repetición, reescribir una ventana histórica y calcular qué recalcular desde un grafo de dependencias (`SE-364`); comparar tres detectores de volumen con incidentes sembrados y construir la matriz de qué comprobación ve cada defecto (`SE-365`); clasificar diez cambios de esquema en los dos sentidos de compatibilidad y ejecutar un renombre en tres pasos (`SE-366`); y medir el linaje de columnas por perturbación frente a lo que predicen tres tipos de linaje (`SE-367`).
+
+Podrás construir un formato columnar mínimo, medir su tamaño y los bytes que lee con y sin orden, mostrar el costo de los archivos pequeños y publicar una compactación con un manifiesto de versiones (`SE-368`); medir qué columnas esconde la clasificación por nombre, revertir un hash sin clave, calcular los grupos pequeños de un agregado y propagar un borrado (`SE-369`); estimar el costo de una consulta, de un refresco y de una ruta crítica (`SE-370`); diagnosticar ocho defectos y corregirlos uno a uno midiendo tras cada paso (`SE-371`); y construir un control de siete reglas, probarlo con diez cambios inyectados y declarar el que no ve (`SE-372`).
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): enumeración de casos y razonamiento sobre evidencia.
-- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): invariantes, compatibilidad y contratos comprobables.
-- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): contratos de respuesta, idempotencia y errores consistentes.
-- [Parte 25 — Arquitectura de software y dominio](../../classes/part-25-arquitectura-de-software-y-dominio/): fronteras, atributos de calidad y revisión contra escenarios.
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): invariantes, transacciones y datos de prueba sintéticos.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (incluido `ast`, `sqlite3`, `threading` y `unittest.mock`) y datos sintéticos.
+- [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): modelado (`SE-349`), transacciones (`SE-351`), índices y patrones de acceso (`SE-353`), migraciones compatibles (`SE-354`), privacidad y retención (`SE-358`) y proyecto de capa de datos (`SE-360`).
+- [Parte 31 — Integración, eventos y mensajería](../../classes/part-31-integracion-eventos-y-mensajeria/): semánticas de entrega (`SE-376`), idempotencia y sagas (`SE-377`), CDC, ETL y ELT (`SE-378`) y compatibilidad de esquemas (`SE-380`).
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): modelos de calidad (`SE-433`), latencia y capacidad (`SE-436`) y reintentos (`SE-438`).
+- [Parte 38 — Seguridad, privacidad y cumplimiento](../../classes/part-38-seguridad-privacidad-y-cumplimiento/): secretos (`SE-462`), privacidad por diseño (`SE-463`) y cumplimiento y sus límites (`SE-466`).
+- [Parte 41 — Observabilidad, SRE e incidentes](../../classes/part-41-observabilidad-sre-e-incidentes/): señales (`SE-493`), SLO (`SE-497`), alertas accionables (`SE-498`) y diagnóstico con telemetría incompleta (`SE-503`).
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (`sqlite3`, `zlib`, `array`, `hmac`, `tempfile`) y escriben únicamente en directorios temporales.
 
 ## Bloques y progresión
 
-1. **Decidir qué probar y cómo:** las clases 361 y 362 reparten un presupuesto por riesgo y miden qué detecta una batería unitaria.
-2. **Probar lo que une y lo que ve el usuario:** las clases 363 y 364 comprueban el acuerdo entre componentes y eligen recorridos completos con su costo de inestabilidad.
-3. **Generar casos y medir las pruebas:** las clases 365 y 366 usan propiedades, modelos, mutación y fuzzing.
-4. **Controlar lo que rodea a la prueba:** las clases 367 y 368 tratan dobles, entornos, fixtures y fuentes de no determinismo.
-5. **Explorar y mantener:** las clases 369 y 370 exploran con criterio y diagnostican pruebas que fallan a veces.
-6. **Aplicar e integrar:** las clases 371 y 372 demuestran la detección y entregan una estrategia ejecutable.
+1. **Del origen al modelo:** las clases 541 a 543 separan lo operacional de lo analítico, miden cómo entra el dato y cómo se organiza para consultarlo sin errores de granularidad.
+2. **Repetible y verificable:** las clases 544 a 546 construyen el dato sin duplicar, lo vigilan con comprobaciones y lo prometen con un contrato que sobrevive a los cambios de esquema.
+3. **Dónde vive, quién lo ve y cuánto cuesta:** las clases 547 a 550 rastrean de dónde viene, eligen el formato y el lugar, gobiernan la privacidad y la retención y estiman el costo.
+4. **Probar e integrar:** las clases 551 y 552 diagnostican un pipeline con ocho defectos sembrados y construyen una plataforma mínima con un control probado con cambios inyectados.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos** y las semillas están fijadas: las salidas de los doce experimentos fueron idénticas en ambos sistemas en todas las cifras salvo las que dependen del entorno por diseño: en `SE-367` el separador de rutas, la codificación por defecto y los bytes de un archivo de texto difieren entre Windows y Ubuntu (el objeto de la medida), en `SE-368` el orden de un conjunto da entre 15 y 18 salidas distintas en 30 procesos y la suma de flotantes en orden mezclado entre 1 y 3, y el fallo de una propiedad sin semilla fija cambia en cada ejecución (73 a 101 de 1 000), y en `SE-370` el comportamiento de los hilos reales depende de la versión del intérprete. Ninguno mide tiempo de reloj. Todo el código usa solo la biblioteca estándar.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 y SQLite 3.45.3 en Windows 11; los recuentos y los resultados de las simulaciones con semilla fija 45 se repiten idénticos, y los tiempos de lectura, de agregación y de refresco varían entre ejecuciones y equipos. **No se invocó ningún modelo de lenguaje, no se ejecutó ninguna herramienta de terceros (Airflow, dbt, Kafka, Spark, Parquet, Iceberg, Delta Lake, OpenLineage, Great Expectations, catálogos o almacenes de datos) y no se evaluó ningún sistema real.** Lo que se ejecutó fueron bases de SQLite, archivos temporales y simulaciones escritas para la clase.
 
-Los experimentos son: el reparto de 40 horas entre diez componentes con cuatro criterios, la sensibilidad ante estimaciones erradas hasta un factor 2 en 5 000 realidades y una matriz de ocho clases de fallo contra seis niveles de prueba (`SE-361`); dos baterías de pruebas sobre una función de nota frente a 16 mutantes generados con `ast`, el análisis de dependencias ocultas antes y después de un refactor y una prueba de plazos con el reloj real frente a la hora inyectada (`SE-362`); ocho cambios de un proveedor frente a cuatro tipos de prueba sobre una respuesta JSON y una base SQLite, tres consumidores con diez cambios y la localización de 1 000 defectos de interfaz con tres recorridos o siete pruebas por interfaz (`SE-363`); la tasa de ejecuciones limpias de un recorrido de 3 a 30 pasos, la selección de recorridos sobre 20 000 sesiones sintéticas y una instantánea frente a aserciones semánticas sobre 16 cambios de un HTML (`SE-364`); cinco versiones de una función de reparto frente a cinco ejemplos y cuatro propiedades, la reducción de contraejemplos y una cola contra un modelo por longitud de secuencia (`SE-365`); cuatro baterías frente a 18 mutantes con la cobertura de líneas, los supervivientes clasificados y tres estrategias de fuzzing sobre cuatro defectos escondidos en 20 semillas (`SE-366`); tres dobles de un repositorio frente a ocho comprobaciones de contrato, tres estilos de prueba frente a tres refactorizaciones neutras y un mismo script en 12 procesos y dos sistemas (`SE-367`); doce pruebas en 500 órdenes aleatorios con tres estrategias de fixture, una propiedad con datos aleatorios con y sin semilla y ocho fuentes de no determinismo en 30 procesos (`SE-368`); tres agentes simulados contra 12 defectos plantados, el contraste de WCAG y la partición de 374 defectos de accesibilidad y 15 sondas de entrada frente a cadenas aleatorias sobre seis validadores (`SE-369`); la aritmética \((1-p)^N\), el efecto de los reintentos, las intercalaciones de una carrera contra hilos reales y la clasificación de la causa de 440 pruebas con 300 ejecuciones de historial (`SE-370`); catorce pruebas contra 18 mutantes y seis refactorizaciones, el conjunto mínimo y un validador de paquetes de evidencia sobre 200 mutaciones (`SE-371`); y 2 000 trimestres simulados con seis estrategias, una reasignación tras un incidente y un validador de estrategias sobre 200 mutaciones (`SE-372`).
+Los experimentos son: una tabla de 200 000 pedidos consultada por clave y por agregación, una prueba de lectura larga contra una escritura con dos modos de diario y una pregunta sobre el pasado respondida con 70 745 cambios de estado (`SE-361`); 10 000 eventos con llegadas tardías y reentregas procesados con cinco marcas de agua y dos lotes (`SE-362`); 20 000 pedidos con una dimensión de clientes con historia, un abanico de uniones y un Data Vault de cuatro tablas (`SE-363`); 30 particiones cargadas con tres estrategias, un backfill de cinco días, un grafo de nueve tareas y una ventana de reproceso sobre 6 000 filas (`SE-364`); una serie de 120 días con tres detectores y una tabla de 5 000 pedidos con seis variantes defectuosas (`SE-365`); un verificador de compatibilidad con diez cambios, 1 000 registros y un renombre en tres pasos (`SE-366`); un pipeline de seis sentencias analizado y perturbado en nueve columnas (`SE-367`); 200 000 pedidos en cuatro formatos, un formato columnar propio, 1 000 archivos pequeños y un manifiesto (`SE-368`); 5 000 usuarios con una clasificación, una reversión de hashes, un k-anonimato y un borrado propagado (`SE-369`); un escalado de bytes a 1 TB con precios inventados, refrescos completos e incrementales y una ruta crítica (`SE-370`); 20 000 pedidos con ocho defectos sembrados y ocho comprobaciones (`SE-371`); y una plataforma de tres conjuntos con un control de siete reglas y diez mutaciones (`SE-372`).
 
-Los parámetros (la probabilidad y el impacto de cada componente, la dificultad de detección, la matriz de niveles contra clases de fallo, los 16 y 18 mutantes, las baterías de pruebas, los cambios del proveedor, el 3 % de pausas, la inestabilidad por paso, la distribución Zipf de las rutas, los defectos inyectados, los 12 defectos de la aplicación de juguete, las clases de accesibilidad plantadas, los historiales con causas plantadas, las 200 mutaciones de cada paquete y los costos de un escape) son supuestos del autor, no datos de una plataforma, una institución ni de personas reales. Las reglas de los clasificadores y de los dos validadores se ajustaron con los mismos casos que los evalúan: su exactitud real es desconocida. Los generadores de números pseudoaleatorios de Python se usaron solo para simular; no son criptográficos. No se usó ningún marco de pruebas externo, herramienta de mutación, fuzzer, navegador, contenedor, servidor de integración continua ni base distinta de SQLite; no se midió tiempo de ejecución, rendimiento ni a ninguna persona evaluadora, y los exploradores son programas. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador `SE-372` define el paquete y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
+Los parámetros (los volúmenes, las mezclas de retrasos, las tasas de duplicado, los porcentajes de mudanza, los umbrales de calidad, los precios y los factores de escalado, las duraciones de las tareas, los defectos y las mutaciones) son construcciones del autor. Ninguna cifra es una medición de un sistema real ni una tarifa de un proveedor.
+
+Lo que **no se hizo**: no se midió ninguna plataforma de datos, ningún almacén, ninguna factura ni la calidad de datos de ninguna organización; no se evaluó el cumplimiento de ninguna norma de protección de datos, y esta parte no sustituye la asesoría legal; el formato columnar del laboratorio no es Parquet ni se midió Parquet; y el control de siete reglas detecta 9 de 10 mutaciones inyectadas, un resultado que mide la cobertura por familias de defectos y no la tasa de defectos reales. Las afirmaciones sobre herramientas y normas se atribuyen a sus fuentes y se tratan como descripciones; varias son documentación de proyectos sobre sí mismos y se leen como tales.
 
 ## Guía razonada clase por clase
 
-La estrategia de pruebas de la plataforma mantiene diez componentes, un presupuesto y un paquete estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+*Avisos* deja de ser una aplicación que guarda datos y pasa a ser una organización que debe responder con ellos. Cada clase explica qué decisión de la plataforma de datos atiende, qué experimento la mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
 
-### Bloque 1 — Decidir qué probar y cómo
+### Bloque 1 — Del origen al modelo
 
-#### SE-361 — Calidad por riesgo y propósito de las pruebas
+#### SE-361 — Del dato operacional al analítico
 
-Repartir el esfuerzo por igual o por el tamaño del código es una decisión, y rara vez la mejor. La clase mide la pérdida residual de cinco repartos de 40 horas, cuánto empeoran cuando las estimaciones se equivocan por un factor 2 y qué clases de fallo no ve ningún nivel barato.
+Una base operacional y una analítica responden a preguntas distintas con patrones de acceso opuestos, y mezclarlas produce dos fallos que se confunden con lentitud: un informe pesado que bloquea a la aplicación y una pregunta sobre el pasado que la base ya no puede responder porque sobrescribió la respuesta. La clase mide los bytes que toca una búsqueda frente a una agregación sobre 200 000 pedidos, prueba una lectura abierta contra una escritura con y sin registro anticipado y reconstruye con eventos una pregunta que la tabla de estado no contesta.
 
-El estudiante entrega una tabla de riesgos con supuestos, un reparto y una lista de exclusiones con caducidad. `SE-362` baja al nivel más barato, la prueba unitaria.
+El estudiante entrega un documento con las cinco preguntas analíticas más frecuentes de un sistema suyo, su patrón de acceso, si necesitan historia y qué cambia de significado en cada traspaso. `SE-362` trata cómo llegan los datos a la zona cruda.
 
-#### SE-362 — Pruebas unitarias y diseño testable
+#### SE-362 — Ingesta batch y streaming
 
-La cobertura de líneas no distingue una batería que detecta de una que solo ejecuta. La clase genera 16 mutantes con `ast`, mide dos baterías con el mismo 100 % de líneas, analiza las dependencias ocultas de una función y compara una prueba de plazos con el reloj real y con la hora inyectada.
+Lote y flujo son dos modelos de completitud, no dos velocidades: uno espera y cierra, el otro nunca sabe si llegó todo y debe declarar cuánto espera. La clase simula 10 000 eventos con llegadas tardías y reentregas, mide cuántos deja fuera cada marca de agua y cada lote y cuánto infla el conteo contar entregas en lugar de eventos únicos.
 
-El estudiante entrega una función con su tabla de fronteras y el cierre separado de sus efectos. `SE-363` pregunta cómo comprobar que las piezas funcionan juntas.
+El estudiante entrega la política de ingesta de una fuente suya con los percentiles de retraso, la tolerancia, la clave de deduplicación y el destino de lo tardío. `SE-363` organiza lo que llega.
 
-### Bloque 2 — Probar lo que une y lo que ve el usuario
+#### SE-363 — Modelado analítico: hechos, dimensiones y granularidad
 
-#### SE-363 — Integración, componentes y contratos
+Un modelo analítico existe para que una pregunta tenga una sola respuesta. La clase mide cuánto cambia un reparto de ventas si una dimensión se sobrescribe frente a si conserva versiones, provoca y corrige un abanico de uniones que triplica un costo de envío y carga un Data Vault cuya repetición no añade filas.
 
-Un doble copia lo que el consumidor cree, no lo que el proveedor hace. La clase aplica ocho cambios a un proveedor y mide qué detecta un doble, un contrato, la respuesta real y la comparación de esquema completo, compara contratos por consumidor con alarmas globales y mide cuántas interfaces quedan sospechosas con recorridos y con pruebas por interfaz.
+El estudiante entrega la granularidad de cada hecho de un dominio suyo, la política de historia de sus dimensiones y la consulta que detecta un abanico. `SE-364` construye esas tablas sin duplicar ni perder filas.
 
-El estudiante entrega contratos por consumidor y pruebas por interfaz. `SE-364` elige los recorridos completos que merece la pena pagar caros.
+### Bloque 2 — Repetible y verificable
 
-#### SE-364 — End-to-end, aceptación y recorridos críticos
+#### SE-364 — Transformación y orquestación idempotente con backfills
 
-Cada paso de un recorrido multiplica la probabilidad de un fallo espurio. La clase calcula la tasa de ejecuciones limpias según los pasos, elige cinco recorridos que cubren el 87 % del tráfico y compara una instantánea con aserciones semánticas sobre siete cambios benignos y nueve defectos.
+Un pipeline que solo funciona si se ejecuta una vez no es un pipeline. La clase carga 30 particiones con tres estrategias, provoca un fallo a mitad con y sin transacción, corrige cinco días de origen reescribiendo solo esas particiones, calcula qué recalcular en un grafo de nueve tareas y mide cuántos datos tardíos recoge cada ventana de reproceso.
 
-El estudiante entrega cinco recorridos con criterio de aceptación y presupuesto de inestabilidad. `SE-365` cambia el método de elegir casos.
+El estudiante entrega el plan de backfill de una tabla suya con la prueba de idempotencia y las tareas que se recalculan. `SE-365` vigila que lo construido sea correcto.
 
-### Bloque 3 — Generar casos y medir las pruebas
+#### SE-365 — Calidad y observabilidad de datos
 
-#### SE-365 — Pruebas basadas en propiedades y modelos
+Un pipeline en verde no prueba que los datos sean correctos. La clase compara tres detectores de volumen con incidentes sembrados en una serie con caída de fin de semana, detecta una deriva del importe que ninguna comprobación de volumen ve y construye la matriz de qué familia de comprobación detecta cada defecto de una tabla.
 
-Un generador mal diseñado nunca llega a las fronteras. La clase compara cinco ejemplos con cuatro propiedades sobre cinco versiones de una función, reduce contraejemplos de 155 a 21 caracteres y mide qué fracción de secuencias aleatorias descubre el defecto de una cola contra un modelo.
+El estudiante entrega las comprobaciones de un conjunto suyo con su umbral, su dueño, el detector de volumen elegido y la lista de lo que ninguna ve. `SE-366` convierte las expectativas en un contrato.
 
-El estudiante entrega propiedades con un generador sesgado y un modelo de la cola. `SE-366` mide la calidad de las propias pruebas.
+#### SE-366 — Contratos de datos y evolución de esquemas
 
-#### SE-366 — Mutación, fuzzing y generación de casos
+Un contrato convierte una costumbre en un acuerdo comprobable, y la compatibilidad depende de quién actualiza primero. La clase clasifica diez cambios de esquema en los dos sentidos, lee 1 000 registros con el esquema nuevo, ejecuta un renombre de golpe y en tres pasos y muestra el cambio de unidad que el verificador aprueba y que rompe el significado.
 
-La cobertura y la mutación pueden divergir: pasar del 72 % al 94 % de líneas no mató un solo mutante más. La clase mide cuatro baterías, clasifica los supervivientes y compara bytes aleatorios, un generador estructurado y uno guiado por cobertura sobre cuatro defectos escondidos.
+El estudiante entrega el contrato de un conjunto suyo con la tabla de cambios por sentido y el plan de expandir y contraer de un cambio incompatible. `SE-367` construye el mapa de quién consume qué.
 
-El estudiante entrega la lista de supervivientes clasificada y un fuzzer con corpus. `SE-367` trata lo que rodea a la prueba.
+### Bloque 3 — Dónde vive, quién lo ve y cuánto cuesta
 
-### Bloque 4 — Controlar lo que rodea a la prueba
+#### SE-367 — Linaje, catálogo y metadatos
 
-#### SE-367 — Dobles, virtualización y entornos de prueba
+El linaje responde de dónde sale un número y qué se rompe si cambia una columna, y cada método ve una parte. La clase analiza seis sentencias SQL, perturba nueve columnas de origen y compara lo medido con tres predicciones: el linaje de valores omite 31 cambios que las condiciones sí explican, y el de tablas avisa de todo o de nada.
 
-Un doble es tan fiel como la batería que lo ancla. La clase mide qué comprobaciones supera un diccionario ingenuo frente a una base real, cuántas refactorizaciones neutras rompen cada estilo de prueba y qué cambia entre procesos y entre Windows y Ubuntu sin tocar el código.
+El estudiante entrega el linaje de columnas de un conjunto suyo con el método de cada arista, la prueba de perturbación y la ficha de catálogo de un activo. `SE-368` pasa a dónde y cómo se guardan los datos.
 
-El estudiante entrega una batería de contrato ejecutada contra el doble y la dependencia real. `SE-368` trata los datos y el estado de cada prueba.
+#### SE-368 — Warehouse, lake, lakehouse y formatos columnares
 
-#### SE-368 — Datos deterministas y gestión de fixtures
+Almacén, lago y lakehouse son arquitecturas con garantías distintas, y debajo de ellas el formato y el orden deciden los bytes que se leen. La clase construye un formato columnar mínimo, lo compara con CSV, JSON y un binario por filas sobre 200 000 pedidos, mide el efecto del orden y de los archivos pequeños y publica una compactación con un manifiesto de versiones.
 
-Un estado compartido hace que el resultado dependa del orden. La clase ejecuta doce pruebas en 500 órdenes con tres estrategias de fixture, mide una propiedad con datos aleatorios con y sin semilla y cuenta las salidas distintas de ocho fuentes de no determinismo.
+El estudiante entrega el formato, la partición, el orden y el tamaño de archivo de una tabla suya con la consulta representativa y sus bytes leídos. `SE-369` trata lo que esos archivos contienen sobre personas.
 
-El estudiante entrega reglas de datos de prueba y un inventario de fuentes con su remedio. `SE-369` pasa de lo automático a la exploración.
+#### SE-369 — Gobierno, privacidad y retención de datos
 
-### Bloque 5 — Explorar y mantener
+Gobernar es un conjunto de mecanismos comprobables sobre el recorrido del dato. La clase mide qué columnas personales escapan a una clasificación por nombre, demuestra que un hash sin clave se revierte con candidatos y un HMAC no, calcula los grupos pequeños de un agregado y propaga un borrado por el linaje encontrando la copia que queda fuera.
 
-#### SE-369 — Pruebas exploratorias y sesiones
+El estudiante entrega el inventario de datos personales de un conjunto suyo, su método de seudonimización con la prueba de reversión, el umbral de agregación y el recorrido de borrado. `SE-370` pone precio a todo eso.
 
-Un guion de regresión no explora. La clase compara tres agentes simulados contra 12 defectos plantados, calcula el contraste de WCAG y clasifica 374 defectos de accesibilidad según los decida una regla o una persona, y prueba una lista de sondas contra seis validadores.
+#### SE-370 — Costos y operación de plataformas de datos
 
-El estudiante entrega misiones, una lista de sondas y la partición regla/persona. `SE-370` aborda lo que más erosiona la confianza: las pruebas que fallan a veces.
+El costo es una propiedad de cada decisión técnica. La clase escala bytes medidos a una tabla de 1 TB con un precio inventado, compara refrescos completos e incrementales por frecuencia, calcula la ruta crítica de un pipeline de ocho tareas y muestra que acelerar una tarea fuera de ella no mueve la hora de entrega.
 
-#### SE-370 — Flakiness, diagnóstico y mantenimiento
+El estudiante entrega el costo mensual de tres decisiones de una plataforma suya con la fórmula y la ruta crítica de su pipeline principal. `SE-371` pone a prueba todo lo anterior.
 
-Con 0,1 % de fallo espurio por prueba, una suite de 1 000 pasa limpia el 36,8 % de las veces. La clase mide el efecto de los reintentos sobre el ruido y sobre un defecto real, compara la enumeración de una carrera con hilos reales y clasifica la causa de 440 pruebas con un historial.
+### Bloque 4 — Probar e integrar
 
-El estudiante entrega una política de cuarentena y un procedimiento de diagnóstico. `SE-371` pide demostrar lo que detecta cada prueba.
+#### SE-371 — Taller: reparar un pipeline defectuoso
 
-### Bloque 6 — Aplicar e integrar
+Los defectos de un pipeline se enmascaran entre sí. El taller entrega un pipeline con ocho defectos sembrados, la verdad de referencia y ocho comprobaciones, y pide diagnosticarlos con método: reproducir, acotar la capa, conciliar y corregir una causa por paso midiendo tras cada una, con el error subiendo en medio de la reparación.
 
-#### SE-371 — Taller: demostrar que una prueba detecta defectos
+El estudiante entrega el diagnóstico de cada defecto con el antes y el después, la matriz defecto por comprobación y la comprobación nueva para el más difícil de ver. `SE-372` integra el control que debería haberlos detenido.
 
-Tres pruebas matan 6 mutantes cada una sin afirmar ningún valor y una pasa por la razón equivocada. El taller construye la matriz de catorce pruebas contra mutantes y refactorizaciones neutras, calcula el conjunto mínimo y valida un paquete de evidencia con 200 mutaciones.
+#### SE-372 — Proyecto: plataforma de datos mínima gobernada
 
-El estudiante entrega la matriz de detección y un paquete re-ejecutable. `SE-372` lo integra en una estrategia.
+Una plataforma gobernada se distingue de una que lo parece por su control: reglas que comparan lo declarado con lo construido y que se prueban con cambios inyectados. La clase construye tres conjuntos con un registro de metadatos, un control de siete reglas y diez mutaciones, detecta 9 y declara la décima, un cambio de significado que atraviesa todo.
 
-#### SE-372 — Proyecto: estrategia ejecutable por riesgo
-
-Una estrategia que nadie valida es un documento. El proyecto simula 2 000 trimestres con seis estrategias, reasigna el presupuesto tras un incidente y mide qué detecta un validador de tres niveles sobre 200 mutaciones del paquete.
-
-El estudiante entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md`. La Parte 31 lleva esos riesgos a atributos de calidad medibles, carga y resiliencia.
+El estudiante entrega su registro de metadatos, las reglas con su evidencia, la matriz de mutaciones, el cambio que su control no ve y el costo estimado. Con esta clase se cierra la parte.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-361](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/) | Calidad por riesgo y propósito de las pruebas | Entrega una tabla de riesgos con supuestos, un reparto y una lista de exclusiones con caducidad |
-| [SE-362](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-362-pruebas-unitarias-y-diseno-testable/) | Pruebas unitarias y diseño testable | Entrega una función con su tabla de fronteras y el cierre separado de sus efectos |
-| [SE-363](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-363-integracion-componentes-y-contratos/) | Integración, componentes y contratos | Entrega contratos por consumidor y pruebas por interfaz |
-| [SE-364](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-364-end-to-end-aceptacion-y-recorridos-criticos/) | End-to-end, aceptación y recorridos críticos | Entrega cinco recorridos con criterio de aceptación y presupuesto de inestabilidad |
-| [SE-365](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-365-pruebas-basadas-en-propiedades-y-modelos/) | Pruebas basadas en propiedades y modelos | Entrega propiedades con un generador sesgado y un modelo de la cola |
-| [SE-366](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-366-mutacion-fuzzing-y-generacion-de-casos/) | Mutación, fuzzing y generación de casos | Entrega la lista de supervivientes clasificada y un fuzzer con corpus |
-| [SE-367](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-367-dobles-virtualizacion-y-entornos-de-prueba/) | Dobles, virtualización y entornos de prueba | Entrega una batería de contrato ejecutada contra el doble y la dependencia real |
-| [SE-368](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-368-datos-deterministas-y-gestion-de-fixtures/) | Datos deterministas y gestión de fixtures | Entrega reglas de datos de prueba y un inventario de fuentes con su remedio |
-| [SE-369](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-369-pruebas-exploratorias-y-sesiones/) | Pruebas exploratorias y sesiones | Entrega misiones, una lista de sondas y la partición regla/persona |
-| [SE-370](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-370-flakiness-diagnostico-y-mantenimiento/) | Flakiness, diagnóstico y mantenimiento | Entrega una política de cuarentena y un procedimiento de diagnóstico |
-| [SE-371](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-371-taller-demostrar-que-una-prueba-detecta-defectos/) | Taller: demostrar que una prueba detecta defectos | Entrega la matriz de detección y un paquete re-ejecutable |
-| [SE-372](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/) | Proyecto: estrategia ejecutable por riesgo | Entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md` |
+| [SE-361](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/) | Del dato operacional al analítico | Entrega un documento con las cinco preguntas analíticas más frecuentes de un sistema suyo, su patrón de acceso, si necesitan historia y qué cambia de significado en cada traspaso |
+| [SE-362](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/) | Ingesta batch y streaming | Entrega la política de ingesta de una fuente suya con los percentiles de retraso, la tolerancia, la clave de deduplicación y el destino de lo tardío |
+| [SE-363](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-363-modelado-analitico-hechos-dimensiones-y-granularidad/) | Modelado analítico: hechos, dimensiones y granularidad | Entrega la granularidad de cada hecho de un dominio suyo, la política de historia de sus dimensiones y la consulta que detecta un abanico |
+| [SE-364](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/) | Transformación y orquestación idempotente con backfills | Entrega el plan de backfill de una tabla suya con la prueba de idempotencia y las tareas que se recalculan |
+| [SE-365](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/) | Calidad y observabilidad de datos | Entrega las comprobaciones de un conjunto suyo con su umbral, su dueño, el detector de volumen elegido y la lista de lo que ninguna ve |
+| [SE-366](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/) | Contratos de datos y evolución de esquemas | Entrega el contrato de un conjunto suyo con la tabla de cambios por sentido y el plan de expandir y contraer de un cambio incompatible |
+| [SE-367](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/) | Linaje, catálogo y metadatos | Entrega el linaje de columnas de un conjunto suyo con el método de cada arista, la prueba de perturbación y la ficha de catálogo de un activo |
+| [SE-368](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/) | Warehouse, lake, lakehouse y formatos columnares | Entrega el formato, la partición, el orden y el tamaño de archivo de una tabla suya con la consulta representativa y sus bytes leídos |
+| [SE-369](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-369-gobierno-privacidad-y-retencion-de-datos/) | Gobierno, privacidad y retención de datos | Entrega el inventario de datos personales de un conjunto suyo, su método de seudonimización con la prueba de reversión, el umbral de agregación y el recorrido de borrado |
+| [SE-370](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/) | Costos y operación de plataformas de datos | Entrega el costo mensual de tres decisiones de una plataforma suya con la fórmula y la ruta crítica de su pipeline principal |
+| [SE-371](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-371-taller-reparar-un-pipeline-defectuoso/) | Taller: reparar un pipeline defectuoso | Entrega el diagnóstico de cada defecto con el antes y el después, la matriz defecto por comprobación y la comprobación nueva para el más difícil de ver |
+| [SE-372](../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/) | Proyecto: plataforma de datos mínima gobernada | Entrega su registro de metadatos, las reglas con su evidencia, la matriz de mutaciones, el cambio que su control no ve y el costo estimado |
 
 ## Fuentes
 
-- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — atributos de calidad del producto; autoridad: ISO/IEC.
-- [NIST SP 800-30 Rev. 1](https://csrc.nist.gov/pubs/sp/800/30/r1/final) y [NIST SP 800-218](https://csrc.nist.gov/pubs/sp/800/218/final) — evaluación de riesgos y verificación en el desarrollo; autoridad: NIST.
-- [Martin Fowler, «TestPyramid»](https://martinfowler.com/bliki/TestPyramid.html) y [«ContractTest»](https://martinfowler.com/bliki/ContractTest.html) — niveles de prueba y contratos; autoridad: autor del texto.
-- [Inozemtseva y Holmes, «Coverage is not strongly correlated with test suite effectiveness»](https://doi.org/10.1145/2568225.2568271) — cobertura y eficacia; autoridad: artículo revisado de ICSE 2014.
-- [Claessen y Hughes, «QuickCheck»](https://doi.org/10.1145/351240.351266) y [Documentación de Hypothesis](https://hypothesis.readthedocs.io/en/latest/) — pruebas basadas en propiedades; autoridad: artículo original y documentación oficial.
-- [DeMillo, Lipton y Sayward (1978)](https://doi.org/10.1109/C-M.1978.218136) y [Jia y Harman (2011)](https://doi.org/10.1109/TSE.2010.62) — prueba de mutación; autoridad: artículos revisados.
-- [Miller et al., «An empirical study of the reliability of UNIX utilities»](https://doi.org/10.1145/96267.96279) y [Böhme et al. (2016)](https://doi.org/10.1145/2976749.2978428) — fuzzing; autoridad: artículos revisados.
-- [Luo et al., «An empirical analysis of flaky tests»](https://doi.org/10.1145/2635868.2635920) — causas de las pruebas inestables; autoridad: artículo revisado de FSE 2014.
-- [WCAG 2.2](https://www.w3.org/TR/WCAG22/) y [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) — accesibilidad y seguridad web; autoridad: W3C y OWASP.
+- [Kleppmann, «Designing Data-Intensive Applications»](https://dataintensive.net/), [Kimball Group, «Dimensional Modeling Techniques»](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/), [Data Vault Alliance](https://datavaultalliance.com/) y [Fowler, «Data Lake»](https://martinfowler.com/bliki/DataLake.html) — procesamiento transaccional y analítico, modelado dimensional y de bóveda, y zona cruda; autoría de Kleppmann, Kimball Group, la comunidad del vault y Fowler.
+- [Akidau et al., «The Dataflow Model»](https://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf) y [Apache Kafka, «Message Delivery Semantics»](https://kafka.apache.org/documentation/#semantics) — tiempo del evento, marcas de agua y semánticas de entrega; autoría de los autores del artículo y del proyecto Kafka.
+- [Apache Airflow, «DAGs»](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html) y [«DAG Runs»](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dag-run.html), [dbt, «Incremental models»](https://docs.getdbt.com/docs/build/incremental-models) y [SQLite, «UPSERT»](https://www.sqlite.org/lang_upsert.html) — grafos de tareas, ejecuciones por intervalo, construcción incremental y escritura por clave; autoridad: los proyectos y SQLite.
+- [Great Expectations](https://docs.greatexpectations.io/docs/), [Google, «Monitoring Distributed Systems»](https://sre.google/sre-book/monitoring-distributed-systems/) y [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — comprobaciones de calidad de datos, alertas sobre síntomas y vocabulario de calidad; autoridad: el proyecto, Google e ISO.
+- [Open Data Contract Standard](https://bitol-io.github.io/open-data-contract-standard/latest/), [Apache Avro, «Schema Resolution»](https://avro.apache.org/docs/current/specification/), [Confluent, «Schema Evolution and Compatibility»](https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html), [Fowler, «ParallelChange»](https://martinfowler.com/bliki/ParallelChange.html) y [SQLite, «ALTER TABLE»](https://www.sqlite.org/lang_altertable.html) — contratos de datos, compatibilidad de esquemas y cambios en pasos; autoría de Bitol, Avro, Confluent, Fowler y SQLite.
+- [OpenLineage](https://openlineage.io/docs/) y [DAMA, DMBOK](https://www.dama.org/cpages/body-of-knowledge) — linaje, metadatos y gobierno de datos; autoridad: OpenLineage y DAMA International.
+- [Apache Parquet](https://parquet.apache.org/docs/), [Apache Arrow](https://arrow.apache.org/docs/format/Columnar.html), [Armbrust et al., «Lakehouse» (CIDR 2021)](https://www.cidrdb.org/cidr2021/papers/cidr2021_paper17.pdf), [Apache Iceberg](https://iceberg.apache.org/spec/) y [Delta Lake](https://github.com/delta-io/delta/blob/master/PROTOCOL.md) — formatos columnares y capas de tabla con manifiesto; autoría de los proyectos y de los autores del artículo.
+- [Reglamento (UE) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj), [NIST SP 800-188](https://csrc.nist.gov/pubs/sp/800/188/final), [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104) y [FinOps Framework](https://www.finops.org/framework/) — principios de protección de datos, desidentificación, HMAC y gestión financiera de la nube; autoridad: la Unión Europea, NIST, el IETF y la FinOps Foundation.
+- Documentación de Python: [`sqlite3`](https://docs.python.org/3/library/sqlite3.html), [`random`](https://docs.python.org/3/library/random.html), [`statistics`](https://docs.python.org/3/library/statistics.html), [`hashlib`](https://docs.python.org/3/library/hashlib.html), [`hmac`](https://docs.python.org/3/library/hmac.html), [`zlib`](https://docs.python.org/3/library/zlib.html), [`array`](https://docs.python.org/3/library/array.html) y [`datetime`](https://docs.python.org/3/library/datetime.html) — herramientas usadas por los experimentos; autoridad: la Python Software Foundation.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de una estrategia de pruebas se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen prácticas; que un diseño convenga a un equipo se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente. Varias son documentación de proyectos sobre sus propias herramientas y se leen como tales.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas;
-- ninguna afirmación sobre una herramienta, un equipo o personas reales se apoya en una simulación;
-- los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj y los tamaños de archivo, que declaran por qué varían;
+- ninguna afirmación sobre una herramienta, una plataforma, una factura o el efecto real de una decisión se apoya en una simulación o en un modelo de juguete;
+- el proyecto final se puede aplicar a un conjunto de datos nuevo por otra persona y declara qué cambio no detecta su control y qué capa lo vería.
 
 [Volver al índice de clases](../../classes/README.md)

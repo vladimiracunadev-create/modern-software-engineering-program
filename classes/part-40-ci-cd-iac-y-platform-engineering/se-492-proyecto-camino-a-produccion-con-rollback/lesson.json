@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-492",
+  "title": "Proyecto: camino a producción con rollback",
+  "stage": "F",
+  "part": "40",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback"
+}

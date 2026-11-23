@@ -1,193 +1,194 @@
-# Parte 44 — Estilos arquitectónicos
+# Parte 44 — Gestión, liderazgo y práctica profesional
 
-La Parte 43 enseñó patrones de diseño, empresariales y de resiliencia a escala de clases y módulos. La pregunta cambia de «¿cómo organizo este código?» a «¿qué unidades se despliegan, cómo se hablan y qué fallo puede cruzar entre ellas?». Esta parte compara once estilos y técnicas de arquitectura (la decisión por fuerzas de calidad, el microkernel, pipes and filters, los microservicios, el BFF con el gateway y la malla, la multi-tenencia, el data mesh, las celdas, los doce factores y la migración entre estilos) por lo que compran, lo que cuestan y la evidencia que permite decidir. Todo se mide sobre un único caso sintético: **el servicio *Avisos***, el que decide qué recordatorio de entrega se envía a cada estudiante, que crece de un módulo escrito por seis personas a una plataforma con doce equipos, ciento cuarenta universidades y un cliente que concentra el 40 % del tráfico.
+La Parte 43 dejó un sistema que se puede mantener y transformar sin detenerlo. La pregunta cambia de «¿cómo se modifica con seguridad lo que otras personas escribieron?» a «¿cómo se consigue que un equipo decida bien, reparta lo que sabe, se comunique sin perder lo acordado, crezca, prometa lo que puede cumplir, compre sin quedar atrapado, respete lo que no es suyo y pueda defender todo eso ante quien no estuvo?». Esta parte trabaja sobre **el equipo de plataforma educativa**, un caso sintético: ocho personas que mantienen el módulo de calificaciones y otros servicios, una ingeniera sénior sin cargo de jefatura, una dirección académica que pide fechas, un ministerio que cambia un formato y un proveedor de almacenamiento que hay que elegir. Cada clase mira al mismo equipo con una lente más exigente: cómo se lidera sin autoridad formal, cómo se diseñan los equipos y la propiedad del código, cómo se conversa y se resuelve un conflicto, cómo se acompaña el crecimiento de otra persona, cómo se estima y se compromete, cómo se gestionan los riesgos y se presentan decisiones, cómo se evalúa a un proveedor, qué obligaciones legales y éticas acompañan al trabajo, cuánto cuesta el software a lo largo de su vida, cómo se presenta y se defiende una trayectoria, cómo se conduce una revisión adversarial y cómo se reúne todo en un dossier comprobable.
 
 ## Pregunta rectora
 
-> Para este sistema, ¿qué fuerza de calidad exige cambiar la arquitectura, qué estilo la atiende, qué se acepta perder, qué medida vigila la decisión y qué número la reabre?
+> ¿Qué decisión puedes sostener ante personas que no comparten tu contexto, con qué evidencia, qué te cuesta equivocarte y qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no defiende un estilo ni recomienda una moda. Enseña a leer un estilo como un **paquete de restricciones con un costo medible**: qué propiedad compra, qué se paga y qué supuesto lo invalida. La primera clase construye el método de decisión con escenarios de calidad (`SE-529`). Las seis siguientes miden el costo de cada estilo con código: la extensión por complementos y su contrato (`SE-530`), la memoria y el orden de una cadena de filtros (`SE-531`), el precio de cruzar un proceso y la aritmética de una cadena de servicios (`SE-532`), los bytes y las rondas de una pantalla con un BFF y la confianza en el borde (`SE-533`) y las fugas entre inquilinos con el vecino ruidoso (`SE-534`). Después se trata la propiedad de los datos con una cola y cinco comprobaciones (`SE-535`), el radio de impacto de las celdas (`SE-536`), las propiedades de una aplicación que se puede copiar y reemplazar (`SE-537`) y el viaje de un estilo a otro con un comparador y escalones de tráfico (`SE-538`). La parte termina con un taller que decide con escenarios y sensibilidad (`SE-539`) y un proyecto que convierte la decisión en un registro con su prueba y su disparador (`SE-540`).
+Esta parte no enseña un marco de gestión ni una certificación. Enseña a diseñar la ruta de adopción de una práctica y a repartir la autoridad de aprobación con criterios, a medir cuántas personas deben irse para que el conocimiento quede huérfano y cuántos relevos cruza un cambio, a dejar una decisión por escrito con cinco campos y a clasificar un desacuerdo antes de tratarlo, a asignar tareas que estiren y a dar retroalimentación a tiempo, a comunicar un compromiso con su probabilidad, a calcular el valor esperado de un riesgo y el valor de la información, a probar la sensibilidad de una matriz de proveedores, a leer una expresión de licencia y verificar la procedencia de una contribución, a descontar y priorizar por costo de demora, a presentar un portafolio comprobable y defenderlo declarando los límites, a revisar una decisión por su proceso y no solo por su resultado, y a armar un dossier cuyas afirmaciones, evidencias y cifras se pueden verificar con un script y una hora de revisión.
 
 ```mermaid
 flowchart LR
-    A[Fuerzas de calidad] --> B[Microkernel]
-    B --> C[Pipes and filters]
-    C --> D[Microservicios]
-    D --> E[BFF, gateway y malla]
-    E --> F[Multi-tenancy]
-    F --> G[Data mesh]
-    G --> H[Celdas]
-    H --> I[12-factor]
-    I --> J[Migración entre estilos]
-    J --> K[Taller: escenarios y sensibilidad]
-    K --> L[Proyecto: ADR defendido]
-    L -->|disparador cumplido| A
+    A[Liderazgo técnico sin autoridad formal] --> B[Equipos y ownership]
+    B --> C[Comunicación, facilitación y conflicto]
+    C --> D[Mentoría, feedback y crecimiento]
+    D --> E[Estimación y compromisos]
+    E --> F[Riesgos y decisiones ejecutivas]
+    F --> G[Compras y evaluación de proveedores]
+    G --> H[Propiedad intelectual, contratos y ética]
+    H --> I[Economía y costo total]
+    I --> J[Portafolio, entrevistas y defensa]
+    J --> K[Taller: revisión de una decisión difícil]
+    K --> L[Proyecto: dossier profesional defendible]
+    L -->|hallazgo de la revisión| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los costos. El retorno indica que una decisión registrada se reabre cuando su disparador se cumple, y vuelve a empezar por las fuerzas.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo de la revisión de una decisión o del dossier reabre la propuesta inicial: la práctica profesional se revisa, no se termina.
 
 ## Resultados acumulativos
 
-Podrás escribir un escenario de calidad con medida, valorar estilos contra atributos, calcular el margen del ganador y la estabilidad del resultado bajo perturbación, y reconocer que con la misma matriz el contexto cambia el ganador; construir un núcleo que descubre complementos, medir las líneas del núcleo que toca una alta, el costo de aislar por excepción y por proceso y las tres políticas ante un cambio de contrato.
+Podrás simular la adopción de una práctica en una red de treinta personas según a quién se siembra, medir la espera de una decisión cuando una sola persona aprueba y cuántas decisiones se revierten según cuántas personas las leyeron antes; calcular el factor de camión con una definición explícita, contar cuántos equipos cruza un cambio con equipos por capa y por dominio y medir la carga de una guardia según el tamaño de la rotación; medir cuánto distorsiona hablar en orden una estimación de grupo, cuántos campos de una decisión sobreviven a los relevos en tres formatos y cómo le va a la reciprocidad con malentendidos;
 
-Podrás medir el pico de memoria de una cadena de filtros por lotes y en flujo, el efecto del orden de los filtros y de una cola acotada; calcular la disponibilidad y la latencia de cola de una cadena de servicios, medir una llamada entre procesos y contar los servicios que se coordinan ante un cambio incompatible; medir bytes y rondas de una pantalla con y sin BFF, demostrar que confiar solo en el borde acepta una petición falsificada y medir el costo de un salto de proxy.
+comparar el crecimiento según la dificultad de las tareas, el costo de esperar la retroalimentación y el ruido de una evaluación con y sin rúbrica; mostrar por qué la suma de medianas no se cumple, pronosticar una fecha con el historial de entrega y ver cómo crece el tiempo de ciclo con la carga; comparar una matriz de riesgos con el valor esperado, calcular el valor de la información y el costo de escalar todo; medir cuánto depende un ganador de los pesos, el costo a cinco años de comprar o construir y la disponibilidad de una cadena de proveedores; clasificar sesenta licencias con un analizador de expresiones, verificar el pie de firma de 2 000 commits y simular un flujo de cancelación escondido;
 
-Podrás probar fugas entre inquilinos sobre una tabla compartida, implementar una barrera que no dependa de cada consulta, medir el costo de una base por inquilino y simular un vecino ruidoso; simular la cola de un equipo central de datos, calcular las personas que necesita cada modelo de propiedad y comprobar un contrato de datos contra ocho derivas; medir cuántos inquilinos se mueven al añadir una celda, el radio de impacto de tres diseños y el costo de capacidad; auditar una aplicación con un linter, probar sesiones con varias instancias, medir el arranque y comparar parada ordenada y corte.
-
-Podrás comparar un módulo heredado con su reemplazo en modo sombra, calcular con qué fracción del tráfico se ve cada divergencia y el daño de cada escalón, modelar tres candidatos contra seis escenarios y encontrar el supuesto que invierte la decisión, y escribir un registro de decisión con alternativas, consecuencias negativas, reversibilidad, disparador numérico y una prueba de arquitectura que lo protege.
+ordenar iniciativas por costo de demora, comparar proyectos con valor presente a varias tasas, hallar el cruce entre inversión y gasto operativo y el equilibrio por usuario; comparar procedimientos de entrevista, verificar entradas de portafolio y medir la impresión de dos estrategias de defensa; comparar juicio por resultado y por proceso, la cobertura de paneles de revisión y la calibración de las probabilidades declaradas; y verificar seis dossiers con un script, calcular la probabilidad de que una revisora encuentre una afirmación sin respaldo y medir cuántas afirmaciones se comprueban en una hora. Al finalizar podrás entregar un dossier con afirmaciones numeradas, evidencia con huellas, cifras etiquetadas, límites declarados y una defensa ensayada, e indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
-- [Parte 24 — Diseño, patrones y refactorización](../../classes/part-24-diseno-patrones-y-refactorizacion/): cohesión, acoplamiento y refactor con red de seguridad.
-- [Parte 25 — Arquitectura de software y dominio](../../classes/part-25-arquitectura-de-software-y-dominio/): drivers y atributos (`SE-301`), monolito y servicios (`SE-303`), fitness functions (`SE-308`), trade-offs y ADR (`SE-309`) y arquitectura socio-técnica (`SE-310`).
-- [Parte 30 — Estrategia y técnicas de prueba](../../classes/part-30-estrategia-y-tecnicas-de-prueba/): pruebas de contrato y de integración (`SE-363`).
-- [Parte 31 — Calidad, rendimiento y resiliencia](../../classes/part-31-calidad-rendimiento-y-resiliencia/): modelos de calidad (`SE-373`), latencia y capacidad (`SE-376`), circuit breakers y bulkheads (`SE-379`) y disponibilidad (`SE-380`).
-- [Parte 40 — Metodologías de desarrollo: de TDD a ODD](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/): pruebas de contrato como oráculo (`SE-487`) y el caso *Avisos*.
-- [Parte 43 — Patrones de diseño, empresariales y de resiliencia](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/): Strategy, Adapter y sidecar como antecedentes de escala menor.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar. `SE-532` y `SE-533` abren servidores y proxies en `127.0.0.1` y `SE-537` lanza procesos de Python propios.
+- [Parte 17 — Documentación y conocimiento técnico](../../classes/part-17-documentacion-y-conocimiento-tecnico/): registros de decisión y documentación mantenible.
+- [Parte 25 — Diseño, patrones y refactorización](../../classes/part-25-diseno-patrones-y-refactorizacion/): fronteras, interfaces y costos de cambio.
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): percentiles, disponibilidad y escenarios de calidad.
+- [Parte 38 — Seguridad, privacidad y cumplimiento](../../classes/part-38-seguridad-privacidad-y-cumplimiento/): datos personales, licencias y obligaciones.
+- [Parte 41 — Observabilidad, SRE e incidentes](../../classes/part-41-observabilidad-sre-e-incidentes/): guardias, análisis posterior y objetivos de servicio.
+- [Parte 43 — Mantenimiento y modernización legacy](../../classes/part-43-mantenimiento-y-modernizacion-legacy/): migraciones, economía de reescribir y retiro.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos, salvo el analizador de licencias, la verificación de firmas, el verificador de portafolio y el de dossier, que son ejecuciones reales de código propio sobre datos sintéticos.
 
 ## Bloques y progresión
 
-1. **Elegir y estructurar:** las clases 529 a 531 fijan el método de decisión por fuerzas de calidad y miden dos estilos de estructura interna: complementos y flujo de filtros.
-2. **Separar y proteger:** las clases 532 a 534 miden el costo de separar procesos, de poner capas de entrada delante y de aislar a los clientes entre sí.
-3. **Propiedad, fallo y viaje:** las clases 535 a 538 tratan quién responde por los datos, cuánto daña un fallo, qué debe cumplir una aplicación para copiarse y cómo se pasa de un estilo a otro.
-4. **Decidir y defender:** las clases 539 y 540 aplican el método a un caso con escenarios y sensibilidad, y lo convierten en un registro con su prueba y su disparador.
+1. **Liderar y organizar:** las clases 445 y 446 diseñan la ruta de adopción de una práctica y reparten la propiedad, las fronteras y la guardia del equipo.
+2. **Conversar y crecer:** las clases 447 y 448 conducen la comunicación y el conflicto, y acompañan el crecimiento con tareas que estiran y retroalimentación a tiempo.
+3. **Prometer y decidir:** las clases 449 y 450 comunican compromisos con probabilidad y gestionan riesgos con valor esperado y escalamiento.
+4. **Comprar, cumplir y calcular:** las clases 451 a 453 evalúan proveedores, atienden licencias, contratos y ética, y calculan el costo total.
+5. **Defender e integrar:** las clases 454 a 456 presentan el trabajo como trayectoria, revisan una decisión difícil y reúnen todo en un dossier.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11; los recuentos y los resultados de las simulaciones con semilla fija se repiten idénticos, y los tiempos de reloj y de arranque varían entre equipos. **No se invocó ningún modelo de lenguaje, no se ejecutó ninguna herramienta de terceros (Envoy, Istio, Kong, Kubernetes, plataformas de datos, herramientas de ADR o de arquitectura) y no se evaluó ningún sistema real.** Lo que se ejecutó es código propio de la parte con la biblioteca estándar. La parte se ejecutó solo en Windows; no se repitió en Linux.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, las semillas están fijadas y todas las salidas de `scripts/experiments_part44_a.py` y `scripts/experiments_part44_b.py` fueron idénticas en ambos sistemas, cifra por cifra, sin excepciones. Hay ejecuciones de código propio sobre datos sintéticos que no son simulaciones: el analizador de expresiones de licencia de `SE-536` y la verificación estricta de pies de firma de 2 000 mensajes, el verificador de seis reglas de `SE-538` sobre cuatro entradas escritas por el autor, y el verificador de dossier de `SE-540`, que crea sus seis variantes en un directorio temporal y calcula huellas SHA-256 reales. Ninguna lectura de reloj entra en las cifras: todos los tiempos son de tiempo virtual o de recuento.
 
-Los experimentos son: una matriz de seis estilos y siete atributos con cuatro perfiles de pesos, 10 000 juegos de pesos al azar y 2 000 perturbaciones de las valoraciones por perfil (`SE-529`); un núcleo que descubre complementos en un directorio temporal, con altas de tres canales, un complemento que falla y otro lento, ejecución por proceso con límite de tiempo y tres políticas ante un cambio de contrato (`SE-530`); una cadena de cuatro filtros sobre 100 000 registros medida con `tracemalloc`, dos órdenes de filtros contados y un productor y un consumidor con y sin cola acotada (`SE-531`); una llamada medida en proceso, serializada y por HTTP local en el mismo equipo, una cadena de uno a ocho servicios simulada con 20 000 peticiones, una espera en paralelo de uno a 16 servicios y dos topologías de ocho servicios (`SE-532`); cuatro servicios con respuestas JSON sintéticas, un modelo de red declarado, una petición interna falsificada contra dos políticas y un proxy TCP de verdad con uno y dos saltos en ocho rondas intercaladas de 500 llamadas (`SE-533`); doce consultas sobre una tabla de SQLite compartida por cinco inquilinos, una barrera con vistas temporales, 200 bases de SQLite en un directorio temporal y una simulación de eventos de un inquilino ruidoso (`SE-534`).
+Los experimentos son: la adopción en 2 000 redes de 30 personas según la siembra, la espera de 40 000 decisiones ante una sola persona aprobadora y las reversiones de 6 000 decisiones según las personas que las leen antes (`SE-529`); el factor de camión de 200 repositorios de 300 archivos, los equipos que cruza cada uno de 5 000 cambios y la carga de una guardia en 3 000 años (`SE-530`); la estimación de grupo en 5 000 ensayos, los campos que sobreviven a los relevos de 6 000 mensajes por celda y el pago de cuatro estrategias de reciprocidad con 5 % de malentendidos (`SE-531`); el crecimiento de 1 000 personas durante 52 semanas, los errores repetidos de 4 000 personas según el momento de la retroalimentación y el acuerdo de 300 grupos de 200 personas evaluadas (`SE-532`); el cumplimiento de la suma de medianas en 20 000 proyectos, el pronóstico de 60 elementos con 200 historiales y la cola de un servidor con 60 000 elementos por carga (`SE-533`); la cobertura de 400 carteras de 30 riesgos, el valor de la información con 200 000 simulaciones por fila y el costo de tres políticas de escalamiento en 3 000 trimestres (`SE-534`); cinco proveedores con 20 000 combinaciones de pesos, el costo a cinco años de 10 000 casos y la disponibilidad de cadenas de proveedores en 600 años (`SE-535`); sesenta dependencias, 2 000 commits y doce meses de dos flujos de suscripción (`SE-536`); 3 000 carteras de doce iniciativas, tres proyectos a cuatro tasas y el cruce entre servidores propios y nube con el equilibrio por usuario (`SE-537`); 8 000 procesos de selección, cuatro entradas de portafolio y seis mil repeticiones de dos estrategias de defensa (`SE-538`); 4 000 comparaciones por tamaño entre juicio por resultado y por proceso, 5 000 revisiones de 30 modos de fallo y 500 pronósticos por persona (`SE-539`); y seis dossiers verificados, la probabilidad de muestreo con 20 000 simulaciones por celda y 5 000 revisiones de una hora (`SE-540`).
 
-Siguen una simulación de una cola de varios servidores validada con la fórmula de Erlang C, un cálculo de personas por modelo de propiedad y un producto de datos de 1 000 filas con ocho derivas y un cambio legítimo (`SE-535`); una asignación de 100 000 inquilinos a ocho y nueve celdas con dos funciones, tres diseños ante un inquilino venenoso y un cálculo de capacidad con cargas lognormales (`SE-536`); un linter de cuatro señales sobre dos aplicaciones, una simulación de sesiones con tres instancias, el arranque de procesos Python reales, un modelo de parada y un mismo artefacto con tres configuraciones (`SE-537`); dos módulos de avisos sobre 20 000 peticiones, la detección en sombra con 500 repeticiones por fracción y la probabilidad de detectar un defecto por escalón (`SE-538`); un modelo de tres candidatos contra seis escenarios con un barrido de 2 a 30 equipos (`SE-539`); y un analizador de ADR con once criterios, una prueba de capas con árbol sintáctico sobre cuatro variantes de un paquete y una serie de 30 días para un disparador (`SE-540`).
+Los parámetros (la densidad de vínculos y los umbrales, la llegada y el tiempo de revisión de las decisiones, la probabilidad de preocupaciones graves, el reparto del conocimiento, el costo de 3 días por relevo, los avisos fuera de horario, el peso de la influencia social, la pérdida por relevo, los pagos de la reciprocidad, la curva de aprendizaje, la tasa de error de un hábito, la indulgencia de las evaluadoras, la dispersión de las tareas y el factor común, el historial de entrega, las distribuciones de riesgo, el ruido del experimento, las probabilidades de error al escalar, los puntajes de los proveedores, las alzas y los sobrecostos, las disponibilidades, las expresiones de licencia, los porcentajes de tipos de commit, los parámetros del flujo de suscripción, los costos de demora, los flujos de los proyectos, las tasas, los costos de infraestructura, el halo de las entrevistas, las probabilidades de la defensa, la calidad de las decisiones, la detección de las revisoras y las confianzas) son supuestos del autor, y los resultados dependen de ellos. Que en una simulación gane una política (el escalamiento solo de lo irreversible, las entrevistas estructuradas, declarar el límite) es consecuencia de esos supuestos y de sus fuentes, no un hallazgo sobre equipos reales. En particular, en la simulación de `SE-536` el flujo de cancelación escondido obtiene más ingresos durante todo el año: la clase no afirma que los patrones oscuros no convengan, afirma que la métrica de ingresos no basta para detectar el daño.
 
-Los parámetros (las valoraciones y los pesos, los complementos, los registros, las latencias lognormales, las topologías, las consultas, las tasas de llegada y de servicio, la penalización de contexto, las derivas, el comportamiento del inquilino venenoso, las aplicaciones de ejemplo, los dos módulos de avisos con sus defectos sembrados, los escenarios y la función de utilidad, los ADR de ejemplo y la serie de mediciones) son construcciones del autor. Ninguna cifra es una medición de un sistema de producción: las mediciones de red, memoria, SQLite y arranque son de una máquina concreta, y las simulaciones son modelos con supuestos declarados. El 100 % de la flota compartida de `SE-536` y el 99,601 % de la cadena de microservicios de `SE-539` son supuestos de peor caso, no hechos.
-
-Lo que **no se hizo**: no se midió ningún equipo, esfuerzo humano, costo económico ni calidad de una organización; no se evaluó ninguna plataforma de microservicios, de malla, de datos ni de celdas; no se comprobó que ningún estilo mejore un atributo en la práctica más allá de los mecanismos ejecutados; y la cifra de 26 equipos de `SE-539` es un resultado del modelo, no una regla. Las afirmaciones sobre estilos se atribuyen a sus fuentes y se tratan como descripciones, no como resultados. Una revisión editorial humana independiente de la parte sigue pendiente.
+Lo que **no se hizo**: no se estudió, entrevistó, evaluó ni acompañó a ningún equipo, persona, comité ni institución reales; no se revisó ningún repositorio, contrato, proveedor, dossier ni historial reales; no se consultó ninguna base de datos de licencias ni de proveedores; no se aplicó ninguna norma contable, laboral ni de datos personales a un caso, y nada de la parte es asesoría legal, contable ni de recursos humanos; el analizador de licencias cubre solo los identificadores de la tabla y no interpreta versiones ni efectos jurídicos; no se probó macOS ni otras versiones de Python; los metaanálisis y los estudios citados respaldan mecanismos, no las cifras de las simulaciones; y no se asegura revisión humana independiente de estas clases: sigue pendiente.
 
 ## Guía razonada clase por clase
 
-*Avisos* crece mientras cambian las fuerzas que lo presionan. Cada clase explica qué fuerza atiende el estilo, qué experimento lo mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
+El equipo de plataforma educativa mantiene un caso, un conjunto de decisiones y un paquete de artefactos estables mientras cambian las lentes. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-### Bloque 1 — Elegir y estructurar
+### Bloque 1 — Liderar y organizar
 
-#### SE-529 — Estilos como respuestas a fuerzas de calidad
+#### SE-529 — Liderazgo técnico sin autoridad formal
 
-Una arquitectura es una respuesta a fuerzas de calidad, y cada fuerza necesita una medida. La clase evalúa seis estilos contra siete atributos en cuatro contextos, mide el margen del ganador y prueba cuánto aguanta el resultado si cambian los pesos o las valoraciones.
+Sin poder ordenar, solo quedan el contexto, las decisiones por escrito y las coaliciones. La clase siembra una práctica en 2 000 redes de treinta personas y compara cuatro formas de empezar, mide la espera de una decisión cuando una persona aprueba todo y cuántas decisiones se revierten según cuántas personas las leyeron.
 
-El estudiante entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión. `SE-530` estudia el primer estilo concreto.
+El estudiante entrega una propuesta con ruta de adopción y reglas de delegación. `SE-530` pregunta cómo se organiza el equipo para que esa autoridad no dependa de una persona.
 
-#### SE-530 — Microkernel y arquitecturas de plugins
+#### SE-530 — Diseño de equipos y ownership
 
-Extender sin tocar el núcleo es una propiedad que se mide. La clase construye un núcleo que descubre complementos, añade tres canales sin cambiar una línea del núcleo y mide qué cuesta aislar a un complemento que falla o se bloquea y qué ocurre cuando el contrato sube de versión.
+La estructura decide qué cambios son baratos y qué conocimiento es frágil. La clase calcula el factor de camión de cuatro formas de repartir el conocimiento, cuenta los equipos que cruza un cambio con equipos por capa y por dominio, y mide la carga de una guardia según el tamaño de la rotación.
 
-El estudiante entrega el contrato de un complemento con su política de versión y su nivel de aislamiento. `SE-531` cambia la pregunta: cómo fluyen los datos.
+El estudiante entrega un mapa de propiedad con segundo conocedor, un contrato de interfaz y una regla de guardia. `SE-531` pregunta cómo se conversan los desacuerdos de las fronteras.
 
-#### SE-531 — Pipes and filters y arquitecturas de flujo
+### Bloque 2 — Conversar y crecer
 
-Un flujo de filtros solo escala si cada paso procesa un elemento a la vez. La clase compara por lotes y en flujo sobre 100 000 registros, mide el efecto de un filtro que necesita todo, el orden de los filtros y la contrapresión de una cola acotada.
+#### SE-531 — Comunicación, facilitación y conflicto
 
-El estudiante entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos. `SE-532` pasa a separar procesos.
+Una decisión comunicada pierde campos y una reunión ancla al grupo. La clase mide el error de una estimación según el orden en que se habla, los campos de una decisión que sobreviven a los relevos en tres formatos y el pago de la reciprocidad cuando hay malentendidos.
 
-### Bloque 2 — Separar y proteger
+El estudiante entrega una agenda con método de decisión y un mensaje de decisión con acuse. `SE-532` aplica esa comunicación a la conversación entre quien sabe más y quien sabe menos.
 
-#### SE-532 — Microservicios y sus costes reales
+#### SE-532 — Mentoría, feedback y crecimiento
 
-Separar en servicios compra autonomía y se paga con latencia, disponibilidad y acoplamiento de contratos. La clase mide una llamada en proceso, serializada y por HTTP local, simula cadenas de uno a ocho servicios y cuenta cuántos se coordinan ante un cambio incompatible.
+El crecimiento depende de la brecha de la tarea, del momento de la retroalimentación y del criterio de evaluación. La clase compara el nivel final según la dificultad asignada, los errores repetidos según cuándo llega el aviso y el acuerdo de evaluadoras con y sin rúbrica.
 
-El estudiante entrega el costo de separar un módulo suyo con su camino crítico y su criterio. `SE-533` trata lo que se interpone entre clientes y servicios.
+El estudiante entrega un acuerdo de mentoría, tres retroalimentaciones fechadas y una rúbrica. `SE-533` pregunta cómo se compromete trabajo con una incertidumbre honesta.
 
-#### SE-533 — BFF, API gateway y service mesh
+### Bloque 3 — Prometer y decidir
 
-Gateway, BFF y malla responden preguntas distintas y confundirlos es caro. La clase mide bytes y rondas de una pantalla con cuatro servicios, demuestra que confiar solo en el borde acepta una petición falsificada y mide lo que añade cada salto de proxy.
+#### SE-533 — Estimación organizacional y compromisos
 
-El estudiante entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde. `SE-534` trata la identidad del inquilino.
+Una fecha es una afirmación con una probabilidad escondida. La clase muestra por qué la suma de medianas se cumple una vez de cada cinco, pronostica sesenta elementos con el historial de entrega y mide cómo crece el ciclo con la carga.
 
-#### SE-534 — Multi-tenancy y aislamiento
+El estudiante entrega un compromiso con probabilidad y una regla de carga. `SE-534` pregunta qué riesgos asume ese compromiso y quién los acepta.
 
-El aislamiento entre clientes se prueba y no se supone. La clase ejecuta doce consultas sobre una tabla compartida, prueba una barrera que no depende de cada consulta, mide el costo de una base por inquilino y simula un vecino ruidoso con y sin tope.
+#### SE-534 — Gestión de riesgos y decisiones ejecutivas
 
-El estudiante entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas. `SE-535` trata la propiedad de los datos.
+Una matriz agrupa lo que debería distinguirse, y escalar todo cuesta tanto como no escalar nada. La clase compara una matriz con el valor esperado, calcula el valor de la información y el costo de tres políticas de escalamiento.
 
-### Bloque 3 — Propiedad, fallo y viaje
+El estudiante entrega un registro de riesgos con valor esperado y una petición de decisión de una página. `SE-535` lleva una de esas decisiones, la compra, a su evaluación detallada.
 
-#### SE-535 — Data mesh y propiedad de los datos
+### Bloque 4 — Comprar, cumplir y calcular
 
-El data mesh es una decisión sobre quién responde por los datos, no una herramienta. La clase simula la cola del equipo central, calcula las personas que necesita cada modelo y pasa ocho derivas y un cambio legítimo por cinco comprobaciones de un contrato de datos.
+#### SE-535 — Compras, proveedores y evaluación técnica
 
-El estudiante entrega el contrato de un producto de datos con la matriz de derivas detectadas. `SE-536` convierte la propiedad en frontera de fallo.
+Con pesos que son opiniones, un ganador por un cuarto de punto no es una conclusión. La clase sortea 20 000 combinaciones de pesos, calcula el costo a cinco años de comprar o construir y la disponibilidad de una cadena de proveedores.
 
-#### SE-536 — Arquitectura celular y radio de impacto
+El estudiante entrega una matriz en dos capas con prueba de sensibilidad y un plan de salida. `SE-536` pregunta qué obligaciones acompañan a esa compra y al software que se produce.
 
-El radio de impacto es una propiedad que se diseña. La clase mide cuántos inquilinos se mueven al añadir una celda con dos funciones de asignación, compara flota compartida, celdas y fragmentación aleatoria ante un inquilino venenoso y calcula el costo de capacidad.
+#### SE-536 — Propiedad intelectual, contratos y ética
 
-El estudiante entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos. `SE-537` baja a la aplicación.
+Una búsqueda de «GPL» frena lo inofensivo y deja pasar lo desconocido. La clase clasifica sesenta licencias con un analizador de expresiones, verifica 2 000 pies de firma y simula doce meses de un flujo de cancelación escondido.
 
-#### SE-537 — 12-factor y aplicaciones nativas de la nube
+El estudiante entrega un inventario de licencias con política, una política de contribuciones verificable y el análisis ético de una solicitud, con la advertencia de que no es asesoría legal. `SE-537` pregunta cuánto cuesta todo esto en el ciclo de vida.
 
-Una aplicación se puede copiar y reemplazar si cumple ciertas propiedades verificables. La clase audita con un linter, simula sesiones en tres instancias, mide el arranque de procesos reales, compara parada ordenada y corte, y ejecuta un mismo artefacto con tres configuraciones.
+#### SE-537 — Economía del software y costo total
 
-El estudiante entrega una auditoría de los doce factores con evidencia por fila. `SE-538` trata el cambio de un estilo a otro.
+El orden de ejecución, la tasa de descuento y el horizonte cambian la conclusión. La clase ordena doce iniciativas por costo de demora, compara tres proyectos a cuatro tasas y calcula el cruce entre servidores propios y nube y el equilibrio por usuario.
 
-#### SE-538 — Evolución y migración entre estilos
+El estudiante entrega un orden de ejecución, una comparación de proyectos por valor presente y un punto de cruce. `SE-538` pregunta cómo se presenta este trabajo como trayectoria profesional.
 
-Una migración incremental sustituye la apuesta única por pasos reversibles y medidos. La clase compara un módulo heredado con su reemplazo sobre 20 000 peticiones, calcula con qué fracción del tráfico se ve cada divergencia y cuántos usuarios afecta un defecto según el escalón.
+### Bloque 5 — Defender e integrar
 
-El estudiante entrega un plan de migración con comparador, escalones y criterio de retiro. `SE-539` aplica todo el método a un caso.
+#### SE-538 — Portafolio, entrevistas y defensa profesional
 
-### Bloque 4 — Decidir y defender
+Un portafolio se comprueba y una defensa se descubre por profundidad. La clase compara cuatro procedimientos de entrevista, verifica cuatro entradas de portafolio con seis reglas y mide la impresión de defender todo frente a declarar el límite.
 
-#### SE-539 — Taller: seleccionar un estilo con escenarios de calidad
+El estudiante entrega entradas comprobables, una autoevaluación por niveles y una defensa ensayada. `SE-539` convierte esa defensa en un ejercicio colectivo.
 
-El resultado del taller no es el ganador sino el mapa de qué lo cambia. La clase modela tres candidatos contra seis escenarios, pondera en dos contextos, barre el número de equipos y encuentra que un solo supuesto de disponibilidad invierte la decisión.
+#### SE-539 — Taller: conducir una revisión de decisión difícil
 
-El estudiante entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia. `SE-540` la convierte en un registro defendido.
+Juzgar por el resultado castiga buenas decisiones y premia la suerte. El taller compara el juicio por resultado y por proceso, la cobertura de paneles según su composición y la calibración de las probabilidades declaradas.
 
-#### SE-540 — Proyecto: decisión arquitectónica defendida con ADR
+El estudiante entrega un expediente fechado, un panel con su razón, una lista de modos de fallo, probabilidades escritas y acciones con fecha. `SE-540` reúne los artefactos de la parte.
 
-Un ADR bueno es una hipótesis con fecha de revisión. La clase analiza tres registros con once criterios, protege una restricción con una prueba de arquitectura que detecta una violación y un ciclo y no ve una importación dinámica, y evalúa un disparador sobre una serie de 30 días.
+#### SE-540 — Proyecto: dossier profesional defendible
 
-El estudiante entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador. Con esta clase se cierra la parte.
+Un dossier completo no es un dossier comprobable. El proyecto verifica seis variantes de dossier con un script, calcula la probabilidad de que una revisora encuentre una afirmación sin respaldo y mide cuántas afirmaciones se comprueban en una hora con y sin trazabilidad.
+
+El estudiante entrega un dossier con siete archivos requeridos, evidencia con huellas, cifras etiquetadas, `LIMITES.md` y una defensa ensayada. La Parte 46 lleva la mirada al desarrollo de software asistido por IA.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-529](../../classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/) | Estilos como respuestas a fuerzas de calidad | Entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión |
-| [SE-530](../../classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/) | Microkernel y arquitecturas de plugins | Entrega el contrato de un complemento con su política de versión y su nivel de aislamiento |
-| [SE-531](../../classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo/) | Pipes and filters y arquitecturas de flujo | Entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos |
-| [SE-532](../../classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/) | Microservicios y sus costes reales | Entrega el costo de separar un módulo suyo con su camino crítico y su criterio |
-| [SE-533](../../classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh/) | BFF, API gateway y service mesh | Entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde |
-| [SE-534](../../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/) | Multi-tenancy y aislamiento | Entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas |
-| [SE-535](../../classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos/) | Data mesh y propiedad de los datos | Entrega el contrato de un producto de datos con la matriz de derivas detectadas |
-| [SE-536](../../classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/) | Arquitectura celular y radio de impacto | Entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos |
-| [SE-537](../../classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube/) | 12-factor y aplicaciones nativas de la nube | Entrega una auditoría de los doce factores con evidencia por fila |
-| [SE-538](../../classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/) | Evolución y migración entre estilos | Entrega un plan de migración con comparador, escalones y criterio de retiro |
-| [SE-539](../../classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/) | Taller: seleccionar un estilo con escenarios de calidad | Entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia |
-| [SE-540](../../classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/) | Proyecto: decisión arquitectónica defendida con ADR | Entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador |
+| [SE-529](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/) | Liderazgo técnico sin autoridad formal | Entrega una propuesta con ruta de adopción y reglas de delegación |
+| [SE-530](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/) | Diseño de equipos y ownership | Entrega un mapa de propiedad con segundo conocedor, un contrato de interfaz y una regla de guardia |
+| [SE-531](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-531-comunicacion-facilitacion-y-conflicto/) | Comunicación, facilitación y conflicto | Entrega una agenda con método de decisión y un mensaje de decisión con acuse |
+| [SE-532](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/) | Mentoría, feedback y crecimiento | Entrega un acuerdo de mentoría, tres retroalimentaciones fechadas y una rúbrica |
+| [SE-533](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/) | Estimación organizacional y compromisos | Entrega un compromiso con probabilidad y una regla de carga |
+| [SE-534](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-534-gestion-de-riesgos-y-decisiones-ejecutivas/) | Gestión de riesgos y decisiones ejecutivas | Entrega un registro de riesgos con valor esperado y una petición de decisión de una página |
+| [SE-535](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-535-compras-proveedores-y-evaluacion-tecnica/) | Compras, proveedores y evaluación técnica | Entrega una matriz en dos capas con prueba de sensibilidad y un plan de salida |
+| [SE-536](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-536-propiedad-intelectual-contratos-y-etica/) | Propiedad intelectual, contratos y ética | Entrega un inventario de licencias con política, una política de contribuciones verificable y el análisis ético de una solicitud |
+| [SE-537](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-537-economia-del-software-y-costo-total/) | Economía del software y costo total | Entrega un orden de ejecución, una comparación de proyectos por valor presente y un punto de cruce |
+| [SE-538](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-538-portafolio-entrevistas-y-defensa-profesional/) | Portafolio, entrevistas y defensa profesional | Entrega entradas comprobables, una autoevaluación por niveles y una defensa ensayada |
+| [SE-539](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-539-taller-conducir-una-revision-de-decision-dificil/) | Taller: conducir una revisión de decisión difícil | Entrega un expediente fechado, un panel con su razón, una lista de modos de fallo, probabilidades escritas y acciones con fecha |
+| [SE-540](../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/) | Proyecto: dossier profesional defendible | Entrega un dossier con siete archivos requeridos, evidencia con huellas, cifras etiquetadas, `LIMITES.md` y una defensa ensayada |
 
 ## Fuentes
 
-- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html), [SEI, «ATAM»](https://www.sei.cmu.edu/library/atam-method-for-architecture-evaluation/) y [SEI, «Quality Attribute Workshops»](https://www.sei.cmu.edu/library/quality-attribute-workshops-qaws-third-edition/) — vocabulario de calidad y evaluación por escenarios; autoridad: ISO y el Software Engineering Institute.
-- [Lewis y Fowler, «Microservices»](https://martinfowler.com/articles/microservices.html), [Fowler, «MonolithFirst»](https://martinfowler.com/bliki/MonolithFirst.html), [«Microservice Premium»](https://martinfowler.com/bliki/MicroservicePremium.html) y [Conway, «How Do Committees Invent?»](https://www.melconway.com/Home/Conways_Law.html) — descripción y costos de los microservicios y relación entre organización y sistema; autoría de Lewis, Fowler y Conway.
-- [PyPA, «Entry points specification»](https://packaging.python.org/en/latest/specifications/entry-points/), [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) y [Fowler, «TolerantReader»](https://martinfowler.com/bliki/TolerantReader.html) — complementos, versiones y compatibilidad de contratos; autoridad: PyPA, semver.org y Fowler.
-- [Azure Architecture Center, «Pipes and Filters»](https://learn.microsoft.com/en-us/azure/architecture/patterns/pipes-and-filters), [«Backends for Frontends»](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends), [«Gateway Aggregation»](https://learn.microsoft.com/en-us/azure/architecture/patterns/gateway-aggregation) y [«Strangler Fig»](https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig), junto con [Newman, «Backends For Frontends»](https://samnewman.io/patterns/architectural/bff/) y [Istio, «Architecture»](https://istio.io/latest/docs/ops/deployment/architecture/) — patrones de flujo, de entrada y de migración y arquitectura de una malla; autoridad: Microsoft, Newman y el proyecto Istio.
-- [Azure Architecture Center, «Architecting multitenant solutions»](https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview), [AWS, «Cell-Based Architecture»](https://docs.aws.amazon.com/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/reducing-scope-of-impact-with-cell-based-architecture.html) y [Amazon Builders' Library, «Shuffle-sharding»](https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/) — tenencia, celdas y fragmentación aleatoria; autoridad: Microsoft y AWS.
-- [Dehghani, «Data Mesh Principles»](https://martinfowler.com/articles/data-mesh-principles.html) y [«Beyond a Monolithic Data Lake»](https://martinfowler.com/articles/data-monolith-to-mesh.html) — principios y motivación del data mesh; autoría de Dehghani.
-- [The Twelve-Factor App](https://12factor.net/) y [Kubernetes, «Pod Lifecycle»](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/) — factores de una aplicación portable y terminación de procesos; autoridad: Wiggins y la documentación de Kubernetes.
-- [Fowler, «StranglerFigApplication»](https://martinfowler.com/bliki/StranglerFigApplication.html), [«BranchByAbstraction»](https://martinfowler.com/bliki/BranchByAbstraction.html) y [«ParallelChange»](https://martinfowler.com/bliki/ParallelChange.html) — migración incremental; autoría de Fowler.
-- [Nygard, «Documenting Architecture Decisions»](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), [adr.github.io](https://adr.github.io/), [Azure, «Architecture decision record»](https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record) y [ArchUnit](https://www.archunit.org/) — registros de decisión y pruebas de arquitectura; autoridad: Nygard, la comunidad ADR, Microsoft y TNG.
-- [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104), [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/), [SQLite, «CREATE VIEW»](https://www.sqlite.org/lang_createview.html) y la [documentación de Python](https://docs.python.org/3/) (`ast`, `hashlib`, `hmac`, `http.client`, `importlib`, `queue`, `sqlite3`, `subprocess`, `tracemalloc`) — protocolos, seguridad y herramientas usadas por los experimentos; autoridad: IETF, OWASP, SQLite y la Python Software Foundation.
+- [Granovetter](https://doi.org/10.1086/226707), [Watts](https://doi.org/10.1073/pnas.082090499) y [Kingman](https://doi.org/10.1017/S0305004100036094) — umbrales de adopción, cascadas en redes y espera en colas; autoridad: American Journal of Sociology, PNAS y Cambridge Philosophical Society.
+- [Conway](http://www.melconway.com/Home/Committees_Paper.html), [Team Topologies](https://teamtopologies.com/key-concepts) y [Avelino et al.](https://doi.org/10.1109/ICPC.2016.7503718) — estructura de equipos, carga cognitiva y factor de camión; autoridad: artículo original, autores del marco e ICPC 2016.
+- [Lorenz et al.](https://doi.org/10.1073/pnas.1008636108), [Axelrod](https://doi.org/10.1126/science.7466396) y [Edmondson](https://doi.org/10.2307/2666999) — influencia social, reciprocidad y seguridad psicológica; autoridad: PNAS, Science y Administrative Science Quarterly.
+- [Ericsson et al.](https://doi.org/10.1037/0033-295X.100.3.363) y [Kluger y DeNisi](https://doi.org/10.1037/0033-2909.119.2.254) — práctica deliberada y efectos de la retroalimentación; autoridad: Psychological Review y Psychological Bulletin.
+- [Buehler et al.](https://doi.org/10.1037/0022-3514.67.3.366), [Little](https://doi.org/10.1287/opre.9.3.383) y [Kanban Guide](https://kanbanguides.org/english/) — falacia de la planificación, flujo y límites de trabajo en curso; autoridad: JPSP, Operations Research y Kanban Guides.
+- [Cox](https://doi.org/10.1111/j.1539-6924.2008.01030.x), [Howard](https://doi.org/10.1109/TSSC.1966.300074) y [NIST SP 800-30 Rev. 1](https://csrc.nist.gov/pubs/sp/800/30/r1/final) — matrices de riesgo, valor de la información y evaluación de riesgos; autoridad: Risk Analysis, IEEE y NIST.
+- [NIST SP 800-161 Rev. 1](https://csrc.nist.gov/pubs/sp/800/161/r1/final), [SLSA](https://slsa.dev/) y [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/) — cadena de suministro, procedencia y objetivos de servicio; autoridad: NIST, proyecto SLSA y equipo de SRE de Google.
+- [SPDX](https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/), [Developer Certificate of Origin](https://developercertificate.org/) y [ACM Code of Ethics](https://www.acm.org/code-of-ethics) — expresiones de licencia, certificación de origen y ética profesional; autoridad: proyecto SPDX, Linux Foundation y ACM.
+- [Smith](https://doi.org/10.1002/nav.3800030106), [SAFe WSJF](https://scaledagileframework.com/wsjf/) y [FinOps Framework](https://www.finops.org/framework/) — orden por costo de demora, priorización y gestión del costo de la nube; autoridad: Naval Research Logistics Quarterly, Scaled Agile y FinOps Foundation.
+- [Sackett et al.](https://doi.org/10.1037/apl0000994), [Progression.fyi](https://progression.fyi/) y [SFIA](https://sfia-online.org/en) — validez de la selección, escaleras de carrera y marco de competencias; autoridad: Journal of Applied Psychology, recopilación pública y SFIA Foundation.
+- [Baron y Hershey](https://doi.org/10.1037/0022-3514.54.4.569), [Klein](https://hbr.org/2007/09/performing-a-project-premortem) y [Brier](https://doi.org/10.1175/1520-0493(1950)078%3C0001:VOFEIT%3E2.0.CO;2) — sesgo del resultado, ejercicio previo al fallo y puntuación de pronósticos; autoridad: JPSP, Harvard Business Review y Monthly Weather Review.
+- [Python: hashlib](https://docs.python.org/3/library/hashlib.html), [csv](https://docs.python.org/3/library/csv.html) y [tempfile](https://docs.python.org/3/library/tempfile.html) — resúmenes, tablas y directorios temporales del verificador de dossier; autoridad: Python Software Foundation.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen prácticas; que un estilo convenga a un equipo se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente. Varias son documentación de proveedores sobre sus propios patrones y se leen como tales.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de liderazgo, compra, cumplimiento y carrera se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj, que declaran por qué no;
-- ninguna afirmación sobre un equipo, una herramienta de terceros, una plataforma o el efecto real de un estilo se apoya en una simulación o en un modelo de juguete;
-- el ADR final se puede aplicar a una decisión nueva por otra persona y declara sus supuestos, su disparador y lo que su prueba no ve.
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, sin lecturas de reloj;
+- ninguna afirmación sobre un equipo, una institución, una persona, un contrato o una norma reales se apoya en una simulación, y nada de la parte sustituye el consejo legal, contable o de recursos humanos;
+- los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
 
 [Volver al índice de clases](../../classes/README.md)

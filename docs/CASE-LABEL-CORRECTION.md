@@ -1,5 +1,10 @@
 # Corrección de etiquetas ficticias en los casos de aprendizaje
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](ID-MIGRATION.md) ([ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 ## Decisión
 
 Las etiquetas editoriales **Pulso, Faro, Nexo, Atlas, Brújula, Prisma, Orbe,

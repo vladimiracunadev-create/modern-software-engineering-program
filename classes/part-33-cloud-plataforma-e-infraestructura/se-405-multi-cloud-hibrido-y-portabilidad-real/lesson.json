@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-405",
+  "title": "Multi-cloud, híbrido y portabilidad real",
+  "stage": "E",
+  "part": "33",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real"
+}

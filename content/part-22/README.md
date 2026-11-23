@@ -141,7 +141,7 @@ El estudiante entrega el modelo de fallos del nodo con lo que queda sin cubrir. 
 
 #### SE-276 — Proyecto: dispositivo simulado operable y actualizable
 
-Un dispositivo es operable cuando otra persona puede mantenerlo sin su autor. El proyecto simula un mes de mil dispositivos con cuatro configuraciones, valida un paquete con 200 mutaciones y separa en un despliegue a mil dispositivos el efecto de las etapas del de la reversión. La Parte 23 pasa a los dominios especializados.
+Un dispositivo es operable cuando otra persona puede mantenerlo sin su autor. El proyecto simula un mes de mil dispositivos con cuatro configuraciones, valida un paquete con 200 mutaciones y separa en un despliegue a mil dispositivos el efecto de las etapas del de la reversión. La Parte 24 pasa a los dominios especializados.
 
 El estudiante entrega el paquete, el validador, la simulación y la lista de lo que el validador no ve.
 

@@ -1,208 +1,201 @@
-# Parte 25 — Arquitectura de software y dominio
+# Parte 25 — Diseño, patrones y refactorización
 
-La Parte 24 enseñó a diseñar y refactorizar dentro de un componente: patrones, acoplamiento, cohesión y evolución compatible. La pregunta ahora sube un nivel y deja de ser «cómo ordeno este código» para ser «qué fuerzas obligan a que el sistema esté partido, replicado o agrupado de una manera y no de otra, y cómo lo sabría quien lo discute». Esta parte trabaja sobre la **plataforma de entregas y corrección de tareas de un curso**, un caso sintético que recibe una ráfaga de archivos cada vez que vence un plazo, y que recorre las doce clases: escenarios de calidad, vistas, formas de agrupar, dependencias hacia adentro, lenguaje del dominio, eventos, estilos de ejecución, pruebas de arquitectura, decisiones registradas, estructura de equipos, una revisión contra escenarios y un dossier verificable.
+La Parte 24 llevó el diseño a un dominio profundo. Esta parte hace la pregunta que sigue cuando el sistema ya existe y tiene usuarios: **cómo se reparte el código para que pueda cambiar sin romperse, cómo se corrige cuando se repartió mal y cómo se evoluciona sin romper a quien lo usa**. Trabaja sobre un caso conductor sintético, el componente `tarifas` de una plataforma de entregas, que calcula el costo de un envío y que a lo largo de la parte se mide, se separa, se prueba, se refactoriza y se evoluciona. Recorre la cohesión, el acoplamiento y la encapsulación, los principios SOLID y sus límites, la herencia, la composición y la delegación, los patrones creacionales, estructurales y conductuales, los patrones funcionales, reactivos y concurrentes, los olores de código y su diagnóstico, la refactorización segura con una red de pruebas medida, el diseño para el cambio, la prueba y la operación, la complejidad accidental y esencial, la deuda técnica con su interés, un taller de refactorización de una función heredada y un proyecto de evolución compatible.
 
 ## Pregunta rectora
 
-> ¿Qué escenario de calidad fuerza esta decisión, qué alternativa se descartó y qué prueba avisaría de que la decisión dejó de sostenerse?
+> ¿Qué cambio quiero que sea barato, cómo lo medí y qué haría abandonar esa conclusión?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un estilo arquitectónico ni una plataforma. Enseña a escribir un escenario con medida y a simular cuántos trabajadores exige un pico, a calcular la disponibilidad de una ruta en serie con y sin causa común, a descartar alternativas por restricciones y dominancia, a comparar la vista lógica con trazas de ejecución, a calcular qué recorridos rompe la caída de cada nodo y cómo se alarga una cadena de llamadas, a medir cuánto cuesta cruzar una frontera y cuántas operaciones quedan a medias entre servicios, a comprobar fronteras de módulos con análisis estático, a medir qué arrastra cambiar la base de datos según la dirección de las dependencias y qué detecta una suite de contrato, a comparar un modelo único con contextos y a enumerar las intercalaciones que rompen un invariante, a medir consumidores de eventos bajo duplicados y desorden, a dimensionar un proyector, a simular arranques en frío y el punto de equilibrio de costo, a evaluar funciones de aptitud por sus falsas alarmas y regresiones perdidas, a medir la sensibilidad de una matriz de decisión, a medir cuántos cambios cruzan equipos, y a ejecutar un modelo de arquitectura contra doce escenarios. La disciplina es siempre la misma: una afirmación de arquitectura se acompaña de un escenario, un modelo o una prueba que otra persona pueda ejecutar y refutar.
+Esta parte no enseña un lenguaje ni un marco. Enseña a convertir las palabras del diseño (cohesión, acoplamiento, patrón, olor, deuda) en una medida sobre un cambio concreto, y a conocer lo que esa medida no ve. Cada clase mide con código real analizado con `ast`, con pruebas de contrato, con mutación o con simulaciones de semilla fija: cuántos sitios hay que editar cuando una decisión cambia (51 con un getter que oculta el nombre pero no la unidad, 0 con comportamiento encapsulado), qué fracción de órdenes de pruebas falla con un singleton (99,8 %), cuántos mutantes matan cinco ejemplos frente a los valores de borde (12 y 19 de 19), cuántos cambios de una respuesta rompe a un consumidor sin que la suite del proveedor lo vea (14 de 23). Cada clase declara además qué no demuestra.
 
 ```mermaid
 flowchart LR
-    A[Drivers y escenarios] --> B[Vistas coherentes]
-    B --> C[Agrupar en modulos o servicios]
-    C --> D[Dependencias hacia adentro]
-    D --> E[Dominio y contextos]
-    E --> F[Eventos y consistencia]
-    F --> G[Estilos de ejecucion]
-    G --> H[Funciones de aptitud]
-    H --> I[ADR y alternativas]
-    I --> J[Equipos y colas]
-    J --> K[Revision contra escenarios]
-    K --> L[Dossier verificable]
-    L -->|un escenario falla| A
+    A[Cohesión y acoplamiento] --> B[Principios y sus límites]
+    B --> C[Herencia, composición y delegación]
+    C --> D[Patrones de diseño]
+    D --> E[Funcional, reactivo y concurrente]
+    E --> F[Olores y diagnóstico]
+    F --> G[Refactorización segura]
+    G --> H[Diseño para cambio, prueba y operación]
+    H --> I[Complejidad esencial y accidental]
+    I --> J[Deuda técnica e interés]
+    J --> K[Taller de refactorización]
+    K --> L[Evolución compatible]
+    L -->|un consumidor se rompe o un cambio cuesta más de lo previsto| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un escenario que falla en la revisión o en una función de aptitud reabre la decisión que lo sostenía; un dossier validado no cierra la arquitectura, la fecha.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un cambio que cuesta más de lo medido, o un consumidor que se rompe, reabre el diseño; un componente evolucionado no cierra el diseño, lo fecha.
 
 ## Resultados acumulativos
 
-Podrás escribir cinco escenarios de calidad con medida y simular la capacidad que exige el pico; calcular la disponibilidad de una cadena con y sin causa común; reducir candidatos con restricciones y dominancia; generar vistas desde un modelo único y compararlas con trazas; calcular el radio de explosión de una topología; medir el coste de una llamada local, serializada y por red y la consistencia de una operación entre tres servicios; escribir un comprobador de fronteras con `ast` y declarar lo que no ve; medir qué arrastra cambiar la base de datos, comparar un doble con una base real y escribir una suite de contrato; separar contextos, enumerar las intercalaciones de un agregado y encapsular el redondeo de una nota; escribir consumidores idempotentes, calcular el coste de reconstruir un agregado y dimensionar un proyector; simular arranques en frío, el equilibrio de costo y la difusión por rumor; evaluar funciones de aptitud por su ruido; escribir ADR con un comprobador y calcular cuánto esperar antes de decidir; medir cambios que cruzan equipos, módulos huérfanos y colas; revisar una arquitectura contra doce escenarios con un modelo ejecutable; y entregar un dossier con validador, simulación de un mes, impacto de revertir cada decisión y límites declarados.
+Podrás calcular la falta de cohesión de una clase y contar los sitios que edita un cambio según el acceso al dato; estimar cuándo aparece el primer ciclo de dependencias sin una regla de capas; medir las funciones que modifica añadir una regla en una cadena y en un registro, y detectar con una prueba de contrato las subclases que rompen la sustitución; reproducir una clase base frágil, enumerar los órdenes de los decoradores y medir el efecto del orden de las bases en la herencia múltiple; ejecutar una suite en orden aleatorio, aislar observadores y calcular cuán parecidos son, por su estructura, los patrones; detectar impurezas con tres niveles de prueba, comparar cuatro políticas de una cola con contrapresión y enumerar las intercalaciones de dos hilos; medir olores sobre código de un repositorio fijado por commit y distinguir una falsa alarma de un problema; medir una red de pruebas con mutación y elegir el tamaño del paso de un refactor; inyectar el reloj, calcular los módulos que toca una decisión y reconstruir solicitudes con identificador; separar la complejidad esencial de la accidental y cubrir los pares de doce opciones; estimar el interés de una deuda y decidir cuándo pagarla; registrar un maestro dorado y decidir qué rarezas de una función heredada se conservan; y evolucionar un componente con un verificador de firmas, contratos de consumidor y una ventana de deprecación, sabiendo qué ve cada comprobación.
 
-Al finalizar podrás defender una arquitectura con sus escenarios, su modelo, sus decisiones registradas, sus pruebas continuas y una lista de lo que ni el modelo ni el validador ven, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Al finalizar podrás defender un diseño con sus cambios previsibles medidos, su red de pruebas con una puntuación de mutación, su registro de deuda con intereses estimados y su plan de evolución por fases, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
+- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): funciones, clases, módulos y pruebas básicas.
+- [Parte 6 — Paradigmas de programación](../../classes/part-06-paradigmas-de-programacion/): programación orientada a objetos, funcional y concurrente a nivel conceptual.
 - [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
-- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): contratos entre componentes, eventos duplicados y compatibilidad.
-- [Parte 15 — Procesos, planificación y estimación](../../classes/part-15-procesos-planificacion-y-estimacion/): colas, flujo y tiempo de entrega.
-- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): fronteras de confirmación, colas, idempotencia y consistencia eventual.
-- [Parte 22 — Embedded, IoT y tiempo real](../../classes/part-22-embedded-iot-y-tiempo-real/): plazos con el peor caso y fallos con causa común.
-- [Parte 24 — Diseño, patrones y refactorización](../../classes/part-24-diseno-patrones-y-refactorizacion/): acoplamiento, cohesión y evolución compatible dentro de un componente.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos.
+- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): contratos comprobables y compatibilidad entre versiones.
+- [Parte 16 — Git, colaboración y código abierto](../../classes/part-16-git-colaboracion-y-codigo-abierto/): historia de cambios, commits pequeños y revisión.
+- [Parte 24 — Software especializado y dominios](../../classes/part-24-software-especializado-y-dominios/): reglas de un dominio que el diseño debe reflejar.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar, datos sintéticos y, en una clase, el repositorio de este programa fijado por commit.
 
 ## Bloques y progresión
 
-1. **Fuerzas y vistas:** las clases 301–302 convierten necesidades en escenarios medibles y describen el sistema desde vistas que no se contradicen.
-2. **Estructura:** las clases 303–305 comparan formas de agrupar, ordenan las dependencias hacia adentro y trazan fronteras de significado.
-3. **Comunicación y ejecución:** las clases 306–307 deciden cómo se comunican los contextos y dónde corre cada pieza.
-4. **Evolución y decisiones:** las clases 308–310 protegen la arquitectura con pruebas, registran decisiones y miran a los equipos que las ejecutan.
-5. **Aplicar e integrar:** las clases 311–312 revisan una arquitectura contra escenarios y entregan un dossier verificable.
+1. **Reparto y reutilización:** las clases 289–291 miden cohesión, acoplamiento y encapsulación, ponen a prueba los principios SOLID y comparan herencia, composición y delegación.
+2. **Patrones y estado:** las clases 292–293 usan los patrones como vocabulario de problemas, con sus pruebas, y deciden dónde vive el estado con funciones puras, flujos con contrapresión y datos con un solo dueño.
+3. **Corregir lo existente:** las clases 294–295 diagnostican olores con contexto y refactorizan con una red de pruebas medida.
+4. **Diseñar y valorar:** las clases 296–298 diseñan para el cambio, la prueba y la operación, separan la complejidad esencial de la accidental y ponen precio a la deuda técnica.
+5. **Aplicar e integrar:** las clases 299–300 refactorizan una función heredada sin cambiar su comportamiento y evolucionan un componente sin romper a sus consumidores.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan simulaciones y mediciones ejecutadas con CPython 3.12.9 en Windows 11 y repetidas con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos** y las semillas están fijadas: las salidas de los doce experimentos fueron idénticas en ambos sistemas, salvo dos mediciones reales de tiempo (el coste de una llamada de `SE-303` y la velocidad de las pruebas de `SE-304`), cuyos valores dependen de la máquina y se publican como rangos de cinco ejecuciones en Windows y cuatro en Ubuntu. Ningún experimento mide un sistema, un equipo, una persona ni un proveedor reales: no se usó ningún servicio en la nube, agente de mensajería, almacén de eventos, base de datos de producción ni red; los precios son unidades ficticias y los tiempos de arranque, los tiempos de servicio y las disponibilidades de cada componente son supuestos del autor.
+Las figuras y los ejemplos de esta parte usan análisis de código y simulaciones ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, el código analizado es de ejemplo (salvo en `SE-306`, que usa cuatro archivos de scripts de este repositorio fijados por el commit `4dafaa63`) y las semillas están fijadas: las salidas de los doce experimentos fueron idénticas en ambos sistemas salvo el final de línea de la consola de Windows, sin diferencias en ninguna cifra. Ninguno mide tiempos de ejecución. Todo el código usa solo la biblioteca estándar y, en `SE-306`, `git`.
 
-Los experimentos son: la capacidad que exige un pico de entrega, la disponibilidad de una cadena en serie con y sin causa común y los candidatos que sobreviven a restricciones y dominancia (`SE-301`); las dependencias no declaradas que revelan las trazas, el radio de explosión de cuatro topologías y la latencia de una cadena de servicios (`SE-302`); el coste de una llamada en proceso, serializada y por TCP en bucle local, las operaciones inconsistentes entre tres servicios y un comprobador de fronteras con `ast` (`SE-303`); los módulos que arrastra cambiar la base de datos, la velocidad de una prueba con tres implementaciones del puerto y los defectos de un doble que detecta un contrato (`SE-304`); la probabilidad de afectar a otro equipo con un modelo único y con contextos, las intercalaciones que rompen un invariante de agregado y el redondeo de una nota (`SE-305`); consumidores de eventos bajo duplicados y desorden, el coste de reconstruir un agregado con instantáneas y el retraso de un modelo de lectura (`SE-306`); los arranques en frío por patrón de tráfico, el equilibrio de costo entre pago por uso y un servidor fijo y la difusión por rumor (`SE-307`); el coste de corregir una violación según cuándo se detecta, las falsas alarmas y regresiones perdidas de una prueba de rendimiento y tres alarmas sobre una deriva (`SE-308`); el ganador de una matriz según pesos y puntajes, un comprobador de ADR y cuánto esperar antes de decidir (`SE-309`); los cambios que cruzan equipos, los módulos huérfanos y los tiempos de entrega con colas (`SE-310`); la revisión de una arquitectura contra doce escenarios, la cobertura según quién revisa y la sensibilidad por parámetro (`SE-311`); y el validador de un dossier con 200 mutaciones, mil meses simulados de cuatro arquitecturas y el impacto de revertir cada decisión (`SE-312`).
+Los experimentos son: LCOM4 de una clase de envíos y de su separación, sitios de edición de treinta clientes según lean un campo, usen un getter o pidan comportamiento, y el primer ciclo de veinte módulos con dependencias al azar (`SE-301`); las funciones modificadas al añadir reglas en una cadena y en un registro, las subclases que rompen el contrato de una tarifa frente a ejemplos y azar, y los clientes afectados por una interfaz ancha con el costo de una abstracción (`SE-302`); un contador por herencia y por composición con dos bases, los 24 órdenes de cuatro recargos y 3000 jerarquías con herencia múltiple (`SE-303`); órdenes aleatorios de pruebas con un singleton, observadores que fallan y se dan de baja, y la similitud sintáctica de cinco patrones (`SE-304`); la detección de impurezas con tres niveles de prueba, una cola con cuatro políticas en un escenario estable y uno saturado, y todas las intercalaciones de dos hilos (`SE-305`); los umbrales de olores sobre 65 funciones, la duplicación frente a los parámetros y la envidia de características (`SE-306`); 19 mutantes de una función de tarifa, su cobertura de líneas y el tamaño del paso de un refactor (`SE-307`); los módulos tocados por decisión, el reloj real e inyectado en una semana y la reconstrucción de solicitudes sin identificador (`SE-308`); la misma regla en dos formas, la cobertura por pares de 4 a 12 opciones y la complejidad ciclomática y cognitiva (`SE-309`); cuatro políticas de pago de deuda frente al interés, refactorizar ahora o al primer cambio y la elección de archivos (`SE-310`); un refactor de cuatro pasos contra un maestro dorado de 3000 entradas, los mutantes que mata según su tamaño y los arcos que alcanza (`SE-311`); y doce cambios de una función pública frente a un verificador de firmas, la ventana de deprecación de 500 clientes y los contratos de ocho consumidores (`SE-312`).
 
-Los parámetros (el pico de 40 peticiones por segundo, el servicio lognormal de mediana 100 ms, las disponibilidades de 99,5 % a 99,99 %, el 30 % de causa común, las probabilidades de arista y de lectura por equipo, el 5 % de duplicados, el arranque en frío de 0,8 s, los precios ficticios, el 3 % de uso nuevo por commit, la deriva de 0,05 por semana, los puntajes de la matriz, el sesgo ×4 de los revisores, las salidas independientes de personas, las caídas exponenciales de 20 minutos y las mutaciones del dossier) son supuestos del autor y se declaran en cada clase. Dos de los validadores (el de ADR y el del dossier) se escribieron mirando los mismos casos con que se evalúan y por eso sus tasas de detección son optimistas; el validador de fronteras detecta las 16 violaciones estáticas que se le propusieron y ninguna de las 10 dinámicas. La parte no tiene laboratorio en `labs/` y no sustituye una revisión por personas con experiencia en arquitectura de sistemas, en operación de plataformas y en el dominio de cada decisión.
+Los parámetros (las clases y los treinta clientes, los grafos de veinte módulos, el contrato de `Tarifa` y sus cuatro subclases, las probabilidades de fallo de los observadores, la cola exponencial de 70 y 100 llegadas por segundo contra 80, las doce funciones de pureza, las etiquetas del detector de envidia, los 19 y los 39 mutantes, la probabilidad de 0,03 de defecto por paso, las matrices de conocimiento de los módulos, la duración media de 75 ms de una solicitud, el interés por unidad de deuda, la fricción de 3 puntos, la relación entre complejidad y cambios, el 10 % de valores no booleanos, los ocho consumidores y los porcentajes de clientes diligentes, reactivos y abandonados) son supuestos del autor, no datos de un producto, una institución ni de personas reales. Las reglas de los detectores (olores, envidia, firma, pureza) se escribieron mirando los mismos ejemplos que las evalúan: su exactitud real es desconocida. La complejidad cognitiva es una implementación simplificada del autor. Los generadores de números pseudoaleatorios de Python se usaron solo para simular. No se midió ningún proyecto de producción, no se ejecutó ningún hilo, no se usó ningún reloj de sistema ni ningún sistema de registros, no se contrastaron los mutantes con defectos reales y no se consultó a ningún consumidor real. Esta parte no tiene laboratorio propio en `labs/`; el proyecto `SE-312` define el paquete y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
 
 ## Guía razonada clase por clase
 
-La plataforma de entregas mantiene un caso, un modelo y un dossier estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué simulación la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+El componente `tarifas` mantiene su cálculo estable mientras cambian las decisiones de diseño. Cada clase explica qué incertidumbre reduce, qué medida la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-### Bloque 1 — Fuerzas y vistas
+### Bloque 1 — Reparto y reutilización
 
-#### SE-301 — Drivers, restricciones y atributos de arquitectura
+#### SE-301 — Cohesión, acoplamiento y encapsulación
 
-Un estilo arquitectónico solo se evalúa contra algo que se haya dicho en números. La clase simula cuántos trabajadores exige un pico de 40 peticiones por segundo y localiza el umbral de saturación, calcula cuánto cae una ruta de seis componentes con y sin réplicas y con un tercio de causa común, y cuenta qué candidatos sobreviven a restricciones y dominancia antes de ponderar.
+Un diseño se juzga por cuántos lugares toca un cambio. La clase calcula el LCOM4 de una clase mezclada y de sus tres partes, cuenta los sitios que edita un cambio de unidad según el acceso al dato y mide cuándo aparece el primer ciclo de dependencias si nadie decide su sentido.
 
-El estudiante entrega los drivers, las restricciones y cinco escenarios medibles. `SE-302` los mira desde vistas distintas.
+El estudiante separa `Envio` y registra la decisión que esconde cada módulo. `SE-302` examina los principios que guían esas separaciones.
 
-#### SE-302 — Vistas lógica, runtime, datos y despliegue
+#### SE-302 — SOLID y sus límites
 
-Cada vista responde una pregunta y omite casi todo lo demás. La clase compara la vista lógica con trazas de ejecución y calcula cuántas peticiones hacen falta para ver una dependencia rara, cuenta los recorridos que rompe la caída de cada nodo en cuatro topologías y mide cómo se alarga una petición que atraviesa ocho servicios en serie y en paralelo.
+Cada principio responde a un tipo de cambio y deja de pagar donde ese cambio no ocurre. La clase mide las funciones que modifica una regla nueva en una cadena y en un registro, detecta con una prueba de contrato las subclases que rompen la sustitución y calcula el costo de lectura de una abstracción sin segundo uso.
 
-El estudiante entrega un modelo único del que salen las vistas. `SE-303` decide qué fronteras son de red.
+El estudiante decide qué principio aplica a `tarifas` y cuál no. `SE-303` compara los mecanismos de reutilización.
 
-#### SE-303 — Monolito, modular monolith y servicios
+#### SE-303 — Composición, herencia y delegación
 
-Cruzar una frontera cuesta tres cosas distintas y la mayor parte de su beneficio puede obtenerse sin la red. La clase mide una llamada local, serializada y por TCP en bucle local, simula una operación entre tres servicios con y sin compensación y escribe un comprobador de fronteras con análisis estático que detecta 16 de 26 violaciones.
+Reutilizar tiene tres formas y cada una promete cosas distintas cuando la base cambia. La clase reproduce una clase base frágil, enumera los órdenes de cuatro decoradores y mide qué fracción de jerarquías con herencia múltiple se puede crear y cuántas dependen del orden de las bases.
 
-El estudiante entrega la decisión de agrupación con su escenario y su sacrificio. `SE-304` ordena las dependencias dentro de cada módulo.
+El estudiante decide, opción por opción, cómo se reutiliza. `SE-304` nombra los patrones que combinan estos mecanismos.
 
-### Bloque 2 — Estructura
+### Bloque 2 — Patrones y estado
 
-#### SE-304 — Capas, hexagonal, clean y ports and adapters
+#### SE-304 — Patrones creacionales, estructurales y conductuales
 
-La dirección de las dependencias, no el número de capas, decide cuánto arrastra un cambio. La clase calcula los módulos que dependen de la base de datos en tres estructuras (17 frente a 2), mide una prueba con un doble y con una base real y compara tres ejemplos con una suite de contrato sobre siete defectos sembrados.
+Un patrón es vocabulario de un problema, no una plantilla. La clase ejecuta una suite en orden aleatorio con un singleton y con inyección, mide las notificaciones que se pierden con observadores que fallan y calcula cuán parecidas son, por su estructura, cinco implementaciones de patrones distintos.
 
-El estudiante entrega un módulo con dependencias hacia adentro y un contrato. `SE-305` define el lenguaje de ese dominio.
+El estudiante documenta, por patrón, el problema, el cambio esperado y la prueba que lo vuelve visible. `SE-305` pregunta dónde vive el estado.
 
-#### SE-305 — Domain-Driven Design estratégico y táctico
+#### SE-305 — Patrones funcionales, reactivos y concurrentes
 
-Una misma palabra significa cosas distintas en equipos distintos. La clase compara la probabilidad de afectar a otro equipo con un modelo único y con contextos, enumera las intercalaciones de comandos concurrentes que rompen un invariante de agregado con y sin control de versión y mide el redondeo de una nota con cuatro representaciones.
+Decidir el dueño del estado decide qué puede salir mal. La clase detecta impurezas con tres niveles de prueba, compara cuatro políticas de una cola con un productor más rápido y enumera las intercalaciones de dos hilos que incrementan un contador.
 
-El estudiante entrega un mapa de contextos con un contrato mínimo. `SE-306` decide cómo viajan los hechos entre ellos.
+El estudiante asigna un dueño y una protección a cada dato de `tarifas`. `SE-306` pasa de los mecanismos a los síntomas.
 
-### Bloque 3 — Comunicación y ejecución
+### Bloque 3 — Corregir lo existente
 
-#### SE-306 — Event-driven, CQRS y event sourcing
+#### SE-306 — Code smells y diagnóstico contextual
 
-Los eventos desacoplan en el tiempo y obligan al consumidor a tolerar duplicados, desorden y retraso. La clase mide cuatro consumidores bajo duplicados y desorden, cuenta los eventos que hay que aplicar para reconstruir un agregado con instantáneas y mide el retraso de un modelo de lectura y la fracción de personas que no ve su propia escritura.
+Un olor es una sospecha que se confirma con contexto. La clase mide cuatro reglas sobre 65 funciones de un repositorio fijado por commit, simula el costo de mantener dos copias frente a unirlas y evalúa un detector de envidia de características contra el criterio de una persona.
 
-El estudiante entrega el contrato de los eventos y los consumidores. `SE-307` decide dónde corren.
+El estudiante entrega una tabla de diagnóstico con la decisión de tratar o dejar cada olor. `SE-307` ejecuta los tratamientos con seguridad.
 
-#### SE-307 — Arquitecturas serverless, edge y peer-to-peer
+#### SE-307 — Refactorización segura apoyada por pruebas
 
-El patrón de tráfico, no la moda, decide el estilo. La clase simula los arranques en frío de tres patrones y su concentración en los primeros segundos de un pico, calcula el tráfico a partir del cual un servidor fijo cuesta menos que pagar por uso y simula la difusión por rumor en una red con pares desconectados.
+Una red de pruebas se mide por lo que detecta, no por lo que ejecuta. La clase genera mutantes de una función con `ast`, contrasta cobertura de líneas con mutantes muertos y simula el costo de localizar un defecto según el tamaño del paso.
 
-El estudiante entrega la asignación de piezas a estilos con sus condiciones de invalidez. `SE-308` las convierte en pruebas.
+El estudiante entrega la red de `tarifas` con bordes derivados y el plan de pasos. `SE-308` diseña desde el principio para el cambio.
 
-### Bloque 4 — Evolución y decisiones
+### Bloque 4 — Diseñar y valorar
 
-#### SE-308 — Fitness functions y arquitectura evolutiva
+#### SE-308 — Diseño para cambio, prueba y operación
 
-Una función de aptitud se juzga por sus dos errores. La clase mide cuánto crece el coste de corregir una violación según cuándo se detecta, las falsas alarmas y las regresiones perdidas de una prueba de rendimiento con tres tamaños de muestra y tres alarmas (umbral, trinquete y pendiente) sobre una deriva lenta.
+Una misma decisión afecta a quien cambia, prueba y opera. La clase cuenta los módulos que toca una decisión en dos descomposiciones, ejecuta una prueba que depende del reloj en cada minuto de una semana y mide cuánto se degrada la reconstrucción de solicitudes sin identificador.
 
-El estudiante entrega un catálogo de funciones de aptitud con umbrales justificados. `SE-309` registra las decisiones que defienden.
+El estudiante lista las decisiones ocultas, las dependencias inyectadas y los datos registrados. `SE-309` separa la complejidad que el problema exige.
 
-#### SE-309 — Trade-offs, ADR y evaluación de alternativas
+#### SE-309 — Complejidad accidental y esencial
 
-Una matriz no decide, muestra qué supuestos hay que defender. La clase mide quién gana una matriz cuando cambian pesos y puntajes, evalúa un comprobador de ADR contra defectos de forma y de sentido (48 de 48 frente a 0 de 48) y calcula cuánto conviene esperar antes de decidir según el coste de revertir.
+Parte de la complejidad es el problema y no se quita. La clase escribe una regla de 96 casos en una tabla y en condicionales anidados, cubre los pares de doce opciones con nueve configuraciones y compara la complejidad ciclomática con una medida cognitiva simplificada.
 
-El estudiante entrega cuatro ADR con alternativas, sacrificios y condiciones de reapertura. `SE-310` mira a las personas que los ejecutan.
+El estudiante clasifica la complejidad de `tarifas` como esencial o accidental. `SE-310` pone precio a lo que queda.
 
-#### SE-310 — Arquitectura socio-técnica y límites de equipo
+#### SE-310 — Deuda técnica, interés y opciones
 
-La estructura de los equipos es parte de la arquitectura. La clase mide qué fracción de los cambios cruza equipos según el reparto de módulos (de 16,3 % a 72,5 %), qué fracción de módulos queda sin nadie que los conozca según cuántas personas los conocen y cuánto se alarga un cambio que pasa por varios equipos ocupados.
+La deuda cobra interés solo cuando se trabaja en ella. La clase simula cuatro políticas de pago según el interés, compara refactorizar ahora, al primer cambio o nunca según la frecuencia de cambio y mide qué criterio de elección de archivos evita más interés.
 
-El estudiante entrega un reparto de equipos con su sacrificio y su señal de revisión. `SE-311` lo somete a una revisión completa.
+El estudiante entrega un registro de deuda con interés estimado y decisión. `SE-311` aplica la refactorización a una función heredada.
 
 ### Bloque 5 — Aplicar e integrar
 
-#### SE-311 — Taller: revisar una arquitectura contra escenarios
+#### SE-311 — Taller: refactorizar sin alterar comportamiento
 
-Una revisión es una evaluación de escenarios contra un modelo, con sesgos conocidos. El taller ejecuta un modelo de arquitectura contra doce escenarios (seis fallan en la variante en servicios), estima la cobertura de las debilidades según cuántas personas revisan y de qué especialidades (de 2,0 % a 89,4 %) y mide qué parámetros invierten algún veredicto (8 de 144).
+Sin especificación, el oráculo es lo que el código hace hoy. El taller registra un maestro dorado de 3000 entradas, ejecuta un refactor de cuatro pasos que cambia el comportamiento en dos de ellos y mide los mutantes y los caminos que alcanza el maestro según su tamaño.
 
-El estudiante entrega la revisión con riesgos, puntos de sensibilidad y compromisos con dueño. `SE-312` los integra.
+El estudiante entrega el refactor con una decisión por rareza heredada. `SE-312` evoluciona el componente hacia sus usuarios.
 
-#### SE-312 — Proyecto: arquitectura defendible y verificable
+#### SE-312 — Proyecto: evolución compatible de un componente
 
-Un dossier completo en forma no es una arquitectura defendida. El proyecto valida la forma de un dossier con 200 mutaciones (150 detectadas), simula mil meses de cuatro arquitecturas con picos y caídas y calcula el impacto de revertir cada decisión, que los ADR declaran solo en parte. La Parte 26 lleva las decisiones a los datos.
+Compatible es lo que no rompe a quien usa, no lo que no cambia la firma. El proyecto compara un verificador de firmas con ocho consumidores, estima la ventana de deprecación de 500 clientes y mide quién detecta los cambios de una respuesta de doce campos. La Parte 27 pasa a la arquitectura.
 
-El estudiante entrega el dossier, el validador, la simulación y la lista de lo que ninguno ve.
+El estudiante entrega el paquete de evolución con sus fases y la lista de lo que ninguna comprobación ve.
 
 ## Resumen operativo del recorrido
 
 | Clase | Capacidad que construye | Pregunta que resuelve | Evidencia acumulativa |
 |---|---|---|---|
-| [SE-301](../../classes/part-25-arquitectura-de-software-y-dominio/se-301-drivers-restricciones-y-atributos-de-arquitectura/) | Drivers, restricciones y atributos de arquitectura | ¿Qué escenario medible fuerza la estructura? | `drivers.md` con escenarios, capacidad y disponibilidad |
-| [SE-302](../../classes/part-25-arquitectura-de-software-y-dominio/se-302-vistas-logica-runtime-datos-y-despliegue/) | Vistas lógica, runtime, datos y despliegue | ¿Qué vista contesta cada pregunta y se contradicen? | `views.md` con modelo único y comparación con trazas |
-| [SE-303](../../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/) | Monolito, modular monolith y servicios | ¿Qué fronteras deben ser de red? | `boundaries.md` con coste de llamada y comprobador |
-| [SE-304](../../classes/part-25-arquitectura-de-software-y-dominio/se-304-capas-hexagonal-clean-y-ports-and-adapters/) | Capas, hexagonal, clean y ports and adapters | ¿Hacia dónde apuntan las dependencias? | `dependencies.md` con grafos, tiempos y contrato |
-| [SE-305](../../classes/part-25-arquitectura-de-software-y-dominio/se-305-domain-driven-design-estrategico-y-tactico/) | Domain-Driven Design estratégico y táctico | ¿Qué significa cada palabra y qué regla no puede romperse? | `domain.md` con contextos, agregado y nota |
-| [SE-306](../../classes/part-25-arquitectura-de-software-y-dominio/se-306-event-driven-cqrs-y-event-sourcing/) | Event-driven, CQRS y event sourcing | ¿Qué debe saber un consumidor con duplicados y desorden? | `events.md` con consumidores y proyector |
-| [SE-307](../../classes/part-25-arquitectura-de-software-y-dominio/se-307-arquitecturas-serverless-edge-y-peer-to-peer/) | Arquitecturas serverless, edge y peer-to-peer | ¿Dónde corre cada pieza y en qué tráfico cambia? | `runtime-styles.md` con frío, costo y rumor |
-| [SE-308](../../classes/part-25-arquitectura-de-software-y-dominio/se-308-fitness-functions-y-arquitectura-evolutiva/) | Fitness functions y arquitectura evolutiva | ¿Qué prueba avisaría y con qué errores? | `fitness.md` con catálogo y umbrales |
-| [SE-309](../../classes/part-25-arquitectura-de-software-y-dominio/se-309-trade-offs-adr-y-evaluacion-de-alternativas/) | Trade-offs, ADR y evaluación de alternativas | ¿Qué se descartó y cuándo se reabre? | `decisions.md` con ADR y sensibilidad |
-| [SE-310](../../classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/) | Arquitectura socio-técnica y límites de equipo | ¿Qué coordinación exige este reparto de equipos? | `teams.md` con cruces, huérfanos y colas |
-| [SE-311](../../classes/part-25-arquitectura-de-software-y-dominio/se-311-taller-revisar-una-arquitectura-contra-escenarios/) | Taller: revisar una arquitectura contra escenarios | ¿Qué escenarios falla y qué parámetro lo decide? | `review.md` con veredictos y sensibilidad |
-| [SE-312](../../classes/part-25-arquitectura-de-software-y-dominio/se-312-proyecto-arquitectura-defendible-y-verificable/) | Proyecto: arquitectura defendible y verificable | ¿Puede otra persona refutar el dossier ejecutando algo? | `architecture-dossier/`, validador y simulación |
+| [SE-301](../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/) | Cohesión, acoplamiento y encapsulación | ¿Cuántos lugares toca este cambio? | `design-log.md` con LCOM4, sitios y ciclos |
+| [SE-302](../../classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites/) | SOLID y sus límites | ¿Qué cambio justifica este principio? | `solid-log.md` con contrato y medidas |
+| [SE-303](../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/) | Composición, herencia y delegación | ¿Qué detalle de la base conoce mi subclase? | `reuse-log.md` con orden y bases |
+| [SE-304](../../classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales/) | Patrones de diseño | ¿Qué problema resuelve este patrón y cómo lo pruebo? | `patterns-log.md` con problema y prueba |
+| [SE-305](../../classes/part-25-diseno-patrones-y-refactorizacion/se-305-patrones-funcionales-reactivos-y-concurrentes/) | Patrones funcionales, reactivos y concurrentes | ¿Quién es dueño de este dato? | `state-log.md` con dueños y políticas |
+| [SE-306](../../classes/part-25-diseno-patrones-y-refactorizacion/se-306-code-smells-y-diagnostico-contextual/) | Code smells y diagnóstico contextual | ¿Este olor es un problema aquí? | `smells-log.md` con diagnóstico |
+| [SE-307](../../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/) | Refactorización segura | ¿Qué prueba fallaría si cambio el comportamiento? | `refactor-log.md` con mutación y pasos |
+| [SE-308](../../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/) | Diseño para cambio, prueba y operación | ¿Qué decisión escondo, inyecto y registro? | `design-for-change-log.md` con decisiones |
+| [SE-309](../../classes/part-25-diseno-patrones-y-refactorizacion/se-309-complejidad-accidental-y-esencial/) | Complejidad accidental y esencial | ¿Cuánta de esta complejidad es del problema? | `complexity-log.md` con formas y pares |
+| [SE-310](../../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/) | Deuda técnica, interés y opciones | ¿Cuánto cuesta no pagar esta deuda? | `debt-log.md` con interés y decisión |
+| [SE-311](../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/) | Taller: refactorizar sin alterar comportamiento | ¿Qué rarezas heredadas conservo? | `workshop-log.md` con maestro y decisiones |
+| [SE-312](../../classes/part-25-diseno-patrones-y-refactorizacion/se-312-proyecto-evolucion-compatible-de-un-componente/) | Proyecto: evolución compatible de un componente | ¿A quién rompe este cambio y cómo lo sé? | `evolution-package-log.md`, verificador y plan |
 
 ## Proyecto integrador
 
-El proyecto **SE-312** entrega un dossier de arquitectura con cuatro drivers, doce escenarios medibles, cuatro ADR con alternativas, cuatro vistas generadas desde un modelo único, seis funciones de aptitud y un modelo ejecutable; un validador de forma con 200 mutaciones; la simulación de mil meses de cuatro arquitecturas; el impacto calculado de revertir cada decisión; y la lista de lo que ni el validador ni el modelo ven, con responsable y señal para dejar de ser un supuesto.
+El proyecto **SE-312** entrega un paquete de evolución con un verificador de compatibilidad por firma y su comparación con ocho consumidores, los contratos de esos consumidores, la ventana de deprecación estimada con sus supuestos, el plan por fases (ampliar, migrar, contraer) de cuatro cambios del componente `tarifas` y la lista de lo que ni el verificador, ni los contratos ni el modelo de migración ven. Se acompaña de los límites declarados: qué parte del paquete no se contrastó con consumidores reales ni con una infraestructura de despliegue.
 
 ## Criterios de salida
 
 - las doce clases explican todos sus temas mediante mecanismos, ejemplos y límites;
-- cada decisión de arquitectura cita un escenario con medida y la alternativa descartada;
-- cada afirmación de latencia, capacidad o disponibilidad sale de una cuenta o simulación que otra persona puede ejecutar;
-- cada frontera de módulo tiene una regla comprobable y una lista de lo que esa regla no ve;
-- cada decisión costosa de revertir tiene un ADR con sacrificio, reversibilidad y condición de reapertura;
-- los porcentajes y los parámetros se declaran como supuestos y nunca como mediciones de un producto;
+- cada afirmación de que un diseño «es mejor» se apoya en una medida sobre un cambio concreto y declara lo que esa medida no ve;
+- cada refactor se hace en pasos que se comparan con un oráculo cuya capacidad de detección se midió;
+- cada olor, deuda o abstracción tiene una decisión de tratar o dejar, con su razón y su evidencia;
+- las probabilidades, los porcentajes y los parámetros se declaran como supuestos y nunca como mediciones de un producto;
 - otra persona reproduce comandos y resultados desde un checkout limpio;
 - el informe declara lo observado, lo inferido y lo no ejecutado.
 
 ## Preguntas de control por bloque
 
-- ¿Qué escenario con medida fuerza esta estructura y qué pasó con las alternativas?
-- ¿Qué vista contesta esta pregunta y qué otra podría contradecirla?
-- ¿Cuántas llamadas por operación cruzan esta frontera y qué cuesta cada una?
-- ¿Hacia dónde apunta cada dependencia y qué comprobación lo garantiza?
-- ¿Qué pasa si este mensaje llega dos veces, fuera de orden o tarde?
-- ¿Con qué tasa de falsa alarma y de alarma perdida funciona esta prueba?
-- ¿Qué señal reabriría esta decisión?
+- ¿Qué decisión escondió este módulo y cuántos lugares toca su cambio?
+- ¿Qué detalle de la base conoce esta subclase y qué pasaría si la base lo cambiara?
+- ¿Qué prueba fallaría si este refactor cambiara el comportamiento y cómo sé que fallaría?
+- ¿Cuánto interés paga este código cada vez que lo toco y cuántas veces lo toco?
+- ¿Quién usa qué de esta interfaz y qué parte de mi comprobación depende de que alguien lea el sentido?
 
 ## Fuentes de la parte
 
-- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — modelo de calidad del producto de software; autoridad: ISO.
-- [SEI, «The Architecture Tradeoff Analysis Method»](https://www.sei.cmu.edu/library/the-architecture-tradeoff-analysis-method/) — evaluación de arquitectura contra escenarios; autoridad: Software Engineering Institute (Carnegie Mellon).
-- [Kruchten, «The 4+1 View Model of Architecture» (IEEE Software, 1995)](https://doi.org/10.1109/52.469759) — vistas arquitectónicas unidas por escenarios; autoridad: IEEE Software.
-- [Parnas, «On the criteria to be used in decomposing systems into modules» (CACM, 1972)](https://doi.org/10.1145/361598.361623) — ocultación de información como criterio de descomposición; autoridad: Communications of the ACM.
-- [Cockburn, «Hexagonal architecture»](https://alistair.cockburn.us/hexagonal-architecture/) — puertos y adaptadores; autoridad: Alistair Cockburn.
-- [Evans, «Domain-Driven Design Reference»](https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf) — patrones estratégicos y tácticos; autoridad: Eric Evans.
-- [Fowler, «What do you mean by Event-Driven?»](https://martinfowler.com/articles/201701-event-driven.html) — patrones de arquitectura dirigida por eventos; autoridad: Martin Fowler.
-- [Vogels, «Eventually consistent» (CACM, 2009)](https://doi.org/10.1145/1435417.1435432) — consistencia eventual; autoridad: Communications of the ACM.
-- [Jonas et al., «Cloud Programming Simplified: A Berkeley View on Serverless Computing»](https://arxiv.org/abs/1902.03383) — serverless y sus límites; autoridad: UC Berkeley (preimpresión).
-- [Ford, Parsons y Kua, «Building Evolutionary Architectures» (O'Reilly)](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/) — funciones de aptitud; autoridad: O'Reilly Media.
-- [Nygard, «Documenting Architecture Decisions»](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions) — registros de decisión de arquitectura; autoridad: Michael Nygard.
-- [Conway, «How Do Committees Invent?» (1968)](https://www.melconway.com/Home/Committees_Paper.html) — estructura de comunicación y diseño; autoridad: Melvin Conway.
-- [Dean y Barroso, «The Tail at Scale» (CACM, 2013)](https://doi.org/10.1145/2408776.2408794) — latencia extrema en sistemas con muchas llamadas; autoridad: Communications of the ACM.
+- [Parnas, «On the criteria to be used in decomposing systems into modules» (CACM, 1972)](https://doi.org/10.1145/361598.361623) — descomposición por decisiones ocultas; autoridad: Communications of the ACM.
+- [Stevens, Myers y Constantine, «Structured design» (IBM Systems Journal, 1974)](https://doi.org/10.1147/sj.132.0115) — cohesión y acoplamiento; autoridad: IBM Systems Journal.
+- [Liskov y Wing, «A behavioral notion of subtyping» (ACM TOPLAS, 1994)](https://doi.org/10.1145/197320.197383) — subtipos que preservan el comportamiento; autoridad: ACM TOPLAS.
+- [Gamma, Helm, Johnson y Vlissides, «Design Patterns» (1994)](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-9780201633610) — catálogo de patrones; autoridad: los autores (Addison-Wesley).
+- [Fowler, «Refactoring» (2.ª ed.)](https://martinfowler.com/books/refactoring.html) — refactorizar en pasos pequeños con pruebas; autoridad: Martin Fowler.
+- [DeMillo, Lipton y Sayward, «Hints on Test Data Selection» (IEEE Computer, 1978)](https://doi.org/10.1109/C-M.1978.218136) — origen de la prueba de mutación; autoridad: IEEE Computer.
+- [Brooks, «No Silver Bullet» (IEEE Computer, 1987)](https://doi.org/10.1109/MC.1987.1663532) — complejidad esencial y accidental; autoridad: IEEE Computer.
+- [Cunningham, «The WyCash Portfolio Management System» (OOPSLA, 1992)](http://c2.com/doc/oopsla92.html) — metáfora de la deuda técnica; autoridad: su autor.
+- [Semantic Versioning 2.0.0](https://semver.org/) — versionado para comunicar compatibilidad; autoridad: sus autores.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — áreas de conocimiento de ingeniería de software; autoridad: IEEE Computer Society.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de la plataforma de entregas se demuestra con el caso, la evidencia trazable y la revisión del dossier. Las páginas de ISO bloquean peticiones automáticas y no pudieron comprobarse con `curl`; los DOI se verificaron con la API de Crossref y el resto respondió con éxito a una petición de solo lectura.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de `tarifas` se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.

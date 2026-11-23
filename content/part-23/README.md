@@ -1,206 +1,190 @@
-# Parte 23 — Software especializado y dominios
+# Parte 23 — Runtimes y plataformas modernas
 
-La Parte 22 llevó el software a dispositivos sin sistema operativo, donde el tiempo y los recursos son parte de lo correcto. La pregunta cambia de «qué hace el programa en un dispositivo» a «qué reglas trae el dominio en que trabajo y qué evidencia permite afirmar que mi software las respeta». Esta parte trabaja sobre una **plataforma educativa ficticia que incorpora, clase a clase, una pieza de un dominio especializado**: un modelo de entregas a tiempo, una cadena de datos de entregas, un aviso de riesgo con aprendizaje automático, un laboratorio de física, una sala virtual con voz y casco, el cobro de matrículas, un módulo de enfermería escolar, certificados verificables, un mapa de sedes con calendario, y una automatización de avisos. Recorre la reproducibilidad del software científico, la ingeniería de datos y el procesamiento analítico, el aprendizaje automático como componente de producto, los videojuegos y la simulación, los gráficos, el audio y la realidad extendida, las invariantes del dinero, los datos de salud y los sistemas regulados, las cadenas de bloques y los contratos inteligentes, los sistemas geoespaciales y temporales, el low-code, un taller de comparación de riesgos entre dominios y un proyecto de diseño profundo de un dominio elegido.
+Las partes anteriores enseñaron a construir, probar, desplegar y operar software sobre un computador, un sistema operativo y una nube que se dan por sentados. Esta parte baja una capa y mira los runtimes y las plataformas que cambian lo que ese software puede asumir: un formato portable y validado que corre dentro de un proceso (WebAssembly y WASI), programas verificados dentro del núcleo (eBPF), aceleradores con otro modelo de ejecución y de memoria, fronteras de aislamiento de distinta fuerza y costo (procesos, contenedores, microVM, sandboxes), hardware que demuestra a distancia qué código corre, un ordenador cuántico que cambia los supuestos de la criptografía, los algoritmos que la sustituyen y una arquitectura de confianza que no depende de la red. Todo se mide sobre el caso sintético del programa, **el servicio *Avisos***, que ahora acepta código de las universidades, calcula un riesgo para cientos de miles de estudiantes y debe poder explicar qué cubre y qué no cubre su aislamiento.
 
 ## Pregunta rectora
 
-> ¿Qué afirmación de dominio se hace, qué validación permite sostenerla y qué defecto pasaría sin que ninguna comprobación lo notara?
+> Para este código que no escribimos y esta plataforma que no controlamos del todo, ¿qué puede hacer, qué lo contiene, cuánto cuesta esa contención, qué evidencia la prueba y qué supuesto, si falla, la rompe?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un dominio completo ni una herramienta. Enseña a medir cuántos resultados distintos produce una suma según su orden y cuánto vale una estimación con varias semillas, a hacer idempotente una carga de datos y a medir qué pierde una ventana, a detectar una fuga de la etiqueta y a leer el valor predictivo de un aviso según la prevalencia, a fijar el paso de tiempo de una simulación y probar la colisión de lo que va rápido, a calcular el pliegue de un tono y el presupuesto de un fotograma, a representar el dinero con enteros y comparar un libro mayor con un oráculo, a medir la unicidad de un conjunto «anónimo» y los dos errores de fusionar fichas, a calcular la probabilidad de reescribir una cadena y ordenar una reentrada, a distinguir un instante de una hora civil, a probar los pares de decisiones de un flujo y a declarar quién responde por él. Cada clase ejecuta simulaciones con datos sintéticos que muestran un mecanismo (205 totales distintos con los mismos números, 442 filas duplicadas con un 5 % de lotes fallidos, una exactitud que cae de 0,899 a 0,515 en producción, 20 finales distintos con paso variable, un 38,68 % de facturas con un céntimo de diferencia, un 91,2 % de registros únicos tras quitar el nombre, 180 días de una tarea corrida una hora, un 43,9 % de defectos de interacción hallados con dos pruebas) y declara lo que esa simulación no demuestra.
+Esta parte no defiende un runtime ni una moda: enseña a leer cada uno como un **paquete de garantías con un costo medible y un límite declarado**. Las dos primeras clases estudian el módulo de WebAssembly como unidad de aislamiento dentro de un proceso: su validación, su memoria lineal, el combustible que detiene un bucle, las importaciones que son sus únicas capacidades y WASI como modelo de capacidades (`SE-277`), y después lo que cuesta ejecutarlo en un servidor y en el borde, con la separación de compilar, serializar e instanciar, la política de instancias y el papel del modelo de componentes (`SE-278`). La tercera ejecuta de verdad programas eBPF en el núcleo de Linux de WSL2: nueve programas cargados, lo que el verificador acepta o rechaza con su mensaje real y el costo por ejecución (`SE-279`). Las dos siguientes tratan los aceleradores sin hardware disponible: el modelo de ejecución y de memoria con proxies de CPU y un modelo de divergencia (`SE-280`), y el rendimiento y el costo por petición con una tabla cuyos supuestos están a la vista (`SE-281`). Después vienen las fronteras de aislamiento, con el costo de crear un hilo, una instancia y un proceso y las comprobaciones que desmontan un sandbox casero (`SE-282`), y el hardware seguro, con la lógica de medición, cita y sellado y lo que la atestación no demuestra (`SE-283`). El bloque criptográfico es la computación cuántica simulada con NumPy (`SE-284`), la criptografía poscuántica con implementaciones reales de ML-KEM y ML-DSA y el plan de migración (`SE-285`) y la confianza cero con tokens de destinatario y vida corta (`SE-286`). Cierran un taller con una batería de comportamientos hostiles contra tres candidatos (`SE-287`) y un proyecto que une todo en una plataforma con evidencia encadenada y un informe firmado con un algoritmo poscuántico (`SE-288`).
 
 ```mermaid
 flowchart LR
-    A[Reproducibilidad científica] --> B[Datos y procesamiento analítico]
-    B --> C[Aprendizaje automático en producto]
-    C --> D[Juegos y simulación]
-    D --> E[Gráficos, audio y realidad extendida]
-    E --> F[Dinero e invariantes]
-    F --> G[Salud y sistemas regulados]
-    G --> H[Cadenas de bloques y contratos]
-    H --> I[Espacio y tiempo]
-    I --> J[Low-code]
-    J --> K[Taller de riesgos entre dominios]
-    K --> L[Diseño profundo de un dominio]
-    L -->|hallazgo o supuesto cambiado| A
+    A[Módulo de WebAssembly] --> B[Servidor, borde y componentes]
+    B --> C[eBPF en el núcleo]
+    C --> D[Aceleradores: modelo]
+    D --> E[Aceleradores: costo]
+    E --> F[Fronteras de aislamiento]
+    F --> G[Hardware seguro y atestación]
+    G --> H[Computación cuántica]
+    H --> I[Criptografía poscuántica]
+    I --> J[Confianza cero]
+    J --> K[Taller: batería hostil]
+    K --> L[Proyecto: plataforma con evidencia]
+    L -->|incidente o cambio de supuesto| F
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo en un dominio (un oráculo que discrepa, un supuesto que cambia el signo de una decisión) reabre la afirmación que se había dado por sostenida; un dosier verificado no cierra el diseño, lo fecha.
+El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los mecanismos y sus costos. El retorno indica que una decisión de aislamiento se revisa cuando un incidente o un cambio de supuesto (una vulnerabilidad, un algoritmo que se deprecia, un nuevo tipo de carga) invalida la evidencia, y que se vuelve a la pregunta de qué frontera contiene qué.
 
 ## Resultados acumulativos
 
-Podrás medir cuántos totales distintos produce la suma de los mismos datos en otro orden, cuánto vale una estimación con muchas semillas y en cuántos pasos se separan dos trayectorias de un sistema caótico; comparar una carga que añade con una que escribe por clave, medir los eventos tardíos que descarta cada tolerancia y el desequilibrio de una clave popular; medir cuánto infla una fuga la métrica de prueba, el valor predictivo de un detector según la prevalencia y las alarmas de deriva según el tamaño de la ventana; comparar el paso variable con el fijo, la colisión discreta con la barrida y el bucle con y sin tope de pasos; medir la compensación entre la latencia de un búfer de audio y sus subcargas, el pliegue de un tono y los fotogramas fuera de presupuesto; comprobar el dinero con coma flotante, un libro mayor con invariantes y con oráculo y los cobros duplicados con y sin clave; medir la unicidad por generalización, las fusiones erróneas por umbral y los avisos de una alarma; contar los intentos de una prueba de trabajo, la probabilidad de un doble gasto y la extracción por reentrada; medir el error de la distancia plana, un año de reloj con cambio de hora y los candidatos de una rejilla; comparar pruebas aleatorias con pruebas de pares, los duplicados según la memoria y los flujos huérfanos; medir la estabilidad de un ranking de riesgos, el acuerdo entre evaluadores y la cobertura de los controles; y entregar un dosier de dominio con un validador, un análisis de sensibilidad y un manifiesto canónico.
+Podrás compilar y ejecutar un módulo de WebAssembly con `wasmtime`, provocar una trampa por acceso fuera de memoria y comprobar que el almacén sigue utilizable, detener un bucle infinito con combustible, ver que el anfitrión puede recortar el tope de memoria que declara el módulo, repetir un módulo de WASI con y sin un directorio concedido y comparar la misma suma en Wasm, Python puro y NumPy; medir los pasos del arranque (motor, compilación, deserialización, instancia), comparar una instancia reutilizada con una nueva por petición, comprobar que una importación no definida impide instanciar y explicar qué añade el modelo de componentes y qué no se ejecutó.
 
-Al finalizar podrás defender un diseño de dominio con su afirmación refutable, sus invariantes, su oráculo, sus experimentos reproducibles en dos sistemas, su sensibilidad a los supuestos y una lista de lo que ningún validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Podrás cargar programas eBPF reales en un núcleo de Linux, leer el mensaje del verificador de siete casos, entender que rechaza por complejidad y no «detecta bucles infinitos», ver un caso aceptado por conocimiento del análisis y ejecutar un contador cien mil veces con su costo por evento; medir la vectorización, el patrón de acceso a memoria y la intensidad aritmética con NumPy como proxy, modelar la divergencia de un grupo de 32 hilos, medir el lote y la precisión, calcular la ley de Amdahl con transferencia y construir una tabla de costo por millón de peticiones según la demanda con unidades enteras.
+
+Podrás ejecutar cuatro comprobaciones de un sandbox casero (entorno heredado, tiempo no acotado, bucle incortable en un hilo y escape por introspección), medir el costo de crear un hilo, una instancia y un proceso y modelar capas con y sin causa común; construir una cadena de medición con extensión, una cita con desafío fresco, un sellado atado a la medición y un modelo de flota que muestra lo que la atestación de arranque no detecta; simular un estado de Bell y uno GHZ, medir el costo exponencial de simular qubits, ejecutar Grover y la búsqueda de periodo de Shor para N = 15 y medir el efecto del ruido.
+
+Podrás ejecutar ML-KEM-768 y ML-DSA-65 reales, leer sus tamaños frente a X25519 y Ed25519 y su efecto en los segmentos de un saludo, ver el rechazo implícito, entender con una firma de Lamport por qué las claves de un solo uso no se reutilizan, aplicar la desigualdad de Mosca y comprobar un esquema híbrido; emitir y verificar tokens con audiencia y expiración, calcular el radio de daño de una credencial robada en tres arquitecturas y la ventana de uso indebido según su vida; y ejecutar una batería de seis comportamientos hostiles contra tres candidatos, construir una plataforma con validador de subida, límites, registro encadenado y un informe firmado, y escribir un expediente con su tabla amenaza-mecanismo-prueba.
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
-- [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
-- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): invariantes, contratos comprobables y modelos de referencia.
-- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): reintentos, idempotencia y entrega al menos una vez.
-- [Parte 22 — Embedded, IoT y tiempo real](../../classes/part-22-embedded-iot-y-tiempo-real/): plazos, simulaciones con semilla fija y la lista de lo que una simulación no demuestra.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos.
+- [Parte 01 — Computadores y representación de la información](../../classes/part-01-computadores-y-representacion-de-informacion/): CPU e instrucciones (`SE-017`), memoria y cachés (`SE-018`), procesos e interrupciones (`SE-019`), compilación y JIT (`SE-020`) y runtimes y máquinas virtuales (`SE-021`).
+- [Parte 21 — Software móvil, de escritorio y multiplataforma](../../classes/part-21-software-movil-escritorio-y-multiplataforma/): firma, sandbox y seguridad del cliente (`SE-262`).
+- [Parte 33 — Cloud, plataforma e infraestructura](../../classes/part-33-cloud-plataforma-e-infraestructura/): máquinas virtuales, contenedores y aislamiento (`SE-398`), orquestación (`SE-399`), serverless (`SE-400`) y redes, identidad y secretos en cloud (`SE-401`).
+- [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): latencia, throughput y saturación (`SE-436`), perfiles y errores de medición (`SE-437`) y escalado y costos (`SE-404` en la Parte 33).
+- [Parte 38 — Seguridad, privacidad y cumplimiento](../../classes/part-38-seguridad-privacidad-y-cumplimiento/): modelos de amenaza (`SE-457`), identidad y sesiones (`SE-458`), autorización y mínimo privilegio (`SE-459`), criptografía aplicada y claves (`SE-461`) y secretos (`SE-462`).
+- [Parte 39 — Build, release y cadena de suministro](../../classes/part-39-build-release-y-cadena-de-suministro/): dependencias (`SE-471`), SBOM, procedencia y atestaciones (`SE-472`) y firmas y verificación (`SE-473`).
+- Python 3.11+ y terminal. Los experimentos usan la biblioteca estándar y NumPy; los de WebAssembly y criptografía poscuántica usan además `wasmtime`, `kyber-py` y `dilithium-py` con versión fija (si faltan, el script lo declara y no inventa un resultado). El experimento de eBPF necesita un Linux con permisos de administrador (se ejecutó en WSL2).
 
 ## Bloques y progresión
 
-1. **Ciencia, datos y aprendizaje:** las clases 277–279 hacen repetible un cálculo, una cadena de datos y la evaluación de un modelo, y separan lo que garantiza la repetición exacta de lo que exige variar semillas, reintentos y poblaciones.
-2. **Tiempo real para las personas:** las clases 280–281 tratan el paso de tiempo de una simulación, la colisión de lo rápido, el muestreo de una señal y el presupuesto de un fotograma.
-3. **Dominios donde el error se paga:** las clases 282–284 cubren el dinero, la salud y las cadenas de bloques, donde una comprobación tiene que decir lo que nunca debe pasar y lo que debe pasar.
-4. **Espacio, tiempo y automatización:** las clases 285–286 tratan las coordenadas, los relojes y los flujos visuales, donde la convención oculta es la fuente del fallo.
-5. **Aplicar e integrar:** las clases 287–288 comparan riesgos entre dominios y entregan el diseño profundo de uno.
+1. **Aislar código dentro del proceso y del núcleo:** las clases 577 a 579 estudian WebAssembly, su ejecución en servidor y borde, y eBPF, con ejecuciones reales de ambos.
+2. **Aceleradores y fronteras:** las clases 580 a 582 tratan el modelo y el costo de los aceleradores y las fronteras de aislamiento, con la advertencia de lo que no se pudo ejecutar.
+3. **Confianza, cuántica y criptografía:** las clases 583 a 586 cubren el hardware seguro y la atestación, la computación cuántica, la criptografía poscuántica y su migración, y la confianza cero.
+4. **Elegir y construir con evidencia:** las clases 587 y 588 aplican la parte con una batería hostil y una plataforma de ejecución aislada con un expediente revisable.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan simulaciones ejecutadas con CPython 3.12.9 en Windows 11 y repetidas con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos** y las semillas están fijadas: las salidas de los doce experimentos fueron idénticas en ambos sistemas, salvo el orden de listado de los riesgos con la misma frecuencia en `SE-287` (el orden de un conjunto de cadenas no está definido) y la codificación de los acentos en la consola de Windows, sin diferencias en ninguna cifra. Ninguno mide tiempos de ejecución. Todo el código usa solo la biblioteca estándar.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados en Windows 11 con CPython 3.12.9, NumPy 2.5.5, `wasmtime` 50.0.1, `kyber-py` 1.2.0 y `dilithium-py` 1.5.1; el experimento de eBPF se ejecutó en WSL2 (núcleo `6.18.58.1-microsoft-standard-WSL2`, Python 3.12.3). Los recuentos, los tamaños y las simulaciones con semilla 48 se repiten idénticos; los tiempos de reloj varían entre ejecuciones y entre equipos. **No se invocó ningún modelo de lenguaje.**
 
-Los experimentos son: el orden de la suma de veinte mil números, la dispersión de una estimación de π con doscientas semillas y el horizonte de divergencia de un mapa logístico (`SE-277`); una carga con reintentos que añade o escribe por clave, los eventos tardíos según la tolerancia de una ventana y la carga de la partición más cargada con y sin sal (`SE-278`); una variable que contiene la etiqueta, el valor predictivo según la prevalencia y las alarmas de un índice de deriva (`SE-279`); un resorte con paso variable y fijo, la colisión discreta y la barrida contra una pared fina y un bucle con y sin tope de pasos (`SE-280`); la latencia y las subcargas de un búfer de audio, el pliegue de tonos muestreados y los fotogramas fuera del presupuesto de una pantalla de 90 Hz (`SE-281`); seis comprobaciones del dinero con coma flotante, cinco defectos en un libro mayor y los cobros duplicados con y sin clave (`SE-282`); la unicidad de cinco mil registros por nivel de generalización, la fusión de fichas por umbral y los avisos de una alarma (`SE-283`); los intentos de una prueba de trabajo con SHA-256, la probabilidad de rehacer la cadena y una reentrada en un contrato de juguete (`SE-284`); el error de la distancia plana, un año de reloj con cambio de hora y los candidatos de un índice de rejilla (`SE-285`); las pruebas aleatorias frente a las de pares, los duplicados según la memoria de identificadores y los flujos sin responsable (`SE-286`); la estabilidad de un ranking, el acuerdo entre evaluadores y la cobertura de controles (`SE-287`); y un validador de dosier con ocho mutaciones, la sensibilidad de una decisión y las huellas de un paquete (`SE-288`).
+Lo que se ejecutó de verdad: módulos de WebAssembly escritos a mano, compilados y ejecutados con `wasmtime` (trampas, combustible, límites de memoria, WASI con y sin directorio, pasos del arranque y aislamiento entre peticiones); nueve programas eBPF cargados en un núcleo de Linux con su veredicto y su mensaje reales y un contador ejecutado cien mil veces; mediciones de CPU con NumPy (vectorización, patrón de acceso, lote, precisión, producto de matrices); comprobaciones de un sandbox casero y costo de crear un hilo, una instancia y un proceso; simulación de circuitos cuánticos con vectores de estado y la transformada rápida de Fourier; ML-KEM-768 y ML-DSA-65 con sus tamaños; una firma de Lamport con SHA-256; tokens firmados con HMAC; una batería hostil de seis comportamientos; y una plataforma mínima con registro encadenado e informe firmado con ML-DSA-65.
 
-Los parámetros (las magnitudes de 10⁻⁶ a 10⁸, el mapa logístico de r = 3,9, los fallos a mitad de lote, el retraso lognormal de mediana 5 s, la distribución de Zipf, la copia de la etiqueta correcta el 90 % de las veces, la sensibilidad de 0,90 y la especificidad de 0,95, el resorte de rigidez 40, la pared de 0,2 unidades, los costes de actualización con picos del 2 %, el coste de audio con picos lognormales, el coste de dibujo con σ = 0,25, el IVA del 19 %, el libro de tres cuentas, la población de cinco mil registros, los nombres de doce por doce combinaciones, los pacientes con deterioros del 2 %, los 12 a 16 bits de dificultad, la fracción de poder del atacante, la zona con dos cambios al año, los veinte mil puntos de la rejilla, las diez bifurcaciones, el 5 % de re-entregas con mediana de 30 s, el 15 % anual de salida de responsables, las puntuaciones de 1 a 5 de los diez dominios, los ocho controles, los rangos del modelo de coste y las ocho mutaciones del dosier) son supuestos del autor, no datos de un producto, una institución ni de personas reales. Las puntuaciones de riesgo de `SE-287` son un juicio ilustrativo, y los acuerdos entre evaluadores son ruido gaussiano simulado, no mediciones de personas. El validador de `SE-288` se escribió con las reglas que se le ocurrieron al autor: su alcance real es desconocido. Los generadores de números pseudoaleatorios de Python se usaron solo para simular; no son criptográficos. No se usó ningún código científico real, motor de procesamiento, biblioteca de aprendizaje automático, motor de juego, tarjeta gráfica, casco, procesador de pagos, banco, dato clínico, red de cadena de bloques ni base de datos de zonas horarias o espacial; no se midió confort ni percepción, no se evaluó ninguna norma y no se auditó ningún sistema. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador `SE-288` define el dosier y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
+Lo que **no se ejecutó** y se declara en cada clase: ningún núcleo en una GPU (el controlador de la GPU del equipo informó «GPU is lost») ni ningún acelerador alquilado; ningún entorno de ejecución confiable ni TPM (la lógica de medición, cita y sellado se simuló con SHA-256 y HMAC); ningún ordenador cuántico ni SDK de proveedor (todo se simuló de forma clásica); el modelo de componentes de WebAssembly (el paquete de Python no lo expone); ningún programa eBPF enganchado a tráfico real, rastreo o seguridad; ningún contenedor, microVM, gVisor, Firecracker ni Kata; ningún saludo TLS real ni SLH-DSA; ningún emisor de identidad, malla de servicios ni punto de decisión de política; y ningún sistema de producción. Las implementaciones de `kyber-py` y `dilithium-py` son de estudio, no de producción: sus tiempos no representan implementaciones optimizadas.
+
+Los parámetros del autor (precios y capacidades de la tabla de costos, probabilidades por capa, porcentajes de la flota, el radio de daño de 200 servicios, la detección de media 20 minutos, los valores de la desigualdad de Mosca, las reglas de aviso del proyecto) son construcciones didácticas y no mediciones de ningún proveedor ni sistema. Las cifras de recursos para factorizar RSA-2048 vienen de un artículo citado, no de este laboratorio. Una revisión editorial humana independiente de la parte sigue pendiente.
 
 ## Guía razonada clase por clase
 
-La plataforma educativa ficticia mantiene un mismo caso mientras cambia el dominio. Cada clase explica qué incertidumbre reduce, qué simulación la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+*Avisos* abre su plataforma a código de terceros y a cargas más pesadas mientras cambian los supuestos de la criptografía. Cada clase explica qué runtime o frontera atiende el problema, qué experimento lo mide, qué no demuestra y qué evidencia permitiría abandonar la conclusión.
 
-### Bloque 1 — Ciencia, datos y aprendizaje
+### Bloque 1 — Aislar código dentro del proceso y del núcleo
 
-#### SE-277 — Software científico y reproducibilidad
+#### SE-277 — WebAssembly y WASI
 
-Repetir, reproducir y replicar son promesas distintas con fallos distintos. La clase mide cuántos totales produce la suma de los mismos datos en otro orden, cuánto varía una estimación con la semilla y cuántos pasos tarda un sistema caótico en separarse de una copia casi idéntica.
+Un módulo de WebAssembly es un binario validado que corre en una memoria lineal propia y solo toca el mundo por las importaciones que el anfitrión define. La clase compila a mano un módulo de 236 bytes, provoca una trampa, detiene un bucle infinito con combustible, comprueba que el anfitrión recorta la memoria que declara el módulo, repite WASI con y sin un directorio concedido y mide la misma suma en Wasm, Python y NumPy.
 
-El estudiante entrega una declaración de reproducibilidad con versiones, semillas, tolerancia y límites. `SE-278` mueve esos datos por una cadena de procesamiento.
+El estudiante entrega la lista de importaciones que concedería a una regla de terceros con las tres pruebas de contención. `SE-278` pasa del módulo único al servicio con muchas peticiones.
 
-#### SE-278 — Ingeniería de datos y procesamiento analítico
+#### SE-278 — WebAssembly en servidor y borde: component model
 
-Una cadena de datos es correcta cuando repetir una etapa no cambia el estado. La clase compara una carga que añade con una que escribe por clave tras fallos a mitad de lote, mide qué eventos tardíos pierde cada tolerancia y calcula el desequilibrio que una clave popular causa entre particiones.
+El arranque en frío es la suma de pasos con costos muy distintos. La clase separa motor, compilación, deserialización e instancia, compara una instancia reutilizada con una nueva por petición, enlaza un módulo que pide una capacidad no concedida y describe lo que el modelo de componentes añade, declarando que no se ejecutó.
 
-El estudiante entrega la cadena con escritura idempotente, ventana y reparto medido. `SE-279` usa esas tablas como entrada de un modelo.
+El estudiante entrega el plan de ejecución con la tabla de costos por paso y la política de instancias. `SE-279` cambia de runtime: el núcleo de Linux.
 
-#### SE-279 — Machine learning como componente de producto
+#### SE-279 — eBPF: observabilidad, red y seguridad en el kernel
 
-Una métrica solo vale si la prueba imita el uso. La clase mide cuánto infla la exactitud una variable que contiene la respuesta, cuántos avisos son falsos según la prevalencia y con qué frecuencia suena una alarma de deriva sin cambio real.
+eBPF permite ejecutar programas pequeños dentro del núcleo tras un verificador que decide antes de ejecutar. La clase ensambla y carga nueve programas en un núcleo real, lee los mensajes del verificador, muestra que rechaza por complejidad y no por «detectar bucles», ejecuta un contador cien mil veces y lo compara con la misma cuenta en Python.
 
-El estudiante entrega el aviso con línea base, revisión de variables, métricas con prevalencia y plan de respaldo. `SE-280` pasa a un dominio donde el tiempo es lo que debe ser correcto.
+El estudiante entrega los veredictos con el mensaje literal y la política de quién carga. `SE-280` pasa a los aceleradores.
 
-### Bloque 2 — Tiempo real para las personas
+### Bloque 2 — Aceleradores y fronteras
 
-#### SE-280 — Videojuegos, loops, entidades y simulación
+#### SE-280 — GPU y aceleradores: modelo de ejecución
 
-El paso de tiempo decide si una partida se puede repetir y si lo rápido atraviesa lo fino. La clase cuenta los finales distintos de una simulación con paso variable y fijo, mide a qué velocidad una colisión discreta pierde una pared y compara un bucle con y sin tope de pasos cuando actualizar cuesta más que el paso.
+Un acelerador gana con mucho trabajo regular por byte movido, y la memoria suele decidir. Sin GPU utilizable, la clase mide con NumPy la vectorización, el patrón de acceso y la intensidad aritmética, y modela la divergencia de un grupo de 32 hilos con semilla fija, declarando que es un proxy.
 
-El estudiante entrega un laboratorio con paso fijo, colisión barrida y tope de pasos. `SE-281` baja el presupuesto a milisegundos de audio y de imagen.
+El estudiante entrega el modelo de ejecución con tres cargas clasificadas. `SE-281` convierte el modelo en economía.
 
-#### SE-281 — Gráficos, audio, XR y experiencias inmersivas
+#### SE-281 — Rendimiento y costo en aceleradores
 
-Lo que una persona ve y oye es una señal muestreada con un plazo. La clase mide la compensación entre la latencia de un búfer de audio y sus subcargas, comprueba el pliegue de un tono sobre la mitad de la tasa de muestreo y cuenta los fotogramas fuera del presupuesto de una pantalla de 90 Hz.
+El costo por petición depende de la utilización más que del precio por hora. La clase mide el efecto del lote (con una anomalía que se deja a la vista) y de la precisión, calcula Amdahl con transferencia y construye una tabla de costo por demanda con unidades enteras y supuestos declarados.
 
-El estudiante entrega la sala virtual con búfer adaptable, filtro previo, vigilancia del percentil alto y alternativas sensoriales. `SE-282` entra en un dominio donde el error se cobra.
+El estudiante entrega la tabla con sus supuestos y la condición que cambiaría la decisión. `SE-282` estudia las fronteras para ejecutar código ajeno.
 
-### Bloque 3 — Dominios donde el error se paga
+#### SE-282 — Contenedores, microVM y sandboxes
 
-#### SE-282 — Fintech, contabilidad e invariantes monetarias
+Las fronteras se ordenan por lo que comparten con el anfitrión. La clase mide el costo de crear un hilo, una instancia de Wasm y un proceso, ejecuta cuatro comprobaciones que desmontan un sandbox casero y calcula cuánto suman las capas según compartan o no una causa de fallo.
 
-El dinero exige enteros, una regla de redondeo escrita y comprobaciones con oráculo. La clase hace seis comprobaciones con coma flotante, inyecta cinco defectos en un libro mayor y mide los cobros duplicados con y sin clave de idempotencia.
+El estudiante entrega una matriz de decisión por confianza y por inquilino. `SE-283` baja al hardware.
 
-El estudiante entrega el cobro con importes enteros, libro de doble entrada y clave de idempotencia. `SE-283` pasa a datos todavía más delicados.
+### Bloque 3 — Confianza, cuántica y criptografía
 
-#### SE-283 — Salud, datos sensibles y sistemas regulados
+#### SE-283 — Hardware seguro: TEE y atestación
 
-Quitar el nombre no anonimiza, un umbral único fusiona historias y un exceso de avisos es un riesgo. La clase mide la unicidad de cinco mil registros por generalización, las fusiones correctas y erróneas por umbral y los avisos por deterioro de una alarma.
+Un entorno de ejecución confiable promete aislar datos en uso y la atestación demuestra qué código corre, no que sea seguro. La clase construye la lógica de medición, cita con desafío y sellado, y modela una flota para mostrar qué detecta la atestación de arranque y qué no, declarando que no se ejecutó hardware de confianza.
 
-El estudiante entrega el módulo con tres almacenes, conjunto generalizado, fusión en tres zonas y alarma con persistencia. `SE-284` sustituye la institución por un protocolo.
+El estudiante entrega el protocolo de atestación de un servicio con sus amenazas fuera de alcance. `SE-284` cambia los supuestos de la criptografía.
 
-#### SE-284 — Blockchain, consenso y contratos inteligentes
+#### SE-284 — Computación cuántica para ingenieros de software
 
-Una cadena hace detectable una alteración, no verdadero un dato. La clase cuenta los intentos de una prueba de trabajo, compara la probabilidad de rehacer la cadena por simulación y por fórmula y reproduce una reentrada en un contrato de juguete.
+Un ordenador cuántico no prueba todo a la vez: organiza interferencia para un problema con estructura. La clase simula circuitos con NumPy, mide el costo exponencial de simularlos, ejecuta Grover (y su caída al pasarse de iteraciones) y la búsqueda de periodo de Shor para N = 15, y mide el ruido sobre un estado GHZ.
 
-El estudiante entrega una decisión justificada entre firma, registro auditable y cadena. `SE-285` pasa al espacio y al tiempo.
+El estudiante entrega una clasificación de afirmaciones por su respaldo y un inventario de criptografía de clave pública. `SE-285` es el plan.
 
-### Bloque 4 — Espacio, tiempo y automatización
+#### SE-285 — Criptografía poscuántica y migración
 
-#### SE-285 — Sistemas geoespaciales y temporales
+La migración consiste en inventariar, priorizar por vida útil de los datos y probar que los nuevos tamaños no rompen nada. La clase ejecuta ML-KEM-768 y ML-DSA-65 reales, compara tamaños y segmentos de un saludo, enseña el rechazo implícito y la lección de una firma basada en resumen de un solo uso, aplica la desigualdad de Mosca y comprueba un esquema híbrido.
 
-Una coordenada y una hora son datos con convención. La clase mide el error de tratar grados como un plano, cuenta las horas repetidas e inexistentes de un año con cambio de hora y los candidatos que examina un índice de rejilla según el tamaño de celda.
+El estudiante entrega un plan de migración con inventario, prioridad y riesgos de tamaño. `SE-286` decide quién puede pedir qué a quién.
 
-El estudiante entrega el mapa con haversine y prefiltro, y el calendario con instante UTC, zona y hora local. `SE-286` pasa a la automatización visual.
+#### SE-286 — Confianza cero en la práctica
 
-#### SE-286 — Low-code, no-code y automatización visual
+La confianza cero se mide en radio de daño y en minutos de uso de una credencial robada. La clase emite y verifica tokens con destinatario y expiración, calcula servicios alcanzables en tres arquitecturas y modela la ventana de uso indebido según la vida de la credencial frente al retraso de detección.
 
-Quitar el código no quita las decisiones. La clase compara pruebas aleatorias con pruebas de pares en un flujo de diez bifurcaciones, mide los duplicados que pasan una memoria corta de identificadores y cuántas automatizaciones quedan sin responsable.
+El estudiante entrega el mapa de flujos con su política y la política de fallo del punto de decisión. `SE-287` pone todo a prueba.
 
-El estudiante entrega la automatización con pruebas de pares, receptor idempotente, responsables y registro. `SE-287` pone los dominios uno al lado de otro.
+### Bloque 4 — Elegir y construir con evidencia
 
-### Bloque 5 — Aplicar e integrar
+#### SE-287 — Taller: elegir y aislar un runtime para una carga no confiable
 
-#### SE-287 — Taller: comparar riesgos entre dominios
+La elección de una frontera se confirma con una batería, no con una opinión. El taller ejecuta seis comportamientos hostiles contra `exec` sin funciones integradas, un proceso hijo con entorno vacío y un módulo de WebAssembly con combustible, y deriva una regla de decisión por carga.
 
-Un ranking de riesgos sin su estabilidad es una opinión con números. El taller mide cuánto resiste el orden de diez dominios a otros pesos, cuánto discrepan dos evaluadores simulados y qué riesgos cubre una lista corta de controles.
+El estudiante entrega su matriz predicha frente a la medida y la regla de decisión. `SE-288` la convierte en una plataforma.
 
-El estudiante entrega la matriz con anclas, justificaciones, estabilidad, acuerdo, cobertura y la lista de lo que no se compara. `SE-288` aplica el método a un dominio.
+#### SE-288 — Proyecto: plataforma de ejecución aislada con evidencia
 
-#### SE-288 — Proyecto: diseño profundo de un dominio elegido
+Un mecanismo sin una prueba que falle si falta no es evidencia. El proyecto une validador de subida, límites por petición, política de falla, registro encadenado por resúmenes e informe firmado con ML-DSA-65, y exige una tabla amenaza-mecanismo-prueba y una sección «no cubierto».
 
-Un dosier completo no es un dosier correcto. El proyecto valida un dosier con ocho mutaciones, mide qué supuestos cambian el signo de una decisión de construir o comprar y compara una huella de bytes con una canónica. La Parte 24 vuelve al diseño del código.
-
-El estudiante entrega el dosier, el validador, la sensibilidad, el manifiesto y la lista de lo que el validador no ve.
+El estudiante entrega el expediente de su plataforma con las pruebas que lo respaldan. Con esta clase se cierra la parte.
 
 ## Resumen operativo del recorrido
 
-| Clase | Capacidad que construye | Pregunta que resuelve | Evidencia acumulativa |
-|---|---|---|---|
-| [SE-277](../../classes/part-23-software-especializado-y-dominios/se-277-software-cientifico-y-reproducibilidad/) | Software científico y reproducibilidad | ¿Qué debo conservar para repetir mi cálculo y qué variar para saber qué vale? | `science-log.md` con orden, semillas y horizonte |
-| [SE-278](../../classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico/) | Ingeniería de datos y procesamiento analítico | ¿Qué garantiza la cadena si una etapa falla o un evento llega tarde? | `data-log.md` con idempotencia, ventana y reparto |
-| [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/) | Machine learning como componente de producto | ¿Qué dice la métrica y qué hace el producto si el modelo se equivoca? | `ml-log.md` con fuga, prevalencia y deriva |
-| [SE-280](../../classes/part-23-software-especializado-y-dominios/se-280-videojuegos-loops-entidades-y-simulacion/) | Videojuegos, loops, entidades y simulación | ¿Qué garantiza el bucle cuando cambia el tiempo entre fotogramas? | `game-log.md` con paso, colisión y tope de pasos |
-| [SE-281](../../classes/part-23-software-especializado-y-dominios/se-281-graficos-audio-xr-y-experiencias-inmersivas/) | Gráficos, audio, XR y experiencias inmersivas | ¿Qué límite de información y qué plazo impone el dispositivo? | `media-log.md` con búfer, pliegue y fotogramas |
-| [SE-282](../../classes/part-23-software-especializado-y-dominios/se-282-fintech-contabilidad-e-invariantes-monetarias/) | Fintech, contabilidad e invariantes monetarias | ¿Qué defecto pasaría sin que ninguna invariante lo notara? | `money-log.md` con redondeo, oráculo y clave |
-| [SE-283](../../classes/part-23-software-especializado-y-dominios/se-283-salud-datos-sensibles-y-sistemas-regulados/) | Salud, datos sensibles y sistemas regulados | ¿Quién puede reidentificar, mezclar o ignorar un dato de salud? | `health-log.md` con unicidad, fusión y alarma |
-| [SE-284](../../classes/part-23-software-especializado-y-dominios/se-284-blockchain-consenso-y-contratos-inteligentes/) | Blockchain, consenso y contratos inteligentes | ¿Qué garantiza el protocolo y qué depende del código y del atacante? | `chain-log.md` con trabajo, confirmaciones y reentrada |
-| [SE-285](../../classes/part-23-software-especializado-y-dominios/se-285-sistemas-geoespaciales-y-temporales/) | Sistemas geoespaciales y temporales | ¿Qué convención de espacio o de tiempo asume este dato? | `geo-log.md` con distancia, reloj e índice |
-| [SE-286](../../classes/part-23-software-especializado-y-dominios/se-286-low-code-no-code-y-automatizacion-visual/) | Low-code, no-code y automatización visual | ¿Qué decide este flujo y quién responde por él? | `flow-log.md` con pares, duplicados y propiedad |
-| [SE-287](../../classes/part-23-software-especializado-y-dominios/se-287-taller-comparar-riesgos-entre-dominios/) | Taller: comparar riesgos entre dominios | ¿Cuánto resiste el orden de riesgos a otros pesos y evaluadores? | `risk-compare-log.md` con estabilidad, acuerdo y cobertura |
-| [SE-288](../../classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido/) | Proyecto: diseño profundo de un dominio elegido | ¿Qué puede refutar otra persona sin preguntarme nada? | `domain-package-log.md`, dosier, validador y manifiesto |
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-277](../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/) | WebAssembly y WASI | Entrega la lista de importaciones que concedería a una regla de terceros con las tres pruebas de contención |
+| [SE-278](../../classes/part-23-runtimes-y-plataformas-modernas/se-278-webassembly-en-servidor-y-borde-component-model/) | WebAssembly en servidor y borde: component model | Entrega el plan de ejecución con la tabla de costos por paso y la política de instancias |
+| [SE-279](../../classes/part-23-runtimes-y-plataformas-modernas/se-279-ebpf-observabilidad-red-y-seguridad-en-el-kernel/) | eBPF: observabilidad, red y seguridad en el kernel | Entrega los veredictos del verificador con su mensaje literal y la política de quién carga |
+| [SE-280](../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/) | GPU y aceleradores: modelo de ejecución | Entrega el modelo de ejecución con tres cargas clasificadas |
+| [SE-281](../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/) | Rendimiento y costo en aceleradores | Entrega la tabla de costo por demanda con sus supuestos y la condición de revisión |
+| [SE-282](../../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/) | Contenedores, microVM y sandboxes | Entrega la matriz de decisión por confianza, inquilinos y frontera |
+| [SE-283](../../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/) | Hardware seguro: TEE y atestación | Entrega el protocolo de atestación de un servicio con sus amenazas fuera de alcance |
+| [SE-284](../../classes/part-23-runtimes-y-plataformas-modernas/se-284-computacion-cuantica-para-ingenieros-de-software/) | Computación cuántica para ingenieros de software | Entrega la clasificación de afirmaciones y el inventario de criptografía de clave pública |
+| [SE-285](../../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/) | Criptografía poscuántica y migración | Entrega el plan de migración con inventario, prioridad y riesgos de tamaño |
+| [SE-286](../../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/) | Confianza cero en la práctica | Entrega el mapa de flujos con su política y la política de fallo del punto de decisión |
+| [SE-287](../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/) | Taller: elegir y aislar un runtime para una carga no confiable | Entrega la matriz predicha frente a la medida y la regla de decisión por carga |
+| [SE-288](../../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/) | Proyecto: plataforma de ejecución aislada con evidencia | Entrega el expediente de su plataforma con la tabla amenaza-mecanismo-prueba y las pruebas que la respaldan |
 
-## Proyecto integrador
+## Fuentes
 
-El proyecto **SE-288** entrega un dosier de dominio con diez secciones (dominio, afirmación, invariantes, datos, experimentos, riesgos, límites, fuentes, decisiones y revisión), un validador de forma con sus mutaciones, un análisis de sensibilidad de la decisión, un manifiesto con huellas canónicas y la lista de afirmaciones que el validador no ve, firmada por quien revisó el contenido. Se acompaña de los límites declarados: qué parte del dosier no se comprobó con datos reales, con un proveedor real ni con una persona experta en el dominio.
+- [WebAssembly Core Specification](https://webassembly.github.io/spec/core/), [WebAssembly: Security](https://webassembly.org/docs/security/), [WASI](https://wasi.dev/), [Component Model](https://component-model.bytecodealliance.org/) y [Wasmtime](https://docs.wasmtime.dev/) — formato, aislamiento, capacidades, componentes y runtime; autoridad: la comunidad de WebAssembly y la Bytecode Alliance.
+- [ebpf.io, «What is eBPF?»](https://ebpf.io/what-is-ebpf/), [documentación del núcleo: BPF](https://docs.kernel.org/bpf/) y [verificador](https://docs.kernel.org/bpf/verifier.html), [`bpf(2)`](https://man7.org/linux/man-pages/man2/bpf.2.html) y [seccomp](https://docs.kernel.org/userspace-api/seccomp_filter.html) — programas verificados en el núcleo y filtrado de llamadas; autoridad: el proyecto del núcleo de Linux y la eBPF Foundation.
+- [NVIDIA, «CUDA Programming Guide»](https://docs.nvidia.com/cuda/cuda-programming-guide/), [Williams, Waterman y Patterson, «Roofline»](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html) y [Google, «Service Level Objectives»](https://sre.google/sre-book/service-level-objectives/) — modelo de ejecución de aceleradores, rendimiento por intensidad aritmética y latencia por percentiles; autoridad: NVIDIA, UC Berkeley y Google.
+- [NIST SP 800-190](https://csrc.nist.gov/pubs/sp/800/190/final), [`namespaces(7)`](https://man7.org/linux/man-pages/man7/namespaces.7.html), [cgroup v2](https://docs.kernel.org/admin-guide/cgroup-v2.html), [gVisor](https://gvisor.dev/docs/), [Firecracker](https://firecracker-microvm.github.io/), [Kata Containers](https://katacontainers.io/) y la [especificación de ejecución de OCI](https://github.com/opencontainers/runtime-spec) — contenedores, microVM y sandboxes; autoridad: NIST, el proyecto del núcleo y los proyectos citados.
+- [RFC 9334 (RATS)](https://www.rfc-editor.org/info/rfc9334/), [Confidential Computing Consortium](https://confidentialcomputing.io/), [AMD SEV](https://www.amd.com/en/developer/sev.html), [Arm CCA](https://www.arm.com/architecture/security-features/arm-confidential-compute-architecture), [AWS Nitro Enclaves](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html) y [TPM 2.0](https://www.trustedcomputinggroup.org/resources/documents/tpm-library-specification) — atestación y entornos de ejecución confiables; autoridad: IETF, CCC y los fabricantes citados, que describen sus propios productos.
+- [Shor](https://arxiv.org/abs/quant-ph/9508027), [Grover](https://arxiv.org/abs/quant-ph/9605043), [Preskill, «NISQ»](https://arxiv.org/abs/1801.00862), [Gidney, «less than a million noisy qubits»](https://arxiv.org/abs/2505.15917) y la [documentación de IBM Quantum](https://quantum.cloud.ibm.com/docs/en/guides) — algoritmos, ruido y estimaciones de recursos; autoría de los investigadores citados.
+- [NIST FIPS 203](https://csrc.nist.gov/pubs/fips/203/final), [FIPS 204](https://csrc.nist.gov/pubs/fips/204/final), [FIPS 205](https://csrc.nist.gov/pubs/fips/205/final), [NIST IR 8547](https://csrc.nist.gov/pubs/ir/8547/ipd), [RFC 10024](https://datatracker.ietf.org/doc/rfc10024/), [RFC 8446](https://www.rfc-editor.org/info/rfc8446/) y [NCSC](https://www.ncsc.gov.uk/whitepaper/preparing-for-quantum-safe-cryptography) — criptografía poscuántica, transición y TLS híbrido; autoridad: NIST, IETF y NCSC.
+- [NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final), [CISA, «Zero Trust Maturity Model»](https://www.cisa.gov/zero-trust-maturity-model), [SPIFFE](https://spiffe.io/docs/latest/spiffe-about/overview/), [BeyondCorp](https://cloud.google.com/beyondcorp) y [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/) — arquitectura de confianza cero e identidad de cargas de trabajo; autoridad: NIST, CISA, SPIFFE, Google y OWASP.
+- [SLSA](https://slsa.dev/), [in-toto](https://in-toto.io/), [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104), [NumPy](https://numpy.org/doc/stable/) y la [documentación de Python](https://docs.python.org/3/) (`hashlib`, `hmac`, `socket`, `subprocess`, `timeit`) — procedencia, autenticación de mensajes y herramientas usadas por los experimentos; autoridad: OpenSSF, IETF, el proyecto NumPy y la Python Software Foundation.
 
-## Criterios de salida
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y describen mecanismos; que un runtime o una frontera convenga a un sistema se demuestra con el caso, la evidencia medida y la revisión de otra persona, no con la autoridad de la fuente. Varias son documentación de fabricantes sobre sus propios productos y se leen como tales.
 
-- las doce clases explican todos sus temas mediante mecanismos, ejemplos y límites;
-- cada afirmación de dominio es refutable y enlaza con el experimento que la sostiene;
-- cada escritura que se reintenta tiene una condición de idempotencia comprobada, no supuesta;
-- cada invariante va acompañada de un oráculo independiente que cubre lo que la invariante no ve;
-- cada convención de espacio o de tiempo (sistema de referencia, zona, redondeo) está declarada y probada en sus bordes;
-- las probabilidades, los porcentajes y los parámetros se declaran como supuestos y nunca como mediciones de un producto;
-- otra persona reproduce comandos y resultados desde un checkout limpio, en un segundo sistema;
-- el informe declara lo observado, lo inferido y lo no ejecutado.
+## Criterios de aceptación de la parte
 
-## Preguntas de control por bloque
+- cada clase conecta mecanismo, medida y límite en una conclusión revisable;
+- cada medida puede reproducirse desde un checkout limpio con las mismas versiones y semillas, salvo las lecturas de reloj, que declaran por qué no;
+- ninguna afirmación sobre un acelerador, un entorno de ejecución confiable, un ordenador cuántico, un contenedor o una microVM se apoya en una medición que no se hizo: lo no ejecutado se declara;
+- el expediente final se puede aplicar a una carga nueva por otra persona y declara sus supuestos, su tabla amenaza-mecanismo-prueba y lo que su plataforma no cubre.
 
-- ¿Qué parte de este resultado se repite exactamente y qué parte exige variar semillas, órdenes o máquinas?
-- ¿Qué pasa si esta etapa se ejecuta dos veces?
-- ¿Qué métrica de prueba cambiaría si una variable no existiera al decidir?
-- ¿Qué garantiza este bucle cuando el tiempo entre fotogramas cambia?
-- ¿Qué defecto pasaría sin que ninguna invariante lo notara?
-- ¿Qué convención de espacio o de tiempo está asumiendo este dato?
-- ¿Qué parte del dosier depende de que una persona lea el sentido y no de una comprobación?
-
-## Fuentes de la parte
-
-- [Peng, «Reproducible Research in Computational Science» (Science, 2011)](https://doi.org/10.1126/science.1213847) — espectro de reproducibilidad; autoridad: Science.
-- [Goldberg, «What every computer scientist should know about floating-point arithmetic» (ACM Computing Surveys, 1991)](https://doi.org/10.1145/103162.103163) — redondeo y no asociatividad; autoridad: ACM Computing Surveys.
-- [Akidau et al., «The Dataflow Model» (VLDB, 2015)](https://doi.org/10.14778/2824032.2824076) — tiempo del evento, ventanas y marcas de agua; autoridad: Proceedings of the VLDB Endowment.
-- [Kaufman et al., «Leakage in Data Mining» (ACM TKDD, 2012)](https://doi.org/10.1145/2382577.2382579) — fuga de datos; autoridad: ACM Transactions on Knowledge Discovery from Data.
-- [Fiedler, «Fix Your Timestep!» (Gaffer On Games)](https://gafferongames.com/post/fix_your_timestep/) — paso fijo y espiral de la muerte; autoridad: autor del artículo.
-- [Shannon, «Communication in the Presence of Noise» (Proceedings of the IRE, 1949)](https://doi.org/10.1109/JRPROC.1949.232969) — teorema del muestreo; autoridad: Proceedings of the IRE.
-- [Python: `decimal`](https://docs.python.org/3/library/decimal.html) — aritmética decimal con redondeo explícito; autoridad: documentación de Python.
-- [Sweeney, «k-anonymity: a model for protecting privacy» (2002)](https://doi.org/10.1142/S0218488502001648) — k-anonimato; autoridad: International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems.
-- [Nakamoto, «Bitcoin: A Peer-to-Peer Electronic Cash System» (2008)](https://bitcoin.org/bitcoin.pdf) — cadena de bloques con prueba de trabajo; autoridad: autor del documento.
-- [IANA, Time Zone Database](https://www.iana.org/time-zones) — reglas de las zonas horarias; autoridad: IANA.
-- [Kuhn, Kacker y Lei, NIST SP 800-142, «Practical Combinatorial Testing»](https://csrc.nist.gov/pubs/sp/800/142/final) — pruebas combinatorias; autoridad: NIST.
-- [NIST SP 800-30 Rev. 1, «Guide for Conducting Risk Assessments»](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf) — evaluación de riesgos; autoridad: NIST.
-- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — áreas de conocimiento de ingeniería de software; autoridad: IEEE Computer Society.
-
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de la plataforma educativa ficticia se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
+[Volver al índice de clases](../../classes/README.md)

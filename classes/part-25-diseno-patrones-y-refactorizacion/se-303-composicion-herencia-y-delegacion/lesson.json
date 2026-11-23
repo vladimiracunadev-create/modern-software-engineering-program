@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-303",
+  "title": "Composición, herencia y delegación",
+  "stage": "E",
+  "part": "25",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion"
+}

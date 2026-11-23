@@ -657,15 +657,14 @@ def render_grouped_map(
 
 
 def render_extension_block() -> str:
-    """Sección de ampliación de las partes 40-48; deja `{planned_rows}` para rellenarlo por rol."""
+    """Sección de ampliación de las partes planificadas; deja `{planned_rows}` para rellenarlo por rol."""
 
     planned = ps.planned_parts()
     if not planned:
         return (
             ps.roles_extension_heading()
-            + "\n\n> [!NOTE]\n> Las Partes 40–48 (`SE-481`–`SE-588`) ya están desarrolladas "
-            "([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y "
-            "[ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)); sus clases figuran en el núcleo y en las "
+            + "\n\n> [!NOTE]\n> Todas las partes del alcance ya están desarrolladas "
+            "([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)); sus clases figuran en el núcleo y en las "
             "clases de apoyo de esta guía.\n"
         )
     return (
@@ -673,8 +672,8 @@ def render_extension_block() -> str:
         + f"""
 
 > [!NOTE]
-> {ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} desde el 17 de noviembre
-> de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
+> {ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)}; sus números están reservados desde el 23 de
+> noviembre de 2026 ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.
 
@@ -700,7 +699,7 @@ def planned_notes() -> tuple[str, str]:
     )
     short = (
         f"{ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} "
-        "([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)), sin clases publicadas: "
+        "([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)), sin clases publicadas: "
         "aparecen como «Planificada» y sin enlaces."
     )
     return detail, short

@@ -1,5 +1,10 @@
 # ADR-006 — Ampliar el programa con las Partes 45–48 y tres roles nuevos
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](../ID-MIGRATION.md) ([ADR-007](ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 - Estado: aceptada el 2026-11-17.
 - Contexto: tras publicar las Partes 00–44 ([ADR-004](ADR-004-expand-to-540-class-scope.md) y
   [ADR-005](ADR-005-publish-parts-40-44-from-content.md)), una revisión entre las promesas de

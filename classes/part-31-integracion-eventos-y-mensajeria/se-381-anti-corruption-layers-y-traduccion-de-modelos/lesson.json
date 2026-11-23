@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-381",
+  "title": "Anti-corruption layers y traducción de modelos",
+  "stage": "E",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-31-integracion-eventos-y-mensajeria/se-381-anti-corruption-layers-y-traduccion-de-modelos"
+}

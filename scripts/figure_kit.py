@@ -856,4 +856,4 @@ def timeline(title: str, desc: str, lanes: Sequence[tuple[str, Sequence[tuple]]]
 
 
 # Diagrams of states and flows already exist: ``Fig.box``, ``Fig.arrow``, ``Fig.group``, ``Fig.dot`` and the
-# ``flow()`` helper of scripts/figures_part40_a.py (rows of boxes joined by arrows).
+# ``flow()`` helper of scripts/figures_part45_a.py (rows of boxes joined by arrows).

@@ -1,76 +1,72 @@
-"""Experimento de ampliación de SE-466: verificador de una ficha de sistema de IA frente a obligaciones de alto riesgo.
+"""Experimento de ampliación de SE-458 (confianza cero): ventana de exposición de una credencial robada.
 
-Datos sintéticos, semilla fija, solo biblioteca estándar.
+Modelo sintético con semilla fija, solo biblioteca estándar.
 Uso: python scripts/experiments_part38_ext.py   (imprime una línea JSON)
 
-La ficha es un diccionario con el caso de uso, el nivel de riesgo declarado y siete campos de evidencia que
-corresponden, de forma simplificada, a los requisitos de los artículos 9 a 15 del Reglamento (UE) 2024/1689 para
-sistemas de alto riesgo. El verificador (1) clasifica el caso de uso por palabras clave de las áreas del anexo III
-y avisa si el nivel declarado es menor, y (2) exige los siete campos si el nivel es alto. Se aplican 200 mutaciones:
-borrar un campo, declarar «mínimo» un caso de alto riesgo con su redacción literal y declarar «mínimo» un caso de alto
-riesgo redactado con otras palabras. No es asesoría legal ni una evaluación de conformidad.
+Se roba una credencial en un instante cualquiera de su vida. Se distinguen dos robos: una COPIA filtrada (registro,
+repositorio, copia de seguridad: el atacante tiene el valor pero no el equipo) y un EQUIPO comprometido (el atacante
+puede pedir credenciales nuevas mientras la identidad siga válida). La detección tarda un tiempo lognormal (mediana
+6 h, sigma 1,2) y el 25 % de los robos no se detecta en la ventana de observación de 720 h (30 días). Diseños:
+A llave estática que rota cada 90 días y se revoca a mano 4 h tras detectar; B token portador de 1 h sin
+revocación; C token portador de 15 min que se revoca al renovar; D token de 1 h atado a la clave del cliente
+(mTLS o prueba de posesión) y política evaluada en cada solicitud, con propagación de la revocación de 1 min.
+Supuestos del autor; no se midió ninguna organización.
 """
 import json
+import math
 import random
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-CAMPOS = ["gestion_de_riesgos", "gobernanza_de_datos", "documentacion_tecnica", "registro_de_eventos",
-          "transparencia_al_usuario", "supervision_humana", "exactitud_robustez_ciberseguridad"]
-PALABRAS_ALTO = ["selección de personal", "calificación de estudiantes", "solvencia crediticia", "acceso a beneficios",
-                 "biometría", "infraestructura crítica"]
-CASOS = [  # (redacción literal, redacción con otras palabras)
-    ("filtra candidatos en la selección de personal", "ordena currículos y propone a quién entrevistar"),
-    ("apoya la calificación de estudiantes", "sugiere la nota de las pruebas escritas"),
-    ("estima la solvencia crediticia", "decide cuánto dinero se presta a una persona"),
-    ("prioriza el acceso a beneficios públicos", "determina quién recibe una ayuda social primero"),
-    ("verifica identidad por biometría", "reconoce la cara de quien entra al edificio"),
-    ("gestiona infraestructura crítica de agua", "regula la presión de la red de agua de la ciudad"),
-]
+HORIZONTE_H = 720.0
 
 
-def ficha_valida(caso):
-    f = {"caso_de_uso": caso, "riesgo_declarado": "alto"}
-    f.update({c: "descrito" for c in CAMPOS})
-    return f
+def deteccion(rng):
+    if rng.random() < 0.25:
+        return None
+    return rng.lognormvariate(math.log(6.0), 1.2)
 
 
-def verificar(f):
-    avisos = set()
-    if f["riesgo_declarado"] != "alto" and any(p in f["caso_de_uso"] for p in PALABRAS_ALTO):
-        avisos.add("nivel_subestimado")
-    if f["riesgo_declarado"] == "alto":
-        for c in CAMPOS:
-            if not f.get(c):
-                avisos.add("falta_" + c)
-    return avisos
+def exposicion(rng, diseno, robo):
+    d = deteccion(rng)
+    if diseno == "A":
+        restante = rng.uniform(0, 90 * 24)
+        valor = d + 4.0 if d is not None else restante
+        return min(valor, restante if d is None else valor, HORIZONTE_H)
+    if diseno == "B":
+        ttl = 1.0
+        if robo == "copia":
+            return rng.uniform(0, ttl)
+        return min(HORIZONTE_H, d + rng.uniform(0, ttl)) if d is not None else HORIZONTE_H
+    if diseno == "C":
+        ttl = 0.25
+        if robo == "copia":
+            return rng.uniform(0, ttl)
+        return min(HORIZONTE_H, d + rng.uniform(0, ttl)) if d is not None else HORIZONTE_H
+    # D: la copia no sirve sin la clave; el equipo comprometido pierde acceso al propagarse la revocación
+    if robo == "copia":
+        return 0.0
+    return min(HORIZONTE_H, d + 1.0 / 60.0) if d is not None else HORIZONTE_H
+
+
+def p95(valores):
+    ordenados = sorted(valores)
+    return ordenados[int(0.95 * len(ordenados)) - 1]
 
 
 def main():
-    rng = random.Random(466)
-    resultado = {"borrar_campo": [0, 0], "minimo_redaccion_literal": [0, 0], "minimo_otras_palabras": [0, 0]}
-    por_campo = {c: [0, 0] for c in CAMPOS}
-    for _ in range(200):
-        literal, otra = rng.choice(CASOS)
-        tipo = rng.choice(list(resultado))
-        if tipo == "borrar_campo":
-            f = ficha_valida(literal)
-            c = rng.choice(CAMPOS)
-            f[c] = ""
-            ok = ("falta_" + c) in verificar(f)
-            por_campo[c][0] += ok
-            por_campo[c][1] += 1
-        else:
-            f = ficha_valida(literal if tipo == "minimo_redaccion_literal" else otra)
-            f["riesgo_declarado"] = "mínimo"
-            ok = "nivel_subestimado" in verificar(f)
-        resultado[tipo][0] += ok
-        resultado[tipo][1] += 1
-    # una ficha íntegra y correcta no debe producir avisos
-    sin_avisos = all(not verificar(ficha_valida(c[0])) for c in CASOS)
-    print(json.dumps({"detectadas_de_aplicadas": resultado, "por_campo_borrado": por_campo,
-                      "fichas_correctas_sin_avisos": sin_avisos}, ensure_ascii=False))
+    salida = {}
+    for diseno in "ABCD":
+        salida[diseno] = {}
+        for robo in ("copia", "equipo"):
+            rng = random.Random(386)
+            valores = [exposicion(rng, diseno, robo) for _ in range(20000)]
+            ordenados = sorted(valores)
+            salida[diseno][robo] = {"media_h": round(sum(valores) / len(valores), 2),
+                                    "mediana_h": round(ordenados[len(ordenados) // 2], 2), "p95_h": round(p95(valores), 2),
+                                    "supera_1h_pct": round(100 * sum(1 for v in valores if v > 1.0) / len(valores), 1)}
+    print(json.dumps(salida, ensure_ascii=False))
 
 
 if __name__ == "__main__":

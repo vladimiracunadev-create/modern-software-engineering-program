@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-500",
+  "title": "Gestión de incidentes y comunicación",
+  "stage": "G",
+  "part": "41",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion"
+}

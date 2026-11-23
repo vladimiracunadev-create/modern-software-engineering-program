@@ -1,5 +1,19 @@
 # Changelog
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
+## 2026-11-23 — Secuencia pedagógica: renumeración y Partes 34 y 42 reservadas
+
+- [ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md) ordena el programa por dependencia de estudio, con la IA al final: 51 partes y 612 posiciones (`SE-001`–`SE-612`). Las Partes 00–22 conservan número e IDs; las antiguas 23–48 (26 partes, 312 clases) cambian de número; las Partes 34 (SaaS y plataformas de producto, `SE-409`–`SE-420`) y 42 (ingeniería del caos, `SE-505`–`SE-516`) quedan reservadas y planificadas, y la navegación salta esos huecos.
+- `scripts/migrate_renumber.py` aplicó la migración (renombres de contenido, figuras, guiones y reescritura de IDs y enlaces); el mapa completo está en `docs/ID-MIGRATION.json` y `docs/ID-MIGRATION.md`, y el portal publica `site/legacy/` y `404.html`. Las citas anteriores a esta fecha usan la numeración histórica; la etiqueta Git `pre-reorder-2026-11-23` conserva el árbol anterior.
+- las fases 3 y 4 se declaran por parte (`PHASE3_PARTS`, `PHASE4_PARTS` en `scripts/program_state.py`); las 360 actividades y rúbricas no cambian.
+- roles: la Parte 06 es núcleo de Software Engineer, Systems Programmer, Domain & Methodology Engineer y Frontend Engineer; las Partes 34 y 42 figuran como contexto planificado de nueve y diez guías. Siguen 45 roles y 16 casos.
+- About: «588 clases desarrolladas en 49 partes y dos partes en preparación»; `tests/test_about.py` comprueba el texto contra `catalog.json`.
+- pruebas nuevas de navegación entre huecos (`tests/test_navigation_gaps.py`); sin commit todavía registrado: el hash se añade tras la CI.
+
 ## 2026-11-17 — «Planificadas» solo donde hay partes por publicar y About nuevo
 
 - los generadores (`build_phase2.py`, `program_state.py`) escriben «planificadas» únicamente si queda alguna parte sin contenido; con las 49 partes publicadas, el titular, `STATUS.md`, el índice de clases y la tabla de cobertura dicen «588 clases en 49 partes (00–48)» sin «588 planificadas» ni «N planificadas sin publicar».

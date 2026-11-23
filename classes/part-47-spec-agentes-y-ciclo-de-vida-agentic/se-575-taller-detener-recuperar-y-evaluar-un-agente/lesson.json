@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "SE-575",
+  "title": "Taller: detener, recuperar y evaluar un agente",
+  "stage": "H",
+  "part": "47",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "source_ids": [
+    "GITHUB-SPEC-KIT",
+    "MCP-2026-07-28",
+    "NIST-AI-RMF",
+    "NIST-AI-600-1"
+  ],
+  "path": "classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-575-taller-detener-recuperar-y-evaluar-un-agente"
+}

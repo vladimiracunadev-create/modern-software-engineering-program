@@ -1,278 +1,294 @@
-"""Figures for SE-421 to SE-426 (synthetic data, fixed seeds, virtual time; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-421 to SE-426 (synthetic data, fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
-from experiments_part35_a import (
-    e421_atribucion, e421_preguntas, e421_segmento, e422_correlacion, e422_formato, e422_politicas, e423_contadores, e423_histogramas,
-    e424_contexto, e424_muestreo, e424_ruta_critica, e425_composicion, e425_donde_se_mide, e425_trafico, e426_reglas, e426_ruido, e426_ventanas,
-)
-from figure_kit import Fig, grouped_bars, heatmap, line_chart
+from figure_kit import Fig, _kit_finish, _kit_start, grouped_bars, heatmap, line_chart, percentile_intervals
+from figures_part07_a import bars
 
-SINT = "Datos sintéticos con semilla fija y tiempo virtual; Windows y Ubuntu (WSL2) dan cifras idénticas."
-MEDIDO_35 = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); el valor de memoria depende de la versión del intérprete."
-
-
-
-def _cap(text: str) -> str:
-    return text[:1].upper() + text[1:]
-
-def n(x: float, d: int = 0) -> str:
-    """Formato español: espacio como separador de miles y coma decimal."""
-    return f"{x:,.{d}f}".replace(",", "§").replace(".", ",").replace("§", " ")
-
-
-def p(x: float, d: int = 1) -> str:
-    return n(100 * x, d) + " %"
+SINT = "Datos sintéticos y modelos del autor con semilla fija; Windows (CPython 3.12.9) y Ubuntu (WSL2, 3.12.3) con cifras idénticas."
 
 
 # ---------------------------------------------------------------- SE-421
-def se421_localizar() -> Fig:
-    r = e421_atribucion()
-    h, total = r["aciertos"], r["incidentes"]
-    return grouped_bars(
-        "Localizar el componente lento en una cadena de cuatro servicios con cuatro conjuntos de señales",
-        f"Barras horizontales con las localizaciones correctas de {total} incidentes sintéticos con un servicio lento: mirar solo el borde acierta {h['solo borde']}, el percentil 99 absoluto {h['p99 absoluto']}, el aumento relativo del percentil 99 frente a la línea base {h['aumento relativo']} y el mismo método sin ver uno de los cuatro servicios {h['aumento relativo sin un servicio']}.",
-        ["Solo la latencia del borde", "p99 absoluto de cada servicio", "Aumento relativo del p99 frente a su línea base", "Aumento relativo con un servicio sin instrumentar"],
-        [("Localizaciones correctas", [h["solo borde"], h["p99 absoluto"], h["aumento relativo"], h["aumento relativo sin un servicio"]], "teal")],
-        unit=f"Localizaciones correctas (de {total})", horizontal=True, label_w=300, ref_lines=[(total, f"{total}")],
-        note="Cada servicio informa su duración inclusiva (la suya más la de lo que llama). La línea base de 400 peticiones sanas y los factores de lentitud de 3 a 8 son supuestos del autor. Un punto ciego no apaga la alarma: la desplaza al servicio vecino, y por eso un hueco de instrumentación se parece a una conclusión.", note_kind="coral", foot=SINT)
+def se361_presupuesto() -> Fig:
+    items = [
+        ("Sin pruebas", 100.0, "coral", "100 % (16,00)"),
+        ("Reparto uniforme (4 h por componente)", 50.5, "gold", "50,5 % (8,08)"),
+        ("Proporcional al tamaño del código", 57.8, "coral", "57,8 % (9,24)"),
+        ("Proporcional a probabilidad × impacto", 43.6, "teal", "43,6 % (6,98)"),
+        ("Marginal (óptimo del modelo)", 42.7, "teal", "42,7 % (6,83)"),
+    ]
+    return bars("Pérdida esperada residual con 40 horas de pruebas repartidas de cinco maneras",
+                "Barras con la pérdida esperada que queda como porcentaje de la pérdida sin pruebas: 100 por ciento sin pruebas, 50,5 con reparto uniforme, 57,8 proporcional al tamaño, 43,6 proporcional a probabilidad por impacto y 42,7 con el reparto marginal.",
+                items, 5.0, "Repartir por tamaño es peor que repartir por igual (57,8 % frente a 50,5 %) porque el código más grande no es el más arriesgado. El reparto marginal pone 9,2 h en plazos y zonas horarias y 0,7 h en autenticación, cuyo impacto es 10: el modelo minimiza la pérdida esperada, no garantiza que lo catastrófico quede cubierto.",
+                label_w=360, width=980, note_kind="gold", foot=SINT)
 
 
-def se421_cliente() -> Fig:
-    r = e421_segmento()
-    names = list(r)
-    labels = [f"{name} ({p(v['cuota de tráfico %'] / 100, 2)} del tráfico)" for name, v in r.items()]
-    cols = [("tasa global > 1 % en 5 min", "Tasa global > 1 %"), ("sonda fija en el cliente 1", "Sonda fija"), ("sonda rotativa", "Sonda rotativa")]
+def se361_sensibilidad() -> Fig:
+    return percentile_intervals(
+        "Pérdida real frente a la del plan óptimo cuando las estimaciones se equivocan hasta un factor 2 (5 000 realidades)",
+        "Intervalos con la mediana, el percentil 90 y el máximo de la razón entre la pérdida del plan y la del óptimo para cuatro estrategias: el reparto por probabilidad por impacto y el marginal quedan entre 1,10 y 1,46 veces el óptimo, el uniforme llega a 1,955 y el proporcional al tamaño a 2,382.",
+        [("Uniforme", [1.271, 1.455, 1.955]),
+         ("Proporcional al tamaño", [1.441, 1.735, 2.382]),
+         ("Proporcional a probabilidad × impacto", [1.128, 1.212, 1.460]),
+         ("Marginal con las estimaciones", [1.101, 1.178, 1.396])],
+        unit="veces la pérdida del plan óptimo (1 = el óptimo de esa realidad)", marks=("mediana", "p90", "máx"), decimals=3,
+        label_w=260,
+        note="Equivocarse por un factor 2 en cada estimación no invalida el reparto por riesgo: gana al uniforme en el 97,2 % de las 5 000 realidades. Lo que sí cambia es el ranking: el trío de componentes más arriesgados difiere del estimado en el 74,2 % de ellas. El plan es una hipótesis que se revisa, no un resultado.",
+        note_kind="teal", foot=SINT)
+
+
+def se361_niveles() -> Fig:
+    clases = ["Lógica pura", "Frontera de datos", "Contrato", "Configuración", "Recorrido de usuario", "Accesibilidad", "Concurrencia", "Rendimiento"]
+    vistas = {
+        "Unitaria · 0,1 min": {0, 1},
+        "Contrato · 1 min": {2},
+        "Integración · 2 min": {1, 2, 3},
+        "Extremo a extremo · 30 min": {3, 4, 5},
+        "Exploratoria · 45 min": {4, 5, 6},
+        "De carga · 60 min": {6, 7},
+    }
+    values = [[1.0 if j in s else None for j in range(8)] for s in vistas.values()]
     return heatmap(
-        "Una falla total que afecta a un solo cliente: qué señal la detecta en una hora",
-        "Mapa de calor con el porcentaje de intentos en que cada señal detecta en una hora una falla total de un solo cliente: el umbral global de 1 por ciento en 5 minutos lo detecta siempre si el cliente aporta 23,4 o 2,3 por ciento del tráfico y en 8,7 por ciento de los intentos si aporta 0,58; una sonda fija en el cliente grande solo ve al cliente grande; una sonda rotativa por los 40 clientes detecta a todos.",
-        labels, [c[1] for c in cols],
-        [[r[nm][c[0]] * 100 for c in cols] for nm in names],
-        unit="Detección (%)", scale="teal", vmin=0, vmax=100, decimals=0, suffix=" %", label_w=330,
-        note="El cliente de la cola larga está 100 % caído y la tasa global apenas se mueve: aporta 0,58 % de las peticiones y el umbral exige 1 %. La sonda rotativa lo encuentra, pero tarda hasta 40 minutos. Cuarenta clientes con reparto 1/k son un supuesto del autor; la forma del reparto real cambia el resultado.", note_kind="gold", foot=SINT)
-
-
-def se421_preguntas() -> Fig:
-    r = e421_preguntas()
-    day_mb = r["bytes por evento"] * r["peticiones por día"] / 1e6
-    return grouped_bars(
-        "Sesenta preguntas hechas después de un incidente: qué diseño de señales puede responderlas",
-        f"Barras horizontales con las preguntas respondidas de {r['preguntas']}: las métricas con tres dimensiones previstas responden {r['responde métricas']} con {n(r['series por métrica previstas'])} series; los eventos anchos con todos los campos responden {r['responde eventos anchos']} con unos {n(day_mb)} megabytes al día; las métricas con todas las combinaciones responden las {r['preguntas']} pero exigirían {n(r['series para todas las combinaciones'])} series.",
-        [f"Métricas con 3 dimensiones previstas ({n(r['series por métrica previstas'])} series)", f"Eventos anchos con todos los campos ({n(day_mb)} MB al día)",
-         f"Métricas con todas las combinaciones ({n(r['series para todas las combinaciones'])} series)"],
-        [("Preguntas respondidas", [r["responde métricas"], r["responde eventos anchos"], r["preguntas"]], "teal")],
-        unit=f"Preguntas respondidas (de {r['preguntas']})", horizontal=True, label_w=330,
-        note="Las 60 preguntas son combinaciones de 1 a 3 de las 8 dimensiones del servicio (endpoint, estado, región, curso, cliente, versión, dispositivo, plan); las dimensiones previstas son endpoint, estado y región. Los eventos conservan el detalle a cambio de volumen y de privacidad: cada campo extra es un dato que alguien puede leer.", note_kind="teal", foot=SINT)
+        "Qué clases de fallo puede ver cada nivel de prueba (matriz del autor y costo por ejecución)",
+        "Mapa de calor de seis niveles de prueba frente a ocho clases de fallo: ningún nivel cubre las ocho, la lógica pura solo la ve la prueba unitaria y el rendimiento solo la carga; el conjunto más barato que cubre las ocho (unitaria, contrato, extremo a extremo y carga) cuesta 91,1 minutos.",
+        list(vistas), clases, values, unit="ve = el nivel puede ver esa clase de fallo; no = no la ve", scale="teal", vmin=0, vmax=1,
+        cell_fmt=lambda v: "ve" if v else "no", width=1000, cell_h=44, label_w=230,
+        note="El conjunto más barato que cubre las ocho clases combina unitaria, contrato, extremo a extremo y carga (91,1 minutos). Sumar unitaria, integración y contrato cubre solo cuatro clases: ninguna cantidad de pruebas rápidas ve concurrencia, rendimiento, accesibilidad ni el recorrido del usuario. La matriz es un supuesto del autor.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-422
-def se422_formato() -> Fig:
-    r = e422_formato()
-    words = ["v1: «Entrega 123 aceptada para curso 45 en 83 ms»", "v2: «Entrega aceptada: id=123 curso=45 duración=83ms»", "v3: «[api] entrega id=123 (curso 45) OK tiempo=83 milisegundos»", "v4: «Submission 123 accepted for course 45 in 83 ms»"]
+def se362_costuras() -> Fig:
+    f, y = _kit_start("Las dependencias ocultas de cerrar_y_avisar antes y después de separar cálculo, hora y efectos",
+                      "Diagrama de dos mitades: antes, la función cerrar_y_avisar llama directamente a la base, al reloj y al servidor de correo reales; después, calcular_nota y horas_tarde son funciones puras y cerrar recibe la hora, el guardado y el aviso como argumentos.",
+                      940, None)
+    top = y + 4
+    f.group(10, top, 440, 262, "Antes: tres nombres libres", "coral")
+    f.box(28, top + 100, 150, 70, "cerrar_y_avisar", "coral", 14, bold=True)
+    for i, label in enumerate(["DB.execute: base real", "dt.datetime.now: reloj real", "smtplib.SMTP().sendmail: correo real"]):
+        by = top + 44 + i * 70
+        f.box(238, by, 198, 56, label, "coral", 13)
+        f.arrow([(178, top + 135), (238, by + 28)])
+    f.group(470, top, 460, 262, "Después: costuras en los argumentos", "teal")
+    f.box(486, top + 50, 170, 52, "calcular_nota: función pura", "teal", 13)
+    f.box(486, top + 114, 170, 52, "horas_tarde: recibe el reloj", "teal", 13)
+    f.box(716, top + 70, 200, 60, "cerrar(ahora, guardar, avisar)", "navy", 13, bold=True)
+    f.arrow([(656, top + 76), (716, top + 90)])
+    f.arrow([(656, top + 140), (716, top + 112)])
+    for i, label in enumerate(["ahora (argumento)", "guardar (argumento)", "avisar (argumento)"]):
+        bx = 486 + i * 143
+        f.box(bx, top + 196, 137, 46, label, "gold", 13)
+        f.arrow([(bx + 68, top + 196), (816, top + 130)], dashed=True)
+    return _kit_finish(f, top + 262,
+                       "Cada nombre libre es una costura que una prueba debe reemplazar o soportar. La función original no se puede ejecutar sin una base, un reloj y un servidor de correo; la versión refactorizada se prueba con valores. La medida cuenta dependencias en el código, no la calidad del diseño.",
+                       "teal", SINT)
+
+
+def se362_mutantes() -> Fig:
+    etiquetas = {100.0: "100 %", 56.25: "9 de 16", 81.25: "13 de 16"}
     return grouped_bars(
-        "La misma línea de registro en cuatro versiones del código: extracción con una expresión regular y con campos por nombre",
-        "Barras horizontales con el porcentaje de líneas extraídas: una expresión regular escrita para la versión 1 extrae el 100 por ciento de las líneas de esa versión y 0 de las tres siguientes; leer campos por nombre de un registro JSON se mantiene en 100 por ciento en las versiones 1 a 3 y solo falla en la 4, donde se renombró un campo.",
-        words,
-        [("Regex escrita para la v1", [row["regex v1"] * 100 for row in r["filas"]], "coral"), ("Campos del JSON por nombre", [row["json por nombre"] * 100 for row in r["filas"]], "teal")],
-        unit="Líneas extraídas (%)", horizontal=True, decimals=0, label_w=330,
-        note="Cada versión se evaluó con 1 500 líneas. El registro estructurado mueve la ruptura del texto al contrato: sobrevive a un cambio de redacción y no a un campo renombrado. Por eso el nombre de un campo es una interfaz que se versiona y se prueba, no un detalle de implementación.", note_kind="gold", foot=SINT)
+        "Dos baterías sobre la misma función de nota: ambas ejecutan todas las líneas",
+        "Barras agrupadas: la batería de cinco casos típicos y la de catorce casos con fronteras ejecutan el 100 por ciento de las líneas, pero la primera mata 9 de 16 mutantes (56 por ciento) y la segunda 13 de 16 (81 por ciento); entre los tres que sobreviven hay uno equivalente y dos que señalan casos sin probar.",
+        ["5 casos típicos", "14 casos con fronteras"],
+        [("Líneas ejecutadas", [100.0, 100.0], "grey"), ("Mutantes muertos (de 16)", [56.25, 81.25], "teal")],
+        unit="% de las líneas ejecutadas, % de los 16 mutantes muertos", value_fmt=lambda v: etiquetas[v], ticks=[0, 25, 50, 75, 100],
+        note="Las dos baterías tienen la misma cobertura de líneas y detectan cantidades muy distintas de cambios. Con las fronteras sobreviven un mutante equivalente (el tope 7,0 nunca se alcanza porque el factor no supera 1) y dos reales: el borde 0 frente a 1 hora de atraso y los decimales del redondeo, que ningún caso distingue.",
+        note_kind="coral", foot=SINT)
 
 
-def se422_correlacion() -> Fig:
-    r = e422_correlacion()
-    prop = r["propagación"]
-    return line_chart(
-        "Correlación: cadenas completas según la probabilidad de conservar el identificador en cada salto",
-        "Líneas con el porcentaje de peticiones de una cadena de cinco servicios y cuatro saltos que llegan completas según la probabilidad de conservar el identificador en cada salto: la simulación coincide con la fórmula p elevada a cuatro y baja de 95,9 por ciento con 0,99 a 81,4 con 0,95, 66,3 con 0,90 y menos con 0,80.",
-        [("Simulada", [(e["p por salto"], e["completas simuladas"] * 100, "", "t") for e in prop], "teal"),
-         ("Fórmula p⁴", [(e["p por salto"], e["p^4"] * 100, "", "b") for e in prop], "gold")],
-        x_label="Probabilidad de conservar el identificador en cada salto", y_label="Peticiones con la cadena completa (%)", decimals=1,
-        x_ticks=[(e["p por salto"], n(e["p por salto"], 2)) for e in prop], y_zero=False,
-        note="La propagación falla de forma multiplicativa: cuatro saltos al 95 % dejan 81 % y la cola de peticiones incompletas es justo la de las colas y los hilos. Sin identificador, el tiempo solo desambigua con tráfico muy bajo; con una petición durando hasta 250 ms (supuesto del autor), a 20 por segundo siempre hay varias candidatas.", note_kind="coral", foot=SINT)
-
-
-def se422_politicas() -> Fig:
-    r = e422_politicas()
+def se362_reloj() -> Fig:
     return grouped_bars(
-        "Muestreo de registros: errores que conserva cada política",
-        f"Barras horizontales con los errores conservados de {n(r['errores'])}: el muestreo uniforme del 10 por ciento deja {n(r['errores con 10 %'])}, es decir pierde 9 de cada 10, y conservar todos los errores más el 10 por ciento del resto deja los {n(r['errores'])}.",
-        ["Muestreo uniforme del 10 %", "Todos los errores y 10 % del resto"],
-        [("Errores conservados", [r["errores con 10 %"], r["errores"]], "teal")],
-        unit=f"Errores conservados (de {n(r['errores'])})", horizontal=True, label_w=270, ref_lines=[(r["errores"], "todos los errores")],
-        note="La redacción por patrones solo protege los formatos que alguien previó: cada variante escrita por una persona (mayúsculas, espacios, un «arroba» escrito) es un dato personal que llega al almacén. Los 200 000 registros y las variantes son sintéticos; el 2 % de errores es un supuesto del autor.", note_kind="coral", foot=SINT)
+        "Una prueba de plazos con el reloj real y con el reloj como parámetro (10 000 ejecuciones simuladas)",
+        "Barras horizontales con los fallos de la misma prueba de plazos en 10 000 ejecuciones simuladas: con el reloj real y un margen de 1 s falla 173 veces por pausas ocasionales; con la hora inyectada y cinco casos de frontera no falla ninguna.",
+        ["Reloj real, margen de 1 s entre construir el plazo y comprobar", "Reloj inyectado, 5 casos de frontera (−1 s, 0, +1 s, +24 h, +24 h 1 s)"],
+        [("Fallos en 10 000 ejecuciones", [173.0, 0.0], "coral")],
+        unit="fallos en 10 000 ejecuciones (1,73 % frente a 0 %)", horizontal=True, label_w=330, decimals=0,
+        note="El 1,73 % viene de un modelo del autor (3 de cada 100 ejecuciones sufren una pausa de 0,5 a 3 s), no de una medición del equipo. La lección es el mecanismo: una prueba que depende de cuánto tarda la máquina falla a veces sin que haya un defecto, y con la hora inyectada la hora deja de ser una variable.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-423
-def se423_cardinalidad() -> Fig:
-    steps = [("endpoint × estado × región (5 × 3 × 3)", 45), ("+ curso (30)", 1350), ("+ cliente (40)", 54000), ("+ identificador de persona (20 000)", 1080000000)]
-    per = 429
-    labels = []
-    for name, series in steps:
-        mem = series * per
-        shown = f"{n(mem / 1e3, 0)} KB" if mem < 1e6 else (f"{n(mem / 1e6, 1)} MB" if mem < 1e9 else f"{n(mem / 1e9)} GB")
-        labels.append(f"{name} · {shown}")
+def se363_matriz() -> Fig:
     return grouped_bars(
-        "El número de series de una sola métrica según las dimensiones que se le añaden",
-        "Barras horizontales en escala logarítmica con las series de una métrica: con endpoint, estado y región hay 45; añadir curso lleva a 1 350, añadir cliente a 54 000 y añadir el identificador de una persona a 1 080 millones de series.",
-        labels, [("Series", [s for _, s in steps], "coral")],
-        unit="Series de la métrica", horizontal=True, log=True, ticks=[10, 1000, 100000, 10000000, 1000000000], label_w=330,
-        note="El número de series es el producto de las cardinalidades, no la suma, y cada serie nueva cuesta memoria e índice aunque nadie la consulte. Los 429 bytes por serie son una medición de CPython en este equipo con un diccionario de claves de texto; un almacén real tiene otra constante, y la forma del crecimiento es la misma.", note_kind="coral", foot=MEDIDO_35)
+        "Cuántos de los seis cambios que rompen al panel detecta cada prueba (de ocho cambios del proveedor)",
+        "Barras agrupadas: de ocho cambios del proveedor, seis rompen al panel; el doble escrito a mano no detecta ninguno, el contrato del consumidor cinco, la prueba contra la respuesta real los seis y la comparación del esquema completo uno, con una falsa alarma por el campo extra.",
+        ["Doble escrito a mano", "Contrato del consumidor", "Prueba contra la respuesta real", "Esquema completo"],
+        [("Cambios que rompen y la prueba detecta", [0, 5, 6, 1], "teal"), ("Falsa alarma", [0, 0, 0, 1], "coral")],
+        unit="cambios del proveedor (de 8)", decimals=0, ticks=[0, 2, 4, 6, 8], ref_lines=[(6, "6 cambios rompen al panel")],
+        note="El contrato no detecta el orden invertido porque no lo declara, y la prueba contra la respuesta real lo ve porque el panel espera un orden. Un contrato solo protege lo que afirma. Los ocho cambios son construcciones del autor sobre una respuesta JSON y una base SQLite en memoria.",
+        note_kind="teal", foot=SINT)
 
 
-def se423_contadores() -> Fig:
-    r = e423_contadores()
-    c15, c60 = r["intervalos"]
+def se363_dirigidos() -> Fig:
+    cambios = ["Quitar «creada»", "Renombrar «nota»", "Cambiar el tipo de «id»", "Quitar «estado»", "Cambiar «estudiante»",
+               "Cambiar el tipo de «creada»", "Quitar «pagina»", "Renombrar «total»", "Quitar «revisor», que no existe", "Añadir un campo"]
     return grouped_bars(
-        "Contador con reinicios: incrementos que reconstruye cada forma de leer y cada intervalo de muestreo",
-        f"Barras horizontales con los incrementos de un contador de {n(r['verdad'])} con tres reinicios: restar el último valor del primero da {n(c15['diferencia ingenua'])}; con detección de reinicios da {n(c15['con reinicios'])} con scrape de 15 segundos y {n(c60['con reinicios'])} con scrape de 60.",
-        ["Incremento real (verdad de la simulación)", "Último valor menos primero, scrape cada 15 s", "Con detección de reinicios, scrape cada 15 s", "Con detección de reinicios, scrape cada 60 s"],
-        [("Incremento reconstruido", [r["verdad"], c15["diferencia ingenua"], c15["con reinicios"], c60["con reinicios"]], "teal")],
-        unit="Incremento del contador en 600 s", horizontal=True, label_w=310, ref_lines=[(r["verdad"], "real")],
-        note="Un contador sobrevive a un muestreo grueso porque acumula; un gauge no, porque el valor entre dos lecturas desaparece. La detección de reinicios pierde el tramo anterior a cada reinicio dentro del intervalo. Tasa de 100 por segundo, reinicios en 137, 301 y 452 s y picos uniformes son supuestos del autor.", note_kind="gold", foot=SINT)
+        "Diez cambios del proveedor: alarma del esquema completo frente a consumidores realmente afectados",
+        "Barras horizontales para diez cambios: el diff de esquema completo da alarma en ocho, pero en «pagina» y «total» ningún consumidor se rompe; los cambios que sí rompen afectan a entre uno y tres de los tres consumidores, y los contratos por consumidor dicen cuáles.",
+        cambios,
+        [("Consumidores afectados (de 3)", [1, 2, 1, 2, 3, 1, 0, 0, 0, 0], "teal"), ("Alarma del diff completo (1 = sí)", [1, 1, 1, 1, 1, 1, 1, 1, 0, 0], "gold")],
+        unit="consumidores afectados · alarmas del diff", horizontal=True, label_w=250, decimals=0, ticks=[0, 1, 2, 3],
+        note="El diff de esquema acierta siempre que hay un consumidor afectado y señala dos cambios que nadie usa (la barra dorada sin barra verde). Los contratos por consumidor no los señalan, y además dicen a quién avisar. Para que funcione, cada consumidor debe declarar los campos que lee: el contrato incompleto produce un falso sentimiento de seguridad.",
+        note_kind="gold", foot=SINT)
 
 
-def se423_histogramas() -> Fig:
-    r = e423_histogramas()
-    truth = r["verdad"]
-    designs = list(r["diseños"].items())
-    kinds = ["gold", "teal", "coral"]
-    return grouped_bars(
-        "Percentiles estimados con histogramas de tres diseños de cubetas frente al valor exacto",
-        "Barras agrupadas con la mediana, el percentil 95 y el percentil 99 de 100 000 latencias lognormales: el valor exacto es 120,5, 381 y 608,2 milisegundos y cada diseño de cubetas lo estima con un error distinto, que se ve en la diferencia de altura frente a la barra gris.",
-        ["p50", "p95", "p99"],
-        [("Valor exacto", [truth[50], truth[95], truth[99]], "grey")] + [(f"Cubetas: {name}", [v[50], v[95], v[99]], kinds[i]) for i, (name, v) in enumerate(designs)],
-        unit="Latencia (ms)", decimals=1,
-        note="La interpolación lineal dentro de una cubeta supone datos repartidos de forma uniforme y el error nunca es menor que el ancho de la cubeta donde cae el percentil. Cubetas pensadas para otro rango (hasta 10 s) estiman el p99 con un 28 % de error. Elegir cubetas es elegir el error permitido antes de ver el incidente.", note_kind="gold", foot=SINT)
+def se363_localizacion() -> Fig:
+    items = [
+        ("Recorridos de extremo a extremo (3)", 2.71, "coral", "2,71 interfaces sospechosas de media"),
+        ("Una prueba por interfaz (7)", 1.0, "teal", "1 interfaz sospechosa"),
+    ]
+    return bars("Interfaces sospechosas tras el primer fallo: 1 000 defectos de interfaz sorteados en 7 interfaces",
+                "Barras: con tres recorridos de extremo a extremo, un defecto de interfaz deja en promedio 2,71 interfaces sospechosas, y en 857 de 1 000 casos son tres; con una prueba por interfaz la sospechosa es una.",
+                items, 120.0, "En el sistema modelado, 857 de 1 000 defectos dejan tres interfaces sospechosas (los recorridos solo ven el camino entero) y 143 dejan una (el tramo común del recorrido). Siete pruebas de interfaz localizan el defecto; tres recorridos no. El grafo de siete componentes y tres recorridos es un modelo del autor.",
+                label_w=380, width=1000, note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-424
-def se424_contexto() -> Fig:
-    r = e424_contexto()
+def se364_pasos() -> Fig:
+    pasos = [3, 8, 15, 30]
+    datos = [("0,1 % por paso", [99.7, 99.3, 98.4, 97.0], "teal"), ("0,5 % por paso", [98.5, 96.1, 92.5, 85.7], "navy"),
+             ("1 % por paso", [96.7, 92.3, 86.1, 73.5], "gold"), ("2 % por paso", [94.2, 85.3, 73.8, 55.3], "coral")]
+    return line_chart(
+        "Porcentaje de ejecuciones limpias de un recorrido según su cantidad de pasos y la inestabilidad de cada paso",
+        "Cuatro líneas descendentes, una por inestabilidad por paso: con 0,1 por ciento el recorrido de 30 pasos pasa limpio 97,0 por ciento de las veces; con 2 por ciento pasa solo 55,3 por ciento, y la caída se acelera con la longitud.",
+        [(n, [(p, v) for p, v in zip(pasos, vals)], k) for n, vals, k in datos],
+        x_label="Pasos del recorrido", y_label="Ejecuciones limpias (%)", x_ticks=[(p, str(p)) for p in pasos], decimals=1, point_labels="last", y_zero=False,
+        note="El resultado sigue (1 − q)^k: un paso inestable no se nota y treinta sí. Una suite de 20 recorridos de 15 pasos con 0,5 % por paso (simulación: 22,45 %; teoría: 22,2 %) pasa limpia una de cada cuatro veces. Los porcentajes son de una simulación con semilla fija, no de un sistema.",
+        note_kind="coral", foot=SINT)
+
+
+def se364_cobertura() -> Fig:
+    ks = [1, 2, 3, 5, 8]
+    return line_chart(
+        "Tráfico y riesgo cubiertos por k recorridos de hasta tres rutas (20 000 sesiones sintéticas, 25 rutas)",
+        "Cuatro curvas crecientes con el número de recorridos: el tráfico cubierto sube de 48 a 98 por ciento con ocho recorridos; con cinco, elegir por tráfico por impacto cubre 93,7 por ciento del riesgo frente a 89,6 por ciento al elegir solo por tráfico.",
+        [("Tráfico cubierto, elegido por tráfico", list(zip(ks, [48.3, 64.9, 74.9, 87.6, 98.0])), "grey"),
+         ("Riesgo cubierto, elegido por tráfico", list(zip(ks, [45.1, 71.1, 77.8, 89.6, 98.5])), "navy"),
+         ("Tráfico cubierto, elegido por tráfico × impacto", list(zip(ks, [46.0, 59.0, 71.6, 86.7, 97.8])), "gold"),
+         ("Riesgo cubierto, elegido por tráfico × impacto", list(zip(ks, [55.5, 72.0, 82.6, 93.7, 99.5])), "teal")],
+        x_label="Recorridos elegidos (k)", y_label="Cobertura (%)", x_ticks=[(k, str(k)) for k in ks], decimals=1, point_labels="none",
+        annotations=[(5, 93.7, "93,7 % (× impacto)", -110, -30), (5, 89.6, "89,6 % (solo tráfico)", 40, 46)],
+        note="Cinco recorridos cubren el 87 % del tráfico y el 90 % del riesgo; los ocho siguientes aportan menos. Elegir por tráfico multiplicado por impacto cede 1 punto de tráfico y gana 4 de riesgo con cinco recorridos. Las rutas, su frecuencia (Zipf 1,1) y sus impactos son supuestos del autor.",
+        note_kind="teal", foot=SINT)
+
+
+def se364_instantanea() -> Fig:
     return grouped_bars(
-        "Propagación del contexto en una petición de seis saltos: dónde se pierde",
-        f"Barras horizontales con el porcentaje de veces que cada frontera pierde el contexto: el salto HTTP síncrono 1 por ciento, la cola de mensajes 15, el grupo de hilos o tarea asíncrona 20 y el reintento automático 10; con esas pérdidas solo {p(r['completas'])} de las peticiones conservan una traza completa.",
-        ["Salto HTTP síncrono", "Cola de mensajes", "Grupo de hilos o tarea asíncrona", "Reintento automático"],
-        [("Contexto perdido", [1, 15, 20, 10], "coral")],
-        unit="Veces que se pierde el contexto (%)", horizontal=True, decimals=0, label_w=260,
-        note="Las probabilidades por frontera son supuestos del autor, pero el patrón es de diseño: el contexto se pierde donde cambia el medio de transporte o la unidad de ejecución. El formato W3C traceparent (versión, identificador de traza de 32 hex, identificador de span de 16 hex, banderas) se valida con una expresión regular estricta en minúsculas.", note_kind="gold", foot=SINT)
-
-
-def se424_critica() -> Fig:
-    r = e424_ruta_critica()
-    a, b, c = list(r["ahorro medio ms"])
-    return grouped_bars(
-        "Reducir a la mitad un span: ahorro medio de latencia según cómo se elige el span a optimizar",
-        f"Barras horizontales con el ahorro medio de latencia en {r['árboles']} árboles de spans sintéticos con latencia media de {n(r['latencia media ms'], 0)} milisegundos al reducir a la mitad un span: {n(r['ahorro medio ms'][a], 1)} milisegundos si se elige al azar, {n(r['ahorro medio ms'][b], 1)} si se elige el span más largo y {n(r['ahorro medio ms'][c], 1)} si se elige el de la ruta crítica.",
-        [_cap(a), _cap(b), _cap(c)],
-        [("Ahorro medio", [r["ahorro medio ms"][a], r["ahorro medio ms"][b], r["ahorro medio ms"][c]], "teal")],
-        unit="Ahorro medio de latencia (ms)", horizontal=True, decimals=1, label_w=300,
-        note="Un span fuera de la ruta crítica (hijos paralelos que no son el más lento) no cambia la latencia de la petición aunque se acelere. Los árboles (3 a 5 hijos en la raíz, hasta 3 niveles, la mitad de los nodos con hijos en paralelo) son un generador del autor, no trazas observadas.", note_kind="teal", foot=SINT)
-
-
-def se424_muestreo() -> Fig:
-    r = e424_muestreo()
-    rc = r["recuento"]
-    return grouped_bars(
-        "Muestreo de trazas: lo interesante que conserva cada política",
-        f"Barras con el porcentaje de trazas interesantes conservadas de 100 000 trazas con {n(rc['error'])} errores y {n(rc['lenta'])} lentas: el muestreo de cabeza del 1 por ciento conserva {r['cabeza 1 %']['error']} errores y {r['cabeza 1 %']['lenta']} lentas, y el muestreo por cola las conserva todas.",
-        ["Errores", "Trazas lentas"],
-        [("Muestreo de cabeza del 1 %", [r["cabeza 1 %"]["error"] / rc["error"] * 100, r["cabeza 1 %"]["lenta"] / rc["lenta"] * 100], "coral"),
-         ("Muestreo por cola", [100.0, 100.0], "teal")],
-        unit="Trazas conservadas (%)", decimals=1,
-        note="El muestreo por cola decide con la traza entera, así que exige que todos los spans de una traza lleguen al mismo recolector (enrutado por hash del identificador) y memoria para retenerlos mientras se decide. Las proporciones de 1 % de errores y 2 % de lentas son supuestos del autor.", note_kind="gold", foot=SINT)
+        "Instantánea del HTML frente a aserciones semánticas, sobre 7 cambios benignos y 9 defectos",
+        "Barras agrupadas: la instantánea exacta da alarma en los siete cambios benignos y detecta los nueve defectos; las aserciones semánticas no dan alarma en ninguno de los benignos y detectan seis de nueve, sin ver el botón deshabilitado, la lista oculta ni el texto con el color del fondo.",
+        ["Falsas alarmas (de 7 cambios benignos)", "Defectos detectados (de 9)"],
+        [("Instantánea exacta", [7, 9], "gold"), ("Aserciones semánticas", [0, 6], "teal")],
+        unit="cambios o defectos", decimals=0, ticks=[0, 3, 6, 9],
+        note="Si el equipo aprueba cada diferencia de la instantánea sin leerla, acepta los nueve defectos con la misma facilidad que los siete cambios benignos. Las aserciones semánticas no ven lo que está en atributos de estilo. Hace falta una comprobación de lo visual aparte; esta figura no la mide.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-425
-def se425_trafico() -> Fig:
-    r = e425_trafico()
-    esc = r["escenarios"]
+def se365_hasta_el_fallo() -> Fig:
     return grouped_bars(
-        "Un presupuesto de error del 99,9 % mensual medido por peticiones y por minutos en tres incidentes",
-        "Barras horizontales con el presupuesto mensual consumido por tres incidentes según se cuente por peticiones o por minutos: un corte total de 30 minutos a las 03:00 consume 8,6 por ciento por peticiones y 69,4 por minutos; el mismo corte a las 14:00 consume 166 por ciento por peticiones y 69,4 por minutos; 5 por ciento de errores durante 8 horas consume 121 por peticiones y 1 111 por minutos.",
-        [e["nombre"] for e in esc],
-        [("Presupuesto por peticiones", [e["presupuesto gastado por peticiones %"] for e in esc], "coral"), ("Presupuesto por minutos", [e["presupuesto gastado por minutos %"] for e in esc], "teal")],
-        unit="Presupuesto de error consumido (%)", horizontal=True, log=True, decimals=1, label_w=300, ref_lines=[(100, "presupuesto agotado")],
-        note="Contar por peticiones pondera el daño por las personas afectadas; contar minutos malos no distingue el tráfico y, con un umbral de 1 %, trata como minuto perdido uno con 5 % de errores. El tráfico (5 por segundo de noche, hasta 100 de día) y los 43,2 minutos mensuales del 99,9 % son el marco del autor.", note_kind="gold", foot=SINT)
+        "Cuatro versiones defectuosas de «repartir n entregas entre k correctores»: cuántas semillas detectan el defecto",
+        "Barras horizontales con el porcentaje de semillas (de 100) que detectan cada defecto: cinco ejemplos escritos a mano detectan solo uno de los cuatro; las propiedades con generador uniforme detectan los cuatro, uno de ellos solo en 87 de 100; un generador con 30 por ciento de casos cerca de la frontera los detecta en las 100.",
+        ["Olvida el resto", "Resto al último corrector", "Falla solo si hay menos entregas que correctores", "Pierde una entrega si n ≥ 500"],
+        [("5 ejemplos (determinista)", [100.0, 0.0, 0.0, 0.0], "coral"), ("Propiedades, generador uniforme", [100.0, 100.0, 87.0, 100.0], "gold"),
+         ("Con 30 % de casos cerca de la frontera", [100.0, 100.0, 100.0, 100.0], "teal")],
+        unit="% de las 100 semillas que detectan el defecto", horizontal=True, label_w=300, decimals=0, ticks=[0, 25, 50, 75, 100],
+        note="Las propiedades son longitud igual a k, suma igual a n, diferencia máxima de 1 y ninguna cantidad negativa. El defecto que solo ocurre con n < k aparece en el 1 % de los casos uniformes y por eso necesita más casos: la calidad del generador es parte de la prueba. Los ejemplos son deterministas: detectan o no.",
+        note_kind="teal", foot=SINT)
 
 
-def se425_donde() -> Fig:
-    r = e425_donde_se_mide()
-    return grouped_bars(
-        "La misma disponibilidad medida en el servidor, en el cliente y tras reintentos: fallos que se ven",
-        "Barras horizontales en escala logarítmica con el porcentaje de fallos de 200 000 solicitudes sintéticas: 0,073 si se mide en el servidor, 2,039 en el cliente con un intento, 0,0005 con tres intentos si todos los fallos fueran independientes y unas cien veces más con tres intentos cuando el fallo va pegado a la petición.",
-        ["Servidor", "Cliente, un intento", "Tres intentos si los fallos fueran independientes", "Tres intentos con fallos pegados a la petición"],
-        [("Fallos", [100 - r["servidor %"], 100 - r["cliente por intento %"], 100 - r["3 intentos si todo fuera independiente %"], 100 - r["3 intentos con fallos pegados %"]], "coral")],
-        unit="Fallos (% = 100 − éxito)", horizontal=True, log=True, label_w=310,
-        note="El servidor no cuenta lo que no llegó (2 % de fallos de red del cliente, supuesto del autor) y el reintento solo ayuda con fallos independientes: 0,03 % de peticiones que fallan siempre aparece como 0,03 % de fallos aunque se intente tres veces. Un objetivo debe nombrar el punto de medición.", note_kind="coral", foot=SINT)
+def se365_reduccion() -> Fig:
+    items = [
+        ("Contraejemplo sin reducir (caracteres)", 155.3, "coral", "155,3 de media"),
+        ("Contraejemplo reducido (caracteres)", 20.9, "teal", "20,9 de media"),
+        ("Secuencia de 40 operaciones sin reducir", 40.0, "coral", "40"),
+        ("Secuencia reducida (operaciones)", 9.7, "teal", "9,7 de media (9 a 12)"),
+    ]
+    return bars("Reducción (shrinking) de contraejemplos: 100 listas de nombres y 106 secuencias de operaciones",
+                "Barras: un contraejemplo de una lista de nombres pasa de 155,3 caracteres a 20,9 tras reducirlo; una secuencia fallida de 40 operaciones sobre una cola pasa a 9,7 operaciones de media, entre 9 y 12.",
+                items, 3.0, "El tamaño mínimo de la lista (unos 21 caracteres) viene del defecto: truncar a 20 solo aparece si el nombre tiene más de 20. La secuencia mínima de 9 operaciones es el estado que la cola necesita para llegar a la compactación defectuosa. Sin reducir, el contraejemplo es un ruido que nadie diagnostica.",
+                label_w=360, width=980, note_kind="gold", foot=SINT)
 
 
-def se425_composicion() -> Fig:
-    r = e425_composicion()
-    a, b = r["duración mediana 20 min"], r["duración mediana 10 min"]
-    return grouped_bars(
-        "Meses que incumplen un SLO de 99,9 % y un SLA de 99,5 % según la duración de los incidentes",
-        f"Barras con el porcentaje de meses que incumplen el objetivo: con incidentes de duración mediana de 20 minutos, {n(a['incumple SLO 99,9 %'], 1)} por ciento incumple el SLO de 99,9 y {n(a['incumple SLA 99,5 %'], 2)} el SLA de 99,5; con duración mediana de 10 minutos, {n(b['incumple SLO 99,9 %'], 1)} y {n(b['incumple SLA 99,5 %'], 2)}.",
-        ["Incidentes de duración mediana de 20 min", "Incidentes de duración mediana de 10 min"],
-        [("Incumple el SLO de 99,9 %", [a["incumple SLO 99,9 %"], b["incumple SLO 99,9 %"]], "coral"), ("Incumple el SLA de 99,5 %", [a["incumple SLA 99,5 %"], b["incumple SLA 99,5 %"]], "gold")],
-        unit="Meses que incumplen (%)", decimals=1,
-        note="Un SLO de 99,9 % con tres o más dependencias del mismo nivel ya es optimista, y un SLA más holgado que el SLO deja margen para el contrato y no para la ingeniería. Dos incidentes de 20 minutos agotan el mes entero. 20 000 meses simulados; 1,2 incidentes por mes y la forma lognormal son supuestos del autor.", note_kind="gold", foot=SINT)
+def se365_modelo() -> Fig:
+    items = [
+        ("Longitud 3, 5 u 8", 0.0, "coral", "0 %"),
+        ("Longitud 12", 24.7, "gold", "24,7 %"),
+        ("Longitud 20", 54.7, "teal", "54,7 %"),
+        ("Longitud 40", 54.8, "teal", "54,8 %"),
+        ("Cuatro secuencias manuales", 0.0, "coral", "0 de 4"),
+    ]
+    return bars("Fracción de secuencias aleatorias que descubren el defecto de la cola, según su longitud (5 000 por barra)",
+                "Barras: ninguna secuencia de hasta 8 operaciones descubre el defecto de la cola frente al modelo; con longitud 12 lo descubre 24,7 por ciento, y con 20 o 40 cerca de 55 por ciento; cuatro secuencias manuales no lo detectan.",
+                items, 6.5, "La cola real pierde un elemento al compactar tras sacar tres, solo si quedan más de cuatro. Hace falta una secuencia de al menos 9 operaciones, y el 55 % de techo viene de que muchas secuencias largas cambian el estado antes de alcanzar la condición. Las pruebas por ejemplo de 2 a 6 operaciones nunca llegan.",
+                label_w=280, width=940, note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-426
-def se426_reglas() -> Fig:
-    r = e426_reglas()
-    reglas = r["reglas"]
+def se366_puntuacion() -> Fig:
     return grouped_bars(
-        "Seis reglas de alerta sobre 180 días de tráfico diurno y nocturno con 14 caídas y 12 degradaciones lentas",
-        "Barras horizontales con las páginas que genera cada regla y las que no corresponden a ningún incidente: el umbral de 0,5 por ciento en un minuto genera 12 622 páginas, 11 748 sin incidente, y el de 1 por ciento en 5 minutos genera 609, 396 sin incidente; las reglas por tasa de consumo del presupuesto generan entre 13 y 31 páginas y ninguna sin incidente.",
-        [_cap(x["regla"]) for x in reglas],
-        [("Páginas", [x["páginas"] for x in reglas], "gold"), ("Páginas sin incidente", [x["páginas sin incidente"] for x in reglas], "coral")],
-        unit="Páginas en 180 días", horizontal=True, label_w=300,
-        note="Ninguna regla detecta las 12 degradaciones sin pagar páginas falsas: la regla de 1 % en 5 minutos las ve todas porque de noche, con 30 peticiones por minuto, dos errores bastan. Una página que no pide acción es coste puro. Tasa de error base de 0,1 %, tráfico entre 30 y 300 por minuto e incidentes inyectados son supuestos del autor.", note_kind="coral", foot=SINT)
+        "Cobertura de líneas y puntuación de mutación de cuatro baterías sobre el mismo módulo (18 mutantes)",
+        "Barras agrupadas: de la batería A a la B la cobertura de líneas sube de 72,2 a 94,4 por ciento y los mutantes muertos se quedan en 61,1 por ciento (11 de 18); la C llega a 100 por ciento de líneas y 94,4 por ciento de mutantes muertos; la D cubre 66,7 por ciento de líneas con una sola prueba sin aserciones y mata 33,3 por ciento.",
+        ["A: 3 casos del camino feliz", "B: A + 4 rechazos de formato", "C: B + bordes y exclusiones", "D: una prueba sin aserciones"],
+        [("Líneas ejecutadas", [72.2, 94.4, 100.0, 66.7], "grey"), ("Mutantes muertos (de 18)", [61.1, 61.1, 94.4, 33.3], "teal")],
+        unit="% de las líneas · % de los 18 mutantes", decimals=1, ticks=[0, 25, 50, 75, 100],
+        note="La batería B añade 22 puntos de cobertura y 0 mutantes muertos. La D alcanza dos tercios de las líneas sin una sola aserción. El único superviviente de C cambia el redondeo de 1 a 2 decimales y ningún promedio de los casos lo distingue. Las baterías y los 18 mutantes son del autor; ninguno es equivalente.",
+        note_kind="coral", foot=SINT)
 
 
-def se426_ruido() -> Fig:
-    r = e426_ruido()
+def se366_fuzzing() -> Fig:
     return grouped_bars(
-        "Fatiga de alertas: páginas por 200 incidentes en cascada y 3 000 destellos según la política de filtrado",
-        f"Barras horizontales con las páginas que genera cada política: {n(r['páginas sin filtros'])} sin filtros, {n(r['con duración mínima'])} con una duración mínima antes de paginar y {n(r['con duración y agrupación'])} con duración mínima y agrupación por incidente.",
-        ["Sin filtros: cada alerta de cada servicio pagina", "Con duración mínima antes de paginar", "Con duración mínima y agrupación por incidente"],
-        [("Páginas", [r["páginas sin filtros"], r["con duración mínima"], r["con duración y agrupación"]], "coral")],
-        unit="Páginas", horizontal=True, label_w=310,
-        note="Filtrar no es silenciar: el filtro de duración retrasa la página por construcción y la agrupación exige conocer el mapa de dependencias para saber qué alertas pertenecen al mismo incidente. El 4 % de destellos que sobrevive al filtro es un supuesto del autor.", note_kind="gold", foot=SINT)
+        "Cuatro defectos escondidos en un analizador: semillas (de 20) que los hallan con 20 000 entradas",
+        "Barras horizontales: los bytes aleatorios no hallan ninguno de los cuatro defectos; el generador estructurado con valores límite los halla en las 20 semillas con medianas de 31 a 101 entradas; el guiado por cobertura los halla en 15 a 20 semillas con medianas de 210 a 6 826 entradas.",
+        ["Nombre de más de 30 caracteres", "Nombre vacío con nota 7,0", "Identificador > 99 999 y estado anulada", "Nota «nan» o «inf»"],
+        [("Bytes aleatorios", [0, 0, 0, 0], "coral"), ("Estructurado con valores límite", [20, 20, 20, 20], "teal"), ("Guiado por cobertura", [20, 15, 16, 20], "gold")],
+        unit="semillas (de 20) que hallan el defecto", horizontal=True, label_w=270, decimals=0, ticks=[0, 5, 10, 15, 20],
+        note="Las cadenas aleatorias casi nunca forman cuatro campos con un identificador numérico, así que nunca llegan al código que falla. El generador estructurado conoce los valores límite del formato, y ese conocimiento es del autor: el resultado muestra el mecanismo y no la tasa de hallazgo de una herramienta real. Las medianas de entradas están en la tabla.",
+        note_kind="gold", foot=SINT)
 
 
-def se426_ventanas() -> Fig:
-    r = e426_ventanas()
-    f = r["filas"]
-    xs = [x["ventana min"] for x in f]
-    def serie(k):
-        return [(x["ventana min"], x[k]) for x in f if isinstance(x[k], (int, float))]
-    return line_chart(
-        "Umbral de 1 % de errores con ventanas de 1 a 60 minutos: minutos hasta alertar",
-        "Líneas con los minutos hasta alertar según la ventana: crecen con la ventana cuando el error es pequeño (con 2 por ciento pasan de 1 a 28 minutos) y quedan en 1 minuto con la caída total; los falsos positivos al día, que van entre paréntesis en cada ventana, bajan de 6,85 con un minuto a 0,02 con 5 y a 0 con 15 y 60.",
-        [("2 % de errores", serie("2 % de errores"), "gold"), ("10 % de errores", serie("10 % de errores"), "teal"), ("Caída total", serie("100 % de errores"), "coral")],
-        x_label="Ventana (minutos); entre paréntesis, falsos positivos por día", y_label="Minutos hasta alertar", log_x=True, log_y=True,
-        x_ticks=[(x["ventana min"], f"{x['ventana min']} ({n(x['falsos positivos por día'], 2)})") for x in f], decimals=0,
-        note="Una ventana larga suprime el ruido y retrasa lo moderado, y a una caída total no la retrasa casi nada: por eso se combinan ventanas largas para lo lento y cortas para lo grave. La ventana incluye la historia sana previa al incidente; 120 días de ruido con 100 peticiones por minuto es un supuesto del autor.", note_kind="teal", foot=SINT)
+def se366_supervivientes() -> Fig:
+    f, y = _kit_start("Los casos que le faltan a la batería B: cuatro caen justo sobre un límite de la nota",
+                      "Recta de la nota de 0,5 a 7,5 con la zona aceptada entre 1,0 y 7,0 y cuatro casos que matan mutantes de los límites y que la batería B no usa: 0,9 y 7,1 deben rechazarse; 1,0 y 7,0 deben aceptarse. Debajo, los otros dos casos que faltan: una anulada con nota entre válidas y un promedio de tres notas como 5,33.",
+                      940, None)
+    x0, x1 = 60.0, 880.0
+    def px(v: float) -> float:
+        return x0 + (v - 0.5) / 7.0 * (x1 - x0)
+    base = y + 96
+    f.box(px(1.0), base - 22, px(7.0) - px(1.0), 44, "Nota aceptada: de 1,0 a 7,0", "teal", 14, bold=True)
+    for v in [0.5, 1, 2, 3, 4, 5, 6, 7]:
+        f.line(px(v), base + 26, px(v), base + 34, "#5b7280")
+        f.text(px(v), base + 52, str(v).replace(".", ",").replace(",0", ""), 13, "middle", 400, "#5b7280")
+    f.line(x0, base + 26, x1, base + 26, "#5b7280")
+    f.text((x0 + x1) / 2, base + 72, "Nota ingresada", 13, "middle", 400, "#5b7280")
+    casos = [(0.9, "0,9 debe rechazarse", "coral", 10), (1.0, "1,0 debe aceptarse", "gold", 195),
+             (7.0, "7,0 debe aceptarse", "gold", 560), (7.1, "7,1 debe rechazarse", "coral", 745)]
+    for v, label, kind, bx in casos:
+        by = base - 94
+        f.box(bx, by, 175, 36, label, kind, 13, bold=True)
+        f.arrow([(bx + 88, by + 36), (px(v), base - 22)], "")
+    f.box(60, base + 96, 400, 56, "Anulada con nota 2,0 entre entradas válidas (mata «and» por «or» al excluir anuladas)", "navy", 13)
+    f.box(480, base + 96, 400, 56, "Promedio de tres notas, como 5,33 (mata el cambio de redondeo de 1 a 2 decimales)", "navy", 13)
+    return _kit_finish(f, base + 164,
+                       "Un mutante superviviente es una pregunta, no un veredicto: o falta un caso o el mutante es equivalente y no hay nada que probar. Aquí ninguno es equivalente, de modo que cada uno señala una prueba concreta que falta; los dos del límite inferior cuentan como una misma causa. La tabla de la clase da la causa de cada superviviente.",
+                       "teal", SINT)
 
 
 FIGURES = {
-    "se-421-localizar-la-lentitud.svg": se421_localizar,
-    "se-421-falla-de-un-solo-cliente.svg": se421_cliente,
-    "se-421-preguntas-sin-respuesta.svg": se421_preguntas,
-    "se-422-cuatro-versiones-del-registro.svg": se422_formato,
-    "se-422-propagacion-y-lineas-huerfanas.svg": se422_correlacion,
-    "se-422-volumen-muestreo-y-redaccion.svg": se422_politicas,
-    "se-423-explosion-de-series.svg": se423_cardinalidad,
-    "se-423-contadores-y-picos.svg": se423_contadores,
-    "se-423-percentiles-con-histogramas.svg": se423_histogramas,
-    "se-424-donde-se-rompe-el-contexto.svg": se424_contexto,
-    "se-424-ruta-critica.svg": se424_critica,
-    "se-424-muestreo-de-trazas.svg": se424_muestreo,
-    "se-425-peticiones-o-minutos.svg": se425_trafico,
-    "se-425-donde-se-mide.svg": se425_donde,
-    "se-425-composicion-y-meses.svg": se425_composicion,
-    "se-426-seis-reglas-de-alerta.svg": se426_reglas,
-    "se-426-fatiga-y-agrupacion.svg": se426_ruido,
-    "se-426-ventanas-de-alerta.svg": se426_ventanas,
+    "se-421-presupuesto-de-pruebas-por-estrategia.svg": se361_presupuesto,
+    "se-421-sensibilidad-a-las-estimaciones.svg": se361_sensibilidad,
+    "se-421-niveles-de-prueba-y-clases-de-fallo.svg": se361_niveles,
+    "se-422-dependencias-ocultas-de-una-funcion.svg": se362_costuras,
+    "se-422-cobertura-y-mutantes-muertos.svg": se362_mutantes,
+    "se-422-reloj-real-frente-a-reloj-inyectado.svg": se362_reloj,
+    "se-423-cambios-del-proveedor-y-pruebas.svg": se363_matriz,
+    "se-423-contratos-por-consumidor.svg": se363_dirigidos,
+    "se-423-localizar-un-defecto-de-interfaz.svg": se363_localizacion,
+    "se-424-inestabilidad-por-pasos.svg": se364_pasos,
+    "se-424-recorridos-criticos-elegidos.svg": se364_cobertura,
+    "se-424-instantanea-o-aserciones.svg": se364_instantanea,
+    "se-425-casos-hasta-el-primer-fallo.svg": se365_hasta_el_fallo,
+    "se-425-reduccion-de-contraejemplos.svg": se365_reduccion,
+    "se-425-secuencias-contra-un-modelo.svg": se365_modelo,
+    "se-426-cobertura-frente-a-mutacion.svg": se366_puntuacion,
+    "se-426-fuzzing-de-un-analizador.svg": se366_fuzzing,
+    "se-426-mutantes-que-sobreviven.svg": se366_supervivientes,
 }

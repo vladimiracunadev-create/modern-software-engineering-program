@@ -1,254 +1,280 @@
-"""Figures for SE-427 to SE-432 (synthetic data, fixed seeds, virtual time; real probes of SQLite copies and platform on Windows CPython 3.12.9 and Ubuntu/WSL2 3.12.3)."""
+"""Figures for SE-427 to SE-432 (synthetic data, fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
-from experiments_part35_b import (
-    e427_escalamiento, e427_guardia, e427_linter, e428_actualizaciones, e428_cronologia, e428_severidad, e429_cadena, e429_linter, e429_recurrencia,
-    e430_dependencias, e430_rpo, e431_ambiguedad, e431_estrategias, e431_perdida, e432_cadena, e432_validador,
-)
-from figure_kit import Fig, grouped_bars, line_chart, percentile_intervals, stacked_bars
-from figures_part35_a import _cap, n, p
+from figure_kit import Fig, _kit_finish, _kit_start, fmt_es, grouped_bars, line_chart, stacked_bars
+from figures_part07_a import bars
 
-SINT = "Datos sintéticos con semilla fija y tiempo virtual; Windows y Ubuntu (WSL2) dan cifras idénticas."
-REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
+SINT = "Datos sintéticos y modelos del autor con semilla fija; Windows (CPython 3.12.9) y Ubuntu (WSL2, 3.12.3) con cifras idénticas salvo donde se indica."
 
 
 # ---------------------------------------------------------------- SE-427
-def se427_guardia() -> Fig:
-    r = e427_guardia()
-    f = r["filas"]
-    return grouped_bars(
-        "Carga de una guardia semanal según el tamaño del equipo (1,5 páginas al día, 35 % de noche)",
-        "Barras con la carga anual de la persona más cargada según el tamaño del equipo: con dos personas hace 27 semanas de guardia y tiene 77 noches interrumpidas; con cuatro, 14,4 semanas y 42 noches; con ocho, 8 semanas y 23 noches.",
-        [f"{x['personas']} personas" for x in f],
-        [("Semanas de guardia de la persona más cargada", [x["semanas de guardia de la persona más cargada"] for x in f], "gold"), ("Noches interrumpidas", [x["noches interrumpidas"] for x in f], "coral")],
-        unit="Semanas o noches al año", decimals=1,
-        note="Las cifras son de la persona más cargada tras las ausencias, que es la que se agota primero. Con dos personas una ausencia deja a la otra en guardia permanente. 1,5 páginas al día y 35 % de noche son supuestos del autor; cada página nocturna cuesta más que su duración porque rompe el sueño.", note_kind="coral", foot=SINT)
-
-
-def se427_escalamiento() -> Fig:
-    r = e427_escalamiento()
-    f = r["filas"]
-    return grouped_bars(
-        "Una página con y sin escalamiento: fracción atendida",
-        "Barras horizontales con el porcentaje de páginas atendidas: con respuesta de 85 por ciento por persona y fallos independientes, una página sin escalar se atiende 84,8 por ciento de las veces y con tres niveles de cinco minutos 99,8 por ciento en 15 minutos; si 30 por ciento comparten causa, sin escalar se atiende 59,9 por ciento y con tres niveles 96,9.",
-        [x["escenario"] for x in f],
-        [("Sin escalar", [x["sin escalar, atendida %"] for x in f], "coral"), ("Con tres niveles (15 min)", [x["con tres niveles, atendida en 15 min %"] for x in f], "teal")],
-        unit="Páginas atendidas (%)", horizontal=True, decimals=1, label_w=300,
-        note="El escalamiento protege contra el olvido y el sueño; no protege contra una causa compartida entre niveles (la misma zona sin red, el mismo canal de aviso). Las probabilidades de 85 %, 85 % y 90 % por nivel y el 30 % de causa compartida son supuestos del autor, no mediciones de ninguna herramienta de guardia.", note_kind="gold", foot=SINT)
-
-
-def se427_linter() -> Fig:
-    r = e427_linter()
-    f = r["filas"]
+def se367_fidelidad() -> Fig:
     return stacked_bars(
-        "Un verificador de runbooks frente a 240 mutaciones de ocho runbooks base (diez operadores)",
-        f"Barras apiladas con las mutaciones detectadas y no detectadas por tipo: el verificador de campos, fechas, referencias a alertas y reversiones detecta {r['detectadas']} de 240; detecta las seis que rompen la forma y ninguna de las cuatro que cambian el sentido sin romperla: intercambiar el contenido de dos pasos, apuntar al entorno equivocado, cambiar el comando por otro plausible y un propietario inexistente.",
-        [_cap(x["mutación"]) for x in f],
-        [("Detectadas", [x["detectadas"] for x in f], "teal"), ("No detectadas", [x["de"] - x["detectadas"] for x in f], "coral")],
-        unit="Mutaciones", horizontal=True, label_w=330, plot_h=300,
-        note=f"Detecta {r['detectadas']} de {r['total']} ({p(r['detectadas'] / r['total'], 0)}): todo lo que ve es forma y ninguna de las 96 que se escapan la viola. Un runbook bien formado y erróneo es peor que uno ausente porque se ejecuta con confianza; solo un ejercicio real lo descubre. Las ocho bases y los operadores son construcciones del autor.", note_kind="coral", foot=SINT)
+        "Fidelidad de dos dobles de un repositorio medida con las mismas 8 comprobaciones de contrato",
+        "Barras apiladas horizontales: SQLite real pasa las 8 comprobaciones; el diccionario ingenuo pasa 4 y no rechaza el identificador duplicado, la nota fuera de rango, el estudiante nulo ni el correo repetido con otra capitalización; el diccionario con las reglas añadidas pasa las 8.",
+        ["SQLite real (referencia)", "Diccionario ingenuo", "Diccionario con las reglas añadidas"],
+        [("Superadas", [8, 4, 8], "teal"), ("No superadas", [0, 4, 0], "coral")],
+        unit="comprobaciones de contrato (de 8)", horizontal=True, label_w=250, totals=False,
+        note="El doble ingenuo hace pasar pruebas de servicio que con la base real fallarían. Pasar las ocho comprobaciones demuestra que el doble reproduce esas ocho reglas, no que reproduzca la base: una novena comprobación (transacciones, índices, orden de nulos en otra colación) podría separarlos. La batería de contrato debe correr contra ambos.",
+        note_kind="coral", foot=SINT)
+
+
+def se367_interaccion() -> Fig:
+    return grouped_bars(
+        "Tres estilos de prueba frente a tres refactorizaciones neutras y un defecto real del servicio",
+        "Barras agrupadas: ante tres refactorizaciones que no cambian lo que el servicio hace, la prueba con asertos sobre las llamadas falla dos veces y la que además fija las consultas falla una; la prueba de estado con un doble espía no falla ninguna; las tres detectan el defecto real.",
+        ["Mock con asertos de llamadas", "Mock más consultas exactas", "Estado con espía"],
+        [("Falsa alarma ante un refactor neutro (de 3)", [2, 1, 0], "coral"), ("Detecta el defecto real (de 1)", [1, 1, 1], "teal")],
+        unit="versiones del servicio", decimals=0, ticks=[0, 1, 2, 3],
+        note="Dos de tres refactorizaciones rompen la prueba acoplada a la interacción sin que haya un defecto. La prueba de estado comprueba qué se envió y a quién, no cómo. Esto no vuelve inútiles los mocks: verifican que se produzca un efecto cuando el efecto es lo único observable.",
+        note_kind="gold", foot=SINT)
+
+
+def se367_entorno() -> Fig:
+    f, y = _kit_start("Los bytes de «é» seguido de un salto de línea en un mismo script según el sistema",
+                      "Tres secuencias de bytes: en Windows con la codificación por defecto cp1252 se escribe 233, 13, 10; en Windows con PYTHONUTF8=1 se escribe 195, 169, 13, 10; en Ubuntu bajo WSL2 con UTF-8 se escribe 195, 169, 10. La codificación cambia los bytes de la letra y el sistema cambia el salto de línea.",
+                      940, [("Bytes de la letra «é»", "teal", "square"), ("Bytes del salto de línea", "gold", "square")])
+    filas = [
+        ("Windows 11, por defecto (cp1252)", [("233", "teal"), ("13", "gold"), ("10", "gold")]),
+        ("Windows 11 con PYTHONUTF8=1", [("195", "teal"), ("169", "teal"), ("13", "gold"), ("10", "gold")]),
+        ("Ubuntu en WSL2 (UTF-8)", [("195", "teal"), ("169", "teal"), ("10", "gold")]),
+    ]
+    row_h = 64
+    for i, (nombre, bytes_) in enumerate(filas):
+        ry = y + 8 + i * row_h
+        f.text(14, ry + 36, nombre, 14, "start", 700, "#142231")
+        for j, (v, k) in enumerate(bytes_):
+            f.box(330 + j * 96, ry + 8, 84, 46, v, k, 16, bold=True)
+    yy = y + 8 + len(filas) * row_h + 4
+    return _kit_finish(f, yy,
+                       "Una prueba que depende del orden de un conjunto es inestable en cualquier sistema (11 de 12 semillas de hash dan resultados distintos en ambos) y se arregla ordenando. Una que depende de la codificación o del salto de línea cambia de resultado entre sistemas y se arregla declarándolos. Forzar UTF-8 corrige los bytes de la letra y no el salto de línea. El separador de rutas también difiere (\\ y /); el orden alfabético con mayúsculas y «ñ» es igual. Esta es la única figura de la parte cuyos valores difieren por sistema.",
+                       "teal", SINT)
 
 
 # ---------------------------------------------------------------- SE-428
-def se428_cronologia() -> Fig:
-    r = e428_cronologia()
-    t = r["medias por tramo"]
-    e = r["media si se reduce a la mitad la mediana de"]
-    lo, hi = r["media de 30 incidentes: p5–p95"]
-    return stacked_bars(
-        "Dos mil incidentes sintéticos: de qué se compone la media del tiempo hasta resolver",
-        f"Barra apilada con la media del tiempo hasta resolver, {n(r['media min'], 1)} minutos, por tramo: detección {n(t['detección'], 1)}, reconocimiento {n(t['reconocimiento'], 1)}, diagnóstico {n(t['diagnóstico'], 1)}, mitigación {n(t['mitigación'], 1)} y verificación {n(t['verificación'], 1)}; la media de un trimestre de 30 incidentes va de {n(lo, 1)} a {n(hi, 1)} minutos con la misma práctica.",
-        ["Media del tiempo hasta resolver"],
-        [("Detección", [t["detección"]], "navy"), ("Reconocimiento", [t["reconocimiento"]], "grey"), ("Diagnóstico", [t["diagnóstico"]], "coral"),
-         ("Mitigación", [t["mitigación"]], "gold"), ("Verificación", [t["verificación"]], "teal")],
-        unit="Minutos", horizontal=True, decimals=1, label_w=230, plot_h=120,
-        note="Comparar la media de dos trimestres con 30 incidentes cada uno confunde azar y mejora: la diferencia entre p5 y p95 (31 minutos) es mayor que la mejora que produce adelantar la detección. Las medianas y dispersiones de cada tramo son supuestos del autor, no mediciones.", note_kind="gold", foot=SINT)
-
-
-def se428_actualizaciones() -> Fig:
-    r = e428_actualizaciones()
-    f = r["filas"]
+def se368_fixtures() -> Fig:
     return grouped_bars(
-        "Cadencia de actualizaciones de estado: minutos de la persona al mando según la política",
-        "Barras horizontales con los minutos que gasta la persona al mando por incidente según la política de actualización: sin cadencia recibe 32,9 preguntas y gasta 98,7 minutos; actualizar cada 30 minutos baja las preguntas a 10,1 y el gasto a 42,4 minutos, el mínimo.",
-        [f"{_cap(x['política'])} ({n(x['preguntas por incidente'], 1)} preguntas)" for x in f],
-        [("Minutos de la persona al mando", [x["minutos de la persona al mando"] for x in f], "teal")],
-        unit="Minutos de la persona al mando por incidente", horizontal=True, decimals=1, label_w=300,
-        note="Hay una cadencia que minimiza el coste y no es la más frecuente: cada actualización cuesta 4 minutos y cada pregunta 3. La tasa de preguntas que crece con la antigüedad de la última noticia y la duración mediana de 90 minutos son supuestos del autor; el óptimo real depende de a quién se informa y de cómo.", note_kind="teal", foot=SINT)
+        "Doce pruebas en 500 órdenes aleatorios según cómo se prepara la base",
+        "Barras horizontales con las órdenes que tienen algún fallo de 500: con la base compartida fallan 490 órdenes; con una base nueva por prueba (72 sentencias de preparación) o con una transacción con retroceso (24 sentencias) no falla ninguna.",
+        ["Estado compartido (0 sentencias)", "Base nueva por prueba (72 sentencias)", "Transacción con retroceso (24 sentencias)"],
+        [("Órdenes con algún fallo", [490.0, 0.0, 0.0], "coral")],
+        unit="órdenes con algún fallo (de 500)", horizontal=True, label_w=330, decimals=0, ticks=[0, 100, 200, 300, 400, 500],
+        note="Las doce pruebas incluyen cinco que cambian o cuentan filas compartidas, a propósito. El orden en que se definieron tampoco pasa con la base compartida (234 resultados distintos). La transacción cuesta un tercio de recrear la base, pero solo aísla lo que ocurre dentro de ella: no cubre cambios que hagan commit por su cuenta ni estado fuera de la base.",
+        note_kind="coral", foot=SINT)
 
 
-def se428_severidad() -> Fig:
-    r = e428_severidad()
-    f = r["filas"]
+def se368_semilla() -> Fig:
     return grouped_bars(
-        "Tres personas clasifican 400 incidentes en cuatro niveles de severidad con tres tipos de criterio",
-        "Barras horizontales con el acuerdo con la severidad verdadera y el error de dos o más niveles según el criterio: con criterios vagos el kappa de Cohen es 0,29 y se coincide con la verdad 57,8 por ciento de las veces; con umbrales numéricos de impacto el kappa sube a 0,61 y el acuerdo a 80,1; con umbrales y un ejemplo por nivel, a 0,83 y 91,8, y el error de dos o más niveles baja de 2,2 a 0 por ciento.",
-        [f"{x['criterio']} (kappa {n(x['kappa medio'], 2)})" for x in f],
-        [("Acuerdo con la verdad", [x["acuerdo con la verdad %"] for x in f], "teal"), ("Error de 2 o más niveles", [x["error de 2 o más niveles %"] for x in f], "coral")],
-        unit="Incidentes (%)", horizontal=True, decimals=1, label_w=330,
-        note="La severidad que se declara en minutos de tensión depende de cómo se perciba el impacto: el ruido de percepción (0,9, 0,35 y 0,15 en escala logarítmica) es un supuesto del autor. Lo que importa es la dirección: un criterio medible convierte una opinión en una decisión que otra persona reproduce.", note_kind="gold", foot=SINT)
+        "Una propiedad con datos aleatorios que falla una de cada diez veces",
+        "Barras horizontales en escala logarítmica: la propiedad falla con 0,48 por ciento de las entregas individuales y con 10,9 por ciento de las pruebas de 20 entregas; con la semilla 6 anotada falla 100 por ciento de las repeticiones y sin semilla fija entre 8,7 y 10,1 por ciento de las corridas, sin poder reproducirse.",
+        ["Una entrega individual", "Prueba con 20 entregas (1 000 semillas)", "Semilla 6 anotada (100 repeticiones)", "Sin semilla fija: corrida con menos fallos (87 de 1 000)", "Sin semilla fija: corrida con más fallos (101 de 1 000)"],
+        [("Fallos de la propiedad", [0.48, 10.9, 100.0, 8.7, 10.1], "coral")],
+        unit="% de ejecuciones que violan la propiedad", horizontal=True, log=True, label_w=340, ticks=[0.1, 1, 10, 100],
+        value_fmt=lambda v: {0.48: "0,48 %", 10.9: "10,9 %", 100.0: "100 %", 8.7: "8,7 %", 10.1: "10,1 %"}[v],
+        note="Una probabilidad pequeña por elemento no se queda pequeña en la prueba: con 20 elementos la prueba falla 23 veces más a menudo (10,9 % frente a 0,48 %). Anotar la semilla en el informe convierte un fallo que nadie puede repetir en uno que se repite siempre. La cifra sin semilla varía entre ejecuciones y entre sistemas.",
+        note_kind="gold", foot=SINT)
+
+
+def se368_fuentes() -> Fig:
+    items = [
+        ("Reloj (hora actual)", 30.0, "coral", "30 de 30 distintas"),
+        ("Identificador aleatorio (uuid4)", 30.0, "coral", "30 de 30"),
+        ("Número aleatorio sin semilla", 30.0, "coral", "30 de 30"),
+        ("Orden de un conjunto de cadenas", 18.0, "gold", "15 a 18 según la ejecución"),
+        ("Suma de flotantes en orden mezclado", 3.0, "gold", "1 a 3 de 30"),
+        ("Identidad de un objeto (id)", 2.0, "gold", "2 de 30"),
+        ("Datos fijos ordenados · listado de un directorio", 1.0, "teal", "1 (ambos sistemas)"),
+    ]
+    return bars("Salidas distintas de un mismo generador de informe en 30 procesos, según la fuente de no determinismo activada",
+                "Barras: el reloj, el identificador aleatorio y el número aleatorio producen 30 salidas distintas en 30 procesos; el orden de un conjunto produce entre 15 y 18; la suma de flotantes en orden mezclado entre 1 y 3; la identidad de un objeto 2; los datos fijos ordenados y el listado de un directorio de tres archivos 1.",
+                items, 11.0, "Las fuentes se inyectan o se fijan una por una: el reloj y el azar se reciben como parámetros, los conjuntos se ordenan, las sumas de flotantes se hacen en orden fijo. Un listado de directorio dio una sola salida en ambos sistemas con tres archivos pequeños, pero su orden no está garantizado por el sistema de archivos.",
+                label_w=400, width=980, note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-429
-def se429_recurrencia() -> Fig:
-    r = e429_recurrencia()
-    f = r["filas"]
-    kinds = ["coral", "gold", "teal", "navy", "grey"]
+def se369_curva() -> Fig:
+    ns = [30, 60, 120, 240, 480]
     return line_chart(
-        "Incidentes por año tras tres años según el porcentaje de acciones correctivas que se completan",
-        "Líneas con los incidentes por año a lo largo de tres años según el porcentaje de acciones correctivas completadas: con 12 causas y unos 40 incidentes el primer año, completar 30 por ciento deja 16,7 incidentes el segundo año y 11,2 el tercero; completar 60 por ciento deja 9,7 y 5,9; cuanto más se completa, más rápido bajan.",
-        [(f"{x['acciones completadas %']} % de las acciones completadas", [(1, x["año 1"]), (2, x["año 2"]), (3, x["año 3"])], kinds[i]) for i, x in enumerate(f)],
-        x_label="Año", y_label="Incidentes por año", x_ticks=[(1, "1"), (2, "2"), (3, "3")], decimals=1, point_labels="last",
-        note="Cada acción completada reduce al 40 % la tasa de su causa (supuesto del autor) y la reduce una vez por incidente. La brecha entre 30 % y 90 % de cumplimiento es 3,3 veces en el tercer año: un postmortem cuyas acciones no se cierran enseña, pero no cambia el sistema.", note_kind="coral", foot=SINT)
+        "Defectos hallados de 12 plantados por tres agentes simulados, media de 300 semillas",
+        "Tres líneas: el guion fijo del camino feliz se queda en 0 defectos en todas las longitudes; la exploración aleatoria sube de 1,1 con 30 acciones a 5,3 con 480; la heurística con valores límite, repetición y deshacer sube de 2,6 a 11,6.",
+        [("Guion fijo", list(zip(ns, [0.0] * 5)), "grey"), ("Aleatorio uniforme", [(30, 1.1, "1,1", "r")] + list(zip(ns[1:], [2.5, 3.9, 4.8, 5.3])), "gold"),
+         ("Heurístico (límites, repetir, deshacer)", list(zip(ns, [2.6, 4.9, 7.9, 10.4, 11.6])), "teal")],
+        x_label="Acciones ejecutadas", y_label="Defectos hallados (de 12)", log_x=True, x_ticks=[(n, str(n)) for n in ns], decimals=1, point_labels="all",
+        hlines=[(12, "12 plantados")],
+        note="Los agentes son programas, no personas: el gráfico muestra el mecanismo de la diversidad de acciones, no el rendimiento de quien explora. El agente heurístico usa los límites que la especificación del formulario declara (10 MB, 500 caracteres), y el diseño de los doce defectos fue del autor, de modo que hay circularidad que el texto declara.",
+        note_kind="gold", foot=SINT)
 
 
-def se429_cadena() -> Fig:
-    r = e429_cadena()
-    top = sorted(r["reparto de raíces"].items(), key=lambda x: -x[1])
-    return grouped_bars(
-        "Cinco porqués sobre un grafo de 12 factores: causas raíz distintas que declaran 400 analistas",
-        f"Barras horizontales con los analistas, de 400, que declaran cada causa raíz tras seguir una cadena de porqués sobre el mismo grafo de 12 factores contribuyentes: aparecen {len(top)} causas raíz distintas; una cadena recorre en promedio {p(r['cobertura media de una cadena %'] / 100)} de los factores y cuatro analistas independientes cubren {p(r['cobertura media de cuatro analistas %'] / 100)}.",
-        [f"Raíz declarada: {k}" for k, _ in top],
-        [("Analistas", [v for _, v in top], "teal")],
-        unit="Analistas (de 400)", horizontal=True, label_w=330,
-        note="Una cadena lineal sobre un sistema con causas que convergen produce una causa raíz que depende de qué rama se eligió primero, no de qué pasó. El grafo (un síntoma, 12 factores y 12 aristas) es un caso construido por el autor para la clase; su forma, no sus nombres, es el punto.", note_kind="gold", foot=SINT)
-
-
-def se429_linter() -> Fig:
-    r = e429_linter()
-    f = r["filas"]
+def se369_accesibilidad() -> Fig:
+    clases = [("Imagen sin texto alternativo", 31, 0), ("Campo sin etiqueta", 37, 0), ("Contraste menor de 4,5:1", 32, 0), ("Salto de nivel de encabezado", 44, 0),
+              ("Enlace «clic aquí»", 37, 0), ("Idioma ausente", 42, 0), ("Texto alternativo que describe otra cosa", 0, 39), ("Trampa de teclado", 0, 35),
+              ("Orden de lectura ilógico", 0, 45), ("Mensaje de error ambiguo", 0, 32)]
     return stacked_bars(
-        "Un verificador de postmortems frente a 180 mutaciones (nueve operadores sobre veinte documentos cada uno)",
-        f"Barras apiladas con las mutaciones detectadas y no detectadas por tipo: el verificador de lenguaje de culpa explícito, cifras de impacto, horas en la línea de tiempo, dos factores como mínimo y propietario y verificación de cada acción detecta {r['detectadas']} de 180; las que cambian el sentido sin tocar la forma pasan.",
-        [_cap(x["mutación"]) for x in f],
-        [("Detectadas", [x["detectadas"] for x in f], "teal"), ("No detectadas", [x["de"] - x["detectadas"] for x in f], "coral")],
-        unit="Mutaciones", horizontal=True, label_w=330, plot_h=300,
-        note=f"Detecta {r['detectadas']} de {r['total']} ({p(r['detectadas'] / r['total'], 0)}). Un documento que pasa el verificador puede culpar sin nombrar a nadie («como siempre, el turno de noche…») y proponer acciones que nadie podrá comprobar. Medir la forma de un postmortem es medir su limpieza, no su calidad.", note_kind="coral", foot=SINT)
+        "374 defectos de accesibilidad plantados en 30 páginas sintéticas: quién puede decidirlos",
+        "Barras apiladas horizontales de diez clases de defecto: las seis primeras las decide una regla automática y suman 223 de los 374 defectos (59,6 por ciento); las cuatro últimas necesitan a una persona y suman 151.",
+        [c[0] for c in clases],
+        [("Decide una regla (6 clases, 223)", [c[1] for c in clases], "teal"), ("Decide una persona (4 clases, 151)", [c[2] for c in clases], "coral")],
+        unit="defectos plantados", horizontal=True, label_w=300, decimals=0,
+        note="El 59,6 % depende de las clases que el autor eligió y de cuántas plantó de cada una, no es una tasa de la web real. El hecho que se conserva es cuáles clases son decidibles por una regla (un contraste se calcula con la fórmula de WCAG) y cuáles exigen juicio (si un texto alternativo describe la imagen).",
+        note_kind="teal", foot=SINT)
+
+
+def se369_sondas() -> Fig:
+    return grouped_bars(
+        "Seis validadores de un nombre de curso, cada uno con un defecto: sondas dirigidas frente a cadenas aleatorias",
+        "Barras horizontales: las quince sondas dirigidas detectan el defecto de los seis validadores; quince cadenas aleatorias lo detectan en 2,0 por ciento de las semillas para el que no recorta espacios, 11,0 por ciento para el límite exclusivo y 0 por ciento para los otros cuatro.",
+        ["No recorta espacios", "Límite de 80 exclusivo", "Acepta caracteres de control", "Cuenta bytes en vez de caracteres", "Rechaza caracteres chinos", "Bloquea nombres que empiezan por «admin»"],
+        [("15 sondas dirigidas", [100.0] * 6, "teal"), ("15 cadenas aleatorias (200 semillas)", [2.0, 11.0, 0.0, 0.0, 0.0, 0.0], "coral")],
+        unit="% de semillas que detectan el defecto (las sondas son deterministas)", horizontal=True, label_w=290, decimals=1, ticks=[0, 25, 50, 75, 100],
+        note="Las sondas son una lista de criterios (vacío, solo espacios, límites 79/80/81, tildes, control, bidireccional, emoji). Se escribieron conociendo qué defectos suelen existir: una lista incompleta deja pasar los que no anticipa. No sustituyen la exploración, la preparan.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-430
-def se430_rpo() -> Fig:
-    r = e430_rpo()
-    f = r["filas"]
-    return percentile_intervals(
-        "Datos perdidos al fallar en un instante aleatorio según la estrategia de copia y réplica frente a un RPO de 5 minutos",
-        "Intervalos en escala logarítmica con la pérdida de datos mediana, el percentil 99 y la máxima según la estrategia: con copia diaria la mediana es 719,7 minutos y la máxima 1 440; con copia cada hora la mediana es 30 y la máxima 60; la réplica asíncrona pierde segundos y es la única que cumple el RPO de 5 minutos.",
-        [(_cap(x["estrategia"]), [x["pérdida mediana min"], x["p99 min"], x["máxima min"]]) for x in f],
-        unit="Pérdida de datos (minutos)", marks=("mediana", "p99", "máx"), log=True, ref_lines=[(5, "RPO = 5 min")], label_w=300,
-        note="El RPO real de una copia periódica es su intervalo, no la mediana; el de una réplica es el peor retraso, no el habitual, y una réplica también copia los errores (un borrado). 20 000 fallas por estrategia; el retraso con 1 % de picos es un supuesto del autor.", note_kind="gold", foot=SINT)
+def se370_suite() -> Fig:
+    ns = [50, 200, 1000, 5000]
+
+    def serie(vals, sides):
+        return [(n, v, " " if s == "-" else fmt_es(v, 1), "b" if s == "-" else s) for n, v, s in zip(ns, vals, sides)]
+
+    return line_chart(
+        "Corridas de la suite que pasan limpias según su tamaño y la inestabilidad de cada prueba: (1 − p)^N",
+        "Cuatro curvas decrecientes con el tamaño de la suite en escala logarítmica: con 0,1 por ciento de inestabilidad por prueba, una suite de 1 000 pruebas pasa limpia 36,8 por ciento de las veces y una de 5 000 solo 0,7 por ciento; con 0,5 por ciento una de 200 pasa 36,7 por ciento.",
+        [("0,01 % por prueba", serie([99.5, 98.0, 90.5, 60.7], "tttt"), "teal"), ("0,1 % por prueba", serie([95.1, 81.9, 36.8, 0.7], "bbtt"), "navy"),
+         ("0,5 % por prueba", serie([77.8, 36.7, 0.7, 0.0], "rrrl"), "gold"), ("1 % por prueba", serie([60.5, 13.4, 0.0, 0.0], "rrt-"), "coral")],
+        x_label="Pruebas en la suite", y_label="Corridas limpias (%)", log_x=True, x_ticks=[(n, str(n)) for n in ns], decimals=1, point_labels="all",
+        note="Un reintento automático lo arregla en apariencia: con una inestabilidad del 2 % y un reintento, la prueba termina en verde el 99,96 % de las veces, pero un defecto real que falla el 30 % de las ejecuciones también termina en verde el 91,2 % con un reintento y el 97,3 % con dos. Reintentar oculta el problema que ahora no se ve.",
+        note_kind="coral", foot=SINT)
 
 
-def se430_copias() -> Fig:
-    return grouped_bars(
-        "Cuarenta copias dañadas de una base de 20 000 filas: daños que detecta cada comprobación",
-        "Barras horizontales con los daños detectados de 40 copias de una base SQLite alterada en ocho posiciones: el éxito del trabajo de copia, el tamaño y el conteo de filas detectan 0; la verificación de integridad de SQLite detecta 20; la huella sha256 y leer y comprobar todas las filas detectan 40.",
-        ["El trabajo de copia terminó sin error", "El tamaño del archivo coincide", "Huella sha256 distinta de la registrada", "PRAGMA integrity_check", "COUNT(*) de la tabla", "Leer y comprobar todas las filas"],
-        [("Daños detectados", [0, 0, 40, 20, 0, 40], "teal")],
-        unit="Daños detectados (de 40)", horizontal=True, label_w=300, ref_lines=[(40, "40")],
-        note="La copia buena se creó con la API de copia en línea de SQLite y restauró las 20 000 filas con integrity_check «ok». Una copia que nadie restaura no es una copia: la huella detecta el cambio, y solo restaurar y consultar prueba que la base funciona. Medición real en Windows y Ubuntu con resultado igual; la lectura completa depende de que el daño invalide el texto.", note_kind="teal", foot=REAL)
+def se370_carrera() -> Fig:
+    return stacked_bars(
+        "La misma condición de carrera: resultados incorrectos según la enumeración exacta y según los hilos reales",
+        "Barras horizontales con el porcentaje de resultados incorrectos: la enumeración exacta da 66,7 por ciento con dos hilos y 93,3 por ciento con tres; los hilos reales de CPython 3.12 no fallan en 100 ejecuciones sin código entre la lectura y la escritura ni en 300 con pocas vueltas, y fallan en las 40 con 200 000 vueltas y un bucle vacío entre ambas.",
+        ["Enumeración exacta, 2 hilos", "Enumeración exacta, 3 hilos", "Hilos reales, sin nada entre leer y escribir (100 ejecuciones)",
+         "Hilos reales, bucle vacío, 1 a 1 000 vueltas (300 ejecuciones)", "Hilos reales, bucle vacío, 200 000 vueltas (40 ejecuciones)"],
+        [("Cálculo de intercalaciones (4 de 6 y 84 de 90)", [66.7, 93.3, 0.0, 0.0, 0.0], "gold"), ("Ejecuciones con hilos reales (Windows y Ubuntu)", [0.0, 0.0, 0.0, 0.0, 100.0], "coral")],
+        unit="% de resultados incorrectos", horizontal=True, label_w=380, decimals=1,
+        note="Ejecutar cien veces y ver verde no prueba que no haya carrera: el intérprete solo cambia de hilo en ciertos puntos y una línea más de código, un tamaño mayor o otra versión de Python mueve el resultado de 0 % a 100 %. La enumeración exacta no depende del planificador; los hilos reales sí.",
+        note_kind="teal", foot=SINT)
 
 
-def se430_dependencias() -> Fig:
-    r = e430_dependencias()
-    f = [x for x in r["filas"] if not x["ciclo"]]
-    return grouped_bars(
-        "Restaurar 12 componentes desde cero: tiempo en serie y ruta crítica",
-        "Barras horizontales con los minutos para restaurar 12 componentes: uno a uno tarda 225 y en paralelo respetando las dependencias la ruta crítica es de 125; cuando la identidad necesita los secretos y los secretos necesitan la identidad hay un ciclo y no se arranca desde cero, lo que solo revela un ejercicio.",
-        [_cap(x["conjunto"]) for x in f],
-        [("Restauración en serie", [x["serie min"] for x in f], "coral"), ("Ruta crítica", [x["ruta crítica min"] for x in f], "teal")],
-        unit="Minutos para restaurar", horizontal=True, label_w=330,
-        note="El RTO de 125 minutos de una tabla de dependencias incompleta es una promesa vacía: el ejercicio encontró un ciclo y añadió 5 minutos a la ruta crítica. Los 12 componentes, sus duraciones y sus dependencias son un ejemplo del autor, no una medición de ningún sistema.", note_kind="coral", foot=SINT)
+def se370_diagnostico() -> Fig:
+    causas = ["Estable (0,2 % de ruido)", "Rota (falla 98 %)", "Falla con carga alta", "Falla tras otra prueba", "Azar puro (8 %)", "Carga y orden a la vez"]
+    return stacked_bars(
+        "Clasificar la causa con un historial de 300 ejecuciones: 440 pruebas sintéticas con causa plantada",
+        "Barras apiladas horizontales: de 440 pruebas con causa conocida, el clasificador por correlaciones acierta 412 (93,6 por ciento); los errores se concentran en la causa mixta, donde confunde 16 de 40 pruebas con una causa de orden, y en las pruebas que fallan tras otra prueba, con 8 errores.",
+        causas,
+        [("Bien clasificadas", [199, 40, 57, 42, 50, 24], "teal"), ("Mal clasificadas", [1, 0, 3, 8, 0, 16], "coral")],
+        unit="pruebas sintéticas", horizontal=True, label_w=230, decimals=0,
+        note="Con solo 30 ejecuciones el historial no basta (70,9 %); con 100, 85,0 %; con 300, 93,6 %. Las reglas se ajustaron con estos mismos casos, de modo que la exactitud real es desconocida. El hecho que se conserva: la carga y el orden se confunden cuando están correlacionados, y solo un experimento que varíe uno de ellos los separa.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-431
-def se431_ambiguedad() -> Fig:
-    r = e431_ambiguedad()
-    f = r["filas"]
-    return line_chart(
-        "Diez fallas posibles y doce señales: cuántas fallas se distinguen cuando faltan señales",
-        "Líneas con las clases de falla distinguibles y las fallas identificables sin ambigüedad según las señales ausentes: con las 12 señales las 10 fallas se distinguen; si falta una cualquiera, 9,83 se identifican sin ambigüedad en promedio; si faltan tres, 8,95, y hasta tres fallas pueden quedar indistinguibles.",
-        [("Clases distinguibles (media de 10)", [(x["señales ausentes"], x["clases distinguibles (media de 10)"]) for x in f], "teal"),
-         ("Fallas sin ambigüedad (media)", [(x["señales ausentes"], x["fallas identificables sin ambigüedad (media)"]) for x in f], "coral")],
-        x_label="Señales ausentes (de 12)", y_label="Fallas (de 10)", point_labels="last", x_ticks=[(x["señales ausentes"], str(x["señales ausentes"])) for x in f], decimals=2, y_zero=False,
-        note="La matriz de firmas (qué señal se desvía con cada falla) es del autor y trata cada señal como binaria; sirve para contar ambigüedades, no para estimar probabilidades. Lo que falta importa más que cuántas faltan: la combinación de señales ausentes decide qué fallas se confunden.", note_kind="gold", foot=SINT)
+def se371_matriz() -> Fig:
+    pruebas = ["t01 resultado completo", "t02 solo ejecuta", "t03 «no es None»", "t04 compara algo consigo mismo", "t05 rechaza 7,1", "t06 texto exacto del error",
+               "t07 orden de las claves", "t08 bordes de la nota", "t09 línea con 3 campos", "t10 id y estado inválidos", "t11 promedio simple",
+               "t12 promedio sin anuladas", "t13 promedio vacío", "t14 sin nota y con espacios"]
+    muertos = [8, 6, 6, 6, 5, 10, 6, 13, 0, 1, 3, 3, 1, 8]
+    veredicto = ["util", "excepcion", "excepcion", "excepcion", "util", "fragil", "fragil", "util", "debil", "debil", "util", "util", "debil", "util"]
+    def serie(clave: str) -> list[float]:
+        return [float(m) if v == clave else 0.0 for m, v in zip(muertos, veredicto)]
+    return stacked_bars(
+        "Catorce pruebas sobre el mismo módulo: mutantes que matan (de 18) según su veredicto",
+        "Barras apiladas horizontales con los mutantes que mata cada una de catorce pruebas: la de bordes mata 13, tres pruebas sin aserciones útiles matan 6 cada una solo por excepción, dos pruebas (texto del error y orden de las claves) son frágiles ante refactorizaciones benignas y t09 no mata ninguno.",
+        pruebas,
+        [("Útil o la más fuerte", serie("util"), "teal"), ("Mata solo por excepción", serie("excepcion"), "gold"), ("Frágil ante un refactor benigno", serie("fragil"), "coral"), ("Débil o pasa por la razón equivocada", serie("debil"), "grey")],
+        unit="mutantes muertos (de 18)", horizontal=True, label_w=250, decimals=0, width=980,
+        note="Tres pruebas con poder de detección aparente (t02, t03, t04) matan solo porque el mutante hace lanzar una excepción: ninguna comprueba un valor. t09 pasa con el defecto porque el desempaquetado de una línea corta ya lanza ValueError. Una prueba que mata mutantes sin comprobar nada no demuestra lo que dice.",
+        note_kind="coral", foot=SINT)
 
 
-def se431_estrategias() -> Fig:
-    r = e431_estrategias()
-    f = r["filas"]
+def se371_minimo() -> Fig:
     return grouped_bars(
-        "Cómo elegir la siguiente observación para aislar una falla entre diez: tres estrategias sobre 4 000 diagnósticos",
-        "Barras horizontales con las observaciones hasta aislar la falla y el coste medio: elegir en cada paso la observación que mejor reparte las hipótesis restantes aísla la falla en 3,59 observaciones y coste 4,98; mirar primero lo más barato necesita 6,09 observaciones y coste 8,49.",
-        [_cap(x["estrategia"]) for x in f],
-        [("Observaciones hasta aislar", [x["observaciones hasta aislar (media)"] for x in f], "teal"), ("Coste medio", [x["coste medio"] for x in f], "gold")],
-        unit="Observaciones o coste (unidades)", horizontal=True, decimals=2, label_w=330,
-        note="Lo más barato primero no es lo más informativo: mira señales que no separan hipótesis. Los costes de 1 a 4 por observación y la ausencia de ruido de medida son supuestos del autor; con medidas ruidosas hay que repetir observaciones y la ventaja de elegir bien se reduce.", note_kind="teal", foot=SINT)
+        "Qué indicador barato se parece más a los mutantes muertos: correlación de rangos de Spearman con 14 pruebas",
+        "Barras horizontales: la correlación de rangos entre el número de aserciones y los mutantes muertos es 0,45 y entre las líneas ejecutadas y los mutantes muertos es 0,87, con catorce pruebas; tres de las catorce matan los mismos 17 mutantes que la suite entera.",
+        ["Aserciones frente a mutantes muertos", "Líneas ejecutadas frente a mutantes muertos"],
+        [("Correlación de Spearman (n = 14)", [0.45, 0.87], "teal")],
+        unit="coeficiente de correlación de rangos (0 = ninguna, 1 = perfecta)", horizontal=True, label_w=280, decimals=2, ticks=[0, 0.25, 0.5, 0.75, 1],
+        note="Tres de las 14 pruebas (t08, t11 y t12, por un conjunto voraz) matan los mismos 17 mutantes que la suite entera, que mata 17 de 18. Las otras once no son basura: documentan, protegen contra otras regresiones y fallan con mensajes más claros. Con n = 14 las correlaciones son una orientación y no una regla.",
+        note_kind="teal", foot=SINT)
 
 
-def se431_perdida() -> Fig:
-    r = e431_perdida()
-    f = r["filas"]
+def se371_validador() -> Fig:
     return grouped_bars(
-        "Tasa de error durante un incidente leída en registros cuando el agente pierde más líneas de error que de éxito",
-        "Barras con la tasa de error real y la observada en los registros según el modelo de pérdida de líneas: con una pérdida igual para todas las líneas la observada es 12,51 por ciento frente a 12,53 reales; si se pierde 25 o 50 por ciento de las líneas de error, la tasa observada baja a 10,20 y a 6,99 por ciento.",
-        [_cap(x["modelo"]) for x in f],
-        [("Tasa de error real", [x["tasa de error real %"] for x in f], "navy"), ("Tasa observada en los registros", [x["tasa observada en los registros %"] for x in f], "coral")],
-        unit="Líneas que son error (%)", decimals=2,
-        note="Se conserva más de 92 % de las líneas y la tasa de error se ve a la mitad: la pérdida depende de aquello que se mide. La telemetría falla justo cuando el sistema falla, y la ausencia de errores en los registros no prueba que no los haya habido. Los porcentajes de pérdida son supuestos del autor.", note_kind="coral", foot=SINT)
+        "200 mutaciones de un paquete de evidencia: cuántas detecta el validador al sumar cada nivel",
+        "Barras horizontales acumuladas: el nivel de estructura detecta 77 de 200 mutaciones; con referencias, 139; con re-ejecución de las pruebas contra el defecto, 153; con refactorizaciones benignas, 173; con reglas sobre las aserciones, 200.",
+        ["Estructura", "+ Referencias", "+ Re-ejecución", "+ Refactor benigno", "+ Reglas de aserción"],
+        [("Mutaciones detectadas (acumulado)", [77.0, 139.0, 153.0, 173.0, 200.0], "teal")],
+        unit="mutaciones detectadas de 200", horizontal=True, label_w=200, decimals=0, ticks=[0, 50, 100, 150, 200],
+        note="Cada nivel atrapa lo que el anterior dejó pasar: faltaban campos y afirmaciones negativas (estructura), pruebas y defectos inventados (referencias), pruebas que no detectan el defecto (re-ejecución), pruebas frágiles (refactor) y pruebas sin aserciones o tautológicas (reglas de aserción). El 100 % final es engañoso: las reglas se diseñaron con las nueve mutaciones que se evalúan. Un paquete con una trampa nueva podría pasar los cinco niveles.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-432
-def se432_validador() -> Fig:
-    r = e432_validador()
-    f = r["filas"]
-    return stacked_bars(
-        "Un validador de paquetes operativos frente a 360 mutaciones (doce operadores, treinta paquetes cada uno)",
-        f"Barras apiladas con las mutaciones detectadas y no detectadas por tipo: el validador de referencias cruzadas entre servicios, objetivos, alertas, runbooks, copias y ejercicios detecta {r['detectadas']} de 360; detecta todas las de siete operadores y ninguna de las que cambian el sentido sin romper una referencia.",
-        [_cap(x["mutación"]) for x in f],
-        [("Detectadas", [x["detectadas"] for x in f], "teal"), ("No detectadas", [x["de"] - x["detectadas"] for x in f], "coral")],
-        unit="Mutaciones", horizontal=True, label_w=330, plot_h=340,
-        note=f"Detecta {r['detectadas']} de {r['total']} ({p(r['detectadas'] / r['total'], 0)}), todas por referencias rotas o fechas vencidas. Ninguna de las cinco clases que se escapan viola el formato: son errores de significado. Un paquete coherente consigo mismo no es un sistema operable; los doce operadores y el paquete base son construcciones del autor.", note_kind="coral", foot=SINT)
-
-
-def se432_reproducibilidad() -> Fig:
-    return stacked_bars(
-        "Mismo código, dos sistemas: sondas que se reproducen y sondas que cambian en Windows 11 y Ubuntu bajo WSL2",
-        "Barra apilada con las siete sondas comparadas entre Windows 11 con CPython 3.12.9 y Ubuntu con 3.12.3: dos son idénticas (la huella de los resultados de tiempo virtual y la conservación de un nombre con eñe) y cinco difieren (separador de línea, bytes escritos como texto, caracteres leídos con la codificación local, separador de rutas y distinción de mayúsculas en una ruta).",
-        ["Sondas comparadas (7)"],
-        [("Idénticas", [2], "teal"), ("Distintas", [5], "coral")],
-        unit="Sondas", horizontal=True, label_w=230, plot_h=120,
-        note="Un resultado calculado con semilla fija se reproduce en cualquier sistema; todo lo que toca el sistema de archivos o la codificación cambia. Declarar la codificación (utf-8) en cada lectura y escritura evita el caso del texto leído con otra. Medición real de los dos sistemas; la huella cubre tres experimentos del paquete.", note_kind="gold", foot=REAL)
-
-
-def se432_cadena() -> Fig:
-    r = e432_cadena()
-    names = list(r["fallos por etapa %"])
+def se372_trimestre() -> Fig:
     return grouped_bars(
-        "Una respuesta a incidentes de cinco etapas: dónde se pierde y cuánto sube la recuperación al mejorar cada etapa 5 puntos",
-        f"Barras horizontales con los incidentes que fallan en cada etapa y con la recuperación completa que resultaría de mejorar esa etapa 5 puntos: con cinco etapas de 95, 92, 80, 88 y 90 por ciento de éxito, el producto es {p(r['producto de las etapas %'] / 100)} y la simulación de 20 000 incidentes da {p(r['recuperación completa simulada %'] / 100)}; la etapa más débil es la que más rinde al mejorarla.",
-        [_cap(k) for k in names],
-        [("Incidentes que fallan en la etapa", [r["fallos por etapa %"][k] for k in names], "coral"), ("Recuperación completa si se mejora 5 puntos", [r["mejorar 5 puntos la etapa (producto %)"][k] for k in names], "teal")],
-        unit="Porcentaje (%)", horizontal=True, decimals=1, label_w=230, ref_lines=[(r["producto de las etapas %"], "actual")],
-        note="Una cadena de etapas buenas por separado se recupera menos de una de cada dos veces a lo largo del año, y la mejora más rentable está en la etapa más débil, no en la más visible. Las probabilidades por etapa y la dependencia por la telemetría son supuestos del autor.", note_kind="teal", foot=SINT)
+        "2 000 trimestres simulados con 40 horas de pruebas y 240 cambios por trimestre",
+        "Barras horizontales con la pérdida media del trimestre y su percentil 95 para seis estrategias: sin pruebas 42,41 y 62,00; con reparto uniforme 24,09 y 39,30; el marginal con exposición baja a 21,37 y 35,10.",
+        ["Sin pruebas", "Reparto uniforme", "Proporcional al tamaño", "Proporcional a probabilidad × impacto", "Por exposición (× cambios)", "Marginal con exposición"],
+        [("Pérdida media", [42.41, 24.09, 24.17, 22.78, 21.75, 21.37], "teal"), ("Percentil 95", [62.0, 39.3, 39.0, 37.2, 35.6, 35.1], "coral")],
+        unit="pérdida del trimestre (unidades del modelo; menos es mejor)", horizontal=True, label_w=270, decimals=2,
+        note="Pasar de un reparto uniforme al marginal con exposición baja la pérdida media 11 % y el percentil 95 el 11 %; es una mejora real y modesta. La mayor parte del beneficio (42,41 a 24,09) llega con tener pruebas. Los escapes medios (15,69 sin pruebas y entre 7,9 y 8,7 con ellas) están en la tabla. Los cambios se reparten por tamaño del código y la probabilidad por cambio es p/4: ambos supuestos del autor.",
+        note_kind="teal", foot=SINT)
+
+
+def se372_incidente() -> Fig:
+    f, y = _kit_start("Reasignar el presupuesto tras un incidente en plazos y zonas horarias",
+                      "Flujo de cuatro pasos: el incidente multiplica por tres la probabilidad de defecto de plazos y zonas horarias y por la mitad la de notificaciones; 2,3 horas salen de notificaciones y 3,7 llegan a plazos; la pérdida esperada baja de 0,706 a 0,678 y la media simulada de 22,59 a 21,73; tres componentes quedan bajo 2 horas.",
+                      940, None)
+    top = y + 6
+    w, h, gap = 200, 150, 44
+    pasos = [
+        ("Incidente en plazos y zonas horarias", "Probabilidad de defecto de plazos ×3 y de notificaciones ×0,5", "coral"),
+        ("Reasignar las horas", "Notificaciones: de 2,3 h a 0,0 h. Plazos y zonas horarias: de 4,7 h a 8,4 h", "gold"),
+        ("Pérdida esperada", "Del modelo: de 0,706 a 0,678 (−4 %). Media simulada: de 22,59 a 21,73 (−3,8 %)", "teal"),
+        ("Bajo 2 horas", "Autenticación 0,7 h, búsqueda 0,6 h, administración 1,1 h: se declaran y caducan", "navy"),
+    ]
+    for i, (cab, cuerpo, kind) in enumerate(pasos):
+        x = 10 + i * (w + gap)
+        f.box(x, top, w, 40, cab, kind, 13, bold=True)
+        f.box(x, top + 46, w, h - 46, cuerpo, "plain", 13)
+        if i < 3:
+            f.arrow([(x + w, top + 20), (x + w + gap, top + 20)])
+    return _kit_finish(f, top + h + 10,
+                       "Reasignar tras un incidente mejora poco (3,8 %) porque el plan anterior ya era razonable; lo que cambia es que ahora está justificado con el incidente. Tres componentes quedan bajo 2 horas: el paquete los declara como exclusiones con una razón y una fecha de caducidad, no los deja olvidados.",
+                       "gold", SINT)
+
+
+def se372_validador() -> Fig:
+    return stacked_bars(
+        "Validador del paquete de estrategia: en qué nivel se detecta cada una de las 200 mutaciones",
+        "Una barra apilada de 200 mutaciones: 60 las detecta la estructura, 64 la coherencia de riesgo, 29 el presupuesto y 33 la trazabilidad, 186 en total; las 14 restantes son 13 cambios de redacción inocuos y una mutación de nivel equivalente, que no deben detectarse.",
+        ["200 mutaciones del paquete"],
+        [("Estructura (60)", [60], "teal"), ("Coherencia (64)", [64], "navy"), ("Presupuesto (29)", [29], "gold"), ("Trazabilidad (33)", [33], "grey"), ("No detectadas (14)", [14], "coral")],
+        unit="mutaciones", horizontal=True, label_w=190, decimals=0,
+        note="De 187 mutaciones que cambian el contenido se detectan 186: la que falta es un cambio de nivel que cae en otro nivel igualmente válido, es decir, no cambia nada. Las 13 mutaciones inocuas de redacción no deben detectarse. Las reglas se ajustaron con los mismos tipos que se miden; un paquete incorrecto de un tipo no contemplado puede pasar.",
+        note_kind="teal", foot=SINT)
 
 
 FIGURES = {
-    "se-427-carga-de-la-guardia.svg": se427_guardia,
-    "se-427-escalamiento-y-causa-compartida.svg": se427_escalamiento,
-    "se-427-verificador-de-runbooks.svg": se427_linter,
-    "se-428-de-que-se-compone-el-tiempo.svg": se428_cronologia,
-    "se-428-cadencia-de-actualizaciones.svg": se428_actualizaciones,
-    "se-428-acuerdo-sobre-la-severidad.svg": se428_severidad,
-    "se-429-cumplimiento-y-recurrencia.svg": se429_recurrencia,
-    "se-429-cinco-porques-sobre-un-grafo.svg": se429_cadena,
-    "se-429-verificador-de-postmortems.svg": se429_linter,
-    "se-430-datos-perdidos-y-rpo.svg": se430_rpo,
-    "se-430-copias-danadas.svg": se430_copias,
-    "se-430-orden-de-restauracion.svg": se430_dependencias,
-    "se-431-fallas-indistinguibles.svg": se431_ambiguedad,
-    "se-431-elegir-la-siguiente-observacion.svg": se431_estrategias,
-    "se-431-telemetria-que-se-pierde.svg": se431_perdida,
-    "se-432-verificador-de-paquetes.svg": se432_validador,
-    "se-432-reproducibilidad-entre-sistemas.svg": se432_reproducibilidad,
-    "se-432-cadena-de-respuesta.svg": se432_cadena,
+    "se-427-fidelidad-de-los-dobles.svg": se367_fidelidad,
+    "se-427-pruebas-acopladas-a-la-interaccion.svg": se367_interaccion,
+    "se-427-diferencias-de-entorno.svg": se367_entorno,
+    "se-428-fixtures-y-orden-de-ejecucion.svg": se368_fixtures,
+    "se-428-datos-aleatorios-con-semilla.svg": se368_semilla,
+    "se-428-fuentes-de-no-determinismo.svg": se368_fuentes,
+    "se-429-defectos-hallados-por-exploracion.svg": se369_curva,
+    "se-429-accesibilidad-que-una-regla-decide.svg": se369_accesibilidad,
+    "se-429-sondas-de-entrada.svg": se369_sondas,
+    "se-430-suite-limpia-segun-su-tamano.svg": se370_suite,
+    "se-430-carrera-enumerada-y-real.svg": se370_carrera,
+    "se-430-clasificar-la-causa.svg": se370_diagnostico,
+    "se-431-poder-de-deteccion-de-catorce-pruebas.svg": se371_matriz,
+    "se-431-conjunto-minimo-e-indicadores.svg": se371_minimo,
+    "se-431-validador-de-evidencia.svg": se371_validador,
+    "se-432-un-trimestre-simulado.svg": se372_trimestre,
+    "se-432-reasignar-tras-un-incidente.svg": se372_incidente,
+    "se-432-validador-de-la-estrategia.svg": se372_validador,
 }

@@ -1,257 +1,164 @@
-"""Figures for SE-289 to SE-294 (code analysis and synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
+"""Figures for SE-289 to SE-292 (synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig, dumbbell, grouped_bars, heatmap, line_chart, percentile_intervals, scatter, stacked_bars
+from figure_kit import Fig, dumbbell, grouped_bars, heatmap, line_chart
 from figures_part07_a import bars
 
-SINT = "Medición sobre código de ejemplo y simulación con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
+SINT = "Simulación sintética con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
 
 
 # ---------------------------------------------------------------- SE-289
-def se289_lcom() -> Fig:
+def se277_orden() -> Fig:
     return grouped_bars(
-        "Métodos y grupos desconectados (LCOM4) de una clase de envíos y de su separación",
-        "Barras agrupadas con el número de métodos y el LCOM4 de cuatro clases: la clase mezclada de envíos tiene 7 métodos y LCOM4 igual a 3; al separarla, precio tiene 3 métodos, aviso 2 y bitácora 2, y cada una tiene LCOM4 igual a 1.",
-        ["Envío (clase mezclada)", "Precio", "Aviso", "Bitácora"],
-        [("Métodos", [7, 3, 2, 2], "grey"), ("LCOM4 (grupos de métodos que no se tocan)", [3, 1, 1, 1], "coral")],
-        unit="Cantidad", decimals=0, plot_h=260,
-        note="LCOM4 cuenta los grupos de métodos conectados por atributos compartidos o llamadas entre sí; 3 significa tres clases en una. Con clases aleatorias de seis métodos, si cada uno usa un solo atributo de seis, ninguna clase queda en 1; con dos atributos por método, el 88,7 %; con tres, el 100 %: la métrica mide densidad de uso, no calidad del diseño.",
-        note_kind="gold", foot=SINT)
+        "Sumar 20 000 números de magnitudes muy distintas: el orden cambia el resultado",
+        "Barras horizontales con el número de totales distintos al sumar veinte mil números de magnitudes muy distintas en mil órdenes aleatorios: la suma ingenua da 205 resultados distintos; la suma ordenada por magnitud, la suma por pares y math.fsum dan uno solo.",
+        ["Suma ingenua, 1000 órdenes aleatorios", "Suma ingenua ordenada por magnitud", "Suma por pares (recursiva)", "math.fsum (referencia exacta)"],
+        [("Resultados distintos", [205, 1, 1, 1], "coral")],
+        unit="Totales distintos en 1 000 órdenes", horizontal=True, label_w=250,
+        note='Sumar en coma flotante no es asociativo: el mismo conjunto de datos produce 205 totales distintos según el orden en que lo recorre un procesador, un hilo o una partición. Cambiar el número de núcleos puede cambiar la última cifra publicada. El error absoluto es pequeño frente a un total de unos 2·10⁹, pero basta para que una comparación exacta entre ejecuciones falle.', note_kind='gold', foot=SINT)
 
 
-def se289_sitios() -> Fig:
-    return grouped_bars(
-        "Sitios que hay que editar en 30 clientes al cambiar la representación del peso",
-        "Barras agrupadas con los sitios que hay que editar en treinta clientes: renombrar el campo obliga a editar 30 sitios si los clientes leen peso_kg y ninguno con getter o comportamiento; cambiar kilos a gramos obliga a editar 51 sitios con campo o getter y ninguno si los clientes piden comportamiento.",
-        ["Los clientes leen el campo peso_kg", "Los clientes llaman a un getter peso()", "Los clientes piden comportamiento"],
-        [("Renombrar el campo", [30, 0, 0], "gold"), ("Cambiar kg a g", [51, 51, 0], "coral")],
-        unit="Sitios que editar", horizontal=True, decimals=0, label_w=260,
-        note="Un getter oculta el nombre pero no el significado: los clientes siguen multiplicando kilos. Solo encapsular la decisión (qué es el peso y cuánto cuesta) deja la unidad dentro. Los 30 clientes salen de cuatro plantillas elegidas con semilla fija; es una construcción del autor, no un proyecto real.",
-        note_kind="teal", foot=SINT)
-
-
-def se289_ciclos() -> Fig:
+def se277_semillas() -> Fig:
     return line_chart(
-        "Probabilidad de ciclos entre 20 módulos cuando las dependencias se añaden sin regla",
-        "Líneas con el porcentaje de grafos con ciclo según las aristas añadidas entre veinte módulos: al azar sube de 65 por ciento con 20 aristas a 100 con 40 y con 60; con un orden de capas se queda en 0; el primer ciclo aparece con una mediana de 18 aristas.",
-        [("Aristas al azar", [(20, 65.0), (40, 100.0), (60, 100.0)], "coral"),
-         ("Con orden de capas (solo hacia abajo)", [(20, 0.0), (40, 0.0), (60, 0.0)], "teal")],
-        x_label="Aristas añadidas entre 20 módulos", y_label="Grafos con al menos un ciclo (%)",
-        x_ticks=[(10, "10"), (20, "20"), (30, "30"), (40, "40"), (50, "50"), (60, "60")], y_ticks=[0, 20, 40, 60, 80, 100],
-        vlines=[(18, "mediana del primer ciclo: 18")], decimals=1, plot_h=280,
-        note="Los ciclos no son un accidente raro: aparecen pronto cuando nadie decide el sentido de las dependencias. El primer ciclo llega con una mediana de 18 aristas (p10 a p90: 9 a 27; mínimo 2, máximo 47). Un orden de capas permite 190 de las 380 aristas posibles y elimina los ciclos por construcción. Grafos sintéticos de 2000 repeticiones; un grafo real no es aleatorio.",
-        note_kind="coral", foot=SINT)
+        "Estimar π con 200 semillas: lo que una sola ejecución no dice",
+        "Líneas con el valor mínimo y máximo de la estimación de pi entre doscientas semillas según los puntos por ejecución: con mil puntos el rango va de 2,988 a 3,292, con diez mil de 3,090 a 3,183 y con cien mil de 3,128 a 3,158; el embudo se cierra alrededor de 3,1416.",
+        [("Máximo observado", [(1000, 3.292, "3,292", "t"), (10000, 3.183, "3,183", "t"), (100000, 3.158, "3,158", "t")], "coral"),
+         ("Mínimo observado", [(1000, 2.988, "2,988", "b"), (10000, 3.090, "3,090", "b"), (100000, 3.128, "3,128", "b")], "teal")],
+        x_label="Puntos por ejecución", y_label="Estimación de π", log_x=True,
+        x_ticks=[(1000, "1 000"), (10000, "10 000"), (100000, "100 000")], y_ticks=[2.9, 3.0, 3.1, 3.2, 3.3], y_zero=False,
+        hlines=[(3.1416, "π = 3,1416")], point_labels="none", plot_h=300,
+        note='Con una semilla fija la misma ejecución da siempre el mismo número, y eso es reproducibilidad exacta. No es evidencia de que el resultado sea estable: con mil puntos, otra semilla da cualquier valor entre 2,99 y 3,29. Publicar la semilla permite repetir; variar las semillas permite saber cuánto vale la cifra.', note_kind='teal', foot=SINT)
+
+
+def se277_caos() -> Fig:
+    return line_chart(
+        "Pasos hasta que dos trayectorias casi idénticas se separan en 0,1 (mapa logístico, r = 3,9)",
+        "Líneas con los pasos que tardan en separarse dos trayectorias del mapa logístico caótico según la diferencia inicial: la mediana sube de 23 pasos con diez a la menos seis a 65 con diez a la menos quince, unos 14 pasos por cada tres décadas; en el régimen estable no divergen en quinientos pasos.",
+        [("Percentil 90", [(6, 29, "29", "t"), (9, 45, "45", "t"), (12, 59, "59", "t"), (15, 75, "75", "t")], "coral"),
+         ("Mediana", [(6, 23, "23", "r"), (9, 37, "37", "t"), (12, 50, "50", "t"), (15, 65, "65", "t")], "navy"),
+         ("Percentil 10", [(6, 20, "20", "b"), (9, 33, "33", "b"), (12, 46, "46", "b"), (15, 59, "59", "b")], "teal")],
+        x_label="Diferencia inicial entre las dos trayectorias", y_label="Pasos hasta separarse en 0,1",
+        x_ticks=[(6, "10⁻⁶"), (9, "10⁻⁹"), (12, "10⁻¹²"), (15, "10⁻¹⁵")], y_ticks=[0, 20, 40, 60, 80], point_labels="none",
+        annotations=[(6, 29, "Control estable (r = 2,8): no diverge en 500 pasos", 40, -95)],
+        note='Cada mil millonésima de diferencia compra apenas unos 14 pasos: la divergencia crece de forma exponencial, así que mejorar la precisión de la máquina retrasa el desacuerdo pero no lo elimina. Si el modelo es caótico, reproducir bit a bit una trayectoria larga en otra plataforma no es un objetivo realista; hay que reproducir estadísticos.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-290
-def se290_reglas() -> Fig:
-    return line_chart(
-        "Complejidad de la función de descuento al añadir reglas: cadena if/elif frente a registro",
-        "Líneas con la complejidad ciclomática según la regla de descuento añadida: en la cadena if elif sube de 3 con la segunda regla a 6 con la quinta porque cada regla modifica la función; en el registro de reglas se queda en 2 y ninguna función existente se modifica.",
-        [("Cadena if/elif (modifica la función, +2 líneas)", [(2, 3), (3, 4), (4, 5), (5, 6)], "coral"),
-         ("Registro de reglas (no modifica, +4 líneas)", [(2, 2), (3, 2), (4, 2), (5, 2)], "teal")],
-        x_label="Regla de descuento añadida", y_label="Complejidad de la función de descuento",
-        x_ticks=[(2, "2.ª"), (3, "3.ª"), (4, "4.ª"), (5, "5.ª")], y_ticks=[0, 2, 4, 6, 8], decimals=0, plot_h=260,
-        note="Abierto/cerrado se ve como funciones existentes que no cambian: en la cadena, cada regla nueva reabre la función que todas las pruebas atraviesan; en el registro, no. El registro escribe más líneas por regla (cuatro frente a dos). Cuesta además dos decisiones nuevas: el orden y cómo se combinan reglas simultáneas (aquí, el máximo).",
-        note_kind="teal", foot=SINT)
-
-
-def se290_liskov() -> Fig:
+def se278_reintentos() -> Fig:
     return grouped_bars(
-        "Subclases que rompen el contrato de Tarifa: tres ejemplos frente a 2000 entradas al azar",
-        "Barras horizontales con el porcentaje de violaciones que detecta cada método en cinco subclases de una tarifa: tres ejemplos de camino feliz no detectan ninguna; 2000 entradas al azar detectan el 61,8 por ciento de la que rechaza pesos altos, el 19,1 de la que lanza una excepción nueva, el 0,9 de la no monótona y solo el 0,1 de la que falla en un rincón estrecho.",
-        ["Compatible", "Rechaza pesos mayores de 20", "Lanza KeyError en la zona 5", "Pesos desde 30 con 20 % de descuento", "Pierde monotonía si peso > 45 y zona 1"],
-        [("3 ejemplos de camino feliz", [0, 0, 0, 0, 0], "gold"), ("2000 entradas al azar", [0, 61.8, 19.1, 0.9, 0.1], "teal")],
-        unit="Entradas en que se detecta la violación (%)", horizontal=True, decimals=1, label_w=290, width=980,
-        note="Probar con la superclase en la mano es la prueba de sustitución: todas las subclases deben pasar el mismo conjunto de comprobaciones. Una violación que ocurre en el 0,1 % del dominio se escapa incluso a 2000 entradas: el azar no sustituye a razonar sobre las condiciones del contrato. El contrato es del autor.",
-        note_kind="coral", foot=SINT)
+        "Cargar 10 000 filas en lotes de 100 con fallos a mitad de lote y reintentos",
+        "Barras agrupadas con las filas duplicadas tras cargar 10 000 filas con reintentos: añadir al final deja 0, 442 y 867 duplicadas si fallan el 0, el 5 y el 20 por ciento de los lotes; escribir por clave deja siempre 0 duplicadas.",
+        ["0 % de lotes fallan", "5 % de lotes fallan", "20 % de lotes fallan"],
+        [("Añadir al final", [0, 442, 867], "coral"), ("Escribir por clave (upsert)", [0, 0, 0], "teal")],
+        unit="Filas duplicadas (de 10 000 cargadas)",
+        note='El reintento es correcto solo si repetir la escritura no cambia el resultado. Añadir al final no es repetible: cada reintento duplica lo que ya se había escrito antes del corte. La escritura por clave es idempotente. Simulación con cortes en un punto aleatorio del lote y hasta diez intentos.', note_kind='coral', foot=SINT)
 
 
-def se290_interfaces() -> Fig:
-    return dumbbell(
-        "Interfaces anchas y estructura innecesaria: qué baja y qué sube al segregar y abstraer",
-        "Gráfico de mancuernas en escala logarítmica: segregar la interfaz baja los clientes que revisan un cambio de 8 a 5 y los métodos de un doble de prueba de 12 a 7,5; abstraer la misma regla de redondeo y tope sube los nodos del árbol sintáctico de 17 a 126 y las líneas de 2 a 17.",
-        [("Clientes que revisan un cambio (de 8)", 8, 5), ("Métodos de un doble de prueba", 12, 7.5),
-         ("Nodos del árbol sintáctico de la misma regla", 17, 126), ("Líneas de la misma regla", 2, 17)],
-        unit="Cantidad", names=("Interfaz ancha / función simple", "Roles / estrategias y fábrica"), log=True,
-        delta=lambda a, b: "×" + f"{b / a:.1f}".replace(".", ","), lower_is_better=True, label_w=300, width=980,
-        note="Segregar interfaces reduce la dependencia nominal, no la real: de ocho clientes solo 1,75 usan de verdad el método que cambia, y aun con roles cinco revisan el cambio. Y la abstracción tiene precio de lectura: 7 veces más nodos para la misma regla. Sin un segundo uso, esa estructura no compra nada. Ocho clientes sintéticos con semilla fija.",
-        note_kind="gold", foot=SINT)
+def se278_tardios() -> Fig:
+    items = [
+        ("Espera de 5 s", 50.17, "coral", "50,2 % descartado"),
+        ("15 s", 13.57, "coral", "13,6 %"),
+        ("30 s", 3.55, "gold", "3,6 %"),
+        ("60 s", 0.66, "gold", "0,66 %"),
+        ("120 s", 0.06, "teal", "0,06 %"),
+        ("300 s", 0.0, "teal", "0 %"),
+    ]
+    return bars("Eventos que llegan después de cerrar su ventana según la tolerancia de retraso",
+                "Barras: con retraso lognormal de mediana 5 segundos, una tolerancia de 5 segundos descarta el 50,2 por ciento de los eventos, 15 segundos el 13,6, 30 segundos el 3,6, 60 segundos el 0,66, 120 segundos el 0,06 y 300 segundos ninguno.",
+                items, 11, "Retraso de llegada lognormal (mediana 5 s, p99 51 s, máximo 351 s) sobre 100 000 eventos. Cada tolerancia compra completitud a costa de latencia: esperar 120 s deja los resultados abiertos dos minutos. El 0 % exacto depende de esta muestra, no de la física.",
+                label_w=190, width=960, note_kind="gold", foot=SINT)
+
+
+def se278_sesgo() -> Fig:
+    return line_chart(
+        "Carga de la partición más cargada frente a la media (8 particiones, 200 000 filas, 1 000 claves)",
+        "Líneas con la carga de la partición más cargada frente a la media según el exponente de Zipf: sin sal sube de 1,01 con claves uniformes a 1,35 con exponente 0,8, 2,03 con 1,1 y 3,43 con 1,5; con una sal de 8 se queda en 1,01 en todos los casos.",
+        [("Sin sal", [(0, 1.01, "1,01", "b"), (0.8, 1.35, "1,35", "t"), (1.1, 2.03, "2,03", "t"), (1.5, 3.43, "3,43", "t")], "coral"),
+         ("Con sal de 8", [(0, 1.01, "", "t"), (0.8, 1.01, "1,01", "t"), (1.1, 1.01, "1,01", "t"), (1.5, 1.01, "1,01", "t")], "teal")],
+        x_label="Exponente de Zipf (0 = claves uniformes)", y_label="Carga máxima / carga media",
+        x_ticks=[(0, "0"), (0.5, "0,5"), (1.0, "1,0"), (1.5, "1,5")], y_ticks=[0, 1, 2, 3, 4], point_labels="none",
+        note='El reparto por clave es equilibrado solo si las claves lo son: una sola partición con 3,4 veces la media fija el tiempo total del trabajo. Salar la clave reparte la carga a cambio de un paso más para recombinar los resultados parciales. Las claves y los exponentes son sintéticos.', note_kind='gold', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-291
-def se291_base() -> Fig:
-    return grouped_bars(
-        "Contador de elementos agregados: lotes con cuenta errónea según el diseño y la base",
-        "Barras agrupadas con los lotes mal contados de mil: el contador por herencia cuenta mal los 1000 lotes cuando la base implementa agregar todos llamando a agregar y ninguno cuando usa extend; el contador por composición y delegación cuenta bien los mil lotes con ambas bases.",
-        ["Herencia", "Composición y delegación"],
-        [("Base V1 (agregar_todos llama a agregar)", [1000, 0], "coral"), ("Base V2 (agregar_todos usa extend)", [0, 0], "teal")],
-        unit="Lotes con cuenta errónea (de 1000)", decimals=0, plot_h=240,
-        note="La subclase funcionaba o fallaba según un detalle interno de la base que ni la interfaz ni la documentación prometían: eso es la clase base frágil. La composición solo depende de lo que la base promete. La prueba que pasó con V2 no vio que V1 existía. Lotes de 1 a 6 elementos con semilla fija.",
-        note_kind="coral", foot=SINT)
+def se279_fuga() -> Fig:
+    return dumbbell(
+        "Exactitud de un umbral sobre una variable con y sin fuga de la etiqueta (4 000 casos por conjunto)",
+        "Puntos unidos por una línea con la exactitud en prueba y en producción de dos variables: la señal real pasa de 0,742 a 0,755; la copia ruidosa de la etiqueta cae de 0,899 a 0,515 porque en producción esa copia no existe.",
+        [("Señal real (x), sin fuga", 0.742, 0.755), ("Copia ruidosa de la etiqueta (z), con fuga", 0.899, 0.515)],
+        unit="Exactitud del umbral (0 a 1)", names=("En prueba", "En producción"), decimals=3, lower_is_better=False,
+        delta=lambda a, b: ("+" if b > a else "−") + f"{abs(b - a):.3f}".replace(".", ","), label_w=250,
+        note='La métrica de prueba subió 16 puntos justo cuando el modelo dejó de aprender el fenómeno y empezó a leer la respuesta. Una exactitud sorprendentemente alta es una pista para buscar fuga, no para celebrar. La fuga se detecta preguntando, variable por variable, si existiría en el momento de predecir.', note_kind='coral', foot=SINT)
 
 
-def se291_decoradores() -> Fig:
+def se279_prevalencia() -> Fig:
     return line_chart(
-        "Opciones de envío combinables: subclases, decoradores y órdenes posibles",
-        "Líneas en escala logarítmica según el número de opciones combinables: las subclases por combinación crecen de 15 con 4 opciones a 1023 con 10, los decoradores solo de 4 a 10, y los órdenes en que se pueden aplicar los decoradores crecen de 24 a 3 628 800.",
-        [("Subclases por combinación", [(4, 15, "15", "r"), (6, 63), (8, 255), (10, 1023)], "coral"),
-         ("Decoradores", [(4, 4, "4", "b"), (6, 6), (8, 8), (10, 10)], "teal"),
-         ("Órdenes posibles de los decoradores", [(4, 24), (6, 720), (8, 40320), (10, 3628800)], "gold")],
-        x_label="Opciones combinables", y_label="Cantidad", log_y=True,
-        x_ticks=[(4, "4"), (6, "6"), (8, "8"), (10, "10")], y_ticks=[1, 10, 100, 1000, 10000, 100000, 1000000, 10000000],
-        decimals=0, plot_h=300,
-        note="Con cuatro opciones, base 50, frágil +4, seguro ×1,02, urgente ×1,30 y refrigerado +6, los 24 órdenes dan 14 totales entre 76,30 y 79,56: la composición cambia el crecimiento (lineal en vez de exponencial) pero el orden pasa a ser parte del diseño y debe fijarse o probarse.",
-        note_kind="gold", foot=SINT)
+        "Un detector con sensibilidad 0,90 y especificidad 0,95 según la prevalencia del evento",
+        "Líneas en escala logarítmica según la prevalencia del evento, con sensibilidad 0,90 y especificidad 0,95: la exactitud se mantiene entre 0,925 y 0,950, la regla «siempre no» sube de 0,500 a 0,999 y la proporción de avisos reales cae de 0,947 con el 50 por ciento a 0,154 con el 1 por ciento y 0,018 con el 0,1.",
+        [("Exactitud del detector", [(0.1, 0.950, "0,950", "b"), (1, 0.950, "0,950", "b"), (10, 0.945, "0,945", "t"), (50, 0.925, "0,925", "b")], "teal"),
+         ("Exactitud de «siempre no»", [(0.1, 0.999, "0,999", "t"), (1, 0.990, "0,990", "t"), (10, 0.900, "0,900", "b"), (50, 0.500, "0,500", "t")], "gold"),
+         ("De cada aviso, proporción real", [(0.1, 0.018, "0,018", "t"), (1, 0.154, "0,154", "t"), (10, 0.667, "0,667", "b"), (50, 0.947, "0,947", "t")], "coral")],
+        x_label="Prevalencia del evento (%)", y_label="Proporción (0 a 1)", log_x=True,
+        x_ticks=[(0.1, "0,1 %"), (1, "1 %"), (10, "10 %"), (50, "50 %")], y_ticks=[0, 0.2, 0.4, 0.6, 0.8, 1], point_labels="none", plot_h=320,
+        note='Con el 1 % de casos, 85 de cada 100 avisos son falsos aunque el detector parezca bueno (0,95 de exactitud). Y la regla que nunca avisa saca 0,99. La exactitud no sirve con eventos raros: hay que reportar sensibilidad, valor predictivo y coste de cada tipo de error. Comprobado con 500 000 casos simulados.', note_kind='gold', foot=SINT)
 
 
-def se291_mro() -> Fig:
-    items = [
-        ("Jerarquías que no se pueden crear (MRO)", 65.2, "coral", "65,2 %"),
-        ("Jerarquías que se crean", 34.8, "teal", "34,8 %"),
-        ("De las que heredan el mismo método de 2 o más bases: el elegido cambia al invertir las bases", 91.6, "gold", "91,6 % (175 de 191)"),
-    ]
-    return bars("3000 jerarquías aleatorias de 8 clases con hasta 3 bases cada una",
-                "Barras: de tres mil jerarquías aleatorias de ocho clases con hasta tres bases, el 65,2 por ciento no se puede crear por un orden de resolución de métodos inconsistente; del resto, en el 91,6 por ciento de los casos con un método heredado de dos o más bases, invertir el orden de las bases cambia el método que se ejecuta.",
-                items, 5, "Python rechaza con TypeError los órdenes de bases imposibles y resuelve el resto por un orden lineal definido por el orden en que se escriben las bases. Escribir class C(A, B) o class C(B, A) cambia el programa. Jerarquías sintéticas sin semántica: miden la mecánica, no cuán común es en proyectos reales.",
-                label_w=470, width=1010, note_kind="coral", foot=SINT)
+def se279_deriva() -> Fig:
+    return heatmap(
+        "Alarmas de deriva (PSI > 0,2) según el desplazamiento de la media y el tamaño de la ventana",
+        "Mapa de calor con el porcentaje de ventanas en que suena la alarma de deriva según el desplazamiento de la media y el tamaño de la ventana: con ventanas de 100 suena el 4 por ciento sin cambio y el 37 con 0,3 desviaciones; con ventanas de 500 o 5 000 no suena con ese desplazamiento y con 0,5 suena el 92 y el 100 por ciento.",
+        ["0,0 (sin cambio)", "0,1", "0,3", "0,5"], ["Ventana de 100", "Ventana de 500", "Ventana de 5 000"],
+        [[4, 0, 0], [6, 0, 0], [37, 0, 0], [92, 92, 100]],
+        unit="% de ventanas con alarma", row_title="Desplazamiento (σ)", col_title="Ventanas con alarma (PSI > 0,2)",
+        scale="coral", vmin=0, vmax=100, decimals=0, suffix=" %", highlight=[(2, 0)], cell_h=42, label_w=150,
+        note='Con ventanas pequeñas el índice se infla por azar: a 0,3 desviaciones la alarma de n = 100 suena 37 veces de 100 y la de n ≥ 500 ninguna, porque el valor real del índice (alrededor de 0,09) queda bajo el umbral. El umbral de 0,2 es una convención, no una ley; 200 ventanas por celda.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-292
-def se292_singleton() -> Fig:
-    items = [
-        ("Singleton sin reinicio", 99.8, "coral", "99,8 % de los órdenes fallan"),
-        ("Singleton con reinicio por prueba", 0.0, "teal", "0 %"),
-        ("Configuración inyectada", 0.0, "teal", "0 %"),
-    ]
-    return bars("Órdenes aleatorios de 12 pruebas con al menos un fallo (5000 órdenes)",
-                "Barras: de cinco mil órdenes aleatorios de doce pruebas, ocho que leen el valor por defecto y cuatro que lo cambian, el 99,8 por ciento tiene algún fallo si la configuración es un singleton sin reinicio, y ninguno si se reinicia en cada prueba o si la configuración se inyecta.",
-                items, 3.4, "Con lectoras primero hay 0 fallos y con escritoras primero 8: la suite pasa o falla según el orden. El reinicio por prueba arregla el síntoma pero exige que cada prueba conozca el singleton; la inyección quita la causa. Pruebas de ejemplo de una sola clase de configuración.",
-                label_w=330, width=1000, note_kind="gold", foot=SINT)
-
-
-def se292_observadores() -> Fig:
-    return percentile_intervals(
-        "Notificaciones perdidas por observador de 1000 eventos (5 observadores que fallan el 2 % de las veces)",
-        "Intervalos con las notificaciones perdidas por observador, de 1000: con un bucle simple el mejor observador pierde 20, la media es 59,2 y el peor pierde 101 porque una excepción corta el reparto (4704 de 5000 entregas); con cada observador aislado pierden 15, 21,2 y 32 (4894 de 5000).",
-        [("Bucle simple (la excepción sube y corta el reparto)", [20, 59.2, 101]),
-         ("Cada observador aislado con try/except", [15, 21.2, 32])],
-        unit="Notificaciones perdidas por observador (de 1000)", marks=("mejor observador", "media", "peor observador"), decimals=1,
-        label_w=330, width=980,
-        note="Las pérdidas son 1000 menos las entregas por observador (899 a 980 con el bucle simple, 968 a 985 aislado). El primero en la lista casi nunca pierde nada y el último pierde más: el orden de suscripción se vuelve una prioridad implícita. Aislar a los observadores baja las pérdidas pero oculta los fallos si nadie cuenta las excepciones (101 frente a 106). Dar de baja un observador durante el reparto sin copiar la lista salta a b; con copia se visita a, b, c, d. Falla cada observador con probabilidad 0,02, un supuesto.",
-        note_kind="gold", foot=SINT)
-
-
-def se292_estructura() -> Fig:
-    nombres = ["Adaptador", "Proxy", "Decorador", "Estrategia", "Estado"]
-    return heatmap(
-        "Similitud de la estructura sintáctica entre implementaciones de cinco patrones",
-        "Mapa de calor con la similitud coseno entre los tipos de nodo del árbol sintáctico de cinco patrones: todos los pares están entre 0,926 y 0,992, proxy con decorador es el par más distinto, 0,926, y estrategia con estado el más parecido, 0,992; el código casi no distingue un patrón de otro.",
-        nombres, nombres,
-        [[1.000, 0.940, 0.987, 0.985, 0.988],
-         [0.940, 1.000, 0.926, 0.937, 0.945],
-         [0.987, 0.926, 1.000, 0.988, 0.980],
-         [0.985, 0.937, 0.988, 1.000, 0.992],
-         [0.988, 0.945, 0.980, 0.992, 1.000]],
-        unit="similitud coseno (escala desde 0,90)", scale="navy", vmin=0.90, vmax=1.0, decimals=3,
-        highlight=[(1, 2), (2, 1), (3, 4), (4, 3)], cell_h=46,
-        note="Las cinco clases guardan un colaborador y le delegan: lo que cambia es la intención (traducir, controlar el acceso, añadir, intercambiar un algoritmo, cambiar de comportamiento con el estado). El patrón no se reconoce por la forma sino por el motivo del cambio. Cinco clases escritas por el autor.",
-        note_kind="teal", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-293
-def se293_impureza() -> Fig:
+def se280_determinismo() -> Fig:
     return grouped_bars(
-        "Impurezas detectadas, de 8, según el nivel de la prueba",
-        "Barras con las impurezas que detecta cada nivel de prueba sobre ocho funciones impuras: un ejemplo no detecta ninguna, repetir la llamada y comprobar la entrada y la salida detecta cuatro, y perturbar además el estado global detecta siete; ninguna de las cuatro funciones puras dio falsa alarma.",
-        ["Un ejemplo", "Repetir y comprobar", "Y perturbar lo global"],
-        [("Impurezas detectadas", [0, 4, 7], "teal")],
-        unit="Impurezas detectadas (de 8)", decimals=0, ref_lines=[(8, "8 funciones impuras")], ticks=[0, 2, 4, 6, 8], plot_h=260, width=900,
-        note="Una función con un solo ejemplo correcto no demuestra pureza. La que devuelve una referencia a su estado interno pasa los tres niveles: se descubre solo cuando alguien muta el valor devuelto. Las que no se ven sin perturbar lo global son la lectura de configuración, la del reloj y la escritura de un total global. Doce funciones escritas por el autor, cuatro puras sin falsas alarmas; el detector es una construcción simple.",
-        note_kind="gold", foot=SINT)
+        "Posición de un resorte amortiguado a los 10 s según la política de paso de tiempo",
+        "Barras horizontales con el error de la posición de un resorte a los 10 segundos frente a la referencia: con paso variable es 14, 9,1 y 3,4 milésimas a 30, 60 y 144 fotogramas por segundo y con paso fijo de 1/60 es 8,1; el paso variable da un resultado distinto en cada ejecución y el fijo siempre el mismo.",
+        ["Paso variable, 30 fps medios", "Paso variable, 60 fps medios", "Paso variable, 144 fps medios", "Paso fijo de 1/60 s"],
+        [("Error frente a la referencia", [14, 9.1, 3.4, 8.1], "gold")],
+        unit="Error de la posición (milésimas, 10⁻³)", horizontal=True, label_w=250,
+        note='El paso variable no es necesariamente menos exacto en una corrida: es irrepetible. Con una fluctuación del 25 % en el tiempo de cada fotograma, 20 ejecuciones dieron 20 resultados distintos; con paso fijo, uno. Reproducir un fallo, grabar una repetición o sincronizar una partida exige el paso fijo.', note_kind='gold', foot=SINT)
 
 
-def se293_cola() -> Fig:
-    return percentile_intervals(
-        "Latencia de una cola entre un productor y un consumidor (20 000 eventos, capacidad 20)",
-        "Intervalos en escala logarítmica con la latencia media y el percentil 99 de seis configuraciones de una cola: con llegadas de 100 por segundo y servicio de 80, la cola sin límite llega a 24 713,8 milisegundos de media y 49 544,7 de p99; con capacidad 20 las tres políticas mantienen la media entre 167 y 221 milisegundos.",
-        [("Estable 70/s → 80/s, sin límite", [99.2, 422.4]), ("Estable 70/s → 80/s, bloquea al productor", [81.7, 308.7]),
-         ("Saturada 100/s → 80/s, sin límite", [24713.8, 49544.7]), ("Saturada, bloquea al productor", [220.7, 386.1]),
-         ("Saturada, descarta lo nuevo", [212.8, 376.2]), ("Saturada, descarta lo viejo", [167.4, 271.1])],
-        unit="Latencia (ms)", marks=("media", "p99"), log=True, decimals=1, label_w=330, width=1000,
-        note="La cola sin límite no pierde nada (cola máxima de 3992 elementos) y deja todo inservible: en la saturación nadie recibe una respuesta a tiempo. Un límite obliga a decidir quién paga: el productor espera unos 50 s, se pierden 3991 eventos nuevos o se pierden 3922 viejos. Llegadas y servicios exponenciales con semilla fija; los tiempos son del modelo, no de una máquina.",
-        note_kind="coral", foot=SINT)
-
-
-def se293_hilos() -> Fig:
-    return stacked_bars(
-        "Intercalaciones de dos hilos sobre un dato compartido que dan el resultado esperado",
-        "Barras apiladas al 100 por ciento con las intercalaciones que dan el resultado esperado: sin protección solo 6 de 70 dan 4 en el contador y 2 de 6 dan un solo cupo vendido; con una operación atómica todas las intercalaciones dan el resultado esperado.",
-        ["Contador de 2 incrementos por hilo, sin protección (70)", "Contador, operación atómica (6)", "Último cupo, sin protección (6)", "Último cupo, operación atómica (2)"],
-        [("Resultado esperado", [6, 6, 2, 2], "teal"), ("Resultado erróneo", [64, 0, 4, 0], "coral")],
-        unit="Intercalaciones", horizontal=True, percent=True, decimals=0, label_w=330, width=1000,
-        note="Solo 6 de 70 intercalaciones salen bien, y una prueba corrida mil veces puede no ver nunca las malas: depende del planificador. En el contador los errores son 3 (32 intercalaciones) o 2 (32); en el cupo, 4 de 6 lo venden dos veces. Enumerar, o diseñar para que un solo hilo sea dueño del dato, convierte la sospecha en conteo. Modelo de pasos atómicos, sin hilos reales.",
-        note_kind="coral", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-294
-def se294_umbrales() -> Fig:
-    return grouped_bars(
-        "Funciones señaladas por cada regla de olores sobre 65 funciones del propio repositorio (commit 4dafaa63)",
-        "Barras horizontales con las funciones señaladas por cada regla entre 65: largo mayor de 25 líneas, 5; más de 5 parámetros, 7; anidamiento mayor de 3, 1; complejidad ciclomática mayor de 10, 3; por alguna regla, 12; si el largo de datos no cuenta, 11 porque sale una plantilla de 217 líneas con 83 por ciento de datos.",
-        ["Largo mayor de 25 líneas", "Más de 5 parámetros", "Anidamiento mayor de 3", "Complejidad ciclomática mayor de 10",
-         "Señaladas por alguna regla", "Si el largo de datos no cuenta"],
-        [("Funciones señaladas (de 65)", [5, 7, 1, 3, 12, 11], "gold")],
-        unit="Funciones señaladas", horizontal=True, decimals=0, label_w=300, width=960,
-        note="Las tres funciones de mayor complejidad (el convertidor con 39, la página con 14 y el diagrama con 12) merecen leerse: tienen lógica. La de 217 líneas es mayoritariamente texto de una plantilla: señalarla por largo es una falsa alarma que enseña a ignorar la herramienta. Los umbrales son convenciones del autor y se midió en el estado del repositorio de ese commit.",
-        note_kind="gold", foot=SINT)
-
-
-def se294_duplicacion() -> Fig:
+def se280_tunel() -> Fig:
     return line_chart(
-        "120 cambios sobre dos usos parecidos: divergencias por olvido frente a ramas añadidas",
-        "Líneas según la fracción de cambios que afecta a ambos usos: las divergencias por olvido de dos copias bajan de 32,3 con el 90 por ciento a 3,6 con el 10 por ciento, mientras que las ramas que añade la función compartida suben de 12,0 a 108,0; las curvas se cruzan entre las fracciones 0,5 y 0,9.",
-        [("Dos copias: divergencias por olvido", [(0.1, 3.6), (0.5, 18.0), (0.9, 32.3)], "coral"),
-         ("Función compartida: ramas añadidas", [(0.1, 108.0), (0.5, 60.1), (0.9, 12.0)], "teal")],
-        x_label="Fracción de cambios que afecta a ambos usos", y_label="Divergencias o ramas en 120 cambios",
-        x_ticks=[(0.1, "0,1"), (0.3, "0,3"), (0.5, "0,5"), (0.7, "0,7"), (0.9, "0,9")], y_ticks=[0, 20, 40, 60, 80, 100, 120],
-        decimals=1, plot_h=280,
-        note="La duplicación es un problema cuando los usos cambian por la misma razón; unirlos cuando cambian por razones distintas compra ramas y parámetros. No decide el parecido del texto sino la razón de cambio. Supuestos: olvido del 30 % en cada cambio común y una rama por cada cambio de un solo uso.",
-        note_kind="teal", foot=SINT)
+        "Una bala contra una pared de 0,2 unidades de grosor: choques detectados por la prueba discreta y por la barrida",
+        "Líneas en escala logarítmica con el porcentaje de choques detectados según la velocidad de la bala: la prueba discreta se queda en torno al 20 por ciento desde 12 unidades por segundo y cae a 0 con 120; la prueba barrida sube a 49,4 con 30 y a 100 con 60 y 120.",
+        [("Prueba discreta", [(5, 8.2, "8,2", "t"), (12, 20.5, "20,5", "b"), (30, 19.2, "19,2", "b"), (60, 20.0, "20,0", "b"), (120, 0, "0", "t")], "coral"),
+         ("Prueba barrida", [(5, 8.2, "", "t"), (12, 20.5, "", "t"), (30, 49.4, "49,4", "t"), (60, 100, "100", "b"), (120, 100, "100", "b")], "teal")],
+        x_label="Velocidad de la bala (u/s)", y_label="Choques detectados (%)", log_x=True,
+        x_ticks=[(5, "5"), (12, "12"), (30, "30"), (60, "60"), (120, "120")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        vlines=[(12, "paso = grosor")],
+        note='Cuando el desplazamiento por fotograma supera el grosor de la pared, la bala aparece a un lado y luego al otro sin estar nunca dentro: el choque desaparece. La prueba barrida revisa el segmento recorrido. Mide cada trayectoria de tres lados: pared, bala y paso del fotograma. 2 000 lanzamientos por celda.', note_kind='coral', foot=SINT)
 
 
-def se294_envidia() -> Fig:
-    return scatter(
-        "Envidia de características en 8 métodos: accesos propios y ajenos frente al criterio del autor",
-        "Dispersión de ocho métodos según sus accesos propios y ajenos: los tres que el autor considera un problema tienen cero accesos propios y tres o más ajenos, y el detector los señala; el serializador también tiene cero propios y cuatro ajenos y es una falsa alarma; los otros cuatro métodos legítimos no se señalan.",
-        [("Problema según el autor (señalado)", [(0, 6, "Recibo.texto", "r"), (0, 3, "Política.aplica", "r"), (-0.1, 4, "Etiqueta.línea", "l")], "coral"),
-         ("Legítimo, señalado (falsa alarma)", [(0.1, 4, "Serializador.a_dict", "r")], "gold"),
-         ("Legítimo, no señalado", [(3, 2, "Visitante.visita_envio", "r"), (3, 0, "Pedido.total", "t"), (1, 1, "Calculadora.costo", "r"), (2, 0, "Cuenta.saldo_neto", "t")], "teal")],
-        x_label="Accesos propios", y_label="Accesos a otro objeto",
-        x_ticks=[(-1, ""), (0, "0"), (1, "1"), (2, "2"), (3, "3"), (4, "4")],
-        y_ticks=[0, 1, 2, 3, 4, 5, 6, 7], hlines=[(3, "umbral del detector: 3")], decimals=0,
-        y_zero=True, plot_h=300, width=980,
-        note="Tres verdaderos positivos, una falsa alarma y cuatro verdaderos negativos: el serializador accede a los campos de otro objeto por oficio. Los dos métodos con 0 accesos propios y 4 ajenos se dibujan separados 0,1 a cada lado para que se vean. Que el método sea problema depende de si moverlo mejoraría el diseño: lo decide una persona con el contexto. Ocho métodos y etiquetas del autor.",
-        note_kind="gold", foot=SINT)
+def se280_espiral() -> Fig:
+    return line_chart(
+        "Espiral de la muerte: coste de cada actualización fija de 16,7 ms (fotogramas por segundo · peor fotograma en ms)",
+        "Líneas con los fotogramas por segundo según el coste de cada actualización fija: sin tope de pasos caen de 59,9 con 4 milisegundos a 1,0 con 17 y 0,5 con 20; con un tope de 5 pasos bajan a 10,9 con 17 milisegundos y a 9,3 con 20, y la línea punteada marca el paso fijo de 16,7.",
+        [("Sin tope de pasos", [(4, 59.9, "59,9", "t"), (12, 52.4, "52,4", "b"), (15, 18.7, "18,7", "b"), (17, 1.0, "1,0", "b"), (20, 0.5, "0,5", "t")], "coral"),
+         ("Tope de 5 pasos", [(4, 59.9, "", "t"), (12, 52.5, "52,5", "t"), (15, 26.7, "26,7", "t"), (17, 10.9, "10,9", "t"), (20, 9.3, "9,3", "t")], "teal")],
+        x_label="Coste de una actualización (ms)", y_label="Fotogramas por segundo", x_ticks=[(4, "4"), (8, "8"), (12, "12"), (16, "16"), (20, "20")],
+        y_ticks=[0, 20, 40, 60], point_labels="none", vlines=[(16.7, "paso 16,7 ms")],
+        note='Si actualizar cuesta más que el paso, cada fotograma debe recuperar más pasos, tarda más, acumula más tiempo y el sistema colapsa. El tope de pasos evita el bloqueo a cambio de que el juego corra más lento que el reloj (0,90 a 17 ms). Picos del 2 % con coste cuádruple; 60 s simulados.', note_kind='coral', foot=SINT)
 
 
 FIGURES = {
-    "se-289-cohesion-lcom4.svg": se289_lcom,
-    "se-289-sitios-de-edicion.svg": se289_sitios,
-    "se-289-primer-ciclo-de-dependencias.svg": se289_ciclos,
-    "se-290-anadir-reglas-sin-modificar.svg": se290_reglas,
-    "se-290-violaciones-de-liskov.svg": se290_liskov,
-    "se-290-interfaz-ancha-e-indireccion.svg": se290_interfaces,
-    "se-291-clase-base-fragil.svg": se291_base,
-    "se-291-orden-de-decoradores.svg": se291_decoradores,
-    "se-291-herencia-multiple-al-azar.svg": se291_mro,
-    "se-292-singleton-y-orden-de-pruebas.svg": se292_singleton,
-    "se-292-aislamiento-de-observadores.svg": se292_observadores,
-    "se-292-patrones-con-la-misma-estructura.svg": se292_estructura,
-    "se-293-deteccion-de-impureza.svg": se293_impureza,
-    "se-293-contrapresion.svg": se293_cola,
-    "se-293-intercalaciones-de-dos-hilos.svg": se293_hilos,
-    "se-294-umbrales-sobre-codigo-real.svg": se294_umbrales,
-    "se-294-duplicacion-frente-a-parametros.svg": se294_duplicacion,
-    "se-294-envidia-de-caracteristicas.svg": se294_envidia,
+    "se-289-orden-de-la-suma.svg": se277_orden,
+    "se-289-semillas-y-repeticiones.svg": se277_semillas,
+    "se-289-horizonte-del-caos.svg": se277_caos,
+    "se-290-reintentos-y-duplicados.svg": se278_reintentos,
+    "se-290-eventos-tardios.svg": se278_tardios,
+    "se-290-asimetria-de-claves.svg": se278_sesgo,
+    "se-291-fuga-de-la-etiqueta.svg": se279_fuga,
+    "se-291-prevalencia-y-avisos.svg": se279_prevalencia,
+    "se-291-alarmas-de-deriva.svg": se279_deriva,
+    "se-292-paso-de-tiempo-fijo.svg": se280_determinismo,
+    "se-292-atravesar-la-pared.svg": se280_tunel,
+    "se-292-espiral-de-la-muerte.svg": se280_espiral,
 }

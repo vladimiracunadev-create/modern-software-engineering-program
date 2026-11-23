@@ -1,5 +1,10 @@
 # Auditoría de cobertura — 2026-10-04
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](ID-MIGRATION.md) ([ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 ## Alcance y método
 
 Esta auditoría compara el mandato curricular vigente con `curriculum.yaml`, las 480

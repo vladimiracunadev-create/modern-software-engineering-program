@@ -38,7 +38,12 @@ class PhaseTwoGenerationTests(unittest.TestCase):
         self.assertTrue(all(item["source_ids"] for item in registry["classes"].values()))
 
     def test_site_contains_landing_parts_and_classes(self) -> None:
-        pages = [page for page in (ROOT / "site").rglob("*.html") if page.relative_to(ROOT / "site").parts[0] != "casos"]
+        pages = [
+            page
+            for page in (ROOT / "site").rglob("*.html")
+            if page.relative_to(ROOT / "site").parts[0] not in ("casos", "legacy")
+            and page.relative_to(ROOT / "site").as_posix() != "404.html"
+        ]
         self.assertEqual(1 + len(ps.developed_parts()) + ps.developed_class_count(), len(pages))
         self.assertTrue((ROOT / "site/index.html").is_file())
         for number in ps.developed_parts():

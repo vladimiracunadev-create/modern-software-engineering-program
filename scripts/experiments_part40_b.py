@@ -1,539 +1,633 @@
-"""Experimentos de las clases SE-487 a SE-492 (Parte 40): metodologías de desarrollo.
+"""Experimentos de SE-487 a SE-492 (datos sintéticos, semilla fija, solo biblioteca estándar).
 
-Uso: python scripts/experiments_part40_b.py [487|488|489|490|491|492]
-
-No se invoca ningún modelo de lenguaje. Contratos con procesos reales (`python -O`), un generador y un
-comprobador de deriva sobre una especificación, simulaciones con semilla fija de evaluaciones
-probabilísticas, un historial de Git real creado en un directorio temporal y una comparación de cinco
-metodologías sobre el mismo cambio.
+Uso: python scripts/experiments_part40_b.py   (imprime una línea JSON por experimento)
 """
 from __future__ import annotations
 
-import ast
 import hashlib
-import inspect
+import hmac
+import itertools
 import json
+import math
 import random
-import re
-import statistics
+import sqlite3
 import subprocess
 import sys
-import tempfile
-import textwrap
-from pathlib import Path
+from functools import lru_cache
 
-import experiments_part40_a as A
-import experiments_part40_lab as L
+from experiments_part40_a import _refined_findings  # noqa: E402  (verificador de SE-483 reutilizado en SE-491)
 
 
-def table(rows):
-    for r in rows:
-        print("  " + " | ".join(str(c) for c in r))
-
-
-def pct(x, d=1):
-    return f"{100 * x:.{d}f} %".replace(".", ",")
-
-
-# ====================================================================== SE-487
-SNIPPET = """
-def reminder_hours(due, now):
-    assert due > now, "precondición: la entrega no ha vencido"
-    return due - now
-
-try:
-    print("resultado", reminder_hours(10, 20))
-except AssertionError as error:
-    print("contrato violado:", error)
-"""
-
-
-def consumer(response):
-    """Cliente de Avisos: lee id, student, due y submitted y devuelve los avisos de la hora 76."""
-    items = response["items"]
-    deliveries = [{"id": i["id"], "student": i["student"], "course": "c1", "due": i["due"], "submitted": i["submitted"]} for i in items]
-    return L.load(L.SOURCE)(deliveries, 76, frozenset(), set())
-
-
-BASE_RESPONSE = {"items": [{"id": "a", "student": "e1", "due": 100, "submitted": False},
-                           {"id": "b", "student": "e2", "due": 100, "submitted": True}]}
-EXPECTED = consumer(BASE_RESPONSE)
-
-
-def change(response, fn):
-    new = json.loads(json.dumps(response))
-    fn(new)
-    return new
-
-
-def rename_due(r):
-    for i in r["items"]:
-        i["due_at"] = i.pop("due")
-
-
-def due_to_text(r):
-    for i in r["items"]:
-        i["due"] = f"2026-11-{i['due'] // 24:02d}T00:00:00Z"
-
-
-def submitted_text(r):
-    for i in r["items"]:
-        i["submitted"] = "yes" if i["submitted"] else "no"
-
-
-def wrap_data(r):
-    r["data"] = r.pop("items")
-
-
-CHANGES = [
-    ("C01 añadir un campo opcional priority", lambda r: [i.update(priority=1) for i in r["items"]], False),
-    ("C02 renombrar due por due_at", rename_due, True),
-    ("C03 due pasa de horas a texto ISO", due_to_text, True),
-    ("C04 eliminar student", lambda r: [i.pop("student") for i in r["items"]], True),
-    ("C05 submitted pasa a texto «yes»/«no»", submitted_text, True),
-    ("C06 añadir el campo course", lambda r: [i.update(course="c1") for i in r["items"]], False),
-    ("C07 reordenar los campos", lambda r: r.update(items=[dict(reversed(list(i.items()))) for i in r["items"]]), False),
-    ("C08 due pasa de entero a decimal", lambda r: [i.update(due=float(i["due"])) for i in r["items"]], False),
-    ("C09 id pasa de texto a entero", lambda r: [i.update(id=ord(i["id"])) for i in r["items"]], True),
-    ("C10 añadir el campo status con un valor nuevo", lambda r: [i.update(status="archivada") for i in r["items"]], False),
-    ("C11 eliminar submitted", lambda r: [i.pop("submitted") for i in r["items"]], True),
-    ("C12 envolver la lista en data", wrap_data, True),
-]
-CONSUMER_FIELDS = {"id": str, "student": str, "due": (int, float), "submitted": bool}
-
-
-def ground_truth_breaks(response):
-    try:
-        return consumer(response) != EXPECTED
-    except Exception:  # noqa: BLE001
-        return True
-
-
-def contract_detects(response):
-    items = response.get("items")
-    if not isinstance(items, list):
-        return True
-    for i in items:
-        for name, kind in CONSUMER_FIELDS.items():
-            if name not in i or not isinstance(i[name], kind):
-                return True
-    return False
-
-
-def schema_diff_detects(response):
-    if set(response) != set(BASE_RESPONSE):
-        return True
-    for new, old in zip(response["items"], BASE_RESPONSE["items"]):
-        if set(new) != set(old):
-            return True
-        if any(type(new[k]) is not type(old[k]) for k in old):
-            return True
-    return False
-
-
-def snapshot_detects(response):
-    return response != BASE_RESPONSE
-
-
-def e487():
-    print("SE-487 — contratos: aserciones en tiempo de ejecución y contratos de consumidor")
-    for flag in ([], ["-O"]):
-        out = subprocess.run([sys.executable, *flag, "-c", SNIPPET], capture_output=True, text=True, check=True, encoding="utf-8", env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"}).stdout.strip()
-        print(f"  python {' '.join(flag) or '(normal)'}: {out}")
-    rows = [["Cambio del proveedor", "Rompe al cliente", "Instantánea", "Diferencia de esquema", "Contrato del consumidor"]]
-    tally = {"snap": [0, 0], "diff": [0, 0], "contract": [0, 0]}
-    breaking = 0
-    for label, fn, expected_break in CHANGES:
-        new = change(BASE_RESPONSE, fn)
-        truth = ground_truth_breaks(new)
-        assert truth == expected_break, (label, truth)
-        breaking += truth
-        s, d, c = snapshot_detects(new), schema_diff_detects(new), contract_detects(new)
-        for key, flag in (("snap", s), ("diff", d), ("contract", c)):
-            tally[key][0] += flag and truth
-            tally[key][1] += flag and not truth
-        rows.append([label, "sí" if truth else "no", "alerta" if s else "—", "alerta" if d else "—", "alerta" if c else "—"])
-    table(rows)
-    print(f"  cambios que rompen al cliente: {breaking} de {len(CHANGES)}")
-    for key, name in (("snap", "instantánea"), ("diff", "diferencia de esquema"), ("contract", "contrato del consumidor")):
-        print(f"  {name}: detecta {tally[key][0]} de {breaking}, falsas alarmas {tally[key][1]} de {len(CHANGES) - breaking}")
-
-
-# ====================================================================== SE-488
-SPEC = {
-    "rules": {
-        "RF-01": "avisos a 72, 24 y 1 horas",
-        "RF-02": "no avisar a quien ya entregó",
-        "RF-03": "tras una caída, solo el más urgente",
-        "RF-04": "no avisar tras el vencimiento",
-        "RF-05": "un curso silenciado conserva el aviso de 1 hora",
-    },
-    "offsets": [72, 24, 1],
-}
-
-TEMPLATE = '''# GENERADO desde spec.json (sha {sha}); no editar a mano
-OFFSETS = {offsets}
-
-def due_reminders(deliveries, now, silenced, sent):  # RF-01 RF-02 RF-03 RF-04 RF-05
-    out = []
-    for d in deliveries:
-        if d["submitted"]:
-            continue
-        remaining = d["due"] - now
-        if remaining <= 0:
-            continue
-        done = [o for (i, o) in sent if i == d["id"]]
-        pending = [o for o in OFFSETS if remaining <= o and not any(s <= o for s in done)]
-        if not pending:
-            continue
-        offset = min(pending)
-        if (d["student"], d["course"]) in silenced and offset != {last}:
-            continue
-        out.append((d["id"], offset))
-    return out
-'''
-
-
-def generate(spec):
-    sha = hashlib.sha256(json.dumps(spec, sort_keys=True).encode()).hexdigest()[:12]
-    offsets = tuple(spec["offsets"])
-    return TEMPLATE.format(sha=sha, offsets=offsets, last=min(offsets))
-
-
-def drift_check(spec_text, code_text, tests_text, changed_files):
-    """Cinco comprobaciones mecánicas de deriva entre especificación, código y pruebas."""
-    findings = []
-    spec = json.loads(spec_text)
-    rules = set(spec["rules"])
-    code_rules = set(re.findall(r"RF-\d\d", code_text))
-    test_rules = set(re.findall(r"@covers (RF-\d\d)", tests_text))
-    if rules - code_rules:
-        findings.append(f"regla sin código: {sorted(rules - code_rules)}")
-    if code_rules - rules:
-        findings.append(f"código cita regla inexistente: {sorted(code_rules - rules)}")
-    if rules - test_rules:
-        findings.append(f"regla sin prueba: {sorted(rules - test_rules)}")
-    if test_rules - rules:
-        findings.append(f"prueba cita regla inexistente: {sorted(test_rules - rules)}")
-    tree = ast.parse(code_text)
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == "OFFSETS":
-            value = ast.literal_eval(node.value)
-            if list(value) != spec["offsets"]:
-                findings.append(f"OFFSETS del código {list(value)} difiere de la especificación {spec['offsets']}")
-    if "code.py" in changed_files and "spec.json" not in changed_files:
-        findings.append("el código cambió sin tocar la especificación")
-    header = code_text.splitlines()[0]
-    if header.startswith("# GENERADO") and generate(spec) != code_text:
-        findings.append("el archivo generado no coincide con lo que genera la especificación")
-    return findings
-
-
-TESTS_OK = "\n".join(f"# @covers {r}" for r in sorted(SPEC["rules"]))
-
-
-def e488():
-    print("SE-488 — SDD: generador y comprobador de deriva sobre una especificación")
-    spec_text = json.dumps(SPEC, sort_keys=True)
-    code = generate(SPEC)
-    generated = L.load(code)
-    rng = random.Random(488)
-    states = [A.L.random_state(rng) for _ in range(300)]
-    ok = all(generated(*s) == L.reference(*s) for s in states)
-    print("  el código generado coincide con el modelo de referencia en 300 estados:", ok)
-    print("  comprobador sin deriva:", drift_check(spec_text, code, TESTS_OK, {"spec.json", "code.py"}))
-    cases = [
-        ("D1 una regla se elimina de la especificación y sigue en el código", lambda: (json.dumps({**SPEC, "rules": {k: v for k, v in SPEC["rules"].items() if k != "RF-04"}}, sort_keys=True), code, TESTS_OK, {"spec.json", "code.py"})),
-        ("D2 una regla nueva sin código", lambda: (json.dumps({**SPEC, "rules": {**SPEC["rules"], "RF-06": "x"}}, sort_keys=True), code, TESTS_OK + "\n# @covers RF-06", {"spec.json", "code.py"})),
-        ("D3 una regla nueva sin prueba", lambda: (json.dumps({**SPEC, "rules": {**SPEC["rules"], "RF-06": "x"}}, sort_keys=True), code + "\n# RF-06", TESTS_OK, {"spec.json", "code.py"})),
-        ("D4 una prueba cita una regla que no existe", lambda: (spec_text, code, TESTS_OK + "\n# @covers RF-09", {"spec.json", "code.py"})),
-        ("D5 el umbral del código cambia a mano (72, 24, 2)", lambda: (spec_text, code.replace("(72, 24, 1)", "(72, 24, 2)"), TESTS_OK, {"spec.json", "code.py"})),
-        ("D6 el umbral cambia en la especificación y no en el código", lambda: (json.dumps({**SPEC, "offsets": [72, 24, 2]}, sort_keys=True), code, TESTS_OK, {"spec.json", "code.py"})),
-        ("D7 se edita el código y no la especificación", lambda: (spec_text, code + "\n# retoque", TESTS_OK, {"code.py"})),
-        ("D8 se edita a mano el archivo generado", lambda: (spec_text, code.replace("if remaining <= 0", "if remaining < 0"), TESTS_OK, {"spec.json", "code.py"})),
-        ("D9 la condición del código cambia de <= a < (semántica)", lambda: (spec_text, code.replace("remaining <= o and", "remaining < o and").replace("# GENERADO", "# manual"), TESTS_OK, {"spec.json", "code.py"})),
-        ("D10 el texto de una regla cambia de significado", lambda: (json.dumps({**SPEC, "rules": {**SPEC["rules"], "RF-02": "avisar también a quien ya entregó"}}, sort_keys=True), code, TESTS_OK, {"spec.json", "code.py"})),
-    ]
-    rows = [["Deriva inyectada", "Comprobador mecánico", "Qué ve"]]
-    detected = 0
-    for label, build in cases:
-        findings = drift_check(*build())
-        detected += bool(findings)
-        rows.append([label, "detecta" if findings else "NO detecta", findings[0][:60] if findings else "—"])
-    table(rows)
-    print(f"  detectadas: {detected} de {len(cases)}")
-
-
-# ====================================================================== SE-489
-def gate_rates(n, true_good, true_bad, threshold, repeats, trials, seed):
-    rng = random.Random(seed)
-
-    def observed(p):
-        total = n * repeats
-        return sum(rng.random() < p for _ in range(total)) / total
-
-    false_pass = sum(observed(true_bad) >= threshold for _ in range(trials)) / trials
-    false_fail = sum(observed(true_good) < threshold for _ in range(trials)) / trials
-    return false_pass, false_fail
-
-
-def e489():
-    print("SE-489 — EDD: tamaño del conjunto de evaluación y fiabilidad de la puerta de release")
-    good, bad = 0.85, 0.80
-    print(f"  precisión verdadera de la versión actual {good}; de la versión con regresión {bad}; umbral 0,825")
-    rows = [["Casos", "Repeticiones", "Pasa una versión con regresión", "Rechaza una versión sana"]]
-    for n in (20, 50, 100, 400, 1600):
-        for repeats in (1, 3):
-            fp, ff = gate_rates(n, good, bad, 0.825, repeats, 4000, 489 + n + repeats)
-            rows.append([n, repeats, pct(fp), pct(ff)])
-    table(rows)
-    # regresión concentrada en un subconjunto difícil
-    print("  regresión concentrada: 10 % de casos difíciles bajan de 0,60 a 0,20; el resto no cambia")
-    rows = [["Conjunto", "Casos", "Pasa la regresión", "Rechaza la sana"]]
-    rng = random.Random(4890)
-
-    def mix(n, hard_share, p_hard, p_easy):
-        hard = round(n * hard_share)
-        return sum(rng.random() < p_hard for _ in range(hard)) + sum(rng.random() < p_easy for _ in range(n - hard))
-
-    def rates(n, hard_share, thr, trials=4000):
-        fp = sum(mix(n, hard_share, 0.20, 0.883) / n >= thr for _ in range(trials)) / trials
-        ff = sum(mix(n, hard_share, 0.60, 0.883) / n < thr for _ in range(trials)) / trials
-        return fp, ff
-
-    fp, ff = rates(100, 0.10, 0.8)
-    rows.append(["muestra al azar (10 % difíciles)", 100, pct(fp), pct(ff)])
-    fp, ff = rates(100, 1.0, 0.4, 4000)
-    rows.append(["solo difíciles (curado)", 100, pct(fp), pct(ff)])
-    table(rows)
-    # no determinismo: repetir la misma corrida con la misma versión
-    rng = random.Random(489)
-    scores = [sum(rng.random() < 0.85 for _ in range(100)) / 100 for _ in range(1000)]
-    print(f"  misma versión, mismos 100 casos, 1000 corridas: media {statistics.mean(scores):.3f}, "
-          f"desviación {statistics.pstdev(scores):.3f}, mín {min(scores):.2f}, máx {max(scores):.2f}".replace(".", ","))
-
-
-# ====================================================================== SE-490
-TASK_DOC = """# Tarea: silenciar un curso
-## Alcance
-Un estudiante puede silenciar un curso; el aviso de la última hora se conserva.
-## Tareas
-- [ ] prueba roja del silencio
-- [ ] implementación mínima
-## Evidencia
-(pendiente)
-## Siguiente paso
-escribir la prueba roja
-"""
-CODE0 = "def silenced_offsets(silenced):\n    return []\n"
-CODE1 = "def silenced_offsets(silenced):\n    return [1] if silenced else [72, 24, 1]\n"
-TEST = "import unittest\nfrom reminders import silenced_offsets\n\nclass T(unittest.TestCase):\n    def test_silenced_keeps_last_hour(self):\n        self.assertEqual([1], silenced_offsets(True))\n    def test_normal_keeps_all(self):\n        self.assertEqual([72, 24, 1], silenced_offsets(False))\n\nif __name__ == '__main__':\n    unittest.main()\n"
-
-
-def git(cwd, *args):
-    return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True, check=True).stdout
-
-
-def commit(repo, message, files):
-    for name, content in files.items():
-        path = Path(repo) / name
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content, encoding="utf-8", newline="\n")
-    git(repo, "add", "-A")
-    git(repo, "-c", "user.name=Lab", "-c", "user.email=lab@example.invalid", "commit", "-q", "-m", message)
-
-
-def tests_pass_at(repo, sha):
-    with tempfile.TemporaryDirectory() as tmp:
-        names = git(repo, "ls-tree", "-r", "--name-only", sha).split()
-        for name in names:
-            if name.endswith(".py"):
-                (Path(tmp) / name).write_text(git(repo, "show", f"{sha}:{name}"), encoding="utf-8", newline="\n")
-        if not (Path(tmp) / "test_reminders.py").exists():
-            return None
-        r = subprocess.run([sys.executable, "-m", "unittest", "-q"], cwd=tmp, capture_output=True, text=True)
-        return r.returncode == 0
-
-
-def check_odd(repo):
-    shas = git(repo, "log", "--reverse", "--format=%H").split()
-    findings, sizes = [], []
-    doc_index = code_index = None
-    statuses = []
-    for k, sha in enumerate(shas):
-        files = git(repo, "show", "--name-only", "--format=", sha).split()
-        stat = git(repo, "show", "--numstat", "--format=", sha).strip().splitlines()
-        lines = sum(int(a) + int(b) for a, b, _ in (s.split("\t") for s in stat) if a != "-")
-        sizes.append(lines)
-        if any(f.startswith("odd/tasks/") for f in files) and doc_index is None:
-            doc_index = k
-        if any(f == "reminders.py" for f in files) and code_index is None:
-            code_index = k
-        statuses.append(tests_pass_at(repo, sha))
-    if doc_index is None or (code_index is not None and doc_index > code_index):
-        findings.append("el documento de tarea no existe antes del primer código")
-    if any(s > 400 for s in sizes):
-        findings.append(f"commit de {max(sizes)} líneas (límite orientativo 400)")
-    red_before_green = any(statuses[i] is False and statuses[i + 1] is True for i in range(len(statuses) - 1))
-    if not red_before_green:
-        findings.append("no hay un tramo rojo seguido de uno verde")
-    return findings, sizes, statuses
-
-
-def e490():
-    print("SE-490 — ODD: un historial de Git real contra las reglas del flujo")
-    with tempfile.TemporaryDirectory() as tmp:
-        a = Path(tmp) / "a"
-        a.mkdir()
-        git(a, "init", "-q")
-        commit(a, "docs: tarea", {"odd/tasks/silencio.md": TASK_DOC})
-        commit(a, "test: rojo del silencio", {"test_reminders.py": TEST, "reminders.py": CODE0})
-        commit(a, "feat: mínimo verde", {"reminders.py": CODE1})
-        commit(a, "docs: evidencia", {"odd/tasks/silencio.md": TASK_DOC.replace("(pendiente)", "2 pruebas verdes").replace("escribir la prueba roja", "abrir la solicitud")})
-        findings, sizes, statuses = check_odd(a)
-        print("  historia A (con documento, rojo y verde):", findings or "sin hallazgos", sizes, statuses)
-        b = Path(tmp) / "b"
-        b.mkdir()
-        git(b, "init", "-q")
-        filler = "".join(f"def helper_{i}():\n    return {i}\n\n" for i in range(150))
-        commit(b, "feat: todo junto", {"reminders.py": CODE1 + filler, "test_reminders.py": TEST})
-        commit(b, "docs: tarea escrita después", {"odd/tasks/silencio.md": TASK_DOC})
-        findings, sizes, statuses = check_odd(b)
-        print("  historia B (código primero, un solo commit grande, documento tarde):", findings, sizes, statuses)
-    print("  el comprobador mira orden, tamaño y estado de las pruebas; no puede saber si el documento dice la verdad")
-
-
-# ====================================================================== SE-491
-SILENCE_MUTANTS = {
-    "S1 ignora el silencio": ('if (d["student"], d["course"]) in silenced and offset != 1:', 'if False:'),
-    "S2 silencia también la última hora": ('in silenced and offset != 1', 'in silenced and True'),
-    "S3 silencia a la persona en todos los cursos": ('(d["student"], d["course"]) in silenced', 'd["student"] in [s for s, c in silenced]'),
-    "S4 silencia el curso para todas las personas": ('(d["student"], d["course"]) in silenced', 'd["course"] in [c for s, c in silenced]'),
-    "S5 el silencio deja pasar el de 24 horas": ('offset != 1', 'offset != 24'),
-    "S6 solo silencia el de 72 horas": ('offset != 1', 'offset == 1 or offset == 24'),
-    "S7 silencia por curso o por persona": ('in silenced and offset != 1', 'in silenced or d["student"] in [s for s, c in silenced] and offset != 1'),
-}
-
-
-def silence_versions():
+# ------------------------------------------------------------------ SE-487
+@lru_cache(None)
+def e415_bucle() -> dict:
+    r = random.Random(4151)
+    drifts = 6000
+    apps = 200
     out = {}
-    for name, (old, new) in SILENCE_MUTANTS.items():
-        assert old in L.SOURCE, name
-        out[name] = L.load(L.SOURCE.replace(old, new, 1))
+    for label, interval in (("cada 30 s", 30), ("cada 3 min", 180), ("cada 15 min", 900), ("cada hora", 3600)):
+        # una deriva manual ocurre en un instante aleatorio y espera al siguiente ciclo de reconciliación
+        waits = sorted(r.random() * interval for _ in range(drifts))
+        # lecturas del repositorio y del clúster por día para 200 aplicaciones (una lectura de cada lado por ciclo)
+        calls = 2 * 86400 / interval * apps
+        out[label] = (sum(waits) / drifts, waits[int(0.95 * drifts)], calls, interval / 2)
+    out["_aviso_segundos"] = 2
     return out
 
 
-def feature_subset(names):
-    return [s for s in A.parse_feature(A.FEATURE) if s["name"] in names]
+@lru_cache(None)
+def e415_pelea() -> dict:
+    r = random.Random(4152)
+    minutes = 24 * 60
+    capacity = 100  # solicitudes por réplica
+    load = [max(20, 650 + 500 * math.sin(2 * math.pi * (t - 300) / 1440) + r.gauss(0, 40)) for t in range(minutes)]
+    out = {}
+    for label, ignore in (("el repositorio fija réplicas = 3", False), ("el repositorio ignora el campo de réplicas", True)):
+        replicas = 3
+        short = scale = resets = 0
+        for t in range(minutes):
+            want = math.ceil(load[t] / capacity)
+            if want != replicas:
+                replicas = want
+                scale += 1
+            if not ignore and t % 3 == 2 and replicas != 3:
+                replicas = 3
+                resets += 1
+            short += replicas * capacity < load[t]
+        out[label] = (short, scale, resets)
+    return out
 
 
-def e491():
-    print("SE-491 — el mismo cambio («silenciar un curso») con cinco metodologías")
-    versions = silence_versions()
-    original = L.load(L.SOURCE)
-    bdd = feature_subset({"un curso silenciado conserva el aviso de la última hora", "un curso silenciado no recibe el de 24 horas", "el silencio de un curso no afecta a otro"})
-    typical = [A.make_example(r, silenced=True) for r in (99, 76, 28)]
-    boundary = [A.make_example(r, silenced=z, sent=s) for r in (73, 72, 25, 24, 2, 1, 0.5) for z in (True,) for s in ((), (72,))]
-    suites = {
-        "TDD (dos pruebas)": (lambda fn: L.oracle_tdd(fn, 0) and all(_ok(t, fn) for t in (L.t07_silencio_deja_pasar_la_ultima_hora, L.t08_silencio_es_por_curso)), inspect.getsource(L.t07_silencio_deja_pasar_la_ultima_hora) + inspect.getsource(L.t08_silencio_es_por_curso)),
-        "BDD (tres escenarios)": (lambda fn: A.feature_oracle(fn, bdd), "\n".join(l for s in bdd for l in [s["name"]] + [f"{k} {t}" for k, t in s["steps"]])),
-        "ATDD (tabla de ejemplos)": (lambda fn: A.example_oracle(fn, typical + boundary), "\n".join(f"{e[1]}|{sorted(e[2])}|{sorted(e[3])}" for e in typical + boundary)),
-        "Contrato (400 estados)": (lambda fn: L.oracle_contract(fn), inspect.getsource(L.check_contract)),
-        "SDD (modelo ejecutable)": (lambda fn: L.oracle_differential(fn), inspect.getsource(L.reference)),
+@lru_cache(None)
+def e415_poda() -> dict:
+    r = random.Random(4153)
+    out = {}
+    for label, prune, protect in (("sin poda", False, False), ("con poda", True, False), ("con poda y protección de recursos con estado", True, True)):
+        deleted = stateful = events = 0
+        for _ in range(4000):
+            manifests = [("estado" if r.random() < 0.15 else "sin estado") for _ in range(40)]
+            if r.random() < 0.25:  # una refactorización renombra o mueve k manifiestos: para el controlador es «borrar y crear»
+                moved = r.sample(range(40), r.choice([1, 2, 3]))
+                events += 1
+                for i in moved:
+                    if prune:
+                        if protect and manifests[i] == "estado":
+                            continue
+                        deleted += 1
+                        stateful += manifests[i] == "estado"
+        out[label] = (deleted / events, stateful / events, events)
+    return out
+
+
+# ------------------------------------------------------------------ SE-488
+@lru_cache(None)
+def e416_reidentificacion() -> dict:
+    r = random.Random(4161)
+    n = 6000
+    zips = [f"{8000 + i * 37:05d}" for i in range(30)]
+    zip_w = [1 / (i + 1) ** 0.7 for i in range(30)]
+    people = []
+    for i in range(n):
+        people.append({
+            "id": i,
+            "nombre": f"estudiante-{i}",
+            "nac": 1998 * 366 + r.randrange(0, 11 * 366),  # día de nacimiento sintético en un rango de 11 años
+            "cp": r.choices(zips, zip_w)[0],
+            "gen": r.choice("FMX"),
+            "nota": round(r.gauss(5.2, 1.1), 1),
+        })
+    external = [p for p in people if r.random() < 0.7]
+
+    def key(p, mode):
+        if mode == "completo":
+            return (p["nac"], p["cp"], p["gen"])
+        if mode == "anio_cp":
+            return (p["nac"] // 366, p["cp"], p["gen"])
+        if mode == "generalizado":
+            return (p["nac"] // 366, p["cp"][:3], p["gen"])
+        return (p["nac"] // 366 // 2, p["cp"][:2], "*")
+
+    def key2(p):
+        return (p["nac"] // 366, p["cp"], p["gen"])
+
+    out = {}
+    for mode, label in (("completo", "fecha, código postal y género (sin nombre)"), ("anio_cp", "año de nacimiento, código postal y género"), ("generalizado", "año de nacimiento, 3 dígitos postales y género"), ("grueso", "bienio, 2 dígitos postales, sin género")):
+        from collections import Counter
+        counts = Counter(key(p, mode) for p in people)
+        unique = sum(1 for p in people if counts[key(p, mode)] == 1)
+        ext_counts = Counter(key(p, mode) for p in external)
+        # ataque de vinculación: la persona externa conocida se vincula si su clave es única entre las externas y existe en la base
+        reident = sum(1 for p in external if ext_counts[key(p, mode)] == 1 and counts[key(p, mode)] == 1)
+        small = sum(1 for p in people if counts[key(p, mode)] < 5)
+        out[label] = (unique / n, reident / len(external), small / n, len(counts))
+    return out
+
+
+@lru_cache(None)
+def e416_uniones() -> dict:
+    r = random.Random(4162)
+    students = list(range(3000))
+    subs = [r.choice(students) for _ in range(15000)]
+    grades = {s: r.gauss(5.2, 1.1) for s in students}
+    salt = b"sal-sintetica"
+    rows = {}
+    # 1. aleatorio por tabla: cada tabla recibe su propia permutación
+    perm_a = {s: f"x{r.random():.9f}" for s in students}
+    perm_b = {s: f"x{r.random():.9f}" for s in students}
+    ok = sum(1 for s in subs if perm_b[s] == perm_a[s])
+    rows["aleatorio por tabla"] = ok / len(subs)
+    # 2. determinista con HMAC
+    det = lambda s: hmac.new(salt, str(s).encode(), hashlib.sha256).hexdigest()[:16]
+    rows["determinista (HMAC con sal)"] = sum(1 for s in subs if det(s) == det(s)) / len(subs)
+    # 3. sin enmascarar
+    rows["sin enmascarar"] = 1.0
+    # distribución de notas
+    vals = list(grades.values())
+    mean = sum(vals) / len(vals)
+    sd = math.sqrt(sum((v - mean) ** 2 for v in vals) / len(vals))
+    shuffled = vals[:]
+    r.shuffle(shuffled)
+    noisy = [v + r.gauss(0, 1.0) for v in vals]
+    mn = sum(noisy) / len(noisy)
+    sdn = math.sqrt(sum((v - mn) ** 2 for v in noisy) / len(noisy))
+    corr = lambda a, b: sum((x - sum(a) / len(a)) * (y - sum(b) / len(b)) for x, y in zip(a, b)) / (len(a) * (sum((x - sum(a) / len(a)) ** 2 for x in a) / len(a)) ** 0.5 * (sum((y - sum(b) / len(b)) ** 2 for y in b) / len(b)) ** 0.5)
+    rows["_notas"] = {"original": (mean, sd), "ruido": (mn, sdn, corr(vals, noisy)), "permutación": (sum(shuffled) / len(shuffled), sd, corr(vals, shuffled))}
+    return rows
+
+
+@lru_cache(None)
+def e416_previews() -> dict:
+    r = random.Random(4163)
+    days = 60
+    end = days * 24
+    prs = []
+    for d in range(days):
+        for _ in range(8):  # PR por día (supuesto del autor)
+            start = d * 24 + r.random() * 24
+            abandoned = r.random() < 0.15
+            life = r.lognormvariate(math.log(48), 0.9)  # horas de actividad del PR
+            pushes, t = [], start
+            while True:
+                t += r.expovariate(1 / 14.0)  # un push cada 14 h de media mientras el PR está activo
+                if t >= start + life:
+                    break
+                pushes.append(t)
+            closed = None if abandoned else start + life
+            prs.append((start, closed, pushes))
+
+    def alive(policy, start, closed, pushes):
+        stop = min(end, closed) if closed is not None else end
+        if policy == "cierre":
+            return stop - start, 0, closed is None
+        ttl = 72 if policy == "ttl72" else 24
+        hours = recreated = 0
+        expiry = start + ttl
+        last = start
+        cur_start = start
+        for p in pushes:
+            if p >= stop:
+                break
+            if p >= expiry:  # el entorno ya no existía cuando llegó el push
+                hours += min(expiry, stop) - cur_start
+                cur_start = p
+                recreated += 1
+                expiry = p + ttl
+            elif policy == "ttl24":
+                expiry = max(expiry, p + ttl)
+        hours += min(expiry, stop) - cur_start
+        return hours, recreated, False
+
+    out = {}
+    for label, pol in (("solo se destruye al cerrar el PR", "cierre"), ("TTL de 72 h desde la creación", "ttl72"), ("TTL de 24 h renovado con cada push", "ttl24")):
+        h = rec = orph = 0
+        for pr in prs:
+            hh, rr, oo = alive(pol, *pr)
+            h += hh; rec += rr; orph += oo
+        out[label] = (h, rec, orph)
+    out["_prs"] = len(prs)
+    return out
+
+
+# ------------------------------------------------------------------ SE-489
+@lru_cache(None)
+def e417_adopcion() -> dict:
+    r = random.Random(4171)
+    out = {}
+    teams = 400
+    caps = 6
+    for covered in (3, 4, 6):
+        row = {}
+        for setup in (4, 20, 60):
+            adopt = partial = 0
+            for _ in range(teams):
+                need = [r.random() < 0.7 for _ in range(caps)]
+                gap = sum(1 for i, nd in enumerate(need) if nd and i >= covered)
+                custom = r.lognormvariate(math.log(40), 0.5)  # horas para construirlo por su cuenta
+                path_cost = setup + gap * 25  # cada capacidad que falta se improvisa
+                if path_cost < custom:
+                    adopt += 1
+                    partial += gap > 0
+            row[setup] = (adopt / teams, partial / max(1, adopt))
+        out[covered] = row
+    return out
+
+
+@lru_cache(None)
+def e417_catalogo() -> dict:
+    r = random.Random(4172)
+    teams = {f"equipo-{i}" for i in range(14)}
+    entries = []
+    for i in range(150):
+        e = {"nombre": f"servicio-{i}", "owner": r.choice(sorted(teams)), "runbook": f"https://wiki.interna.example/{i}", "oncall": f"rotacion-{i % 14}", "revision": r.randint(0, 400), "truth": set()}
+        if r.random() < 0.10:
+            e["owner"] = ""; e["truth"].add("sin dueño")
+        elif r.random() < 0.10:
+            e["owner"] = "equipo-disuelto"; e["truth"].add("dueño inexistente")
+        if r.random() < 0.14:
+            e["runbook"] = r.choice(["TBD", "-", "pendiente"]); e["truth"].add("runbook de relleno")
+        if e["revision"] > 180:
+            e["truth"].add("revisión vencida")
+        entries.append(e)
+    def present(e):
+        return bool(e["owner"]) and bool(e["runbook"]) and bool(e["oncall"])
+    def reg(e):
+        return e["owner"] in teams
+    def real(e):
+        return e["runbook"].startswith("https://")
+    def fresh(e):
+        return e["revision"] <= 180
+    levels = {
+        "campos presentes": lambda e: present(e),
+        "+ dueño existe en el registro de equipos": lambda e: present(e) and reg(e),
+        "+ enlace con forma de URL (no relleno)": lambda e: present(e) and reg(e) and real(e),
+        "+ revisado en los últimos 180 días": lambda e: present(e) and reg(e) and real(e) and fresh(e),
     }
-    rows = [["Metodología", "Líneas del artefacto", "Silencios mal hechos que mata", "Tiempo (ms)"]]
-    killed_by = {}
-    for label, (oracle, artifact) in suites.items():
-        assert oracle(original), label
-        killed = [n for n, fn in versions.items() if not oracle(fn)]
-        killed_by[label] = set(killed)
-        ms = L.timed(lambda o=oracle: o(original))
-        rows.append([label, len([x for x in artifact.splitlines() if x.strip()]), f"{len(killed)} de {len(versions)}", f"{ms:.2f}"])
-    table(rows)
-    union = set().union(*killed_by.values())
-    print(f"  unión de las cinco: {len(union)} de {len(versions)}")
-    print("  propiedad de aislamiento (silenciar un par no cambia las demás entregas):",
-          "pasa con el original" if aislamiento(original) else "FALLA con el original",
-          "| mata:", [n[:2] for n, fn in versions.items() if not aislamiento(fn)])
-    for label, ks in killed_by.items():
-        print(f"    no mata {label}: {[n[:2] for n in versions if n not in ks]}")
+    out = {name: sum(1 for e in entries if fn(e)) for name, fn in levels.items()}
+    out["_con_problema"] = sum(1 for e in entries if e["truth"])
+    out["_total"] = len(entries)
+    return out
 
 
-def aislamiento(fn, n=400, seed=1):
-    """Propiedad nueva: silenciar un par (persona, curso) no cambia los avisos de ninguna otra entrega."""
-    rng = random.Random(seed)
-    for _ in range(n):
-        deliveries, now, silenced, sent = L.random_state(rng)
-        antes = dict(fn(deliveries, now, silenced, sent))
-        despues = dict(fn(deliveries, now, frozenset(set(silenced) | {("e1", "c1")}), sent))
-        for d in deliveries:
-            if (d["student"], d["course"]) != ("e1", "c1") and antes.get(d["id"]) != despues.get(d["id"]):
-                return False
-    return True
+@lru_cache(None)
+def e417_cola() -> dict:
+    out = {}
+    for lam in (0.2, 0.4, 0.55):  # solicitudes por hora
+        r = random.Random(41730 + int(lam * 100))
+        servers = [0.0, 0.0]  # dos personas de plataforma
+        t = 0.0
+        waits = []
+        for _ in range(8000):
+            t += r.expovariate(lam)
+            servers.sort()
+            start = max(t, servers[0])
+            waits.append(start - t)
+            servers[0] = start + r.expovariate(1 / 3.0)  # 3 horas por solicitud (supuesto)
+        waits.sort()
+        out[lam] = (lam * 3.0 / 2, sum(waits) / len(waits), waits[int(0.9 * len(waits))])
+    return out
 
 
-def _ok(test, fn):
-    try:
-        test(fn)
-        return True
-    except Exception:  # noqa: BLE001
-        return False
+# ------------------------------------------------------------------ SE-490
+@lru_cache(None)
+def e418_definiciones() -> dict:
+    r = random.Random(4181)
+    services = 6
+    weeks = 52
+    events = []
+    for s in range(services):
+        rate = [1, 2, 3, 5, 8, 2][s]  # despliegues por semana
+        t = 0.0
+        while t < weeks * 168:
+            t += r.expovariate(rate / 168)
+            if t >= weeks * 168:
+                break
+            first = t - r.lognormvariate(math.log(30), 0.8)  # primer commit del cambio (horas antes)
+            pr_open = first + r.uniform(1, 6)
+            merge = t - r.lognormvariate(math.log(5), 0.8)
+            merge = max(merge, pr_open)
+            fail = r.random() < 0.12
+            rollback = fail and r.random() < 0.6
+            events.append({"s": s, "dep": t, "first": first, "pr": pr_open, "merge": merge, "fail": fail, "rollback": rollback,
+                           "restore": r.lognormvariate(math.log(0.75), 0.9) if fail else 0.0})
+    def med(x):
+        x = sorted(x); return x[len(x) // 2]
+    def p90(x):
+        x = sorted(x); return x[int(0.9 * len(x))]
+    out = {"_n": len(events)}
+    out["frecuencia"] = {"por servicio y semana (media)": len(events) / services / weeks,
+                          "del conjunto por semana": len(events) / weeks,
+                          "solo producción de los dos servicios mayores": sum(1 for e in events if e["s"] in (3, 4)) / weeks}
+    out["plazo"] = {"desde el primer commit (mediana)": med([e["dep"] - e["first"] for e in events]),
+                    "desde que se abre el PR (mediana)": med([e["dep"] - e["pr"] for e in events]),
+                    "desde la fusión (mediana)": med([e["dep"] - e["merge"] for e in events]),
+                    "desde el primer commit (p90)": p90([e["dep"] - e["first"] for e in events])}
+    out["fallos"] = {"fallos con incidente": sum(e["fail"] for e in events) / len(events),
+                     "solo los que se revierten": sum(e["rollback"] for e in events) / len(events)}
+    fails = [e["restore"] for e in events if e["fail"]]
+    out["restauracion"] = {"mediana (h)": med(fails), "media (h)": sum(fails) / len(fails)}
+    return out
 
 
-# ====================================================================== SE-492
-def e492():
-    print("SE-492 — política metodológica de equipo evaluada sobre 300 cambios sintéticos")
-    rng = random.Random(492)
-    # tasas de detección ancladas en lo medido en SE-481 (mutantes no equivalentes que mata cada oráculo)
-    matrix, _ = L.kill_matrix()
-    real = [k for k in matrix if k not in ("M19", "M20")]
-    rate = {label: sum(matrix[k][label] for k in real) / len(real) for label in L.ORACLES}
-    print("  tasas de detección usadas (medidas en SE-481):", {k: round(v, 2) for k, v in rate.items()})
-    # costo en horas por práctica: supuesto del autor, proporcional al tamaño del artefacto medido
-    cost = {"nada": 0.0, "TDD": 1.5, "BDD+ATDD": 2.5, "contrato": 1.0, "SDD": 3.0}
-    detect = {"nada": 0.0, "TDD": rate["Ocho pruebas TDD"], "BDD+ATDD": rate["Escenarios de aceptación"], "contrato": rate["Contrato con 400 estados"], "SDD": rate["Modelo de referencia"]}
-    changes = []
-    for i in range(300):
-        risk = rng.choices(["bajo", "medio", "alto"], [0.5, 0.35, 0.15])[0]
-        rules = rng.random() < 0.55  # el cambio tiene reglas deterministas comprobables
-        ambiguous = rng.random() < 0.35
-        defects = {"bajo": 0.25, "medio": 0.5, "alto": 0.9}[risk]
-        impact = {"bajo": 1, "medio": 4, "alto": 20}[risk]
-        changes.append((risk, rules, ambiguous, defects, impact))
+@lru_cache(None)
+def e418_gaming() -> dict:
+    weeks = 26
+    base = random.Random(4182)
+    defects_week = [sum(1 for _ in range(10) if base.random() < 0.12) for _ in range(weeks)]  # defectos por semana, iguales en los tres casos
+    out = {}
+    for label, noop, parts in (("sin incentivo", 0, 1), ("incentivo en frecuencia: despliegues vacíos", 12, 1), ("incentivo en frecuencia: cambios partidos", 0, 3)):
+        r = random.Random(41821)
+        deploys = fails = 0
+        lead = []
+        for d in defects_week:
+            n = 10 * parts if parts > 1 else 4
+            deploys += n + noop
+            fails += min(d, n)
+            lead += [r.lognormvariate(math.log(8 if parts > 1 else 30), 0.5) for _ in range(n)] + [0.1] * noop
+        lead.sort()
+        out[label] = (deploys / weeks, fails / deploys, lead[len(lead) // 2], sum(defects_week) / weeks, 10.0)
+    return out
 
-    def outcome(policy):
-        total_cost = escaped = 0.0
-        for risk, rules, ambiguous, defects, impact in changes:
-            practices = policy(risk, rules, ambiguous)
-            miss = 1.0
-            for p in practices:
-                if p in ("TDD", "BDD+ATDD", "contrato", "SDD") and not rules:
-                    continue  # sin reglas deterministas esas prácticas no producen un oráculo
-                miss *= 1 - detect[p]
-                total_cost += cost[p]
-            if ambiguous and "BDD+ATDD" not in practices and "SDD" not in practices:
-                miss = max(miss, 0.8)  # la ambigüedad sin conversación ni especificación sobrevive a las pruebas
-            escaped += defects * miss * impact
-        return total_cost, escaped
 
-    policies = {
-        "nada": lambda r, ru, am: [],
-        "TDD en todo": lambda r, ru, am: ["TDD"],
-        "todo en todo": lambda r, ru, am: ["TDD", "BDD+ATDD", "contrato", "SDD"],
-        "por riesgo": lambda r, ru, am: (["TDD"] if r == "bajo" else ["TDD", "contrato"] if r == "medio" else ["TDD", "BDD+ATDD", "contrato", "SDD"]),
-        "por riesgo y ambigüedad": lambda r, ru, am: (["TDD"] if r == "bajo" else ["TDD", "contrato"] if r == "medio" else ["TDD", "contrato", "SDD"]) + (["BDD+ATDD"] if am and r != "bajo" else []),
+@lru_cache(None)
+def e418_ruido() -> dict:
+    r = random.Random(4183)
+    out = {}
+    trials = 6000
+    for n in (8, 30, 100):
+        diffs = lose = detect = 0
+        for _ in range(trials):
+            a = sum(r.random() < 0.12 for _ in range(n)) / n
+            b = sum(r.random() < 0.12 for _ in range(n)) / n
+            diffs += abs(a - b) >= 0.05
+            c = sum(r.random() < 0.08 for _ in range(n)) / n  # mejora real de 12 % a 8 %
+            detect += c < a
+            lose += c >= a
+        z = 1.96
+        p = 0.12
+        half = z * math.sqrt(p * (1 - p) / n)
+        out[n] = (diffs / trials, detect / trials, half)
+    return out
+
+
+# ------------------------------------------------------------------ SE-491
+VULNERABLE = """name: ci
+on:
+  pull_request_target:
+permissions: write-all
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: echo "${{ github.event.pull_request.title }}"
+      - run: curl -sSL https://example.invalid/i.sh | bash
+      - run: echo "token=${{ secrets.DEPLOY_TOKEN }}"
+      - run: deploy --token @@TOKEN@@
+""".replace("@@TOKEN@@", "gh" + "p_" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+
+def _fix_steps():
+    sha = "0123456789abcdef0123456789abcdef01234567"
+    return [
+        ("fijar la acción a un SHA", lambda t: t.replace("actions/checkout@v4", f"actions/checkout@{sha}")),
+        ("permisos mínimos", lambda t: t.replace("permissions: write-all", "permissions:\n  contents: read")),
+        ("pull_request en lugar de pull_request_target", lambda t: t.replace("pull_request_target:", "pull_request:")),
+        ("título por variable de entorno", lambda t: t.replace('      - run: echo "${{ github.event.pull_request.title }}"', '      - run: echo "$TITULO"\n        env:\n          TITULO: ${{ github.event.pull_request.title }}')),
+        ("ejecutar un script versionado, no uno descargado", lambda t: t.replace("curl -sSL https://example.invalid/i.sh | bash", "bash ./scripts/instalar.sh")),
+        ("no escribir el secreto en el registro", lambda t: t.replace('      - run: echo "token=${{ secrets.DEPLOY_TOKEN }}"\n', "")),
+        ("el trabajo falla cuando falla", lambda t: t.replace("    continue-on-error: true\n", "")),
+        ("sin credencial en el texto", lambda t: t.replace("deploy --token " + "gh" + "p_" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "deploy")),
+    ]
+
+
+@lru_cache(None)
+def e419_endurecer() -> dict:
+    t = VULNERABLE
+    rows = [("original", len(_refined_findings(t)), sorted(_refined_findings(t)))]
+    for name, fn in _fix_steps():
+        t = fn(t)
+        f = _refined_findings(t)
+        rows.append((name, len(f), sorted(f)))
+    return {"pasos": rows, "final": t}
+
+
+@lru_cache(None)
+def e419_inyeccion() -> dict:
+    payloads = [
+        'x"); print("INYECTADO',
+        'x"); import os; print("INYECTADO", os.name)#',
+        "x\\\"); print('INYECTADO",
+        'a" + str(7*7) + "b',
+        'ok',
+        'título normal con «tildes» y comillas \'simples\'',
+    ]
+    rows = []
+    for p in payloads:
+        template = 'print("titulo: {{TITULO}}")'
+        code = template.replace("{{TITULO}}", p)  # expansión previa: el texto pasa a ser código
+        res1 = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, encoding="utf-8", timeout=20, env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"})
+        code2 = 'import os; print("titulo: " + os.environ["TITULO"])'
+        res2 = subprocess.run([sys.executable, "-c", code2], capture_output=True, text=True, encoding="utf-8", timeout=20, env={**__import__("os").environ, "TITULO": p, "PYTHONIOENCODING": "utf-8"})
+        ejecutado = "INYECTADO" in res1.stdout or "49" in res1.stdout
+        rows.append((p, "ejecuta" if ejecutado else ("rompe" if res1.returncode != 0 else "inerte"), res2.returncode == 0 and res2.stdout.strip() == "titulo: " + p))
+    return {"filas": rows, "ejecuta": sum(1 for _, a, _ in rows if a == "ejecuta"), "rompe": sum(1 for _, a, _ in rows if a == "rompe"), "seguro": sum(1 for *_, c in rows if c)}
+
+
+@lru_cache(None)
+def e419_pin() -> dict:
+    # una acción de terceros representada por un árbol de archivos; la etiqueta apunta a un commit que se puede mover
+    def tree_hash(files):
+        h = hashlib.sha256()
+        for k in sorted(files):
+            h.update(k.encode()); h.update(b"\0"); h.update(files[k].encode()); h.update(b"\0")
+        return h.hexdigest()
+    v1 = {"action.yml": "runs: node20", "dist/index.js": "console.log('compilar')"}
+    v1_evil = {"action.yml": "runs: node20", "dist/index.js": "console.log('compilar'); exfiltrar(process.env)"}
+    tags = {"v1": tree_hash(v1)}
+    pinned = tree_hash(v1)
+    result = {"antes": (tags["v1"] == pinned, tags["v1"] == tree_hash(v1))}
+    tags["v1"] = tree_hash(v1_evil)  # alguien mueve la etiqueta
+    result["despues"] = (tags["v1"] == pinned, tree_hash(v1_evil) == pinned)
+    result["etiqueta_cambio"] = tags["v1"] != pinned
+    return result
+
+
+SCOPES = ["actions", "artifact-metadata", "attestations", "checks", "code-quality", "contents", "copilot-requests", "deployments", "id-token", "issues", "discussions", "packages", "pages", "pull-requests", "security-events", "statuses"]  # 16 de los 17 permisos de la página admiten escritura (vulnerability-alerts solo lectura)
+
+
+@lru_cache(None)
+def e419_permisos() -> dict:
+    needs = {"lint": {"contents": "read"}, "test": {"contents": "read"}, "build": {"contents": "read", "packages": "write"},
+             "publicar": {"contents": "read", "packages": "write", "attestations": "write", "id-token": "write"},
+             "desplegar": {"contents": "read", "id-token": "write", "deployments": "write"}}
+    write_all = {j: len(SCOPES) for j in needs}
+    least = {j: sum(1 for v in n.values() if v == "write") for j, n in needs.items()}
+    return {"write-all": write_all, "mínimo": least, "ambitos": len(SCOPES)}
+
+
+# ------------------------------------------------------------------ SE-492
+@lru_cache(None)
+def e420_rollback() -> dict:
+    def run(variant):
+        db = sqlite3.connect(":memory:")
+        db.execute("CREATE TABLE alumnos (id INTEGER PRIMARY KEY, name TEXT)")
+        for i in range(5):
+            db.execute("INSERT INTO alumnos (id, name) VALUES (?, ?)", (i, f"alumno-{i}"))
+        # despliegue de v2 con su migración
+        if variant == "renombrar de golpe":
+            db.execute("ALTER TABLE alumnos RENAME COLUMN name TO full_name")
+            for i in range(5, 10):
+                db.execute("INSERT INTO alumnos (id, full_name) VALUES (?, ?)", (i, f"alumno-{i}"))
+        else:
+            db.execute("ALTER TABLE alumnos ADD COLUMN full_name TEXT")
+            db.execute("UPDATE alumnos SET full_name = name")
+            for i in range(5, 10):
+                if variant == "expandir sin doble escritura":
+                    db.execute("INSERT INTO alumnos (id, full_name) VALUES (?, ?)", (i, f"alumno-{i}"))
+                else:
+                    db.execute("INSERT INTO alumnos (id, name, full_name) VALUES (?, ?, ?)", (i, f"alumno-{i}", f"alumno-{i}"))
+            if variant == "contraer antes de tiempo":
+                db.execute("ALTER TABLE alumnos DROP COLUMN name")
+        # retroceso: vuelve v1, que solo conoce la columna «name»
+        errores = nulos = bien = 0
+        for i in range(10):
+            try:
+                v = db.execute("SELECT name FROM alumnos WHERE id = ?", (i,)).fetchone()[0]
+                if v is None:
+                    nulos += 1
+                else:
+                    bien += 1
+            except sqlite3.OperationalError:
+                errores += 1
+        return errores, nulos, bien
+    out = {}
+    for v in ("renombrar de golpe", "expandir sin doble escritura", "expandir con doble escritura", "contraer antes de tiempo"):
+        out[v] = run(v)
+    out["_sqlite"] = sqlite3.sqlite_version
+    return out
+
+
+GATES = ["revisión y lint", "pruebas unitarias", "pruebas de integración", "escaneo de dependencias y secretos", "política sobre el plan de infraestructura", "humo en preproducción", "canario con métricas", "alerta en producción"]
+COST = [1, 2, 4, 6, 5, 10, 25, 100]  # daño relativo si se detecta ahí (supuesto del autor)
+FAULTS = {
+    "error de sintaxis": {0, 1},
+    "regresión lógica en una función": {1, 2},
+    "contrato roto con otro servicio": {2, 5},
+    "dependencia con vulnerabilidad conocida": {3},
+    "secreto en el repositorio": {3},
+    "permiso excesivo en infraestructura": {4},
+    "migración incompatible con la versión anterior": {5, 6},
+    "fuga de memoria bajo carga": {6, 7},
+    "bandera mal configurada en producción": {6, 7},
+    "fallo solo con tráfico real": {6, 7},
+    "certificado a punto de vencer": {7},
+    "deriva manual en un recurso": {4, 7},
+}
+
+
+@lru_cache(None)
+def e420_ablacion() -> dict:
+    def first(f, removed=None):
+        gs = sorted(g for g in FAULTS[f] if g != removed)
+        return gs[0] if gs else None
+    base = {f: first(f) for f in FAULTS}
+    out = {"_base_coste": sum(COST[g] for g in base.values())}
+    for gi, g in enumerate(GATES):
+        later = escape = 0
+        cost = 0
+        for f in FAULTS:
+            nf = first(f, gi)
+            if nf is None:
+                escape += 1
+                cost += 300
+            else:
+                cost += COST[nf]
+                later += nf != base[f]
+        out[g] = (later, escape, cost)
+    out["_sin_deteccion_antes_de_produccion"] = sum(1 for f in FAULTS if first(f) == 7)
+    return out
+
+
+FIELDS = ["run_id", "commit", "digest", "plan_hash", "aprobador", "autor", "ensayo_fecha", "ensayo_entorno", "ensayo_segundos", "canario_solicitudes", "sbom_hash"]
+
+
+def _package(r, i):
+    h = lambda: "".join(r.choice("0123456789abcdef") for _ in range(40))
+    return {"run_id": f"run-{1000 + i}", "commit": h(), "digest": "sha256:" + h() + h()[:24], "plan_hash": h(), "aprobador": "ana", "autor": "luis",
+            "ensayo_fecha": 20 + i % 10, "ensayo_entorno": "preproduccion", "ensayo_segundos": 140 + i, "canario_solicitudes": 5000 + 10 * i, "sbom_hash": h(),
+            "deploy_digest": None, "deploy_commit": None}
+
+
+def _validate(pk, level):
+    f = []
+    for k in FIELDS:
+        if pk.get(k) in (None, ""):
+            f.append("falta " + k)
+    if not str(pk.get("digest", "")).startswith("sha256:"):
+        f.append("digest sin prefijo")
+    if len(str(pk.get("commit", ""))) != 40:
+        f.append("commit corto")
+    if level >= 2:
+        if pk.get("deploy_digest") != pk.get("digest"):
+            f.append("el digest desplegado no es el construido")
+        if pk.get("deploy_commit") != pk.get("commit"):
+            f.append("el commit desplegado no es el probado")
+        if pk.get("aprobador") == pk.get("autor"):
+            f.append("aprobó su autor")
+        if pk.get("hoy", 30) - pk.get("ensayo_fecha", 0) > 30:
+            f.append("ensayo caducado")
+    if level >= 3:
+        if pk.get("ensayo_segundos", 0) < 30:
+            f.append("duración del ensayo inverosímil")
+        if pk.get("ensayo_entorno") not in ("preproduccion", "sombra"):
+            f.append("entorno de ensayo no permitido")
+        if pk.get("canario_solicitudes", 0) < 1000:
+            f.append("canario sin tráfico suficiente")
+    return f
+
+
+@lru_cache(None)
+def e420_paquete() -> dict:
+    r = random.Random(4203)
+    ops = {
+        "quitar un campo": ("forma", lambda p: p.pop("sbom_hash")),
+        "commit abreviado": ("forma", lambda p: p.update(commit=p["commit"][:7])),
+        "digest sin algoritmo": ("forma", lambda p: p.update(digest=p["digest"].split(":")[1])),
+        "digest desplegado distinto": ("cruce", lambda p: p.update(deploy_digest="sha256:" + "0" * 64)),
+        "commit desplegado distinto": ("cruce", lambda p: p.update(deploy_commit="f" * 40)),
+        "aprobó el propio autor": ("cruce", lambda p: p.update(aprobador="luis")),
+        "ensayo de hace 90 días": ("cruce", lambda p: p.update(ensayo_fecha=-60)),
+        "ensayo de 0 segundos": ("verosimilitud", lambda p: p.update(ensayo_segundos=0)),
+        "ensayo en el entorno equivocado": ("verosimilitud", lambda p: p.update(ensayo_entorno="mi-portatil")),
+        "canario con 12 solicitudes": ("verosimilitud", lambda p: p.update(canario_solicitudes=12)),
+        "ensayo copiado de otra versión": ("juicio", lambda p: p.update(ensayo_segundos=p["ensayo_segundos"] + 1)),
+        "aprobador sin permisos reales": ("juicio", lambda p: p.update(aprobador="bot-sin-revision")),
     }
-    rows = [["Política", "Costo (horas)", "Impacto de defectos escapados", "Impacto evitado por hora invertida"]]
-    base = outcome(policies["nada"])[1]
-    for name, pol in policies.items():
-        c, e = outcome(pol)
-        rows.append([name, f"{c:.0f}", f"{e:.0f}", f"{(base - e) / c:.2f}" if c else "—"])
-    table(rows)
-    print("  Los costos, la distribución de riesgos y la fracción con reglas son supuestos; solo las tasas de detección vienen de SE-481.")
+    n = 10
+    res = {name: {1: 0, 2: 0, 3: 0} for name in ops}
+    ok = {1: 0, 2: 0, 3: 0}
+    for i in range(n):
+        base = _package(r, i)
+        base["deploy_digest"] = base["digest"]; base["deploy_commit"] = base["commit"]
+        for level in (1, 2, 3):
+            ok[level] += not _validate(base, level)
+        for name, (kind, fn) in ops.items():
+            pk = dict(base)
+            fn(pk)
+            for level in (1, 2, 3):
+                res[name][level] += bool(_validate(pk, level))
+    return {"ops": {k: (ops[k][0], v[1], v[2], v[3]) for k, v in res.items()}, "n": n, "limpios": ok, "total": n * len(ops)}
+
+
+def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8")
+    for fn in (e415_bucle, e415_pelea, e415_poda, e416_reidentificacion, e416_uniones, e416_previews, e417_adopcion, e417_catalogo, e417_cola,
+               e418_definiciones, e418_gaming, e418_ruido, e419_endurecer, e419_inyeccion, e419_pin, e419_permisos, e420_rollback, e420_ablacion, e420_paquete):
+        print(json.dumps({fn.__name__: fn()}, ensure_ascii=False, default=str))
 
 
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["487", "488", "489", "490", "491", "492"]
-    for key in which:
-        globals()[f"e{key}"]()
-        print()
+    main()

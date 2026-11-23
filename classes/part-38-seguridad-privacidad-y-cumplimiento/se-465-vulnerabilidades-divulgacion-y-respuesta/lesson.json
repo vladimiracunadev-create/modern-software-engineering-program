@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-465",
+  "title": "Vulnerabilidades, divulgación y respuesta",
+  "stage": "F",
+  "part": "38",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "OWASP-ASVS"
+  ],
+  "path": "classes/part-38-seguridad-privacidad-y-cumplimiento/se-465-vulnerabilidades-divulgacion-y-respuesta"
+}

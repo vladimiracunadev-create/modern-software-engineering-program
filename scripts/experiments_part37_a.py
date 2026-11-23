@@ -1,489 +1,505 @@
-"""Experimentos sintéticos de las clases SE-445 a SE-450 (liderazgo, equipos, comunicación, mentoría, compromisos y riesgo).
+"""Experimentos de las clases SE-445 a SE-450 (Parte 37): análisis de riesgo y normas de seguridad.
 
-Todo usa la biblioteca estándar y semillas fijas. Las personas, los equipos, las decisiones y las
-cifras son construcciones del autor: no proceden de ninguna organización real. Ejecutar
-``python scripts/experiments_part37_a.py`` imprime los resultados como JSON.
+Uso: python scripts/experiments_part37_a.py [565|566|567|568|569|570]
+
+No se invoca ningún modelo de lenguaje. Todo es código ejecutado con la biblioteca estándar sobre el
+caso conductor *Horno de curado* (controlador de temperatura con un limitador independiente). Las
+tasas de fallo, las valoraciones y los parámetros los fija el autor: son supuestos de modelo, no datos
+de un producto. Ningún experimento reproduce ni sustituye el texto de una norma.
 """
 from __future__ import annotations
 
-import json
-import math
+import hashlib
+import itertools
 import random
-import statistics as st
 import sys
-from itertools import combinations
+
+import experiments_part37_lab as L
+from experiments_part37_lab import fmt, sci, table
 
 
-def pct(values: list[float], q: float) -> float:
-    ordered = sorted(values)
-    index = min(len(ordered) - 1, max(0, math.ceil(q / 100 * len(ordered)) - 1))
-    return ordered[index]
-
-
-def poisson(rng: random.Random, lam: float) -> int:
-    limit, k, p = math.exp(-lam), 0, 1.0
-    while True:
-        p *= rng.random()
-        if p <= limit:
-            return k
-        k += 1
-
-
-# ---------------------------------------------------------------- SE-445
-def e445_umbral() -> dict:
-    """Adopción en una red de 30 personas: cada una adopta cuando la fracción de sus vecinos que ya adoptó alcanza su umbral."""
-    n, equipos = 30, 2000
-    resultado = {}
-    for nombre, modo in (("solo un anuncio general", "ninguna"), ("2 personas al azar", "azar"),
-                         ("2 personas muy conectadas", "centro"), ("2 personas poco conectadas", "periferia")):
-        rng = random.Random(4450)
-        finales = []
-        for _ in range(equipos):
-            vecinos: list[list[int]] = [[] for _ in range(n)]
-            for i in range(n):
-                for j in range(i + 1, n):
-                    if rng.random() < 0.12:
-                        vecinos[i].append(j)
-                        vecinos[j].append(i)
-            um = [min(1.0, max(0.1, rng.gauss(0.3, 0.1))) for _ in range(n)]
-            grado = [len(v) for v in vecinos]
-            if modo == "ninguna":
-                semillas: list[int] = []
-            elif modo == "azar":
-                semillas = rng.sample(range(n), 2)
-            else:
-                orden = sorted(range(n), key=lambda i: (-grado[i], i))
-                semillas = orden[:2] if modo == "centro" else orden[-2:]
-            adopt = set(semillas)
-            cambio = True
-            while cambio:
-                cambio = False
-                for i in range(n):
-                    if i not in adopt and grado[i] and sum(v in adopt for v in vecinos[i]) / grado[i] >= um[i]:
-                        adopt.add(i)
-                        cambio = True
-            finales.append(len(adopt) / n)
-        resultado[nombre] = {"mediana_adopcion_pct": round(100 * st.median(finales), 1),
-                             "redes_con_80_o_mas_pct": round(100 * sum(f >= 0.8 for f in finales) / equipos, 1),
-                             "redes_que_no_pasan_de_10_pct": round(100 * sum(f <= 0.1 for f in finales) / equipos, 1)}
-    return resultado
-
-
-def e445_cola() -> dict:
-    """Cuello de botella: una persona aprueba toda decisión (recursión de Lindley en horas laborales)."""
-    resultado = {}
-    for nombre, lam in (("aprueba todo (5 por día)", 5.0), ("aprueba el 40 % (2 por día)", 2.0), ("criterios delegados (1 por día)", 1.0)):
-        rng = random.Random(4451)
-        tasa = lam / 8.0
-        espera, w = [], 0.0
-        for _ in range(40000):
-            servicio = rng.expovariate(1 / 1.4)
-            llegada = rng.expovariate(tasa)
-            espera.append(w)
-            w = max(0.0, w + servicio - llegada)
-        resultado[nombre] = {"utilizacion": round(lam * 1.4 / 8, 3), "espera_media_h": round(st.mean(espera), 1),
-                             "espera_p90_h": round(pct(espera, 90), 1)}
-    return resultado
-
-
-def e445_consulta() -> dict:
-    """Consulta previa por escrito: cuántas decisiones se revierten según cuántas personas la leen antes."""
-    resultado = {}
-    for k in (0, 2, 4, 8):
-        rng = random.Random(4452)
-        revertidas, dias = 0, 0.0
-        n = 6000
-        for _ in range(n):
-            graves_ocultas = 0
-            for _ in range(poisson(rng, 1.2)):
-                if rng.random() < 0.3:  # preocupación grave
-                    visto = any(rng.random() < 0.2 for _ in range(k))  # 0,25 de verla por 0,8 de decirla
-                    graves_ocultas += not visto
-            if graves_ocultas:
-                revertidas += 1
-                dias += 15.0
-            dias += 0.0 if k == 0 else 1.0 + 0.25 * k
-        resultado[f"{k} personas consultadas"] = {"revertidas_pct": round(100 * revertidas / n, 1), "dias_por_decision": round(dias / n, 2)}
-    return resultado
-
-
-# ---------------------------------------------------------------- SE-446
-def e446_bus_factor() -> dict:
-    """Factor de camión: personas que hay que quitar para dejar sin conocedor a más de la mitad de 300 archivos."""
-    n_arch, n_pers, sims = 300, 8, 200
-    resultado = {}
-    pesos_zipf = [1 / (i + 1) for i in range(n_pers)]
-    for nombre in ("un autor, reparto concentrado", "un autor, reparto uniforme", "dos conocedores por archivo", "dos conocedores y rotación"):
-        rng = random.Random(4460)
-        factores, huerfanos_top1 = [], []
-        for _ in range(sims):
-            conocen: list[set[int]] = []
-            for a in range(n_arch):
-                if nombre == "un autor, reparto concentrado":
-                    conocen.append({rng.choices(range(n_pers), pesos_zipf)[0]})
-                elif nombre == "un autor, reparto uniforme":
-                    conocen.append({rng.randrange(n_pers)})
-                else:
-                    primero = rng.choices(range(n_pers), pesos_zipf)[0] if nombre.startswith("dos conocedores por") else rng.randrange(n_pers)
-                    segundo = rng.choice([p for p in range(n_pers) if p != primero])
-                    conocen.append({primero, segundo})
-            factor = n_pers
-            for k in range(1, n_pers + 1):
-                if any(sum(1 for c in conocen if not (c - set(salen))) > n_arch / 2 for salen in combinations(range(n_pers), k)):
-                    factor = k
-                    break
-            factores.append(factor)
-            top = max(range(n_pers), key=lambda p: sum(p in c for c in conocen))
-            huerfanos_top1.append(100 * sum(1 for c in conocen if c == {top}) / n_arch)
-        resultado[nombre] = {"factor_mediano": st.median(factores), "huerfanos_al_irse_la_persona_mas_cargada_pct": round(st.mean(huerfanos_top1), 1)}
-    return resultado
-
-
-def e446_conway() -> dict:
-    """Cambios que cruzan equipos: equipos por capa frente a equipos por dominio, 5 000 cambios."""
-    rng = random.Random(4461)
-    n = 5000
-    capas = ("interfaz", "lógica", "datos")
-    por_capa, por_dom = [], []
-    for _ in range(n):
-        dom = rng.randrange(4)
-        k = rng.choices((1, 2, 3), (0.2, 0.3, 0.5))[0]
-        tocadas = rng.sample(capas, k)
-        doms = {dom}
-        if rng.random() < 0.2:
-            doms.add((dom + 1 + rng.randrange(3)) % 4)
-        por_capa.append(len(tocadas))
-        por_dom.append(len(doms))
-    res = {}
-    for nombre, v in (("equipos por capa", por_capa), ("equipos por dominio", por_dom)):
-        res[nombre] = {"equipos_por_cambio": round(st.mean(v), 2), "cambios_con_relevo_pct": round(100 * sum(x > 1 for x in v) / n, 1),
-                       "plazo_dias": round(2 + 3 * (st.mean(v) - 1) + 0.0, 1)}
-    return res
-
-
-def e446_guardia() -> dict:
-    """Guardia fuera de horario: 1,5 avisos por semana, rotación semanal."""
-    resultado = {}
-    for personas in (3, 4, 6, 8):
-        rng = random.Random(4462)
-        semanas_por_anio, avisos_por_anio, turnos_2mas = [], [], []
-        for _ in range(3000):
-            avisos = [poisson(rng, 1.5) for _ in range(52)]
-            semanas_por_anio.append(sum(1 for s in range(52) if s % personas == 0))
-            avisos_por_anio.append(sum(avisos[s] for s in range(52) if s % personas == 0))
-            turnos_2mas.append(sum(1 for s in range(52) if s % personas == 0 and avisos[s] >= 3))
-        resultado[f"{personas} personas"] = {"semanas_de_guardia_al_anio": round(st.mean(semanas_por_anio), 1),
-                                             "avisos_fuera_de_horario_por_persona_y_anio": round(st.mean(avisos_por_anio), 1),
-                                             "semanas_con_3_o_mas_avisos_por_persona_y_anio": round(st.mean(turnos_2mas), 2)}
-    return resultado
-
-
-# ---------------------------------------------------------------- SE-447
-def e447_anclaje() -> dict:
-    """Estimación en grupo: cada persona acierta con ruido; hablar en orden arrastra al grupo."""
-    resultado = {}
-    verdad, n_pers, ensayos = 100.0, 7, 5000
-    for nombre in ("escriben solas y luego se muestra", "se habla en orden, sin sesgo del primero", "se habla en orden y la persona sénior (+30 %) abre"):
-        rng = random.Random(4470)
-        errores = []
-        for _ in range(ensayos):
-            propias = [verdad * math.exp(rng.gauss(0, 0.3)) for _ in range(n_pers)]
-            if nombre.startswith("escriben"):
-                dichas = propias
-            else:
-                dichas = []
-                for i, p in enumerate(propias):
-                    if i == 0 and "sénior" in nombre:
-                        p = p * 1.3
-                    media = st.mean(dichas) if dichas else p
-                    dichas.append(p if not dichas else 0.5 * p + 0.5 * media)
-            errores.append(abs(st.mean(dichas) - verdad) / verdad * 100)
-        resultado[nombre] = {"error_mediano_pct": round(st.median(errores), 1), "error_mayor_a_15_pct": round(100 * sum(e > 15 for e in errores) / ensayos, 1)}
-    return resultado
-
-
-def e447_conflicto() -> dict:
-    """Dilema del prisionero iterado con 5 % de malentendidos (acción distinta de la deseada)."""
-    T, R, P, S = 5, 3, 1, 0
-
-    def jugada(estrategia: str, hist_propio: list[str], hist_otro: list[str], rng: random.Random) -> str:
-        if estrategia == "siempre coopera":
-            return "C"
-        if estrategia == "siempre ataca":
-            return "D"
-        if not hist_otro:
-            return "C"
-        if hist_otro[-1] == "C":
-            return "C"
-        if estrategia == "ojo por ojo":
-            return "D"
-        return "C" if rng.random() < 0.3 else "D"  # ojo por ojo generoso
-
-    def partida(a: str, b: str, rng: random.Random) -> tuple[float, float]:
-        ha, hb, pa, pb = [], [], 0, 0
-        for _ in range(200):
-            xa, xb = jugada(a, ha, hb, rng), jugada(b, hb, ha, rng)
-            if rng.random() < 0.05:
-                xa = "D" if xa == "C" else "C"
-            if rng.random() < 0.05:
-                xb = "D" if xb == "C" else "C"
-            ha.append(xa)
-            hb.append(xb)
-            tabla = {("C", "C"): (R, R), ("C", "D"): (S, T), ("D", "C"): (T, S), ("D", "D"): (P, P)}
-            ga, gb = tabla[(xa, xb)]
-            pa += ga
-            pb += gb
-        return pa / 200, pb / 200
-
-    nombres = ["ojo por ojo", "ojo por ojo generoso", "siempre coopera", "siempre ataca"]
-    rng = random.Random(4471)
-    resultado = {"par_contra_si_mismo": {}, "promedio_contra_las_cuatro": {}}
-    for a in nombres:
-        propios = [st.mean(partida(a, a, rng)[0] for _ in range(300))]
-        resultado["par_contra_si_mismo"][a] = round(propios[0], 2)
-        medias = []
-        for b in nombres:
-            medias.append(st.mean(partida(a, b, rng)[0] for _ in range(300)))
-        resultado["promedio_contra_las_cuatro"][a] = round(st.mean(medias), 2)
-    return resultado
-
-
-def e447_telefono() -> dict:
-    """Un mensaje de decisión con cinco campos pasa por varias personas; cada una pierde campos."""
-    campos = ("decisión", "motivo", "dueño", "fecha", "alcance")
-    formatos = {"oral": (0.10, 0.35, 0.25, 0.20, 0.25), "correo libre": (0.05, 0.20, 0.15, 0.10, 0.15),
-                "plantilla con acuse": (0.01, 0.04, 0.02, 0.02, 0.04)}
-    resultado = {}
-    for nombre, perdidas in formatos.items():
-        rng = random.Random(4472)
-        fila = {}
-        for saltos in (1, 2, 3, 4):
-            completos, motivo_ok = 0, 0
-            n = 6000
-            for _ in range(n):
-                vivo = [True] * 5
-                for _ in range(saltos):
-                    for j in range(5):
-                        if vivo[j] and rng.random() < perdidas[j]:
-                            vivo[j] = False
-                completos += all(vivo)
-                motivo_ok += vivo[1]
-            fila[f"{saltos} saltos"] = {"completos_pct": round(100 * completos / n, 1), "conserva_el_motivo_pct": round(100 * motivo_ok / n, 1)}
-        resultado[nombre] = fila
-    return resultado
-
-
-# ---------------------------------------------------------------- SE-448
-def e448_zona() -> dict:
-    """Crecimiento según la dificultad de las tareas asignadas durante 52 semanas (modelo de supuestos del autor)."""
-    resultado = {}
-    for nombre, delta in (("tareas fáciles (nivel - 2)", -2.0), ("tareas calibradas (nivel + 1)", 1.0), ("tareas muy difíciles (nivel + 4)", 4.0), ("dificultad al azar", None)):
-        rng = random.Random(4480)
-        finales, fracasos = [], []
-        for _ in range(1000):
-            nivel, malos = 3.0, 0
-            for _ in range(52):
-                d = nivel + (delta if delta is not None else rng.uniform(-3, 5))
-                brecha = d - nivel
-                aprende = 0.12 * math.exp(-((brecha - 1.0) ** 2) / 2.0)
-                fallo = 1 / (1 + math.exp(-(brecha - 3.0)))
-                malos += rng.random() < fallo
-                nivel += aprende * (1 - 0.5 * fallo)
-            finales.append(nivel)
-            fracasos.append(malos)
-        resultado[nombre] = {"nivel_final_mediano": round(st.median(finales), 2), "semanas_con_fracaso": round(st.mean(fracasos), 1)}
-    return resultado
-
-
-def e448_retraso() -> dict:
-    """Errores repetidos de un mismo hábito hasta que llega la retroalimentación (5 cambios por semana, 12 semanas)."""
-    resultado = {}
-    for nombre, dias in (("en el mismo cambio", 0), ("a los 2 días", 2), ("en la revisión semanal", 7), ("en la evaluación trimestral", 60)):
-        rng = random.Random(4481)
-        errores, aprendio_tarde = [], 0
-        for _ in range(4000):
-            err, corregido = 0, False
-            for dia in range(84):
-                if dia >= dias and not corregido and rng.random() < 0.7:
-                    corregido = True
-                cambios = 5 / 7
-                p = 0.05 if corregido else 0.3
-                err += sum(1 for _ in range(int(round(cambios * 7)) if dia % 7 == 0 else 0) if rng.random() < p)
-            errores.append(err)
-        resultado[nombre] = {"errores_repetidos_en_12_semanas": round(st.mean(errores), 1)}
-    return resultado
-
-
-def e448_calibracion() -> dict:
-    """Acuerdo entre evaluadoras sobre 200 personas: una sola evaluadora, panel sin rúbrica, rúbrica calibrada."""
-    esquemas = {"una evaluadora, sin rúbrica": (0.5, 0.8, 1), "tres evaluadoras, sin rúbrica": (0.5, 0.8, 3), "tres evaluadoras con rúbrica calibrada": (0.2, 0.4, 3)}
-    resultado = {}
-    for nombre, (sd_indulg, sd_ruido, k) in esquemas.items():
-        rng = random.Random(4482)
-        corrs, aciertos = [], []
-        for _ in range(300):
-            verdad = [rng.gauss(0, 1) for _ in range(200)]
-            jueces = [rng.gauss(0, sd_indulg) for _ in range(6)]
-            puntaje = []
-            for v in verdad:
-                elegidas = rng.sample(range(6), k)
-                puntaje.append(st.mean(v + jueces[j] + rng.gauss(0, sd_ruido) for j in elegidas))
-            corrs.append(st.correlation(verdad, puntaje))
-            mejores = set(sorted(range(200), key=lambda i: -verdad[i])[:40])
-            promovidas = set(sorted(range(200), key=lambda i: -puntaje[i])[:40])
-            aciertos.append(100 * len(mejores & promovidas) / 40)
-        resultado[nombre] = {"correlacion_con_el_desempeno": round(st.mean(corrs), 2), "del_20_pct_mejor_que_se_promueve_pct": round(st.mean(aciertos), 1)}
-    return resultado
-
-
-# ---------------------------------------------------------------- SE-449
-def e449_suma_de_medianas() -> dict:
-    """Doce tareas con mediana de 5 días: la suma de medianas no es la mediana de la suma."""
-    n_tareas, sigma, sims = 12, 0.6, 20000
-    resultado = {}
-    suma_med = 5.0 * n_tareas
-    for nombre, comun in (("tareas independientes", 0.0), ("con un factor común de dificultad", 0.4)):
-        rng = random.Random(4490)
-        totales = []
-        for _ in range(sims):
-            f = rng.gauss(0, 1)
-            total = sum(5.0 * math.exp(sigma * rng.gauss(0, 1) * math.sqrt(1 - comun ** 2) + sigma * comun * f) for _ in range(n_tareas))
-            totales.append(total)
-        resultado[nombre] = {"suma_de_medianas_dias": suma_med, "p_de_cumplir_la_suma_de_medianas_pct": round(100 * sum(t <= suma_med for t in totales) / sims, 1),
-                             "p50": round(pct(totales, 50), 1), "p85": round(pct(totales, 85), 1), "p95": round(pct(totales, 95), 1)}
-    return resultado
-
-
-def e449_simulacion_por_flujo() -> dict:
-    """Pronóstico con el historial de entrega por semana: 60 elementos pendientes."""
-    def historial(rng: random.Random, semanas: int) -> list[int]:
-        return [0 if rng.random() < 0.08 else poisson(rng, 5.0) for _ in range(semanas)]
-
-    def semanas_para(h: list[int], rng: random.Random, pendientes: int = 60) -> int:
-        hecho, s = 0, 0
-        while hecho < pendientes:
-            hecho += rng.choice(h)
-            s += 1
-            if s > 400:
-                break
-        return s
-
-    resultado = {}
-    rng0 = random.Random(4491)
-    hist20 = historial(rng0, 20)
-    sims = [semanas_para(hist20, rng0) for _ in range(5000)]
-    resultado["con_un_historial_de_20_semanas"] = {"media_del_historial": round(st.mean(hist20), 2), "semanas_con_media": math.ceil(60 / st.mean(hist20)),
-                                                   "p50": pct(sims, 50), "p85": pct(sims, 85), "p95": pct(sims, 95),
-                                                   "p_de_terminar_en_las_semanas_de_la_media": round(100 * sum(s <= math.ceil(60 / st.mean(hist20)) for s in sims) / len(sims), 1)}
-    estab = {}
-    for semanas in (6, 12, 24, 48):
-        p85s = []
-        for rep in range(200):
-            rng = random.Random(910000 + rep)
-            h = historial(rng, semanas)
-            p85s.append(pct([semanas_para(h, rng) for _ in range(400)], 85))
-        estab[f"{semanas} semanas de historial"] = {"p85_mediano": st.median(p85s), "rango_p10_p90": [pct(p85s, 10), pct(p85s, 90)]}
-    resultado["estabilidad_del_p85_en_200_historiales"] = estab
-    return resultado
-
-
-def e449_utilizacion() -> dict:
-    """Tiempo de ciclo frente a la carga comprometida (cola de un servidor, recursión de Lindley)."""
-    resultado = {}
-    for rho in (0.5, 0.7, 0.85, 0.95):
-        rng = random.Random(4492)
-        w, ciclos = 0.0, []
-        for _ in range(60000):
-            servicio = rng.expovariate(1.0)
-            llegada = rng.expovariate(rho)
-            ciclos.append(w + servicio)
-            w = max(0.0, w + servicio - llegada)
-        resultado[f"{int(rho * 100)} % de carga"] = {"ciclo_medio_en_unidades_de_trabajo": round(st.mean(ciclos), 1), "teoria_1_sobre_1_menos_rho": round(1 / (1 - rho), 1), "ciclo_p90": round(pct(ciclos, 90), 1)}
-    return resultado
-
-
-# ---------------------------------------------------------------- SE-450
-def e450_matriz() -> dict:
-    """Cartera de 30 riesgos: matriz 5x5 frente al valor esperado para elegir los 5 primeros."""
-    def clase(v: float, cortes: list[float]) -> int:
-        return 1 + sum(v > c for c in cortes)
-
-    rng = random.Random(4500)
-    cobertura = {"matriz 5x5": [], "valor esperado": [], "al azar": []}
-    cola = {"matriz 5x5": [], "valor esperado": []}
-    for _ in range(400):
-        riesgos = []
-        for _ in range(30):
-            p = min(0.9, math.exp(rng.gauss(math.log(0.08), 0.9)))
-            imp = math.exp(rng.gauss(math.log(50), 1.5))
-            riesgos.append((p, imp))
-        ev = [p * imp * math.exp(1.5 ** 2 / 2) / 1 for p, imp in riesgos]  # esperanza real de un lognormal
-        total = sum(ev)
-        matriz = [clase(p, [0.02, 0.05, 0.1, 0.25]) * clase(imp, [10, 30, 100, 300]) + rng.random() * 0.5 for p, imp in riesgos]
-        orden_m = sorted(range(30), key=lambda i: -matriz[i])[:5]
-        orden_e = sorted(range(30), key=lambda i: -ev[i])[:5]
-        azar = rng.sample(range(30), 5)
-        cobertura["matriz 5x5"].append(100 * sum(ev[i] for i in orden_m) / total)
-        cobertura["valor esperado"].append(100 * sum(ev[i] for i in orden_e) / total)
-        cobertura["al azar"].append(100 * sum(ev[i] for i in azar) / total)
-        # mayor riesgo real que la matriz deja fuera
-        mayor = max(range(30), key=lambda i: ev[i])
-        cola["matriz 5x5"].append(mayor not in orden_m)
-    resultado = {k: {"esperanza_cubierta_pct": round(st.mean(v), 1)} for k, v in cobertura.items()}
-    resultado["matriz 5x5"]["deja_fuera_el_mayor_riesgo_pct"] = round(100 * sum(cola["matriz 5x5"]) / 400, 1)
-    return resultado
-
-
-def e450_valor_de_informacion() -> dict:
-    """Valor esperado de la información perfecta (VEIP) y de un experimento ruidoso (VEII) frente a su costo."""
-    resultado = {}
-    for mu in (-20.0, 0.0, 20.0):
-        rng = random.Random(4501)
-        sigma, ruido, n = 100.0, 40.0, 200000
-        sin_info = max(mu, 0.0)
-        veip, veii = 0.0, 0.0
-        for _ in range(n):
-            v = rng.gauss(mu, sigma)
-            veip += max(v, 0.0)
-            senal = v + rng.gauss(0, ruido)
-            post_media = mu + (sigma ** 2 / (sigma ** 2 + ruido ** 2)) * (senal - mu)
-            veii += v if post_media > 0 else 0.0
-        resultado[f"valor esperado a priori {mu:+.0f}"] = {"sin_informacion": sin_info, "veip": round(veip / n - sin_info, 1), "veii_experimento_ruidoso": round(veii / n - sin_info, 1),
-                                                          "analitico_veip": round(sigma * math.exp(-0.5 * (mu / sigma) ** 2) / math.sqrt(2 * math.pi) + mu * 0.5 * (1 + math.erf(mu / (sigma * math.sqrt(2)))) - sin_info, 1)}
-    return resultado
-
-
-def e450_reversibilidad() -> dict:
-    """200 decisiones por trimestre: qué cuesta escalar todo frente a escalar solo lo irreversible."""
-    resultado = {}
-    for nombre, politica in (("todo se escala", "todo"), ("solo se escala lo irreversible", "irrev"), ("nada se escala", "nada")):
-        rng = random.Random(4502)
-        costos = []
-        for _ in range(3000):
-            total = 0.0
-            for _ in range(200):
-                irrev = rng.random() < 0.3
-                escalada = politica == "todo" or (politica == "irrev" and irrev)
-                p_error = 0.15 if escalada else 0.25
-                demora = 10 if escalada else 1
-                total += 0.1 * demora  # costo de esperar, por día
-                if rng.random() < p_error:
-                    total += 20.0 if irrev else 1.5
-            costos.append(total)
-        resultado[nombre] = {"costo_mediano": round(st.median(costos), 1), "costo_p90": round(pct(costos, 90), 1)}
-    return resultado
-
-
-EXPERIMENTS = {
-    "e445_umbral": e445_umbral, "e445_cola": e445_cola, "e445_consulta": e445_consulta,
-    "e446_bus_factor": e446_bus_factor, "e446_conway": e446_conway, "e446_guardia": e446_guardia,
-    "e447_anclaje": e447_anclaje, "e447_conflicto": e447_conflicto, "e447_telefono": e447_telefono,
-    "e448_zona": e448_zona, "e448_retraso": e448_retraso, "e448_calibracion": e448_calibracion,
-    "e449_suma_de_medianas": e449_suma_de_medianas, "e449_simulacion_por_flujo": e449_simulacion_por_flujo, "e449_utilizacion": e449_utilizacion,
-    "e450_matriz": e450_matriz, "e450_valor_de_informacion": e450_valor_de_informacion, "e450_reversibilidad": e450_reversibilidad,
+# ====================================================================== SE-445
+GATES = {
+    "TOPE": ("and", ["PIERDE_CONTROL", "PIERDE_PROTECCION"]),
+    "PIERDE_CONTROL": ("or", ["SENSOR_BAJO", "FALLO_SW", "TRIAC_CORTO"]),
+    "PIERDE_PROTECCION": ("or", ["RELE_SOLDADO", "SENSOR_LIMITADOR", "LOGICA_LIMITADOR"]),
 }
+P = {"SENSOR_BAJO": 2e-3, "FALLO_SW": 5e-3, "TRIAC_CORTO": 1e-3,
+     "RELE_SOLDADO": 1e-4, "SENSOR_LIMITADOR": 2e-3, "LOGICA_LIMITADOR": 5e-4}
+GATES_CC = {
+    "TOPE": ("and", ["PIERDE_CONTROL", "PIERDE_PROTECCION"]),
+    "PIERDE_CONTROL": ("or", ["SENSOR_BAJO", "FALLO_SW", "TRIAC_CORTO", "CALIBRACION_COMUN"]),
+    "PIERDE_PROTECCION": ("or", ["RELE_SOLDADO", "SENSOR_LIMITADOR", "LOGICA_LIMITADOR", "CALIBRACION_COMUN"]),
+}
+P_CC = dict(P, CALIBRACION_COMUN=3e-4)
+
+FMEA = [  # (modo de fallo, S, O, D) valoraciones 1-10 del autor
+    ("Sensor principal se queda en lectura baja", 9, 4, 5),
+    ("Relé del limitador se suelda", 10, 2, 8),
+    ("Ruido en el convertidor analógico", 4, 7, 4),
+    ("Pantalla muestra temperatura rezagada", 3, 6, 3),
+    ("Reinicio por perro guardián en curado", 6, 5, 2),
+    ("Conector de puerta intermitente", 7, 6, 6),
+    ("Derivación de calibración en 2 años", 8, 5, 7),
+    ("Registro de eventos llena la memoria", 2, 8, 2),
+]
+
+
+def e565():
+    print("SE-445 — peligro, riesgo y análisis: FTA, FMEA y STPA sobre el Horno de curado")
+    cuts = L.mocus("TOPE", GATES)
+    exact = L.exact_probability("TOPE", GATES, P)
+    rare = sum(eval_cut(c, P) for c in cuts)
+    print(f"  FTA sin causa común: {len(cuts)} cortes mínimos, todos de orden 2; P(tope) exacta {sci(exact)}, aproximación de suceso raro {sci(rare)}")
+    cuts_cc = L.mocus("TOPE", GATES_CC)
+    exact_cc = L.exact_probability("TOPE", GATES_CC, P_CC)
+    sizes = sorted(len(c) for c in cuts_cc)
+    print(f"  FTA con una calibración común: {len(cuts_cc)} cortes (orden {sizes[0]} el más pequeño); P(tope) exacta {sci(exact_cc)} ({fmt(exact_cc / exact, 1)} veces la anterior)")
+    share = P_CC["CALIBRACION_COMUN"] / exact_cc
+    print(f"  el corte de orden 1 aporta el {fmt(100 * share, 1)} % de la probabilidad del tope")
+    rng = random.Random(47)
+    scale = 20
+    pm = {k: min(0.5, v * scale) for k, v in P_CC.items()}
+    ex_s = L.exact_probability("TOPE", GATES_CC, pm)
+    n = 400000
+    hits = 0
+    for _ in range(n):
+        s = {k: rng.random() < v for k, v in pm.items()}
+        ctrl = s["SENSOR_BAJO"] or s["FALLO_SW"] or s["TRIAC_CORTO"] or s["CALIBRACION_COMUN"]
+        prot = s["RELE_SOLDADO"] or s["SENSOR_LIMITADOR"] or s["LOGICA_LIMITADOR"] or s["CALIBRACION_COMUN"]
+        hits += ctrl and prot
+    print(f"  comprobación Monte Carlo (probabilidades x{scale}, {n} corridas, semilla 47): simulado {sci(hits / n)}, exacto {sci(ex_s)}")
+
+    print("  FMEA: ranking por RPN (S x O x D) frente a ranking por gravedad")
+    rows = [["Modo de fallo", "S", "O", "D", "RPN", "Puesto por RPN", "Puesto por S"]]
+    by_rpn = sorted(FMEA, key=lambda m: -(m[1] * m[2] * m[3]))
+    by_s = sorted(FMEA, key=lambda m: (-m[1], -(m[1] * m[2] * m[3])))
+    for m in FMEA:
+        rows.append([m[0], m[1], m[2], m[3], m[1] * m[2] * m[3], by_rpn.index(m) + 1, by_s.index(m) + 1])
+    table(rows)
+    vals = {}
+    for s, o, d in itertools.product(range(1, 11), repeat=3):
+        vals.setdefault(s * o * d, []).append((s, o, d))
+    print(f"  las 1000 combinaciones (S, O, D) producen solo {len(vals)} valores distintos de RPN; el más repetido ({max(vals, key=lambda k: len(vals[k]))}) lo dan {max(len(v) for v in vals.values())} combinaciones")
+    ej = [v for k, v in vals.items() if k == 120][0]
+    print(f"  RPN 120 lo alcanzan {len(ej)} combinaciones, desde gravedad {min(x[0] for x in ej)} hasta {max(x[0] for x in ej)}")
+    top = by_rpn[:3]
+    stay = 0
+    reps = 2000
+    for _ in range(reps):
+        pert = []
+        for name, s, o, d in FMEA:
+            f = lambda v: min(10, max(1, v + (rng.choice([-1, 1]) if rng.random() < 0.2 else 0)))
+            pert.append((name, f(s), f(o), f(d)))
+        order = sorted(pert, key=lambda m: -(m[1] * m[2] * m[3]))[:3]
+        stay += {m[0] for m in order} == {m[0] for m in top}
+    print(f"  estabilidad: el mismo trío en cabeza en {stay} de {reps} repeticiones ({fmt(100 * stay / reps, 1)} %) si cada valoración cambia +-1 con probabilidad 0,2")
+
+    print("  STPA: acciones de control no seguras (UCA) por tipo y contexto")
+    hazards = uca_table()
+    print(f"  combinaciones evaluadas: {hazards['total']}; peligrosas: {hazards['hazardous']} ({', '.join(f'{k}: {v}' for k, v in hazards['by_type'].items())})")
+    print("  corrida sin ningún fallo de componente (la especificación pide calentar mientras T < consigna):")
+    for lim in (False, True):
+        tmax, door_heat = plant_run(setpoint=300, door_open_from=200, limiter=lim)
+        print(f"    limitador {'presente' if lim else 'ausente '}: temperatura máxima {fmt(tmax, 1)} C; segundos con calentador y puerta abierta: {door_heat}")
+
+
+def eval_cut(cut, p):
+    out = 1.0
+    for c in cut:
+        out *= p[c]
+    return out
+
+
+def uca_table():
+    types = ["no se da", "se da", "se da tarde o pronto", "se corta antes o dura de más"]
+    cas = ["conectar calentador", "desconectar calentador", "ajustar consigna"]
+    contexts = [(d, t) for d in ("cerrada", "abierta") for t in ("baja", "cercana", "sobre el límite")]
+    hz = 0
+    by = {t: 0 for t in types}
+    for ca, ty, (door, temp) in itertools.product(cas, types, contexts):
+        bad = False
+        if ca == "conectar calentador" and ty == "se da" and (door == "abierta" or temp == "sobre el límite"):
+            bad = True
+        if ca == "conectar calentador" and ty == "se corta antes o dura de más" and (door == "abierta" or temp == "sobre el límite"):
+            bad = True
+        if ca == "desconectar calentador" and ty in ("no se da", "se da tarde o pronto") and (door == "abierta" or temp == "sobre el límite"):
+            bad = True
+        if ca == "ajustar consigna" and ty == "se da":
+            bad = True
+        hz += bad
+        by[ty] += bad
+    return {"total": len(cas) * len(types) * len(contexts), "hazardous": hz, "by_type": by}
+
+
+def plant_run(setpoint, door_open_from, limiter, limit=250.0, seconds=900):
+    t = 20.0
+    heater = False
+    tmax = t
+    door_heat = 0
+    for s in range(seconds):
+        door_open = s >= door_open_from
+        heater = t < setpoint          # la especificación solo habla de la consigna
+        if limiter and t >= limit:
+            heater = False
+        if limiter and door_open:
+            heater = False
+        if heater and door_open:
+            door_heat += 1
+        t += (1.0 if heater else 0.0) * 1.2 - 0.004 * (t - 20.0)
+        tmax = max(tmax, t)
+    return tmax, door_heat
+
+
+# ====================================================================== SE-446
+BANDS = [(1e-5, 1e-4, "SIL 4"), (1e-4, 1e-3, "SIL 3"), (1e-3, 1e-2, "SIL 2"), (1e-2, 1e-1, "SIL 1")]
+
+
+def sil_of(pfd):
+    for lo, hi, name in BANDS:
+        if lo <= pfd < hi:
+            return name
+    return "menor que SIL 1" if pfd >= 1e-1 else "mejor que la banda SIL 4"
+
+
+def pfd_1oo1(lam, T):
+    return lam * T / 2
+
+
+def pfd_1oo2(lam, T, beta):
+    return ((1 - beta) * lam * T) ** 2 / 3 + beta * lam * T / 2
+
+
+def pfd_2oo3(lam, T, beta):
+    return ((1 - beta) * lam * T) ** 2 + beta * lam * T / 2
+
+
+def e566():
+    print("SE-446 — seguridad funcional y probabilidad de fallo bajo demanda (modelo simplificado de baja demanda)")
+    lam = 2e-6   # fallos peligrosos no detectados por hora
+    year = 8760
+    rows = [["Arquitectura", "Prueba cada", "beta", "PFDavg", "Banda"]]
+    for T in (year, 2 * year, 5 * year):
+        for name, f in (("1oo1", lambda T, b: pfd_1oo1(lam, T)), ("1oo2", lambda T, b: pfd_1oo2(lam, T, b)), ("2oo3", lambda T, b: pfd_2oo3(lam, T, b))):
+            b = 0.05
+            v = f(T, b)
+            rows.append([name, f"{T // year} años", "-" if name == "1oo1" else b, sci(v), sil_of(v)])
+    table(rows)
+    print("  efecto del factor de causa común en 1oo2 (prueba anual):")
+    for b in (0.0, 0.02, 0.05, 0.10, 0.20):
+        v = pfd_1oo2(lam, year, b)
+        print(f"    beta {fmt(b, 2)}: PFDavg {sci(v)} ({sil_of(v)})")
+    rng = random.Random(47)
+    n = 400000
+    T = year
+    acc = 0.0
+    for _ in range(n):
+        tf = rng.expovariate(lam)
+        if tf < T:
+            acc += (T - tf) / T
+    print(f"  Monte Carlo 1oo1 ({n} vidas de un intervalo, semilla 47): PFDavg simulado {sci(acc / n)}; fórmula {sci(pfd_1oo1(lam, T))}")
+    beta = 0.05
+    acc = 0.0
+    lam_i = (1 - beta) * lam
+    for _ in range(n):
+        t1 = rng.expovariate(lam_i)
+        t2 = rng.expovariate(lam_i)
+        tc = rng.expovariate(beta * lam)
+        down = min(T, max(t1, t2)) if max(t1, t2) < T else T
+        # indisponibilidad: ambos canales caídos, o causa común
+        t_both = max(t1, t2)
+        t_dead = min(t_both, tc)
+        acc += max(0.0, (T - t_dead) / T) if t_dead < T else 0.0
+    print(f"  Monte Carlo 1oo2 con causa común (beta 0,05): simulado {sci(acc / n)}; fórmula {sci(pfd_1oo2(lam, T, beta))}")
+    print("  prueba periódica imperfecta (1oo1, vida útil de 15 años, prueba anual):")
+    life = 15 * year
+    for c in (1.0, 0.99, 0.95, 0.90, 0.70):
+        v = lam * (c * T / 2 + (1 - c) * life / 2)
+        print(f"    cobertura de la prueba {fmt(100 * c, 0)} %: PFDavg {sci(v)} ({sil_of(v)})")
+    print("  tasa de demanda: fallos peligrosos esperados por año = demandas por año x PFD (el modelo de baja demanda supone menos de una demanda por intervalo de prueba)")
+    for d in (1, 10, 100):
+        print(f"    {d} demandas/año con PFDavg {sci(pfd_1oo1(lam, year))}: fallos peligrosos esperados por año {sci(d * pfd_1oo1(lam, year))}")
+
+
+# ====================================================================== SE-447
+def torque(pedal, gain=3, off=40):
+    return ((pedal * gain) >> 1) + off
+
+
+def e567():
+    print("SE-447 — automoción: métricas de fallo único y diagnóstico por inyección de fallos (concepto, no texto de la norma)")
+    comps = [("sensor", 40.0, 0.90, 0.99), ("microcontrolador", 120.0, 0.60, 0.99), ("driver de salida", 25.0, 0.00, 0.97), ("alimentación", 15.0, 0.90, 0.90)]  # (FIT del autor, cobertura diseño A, cobertura diseño B)
+    total = sum(c[1] for c in comps)
+    print("  fallos peligrosos por 1e9 horas (FIT) del autor:", {c[0]: c[1] for c in comps})
+    rows = [["Diseño", "Fallos sin cubrir (FIT)", "Métrica de fallo único (SPFM)"]]
+    for name, idx in (("A: diagnóstico mínimo", 2), ("B: diagnóstico por componente", 3)):
+        rest = sum(c[1] * (1 - c[idx]) for c in comps)
+        rows.append([name, fmt(rest, 1), f"{fmt(100 * (1 - rest / total), 1)} %"])
+    table(rows)
+    print("  valores de referencia que circulan en la literatura técnica: 90 % (ASIL B), 97 % (ASIL C), 99 % (ASIL D); no se verificaron contra la norma, que es de pago")
+    rng = random.Random(47)
+    n = 20000
+    tol = 8
+    schemes = ["sin diagnóstico", "rango de la entrada", "doble cálculo y comparación", "doble cálculo y relectura de la salida"]
+    res = {s: [0, 0, 0] for s in schemes}   # [peligrosos, no detectados, detectados]
+    for _ in range(n):
+        pedal = rng.randrange(0, 256)
+        site = rng.choice(["entrada", "intermedio", "salida"])
+        bit = rng.randrange(0, 16)
+        good = torque(pedal)
+        # canal A con falla; canal B sano
+        a_in, a_mid, a_out = pedal, (pedal * 3) >> 1, None
+        if site == "entrada":
+            a_in ^= 1 << bit
+            a_mid = (a_in * 3) >> 1
+        elif site == "intermedio":
+            a_mid ^= 1 << bit
+        out = (a_mid & 0xFFFF) + 40
+        if site == "salida":
+            out ^= 1 << bit
+        a_out = out
+        hazardous = abs(a_out - good) > tol
+        if not hazardous:
+            continue
+        det = {
+            "sin diagnóstico": False,
+            "rango de la entrada": not (0 <= a_in <= 255) or a_out > 700,
+            "doble cálculo y comparación": site in ("entrada", "intermedio"),
+            "doble cálculo y relectura de la salida": True,
+        }
+        for s in schemes:
+            res[s][0] += 1
+            res[s][1 if not det[s] else 2] += 1
+    rows = [["Esquema", "Fallos peligrosos", "Detectados", "No detectados", "Cobertura medida"]]
+    for s in schemes:
+        h, nd, d = res[s]
+        rows.append([s, h, d, nd, f"{fmt(100 * d / h, 1)} %"])
+    table(rows)
+    print("  el doble cálculo no ve un fallo posterior a la comparación: la relectura de la salida lo cierra; el rango solo ve valores imposibles")
+
+
+# ====================================================================== SE-448
+def limitador(temp, limite, puerta, habilitado, modo=0):
+    """Lógica del limitador del Horno de curado. Las líneas marcadas son las del experimento."""
+    if temp is None:                      # R5: sensor sin lectura -> estado seguro
+        return "CORTE"
+    if temp > 1000:                       # código muerto: la entrada ya está limitada a 500
+        return "CORTE"
+    if limite == 42:                      # función no prevista: puerta trasera de depuración
+        return "DEPURA"
+    if not habilitado:
+        return "ESPERA"
+    if temp >= limite or puerta:          # R1 sobretemperatura, R2 puerta abierta
+        return "CORTE"
+    if temp >= limite - 10:               # R3 preaviso
+        return "AVISO"
+    return "CALOR"                        # R4 operación normal
+
+
+TESTS_REQ = [  # derivados solo de los requisitos R1..R4
+    ("R1", dict(temp=260, limite=250, puerta=False, habilitado=True), "CORTE"),
+    ("R2", dict(temp=100, limite=250, puerta=True, habilitado=True), "CORTE"),
+    ("R3", dict(temp=245, limite=250, puerta=False, habilitado=True), "AVISO"),
+    ("R4", dict(temp=100, limite=250, puerta=False, habilitado=True), "CALOR"),
+    ("R0", dict(temp=100, limite=250, puerta=False, habilitado=False), "ESPERA"),
+]
+
+
+def trace_arcs(fn, calls):
+    arcs = set()
+    lines = set()
+    code = fn.__code__
+    state = {"prev": None}
+
+    def tracer(frame, event, arg):
+        if frame.f_code is not code:
+            return tracer
+        if event == "line":
+            lines.add(frame.f_lineno)
+            if state["prev"] is not None:
+                arcs.add((state["prev"], frame.f_lineno))
+            state["prev"] = frame.f_lineno
+        elif event == "return":
+            state["prev"] = None
+        return tracer
+
+    for kw in calls:
+        state["prev"] = None
+        sys.settrace(tracer)
+        fn(**kw)
+        sys.settrace(None)
+    return lines, arcs
+
+
+def static_lines_and_arcs(fn):
+    import ast
+    import inspect
+    src = inspect.getsource(fn)
+    tree = ast.parse(src)
+    first = fn.__code__.co_firstlineno
+    stmts = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.stmt) and not isinstance(node, ast.FunctionDef):
+            stmts.append(node.lineno + first - 1)
+    return sorted(set(stmts))
+
+
+def e568():
+    print("SE-448 — aviación: cobertura de requisitos y cobertura estructural sobre la lógica del limitador")
+    stmts = static_lines_and_arcs(limitador)
+    # quitar el docstring (expresión) del cómputo
+    import inspect
+    doc_line = limitador.__code__.co_firstlineno + 1
+    stmts = [s for s in stmts if s != doc_line]
+    tests = [kw for _, kw, _ in TESTS_REQ]
+    ok = all(limitador(**kw) == exp for _, kw, exp in TESTS_REQ)
+    lines, _ = trace_arcs(limitador, tests)
+    covered = [s for s in stmts if s in lines]
+    print(f"  pruebas derivadas de los requisitos R0-R4: {len(TESTS_REQ)}, todas pasan: {ok}")
+    print(f"  cobertura de sentencias: {len(covered)} de {len(stmts)} ({fmt(100 * len(covered) / len(stmts), 1)} %)")
+    src = inspect.getsource(limitador).splitlines()
+    first = limitador.__code__.co_firstlineno
+    missed = [s for s in stmts if s not in lines]
+    print("  sentencias no ejecutadas por las pruebas de requisitos:")
+    for s in missed:
+        print(f"    línea {s - first + 1}: {src[s - first].strip()}")
+    extra = [
+        ("R5", dict(temp=None, limite=250, puerta=False, habilitado=True), "CORTE"),
+    ]
+    tests2 = tests + [kw for _, kw, _ in extra]
+    lines2, _ = trace_arcs(limitador, tests2)
+    cov2 = [s for s in stmts if s in lines2]
+    print(f"  tras añadir el requisito R5 (sensor sin lectura) y su prueba: {len(cov2)} de {len(stmts)} ({fmt(100 * len(cov2) / len(stmts), 1)} %)")
+    missed2 = [s for s in stmts if s not in lines2]
+    print("  quedan sin ejecutar:", [src[s - first].strip() for s in missed2])
+    # el código muerto no se puede alcanzar con la entrada acotada
+    reach = 0
+    for t in range(-50, 501):
+        if limitador(temp=t, limite=250, puerta=False, habilitado=True) == "CORTE" and t > 1000:
+            reach += 1
+    print(f"  entradas de 0 a 500 que alcanzan la rama de temp > 1000: {reach}; la rama es código muerto si el rango de entrada está acotado, o un requisito derivado si no lo está")
+    print("  la puerta trasera (limite == 42) solo la ve una prueba de estructura: ningún requisito pide esa conducta")
+
+
+# ====================================================================== SE-449
+MODULES = {  # módulo: (clase propia asignada por el autor, dependencias)
+    "control de dosis": ("C", ["bomba", "validador", "registro"]),
+    "validador": ("C", []),
+    "bomba": ("C", []),
+    "interfaz": ("B", ["control de dosis", "registro", "pantalla"]),
+    "pantalla": ("A", []),
+    "registro": ("B", ["almacén"]),
+    "almacén": ("A", []),
+    "red hospitalaria": ("B", ["registro", "interfaz"]),
+    "actualizaciones": ("B", ["almacén"]),
+    "calibración": ("C", ["bomba"]),
+    "sonido": ("A", []),
+    "informes": ("A", ["almacén", "registro"]),
+}
+RANK = {"A": 1, "B": 2, "C": 3}
+EFFORT = {"A": 3, "B": 6, "C": 10}  # actividades de verificación por módulo, supuesto del autor
+
+
+def effective_class(segregated):
+    cls = {m: v[0] for m, v in MODULES.items()}
+    if segregated:
+        return cls
+    changed = True
+    while changed:
+        changed = False
+        for m, (_, deps) in MODULES.items():
+            for d in deps:
+                if RANK[cls[m]] > RANK[cls[d]]:
+                    cls[d] = cls[m]
+                    changed = True
+    return cls
+
+
+def e569():
+    print("SE-449 — dispositivos médicos: clases de seguridad del software y segregación (concepto de IEC 62304 por literatura abierta)")
+    for seg in (False, True):
+        cls = effective_class(seg)
+        counts = {k: sum(1 for v in cls.values() if v == k) for k in "ABC"}
+        effort = sum(EFFORT[v] for v in cls.values())
+        print(f"  {'con segregación documentada' if seg else 'sin segregación (todo lo que sirve a C hereda C)'}: A {counts['A']}, B {counts['B']}, C {counts['C']}; actividades de verificación {effort}")
+    cls = effective_class(False)
+    raised = [m for m in MODULES if cls[m] != MODULES[m][0]]
+    print("  módulos que suben de clase sin segregación:", ", ".join(f"{m} ({MODULES[m][0]}->{cls[m]})" for m in raised))
+    rng = random.Random(47)
+    n = 20000
+    hazard_without = hazard_global = hazard_profile = 0
+    for _ in range(n):
+        prescribed = rng.choice([0.5, 1.0, 2.0, 5.0, 12.5, 25.0])   # ml/h
+        v = prescribed * 10 if rng.random() < 0.02 else prescribed   # deslizamiento del punto decimal
+        hazardous = v > 5 * prescribed
+        hazard_without += hazardous
+        hazard_global += hazardous and not (v > 100)             # tope global de la bomba
+        hazard_profile += hazardous and not (v > 3 * prescribed)  # tope por perfil de fármaco
+    print(f"  deslizamiento del punto decimal en el 2 % de {n} órdenes (semilla 47): sin control {hazard_without} órdenes peligrosas; con tope global de 100 ml/h pasan {hazard_global}; con tope por perfil (3 veces la velocidad habitual) pasan {hazard_profile}")
+
+
+# ====================================================================== SE-450
+def build_case(seed):
+    rng = random.Random(seed)
+    claims = {"G0": ["G1", "G2", "G3", "G4"], "G1": ["E1", "E2"], "G2": ["E3"], "G3": ["E4", "E5", "E6"], "G4": []}
+    evidence = {"E1": "análisis de peligros", "E2": "revisión de requisitos", "E3": "pruebas de sistema", "E4": "cobertura MC/DC",
+                "E5": "pruebas en hardware", "E6": "análisis estático", "E7": "informe de la herramienta", "E8": "acta de revisión antigua"}
+    return claims, evidence, rng
+
+
+def e570():
+    print("SE-450 — casos de seguridad y trazabilidad: estructura de un argumento y su fragilidad")
+    claims, evidence, rng = build_case(47)
+    used = {e for es in claims.values() for e in es if e in evidence}
+    orphan_ev = sorted(set(evidence) - used)
+    undeveloped = sorted(c for c, ch in claims.items() if not ch)
+    print(f"  argumento: {len(claims)} afirmaciones, {len(evidence)} evidencias; sin desarrollar: {undeveloped}; evidencia sin afirmación: {orphan_ev}")
+    def supported(c, removed):
+        ch = [x for x in claims[c] if x not in removed]
+        if not ch:
+            return False
+        for x in ch:
+            if x in claims and not supported(x, removed):
+                return False
+        return True
+    print("  efecto de retirar una evidencia (la afirmación que la usa pierde apoyo si era la única):")
+    base = supported("G0", set())
+    print(f"    argumento completo: G0 apoyada = {base} (G4 está sin desarrollar, así que el árbol no cierra)")
+    claims["G4"] = ["E7"]
+    print(f"    tras desarrollar G4 con una evidencia: G0 apoyada = {supported('G0', set())}")
+    fragile = []
+    for e in sorted(used | {"E7"}):
+        if not supported("G0", {e}):
+            fragile.append(e)
+    print(f"    evidencias cuya retirada rompe G0 (únicas de su afirmación): {fragile}")
+    # trazabilidad bidireccional
+    nreq, ntest = 30, 45
+    reqs = {f"R{i:02d}": f"El sistema cumple el comportamiento {i} con límite {rng.randrange(10, 99)}" for i in range(nreq)}
+    links = {}
+    for t in range(ntest):
+        k = rng.choice([1, 1, 1, 2])
+        for r in rng.sample(sorted(reqs), k):
+            links.setdefault(f"T{t:02d}", set()).add(r)
+    drop = set(rng.sample(sorted(reqs), 4))
+    for t in links:
+        links[t] -= drop
+    covered = {r for rs in links.values() for r in rs}
+    orphans = [t for t, rs in links.items() if not rs]
+    print(f"  trazabilidad: {nreq} requisitos y {ntest} pruebas; requisitos sin ninguna prueba: {len(set(reqs) - covered)}; pruebas sin requisito: {len(orphans)}")
+    digest = {r: hashlib.sha256(text.encode()).hexdigest()[:8] for r, text in reqs.items()}
+    changed = rng.sample(sorted(reqs), 3)
+    new_digest = dict(digest)
+    for r in changed:
+        reqs[r] += " (revisado)"
+        new_digest[r] = hashlib.sha256(reqs[r].encode()).hexdigest()[:8]
+    suspect = sorted({t for t, rs in links.items() for r in rs if digest[r] != new_digest[r]})
+    print(f"  tras cambiar 3 requisitos: {len([r for r in reqs if digest[r] != new_digest[r]])} enlaces sospechosos de {sum(len(v) for v in links.values())}; pruebas que hay que revisar: {len(suspect)}")
+    print("  la cobertura de enlaces mide que hay un enlace, no que la prueba compruebe el requisito")
+
 
 if __name__ == "__main__":
-    elegidos = sys.argv[1:] or list(EXPERIMENTS)
-    for nombre in elegidos:
-        print(nombre, json.dumps(EXPERIMENTS[nombre](), ensure_ascii=False, sort_keys=True))
+    sys.stdout.reconfigure(encoding="utf-8")
+    which = sys.argv[1:] or ["565", "566", "567", "568", "569", "570"]
+    for key in which:
+        globals()[f"e{key}"]()
+        print()

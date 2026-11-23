@@ -174,11 +174,11 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-036.html").read_text(encoding="utf-8")
         next_developed_page = (ROOT / "site/classes/SE-037.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-373.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
         self.assertIn("Contenido desarrollado", next_developed_page)
-        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        # SE-373 ya no es un borrador: todas las clases del catálogo están desarrolladas.
         self.assertIn("Contenido desarrollado", draft_page)
         self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
@@ -202,10 +202,10 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-048.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-373.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/03.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        # SE-373 ya no es un borrador: todas las clases del catálogo están desarrolladas.
         self.assertIn("Contenido desarrollado", draft_page)
         self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
@@ -231,10 +231,10 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-060.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-373.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/04.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        # SE-373 ya no es un borrador: todas las clases del catálogo están desarrolladas.
         self.assertIn("Contenido desarrollado", draft_page)
         self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
@@ -266,10 +266,10 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-072.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-373.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/05.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        # SE-373 ya no es un borrador: todas las clases del catálogo están desarrolladas.
         self.assertIn("Contenido desarrollado", draft_page)
         self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)

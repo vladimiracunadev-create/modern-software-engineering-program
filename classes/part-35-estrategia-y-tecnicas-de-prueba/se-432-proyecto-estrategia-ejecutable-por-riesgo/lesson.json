@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-432",
+  "title": "Proyecto: estrategia ejecutable por riesgo",
+  "stage": "F",
+  "part": "35",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo"
+}

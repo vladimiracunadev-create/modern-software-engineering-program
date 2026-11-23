@@ -1,212 +1,258 @@
-"""Figures for SE-523 to SE-528 (integration, resilience, antipatterns and workshop: seeded simulations, ast analysis and a local socket measurement; Windows CPython 3.12; no language model was invoked)."""
+"""Figures for SE-523 to SE-528 (modernization of a legacy grading module: synthetic data with fixed seeds, plus runs of real CPython/SQLite code on Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig, dumbbell, grouped_bars, line_chart, scatter, stacked_bars
-from figure_diagrams import chain, fan
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, dumbbell, fmt_es, grouped_bars, heatmap, line_chart, percentile_intervals, scatter, stacked_bars
+from figures_part07_a import bars
 
-from figures_part40_a import bars, flow
 
-EJEC = "Código ejecutado de verdad (CPython 3.12, Windows 11); los recuentos son deterministas y los tiempos varían de equipo en equipo."
-SIM = "Simulación con semilla fija sobre código ejecutado de verdad (CPython 3.12); las magnitudes son de este modelo, no de un sistema real."
+SINT = "Datos sintéticos con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
+EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2) con datos sintéticos; los recuentos son idénticos en ambos."
+REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
+
+# ---------------------------------------------------------------- SE-523
+def se439_tamano_de_lote() -> Fig:
+    return line_chart(
+        "Relleno de 200 000 filas con 50 escrituras por segundo concurrentes: duración del relleno frente a espera de una escritura",
+        "Línea en escala logarítmica con la duración del relleno y la espera en el percentil 99 de una escritura concurrente según el tamaño de lote: con 200 000 filas dura 4,0 segundos y la escritura espera 3 969 milisegundos; con 20 000, 4,2 s y 400 ms; con 2 000, 6,5 s y 44 ms; con 200, 29,0 s y 8,7 ms; con 20, 254,0 s y 5,1 ms.",
+        [("Tamaño de lote", [(4.0, 3969, "200 000", "t"), (4.2, 400, "20 000", "r"), (6.5, 44, "2 000", "r"), (29.0, 8.7, "200", "r"), (254.0, 5.1, "20", "t")], "coral")],
+        x_label="Duración del relleno (s)", y_label="Espera p99 de una escritura (ms)", log_x=True, log_y=True,
+        x_ticks=[(1, "1"), (10, "10"), (100, "100"), (1000, "1000")], y_ticks=[1, 10, 100, 1000, 10000], point_labels="none",
+        note="Un lote pequeño casi no hace esperar a las escrituras y alarga el relleno por el costo fijo de cada lote (el bloqueo por lote va de 4 005 ms a 5,4 ms). Los costos de 0,02 ms por fila y 5 ms por lote, la pausa de 20 ms y las llegadas Poisson son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-523
-def se523_receptor_idempotente() -> Fig:
-    return dumbbell(
-        'Mil mensajes con entrega al menos una vez: 208 duplicados y la suma de pagos',
-        "Puntos unidos por una línea con la suma de los pagos de mil mensajes con entrega al menos una vez y 208 duplicados: la suma real es 15 682; sin receptor idempotente da 18 759, con un error de 3 077 por duplicados contados dos veces; con receptor idempotente da 15 682 y el error es 0.",
-        [("Sin receptor idempotente", 15682, 18759), ("Con receptor idempotente", 15682, 15682)],
-        unit="Suma de pagos", names=("Suma real", "Suma calculada"), decimals=0, label_w=240,
-        delta=lambda a, b: f"+{b - a:,}".replace(",", " ") if b != a else "0",
-        note='La entrega al menos una vez es la garantía habitual y barata; la exactamente una vez se construye en el receptor. Sin identificadores estables, el receptor idempotente no se puede escribir.', note_kind='coral', foot=SIM)
+def se439_relleno_que_pisa() -> Fig:
+    return grouped_bars(
+        "Relleno de 20 000 filas en lotes de 1 000 con un 2 % de filas modificadas por la aplicación entre lectura y escritura",
+        "Barras horizontales con las filas con la columna nueva distinta del texto tras cuatro estrategias de relleno: el relleno ingenuo deja 389, el condicional por versión 0, el condicional con la aplicación escribiendo en ambas columnas 0 y el ingenuo con la aplicación escribiendo en ambas columnas también 389.",
+        ["Relleno ingenuo", "Condicional por versión (y pasada final)", "Condicional con la aplicación escribiendo en ambas columnas", "Ingenuo con la aplicación escribiendo en ambas columnas"],
+        [("Filas con la columna nueva distinta del texto", [389, 0, 0, 389], "coral")],
+        unit="Filas con la columna nueva distinta del texto", horizontal=True, label_w=330, ticks=[0, 100, 200, 300, 400],
+        note="Los recuentos coinciden en las cuatro; el contenido, no. Escribir en ambas columnas no corrige un relleno ingenuo, que sobrescribe lo que la aplicación acaba de poner. La intercalación es determinista y no hay concurrencia real.",
+        note_kind="coral", foot=EJEC)
 
 
-def se523_cuatro_patrones() -> Fig:
-    return fan(
-        'Cuatro patrones de mensajería y lo que se midió con un canal simulado',
-        "Diagrama de cuatro patrones de mensajería con lo medido en un canal simulado: el enrutador por contenido reparte mil mensajes en 601 pagos, 206 avisos y 193 bajas; la cola de cartas muertas procesa 198 y aparta 2 con 204 intentos; el resecuenciador deja 977 pares fuera de orden a la entrada y 0 a la salida; el identificador de correlación asocia 20 de 20 respuestas frente a 1 de 20 por posición.",
-        ("Cuatro patrones de mensajería", "escenario y resultado medido en un canal simulado", "navy"),
-        [("Content-Based Router", "mil mensajes por tipo · 601 pagos, 206 avisos, 193 bajas", "teal"),
-         ("Dead Letter Channel", "200 mensajes, 25 de la muestra son veneno, tope de 3 intentos · 198 procesados, 2 a la cola de cartas muertas, 204 intentos", "teal"),
-         ("Resequencer", "entrega desordenada en ventanas de 6 · 977 pares fuera de orden a la entrada, 0 a la salida", "teal"),
-         ("Correlation Identifier", "20 respuestas desordenadas · 20 de 20 asociadas por identificador; 1 de 20 por posición", "teal")],
-        note='El catálogo de Hohpe y Woolf da nombre a los mismos problemas que aparecen con colas, buses y sistemas de eventos de hoy; el nombre sirve para discutir, la medida para decidir.', note_kind='teal', foot=SIM)
-
-
-def se523_garantias() -> Fig:
-    return flow('Qué garantía de entrega exige qué patrón en el receptor',
-                'Diagrama de cuatro cajas: al menos una vez puede duplicar y exige un receptor idempotente, como mucho una vez puede perder y exige reconciliación, sin orden garantizado exige un reordenador si el orden importa, y el mensaje que nunca se procesa exige un canal de cartas muertas con alarma.',
-                [[('AL MENOS UNA VEZ\nPuede duplicar → Idempotent Receiver', 'coral'), ('COMO MUCHO UNA VEZ\nPuede perder → reconciliación', 'gold')],
-                 [('SIN ORDEN\nSi importa → Resequencer', 'teal'), ('VENENO\nNunca se procesa → Dead Letter Channel y alarma', 'navy')]],
-                note='Cada garantía débil traslada una obligación al receptor. Elegir una garantía es elegir qué patrón se escribe después.',
-                note_kind='gold', box_h=86, foot=EJEC)
+# ---------------------------------------------------------------- SE-523
+def se439_metadatos_y_reconstruccion() -> Fig:
+    return grouped_bars(
+        "Costo de cambios de esquema sobre 200 000 filas en SQLite",
+        "Barras horizontales en escala logarítmica con el tiempo de cuatro cambios de esquema sobre 200 000 filas en SQLite, en Windows y en Ubuntu: añadir una columna nula 0,37 y 0,34 milisegundos, reconstruir la tabla 74 y 92, rellenar con una sentencia 57 y 62, y rellenar por lotes de 2 000 60 y 151.",
+        ["Añadir una columna nula", "Reconstruir la tabla (copiar)", "Rellenar con una sola sentencia", "Rellenar por lotes de 2 000"],
+        [("Windows 11 (SQLite 3.45.3)", [0.37, 74, 57, 60], "gold"), ("Ubuntu bajo WSL2 (SQLite 3.45.1)", [0.34, 92, 62, 151], "teal")],
+        unit="Tiempo (ms)", horizontal=True, log=True, label_w=250, ticks=[0.1, 1, 10, 100, 1000],
+        note="Añadir una columna es un cambio de metadatos y reconstruir la tabla cuesta cientos de veces más (200 y 267 veces). Rellenar por lotes cuesta 1,05 y 2,44 veces la sentencia única. SQLite es una base embebida en memoria; otros motores tienen reglas distintas. Los tiempos de reloj cambian de equipo en equipo.",
+        note_kind="gold", foot=REAL)
 
 
 # ---------------------------------------------------------------- SE-524
-def se524_reintentos() -> Fig:
-    return grouped_bars(
-        'Mil clientes reintentan tras una caída de un segundo: cuatro políticas de espera',
-        "Barras agrupadas con el pico de peticiones por 100 milisegundos y los clientes abandonados de mil que reintentan tras una caída de un segundo: el intervalo fijo llega a 1 000 y abandonan 880; el exponencial sin jitter llega a 1 000 y abandonan 520; con jitter completo el pico baja a 537 y con jitter equilibrado a 759, y nadie abandona.",
-        ["Intervalo fijo de 100 ms", "Exponencial sin jitter", "Exponencial con jitter completo", "Exponencial con jitter equilibrado"],
-        [("Pico de peticiones por 100 ms", [1000, 1000, 537, 759], "coral"), ("Clientes abandonados", [880, 520, 0, 0], "gold")],
-        unit="Peticiones por 100 ms o clientes, de 1 000", ticks=[0, 250, 500, 750, 1000],
-        note='Sin jitter, los clientes siguen sincronizados y repiten el pico cada ronda. El jitter reparte la carga y todos terminan; la variante fija no gana: abandona 880 clientes tras 12 intentos. Un tope de intentos igual para todas permite comparar.', note_kind='coral', foot=SIM)
+def se440_tres_formas_de_escribir_dos_veces() -> Fig:
+    return line_chart(
+        "Claves distintas entre dos almacenes tras 100 000 escrituras sobre 20 000 claves, según la tasa de fallo del segundo",
+        "Líneas en escala logarítmica horizontal con las claves distintas entre dos almacenes según la tasa de fallo del segundo: el mejor esfuerzo deja 110, 292 y 1 069 con fallos del 0,1, 1 y 5 por ciento; tres intentos dejan 88, 84 y 76 por el desorden de las escrituras; la bandeja de salida con número de secuencia deja 0 en los tres casos.",
+        [("Mejor esfuerzo (sin reintento)", [(0.1, 110), (1, 292), (5, 1069)], "coral"), ("Hasta tres intentos", [(0.1, 88), (1, 84), (5, 76)], "gold"),
+         ("Bandeja de salida con secuencia", [(0.1, 0), (1, 0), (5, 0)], "teal")],
+        x_label="Tasa de fallo del segundo almacén (%)", y_label="Claves distintas entre los dos almacenes", log_x=True,
+        x_ticks=[(0.1, "0,1"), (1, "1"), (5, "5")], y_ticks=[0, 250, 500, 750, 1000, 1250], point_labels="all",
+        note="Los reintentos arreglan los fallos pero no el desorden (0,5 % de escrituras cruzadas); la bandeja con número de secuencia arregla ambos. Las tasas y el desorden son supuestos del autor y la bandeja reintenta sin límite.",
+        note_kind="gold", foot=SINT)
 
 
-def se524_circuit_breaker() -> Fig:
-    return stacked_bars(
-        'Una dependencia caída 7 segundos con 100 peticiones por segundo, con y sin circuit breaker',
-        "Barras apiladas con las 2 000 peticiones de una ventana de veinte segundos con la dependencia caída siete: sin circuit breaker las 2 000 llegan al servicio y no se rechaza ninguna; con circuit breaker llegan 1 307 y se rechazan al instante 693; los éxitos son 1 300 y 1 296.",
-        ["Sin circuit breaker", "Con circuit breaker"],
-        [("Llamadas al servicio", [2000, 1307], "coral"), ("Rechazadas al instante", [0, 693], "teal")],
-        unit="Peticiones", horizontal=True, label_w=170,
-        note='El interruptor ahorra 693 llamadas a una dependencia que no puede contestar, a cambio de 4 éxitos menos por los instantes de la recuperación. Protege al llamante y a la dependencia caída; no repara nada.', note_kind='teal', foot=SIM)
+# ---------------------------------------------------------------- SE-524
+def se440_costo_de_detectar() -> Fig:
+    return line_chart(
+        "Filas leídas hasta detectar divergencias entre 100 000 filas (media de 300 corridas)",
+        "Líneas en escala logarítmica con las filas leídas hasta detectar divergencias según cuántas hay: con una divergencia el muestreo del 1 por ciento lee 108 490, el del 10 por ciento 105 400 y las sumas por rangos 1 100; con diez, 10 947, 14 867 y 9 667; con cien, 1 583, 10 000 y 63 483.",
+        [("Muestra del 1 %", [(1, 108490), (10, 10947), (100, 1583)], "coral"), ("Muestra del 10 %", [(1, 105400), (10, 14867), (100, 10000)], "gold"),
+         ("Sumas por rangos", [(1, 1100), (10, 9667), (100, 63483)], "teal")],
+        x_label="Filas divergentes", y_label="Filas leídas", log_x=True, log_y=True, x_ticks=[(1, "1"), (10, "10"), (100, "100")], y_ticks=[1000, 10000, 100000, 1000000],
+        point_labels="all",
+        note="Con una divergencia las sumas por rangos ganan (1 ciclo frente a 108,5 y 10,5); con cien, el muestreo del 1 % lee menos. Las divergencias se reparten al azar y de forma uniforme, cosa que rara vez ocurre: suelen agruparse.",
+        note_kind="gold", foot=SINT)
 
 
-def se524_amplificacion() -> Fig:
-    return bars('Intentos al servicio por cada petición del usuario en el peor caso',
-                'Gráfico de barras con los intentos al servicio por petición del usuario en el peor caso: 27 con tres capas que reintentan tres veces cada una y 1,33 con un presupuesto de reintentos del diez por ciento por capa.',
-                [('3 capas × 3 intentos', 27, 'coral', '27'), ('Presupuesto del 10 % por capa', 1.331, 'teal', '1,33')], 12,
-                note='La amplificación es multiplicativa: tres capas con tres intentos convierten una petición en veintisiete. Un presupuesto de reintentos acota la suma de los reintentos, no cada llamada.',
-                note_kind='coral', foot=EJEC, label_w=360)
+# ---------------------------------------------------------------- SE-524
+def se440_matriz_de_compatibilidad() -> Fig:
+    changes = ["Añadir campo opcional", "Añadir campo obligatorio", "Quitar campo", "Renombrar campo", "Cambiar el tipo", "Ampliar valores permitidos"]
+    values = [[1, 0, 1, 0], [1, 0, 1, 1], [1, 0, 1, 0], [1, 1, 1, 0], [1, 1, 1, 1], [1, 0, 0, 0]]
+    return heatmap(
+        "Seis cambios de esquema y cuatro lecturas: lector viejo o nuevo, estricto o tolerante",
+        "Mapa de calor de seis cambios de esquema frente a cuatro lecturas: un lector estricto falla en 11 de 12 casos y uno tolerante en 4 de 12; cambiar el tipo falla en las cuatro lecturas y renombrar un campo pasa con un lector tolerante nuevo que lee un dato viejo pero deja la nota ausente.",
+        changes, ["Viejo lee dato nuevo, estricto", "Viejo lee dato nuevo, tolerante", "Nuevo lee dato viejo, estricto", "Nuevo lee dato viejo, tolerante"], values,
+        unit="falla = excepción", row_title="Cambio", col_title="Quién lee y cómo",
+        scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "falla" if v else "pasa", cell_h=40, label_w=210,
+        note="El lector estricto falla en 11 de 12 celdas; el tolerante, en 4. «Pasa» solo dice que no hubo excepción: un lector tolerante que lee un dato viejo tras renombrar la nota la deja ausente sin avisar. El registro de tres campos es del autor.",
+        note_kind="coral", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-525
-def se525_bulkhead() -> Fig:
-    return bars('Una dependencia lenta de 3 segundos entre t=10 y t=30: éxito de las peticiones de la dependencia sana',
-                'Gráfico de barras con el porcentaje de peticiones de una dependencia sana que terminan dentro de 0,5 segundos mientras otra dependencia está lenta: 30,6 por ciento con un grupo compartido de 10 hilos y 100 por ciento con un compartimento propio de 8 hilos.',
-                [('Grupo compartido de 10 hilos', 30.6, 'coral', '30,6 %'), ('Compartimento propio de 8 hilos', 100, 'teal', '100 %')], 4.0,
-                note='Con compartimentos, la dependencia lenta solo ahoga su propio grupo (su éxito baja a 23,4 % en ambos casos). El compartimento no repara la dependencia lenta; limita el daño a quien depende de ella.',
-                note_kind='teal', foot=SIM, label_w=380)
-
-
-def se525_degradacion() -> Fig:
-    return bars('Respuestas útiles con una dependencia caída el 40 % del tiempo',
-                'Gráfico de barras con el porcentaje de respuestas útiles cuando una dependencia está caída el 40 por ciento del tiempo: 60,0 por ciento sin degradación y 87,5 por ciento con una respuesta degradada desde una caché obsoleta que acierta el 70 por ciento de las veces.',
-                [('Sin degradación', 60.0, 'coral', '60,0 %'), ('Con caché obsoleta como respaldo', 87.5, 'teal', '87,5 %')], 4.5,
-                note='La degradación cambia la pregunta de «¿funciona?» a «¿qué parte del valor se conserva?». Devolver un dato viejo es una decisión de producto: hay que decir cuánto de viejo es aceptable y avisar a la persona usuaria.',
-                note_kind='gold', foot=SIM, label_w=380)
-
-
-def se525_salto_adicional() -> Fig:
+def se441_ventana_de_observacion() -> Fig:
     return grouped_bars(
-        'Costo de un salto adicional (ambassador o sidecar) medido con sockets locales',
-        "Barras horizontales con la mediana de una petición y su respuesta por sockets locales: unos 61 microsegundos directo del cliente al servidor y unos 122 a través de un intermediario, un salto adicional que cuesta cerca de dos veces la línea base.",
-        ["Cliente → servidor (directo)", "Cliente → ambassador → servidor"],
-        [("Mediana por petición-respuesta", [61, 122], "teal")],
-        unit="Mediana por petición-respuesta (µs)", horizontal=True, label_w=270, ticks=[0, 30, 60, 90, 120, 150],
-        note='El sidecar o el ambassador sacan reintentos, TLS o métricas de la aplicación al precio de un salto. En una red real el salto se mide en milisegundos y en el mismo equipo en decenas de microsegundos; esta cifra es de un equipo y de un protocolo trivial.', note_kind='gold', foot=EJEC)
+        "200 consumidores (194 reales) observados con distintas ventanas: cuántos reales se declararían «sin uso»",
+        "Barras con los consumidores reales, de 194, que se declararían sin uso según la ventana de observación: 54,9 con 7 días, 26,2 con 30, 10,5 con 91, 7,1 con 180 y ninguno con 365 y 400 días.",
+        ["7 días", "30 días", "91 días", "180 días", "365 días", "400 días"],
+        [("Reales declarados «sin uso» (media)", [54.9, 26.2, 10.5, 7.1, 0.0, 0.0], "coral")],
+        unit="Consumidores reales declarados «sin uso»", plot_h=250, ticks=[0, 20, 40, 60],
+        note="La fracción de los 194 va del 28 % (7 días) al 14, 5, 4 y 0 %. Solo una ventana que cubra el ciclo más largo conocido ve a todos; un consumidor bianual que no esté en el inventario no lo vería ni la de 400 días. La mezcla de periodicidades es un supuesto del autor.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-525
+def se441_retencion_por_reglas() -> Fig:
+    return grouped_bars(
+        "50 000 registros sintéticos de cuatro tipos: un corte único a cinco años frente a reglas por tipo",
+        "Barras agrupadas con los errores de retención sobre 50 000 registros de cuatro tipos: un corte único a cinco años borra 5 479 registros antes de tiempo o en litigio y conserva 7 368 más de lo permitido, mientras que las reglas por tipo con retención legal dan 0 y 0 por construcción del experimento.",
+        ["Corte único a 5 años", "Reglas por tipo con retención legal"],
+        [("Borrados antes de tiempo o en litigio", [5479, 0], "coral"), ("Conservados más de lo permitido", [7368, 0], "gold")],
+        unit="Registros de 50 000", plot_h=240,
+        note="Las reglas dan cero porque definen la verdad del experimento: no prueban que los plazos sean correctos. Los plazos son ilustrativos del autor y no son asesoría legal.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-525
+def se441_formatos_de_archivo() -> Fig:
+    return stacked_bars(
+        "100 000 filas archivadas en tres formatos y leídas de vuelta: filas que vuelven idénticas",
+        "Barras apiladas horizontales con las filas de 100 000 que vuelven idénticas tras archivarlas: con CSV ninguna vuelve idéntica, porque cambian los tipos, 10 080 códigos pierden ceros y 19 851 textos vacíos se vuelven nulos; con líneas JSON y con SQLite vuelven las 100 000.",
+        ["CSV (tipos inferidos al leer; 2,68 MB)", "Líneas JSON (3,42 MB)", "SQLite (3,31 MB)"],
+        [("Vuelven idénticas", [0, 100000, 100000], "teal"), ("No vuelven idénticas", [100000, 0, 0], "coral")],
+        unit="Filas de 100 000", horizontal=True, label_w=250,
+        note="El CSV solo guarda texto: sin un esquema que declare los tipos, los pierde. Un bit cambiado en un dígito del JSON deja un archivo válido que el lector acepta; solo la suma SHA-256 lo delata. Los datos son sintéticos.",
+        note_kind="coral", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-526
-def se526_god_class() -> Fig:
-    return grouped_bars(
-        'Una clase con demasiadas razones para cambiar, medida antes y después de separarla',
-        "Barras agrupadas con una clase de servicio de 10 métodos y 8 dependencias en la que 37 de 45 pares de métodos no comparten estado, y las tres clases en que se separa: Registro tiene 2 métodos, 1 dependencia y 0 de 1 pares sin estado compartido; Notificador 2, 3 y 0 de 1; Migración 3, 1 y 0 de 3.",
-        ["Servicio (antes)", "Registro", "Notificador", "Migración"],
-        [("Métodos", [10, 2, 2, 3], "grey"), ("Dependencias", [8, 1, 3, 1], "gold"), ("Pares sin estado compartido", [37, 0, 0, 0], "coral")],
-        unit="Métodos, dependencias o pares", ticks=[0, 10, 20, 30, 40],
-        note='La complejidad ciclomática máxima no cambia (4 antes, 4 después): la clase grande no era difícil por sus ramas sino por sus razones de cambio. Elegir la métrica equivocada habría declarado sano un diseño enfermo.', note_kind='coral', foot=EJEC)
+def se442_tres_opciones() -> Fig:
+    return percentile_intervals(
+        "Costo acumulado a diez años de tres opciones en 20 000 escenarios (múltiplos del costo anual actual)",
+        "Intervalos con el costo acumulado a diez años de tres opciones, en múltiplos del costo anual actual: no hacer nada tiene percentil 10 de 12,1, mediana de 15,2 y percentil 90 de 19,1; evolucionar 12,1, 13,5 y 15,1; reescribir 13,7, 19,1 y 27,6; reescribir es la opción más barata en el 9,4 por ciento de los escenarios.",
+        [("No hacer nada", [12.1, 15.2, 19.1]), ("Evolucionar", [12.1, 13.5, 15.1]), ("Reescribir", [13.7, 19.1, 27.6])],
+        unit="Costo acumulado (múltiplos del costo anual actual)", marks=("p10", "mediana", "p90"), label_w=150, decimals=1,
+        note="Reescribir es la opción más barata en el 9,4 % de los escenarios frente a evolucionar y tiene el rango más ancho. Es una consecuencia de los supuestos del autor, no un hallazgo sobre reescrituras reales.",
+        note_kind="gold", foot=SINT)
 
 
-def se526_ciclos() -> Fig:
-    return flow('Un ciclo de dependencias entre tres módulos y cómo se rompe',
-                'Diagrama de dos filas: en la primera, los módulos avisos, cursos y usuarios se dependen entre sí en un ciclo de tres; en la segunda, los tres dependen de un módulo de dominio común y no se dependen entre sí, y el análisis de componentes fuertemente conexos devuelve un ciclo antes y ninguno después.',
-                [[('avisos → cursos, usuarios\ncursos → usuarios, avisos\nusuarios → cursos', 'coral'), ('Tarjan: 1 componente de tamaño 3', 'gold')],
-                 [('avisos → dominio\ncursos → dominio\nusuarios → dominio', 'teal'), ('Tarjan: 0 ciclos', 'navy')]],
-                note='Un ciclo impide cambiar, probar o desplegar un módulo sin los demás. Se rompe extrayendo lo compartido a un módulo del que todos dependan, no moviendo la dependencia de lugar.',
-                note_kind='teal', box_h=96, foot=EJEC)
+# ---------------------------------------------------------------- SE-526
+def se442_sensibilidad() -> Fig:
+    span = {(0.9, 13.4): "12,5", (3.2, 7.5): "4,3", (3.8, 8.0): "4,2", (4.0, 7.2): "3,2", (4.4, 6.9): "2,4", (6.2, 4.6): "1,6", (5.9, 4.9): "1,0"}
+    rows = [("Costo de construir (3,0 → 12,0)", 0.9, 13.4), ("Costo anual del sistema nuevo (0,4 → 0,9)", 3.2, 7.5), ("Duración en años (1,5 → 4,0)", 3.8, 8.0),
+            ("Deriva del alcance por año (0,05 → 0,25)", 4.0, 7.2), ("Probabilidad de abandono (0 → 0,4)", 4.4, 6.9), ("Crecimiento tras evolucionar (0,1 → 0,6)", 6.2, 4.6),
+            ("Crecimiento del costo del legado (3 % → 15 %)", 5.9, 4.9)]
+    return dumbbell(
+        "Sensibilidad: diferencia de costo entre reescribir y evolucionar al mover un parámetro (positiva: reescribir cuesta más)",
+        "Puntos unidos con la diferencia de costo entre reescribir y evolucionar con el valor bajo y alto de cada parámetro: el costo de construir tiene el mayor recorrido, de +0,9 a +13,4, 12,5; el costo anual del sistema nuevo 4,3, la duración 4,2, la deriva del alcance 3,2, el abandono 2,4, el crecimiento tras evolucionar 1,6 y el del legado 1,0.",
+        rows, unit="Reescribir − evolucionar (unidades de costo)", names=("Valor bajo del parámetro", "Valor alto"), decimals=1,
+        delta=lambda a, b: "recorrido " + span[(a, b)], label_w=300,
+        note="El costo de construir domina; el crecimiento del costo del legado, el argumento más citado, es el de menor efecto. Con el valor bajo reescribir gana en el 37 % de los escenarios en el costo de construir y con el alto en 0 %. El análisis mueve un parámetro cada vez y no capta interacciones.",
+        note_kind="coral", foot=SINT)
 
 
-def se526_interes_de_la_deuda() -> Fig:
-    x = list(range(1, 11))
-    sin = [4.0, 4.0, 5.2, 5.4, 6.9, 7.4, 9.3, 9.0, 8.9, 10.3]
-    con = [4.0, 4.0, 5.4, 5.7, 13.1, 4.0, 4.0, 4.0, 5.6, 5.4]
+# ---------------------------------------------------------------- SE-526
+def se442_horizonte_de_equilibrio() -> Fig:
+    pts = [(4, 6.7, "6,7 · gana 0 %", "t"), (6, 6.3, "6,3 · 1 %", "t"), (8, 6.0, "6,0 · 4 %", "t"), (10, 5.7, "5,7 · 10 %", "t"), (15, 4.5, "4,5 · 25 %", "t"), (20, 3.4, "3,4 · 36 %", "t")]
     return line_chart(
-        'Modelo ilustrativo del interés de la deuda: horas por cambio en diez cambios sucesivos',
-        "Líneas de un modelo ilustrativo y no medido con las horas por cambio en diez cambios sucesivos: sin pagar la deuda crecen de 4,0 a 10,3 y suman 70,4 horas; pagándola con 6 horas en el cambio 5 el cambio 5 sube a 13,1, después vuelven a 4,0 y el total es 55,2 horas.",
-        [("Sin pagar", list(zip(x, sin)), "coral"), ("Pagando 6 h en el cambio 5", list(zip(x, con)), "teal")],
-        x_label="Cambio sucesivo", y_label="Horas por cambio", x_ticks=[(i, str(i)) for i in x], y_ticks=[0, 4, 8, 12, 16], decimals=1, point_labels="none",
-        annotations=[(5, 13.1, "Cambio 5: 13,1 h (6 h de pago de la deuda)", 30, -6)],
-        note='Es un modelo con supuestos del autor (un atajo cada dos cambios, interés lineal): ilustra por qué el costo se acumula, no predice un proyecto. Medir el interés real exige tiempos de cambio de un equipo.', note_kind='gold', foot=SIM)
+        "Reescribir frente a evolucionar según el horizonte (6 000 escenarios por fila)",
+        "Línea con la diferencia mediana de costo entre reescribir y evolucionar según el horizonte, con el porcentaje de escenarios en que reescribir gana: a 4 años +6,7 y 0 por ciento, a 6 años +6,3 y 1, a 8 años +6,0 y 4, a 10 años +5,7 y 10, a 15 años +4,5 y 25, y a 20 años +3,4 y 36.",
+        [("Reescribir − evolucionar (mediana)", pts, "teal")],
+        x_label="Horizonte (años)", y_label="Reescribir − evolucionar (mediana, unidades de costo)", x_ticks=[(4, "4"), (6, "6"), (8, "8"), (10, "10"), (15, "15"), (20, "20")],
+        y_ticks=[0, 2, 4, 6, 8], point_labels="none",
+        note="La ventaja de evolucionar se acorta con el plazo, pero no se invierte en este rango: la diferencia sigue siendo positiva a 20 años. El rótulo de cada punto añade el porcentaje de escenarios en que reescribir gana. El horizonte es una variable de negocio: un sistema con fecha de retiro conocida cambia la respuesta más que cualquier detalle técnico.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-527
-def se527_antes_despues() -> Fig:
-    return dumbbell(
-        'Tarifa de avisos: función con cadena de condiciones frente a Strategy con registro',
-        "Puntos unidos por una línea, en escala logarítmica, con tres medidas de una función de tarifas antes y después de refactorizarla a Strategy con registro: la complejidad ciclomática máxima baja de 15 a 3, los nodos de sintaxis suben de 149 a 215 y el tiempo por llamada de unos 260 a unos 380 nanosegundos; las medidas tienen unidades distintas.",
-        [("Complejidad ciclomática máxima", 15, 3), ("Nodos de sintaxis", 149, 215), ("Tiempo por llamada (ns)", 260, 380)],
-        unit="Valor de cada medida (unidades distintas por fila)", names=("Antes", "Después"), log=True, decimals=0, label_w=260,
-        delta=lambda a, b: f"{(b - a) / a * 100:+.0f} %".replace(".", ","),
-        note='El refactor compró complejidad por función a cambio de un 44 % más de nodos y una indirección. Si el número de canales no va a crecer, ese costo no se justifica: la condición de salida es volver a una función simple.', note_kind='gold', foot=EJEC)
+def se443_ruido_y_reintentos() -> Fig:
+    return scatter(
+        "5 000 commits por configuración: falsos rojos y defectos intermitentes (30 %) que salen verdes",
+        "Dispersión de cinco configuraciones de pruebas inestables y reintentos: con 20 inestables y sin reintentos el 64,3 por ciento de los commits sanos sale rojo y el 24,7 de los que tienen un defecto intermitente sale verde; con 20 y dos reintentos 26,5 y 58,2; con 5 y ninguno 23,2 y 53,8; con 5 y dos reintentos 1,4 y 90,3; sin inestables 0,0 y 70,7.",
+        [("Configuraciones (inestables · reintentos)", [(64.3, 24.7, "20 · ninguno", "l"), (26.5, 58.2, "20 · dos reintentos", "r"), (23.2, 53.8, "5 · ninguno", "l"),
+                                                      (1.4, 90.3, "5 · dos reintentos", "r"), (0.0, 70.7, "0 · ninguno", "r")], "coral")],
+        x_label="Commits sanos que salen rojos (%)", y_label="Commits con defecto que salen verdes (%)", y_zero=True,
+        x_ticks=[(0, "0"), (20, "20"), (40, "40"), (60, "60"), (80, "80")], y_ticks=[0, 25, 50, 75, 100], point_labels="none",
+        note="Reintentar reduce los falsos rojos y esconde defectos reales: con cinco inestables y dos reintentos el 90,3 % de los commits con el defecto pasan. La salida es aislar y corregir las inestables. El 5 %, el 30 % y la independencia son supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
-def se527_maestro_dorado() -> Fig:
-    return bars('Seis mutantes del refactor: cuántos detecta el maestro dorado según la distribución de entradas',
-                'Gráfico de barras con los mutantes del refactor detectados por un maestro dorado de seis posibles: 2 con 30 entradas aleatorias, 3 con 5000 entradas aleatorias de semilla fija y 6 con 5000 más 384 entradas de frontera.',
-                [('30 entradas al azar', 2, 'coral', '2 de 6'), ('5000 entradas al azar', 3, 'gold', '3 de 6'), ('5000 más 384 de frontera', 6, 'teal', '6 de 6')], 70,
-                note='Más entradas al azar no atraparon los tres mutantes de frontera: las entradas no tocaban los valores 50, 100 ni 1000. Un maestro dorado es tan bueno como las entradas que elige; los límites hay que escribirlos.',
-                note_kind='coral', foot=SIM, label_w=330)
+# ---------------------------------------------------------------- SE-527
+def se443_construccion_reproducible() -> Fig:
+    rows = [
+        [("Bytecode", "plain"), ("Invalidación por marca de tiempo", "plain"), ("Distintas", "coral")],
+        [("Bytecode", "plain"), ("Invalidación por hash comprobado", "plain"), ("Idénticas", "teal")],
+        [("Archivo comprimido", "plain"), ("Fechas de los archivos, orden del sistema", "plain"), ("Distintas", "coral")],
+        [("Archivo comprimido", "plain"), ("Fechas fijas, orden del sistema", "plain"), ("Idénticas", "teal")],
+        [("Archivo comprimido", "plain"), ("Fechas fijas, nombres ordenados", "plain"), ("Idénticas", "teal")],
+    ]
+    return chain_rows(
+        "Dos construcciones del mismo código con fechas de modificación distintas: ¿mismo artefacto?",
+        "Diagrama de flujo de cinco configuraciones de construcción del mismo código con fechas de modificación distintas: el bytecode por marca de tiempo da artefactos distintos y por hash comprobado idénticos; el archivo comprimido con fechas del archivo da distintos, con fechas fijas idénticos y con fechas fijas y nombres ordenados idénticos.",
+        ["Artefacto", "Configuración", "Resultado"], rows, [220, 420, 190],
+        note="Fijar las fechas y el modo de invalidación basta aquí. Que el orden del sistema fuera estable en estas dos máquinas no está garantizado en general. Son treinta módulos de dos líneas: el experimento muestra el mecanismo, no la reproducibilidad de una cadena real.",
+        note_kind="gold", foot=EJEC)
 
 
-def se527_pasos_del_taller() -> Fig:
-    return flow('Los pasos del taller: de la función vieja al patrón, con red de seguridad',
-                'Diagrama de cinco cajas en dos filas: registrar el comportamiento actual con un maestro dorado, añadir las entradas de frontera, medir complejidad y tamaño antes, refactorizar a Strategy con registro y volver a medir y comparar; una flecha lleva de la última caja a la decisión de conservar o retirar el patrón.',
-                [[('1. REGISTRAR\nMaestro dorado con semilla fija', 'navy'), ('2. FRONTERAS\nAñade las entradas de los límites', 'gold'), ('3. MEDIR ANTES\nComplejidad, nodos, tiempo', 'teal')],
-                 [('4. REFACTORIZAR\nStrategy con registro, un paso por vez', 'coral'), ('5. MEDIR Y DECIDIR\nConserva o retira con la condición de salida', 'navy')]],
-                note='Sin el paso 2 el maestro deja pasar tres de seis cambios; sin los pasos de medir, el patrón se queda por costumbre.',
-                note_kind='gold', box_h=90, foot=EJEC)
+# ---------------------------------------------------------------- SE-527
+def se443_linea_base_con_incertidumbre() -> Fig:
+    return line_chart(
+        "Semiancho del intervalo del 95 % de una tasa de cambios fallidos del 15 % según los cambios observados",
+        "Línea en escala logarítmica con el semiancho mediano del intervalo de confianza del 95 por ciento de una tasa de cambios fallidos del 15 por ciento según los cambios observados: 19,3 puntos con 10 cambios, 15,4 con 20, 9,6 con 50, 4,9 con 200 y 2,2 con 1 000; el intervalo contiene la tasa real en cerca del 95 por ciento de 3 000 periodos.",
+        [("Semiancho mediano", [(10, 19.3, "±19,3", "t"), (20, 15.4, "±15,4", "t"), (50, 9.6, "±9,6", "t"), (200, 4.9, "±4,9", "t"), (1000, 2.2, "±2,2", "t")], "teal")],
+        x_label="Cambios observados", y_label="Semiancho del intervalo (puntos porcentuales)", log_x=True,
+        x_ticks=[(10, "10"), (20, "20"), (50, "50"), (200, "200"), (1000, "1000")], y_ticks=[0, 5, 10, 15, 20, 25], point_labels="none",
+        note="Con 20 cambios la tasa del 15 % queda entre el 0 % y el 30 %. Para distinguir 15 % de 10 % con potencia del 80 % hacen falta unos 686 cambios. Se supone independencia entre cambios, algo falso cuando hay rachas. El intervalo del 95 % contuvo la tasa real entre el 95 y el 98 % de las veces.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-528
-def se528_detectores() -> Fig:
+def se444_fases_y_divergencia() -> Fig:
     return grouped_bars(
-        'Dos detectores de patrones sobre un corpus etiquetado de 14 fragmentos',
-        "Barras agrupadas con los aciertos y errores de dos detectores sobre 14 fragmentos de los que 8 contienen un patrón real: el detector por nombre de clase obtiene 2 verdaderos positivos, 5 falsos positivos y 6 falsos negativos; el detector por estructura obtiene 6, 1 y 2.",
-        ["Por nombre de clase", "Por estructura (ast)"],
-        [("Verdaderos positivos", [2, 6], "teal"), ("Falsos positivos", [5, 1], "coral"), ("Falsos negativos", [6, 2], "gold")],
-        unit="Fragmentos", ticks=[0, 2, 4, 6, 8],
-        note='El nombre de una clase es una señal débil: abunda en decoraciones sin estructura y falta en patrones reales. El detector estructural se escribió conociendo parte del corpus y es optimista; el corpus es del autor.', note_kind='coral', foot=EJEC)
+        "Filas que difieren entre el esquema antiguo y el nuevo en cada fase de una migración de 5 000 filas",
+        "Barras horizontales con las filas que difieren entre el esquema antiguo y el nuevo en cinco fases de una migración de 5 000 filas, con y sin fallos del uno por ciento: 5 000 al expandir, 220 tras rellenar, 1 y 0 con doble escritura, 5 y 0 con lectura del nuevo, y 391 y 387 al escribir solo en el nuevo, donde son escrituras que el esquema antiguo no tiene.",
+        ["0. Expandir (el nuevo está vacío)", "1. Rellenar (escrituras durante el relleno)", "2. Doble escritura", "3. Lectura del nuevo", "4. Solo escritura nueva (valores que el antiguo no tiene)"],
+        [("Con 1 % de fallos", [5000, 220, 1, 5, 391], "coral"), ("Sin fallos", [5000, 220, 0, 0, 387], "teal")],
+        unit="Filas que difieren (de 5 000)", horizontal=True, label_w=300, ticks=[0, 1000, 2000, 3000, 4000, 5000],
+        note="La misma cuenta significa cosas distintas según la fase. En la fase 4 las diferencias son escrituras que solo existen en el esquema nuevo y que se perderían al volver sin reconstruir. SQLite en memoria, escrituras intercaladas de forma determinista.",
+        note_kind="gold", foot=EJEC)
 
 
-def se528_entrada_de_catalogo() -> Fig:
-    return flow('Una entrada de catálogo de patrones: campos obligatorios y regla de aceptación',
-                'Diagrama de seis cajas en dos filas con los campos de una entrada de catálogo: nombre, fuerza que resuelve, dónde vive en el código, evidencia, costo medido y condición de salida; una entrada sin evidencia, costo o condición de salida no se acepta.',
-                [[('NOMBRE\nEl patrón y dónde se aplica', 'navy'), ('FUERZA\nQué dolor resuelve hoy', 'coral'), ('DÓNDE VIVE\nArchivo y clases', 'teal')],
-                 [('EVIDENCIA\nMedida o prueba que lo sostiene', 'gold'), ('COSTO\nNodos, indirección, aprendizaje', 'coral'), ('SALIDA\nCuándo y cómo se retira', 'navy')]],
-                note='De tres entradas de ejemplo, una está completa, una carece de evidencia, costo y salida, y una carece de costo; solo la primera se acepta.',
-                note_kind='teal', box_h=84, foot=EJEC)
+# ---------------------------------------------------------------- SE-528
+def se444_costo_de_volver() -> Fig:
+    return line_chart(
+        "Filas que solo existen en el esquema nuevo según los días desde que se dejó de escribir en el antiguo (60 escrituras al día)",
+        "Línea con las filas que solo existen en el esquema nuevo según los días desde que se dejó de escribir en el antiguo, con 60 escrituras diarias sobre 5 000 filas: 0 con cero días, 58 con uno, 177 con tres, 406 con siete y 779 con catorce, el 15,6 por ciento.",
+        [("Filas solo en el esquema nuevo", [(0, 0, "0", "t"), (1, 58, "58 (1,2 %)", "t"), (3, 177, "177 (3,5 %)", "t"), (7, 406, "406 (8,1 %)", "t"), (14, 779, "779 (15,6 %)", "l")], "coral")],
+        x_label="Días desde que se dejó de escribir en el antiguo", y_label="Filas solo en el esquema nuevo (de 5 000)", x_ticks=[(0, "0"), (1, "1"), (3, "3"), (7, "7"), (14, "14")],
+        y_ticks=[0, 200, 400, 600, 800, 1000], point_labels="none",
+        note="Volver atrás pasa de no costar nada a afectar casi una de cada seis filas en dos semanas. Las escrituras uniformes sobre claves al azar son un supuesto del autor; en un sistema real se concentran en pocas filas y en fechas de cierre.",
+        note_kind="coral", foot=SINT)
 
 
-def se528_del_codigo_al_catalogo() -> Fig:
-    return chain(
-        'Del código al catálogo: cuatro pasos y el hecho medido que justifica cada uno',
-        "Cadena de cuatro pasos para pasar del código a un catálogo de patrones con el hecho medido de cada uno: el inventario con una regla por nombre da 5 falsos positivos en 14 fragmentos; la verificación con un detector estructural deja 1 falso positivo y 2 negativos; para Strategy hay 44 por ciento más de nodos y la complejidad baja de 15 a 3; en la decisión una entrada sin evidencia no entra.",
-        [("1. Inventario", "buscar estructuras con una regla y registrar candidatos · la regla por nombre da 5 falsos positivos en 14", "navy"),
-         ("2. Verificación", "una persona lee cada candidato contra la definición · el detector estructural deja 1 falso positivo y 2 falsos negativos", "navy"),
-         ("3. Fuerza y costo", "nombrar la fuerza y medir el costo · Strategy: +44 % de nodos, complejidad 15 → 3", "navy"),
-         ("4. Decisión", "conservar, simplificar o retirar, con condición de salida · una entrada sin evidencia no entra", "teal")],
-        note='El catálogo es un documento vivo que responde por cada patrón del sistema. Su valor no está en la lista sino en las razones y en las salidas que registra.', note_kind='gold', foot=EJEC)
+# ---------------------------------------------------------------- SE-528
+def se444_reposo_antes_de_contraer() -> Fig:
+    items = [('3 días', 86.7, 'coral', '86,7 %'), ('7 días', 60.1, 'coral', '60,1 %'), ('14 días', 33.2, 'gold', '33,2 %'), ('30 días', 11.4, 'gold', '11,4 %'), ('60 días', 2.9, 'teal', '2,9 %'), ('90 días', 1.1, 'teal', '1,1 %')]
+    return bars('Defectos latentes que aparecen después de contraer, según el reposo (descubrimiento lognormal de mediana 9 días)',
+                'Barras con la fracción de defectos latentes que aparecen después de contraer según el reposo, con descubrimiento lognormal de mediana nueve días: 86,7 por ciento con 3 días, 60,1 con 7, 33,2 con 14, 11,4 con 30, 2,9 con 60 y 1,1 con 90.',
+                items, 6.0, 'Un reposo de tres días deja casi nueve de cada diez defectos latentes para después del punto de no retorno. La mediana de 9 días y la dispersión de 1,0 son supuestos del autor y se estiman con el historial de defectos propio.',
+                label_w=130, width=940, note_kind='gold', foot=SINT)
 
 
 FIGURES = {
-    "se-523-receptor-idempotente.svg": se523_receptor_idempotente,
-    "se-523-cuatro-patrones.svg": se523_cuatro_patrones,
-    "se-523-garantias.svg": se523_garantias,
-    "se-524-reintentos.svg": se524_reintentos,
-    "se-524-circuit-breaker.svg": se524_circuit_breaker,
-    "se-524-amplificacion.svg": se524_amplificacion,
-    "se-525-bulkhead.svg": se525_bulkhead,
-    "se-525-degradacion.svg": se525_degradacion,
-    "se-525-salto-adicional.svg": se525_salto_adicional,
-    "se-526-god-class.svg": se526_god_class,
-    "se-526-ciclos.svg": se526_ciclos,
-    "se-526-interes-de-la-deuda.svg": se526_interes_de_la_deuda,
-    "se-527-antes-despues.svg": se527_antes_despues,
-    "se-527-maestro-dorado.svg": se527_maestro_dorado,
-    "se-527-pasos-del-taller.svg": se527_pasos_del_taller,
-    "se-528-detectores.svg": se528_detectores,
-    "se-528-entrada-de-catalogo.svg": se528_entrada_de_catalogo,
-    "se-528-del-codigo-al-catalogo.svg": se528_del_codigo_al_catalogo,
+    "se-523-tamano-de-lote.svg": se439_tamano_de_lote,
+    "se-523-relleno-que-pisa.svg": se439_relleno_que_pisa,
+    "se-523-metadatos-y-reconstruccion.svg": se439_metadatos_y_reconstruccion,
+    "se-524-tres-formas-de-escribir-dos-veces.svg": se440_tres_formas_de_escribir_dos_veces,
+    "se-524-costo-de-detectar.svg": se440_costo_de_detectar,
+    "se-524-matriz-de-compatibilidad.svg": se440_matriz_de_compatibilidad,
+    "se-525-ventana-de-observacion.svg": se441_ventana_de_observacion,
+    "se-525-retencion-por-reglas.svg": se441_retencion_por_reglas,
+    "se-525-formatos-de-archivo.svg": se441_formatos_de_archivo,
+    "se-526-tres-opciones.svg": se442_tres_opciones,
+    "se-526-sensibilidad.svg": se442_sensibilidad,
+    "se-526-horizonte-de-equilibrio.svg": se442_horizonte_de_equilibrio,
+    "se-527-ruido-y-reintentos.svg": se443_ruido_y_reintentos,
+    "se-527-construccion-reproducible.svg": se443_construccion_reproducible,
+    "se-527-linea-base-con-incertidumbre.svg": se443_linea_base_con_incertidumbre,
+    "se-528-fases-y-divergencia.svg": se444_fases_y_divergencia,
+    "se-528-costo-de-volver.svg": se444_costo_de_volver,
+    "se-528-reposo-antes-de-contraer.svg": se444_reposo_antes_de_contraer,
 }

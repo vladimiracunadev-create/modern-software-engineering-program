@@ -1,201 +1,189 @@
-# Parte 35 — Observabilidad, SRE e incidentes
+# Parte 35 — Estrategia y técnicas de prueba
 
-La Parte 34 llevó el código a producción por un camino con compuertas y un retorno seguro. La pregunta cambia de «¿cómo llega una versión a producción?» a «¿cómo sabemos qué le está pasando una vez allí, qué promesa defendemos, qué hacemos cuando falla y cómo volvemos si todo se pierde?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa operada en producción**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo y cinco servicios que cooperan. Cada clase convierte una práctica de operación (observar, medir, avisar, responder, aprender, recuperar) en un mecanismo que se puede medir, mide cómo se engaña quien la usa mal y declara qué no demuestra.
+La Parte 33 dejó una plataforma mínima reproducible. La pregunta cambia de «cómo se construye y se despliega» a «cómo se sabe que funciona, y cuánto se está dispuesto a no saber». Esta parte trabaja sobre **la estrategia de pruebas de la plataforma de entregas de tareas**, un caso sintético: diez componentes, 40 horas de pruebas por trimestre, una integración continua que no debe pasar de diez minutos y una lista de incidentes. Recorre el reparto de un presupuesto de pruebas por riesgo, las pruebas unitarias y el diseño que las permite, las pruebas de integración y de contrato, los recorridos de extremo a extremo y los criterios de aceptación, las pruebas basadas en propiedades y en modelos, la mutación y el fuzzing, los dobles y los entornos, los datos y los fixtures deterministas, la exploración con misiones, las pruebas inestables, un taller para demostrar que una prueba detecta defectos y un proyecto que entrega una estrategia ejecutable y validable.
 
 ## Pregunta rectora
 
-> ¿Qué señales, qué promesa, qué alertas y qué respuesta hacen falta para operar un servicio, y qué evidencia reproducible permite a otra persona comprobar que funcionan, refutarlas o decir cuándo dejan de valer?
+> ¿Qué evidencia demuestra que una prueba detecta el defecto que dice detectar, y qué decisión de no probar queda escrita con su razón y su fecha?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un producto de observabilidad, una plataforma de alertas ni una herramienta de gestión de guardias. Enseña a distinguir lo que un sistema emite de lo que se puede preguntar durante un incidente y a localizar una lentitud con duraciones inclusivas, a escribir registros que una máquina consulta y a unir las líneas de una petición entre servicios, a presupuestar las series de una métrica antes de añadir una dimensión y a saber qué reconstruye un muestreo periódico, a seguir una petición con trazas, auditar las fronteras donde se pierde el contexto y leer la ruta crítica antes de optimizar, a convertir una promesa en un indicador, un objetivo, un presupuesto y una política, a derivar alertas del consumo del presupuesto y medir el ruido que producen, a escribir un runbook que una persona cansada pueda seguir y dimensionar una guardia y su escalamiento, a coordinar un incidente con roles, severidades medibles y una cadencia de comunicación sin creer en promedios de pocos casos, a escribir un postmortem sin culpa con factores y acciones verificables, a restaurar una copia en lugar de confiar en que se creó, a descubrir el orden real de una recuperación y sus ciclos, y a diagnosticar con telemetría incompleta distinguiendo lo normal de lo que no tiene datos. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (una cadena de cuatro servicios donde el p99 absoluto acierta 50 de 200 veces y el aumento relativo 196, un umbral global que ve en 8,7 % de los casos la falla total de un cliente pequeño, 463 GB para una métrica con un identificador de persona, 59,4 % de peticiones en una sola traza, 166 % del presupuesto mensual consumido por un corte de 30 minutos en hora punta, 12 622 páginas de una regla corta frente a 13 de una de consumo, 77 noches interrumpidas al año con dos personas de guardia, un kappa de 0,29 con criterios vagos, 100 de 180 defectos de un postmortem detectados por forma, 20 de 40 copias dañadas que un chequeo de integridad no ve, una tasa de error leída a la mitad por la pérdida selectiva de líneas y una recuperación completa del 55,4 % con cinco etapas buenas) y declara lo que esa medida no demuestra.
+Esta parte no enseña un marco de pruebas ni una herramienta. Enseña a repartir un presupuesto limitado entre fallos posibles, a medir qué detecta realmente una batería con cambios mecánicos del código, a separar un cálculo de sus dependencias para poder probarlo, a distinguir lo que un doble copia de lo que el proveedor hace, a calcular cuánto ruido produce una suite de recorridos largos, a elegir generadores que lleguen a las fronteras, a comparar estrategias de generación de entradas, a identificar lo que cambia entre procesos y sistemas sin tocar el código, a explorar con misiones y a diagnosticar una prueba que falla a veces con evidencia en lugar de intuición. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (cinco casos con el 100 % de las líneas ejecutadas que matan 9 de 16 cambios, un doble que acepta una nota de 9,0 que la base rechaza, 490 de 500 órdenes aleatorios con algún fallo por un fixture compartido, una condición de carrera que da verde en 100 ejecuciones y falla en 40 de 40) y declara lo que esa medida no demuestra.
 
 ```mermaid
 flowchart LR
-    A[Señales, eventos y observabilidad útil] --> B[Logs estructurados y correlación]
-    B --> C[Métricas, dimensiones y cardinalidad]
-    C --> D[Trazas distribuidas y contexto]
-    D --> E[SLI, SLO, SLA y presupuestos de error]
-    E --> F[Alertas accionables y fatiga]
-    F --> G[Runbooks, on-call y escalamiento]
-    G --> H[Gestión de incidentes y comunicación]
-    H --> I[Postmortems sin culpa y aprendizaje]
-    I --> J[Continuidad, disaster recovery y ejercicios]
-    J --> K[Taller de diagnóstico con telemetría incompleta]
-    K --> L[Paquete operativo observable y recuperable]
-    L -->|incidente o ejercicio| A
+    A[Calidad por riesgo] --> B[Pruebas unitarias y testabilidad]
+    B --> C[Integración y contratos]
+    C --> D[Extremo a extremo y aceptación]
+    D --> E[Propiedades y modelos]
+    E --> F[Mutación y fuzzing]
+    F --> G[Dobles y entornos]
+    G --> H[Datos y fixtures deterministas]
+    H --> I[Exploración]
+    I --> J[Flakiness y mantenimiento]
+    J --> K[Taller: demostrar la detección]
+    K --> L[Proyecto: estrategia ejecutable]
+    L -->|incidente o hallazgo| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo de un ejercicio reabre la pregunta de qué señales hacían falta; un paquete operativo validado no cierra la operación, la fecha.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo de una sesión de exploración cambia una estimación y obliga a repartir de nuevo; una estrategia aprobada no cierra la discusión, la fecha.
 
 ## Resultados acumulativos
 
-Podrás escribir una tabla de preguntas con la señal que responde cada una, localizar el servicio lento de una cadena comparando cada duración con su línea base en lugar de elegir la mayor, medir qué fracción de una falla en un cliente pequeño detecta un umbral global frente a una sonda rotativa y contar cuántas preguntas posteriores a un incidente responden unas métricas frente a un evento ancho; diseñar el esquema de un registro con campos versionados, medir cuánto sobrevive una extracción por expresión regular y una lectura por campos a cuatro versiones de una línea, calcular la fracción de peticiones con la cadena completa según la propagación del identificador y las líneas huérfanas atribuibles por el reloj, y comparar políticas de muestreo y de redacción;
+Podrás descomponer el riesgo de un componente en probabilidad e impacto, repartir un presupuesto de pruebas con cuatro criterios, medir la pérdida residual y la sensibilidad ante estimaciones erradas y asignar a cada clase de fallo el nivel de prueba que puede verla; escribir pruebas unitarias con fronteras, generar mutantes con `ast`, medir cuántos detecta cada batería y separar las dependencias ocultas de una función; construir un contrato por consumidor, compararlo con una diferencia de esquema completo y localizar un defecto de interfaz; calcular la tasa de ejecuciones limpias de un recorrido, elegir recorridos por tráfico e impacto y comparar una instantánea con aserciones semánticas; enunciar propiedades con un generador sesgado a las fronteras, reducir contraejemplos y comprobar una cola contra un modelo; clasificar los supervivientes de una mutación y comparar tres estrategias de fuzzing; medir la fidelidad de un doble con una batería de contrato, el acoplamiento de las pruebas de interacción y las diferencias de entorno entre dos sistemas; ejecutar una suite en órdenes aleatorios, registrar semillas e inventariar fuentes de no determinismo; explorar con misiones, calcular el contraste de WCAG y usar sondas de entrada; calcular el ruido de una suite grande, el efecto de los reintentos y clasificar la causa de una prueba inestable; demostrar con rojo, verde y refactor lo que detecta cada prueba; y entregar un paquete de estrategia con un validador cuyos límites conoces.
 
-calcular el número de series de una métrica como producto de cardinalidades y su memoria estimada, reconstruir un contador con reinicios y estimar la probabilidad de ver un pico según el intervalo de lectura, y comparar tres diseños de cubetas de histograma por su error en p50, p95 y p99; validar la cabecera `traceparent`, calcular la fragmentación de una traza según las fronteras asíncronas, comparar el ahorro de optimizar un span al azar, el más largo o el de la ruta crítica, y contrastar el muestreo de cabeza con el de cola y su exigencia de enrutado coherente; escribir un SLI como proporción de eventos buenos sobre válidos, calcular el presupuesto de un SLO en minutos y en peticiones, ver por qué contar minutos y contar peticiones dan consumos opuestos, medir el servidor frente al cliente y los reintentos, y calcular la composición de dependencias en serie y los meses que incumplen un objetivo;
-
-derivar alertas del consumo del presupuesto con dos ventanas, comparar seis reglas por páginas, detecciones, retraso y falsos positivos sobre 180 días con tráfico nocturno bajo, medir el efecto de la duración mínima y de la agrupación sobre la fatiga y elegir una ventana por el equilibrio entre ruido y retraso; escribir un runbook con salida esperada, reversión y escalamiento, calcular la carga de una guardia según el tamaño del equipo y las ausencias, estimar la cobertura de un escalamiento con y sin causa común y medir qué detecta un verificador de forma frente a 240 mutaciones; asignar roles de incidente, comprobar con kappa el acuerdo de tres personas sobre la severidad, descomponer el tiempo de resolución por tramos, ver cuánto varía por azar la media de un trimestre y encontrar la cadencia de actualizaciones que minimiza las interrupciones;
-
-escribir un postmortem sin culpa con impacto cuantificado, línea de tiempo, factores y acciones verificables, ver cuántas causas raíz declaran 400 analistas sobre el mismo grafo, calcular el efecto del cumplimiento de las acciones sobre la recurrencia y medir qué detecta un verificador de postmortems; fijar RPO y RTO, calcular los datos perdidos por copias y réplicas, comparar seis comprobaciones sobre 40 copias dañadas de una base SQLite, dibujar el mapa de dependencias de una restauración, hallar un ciclo y calcular la ruta crítica; representar un diagnóstico como una tabla de firmas, contar las fallas indistinguibles al faltar señales, comparar tres estrategias de observación y estimar el sesgo de una tasa de error leída en registros con pérdida selectiva; y validar un paquete operativo frente a 360 mutaciones, calcular la probabilidad de una respuesta completa como producto de etapas y comprobar la reproducibilidad con una huella en dos sistemas.
-
-Al finalizar podrás defender un paquete operativo con sus señales, su objetivo y su presupuesto, sus alertas, sus runbooks y su guardia, su protocolo de incidentes, su plantilla de postmortem, su restauración verificada y su ejercicio, con un validador, una huella reproducible y una lista de lo que ningún validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Al finalizar podrás defender una estrategia de pruebas con su tabla de riesgos y sus supuestos, el nivel de cada clase de fallo, la demostración de cada prueba, sus criterios de bloqueo, sus exclusiones con caducidad y una lista de lo que ningún nivel cubre, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
-- [Parte 18 — CLI, TUI, servicios y automatización](../../classes/part-18-cli-tui-servicios-y-automatizacion/): servicios, registros y procesos de larga duración.
-- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, colas y reintentos.
-- [Parte 25 — Arquitectura de software y dominio](../../classes/part-25-arquitectura-de-software-y-dominio/): atributos de calidad, fronteras y decisiones registradas.
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): copias, restauración y réplicas.
-- [Parte 28 — Concurrencia y sistemas distribuidos](../../classes/part-28-concurrencia-y-sistemas-distribuidos/): fallos parciales, relojes y causalidad.
-- [Parte 29 — Cloud, plataforma e infraestructura](../../classes/part-29-cloud-plataforma-e-infraestructura/): regiones, cuentas y dependencias de plataforma.
-- [Parte 31 — Calidad, rendimiento y resiliencia](../../classes/part-31-calidad-rendimiento-y-resiliencia/): percentiles, colas, reintentos, disponibilidad y presión controlada.
-- [Parte 34 — CI/CD, IaC y platform engineering](../../classes/part-34-ci-cd-iac-y-platform-engineering/): camino a producción y reversión.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos, salvo las copias de SQLite de `SE-430` y las sondas de plataforma de `SE-432`, que son lecturas reales del equipo.
+- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): enumeración de casos y razonamiento sobre evidencia.
+- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): invariantes, compatibilidad y contratos comprobables.
+- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): contratos de respuesta, idempotencia y errores consistentes.
+- [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): fronteras, atributos de calidad y revisión contra escenarios.
+- [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): invariantes, transacciones y datos de prueba sintéticos.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (incluido `ast`, `sqlite3`, `threading` y `unittest.mock`) y datos sintéticos.
 
 ## Bloques y progresión
 
-1. **Observar:** las clases 421 a 424 definen las señales, estructuran los registros, presupuestan las métricas y siguen una petición con trazas.
-2. **Prometer y avisar:** las clases 425 y 426 convierten una promesa en un objetivo con presupuesto y lo vigilan con alertas que merecen una página.
-3. **Responder y aprender:** las clases 427 a 429 organizan la respuesta (runbooks, guardia, incidentes) y la convierten en cambios del sistema.
-4. **Recuperar:** la clase 430 prepara el desastre con RPO, RTO, restauraciones y ejercicios.
-5. **Aplicar e integrar:** las clases 431 y 432 diagnostican con telemetría incompleta y reúnen la parte en un paquete operativo reproducible.
+1. **Decidir qué probar y cómo:** las clases 361 y 362 reparten un presupuesto por riesgo y miden qué detecta una batería unitaria.
+2. **Probar lo que une y lo que ve el usuario:** las clases 363 y 364 comprueban el acuerdo entre componentes y eligen recorridos completos con su costo de inestabilidad.
+3. **Generar casos y medir las pruebas:** las clases 365 y 366 usan propiedades, modelos, mutación y fuzzing.
+4. **Controlar lo que rodea a la prueba:** las clases 367 y 368 tratan dobles, entornos, fixtures y fuentes de no determinismo.
+5. **Explorar y mantener:** las clases 369 y 370 exploran con criterio y diagnostican pruebas que fallan a veces.
+6. **Aplicar e integrar:** las clases 371 y 372 demuestran la detección y entregan una estrategia ejecutable.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos**, las semillas están fijadas y casi todos los experimentos (atribución, segmentos, registros, series, contadores, histogramas, contexto, ruta crítica, muestreo, objetivos, alertas, guardia, incidentes, postmortems, recuperación, diagnóstico y cadena de respuesta) corren en **tiempo virtual**: no hay reloj, red ni servidor reales, y las salidas de esos experimentos fueron idénticas en ambos sistemas, cifra por cifra. Hay tres excepciones, todas intencionales: las **sondas de plataforma** de `SE-432` (separador de línea, bytes escritos, lectura con la codificación local, separador de rutas y distinción de mayúsculas) difieren entre Windows y Ubuntu por diseño, porque eso es lo que miden; la **memoria por serie** de `SE-423` (429 bytes) es una medición de `tracemalloc` sobre CPython que coincidió en los dos intérpretes y puede variar con otra versión; y las **copias de SQLite** de `SE-430`, una medición real en un directorio temporal con un daño inyectado por el autor, cuya detección fue idéntica en ambos sistemas y cuyos tiempos de reloj (decenas de milisegundos) no se reproducen al milisegundo.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2. Los datos son **sintéticos** y las semillas están fijadas: las salidas de los doce experimentos fueron idénticas en ambos sistemas en todas las cifras salvo las que dependen del entorno por diseño: en `SE-427` el separador de rutas, la codificación por defecto y los bytes de un archivo de texto difieren entre Windows y Ubuntu (el objeto de la medida), en `SE-428` el orden de un conjunto da entre 15 y 18 salidas distintas en 30 procesos y la suma de flotantes en orden mezclado entre 1 y 3, y el fallo de una propiedad sin semilla fija cambia en cada ejecución (73 a 101 de 1 000), y en `SE-430` el comportamiento de los hilos reales depende de la versión del intérprete. Ninguno mide tiempo de reloj. Todo el código usa solo la biblioteca estándar.
 
-Los experimentos son: la localización de un servicio lento en una cadena de cuatro con cuatro conjuntos de señales, la falla total de un cliente según tres señales y 60 preguntas posteriores a un incidente sobre ocho dimensiones (`SE-421`); cuatro versiones de una línea de registro con regex y con campos por nombre, la propagación del identificador en cuatro saltos con las líneas huérfanas, y el volumen, el muestreo y la redacción sobre 200 000 líneas y quince variantes de datos personales (`SE-422`); el número de series y la memoria de una métrica, un contador con tres reinicios con picos de un indicador y tres diseños de cubetas sobre 100 000 latencias (`SE-423`); el contexto de una petición de seis saltos con la validación de once cabeceras, 600 árboles de spans con tres reglas de optimización y 100 000 trazas con dos políticas de muestreo y tres recolectores (`SE-424`); un presupuesto de 99,9 % medido por peticiones y por minutos en tres incidentes, el servidor frente al cliente con 200 000 solicitudes y la composición de dependencias con 20 000 meses (`SE-425`); seis reglas de alerta sobre 180 días con 26 incidentes, 200 incidentes en cascada con 3 000 destellos y cuatro ventanas sobre 120 días (`SE-426`); la carga de una guardia con 300 años por tamaño de equipo, 20 000 páginas con tres niveles de escalamiento y un verificador de runbooks frente a 240 mutaciones (`SE-427`); 2 000 incidentes descompuestos en cinco tramos con 4 000 trimestres, cinco cadencias de actualización y 400 incidentes clasificados por tres personas con tres criterios (`SE-428`); tres años de incidentes según el cumplimiento de acciones, 400 analistas sobre un grafo de 12 factores y un verificador de postmortems frente a 180 mutaciones (`SE-429`); 20 000 fallos con cuatro estrategias de copia y réplica, 40 copias dañadas de una base de 20 000 filas con seis comprobaciones y la restauración de 12 componentes con un ciclo (`SE-430`); diez fallas y doce señales con todas las combinaciones de señales ausentes, tres estrategias de observación sobre 4 000 diagnósticos y una tasa de error con pérdida selectiva de líneas (`SE-431`); y un validador de paquetes frente a 360 mutaciones, 20 000 incidentes en una cadena de cinco etapas y la huella de los resultados en dos sistemas (`SE-432`).
+Los experimentos son: el reparto de 40 horas entre diez componentes con cuatro criterios, la sensibilidad ante estimaciones erradas hasta un factor 2 en 5 000 realidades y una matriz de ocho clases de fallo contra seis niveles de prueba (`SE-421`); dos baterías de pruebas sobre una función de nota frente a 16 mutantes generados con `ast`, el análisis de dependencias ocultas antes y después de un refactor y una prueba de plazos con el reloj real frente a la hora inyectada (`SE-422`); ocho cambios de un proveedor frente a cuatro tipos de prueba sobre una respuesta JSON y una base SQLite, tres consumidores con diez cambios y la localización de 1 000 defectos de interfaz con tres recorridos o siete pruebas por interfaz (`SE-423`); la tasa de ejecuciones limpias de un recorrido de 3 a 30 pasos, la selección de recorridos sobre 20 000 sesiones sintéticas y una instantánea frente a aserciones semánticas sobre 16 cambios de un HTML (`SE-424`); cinco versiones de una función de reparto frente a cinco ejemplos y cuatro propiedades, la reducción de contraejemplos y una cola contra un modelo por longitud de secuencia (`SE-425`); cuatro baterías frente a 18 mutantes con la cobertura de líneas, los supervivientes clasificados y tres estrategias de fuzzing sobre cuatro defectos escondidos en 20 semillas (`SE-426`); tres dobles de un repositorio frente a ocho comprobaciones de contrato, tres estilos de prueba frente a tres refactorizaciones neutras y un mismo script en 12 procesos y dos sistemas (`SE-427`); doce pruebas en 500 órdenes aleatorios con tres estrategias de fixture, una propiedad con datos aleatorios con y sin semilla y ocho fuentes de no determinismo en 30 procesos (`SE-428`); tres agentes simulados contra 12 defectos plantados, el contraste de WCAG y la partición de 374 defectos de accesibilidad y 15 sondas de entrada frente a cadenas aleatorias sobre seis validadores (`SE-429`); la aritmética \((1-p)^N\), el efecto de los reintentos, las intercalaciones de una carrera contra hilos reales y la clasificación de la causa de 440 pruebas con 300 ejecuciones de historial (`SE-430`); catorce pruebas contra 18 mutantes y seis refactorizaciones, el conjunto mínimo y un validador de paquetes de evidencia sobre 200 mutaciones (`SE-431`); y 2 000 trimestres simulados con seis estrategias, una reasignación tras un incidente y un validador de estrategias sobre 200 mutaciones (`SE-432`).
 
-Los parámetros (los cuatro servicios y sus duraciones, el reparto de 40 clientes con tráfico 1/k, las ocho dimensiones y sus cardinalidades, las cuatro versiones del mensaje, las probabilidades de propagación, el 2 % de errores de los registros, los 429 bytes por serie, las probabilidades de pérdida de contexto por frontera, el 1 % de errores y el 2 % de lentas de las trazas, el perfil de tráfico de 5 a 100 peticiones por segundo, el 1,2 de incidentes por mes con duración lognormal, el 0,1 % de errores basales, los 26 incidentes de las alertas, las 8,1 alertas por incidente, las 1,5 páginas diarias de la guardia, el 85 % de respuesta por nivel y el 30 % de causa común, las medianas por tramo de los incidentes, el ruido de percepción de la severidad, los costes de 3 y 4 minutos de las preguntas y las actualizaciones, las 12 causas con tasas 1/k, el grafo de 12 factores, el 1 % de picos del retraso de la réplica, los 12 componentes de la restauración, las diez fallas y su tabla binaria de firmas, las pérdidas selectivas de líneas y las cinco etapas de la respuesta con sus probabilidades) son **supuestos del autor**, no mediciones. Cada clase los lista y dice qué cambiaría si fueran otros.
-
-Lo que **no se hizo**: no se instrumentó, observó ni operó ningún servicio, base de datos, red ni sistema reales, ni se envió una sola petición a ninguno; no se usó ninguna herramienta de observabilidad, de trazado, de métricas, de alertas, de gestión de guardias ni de incidentes; no se midió ninguna guardia, equipo ni persona, y el estudio de fatiga que se cita es de un entorno clínico y se usa solo como respaldo del fenómeno; no se ejecutó ningún runbook ni ningún ejercicio de recuperación contra un sistema, y los comandos de los runbooks son ilustrativos; no se probó macOS ni otras versiones de Python; los verificadores de runbooks, de postmortems y de paquetes, las reglas de alerta y las estrategias se afinaron con los mismos casos que los evalúan, de modo que sus porcentajes muestran una frontera y no una tasa; y los resultados sobre cadencia, severidad y causas raíz son propios de sus modelos. La parte no tiene laboratorio en `labs/`, y su contenido sigue pendiente de revisión humana independiente.
+Los parámetros (la probabilidad y el impacto de cada componente, la dificultad de detección, la matriz de niveles contra clases de fallo, los 16 y 18 mutantes, las baterías de pruebas, los cambios del proveedor, el 3 % de pausas, la inestabilidad por paso, la distribución Zipf de las rutas, los defectos inyectados, los 12 defectos de la aplicación de juguete, las clases de accesibilidad plantadas, los historiales con causas plantadas, las 200 mutaciones de cada paquete y los costos de un escape) son supuestos del autor, no datos de una plataforma, una institución ni de personas reales. Las reglas de los clasificadores y de los dos validadores se ajustaron con los mismos casos que los evalúan: su exactitud real es desconocida. Los generadores de números pseudoaleatorios de Python se usaron solo para simular; no son criptográficos. No se usó ningún marco de pruebas externo, herramienta de mutación, fuzzer, navegador, contenedor, servidor de integración continua ni base distinta de SQLite; no se midió tiempo de ejecución, rendimiento ni a ninguna persona evaluadora, y los exploradores son programas. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador `SE-432` define el paquete y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
 
 ## Guía razonada clase por clase
 
-La API de entregas mantiene un contrato, un conjunto de señales y un paquete operativo estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+La estrategia de pruebas de la plataforma mantiene diez componentes, un presupuesto y un paquete estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-### Bloque 1 — Observar
+### Bloque 1 — Decidir qué probar y cómo
 
-#### SE-421 — Señales, eventos y observabilidad útil
+#### SE-421 — Calidad por riesgo y propósito de las pruebas
 
-Una señal sirve si responde una pregunta que se hará durante el incidente. La clase compara cuatro conjuntos de señales para localizar al servicio lento de una cadena, mide cuánto del tráfico global ve una falla total de un cliente pequeño y cuenta cuántas de 60 preguntas posteriores responden las métricas y los eventos anchos.
+Repartir el esfuerzo por igual o por el tamaño del código es una decisión, y rara vez la mejor. La clase mide la pérdida residual de cinco repartos de 40 horas, cuánto empeoran cuando las estimaciones se equivocan por un factor 2 y qué clases de fallo no ve ningún nivel barato.
 
-El estudiante entrega una tabla pregunta → señal → señal que falta. `SE-422` pregunta cómo escribir el evento que responde esas preguntas.
+El estudiante entrega una tabla de riesgos con supuestos, un reparto y una lista de exclusiones con caducidad. `SE-422` baja al nivel más barato, la prueba unitaria.
 
-#### SE-422 — Logs estructurados y correlación
+#### SE-422 — Pruebas unitarias y diseño testable
 
-Un registro es una interfaz con quien investiga. La clase mide qué sobrevive de una extracción por regex y por campos a cuatro versiones de una línea, calcula la fracción de peticiones completas según la propagación del identificador y compara políticas de muestreo y de redacción.
+La cobertura de líneas no distingue una batería que detecta de una que solo ejecuta. La clase genera 16 mutantes con `ast`, mide dos baterías con el mismo 100 % de líneas, analiza las dependencias ocultas de una función y compara una prueba de plazos con el reloj real y con la hora inyectada.
 
-El estudiante entrega un esquema de registros con su política de muestreo y de redacción. `SE-423` resume los eventos como métricas.
+El estudiante entrega una función con su tabla de fronteras y el cierre separado de sus efectos. `SE-423` pregunta cómo comprobar que las piezas funcionan juntas.
 
-#### SE-423 — Métricas, dimensiones y cardinalidad
+### Bloque 2 — Probar lo que une y lo que ve el usuario
 
-Cada combinación de etiquetas es una serie. La clase calcula el crecimiento del número de series y su memoria, reconstruye un contador con reinicios y estima qué picos ve cada intervalo de lectura, y compara tres diseños de cubetas de histograma por su error de percentil.
+#### SE-423 — Integración, componentes y contratos
 
-El estudiante entrega un catálogo de métricas con presupuesto de series. `SE-424` sigue una petición entre servicios.
+Un doble copia lo que el consumidor cree, no lo que el proveedor hace. La clase aplica ocho cambios a un proveedor y mide qué detecta un doble, un contrato, la respuesta real y la comparación de esquema completo, compara contratos por consumidor con alarmas globales y mide cuántas interfaces quedan sospechosas con recorridos y con pruebas por interfaz.
 
-#### SE-424 — Trazas distribuidas y contexto
+El estudiante entrega contratos por consumidor y pruebas por interfaz. `SE-424` elige los recorridos completos que merece la pena pagar caros.
 
-El contexto se pierde donde cambia el medio o la unidad de ejecución. La clase calcula la fragmentación de las trazas, mide cuánto ahorra optimizar según la ruta crítica y compara el muestreo de cabeza con el de cola y su enrutado.
+#### SE-424 — End-to-end, aceptación y recorridos críticos
 
-El estudiante entrega un inventario de fronteras con una prueba por frontera asíncrona. `SE-425` usa las señales para fijar un objetivo.
+Cada paso de un recorrido multiplica la probabilidad de un fallo espurio. La clase calcula la tasa de ejecuciones limpias según los pasos, elige cinco recorridos que cubren el 87 % del tráfico y compara una instantánea con aserciones semánticas sobre siete cambios benignos y nueve defectos.
 
-### Bloque 2 — Prometer y avisar
+El estudiante entrega cinco recorridos con criterio de aceptación y presupuesto de inestabilidad. `SE-425` cambia el método de elegir casos.
 
-#### SE-425 — SLI, SLO, SLA y presupuestos de error
+### Bloque 3 — Generar casos y medir las pruebas
 
-Un objetivo sin ventana ni punto de medición admite lecturas opuestas. La clase mide el mismo presupuesto por peticiones y por minutos, compara el servidor con el cliente y los reintentos y calcula la composición de dependencias y los meses que incumplen.
+#### SE-425 — Pruebas basadas en propiedades y modelos
 
-El estudiante entrega un SLI, un SLO, un SLA y una política de presupuesto. `SE-426` los convierte en alertas.
+Un generador mal diseñado nunca llega a las fronteras. La clase compara cinco ejemplos con cuatro propiedades sobre cinco versiones de una función, reduce contraejemplos de 155 a 21 caracteres y mide qué fracción de secuencias aleatorias descubre el defecto de una cola contra un modelo.
 
-#### SE-426 — Alertas accionables y fatiga
+El estudiante entrega propiedades con un generador sesgado y un modelo de la cola. `SE-426` mide la calidad de las propias pruebas.
 
-Una página que no pide acción cuesta credibilidad. La clase compara seis reglas de alerta por páginas, detecciones y falsos positivos, mide el efecto de la duración mínima y la agrupación y elige una ventana por el equilibrio entre ruido y retraso.
+#### SE-426 — Mutación, fuzzing y generación de casos
 
-El estudiante entrega un conjunto de alertas clasificadas en página, ticket y registro. `SE-427` define qué hace quien la recibe.
+La cobertura y la mutación pueden divergir: pasar del 72 % al 94 % de líneas no mató un solo mutante más. La clase mide cuatro baterías, clasifica los supervivientes y compara bytes aleatorios, un generador estructurado y uno guiado por cobertura sobre cuatro defectos escondidos.
 
-### Bloque 3 — Responder y aprender
+El estudiante entrega la lista de supervivientes clasificada y un fuzzer con corpus. `SE-427` trata lo que rodea a la prueba.
 
-#### SE-427 — Runbooks, on-call y escalamiento
+### Bloque 4 — Controlar lo que rodea a la prueba
 
-Una persona cansada necesita pasos, no explicaciones. La clase calcula la carga de una guardia según el tamaño del equipo, la cobertura de un escalamiento con causa común y lo que un verificador de forma ve y no ve en un runbook.
+#### SE-427 — Dobles, virtualización y entornos de prueba
 
-El estudiante entrega un runbook ejecutado por otra persona y una rotación dimensionada. `SE-428` coordina varias personas.
+Un doble es tan fiel como la batería que lo ancla. La clase mide qué comprobaciones supera un diccionario ingenuo frente a una base real, cuántas refactorizaciones neutras rompen cada estilo de prueba y qué cambia entre procesos y entre Windows y Ubuntu sin tocar el código.
 
-#### SE-428 — Gestión de incidentes y comunicación
+El estudiante entrega una batería de contrato ejecutada contra el doble y la dependencia real. `SE-428` trata los datos y el estado de cada prueba.
 
-Mitigar viene antes que entender y comunicar es parte de resolver. La clase mide el acuerdo sobre la severidad con kappa, descompone el tiempo en tramos, muestra cuánto varía la media por azar y busca la cadencia de actualizaciones que minimiza las interrupciones.
+#### SE-428 — Datos deterministas y gestión de fixtures
 
-El estudiante entrega un protocolo con roles, severidades medibles y cadencia. `SE-429` convierte el incidente en aprendizaje.
+Un estado compartido hace que el resultado dependa del orden. La clase ejecuta doce pruebas en 500 órdenes con tres estrategias de fixture, mide una propiedad con datos aleatorios con y sin semilla y cuenta las salidas distintas de ocho fuentes de no determinismo.
 
-#### SE-429 — Postmortems sin culpa y aprendizaje
+El estudiante entrega reglas de datos de prueba y un inventario de fuentes con su remedio. `SE-429` pasa de lo automático a la exploración.
 
-Un postmortem se mide por los cambios que produce. La clase calcula el efecto del cumplimiento de las acciones sobre la recurrencia, muestra que 400 analistas declaran seis causas raíz sobre el mismo grafo y mide qué detecta un verificador de forma.
+### Bloque 5 — Explorar y mantener
 
-El estudiante entrega un postmortem con factores y acciones verificables. `SE-430` prepara lo que no ha ocurrido.
+#### SE-429 — Pruebas exploratorias y sesiones
 
-### Bloque 4 — Recuperar
+Un guion de regresión no explora. La clase compara tres agentes simulados contra 12 defectos plantados, calcula el contraste de WCAG y clasifica 374 defectos de accesibilidad según los decida una regla o una persona, y prueba una lista de sondas contra seis validadores.
 
-#### SE-430 — Continuidad, disaster recovery y ejercicios
+El estudiante entrega misiones, una lista de sondas y la partición regla/persona. `SE-430` aborda lo que más erosiona la confianza: las pruebas que fallan a veces.
 
-Un plan de recuperación que no se ha ejecutado es una hipótesis. La clase calcula los datos perdidos por cada estrategia, compara seis comprobaciones sobre 40 copias dañadas de una base real y calcula la ruta crítica y el ciclo de una restauración de 12 componentes.
+#### SE-430 — Flakiness, diagnóstico y mantenimiento
 
-El estudiante entrega un plan con RPO, RTO, restauración verificada y calendario de ejercicios. `SE-431` diagnostica cuando la telemetría falta.
+Con 0,1 % de fallo espurio por prueba, una suite de 1 000 pasa limpia el 36,8 % de las veces. La clase mide el efecto de los reintentos sobre el ruido y sobre un defecto real, compara la enumeración de una carrera con hilos reales y clasifica la causa de 440 pruebas con un historial.
 
-### Bloque 5 — Aplicar e integrar
+El estudiante entrega una política de cuarentena y un procedimiento de diagnóstico. `SE-431` pide demostrar lo que detecta cada prueba.
 
-#### SE-431 — Taller: diagnosticar con telemetría incompleta
+### Bloque 6 — Aplicar e integrar
 
-Una señal sin datos no es una señal normal. El taller cuenta las fallas indistinguibles al faltar señales, compara tres estrategias de observación y mide cuánto se subestima la tasa de error cuando el agente pierde más líneas de error.
+#### SE-431 — Taller: demostrar que una prueba detecta defectos
 
-El estudiante entrega una bitácora de diagnóstico y la lista de telemetría a vigilar. `SE-432` lo integra en un paquete.
+Tres pruebas matan 6 mutantes cada una sin afirmar ningún valor y una pasa por la razón equivocada. El taller construye la matriz de catorce pruebas contra mutantes y refactorizaciones neutras, calcula el conjunto mínimo y valida un paquete de evidencia con 200 mutaciones.
 
-#### SE-432 — Proyecto: operación observable y recuperable
+El estudiante entrega la matriz de detección y un paquete re-ejecutable. `SE-432` lo integra en una estrategia.
 
-Un paquete coherente no es un servicio operable. El proyecto mide qué detecta un validador sobre 360 mutaciones, calcula la recuperación completa como producto de cinco etapas y compara la huella de los resultados en dos sistemas.
+#### SE-432 — Proyecto: estrategia ejecutable por riesgo
 
-El estudiante entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites. La Parte 36 lleva la mirada al mantenimiento y la modernización de sistemas existentes.
+Una estrategia que nadie valida es un documento. El proyecto simula 2 000 trimestres con seis estrategias, reasigna el presupuesto tras un incidente y mide qué detecta un validador de tres niveles sobre 200 mutaciones del paquete.
+
+El estudiante entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md`. La Parte 36 lleva esos riesgos a atributos de calidad medibles, carga y resiliencia.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-421](../../classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/) | Señales, eventos y observabilidad útil | Entrega una tabla pregunta → señal → señal que falta |
-| [SE-422](../../classes/part-35-observabilidad-sre-e-incidentes/se-422-logs-estructurados-y-correlacion/) | Logs estructurados y correlación | Entrega un esquema de registros con su política de muestreo y de redacción |
-| [SE-423](../../classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad/) | Métricas, dimensiones y cardinalidad | Entrega un catálogo de métricas con presupuesto de series |
-| [SE-424](../../classes/part-35-observabilidad-sre-e-incidentes/se-424-trazas-distribuidas-y-contexto/) | Trazas distribuidas y contexto | Entrega un inventario de fronteras con una prueba por frontera asíncrona |
-| [SE-425](../../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/) | SLI, SLO, SLA y presupuestos de error | Entrega un SLI, un SLO, un SLA y una política de presupuesto |
-| [SE-426](../../classes/part-35-observabilidad-sre-e-incidentes/se-426-alertas-accionables-y-fatiga/) | Alertas accionables y fatiga | Entrega un conjunto de alertas clasificadas en página, ticket y registro |
-| [SE-427](../../classes/part-35-observabilidad-sre-e-incidentes/se-427-runbooks-on-call-y-escalamiento/) | Runbooks, on-call y escalamiento | Entrega un runbook ejecutado por otra persona y una rotación dimensionada |
-| [SE-428](../../classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion/) | Gestión de incidentes y comunicación | Entrega un protocolo con roles, severidades medibles y cadencia |
-| [SE-429](../../classes/part-35-observabilidad-sre-e-incidentes/se-429-postmortems-sin-culpa-y-aprendizaje/) | Postmortems sin culpa y aprendizaje | Entrega un postmortem con factores y acciones verificables |
-| [SE-430](../../classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/) | Continuidad, disaster recovery y ejercicios | Entrega un plan con RPO, RTO, restauración verificada y calendario de ejercicios |
-| [SE-431](../../classes/part-35-observabilidad-sre-e-incidentes/se-431-taller-diagnosticar-con-telemetria-incompleta/) | Taller: diagnosticar con telemetría incompleta | Entrega una bitácora de diagnóstico y la lista de telemetría a vigilar |
-| [SE-432](../../classes/part-35-observabilidad-sre-e-incidentes/se-432-proyecto-operacion-observable-y-recuperable/) | Proyecto: operación observable y recuperable | Entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites |
+| [SE-421](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/) | Calidad por riesgo y propósito de las pruebas | Entrega una tabla de riesgos con supuestos, un reparto y una lista de exclusiones con caducidad |
+| [SE-422](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/) | Pruebas unitarias y diseño testable | Entrega una función con su tabla de fronteras y el cierre separado de sus efectos |
+| [SE-423](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-423-integracion-componentes-y-contratos/) | Integración, componentes y contratos | Entrega contratos por consumidor y pruebas por interfaz |
+| [SE-424](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/) | End-to-end, aceptación y recorridos críticos | Entrega cinco recorridos con criterio de aceptación y presupuesto de inestabilidad |
+| [SE-425](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/) | Pruebas basadas en propiedades y modelos | Entrega propiedades con un generador sesgado y un modelo de la cola |
+| [SE-426](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/) | Mutación, fuzzing y generación de casos | Entrega la lista de supervivientes clasificada y un fuzzer con corpus |
+| [SE-427](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/) | Dobles, virtualización y entornos de prueba | Entrega una batería de contrato ejecutada contra el doble y la dependencia real |
+| [SE-428](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/) | Datos deterministas y gestión de fixtures | Entrega reglas de datos de prueba y un inventario de fuentes con su remedio |
+| [SE-429](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/) | Pruebas exploratorias y sesiones | Entrega misiones, una lista de sondas y la partición regla/persona |
+| [SE-430](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/) | Flakiness, diagnóstico y mantenimiento | Entrega una política de cuarentena y un procedimiento de diagnóstico |
+| [SE-431](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/) | Taller: demostrar que una prueba detecta defectos | Entrega la matriz de detección y un paquete re-ejecutable |
+| [SE-432](../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/) | Proyecto: estrategia ejecutable por riesgo | Entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md` |
 
 ## Fuentes
 
-- [Google SRE: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/), [Practical Alerting](https://sre.google/sre-book/practical-alerting/) y [Effective Troubleshooting](https://sre.google/sre-book/effective-troubleshooting/) — señales, alertas y diagnóstico; autoridad: Google, libro de ingeniería de confiabilidad.
-- [Google SRE: Service Level Objectives](https://sre.google/sre-book/service-level-objectives/), [Implementing SLOs](https://sre.google/workbook/implementing-slos/) y [Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/) — objetivos, presupuestos y alertas por consumo; autoridad: Google, SRE Book y SRE Workbook.
-- [Google SRE: Being On-Call](https://sre.google/sre-book/being-on-call/), [Managing Incidents](https://sre.google/sre-book/managing-incidents/) y [Postmortem Culture](https://sre.google/sre-book/postmortem-culture/) — guardia, incidentes y postmortems; autoridad: Google, libro de ingeniería de confiabilidad.
-- [OpenTelemetry: Signals](https://opentelemetry.io/docs/concepts/signals/), [modelo de datos de registros](https://opentelemetry.io/docs/specs/otel/logs/data-model/), [propagación de contexto](https://opentelemetry.io/docs/concepts/context-propagation/) y [muestreo](https://opentelemetry.io/docs/concepts/sampling/) — señales, registros, contexto y muestreo; autoridad: proyecto OpenTelemetry (CNCF).
-- [W3C Trace Context](https://www.w3.org/TR/trace-context/) y [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339) — contexto de traza y marcas de tiempo; autoridad: W3C e IETF.
-- [Prometheus: modelo de datos](https://prometheus.io/docs/concepts/data_model/), [tipos de métricas](https://prometheus.io/docs/concepts/metric_types/), [nombres](https://prometheus.io/docs/practices/naming/), [histogramas](https://prometheus.io/docs/practices/histograms/) y [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) — métricas y alertas; autoridad: documentación del proyecto Prometheus.
-- [Sigelman et al., «Dapper»](https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/) y [Dean y Barroso, «The tail at scale»](https://doi.org/10.1145/2408776.2408794) — trazado distribuido y latencia de cola; autoridad: Google Research y Communications of the ACM.
-- [Cook, «How Complex Systems Fail»](https://how.complexsystems.fail/), [Fischhoff, «Hindsight ≠ foresight»](https://doi.org/10.1037/0096-1523.1.3.288) y [Dekker, «The Field Guide to Understanding “Human Error”»](https://openlibrary.org/isbn/9781472439055) — causas múltiples, sesgo de retrospectiva y error humano; autoridad: texto del autor, Journal of Experimental Psychology y libro con ISBN.
-- [Cohen, «A coefficient of agreement for nominal scales»](https://doi.org/10.1177/001316446002000104) y [Ancker et al.](https://doi.org/10.1186/s12911-017-0430-8) — acuerdo entre evaluadores y fatiga de alertas; autoridad: Educational and Psychological Measurement 1960 y BMC Medical Informatics and Decision Making 2017.
-- [NIST SP 800-34 Rev. 1](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final), [AWS Well-Architected: DR](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html), [Google Cloud: guía de DR](https://cloud.google.com/architecture/dr-scenarios-planning-guide) y [SQLite: copia en línea](https://www.sqlite.org/backup.html) — planes de contingencia, RPO y RTO y copias consistentes; autoridad: NIST y documentación de los proveedores.
-- [GitLab, postmortem de 2017](https://about.gitlab.com/blog/2017/02/10/postmortem-of-database-outage-of-january-31/) y [Meta, «More details about the October 4 outage»](https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/) — ejemplos públicos de recuperación y de dependencias circulares; autoridad: publicaciones de las propias organizaciones.
-- [PagerDuty Incident Response](https://response.pagerduty.com/) y [Atlassian Incident Management Handbook](https://www.atlassian.com/incident-management/handbook) — roles y comunicación en incidentes; autoridad: documentación pública de PagerDuty y Atlassian.
-- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — qué registrar y qué no; autoridad: proyecto OWASP.
+- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — atributos de calidad del producto; autoridad: ISO/IEC.
+- [NIST SP 800-30 Rev. 1](https://csrc.nist.gov/pubs/sp/800/30/r1/final) y [NIST SP 800-218](https://csrc.nist.gov/pubs/sp/800/218/final) — evaluación de riesgos y verificación en el desarrollo; autoridad: NIST.
+- [Martin Fowler, «TestPyramid»](https://martinfowler.com/bliki/TestPyramid.html) y [«ContractTest»](https://martinfowler.com/bliki/ContractTest.html) — niveles de prueba y contratos; autoridad: autor del texto.
+- [Inozemtseva y Holmes, «Coverage is not strongly correlated with test suite effectiveness»](https://doi.org/10.1145/2568225.2568271) — cobertura y eficacia; autoridad: artículo revisado de ICSE 2014.
+- [Claessen y Hughes, «QuickCheck»](https://doi.org/10.1145/351240.351266) y [Documentación de Hypothesis](https://hypothesis.readthedocs.io/en/latest/) — pruebas basadas en propiedades; autoridad: artículo original y documentación oficial.
+- [DeMillo, Lipton y Sayward (1978)](https://doi.org/10.1109/C-M.1978.218136) y [Jia y Harman (2011)](https://doi.org/10.1109/TSE.2010.62) — prueba de mutación; autoridad: artículos revisados.
+- [Miller et al., «An empirical study of the reliability of UNIX utilities»](https://doi.org/10.1145/96267.96279) y [Böhme et al. (2016)](https://doi.org/10.1145/2976749.2978428) — fuzzing; autoridad: artículos revisados.
+- [Luo et al., «An empirical analysis of flaky tests»](https://doi.org/10.1145/2635868.2635920) — causas de las pruebas inestables; autoridad: artículo revisado de FSE 2014.
+- [WCAG 2.2](https://www.w3.org/TR/WCAG22/) y [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) — accesibilidad y seguridad web; autoridad: W3C y OWASP.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones operativas se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de una estrategia de pruebas se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, salvo las lecturas de reloj de las copias de `SE-430`, que declaran por qué no;
-- ninguna afirmación sobre un servicio, un equipo o un sistema real se apoya en una simulación;
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas;
+- ninguna afirmación sobre una herramienta, un equipo o personas reales se apoya en una simulación;
 - los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
 
 [Volver al índice de clases](../../classes/README.md)

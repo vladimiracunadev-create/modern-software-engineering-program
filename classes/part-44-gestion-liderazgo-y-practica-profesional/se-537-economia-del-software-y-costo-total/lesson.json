@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-537",
+  "title": "Economía del software y costo total",
+  "stage": "G",
+  "part": "44",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-44-gestion-liderazgo-y-practica-profesional/se-537-economia-del-software-y-costo-total"
+}

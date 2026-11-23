@@ -17,18 +17,21 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | Elemento | Cantidad | Evidencia disponible |
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
-| Partes | 49 desarrolladas | calculadas desde `content/part-NN/` (ver `STATUS.md`) |
-| Clases | 588 desarrolladas | al 2026-11-17, `SE-001`–`SE-588` (Partes 00–48), a falta de revisión editorial humana independiente; todas las partes están publicadas |
+| Partes | 49 desarrolladas y 2 reservadas (51 en total) | calculadas desde `content/part-NN/` (ver `STATUS.md`); las Partes 34 y 42 están planificadas |
+| Clases | 588 desarrolladas de 612 posiciones | al 2026-11-23, `SE-001`–`SE-612` salvo `SE-409`–`SE-420` y `SE-505`–`SE-516` (Partes 34 y 42, planificadas), a falta de revisión editorial humana independiente |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
-| Horas estimadas | 2.646 estimadas | 54 por parte; sujetas a validación al construir contenido |
+| Horas estimadas | 2.646 de las partes desarrolladas (2.754 planificadas) | 54 por parte; sujetas a validación al construir contenido |
 
 Las cifras no significan que las clases estén escritas. Las afirmaciones sobre una
 clase —contenido desarrollado, práctica ejecutada, pruebas realizadas, integración u
 operación— solo se publican cuando existe la evidencia correspondiente.
 
-El alcance vigente es de 588 clases en 49 partes ([`ADR-004`](adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance a 540 y
-[`ADR-006`](adr/ADR-006-extend-program-parts-45-48-and-roles.md) añadió las Partes 45–48); 480
-fue la línea base original ([`ADR-003`](adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md)).
+El alcance vigente es de 612 posiciones de clase en 51 partes ([`ADR-004`](adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance a 540,
+[`ADR-006`](adr/ADR-006-extend-program-parts-45-48-and-roles.md) a 588 y
+[`ADR-007`](adr/ADR-007-pedagogical-renumbering-and-new-parts.md) ordenó las partes en secuencia pedagógica y
+reservó la 34 y la 42); 480 fue la línea base original
+([`ADR-003`](adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md)). Los identificadores anteriores al
+2026-11-23 se traducen con [`ID-MIGRATION.md`](ID-MIGRATION.md).
 No se agregan clases para cumplir una cuota: la expansión solo procede cuando una brecha
 demuestra una competencia, evidencia y secuencia propias.
 
@@ -62,6 +65,19 @@ flowchart LR
    gestión y práctica profesional.
 8. **Ingeniería nativa con IA:** asistencia, contexto, evaluaciones, SPEC, agentes,
    MCP, multiagente, seguridad y gobernanza.
+
+La secuencia numérica es la de estudio (ADR-007). Cada etapa ocupa un tramo contiguo de partes:
+
+| Etapa | Partes | Contenido |
+| --- | --- | --- |
+| A · Fundamentos de la profesión | 00–04 | disciplina, computador, sistemas operativos, redes y pensamiento computacional |
+| B · Programación y construcción | 05–09 | fundamentos, paradigmas, estructuras, herramientas y paquetes |
+| C · Producto, requisitos y especificación | 10–17 | descubrimiento, economía, requisitos, contratos, UX, procesos, Git y documentación |
+| D · Superficies y formas de software | 18–24 | CLI, web, backend, móvil, embedded, runtimes modernos y dominios especializados |
+| E · Diseño, arquitectura, datos e integración | 25–34 | diseño, patrones, arquitectura, estilos, datos, integración, concurrencia, cloud y SaaS (34, planificada) |
+| F · Calidad, seguridad y entrega | 35–40 | pruebas, calidad, sistemas críticos, seguridad, supply chain y CI/CD |
+| G · Operación, evolución y liderazgo | 41–44 | observabilidad y SRE, caos (42, planificada), legacy y liderazgo |
+| H · Ingeniería nativa con IA | 45–50 | metodologías, asistencia por IA, SPEC y agentes, harness, patrones agénticos y ML en producción |
 
 ## Contrato de una parte
 
@@ -142,10 +158,10 @@ las valida en la CI.
 
 ## Criterio de término de la expansión
 
-La expansión no termina al crear carpetas. Requiere las 588 clases completas, fuentes
+La expansión no termina al crear carpetas. Requiere las 612 clases completas, fuentes
 resueltas, ejercicios, entornos documentados, proyectos integrados, portal navegable,
 validación automática, accesibilidad y una declaración verificable de lo ejecutado.
 
 Al completar esa base —o cuando construirla revele una brecha indivisible— se repite
 la [auditoría de cobertura](PROGRAM-COVERAGE-AUDIT-2026-10-06.md). Solo entonces se
-decide si el siguiente incremento necesita IDs posteriores a `SE-588`.
+decide si el siguiente incremento necesita IDs posteriores a `SE-612`.

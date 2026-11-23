@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "SE-547",
+  "title": "Diseño por contrato y pruebas de contrato como oráculo",
+  "stage": "H",
+  "part": "45",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "CANON-TDD",
+    "MOCKS-ARENT-STUBS",
+    "CUCUMBER-BDD",
+    "DDD-REFERENCE",
+    "DESIGN-BY-CONTRACT",
+    "BOCKELER-SDD",
+    "ANTHROPIC-EVALS",
+    "GENTLE-AI-ODD",
+    "GITHUB-SPEC-KIT"
+  ],
+  "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-547-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo"
+}

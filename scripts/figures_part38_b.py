@@ -1,248 +1,224 @@
-"""Figures for SE-463 to SE-468 (AI-assisted development: synthetic processes with fixed seeds and real runs of standard-library code).
-
-Los números se calculan con scripts/experiments_part38_b.py para que figuras y texto no se transcriban a mano.
-"""
+"""Figures for SE-463 to SE-468 (synthetic data, fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, scatter, stacked_bars
-from figure_diagrams import fan
+from figure_cases import case_cards
+from figure_kit import Fig, fmt_es, grouped_bars, heatmap, line_chart, percentile_intervals
 from figures_part07_a import bars
 
-from functools import lru_cache
-
-import experiments_part38_b as ex
-from figures_part38_a import EJEC, SINT, n, p
-
-@lru_cache(maxsize=None)
-def R(name: str):
-    return getattr(ex, name)()
+SINT = "Datos sintéticos con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
+REAL = "Lectura de reloj de un equipo Windows 11 (CPython 3.12.9); en otro equipo los milisegundos cambian."
+SONDA = "Sonda real en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); lo que difiere entre sistemas es el resultado que se mide."
 
 
 # ---------------------------------------------------------------- SE-463
-def se463_umbral_del_revisor() -> Fig:
-    f = R("e463_umbral")["filas"]
-    ts = [(r["umbral"], n(r["umbral"], 2)) for r in f]
-    return line_chart(
-        '400 cambios sintéticos (80 con defecto real): lo que marca un revisor automático según su umbral',
-        f'Líneas con la precisión y la cobertura de un revisor automático según su umbral: con umbral {n(f[0]["umbral"], 2)} marca {f[0]["marcados"]} cambios con precisión {p(f[0]["precision"])} y cobertura {p(f[0]["cobertura"])}; con {n(f[4]["umbral"], 2)} marca {f[4]["marcados"]} con precisión {p(f[4]["precision"])} y cobertura {p(f[4]["cobertura"])}; subir el umbral sube la precisión y baja la cobertura.',
-        [("Precisión", [(r["umbral"], r["precision"], n(r["precision"]), "t") for r in f], "teal"), ("Cobertura de defectos", [(r["umbral"], r["cobertura"], n(r["cobertura"]), "t") for r in f], "coral")],
-        x_label="Umbral del revisor", y_label="Porcentaje (%)", x_ticks=ts, y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
-        note='Subir el umbral baja el ruido y deja pasar defectos; bajarlo cubre casi todo y obliga a revisar cientos de alarmas falsas. Las puntuaciones son gaussianas con medias del autor, no las de un revisor real.', note_kind='gold', foot=SINT)
+def se391_unicidad() -> Fig:
+    return grouped_bars("5 000 estudiantes sintéticos: cuántos son únicos según cuánto se generalizan cuatro atributos",
+                        "Barras agrupadas con el porcentaje de registros únicos y en grupos de menos de cinco según la generalización: con año, comuna, curso y género exactos 88,2 y 100,0 por ciento; con año en tramos de 3 y comuna a región 44,5 y 90,6; con tramos de cinco años, región y sin curso 0,0 y 0,9; con macrozona y sin curso ni género 0,0 y 0,0.",
+                        ["Año, comuna, curso y género exactos (4 689 grupos, k = 1)", "Año en tramos de 3 y comuna a región (3 268 grupos, k = 1)", "Tramos de 5 años, región, sin curso (191 grupos, k = 3)", "Tramos de 5 años, macrozona, sin curso ni género (12 grupos, k = 63)"],
+                        [("Registros únicos", [88.2, 44.5, 0.0, 0.0], "coral"), ("En grupos menores de 5", [100.0, 90.6, 0.9, 0.0], "gold")],
+                        unit="% de los 5 000 registros", horizontal=True, label_w=330, decimals=1,
+                        note="Ningún dato es un nombre y aun así el 88,2 % se distingue de los demás. Generalizar reduce la unicidad y también la utilidad: con 12 grupos solo se puede contar por macrozona. La distribución de comunas y de años es del autor, y k-anonimato no protege frente a quien conoce otros datos.",
+                        note_kind="coral", foot=SINT)
 
+def se391_ruido() -> Fig:
+    qs = [1, 10, 100, 1000, 10000]
+    errs = [2.034, 0.753, 0.209, 0.076, 0.022]
+    eps = ["0,5", "5", "50", "500", "5 000"]
+    return line_chart("Mismo conteo (312 estudiantes) consultado Q veces con ruido de Laplace nuevo, ε = 0,5 por consulta",
+                      "Línea en doble escala logarítmica con el error medio del promedio de Q consultas repetidas con epsilon 0,5: 2,034 estudiantes con una consulta, 0,209 con 100 y 0,022 con 10 000, a costa de un presupuesto acumulado de privacidad que pasa de 0,5 a 5 000.",
+                      [("Error medio del promedio", [(q, e, fmt_es(e, 3), "t") for q, e in zip(qs, errs)], "coral")],
+                      x_label="Consultas repetidas (Q) y ε acumulado", y_label="Error medio (estudiantes)", log_x=True, log_y=True,
+                      x_ticks=[(q, f"{fmt_es(q)} (ε {e})") for q, e in zip(qs, eps)], y_ticks=[0.01, 0.1, 1, 10],
+                      note="Una sola respuesta con ruido protege y mil respuestas promediadas devuelven el valor verdadero: el ruido por consulta no es la garantía, el presupuesto total sí. Con una consulta el error medio vale 9,93 con ε = 0,1, 2,00 con 0,5, 0,99 con 1 y 0,20 con 5.",
+                      note_kind="gold", foot=SINT)
 
-def se463_equivalencia_por_entradas() -> Fig:
-    f = R("e463_equivalencia")["filas"]
-    return heatmap(
-        'Cuatro versiones refactorizadas frente a la original: probabilidad de que n entradas aleatorias las distingan',
-        f'Mapa de calor con la probabilidad de que n entradas aleatorias distingan cada refactorización de la original: la equivalente nunca difiere; las que pierden el orden o descartan la nota cero se distinguen con 5 entradas; la que descarta cursos con 5 notas o más necesita 1 000 entradas para el {p(f[3]["detecta_1000"])}.',
-        [r["candidato"].capitalize() for r in f], ["5 entradas", "20", "100", "1 000"],
-        [[r["detecta_5"], r["detecta_20"], r["detecta_100"], r["detecta_1000"]] for r in f],
-        unit="% que la detecta", row_title="Refactorización", col_title="Entradas aleatorias",
-        scale="teal", vmin=0, vmax=100, decimals=1, suffix=" %", cell_h=44, label_w=300,
-        note='Las diferencias frecuentes se ven con unas pocas entradas; la que ocurre en una de cien exige cientos, y una prueba con tres ejemplos escritos a mano casi nunca la encuentra. Que no aparezca una diferencia no demuestra equivalencia. Las funciones y la distribución de entradas son del autor.', note_kind='coral', foot=EJEC)
-
-
-def se463_explicar_el_comentario() -> Fig:
-    d = R("e463_explicacion")
-    items = [('Funciones', d["funciones"], 'gold', str(d["funciones"])), ('Comentario correcto', d["coinciden_con_el_codigo"], 'teal', str(d["coinciden_con_el_codigo"])),
-             ('Comentario desfasado', d["explicaciones_que_repiten_el_comentario_erroneas"], 'coral', str(d["explicaciones_que_repiten_el_comentario_erroneas"]))]
-    return bars('Treinta funciones con un comentario: qué entrega un explicador que lo repite',
-               f'Barras con treinta funciones de las que {d["coinciden_con_el_codigo"]} tienen un comentario que coincide con el código y {d["explicaciones_que_repiten_el_comentario_erroneas"]} un comentario desfasado; un explicador que repite el comentario entrega {d["explicaciones_que_repiten_el_comentario_erroneas"]} explicaciones erróneas.',
-               items, 20.0, 'Una explicación fluida que repite el comentario hereda su error y lo presenta con aplomo; leer la sentencia del código lo habría evitado. El número de funciones desfasadas y el parecido con un explicador real son supuestos del autor.',
-               label_w=250, width=940, note_kind='coral', foot=EJEC)
-
+def se391_seudonimos() -> Fig:
+    return case_cards("Seudonimizar 20 000 correos (12 000 en una lista de 100 000 candidatos): qué se reidentifica y qué se enlaza",
+                      "Cuatro técnicas de seudonimización como tarjetas: un SHA-256 sin sal reidentifica los 12 000 correos de la lista de candidatos; un HMAC con clave no reidentifica ninguno sin la clave; el mismo HMAC en dos conjuntos enlaza 6 000 de 6 000 y con una clave por propósito ninguno.",
+                      [("SHA-256 sin sal del correo", "12 000 de 12 000 reidentificados", "Cualquiera con la lista de correos candidatos.", "coral"),
+                       ("HMAC-SHA256 con clave del servidor, atacante sin clave", "0 de 12 000 reidentificados", "Se necesita la clave para repetir el cálculo.", "teal"),
+                       ("Mismo HMAC en dos conjuntos de datos", "6 000 de 6 000 enlazados", "El seudónimo permite cruzar los conjuntos.", "coral"),
+                       ("HMAC con una clave distinta por propósito", "0 de 6 000 enlazados", "Los conjuntos dejan de ser cruzables sin la clave.", "teal")],
+                      note="Un hash sin clave de un dato adivinable es una forma de publicarlo. La seudonimización con clave sigue siendo dato personal para quien tiene la clave. Las listas de correos y los porcentajes son del autor; no se usó ningún dato de personas reales.",
+                      note_kind="coral", foot=SINT)
 
 # ---------------------------------------------------------------- SE-464
-def se464_espacio_de_interpretaciones() -> Fig:
-    d = R("e464_ambiguedad")
-    f = d["filas"]
-    return line_chart(
-        '«Calcula la nota final»: interpretaciones coherentes con el texto según las restricciones dadas',
-        f'Línea en escala logarítmica con las interpretaciones coherentes de «calcula la nota final» al añadir restricciones: sin restricciones hay {f[0]["interpretaciones"]} y se acierta al azar con {p(f[0]["p_acertar_al_azar"], 2)}; cada restricción divide por tres y con todas queda {f[6]["interpretaciones"]} interpretación.',
-        [("Interpretaciones posibles", [(i, r["interpretaciones"], f'{r["interpretaciones"]} · {p(r["p_acertar_al_azar"], 2)}', "t" if i else "r") for i, r in enumerate(f)], "teal")],
-        x_label="Restricciones añadidas a la instrucción", y_label="Interpretaciones posibles", log_y=True,
-        x_ticks=[(i, r["paso"]) for i, r in enumerate(f)], y_ticks=[1, 10, 100, 1000], point_labels="none", plot_h=280,
-        note='Seis dimensiones con tres opciones dan 729 combinaciones; cada restricción divide por tres. Las dimensiones y sus opciones son un ejemplo del autor, y las combinaciones reales dependen de requisitos que no se enumeran tan limpiamente.', note_kind='teal', foot='Enumeración exacta del producto cartesiano; no interviene ningún modelo.')
+def se392_mutantes() -> Fig:
+    items = [
+        ("Solo ejemplos válidos (5 pruebas)", 0, "coral", "0 de 12"),
+        ("Más negativos típicos (15)", 3, "coral", "3 de 12"),
+        ("Más valores de borde (30)", 10, "gold", "10 de 12"),
+        ("Más 2 000 entradas al azar (2 050)", 10, "gold", "10 de 12"),
+    ]
+    return bars("Doce defectos plantados en un validador de subidas: cuántos mata cada diseño de pruebas",
+                "Barras: cinco ejemplos válidos matan 0 de 12 mutantes del validador de subidas; con negativos típicos 3; con valores de borde 10; y 2 000 entradas aleatorias adicionales comparadas con la referencia siguen en 10.",
+                items, 38.0, "Dos mutantes sobreviven a todo: uno es equivalente (permitir separadores de ruta no cambia nada porque la lista blanca de caracteres ya los rechaza, defensa en profundidad) y el otro, la doble extensión ejecutable, exige un patrón que 2 000 entradas aleatorias no generaron. El azar no sustituye al borde elegido con criterio.",
+                label_w=330, width=940, note_kind="gold", foot=SINT)
 
 
-def se464_versiones_en_contexto() -> Fig:
-    d = R("e464_distractores")
-    items = [('Sin filtrar versiones', d["sin_filtro"], 'coral', p(d["sin_filtro"])), ('Filtrando la versión vigente', d["con_filtro"], 'teal', p(d["con_filtro"]))]
-    return bars(f'{d["consultas"]} consultas con documentos de versiones anteriores mezclados en el contexto',
-               f'Barras con el porcentaje de consultas en que el primer documento recuperado es el vigente: {p(d["sin_filtro"])} sin filtrar por versión y {p(d["con_filtro"])} filtrando.',
-               items, 5.0, 'Los documentos antiguos comparten el vocabulario del vigente y compiten con él por la puntuación; los metadatos de versión resuelven lo que el texto no puede. El 100 % es por construcción, pues se supone la etiqueta de versión correcta, y en la práctica a menudo falta o está mal.',
-               label_w=270, width=940, note_kind='gold', foot=SINT)
+def se392_reglas() -> Fig:
+    return grouped_bars("Ocho reglas de ast sobre 60 fragmentos de código (24 con defecto sencillo, 6 con defecto difícil, 30 seguros)",
+                        "Barras agrupadas con lo que encuentran las reglas de ast: de 24 defectos sencillos detectan 24 y marcan 0 seguros; de 6 defectos difíciles (alias, flujo de datos, comentarios, suma de cadenas) detectan 0 y marcan en falso 2 de los 6 seguros difíciles.",
+                        ["Sencillos (llamada directa, literal)", "Difíciles (alias, flujo de datos, suma)"],
+                        [("Con defecto", [24, 6], "grey"), ("Detectados", [24, 0], "teal"), ("Seguros marcados en falso", [0, 2], "coral")],
+                        unit="fragmentos",
+                        note="Una regla sintáctica ve la forma de la llamada, no el flujo del dato: no sigue alias (from subprocess import run as r), variables que valen True, yaml.FullLoader ni una contraseña armada con una suma. Las 2 falsas alarmas son lo contrario: una función propia llamada eval y md5 con usedforsecurity=False. Reglas y fragmentos son del autor.",
+                        note_kind="gold", foot=SINT)
 
-
-def se464_reglas_que_chocan() -> Fig:
-    d = R("e464_reglas")
-    f = d["filas"]
-    return line_chart(
-        f'Archivos de instrucciones sintéticos con reglas «siempre/nunca» sobre {d["claves"]} temas: los que se contradicen',
-        f'Línea con el porcentaje de archivos de instrucciones con al menos una contradicción según el número de reglas sobre {d["claves"]} temas: {p(f[0]["con_conflicto"])} con 5 reglas, {p(f[1]["con_conflicto"])} con 10, {p(f[2]["con_conflicto"])} con 20 y {p(f[3]["con_conflicto"])} con 40.',
-        [("Archivos con alguna contradicción", [(r["reglas"], r["con_conflicto"], n(r["con_conflicto"]), "t") for r in f], "coral")],
-        x_label="Reglas en el archivo", y_label="Archivos con alguna contradicción (%)", x_ticks=[(r["reglas"], str(r["reglas"])) for r in f], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
-        note='Un detector que compara reglas del mismo tema las encuentra todas, pero solo si las reglas se escriben de forma estructurada; en prosa libre la contradicción pasa desapercibida. Las 500 muestras por tamaño y la elección al azar de tema y polaridad son del autor.', note_kind='gold', foot=EJEC)
-
+def se392_regex() -> Fig:
+    ns = [14, 16, 18, 20, 22, 24]
+    return line_chart("Tiempo de re.match con a repetida n veces y un «!» al final: ^(a+)+$ frente a ^a+$",
+                      "Líneas con escala logarítmica vertical con el tiempo de re.match con n letras a y un signo de exclamación: el patrón con cuantificadores anidados pasa de 0,88 milisegundos con 14 caracteres a 935,54 con 24, multiplicándose por unas 4 cada 2 caracteres, mientras el patrón lineal se mantiene en milésimas de milisegundo.",
+                      [("^(a+)+$", [(n, v, fmt_es(v, 2), "t") for n, v in zip(ns, [0.88, 3.97, 13.84, 59.99, 230.38, 935.54])], "coral"),
+                       ("^a+$", [(n, v, fmt_es(v, 4), "r" if n == 14 else "b") for n, v in zip(ns, [0.0014, 0.0040, 0.0045, 0.0046, 0.0050, 0.0051])], "teal")],
+                      x_label="n (caracteres a)", y_label="Tiempo (ms)", log_y=True, x_ticks=[(n, str(n)) for n in ns], y_ticks=[0.001, 0.01, 0.1, 1, 10, 100, 1000],
+                      note="Dos caracteres más multiplican el tiempo por cuatro (factores entre filas: 4,5; 3,5; 4,3; 3,8; 4,1): extrapolado, 30 caracteres ocupan un hilo cerca de un minuto y 40, unas 17 horas. El defecto está en la expresión, no en el dato; recortar la longitud a 20 es una mitigación que se rompe si el límite cambia. Lectura de reloj: en otro equipo cambian los milisegundos y se conserva el crecimiento.",
+                      note_kind="coral", foot=REAL)
 
 # ---------------------------------------------------------------- SE-465
-def se465_tamano_del_conjunto() -> Fig:
-    f = R("e465_tamano")["filas"]
-    return percentile_intervals(
-        'Un sistema con 70 % de éxito y otro con 75 %: intervalo de Wilson y probabilidad de ordenarlos bien',
-        f'Intervalos horizontales con el intervalo de Wilson al 95 por ciento para un 70 por ciento de éxito según el tamaño del conjunto: con {f[0]["tareas"]} tareas va de {p(f[0]["ic"][0])} a {p(f[0]["ic"][1])}, con {f[3]["tareas"]} de {p(f[3]["ic"][0])} a {p(f[3]["ic"][1])} y con {f[4]["tareas"]} de {p(f[4]["ic"][0])} a {p(f[4]["ic"][1])}; la probabilidad de ordenar bien 70 y 75 por ciento sube de {p(f[0]["ordena_bien"])} a {p(f[4]["ordena_bien"])}.',
-        [(f'{r["tareas"]} tareas', [r["ic"][0], 70, r["ic"][1]]) for r in f],
-        unit="Tasa de éxito (%)", marks=("límite inferior", "70 % observado", "límite superior"), decimals=1, label_w=120,
-        note='Con 100 tareas la diferencia de cinco puntos se ordena bien tres de cada cuatro veces; para distinguir cinco puntos con holgura hacen falta cientos. Las tasas de éxito son hipotéticas y las tareas se suponen independientes e igual de difíciles.', note_kind='coral', foot=SINT)
+def se393_cvss() -> Fig:
+    return percentile_intervals("Tres analistas puntúan con CVSS v3.1 el mismo hallazgo: puntajes y banda según su lectura del vector",
+                                "Rangos de tres puntajes CVSS v3.1 por hallazgo con las bandas de gravedad: la lectura de notas ajenas va de 4,3 a 7,5, el cambio de nota de 5,3 a 6,5, el XSS almacenado de 4,6 a 6,1, la inyección SQL de 7,1 a 9,8, el secreto en un registro de 2,3 a 5,5 y la denegación por expresión regular de 3,7 a 7,5.",
+                                [("Lectura de notas ajenas por identificador", [4.3, 6.5, 7.5]), ("Cambio de nota sin comprobar el dueño", [5.3, 5.4, 6.5]), ("XSS almacenado en un comentario", [4.6, 5.4, 6.1]),
+                                 ("Inyección SQL en la búsqueda de entregas", [7.1, 8.8, 9.8]), ("Secreto en un registro accesible a soporte", [2.3, 4.9, 5.5]), ("Denegación por expresión regular catastrófica", [3.7, 6.5, 7.5])],
+                                unit="puntaje CVSS v3.1 (media desde 4,0, alta desde 7,0, crítica desde 9,0)", marks=("Mínimo", "Intermedio", "Máximo"), decimals=1, label_w=330,
+                                note="Los tres puntajes de cada fila (el intermedio es el de en medio): 6,5 · 4,3 · 7,5; 6,5 · 5,4 · 5,3; 5,4 · 4,6 · 6,1; 9,8 · 8,8 · 7,1; 5,5 · 4,9 · 2,3; 7,5 · 6,5 · 3,7. La fórmula es determinista (9,8 para AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H, 6,1 para el XSS reflejado clásico); lo subjetivo es elegir cada métrica del vector. Los vectores los escribió el autor para ilustrar lecturas posibles, no son de analistas reales.",
+                                note_kind="gold", foot=SINT)
 
+def se393_prioridad() -> Fig:
+    return grouped_bars("3 000 vulnerabilidades sintéticas (83 explotadas): cuántas se parchean y cuántas explotadas se cubren",
+                        "Barras agrupadas en escala logarítmica con los parches aplicados y las explotadas cubiertas de 83: CVSS 7 o más exige 1076 parches y cubre 40, CVSS 9 o más 236 y cubre 14, parchear solo las explotadas conocidas 83 y cubre 83, y la unión con CVSS 9 o más 305 y cubre 83.",
+                        ["CVSS de 7 o más", "CVSS de 9 o más", "Lista de explotación conocida", "Explotadas más CVSS de 9 o más"],
+                        [("Parches a aplicar", [1076, 236, 83, 305], "gold"), ("Explotadas cubiertas (de 83)", [40, 14, 83, 83], "teal")],
+                        unit="parches o explotadas cubiertas", log=True,
+                        note="Es un ejemplo de mecanismo: la gravedad describe el daño posible y la explotación observada describe la probabilidad. Aquí la correlación entre ambas es débil por supuesto del autor (2 % frente a 3,5 %); en el mundo real hay que medirla con listas como KEV y EPSS. La lista conocida solo cubre lo ya explotado.",
+                        note_kind="teal", foot=SINT)
 
-def se465_frontera_costo_calidad() -> Fig:
-    d = R("e465_frontera")
-    f = d["filas"]
-    return scatter(
-        'Seis configuraciones sintéticas: éxito, costo por intento, latencia y costo por solución aceptada',
-        f'Dispersión de la latencia y la tasa de éxito de seis configuraciones de un asistente: el pequeño con reintento queda dominado, con menos éxito que el mediano y más latencia; el éxito sube de {n(f[0]["exito"], 0)} por ciento con {n(f[0]["latencia_s"])} segundos a {n(f[5]["exito"], 0)} con {n(f[5]["latencia_s"], 0)} segundos; el costo por solución aceptada incluye una revisión humana de {n(d["revision"], 2)}.',
-        [("Configuración no dominada", [(r["latencia_s"], r["exito"], r["config"], "l" if r["config"] == "mediano" else "r") for r in f if not r["dominada"]], "teal"),
-         ("Configuración dominada", [(r["latencia_s"], r["exito"], r["config"], "r") for r in f if r["dominada"]], "coral")],
-        x_label="Latencia (s)", y_label="Éxito (%)", x_ticks=[(0, "0"), (2, "2"), (4, "4"), (6, "6"), (8, "8"), (10, "10"), (12, "12"), (18, "")], y_ticks=[40, 50, 60, 70, 80, 90, 100], y_zero=False,
-        note=f'La revisión humana (0,40 por intento) pesa mucho más que el costo del modelo: lo barato por intento sale caro por solución aceptada. Todos los valores, incluida la revisión de {n(d["revision"], 2)}, son supuestos del autor en una unidad arbitraria.', note_kind='gold', foot=SINT)
-
-
-def se465_sesgos_del_juez() -> Fig:
-    d = R("e465_juez")
-    items = [('Acuerdo con la etiqueta humana', d["acuerdo_con_humano"], 'gold', p(d["acuerdo_con_humano"])),
-             ('Mismo veredicto al intercambiar el orden', d["estable_al_intercambiar_orden"], 'coral', p(d["estable_al_intercambiar_orden"])),
-             ('Gana la respuesta más larga', d["gana_la_mas_larga"], 'coral', p(d["gana_la_mas_larga"]))]
-    return bars(f'Un juez automático sintético con sesgos de posición y de longitud ({d["n"]} comparaciones)',
-               f'Barras con tres medidas de un juez automático: acuerda con la etiqueta humana {p(d["acuerdo_con_humano"])}, mantiene el veredicto al intercambiar el orden {p(d["estable_al_intercambiar_orden"])} y gana la respuesta más larga en {p(d["gana_la_mas_larga"])} de las comparaciones, cuando por azar serían 50 por ciento.',
-               items, 5.0, 'Un 83 % de acuerdo suena bien y convive con que una cuarta parte de los veredictos cambie solo por el orden de presentación. Los sesgos son parámetros del autor; medir los de un juez real exige comparaciones con orden permutado.',
-               label_w=300, width=980, note_kind='coral', foot=SINT)
-
+def se393_triaje() -> Fig:
+    ps = [1, 2, 3]
+    return line_chart("307 informes de vulnerabilidad en un año (60 % válidos), horario laboral de lunes a viernes de 9 a 17 h",
+                      "Líneas con las horas hasta el primer acuse según las personas de triaje: con una persona la mediana es 27,7, el percentil 90 94,0 y el 99 144,2; con dos 10,6, 52,2 y 63,2; con tres 9,7, 51,3 y 63,2, porque el límite pasa a ser el horario y no la cola.",
+                      [("Percentil 99", [(p, v, fmt_es(v, 1), "t") for p, v in zip(ps, [144.2, 63.2, 63.2])], "coral"), ("Percentil 90", [(p, v, fmt_es(v, 1), "b") for p, v in zip(ps, [94.0, 52.2, 51.3])], "gold"),
+                       ("Mediana", [(p, v, fmt_es(v, 1), "t") for p, v in zip(ps, [27.7, 10.6, 9.7])], "teal")],
+                      x_label="Personas de triaje", y_label="Horas hasta el primer acuse", x_ticks=[(p, str(p)) for p in ps], y_ticks=[0, 40, 80, 120, 160],
+                      note="Pasar de una a dos personas recorta la espera a la mitad; la tercera casi no cambia nada porque los informes del viernes por la tarde esperan al lunes. Una política de «acuse en 72 horas» pide dos personas o un acuse automático. Las llegadas (6 por semana) y los tiempos son del autor.",
+                      note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-466
-def se466_escaner_de_datos() -> Fig:
-    d = R("e466_escaner")
-    nombres = {"correo": "Correo electrónico", "secreto": "Cadena aleatoria alfanumérica", "secreto_hex": "Cadena aleatoria hexadecimal", "identificador": "Identificador con guion", "limpio": "Texto sin datos sensibles"}
-    ks = list(d)
-    return heatmap(
-        '240 mensajes sintéticos: qué detecta cada regla de un escáner previo al envío',
-        'Mapa de calor con cuántos mensajes de cada clase detecta cada regla de un escáner previo al envío: el patrón detecta los 40 correos y los 40 identificadores, la entropía solo las cadenas alfanuméricas, la palabra clave seguida de un valor las dos cadenas aleatorias, y las tres reglas juntas cubren los cuatro tipos de dato sin marcar ningún texto limpio.',
-        [f'{nombres[k]} ({d[k]["n"]})' for k in ks], ["Patrón", "Entropía", "Contexto", "Las tres"],
-        [[d[k]["patron"], d[k]["entropia"], d[k]["contexto"], d[k]["las_tres"]] for k in ks],
-        unit="detectados", row_title="Clase de mensaje (casos)", col_title="Mensajes detectados por cada regla",
-        scale="teal", vmin=0, vmax=40, decimals=0, cell_h=42, label_w=300,
-        note='Cada regla ve una cara; la entropía no puede marcar una cadena hexadecimal porque su entropía máxima es 4 bits, y la regla de contexto depende de la palabra «clave». Las cadenas se generan en tiempo de ejecución; ninguna es un dato real. Los mensajes son plantillas del autor.', note_kind='gold', foot=EJEC)
+def se394_embudo() -> Fig:
+    items = [
+        ("Requisitos aplicables", 40, "plain", "40"),
+        ("Con un control documentado", 38, "teal", "38"),
+        ("Con una prueba asociada", 28, "teal", "28"),
+        ("Y la prueba pasó", 27, "gold", "27"),
+        ("Y la evidencia tiene 90 días o menos", 23, "gold", "23"),
+        ("Y la evidencia tiene 30 días o menos", 4, "coral", "4"),
+    ]
+    return bars("De 40 requisitos a evidencia vigente: lo que significa «cubierto» según la definición",
+                "Barras: de 40 requisitos, 38 tienen control documentado, 28 tienen una prueba, 27 la pasaron, 23 tienen evidencia de 90 días o menos y solo 4 de 30 días o menos.",
+                items, 15.0, "El mismo conjunto da 95 %, 70 %, 67,5 %, 57,5 % o 10 % de cobertura según se exija un documento, una prueba, un resultado o evidencia reciente. Una auditoría que acepta la primera definición certifica un papel. Las probabilidades de cada etapa y la edad de la evidencia son supuestos del autor.",
+                label_w=360, width=980, note_kind="gold", foot=SINT)
 
 
-def se466_patrones_inseguros() -> Fig:
-    d = R("e466_patrones")
-    return grouped_bars(
-        f'{len(ex.SNIPPETS)} fragmentos de Python ({d["inseguros"]} inseguros): búsqueda de texto frente a recorrido del árbol sintáctico',
-        f'Barras agrupadas con el resultado de dos técnicas para encontrar nueve patrones inseguros: la búsqueda de texto halla {d["filas"][0]["verdaderos"]}, marca {d["filas"][0]["falsos_positivos"]} fragmentos seguros y omite {d["filas"][0]["omitidos"]}; el recorrido del árbol sintáctico halla {d["filas"][1]["verdaderos"]}, marca {d["filas"][1]["falsos_positivos"]} y omite {d["filas"][1]["omitidos"]}.',
-        [r["tecnica"].capitalize() for r in d["filas"]],
-        [("Inseguros hallados", [r["verdaderos"] for r in d["filas"]], "teal"), ("Falsas alarmas", [r["falsos_positivos"] for r in d["filas"]], "coral"), ("Inseguros omitidos", [r["omitidos"] for r in d["filas"]], "gold")],
-        unit="Fragmentos", ticks=[0, 2, 4, 6, 8],
-        note='El árbol evita marcar comentarios y mensajes pero no ve alias como «f = eval»; ninguna de las dos técnicas sustituye a un análisis de flujo de datos. Los fragmentos están escritos por el autor, algunos pensados para engañar a cada técnica.', note_kind='coral', foot=EJEC)
+def se394_muestreo() -> Fig:
+    return grouped_bars("Muestrear 2 000 eventos con 30 defectos (1,5 %): probabilidad de que la muestra contenga al menos un defecto",
+                        "Barras agrupadas con la probabilidad de que una muestra aleatoria contenga al menos un defecto: 14,1 por ciento con 10 eventos, 31,6 con 25, 60,2 con 60, 78,8 con 100 y 95,9 con 200, valores que la simulación de 20 000 repeticiones reproduce.",
+                        ["10 eventos", "25 eventos", "60 eventos", "100 eventos", "200 eventos"],
+                        [("Probabilidad exacta", [14.1, 31.6, 60.2, 78.8, 95.9], "teal"), ("Simulada (20 000)", [13.9, 31.6, 60.3, 78.8, 96.0], "grey")],
+                        unit="% de muestras con al menos un defecto", decimals=1, ticks=[0, 20, 40, 60, 80, 100],
+                        note="Una muestra de 25 «sin hallazgos» no prueba control: con 1,5 % de defectos ocurre el 68 % de las veces. Si los defectos se concentran (cuentas de servicio: 4 % de los eventos y 60 % de los defectos), 25 eventos al azar encuentran uno el 31,6 % de las veces; 15 de ese estrato más 10 del resto, el 98,7 %.",
+                        note_kind="coral", foot=SINT)
 
-
-def se466_parecido_con_licencia() -> Fig:
-    f = R("e466_similitud")["filas"]
-    return grouped_bars(
-        'Huellas de cinco símbolos: fragmento generado frente a un corpus con licencia',
-        f'Barras horizontales con el porcentaje de huellas de cinco símbolos de cada fragmento que aparece en el corpus: la copia literal da {p(100 * f[0]["literal"], 0)} en las dos comparaciones; la copia con nombres cambiados baja a {p(100 * f[1]["literal"], 0)} comparando símbolos literales y vuelve a {p(100 * f[1]["normalizada"], 0)} con identificadores normalizados; una solución independiente da {p(100 * f[3]["literal"], 0)} y {p(100 * f[3]["normalizada"], 0)}.',
-        [r["caso"] for r in f],
-        [("Huellas literales", [100 * r["literal"] for r in f], "coral"), ("Con identificadores normalizados", [100 * r["normalizada"] for r in f], "teal")],
-        unit="Huellas presentes en el corpus (%)", horizontal=True, label_w=270, decimals=0, ticks=[0, 20, 40, 60, 80, 100],
-        note='Cambiar los nombres engaña a la comparación literal pero no a la normalizada; un idioma muy común coincide al 100 % sin ser copia de nadie. Un parecido alto es una señal para investigar y no un veredicto de infracción. El corpus de una función es mínimo y del autor.', note_kind='gold', foot=EJEC)
-
+def se394_cadena() -> Fig:
+    return grouped_bars("Registro de 1 000 eventos con huellas encadenadas: 100 ataques de cada tipo",
+                        "Barras horizontales con los ataques detectados de 100 por tipo: una cadena de huellas detecta 100 de 100 modificaciones, borrados intermedios y reordenamientos, pero 0 de 100 truncamientos de los últimos eventos y 0 de 100 reescrituras que recalculan las huellas; con la huella final publicada fuera del sistema detecta 100 de 100 de todos los tipos.",
+                        ["Modificar un evento", "Borrar un evento intermedio", "Reordenar dos eventos", "Truncar los últimos 10 eventos", "Reescribir desde un evento recalculando las huellas"],
+                        [("Solo la cadena", [100, 100, 100, 0, 0], "coral"), ("Cadena y huella publicada fuera", [100, 100, 100, 100, 100], "teal")],
+                        unit="ataques detectados de 100", horizontal=True, label_w=330, ticks=[0, 25, 50, 75, 100],
+                        note="La cadena detecta lo que rompe un eslabón y no lo que lo reconstruye bien: quien puede escribir puede recalcular. Hace falta un ancla fuera del alcance del atacante (un tercero, un sellado de tiempo, un registro de transparencia). El ancla debe publicarse antes del ataque; un ancla posterior no detecta nada.",
+                        note_kind="teal", foot=SINT)
 
 # ---------------------------------------------------------------- SE-467
-def se467_tres_flujos() -> Fig:
-    d = R("e467_flujos")
-    return percentile_intervals(
-        f'{d["n"]} tareas sintéticas en tres flujos: horas por tarea y defectos que escapan a la revisión',
-        f'Intervalos horizontales con la mediana de horas por tarea y su intervalo bootstrap al 95 por ciento en tres flujos: manual {n(d["filas"][0]["mediana_h"], 2)} horas, asistido {n(d["filas"][1]["mediana_h"], 2)} y automatizado {n(d["filas"][2]["mediana_h"], 2)}; los defectos que escapan a la revisión suben de {d["filas"][0]["defectos_escapan"]} a {d["filas"][1]["defectos_escapan"]} y {d["filas"][2]["defectos_escapan"]}.',
-        [(r["flujo"].capitalize(), [r["ic95"][0], r["mediana_h"], r["ic95"][1]]) for r in d["filas"]],
-        unit="Horas por tarea", marks=("IC 95 % inferior", "mediana", "IC 95 % superior"), decimals=2, label_w=130,
-        note='Cada paso ahorra tiempo y deja escapar más defectos: no hay un flujo «mejor» sin decidir cuánto vale cada defecto. Todos los tiempos relativos y tasas de defecto son supuestos del autor; no se midió a ninguna persona ni herramienta.', note_kind='gold', foot=SINT)
+def se395_rutas() -> Fig:
+    return grouped_bars("5 000 cargas al azar (puntos, barras, %2e, %2f): cuántas salen de la raíz según el control",
+                        "Barras agrupadas con las cargas de 5 000 que salen de la raíz según el control: quitar una vez la secuencia punto punto barra deja salir 2072 con rutas POSIX y 2154 con rutas de Windows, quitarla en bucle 1106 y 1181, y decodificar, resolver y comprobar el prefijo 0 y 0.",
+                        ["Quitar «../» una vez y decodificar después", "Quitar «../» en bucle y decodificar después", "Decodificar, resolver y comprobar el prefijo de la raíz"],
+                        [("Salen de la raíz (POSIX)", [2072, 1106, 0], "coral"), ("Salen de la raíz (Windows)", [2154, 1181, 0], "gold")],
+                        unit="cargas que salen de la raíz, de 5 000",
+                        note="El tercer control rechaza 903 cargas en POSIX y 958 en Windows y deja salir ninguna. Quitar «../» una vez convierte «....//secreto» en «../secreto». El bucle cierra ese caso y falla con la decodificación posterior (%2e%2e%2f), y las barras invertidas de Windows son otro separador. La reparación no filtra: resuelve la ruta final y comprueba que sigue dentro de la raíz.",
+                        note_kind="coral", foot=SINT)
 
+def se395_csrf() -> Fig:
+    return heatmap("Defensa CSRF: cinco peticiones contra tres implementaciones (la primera solo comprueba que haya token)",
+                   "Mapa de calor con si tres implementaciones de CSRF aceptan cinco peticiones: solo presencia acepta un token inventado, uno con un espacio y el de otra sesión; el valor global rechaza los inventados pero acepta el de otra sesión y rechaza el token propio; ligado a la sesión con un HMAC rechaza lo ajeno y acepta lo propio.",
+                   ["Sin token", "Token inventado", "Token con un espacio", "Token válido de la sesión de otra persona", "Token propio de la sesión"], ["Solo presencia", "Valor global", "Ligado a la sesión"],
+                   [[0, 0, 0], [1, 0, 0], [1, 0, 0], [1, 1, 0], [1, 0, 1]], unit="acepta la petición", scale="coral", vmin=0, vmax=1,
+                   cell_fmt=lambda v: "ACEPTA" if v else "rechaza", highlight=[(1, 0), (2, 0), (3, 0), (3, 1), (4, 1)], label_w=300,
+                   note="El contorno marca el comportamiento incorrecto: aceptar lo ajeno o rechazar lo propio. Las pruebas felices (token propio, sin token) pasan en la implementación débil: ninguna prueba que no intente falsificar detecta que el control es de apariencia. La implementación con valor global parece mejor y falla en la otra dirección. El token es un HMAC de la sesión, no un secreto compartido por todos.",
+                   note_kind="gold", foot=SINT)
 
-def se467_punto_de_equilibrio() -> Fig:
-    d = R("e467_sensibilidad")
-    f = d["filas"]
-    ts = [(r["aciertos"], f'{n(r["aciertos"], 0)} %') for r in f]
-    return line_chart(
-        'Flujo asistido frente a manual: ahorro de tiempo según la tasa de aciertos del asistente',
-        f'Línea con el ahorro de tiempo del flujo asistido frente al manual según la tasa de aciertos del asistente: con {p(f[0]["aciertos"], 0)} ahorra {p(f[0]["ahorro"], 0)}, con 50 por ciento no ahorra nada y con {p(f[4]["aciertos"], 0)} cuesta {p(abs(f[4]["ahorro"]), 0)} más; la línea roja marca el punto de equilibrio.',
-        [("Ahorro de tiempo", [(r["aciertos"], r["ahorro"], p(r["ahorro"], 0), "t") for r in f], "teal")],
-        x_label="Aciertos del asistente", y_label="Ahorro frente al flujo manual (%)", x_ticks=ts, y_ticks=[-30, -20, -10, 0, 10, 20, 30, 40], point_labels="none", hlines=[(0, "equilibrio")],
-        note=f'Con generar 35 %, revisar 25 % y rehacer 80 % del tiempo manual, el asistente solo ahorra por encima del {p(d["p_equilibrio"], 0)} de aciertos. Los tres porcentajes son supuestos del autor y se pueden cambiar; la tasa real de aciertos se mide por tipo de tarea.', note_kind='coral', foot='Cálculo exacto con la fórmula del texto; sin simulación ni modelo real.')
-
-
-def se467_diseno_pareado() -> Fig:
-    f = R("e467_diseno")["filas"]
-    return line_chart(
-        'Detectar una diferencia real del 15 % en tiempo: diseño pareado frente a grupos distintos',
-        f'Líneas con la probabilidad de detectar una diferencia real del 15 por ciento según el número de tareas: con {f[1]["tareas"]} tareas el diseño pareado la detecta {p(f[1]["pareado"], 0)} y el de grupos distintos {p(f[1]["independiente"], 0)}; con {f[3]["tareas"]} tareas {p(f[3]["pareado"], 0)} y {p(f[3]["independiente"], 0)}.',
-        [("Mismas tareas en ambos flujos", [(r["tareas"], r["pareado"], p(r["pareado"], 0), "t") for r in f], "teal"), ("Tareas distintas en cada flujo", [(r["tareas"], r["independiente"], p(r["independiente"], 0), "t") for r in f], "coral")],
-        x_label="Tareas por flujo", y_label="Probabilidad de detectar la diferencia (%)", log_x=True, x_ticks=[(r["tareas"], str(r["tareas"])) for r in f], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
-        note='La dificultad varía mucho más entre tareas que entre flujos; si cada flujo hace tareas distintas, esa variación tapa el efecto. Hacer las mismas tareas en los dos flujos (con orden alternado) lo revela con una fracción de las tareas. La variación de tareas es lognormal del autor.', note_kind='teal', foot=SINT)
-
+def se395_limitador() -> Fig:
+    return case_cards("Dos controles aparentes más: limitador por cabecera X-Forwarded-For y verificación de token que lee el algoritmo del propio token",
+                      "Seis pruebas contra un limitador por cabecera y un verificador de token que lee el algoritmo, con el control aparente y el reparado: cambiar la cabecera permite 1000 intentos frente a 5; un token con algoritmo none y rol docente se acepta frente a rechazarse; los tokens con otra clave o carga alterada se rechazan en ambos.",
+                      [("1 000 intentos con una cabecera distinta en cada uno", "Aparente: 1 000 permitidos · Reparado: 5 permitidos", "El limitador cuenta por un dato que controla el atacante.", "coral"),
+                       ("1 000 intentos sin cambiar de dirección", "Aparente: 5 permitidos · Reparado: 5 permitidos", "Sin trampa, los dos limitan igual.", "teal"),
+                       ("Token legítimo", "Aparente: acepta · Reparado: acepta", "Las pruebas felices pasan en ambos.", "teal"),
+                       ("Token con alg «none» y rol docente", "Aparente: ACEPTA · Reparado: rechaza", "El verificador confía en el encabezado del propio token.", "coral"),
+                       ("Token con la firma de otra clave", "Aparente: rechaza · Reparado: rechaza", "La firma sí se comprueba.", "teal"),
+                       ("Token con la carga alterada y la firma vieja", "Aparente: rechaza · Reparado: rechaza", "La firma sí se comprueba.", "teal")],
+                      note="En ambos casos el control confía en un dato que controla el atacante: la cabecera y el encabezado del token. Con el control reparado solo cambia quién decide (la conexión, el servidor). Detrás de un proxy la reparación exige configurar qué proxies son de confianza.",
+                      note_kind="coral", foot=SINT)
 
 # ---------------------------------------------------------------- SE-468
-def se468_bitacora_encadenada() -> Fig:
-    d = R("e468_bitacora")
-    return fan(
-        'Bitácora de seis pasos encadenada por hash: qué manipulaciones detecta la verificación',
-        f'Diagrama de las manipulaciones de una bitácora de seis entradas encadenadas por hash: editar o borrar la entrada 3 se detecta en la entrada {d["editar_entrada_3_detectada_en"]}, intercambiar las entradas 2 y 3 en la {d["intercambiar_2_y_3_detectada_en"]}; editar la 3 y recalcular todos los hashes siguientes no se detecta; con el último hash guardado fuera de la bitácora sí se detecta.',
-        ("Bitácora de seis entradas encadenada por hash", "la verificación recorre la cadena", "navy"),
-        [("Editar el texto de la entrada 3", f'se detecta en la entrada {d["editar_entrada_3_detectada_en"]}', "teal"),
-         ("Borrar la entrada 3", f'se detecta en la entrada {d["borrar_entrada_3_detectada_en"]}', "teal"),
-         ("Intercambiar las entradas 2 y 3", f'se detecta en la entrada {d["intercambiar_2_y_3_detectada_en"]}', "teal"),
-         ("Editar la 3 y recalcular todos los hashes siguientes", "no se detecta: la verificación pasa sin error", "coral"),
-         ("Lo mismo, con el último hash guardado fuera de la bitácora", "el último hash no coincide: se detecta", "teal")],
-        note='El encadenado detecta alteraciones torpes y no a quien tiene acceso para reescribir la cola: hace falta un ancla externa (el último hash en otro sistema, una firma). Es evidencia de integridad, no de que el contenido sea cierto.', note_kind='gold', foot=EJEC)
+def se396_validador() -> Fig:
+    items = [
+        ("Solo presencia de la evidencia", 15, "coral", "15 de 210"),
+        ("Estructura: existencia, fecha, alcance, duplicados", 120, "gold", "120 de 210"),
+        ("Estructura y heurísticas (huellas repetidas, aserciones, resultado)", 195, "teal", "195 de 210"),
+        ("Mutaciones aplicadas", 210, "plain", "14 operadores × 15"),
+    ]
+    return bars("Validador de un paquete de evidencia de seguridad frente a 210 mutaciones (14 operadores × 15)",
+                "Barras: un validador que solo mira la presencia de la evidencia detecta 15 de 210 mutaciones del paquete, uno que comprueba estructura 120 y uno que añade heurísticas semánticas 195; las 15 restantes son evidencia única sin relación con el requisito.",
+                items, 2.2, "Las 15 que ningún validador ve son evidencia que parece buena: un archivo con la palabra «aprobado» que no ejecutó nada. Lo que detecta la estructura se puede automatizar; que la evidencia pruebe el requisito lo decide una revisión humana con la prueba delante. Las mutaciones y los validadores son del autor.",
+                label_w=480, width=1000, note_kind="gold", foot=SINT)
 
 
-def se468_compuertas() -> Fig:
-    d = R("e468_compuertas")
-    f = d["filas"]
-    return grouped_bars(
-        'Cambios asistidos sintéticos (20 % con defecto): defectos que llegan a producción según las compuertas',
-        f'Barras horizontales con los defectos que llegan a producción de 10 000 cambios asistidos según las compuertas: sin compuertas {f[0]["defectos_en_produccion"]}, solo pruebas {f[1]["defectos_en_produccion"]}, pruebas y análisis {f[2]["defectos_en_produccion"]}, con revisión {f[3]["defectos_en_produccion"]} y las cuatro compuertas {f[4]["defectos_en_produccion"]}.',
-        [r["compuertas"].capitalize() for r in f],
-        [("Defectos en producción", [r["defectos_en_produccion"] for r in f], "coral")],
-        unit="Defectos que llegan a producción, de 10 000 cambios", horizontal=True, label_w=250, ticks=[0, 500, 1000, 1500, 2000, 2500],
-        note=f'Cada compuerta quita una fracción y ninguna llega a cero; además la revisión humana pierde eficacia con el tamaño: detecta {p(d["fatiga"][0]["p_detectar"])} con 20 líneas y {p(d["fatiga"][3]["p_detectar"])} con 1.000. Las probabilidades de detección y su independencia son supuestos del autor.', note_kind='coral', foot=SINT)
+def se396_portabilidad() -> Fig:
+    return case_cards("La huella de un paquete de cinco archivos construido en Windows y en Ubuntu (WSL2)",
+                      "Tres métodos de huella de un paquete de cinco archivos en Windows y en Ubuntu como tarjetas: el listado de un mismo directorio sale en distinto orden y la huella ingenua difiere (dcb7a0e6 frente a 9eb5bb1c); una huella canónica con rutas ordenadas, saltos de línea normalizados y separador barra coincide en los dos (7f9dbc41).",
+                      [("Orden de os.listdir", "Windows: A.txt, b.txt, informe, ñ.txt · Ubuntu: A.txt, ñ.txt, b.txt, informe", "No coinciden: el orden depende del sistema de archivos.", "coral"),
+                       ("Huella ingenua (orden del sistema, bytes crudos)", "Windows: dcb7a0e6… · Ubuntu: 9eb5bb1c…", "No coinciden.", "coral"),
+                       ("Huella canónica (rutas ordenadas, LF, separador /)", "Windows: 7f9dbc41… · Ubuntu: 7f9dbc41…", "Coinciden.", "teal")],
+                      note="Dos personas que ejecutan lo mismo en equipos distintos no obtienen la misma huella si la huella depende del orden del sistema de archivos o de los finales de línea. La huella canónica define el orden, la codificación y la normalización; con ella la verificación entre sistemas se puede automatizar.",
+                      note_kind="teal", foot=SONDA)
 
-
-def se468_reversion_limpia() -> Fig:
-    f = R("e468_reversion")["filas"]
-    return line_chart(
-        'Revertir un cambio de 40 líneas (4 bloques de 10) en un archivo de 400 tras k ediciones posteriores',
-        f'Línea con la probabilidad de revertir un cambio de 40 líneas sin conflicto según las ediciones posteriores: {p(f[0]["reversion_limpia"])} sin ediciones, {p(f[1]["reversion_limpia"])} con 5, {p(f[2]["reversion_limpia"])} con 20 y {p(f[3]["reversion_limpia"])} con 60.',
-        [("Reversión limpia", [(r["ediciones_posteriores"], r["reversion_limpia"], p(r["reversion_limpia"]), "r") for r in f], "coral")],
-        x_label="Ediciones posteriores en el archivo", y_label="Reversión sin conflicto (%)", x_ticks=[(r["ediciones_posteriores"], str(r["ediciones_posteriores"])) for r in f] + [(170, "")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
-        note='La ventana para deshacer un cambio sin conflictos se cierra rápido: cuanto más tarda la revisión, más probable es que revertir sea ya otro cambio. Las ediciones al azar sobre líneas uniformes son una simplificación del autor; los cambios reales se concentran.', note_kind='gold', foot=SINT)
-
+def se396_operadores() -> Fig:
+    ops = ["Quitar la evidencia", "Evidencia o prueba que no existe", "Evidencia de 120 días; alcance de otra versión", "No aplica sin justificación; excepción sin dueño", "Identificador duplicado",
+           "Misma evidencia en 10 requisitos o copia de otro", "Prueba sin aserciones; prueba fallida marcada como cumple", "Archivo de evidencia vacío", "Evidencia única que dice «aprobado» sin ejecutar nada"]
+    return heatmap("Mutaciones del paquete detectadas por operador (de 15 cada una) según el validador",
+                   "Mapa de calor con las mutaciones detectadas de 15 por operador según tres validadores: quitar la evidencia lo detectan los tres; existencia, fecha, alcance, justificación, dueño y duplicados el de estructura y el semántico; huellas repetidas, pruebas sin aserciones y archivos vacíos solo el semántico; la evidencia única sin relación con el requisito, ninguno.",
+                   ops, ["Presencia", "Estructura", "Con heurísticas"],
+                   [[15, 15, 15], [0, 15, 15], [0, 15, 15], [0, 15, 15], [0, 15, 15], [0, 0, 15], [0, 0, 15], [0, 0, 15], [0, 0, 0]], unit="detectadas de 15", scale="teal", vmin=0, vmax=15, label_w=360, cell_h=40,
+                   note="Cada capa añade reglas que alguien tuvo que imaginar; el mapa se llena en escalera de izquierda a derecha. La última fila no cae en ninguna regla porque su forma es la de una evidencia correcta. Las agrupaciones suman 14 operadores; en las filas con dos, cada valor es la detección de cada uno de ellos.",
+                   note_kind="gold", foot=SINT)
 
 FIGURES = {
-    "se-463-umbral-del-revisor.svg": se463_umbral_del_revisor,
-    "se-463-equivalencia-por-entradas.svg": se463_equivalencia_por_entradas,
-    "se-463-explicar-el-comentario.svg": se463_explicar_el_comentario,
-    "se-464-espacio-de-interpretaciones.svg": se464_espacio_de_interpretaciones,
-    "se-464-versiones-en-contexto.svg": se464_versiones_en_contexto,
-    "se-464-reglas-que-chocan.svg": se464_reglas_que_chocan,
-    "se-465-tamano-del-conjunto.svg": se465_tamano_del_conjunto,
-    "se-465-frontera-costo-calidad.svg": se465_frontera_costo_calidad,
-    "se-465-sesgos-del-juez.svg": se465_sesgos_del_juez,
-    "se-466-escaner-de-datos.svg": se466_escaner_de_datos,
-    "se-466-patrones-inseguros.svg": se466_patrones_inseguros,
-    "se-466-parecido-con-licencia.svg": se466_parecido_con_licencia,
-    "se-467-tres-flujos.svg": se467_tres_flujos,
-    "se-467-punto-de-equilibrio.svg": se467_punto_de_equilibrio,
-    "se-467-diseno-pareado.svg": se467_diseno_pareado,
-    "se-468-bitacora-encadenada.svg": se468_bitacora_encadenada,
-    "se-468-compuertas.svg": se468_compuertas,
-    "se-468-reversion-limpia.svg": se468_reversion_limpia,
+    "se-463-unicidad-y-generalizacion.svg": se391_unicidad,
+    "se-463-ruido-y-presupuesto.svg": se391_ruido,
+    "se-463-seudonimos-y-enlace.svg": se391_seudonimos,
+    "se-464-mutantes-del-validador.svg": se392_mutantes,
+    "se-464-reglas-de-seguridad.svg": se392_reglas,
+    "se-464-regex-catastrofica.svg": se392_regex,
+    "se-465-puntajes-cvss.svg": se393_cvss,
+    "se-465-prioridad-por-explotacion.svg": se393_prioridad,
+    "se-465-triaje-de-informes.svg": se393_triaje,
+    "se-466-embudo-de-cobertura.svg": se394_embudo,
+    "se-466-muestreo-de-auditoria.svg": se394_muestreo,
+    "se-466-registro-con-cadena.svg": se394_cadena,
+    "se-467-filtro-de-rutas.svg": se395_rutas,
+    "se-467-defensa-csrf.svg": se395_csrf,
+    "se-467-limitador-y-token.svg": se395_limitador,
+    "se-468-validador-de-paquete.svg": se396_validador,
+    "se-468-huella-entre-sistemas.svg": se396_portabilidad,
+    "se-468-mutaciones-por-operador.svg": se396_operadores,
 }

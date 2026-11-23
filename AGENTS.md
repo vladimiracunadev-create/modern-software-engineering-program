@@ -9,7 +9,7 @@ trabajo después de una compactación de contexto, relee también
 [`docs/PROGRAM-ARCHITECTURE.md`](docs/PROGRAM-ARCHITECTURE.md) y la auditoría de
 cobertura vigente. Relee además el
 [`plan maestro de implementación`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md),
-que conserva el mandato completo y el análisis de mejora de `SE-001` a `SE-588`.
+que conserva el mandato completo y el análisis de mejora de `SE-001` a `SE-612`.
 El roadmap define el programa; este archivo define cómo trabajan los agentes. El
 chat no sustituye esas fuentes canónicas.
 
@@ -22,6 +22,8 @@ Reglas no negociables:
 - publica en el portal el contenido íntegro de la clase, no una ficha que remite a GitHub;
 - vincula fuentes reales a las afirmaciones que sustentan;
 - conserva alcance, conteos, README, Pages y About coherentes con la evidencia real;
+- usa la secuencia pedagógica vigente (51 partes, `SE-001`–`SE-612`; ADR-007): las Partes 34 y 42 están
+  reservadas y las citas anteriores al 2026-11-23 se traducen con `docs/ID-MIGRATION.md`;
 - publica una parte por commit, después de validación estructural y cualitativa.
 
 La referencia externa de calidad es la Parte 6 de

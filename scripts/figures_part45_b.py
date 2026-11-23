@@ -1,238 +1,215 @@
-"""Figures for SE-547 to SE-552 (data engineering: runs of real CPython and SQLite code and seeded models over the Avisos case; Windows CPython 3.12.9, SQLite 3.45.3; no language model was invoked)."""
+"""Figures for SE-547 to SE-552 (development methodologies: contracts, specification drift, evaluation gates, a real Git history, five methodologies on one change, and a team policy; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig, grouped_bars, heatmap, line_chart, timeline
-from figures_part40_a import flow, mapa
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, scatter, stacked_bars
+from figures_part45_a import EJEC, LAB, bars, flow, mapa
 
-EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9 y SQLite 3.45.3; los recuentos se repiten y los tiempos varían de un equipo a otro."
-MODELO = "Modelo con parámetros del autor y semilla fija 45; muestra un mecanismo, no mide un sistema real."
+SINT = "Simulación con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
+GIT = "Historiales de Git creados de verdad en un directorio temporal y ejecutados en Windows 11 y Ubuntu (WSL2) con los mismos resultados."
 
 
 # ---------------------------------------------------------------- SE-547
-def se547_impacto() -> Fig:
-    cats = ["orders.order_id", "orders.customer_id", "orders.amount", "orders.status", "orders.day", "orders.note", "customers.customer_id", "customers.city", "customers.segment"]
-    return grouped_bars(
-        "Columnas de salida que cambian al perturbar cada columna de origen, medidas y predichas por tres linajes",
-        "Barras horizontales agrupadas, por columna de origen, con las salidas que cambian de 17: medidas al perturbar, predichas por el linaje de datos solo, por el linaje con condiciones y por el linaje de tablas; por ejemplo orders.status cambia 12 salidas, el linaje de datos solo predice 0 y con condiciones 15; orders.note y customers.segment no cambian ninguna.",
-        cats,
-        [("Medido al perturbar", [2, 9, 5, 12, 3, 0, 9, 6, 0], "teal"), ("Linaje de datos solo", [2, 1, 5, 0, 3, 0, 1, 4, 0], "gold"), ("Datos y condiciones", [2, 12, 6, 15, 4, 0, 12, 7, 0], "navy"), ("Linaje de tablas", [15, 15, 15, 15, 15, 15, 13, 13, 13], "grey")],
-        unit="Columnas de salida afectadas", horizontal=True, decimals=0, label_w=190, plot_h=420,
-        note="El linaje de datos solo omite 31 cambios medidos, casi todos por columnas de filtro y de unión como status y customer_id; el linaje con condiciones no omite ninguno y sobrepredice un poco. El linaje de tablas predice todo o nada: avisa de 13 a 15 columnas aunque note y segment no cambien ninguna. Las 17 salidas son las de seis tablas de un pipeline de juguete.",
-        note_kind="gold", foot=EJEC)
+def se487_cambios_del_proveedor() -> Fig:
+    cambios = [("C01 añadir priority", 0, 1, 1, 0), ("C02 renombrar due por due_at", 1, 1, 1, 1), ("C03 due pasa a texto ISO", 1, 1, 1, 1), ("C04 eliminar student", 1, 1, 1, 1),
+               ("C05 submitted pasa a «yes» o «no»", 1, 1, 1, 1), ("C06 añadir course", 0, 1, 1, 0), ("C07 reordenar los campos", 0, 0, 0, 0), ("C08 due pasa de entero a decimal", 0, 0, 1, 0),
+               ("C09 id pasa de texto a entero", 1, 1, 1, 1), ("C10 añadir status con valor nuevo", 0, 1, 1, 0), ("C11 eliminar submitted", 1, 1, 1, 1), ("C12 envolver la lista en data", 1, 1, 1, 1)]
+    return heatmap(
+        "Doce cambios de un proveedor de entregas y tres formas de detectar los que rompen a un consumidor",
+        "Mapa de calor de doce cambios del proveedor, siete de los cuales rompen al cliente de avisos: la instantánea de la respuesta alerta en 10 cambios y se equivoca en 3 de los 5 inocuos, la diferencia de esquema alerta en 11 y se equivoca en 4 de los 5, y el contrato del consumidor alerta solo en los 7 que rompen y no se equivoca en ninguno de los 5.",
+        [f"{c[0]} ({'rompe' if c[1] else 'inocuo'})" for c in cambios],
+        ["Instantánea", "Diferencia de esquema", "Contrato del consumidor"],
+        [[c[2], c[3], c[4]] for c in cambios],
+        unit="Alerta", scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "alerta" if v else "—", cell_h=34, label_w=380,
+        note='Las tres detectan los 7 cambios que rompen; la diferencia está en las falsas alarmas: 3, 4 y 0 de 5. El contrato del consumidor declara solo los campos y tipos que el cliente lee. Doce cambios escritos por el autor sobre un cliente de cuatro campos.', note_kind='teal', foot=EJEC)
 
 
-def se547_cadena() -> Fig:
-    return flow(
-        "Linaje de columnas de un importe: de la tabla cruda al informe y qué lo toca por el camino",
-        "Diagrama en dos filas que sigue la columna amount: raw_orders.amount se convierte en stg_orders.amount_clp dividiendo por cien, pasa a fact_sales.amount_clp tras unirse con los clientes, se suma en mart_city.total_clp y se ordena en report_top.total_clp; las condiciones status, customer_id y city influyen en qué filas llegan sin ser parte del valor.",
-        [[("raw_orders.amount\nCentavos, entero", "teal"), ("stg_orders.amount_clp\nEntre 100 y sin pedidos cancelados", "gold"), ("fact_sales.amount_clp\nUnión por customer_id", "gold")],
-         [("mart_city.total_clp\nSuma por ciudad", "gold"), ("report_top.total_clp\nTres ciudades con más ventas", "coral"), ("Condiciones que filtran\nstatus, customer_id, city: cambian qué filas", "plain")]],
-        note="Una columna de salida depende de los valores que entran en su expresión y de las condiciones que deciden qué filas la forman. Un catálogo que solo guarda la primera relación declara seguro cambiar status, y el cambio se ve al día siguiente en un informe.",
-        note_kind="teal", box_h=96, foot=EJEC)
-
-
-def se547_limites() -> Fig:
+def se487_asercion_y_optimizacion() -> Fig:
     return mapa(
-        "Cuatro formas de SQL que un analizador de texto no resuelve y de dónde sale el linaje en cada una",
-        "Cuatro casos: un SELECT con comodín no nombra columnas y produce cero aristas, de modo que hay que expandirlo con el catálogo; el SQL armado por concatenación en código no aparece en el texto y se recupera con los metadatos de la ejecución; una condición de filtro no forma parte del valor y se declara como arista de condición; una función definida por el usuario oculta qué columnas lee y pide declararlo.",
-        [("SELECT * FROM fact_sales", "0 aristas de columna", "coral", "Expandir el comodín con las columnas del catálogo"),
-         ("f'SELECT {col} FROM {tabla}' en código", "Invisible al texto", "coral", "Capturar el SQL ejecutado o usar metadatos de la consulta"),
-         ("WHERE status <> 'cancelled'", "No entra en el valor, sí en las filas", "gold", "Registrar condiciones como un tipo de arista propio"),
-         ("Función definida por el usuario", "Entradas ocultas", "gold", "Declarar las columnas que lee en el contrato de la función")],
-        note="Ningún método de linaje es completo: el análisis estático ve el texto, la captura en ejecución ve lo que se corrió y la declaración manual ve lo que alguien recordó. Un catálogo honesto marca de qué método viene cada arista y qué no cubre.",
-        note_kind="gold", foot=EJEC, left_w=280, mid_w=240)
+        "La misma precondición ejecutada con y sin la opción de optimización de Python",
+        "Diagrama de dos ejecuciones reales de la misma función con una entrega ya vencida: en modo normal la aserción de la precondición se evalúa y el programa informa de que el contrato se violó; con la opción -O la aserción desaparece y la función devuelve menos diez, un valor sin sentido.",
+        [("python (normal)", "contrato violado: precondición: la entrega no ha vencido", "teal", "la aserción se evalúa y detiene el cálculo"),
+         ("python -O", "resultado -10", "coral", "la aserción desaparece y el cálculo devuelve un valor sin sentido")],
+        note='Una precondición escrita con assert no es un contrato si el despliegue puede ejecutarse con -O o PYTHONOPTIMIZE. Un contrato que debe valer en producción se escribe como una comprobación explícita que lanza una excepción.', note_kind='coral', foot='Dos procesos de Python lanzados con subprocess; mismo resultado en Windows 11 (CPython 3.12.9) y Ubuntu (3.12.3).', left_w=200, mid_w=330)
+
+
+def se487_falsas_alarmas() -> Fig:
+    return bars('Falsas alarmas de cada detector sobre los 5 cambios del proveedor que no rompen al cliente',
+                'Gráfico de barras con las falsas alarmas sobre cinco cambios inocuos: la instantánea de la respuesta emite 3, la diferencia de esquema 4 y el contrato del consumidor 0; los tres detectan los siete cambios que sí rompen.',
+                [('Instantánea de la respuesta', 3, 'coral', '3 de 5'), ('Diferencia de esquema', 4, 'coral', '4 de 5'), ('Contrato del consumidor', 0, 'teal', '0 de 5')],
+                scale=120, note='Una alerta falsa recurrente enseña a ignorar las alertas: el costo de una instantánea no está en el cambio que no detecta sino en el que empieza a descartarse sin leer. El contrato del consumidor exige además mantener qué campos lee cada cliente.',
+                note_kind='gold', foot=EJEC, label_w=300)
 
 
 # ---------------------------------------------------------------- SE-548
-def se548_tamanos() -> Fig:
-    return grouped_bars(
-        "Tamaño de los mismos 200 000 pedidos en cuatro formatos de archivo",
-        "Barras con el tamaño en megabytes de 200000 pedidos de ocho columnas: CSV 7,33, JSON por líneas 25,93, binario por filas 11,60 y columnar con compresión 2,00, un 27 por ciento del CSV.",
-        ["CSV", "JSON por líneas", "Binario por filas de ancho fijo", "Columnar con diccionario y compresión"],
-        [("Megabytes", [7.33, 25.93, 11.60, 2.00], "navy")],
-        unit="Megabytes en disco", decimals=2, plot_h=250,
-        note="El binario de ancho fijo es mayor que el CSV porque reserva ocho bytes por entero y por texto; el JSON repite el nombre de cada columna en cada fila. El columnar gana porque cada columna guarda valores parecidos juntos y comprime mejor, y la columna de estado, con tres valores, se reduce a un byte por fila antes de comprimir.",
-        note_kind="gold", foot=EJEC)
+def se488_derivas_inyectadas() -> Fig:
+    return stacked_bars(
+        "Diez derivas entre especificación, código y pruebas inyectadas y lo que ve un comprobador mecánico",
+        "Barra apilada de diez derivas inyectadas: el comprobador mecánico detecta ocho por completo (reglas sin código, sin prueba o inexistentes, umbrales distintos, código editado sin tocar la especificación y archivo generado editado a mano), detecta una solo de lado (el cambio de significado de una regla aparece como archivo generado desactualizado) y no detecta una (el cambio de menor o igual a menor estricto dentro del código).",
+        ["Derivas inyectadas (10)"],
+        [("Detectadas", [8], "teal"), ("Detectada solo de lado", [1], "gold"), ("No detectada", [1], "coral")],
+        unit="Derivas", horizontal=True, label_w=220, plot_h=120,
+        note='Detecta 9 de 10, y la décima solo de lado: avisa de que el archivo generado quedó viejo, no de que el significado cambió. Lo que no ve es la semántica de una expresión sin anclaje en la especificación. Las diez derivas y el comprobador son del autor.', note_kind='gold', foot=EJEC)
 
 
-def se548_bytes_leidos() -> Fig:
-    return grouped_bars(
-        "Megabytes que lee cada formato para sumar el importe de 10 días de 365",
-        "Barras horizontales con los megabytes leídos: el JSON por líneas lee 25,93, el binario por filas 11,60, el CSV 7,33, el columnar sin ordenar por día 0,945, el columnar leyendo solo dos columnas de todo el rango 0,59 y el columnar ordenado por día que salta 18 de 20 grupos 0,059.",
-        ["JSON por líneas", "Binario por filas", "CSV", "Columnar sin ordenar por día (20 de 20 grupos)", "Columnar, dos columnas, todo el rango", "Columnar ordenado por día (2 de 20 grupos)"],
-        [("Megabytes leídos", [25.93, 11.60, 7.33, 0.945, 0.59, 0.059], "teal")],
-        unit="Megabytes leídos", horizontal=True, decimals=3, label_w=330, log=True,
-        note="Los formatos por filas leen el archivo entero aunque la consulta use dos de ocho columnas y 10 de 365 días. El columnar ahorra por dos vías distintas: leer solo las columnas (de 2,00 a 0,59) y saltar grupos con las estadísticas de mínimo y máximo, que solo funcionan si los datos están agrupados por esa columna: sin ordenar por día se leen los 20 grupos.",
-        note_kind="gold", foot=EJEC)
+def se488_tres_niveles() -> Fig:
+    return flow('Tres niveles de SDD según el papel que conserva la especificación',
+                'Diagrama con tres filas de dos cajas: en spec-first la especificación guía la primera construcción y después puede quedar atrás; en spec-anchored la especificación se mantiene viva y comprobaciones mecánicas la ligan al código y a las pruebas; en spec-as-source la especificación es la fuente y el código se genera de ella sin edición manual.',
+                [[('SPEC-FIRST\nLa especificación guía la primera construcción', 'plain'), ('Después puede quedar atrás: deriva sin aviso', 'coral')],
+                 [('SPEC-ANCHORED\nLa especificación se mantiene viva', 'teal'), ('Comprobaciones ligan reglas, código y pruebas', 'teal')],
+                 [('SPEC-AS-SOURCE\nLa especificación es la fuente', 'gold'), ('El código se genera; editarlo a mano se detecta', 'gold')]],
+                note='Los tres niveles son una gradación del compromiso con mantener la especificación, no tres productos. Cuanto más alto el nivel, menos deriva y más rigidez: lo que la especificación no puede expresar no puede construirse.',
+                note_kind='teal', box_h=70)
 
 
-def se548_manifiesto() -> Fig:
-    return flow(
-        "Un manifiesto con versiones: cómo una compactación no rompe a quien está leyendo",
-        "Diagrama en dos filas: el lector A abre la versión 1 del manifiesto, que lista 10 archivos; la compactación escribe un archivo nuevo y publica la versión 2 con un único renombrado atómico; el lector A sigue viendo los 10 archivos de la versión 1 y un lector B nuevo ve la versión 2 con 1 archivo; los archivos viejos se borran más tarde, cuando nadie los usa.",
-        [[("Versión 1\nManifiesto con 10 archivos", "teal"), ("Lector A\nAbre la versión 1 y la conserva", "plain"), ("Compactación\nEscribe 1 archivo nuevo", "gold")],
-         [("Publicar versión 2\nUn solo renombrado atómico", "gold"), ("Lector B\nVe la versión 2: 1 archivo", "teal"), ("Limpieza\nBorra archivos viejos cuando nadie los lee", "coral")]],
-        note="La tabla no es la carpeta: es la lista de archivos de una versión. Eso da lecturas consistentes, viaje en el tiempo y compactación sin parar a los lectores, y exige que todos pasen por el manifiesto; quien lee la carpeta directo vuelve a ver archivos a medias.",
-        note_kind="teal", box_h=96, foot=EJEC)
+def se488_que_ve_y_que_no() -> Fig:
+    return mapa(
+        "Qué puede comprobar una máquina entre una especificación y su código, y qué no",
+        "Diagrama de cuatro familias de comprobación entre una especificación y su código: la estructura de identificadores se comprueba de forma exacta, los valores declarados en forma legible por máquina se comparan con una lectura del árbol sintáctico, el código cambiado sin que cambie la especificación se detecta con la lista de archivos, y el significado de una condición distinta no se comprueba y exige una prueba o una persona.",
+        [("Estructura: identificadores de reglas, citas en código y en pruebas", "Sí, de forma exacta", "teal", "Que una cita exista no prueba que el código cumpla la regla"),
+         ("Valores declarados: umbrales y constantes comparables", "Sí, con una lectura del árbol sintáctico", "teal", "Solo valores que la especificación declara en forma legible por máquina"),
+         ("Quién cambió qué: código sin especificación", "Sí, con la lista de archivos del cambio", "teal", "Un cambio trivial y uno de comportamiento valen lo mismo"),
+         ("Significado: una comparación o una condición distinta", "No", "coral", "Exige una prueba que el cambio rompa o la lectura de una persona")],
+        note='La especificación pagada con comprobaciones mecánicas gana lo que se puede enunciar como estructura; el significado sigue exigiendo pruebas ejecutables que lo enuncien.', note_kind='gold', foot='')
 
 
 # ---------------------------------------------------------------- SE-549
-def se549_clasificacion() -> Fig:
+def se489_tamano_del_conjunto() -> Fig:
+    xs = [20, 50, 100, 400, 1600]
+    return line_chart(
+        "Una versión con 5 puntos menos de precisión pasa la puerta: según casos y repeticiones por evaluación",
+        "Líneas en escala logarítmica con el porcentaje de 4 000 simulaciones en que la puerta de release deja pasar la regresión de 5 puntos y en que rechaza la versión sana, según los casos: con una corrida pasa la regresión 41,9, 31,1, 28,0, 12,0 y 0,6 por ciento con 20, 50, 100, 400 y 1 600 casos y rechaza la sana 36,0, 33,7, 22,4, 7,3 y 0,3; con tres corridas por caso las cifras bajan, con 400 casos a 1,5 y 0,7.",
+        [("Pasa la regresión (1 corrida)", list(zip(xs, [41.9, 31.1, 28.0, 12.0, 0.6])), "coral"),
+         ("Rechaza la sana (1 corrida)", list(zip(xs, [36.0, 33.7, 22.4, 7.3, 0.3])), "gold"),
+         ("Pasa la regresión (3 corridas)", list(zip(xs, [31.6, 23.7, 13.5, 1.5, 0.0])), "navy"),
+         ("Rechaza la sana (3 corridas)", list(zip(xs, [29.6, 16.8, 11.3, 0.7, 0.0])), "teal")],
+        x_label="Casos del conjunto de evaluación", y_label="Simulaciones (%)", log_x=True, x_ticks=[(x, f"{x:,}".replace(",", " ")) for x in xs], decimals=1, point_labels="last",
+        note='Con 100 casos y una corrida, más de una de cada cuatro regresiones de 5 puntos se cuela y más de una de cada cinco versiones sanas se rechaza. Repetir tres veces cada caso ayuda, pero la reducción grande viene de más casos. Precisiones, umbral y modelo de azar son supuestos del autor.', note_kind='coral', foot=SINT)
+
+
+def se489_bucle_de_evaluacion() -> Fig:
+    return flow('El bucle de desarrollo guiado por evaluaciones',
+                'Diagrama de seis cajas en dos filas: definir los casos y el criterio de aceptación, fijar una línea base, hacer un cambio, ejecutar la evaluación varias veces, comparar con el umbral y la variación y decidir entre publicar, retener o añadir casos.',
+                [[('Casos y criterio de aceptación', 'gold'), ('Línea base medida con su variación', 'teal'), ('Cambio de prompt, modelo o código', 'plain')],
+                 [('Evaluación repetida varias veces', 'teal'), ('Comparar con umbral y con la variación', 'coral'), ('Publicar, retener o añadir casos', 'navy')]],
+                note='Una evaluación es un instrumento de medida con ruido. Sin línea base y sin variación, una diferencia de dos puntos es una opinión, no un resultado.',
+                note_kind='gold', foot=SINT, box_h=84)
+
+
+def se489_regresion_concentrada() -> Fig:
     return grouped_bars(
-        "Filas con un correo o un teléfono dentro de cada columna, sobre una muestra de 500 filas",
-        "Barras horizontales con las filas de la muestra que contienen un dato personal: email 500 y phone 500, columnas cuyo nombre lo delata, y contact_ref 150 y note 55, columnas con nombre inocuo que también guardan correos.",
-        ["email (el nombre lo delata)", "phone (el nombre lo delata)", "contact_ref (el nombre no lo delata)", "note (el nombre no lo delata)"],
-        [("Filas con dato personal", [500, 500, 150, 55], "navy")],
-        unit="Filas de 500 con correo o teléfono", horizontal=True, decimals=0, label_w=300,
-        note="Un clasificador por nombre de columna encuentra dos de las cuatro columnas con datos personales; el texto libre y los identificadores externos esconden el resto. Clasificar por contenido sobre una muestra encuentra las cuatro, a costa de leer datos y de errar en ambos sentidos con valores que se parecen a un correo sin serlo.",
-        note_kind="coral", foot=EJEC)
-
-
-def se549_k_anonimato() -> Fig:
-    return grouped_bars(
-        "Grupos pequeños de un agregado liberado según los cuasi-identificadores, con k igual a 5",
-        "Barras agrupadas con los grupos de menos de 5 personas y las personas en ellos: ciudad 0 y 0, ciudad y plan 0 y 0, ciudad plan y año de nacimiento 441 grupos y 1310 personas, y ciudad plan y década de nacimiento 0 y 0.",
-        ["Ciudad", "Ciudad y plan", "Ciudad, plan y año de nacimiento", "Ciudad, plan y década de nacimiento"],
-        [("Grupos con menos de 5 personas", [0, 0, 441, 0], "coral"), ("Personas en esos grupos", [0, 0, 1310, 0], "navy")],
-        unit="Grupos o personas", decimals=0, plot_h=260,
-        note="Añadir el año de nacimiento convierte 18 grupos cómodos en 1 004 grupos, 441 de ellos con menos de cinco personas: 1 310 de 5 000 personas quedan señaladas por su combinación. Generalizar a la década vuelve a 108 grupos sin ninguno pequeño. K-anonimato es una condición necesaria sobre la tabla liberada y no garantiza privacidad frente a quien sabe más.",
-        note_kind="gold", foot=EJEC)
-
-
-def se549_borrado() -> Fig:
-    return grouped_bars(
-        "Dónde queda el usuario 42 tras una solicitud de borrado, según se borre solo el origen o se propague por el linaje",
-        "Barras agrupadas con las filas o copias del usuario 42 que quedan: borrando solo en la tabla de origen quedan 0 en raw, 1 en la tabla intermedia, 3 en la tabla de eventos, 1 en el almacén de variables y 1 en el archivo exportado; propagando por el linaje de tablas queda solo la copia del archivo exportado.",
-        ["raw_users", "stg_users", "fact_events", "feature_store", "export.csv (copia fuera de las tablas)"],
-        [("Borrar solo en el origen", [0, 1, 3, 1, 1], "coral"), ("Propagar por el linaje de tablas", [0, 0, 0, 0, 1], "teal")],
-        unit="Filas o copias que quedan", decimals=0, plot_h=260,
-        note="El linaje de tablas encuentra todas las copias que son tablas; la copia exportada a un archivo no está en el grafo y sobrevive. Por eso el catálogo debe registrar las exportaciones como activos con dueño, y por eso el plazo de un borrado incluye las copias de seguridad, que esta prueba no modeló.",
-        note_kind="gold", foot=EJEC)
+        "Regresión concentrada en los casos difíciles: qué conjunto de 100 casos la ve",
+        "Barras agrupadas con el porcentaje de veces que una puerta deja pasar la regresión y rechaza la versión sana: una muestra al azar de 100 casos, con 10 por ciento difíciles, deja pasar la regresión 72,8 por ciento de las veces y rechaza la sana 4,4; un conjunto de 100 casos solo difíciles no deja pasar ninguna regresión; la misma versión sobre los mismos 100 casos varía con desviación 0,037 y rango de 0,72 a 0,95.",
+        ["Muestra al azar, 100 casos (10 % difíciles)", "Solo casos difíciles, 100 casos"],
+        [("Pasa la regresión", [72.8, 0.0], "coral"), ("Rechaza la sana", [4.4, 0.0], "gold")],
+        unit="Veces que ocurre (%)", decimals=1,
+        note='Un conjunto pequeño y curado en lo difícil detecta una regresión que una muestra grande al azar no ve. Al revés, la misma versión puede variar 23 puntos entre corridas con 100 casos: una sola corrida no mide.', note_kind='gold', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-550
-def se550_consulta() -> Fig:
+def se490_dos_historiales() -> Fig:
     return grouped_bars(
-        "Costo mensual de una consulta de 10 días ejecutada 100 veces al día, sobre una tabla escalada a 1 TB",
-        "Barras con el costo mensual en unidades inventadas, a 5 unidades por terabyte escaneado: leer el CSV completo 15000, columnar leyendo dos columnas de todo el rango 1213 y columnar leyendo dos columnas con estadísticas que descartan 18 de 20 grupos 121; escala logarítmica.",
-        ["CSV, lectura completa", "Columnar, dos columnas, todo el rango", "Columnar, dos columnas, 10 días con estadísticas"],
-        [("Costo mensual (unidades)", [15000, 1213, 121], "navy")],
-        unit="Costo mensual (unidades inventadas)", decimals=0, plot_h=250, log=True,
-        note="Los bytes escaneados se midieron sobre 200 000 filas y se escalaron a 1 TB; el precio de 5 unidades por TB es un parámetro del autor, no una tarifa. La proporción entre barras (124 veces entre la primera y la última) es lo que se traslada, y solo para consultas que lean un rango estrecho de un archivo agrupado por esa columna.",
-        note_kind="gold", foot=MODELO)
+        "Dos historiales de Git reales evaluados contra tres reglas del flujo ODD: el commit más grande",
+        "Barras con las líneas del commit más grande de dos historiales de Git reales: el ordenado, con documento de tarea primero y un tramo rojo seguido de uno verde, tiene 13 líneas y el comprobador no halla nada; el desordenado, con todo el código en un commit y el documento después, tiene 463 líneas y incumple las tres reglas, con el límite de 400.",
+        ["Historial A (ordenado)", "Historial B (desordenado)"],
+        [("Líneas del commit mayor", [13, 463], "teal")],
+        unit="Líneas del commit más grande", ref_lines=[(400, "límite de 400 líneas")],
+        note='El comprobador ejecuta las pruebas de cada commit para saber si estaba en rojo o en verde. Mira orden, tamaño y estado de las pruebas; no puede saber si el documento de tarea describe la realidad ni si 400 líneas es el límite adecuado.', note_kind='teal', foot=GIT)
 
 
-def se550_refresco() -> Fig:
-    return grouped_bars(
-        "Costo mensual de refrescar un mart según la frecuencia, con recálculo completo o incremental de 2 días",
-        "Barras agrupadas en unidades inventadas: cada 5 minutos el recálculo completo cuesta 24335 y el incremental 3042; cada hora 2028 y 253; una vez al día 84 y 11; escala logarítmica.",
-        ["Cada 5 minutos", "Cada hora", "Una vez al día"],
-        [("Recálculo completo", [24335, 2028, 84], "coral"), ("Incremental, últimos 2 días", [3042, 253, 11], "teal")],
-        unit="Costo mensual (unidades inventadas)", decimals=0, plot_h=270, log=True,
-        note="Con los tiempos de esta ejecución (700 ms completo y 78 ms incremental sobre 500 000 filas, escalados 2 000 veces) el incremental cuesta unas 8 veces menos en cada frecuencia, y pasar de diario a cada 5 minutos multiplica el costo por 288 en ambos. La frecuencia es la decisión más cara de la plataforma y la menos discutida.",
-        note_kind="gold", foot=MODELO)
+def se490_flujo_odd() -> Fig:
+    return flow('El flujo ODD de un cambio sustancial, de la autorización al commit',
+                'Diagrama de seis cajas en dos filas: primero la autorización, porque explicar e investigar son solo lectura; un documento de tarea con alcance, tareas, evidencia y siguiente paso; una prueba roja; el código mínimo en verde; el refactor; y commits pequeños, con push, pull request y merge como decisiones aparte.',
+                [[('Autorización primero: explorar es solo lectura', 'gold'), ('Documento de tarea: alcance, tareas, evidencia, siguiente paso', 'teal'), ('ROJO: una prueba determinista', 'coral')],
+                 [('VERDE: el código mínimo', 'teal'), ('REFACTOR con todo en verde', 'plain'), ('Commits pequeños; push, PR y merge son decisiones aparte', 'navy')]],
+                note='Los pasos descritos proceden de la documentación del proyecto que define el flujo y no de un estudio independiente: la clase los enseña como una descripción de un flujo concreto, con su evidencia declarada y sus límites.',
+                note_kind='gold', foot='', box_h=96)
 
 
-def se550_ruta_critica() -> Fig:
-    lanes = [("ingest_orders", [(0, 12, "12", "coral")]), ("stg_orders", [(12, 18, "6", "coral")]), ("fact_sales", [(18, 33, "15", "coral")]),
-             ("mart_city", [(33, 38, "5", "coral")]), ("report", [(38, 40, "2", "coral")]),
-             ("ingest_customers", [(0, 4, "4", "teal")]), ("dim_customer", [(4, 7, "3", "teal")]), ("mart_daily", [(33, 37, "4", "teal")])]
-    return timeline(
-        "Ocho tareas de un pipeline: la ruta crítica de 40 minutos y las tareas que tienen holgura",
-        "Diagrama de Gantt con ocho tareas: la ruta crítica, en rojo, es ingest_orders 12 minutos, stg_orders 6, fact_sales 15, mart_city 5 y report 2, en total 40 minutos; ingest_customers 4, dim_customer 3 y mart_daily 4 tienen holgura; la suma de todas las duraciones es 51 minutos.",
-        lanes, unit="Minutos desde el inicio", t_max=42, ticks=[0, 10, 20, 30, 40], lane_h=40, label_w=170,
-        note="Reducir a la mitad fact_sales baja el total de 40 a 32,5 minutos; reducir mart_city, de 40 a 39; reducir ingest_customers no cambia nada. Optimizar fuera de la ruta crítica no mueve la hora de entrega.",
-        note_kind="teal", foot=MODELO)
+def se490_que_ve_el_comprobador() -> Fig:
+    return mapa(
+        "Qué comprueba la máquina del flujo ODD y qué solo puede juzgar una persona",
+        "Diagrama de cuatro aspectos del flujo ODD: el orden entre el documento y el primer código se comprueba con el historial, el tamaño de cada commit con la estadística numérica de Git, el estado de las pruebas ejecutándolas en cada commit, y que el documento sea cierto y sirva para retomar el trabajo no lo puede comprobar una máquina.",
+        [("Orden: el documento existe antes del primer código", "Sí, con el historial", "teal", "Un documento vacío cumple la regla"),
+         ("Tamaño: líneas por commit", "Sí, con numstat", "teal", "Las líneas generadas o movidas cuentan igual que las escritas"),
+         ("Estado de las pruebas en cada commit", "Sí, ejecutándolas", "teal", "Una prueba que no afirma nada pone el commit en verde"),
+         ("Que el documento sea cierto y útil para retomar", "No", "coral", "Solo una persona al retomar lo sabe")],
+        note='Comprobar la forma del flujo es barato y ayuda; comprobar su fondo exige que alguien retome el trabajo con solo el documento y diga si pudo.', note_kind='gold', foot='')
 
 
 # ---------------------------------------------------------------- SE-551
-def se551_matriz() -> Fig:
-    cols = ["Filas contra origen", "Importe contra origen", "Unicidad", "Frescura", "Repetir ejecución", "Frontera de día", "Esquema de entrada", "Importe medio en banda"]
-    rows = ["D1 carga por append", "D2 día en UTC", "D3 unión sin fecha", "D4 tardíos descartados", "D5 unión interna y nulos", "D6 coma flotante", "D7 columna renombrada", "D8 archivo truncado"]
-    vals = [[0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 1], [1, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0]]
+def se491_cinco_metodologias() -> Fig:
+    return grouped_bars(
+        "El mismo cambio, silenciar un curso, con cinco metodologías: siete silencios mal hechos que mata cada una",
+        "Barras horizontales con los mutantes del silencio que mata cada metodología de siete: dos pruebas de TDD con 9 líneas matan 6, tres escenarios de BDD con 15 líneas matan 6, una tabla de ejemplos de ATDD con 17 líneas mata 5, un contrato con 400 estados con 15 líneas mata 3 y un modelo ejecutable de SDD con 17 líneas mata los 7.",
+        ["TDD: dos pruebas (9 líneas)", "BDD: tres escenarios (15)", "ATDD: tabla de ejemplos (17)", "Contrato con 400 estados (15)", "SDD: modelo ejecutable (17)"],
+        [("Mutantes que mata", [6, 6, 5, 3, 7], "teal")],
+        unit="Mutantes del silencio que mata (de 7)", horizontal=True, label_w=290, ref_lines=[(7, "7")],
+        note='La unión de las cinco mata los 7 mutantes del silencio, pero el único método que mata los siete solo es el modelo ejecutable, que es también el que exige escribir de nuevo la regla. Líneas y tiempos son del experimento; la comparación de esfuerzo humano no se midió.', note_kind='gold', foot=LAB)
+
+
+def se491_silencios_que_matan() -> Fig:
+    return bars('Silencios mal hechos que mata cada metodología, de 7',
+                'Gráfico de barras con los siete mutantes del silencio de un curso que mata cada metodología: dos pruebas de TDD matan 6, tres escenarios de BDD matan 6, la tabla de ejemplos de ATDD mata 5, el contrato con 400 estados mata 3 y el modelo ejecutable de SDD mata 7.',
+                [('TDD (dos pruebas)', 6, 'gold', '6'), ('BDD (tres escenarios)', 6, 'gold', '6'), ('ATDD (tabla de ejemplos)', 5, 'gold', '5'), ('Contrato (400 estados)', 3, 'coral', '3'), ('SDD (modelo ejecutable)', 7, 'teal', '7')],
+                scale=70, note='La barra más corta no indica la peor metodología: el contrato comprueba propiedades, no valores concretos, y ese es su papel. Indica qué clase de error deja ver y cuál deja pasar.',
+                note_kind='gold', foot=LAB, label_w=300)
+
+
+def se491_lo_que_deja_vivo() -> Fig:
     return heatmap(
-        "Ocho defectos sembrados en un pipeline y las ocho comprobaciones que los ven",
-        "Mapa de calor de ocho defectos por ocho comprobaciones: D1 solo lo ve repetir la ejecución; D2 lo ven la frontera de día y el importe medio; D3 lo ven las conciliaciones; D4 y D5 las conciliaciones y el importe medio; D6 solo la conciliación de importe; D7 la conciliación de importe, el esquema de entrada y el importe medio; D8 las conciliaciones; la conciliación del importe ve siete de los ocho; unicidad y frescura no ven ninguno.",
-        rows, cols, vals, unit="falla", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "x" if v else "—", cell_h=34, label_w=210,
-        note="Cada defecto lo ve alguna comprobación, pero ninguna sola ve los ocho: la conciliación del importe ve siete y solo se le escapa D1, que únicamente aparece al repetir la ejecución; unicidad y frescura no vieron ninguno de estos ocho y sirven contra otros fallos. D6 pierde 2 centavos en 912 729 905 y solo lo ve una conciliación exacta del importe.",
-        note_kind="teal", foot=EJEC)
-
-
-def se551_arreglar_uno_a_uno() -> Fig:
-    labels = ["Los 8", "−D1", "−D8", "−D5", "−D4", "−D3", "−D2", "−D7", "−D6"]
-    rows = [42384, 11192, 13558, 13731, 19787, 0, 0, 0, 0]
-    days = [15, 15, 15, 15, 15, 15, 15, 2, 0]
-    pts = list(zip(range(9), rows))
-    return line_chart(
-        "Filas de más al corregir los defectos uno a uno, con cada ejecución repetida una vez",
-        "Línea con las filas de más respecto de la verdad al ir corrigiendo defectos: con los ocho defectos 42384, tras corregir D1 11192, D8 13558, D5 13731, D4 19787, D3 0, D2 0, D7 0 y D6 0; los días con un resultado distinto bajan solo al corregir D7, de 15 a 2, y D6, a 0.",
-        [("Filas de más o de menos", pts, "navy")],
-        x_label="Defectos corregidos, de izquierda a derecha", y_label="Filas de más", x_ticks=[(i, l) for i, l in enumerate(labels)], y_ticks=[0, 10000, 20000, 30000, 40000, 50000], point_labels="all", decimals=0, plot_h=280,
-        note="El error no baja de forma monótona: al corregir D4 (que dejaba de descartar los tardíos) las filas de más suben de 13 731 a 19 787 porque ahora el defecto D3 las duplica. Y los días con resultado distinto siguen siendo 15 hasta corregir D7 y bajan a 2 y a 0 solo con D6. Los defectos se enmascaran: corregir en cualquier orden y medir tras cada paso.",
-        note_kind="coral", foot=EJEC)
-
-
-def se551_metodo() -> Fig:
-    return flow(
-        "Método para diagnosticar un resultado erróneo en un pipeline: acotar antes de arreglar",
-        "Diagrama en dos filas con seis pasos: reproducir con la misma entrada y una réplica pequeña, acotar la capa donde el resultado deja de coincidir con la verdad, conciliar filas e importes entre capas, formular una causa y una prueba que la distinga, corregir una sola causa y medir tras cada corrección, y escribir una comprobación que habría detenido el defecto.",
-        [[("1. Reproducir\nMisma entrada, réplica pequeña", "teal"), ("2. Acotar la capa\nPrimera tabla que difiere de la verdad", "teal"), ("3. Conciliar\nFilas e importes entre capas", "gold")],
-         [("4. Una causa y una prueba\nQué la distingue de las otras", "gold"), ("5. Corregir una y medir\nLas causas se enmascaran", "coral"), ("6. Escribir la comprobación\nQue habría parado el defecto", "teal")]],
-        note="El orden importa: arreglar sin acotar corrige un síntoma, y corregir varias causas a la vez impide saber cuál movió el resultado. El paso 6 es el que convierte una guardia en una mejora permanente.",
-        note_kind="teal", box_h=96, foot=MODELO)
+        "Qué silencios mal hechos deja vivos cada metodología",
+        "Mapa de calor con los mutantes del silencio que deja vivos cada metodología: TDD y BDD dejan vivo S4, que silencia el curso para todas las personas; ATDD deja vivos S3 y S4; el contrato deja vivos S2, S3, S4 y S7; el modelo ejecutable no deja ninguno.",
+        ["TDD y BDD", "ATDD", "Contrato", "SDD (modelo)"],
+        ["S2", "S3", "S4", "S7"],
+        [[0, 0, 1, 0], [0, 1, 1, 0], [1, 1, 1, 1], [0, 0, 0, 0]],
+        unit="Mutante vivo", scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "vive" if v else "muerto", cell_h=50, label_w=170,
+        note='En todos los casos la causa es una dimensión que el artefacto no varía o una regla que no repite. Añadir un ejemplo con dos personas y un curso común mata S4 en TDD, BDD y ATDD.', note_kind='coral', foot=LAB)
 
 
 # ---------------------------------------------------------------- SE-552
-def se552_arquitectura() -> Fig:
-    return flow(
-        "Plataforma mínima gobernada de Avisos: tres capas, un registro de metadatos y un control que decide si se publica",
-        "Diagrama en dos filas: la zona cruda raw_orders con datos personales declarados, la capa intermedia stg_orders con un seudónimo en lugar del correo y el mart diario mart_daily; un registro de metadatos con dueño, contrato, comprobaciones, retención y entradas de cada conjunto; y un control de siete reglas sobre dueño, contrato, comprobaciones, datos personales, retención, linaje y frescura que se ejecuta antes de publicar.",
-        [[("raw_orders\nCorreo declarado como dato personal", "teal"), ("stg_orders\nSeudónimo en lugar del correo", "gold"), ("mart_daily\nDía, pedidos e ingreso, sin datos personales", "teal")],
-         [("Registro de metadatos\nDueño, contrato, comprobaciones, retención, entradas", "plain"), ("Control de siete reglas\nSe ejecuta antes de publicar", "coral"), ("Informe de evidencia\nQué se comprobó y qué no se ve", "gold")]],
-        note="Todo lo que el control comprueba está declarado en el registro y verificado contra lo construido: el registro dice lo que debería ser y el control lo compara con lo que es. Sin las dos mitades, o la gobernanza es un documento o es una conjetura.",
-        note_kind="teal", box_h=96, foot=EJEC)
+def se492_politicas() -> Fig:
+    return scatter(
+        "Cinco políticas aplicadas a 300 cambios sintéticos: costo frente a impacto escapado",
+        "Puntos con el costo en horas y el impacto escapado de cinco políticas sobre 300 cambios sintéticos: no hacer nada cuesta 0 y deja escapar 1 157; TDD en todo cuesta 232 y deja 745; todo en todo cuesta 1 240 y deja 489; por riesgo cuesta 482 y deja 532; por riesgo y ambigüedad cuesta 485 y deja 499.",
+        [("Políticas", [(0, 1157, "Nada", "r"), (232, 745, "TDD en todo", "r"), (1240, 489, "Todo en todo", "t"), (482, 532, "Por riesgo", "l"), (485, 499, "Por riesgo y ambigüedad", "r")], "teal")],
+        x_label="Costo (horas)", y_label="Impacto escapado", decimals=0, y_zero=True,
+        note='Aplicarlo todo a todo es la política más cara y deja menos impacto, pero evita 0,54 por hora frente a 1,77 de TDD en todo. Costos, riesgos y fracción con reglas son supuestos del autor; solo las tasas de detección vienen del experimento de SE-541.', note_kind='gold', foot=SINT)
 
 
-def se552_mutaciones() -> Fig:
-    rows = ["Quitar el dueño de un conjunto", "Columna nueva en el mart sin contrato", "Columna de correo en el mart", "Retención de 10 días sin purga", "Quitar todas las comprobaciones", "El mart lee de raw sin declararlo", "Cambiar el tipo declarado", "Datos con 3 días de atraso", "Retención sin declarar", "Ingreso de SUM a MAX (semántico)"]
-    cols = ["R1 dueño", "R2 contrato", "R3 comprobaciones", "R4 datos personales", "R5 retención", "R6 linaje", "R7 frescura"]
-    vals = [[1, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0], [0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
-    return heatmap(
-        "Diez cambios en la plataforma y la regla del control que cada uno dispara",
-        "Mapa de calor de diez mutaciones por siete reglas: cada una de las nueve primeras mutaciones dispara exactamente una regla y la décima, cambiar el ingreso de suma a máximo, no dispara ninguna.",
-        rows, cols, vals, unit="falla", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "falla" if v else "—", highlight=[(9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6)], cell_h=34, label_w=270,
-        note="Nueve de diez cambios los detiene una regla; el décimo, que mantiene nombres, tipos, dueño, retención, linaje y frescura pero cambia el significado del ingreso, pasa las siete. El control reduce el error posible y no lo elimina: la definición con ejemplos y la conciliación con una fuente independiente son la capa que falta.",
-        note_kind="coral", foot=EJEC)
+def se492_arbol_de_politica() -> Fig:
+    return flow('Una política de equipo como reglas que dependen del cambio',
+                'Diagrama con tres reglas de política: un cambio de bajo riesgo exige TDD; uno de riesgo medio añade contratos; uno de riesgo alto añade modelo ejecutable y, si es ambiguo, conversación con ejemplos; un cambio sin reglas deterministas no usa estas prácticas y se evalúa de otra forma.',
+                [[('Riesgo bajo: TDD', 'teal'), ('Riesgo medio: TDD y contratos', 'gold'), ('Riesgo alto: TDD, contratos y modelo ejecutable', 'coral')],
+                 [('Ambiguo y no bajo: añadir ejemplos con negocio (BDD o ATDD)', 'gold'), ('Sin reglas deterministas: evaluación (EDD) y revisión humana', 'plain')]],
+                note='La política es una tabla de entradas y evidencias, revisable cada trimestre con los defectos que escaparon. Lo que no se registra no puede corregirla.',
+                note_kind='teal', foot='', box_h=96)
 
 
-def se552_cobertura() -> Fig:
-    return grouped_bars(
-        "Mutaciones detectadas de 10 según el control que se aplique a la plataforma",
-        "Barras con las mutaciones detectadas de diez: el control de siete reglas detecta 9, un control que solo compara el esquema con el contrato detecta 2 y sin control se detectan 0 antes de que un consumidor las vea.",
-        ["Control de siete reglas", "Solo comparar el esquema con el contrato", "Sin control"],
-        [("Mutaciones detectadas (de 10)", [9, 2, 0], "teal")],
-        unit="Mutaciones detectadas de 10", decimals=0, plot_h=240, ref_lines=[(10, "10")],
-        note="Las diez mutaciones son de autor y cubren las siete reglas con una por regla, más una semántica: miden qué familia de defectos ve cada regla, no la tasa de defectos de una plataforma real. Comparar el esquema detecta solo lo que cambia el contrato; el resto exige reglas sobre dueños, datos personales, retención, linaje y frescura.",
-        note_kind="gold", foot=MODELO)
+def se492_tasas_de_deteccion() -> Fig:
+    return bars('Tasa de detección de cada práctica medida en el laboratorio, sobre 18 mutantes',
+                'Gráfico de barras con la fracción de mutantes no equivalentes que mata cada oráculo del laboratorio y que se usa como tasa de detección en la política: caso feliz 0,39, ocho pruebas de TDD 0,83, escenarios de aceptación 0,94, contrato con 400 estados 0,72 y modelo de referencia 1,00.',
+                [('Caso feliz único', 0.39, 'coral', '0,39'), ('Ocho pruebas (TDD)', 0.83, 'gold', '0,83'), ('Escenarios de aceptación', 0.94, 'gold', '0,94'), ('Contrato (400 estados)', 0.72, 'gold', '0,72'), ('Modelo de referencia', 1.0, 'teal', '1,00')],
+                scale=500, note='Son tasas sobre 18 mutantes de una función de 20 líneas: sirven para anclar la simulación, no para predecir la detección en un sistema real. La política cambia mucho si se supone otra.',
+                note_kind='coral', foot=LAB, label_w=300)
 
 
 FIGURES = {
-    "se-547-impacto.svg": se547_impacto,
-    "se-547-cadena.svg": se547_cadena,
-    "se-547-limites.svg": se547_limites,
-    "se-548-tamanos.svg": se548_tamanos,
-    "se-548-bytes-leidos.svg": se548_bytes_leidos,
-    "se-548-manifiesto.svg": se548_manifiesto,
-    "se-549-clasificacion.svg": se549_clasificacion,
-    "se-549-k-anonimato.svg": se549_k_anonimato,
-    "se-549-borrado.svg": se549_borrado,
-    "se-550-consulta.svg": se550_consulta,
-    "se-550-refresco.svg": se550_refresco,
-    "se-550-ruta-critica.svg": se550_ruta_critica,
-    "se-551-matriz.svg": se551_matriz,
-    "se-551-arreglar-uno-a-uno.svg": se551_arreglar_uno_a_uno,
-    "se-551-metodo.svg": se551_metodo,
-    "se-552-arquitectura.svg": se552_arquitectura,
-    "se-552-mutaciones.svg": se552_mutaciones,
-    "se-552-cobertura.svg": se552_cobertura,
+    "se-547-cambios-del-proveedor.svg": se487_cambios_del_proveedor,
+    "se-547-asercion-y-optimizacion.svg": se487_asercion_y_optimizacion,
+    "se-547-falsas-alarmas.svg": se487_falsas_alarmas,
+    "se-548-derivas-inyectadas.svg": se488_derivas_inyectadas,
+    "se-548-tres-niveles.svg": se488_tres_niveles,
+    "se-548-que-ve-y-que-no.svg": se488_que_ve_y_que_no,
+    "se-549-tamano-del-conjunto.svg": se489_tamano_del_conjunto,
+    "se-549-bucle-de-evaluacion.svg": se489_bucle_de_evaluacion,
+    "se-549-regresion-concentrada.svg": se489_regresion_concentrada,
+    "se-550-dos-historiales.svg": se490_dos_historiales,
+    "se-550-flujo-odd.svg": se490_flujo_odd,
+    "se-550-que-ve-el-comprobador.svg": se490_que_ve_el_comprobador,
+    "se-551-cinco-metodologias.svg": se491_cinco_metodologias,
+    "se-551-silencios-que-matan.svg": se491_silencios_que_matan,
+    "se-551-lo-que-deja-vivo.svg": se491_lo_que_deja_vivo,
+    "se-552-politicas.svg": se492_politicas,
+    "se-552-arbol-de-politica.svg": se492_arbol_de_politica,
+    "se-552-tasas-de-deteccion.svg": se492_tasas_de_deteccion,
 }

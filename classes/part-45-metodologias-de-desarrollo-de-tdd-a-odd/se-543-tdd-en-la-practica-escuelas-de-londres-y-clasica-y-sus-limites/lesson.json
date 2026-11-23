@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "SE-543",
+  "title": "TDD en la práctica: escuelas de Londres y clásica, y sus límites",
+  "stage": "H",
+  "part": "45",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "CANON-TDD",
+    "MOCKS-ARENT-STUBS",
+    "CUCUMBER-BDD",
+    "DDD-REFERENCE",
+    "DESIGN-BY-CONTRACT",
+    "BOCKELER-SDD",
+    "ANTHROPIC-EVALS",
+    "GENTLE-AI-ODD",
+    "GITHUB-SPEC-KIT"
+  ],
+  "path": "classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-543-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites"
+}

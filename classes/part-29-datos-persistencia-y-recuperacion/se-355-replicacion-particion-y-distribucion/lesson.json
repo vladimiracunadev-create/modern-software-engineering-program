@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-355",
+  "title": "Replicación, partición y distribución",
+  "stage": "E",
+  "part": "29",
+  "kind": "class",
+  "owner": "database-systems-labs",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion"
+}

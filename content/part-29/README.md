@@ -1,194 +1,191 @@
-# Parte 29 — Cloud, plataforma e infraestructura
+# Parte 29 — Datos, persistencia y recuperación
 
-La Parte 28 dejó un servicio que sabe degradarse cuando falla una dependencia, pero esa dependencia seguía siendo una máquina que alguien operaba. La pregunta cambia de «cómo falla un sistema distribuido» a «qué pasa cuando la máquina, la red, la identidad y el despliegue pertenecen en parte a otra organización y se describen como código». Esta parte trabaja sobre **la plataforma de entregas de tareas llevada a una infraestructura gestionada**, un caso sintético: una aplicación web, un corrector de entregas, una base de datos y avisos a estudiantes que deben ejecutarse, aislarse, repartirse en nodos, conectarse con permisos mínimos, declararse como código, separarse en entornos, dimensionarse, mantenerse portables y ofrecerse a otros equipos sin que cada uno reconstruya lo mismo. Recorre IaaS, PaaS y SaaS con la responsabilidad compartida, las máquinas virtuales, los contenedores y su aislamiento, la orquestación y el scheduling, la ejecución gestionada sin servidores, las redes, la identidad y los secretos, la infraestructura como código y su estado, los entornos y las cuentas, el escalado y los costos, el multi-cloud y la portabilidad, las plataformas internas y los caminos dorados, un taller de despliegue y destrucción de un entorno y un paquete de plataforma mínima y reproducible.
+La Parte 27 dejó fronteras, agregados y decisiones registradas. La pregunta cambia de «cómo se divide el sistema» a «qué pasa con los datos cuando varias personas escriben a la vez, un cliente se equivoca, un despliegue cambia el esquema o una copia es lo único que queda». Esta parte trabaja sobre **la capa de datos de la plataforma de entregas de tareas**, un caso sintético: estudiantes, cursos, entregas y calificaciones guardados en una base que debe seguir siendo correcta, rápida, evolucionable y recuperable. Recorre el modelo conceptual, lógico y físico, la elección entre filas, documentos, claves y grafos, las transacciones y el aislamiento, las restricciones, los índices, las migraciones compatibles, la replicación y la partición, las cachés, los respaldos con su restauración, el ciclo de vida de los datos personales, un taller de migración peligrosa y un paquete de capa de datos recuperable.
 
 ## Pregunta rectora
 
-> ¿Qué capacidad de autoservicio se ofrece, qué guardrail limita su impacto y qué evidencia permite a otra persona reconstruirla, auditarla y destruirla?
+> ¿Qué invariantes deben sobrevivir a la concurrencia, al fallo y a la restauración, y cómo lo sabría quien opera esta base?
 
 ## Antes del recorrido clase por clase
 
-Esta parte no enseña un proveedor ni un producto. Enseña a decir qué capas se delegan y cuáles siguen siendo tuyas, a medir qué cuesta cada frontera de aislamiento, a ver cómo un orquestador empaqueta lo que se le pide y repara lo que falla con retardo, a anticipar los arranques en frío y los duplicados de la ejecución gestionada, a calcular la distancia entre internet y un dato, a distinguir el código, el estado y la realidad de una infraestructura, a acotar el alcance de un error con cuentas, a dimensionar capacidad con la forma de la demanda, a calcular qué gana y qué pierde un segundo proveedor, a medir cuántos pasos y errores quita un camino dorado y a destruir un entorno con una comprobación independiente. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un segundo proveedor que no mejora la disponibilidad por un DNS compartido, un plan que revierte arreglos manuales, una suma de comprobación que cambia con el sistema que creó el archivo) y declara lo que esa medida no demuestra.
+Esta parte no enseña un motor de bases de datos ni un producto. Enseña a distinguir lo que el negocio afirma de lo que el motor guarda, a medir qué cuesta cada elección de modelo, a enumerar las intercalaciones que rompen una invariante, a decidir qué regla impone el motor y cuál queda a un cliente, a leer un plan de ejecución y contar lo que cada índice cobra, a dividir un cambio incompatible en fases, a elegir una garantía de lectura y una clave de reparto, a dar a una caché su política, a medir qué ve una verificación de respaldo y qué deja pasar, a comprobar dónde queda un dato borrado, a ensayar una migración con instrumentos de distinta potencia y a entregar un paquete cuyos límites conoces. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un contador que acierta en 6 de 90 intercalaciones, una copia del archivo que da «ok» y una suma 197 unidades menor, un hash de correo que un diccionario invierte por completo) y declara lo que esa medida no demuestra.
 
 ```mermaid
 flowchart LR
-    A[Responsabilidad compartida] --> B[Aislamiento]
-    B --> C[Orquestación]
-    C --> D[Ejecución gestionada]
-    D --> E[Redes, identidad y secretos]
-    E --> F[Infraestructura como código]
-    F --> G[Entornos y cuentas]
-    G --> H[Escalado y costos]
-    H --> I[Multi-cloud y portabilidad]
-    I --> J[Plataformas internas]
-    J --> K[Taller de despliegue y destrucción]
-    K --> L[Plataforma mínima reproducible]
+    A[Modelo conceptual, lógico y físico] --> B[Modelos de almacenamiento]
+    B --> C[Transacciones y aislamiento]
+    C --> D[Restricciones e invariantes]
+    D --> E[Consultas e índices]
+    E --> F[Migraciones compatibles]
+    F --> G[Replicación y partición]
+    G --> H[Cachés entre capas]
+    H --> I[Respaldos y restauración]
+    I --> J[Privacidad y ciclo de vida]
+    J --> K[Taller de migración peligrosa]
+    K --> L[Paquete de capa de datos]
     L -->|incidente o hallazgo| A
 ```
 
-El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un cambio de proveedor o un hallazgo en la destrucción de un entorno reabre la matriz de responsabilidades; un paquete aprobado no cierra el diseño, lo fecha.
+El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo del ensayo de restauración o un cambio de requisito reabre el modelo; un paquete aprobado no cierra el diseño, lo fecha.
 
 ## Resultados acumulativos
 
-Podrás construir una matriz de responsabilidades por capa y estimar con una simulación cómo cambian la exposición a vulnerabilidades y la probabilidad de un error de configuración al delegar; medir el coste de arrancar un hilo y un proceso, calcular cuántas instancias caben según el sobrecoste de cada unidad y observar la interferencia entre procesos que comparten núcleos; comparar políticas de ubicación y órdenes de llegada en un clúster casi lleno, calcular las réplicas ausentes según el intervalo de un controlador y el riesgo de sobreasignar; simular arranques en frío según la tasa y la inactividad, medir el peso de las dependencias al iniciar y contar los efectos repetidos que deja una ventana de deduplicación; calcular los saltos entre internet y una base de datos, comparar estilos de política por permisos concedidos y usados y evaluar un detector de secretos; medir la deriva que ve un plan con y sin refresco, enumerar las escrituras simultáneas de un estado y calcular el camino crítico de un grafo de recursos; comparar estructuras de cuentas por el alcance de un error, medir la divergencia entre entornos con y sin promoción y contar las combinaciones tóxicas de permisos; dimensionar el escalado con arranque, relacionar utilización y latencia y buscar el nivel de compromiso de menor costo; componer la disponibilidad de dos proveedores, medir las funciones comunes y calcular el tiempo y el costo de mover datos; medir pasos, errores y soporte de un camino dorado y lo que un verificador de políticas no ve; cortar la creación de un entorno en cada paso, destruir en el orden correcto y barrer por etiqueta; y entregar un paquete reproducible con un validador cuyos límites conoces.
+Podrás separar las decisiones de negocio, lógicas y físicas de un esquema y medir las anomalías de una tabla plana, el costo de una clave y los falsos positivos de una lista en una columna; comparar los costos de lectura, de reescritura y de búsqueda de filas, documentos y claves y recorrer un grafo con una consulta recursiva que no se desboca ante un ciclo; enumerar las intercalaciones de varios clientes, comparar leer-sumar-escribir, comprobación de versión y actualización atómica y reproducir un sesgo de escritura; medir qué filas inválidas deja pasar cada capa de restricciones y cuántas inserciones duplicadas evita una restricción de unicidad; leer un plan de ejecución, medir el trabajo con y sin índice, elegir el orden de un índice compuesto y contar el costo de escritura de cada índice; construir la matriz de compatibilidad entre versiones de una migración en fases, medir el efecto del tamaño de un lote y comprobar qué migraciones son reversibles de verdad; cuantificar las lecturas obsoletas de una réplica, un cuórum y los movimientos de claves de dos funciones de reparto, y detectar una clave caliente; comparar políticas de caché, el pico de una estampida y una carrera de relleno; calcular la pérdida por intervalo de copia, distinguir una copia consistente de una ingenua y medir qué detecta cada nivel de verificación; contar los restos de un dato tras borrarlo, la unicidad de atributos combinados y la recuperación de un hash por diccionario; ensayar una migración en tres entornos y cortarla en cada paso; y entregar un paquete con un validador cuyos límites conoces.
 
-Al finalizar podrás defender una plataforma mínima con su matriz de responsabilidades, sus fronteras de aislamiento, su política de capacidad, de estado, de cuentas y de permisos, su estrategia de portabilidad, su camino de creación con verificador, su prueba de destrucción y una lista de lo que ninguna prueba ni validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
+Al finalizar podrás defender una capa de datos con sus invariantes, su plan de migraciones, sus objetivos de recuperación medidos, su política de caché y de distribución, su ciclo de vida de los datos personales y una lista de lo que ninguna prueba ni validador ve, y podrás indicar qué parte de tu conclusión es observación, cuál es inferencia y cuál es suposición.
 
 ## Prerrequisitos enlazados
 
-- [Parte 2 — Sistemas operativos, terminal y automatización](../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/): procesos, archivos y automatización con scripts.
-- [Parte 3 — Redes, internet y protocolos](../../classes/part-03-redes-internet-y-protocolos/): direcciones, enrutamiento y latencia.
-- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): colas, reintentos e idempotencia.
-- [Parte 25 — Arquitectura de software y dominio](../../classes/part-25-arquitectura-de-software-y-dominio/): fronteras, decisiones registradas y atributos de calidad.
-- [Parte 26 — Datos, persistencia y recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/): transacciones, actualización perdida y copias de seguridad.
-- [Parte 28 — Concurrencia y sistemas distribuidos](../../classes/part-28-concurrencia-y-sistemas-distribuidos/): fallos parciales, composición de disponibilidad y degradación.
-- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos, sin proveedor, orquestador ni herramienta de infraestructura.
+- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): costo de las operaciones, tablas hash e índices como estructuras de búsqueda.
+- [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): invariantes, compatibilidad entre versiones y contratos comprobables.
+- [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y consistencia en el servidor.
+- [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): fronteras, agregados y decisiones registradas.
+- Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar (incluido `sqlite3`) y datos sintéticos.
 
 ## Bloques y progresión
 
-1. **Delegar y aislar:** las clases 349 y 350 separan qué capas se delegan y qué frontera aísla cada unidad de ejecución.
-2. **Ejecutar y repartir:** las clases 351 y 352 miden la ubicación, la reconciliación, los arranques en frío y la entrega al menos una vez.
-3. **Acceso y declaración:** las clases 353 y 354 miden saltos de red, permisos concedidos y usados, secretos, deriva y estado.
-4. **Entornos y capacidad:** las clases 355 y 356 miden el alcance de un error por cuentas, la divergencia entre entornos, el escalado y el compromiso de capacidad.
-5. **Portar y ofrecer:** las clases 357 y 358 miden la disponibilidad compuesta, las funciones comunes, el costo de mover datos y el valor de un camino dorado.
-6. **Aplicar e integrar:** las clases 359 y 360 ensayan el ciclo de vida de un entorno y entregan un paquete reproducible.
+1. **Modelar los datos:** las clases 313 y 314 separan los niveles de modelo y comparan filas, documentos, claves y grafos por las preguntas que abaratan.
+2. **Corrección bajo concurrencia:** las clases 315 y 316 enumeran las intercalaciones que rompen una invariante y miden qué capa de restricciones la protege.
+3. **Rendimiento y cambio:** las clases 317 y 318 miden qué ayuda y qué cuesta un índice y dividen un cambio de esquema en fases compatibles.
+4. **Distribución y capas:** las clases 319 y 320 miden lecturas obsoletas, movimiento de claves, estampidas y carreras de relleno.
+5. **Recuperación y ciclo de vida:** las clases 321 y 322 miden qué verifica una restauración y dónde queda un dato borrado o supuestamente anónimo.
+6. **Aplicar e integrar:** las clases 323 y 324 ensayan una migración peligrosa y entregan un paquete de capa de datos recuperable.
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2, en el mismo equipo de 8 hilos lógicos. Los datos son **sintéticos** y las semillas están fijadas: las salidas de las simulaciones y los cálculos fueron idénticas en ambos sistemas en todas las cifras. Hay dos tipos de excepción, ambos del entorno y no del método. Los tiempos de `SE-350` (arranque de un hilo y de procesos, interferencia entre procesos) y de `SE-352` (arranque de un intérprete con módulos) son mediciones reales: cambian de una ejecución a otra y entre sistemas, se publican con su mediana y su rango y se leen como órdenes de magnitud. Y las sumas de comprobación de `SE-360` coinciden entre Windows y Ubuntu solo cuando el archivo normaliza también el campo que registra el sistema que lo creó. Todo el código usa solo la biblioteca estándar.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 (SQLite 3.45.3) y repetidos con CPython 3.12.3 en Ubuntu bajo WSL2 (SQLite 3.45.1). Los datos son **sintéticos** y las semillas están fijadas: las salidas de los doce experimentos fueron idénticas en ambos sistemas en todas las cifras salvo dos excepciones, ambas del entorno y no del método: los pasos de la máquina virtual de SQLite del relleno por lotes de `SE-354` difirieron un 7 % entre las dos versiones del motor con la misma proporción entre tamaños de lote (por ejemplo, 1 400 021 y 1 500 021 pasos en la transacción única), y los bytes comprimidos con zlib de `SE-360` difirieron menos de un 1 %. Ninguno mide tiempo de reloj. Todo el código usa solo la biblioteca estándar.
 
-Los experimentos son: una matriz de 12 capas por modelo de servicio, la exposición anual a vulnerabilidades con las mismas 127 vulnerabilidades en cuatro modelos y la probabilidad de dejar un ajuste mal configurado según el número de ajustes (`SE-349`); el arranque de un hilo y de tres tipos de proceso, la densidad de instancias según el sobrecoste de cada unidad y el trabajo por proceso con 1 a 16 procesos que consumen CPU (`SE-350`); tres políticas de ubicación con cuatro órdenes de llegada en 19 nodos con el 91 % de la CPU ocupada, las réplicas ausentes según el intervalo de un controlador con el retroceso de reinicios y la probabilidad de saturar un nodo según la sobreasignación (`SE-351`); los arranques en frío con cinco tasas y cuatro plazos de inactividad, el arranque de un proceso con cuatro conjuntos de módulos y los efectos repetidos de 976 reentregas con cinco ventanas de deduplicación (`SE-352`); los saltos hasta la base de datos tras cada una de 127 reglas posibles, cuatro estilos de política en 25 roles y cinco reglas de un detector sobre 260 cadenas (`SE-353`); la deriva que ve un plan con y sin refresco, todas las intercalaciones de dos y tres aplicaciones sobre un estado y el camino crítico de un grafo de 60 recursos (`SE-354`); el alcance de un error con tres estructuras de cuentas, la divergencia entre preproducción y producción con y sin promoción y las combinaciones tóxicas de 40 roles (`SE-355`); seis políticas de escalado sobre siete días de tráfico con picos, una cola de un servidor con cinco utilizaciones y el costo con siete niveles de compromiso (`SE-356`); cinco composiciones de disponibilidad de dos proveedores verificadas con 35 millones de horas simuladas, las funciones comunes de tres proveedores ficticios y el tiempo y el costo de mover datos (`SE-357`); la creación de un servicio con 23 y con 5 pasos, una cola de soporte con cuatro fracciones de adopción y un verificador de ocho reglas sobre 150 descriptores (`SE-358`); doce cortes de la creación de un entorno de carpetas locales con tres estrategias de estado, 5 000 órdenes de destrucción y un barrido por etiqueta con tres coberturas (`SE-359`); y cinco variantes de construcción de un paquete en dos sistemas, un validador con 208 mutaciones y el gasto de 500 meses con entornos olvidados (`SE-360`).
+Los experimentos son: una tabla plana frente a un modelo normalizado, el tamaño del archivo con tres claves primarias y los falsos positivos de una lista separada por comas (`SE-349`); las lecturas y reescrituras de filas frente a documentos embebidos, la búsqueda por clave, por posición y por atributo con un índice secundario manual, y una consulta recursiva de prerrequisitos con y sin ciclo (`SE-350`); tres clientes que suben un contador en las 90 intercalaciones, una transferencia cortada en cada paso y dos retiradas de guardia en las 70 intercalaciones bajo tres niveles de aislamiento, con una ejecución real en SQLite (`SE-351`); ocho familias de filas inválidas frente a cuatro capas de restricciones, tres clientes que comprueban y luego insertan en las 90 intercalaciones, y el borrado de un curso con cuatro acciones de clave foránea encendida y apagada (`SE-352`); los pasos de ejecución con y sin índice con 50 000 filas, cinco consultas frente a tres índices compuestos, el costo de escritura de cero a cuatro índices y el patrón de una consulta por elemento (`SE-353`); la matriz de compatibilidad entre dos versiones de la aplicación y cuatro estados del esquema, el relleno de 100 000 filas con cinco tamaños de lote y seis migraciones aplicadas y revertidas (`SE-354`); las lecturas obsoletas de réplicas asíncronas y de un cuórum, las claves movidas por el reparto con módulo y con un anillo de hash y el desequilibrio de carga con popularidad Zipf (`SE-355`); seis políticas de caché sobre 200 000 operaciones, la estampida de mil claves que expiran a la vez y una carrera de lectura y escritura en seis órdenes (`SE-356`); la pérdida por intervalo de copia, una copia del archivo de una base en uso frente a la copia en línea y 200 copias alteradas frente a seis niveles de verificación (`SE-357`); los restos de un valor tras `DELETE`, `secure_delete` y `VACUUM`, las filas vencidas con cuatro políticas de retención, la unicidad de 5 000 personas sintéticas según los atributos combinados y un hash de correo contra un diccionario (`SE-358`); un analizador de texto sobre 200 mutaciones de una migración, seis migraciones defectuosas en tres entornos de ensayo y una migración de cinco pasos cortada en cada punto (`SE-359`); y un validador de paquetes sobre 200 mutaciones, un mes simulado con un borrado y una corrupción silenciosa bajo tres estrategias de respaldo y el costo comprimido de retener copias (`SE-360`).
 
-Los parámetros (los 12 niveles de responsabilidad, las medianas de remedio de 3, 10 y 21 días, los 300, 120, 45 y 14 ajustes y el 1 y el 2 % de error por ajuste, el sobrecoste de 30 y 1 024 MiB, los 150 pods y los 19 nodos, el arranque de 7 s y el 0,2 % de fallo por segundo, la distribución del uso de recursos, las llegadas de Poisson y el 5 % de reentregas, los 13 nodos de la red y sus 17 flujos, los 25 roles y las 60 acciones, los 80 secretos y 180 señuelos, las duraciones de 5 a 120 s, los 24 recursos y el 5 % de acciones comodín, el 99,95 % de disponibilidad, los 23 y 5 pasos con el 2 % de error, las 0,3 y 2,0 solicitudes por servicio, los doce recursos con sus dependencias, el 15 % de entornos olvidados y todos los precios) son supuestos del autor, no datos de una plataforma, una organización, un proveedor ni de personas reales. Los precios no son tarifas de ningún proveedor y no se compara ninguna oferta. Los tres proveedores de `SE-357` son ficticios. El detector de secretos, el verificador de políticas y el validador de paquetes se escribieron conociendo los datos con que se evalúan: su exactitud real es desconocida. Los «secretos» son cadenas aleatorias que no abren nada. Los modelos de planificador, de bucle de reconciliación, de evaluación de permisos, de estado y de cola son versiones simplificadas del autor y no reproducen Kubernetes, Terraform, OpenTofu ni el motor de políticas de ningún proveedor. Los generadores de números pseudoaleatorios de Python se usaron solo para simular; no son criptográficos. No se usó ningún proveedor de nube, orquestador, contenedor, máquina virtual, función sin servidores, red real, herramienta de infraestructura como código ni cuenta de nadie; no se midió latencia de red, costo, tiempo de un despliegue real ni disponibilidad de un servicio; y no se evaluó ningún contrato, norma ni regulación. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador `SE-360` define el paquete y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes. Las ampliaciones añaden un modelo de movimiento lateral con cuatro reglas de red (`SE-353`) y una medición del SCI de dos implementaciones con supuestos declarados (`SE-356`).
+Los parámetros (los 5 000 y 50 000 registros, el corte del lote tras 100 filas, el fallo del 1 % entre dos escrituras, el retardo exponencial de 50 ms y la lectura entre 0 y 200 ms, la popularidad Zipf con exponentes 1,0 y 1,1, el 5 % de escrituras, el 90 % de entregas «enviadas», el plazo de retención de 12 meses, la tasa de 20 000 eventos al mes, los atributos uniformes e independientes de las 5 000 personas, los siete correos duplicados y las treinta notas en cero, los 200 registros por día y los dos incidentes del mes simulado) son supuestos del autor, no datos de una plataforma, una institución ni de personas reales. Las reglas léxicas de los dos validadores se ajustaron con los mismos casos que los evalúan: su exactitud real es desconocida. El modelo de niveles de aislamiento, el cuórum, las cachés y la bitácora del mes simulado son modelos del autor y no reproducen un motor concreto. Los generadores de números pseudoaleatorios de Python se usaron solo para simular; no son criptográficos. Los plazos de retención no son una interpretación de una ley ni de una norma institucional y esta parte no evalúa el cumplimiento de ninguna. No se usó ningún servidor de bases de datos (solo SQLite), motor documental, de clave-valor o de grafos, base distribuida, caché, red, nube ni proveedor; no se midió latencia, tiempo de restauración, rendimiento ni carga; y no se probó cifrado, discos de estado sólido ni sistemas de archivos con instantáneas. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador `SE-360` define el paquete y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
 
 ## Guía razonada clase por clase
 
-La plataforma de entregas mantiene un caso, una pregunta y un paquete estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
+La capa de datos de la plataforma mantiene un modelo, un esquema y un paquete estables mientras cambian las decisiones. Cada clase explica qué incertidumbre reduce, qué experimento la muestra, qué no demuestra y qué evidencia permite abandonar la conclusión.
 
-### Bloque 1 — Delegar y aislar
+### Bloque 1 — Modelar los datos
 
-#### SE-349 — IaaS, PaaS, SaaS y responsabilidad compartida
+#### SE-349 — Modelado conceptual, lógico y físico
 
-Delegar la operación no es delegar la responsabilidad por los datos, la identidad ni la configuración. La clase construye una matriz de 12 capas por modelo, simula cuánto cambia la exposición a vulnerabilidades según quién parchea cada capa y calcula la probabilidad de dejar al menos un ajuste mal configurado según cuántos se poseen.
+Mezclar los tres niveles hace que un detalle del motor se convierta en una propiedad del negocio que nadie decidió. La clase mide las tres anomalías de una tabla plana, cuánto cuesta una clave de texto frente a una entera y cuántos resultados falsos devuelve buscar identificadores en una lista dentro de una columna.
 
-El estudiante entrega la matriz de responsabilidades de las piezas de la plataforma con fuente y dueño por celda. `SE-350` pregunta qué hay bajo cada servicio: cómo se aíslan una máquina virtual, un contenedor y un proceso.
+El estudiante entrega un modelo conceptual y un `schema.sql` con cada decisión clasificada. `SE-350` compara qué cambia cuando los datos se guardan de otras formas.
 
-#### SE-350 — Máquinas virtuales, contenedores y aislamiento
+#### SE-350 — Relacional, documental, clave-valor, grafos y series
 
-Cada frontera comparte algo distinto con su vecino. La clase mide el arranque real de un hilo y de procesos con y sin dependencias, calcula cuántas instancias caben según el sobrecoste de cada unidad y observa cómo procesos que consumen CPU se quitan trabajo entre sí.
+Cada modelo abarata una pregunta y encarece un cambio. La clase cuenta lo que toca cada operación con filas y con documentos embebidos, mide la búsqueda por clave y por atributo con un índice manual desincronizable y recorre un grafo de prerrequisitos con una consulta recursiva, con y sin ciclo.
 
-El estudiante entrega un cuadro de fronteras por pieza con su modelo de amenaza. `SE-351` pregunta quién decide dónde corre cada unidad y qué hace cuando falla.
+El estudiante entrega una matriz de preguntas frecuentes contra modelos con lo medido. `SE-351` pregunta qué ocurre cuando varias personas cambian los datos a la vez.
 
-### Bloque 2 — Ejecutar y repartir
+### Bloque 2 — Corrección bajo concurrencia
 
-#### SE-351 — Orquestación y scheduling
+#### SE-351 — Transacciones, aislamiento y concurrencia
 
-Un orquestador empaqueta lo que se le pide y repara con retardo. La clase cuenta los pods que no caben con tres políticas y cuatro órdenes en un clúster casi lleno, calcula las réplicas ausentes según cada cuánto revisa el controlador y mide el riesgo de saturación según cuánto se sobreasigna.
+La atomicidad evita el corte a mitad y no que otra operación lea un valor viejo. La clase enumera 90 intercalaciones de tres clientes que suben un contador, corta una transferencia antes de cada paso y enumera las 70 intercalaciones que dejan sin docentes de guardia a la plataforma según el nivel de aislamiento.
 
-El estudiante entrega peticiones, límites y política de ubicación justificados. `SE-352` pregunta qué ocurre cuando ni siquiera se elige el nodo.
+El estudiante entrega las operaciones concurrentes con su invariante, su mecanismo y su prueba de intercalaciones. `SE-352` pregunta qué invariantes puede imponer el propio motor.
 
-#### SE-352 — Serverless y ejecución gestionada
+#### SE-352 — Restricciones, invariantes y consistencia
 
-Sin servidores no es sin operación: aparecen los arranques en frío y las entregas repetidas. La clase simula siete días de llegadas con cinco tasas y cuatro plazos, mide cómo crece el arranque de un intérprete con sus dependencias y cuenta los efectos repetidos que deja pasar cada ventana de deduplicación.
+La última defensa contra un dato inválido es la que no depende de cada cliente. La clase mide cuántas de 1 600 filas inválidas deja pasar cada capa de restricciones, enumera los órdenes de tres clientes que comprueban y luego insertan y muestra qué hace borrar un curso con la clave foránea apagada.
 
-El estudiante entrega la clasificación de piezas para ejecución gestionada y el diseño de idempotencia de una. `SE-353` pregunta quién puede hablar con quién y con qué credenciales.
+El estudiante entrega un catálogo de invariantes con mecanismo y prueba de humo. `SE-353` mide cómo se consultan eficientemente.
 
-### Bloque 3 — Acceso y declaración
+### Bloque 3 — Rendimiento y cambio
 
-#### SE-353 — Redes, identidad y secretos en cloud
+#### SE-353 — Consultas, índices y patrones de acceso
 
-La seguridad de una red se mide en saltos, y la identidad la salta con una credencial. La clase calcula la distancia de internet a la base de datos tras cada regla posible, compara cuatro estilos de política por lo concedido y lo usado y evalúa cinco reglas de un detector de secretos con sus límites. La ampliación presenta la confianza cero con identidad de carga de trabajo, mTLS y microsegmentación, y mide con un modelo cuántos servicios alcanza un atacante según la regla de red.
+Un índice ayuda a las consultas que coinciden con su forma y cobra en cada escritura. La clase mide el trabajo de ejecución con y sin índice según la selectividad, el efecto del orden de las columnas de un índice compuesto frente a cinco consultas y el costo de insertar con cero a cuatro índices.
 
-El estudiante entrega el grafo de flujos, una política mínima por servicio y un inventario de secretos con rotación. `SE-354` pregunta cómo se declara todo esto de forma repetible.
+El estudiante entrega un catálogo de patrones de acceso con índices justificados. `SE-354` cambia el esquema sin detener a nadie.
 
-#### SE-354 — Infraestructura como código y estado
+#### SE-354 — Migraciones compatibles y evolución de esquema
 
-El código dice qué se desea y el estado, qué cree la herramienta que existe; la realidad es una tercera cosa. La clase mide la deriva que ve un plan con y sin refresco, enumera las escrituras simultáneas de un estado y calcula el camino crítico de un grafo de dependencias.
+Durante un despliegue conviven dos versiones del código con el mismo esquema. La clase construye la matriz de compatibilidad de un renombrado directo y de una migración en fases, mide el tamaño de la transacción más larga con cinco tamaños de lote y cuenta qué datos pierde aplicar y revertir seis migraciones.
 
-El estudiante entrega la descripción declarativa con su política de estado y su plan de deriva. `SE-355` pregunta en qué cuentas se aplica y quién puede hacerlo.
+El estudiante entrega un plan expandir-migrar-contraer con su punto de no retorno. `SE-355` pregunta qué ocurre cuando los datos viven en más de una máquina.
 
-### Bloque 4 — Entornos y capacidad
+### Bloque 4 — Distribución y capas
 
-#### SE-355 — Entornos, cuentas y separación de responsabilidades
+#### SE-355 — Replicación, partición y distribución
 
-Lo que acota un error es una frontera de credenciales, no un prefijo. La clase compara el alcance de un error con tres estructuras de cuentas, mide la divergencia entre entornos con y sin promoción y cuenta cuántas personas acumulan una combinación tóxica de permisos al sumar roles.
+Replicar copia el mismo dato y particionar reparte datos distintos, y cada uno introduce su propio riesgo. La clase simula lecturas obsoletas de réplicas y de un cuórum, mide las claves que se mueven con un módulo y con un anillo de hash y calcula el desequilibrio por una clave caliente.
 
-El estudiante entrega el mapa de cuentas, los pares incompatibles con su prueba y el procedimiento de emergencia. `SE-356` pregunta cuánta capacidad necesita cada entorno y cuánto cuesta.
+El estudiante entrega la decisión de replicar o particionar con su garantía de lectura propia. `SE-356` mira las copias que se guardan entre capas.
 
-#### SE-356 — Escalado, capacidad y costos
+#### SE-356 — Cachés y consistencia entre capas
 
-El escalado reactivo llega tarde y la espera se dispara antes de saturar. La clase compara seis políticas sobre siete días de tráfico con picos, relaciona la utilización con el tiempo en el sistema y busca el nivel de compromiso de capacidad de menor costo. La ampliación añade software verde y GreenOps: la intensidad de software por unidad funcional (SCI), una medición real de dos implementaciones y el desplazamiento de trabajo en el tiempo.
+Una caché es una segunda fuente de verdad con garantías más débiles que una réplica. La clase compara seis políticas por aciertos y lecturas obsoletas, calcula el pico de una estampida con y sin variación del TTL y enumera el orden de un lector y un escritor que deja la caché vieja.
 
-El estudiante entrega la política de escalado y el nivel de compromiso con su señal de revisión. `SE-357` pregunta qué pasa si parte de la capacidad vive en otro proveedor.
+El estudiante entrega la política de caché por dato con su frescura máxima. `SE-357` pregunta qué pasa cuando todo falla.
 
-### Bloque 5 — Portar y ofrecer
+### Bloque 5 — Recuperación y ciclo de vida
 
-#### SE-357 — Multi-cloud, híbrido y portabilidad real
+#### SE-357 — Backups, restauración y pruebas de recuperación
 
-Dos proveedores no son siempre más disponibles que uno. La clase compone la disponibilidad con conmutación perfecta, imperfecta, con un DNS compartido y exigiendo ambos, cuenta las funciones que ofrecen a la vez tres proveedores ficticios y calcula el tiempo y el costo de mover datos.
+Una copia que no se ha restaurado es una hipótesis. La clase calcula la pérdida según el intervalo, compara copiar el archivo de una base en uso con la copia en línea y mide qué detecta cada uno de seis niveles de verificación sobre 200 copias alteradas.
 
-El estudiante entrega la clasificación de piezas por portabilidad con el motivo de la estrategia y su costo. `SE-358` pregunta cómo se ofrece todo esto a los equipos.
+El estudiante entrega los objetivos de recuperación, el procedimiento y la verificación con su manifiesto de negocio. `SE-358` pregunta qué datos no deberían conservarse.
 
-#### SE-358 — Plataformas internas y golden paths
+#### SE-358 — Privacidad, retención y ciclo de vida del dato
 
-Un camino dorado quita pasos y no libertad. La clase calcula la probabilidad de crear un servicio sin errores con 23 y con 5 pasos, simula la cola de soporte del equipo de plataforma según la adopción y mide lo que un verificador de políticas ve y lo que no.
+Borrar una fila no borra el dato. La clase cuenta lo que queda de un valor tras `DELETE`, `secure_delete` y `VACUUM`, calcula las filas vencidas con cuatro políticas de retención y mide cuántas personas son únicas según los atributos combinados y cuántos correos recupera un diccionario de un hash sin clave.
 
-El estudiante entrega el camino de cinco pasos, el verificador con sus pruebas y las medidas con lo que no miden. `SE-359` pone todo a prueba en un taller.
+El estudiante entrega un inventario de datos personales con retención, borrado y política de anonimización. `SE-359` pone a prueba las migraciones con un taller.
 
 ### Bloque 6 — Aplicar e integrar
 
-#### SE-359 — Taller: desplegar y destruir un entorno seguro
+#### SE-359 — Taller: corregir una migración peligrosa
 
-Crear no es atómico y destruir no es el inverso exacto. El taller corta la creación de doce recursos en cada paso con tres estrategias de estado, destruye en 5 000 órdenes al azar y en el correcto y barre por etiqueta con tres coberturas.
+Los defectos más caros de una migración tienen la forma correcta y el contenido equivocado. El taller mide qué detecta un analizador de texto sobre 200 mutaciones, qué ve cada uno de tres entornos de ensayo y cuántos cortes de una migración de cinco pasos dejan un estado intermedio.
 
-El estudiante entrega el ciclo de vida de un entorno de laboratorio con su prueba de destrucción. `SE-360` lo integra en un paquete.
+El estudiante entrega una migración corregida en fases con invariantes y punto de no retorno. `SE-360` la integra en un paquete.
 
-#### SE-360 — Proyecto: plataforma mínima reproducible
+#### SE-360 — Proyecto: capa de datos recuperable
 
-Un paquete completo no es un paquete correcto. El proyecto construye el mismo paquete en dos sistemas hasta que sus sumas coinciden, mide qué detecta un validador sobre 208 mutaciones y simula el gasto de entornos olvidados con y sin plazo.
+Un paquete completo no es un paquete correcto. El proyecto mide qué detecta un validador sobre 200 mutaciones de un paquete, simula un mes con un borrado y una corrupción silenciosa bajo tres estrategias de respaldo y calcula el costo comprimido de retener copias.
 
-El estudiante entrega la plataforma mínima con su manifiesto, su validador y `LIMITES.md`. La Parte 30 cambia de pregunta: de cómo se construye y se entrega la plataforma a cómo se prueba con una estrategia por riesgo.
+El estudiante entrega un paquete de capa de datos con su restauración ensayada y `LIMITES.md`. La Parte 31 lleva esos datos a la integración entre servicios por mensajes y eventos.
 
 ## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo |
 |---|---|---|
-| [SE-349](../../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/) | IaaS, PaaS, SaaS y responsabilidad compartida | Entrega la matriz de responsabilidades de las piezas de la plataforma con fuente y dueño por celda |
-| [SE-350](../../classes/part-29-cloud-plataforma-e-infraestructura/se-350-maquinas-virtuales-contenedores-y-aislamiento/) | Máquinas virtuales, contenedores y aislamiento | Entrega un cuadro de fronteras por pieza con su modelo de amenaza |
-| [SE-351](../../classes/part-29-cloud-plataforma-e-infraestructura/se-351-orquestacion-y-scheduling/) | Orquestación y scheduling | Entrega peticiones, límites y política de ubicación justificados |
-| [SE-352](../../classes/part-29-cloud-plataforma-e-infraestructura/se-352-serverless-y-ejecucion-gestionada/) | Serverless y ejecución gestionada | Entrega la clasificación de piezas para ejecución gestionada y el diseño de idempotencia de una |
-| [SE-353](../../classes/part-29-cloud-plataforma-e-infraestructura/se-353-redes-identidad-y-secretos-en-cloud/) | Redes, identidad y secretos en cloud | Entrega el grafo de flujos, una política mínima por servicio y un inventario de secretos con rotación |
-| [SE-354](../../classes/part-29-cloud-plataforma-e-infraestructura/se-354-infraestructura-como-codigo-y-estado/) | Infraestructura como código y estado | Entrega la descripción declarativa con su política de estado y su plan de deriva |
-| [SE-355](../../classes/part-29-cloud-plataforma-e-infraestructura/se-355-entornos-cuentas-y-separacion-de-responsabilidades/) | Entornos, cuentas y separación de responsabilidades | Entrega el mapa de cuentas, los pares incompatibles con su prueba y el procedimiento de emergencia |
-| [SE-356](../../classes/part-29-cloud-plataforma-e-infraestructura/se-356-escalado-capacidad-y-costos/) | Escalado, capacidad y costos | Entrega la política de escalado y el nivel de compromiso con su señal de revisión |
-| [SE-357](../../classes/part-29-cloud-plataforma-e-infraestructura/se-357-multi-cloud-hibrido-y-portabilidad-real/) | Multi-cloud, híbrido y portabilidad real | Entrega la clasificación de piezas por portabilidad con el motivo de la estrategia y su costo |
-| [SE-358](../../classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths/) | Plataformas internas y golden paths | Entrega el camino de cinco pasos, el verificador con sus pruebas y las medidas con lo que no miden |
-| [SE-359](../../classes/part-29-cloud-plataforma-e-infraestructura/se-359-taller-desplegar-y-destruir-un-entorno-seguro/) | Taller: desplegar y destruir un entorno seguro | Entrega el ciclo de vida de un entorno de laboratorio con su prueba de destrucción |
-| [SE-360](../../classes/part-29-cloud-plataforma-e-infraestructura/se-360-proyecto-plataforma-minima-reproducible/) | Proyecto: plataforma mínima reproducible | Entrega la plataforma mínima con su manifiesto, su validador y `LIMITES.md` |
+| [SE-349](../../classes/part-29-datos-persistencia-y-recuperacion/se-349-modelado-conceptual-logico-y-fisico/) | Modelado conceptual, lógico y físico | Entrega un modelo conceptual y un `schema.sql` con cada decisión clasificada |
+| [SE-350](../../classes/part-29-datos-persistencia-y-recuperacion/se-350-relacional-documental-clave-valor-grafos-y-series/) | Relacional, documental, clave-valor, grafos y series | Entrega una matriz de preguntas frecuentes contra modelos con lo medido |
+| [SE-351](../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/) | Transacciones, aislamiento y concurrencia | Entrega las operaciones concurrentes con su invariante, su mecanismo y su prueba de intercalaciones |
+| [SE-352](../../classes/part-29-datos-persistencia-y-recuperacion/se-352-restricciones-invariantes-y-consistencia/) | Restricciones, invariantes y consistencia | Entrega un catálogo de invariantes con mecanismo y prueba de humo |
+| [SE-353](../../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/) | Consultas, índices y patrones de acceso | Entrega un catálogo de patrones de acceso con índices justificados |
+| [SE-354](../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/) | Migraciones compatibles y evolución de esquema | Entrega un plan expandir-migrar-contraer con su punto de no retorno |
+| [SE-355](../../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/) | Replicación, partición y distribución | Entrega la decisión de replicar o particionar con su garantía de lectura propia |
+| [SE-356](../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/) | Cachés y consistencia entre capas | Entrega la política de caché por dato con su frescura máxima |
+| [SE-357](../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/) | Backups, restauración y pruebas de recuperación | Entrega los objetivos de recuperación, el procedimiento y la verificación con su manifiesto de negocio |
+| [SE-358](../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/) | Privacidad, retención y ciclo de vida del dato | Entrega un inventario de datos personales con retención, borrado y política de anonimización |
+| [SE-359](../../classes/part-29-datos-persistencia-y-recuperacion/se-359-taller-corregir-una-migracion-peligrosa/) | Taller: corregir una migración peligrosa | Entrega una migración corregida en fases con invariantes y punto de no retorno |
+| [SE-360](../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/) | Proyecto: capa de datos recuperable | Entrega un paquete de capa de datos con su restauración ensayada y `LIMITES.md` |
 
 ## Fuentes
 
-- [NIST SP 800-145, «The NIST Definition of Cloud Computing»](https://csrc.nist.gov/pubs/sp/800/145/final) — IaaS, PaaS, SaaS y modelos de despliegue; autoridad: NIST.
-- [AWS: Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) y [Microsoft: shared responsibility](https://learn.microsoft.com/azure/security/fundamentals/shared-responsibility) — responsabilidad compartida; autoridad: documentación de los proveedores.
-- [namespaces(7)](https://man7.org/linux/man-pages/man7/namespaces.7.html), [Control Group v2](https://docs.kernel.org/admin-guide/cgroup-v2.html) y [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec) — aislamiento de procesos y contenedores; autoridad: manual de Linux, núcleo Linux y Open Container Initiative.
-- [Kubernetes: kube-scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/), [controladores](https://kubernetes.io/docs/concepts/architecture/controller/) y [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/) — ubicación y reconciliación; autoridad: documentación oficial y artículo de Google.
-- [AWS Lambda: entorno de ejecución](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html), [CloudEvents](https://cloudevents.io/) y [Hellerstein et al.](https://arxiv.org/abs/1812.03651) — ejecución gestionada, eventos y sus límites; autoridad: proveedor, CNCF e investigación.
-- [NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final), [AWS IAM: evaluación de políticas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) y [OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) — confianza cero, permisos y secretos; autoridad: NIST, proveedor y OWASP.
-- [Terraform: estado](https://developer.hashicorp.com/terraform/language/state) y [destroy](https://developer.hashicorp.com/terraform/cli/commands/destroy), y [OpenTofu](https://opentofu.org/docs/) — infraestructura como código y su estado; autoridad: documentación oficial de los proyectos.
-- [AWS: múltiples cuentas](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html), [Twelve-Factor: paridad](https://12factor.net/dev-prod-parity) y [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final) — entornos, paridad y separación de funciones; autoridad: proveedor, autores de la metodología y NIST.
-- [Kubernetes: HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [Little (1961)](https://doi.org/10.1287/opre.9.3.383) y [FinOps Framework](https://www.finops.org/framework/) — escalado, colas y costos; autoridad: documentación oficial, artículo original y FinOps Foundation.
-- [Google Cloud: patrones híbridos y multi-cloud](https://cloud.google.com/architecture/hybrid-multicloud-patterns-and-practices) y [OCI Image Specification](https://github.com/opencontainers/image-spec) — portabilidad; autoridad: proveedor y Open Container Initiative.
-- [CNCF Platforms White Paper](https://tag-app-delivery.cncf.io/whitepapers/platforms/), [Team Topologies](https://teamtopologies.com/) y [DORA](https://dora.dev/) — plataformas internas; autoridad: CNCF, autores del libro y programa de investigación DORA.
-- [Reproducible Builds](https://reproducible-builds.org/docs/), [SLSA v1.0](https://slsa.dev/spec/v1.0/) y [NIST SP 800-218](https://csrc.nist.gov/pubs/sp/800/218/final) — paquetes reproducibles y desarrollo seguro; autoridad: proyectos abiertos y NIST.
-- [Green Software Foundation: SCI](https://sci.greensoftware.foundation/), [SPIFFE](https://spiffe.io/docs/latest/spiffe-about/overview/) y [Istio: seguridad](https://istio.io/latest/docs/concepts/security/) — intensidad de carbono del software e identidad de carga de trabajo con mTLS; autoridad: especificación de la fundación y documentación de los proyectos.
+- [Codd, «A relational model of data for large shared data banks» (1970)](https://dl.acm.org/doi/10.1145/362384.362685) — modelo relacional e independencia de la representación; autoridad: artículo original.
+- [Kleppmann, «Designing Data-Intensive Applications»](https://dataintensive.net/) — modelos de datos, transacciones, replicación y recuperación como compromisos de diseño; autoridad: autor del libro.
+- [PostgreSQL: aislamiento de transacciones](https://www.postgresql.org/docs/current/transaction-iso.html) — niveles y anomalías; autoridad: documentación oficial de PostgreSQL.
+- [Berenson et al., «A Critique of ANSI SQL Isolation Levels»](https://arxiv.org/abs/cs/0701157) — anomalías no cubiertas por el estándar; autoridad: artículo de los autores.
+- [SQLite: aislamiento](https://www.sqlite.org/isolation.html), [claves foráneas](https://www.sqlite.org/foreignkeys.html) y [planificador de consultas](https://www.sqlite.org/queryplanner.html) — comportamiento del motor usado en los experimentos; autoridad: documentación oficial de SQLite.
+- [Fowler, «Parallel Change»](https://martinfowler.com/bliki/ParallelChange.html) — expandir, migrar y contraer; autoridad: autor del texto.
+- [Karger et al., «Consistent hashing and random trees»](https://dl.acm.org/doi/10.1145/258533.258660) — hash consistente; autoridad: artículo original.
+- [AWS Builders' Library: caching challenges and strategies](https://aws.amazon.com/builders-library/caching-challenges-and-strategies/) — consistencia y estampida de una caché; autoridad: Amazon Web Services.
+- [SQLite: API de copia en línea](https://www.sqlite.org/backup.html) y [NIST SP 800-34 Rev. 1](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final) — copia consistente y planes de contingencia; autoridad: SQLite y NIST.
+- [Reglamento (UE) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj) y [NIST SP 800-88 Rev. 1](https://csrc.nist.gov/pubs/sp/800/88/r1/final) — minimización, retención y saneamiento de medios; autoridad: Unión Europea y NIST.
+- [Sweeney, «k-anonymity»](https://doi.org/10.1142/S0218488502001648) — k-anonimato; autoridad: artículo original.
 
-Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de la plataforma se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
+Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de la capa de datos se demuestra con el caso, la evidencia trazable y la revisión de otra persona, no con la autoridad de la fuente.
 
 ## Criterios de aceptación de la parte
 
 - cada clase conecta mecanismo, medida y límite en una conclusión revisable;
-- cada medida puede reproducirse desde un checkout limpio con las mismas semillas, y los tiempos reales se leen como órdenes de magnitud;
-- ninguna afirmación sobre un proveedor, un orquestador, una organización o personas reales se apoya en una simulación;
+- cada medida puede reproducirse desde un checkout limpio con las mismas semillas;
+- ninguna afirmación sobre un motor, una carga o personas reales se apoya en una simulación;
 - los límites declarados permiten a otra persona decidir qué comprobar antes de confiar.
 
 [Volver al índice de clases](../../classes/README.md)

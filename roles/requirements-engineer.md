@@ -4,7 +4,7 @@
 
 [![Familia](https://img.shields.io/badge/familia-An%C3%A1lisis-6f42c1?style=for-the-badge)](README.md)
 [![Nivel](https://img.shields.io/badge/recorrido-junior%20%E2%86%92%20principal-0969da?style=for-the-badge)](../ROADMAP.md)
-[![Núcleo](https://img.shields.io/badge/n%C3%BAcleo-P10%20%C2%B7%20P12%20%C2%B7%20P13%20%C2%B7%20P14%20%C2%B7%20P17%20%C2%B7%20P32%20%C2%B7%20P39%20%C2%B7%20P40-2da44e?style=for-the-badge)](#-partes-y-clases-asociadas)
+[![Núcleo](https://img.shields.io/badge/n%C3%BAcleo-P10%20%C2%B7%20P12%20%C2%B7%20P13%20%C2%B7%20P14%20%C2%B7%20P17%20%C2%B7%20P38%20%C2%B7%20P45%20%C2%B7%20P47-2da44e?style=for-the-badge)](#-partes-y-clases-asociadas)
 
 **La guía conecta trabajo real, decisiones, clases concretas y evidencia defendible.**
 
@@ -51,7 +51,7 @@ priorización, aceptación, trazabilidad, validación y gestión de cambios.
 2. Partes 10–11 para discovery, valor y economía.
 3. [Parte 12 — Ingeniería de requisitos](../classes/part-12-ingenieria-de-requisitos/README.md).
 4. Partes 13–15 para especificación, experiencia y planificación.
-5. Partes 17, 23, 30 y 37 para documentación, dominios, aceptación y negociación.
+5. Partes 17, 24, 35 y 44 para documentación, dominios, aceptación y negociación.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -121,14 +121,14 @@ propias páginas ni convierten en opcional la base común.
 | 3 | [Parte 13 · Especificaciones, contratos y modelos](../classes/part-13-especificaciones-contratos-y-modelos/README.md) | desarrollada | [SE-157 · Especificación informal, semiformal y formal](../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md)<br>[SE-158 · Specification by Example y BDD](../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)<br>[SE-159 · Contratos, invariantes y diseño por contrato](../classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato/README.md)<br>[SE-163 · OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md)<br>[SE-166 · Especificaciones ejecutables y pruebas contractuales](../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md)<br>[SE-167 · Taller: convertir intención en contrato comprobable](../classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable/README.md) | Profundiza **contratos, modelos e invariantes verificables** desde la responsabilidad del rol. | Especificación trazable. |
 | 4 | [Parte 14 · Experiencia, accesibilidad e internacionalización](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) | desarrollada | [SE-169 · Diseño centrado en personas y tareas](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)<br>[SE-172 · Estados vacíos, carga, error y recuperación](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-172-estados-vacios-carga-error-y-recuperacion/README.md)<br>[SE-173 · Accesibilidad perceptible, operable y comprensible](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md)<br>[SE-178 · Investigación de usabilidad y medición](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-178-investigacion-de-usabilidad-y-medicion/README.md) | Profundiza **experiencia, accesibilidad e internacionalización** desde la responsabilidad del rol. | Flujo inclusivo evaluado. |
 | 5 | [Parte 17 · Documentación y conocimiento técnico](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) | desarrollada | [SE-205 · Documentación orientada a tareas y audiencias](../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)<br>[SE-208 · ADRs, RFCs y registro de decisiones](../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md)<br>[SE-210 · API docs, ejemplos y contratos publicados](../classes/part-17-documentacion-y-conocimiento-tecnico/se-210-api-docs-ejemplos-y-contratos-publicados/README.md)<br>[SE-215 · Taller: reconstruir conocimiento perdido](../classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md) | Profundiza **documentación, decisiones y conocimiento operativo** desde la responsabilidad del rol. | Paquete documental probado por terceros. |
-| 6 | [Parte 32 · Seguridad, privacidad y cumplimiento](../classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) | desarrollada | [SE-385 · Principios de seguridad y modelos de amenaza](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/README.md)<br>[SE-391 · Privacidad por diseño y minimización](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md)<br>[SE-392 · Secure SDLC, abuso y pruebas negativas](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-392-secure-sdlc-abuso-y-pruebas-negativas/README.md)<br>[SE-394 · Cumplimiento, evidencia y límites legales](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/README.md) | Profundiza **seguridad, privacidad y cumplimiento** desde la responsabilidad del rol. | Controles con pruebas y evidencia. |
-| 7 | [Parte 39 · SPEC, agentes y ciclo de vida agentic](../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) | desarrollada | [SE-469 · De la intención a la especificación durable](../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-469-de-la-intencion-a-la-especificacion-durable/README.md)<br>[SE-470 · Constitución, specify, clarify, plan y tasks](../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-470-constitucion-specify-clarify-plan-y-tasks/README.md)<br>[SE-471 · Implementación, análisis y convergencia contra SPEC](../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-471-implementacion-analisis-y-convergencia-contra-spec/README.md)<br>[SE-472 · Greenfield, brownfield, bug fixing e idea assessment](../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-472-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md) | Profundiza **SPEC, agentes, herramientas y guardrails** desde la responsabilidad del rol. | Flujo agentic controlado. |
-| 8 | [Parte 40 · Metodologías de desarrollo: de TDD a ODD](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | desarrollada | [SE-484 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md)<br>[SE-485 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/README.md)<br>[SE-487 · Diseño por contrato y pruebas de contrato como oráculo](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md)<br>[SE-488 · SDD: spec-first, spec-anchored y spec-as-source](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) | Profundiza **metodologías de desarrollo con evidencia de equipo** desde la responsabilidad del rol. | Política metodológica con evidencia. |
+| 6 | [Parte 38 · Seguridad, privacidad y cumplimiento](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) | desarrollada | [SE-457 · Principios de seguridad y modelos de amenaza](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-457-principios-de-seguridad-y-modelos-de-amenaza/README.md)<br>[SE-463 · Privacidad por diseño y minimización](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md)<br>[SE-464 · Secure SDLC, abuso y pruebas negativas](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md)<br>[SE-466 · Cumplimiento, evidencia y límites legales](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) | Profundiza **seguridad, privacidad y cumplimiento** desde la responsabilidad del rol. | Controles con pruebas y evidencia. |
+| 7 | [Parte 45 · Metodologías de desarrollo: de TDD a ODD](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | desarrollada | [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md)<br>[SE-545 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md)<br>[SE-547 · Diseño por contrato y pruebas de contrato como oráculo](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-547-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md)<br>[SE-548 · SDD: spec-first, spec-anchored y spec-as-source](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) | Profundiza **metodologías de desarrollo con evidencia de equipo** desde la responsabilidad del rol. | Política metodológica con evidencia. |
+| 8 | [Parte 47 · SPEC, agentes y ciclo de vida agentic](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) | desarrollada | [SE-565 · De la intención a la especificación durable](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md)<br>[SE-566 · Constitución, specify, clarify, plan y tasks](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-566-constitucion-specify-clarify-plan-y-tasks/README.md)<br>[SE-567 · Implementación, análisis y convergencia contra SPEC](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-567-implementacion-analisis-y-convergencia-contra-spec/README.md)<br>[SE-568 · Greenfield, brownfield, bug fixing e idea assessment](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md) | Profundiza **SPEC, agentes, herramientas y guardrails** desde la responsabilidad del rol. | Flujo agentic controlado. |
 
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–48 (`SE-001`–`SE-588`), también tienen contenido desarrollado y
+de las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -139,28 +139,39 @@ permiten practicar el rol desde otros ángulos:
 | [SE-152 · Requisitos regulatorios, de datos y seguridad](../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) | Parte 12 |
 | [SE-155 · Taller: reparar requisitos no verificables](../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md) | Parte 12 |
 | [SE-156 · Proyecto: especificación de requisitos revisable](../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) | Parte 12 |
-| [SE-301 · Drivers, restricciones y atributos de arquitectura](../classes/part-25-arquitectura-de-software-y-dominio/se-301-drivers-restricciones-y-atributos-de-arquitectura/README.md) | Parte 25 |
-| [SE-493 · Anatomía de un harness: modelo, contexto, herramientas y bucles](../classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) | Parte 41 |
-| [SE-494 · Instrucciones de repositorio y cumplimiento determinista](../classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md) | Parte 41 |
-| [SE-486 · DDD como lenguaje ubicuo y contexto para agentes](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) | Parte 40 |
+| [SE-325 · Drivers, restricciones y atributos de arquitectura](../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md) | Parte 27 |
+| [SE-577 · Anatomía de un harness: modelo, contexto, herramientas y bucles](../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) | Parte 48 |
+| [SE-578 · Instrucciones de repositorio y cumplimiento determinista](../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md) | Parte 48 |
+| [SE-546 · DDD como lenguaje ubicuo y contexto para agentes](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) | Parte 45 |
 
 **Cómo recorrerla.** Empieza por [SE-121](../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md) para fijar el
 primer mecanismo, usa [SE-172](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-172-estados-vacios-carga-error-y-recuperacion/README.md) para integrar el
-centro de la especialidad y llega a [SE-488](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) cuando ya
+centro de la especialidad y llega a [SE-568](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md) cuando ya
 puedas explicar cómo detectar y recuperar un fallo. Una clase se considera estudiada
 sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los enlaces
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–48 (`SE-001`–`SE-588`) están
+> El mapa expresa el currículo vigente. Las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## ✅ Ampliación completada: Partes 40–48
+## 🔭 Ampliación planificada: Partes 34 y 42 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–48 (`SE-481`–`SE-588`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y [ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
+> Las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) están **planificadas**; sus números están reservados desde el 23 de
+> noviembre de 2026 ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
 
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+| — | — | Las partes que este rol esperaba ya están desarrolladas y figuran en el núcleo o en las clases de apoyo. |
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

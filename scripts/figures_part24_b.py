@@ -1,262 +1,346 @@
-"""Figures for SE-295 to SE-300 (code analysis and synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
+"""Figures for SE-293 to SE-300 (synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig, dumbbell, grouped_bars, line_chart, stacked_bars
+from figure_kit import (Fig, _kit_finish, _kit_start, grouped_bars, heatmap, line_chart,
+                        percentile_intervals, timeline)
 from figures_part07_a import bars
 
-SINT = "Medición sobre código de ejemplo y simulación con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
+SINT = "Simulación sintética con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
+
+
+# ---------------------------------------------------------------- SE-293
+def se281_buffer() -> Fig:
+    return line_chart(
+        "Búfer de audio a 48 kHz: latencia que se añade y callbacks que no llegan a tiempo",
+        "Línea en escalas logarítmicas que une latencia y fallos del búfer de audio: con 64 muestras la latencia es 1,3 milisegundos y falla el 22,3 por ciento de las llamadas; con 256 muestras, 5,3 y 1,6 por ciento; con 1024, 21,3 y 0,016 por ciento; la línea desciende, cada mejora de fiabilidad se paga con latencia.",
+        [("Callbacks tardíos", [(1.3, 22.3, "64 muestras · 22,3 %", "t"), (2.7, 7.3, "128 · 7,3 %", "r"), (5.3, 1.6, "256 · 1,6 %", "r"),
+                                (10.7, 0.23, "512 · 0,23 %", "r"), (21.3, 0.016, "1 024 · 0,016 %", "r")], "coral")],
+        x_label="Latencia que añade el búfer (ms)", y_label="Callbacks que no llegan a tiempo (%)", log_x=True, log_y=True,
+        x_ticks=[(1, "1"), (2, "2"), (5, "5"), (10, "10"), (20, "20"), (50, "50")], y_ticks=[0.01, 0.1, 1, 10, 100],
+        point_labels="none",
+        note='Un búfer mayor compra holgura con latencia: de 64 a 512 muestras los fallos bajan de 22 % a 0,23 % y la latencia sube de 1,3 a 10,7 ms. El modelo supone un coste fijo con picos lognormales (mediana 0,5 ms, σ = 1,0) más 4 µs por muestra; son supuestos del autor, no una medición de ninguna tarjeta ni sistema operativo.', note_kind='gold', foot=SINT)
+
+
+def se281_alias() -> Fig:
+    return line_chart(
+        "Frecuencia que mide una transformada al muestrear tonos puros a 16 kHz",
+        "Líneas con la frecuencia medida frente a la frecuencia real al muestrear a 16 kilohercios: hasta 8 000 hercios la medida coincide con la real; por encima del límite de 8 000 la medida se pliega hacia abajo: 9 000 se mide como 7 000, 12 000 como 4 000 y 15 000 como 1 000.",
+        [("Frecuencia medida", [(1000, 1000, "1 000", "r"), (5000, 5000, "5 000", "b"), (9000, 7000, "9 000 → 7 000", "r"),
+                                (12000, 4000, "12 000 → 4 000", "r"), (15000, 1000, "15 000 → 1 000", "l")], "coral"),
+         ("Sin plegado (medida = real)", [(0, 0, "", "t"), (15000, 15000, "", "t")], "grey")],
+        x_label="Frecuencia real del tono (Hz)", y_label="Frecuencia medida (Hz)", point_labels="none",
+        x_ticks=[(0, "0"), (4000, "4 000"), (8000, "8 000"), (12000, "12 000"), (16000, "16 000")],
+        y_ticks=[0, 4000, 8000, 12000, 16000], vlines=[(8000, "límite: 8 000 Hz")],
+        note='Sobre la mitad de la frecuencia de muestreo (8 kHz aquí) los tonos no desaparecen: se disfrazan de otro más grave, y nada en las muestras permite distinguirlos. Por eso el filtro debe ir antes de muestrear. La transformada se calculó con Goertzel sobre 1 024 muestras; medida y fórmula coincidieron en los seis casos.', note_kind='coral', foot=SINT)
+
+
+def se281_cuadros() -> Fig:
+    return line_chart(
+        "Pantalla de 90 Hz (presupuesto de 11,1 ms): fotogramas fuera de presupuesto según el coste medio",
+        "Línea con el porcentaje de fotogramas fuera del presupuesto de 11,1 milisegundos según el coste medio de render: 0,5 por ciento con 6 milisegundos, 7,4 con 8, 16,5 con 9, 29,0 con 10 y 43,3 con 11; ya con un coste medio por debajo del presupuesto se pierde una parte creciente de los fotogramas.",
+        [("Fotogramas fuera de presupuesto", [(6, 0.5, "0,5 %", "t"), (8, 7.4, "7,4 %", "l"), (9, 16.5, "16,5 %", "l"), (10, 29.0, "29,0 %", "l"), (11, 43.3, "43,3 %", "l")], "coral")],
+        x_label="Coste medio de render (ms)", y_label="Fotogramas fuera de presupuesto (%)", point_labels="none",
+        x_ticks=[(6, "6"), (7, "7"), (8, "8"), (9, "9"), (10, "10"), (11, "11"), (12, "")], y_ticks=[0, 10, 20, 30, 40, 50],
+        vlines=[(11.1, "11,1 ms")],
+        annotations=[(8, 7.4, "Con 8 ms, por debajo del presupuesto de 11,1 ms, ya se pierde el 7,4 %", -40, -200)],
+        note='El promedio engaña: con un coste medio de 8 ms, por debajo de 11,1, aún el 7 % de los fotogramas se pierde y con sincronización cada uno se muestra el doble de tiempo (22,2 ms en el percentil 99). En realidad virtual esos fotogramas son los que se sienten. Tiempos lognormales con σ = 0,25 supuestos; no se midió ningún casco.', note_kind='gold', foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-294
+def se282_redondeo() -> Fig:
+    f, y = _kit_start("Dinero con coma flotante, con decimales y con enteros: seis comprobaciones",
+                      "Diagrama de seis comprobaciones agrupadas en tres bloques: la suma repetida, la igualdad y el redondeo en coma flotante fallan por representación; la suma de líneas redondeadas y el total redondeado difieren en el 38,68 por ciento de 100000 facturas; repartir 100,00 en tres pierde un céntimo con coma flotante y es exacto con enteros de céntimos.",
+                      940, None)
+
+    def row(ry: float, left: str, mid: str, right: str, mid_kind: str = "coral", right_kind: str = "grey") -> None:
+        f.box(24, ry, 360, 46, left, "plain", 13)
+        f.arrow([(384, ry + 23), (424, ry + 23)])
+        f.box(424, ry, 220, 46, mid, mid_kind, 13, bold=True)
+        f.arrow([(644, ry + 23), (684, ry + 23)])
+        f.box(684, ry, 232, 46, right, right_kind, 13)
+
+    f.group(10, y, 920, 206, "Coma flotante: el error está en cómo se guarda 0,1", "grey")
+    row(y + 34, "Sumar 0,10 un millón de veces (float)", "100 000,00000133", "error de 1,3·10⁻⁶")
+    row(y + 90, "0,1 + 0,2 == 0,3 (float)", "Falso", "—")
+    row(y + 146 - 0, "round(2.675, 2) frente a Decimal con HALF_UP", "2,67 y 2,68", "dos reglas, dos totales", "gold")
+    y += 206 + 12
+    f.group(10, y, 920, 150, "Decimales exactos: el desacuerdo es una regla de redondeo sin decidir", "grey")
+    f.box(24, y + 36, 360, 46, "Redondear cada línea y luego sumar", "plain", 13)
+    f.box(24, y + 92, 360, 46, "Sumar las líneas y luego redondear el total", "plain", 13)
+    f.arrow([(384, y + 59), (404, y + 59), (404, y + 87), (424, y + 87)])
+    f.arrow([(384, y + 115), (404, y + 115), (404, y + 87), (424, y + 87)])
+    f.box(424, y + 36, 220, 102, "No coinciden en el 38,68 % de 100 000 facturas", "coral", 13, bold=True)
+    f.arrow([(644, y + 87), (684, y + 87)])
+    f.box(684, y + 64, 232, 46, "brecha media de 1 céntimo", "grey", 13)
+    y += 150 + 12
+    f.group(10, y, 920, 134, "Repartir 100,00 entre tres: coma flotante frente a enteros de céntimos", "grey")
+    row(y + 34, "Repartir 100,00 en tres con float redondeado", "99,99", "falta 1 céntimo")
+    row(y + 86, "Repartir 10 000 céntimos en tres, resto al primero", "3334 + 3333 + 3333", "suma exacta", "teal", "teal")
+    y += 134 + 8
+    out = _kit_finish(f, y, 'Que la suma por líneas y la suma del total difieran en un céntimo en casi cuatro facturas de cada diez no es un error de coma flotante: es una decisión de negocio sin tomar (dónde se redondea). Hay que declararla, probarla y aplicarla en un único lugar. Facturas sintéticas con IVA del 19 %.', 'coral', SINT)
+    out.kind = "diagram"
+    return out
+
+
+def se282_mutantes() -> Fig:
+    return heatmap(
+        "Libro mayor con cinco mutantes: corridas de 200 operaciones detectadas por cada tipo de comprobación",
+        "Mapa de calor con las corridas, de 100, en que cada comprobación detecta cada fallo inyectado en un libro mayor: las invariantes de conservación y saldo no negativo detectan 100 de 100 en cuatro fallos y 0 en el redondeo de la comisión; la comparación con un modelo de referencia detecta 100 de 100 en cinco fallos.",
+        ["Sin fallos (control)", "Transferir sin comprobar saldo", "Perder el abono de una transferencia", "Abonar dos veces", "Cobrar comisión sin acreditarla", "Redondear la comisión hacia arriba"],
+        ["Conservación y saldo ≥ 0", "Comparación con modelo de referencia"],
+        [[0, 0], [100, 100], [100, 100], [100, 100], [100, 100], [0, 100]],
+        unit="corridas detectadas", row_title="Fallo inyectado", col_title="Corridas detectadas (de 100)",
+        scale="teal", vmin=0, vmax=100, cell_fmt=lambda v: f"{int(v)} de 100", highlight=[(5, 0), (5, 1)], cell_h=42, label_w=230,
+        note='La conservación del dinero se cumple aunque el importe sea el equivocado: cobrar 8 en lugar de 7 mueve dinero entre cuentas sin crearlo ni destruirlo. Las invariantes cubren lo que el sistema nunca debe hacer; una regla de negocio exige un oráculo independiente. 100 semillas por mutante.', note_kind='teal', foot=SINT)
+
+
+def se282_idempotencia() -> Fig:
+    return grouped_bars(
+        "Reintentar un cobro con hasta tres reintentos cuando la respuesta se pierde",
+        "Barras agrupadas con el porcentaje de pagos cobrados dos veces o más al reintentar hasta tres veces cuando se pierde la respuesta: sin clave de idempotencia es 1,08, 4,98 y 19,98 por ciento si se pierde el 1, el 5 y el 20 por ciento de las respuestas; con clave es 0 en todos los casos.",
+        ["1 % de respuestas perdidas", "5 % de respuestas perdidas", "20 % de respuestas perdidas"],
+        [("Sin clave de idempotencia", [1.08, 4.98, 19.98], "coral"), ("Con clave de idempotencia", [0, 0, 0], "teal")],
+        unit="Pagos cobrados 2 o más veces (%)",
+        note='El reintento es correcto para el cliente y desastroso para el cargo si el servidor no reconoce la repetición. La clave de idempotencia convierte «lo intenté de nuevo» en «es el mismo cobro». Modelo de 100 000 pagos; el procesador siempre recibe la petición y solo se pierde la respuesta.', note_kind='gold', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-295
-def se295_mutacion() -> Fig:
-    items = [
-        ("5 ejemplos", 63.2, "coral", "12 de 19 (63,2 %)"),
-        ("200 entradas al azar", 73.7, "gold", "14 de 19 (73,7 %)"),
-        ("56 entradas en los bordes", 100.0, "teal", "19 de 19 (100 %)"),
-        ("Azar + bordes", 100.0, "teal", "19 de 19 (100 %)"),
-    ]
-    return bars("Mutantes de una función de tarifa que mata cada conjunto de pruebas",
-                "Barras: de 19 mutantes generados automáticamente sobre una función de tarifa, cinco ejemplos matan 12, doscientas entradas al azar matan 14 y cincuenta y seis entradas en los bordes de los rangos matan los 19.",
-                items, 5, "Los mutantes que sobreviven a los ejemplos son tres de frontera (cambiar <= por <), tres de constante y uno lógico: justo lo que un ejemplo del camino feliz no toca. Ningún mutante resultó equivalente sobre una rejilla de 2140 entradas. Los mutantes son cambios automáticos simples del autor, no defectos reales.",
-                label_w=290, width=1000, note_kind="teal", foot=SINT)
-
-
-def se295_cobertura() -> Fig:
-    return grouped_bars(
-        "Cobertura de líneas y mutantes muertos de la misma función",
-        "Barras agrupadas con la cobertura de líneas y los mutantes muertos de cuatro conjuntos de pruebas: cinco ejemplos, doscientas entradas al azar y ocho entradas sin bordes ejecutan el 90 por ciento de las líneas pero matan el 63,2, el 73,7 y el 63,2 por ciento de los mutantes; las cincuenta y seis entradas en los bordes alcanzan el 100 por ciento de ambos.",
-        ["5 ejemplos", "200 entradas al azar", "8 entradas por todas las ramas, sin bordes", "56 entradas en los bordes"],
-        [("Líneas ejecutadas", [90.0, 90.0, 90.0, 100.0], "grey"), ("Mutantes muertos", [63.2, 73.7, 63.2, 100.0], "coral")],
-        unit="Porcentaje (%)", decimals=1, ticks=[0, 20, 40, 60, 80, 100], plot_h=270,
-        note="Ejecutar una línea no es comprobarla: 90 % de cobertura convive con un tercio de mutantes vivos. La línea que falta es la del error por peso fuera de rango, que solo un borde alcanza. La cobertura dice qué no se ejecutó; la mutación, qué no se comprueba.",
-        note_kind="gold", foot=SINT)
-
-
-def se295_paso() -> Fig:
+def se283_kanon() -> Fig:
     return line_chart(
-        "60 pasos de refactor con 3 % de probabilidad de defecto por paso: tamaño del lote",
-        "Líneas en escala logarítmica en el tamaño del lote: el porcentaje de lotes con dos o más defectos sube de 0 con un paso a 15,3 con 12 pasos y 64,6 con un lote de 60; los defectos escondidos tras otro suben de 0 a 14,5 con 12 pasos y 53,5 con 60.",
-        [("Lotes con 2 o más defectos", [(1, 0.0), (3, 3.0), (6, 8.1), (12, 15.3), (30, 36.5), (60, 64.6)], "coral"),
-         ("Defectos escondidos tras otro", [(1, 0.0), (3, 3.0), (6, 7.8), (12, 14.5), (30, 32.8), (60, 53.5)], "gold")],
-        x_label="Pasos por lote", y_label="Porcentaje (%)", log_x=True,
-        x_ticks=[(1, "1"), (3, "3"), (6, "6"), (12, "12"), (30, "30"), (60, "60")], y_ticks=[0, 20, 40, 60, 80],
-        point_labels="last", decimals=1, plot_h=280,
-        note="Los porcentajes salen de simular 6000 repeticiones; los pasos que revisar (la mitad del lote: de 1 a 30) y las corridas de pruebas (de 1 a 7, una más una bisección) son una fórmula del modelo, no un conteo. Con pasos pequeños el defecto tiene un solo sospechoso; con uno grande, la primera pista se oculta tras otro defecto.",
-        note_kind="teal", foot=SINT)
+        "Anonimizar 5 000 registros sintéticos por generalización: quién queda único",
+        "Línea que une el número de clases con el porcentaje de registros únicos al generalizar 5000 registros: con edad exacta y cuatro dígitos hay 4774 clases y el 91,2 por ciento es único; con edad en tramos de 5 años 4025 clases y 64,5; con tramos de 10 años y tres dígitos 736 clases y 1,8; con dos dígitos o menos ningún registro es único, a costa de 80 clases o menos.",
+        [("Registros únicos", [(2, 0, "Sin edad ni zona", "t"), (10, 0, "Edad 20 años, 1 díg.", "t"), (80, 0, "Edad 10 años, 2 díg.", "t"),
+                              (736, 1.8, "Edad 10 años, 3 díg. · 1,8 %", "t"), (4025, 64.5, "Edad 5 años, 4 díg. · 64,5 %", "l"),
+                              (4774, 91.2, "Edad exacta, 4 díg. · 91,2 %", "l")], "coral")],
+        x_label="Número de clases (más clases = más detalle conservado)", y_label="Registros únicos (%)", log_x=True,
+        x_ticks=[(1, "1"), (10, "10"), (100, "100"), (1000, "1 000"), (10000, "10 000")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        note='Cada nivel de generalización cuesta detalle útil: con tres dígitos todavía hay 89 personas únicas, y otras 211 están en clases de dos o más personas que comparten el mismo diagnóstico, así que pertenecer a la clase ya revela el dato. k ≥ 2 no es privacidad completa. Población y diagnósticos sintéticos.', note_kind='coral', foot=SINT)
+
+
+def se283_fusion() -> Fig:
+    return line_chart(
+        "Fusionar fichas de pacientes por similitud de nombre y fecha: 455 duplicados reales en 1 955 fichas",
+        "Líneas con los duplicados sin fusionar y las fusiones de personas distintas según el umbral de similitud: al bajar de 1,00 a 0,90 los duplicados sin fusionar caen de 439 a 42 sin ninguna fusión errónea; al bajar a 0,70 las fusiones de personas distintas suben a 155 mientras los duplicados apenas bajan a 41.",
+        [("Duplicados sin fusionar (de 455)", [(0.70, 41, "41", "t"), (0.80, 42, "42", "t"), (0.85, 42, "42", "t"), (0.90, 42, "42", "t"), (0.95, 218, "218", "t"), (1.00, 439, "439", "t")], "gold"),
+         ("Fusiones de personas distintas", [(0.70, 155, "155", "t"), (0.80, 3, "3", "t"), (0.85, 1, "1", "t"), (0.90, 0, "", "t"), (0.95, 0, "", "t"), (1.00, 0, "0", "t")], "coral")],
+        x_label="Umbral de similitud (más alto = más estricto)", y_label="Fichas", point_labels="none",
+        x_ticks=[(0.70, "0,70"), (0.75, ""), (0.80, "0,80"), (0.85, ""), (0.90, "0,90"), (0.95, "0,95"), (1.00, "1,00")], y_ticks=[0, 100, 200, 300, 400, 500],
+        note='Los dos errores no cuestan lo mismo: un duplicado sin fusionar fragmenta una historia clínica; una fusión errónea mezcla la de dos personas, y ese es el error que puede dañar. Por eso la zona intermedia se envía a revisión humana en lugar de decidirse con un umbral único. Nombres y errores de tecleo sintéticos.', note_kind='gold', foot=SINT)
+
+
+def se283_alarmas() -> Fig:
+    return line_chart(
+        "Alarma por frecuencia cardíaca: avisos por 100 pacientes-día y deterioros detectados según el umbral",
+        "Línea con los deterioros detectados, de 89, según los avisos por 100 pacientes-día en escala logarítmica: el umbral de 120 latidos por minuto da 1,0 aviso y detecta 31; el de 110 da 11,3 y detecta 58; el de 100 da 103,0 y detecta 74; el de 90 da 462,4 y detecta 85.",
+        [("Deterioros detectados", [(1.0, 31, "120 lat/min · 31 de 89", "r"), (11.3, 58, "110 · 58 de 89", "r"), (103.0, 74, "100 · 74 de 89", "r"),
+                                    (462.4, 85, "90 · 85 de 89", "l")], "coral")],
+        x_label="Avisos por 100 pacientes-día", y_label="Deterioros detectados (de 89)", log_x=True,
+        x_ticks=[(1, "1"), (10, "10"), (100, "100"), (1000, "1 000")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        hlines=[(89, "89 deterioros reales")],
+        note='No hay umbral sin coste: el que detecta casi todo emite 272 avisos por cada deterioro real, que nadie puede atender; el que casi no molesta deja pasar dos de cada tres. Pacientes, señales y deterioros sintéticos; no representan ninguna cohorte ni dispositivo, y la clase no propone umbrales clínicos.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-296
-def se296_modulos() -> Fig:
-    return grouped_bars(
-        "Módulos que hay que editar al cambiar una decisión de diseño",
-        "Barras horizontales con los módulos que se editan al cambiar una de seis decisiones: la descomposición por pasos del flujo obliga a editar 2 módulos y 4 en moneda y redondeo, 2,19 de media sobre mil cambios; la descomposición por decisión oculta obliga a editar uno en todos los casos.",
-        ["Tarifas", "Zonas", "Descuentos (30 % de los cambios)", "Moneda y redondeo", "Canal de aviso", "Persistencia", "Media sobre 1000 cambios"],
-        [("Por pasos del flujo (5 módulos)", [2, 2, 2, 4, 2, 2, 2.19], "coral"), ("Por decisión oculta (6 + orquestador)", [1, 1, 1, 1, 1, 1, 1.00], "teal")],
-        unit="Módulos que editar", horizontal=True, decimals=None, label_w=270, width=960,
-        value_fmt=lambda v: f"{v:.2f}".replace(".", ",") if v not in (1, 2, 4) else str(int(v)),
-        note="La moneda aparece en cuatro pasos del flujo: un cambio de redondeo recorre cuatro módulos. Con módulos que conocen cada decisión al azar con probabilidad 0,3, la media es 1,48; con 0,5, 2,50. Las matrices de conocimiento y los pesos de los cambios son supuestos del autor, no un proyecto medido.",
-        note_kind="gold", foot=SINT)
+def se284_pow() -> Fig:
+    return line_chart(
+        "Prueba de trabajo con SHA-256: intentos para hallar un hash con n ceros iniciales",
+        "Líneas en escala logarítmica con los intentos para hallar un hash SHA-256 con n ceros iniciales: el valor esperado 2 elevado a n sube de 256 con 8 bits a 65 536 con 16; la media medida (283,5 a 47 442,1) y la mediana medida (174,0 a 27 372,0) crecen en paralelo, con la mediana siempre por debajo de la media.",
+        [("Esperado 2ⁿ", [(8, 256), (10, 1024), (12, 4096), (14, 16384), (16, 65536, "65 536", "t")], "grey"),
+         ("Media medida", [(8, 283.5), (10, 946.1), (12, 4027.2), (14, 15231.2), (16, 47442.1, "47 442", "r")], "gold"),
+         ("Mediana medida", [(8, 174.0), (10, 648.5), (12, 2951.5), (14, 10931.5), (16, 27372.0, "27 372", "r")], "teal")],
+        x_label="Ceros iniciales exigidos (bits)", y_label="Intentos hasta hallar el hash", log_y=True,
+        x_ticks=[(8, "8"), (10, "10"), (12, "12"), (14, "14"), (16, "16"), (18, "")], y_ticks=[100, 1000, 10000, 100000], point_labels="none",
+        note='El coste crece al doble por cada bit, y el tiempo de un bloque es una variable aleatoria con mucha dispersión (mínimo 26, máximo 15 969 con 12 bits). Rehacer 10 bloques encadenados de 12 bits costó unos 48 785 intentos frente a 310 de uno solo. Con 40 bloques, la media de 16 bits aún fluctúa.', note_kind='gold', foot=SINT)
 
 
-def se296_reloj() -> Fig:
-    return grouped_bars(
-        "Una prueba que espera «sin recargo» ejecutada en cada minuto de una semana",
-        "Barras horizontales con el porcentaje de los 10 080 minutos de una semana en que falla la prueba: con el reloj real falla el 28,6 por ciento en el huso UTC, en UTC menos 3 y en UTC más 9; el servidor en UTC y una persona en UTC menos 3 discrepan sobre si es fin de semana en el 3,6 por ciento; con un reloj inyectado fijo en un miércoles no falla ninguno.",
-        ["Reloj real, huso de UTC", "Reloj real, huso UTC−3", "Reloj real, huso UTC+9", "UTC y UTC−3 discrepan sobre el fin de semana", "Reloj inyectado con un miércoles fijo"],
-        [("Minutos con fallo o discrepancia (% de 10 080)", [28.6, 28.6, 28.6, 3.6, 0.0], "coral")],
-        unit="Minutos de la semana (%)", horizontal=True, decimals=1, label_w=330, width=980,
-        note="El 28,6 % es 2/7: una prueba que no controla el reloj pasa de lunes a viernes y falla el fin de semana, y el huso solo cambia qué minutos fallan (2880 de 10 080 en cada huso; 360 de discrepancia). Con dos lecturas del reloj separadas 20 ms junto a cada medianoche, 2 de 7 medianoches dan un resultado distinto. Inyectar el reloj convierte esa dependencia en un parámetro. Cálculo exhaustivo sobre una semana, sin reloj real.",
-        note_kind="coral", foot=SINT)
+def se284_doble_gasto() -> Fig:
+    return line_chart(
+        "Probabilidad de que un atacante rehaga la cadena: simulación (fórmula de Nakamoto)",
+        "Líneas con la probabilidad simulada de que un atacante rehaga la cadena según las confirmaciones: con el 10 por ciento del poder cae a 0,001 con 6 confirmaciones; con el 30 por ciento baja de 0,603 a 0,064 con 10; con el 40 por ciento solo baja de 0,800 a 0,372; la fórmula de Nakamoto da valores equivalentes.",
+        [("Atacante con el 40 %", [(1, 0.800, "0,800", "t"), (2, 0.706, "0,706", "t"), (4, 0.581, "0,581", "t"), (6, 0.492, "0,492", "t"), (10, 0.372, "0,372", "t")], "coral"),
+         ("Atacante con el 30 %", [(1, 0.603, "0,603", "t"), (2, 0.431, "0,431", "t"), (4, 0.249, "0,249", "t"), (6, 0.157, "0,157", "t"), (10, 0.064, "0,064", "t")], "gold"),
+         ("Atacante con el 10 %", [(1, 0.200, "0,200", "t"), (2, 0.053, "0,053", "t"), (4, 0.006, "0,006", "t"), (6, 0.001, "0,001", "t"), (10, 0.000, "0,000", "r")], "teal")],
+        x_label="Confirmaciones esperadas", y_label="Probabilidad de rehacer la cadena (simulada)",
+        x_ticks=[(1, "1"), (2, "2"), (4, "4"), (6, "6"), (10, "10"), (11, "")], y_ticks=[0, 0.2, 0.4, 0.6, 0.8, 1], point_labels="none",
+        note='La seguridad probabilística depende de dos cosas que el código no controla: la fracción de poder del atacante y el número de confirmaciones que se esperan. Con 30 % ni 10 confirmaciones bajan la probabilidad de 0,04. Simulación (40 000 carreras) y fórmula coinciden en torno a ±0,03; no se probó ninguna red real.', note_kind='coral', foot=SINT)
 
 
-def se296_registros() -> Fig:
-    items = [
-        ("2 solicitudes/s por worker (concurrencia ~0,15)", 92.2, "teal", "92,2 %"),
-        ("6 solicitudes/s (~0,45)", 78.0, "gold", "78,0 %"),
-        ("12 solicitudes/s (~0,90)", 61.6, "gold", "61,6 %"),
-        ("25 solicitudes/s (~1,88)", 40.9, "coral", "40,9 %"),
-    ]
-    return bars("Secuencias reconstruidas sin identificador de solicitud (con identificador: 100 %)",
-                "Barras: al reconstruir sin identificador de solicitud la secuencia de eventos de cada petición a partir de registros de cuatro workers, se acierta el 92,2 por ciento con 2 solicitudes por segundo y por worker, el 78 con 6, el 61,6 con 12 y el 40,9 con 25; con un identificador de solicitud se acierta el 100 por ciento.",
-                items, 6.5, "Sin identificador, el orden y el worker no bastan en cuanto hay solicitudes simultáneas: la reconstrucción las mezcla. El identificador cuesta una línea por registro y evita la heurística. 1200 solicitudes con cinco pasos de duración lognormal; la regla de reconstrucción es una construcción del autor.",
-                label_w=410, width=1000, note_kind="gold", foot=SINT)
+def se284_reentrada() -> Fig:
+    return line_chart(
+        "Retirada con reentrada: fondos extraídos por un atacante con 10 de saldo en un fondo de 110",
+        "Líneas con los fondos extraídos por un atacante con 10 de saldo según la profundidad de reentrada: si el contrato actualiza el saldo después de enviar el pago extrae 10, 30, 50 y 110 con profundidad 1, 3, 5 y 11, hasta vaciar el fondo de 110; si actualiza antes de enviar extrae siempre 10.",
+        [("Actualiza después de enviar", [(1, 10, "10", "t"), (3, 30, "30", "t"), (5, 50, "50", "t"), (11, 110, "110", "b")], "coral"),
+         ("Actualiza antes de enviar", [(1, 10, "", "b"), (3, 10, "10", "t"), (5, 10, "10", "t"), (11, 10, "10", "t")], "teal")],
+        x_label="Profundidad de reentrada", y_label="Fondos extraídos", point_labels="none",
+        x_ticks=[(1, "1"), (3, "3"), (5, "5"), (7, "7"), (9, "9"), (11, "11")], y_ticks=[0, 20, 40, 60, 80, 100, 120], hlines=[(110, "fondo total: 110")],
+        note='El defecto no está en la aritmética sino en el orden: llamar a código ajeno antes de actualizar el estado permite que ese código vuelva a entrar con el estado viejo. Comprobar, actualizar y luego interactuar elimina esta clase de ataque; no elimina otras. Modelo de juguete en Python, no un contrato real ni una red.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-297
-def se297_forma() -> Fig:
-    return dumbbell(
-        "La misma regla de tarifa en una tabla con tres reglas y en condicionales anidados",
-        "Gráfico de mancuernas en escala logarítmica: la misma regla ocupa 13 líneas con complejidad 4 y 8 caminos en forma de tabla más tres reglas, y 51 líneas, complejidad 19 y 96 caminos en condicionales anidados; las 96 combinaciones esenciales de la regla son iguales en ambas.",
-        [("Líneas", 13, 51), ("Complejidad ciclomática", 4, 19), ("Anidamiento máximo", 1, 3),
-         ("Caminos distintos recorridos por la rejilla", 8, 96), ("Combinaciones esenciales de la regla", 96, 96)],
-        unit="Cantidad", names=("Tabla + 3 reglas", "Condicionales anidados"), log=True,
-        delta=lambda a, b: "igual" if a == b else "×" + f"{b / a:.1f}".replace(".", ","), lower_is_better=True,
-        label_w=330, width=980,
-        note="La regla tiene 96 combinaciones en cualquier forma: eso es complejidad esencial. La forma anidada reparte la misma regla en 96 caminos de código y multiplica por cinco la complejidad ciclomática: lo que sobra es accidental. Coinciden en 224 entradas; no se probó equivalencia completa.",
-        note_kind="teal", foot=SINT)
-
-
-def se297_pares() -> Fig:
-    return line_chart(
-        "Configuraciones de opciones binarias: todas frente a un conjunto que cubre todos los pares",
-        "Líneas en escala logarítmica según el número de opciones binarias: probar todas las configuraciones crece de 16 con 4 opciones a 4096 con 12, mientras que un conjunto que cubre todos los pares crece de 6 a 9 configuraciones.",
-        [("Todas las configuraciones", [(4, 16), (6, 64), (8, 256), (10, 1024), (12, 4096)], "coral"),
-         ("Conjunto que cubre todos los pares", [(4, 6), (6, 7), (8, 8), (10, 8), (12, 9)], "teal")],
-        x_label="Opciones binarias", y_label="Configuraciones que probar", log_y=True,
-        x_ticks=[(4, "4"), (6, "6"), (8, "8"), (10, "10"), (12, "12")], y_ticks=[1, 10, 100, 1000, 10000],
-        decimals=0, plot_h=280,
-        note="Con 12 opciones, las 9 configuraciones cubren todos los pares, el 81,5 % de los tríos y el 50,3 % de los cuartetos (con 10 opciones, 8 configuraciones: 77,7 % y 46,1 %). Si los fallos de interacción suelen implicar pocas opciones, los pares atrapan casi todos con una fracción de las pruebas; si requieren tres o cuatro, la mitad queda sin ver. El conjunto se construyó con un algoritmo voraz de semilla fija. Pares al azar del mismo tamaño cubren menos.",
-        note_kind="gold", foot=SINT)
-
-
-def se297_cognitiva() -> Fig:
+def se285_distancia() -> Fig:
     return grouped_bars(
-        "Complejidad ciclomática y complejidad cognitiva simplificada de cinco funciones",
-        "Barras agrupadas con la complejidad ciclomática y la cognitiva de cinco funciones: la cadena plana de ocho casos y las ocho condiciones anidadas tienen ciclomática 8 y 9, casi iguales, pero cognitiva 7 y 36; la tabla de consulta tiene ciclomática 1 y cognitiva 0.",
-        ["Cadena plana de 8 casos", "Ocho condiciones anidadas", "Bucle con condición y salida", "Las ocho condiciones en una conjunción", "Tabla de consulta"],
-        [("Ciclomática", [8, 9, 4, 3, 1], "navy"), ("Cognitiva (simplificada)", [7, 36, 5, 2, 0], "coral")],
-        unit="Complejidad", horizontal=True, decimals=0, label_w=300, width=980,
-        note="La ciclomática cuenta caminos; la cognitiva penaliza el anidamiento porque cada nivel obliga a recordar más condiciones a la vez (anidamiento 1 en la cadena plana y 8 en la anidada). Ocho casos planos se leen de arriba abajo; ocho niveles, no. La implementación es una versión simplificada del autor: no reproduce la de ninguna herramienta.",
-        note_kind="gold", foot=SINT)
+        "Error al tratar grados de longitud y latitud como un plano (pares a menos de 100 km)",
+        "Barras agrupadas con el error al medir distancias como si los grados fueran un plano: la mediana es 0,0 por ciento en el ecuador, 6,8 a 30 grados de latitud, 25,5 a 60 y 41,4 a 80; el percentil 95 llega a 408,4 y el máximo a 505,2 por ciento a 80 grados.",
+        ["0° (ecuador)", "30°", "60°", "80°"],
+        [("Mediana", [0.0, 6.8, 25.5, 41.4], "teal"), ("Percentil 95", [0.0, 15.2, 96.5, 408.4], "gold"), ("Máximo", [0.0, 16.0, 103.0, 505.2], "coral")],
+        unit="Error de la distancia plana (%)", decimals=1,
+        note='Un grado de longitud mide 111 km en el ecuador y 19 km a 80° de latitud; la fórmula plana no lo sabe. Además, dos puntos a ambos lados de ±180° quedan a 111 km pero la resta ingenua da 39 919 km. Esferas frente a elipsoides y proyecciones no se evaluaron: la haversine usa un radio medio.', note_kind='coral', foot=SINT)
+
+
+def se285_reloj() -> Fig:
+    return timeline(
+        "Una zona con cambio de hora sintético (UTC−4 y UTC−3): lo que hace un año de reloj",
+        "Línea de tiempo de un año en una zona sintética: UTC−4 hasta el día 120, UTC−3 del día 120 al 300 y UTC−4 desde el 300; en el día 120 falta una hora local (día de 23 horas) y en el 300 una hora se repite (día de 25 horas); una tarea diaria guardada como 13:00 UTC cae a las 10:00 locales los 180 días de verano en vez de a las 09:00.",
+        [("Regla de desfase de la zona", [(0, 120, "UTC−4", "navy"), (120, 300, "UTC−3 (horario de verano)", "gold"), (300, 365, "UTC−4", "navy")]),
+         ("Tarea «09:00 local» guardada como 13:00 UTC", [(0, 120, "09:00 correcta", "teal"), (120, 300, "10:00 equivocada (180 días)", "coral"), (300, 365, "09:00", "teal")])],
+        unit="Día del año (365 días, 8 760 horas UTC)", events=[(120, "día 120: día de 23 h"), (300, "día 300: día de 25 h")],
+        ticks=[0, 60, 120, 180, 240, 300, 365], lane_h=60, label_w=230, t_max=365,
+        note='Una hora local sin zona no identifica un instante: la mitad del año una tarea «a las 09:00» guardada como UTC se ejecuta una hora corrida. Guardar el instante en UTC y la regla de zona por separado evita ambos. Las reglas de la zona son sintéticas; no se usó la base de datos de zonas horarias.', note_kind='gold', foot=SINT)
+
+
+def se285_indice() -> Fig:
+    return line_chart(
+        "Candidatos examinados por una consulta de radio de 1 km según el tamaño de celda de una rejilla",
+        "Líneas en escalas logarítmicas con los candidatos examinados por una consulta de radio de 1 kilómetro según el tamaño de celda: con puntos uniformes pasa de 12,7 con celdas de 0,5 km a 934,8 con 20 km; con puntos agrupados de 894,4 a 16 106,8; la fuerza bruta examina 20 000 en ambos casos.",
+        [("Puntos agrupados en una ciudad", [(0.5, 894.4, "894,4", "t"), (1, 1260.5, "1 260,5", "t"), (2, 2131.0, "2 131,0", "t"), (5, 5189.9, "5 189,9", "t"), (20, 16106.8, "16 106,8", "b")], "coral"),
+         ("Puntos uniformes", [(0.5, 12.7, "12,7", "t"), (1, 18.0, "18,0", "t"), (2, 31.6, "31,6", "t"), (5, 98.6, "98,6", "t"), (20, 934.8, "934,8", "t")], "teal")],
+        x_label="Tamaño de celda de la rejilla (km)", y_label="Candidatos examinados por consulta", log_x=True, log_y=True,
+        x_ticks=[(0.5, "0,5"), (1, "1"), (2, "2"), (5, "5"), (20, "20")], y_ticks=[10, 100, 1000, 10000, 100000], point_labels="none",
+        hlines=[(20000, "fuerza bruta: 20 000")],
+        note='El índice reduce el trabajo de 20 000 a 18 candidatos cuando los datos se reparten por igual, y a 1 260 cuando se agrupan: la distribución de los datos decide cuánto ayuda. Una celda mucho mayor que el radio pierde la ventaja. Se cuentan candidatos, no milisegundos: no se midió ninguna base de datos espacial.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-298
-def se298_politicas() -> Fig:
-    ticks = [(0.002, "0,002"), (0.006, "0,006"), (0.012, "0,012"), (0.020, "0,020")]
+def se286_pares() -> Fig:
     return line_chart(
-        "Puntos entregados en 24 sprints según la política de pago de deuda y el interés (parámetros supuestos)",
-        "Líneas con los puntos entregados en 24 sprints según el interés por unidad de deuda: no pagar nunca baja de 703 puntos con interés 0,002 a 173 con 0,020; pagar todo hasta bajar de 10 unidades baja solo de 716 a 609; con interés bajo todas las políticas entregan casi lo mismo y con interés alto la diferencia es de un factor 3,5.",
-        [("Nunca pagar", [(0.002, 703), (0.006, 408), (0.012, 241), (0.020, 173)], "coral"),
-         ("20 % de la capacidad", [(0.002, 717), (0.006, 654), (0.012, 609), (0.020, 585, "585", "b")], "gold"),
-         ("50 % cuando la deuda pasa de 25", [(0.002, 706), (0.006, 663), (0.012, 600), (0.020, 505, "505", "b")], "navy"),
-         ("Todo hasta bajar de 10", [(0.002, 716), (0.006, 693), (0.012, 651), (0.020, 609, "609", "t")], "teal")],
-        x_label="Interés por unidad de deuda", y_label="Puntos entregados en 24 sprints", x_ticks=ticks,
-        y_ticks=[0, 200, 400, 600, 800], point_labels="last", decimals=0, plot_h=300, width=980,
-        note="Con interés bajo, pagar no mejora lo entregado (703 frente a 717 puntos): la deuda barata se puede dejar. Con interés alto, no pagar entrega menos de un tercio. La deuda final de «nunca pagar» pasa de 246 a 68 unidades según el interés y la de «todo hasta bajar de 10», de 23 a 7. La política correcta depende de la tasa, que hay que estimar. Capacidad, generación de deuda e interés son supuestos del autor; no se midió ningún equipo.",
-        note_kind="coral", foot=SINT)
+        "Un flujo con 10 bifurcaciones (1 024 caminos): defectos de dos bifurcaciones que halla cada conjunto de pruebas",
+        "Líneas con el porcentaje de defectos de dos bifurcaciones hallados y de conjuntos que ven cada rama en ambos valores según el número de pruebas aleatorias: 2 pruebas hallan 43,9 por ciento, 8 el 90,4 y 20 el 99,7; un conjunto de 9 pruebas diseñado por pares halla el 100 por ciento.",
+        [("Defectos de dos bifurcaciones hallados", [(2, 43.9, "43,9", "t"), (5, 76.8, "76,8", "b"), (8, 90.4, "90,4", "b"), (12, 96.9, "96,9", "b"), (20, 99.7, "99,7", "b")], "teal"),
+         ("Conjuntos que ven cada rama en ambos valores", [(2, 0, "0", "t"), (5, 52, "52", "t"), (8, 93, "93", "t"), (12, 100, "100", "t"), (20, 100, "100", "t")], "gold"),
+         ("9 pruebas diseñadas por pares", [(9, 100, "100", "t")], "navy")],
+        x_label="Pruebas aleatorias en el conjunto", y_label="Porcentaje (%)", point_labels="none",
+        x_ticks=[(2, "2"), (5, "5"), (8, "8"), (9, "9"), (12, "12"), (20, "20")], y_ticks=[0, 20, 40, 60, 80, 100, 120], plot_h=320,
+        note='Probar todos los caminos exige 1 024 ejecuciones y duplica con cada bifurcación; cubrir todos los pares exige 9. El cálculo supone que los defectos dependen como máximo de dos decisiones: uno que dependa de tres se escapa de los pares. 180 defectos posibles, 300 conjuntos aleatorios por fila.', note_kind='teal', foot=SINT)
 
 
-def se298_opcion() -> Fig:
+def se286_duplicados() -> Fig:
+    items = [
+        ("Sin deduplicar (TTL 0)", 5.0, "coral", "5,0 % de los eventos"),
+        ("TTL de 10 s", 3.81, "coral", "3,8 %"),
+        ("TTL de 60 s", 1.61, "gold", "1,6 %"),
+        ("TTL de 5 min", 0.30, "gold", "0,30 %"),
+        ("TTL de 1 h", 0.004, "teal", "4 de 100 000"),
+        ("TTL de 24 h", 0.0, "teal", "0"),
+    ]
+    return bars("Eventos ejecutados dos veces cuando el 5 % se entrega de nuevo y se guarda cada identificador un tiempo limitado",
+                "Barras: si el cinco por ciento de los eventos se vuelve a entregar con un retraso lognormal de mediana 30 segundos, sin deduplicar se ejecuta dos veces el 5 por ciento; con una memoria de 60 segundos el 1,6; con una de cinco minutos el 0,3; con una de una hora 4 de cada cien mil; con una de un día ninguno.",
+                items, 130, "Una memoria de identificadores con vida corta no basta: las re-entregas con retraso largo (cola de una cola, reintento tras un fallo) la superan. El TTL es una decisión de coste (memoria) frente a riesgo (duplicados). Retraso lognormal con mediana de 30 s y σ = 1,5, supuestos del autor; 100 000 eventos.",
+                label_w=290, width=1000, note_kind="gold", foot=SINT)
+
+
+def se286_huerfanas() -> Fig:
     return line_chart(
-        "Costo esperado en 12 meses (puntos): refactorizar ahora, al primer cambio o nunca",
-        "Líneas en escala logarítmica con el costo esperado según los cambios por mes del área: no refactorizar sube de 1,83 con 0,05 cambios por mes a 72,22 con 2; refactorizar ahora cuesta 8 siempre; esperar al primer cambio cuesta entre 3,68 y 8; nunca gana con 0,15 cambios por mes o menos, el primer cambio con 0,30 y ahora con 1 o más.",
-        [("Nunca", [(0.05, 1.83), (0.15, 5.43), (0.30, 10.84), (0.60, 21.64), (1.0, 36.04), (2.0, 72.22)], "coral"),
-         ("Ahora", [(0.05, 8.0), (0.15, 8.0), (0.30, 8.0), (0.60, 8.0), (1.0, 8.0), (2.0, 8.0)], "navy"),
-         ("Al primer cambio", [(0.05, 3.68), (0.15, 6.77), (0.30, 7.83), (0.60, 8.0), (1.0, 8.0), (2.0, 8.0)], "teal")],
-        x_label="Cambios por mes en el área", y_label="Costo esperado en 12 meses (puntos)", log_x=True, log_y=True,
-        x_ticks=[(0.05, "0,05"), (0.15, "0,15"), (0.30, "0,3"), (0.60, "0,6"), (1.0, "1"), (2.0, "2")],
-        y_ticks=[1, 2, 5, 10, 20, 50, 100], point_labels="none", decimals=2, plot_h=300, width=980,
-        note="Esperar al primer cambio es una opción: se paga solo si el área se mueve. Si aplazar duplica el costo del refactor, desde 0,30 cambios por mes conviene hacerlo ahora. Deja de convenir esperar cuando aplazar encarece el trabajo (se pierde el contexto) o cuando el área cambia tanto que el pago es seguro. Un área que nunca cambia no merece refactor, aunque se vea fea. Poisson aproximado, 20 000 repeticiones y parámetros supuestos.",
-        note_kind="teal", foot=SINT)
-
-
-def se298_calientes() -> Fig:
-    return grouped_bars(
-        "Reducción del interés pagado al refactorizar 5 de 40 archivos según cómo se eligen",
-        "Barras agrupadas con la reducción del interés pagado según el criterio de elección y la relación entre complejidad y cambios: sin relación, elegir por complejidad reduce el 17,8 por ciento, por cambios el 33,9, por complejidad por cambios el 36,6 y al azar el 7,4; con coincidencia total los tres criterios dan 48,1.",
-        ["Sin relación", "Relación media (0,5)", "Relación total (1,0)"],
-        [("Por complejidad", [17.8, 37.3, 48.1], "coral"), ("Por cambios", [33.9, 43.1, 48.1], "gold"),
-         ("Por complejidad × cambios", [36.6, 44.1, 48.1], "teal"), ("Al azar", [7.4, 8.2, 7.3], "grey")],
-        unit="Reducción del interés pagado (%)", decimals=1, ticks=[0, 10, 20, 30, 40, 50], plot_h=270, width=980,
-        note="El archivo más complejo no es necesariamente el más caro: si nadie lo toca, su deuda no paga interés. Esto es un resultado del modelo, que fija como supuesto que el interés es complejidad por cambios: con otro supuesto el orden de los criterios puede cambiar. 400 repeticiones con semilla fija.",
-        note_kind="gold", foot=SINT)
+        "Automatizaciones sin responsable activo si cada responsable se va con probabilidad del 15 % al año (500 flujos)",
+        "Líneas con el porcentaje de automatizaciones sin responsable activo según los años: con un solo responsable, con o sin revisión anual, sube de 15,4 a 37,8 y 52,2 por ciento al año, a los tres y a los cinco; con dos responsables sin revisión llega a 30,8; con dos responsables y revisión anual se queda en 8,6.",
+        [("Un responsable (con o sin revisión)", [(1, 15.4, "15,4", "t"), (3, 37.8, "37,8", "t"), (5, 52.2, "52,2", "t")], "coral"),
+         ("Dos responsables, sin revisión", [(1, 2.0, "2,0", "t"), (3, 12.8, "12,8", "t"), (5, 30.8, "30,8", "t")], "gold"),
+         ("Dos responsables, revisión anual", [(1, 2.0, "", "t"), (3, 5.6, "5,6", "b"), (5, 8.6, "8,6", "b")], "teal")],
+        x_label="Años transcurridos", y_label="Automatizaciones sin responsable activo (%)", point_labels="none",
+        x_ticks=[(1, "1 año"), (3, "3 años"), (5, "5 años")], y_ticks=[0, 10, 20, 30, 40, 50, 60],
+        note='La revisión anual no sirve si no queda nadie a quien reasignar: solo cambia el resultado cuando hay al menos dos responsables y la revisión repone al que se fue. La tasa de salida del 15 % es un supuesto, no una medición de ninguna organización; el patrón (no basta revisar) es el hallazgo.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-299
-def se299_pasos() -> Fig:
+def se287_ranking() -> Fig:
     return grouped_bars(
-        "Entradas del maestro dorado (3000) cuyo resultado cambia en cada paso del refactor",
-        "Barras horizontales con las entradas del maestro dorado, de 3000, cuyo resultado cambia en cada paso: extraer zona y peso no cambia ninguna, extraer opciones, cupón y redondeo tampoco, simplificar la comparación con True cambia 142 y sustituir el redondeo histórico por round cambia 257, 106 de ellas con parámetros booleanos.",
-        ["1. Extraer zona y peso", "2. Extraer opciones, cupón y redondeo", "3. Simplificar «urgente == True» a «if urgente»", "4. Cambiar el redondeo histórico por round()"],
-        [("Entradas que difieren (de 3000)", [0, 0, 142, 257], "coral")],
-        unit="Entradas cuyo resultado cambia", horizontal=True, decimals=0, label_w=340, width=980,
-        note="Los dos pasos que parecían simplificaciones cambiaron comportamiento: el primero (142, con urgente igual a 2 o «sí») con entradas que la función aceptaba sin documentar, el segundo (257, de ellas 106 con urgente booleano) con la diferencia entre sumar 0,5 y redondear al par. Hay que decidir caso por caso si el comportamiento se conserva o se corrige. Entradas sintéticas con semilla fija.",
-        note_kind="coral", foot=SINT)
+        "Diez dominios puntuados en seis criterios: cuánto cambia el ranking al variar los pesos (5 000 sorteos)",
+        "Barras agrupadas con el porcentaje de sorteos en que se mantiene el primer lugar y el par de primeros del ranking según lo dispares que sean los pesos: con pesos casi iguales es 100 y 99,8; con pesos algo distintos 97,6 y 88,4; con pesos muy dispares 84,9 y 71,4.",
+        ["Pesos casi iguales (50)", "Pesos algo distintos (10)", "Pesos muy dispares (3)"],
+        [("Primer lugar igual", [100, 97.6, 84.9], "teal"), ("Primeros dos (conjunto) iguales", [99.8, 88.4, 71.4], "gold")],
+        unit="Sorteos en que se mantiene (%)",
+        note='El primer puesto es estable porque en este ejemplo un dominio puntúa alto en casi todo; la parte media del ranking no lo es. Los puntajes de 1 a 5 son un juicio ilustrativo del autor, no una medición de los dominios: el ejercicio muestra cómo revisar un ranking, no cuál es el orden verdadero.', note_kind='gold', foot=SINT)
 
 
-def se299_mutantes() -> Fig:
-    items = [
-        ("10 entradas registradas", 81.6, "coral", "31,8 de 39 (81,6 %)"),
-        ("50 entradas", 92.9, "gold", "36,2 de 39 (92,9 %)"),
-        ("200 entradas", 96.8, "gold", "37,7 de 39 (96,8 %)"),
-        ("1000 entradas", 99.4, "teal", "38,8 de 39 (99,4 %)"),
-        ("3000 entradas", 100.0, "teal", "39 de 39 (100 %)"),
-    ]
-    return bars("Mutantes de la función refactorizada que mata un maestro dorado según su tamaño (media de 30 muestras)",
-                "Barras: un maestro dorado con 10 entradas registradas al azar mata en promedio el 81,6 por ciento de los 39 mutantes de la función refactorizada, con 50 el 92,9, con 200 el 96,8, con 1000 el 99,4 y con 3000 los mata todos.",
-                items, 5, "El mínimo con 10 entradas fue 27 de 39 y con 200 fue 36: la variación entre muestras importa tanto como la media. Con 200 entradas aún sobreviven en promedio 1,3 mutantes. Los mutantes son cambios automáticos y el dominio de entradas es pequeño; con un dominio grande la curva sube mucho más despacio.",
-                label_w=260, width=1050, note_kind="gold", foot=SINT)
-
-
-def se299_arcos() -> Fig:
+def se287_acuerdo() -> Fig:
     return line_chart(
-        "Arcos de la función heredada alcanzados según el número de entradas registradas",
-        "Líneas en escala logarítmica con los arcos alcanzados según las entradas registradas: la media sube de 67,4 por ciento con 3 entradas a 88,7 con 10, 94,9 con 30 y 96,7 con 300; el mínimo de 30 muestras va de 52,4 a 95,2; solo las 3000 entradas alcanzan el 100 por ciento.",
-        [("Media de 30 muestras", [(3, 67.4, "67,4", "t"), (10, 88.7, "88,7", "t"), (30, 94.9, "94,9", "t"), (100, 96.0, "96,0", "t"), (300, 96.7, "96,7", "t"), (3000, 100.0, "100,0", "t")], "teal"),
-         ("Mínimo de 30 muestras", [(3, 52.4, "52,4", "b"), (10, 78.6, "78,6", "b"), (30, 90.5, "90,5", "b"), (100, 90.5, "90,5", "b"), (300, 95.2, "95,2", "b"), (3000, 100.0, " ", "b")], "coral")],
-        x_label="Entradas registradas", y_label="Arcos alcanzados (%)", log_x=True,
-        x_ticks=[(3, "3"), (10, "10"), (30, "30"), (100, "100"), (300, "300"), (3000, "3000")],
-        y_ticks=[50, 60, 70, 80, 90, 100], y_zero=False, point_labels="all", decimals=1, plot_h=290, width=980,
-        note="Los primeros diez casos rinden mucho y los últimos arcos cuestan miles: los caminos raros (el cupón de envío gratis fuera de zona, el piso en cero) casi no aparecen al azar. Hay que ir a buscarlos. El eje vertical empieza en 50 %. Tras el paso 2, la función de 15 de complejidad queda en seis funciones, la mayor con 4.",
-        note_kind="teal", foot=SINT)
+        "Dos evaluadores puntúan los mismos 60 criterios con ruido: acuerdo y cambio en los tres primeros",
+        "Líneas con el acuerdo exacto y el porcentaje de pares en que los tres primeros son distintos según el ruido de cada evaluador: el acuerdo baja de 100 a 58,0, 36,4 y 30,3 por ciento con 0, 0,5, 1,0 y 1,5 puntos de ruido, y los tres primeros distintos suben de 0 a 24,3, 61,3 y 82,7.",
+        [("Acuerdo exacto (%)", [(0, 100, "100,0", "r"), (0.5, 58.0, "58,0", "t"), (1.0, 36.4, "36,4", "t"), (1.5, 30.3, "30,3", "b")], "teal"),
+         ("Tres primeros distintos (%)", [(0, 0, "0,0", "t"), (0.5, 24.3, "24,3", "b"), (1.0, 61.3, "61,3", "t"), (1.5, 82.7, "82,7", "t")], "coral")],
+        x_label="Ruido de cada evaluador (puntos)", y_label="Porcentaje (%)", point_labels="none",
+        x_ticks=[(0, "0"), (0.5, "0,5"), (1.0, "1,0"), (1.5, "1,5")], y_ticks=[0, 20, 40, 60, 80, 100],
+        note='Un kappa de 0,84 suena alto y aun así el podio cambia en uno de cada cuatro pares de evaluadores. Antes de comparar dominios hay que calibrar la escala con ejemplos y reportar el acuerdo. 300 pares simulados; el ruido gaussiano es un modelo, no una medición de personas.', note_kind='coral', foot=SINT)
+
+
+def se287_cobertura() -> Fig:
+    return line_chart(
+        "Controles frente a 14 riesgos de diez dominios: lo que cubre una lista corta común",
+        "Línea con los riesgos cubiertos, de 14, según los controles elegidos: 1 control cubre 5, 2 cubren 8, 3 cubren 10, 4 cubren 12 y 6 cubren los 14; el dominio peor cubierto pasa de ciencia con 0 por ciento a juegos con 33 y audio y realidad extendida con 50.",
+        [("Riesgos cubiertos", [(1, 5, "5 de 14 · peor: ciencia 0 %", "r"), (2, 8, "8 de 14 · peor: ML 0 %", "r"), (3, 10, "10 de 14 · peor: juegos 33 %", "r"),
+                               (4, 12, "12 de 14 · peor: audio/XR 50 %", "r"), (6, 14, "14 de 14 · todos cubiertos", "r")], "teal")],
+        x_label="Controles elegidos (de 8; el último punto es la cobertura voraz)", y_label="Riesgos cubiertos (de 14)", point_labels="none",
+        x_ticks=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, ""), (6, "6"), (7, ""), (8, "")], y_ticks=[0, 2, 4, 6, 8, 10, 12, 14, 16],
+        hlines=[(14, "14 riesgos distintos")],
+        note='Una lista universal corta cubre mucho en promedio y deja a algún dominio casi sin protección. Los riesgos más repetidos (privacidad, duplicados, pérdida de datos) aparecen en cuatro dominios cada uno; los demás son propios de uno. La matriz de controles y riesgos es una construcción del autor.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-300
-def se300_firma() -> Fig:
-    return stacked_bars(
-        "Consumidores rotos por cada uno de doce cambios de una función pública, y si la firma lo ve",
-        "Barras horizontales con los consumidores rotos, de 8, por cada cambio: la firma detecta cinco cambios que rompen (añadir un parámetro obligatorio, eliminar, renombrar, reordenar y pasar a solo por nombre) y no ve cinco que rompen a entre uno y cinco consumidores (cambiar el valor por defecto, el redondeo, rechazar pesos altos, añadir un valor a un campo y añadir un campo a la respuesta); dos cambios sin efecto no rompen a nadie.",
-        ["Añadir un parámetro obligatorio solo por nombre", "Reordenar parámetros", "Eliminar un parámetro", "Renombrar un parámetro",
-         "Pasar un parámetro a solo por nombre", "Cambiar el redondeo", "Cambiar el valor por defecto", "Rechazar pesos mayores de 30",
-         "Añadir un valor al campo estado", "Añadir un campo notas a la respuesta", "Añadir un parámetro opcional al final",
-         "Reescribir sin cambio observable"],
-        [("La firma lo detecta", [8, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0], "teal"),
-         ("La firma no lo ve", [0, 0, 0, 0, 0, 5, 3, 2, 1, 1, 0, 0], "coral")],
-        unit="Consumidores rotos (de 8)", horizontal=True, decimals=0, label_w=330, width=1000,
-        note="Cinco de diez cambios con efecto real no cambian la firma: el verificador por firma es necesario y no suficiente. Los dos cambios sin consumidores rotos (añadir un opcional al final y reescribir sin cambio observable) los clasifica bien como compatibles; no hubo falsas alarmas. Los consumidores son ocho funciones sintéticas con estilos de llamada distintos; su cobertura es del autor y una compatibilidad semántica real exige consumidores reales.",
-        note_kind="coral", foot=SINT)
-
-
-def se300_deprecacion() -> Fig:
-    return line_chart(
-        "Retirar la versión antigua: clientes que se rompen (500 clientes, parámetros supuestos)",
-        "Líneas con el porcentaje de clientes que se rompen al retirar la versión antigua según la semana de retirada: baja de 53,8 por ciento en la semana 8 a 42,4 en la 12, 31,6 en la 26, 27,4 en la 52 y 25,8 en la 104, y se acerca al 25,6 por ciento que nunca migra solo, sin llegar a cero.",
-        [("Se rompen al retirar", [(8, 53.8), (12, 42.4), (26, 31.6), (52, 27.4), (104, 25.8)], "coral")],
-        x_label="Semana de retirada", y_label="Clientes que se rompen (% de 500)", log_x=True,
-        x_ticks=[(8, "8"), (12, "12"), (26, "26"), (52, "52"), (104, "104")], y_ticks=[0, 10, 20, 30, 40, 50, 60],
-        hlines=[(25.6, "nunca migrará solo: 25,6 %")], point_labels="all", decimals=1, plot_h=280, width=980,
-        note="Con retirada en la semana 12 se rompen 212 clientes (42,4 %) y en la 104 todavía 129 (25,8 %); los que ya migraron suben de 46,2 % a 74,2 %. El 75 % de los diligentes migra en 11,3 semanas, el 95 % en 36,3 y el 99 % en 72,4, pero el 25,6 % de los clientes (abandonados y reactivos) nunca migrará solo. Una ventana larga cuesta mantenimiento en paralelo y no elimina el riesgo; la fecha de retirada es una decisión de producto con aviso. Todos los porcentajes son supuestos.",
-        note_kind="gold", foot=SINT)
-
-
-def se300_contratos() -> Fig:
+def se288_validador() -> Fig:
     return grouped_bars(
-        "Cambios de una respuesta de 12 campos que rompen a algún consumidor: quién los detecta",
-        "Barras horizontales con las roturas detectadas de 23 que rompen a algún consumidor entre 54 cambios probados: la suite del proveedor, que comprueba cuatro campos de doce, detecta 9 y deja pasar 14; las pruebas de contrato de los ocho consumidores detectan las 23.",
-        ["Rompen a algún consumidor", "Las detecta la suite del proveedor (4 de 12 campos)", "Las detectan los contratos de los 8 consumidores"],
-        [("Cambios (de 54 probados)", [23, 9, 23], "teal")],
-        unit="Cambios que rompen a un consumidor", horizontal=True, decimals=0, label_w=330, width=980,
-        note="Los que no ve el proveedor son 14 de 23. El contrato dirigido por el consumidor acierta porque cada consumidor declara lo que lee: añadir un campo no alarma y quitar uno que nadie usa tampoco; un esquema exacto, en cambio, da 36 alarmas, 16 de ellas sin consumidor afectado. Los diez campos que algún consumidor lee son los que pesan. Ocho consumidores sintéticos que leen entre 2 y 4 campos con semilla fija; la detección de contratos es 100 % por construcción del modelo.",
-        note_kind="teal", foot=SINT)
+        "Validador de forma de un dosier: mutaciones detectadas de 25 por tipo",
+        "Barras horizontales con las mutaciones detectadas, de 25, por un validador de forma: detecta 25 de 25 al borrar o vaciar una sección, cambiar una cifra en la sección de experimentos o quitar el enlace de las fuentes, y 0 de 25 al cambiar una cifra en la afirmación, invertir la conclusión, enlazar una página inexistente o sustituir un límite concreto por uno genérico.",
+        ["Borrar una sección", "Vaciar una sección", "Cambiar una cifra en la sección de experimentos", "Quitar el enlace de las fuentes",
+         "Cambiar una cifra en la afirmación", "Invertir la conclusión", "Enlazar una página inexistente", "Sustituir un límite concreto por uno genérico"],
+        [("Detectada por el validador", [25, 25, 25, 25, 0, 0, 0, 0], "teal")],
+        unit="Mutaciones detectadas (de 25)", horizontal=True, label_w=340, ticks=[0, 5, 10, 15, 20, 25],
+        note='El validador ve la forma y las cifras que alguien le pidió cruzar; no ve el sentido. Las cuatro mutaciones que se le escapan son las que más dañan a un lector. Por eso el dosier necesita una revisión de contenido hecha por una persona, y el validador solo evita lo mecánico.', note_kind='coral', foot=SINT)
+
+
+def se288_sensibilidad() -> Fig:
+    return percentile_intervals(
+        "Construir o comprar: cuánto mueve la diferencia de coste cada supuesto (base: construir cuesta 600 más)",
+        "Intervalos horizontales con la diferencia de coste entre construir y comprar al variar cada supuesto por separado: la licencia anual la mueve de −17 400 a 9 600, la tarifa horaria de −7 000 a 12 000, las horas de construcción de −5 400 a 12 600, el mantenimiento de −4 800 a 11 400, el incidente propio de −6 600 a 7 800 y la integración de −5 400 a 3 600; todos cruzan el cero.",
+        [("Licencia anual", [-17400, 9600]), ("Tarifa horaria", [-7000, 12000]), ("Horas de construcción", [-5400, 12600]),
+         ("Horas de mantenimiento al año", [-4800, 11400]), ("Probabilidad de incidente propio", [-6600, 7800]), ("Horas de integración", [-5400, 3600])],
+        unit="Diferencia de coste construir − comprar (unidades de coste)", marks=("mínimo", "máximo"), ref_lines=[(0, "empate")], label_w=230,
+        note='Los nueve supuestos cambian el signo de la diferencia dentro de su rango: la decisión no se sostiene en el punto base. En 20 000 sorteos construir sale más barato el 36 % de las veces. El modelo y los rangos son un ejemplo del autor, no cifras de un proveedor ni de un equipo real.', note_kind='gold', foot=SINT)
+
+
+def se288_huellas() -> Fig:
+    return heatmap(
+        "Huella SHA-256 del paquete: cambios que la alteran con y sin canonicalizar antes",
+        "Mapa de calor con los ficheros, de 3, cuya huella SHA-256 cambia según la alteración y el método: sobre los bytes cambia en 3 de 3 con un cambio de saltos de línea, espacios finales o salto final y en 1 de 3 al reordenar claves de un JSON; tras canonicalizar no cambia en ninguno, y el cambio de una cifra altera la huella en 3 de 3 en ambos métodos.",
+        ["Cambiar de LF a CRLF", "Añadir espacios al final de una línea", "Quitar el salto de línea final", "Reordenar las claves de un JSON", "Cambiar una cifra del contenido"],
+        ["Huella sobre los bytes", "Huella tras canonicalizar"],
+        [[3, 0], [3, 0], [3, 0], [1, 0], [3, 3]],
+        unit="ficheros alterados", row_title="Cambio sobre tres ficheros", col_title="Ficheros con la huella alterada (de 3)",
+        scale="coral", vmin=0, vmax=3, cell_fmt=lambda v: f"{int(v)} de 3", highlight=[(4, 0), (4, 1)], cell_h=42, label_w=250,
+        note='Una huella sobre bytes crudos avisa de cambios que no importan (saltos de línea de Windows frente a Linux) y esa alarma constante enseña a ignorarla. Canonicalizar conserva la alarma para el cambio de contenido. Lo que ninguna huella dice es si el contenido es correcto: solo si cambió.', note_kind='teal', foot=SINT)
 
 
 FIGURES = {
-    "se-295-puntuacion-de-mutacion.svg": se295_mutacion,
-    "se-295-cobertura-frente-a-mutacion.svg": se295_cobertura,
-    "se-295-tamano-del-paso.svg": se295_paso,
-    "se-296-modulos-tocados-por-cambio.svg": se296_modulos,
-    "se-296-reloj-real-e-inyectado.svg": se296_reloj,
-    "se-296-correlacion-de-registros.svg": se296_registros,
-    "se-297-la-misma-regla-en-dos-formas.svg": se297_forma,
-    "se-297-cobertura-por-pares.svg": se297_pares,
-    "se-297-ciclomatica-y-cognitiva.svg": se297_cognitiva,
-    "se-298-politicas-de-pago-e-interes.svg": se298_politicas,
-    "se-298-refactorizar-ahora-o-despues.svg": se298_opcion,
-    "se-298-puntos-calientes.svg": se298_calientes,
-    "se-299-maestro-dorado-por-pasos.svg": se299_pasos,
-    "se-299-entradas-que-matan-mutantes.svg": se299_mutantes,
-    "se-299-cobertura-segun-entradas.svg": se299_arcos,
-    "se-300-firma-frente-a-comportamiento.svg": se300_firma,
-    "se-300-ventana-de-deprecacion.svg": se300_deprecacion,
-    "se-300-contratos-de-consumidor.svg": se300_contratos,
+    "se-293-latencia-y-subcargas-de-audio.svg": se281_buffer,
+    "se-293-aliasing-de-un-tono.svg": se281_alias,
+    "se-293-fotogramas-fuera-de-presupuesto.svg": se281_cuadros,
+    "se-294-dinero-con-coma-flotante.svg": se282_redondeo,
+    "se-294-mutantes-de-un-libro-mayor.svg": se282_mutantes,
+    "se-294-cobros-duplicados.svg": se282_idempotencia,
+    "se-295-anonimizar-por-generalizacion.svg": se283_kanon,
+    "se-295-fusion-de-fichas.svg": se283_fusion,
+    "se-295-fatiga-de-alarmas.svg": se283_alarmas,
+    "se-296-prueba-de-trabajo.svg": se284_pow,
+    "se-296-doble-gasto.svg": se284_doble_gasto,
+    "se-296-reentrada-en-un-contrato.svg": se284_reentrada,
+    "se-297-distancia-en-grados.svg": se285_distancia,
+    "se-297-un-ano-de-reloj.svg": se285_reloj,
+    "se-297-indice-de-rejilla.svg": se285_indice,
+    "se-298-caminos-frente-a-pares.svg": se286_pares,
+    "se-298-eventos-duplicados.svg": se286_duplicados,
+    "se-298-automatizaciones-huerfanas.svg": se286_huerfanas,
+    "se-299-estabilidad-de-un-ranking.svg": se287_ranking,
+    "se-299-acuerdo-entre-evaluadores.svg": se287_acuerdo,
+    "se-299-controles-frente-a-riesgos.svg": se287_cobertura,
+    "se-300-mutaciones-de-un-dosier.svg": se288_validador,
+    "se-300-sensibilidad-de-supuestos.svg": se288_sensibilidad,
+    "se-300-huella-del-paquete.svg": se288_huellas,
 }

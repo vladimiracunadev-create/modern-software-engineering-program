@@ -1,251 +1,226 @@
-"""Figures for SE-583 to SE-588 (secure hardware logic, quantum simulation, post-quantum cryptography, zero trust, a hostile-behaviour workshop and an isolated-execution platform: code run on Windows 11 with CPython 3.12.9, NumPy 2.5.5, wasmtime 50.0.1, kyber-py 1.2.0 and dilithium-py 1.5.1; no language model was invoked)."""
+"""Figures for SE-583 to SE-588 (harness and agentic engineering: gates, real Git merges, seeded simulations, injected faults and a governed mini-harness; Windows 11, CPython 3.12.9, Git 2.55; no language model was invoked)."""
 from __future__ import annotations
 
-import math
+from figure_flow_rows import chain_rows
+from figure_kit import AXIS, Fig, _kit_finish, _kit_start, grouped_bars, line_chart, stacked_bars
 
-from figure_kit import Fig, dumbbell, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+from figures_part45_a import bars, flow
 
-from figures_part40_a import flow
-
-EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; los recuentos se repiten y los tiempos varían de una ejecución y de un equipo a otro."
-MODELO = "Modelo con parámetros del autor y semilla fija 48; muestra un mecanismo, no mide un sistema real."
-SIMULADO = "Simulación clásica con NumPy: no hubo acceso a ningún ordenador cuántico ni se ejecutó ningún SDK de proveedor."
-SIN_TEE = "Lógica de medición y cita con SHA-256 y HMAC de la biblioteca estándar: no se ejecutó ningún entorno de ejecución confiable ni TPM."
+EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; ninguna cifra viene de un modelo de lenguaje."
+SIM = "Simulación con semilla fija (parámetros del autor) ejecutada en Windows 11 con CPython 3.12.9; no mide ningún modelo real."
 
 
 # ---------------------------------------------------------------- SE-583
-def se583_cita_y_desafio() -> Fig:
-    return heatmap(
-        "Qué acepta el verificador: tres escenarios de cita con y sin desafío fresco",
-        "Mapa de calor con tres escenarios y dos condiciones: una cita legítima se acepta con y sin desafío, la de la cadena alterada se rechaza con desafío fresco y una cita vieja reproducida se acepta sin desafío y se rechaza con desafío fresco.",
-        ["Cita legítima del estado correcto", "Cita de la cadena alterada", "Cita vieja de un estado bueno, reproducida"], ["Sin desafío fresco", "Con desafío fresco"],
-        [[1, 1], [None, 0], [1, 0]], unit="se acepta", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "se acepta" if v else "se rechaza", cell_h=58, label_w=290,
-        note="Solo la fila de la cita reproducida cambia con la columna: sin desafío, una cita vieja de un estado bueno se acepta aunque el nodo ya esté alterado. La cita de la cadena alterada solo se probó con desafío fresco (la celda vacía no se midió). Es una simulación con HMAC y una clave generada al azar, no hardware.",
-        note_kind="gold", foot=SIN_TEE)
-
-
-def se583_que_detecta() -> Fig:
+def se499_cambios() -> Fig:
     return stacked_bars(
-        "Nodos mal en una flota de 1 000: cuántos detecta la atestación de arranque",
-        "Barras apiladas horizontales con los 39 nodos mal de una flota de 1000: 7 con el arranque alterado, que la atestación detecta, y 32 explotados en ejecución con el software legítimo, que la atestación de arranque no detecta.",
-        ["Flota de 1 000 nodos: 39 mal"],
-        [("Arranque alterado: detectados", [7], "teal"), ("Explotados en ejecución: no detectados", [32], "coral")],
-        unit="Nodos mal", horizontal=True, decimals=0, label_w=210,
-        note="La atestación de arranque detecta 7 de 39 (18 %): los explotados en ejecución con el software legítimo no cambian la medición. Los porcentajes (1 % alterado en el arranque y 3 % explotado en ejecución, semilla 48) son supuestos del autor; el patrón, no. Una atestación demuestra qué código se cargó, no que ese código sea seguro.",
-        note_kind="coral", foot=MODELO)
-
-
-def se583_decisiones_del_verificador() -> Fig:
-    return flow(
-        "Las cuatro decisiones del verificador antes de liberar la clave de datos",
-        "Diagrama de cuatro cajas encadenadas: verificar la firma de la cita con la clave del hardware, comprobar que el desafío es el propio, comparar la medición con un valor de referencia aceptado y liberar la clave de datos solo si las tres comprobaciones pasan; una nota advierte que el valor de referencia debe venir de un canal independiente.",
-        [[("1. Firma\nLa cita está firmada por una clave del hardware que el fabricante certificó", "teal"),
-          ("2. Frescura\nEl desafío que contiene es el que el verificador acaba de enviar", "gold"),
-          ("3. Medición\nCoincide con un valor de referencia aceptado y vigente", "gold"),
-          ("4. Liberar\nSolo si pasan las tres, se entrega la clave de datos", "coral")]],
-        note="El valor de referencia debe venir de un canal independiente del atestador (el proceso de construcción, firmado) y la lista de versiones aceptadas necesita un dueño y un plan para retirar las vulnerables. Se omiten la validación de la cadena de certificados y la revocación, que son parte de cualquier despliegue real.",
-        note_kind="teal", box_h=118, foot="Diagrama conceptual basado en RFC 9334; no es una medición.")
-
-
-# ---------------------------------------------------------------- SE-584
-def se584_costo_de_simular() -> Fig:
-    nq = [10, 14, 18, 20, 22, 24]
-    return line_chart(
-        "Tiempo de aplicar la puerta H a todos los qubits en un simulador de vector de estado, según el número de qubits",
-        "Líneas en escala logarítmica con el tiempo de aplicar la puerta H a todos los qubits de un simulador de vector de estado: 1,1 milisegundos con 10 qubits, 11 con 14, 294 con 18, 862 con 20, 4712 con 22 y 14309 con 24; la memoria del vector pasa de 0,02 a 256 MiB.",
-        [("Tiempo", list(zip(nq, [1.1, 11.0, 293.8, 861.8, 4711.7, 14309.3])), "navy")],
-        x_label="Qubits", y_label="Milisegundos (escala logarítmica)", log_y=True, x_ticks=[(k, str(k)) for k in nq], y_ticks=[1, 10, 100, 1000, 10000], point_labels="all", decimals=1, plot_h=290,
-        note="Cada dos qubits más, la memoria se multiplica por 4 (de 0,02 MiB con 10 qubits a 256 MiB con 24) y el tiempo por entre 4 y 16. Extrapolado aritméticamente, no medido: 50 qubits necesitarían 16 PiB solo para el vector. NumPy con tensordot y sin optimizar: un simulador especializado llega más lejos con la misma pendiente exponencial.",
-        note_kind="gold", foot=SIMULADO)
-
-
-def _grover(n: int, k: int) -> float:
-    theta = math.asin(1 / math.sqrt(2 ** n))
-    return math.sin((2 * k + 1) * theta) ** 2
-
-
-def se584_grover() -> Fig:
-    k4 = list(range(0, 9))
-    k8 = list(range(0, 25, 3))
-    return line_chart(
-        "Probabilidad de medir el elemento buscado según las iteraciones de Grover, para 4 y para 8 qubits",
-        "Líneas con la probabilidad de medir el elemento buscado según las iteraciones de Grover para 4 y 8 qubits: con 4 qubits sube a 0,96 con 3 iteraciones y cae por debajo de 0,1 con 6; con 8 qubits alcanza 0,9999 con 12 iteraciones y cae a 0,006 con 24.",
-        [("4 qubits (16 elementos)", [(k, round(_grover(4, k), 4)) for k in k4], "coral"),
-         ("8 qubits (256 elementos)", [(k, round(_grover(8, k), 4)) for k in k8], "teal")],
-        x_label="Iteraciones de Grover", y_label="Probabilidad de acertar", x_ticks=[(k, str(k)) for k in (0, 3, 6, 9, 12, 15, 18, 21, 24)], y_ticks=[0, 0.25, 0.5, 0.75, 1.0], point_labels="none", decimals=2, plot_h=290,
-        note="El óptimo está cerca de (π/4)·√N: 3 iteraciones con 16 elementos y 12 con 256. Con el doble de iteraciones la probabilidad cae (0,02 con 6 y 4 qubits; 0,006 con 24 y 8): la amplificación es una rotación y se puede pasar de largo. Fórmula exacta para un elemento marcado y sin ruido; la simulación del laboratorio da los mismos valores salvo redondeo.",
-        note_kind="teal", foot=SIMULADO)
-
-
-def se584_ruido_ghz() -> Fig:
-    return heatmap(
-        "Porcentaje de mediciones correctas de un estado GHZ según el número de qubits y la probabilidad de error por puerta",
-        "Mapa de calor con el porcentaje de mediciones correctas de un estado GHZ según el número de qubits y la probabilidad de error por puerta: con 0,001 está entre 99,6 y 100 por ciento, con 0,01 baja de 99,8 a 95,7 y con 0,05 baja de 97,2 a 79,5 al pasar de 2 a 10 qubits.",
-        ["2 qubits", "4 qubits", "6 qubits", "8 qubits", "10 qubits"], ["Error 0,001", "Error 0,01", "Error 0,05"],
-        [[100.0, 99.8, 97.2], [99.7, 98.7, 92.1], [99.7, 97.5, 88.8], [99.8, 96.5, 83.8], [99.6, 95.7, 79.5]],
-        unit="% correctas", scale="teal", vmin=75, vmax=100, decimals=1, suffix=" %", cell_h=44, label_w=130,
-        note="El efecto se acumula con el número de puertas y con la probabilidad de error: con 10 qubits y error de 0,05, una de cada cinco mediciones es incorrecta. El modelo cuenta solo la medición inmediata (4 000 repeticiones por celda, semilla 48) y subestima el daño en algoritmos que interfieren, donde los errores de fase destruyen justo la cancelación que se necesita.",
-        note_kind="gold", foot=SIMULADO)
-
-
-# ---------------------------------------------------------------- SE-585
-def se585_tamanos() -> Fig:
-    return grouped_bars(
-        "Tamaño en bytes de claves públicas y de firmas o textos cifrados en algoritmos clásicos y poscuánticos",
-        "Barras agrupadas en escala logarítmica con el tamaño en bytes de la clave pública y de la firma o texto cifrado: X25519 32 y 32, Ed25519 32 y 64, ML-KEM-768 1184 y 1088, ML-DSA-65 1952 y 3309 y la firma de Lamport con SHA-256 16384 y 8192.",
-        ["X25519", "Ed25519", "ML-KEM-768", "ML-DSA-65", "Lamport (SHA-256)"],
-        [("Clave pública", [32, 32, 1184, 1952, 16384], "navy"), ("Firma, texto cifrado o valor intercambiado", [32, 64, 1088, 3309, 8192], "coral")],
-        unit="Bytes (escala logarítmica)", log=True, decimals=0, plot_h=290, width=1000,
-        note="Una firma de ML-DSA-65 es unas 52 veces mayor que una de Ed25519 y una clave pública de ML-KEM-768 unas 37 veces mayor que la de X25519. En un saludo, el intercambio pasa de 64 bytes (un segmento) a 2 272 con ML-KEM-768 y a 2 336 con el híbrido (dos segmentos de 1 460). Para X25519 se muestra el valor de 32 bytes que cada lado envía. La firma de Lamport es una ilustración, no un estándar.",
-        note_kind="gold", foot=EJEC)
-
-
-def se585_reutilizar_la_clave() -> Fig:
-    ks = [1, 2, 4, 8, 12, 16]
-    return line_chart(
-        "Probabilidad de falsificar un mensaje nuevo tras k firmas con el mismo par de claves de Lamport",
-        "Líneas con la probabilidad de poder falsificar un mensaje nuevo tras k firmas con el mismo par de claves de Lamport: prácticamente cero con 1, 2 y 4 firmas, 0,367 con 8, 0,939 con 12 y 0,996 con 16.",
-        [("(1 − 2^−k)^256", [(k, round((1 - 2.0 ** -k) ** 256, 4)) for k in ks], "coral")],
-        x_label="Firmas ya emitidas con el mismo par de claves", y_label="Probabilidad de falsificar", x_ticks=[(k, str(k)) for k in ks], y_ticks=[0, 0.25, 0.5, 0.75, 1.0], point_labels="all", decimals=3, plot_h=280,
-        note="La curva despega entre 4 y 8 firmas y casi se satura en 16: cada firma revela la mitad de los secretos. La fórmula es el promedio sobre mensajes y firmas al azar; con 8 firmas reales y 300 mensajes nuevos se falsificaron 49 (16,3 %), porque ese conjunto concreto dejó 3 de 512 secretos sin revelar (probabilidad 2⁻³). SLH-DSA evita el problema con un árbol de claves.",
+        "Qué atrapan las compuertas de un menú completo frente a las pruebas solas sobre 11 cambios defectuosos",
+        "Barras apiladas horizontales con los 11 cambios defectuosos: el menú completo de compuertas atrapa 9 y deja pasar 2, un error que ninguna prueba ejerce y una prueba que replica el error; las pruebas solas atrapan 2, el error de sintaxis y el error de lógica que una prueba ve, y dejan pasar 9.",
+        ["Menú completo de compuertas", "Solo las pruebas"],
+        [("Atrapados", [9, 2], "teal"), ("Se escapan", [2, 9], "coral")],
+        unit="Cambios defectuosos de 11", horizontal=True, label_w=200,
+        note="Las compuertas especializadas atrapan la importación sin usar, el secreto literal, la prueba debilitada y la prueba omitida; el error de sintaxis lo atrapan tres compuertas. Los 2 restantes (un error que ninguna prueba ejerce y una prueba que replica el error) no los atrapa ninguna compuerta: son el límite del gate.",
         note_kind="coral", foot=EJEC)
 
 
-def se585_mosca() -> Fig:
-    filas = [("x = 1, y = 3, z = 15", 15, 4), ("x = 15, y = 5, z = 15", 15, 20), ("x = 25, y = 5, z = 15", 15, 30), ("x = 10, y = 8, z = 15", 15, 18), ("x = 30, y = 6, z = 25", 25, 36)]
-    return dumbbell(
-        "Desigualdad de Mosca en cinco escenarios: años hasta un ordenador cuántico capaz frente a vida del dato más migración",
-        "Mancuernas con cinco escenarios: el tiempo hasta el ordenador cuántico supuesto frente a la vida del dato más la migración: 15 frente a 4, 15 frente a 20, 15 frente a 30, 15 frente a 18 y 25 frente a 36 años.",
-        filas, unit="Años", names=("z: años hasta un ordenador capaz (supuesto)", "x + y: vida del dato más migración"), decimals=0, label_w=190, lower_is_better=True,
-        note="Hay riesgo cuando x + y supera a z: cuatro de los cinco escenarios lo tienen. El cuarto (x = 10, y = 8) muestra que datos de vida media con una migración lenta ya son urgentes. Todos los valores son ejemplos del autor, no pronósticos; la fecha z es la incógnita y se hace un análisis de sensibilidad en lugar de buscar una predicción.",
-        note_kind="gold", foot=MODELO)
+def se499_por_compuerta() -> Fig:
+    return bars('Defectos atrapados por cada compuerta del menú único (de 11)',
+                'Gráfico de barras con los defectos atrapados de once por compuerta: sintaxis 1, estilo 5, secretos 1, pruebas 2, no debilitar pruebas 2; el menú completo atrapa 9.',
+                [('Sintaxis', 1, 'plain', '1'), ('Estilo', 5, 'teal', '5'), ('Secretos', 1, 'plain', '1'), ('Pruebas', 2, 'gold', '2'), ('No debilitar pruebas', 2, 'gold', '2'), ('Menú completo', 9, 'navy', '9')],
+                scale=40, note='Las compuertas baratas atrapan más defectos que la costosa: las pruebas tardan cientos de milisegundos; la sintaxis, el estilo y los secretos, unos pocos. Orden: lo barato primero.',
+                note_kind='gold', foot=EJEC, label_w=330)
+
+
+def se499_menu() -> Fig:
+    return flow('Un solo punto de entrada que ejecuta las compuertas de la más barata a la más cara',
+                'Diagrama con dos filas: el agente y la persona invocan el mismo comando; el menú ejecuta sintaxis, estilo, secretos, pruebas y la comprobación de que no se debilitaron pruebas; al primer fallo se detiene e imprime el nombre de la compuerta y el motivo; el código de salida decide.',
+                [[('Mismo comando para agente y persona', 'gold'), ('Sintaxis, estilo y secretos', 'teal'), ('Pruebas y no debilitar pruebas', 'teal')],
+                 [('Primer fallo detiene y nombra la compuerta', 'coral'), ('Código de salida decide', 'navy'), ('Misma compuerta en integración continua', 'plain')]],
+                note='Un menú único elimina que cada quien corra una parte. La compuerta que corre en la integración continua debe ser exactamente la que corre el agente antes de entregar.',
+                note_kind='gold', foot=EJEC, box_h=76)
+
+
+# ---------------------------------------------------------------- SE-584
+def se500_fusiones() -> Fig:
+    rows = [
+        [("Archivos distintos", "plain"), ("Fusión limpia", "teal"), ("Las pruebas pasan", "teal")],
+        [("Mismo archivo, zonas lejanas", "plain"), ("Fusión limpia", "teal"), ("Las pruebas pasan", "teal")],
+        [("Mismas líneas", "plain"), ("Conflicto de texto", "gold"), ("No aplica", "grey")],
+        [("Renombrar una función en una rama y usarla desde otra", "plain"), ("Fusión limpia", "teal"), ("Las pruebas FALLAN", "coral")],
+    ]
+    return chain_rows(
+        "Dos agentes en ramas de Git reales: lo que dice la fusión y lo que dicen las pruebas",
+        "Diagrama de flujo de cuatro escenarios de dos ramas de Git creadas en directorios temporales: archivos distintos y zonas lejanas del mismo archivo se fusionan limpios y las pruebas pasan; editar las mismas líneas produce un conflicto; renombrar una función en una rama y usarla desde otra se fusiona limpio y las pruebas fallan.",
+        ["Escenario", "Fusión de Git", "Pruebas tras fusionar"], rows, [340, 220, 250],
+        note="Que Git fusione sin conflicto no significa que el resultado funcione. El conflicto semántico solo lo ve una verificación posterior a la fusión, y el conflicto textual es el caso fácil.",
+        note_kind="coral", foot=EJEC)
+
+
+def se500_solapamiento() -> Fig:
+    return bars('Probabilidad de que dos agentes toquen algún archivo común, con 40 archivos y 3 por tarea',
+                'Gráfico de barras con la probabilidad de algún archivo compartido: 2 agentes 21,3 por ciento, 3 agentes 53,0, 4 agentes 79,9, 6 agentes 98,4 y 8 agentes 100.',
+                [('2 agentes', 21.3, 'teal', '21,3 %'), ('3 agentes', 53.0, 'gold', '53,0 %'), ('4 agentes', 79.9, 'coral', '79,9 %'), ('6 agentes', 98.4, 'coral', '98,4 %'), ('8 agentes', 100.0, 'coral', '100 %')],
+                scale=7.5, note='Los canales entre pares crecen como n(n-1)/2: 1, 3, 6, 15 y 28. Con un coordinador crecen como n. Más agentes en el mismo árbol compran paralelismo y pagan colisión.',
+                note_kind='gold', foot=SIM, label_w=250)
+
+
+def se500_roles() -> Fig:
+    return flow('Coordinación mínima: propiedad de archivos, aislamiento por rama y un único integrador',
+                'Diagrama con dos filas: un coordinador divide la tarea por propiedad de archivos; cada agente trabaja en su propia rama con su árbol de trabajo; un integrador fusiona de una en una y ejecuta la verificación completa después de cada fusión.',
+                [[('Coordinador divide por propiedad de archivos', 'gold'), ('Cada agente en su rama y su árbol', 'teal'), ('Entrega con rastro y pruebas', 'plain')],
+                 [('Un integrador fusiona de una en una', 'navy'), ('Verificación completa tras cada fusión', 'teal'), ('Conflicto: vuelve al coordinador', 'coral')]],
+                note='La separación por rama evita pisarse; la verificación posterior a la fusión detecta lo que Git no ve. Falta decidir quién resuelve un conflicto, y esa decisión es de una persona o de un solo agente designado.',
+                note_kind='gold', foot=EJEC, box_h=76)
+
+
+# ---------------------------------------------------------------- SE-585
+def se501_trazas() -> Fig:
+    return grouped_bars(
+        "Métricas calculadas desde las trazas de cuatro configuraciones del harness mínimo",
+        "Barras agrupadas con los pasos totales y las denegaciones de las trazas de cuatro configuraciones sobre seis tareas: el harness completo usa 30 pasos y ninguna denegación y resuelve 6 de 6; sin contexto usa 72 pasos y resuelve 0; con la escritura denegada usa 36 pasos con 12 denegaciones y resuelve 0; sin criterio de parada usa 72 pasos y resuelve 6 de 6 con 12,0 pasos por tarea.",
+        ["Completo (6 de 6 resueltas, 5,0 pasos por tarea)", "Sin contexto (0 de 6)", "Escritura denegada (0 de 6)", "Sin criterio de parada (6 de 6, 12,0 pasos por tarea)"],
+        [("Pasos totales", [30, 72, 36, 72], "navy"), ("Denegaciones", [0, 0, 12, 0], "coral")],
+        unit="Pasos o denegaciones", horizontal=True, label_w=290, ticks=[0, 20, 40, 60, 80],
+        note="Las dos configuraciones que gastan 72 pasos fallan por razones opuestas: una no resuelve nada y la otra lo resuelve todo sin parar. Solo la combinación de pasos, denegaciones y resultado las distingue.",
+        note_kind="gold", foot=EJEC)
+
+
+def se501_potencia() -> Fig:
+    return bars('Probabilidad de detectar una mejora real de 6 puntos según el número de tareas',
+                'Gráfico de barras con la probabilidad de detectar con una prueba pareada una mejora real de 6 puntos del harness: con 50 tareas 9,7 por ciento, con 200 tareas 24,5 y con 800 tareas 75,9.',
+                [('50 tareas', 9.7, 'coral', '9,7 %'), ('200 tareas', 24.5, 'gold', '24,5 %'), ('800 tareas', 75.9, 'teal', '75,9 %')],
+                scale=11, note='Con 50 tareas una mejora real de 6 puntos se detecta una vez de diez. Una conclusión «sin diferencia» con pocas tareas no dice que no la haya.',
+                note_kind='gold', foot=SIM, label_w=250)
+
+
+def se501_falsos_positivos() -> Fig:
+    tasks = [50, 200, 800]
+    return line_chart(
+        "Declarar mejor a un harness idéntico: la regla «tiene más aciertos» frente a una prueba pareada",
+        "Líneas con la proporción de veces que se declara mejor a un harness idéntico a la línea base: con 50 tareas la regla de más aciertos lo declara mejor el 45,7 por ciento y la prueba pareada el 2,1; con 200 tareas 48,7 y 3,0; con 800 tareas 47,1 y 3,0.",
+        [("Regla «tiene más aciertos»", list(zip(tasks, [45.7, 48.7, 47.1])), "coral"), ("Prueba pareada", list(zip(tasks, [2.1, 3.0, 3.0])), "teal")],
+        x_label="Tareas de la comparación", y_label="Se declara mejor (%)", log_x=True, x_ticks=[(50, "50"), (200, "200"), (800, "800")], y_ticks=[0, 10, 20, 30, 40, 50, 60],
+        point_labels="all", decimals=1,
+        note="Comparar contra un harness idéntico muestra el ruido: la regla ingenua da por mejor la mitad de las veces algo que no cambió. La prueba pareada mantiene el error cerca del 3 %, a costa de la potencia.",
+        note_kind="coral", foot=SIM)
 
 
 # ---------------------------------------------------------------- SE-586
-def se586_casos_del_token() -> Fig:
-    return heatmap(
-        "Cuatro casos de un token presentado al servicio de calificaciones y las tres comprobaciones que se aplican en orden",
-        "Mapa de calor con cuatro casos de un token y tres comprobaciones: el token legítimo pasa firma, vigencia y audiencia; el de otra audiencia falla la audiencia; el vencido falla la vigencia; el de firma alterada falla la firma; cada rechazo lo es por una sola comprobación.",
-        ["Token legítimo", "Token para otra audiencia", "Token vencido (seis minutos después)", "Token con la firma alterada"], ["Firma", "Vigencia", "Audiencia"],
-        [[0, 0, 0], [0, 0, 1], [0, 1, None], [1, None, None]], unit="resultado", scale="coral", vmin=0, vmax=1,
-        cell_fmt=lambda v: "falla" if v else "pasa", cell_h=48, label_w=290,
-        note="Las comprobaciones se aplican en orden (firma, vigencia, audiencia) y una vez que una falla las siguientes no se evalúan (guion). Cada propiedad del token tiene un caso que la ejercita. Tokens firmados con HMAC-SHA-256 y una clave compartida: no es OAuth ni SPIFFE, y faltan la revocación, la rotación de claves y la firma asimétrica.",
-        note_kind="gold", foot=EJEC)
+def se502_clasificacion() -> Fig:
+    f, y = _kit_start("Clasificación de riesgo por reglas sobre rutas, tamaño y dependencias: ocho de doce cambios",
+                      "Diagrama con ocho de doce cambios agrupados por el nivel de riesgo que les asignan reglas deterministas: en el riesgo bajo la documentación y un cambio de código con su prueba y 40 líneas; en el medio el código sin prueba, el cambio de 400 líneas y el archivo de dependencias; en el alto el workflow de integración continua, la autenticación y la migración.",
+                      940, None)
+    cols = [("Riesgo bajo", "teal", ["docs/guia.md", "src/a.py con su prueba (40 líneas)"]),
+            ("Riesgo medio", "gold", ["src/a.py sin prueba", "src/a.py con prueba, 400 líneas", "requirements.txt (dependencias)"]),
+            ("Riesgo alto", "coral", [".github/workflows/ci.yml", "auth/login.py con su prueba", "migrations/0004.sql"])]
+    w, gap, top = 290, 20, y + 4
+    for i, (head, kind, items) in enumerate(cols):
+        x = 14 + i * (w + gap)
+        f.group(x, top, w, 220, head, kind)
+        for j, text in enumerate(items):
+            f.box(x + 12, top + 38 + j * 58, w - 24, 48, text, kind, 13)
+    f.text(14, top + 246, "Las reglas se leen de arriba abajo por ruta, tamaño y dependencias; el primer nivel que coincide fija el riesgo.", 13, "start", 400, AXIS)
+    return _kit_finish(f, top + 258,
+                       "Una regla de rutas es barata, auditable y fácil de eludir: un cambio peligroso en una carpeta que no aparece en la lista es de riesgo bajo. Se complementa con revisión humana de las reglas.",
+                       "gold", EJEC)
 
 
-def se586_radio_de_dano() -> Fig:
-    return grouped_bars(
-        "Servicios alcanzables con una credencial robada de un servicio al azar entre 200, según la arquitectura",
-        "Barras horizontales con los servicios alcanzables con una credencial robada de un servicio al azar entre 200: red plana tras el perímetro 200, segmentada en 5 partes 40 y con credencial limitada por destinatario a 3 dependencias 3.",
-        ["Red plana tras el perímetro", "Segmentada en 5 partes", "Credencial limitada a 3 dependencias"],
-        [("Servicios alcanzables", [200, 40, 3], "coral")],
-        unit="Servicios alcanzables de 200", horizontal=True, decimals=0, label_w=270,
-        note="Segmentar divide el radio de daño por el número de segmentos y limitar la credencial por destinatario lo reduce al grado de dependencia del servicio comprometido. Valores del modelo con supuestos del autor (200 servicios, 5 segmentos, 3 dependencias por servicio); en un sistema real el grafo es heterogéneo y los servicios muy conectados alcanzan más.",
-        note_kind="teal", foot=MODELO)
+def se502_escapes() -> Fig:
+    return bars('Defectos que escapan por cada 1000 cambios según el modo de trabajo (modelo del autor)',
+                'Gráfico de barras con los defectos que escapan por cada mil cambios: sin controles 89, revisión humana de todo 38 con 271 horas, y compuertas más revisión por riesgo 22 con 201 horas.',
+                [('Sin controles', 89, 'coral', '89 (0 h)'), ('Revisión humana de todo', 38, 'gold', '38 (271 h)'), ('Compuertas + revisión por riesgo', 22, 'teal', '22 (201 h)')],
+                scale=4.2, note='Modelo paramétrico: tres niveles de riesgo con probabilidades de defecto del autor y compuertas que atrapan 60 % de los defectos. Sirve para razonar la forma del compromiso; ninguna cifra es una tasa real.',
+                note_kind='coral', foot=SIM, label_w=330)
 
 
-def se586_ventana_de_uso_indebido() -> Fig:
-    vidas = [5, 60, 480, 43200]
-    return line_chart(
-        "Ventana media de uso indebido de una credencial robada según su vida, con detección de media 20 minutos",
-        "Líneas con la ventana media de uso indebido de una credencial robada según su vida, con detección exponencial de media 20 minutos: 2,3 minutos con vida de 5 minutos, 13,5 con 60, 19,2 con 480 y 20,1 con 30 días.",
-        [("Ventana media (minutos)", list(zip(vidas, [2.3, 13.5, 19.2, 20.1])), "teal")],
-        x_label="Vida del token en minutos (escala logarítmica)", y_label="Ventana media de uso indebido (minutos)", log_x=True, x_ticks=[(5, "5"), (60, "60"), (480, "480 (8 h)"), (43200, "43 200 (30 días)")],
-        y_ticks=[0, 5, 10, 15, 20, 25], point_labels="all", decimals=1, plot_h=280,
-        note="Pasar de 8 horas a 5 minutos reduce la ventana de 19,2 a 2,3 minutos; pasar de 30 días a 8 horas casi no cambia nada, porque ya manda la detección (20 minutos de media). Acortar la vida ayuda mientras sea menor que el retraso de detección. La detección exponencial de media 20 minutos y la vida restante uniforme son supuestos del autor.",
-        note_kind="coral", foot=MODELO)
+def se502_ciclo() -> Fig:
+    return flow('Un ciclo de desarrollo asistido con compuertas humanas donde el riesgo lo pide',
+                'Diagrama con dos filas: la intención y el alcance se acuerdan antes; el agente construye con compuertas automáticas; el cambio se clasifica por riesgo; el riesgo bajo pasa con las compuertas, el medio y el alto exigen revisión humana; todo queda con rastro y se mide el resultado en operación.',
+                [[('Intención y alcance acordados', 'gold'), ('Construcción con compuertas automáticas', 'teal'), ('Clasificar por riesgo', 'navy')],
+                 [('Bajo: pasa con las compuertas', 'plain'), ('Medio y alto: revisión humana', 'coral'), ('Rastro y medición en operación', 'teal')]],
+                note='AI-DLC organiza el trabajo en Inception, Construction y Operations con puntos de aprobación humana. Aquí se muestra solo la idea común: la profundidad del control depende del riesgo.',
+                note_kind='gold', foot=EJEC, box_h=76)
 
 
 # ---------------------------------------------------------------- SE-587
-def se587_matriz_de_contencion() -> Fig:
-    return heatmap(
-        "Seis comportamientos hostiles contra tres formas de ejecutar código ajeno: qué contuvo cada una",
-        "Mapa de calor con seis comportamientos hostiles y tres candidatos: el bucle infinito lo contienen el proceso hijo y el módulo de WebAssembly; la bomba de memoria, leer un archivo ajeno y abrir una conexión de red solo el módulo; leer el entorno el proceso hijo y el módulo; la introspección la hace inocua el módulo; el exec sin funciones integradas no contiene ninguno de los probados.",
-        ["Bucle infinito", "Bomba de memoria", "Leer un archivo ajeno", "Leer el entorno del servicio", "Abrir una conexión de red", "Escapar por introspección"],
-        ["exec sin funciones integradas", "Proceso hijo con entorno vacío", "Módulo de WebAssembly"],
-        [[None, 1, 1], [None, 0, 1], [None, 0, 1], [0, 1, 1], [None, 0, 1], [0, None, 1]], unit="contuvo", scale="teal", vmin=0, vmax=1,
-        cell_fmt=lambda v: "contuvo" if v else "no contuvo", cell_h=44, label_w=250,
-        note="Ninguna columna contiene todo salvo el módulo, que lo logra porque no puede expresar esas operaciones y solo ejecuta código compilado a Wasm. El proceso hijo contiene el bucle y el entorno, no la memoria, los archivos ni la red. El guion es «no se ejecutó» (el bucle y la memoria en el mismo proceso no se pueden probar sin colgarlo) o «no aplica» (un intérprete completo).",
+def se503_fallos() -> Fig:
+    return grouped_bars(
+        "Seis fallos inyectados en el harness y cuántas veces los acierta el diagnóstico desde la traza",
+        "Barras horizontales con los casos que el diagnóstico acierta, de 30, por fallo inyectado: con la traza mínima acierta los fallos de contexto, parada, verificación, permiso y tope y confunde siempre la herramienta ausente con la falta de contexto, 24 de 30; con la traza enriquecida, que incluye las herramientas ofrecidas, el contexto visible y la observación, acierta los 30.",
+        ["F1 sin contexto entre pasos (6 casos)", "F2 herramienta de escritura ausente (6)", "F3 la parada no se respeta (6)", "F4 sin instrucción de verificar (3)", "F5 escritura denegada por permiso (6)", "F6 tope de pasos demasiado bajo (3)"],
+        [("Traza mínima", [6, 0, 6, 3, 6, 3], "coral"), ("Traza enriquecida", [6, 6, 6, 3, 6, 3], "teal")],
+        unit="Casos acertados", horizontal=True, label_w=290, ticks=[0, 2, 4, 6],
+        note="Con la traza mínima el diagnóstico acierta 24 de 30; con la enriquecida, 30 de 30. La diferencia es un campo, las herramientas ofrecidas, que decide entre dos fallos con síntomas idénticos.",
         note_kind="gold", foot=EJEC)
 
 
-def se587_cortar_un_bucle() -> Fig:
-    return grouped_bars(
-        "Tiempo que tardó el anfitrión en cortar un bucle infinito: módulo de WebAssembly con combustible y proceso hijo con límite de tiempo",
-        "Barras horizontales con el tiempo en milisegundos para cortar un bucle infinito: el módulo de WebAssembly con 2 000 000 de unidades de combustible 27 y el proceso hijo con límite de 0,5 segundos 629.",
-        ["Módulo de WebAssembly (2 000 000 de combustible)", "Proceso hijo (límite de 0,5 s)"],
-        [("Milisegundos hasta el corte", [27, 629], "navy")],
-        unit="Milisegundos hasta el corte", horizontal=True, decimals=0, label_w=300,
-        note="Los dos tiempos dependen de los parámetros elegidos (2 000 000 de unidades de combustible y 0,5 s) y no son comparables como velocidad de aislamiento: con otro combustible el módulo tardaría otro tiempo, y el proceso incluye su límite y su arranque. Lo que muestran es que el mecanismo de corte existe en ambos y que su costo es parte de la decisión.",
-        note_kind="teal", foot=EJEC)
+def se503_aciertos() -> Fig:
+    return bars('Diagnósticos correctos de 30 con cada versión de la traza',
+                'Gráfico de barras con los diagnósticos correctos de treinta casos: la traza mínima acierta 24 y la traza enriquecida con herramientas ofrecidas, contexto visible y observación acierta 30.',
+                [('Traza mínima', 24, 'gold', '24 de 30'), ('Traza enriquecida', 30, 'teal', '30 de 30')],
+                scale=28, note='Los 6 casos que falla la traza mínima son un mismo fallo, no seis: se corrige con un solo campo. Un diagnóstico que acierta siempre en un conjunto inyectado no garantiza lo mismo ante fallos que no se inyectaron.',
+                note_kind='coral', foot=EJEC, label_w=330)
 
 
-def se587_decision() -> Fig:
-    return flow(
-        "Árbol de decisión del taller: de la capacidad de la carga a la frontera, con la batería hostil al final",
-        "Diagrama con tres filas de cajas: una pregunta de capacidad sobre si la carga se puede compilar a WebAssembly, una pregunta de amenaza sobre si el código es de un inquilino o de varios y la elección entre módulo, proceso con límites y frontera reforzada; una nota indica que la batería hostil se repite tras cada cambio.",
-        [[("Pregunta 1: capacidad\n¿Se puede compilar a Wasm y no necesita bibliotecas del sistema?", "gold")],
-         [("Pregunta 2: amenaza\n¿Código de un inquilino o de varios, conocido o arbitrario?", "gold")],
-         [("Módulo de Wasm\nCombustible, memoria acotada y cero importaciones", "teal"),
-          ("Proceso con límites\nEntorno vacío, directorio propio y tiempo máximo", "teal"),
-          ("Frontera reforzada\nContenedor, núcleo de aplicación o microVM alrededor", "coral")]],
-        note="Cada hoja pasa por la misma batería de seis comportamientos y la decisión se confirma con cada cambio de configuración, no una sola vez. El árbol tiene tres hojas porque el taller probó tres candidatos; con contenedores y microVM tendría más y sus costos habría que medirlos.",
-        note_kind="gold", box_h=104, foot="Diagrama de decisión del taller; no es una medición.")
+def se503_procedimiento() -> Fig:
+    return flow('Procedimiento de diagnóstico: de la traza al componente y de ahí a una prueba de regresión',
+                'Diagrama con dos filas: reproducir la falla con la misma tarea y la misma configuración; leer la traza buscando repeticiones, denegaciones y herramientas ofrecidas; formular una hipótesis sobre un componente del harness; cambiar solo ese componente; volver a ejecutar y añadir el caso al conjunto de regresión.',
+                [[('Reproducir con la misma configuración', 'plain'), ('Leer la traza: repeticiones y denegaciones', 'teal'), ('Hipótesis sobre un solo componente', 'gold')],
+                 [('Cambiar solo ese componente', 'navy'), ('Ejecutar de nuevo y comparar', 'teal'), ('Añadir el caso a la regresión', 'plain')]],
+                note='Cambiar dos componentes a la vez impide saber cuál arregló la falla. El diagnóstico es una hipótesis refutable, no una intuición.',
+                note_kind='gold', foot=EJEC, box_h=76)
 
 
 # ---------------------------------------------------------------- SE-588
-def se588_registro() -> Fig:
-    return grouped_bars(
-        "Entradas del registro de evidencia de la ejecución de referencia, por tipo de evento",
-        "Barras con las entradas del registro de evidencia de la ejecución de referencia por evento: 5 aceptaciones, 1 rechazo, 5 llamadas y 5 muestras de la carga de 2000 peticiones, para un total de 16 entradas.",
-        ["Aceptaciones", "Rechazos", "Llamadas de prueba", "Muestras de la carga"],
-        [("Entradas del registro", [5, 1, 5, 5], "navy")],
-        unit="Entradas (16 en total)", decimals=0, plot_h=250,
-        note="La cadena de 16 entradas verificó como íntegra; alterar el resultado de la entrada 3 hizo que la verificación señalara la entrada 3, y borrar la entrada 2 hizo que señalara la entrada 2. El rechazo también es evidencia. Un registro real anotaría cada llamada (aquí solo cinco muestras de las 2 000) y su volumen cambiaría el diseño del almacenamiento.",
-        note_kind="teal", foot=EJEC)
-
-
-def se588_latencia() -> Fig:
-    return percentile_intervals(
-        "Latencia por petición con instancia nueva y módulo ya compilado: mediana, percentil 99 y máximo de dos reglas",
-        "Intervalos de percentiles en milisegundos con la mediana, el percentil 99 y el máximo de 1012 peticiones de la regla estándar, 0,338, 1,106 y 5,321, y de 988 peticiones de la regla con cálculo, 0,344, 1,416 y 17,254.",
-        [("Regla estándar (1 012 peticiones)", [0.338, 1.106, 5.321]), ("Regla con cálculo (988 peticiones)", [0.344, 1.416, 17.254])],
-        unit="Milisegundos", log=True, decimals=3, label_w=250,
-        note="El máximo está lejos del p99: son llamadas aisladas, con calentamiento. Se emitieron 651 avisos de 2 000 peticiones (semilla 48). La instancia nueva por petición cuesta del orden de 0,3 ms con módulos triviales, el precio de no filtrar estado entre peticiones. Con módulos reales la latencia depende de su tamaño y de su memoria.",
+def se504_escenarios() -> Fig:
+    rows = [
+        [("Seis tareas normales", "plain"), ("6 de 6; 5,0 pasos", "teal"), ("6 de 6; 5,0 pasos", "teal")],
+        [("A1 debilitar la prueba", "plain"), ("Prueba alterada; terminada en falso", "coral"), ("Bloqueado; para por falta de progreso", "teal")],
+        [("A2 leer fuera de la raíz", "plain"), ("Lectura fuera de la raíz", "coral"), ("Bloqueado; para por falta de progreso", "teal")],
+        [("A3 repetir el mismo intento", "plain"), ("12 pasos hasta el tope", "coral"), ("Para en 3 pasos", "teal")],
+        [("A4 terminar sin verificar", "plain"), ("Terminada en falso", "coral"), ("Rechazada; para por falta de progreso", "teal")],
+    ]
+    return chain_rows(
+        "Harness sin controles frente a harness gobernado: tareas normales y cuatro escenarios adversos",
+        "Diagrama de flujo de cinco escenarios: en las seis tareas normales ambos harness resuelven 6 de 6 con 5,0 pasos; sin controles, debilitar la prueba la altera y deja la tarea terminada en falso, leer fuera de la raíz tiene éxito, repetir el mismo intento gasta 12 pasos y terminar sin verificar queda terminada en falso; gobernado bloquea la prueba alterada y la lectura, para a los 3 pasos el intento repetido y rechaza la terminación sin verificar.",
+        ["Escenario", "Sin controles", "Gobernado"], rows, [270, 290, 290], gap=26,
+        note="Los controles no cuestan nada en las tareas normales y cambian el resultado en las adversas. Los cuatro escenarios son del autor: demuestran que cada control hace su trabajo, no que cubran todos los casos.",
         note_kind="gold", foot=EJEC)
 
 
-def se588_amenazas() -> Fig:
-    filas = ["Una regla pide acceso a archivos o red", "Una regla no termina", "Una regla reserva memoria sin límite", "Una regla lee fuera de su memoria",
-             "Una regla filtra estado a la siguiente petición", "Alguien altera o borra el registro", "Alguien altera el informe"]
-    cols = ["Validador de subida", "Límites de ejecución", "Instancia por petición", "Cadena de resúmenes", "Firma del informe"]
-    mapa = [0, 1, 1, 1, 2, 3, 4]
-    vals = [[1 if j == mapa[i] else 0 for j in range(5)] for i in range(7)]
-    return heatmap(
-        "Siete amenazas de la plataforma de referencia y el mecanismo que contiene cada una",
-        "Mapa de calor con siete amenazas y cinco mecanismos de contención: el acceso a archivos o red lo contiene el validador de subida; que no termine, que reserve memoria o que lea fuera de su memoria, los límites de ejecución; que filtre estado, la instancia por petición; alterar o borrar el registro, la cadena de resúmenes; y alterar el informe, la firma.",
-        filas, cols, vals, unit="contiene", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "contiene" if v else "—", cell_h=40, label_w=300,
-        note="Ninguna fila queda sin marca y ninguna columna queda vacía: cada mecanismo existe porque una amenaza lo exige y cada uno necesita una prueba que falle si se quita. Los límites de ejecución agrupan combustible, memoria acotada y memoria lineal. Las amenazas que la referencia no cubre (autenticación, entorno del anfitrión, hardware) no son filas porque no hay mecanismo que marcar.",
-        note_kind="gold", foot=EJEC)
+def se504_arquitectura() -> Fig:
+    return flow('Arquitectura del harness mínimo gobernado: seis controles alrededor de un bucle',
+                'Diagrama con dos filas: instrucciones y herramientas mínimas; permisos y confinamiento de rutas; protección de las pruebas; verificación obligatoria antes de aceptar la terminación; detección de falta de progreso y tope de pasos; traza y evaluación al final.',
+                [[('Instrucciones y herramientas mínimas', 'gold'), ('Permisos y confinamiento de rutas', 'teal'), ('Pruebas protegidas contra escritura', 'teal')],
+                 [('Verificación obligatoria antes de terminar', 'navy'), ('Falta de progreso y tope de pasos', 'coral'), ('Traza y evaluación al final', 'plain')]],
+                note='Cada caja corresponde a una clase de la parte. El conjunto es pequeño y se puede leer entero; esa es su virtud.',
+                note_kind='gold', foot=EJEC, box_h=76)
+
+
+def se504_adversos() -> Fig:
+    return bars('Escenarios adversos que el harness gobernado contiene, de cuatro',
+                'Gráfico de barras con los escenarios adversos contenidos de cuatro: sin controles 1, que es el intento repetido que solo acota el tope, y harness gobernado 4.',
+                [('Sin controles', 1, 'coral', '1 de 4'), ('Gobernado', 4, 'teal', '4 de 4')],
+                scale=30, note='Sin controles, solo el tope de 12 pasos limitó un escenario. Contener los cuatro no prueba que el harness sea seguro: prueba que estos cuatro controles funcionan contra estos cuatro intentos.',
+                note_kind='coral', foot=EJEC, label_w=250)
 
 
 FIGURES = {
-    "se-583-cita-y-desafio.svg": se583_cita_y_desafio,
-    "se-583-que-detecta.svg": se583_que_detecta,
-    "se-583-decisiones-del-verificador.svg": se583_decisiones_del_verificador,
-    "se-584-costo-de-simular.svg": se584_costo_de_simular,
-    "se-584-grover.svg": se584_grover,
-    "se-584-ruido-ghz.svg": se584_ruido_ghz,
-    "se-585-tamanos.svg": se585_tamanos,
-    "se-585-reutilizar-la-clave.svg": se585_reutilizar_la_clave,
-    "se-585-mosca.svg": se585_mosca,
-    "se-586-casos-del-token.svg": se586_casos_del_token,
-    "se-586-radio-de-dano.svg": se586_radio_de_dano,
-    "se-586-ventana-de-uso-indebido.svg": se586_ventana_de_uso_indebido,
-    "se-587-matriz-de-contencion.svg": se587_matriz_de_contencion,
-    "se-587-cortar-un-bucle.svg": se587_cortar_un_bucle,
-    "se-587-decision.svg": se587_decision,
-    "se-588-registro.svg": se588_registro,
-    "se-588-latencia.svg": se588_latencia,
-    "se-588-amenazas.svg": se588_amenazas,
+    "se-583-defectos-y-compuertas.svg": se499_cambios,
+    "se-583-atrapados-por-compuerta.svg": se499_por_compuerta,
+    "se-583-menu-unico.svg": se499_menu,
+    "se-584-fusiones-de-git.svg": se500_fusiones,
+    "se-584-solapamiento-de-agentes.svg": se500_solapamiento,
+    "se-584-roles-de-coordinacion.svg": se500_roles,
+    "se-585-metricas-de-trazas.svg": se501_trazas,
+    "se-585-potencia-de-la-comparacion.svg": se501_potencia,
+    "se-585-falsos-positivos.svg": se501_falsos_positivos,
+    "se-586-clasificacion-de-riesgo.svg": se502_clasificacion,
+    "se-586-defectos-que-escapan.svg": se502_escapes,
+    "se-586-ciclo-con-compuertas.svg": se502_ciclo,
+    "se-587-fallos-inyectados.svg": se503_fallos,
+    "se-587-aciertos-del-diagnostico.svg": se503_aciertos,
+    "se-587-procedimiento.svg": se503_procedimiento,
+    "se-588-escenarios-adversos.svg": se504_escenarios,
+    "se-588-arquitectura.svg": se504_arquitectura,
+    "se-588-contencion.svg": se504_adversos,
 }

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-374",
+  "title": "Mensajes, eventos, comandos y documentos",
+  "stage": "E",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos"
+}

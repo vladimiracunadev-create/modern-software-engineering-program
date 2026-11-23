@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-486",
+  "title": "Infraestructura como código en pipeline",
+  "stage": "F",
+  "part": "40",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-40-ci-cd-iac-y-platform-engineering/se-486-infraestructura-como-codigo-en-pipeline"
+}

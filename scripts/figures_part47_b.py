@@ -1,225 +1,267 @@
-"""Figures for SE-571 to SE-576 (real-time, verification and assurance: runs of real CPython code and seeded models over the Horno de curado case and the Therac-25 case; Windows CPython 3.12.9; no language model was invoked)."""
+"""Figures for SE-571 to SE-576 (SPEC, agents and agentic life cycle: synthetic data with fixed seeds, plus runs of real CPython/SQLite code on Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig, grouped_bars, line_chart, percentile_intervals, stacked_bars
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
 
-from figures_part40_a import flow
 
-EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; los recuentos se repiten con la misma semilla."
-MODELO = "Modelo con parámetros del autor y semilla fija 47; muestra un mecanismo, no mide un producto real."
+SINT = "Datos sintéticos con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
+EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2) con datos sintéticos; los recuentos son idénticos en ambos."
+REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
+
+# ---------------------------------------------------------------- SE-571
+def se475_validar_cada_mensaje() -> Fig:
+    return heatmap(
+        "Cien mensajes y tres niveles de comprobación: cuántos de cada clase se ejecutan",
+        "Mapa de calor con los mensajes malformados que se ejecutan, de 5 por clase, según el nivel de comprobación: con solo la forma JSON-RPC se ejecutan 25 de los 40 malformados, con versión y método de la cabecera 15 y con nombre, argumentos y alcance ninguno; los 5 mensajes con cabecera de una herramienta permitida y cuerpo de borrar historial se ejecutan en los dos primeros niveles y en el tercero no.",
+        ["JSON roto", "Sin identificador", "Versión antigua", "Método distinto en cabecera y cuerpo", "Nombre distinto en cabecera y cuerpo", "Herramienta inexistente", "Argumento de tipo equivocado", "Recurso fuera de alcance", "Cabecera permitida, cuerpo de borrar historial"],
+        ["Solo forma", "+ versión y método", "+ nombre, argumentos y alcance"],
+        [[5, 0, 0], [5, 0, 0], [5, 5, 0], [5, 5, 0], [5, 5, 5], [5, 0, 0], [5, 5, 5], [5, 5, 5], [5, 5, 0]],
+        unit="Ejecutados de 5", scale="coral", vmin=0, vmax=5, decimals=0, label_w=300, cell_h=38,
+        note="Los 60 mensajes válidos pasan siempre, en los tres niveles. La última fila es el desajuste entre quien autoriza por cabecera y quien ejecuta el cuerpo. El manejador es una imitación escrita por el autor, no una implementación conforme.",
+        note_kind="gold", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-571
-def se571_inversion() -> Fig:
+def se475_descripciones_y_huellas() -> Fig:
     return grouped_bars(
-        "Tres tareas con un mutex compartido durante 400 ms simulados: plazos perdidos y ticks bloqueados de la tarea de más prioridad",
-        "Barras con los resultados de tres protocolos: sin protocolo, la tarea H pierde 2 plazos y queda bloqueada 84 ticks; con herencia de prioridad pierde 0 y queda bloqueada 25 ticks; con techo de prioridad pierde 0 y queda bloqueada 0.",
-        ["Sin protocolo", "Herencia de prioridad", "Techo de prioridad"],
-        [("Plazos perdidos de H", [2, 0, 0], "coral"), ("Ticks de H bloqueada", [84, 25, 0], "navy")],
-        unit="Plazos o ticks de 1 ms", decimals=0, plot_h=260,
-        note="La tarea de prioridad media se interpone mientras la de baja prioridad tiene el mutex que H necesita: es la inversión de prioridad. La herencia acota el bloqueo a la sección crítica restante (25 ticks acumulados en la ventana); con techo no se bloquea nunca porque nadie más entra a la sección crítica a destiempo. Es un simulador de ticks, no un RTOS.",
+        "Catálogo de 20 herramientas con 4 descripciones con instrucciones: buscador de patrones y huellas fijadas",
+        "Barras horizontales con los resultados de un catálogo de 20 herramientas, 4 con instrucciones escondidas: el buscador de patrones halla 3 de las 4 y marca 3 legítimas; la huella fijada alerta en 6 de 6 actualizaciones, 4 benignas y 2 maliciosas; el buscador marca solo 1 de las 2 actualizaciones maliciosas.",
+        ["Buscador: descripciones con instrucciones halladas (de 4)", "Buscador: herramientas legítimas marcadas", "Buscador: actualizaciones maliciosas marcadas (de 2)", "Huella fijada: actualizaciones que alertan (de 6)"],
+        [("Cantidad", [3, 3, 1, 6], "navy")],
+        unit="Herramientas o actualizaciones", horizontal=True, decimals=0, label_w=330,
+        note="El buscador marca 6 herramientas; la descripción que no usa palabras de mando pasa. La huella no deja pasar ningún cambio y a cambio obliga a revisar también los benignos (4 de las 6 alertas); el buscador prioriza qué leer primero y falla de las dos maneras. Las descripciones y los patrones los escribió el autor.",
         note_kind="coral", foot=EJEC)
 
 
-def se571_analisis() -> Fig:
+# ---------------------------------------------------------------- SE-571
+def se475_cache_y_obsolescencia() -> Fig:
     return grouped_bars(
-        "Respuesta máxima de cada tarea con herencia de prioridad: simulada y calculada por análisis de tiempo de respuesta",
-        "Barras con la respuesta máxima en milisegundos de las tareas H, M y L: simulada 23, 63 y 120, y calculada con bloqueo de 13 milisegundos 23, 63 y 120; sin tener en cuenta el bloqueo, el análisis daría 10, 40 y 120.",
-        ["H (prioridad alta)", "M (prioridad media)", "L (prioridad baja)"],
-        [("Simulada", [23, 63, 120], "teal"), ("Análisis con bloqueo", [23, 63, 120], "navy"), ("Análisis sin bloqueo", [10, 40, 120], "grey")],
-        unit="Milisegundos", decimals=0, plot_h=270,
-        note="El análisis coincide con el simulador cuando incluye el bloqueo: 13 ms para H por la sección crítica y 13 ms para M porque L hereda la prioridad de H y corre por encima de M. Omitir el bloqueo subestima H en más del doble. La cota de Liu y Layland para tres tareas es 0,780 y la utilización de este conjunto 0,829: la cota es suficiente, no necesaria.",
-        note_kind="gold", foot=EJEC)
-
-
-def se571_wcet() -> Fig:
-    return percentile_intervals(
-        "Pasos de una ordenación de 8 elementos: mediana, máximo observado en 1000 entradas al azar y peor caso real",
-        "Intervalo con la mediana de 56 pasos, el máximo observado de 80 y el peor caso real de 84 pasos de una ordenación con intercambio y salida anticipada.",
-        [("Ordenación de 8 elementos", [56, 80, 84])], unit="Pasos de ejecución", marks=("mediana", "máx. observado", "peor caso"), decimals=0,
-        note="La marca de agua medida queda 4,8 % por debajo del peor caso, que se alcanza con la entrada en orden inverso; 1000 entradas al azar no lo generan. La medición da un límite inferior del WCET, no una cota; el análisis de caminos o la entrada construida a propósito la encuentran. Se cuentan pasos y no segundos para que el resultado no dependa del equipo.",
-        note_kind="gold", foot=EJEC)
+        "Caché de listados durante siete días con 120 consultas por hora y un cambio de catálogo cada seis horas de media",
+        "Barras horizontales en escala logarítmica con las lecturas por día según el tiempo de vida de la caché: sin caché 2853 y ninguna respuesta vieja; con 30 segundos 1436 y 0,04 por ciento viejas; con 5 minutos 262 y 0,71; con una hora 24 y 8,66; con un día 1 y 79,01 por ciento de respuestas viejas.",
+        ["Sin caché (0,00 % con catálogo viejo)", "30 segundos (0,04 %)", "5 minutos (0,71 %)", "1 hora (8,66 %)", "1 día (79,01 %)"],
+        [("Lecturas por día", [2853, 1436, 262, 24, 1], "navy")],
+        unit="Lecturas por día", horizontal=True, log=True, decimals=0, label_w=250,
+        note="Entre paréntesis, las respuestas con catálogo viejo; la antigüedad máxima de un cambio no visto crece de menos de 1 minuto con 30 s a 5 min, 58 min y 1 405 min (23 h). La elección del tiempo de vida es de riesgo, no de comodidad: una retirada urgente de una herramienta tarda en surtir efecto lo que dure la caché. Los cambios de catálogo son un proceso de Poisson supuesto.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-572
-def se572_reglas() -> Fig:
+def se476_contexto_con_subagentes() -> Fig:
     return grouped_bars(
-        "Seis reglas comprobables por máquina sobre dos versiones de las mismas tres funciones: avisos por regla",
-        "Barras con los avisos de cada regla: la muestra con recursión, bucle sin cota, función con lógica sin aserciones, valor de retorno ignorado y excepción vacía acumula 1 aviso en cada una de cinco reglas y 0 en la de longitud; la versión corregida acumula 0 en las seis.",
-        ["Sin recursión", "Bucles con cota", "Funciones cortas", "Aserciones", "Retorno comprobado", "Sin excepción vacía"],
-        [("Muestra con defectos", [1, 1, 0, 1, 1, 1], "coral"), ("Versión corregida", [0, 0, 0, 0, 0, 0], "teal")],
-        unit="Avisos", decimals=0, plot_h=250,
-        note="Las reglas se inspiran en las diez reglas de Holzmann para código de misión crítica (NASA/JPL) y se implementan sobre el árbol sintáctico de Python. Una regla mecánica también da falsos positivos: la recursión acotada por la profundidad de un árbol dispara el aviso de recursión aunque sea segura.",
-        note_kind="gold", foot=EJEC)
+        "Contexto de entrada procesado por un agente único y por ocho subagentes según la lectura redundante",
+        "Barras horizontales con los millones de tokens de entrada procesados: el agente único procesa 4,16 y termina con 165000; con subagentes el consumo es 0,90 con lectura mínima, 1,46 con el doble, 2,02 con el triple, 2,58 con el cuádruple y 3,70 con seis veces, y el contexto final del orquestador es siempre 17000 tokens.",
+        ["Agente único (100 %)", "Subagentes, lectura mínima 1× (22 %)", "Subagentes, 2× (35 %)", "Subagentes, 3× (49 %)", "Subagentes, 4× (62 %)", "Subagentes, 6× (89 %)"],
+        [("Tokens procesados", [4.16, 0.90, 1.46, 2.02, 2.58, 3.70], "navy")],
+        unit="Millones de tokens procesados", horizontal=True, decimals=2, label_w=260,
+        note="Entre paréntesis, el consumo frente al agente único. Contexto final: 165 000 tokens del agente único y 17 000 del orquestador. El modelo cuenta solo tokens de entrada por turno: no incluye salida, caché ni coordinación, y por eso no contradice que en la práctica los sistemas multiagente consuman más. Muestra la forma cuadrática del agente único.",
+        note_kind="gold", foot=SINT)
 
 
-def se572_desbordamiento() -> Fig:
+# ---------------------------------------------------------------- SE-572
+def se476_hechos_que_sobreviven() -> Fig:
     return grouped_bars(
-        "Promedio de dos enteros sin signo de 16 bits con aritmética modular: pares con resultado incorrecto según el conjunto de prueba",
-        "Barras con el porcentaje de pares con resultado incorrecto: 50,0 por ciento con 200 000 pares al azar de 16 bits, 0 con los 65 536 pares de valores pequeños de 0 a 255 y 0 con la fórmula que resta antes de dividir.",
-        ["Pares al azar de 16 bits", "Pares pequeños (0 a 255)", "Con la resta previa"],
-        [("Resultado incorrecto (%)", [50.0, 0.0, 0.0], "coral")], unit="Por ciento de pares", decimals=1, plot_h=250,
-        note="La suma se desborda cuando supera 65 535 y el resultado envuelve sin avisar. Las pruebas con valores pequeños no lo ven jamás: el defecto exige entradas que las pruebas habituales no generan. Es la clase de defecto de las reglas sobre enteros de los estándares de codificación segura; aquí se emula la aritmética en Python y no se ejecuta C.",
-        note_kind="teal", foot=EJEC)
+        "Probabilidad de que cinco hechos necesarios lleguen al orquestador según la retención de cada resumen",
+        "Barras agrupadas con la probabilidad de que lleguen los cinco hechos según la retención de cada resumen: con 99 por ciento llegan el 95,1 por ciento de las veces, con 95 el 77,4, con 90 el 59,0 y con 80 el 32,8; la simulación de 20000 corridas da 95,1, 77,3, 59,0 y 33,0.",
+        ["Retención del 99 %", "Retención del 95 %", "Retención del 90 %", "Retención del 80 %"],
+        [("Cálculo", [95.1, 77.4, 59.0, 32.8], "navy"), ("Simulación (20 000 corridas)", [95.1, 77.3, 59.0, 33.0], "teal")],
+        unit="Llegan los 5 hechos (%)", decimals=1, plot_h=260,
+        note="La probabilidad cae como la retención elevada al número de hechos. Se supone independencia entre hechos; en la práctica se pierden primero los números y los matices.",
+        note_kind="coral", foot=SINT)
 
 
-def se572_cadena() -> Fig:
-    return flow("Qué comprueba cada capa de una política de codificación segura y qué deja a la capa siguiente",
-                "Diagrama de cuatro cajas: reglas del estándar de codificación comprobadas por herramienta, revisión por una persona de las desviaciones justificadas, pruebas dinámicas con entradas extremas, y análisis estático o formal para lo que las pruebas no alcanzan.",
-                [[("Regla\nComprobada por herramienta en cada cambio", "teal"), ("Desviación\nJustificada por escrito y revisada", "gold"),
-                  ("Prueba\nEntradas extremas y de frontera", "teal"), ("Análisis\nEstático o formal donde las pruebas no llegan", "coral")]],
-                note="Un estándar de codificación reduce clases de defectos, no demuestra corrección: una regla cumplida no dice que el programa haga lo correcto. Las desviaciones con justificación son parte del proceso, no un fallo del proceso.",
-                note_kind="teal", box_h=118, foot=EJEC)
+# ---------------------------------------------------------------- SE-572
+def se476_colisiones_de_edicion() -> Fig:
+    xs = [2, 3, 4, 6, 8]
+    return line_chart(
+        "Probabilidad de conflicto de edición con 60 archivos y 5 por agente según el reparto",
+        "Líneas con la probabilidad de conflicto de edición según los agentes y el reparto: con reparto al azar 36,5 por ciento con dos agentes, 75,3 con tres, 94,4 con cuatro y 100 con seis y ocho; con propiedad por carpeta 0,0 en todos los casos; con propiedad y 20 por ciento de tareas con un archivo común 0,7, 2,0, 3,6, 8,9 y 16,0.",
+        [("Reparto al azar", list(zip(xs, [36.5, 75.3, 94.4, 100.0, 100.0])), "coral"), ("Propiedad por carpeta", list(zip(xs, [0.0, 0.0, 0.0, 0.0, 0.0])), "teal"),
+         ("Propiedad y 20 % con archivo común", list(zip(xs, [0.7, 2.0, 3.6, 8.9, 16.0])), "gold")],
+        x_label="Agentes", y_label="Probabilidad de conflicto (%)", x_ticks=[(x, str(x)) for x in xs], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none", decimals=1, plot_h=300,
+        note="Los archivos comunes reintroducen el conflicto aunque cada agente respete su zona. El trabajo real no elige archivos al azar y la propiedad rara vez se respeta al 100 %.",
+        note_kind="gold", foot=SINT)
 
 
-# ---------------------------------------------------------------- SE-573
-def se573_estados() -> Fig:
+# ---------------------------------------------------------------- SE-572
+def se476_protocolos_de_escritura() -> Fig:
     return grouped_bars(
-        "Cuatro protocolos de exclusión mutua para dos procesos: estados alcanzables explorados por el verificador",
-        "Barras con los estados alcanzables: comprobar y luego marcar 14 con la exclusión mutua violada, solo bandera 15 con exclusión mutua correcta pero un bloqueo alcanzable, Peterson con los pasos invertidos 39 con la exclusión mutua violada y Peterson 34 con la propiedad cumplida y sin bloqueos.",
-        ["Comprobar y luego marcar", "Solo bandera", "Peterson con pasos invertidos", "Peterson"], [("Estados alcanzables", [14, 15, 39, 34], "navy")],
-        unit="Estados alcanzables", decimals=0, horizontal=True, label_w=250,
-        note="Dos protocolos violan la exclusión mutua (contraejemplos de 4 y 6 pasos), uno la cumple pero puede bloquearse y solo Peterson cumple la exclusión y no se bloquea en este modelo. Un verificador de estados explícitos propio, en Python, recorre todos los estados; no se ejecutó TLA+, SPARK ni Alloy en esta clase.",
-        note_kind="gold", foot=EJEC)
-
-
-def se573_azar() -> Fig:
-    return grouped_bars(
-        "Encontrar la violación con planificaciones al azar de 40 pasos frente a explorar todos los estados",
-        "Barras con el porcentaje de corridas que encuentran la violación: 86,62 por ciento en el protocolo comprobar y luego marcar, 9,47 en Peterson con los pasos invertidos y 100 con el verificador en ambos.",
-        ["Comprobar y luego marcar", "Peterson con pasos invertidos"],
-        [("Planificaciones al azar (20 000 corridas)", [86.62, 9.47], "gold"), ("Verificador de estados", [100.0, 100.0], "teal")],
-        unit="Por ciento de detección", decimals=2, plot_h=260,
-        note="Cuanto más fino es el orden de eventos que revela el defecto, menos probable es que el azar lo produzca: pasar de 4 a 6 pasos de contraejemplo bajó la detección de 87 a 9 por ciento. El verificador la encuentra siempre, y devuelve el camino. Con las pruebas por azar, la ausencia de fallos no demuestra ausencia de defectos.",
+        "Tres protocolos de escritura de cuatro agentes sobre una fila compartida de SQLite en 200 rondas",
+        "Barras agrupadas con las contribuciones perdidas de 800, los reintentos y los ticks de espera de tres protocolos: la escritura ciega pierde 600 sin reintentos ni espera; la versión optimista no pierde ninguna y hace 1200 reintentos; el arrendamiento con caducidad no pierde ninguna, no reintenta y espera 980 ticks.",
+        ["Escritura ciega", "Versión optimista", "Arrendamiento con caducidad"],
+        [("Contribuciones perdidas de 800", [600, 0, 0], "coral"), ("Reintentos", [0, 1200, 0], "gold"), ("Ticks de espera", [0, 0, 980], "navy")],
+        unit="Cantidad", decimals=0, plot_h=260,
+        note="La pérdida de la escritura ciega es estructural: sobrevive una de cuatro contribuciones. Los cuatro agentes leen a la vez en cada ronda, el caso peor para la versión optimista; SQLite en memoria no reproduce la concurrencia real.",
         note_kind="coral", foot=EJEC)
 
 
-def se573_explosion() -> Fig:
-    ns = [2, 3, 4, 5, 6, 7]
-    return line_chart(
-        "Espacio de estados de n procesos independientes de cuatro pasos cada uno: crecimiento exponencial",
-        "Línea en escala logarítmica con los estados alcanzables: 16 con 2 procesos, 64 con 3, 256 con 4, 1024 con 5, 4096 con 6 y 16384 con 7.",
-        [("Estados alcanzables", list(zip(ns, [16, 64, 256, 1024, 4096, 16384])), "navy")],
-        x_label="Procesos", y_label="Estados alcanzables", log_y=True, x_ticks=[(n, str(n)) for n in ns], y_ticks=[10, 100, 1000, 10000], point_labels="all", decimals=0, plot_h=280,
-        note="Cada proceso multiplica por cuatro el espacio: es la explosión de estados. Las técnicas que la contienen (abstracción, reducción por orden parcial, verificación simbólica, límites en el tamaño del modelo) tienen costo propio y exigen que el modelo conserve lo que importa. Procesos que no interactúan son el mejor caso; el real es peor.",
+# ---------------------------------------------------------------- SE-573
+def se477_politicas_de_aprobacion() -> Fig:
+    return grouped_bars(
+        "Cuatro políticas de aprobación en 5 000 sesiones de 200 acciones con un 4 % irreversibles",
+        "Barras horizontales en escala logarítmica con los avisos por sesión y las irreversibles ejecutadas por sesión: preguntar en cada acción genera 200 avisos y deja ejecutar 3,02, con 93,5 por ciento de sesiones afectadas; preguntar por riesgo 22,5 y 1,30; aprobar un plan 11,1 y 1,18; preguntar solo lo irreversible con pausa 8,0 y 0,54, con 41,5 por ciento.",
+        ["Preguntar en cada acción (93,5 % de sesiones con alguna)", "Preguntar solo las de riesgo (73,2 %)", "Aprobar el plan y preguntar las desviaciones (69,5 %)", "Solo lo irreversible, con pausa obligatoria (41,5 %)"],
+        [("Avisos por sesión", [200.0, 22.5, 11.1, 8.0], "grey"), ("Irreversibles ejecutadas por sesión", [3.02, 1.30, 1.18, 0.54], "coral")],
+        unit="Avisos o irreversibles por sesión", horizontal=True, log=True, decimals=2, label_w=300,
+        note="Entre paréntesis, el porcentaje de sesiones con alguna acción irreversible ejecutada. El clasificador de riesgo supone un 90 % de aciertos y un 8 % de falsas alarmas. Preguntar por todo agota la atención en lo rutinario. La última política supone saber qué es irreversible. La función de atención, el 4 % y el clasificador son supuestos del autor: no se observó a ninguna persona.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-573
+def se477_deshacer_con_diario() -> Fig:
+    return stacked_bars(
+        "Sesenta acciones de un generador con semilla sobre 40 archivos y su deshacer con un diario por acción",
+        "Barra apilada con las 60 acciones de un generador sobre 40 archivos: 55 sobre archivos, que el diario deshace hasta dejar el estado igual al inicial, y 5 correos simulados que el diario no puede deshacer.",
+        ["60 acciones"], [("Acciones que el diario deshace (archivos)", [55], "teal"), ("Acciones que no se pueden deshacer (correos)", [5], "coral")],
+        unit="Acciones", horizontal=True, decimals=0, label_w=130,
+        note="El directorio cambió tras las 60 acciones y, al deshacer en orden inverso, el estado coincide con el inicial. El diario ocupa 2 216 bytes (85 % del espacio). El diario restaura el estado de los archivos y no lo que sale del sistema. Son archivos pequeños, sin enlaces simbólicos, permisos especiales ni caídas a mitad de acción.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-573
+def se477_compensar_un_flujo() -> Fig:
+    return stacked_bars(
+        "Flujo de cinco pasos con 8 % de fallo por intento: consistencia según la estrategia de compensación (20 000 ejecuciones)",
+        "Barras apiladas horizontales con el resultado de 20000 ejecuciones según la compensación: sin compensación el 34,3 por ciento queda a medias; compensar sin reintentar deja 95,5 por ciento consistente y 4,5 a medias; con dos reintentos 100,0 y 0,1; con el paso 3 irreversible 87,8 consistente y 12,1 con efecto residual.",
+        ["Sin compensación", "Compensar sin reintentar", "Compensar con 2 reintentos", "Con 2 reintentos y el paso 3 irreversible"],
+        [("Consistentes", [65.7, 95.5, 100.0, 87.8], "teal"), ("A medias", [34.3, 4.5, 0.1, 0.0], "gold"), ("Con efecto residual", [0.0, 0.0, 0.0, 12.1], "coral")],
+        unit="Ejecuciones (%)", horizontal=True, decimals=1, label_w=250,
+        note="Ejecuciones completas: 65,7 %, 65,4 %, 65,4 % y 65,6 %. Un paso irreversible deja un efecto que ninguna compensación elimina; conviene ponerlo al final. El 8 % de fallo y la independencia entre intentos son supuestos del autor.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-574
+def se478_filtros_de_instrucciones() -> Fig:
+    return heatmap(
+        "Cuatro filtros de instrucciones inyectadas sobre 200 documentos: 40 con una orden de prueba en cinco formas y 160 inocuos",
+        "Mapa de calor con las órdenes detectadas, de 8 por forma, por cuatro filtros: la frase fija detecta 8 de 8 directas y ninguna de las otras formas; normalizar y decodificar suma las de ancho cero y las codificadas; unir los campos suma las repartidas; el patrón amplio detecta las 40 y marca 19 de los 160 documentos inocuos.",
+        ["Frase fija sobre el texto sin tratar", "+ normalizar el texto y decodificar", "+ unir los campos antes de buscar", "+ patrón amplio (paráfrasis)"],
+        ["Directa", "Parafraseada", "Ancho cero", "Codificada", "Repartida"],
+        [[8, 0, 0, 0, 0], [8, 0, 8, 8, 0], [8, 0, 8, 8, 8], [8, 8, 8, 8, 8]],
+        unit="Detectadas de 8", scale="teal", vmin=0, vmax=8, decimals=0, label_w=280,
+        note="Inocuos marcados de 160: 0, 0, 0 y 19. Cada forma que se cierra añade ingeniería o falsas alarmas: el patrón amplio marca 19 de 160 inocuos. El 100 % es consecuencia de un conjunto de pruebas escrito conociendo las cinco formas; no se midió ningún modelo.",
+        note_kind="coral", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-574
+def se478_tres_capacidades() -> Fig:
+    return stacked_bars(
+        "Doce tareas típicas de un agente y cinco políticas sobre datos privados, contenido no confiable y comunicación hacia fuera",
+        "Barras apiladas horizontales con las 12 tareas según la política: sin restricción pasan 12 sin ayuda; quitar la comunicación hacia fuera deja 6 y bloquea 6; quitar el contenido no confiable deja 4 y bloquea 8; quitar los datos privados deja 2 y bloquea 10; marcar lo leído y exigir aprobación para salir deja 9 sin ayuda y 3 con aprobación, sin ninguna bloqueada.",
+        ["Sin restricción", "Quitar la comunicación hacia fuera", "Quitar el contenido no confiable", "Quitar los datos privados", "Marcar lo leído como no confiable y exigir aprobación para salir"],
+        [("Sin ayuda", [12, 6, 4, 2, 9], "teal"), ("Bloqueadas", [0, 6, 8, 10, 0], "coral"), ("Con aprobación", [0, 0, 0, 0, 3], "gold")],
+        unit="Tareas de 12", horizontal=True, decimals=0, label_w=310,
+        note="Sin restricción, 3 de las 12 tareas reúnen las tres capacidades sin aprobación. En 5 000 configuraciones de 6 herramientas de un catálogo de 15, el 73,5 % reúne las tres capacidades. Las tareas y sus capacidades son una clasificación del autor tratada como todo o nada.",
         note_kind="gold", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-574
-def se574_mutantes() -> Fig:
-    return percentile_intervals(
-        "Mutantes de una decisión de cuatro condiciones que matan los conjuntos mínimos de cada criterio (17 mutantes en total)",
-        "Intervalos con el mínimo, la media y el máximo de mutantes muertos sobre 17: cobertura de decisión de 4 a 13 con media 8,3; cobertura de condiciones de 3 a 8 con media 5,6; MC/DC de 17 a 17 con media 17.",
-        [("Decisión (2 pruebas, 39 conjuntos)", [4, 8.3, 13]), ("Condiciones (2 pruebas, 8 conjuntos)", [3, 5.6, 8]), ("MC/DC (5 pruebas, 4 conjuntos)", [17, 17, 17])],
-        unit="Mutantes muertos de 17", marks=("mín", "media", "máx"), decimals=1, label_w=290, ref_lines=[(17, "17")],
-        note="De los 8 conjuntos mínimos de cobertura de condiciones, 5 nunca cambian el resultado de la decisión. Los 4 conjuntos mínimos de MC/DC (5 pruebas, n + 1) matan los 17 mutantes de esta decisión, igual que los 16 vectores. Los mutantes los escribió el autor: la ventaja se mide aquí, no se generaliza a otros programas.",
-        note_kind="teal", foot=EJEC)
-
-
-def se574_retardo() -> Fig:
-    ds = [0, 2, 5, 10, 15]
-    return line_chart(
-        "Simulación en software de 300 escenarios de calentamiento: escenarios que superan 250 grados según el retardo del sensor",
-        "Línea con los escenarios con violación: 0 con retardo de 0, 2 y 5 muestras, 30 con 10 muestras y 52 con 15 muestras de retardo, con el limitador en 245 grados.",
-        [("Escenarios con violación", list(zip(ds, [0, 0, 0, 30, 52])), "coral")],
-        x_label="Retardo del sensor (muestras)", y_label="Escenarios de 300 con T mayor que 250", x_ticks=[(d, str(d)) for d in ds], y_ticks=[0, 20, 40, 60], point_labels="all", decimals=0, plot_h=270,
-        note="Con retardo cero la lógica es correcta en los 300 escenarios; el defecto aparece solo cuando el sensor llega tarde, una propiedad del hardware y del tiempo que un banco de prueba con el sensor real (HIL) reproduce y una simulación ideal no. Por eso se combinan: simulación para volumen y banco para lo que el modelo no incluye.",
-        note_kind="gold", foot=MODELO)
-
-
-def se574_costo() -> Fig:
-    ns = list(range(1, 9))
-    return line_chart(
-        "Pruebas necesarias para cubrir una decisión con n condiciones: mínimo de MC/DC (n + 1) y combinaciones exhaustivas",
-        "Líneas en escala logarítmica con el número de pruebas para n de 1 a 8 condiciones: MC/DC necesita n + 1, de 2 a 9, y el recorrido exhaustivo 2 elevado a n, de 2 a 256.",
-        [("MC/DC (n + 1)", [(n, n + 1) for n in ns], "teal"), ("Exhaustivo (2 a la n)", [(n, 2 ** n) for n in ns], "coral")],
-        x_label="Condiciones de la decisión", y_label="Pruebas", log_y=True, x_ticks=[(n, str(n)) for n in ns], y_ticks=[1, 10, 100], point_labels="none", plot_h=270,
-        note="Con 4 condiciones son 5 pruebas frente a 16; con 8, 9 frente a 256. El mínimo n + 1 vale cuando existen vectores que aíslan cada condición; con condiciones acopladas (la misma variable en dos condiciones) el mínimo es mayor o imposible. La cantidad se cuenta con la definición de independencia de causa única.",
-        note_kind="gold", foot=MODELO)
+def se478_registro_que_se_nota() -> Fig:
+    return heatmap(
+        "Cinco manipulaciones de un registro de auditoría de 500 eventos: fracción detectada por esquema (200 ensayos cada una)",
+        "Mapa de calor con la fracción detectada de cinco manipulaciones de un registro de 500 eventos: un registro simple detecta 0 por ciento en todas; una cadena de huellas detecta 100 por ciento de editar, borrar e intercambiar eventos y 0 de cortar los últimos 20 o reescribir y recalcular; con la huella final guardada aparte se detectan las cinco al 100 por ciento.",
+        ["Editar un evento", "Borrar un evento", "Intercambiar dos eventos", "Cortar los últimos 20 eventos", "Reescribir desde un punto y recalcular la cadena"],
+        ["Registro simple", "Cadena de huellas", "Cadena y huella final aparte"],
+        [[0, 100, 100], [0, 100, 100], [0, 100, 100], [0, 0, 100], [0, 0, 100]],
+        unit="Detectado (%)", scale="navy", vmin=0, vmax=100, decimals=0, label_w=300,
+        note="La integridad de un registro es una propiedad de quién controla la referencia: quien puede reescribir la cadena entera produce una cadena válida. Un atacante que controle también la referencia no sería detectado.",
+        note_kind="gold", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-575
-def se575_variantes() -> Fig:
-    return grouped_bars(
-        "Modelo de la carrera de edición del Therac-25: 100 000 tratamientos con 15 % de ediciones y un ajuste de 8 segundos",
-        "Barras con las configuraciones inconsistentes y las exposiciones peligrosas de tres variantes: la original 5705 y 5705, con enclavamiento de hardware 5627 y 58, y con parámetros versionados 0 y 0.",
-        ["Original", "Con enclavamiento de hardware", "Parámetros versionados"],
-        [("Configuraciones inconsistentes", [5705, 5627, 0], "gold"), ("Exposiciones peligrosas", [5705, 58, 0], "coral")],
-        unit="Tratamientos de 100 000", decimals=0, plot_h=260,
-        note="El enclavamiento de hardware no evita la inconsistencia: reduce la exposición porque falla con una probabilidad del autor del 1 %. Versionar los parámetros elimina la clase de defecto en este modelo. Es un modelo inspirado en los hechos publicados por Leveson y Turner, no la reconstrucción del código de la máquina; la probabilidad de edición y el reparto de tiempos son supuestos.",
-        note_kind="coral", foot=MODELO)
-
-
-def se575_ventana() -> Fig:
-    ws = [2, 4, 8, 12]
-    return line_chart(
-        "Variante original del modelo: configuraciones inconsistentes por 100 000 tratamientos según la duración de la ventana de ajuste",
-        "Línea con las configuraciones inconsistentes: 1129 con una ventana de 2 segundos, 2574 con 4, 5669 con 8 y 8611 con 12 segundos.",
-        [("Configuraciones inconsistentes", list(zip(ws, [1129, 2574, 5669, 8611])), "coral")],
-        x_label="Ventana de ajuste (segundos)", y_label="Inconsistencias por 100 000", x_ticks=[(w, str(w)) for w in ws], y_ticks=[0, 3000, 6000, 9000], point_labels="all", decimals=0, plot_h=270,
-        note="El riesgo crece casi en proporción a la ventana durante la que una edición no se vuelve a comprobar. En el modelo, acortar el ajuste reduce la exposición pero no la elimina; lo que la elimina es invalidar el ajuste ante cada edición. Solo el tope de 8 segundos es un dato del caso; el resto de los valores es del autor.",
-        note_kind="gold", foot=MODELO)
-
-
-def se575_contador() -> Fig:
-    return grouped_bars(
-        "Modelo del contador de un byte: pasadas de 100 000 en las que se omite la comprobación del colimador",
-        "Barras con las pasadas sin comprobación: 390 de 100 000 si la variable se incrementa y vuelve a cero cada 256 pasadas, y 0 si se asigna un valor fijo distinto de cero.",
-        ["Incrementar la variable", "Asignar un valor fijo"], [("Pasadas sin comprobación", [390, 0], "coral")],
-        unit="Pasadas de 100 000", decimals=0, plot_h=240,
-        note="Una pasada de cada 256 es el 0,39 %: pequeño, pero la rutina se ejecuta cientos de veces por puesta a punto. Un invariante enunciado («vale cero solo si todo está bien») y una prueba que ejecute más de 256 pasadas lo habrían hecho visible. La probabilidad real por tratamiento no puede estimarse con los datos publicados.",
-        note_kind="teal", foot=MODELO)
-
-
-# ---------------------------------------------------------------- SE-576
-def se576_peligros() -> Fig:
-    return stacked_bars(
-        "Cinco peligros del Horno de curado: estado de su evidencia en el paquete de aseguramiento inicial",
-        "Barra apilada con los cinco peligros: 3 con un control verificado por una prueba que pasa, 1 con un control sin prueba que pase y 1 sin ningún control.",
-        ["Peligros del Horno de curado"],
-        [("Control verificado", [3], "teal"), ("Control sin prueba que pase", [1], "gold"), ("Sin control", [1], "coral")],
-        unit="Peligros", horizontal=True, decimals=0, label_w=210,
-        note="La comprobación automática encuentra tres huecos: el control REQ-05 sin prueba, el peligro H5 (deriva de calibración) sin control y el requisito REQ-05 sin prueba. El peligro sin control no se oculta: se registra como riesgo residual que una persona con autoridad acepta o se cierra con un control. Los datos son los del paquete de ejemplo.",
-        note_kind="gold", foot=MODELO)
-
-
-def se576_evidencia() -> Fig:
-    return grouped_bars(
-        "Tras editar el texto de un requisito sin rehacer la evidencia: huecos de contenido y archivos que ya no coinciden con el manifiesto",
-        "Barras con huecos de contenido, 3 antes y 3 después de editar REQ-02, y archivos de evidencia que no coinciden con el manifiesto de resúmenes SHA-256: 0 antes y 1 después.",
-        ["Antes de editar REQ-02", "Después de editar REQ-02"],
-        [("Huecos de contenido", [3, 3], "gold"), ("Archivos que no coinciden con el manifiesto", [0, 1], "coral")],
-        unit="Elementos", decimals=0, plot_h=240,
-        note="Las comprobaciones de contenido no ven el cambio porque todas las referencias siguen existiendo; el manifiesto sí. Dice que la evidencia ya no es la que se revisó y no si la prueba sigue valiendo: esa decisión es de una persona. Sin manifiesto, un paquete puede quedar verde con evidencia de una versión anterior.",
+def se479_reglas_de_parada() -> Fig:
+    return heatmap(
+        "Pasos ejecutados antes de la parada según la regla, para cinco comportamientos de agente (tope de 200)",
+        "Mapa de calor con los pasos antes de la parada de cinco comportamientos según cinco reglas: repetir el mismo paso se detiene en 50 con el máximo, 25 con el presupuesto, 3 con el estado repetido y 9 sin avance; oscilar en 50, 25, 5 y 9; cambiar de estado sin avanzar en 50, 25, nunca y 9; avanzar 12 pasos y estancarse en 50, 25, nunca y 21; la tarea legítima de 60 pasos se corta por error en 50 y 25; combinadas, 3, 5, 9, 21 y 25.",
+        ["Repite el mismo paso", "Oscila entre dos estados", "Cambia de estado sin avanzar", "Avanza 12 pasos y se estanca", "Tarea larga legítima (60 pasos)"],
+        ["50 pasos", "30 000 tokens", "Estado 3 veces", "Sin avance en 8", "Combinadas"],
+        [[50, 25, 3, 9, 3], [50, 25, 5, 9, 5], [50, 25, None, 9, 9], [50, 25, None, 21, 21], [50, 25, None, None, 25]],
+        unit="Pasos hasta parar (celda vacía: no para)", scale="coral", vmin=0, vmax=50, decimals=0, label_w=260,
+        note="Las celdas vacías son los casos en que la regla no para al agente. La última fila no debe detenerse: el máximo y el presupuesto la cortan sin motivo y las combinadas heredan el falso paro. Los comportamientos son máquinas de estados del autor y los parámetros son arbitrarios.",
         note_kind="coral", foot=EJEC)
 
 
-def se576_paquete() -> Fig:
-    return flow("Cadena de un paquete de aseguramiento: cada eslabón apunta al anterior y se resume con un hash",
-                "Diagrama de cinco cajas en dos filas: peligros con sus controles, requisitos derivados, pruebas con resultados, comprobación automática de huecos, y manifiesto de resúmenes firmado por una persona responsable.",
-                [[("Peligros\nCada uno con sus controles", "coral"), ("Requisitos\nLos controles hechos verificables", "gold"), ("Pruebas y resultados\nVinculados a requisitos", "teal")],
-                 [("Comprobación\nHuecos y referencias rotas", "gold"), ("Manifiesto\nResumen de cada archivo y decisión de una persona", "teal")]],
-                note="El paquete no demuestra seguridad: ordena la evidencia para que otra persona pueda desafiarla. La herramienta señala lo que falta o cambió; la aceptación del riesgo residual es de una persona con nombre y autoridad.",
-                note_kind="teal", box_h=96, foot=EJEC)
+# ---------------------------------------------------------------- SE-575
+def se479_reanudar_sin_duplicar() -> Fig:
+    return grouped_bars(
+        "Reanudar tras una caída en una tarea de 30 pasos que envía un aviso por paso (500 caídas por variante)",
+        "Barras horizontales con los avisos duplicados de media y los pasos recalculados en 500 caídas por variante: reiniciar desde cero duplica 20,90 y deja algún duplicado en el 99 por ciento de las caídas; un punto de control tras el efecto en otra transacción duplica 0,31 en el 31 por ciento; la clave de idempotencia por paso y la transacción única no duplican ninguno.",
+        ["Sin punto de control, reiniciar (99 % de caídas con duplicado)", "Punto de control tras el efecto, otra transacción (31 %)", "Clave de idempotencia por paso (0 %)", "Efecto y punto de control en una transacción (0 %)"],
+        [("Duplicados (media)", [20.90, 0.31, 0.0, 0.0], "coral"), ("Pasos recalculados", [20.9, 0.3, 0.3, 0.3], "navy")],
+        unit="Avisos duplicados o pasos recalculados", horizontal=True, decimals=2, label_w=310,
+        note="Entre paréntesis, las caídas con algún duplicado. Lo que duplica es el instante entre el efecto y el punto de control. Los efectos son filas de una base en memoria; un efecto externo necesita la clave de idempotencia en el receptor.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-575
+def se479_evaluar_con_ruido() -> Fig:
+    xs = [20, 50, 100, 300, 1000]
+    return line_chart(
+        "Dos agentes con aciertos de 70 y 76 %: detección de la diferencia según el número de tareas (2 000 repeticiones)",
+        "Líneas en escala logarítmica con el porcentaje de repeticiones que detectan la diferencia entre dos agentes con aciertos de 70 y 76 por ciento según las tareas: la prueba z declara a B mejor en 4,3 por ciento con 20 tareas, 8,3 con 50, 15,2 con 100, 38,1 con 300 y 89,5 con 1000; los intervalos separados en 0,4, 1,1, 2,2, 10,2 y 60,7.",
+        [("Prueba z: B mejor", list(zip(xs, [4.3, 8.3, 15.2, 38.1, 89.5])), "teal"), ("Intervalos separados", list(zip(xs, [0.4, 1.1, 2.2, 10.2, 60.7])), "coral")],
+        x_label="Tareas de la evaluación", y_label="Repeticiones que detectan la diferencia (%)", log_x=True,
+        x_ticks=[(x, f"{x:,}".replace(",", " ")) for x in xs], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="all", decimals=1, plot_h=300,
+        note="Semiancho del intervalo de A: 36,5, 24,4, 17,6, 10,3 y 5,7 puntos; la prueba z declara a B peor en 0,45 %, 0,10 % y 0,00 %. Con la misma dificultad, el acierto en un intento es del 70,1 %, en tres de tres del 44,7 %, y dos intentos de una tarea discrepan en el 31,4 %. Con efectos grandes bastan veinte tareas; con seis puntos hacen falta del orden de mil.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-576
+def se480_autodeclaracion_y_verificacion() -> Fig:
+    return heatmap(
+        "Seis defectos inyectados en un servicio de diez requisitos: qué vía de verificación los detecta",
+        "Mapa de calor con seis defectos inyectados en un servicio de avisos de diez requisitos y cuatro vías de verificación: la autodeclaración con tres pruebas del camino feliz detecta 0 de 6, las pruebas por requisito de RF-01 a RF-08 detectan 6 de 6, las pruebas de reinicio y copia detectan 1 de 6 y la vista combinada 6 de 6.",
+        ["D1 envía todos los umbrales (RF-06)", "D2 no reabre al cambiar el vencimiento (RF-07)", "D3 estado de envíos en memoria (RF-09)", "D4 distingue mayúsculas en el silencio (RF-04)", "D5 historial incompleto (RF-08)", "D6 avisa tras el vencimiento (RF-05)"],
+        ["Autodeclaración", "Pruebas RF-01 a RF-08", "Reinicio y copia", "Combinada"],
+        [[0, 1, 0, 1], [0, 1, 0, 1], [0, 1, 1, 1], [0, 1, 0, 1], [0, 1, 0, 1], [0, 1, 0, 1]],
+        unit="Detectado", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v else "no", label_w=310,
+        note="Con los seis defectos a la vez, siete de diez requisitos tienen una prueba en rojo y los tres de la autodeclaración siguen en verde. Los defectos los eligió el autor: el 6 de 6 es una cota superior, no una tasa de detección.",
+        note_kind="coral", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-576
+def se480_restaurar_una_copia() -> Fig:
+    return grouped_bars(
+        "Restaurar una copia de un servicio con 30 entregas y 60 pasadas al día durante tres días (400 caídas por fila)",
+        "Barras agrupadas con las pasadas perdidas y los avisos reenviados de media según la frecuencia de copia: una copia cada 24 horas pierde 28,9 pasadas y reenvía 6,8 avisos, con algún reenvío en el 87 por ciento de las caídas; cada 6 horas 6,9 y 1,4, el 60 por ciento; cada hora 0,8 y 0,0, el 0 por ciento.",
+        ["Cada 24 h (87 % de caídas con reenvío)", "Cada 6 h (60 %)", "Cada 1 h (0 %)"],
+        [("Pasadas perdidas", [28.9, 6.9, 0.8], "coral"), ("Avisos reenviados", [6.8, 1.4, 0.0], "gold")],
+        unit="Pasadas o avisos (media)", decimals=1, plot_h=260,
+        note="Entre paréntesis, las caídas con algún reenvío. Todas las copias pasan la comprobación de integridad. La copia en línea de SQLite sale siempre íntegra; la frecuencia decide cuántos estudiantes reciben un aviso repetido. La caída uniforme en el tiempo y la ausencia de escrituras concurrentes son supuestos del autor.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-576
+def se480_paquete_de_evidencia() -> Fig:
+    return heatmap(
+        "Paquete de evidencia de diez requisitos y doce pruebas: qué requisitos tienen una variante que su prueba detecta",
+        "Mapa de calor con diez requisitos de un servicio de avisos, todos en verde con el servicio de referencia: seis de ellos, del cuatro al nueve, tienen una variante defectuosa que su prueba detecta; los cuatro restantes, uno, dos, tres y diez, no tienen variante que demuestre que su prueba puede fallar.",
+        ["RF-01 umbrales de 72, 24 y 1 hora", "RF-02 no repetir un aviso", "RF-03 no avisar si está entregada", "RF-04 no avisar si está silenciada", "RF-05 no avisar tras el vencimiento",
+         "RF-06 solo el umbral más cercano tras una caída", "RF-07 cambiar el vencimiento reabre umbrales", "RF-08 registrar cada aviso en el historial", "RF-09 reiniciar no repite avisos", "RF-10 una copia restaurada es consistente"],
+        ["Variante que su prueba detecta"],
+        [[0], [0], [0], [1], [1], [1], [1], [1], [1], [0]],
+        unit="Con variante", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v else "sin variante", label_w=330, cell_h=34,
+        note="Defectos que rompen cada requisito: RF-04 D4, RF-05 D6, RF-06 D1, RF-07 D2, RF-08 D5 y RF-09 D3. Las pruebas por requisito son 2, 1, 1, 1, 2, 1, 1, 1, 1 y 1. Cuatro requisitos están en verde sin una variante que demuestre que su prueba puede fallar: verde significa pasa, no verificado. Hay una sola variante por requisito, de modo que la figura muestra que la capacidad de detección no es nula, no cuánta tiene.",
+        note_kind="coral", foot=EJEC)
 
 
 FIGURES = {
-    "se-571-inversion.svg": se571_inversion,
-    "se-571-analisis.svg": se571_analisis,
-    "se-571-wcet.svg": se571_wcet,
-    "se-572-reglas.svg": se572_reglas,
-    "se-572-desbordamiento.svg": se572_desbordamiento,
-    "se-572-cadena.svg": se572_cadena,
-    "se-573-estados.svg": se573_estados,
-    "se-573-azar.svg": se573_azar,
-    "se-573-explosion.svg": se573_explosion,
-    "se-574-mutantes.svg": se574_mutantes,
-    "se-574-retardo.svg": se574_retardo,
-    "se-574-costo.svg": se574_costo,
-    "se-575-variantes.svg": se575_variantes,
-    "se-575-ventana.svg": se575_ventana,
-    "se-575-contador.svg": se575_contador,
-    "se-576-peligros.svg": se576_peligros,
-    "se-576-evidencia.svg": se576_evidencia,
-    "se-576-paquete.svg": se576_paquete,
+    "se-571-validar-cada-mensaje.svg": se475_validar_cada_mensaje,
+    "se-571-descripciones-y-huellas.svg": se475_descripciones_y_huellas,
+    "se-571-cache-y-obsolescencia.svg": se475_cache_y_obsolescencia,
+    "se-572-contexto-con-subagentes.svg": se476_contexto_con_subagentes,
+    "se-572-hechos-que-sobreviven.svg": se476_hechos_que_sobreviven,
+    "se-572-colisiones-de-edicion.svg": se476_colisiones_de_edicion,
+    "se-572-protocolos-de-escritura.svg": se476_protocolos_de_escritura,
+    "se-573-politicas-de-aprobacion.svg": se477_politicas_de_aprobacion,
+    "se-573-deshacer-con-diario.svg": se477_deshacer_con_diario,
+    "se-573-compensar-un-flujo.svg": se477_compensar_un_flujo,
+    "se-574-filtros-de-instrucciones.svg": se478_filtros_de_instrucciones,
+    "se-574-tres-capacidades.svg": se478_tres_capacidades,
+    "se-574-registro-que-se-nota.svg": se478_registro_que_se_nota,
+    "se-575-reglas-de-parada.svg": se479_reglas_de_parada,
+    "se-575-reanudar-sin-duplicar.svg": se479_reanudar_sin_duplicar,
+    "se-575-evaluar-con-ruido.svg": se479_evaluar_con_ruido,
+    "se-576-autodeclaracion-y-verificacion.svg": se480_autodeclaracion_y_verificacion,
+    "se-576-restaurar-una-copia.svg": se480_restaurar_una_copia,
+    "se-576-paquete-de-evidencia.svg": se480_paquete_de_evidencia,
 }

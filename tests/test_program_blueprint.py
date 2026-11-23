@@ -39,20 +39,21 @@ class ProgramBlueprintTests(unittest.TestCase):
 
     def test_planned_scope_is_declared_and_honest(self) -> None:
         scope = self.payload["planned_scope"]
-        self.assertEqual((49, 588, ps.planned_hours()), (scope["part_count"], scope["class_count"], scope["estimated_hours"]))
-        self.assertEqual((49, 588), (ps.PLANNED_PART_COUNT, ps.PLANNED_CLASS_COUNT))
-        self.assertEqual("SE-588", scope["last_class"])
+        self.assertEqual((51, 612, ps.planned_hours()), (scope["part_count"], scope["class_count"], scope["estimated_hours"]))
+        self.assertEqual((51, 612), (ps.PLANNED_PART_COUNT, ps.PLANNED_CLASS_COUNT))
+        self.assertEqual("SE-612", scope["last_class"])
+        self.assertEqual([34, 42], ps.planned_parts())
         pending = [item["id"] for item in scope["unpublished_parts"]]
         self.assertEqual([f"{n:02d}" for n in ps.planned_parts()], pending)
         published = {part["id"] for part in self.payload["parts"]}
         self.assertFalse(published & set(pending))
         self.assertTrue(all(item["status"] == "planned" for item in scope["unpublished_parts"]))
 
-    def test_full_plan_defines_588_classes_in_49_parts(self) -> None:
+    def test_full_plan_defines_612_classes_in_51_parts(self) -> None:
         plan = self.builder.build_full_plan()
-        self.assertEqual(49, len(plan))
+        self.assertEqual(51, len(plan))
         numbers = [lesson["number"] for part in plan for lesson in part["lessons"]]
-        self.assertEqual(list(range(1, 589)), numbers)
+        self.assertEqual(list(range(1, 613)), numbers)
         titles = [lesson["title"].casefold() for part in plan for lesson in part["lessons"]]
         self.assertEqual(len(titles), len(set(titles)))
 
@@ -81,8 +82,8 @@ class ProgramBlueprintTests(unittest.TestCase):
         self.assertNotIn("status", self.payload)
         self.assertEqual(180, self.payload["phase_3_target"]["classes"])
         self.assertEqual(180, self.payload["phase_4_target"]["classes"])
-        self.assertEqual("SE-181", self.payload["phase_4_target"]["first_class"])
-        self.assertEqual("SE-360", self.payload["phase_4_target"]["last_class"])
+        self.assertEqual([f"{n:02d}" for n in ps.PHASE4_PARTS], self.payload["phase_4_target"]["parts"])
+        self.assertEqual(15, len(self.payload["phase_4_target"]["parts"]))
 
 
 if __name__ == "__main__":

@@ -1,5 +1,10 @@
 # ADR-004 — Ampliar el alcance planificado de 480 a 540 clases
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](../ID-MIGRATION.md) ([ADR-007](ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 - Estado: aceptada el 2026-11-13; implementada por [ADR-005](ADR-005-publish-parts-40-44-from-content.md) el 2026-11-16 (la infraestructura deriva el estado del contenido).
 - Contexto: la [auditoría de brechas](../METHODOLOGY-GAP-AUDIT-2026-11-13.md) halló que las
   metodologías de desarrollo guiadas por IA (TDD, BDD, ATDD, DDD, contratos, SDD, EDD,

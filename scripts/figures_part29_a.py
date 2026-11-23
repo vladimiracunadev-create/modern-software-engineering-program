@@ -1,256 +1,264 @@
-"""Figures for SE-349 to SE-354 (synthetic models with fixed seeds, plus timings measured on one machine; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-349 to SE-354 (synthetic data, fixed seeds, SQLite 3.45; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3).
+
+Every figure is a chart or a diagram of the mechanism; the Markdown tables of the classes keep the exact values.
+"""
 from __future__ import annotations
 
-from figure_kit import Fig, fmt_exact, grouped_bars, heatmap, line_chart, stacked_bars
+import math
+
+from figure_kit import Fig, dumbbell, fmt_es, grouped_bars, heatmap, line_chart, stacked_bars, timeline
 from figures_part07_a import bars
 
-SINT = "Modelo sintético con semilla fija; Windows y Ubuntu (WSL2) con cifras idénticas. Los parámetros son supuestos del autor."
-MED = "Tiempos medidos en un equipo de 8 hilos lógicos con otros procesos activos; cambian de una ejecución a otra, léanse como órdenes de magnitud."
+SINT = "Datos sintéticos con semilla fija; SQLite 3.45 en Windows y Ubuntu (WSL2); cifras idénticas salvo donde se indica."
 
 
 # ---------------------------------------------------------------- SE-349
-def se349_matriz() -> Fig:
+def se313_anomalias() -> Fig:
     return stacked_bars(
-        "Quién responde por cada una de las 12 capas según el modelo de servicio",
-        "Barras apiladas horizontales con cuántas de 12 capas quedan al cliente, compartidas o del proveedor: una instalación propia deja las 12 al cliente; IaaS 9 al cliente y 3 al proveedor; PaaS 4, 3 compartidas y 5; SaaS 3, 2 compartidas y 7. El tramo del cliente se encoge pero no desaparece.",
-        ["Instalación propia (local)", "IaaS", "PaaS", "SaaS"],
-        [("Del cliente", [12, 9, 4, 3], "coral"), ("Compartidas", [0, 0, 3, 2], "gold"), ("Del proveedor", [0, 3, 5, 7], "teal")],
-        unit="Capas (de 12)", horizontal=True, label_w=230,
-        note="Pasar de IaaS a SaaS reduce la lista, pero tres capas no se mueven nunca: quién entra, qué datos hay y cómo se configura el servicio. La matriz es un modelo del autor basado en la estructura de los documentos públicos de responsabilidad compartida; cada proveedor y cada producto la dibuja distinta.",
-        note_kind="gold", foot=SINT)
+        "Renombrar el curso 7 con un lote que se corta tras 100 filas: cuántas filas guardan cada nombre",
+        "Barras apiladas horizontales con las filas que guardan el nombre del curso 7 después de un renombrado cortado tras 100 filas: la tabla plana tiene 112 filas, 100 con el nombre nuevo y 12 con el viejo, es decir dos versiones de la verdad; el modelo normalizado tiene una sola fila con el nombre nuevo.",
+        ["Tabla plana (el nombre se repite en cada entrega)", "Modelo normalizado (el nombre vive en el curso)"],
+        [("Con el nombre nuevo", [100, 1], "teal"), ("Con el nombre viejo", [12, 0], "coral")],
+        unit="Filas que guardan el nombre del curso 7", horizontal=True, label_w=250,
+        note="La redundancia no es un problema de espacio sino de verdad: el mismo hecho vive en 112 lugares y cada escritura parcial deja dos versiones. Un curso que solo existe como columna de las entregas desaparece con la última entrega (39 cursos visibles en vez de 40). Los nombres, las cifras y la interrupción tras 100 filas son construcciones del autor; la tabla de la clase da también el tamaño del archivo (483 328 frente a 147 456 bytes).",
+        note_kind="coral", foot=SINT)
 
 
-def se349_exposicion() -> Fig:
+def se313_clave() -> Fig:
     items = [
-        ("Instalación propia", 3708.0, "coral", "3 708 días (100 % por capas del cliente)"),
-        ("IaaS", 3579.0, "coral", "3 579 días (99,5 %)"),
-        ("PaaS", 2137.0, "gold", "2 137 días (84,7 %)"),
-        ("SaaS", 1061.0, "teal", "1 061 días (60,7 %)"),
+        ("Clave entera (INTEGER PRIMARY KEY)", 284.0, "teal", "284 KiB"),
+        ("Clave UUID como texto, tabla con rowid", 1708.0, "coral", "1 708 KiB"),
+        ("Clave UUID como texto, WITHOUT ROWID", 872.0, "gold", "872 KiB"),
     ]
-    return bars("Días de exposición al año por modelo, con las mismas 127 vulnerabilidades anuales (media de 1 000 años)",
-                "Barras: con las mismas vulnerabilidades, la suma anual de días expuestos baja de 3 708 en una instalación propia a 3 579 con IaaS, 2 137 con PaaS y 1 061 con SaaS; en SaaS el 60,7 por ciento de lo que queda corresponde a capas que sigue operando el cliente.",
-                items, 0.1, "IaaS casi no mejora porque las capas que más vulnerabilidades traen, sistema operativo, entorno de ejecución y dependencias, siguen siendo del cliente. En SaaS la exposición cae a un tercio, pero el 60,7 % del resto es de identidad, datos y configuración: lo que se delega se parchea, lo que se configura se responde.",
-                label_w=190, width=960, note_kind="teal", foot=SINT)
+    return bars("Tamaño del archivo con 20 000 filas según la clave primaria",
+                "Barras: la misma tabla de 20 000 filas ocupa 284 KiB con una clave entera, 1 708 KiB con un UUID de texto en una tabla con rowid y 872 KiB con el UUID en una tabla WITHOUT ROWID.",
+                items, 0.36, "La clave de 32 caracteres se escribe en la tabla y otra vez en el índice que SQLite crea para ella; sin rowid solo se escribe una vez, pero las filas se insertan en orden aleatorio y dividen páginas. Seis veces más espacio no es un defecto de UUID sino de la decisión física.",
+                label_w=400, width=940, note_kind="gold", foot=SINT)
 
 
-def se349_superficie() -> Fig:
-    return grouped_bars(
-        "Probabilidad de dejar al menos un ajuste de seguridad mal configurado, con 1 % y 2 % de error por ajuste",
-        "Barras horizontales agrupadas con la probabilidad de dejar al menos un ajuste mal configurado: con un 1 por ciento de error por ajuste es 95,1 con 300 ajustes (instalación propia), 70,1 con 120 (IaaS), 36,4 con 45 (PaaS) y 13,1 con 14 (SaaS); con un 2 por ciento sube a 99,8, 91,1, 59,7 y 24,6.",
-        ["Instalación propia (300 ajustes)", "IaaS (120 ajustes)", "PaaS (45 ajustes)", "SaaS (14 ajustes)"],
-        [("1 % de error por ajuste", [95.1, 70.1, 36.4, 13.1], "gold"), ("2 % de error por ajuste", [99.8, 91.1, 59.7, 24.6], "coral")],
-        unit="% de instalaciones con al menos un error", horizontal=True, label_w=250, decimals=1,
-        note="La probabilidad cae porque hay menos ajustes, no porque el cliente se equivoque menos. Con 14 ajustes y un 1 % de error, uno de cada ocho equipos tiene un error: el modelo es el producto 1 − (1 − p)^n, verificado con 20 000 ensayos por celda; los 300, 120, 45 y 14 ajustes son supuestos del autor.",
+def se313_comas() -> Fig:
+    return stacked_bars(
+        "Grupos devueltos al buscar los grupos de cada estudiante (800 búsquedas, 3 000 grupos)",
+        "Barras apiladas horizontales con los grupos devueltos por las 800 búsquedas: la lista con LIKE devuelve 33 099 resultados de los que 7 408 son correctos y 25 691 son falsos positivos; con comas alrededor del patrón o con una tabla intermedia se devuelven solo los 7 408 correctos.",
+        ["Lista separada por comas con LIKE", "Lista con comas alrededor del patrón", "Tabla intermedia estudiante-grupo"],
+        [("Resultados correctos", [7408, 7408, 7408], "teal"), ("Falsos positivos", [25691, 0, 0], "coral")],
+        unit="Grupos devueltos por las 800 búsquedas", horizontal=True, label_w=250,
+        note="El estudiante 12 aparece al buscar 1, 2, 12, 112 o 120: 99 de los 800 identificadores (los de uno y dos dígitos) dan un resultado equivocado. Arreglar la búsqueda con delimitadores corrige la consulta pero no impide guardar un identificador inexistente ni permite un índice: solo la tabla intermedia admite una clave foránea.",
         note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-350
-def se350_arranque() -> Fig:
+def se314_lecturas() -> Fig:
     return grouped_bars(
-        "Coste de arrancar una unidad de ejecución: mediana en Windows y en Ubuntu",
-        "Barras agrupadas en escala logarítmica con la mediana del arranque: un hilo cuesta 0,17 milisegundos en Windows y 0,34 en Ubuntu; un proceso mínimo 34 y 16; un proceso vacío del intérprete 109 y 41; un proceso que importa siete módulos 405 y 161. Del hilo al proceso con módulos hay tres órdenes de magnitud.",
-        ["Hilo (crear y unir)", "Proceso mínimo", "Proceso vacío del intérprete", "Proceso con siete módulos"],
-        [("Windows 11", [0.17, 34, 109, 405], "navy"), ("Ubuntu (WSL2)", [0.34, 16, 41, 161], "teal")],
-        unit="ms (mediana)", log=True, ticks=[0.1, 1, 10, 100, 1000], plot_h=300,
-        note="Hilo, proceso y proceso con dependencias difieren en dos o tres órdenes de magnitud, y la parte que más pesa no es el aislamiento sino lo que se inicializa dentro. No se midió ninguna máquina virtual ni contenedor: estas barras son la cota inferior de cualquier unidad que arranque un intérprete.",
-        note_kind="gold", foot=MED)
+        "Registros que toca cada operación con filas relacionadas y con documentos embebidos",
+        "Barras agrupadas con los registros tocados por tres operaciones: leer una entrega toca 3 filas relacionadas o 1 documento; renombrar a un estudiante con 16 entregas toca 1 fila o 16 documentos; si el renombrado se corta a mitad, ninguna fila queda con el nombre viejo y 8 de los 16 documentos sí.",
+        ["Leer una entrega con su estudiante y su curso", "Renombrar a un estudiante con 16 entregas", "Mismo renombrado cortado a mitad: registros con el nombre viejo"],
+        [("Filas relacionadas", [3, 1, 0], "teal"), ("Documentos embebidos", [1, 16, 8], "gold")],
+        unit="Registros tocados o desactualizados", plot_h=250,
+        note="El documento gana cuando la lectura es siempre la misma entidad completa (1 documento frente a 3 filas); pierde cuando el mismo dato se repite y cambia (16 documentos frente a 1 fila). Los bytes del JSON del documento ocupan 4,78 veces más (1 229 093 frente a 257 103); no son de un motor documental real y la lectura relacional se midió solo como las dos columnas necesarias.",
+        note_kind="gold", foot=SINT)
 
 
-def se350_densidad() -> Fig:
-    items = [
-        ("Procesos (sin sobrecoste)", 95.0, "teal", "95 instancias"),
-        ("Contenedores (30 MiB supuestos)", 79.0, "gold", "79 instancias"),
-        ("Máquinas virtuales (1 024 MiB supuestos)", 12.0, "coral", "12 instancias"),
-    ]
-    return bars("Instancias de una aplicación de 150 MiB que caben en un anfitrión de 16 GiB con 2 GiB reservados",
-                "Barras: con un sobrecoste por instancia de 0, 30 y 1 024 MiB caben 95 procesos, 79 contenedores y 12 máquinas virtuales de una aplicación de 150 MiB en 14 GiB disponibles.",
-                items, 3.6, "El sobrecoste por instancia, no el tamaño de la aplicación, decide la densidad: 1 GiB de sistema invitado cuesta casi el 87 % del espacio de cada instancia. Los 30 MiB y 1 024 MiB son supuestos del autor; el intérprete vacío midió 17 MiB en Windows y 13 en Ubuntu, y 27 y 23 con siete módulos.",
-                label_w=360, width=980, note_kind="gold", foot=SINT)
+def se314_busqueda() -> Fig:
+    return grouped_bars(
+        "Buscar entre 50 000 valores guardados por clave: comparaciones por consulta",
+        "Barras horizontales en escala logarítmica con las comparaciones por consulta: buscar por la clave o con un índice secundario cuesta 1; recorrer por posición cuesta 23 881 y buscar por un atributo sin índice cuesta 50 000; el índice mantenido a mano deja 206 de 20 000 escrituras sin entrada.",
+        ["Por clave directa (mapa de claves)", "Por posición en una lista de claves", "Por atributo (estudiante), sin índice", "Por atributo, con índice a mano (206 de 20 000 escrituras sin entrada)"],
+        [("Comparaciones", [1, 23881, 50000, 1], "coral")],
+        unit="Comparaciones por consulta", horizontal=True, log=True, label_w=330, ticks=[1, 10, 100, 1000, 10000, 100000],
+        note="El almacén de clave-valor es la estructura más barata para una sola pregunta y la más cara para cualquier otra. El índice secundario devuelve el costo a uno, pero ahora son dos escrituras sin transacción entre ellas: la probabilidad de 1 % de cortarse en medio es un supuesto del autor.",
+        note_kind="teal", foot=SINT)
 
 
-def se350_vecino() -> Fig:
+def se314_grafo() -> Fig:
     return line_chart(
-        "Vecino ruidoso: trabajo por proceso al correr k procesos que consumen CPU, relativo a correr uno solo",
-        "Líneas con el trabajo por proceso relativo al de uno solo según los procesos simultáneos: en Windows baja a 0,58, 0,37, 0,28 y 0,22 con 2, 4, 8 y 16 procesos; en Ubuntu a 0,86, 0,58, 0,34 y 0,21. La línea punteada es lo esperado con 8 hilos ociosos, 1,00 hasta ocho procesos y 0,50 con dieciséis; las dos medidas caen por debajo.",
-        [("Windows 11", [(1, 1.0, "1,00", "t"), (2, 0.58, "0,58", "b"), (4, 0.37, "0,37", "b"), (8, 0.28, "0,28", "b"), (16, 0.22, "0,22", "b")], "navy"),
-         ("Ubuntu (WSL2)", [(1, 1.0, "", "t"), (2, 0.86, "0,86", "t"), (4, 0.58, "0,58", "t"), (8, 0.34, "0,34", "t"), (16, 0.21, "0,21", "t")], "teal"),
-         ("Esperado con 8 hilos ociosos", [(1, 1.0, "", "t"), (2, 1.0, "", "t"), (4, 1.0, "", "t"), (8, 1.0, "", "t"), (16, 0.5, "0,50", "r")], "grey")],
-        x_label="Procesos simultáneos (k)", y_label="Trabajo por proceso (1 = uno solo)",
-        x_ticks=[(1, "1"), (2, "2"), (4, "4"), (8, "8"), (16, "16")], y_ticks=[0, 0.25, 0.5, 0.75, 1.0], log_x=True,
-        point_labels="none",
-        note="Con 8 hilos lógicos se esperaba un valor cercano a 1,00 hasta ocho procesos y 0,50 con dieciséis. Bajó antes porque el anfitrión no estaba ocioso: otras tareas compartían los núcleos, que es el problema que un límite de CPU reservado intenta acotar. No se probaron cuotas ni cgroups.",
-        note_kind="coral", foot=MED)
+        "Filas de la recursión de prerrequisitos según el límite de profundidad (200 cursos, 291 aristas)",
+        "Líneas con las filas devueltas por una consulta recursiva según el límite de profundidad 6, 8 y 10: con UNION ALL y un ciclo crece de 62 a 159 y 386 filas, y sin ciclo de 40 a 96 y 226; con UNION y el mismo ciclo devuelve 89 filas y termina sin necesitar límite.",
+        [("UNION ALL con un ciclo", [(6, 62, "62", "r"), (8, 159, "159", "t"), (10, 386, "386", "t")], "coral"),
+         ("UNION ALL sin ciclo", [(6, 40, "40", "b"), (8, 96, "96", "b"), (10, 226, "226", "b")], "gold")],
+        x_label="Límite de profundidad de la recursión", y_label="Filas devueltas",
+        x_ticks=[(6, "6"), (8, "8"), (10, "10")], y_ticks=[0, 100, 200, 300, 400],
+        hlines=[(89, "UNION con el ciclo: 89 filas, termina sin límite")], point_labels="none", plot_h=280,
+        note="El grafo se recorre con una recursión de la base de datos, no con un modelo especial. UNION ALL cuenta caminos y UNION cuenta alcanzables (sin ciclos, 478 filas frente a 88 cursos distintos); en un grafo con ciclos la primera necesita un tope y la segunda se detiene sola. El grafo es sintético y las cifras dependen de la semilla.",
+        note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-351
-def se351_ubicacion() -> Fig:
-    return heatmap(
-        "Pods que no caben (de 150) en 19 nodos de 4 CPU y 16 GiB según la política y el orden de llegada",
-        "Mapa de calor con los pods sin ubicar según la política y el orden de llegada: primer ajuste y mejor ajuste dejan menos de un pod con llegada al azar, 34 si se ordenan por CPU decreciente y 27 por memoria decreciente, y ninguno por dimensión dominante; menos asignado deja 1,41, 0, 2 y 4. Ordenar de mayor a menor empeora a las dos primeras.",
-        ["Primer ajuste", "Mejor ajuste", "Menos asignado (Kubernetes)"],
-        ["Llegada al azar (media de 200)", "CPU decreciente", "Memoria decreciente", "Dimensión dominante"],
-        [[0.05, 34, 27, 0], [0.04, 34, 27, 0], [1.41, 0, 2, 4]],
-        unit="pods sin ubicar", scale="coral", cell_fmt=fmt_exact, row_title="Política", col_title="Orden de llegada de los pods",
-        highlight=[(0, 1), (0, 2), (1, 1), (1, 2)], label_w=230,
-        note="Ordenar de mayor a menor mejora el empaquetado de una sola dimensión y lo empeora en dos: los pods grandes en CPU llenan los nodos y dejan memoria sin usar. Ninguna política gana siempre. El conjunto es sintético (69 250 m de CPU y 228 864 MiB pedidos) y el orden por dimensión dominante es una elección del autor; el peor caso con llegada al azar (4, 3 y 5 pods) está en la tabla.",
+def se315_perdida() -> Fig:
+    return stacked_bars(
+        "Valor final de un contador que suben tres clientes (valor correcto: 3)",
+        "Barras apiladas horizontales con la proporción de intercalaciones según el valor final: con leer-sumar-escribir 7 por ciento termina en 3, 53 por ciento en 1 y 40 por ciento en 2, sin aviso; con comprobación de versión 7 por ciento acepta tres escrituras y el resto pierde dos o una; con un UPDATE atómico el 100 por ciento termina en 3.",
+        ["Leer, sumar uno y escribir (90 intercalaciones)", "Escribir solo si la versión no cambió (90 intercalaciones)", "UPDATE n = n + 1 atómico (6 intercalaciones)"],
+        [("Final = 3 (correcto)", [6, 6, 6], "teal"), ("Final = 2", [36, 48, 0], "gold"), ("Final = 1", [48, 36, 0], "coral")],
+        unit="Intercalaciones", horizontal=True, percent=True, label_w=270,
+        note="La actualización perdida no falla: devuelve éxito a los tres clientes y deja un valor equivocado. La comprobación de versión no evita el conflicto, lo vuelve visible para que el cliente reintente (acepta tantas escrituras como el valor final). Se ejecutó sobre SQLite con tres conexiones en un hilo y orden forzado.",
         note_kind="coral", foot=SINT)
 
 
-def se351_reconciliacion() -> Fig:
-    return line_chart(
-        "Réplicas-segundo ausentes en 600 s con 10 réplicas deseadas, según cada cuánto revisa el controlador",
-        "Línea con las réplicas-segundo ausentes en 600 segundos según el intervalo de revisión del controlador, media de 300 corridas: 102,6 con 1 segundo, 125,4 con 5, 193,9 con 15, 319,9 con 30 y 474,4 con 60; con 60 segundos faltan 4,6 veces más que con 1.",
-        [("Réplicas-segundo ausentes", [(1, 102.6, "102,6", "t"), (5, 125.4, "125,4", "t"), (15, 193.9, "193,9", "t"), (30, 319.9, "319,9", "t"), (60, 474.4, "474,4", "l")], "coral")],
-        x_label="Intervalo de revisión del controlador (s)", y_label="Réplicas-segundo ausentes en 600 s",
-        x_ticks=[(1, "1"), (5, "5"), (15, "15"), (30, "30"), (60, "60")], y_ticks=[0, 100, 200, 300, 400, 500], point_labels="none",
-        note="El bucle no evita el fallo: acota cuánto dura, y el arranque de 7 s deja un piso de 102,6 aun revisando cada segundo. La espera tras cada reinicio cuesta menos que reiniciar sin freno: con un retardo que se duplica desde 10 s hasta 300 s, una réplica que siempre falla se reinicia 15 veces por hora; con 10 s fijos serían 360. Dos fallos por réplica del 0,2 % por segundo y 3 pods perdidos en el segundo 100 son supuestos del autor.",
+def se315_cortes() -> Fig:
+    return timeline(
+        "Una transferencia de cupos en cuatro pasos, cortada antes de cada paso",
+        "Diagrama de secuencia de los cuatro pasos de una transferencia de cupos y del estado que deja un corte antes de cada uno: sin transacción, cortar antes del paso 2, 3 o 4 deja un registro huérfano, una suma de cupos de 55 en vez de 60 o un registro que nunca se cierra; con una transacción, todos los cortes dejan el estado anterior intacto.",
+        [("Pasos de la transferencia", [(0, 1, "1 registrar", "navy"), (1, 2, "2 descontar 5", "navy"), (2, 3, "3 sumar 5", "navy"),
+                                        (3, 4, "4 cerrar", "navy"), (4, 5, "fin", "grey")]),
+         ("Sin transacción: estado si se corta antes del paso", [(0, 1, "consistente", "teal"), (1, 2, "huérfano", "coral"), (2, 3, "suma de 55", "coral"),
+                                                                   (3, 4, "abierto", "gold"), (4, 5, "completado", "teal")]),
+         ("Con una transacción: estado si se corta", [(0, 4, "el estado anterior queda intacto", "teal"), (4, 5, "completado", "teal")])],
+        unit="Punto de corte: antes del paso indicado (el último no corta)", ticks=[0, 1, 2, 3, 4, 5], t_max=5, lane_h=54,
+        note="Tres de cuatro cortes dejan el sistema inconsistente sin transacción y ninguno con ella: «huérfano» es un registro «iniciado» sin movimiento, «suma de 55» pierde 5 cupos y «abierto» deja el registro «iniciado» para siempre. La atomicidad es la propiedad de que el corte no es observable, no de que los pasos sean rápidos. El corte es una excepción lanzada en el cliente, no un apagón del servidor.",
         note_kind="teal", foot=SINT)
 
 
-def se351_sobreasignacion() -> Fig:
-    return line_chart(
-        "Sobreasignación: probabilidad de saturar un nodo y uso medio según cuánto se pide frente a la capacidad",
-        "Líneas con dos curvas según la sobreasignación: la probabilidad de que el uso real supere la capacidad es 0 con 1,00 veces, 0,1 por ciento con 1,25, 4,3 con 1,5, 67,9 con 2 y 100 con 3; el uso medio del nodo sube de 51 a 65, 79, 97 y 100 por ciento. El riesgo despega después de 1,5 veces.",
-        [("Probabilidad de saturar", [(1, 0, "0", "t"), (1.25, 0.1, "0,1", "t"), (1.5, 4.3, "4,3", "t"), (2, 67.9, "67,9", "b"), (3, 100, "100", "b")], "coral"),
-         ("Uso medio del nodo", [(1, 51, "51", "t"), (1.25, 65, "65", "t"), (1.5, 79, "79", "t"), (2, 97, "97", "t"), (3, 100, "", "t")], "teal")],
-        x_label="Pedido ÷ capacidad del nodo", y_label="Porcentaje (%)",
-        x_ticks=[(1, "1,00"), (1.25, "1,25"), (1.5, "1,50"), (2, "2,00"), (3, "3,00")], y_ticks=[0, 25, 50, 75, 100], point_labels="none",
-        note="La sobreasignación compra uso medio a cambio de riesgo de cola: pasar de 1,5 a 2,0 veces no suma un 33 % de riesgo, lo multiplica por 16. La distribución del uso (normal de media 0,55 y desviación 0,25 de lo pedido, acotada) es un supuesto del autor; con uso correlacionado entre pods el riesgo sería mayor.",
-        note_kind="gold", foot=SINT)
+def se315_sesgo() -> Fig:
+    return stacked_bars(
+        "Dos docentes de guardia se retiran a la vez: destino de las 70 intercalaciones posibles",
+        "Barras apiladas horizontales con el destino de las 70 intercalaciones de dos transacciones que comprueban que quedan dos docentes y se retiran: bajo lectura confirmada 60 dejan cero docentes de guardia, bajo instantánea 68; con detección de conflictos de lectura-escritura ninguna, a costa de abortar una transacción en 68.",
+        ["Lee lo confirmado (READ COMMITTED)", "Lee una instantánea (SNAPSHOT)", "Instantánea con detección de lecturas obsoletas"],
+        [("Quedan 0 de guardia", [60, 68, 0], "coral"), ("Una transacción aborta", [0, 0, 68], "gold"), ("Termina bien sin abortar", [10, 2, 2], "teal")],
+        unit="Intercalaciones de 70", horizontal=True, label_w=250,
+        note="Las dos transacciones escriben filas distintas, así que ningún conflicto de escritura las detiene: el invariante «al menos uno» solo se protege si la lectura también cuenta. Los tramos «sin abortar» son lo que resta de 70. SQLite, con dos conexiones DEFERRED, lo evita bloqueando: la segunda escritura y el commit del primero fallan con «database is locked». El modelo de niveles es una simplificación del autor; SQLite se ejecutó de verdad.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-352
-def se352_frio() -> Fig:
-    shown = {96.6: "96,6", 79.1: "79,1", 46.8: "46,8", 3.0: "3,0", 83.3: "83,3", 37.0: "37,0", 5.3: "5,3", 0.05: "0,05", 37.4: "37,4",
-             1.15: "1,15", 0.39: "0,39", 0.32: "0,32", 2.35: "2,35", 1.14: "1,14", 0.53: "0,53", 0.03: "0,03", 1.02: "1,02",
-             0.24: "0,24", 0.08: "0,08", 0.01: "0,01"}
+def se316_capas() -> Fig:
     return heatmap(
-        "Porcentaje de peticiones que caen en un arranque en frío según la tasa de llegada y la inactividad tolerada",
-        "Mapa de calor con el porcentaje de peticiones que arrancan en frío: con 0,05 peticiones por minuto, 96,6 si la instancia se descarta tras 1 minuto de inactividad y 3,0 si tras 60; con 1 por minuto, 37,4 y 0,32; con 30 por minuto, 1,02 y 0,01. El color se concentra en la esquina de poco tráfico y descarte rápido.",
-        ["0,05 por minuto", "0,2 por minuto", "1 por minuto", "5 por minuto", "30 por minuto"],
-        ["Descarte tras 1 min", "Descarte tras 5 min", "Descarte tras 15 min", "Descarte tras 60 min"],
-        [[96.6, 79.1, 46.8, 3.0], [83.3, 37.0, 5.3, 0.05], [37.4, 1.15, 0.39, 0.32], [2.35, 1.14, 0.53, 0.03], [1.02, 0.24, 0.08, 0.01]],
-        unit="% de peticiones en frío", scale="coral", cell_fmt=lambda v: shown[v] + " %", row_title="Tasa de llegada",
-        col_title="Inactividad tolerada antes de descartar la instancia", label_w=150,
-        note="El arranque en frío no es un defecto del tráfico alto: a 30 peticiones por minuto es raro y a 0,05 es casi la regla. La tasa baja con ráfagas sufre más que la alta uniforme. Siete días de llegadas de Poisson, una petición por instancia a la vez y 0,2 s de servicio son supuestos del autor.",
+        "Filas inválidas que llegan a la base según la capa que las rechaza (200 intentos por defecto)",
+        "Mapa de calor con las filas inválidas que se guardan, de 200 intentos por defecto del cliente, en cuatro capas acumulativas: sin restricciones se guardan las 1 600; con NOT NULL, CHECK y UNIQUE persisten 1 000, solo los defectos entre filas o tablas; con claves foráneas, 600; con disparadores, ninguna.",
+        ["Nota fuera de rango", "Estudiante inexistente", "Correo duplicado", "Estado desconocido", "Calificada sin nota",
+         "Entrega anterior a la publicación", "Curso inexistente", "Calificada sin docente"],
+        ["Sin restricciones (1 600)", "NOT NULL, CHECK, UNIQUE (1 000)", "+ claves foráneas (600)", "+ disparadores (0)"],
+        [[200, 0, 0, 0], [200, 200, 0, 0], [200, 0, 0, 0], [200, 0, 0, 0], [200, 200, 200, 0],
+         [200, 200, 200, 0], [200, 200, 0, 0], [200, 200, 200, 0]],
+        unit="filas inválidas guardadas de 200", row_title="Defecto del cliente", col_title="Capas acumulativas de restricciones",
+        scale="coral", vmin=0, vmax=200, decimals=0, cell_h=36, label_w=250,
+        note="Cada capa elimina una familia de defectos y deja pasar la siguiente: las reglas que cruzan columnas o tablas piden claves foráneas o disparadores. Los defectos se generaron para cada capa conociendo sus límites, de modo que 0 en la última columna no mide cobertura real.",
         note_kind="gold", foot=SINT)
 
 
-def se352_dependencias() -> Fig:
-    return grouped_bars(
-        "Tiempo de arrancar un proceso Python que solo importa módulos de la biblioteca estándar",
-        "Barras horizontales agrupadas con la mediana de 21 repeticiones: sin dependencias, 49 milisegundos en Windows y 30 en Ubuntu; con json y re, 104 y 38; añadiendo sqlite3, decimal, http.client y email, 220 y 90; añadiendo asyncio, ssl, unittest y xml.dom, 734 y 155. El tiempo crece con lo que se importa.",
-        ["Sin dependencias", "json y re", "+ sqlite3, decimal, http.client, email", "+ asyncio, ssl, unittest, xml.dom"],
-        [("Windows 11", [49, 104, 220, 734], "navy"), ("Ubuntu (WSL2)", [30, 38, 90, 155], "teal")],
-        unit="ms (mediana de 21 repeticiones)", horizontal=True, label_w=300,
-        note="El coste inicial de una función sin servidor crece con lo que carga, no con lo que ejecuta: quince veces más en Windows entre la primera y la última barra. Es el único tiempo de esta clase medido de verdad; el arranque de una plataforma gestionada incluye además descarga y aislamiento que no se midió.",
-        note_kind="coral", foot=MED)
-
-
-def se352_duplicados() -> Fig:
-    items = [
-        ("Sin deduplicar", 976.0, "coral", "976 efectos repetidos"),
-        ("Ventana de 10 s", 681.0, "coral", "681"),
-        ("Ventana de 60 s", 121.0, "gold", "121"),
-        ("Ventana de 300 s", 0.0, "teal", "0"),
-        ("Sin caducidad", 0.0, "teal", "0 (pero la tabla crece sin fin)"),
-    ]
-    return bars("Efectos repetidos de 976 reentregas (20 000 eventos, el 5 % reentregado a los 30 s en promedio)",
-                "Barras: sin deduplicar, las 976 reentregas repiten su efecto; con una ventana de 10 segundos repiten 681, con 60 segundos repiten 121, y con 300 segundos o sin caducidad ninguna.",
-                items, 0.34, "Deduplicar con una ventana más corta que el retardo de la reentrega elimina solo una parte de los duplicados. Con un retardo exponencial de media 30 s, una de cada ocho reentregas llega después de 60 s, el doble de la media, y por eso pasan 121 de 976. Los 20 000 eventos, el 5 % de reentrega y la media de 30 s son supuestos del autor.",
-                label_w=190, width=960, note_kind="gold", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-353
-def se353_saltos() -> Fig:
+def se316_carrera() -> Fig:
     return stacked_bars(
-        "Una regla nueva entre las 127 posibles: ¿acerca internet a un destino sensible? (partiendo de 4 saltos)",
-        "Barras apiladas horizontales con las 127 reglas que se pueden añadir a una red de 12 servicios: para la base de datos 1 regla la deja a un salto, 5 a dos, 9 a tres y 112 no cambian la distancia; para el almacén de secretos son 1, 3 y 7, y 116 no la cambian. Casi todo el ancho es de reglas sin efecto.",
-        ["Base de datos (1, 5 y 9 reglas acercan; 112 no)", "Almacén de secretos (1, 3 y 7 reglas acercan; 116 no)"],
-        [("Dejan a 1 salto", [1, 1], "coral"), ("A 2 saltos", [5, 3], "gold"), ("A 3 saltos", [9, 7], "navy"), ("Sin efecto", [112, 116], "grey")],
-        unit="Reglas posibles (de 127)", horizontal=True, label_w=260, plot_h=200,
-        note="Nueve de cada diez reglas nuevas no acercan nada, pero 15 de 127 sí acercan la base de datos, y una sola la deja directa. Menos saltos no significa más tráfico: significa menos barreras entre un atacante y el dato. Un salto es una regla permitida; no se modelaron puertos, protocolos ni reglas de salida.",
-        note_kind="coral", foot=SINT)
-
-
-def se353_permisos() -> Fig:
-    return grouped_bars(
-        "Pares acción-recurso concedidos y usados por rol, según el estilo de política (25 roles, 400 pares posibles)",
-        "Barras horizontales agrupadas en escala logarítmica: un rol administrador concede 400 pares y usa 5,8; conceder el servicio completo da 80,8; las acciones usadas sobre todos los recursos, 32,4; solo los pares usados, 5,8. Lo usado es 5,8 en los cuatro estilos, por lo que lo concedido va de 69 veces lo usado a lo justo.",
-        ["Administrador (* sobre *)", "Todo el servicio sobre *", "Acciones usadas sobre *", "Pares acción-recurso usados"],
-        [("Pares concedidos", [400, 80.8, 32.4, 5.8], "coral"), ("Pares usados", [5.8, 5.8, 5.8, 5.8], "teal")],
-        unit="Pares acción-recurso por rol (media)", horizontal=True, log=True, ticks=[1, 10, 100, 1000], label_w=240,
-        note="Dos roles conservan una ruta de escalada incluso con el mínimo porque su uso real incluye la acción de adjuntar políticas: el menor privilegio mide lo concedido contra lo usado, no si lo usado es prudente. Los roles con ruta de escalada por estilo (25, 6, 2 y 2) están en la tabla. Los roles, el registro de uso y las 60 acciones son sintéticos; generar la política desde el registro supone que el registro fue completo.",
-        note_kind="gold", foot=SINT)
-
-
-def se353_detector() -> Fig:
-    return grouped_bars(
-        "Detector de secretos: precisión y exhaustividad de cinco reglas (80 secretos sintéticos y 180 señuelos)",
-        "Barras horizontales agrupadas con la precisión y la exhaustividad de cinco reglas: entropía 3,5 da 25,8 y 75,0 por ciento, entropía 4,0 da 40,0 y 50,0, entropía 4,5 da 34,8 y 40,0, el nombre de la variable da 100 y 65,0, y nombre o entropía 4,5 da 50,8 y 77,5. Ninguna regla alcanza ambas por encima del 80.",
-        ["Entropía ≥ 3,5", "Entropía ≥ 4,0", "Entropía ≥ 4,5", "Solo el nombre de la variable", "Nombre o entropía ≥ 4,5"],
-        [("Precisión", [25.8, 40.0, 34.8, 100.0, 50.8], "gold"), ("Exhaustividad", [75.0, 50.0, 40.0, 65.0, 77.5], "teal")],
-        unit="%", horizontal=True, label_w=230, decimals=1,
-        note="Los secretos hexadecimales y las contraseñas con palabras tienen entropía menor que un resumen SHA-256 en base 64, así que ningún umbral separa bien. El contexto (el nombre de la variable) es más preciso y deja pasar a los que no lo tienen. Los hallados, falsos positivos y omitidos están en la tabla. Los 80 secretos y 180 señuelos los generé yo: las cifras describen estas reglas sobre estos datos, no un escáner real.",
-        note_kind="coral", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-354
-def se354_deriva() -> Fig:
-    return line_chart(
-        "Deriva sobre 100 recursos con 10 ediciones en el código: lo que el plan muestra y lo que el siguiente apply revierte",
-        "Líneas según cuántos recursos se alteran a mano (0, 5 y 20): un plan sin refrescar muestra 0, 0,49 y 2,01 de ellos; un plan refrescado muestra 0, 5 y 20; el siguiente apply revierte 0, 4,51 y 17,99 arreglos manuales. La brecha entre las dos primeras líneas es la deriva que el plan sin refrescar no ve.",
-        [("Deriva que muestra el plan refrescado", [(0, 0, "", "t"), (5, 5.0, "5,0", "t"), (20, 20.0, "20,0", "l")], "navy"),
-         ("Arreglos manuales que el siguiente apply revierte", [(0, 0, "", "t"), (5, 4.51, "4,51", "r"), (20, 17.99, "17,99", "b")], "coral"),
-         ("Deriva que muestra el plan sin refrescar", [(0, 0, "0", "t"), (5, 0.49, "0,49", "b"), (20, 2.01, "2,01", "b")], "gold")],
-        x_label="Recursos alterados fuera del código (k)", y_label="Recursos (media de 1 000 corridas)",
-        x_ticks=[(0, "0"), (5, "5"), (20, "20")], y_ticks=[0, 5, 10, 15, 20], point_labels="none",
-        note="Un plan sin refresco compara el código con un archivo de estado que supone cierto: ve la deriva por casualidad. Con refresco la ve toda, y entonces aplicar sin leerla revierte los arreglos de emergencia hechos a mano. Los cambios totales del plan (10, 14,5 y 28,0 refrescado) están en la tabla. El modelo es un diferenciador de diccionarios, no Terraform ni OpenTofu.",
-        note_kind="coral", foot=SINT)
-
-
-def se354_estado() -> Fig:
-    return stacked_bars(
-        "Escrituras simultáneas sobre un mismo archivo de estado: resultado de todas las intercalaciones de leer y escribir",
-        "Barras apiladas horizontales al 100 por ciento con el resultado de todas las intercalaciones: con 2 aplicaciones sin bloqueo, 2 de 6 no pierden nada y 4 pierden el trabajo de una; con 3, 6 de 90 no pierden nada, 36 pierden el de una y 48 el de dos; con bloqueo solo quedan las ejecuciones en serie y ninguna pierde trabajo.",
-        ["2 aplicaciones, sin bloqueo (6 intercalaciones)", "3 aplicaciones, sin bloqueo (90)", "2 aplicaciones, con bloqueo (2)", "3 aplicaciones, con bloqueo (6)"],
-        [("Sin pérdida", [2, 6, 2, 6], "teal"), ("Pierde el trabajo de una", [4, 36, 0, 0], "gold"), ("Pierde el trabajo de dos", [0, 48, 0, 0], "coral")],
-        unit="Intercalaciones posibles", horizontal=True, percent=True, label_w=270, plot_h=240,
-        note="Es la misma actualización perdida de la Parte 26 aplicada a un archivo que describe infraestructura: el recurso existe en la nube y no en el estado, y el siguiente plan lo creará otra vez o fallará por duplicado. Un bloqueo con caducidad añade su propio riesgo cuando el proceso muere con el bloqueo tomado.",
+        "Tres clientes registran la misma entrega (estudiante, tarea) en las 90 intercalaciones posibles",
+        "Barras apiladas horizontales con las filas que quedan tras 90 intercalaciones de comprobar y luego insertar: sin restricción de unicidad solo 18 dejan una fila, 36 dejan dos y 36 dejan tres; con UNIQUE todas dejan una y el motor rechaza 108 inserciones duplicadas.",
+        ["Comprobar y luego insertar, sin UNIQUE", "Comprobar y luego insertar, con UNIQUE (el motor rechaza 108 inserciones)"],
+        [("1 fila (correcto)", [18, 90], "teal"), ("2 filas", [36, 0], "gold"), ("3 filas", [36, 0], "coral")],
+        unit="Intercalaciones de 90 según las filas finales", horizontal=True, label_w=250,
+        note="La comprobación en la aplicación es correcta en un solo hilo y falla bajo concurrencia; la restricción convierte el defecto en un error que el cliente puede manejar. Los 108 rechazos son trabajo útil, no un problema del motor.",
         note_kind="teal", foot=SINT)
 
 
-def se354_paralelismo() -> Fig:
+def se316_borrado() -> Fig:
+    return stacked_bars(
+        "Entregas que quedan tras borrar un curso que tenía 50 de las 100 entregas, según la clave foránea",
+        "Barras apiladas horizontales con las entregas que quedan de 100 tras borrar un curso con 50 de ellas: con las claves foráneas desactivadas, valor por defecto de SQLite, quedan las 100 y 50 son huérfanas sin que haya error; con NO ACTION o RESTRICT el borrado se rechaza y quedan 100 intactas; con CASCADE quedan 50 porque las otras 50 se borran con el curso; con SET NULL quedan 100, 50 con curso nulo.",
+        ["Cualquier acción, foreign_keys = OFF (valor por defecto de SQLite)", "NO ACTION o RESTRICT, foreign_keys = ON", "ON DELETE CASCADE, foreign_keys = ON", "ON DELETE SET NULL, foreign_keys = ON"],
+        [("Con un curso válido", [50, 100, 50, 50], "teal"), ("Huérfanas (curso inexistente)", [50, 0, 0, 0], "coral"), ("Con curso nulo", [0, 0, 0, 50], "gold")],
+        unit="Entregas que quedan en la tabla (de 100)", horizontal=True, label_w=300,
+        note="La clave foránea declarada no protege nada si el motor no la aplica. CASCADE, RESTRICT y SET NULL son tres decisiones de negocio distintas sobre qué pasa con las 50 entregas del curso (se borran, se rechaza el borrado, quedan sin curso), no tres sintaxis de lo mismo. Comportamiento de SQLite; otros motores aplican las claves por defecto.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-353
+def se317_pasos() -> Fig:
+    def factor(a: float, b: float) -> str:
+        q = a / b
+        return "÷" + fmt_es(q, 0 if q >= 100 else 1 if q >= 10 else 2)
+    return dumbbell(
+        "Pasos de la máquina virtual de SQLite para leer filas con y sin índice (50 000 entregas)",
+        "Gráfico de puntos unidos en escala logarítmica con los pasos sin índice y con índice: buscar al estudiante 17, el 0,07 por ciento de las filas, baja de 150 296 a 407 pasos; el estado anulada, el 2,5 por ciento, de 160 072 a 13 847; el estado enviada, el 90 por ciento, apenas baja de 510 248 a 495 339.",
+        [("Estudiante = 17 (36 filas, 0,07 %)", 150296, 407), ("Estado = «anulada» (1 258 filas, 2,5 %)", 160072, 13847),
+         ("Estado = «enviada» (45 030 filas, 90 %)", 510248, 495339)],
+        unit="Pasos de la máquina virtual", names=("Sin índice", "Con índice"), log=True, delta=factor, label_w=250,
+        note="El índice sirve cuanto más selectiva es la fila buscada, no cuanto más grande es la tabla. Para el 90 % de las filas, recorrer el índice cuesta casi lo mismo que recorrer la tabla (el plan es SEARCH, solo un 3 % menos de pasos). Los pasos son una métrica determinista de trabajo, no tiempo.",
+        note_kind="gold", foot=SINT)
+
+
+def se317_orden() -> Fig:
+    data = [[91266, 27, 26, 3142], [90192, 663, 264, 90192], [94904, 6743, 94904, 6743], [91948, 3788, 91948, 404],
+            [124772, 124772, 124772, 18142]]
+    best = [(i, j) for i, row in enumerate(data) for j, v in enumerate(row) if v == min(row)]
+    return heatmap(
+        "Pasos por consulta según el índice compuesto (30 000 entregas)",
+        "Mapa de calor con los pasos de cinco consultas con cuatro conjuntos de índices, con el color en escala logarítmica: el índice sobre curso y estudiante resuelve curso y estudiante en 27 pasos y solo curso en 6 743; el orden inverso resuelve estudiante en 264 y deja solo curso en 94 904; curso y fecha resuelve el rango de un curso en 404 pasos; el rango solo cuesta 124 772 sin índice y 18 142 con el último.",
+        ["Curso y estudiante", "Solo estudiante", "Solo curso", "Curso y rango de fechas", "Solo rango de fechas"],
+        ["Sin índice", "(curso, estudiante)", "(estudiante, curso)", "(curso, fecha)"],
+        [[math.log10(v) for v in row] for row in data],
+        unit="pasos, color en escala logarítmica", row_title="Consulta", col_title="Índice disponible",
+        scale="coral", cell_fmt=lambda x: fmt_es(round(10 ** x), 0), highlight=best, cell_h=44, label_w=230,
+        note="El orden de las columnas decide qué consultas ayuda; el contorno marca el mejor índice de cada consulta (o los empatados). SQLite, tras ANALYZE, usó un recorrido por saltos (ANY(curso)) para algunas consultas sin el primer prefijo, algo que otros motores no hacen. Pasos medidos, no tiempo.",
+        note_kind="teal", foot=SINT)
+
+
+def se317_escritura() -> Fig:
+    return line_chart(
+        "Coste de insertar 20 000 filas según el número de índices (sin índices = 100)",
+        "Líneas del coste relativo de insertar 20 000 filas con 0, 1, 2 y 4 índices: los pasos suben a 135, 171 y 229 por ciento (340 006 a 780 006 pasos) y el espacio a 144, 194 y 304 por ciento (507 904 a 1 544 192 bytes); cada índice se paga en cada escritura.",
+        [("Pasos", [(0, 100, "", "t"), (1, 135, "+35 %", "b"), (2, 171, "+71 %", "b"), (4, 229, "+129 %", "b")], "coral"),
+         ("Bytes del archivo", [(0, 100, "", "t"), (1, 144, "+44 %", "t"), (2, 194, "+94 %", "t"), (4, 304, "+204 %", "t")], "teal")],
+        x_label="Índices sobre la tabla", y_label="Coste relativo (0 índices = 100)",
+        x_ticks=[(0, "0"), (1, "1"), (2, "2"), (4, "4")], y_ticks=[0, 100, 200, 300, 400], point_labels="none",
+        note="Cada índice es una promesa de lectura pagada en cada escritura. En el mismo experimento, 201 sentencias para promediar 200 cursos cuestan 12 062 807 pasos, una agregación 322 819 y las 200 con índice 123 406: el índice rescata al bucle en pasos, pero no mide el viaje de cada sentencia.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-354
+def se318_compat() -> Fig:
+    return timeline(
+        "Qué versión de la aplicación funciona con cada estado del esquema",
+        "Diagrama de fases con el estado de cada versión de la aplicación al renombrar una columna: renombrar en un solo paso rompe la versión 1 desde el cambio y deja la versión 2 sin funcionar antes de él; expandir, rellenar y copiar con disparadores permite que las dos versiones lean y escriban a la vez, y solo al contraer la versión 1 deja de funcionar, cuando ya no debe quedar ninguna.",
+        [("Un solo paso: v1", [(0, 1, "lee y escribe", "teal"), (1, 3, "no lee ni escribe", "coral")]),
+         ("Un solo paso: v2", [(0, 1, "no funciona", "coral"), (1, 3, "lee y escribe", "teal")]),
+         ("Expandir y contraer: v1", [(0, 2, "lee y escribe", "teal"), (2, 3, "se rompe", "coral")]),
+         ("Expandir y contraer: v2", [(0, 1, "no funciona", "coral"), (1, 3, "lee y escribe", "teal")])],
+        unit="Fases del despliegue (no es una escala de tiempo)", ticks=[0, 1, 2, 3], t_max=3,
+        events=[(1, "1: esquema nuevo"), (2, "2: se quita la columna vieja")], lane_h=54,
+        note="El estado intermedio es el único compatible con las dos versiones y con una vuelta atrás; solo se contrae cuando ya ninguna instancia de v1 corre. En el experimento, 0 filas quedaron con nombres distintos o vacíos tras escrituras de ambas versiones.",
+        note_kind="teal", foot=SINT)
+
+
+def se318_lotes() -> Fig:
     items = [
-        ("Un recurso a la vez", 2832.0, "coral", "2 832 s"),
-        ("2 en paralelo", 1423.0, "gold", "1 423 s"),
-        ("4 en paralelo", 798.0, "gold", "798 s"),
-        ("10 en paralelo", 577.0, "teal", "577 s (= camino crítico)"),
-        ("60 en paralelo", 577.0, "teal", "577 s"),
+        ("1 transacción de 100 000 filas", 1400.0, "coral", "1 400 021 pasos"),
+        ("5 transacciones de 20 000", 280.0, "gold", "280 023 pasos"),
+        ("20 transacciones de 5 000", 70.0, "gold", "70 023 pasos"),
+        ("100 transacciones de 1 000", 14.0, "teal", "14 023 pasos"),
+        ("1 000 transacciones de 100", 1.4, "teal", "1 423 pasos"),
     ]
-    return bars("Tiempo de aplicar un grafo de 60 recursos y 86 dependencias según cuántos se crean a la vez",
-                "Barras: aplicar el grafo de 60 recursos tarda 2 832 segundos de uno en uno, 1 423 con dos en paralelo, 798 con cuatro y 577 con diez o con sesenta, que es el camino crítico.",
-                items, 0.17, "El paralelismo ayuda hasta el camino crítico, la cadena más larga de dependencias, y después no sirve: pasar de 10 a 60 trabajos no ahorra un segundo. Las duraciones (5–120 s) y la forma del grafo son sintéticas; con un límite de tasa del proveedor el tope práctico sería menor. Una arista de más que cierre un ciclo hace imposible el orden.",
-                label_w=210, width=960, note_kind="gold", foot=SINT)
+    return bars("Pasos de la transacción más larga al rellenar una columna en 100 000 filas",
+                "Barras: rellenar una columna en 100 000 filas en una sola transacción ocupa 1 400 021 pasos seguidos; en lotes de 20 000, 5 000, 1 000 y 100 filas la transacción más larga baja a 280 023, 70 023, 14 023 y 1 423 pasos. El total apenas cambia.",
+                items, 0.36, "El trabajo total es casi el mismo (1,40 a 1,42 millones de pasos) pero el tiempo que se retiene el bloqueo de escritura baja con el tamaño del lote; con lotes más pequeños hay más transacciones. Windows (SQLite 3.45.3); en Ubuntu (3.45.1) las cifras son 7 % mayores con la misma proporción.",
+                label_w=330, width=940, note_kind="gold", foot=SINT)
+
+
+def se318_reversion() -> Fig:
+    return grouped_bars(
+        "Filas alteradas tras aplicar una migración y su inversa (1 000 filas)",
+        "Barras horizontales con las filas alteradas de 1 000 tras aplicar una migración y su inversa: renombrar una columna y volver no altera ninguna; dividir y recomponer el nombre altera 66; quitar y volver a añadir una columna, 666; pasar la nota a entero y volver, 937; añadir una columna, escribir en ella y quitarla, y pasar a mayúsculas y volver, las 1 000.",
+        ["Renombrar una columna y volver", "Dividir el nombre en dos columnas y recomponer", "Quitar la columna comentario y volver a añadirla",
+         "Nota de decimal a entero y volver", "Añadir una columna, escribir en ella y quitarla", "Pasar el nombre a mayúsculas y volver"],
+        [("Filas alteradas", [0, 66, 666, 937, 1000, 1000], "coral")],
+        unit="Filas alteradas de 1 000", horizontal=True, label_w=300, ticks=[0, 250, 500, 750, 1000],
+        note="«Tiene un down» no significa «es reversible»: solo el renombrado devuelve los mismos datos. Las demás restauran la estructura y pierden información (los valores, los decimales, la capitalización o las escrituras nuevas); para volver de verdad hace falta una copia anterior al paso. Datos sintéticos con 5 % de nombres sin coma.",
+        note_kind="coral", foot=SINT)
 
 
 FIGURES = {
-    "se-349-matriz-de-responsabilidades.svg": se349_matriz,
-    "se-349-dias-de-exposicion-por-modelo.svg": se349_exposicion,
-    "se-349-superficie-de-configuracion.svg": se349_superficie,
-    "se-350-coste-de-arrancar-una-unidad.svg": se350_arranque,
-    "se-350-instancias-por-anfitrion.svg": se350_densidad,
-    "se-350-vecino-ruidoso.svg": se350_vecino,
-    "se-351-politicas-de-ubicacion.svg": se351_ubicacion,
-    "se-351-reconciliacion-y-reinicios.svg": se351_reconciliacion,
-    "se-351-sobreasignacion-de-recursos.svg": se351_sobreasignacion,
-    "se-352-arranques-en-frio.svg": se352_frio,
-    "se-352-peso-de-las-dependencias.svg": se352_dependencias,
-    "se-352-duplicados-y-ventana-de-deduplicacion.svg": se352_duplicados,
-    "se-353-saltos-hasta-la-base-de-datos.svg": se353_saltos,
-    "se-353-permisos-concedidos-y-usados.svg": se353_permisos,
-    "se-353-detector-de-secretos.svg": se353_detector,
-    "se-354-deriva-y-refresco-del-estado.svg": se354_deriva,
-    "se-354-escrituras-simultaneas-del-estado.svg": se354_estado,
-    "se-354-paralelismo-y-camino-critico.svg": se354_paralelismo,
+    "se-349-anomalias-de-una-tabla-plana.svg": se313_anomalias,
+    "se-349-tipo-de-clave-y-tamano.svg": se313_clave,
+    "se-349-lista-separada-por-comas.svg": se313_comas,
+    "se-350-documento-o-relacional.svg": se314_lecturas,
+    "se-350-busqueda-por-clave-o-atributo.svg": se314_busqueda,
+    "se-350-prerrequisitos-con-recursion.svg": se314_grafo,
+    "se-351-actualizacion-perdida.svg": se315_perdida,
+    "se-351-corte-en-cada-paso.svg": se315_cortes,
+    "se-351-sesgo-de-escritura.svg": se315_sesgo,
+    "se-352-defectos-que-persisten-por-capa.svg": se316_capas,
+    "se-352-comprobar-y-luego-insertar.svg": se316_carrera,
+    "se-352-claves-foraneas-y-borrado.svg": se316_borrado,
+    "se-353-pasos-con-indice-y-sin-indice.svg": se317_pasos,
+    "se-353-orden-de-columnas-del-indice.svg": se317_orden,
+    "se-353-coste-de-escribir-con-indices.svg": se317_escritura,
+    "se-354-compatibilidad-entre-versiones.svg": se318_compat,
+    "se-354-lotes-y-bloqueo.svg": se318_lotes,
+    "se-354-deshacer-una-migracion.svg": se318_reversion,
 }

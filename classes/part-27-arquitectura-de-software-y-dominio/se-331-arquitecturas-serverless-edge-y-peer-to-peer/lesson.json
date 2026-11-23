@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-331",
+  "title": "Arquitecturas serverless, edge y peer-to-peer",
+  "stage": "E",
+  "part": "27",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-27-arquitectura-de-software-y-dominio/se-331-arquitecturas-serverless-edge-y-peer-to-peer"
+}

@@ -43,13 +43,24 @@ def main() -> int:
     failures: list[str] = []
     pages = sorted(SITE.rglob("*.html"))
     case_pages = [page for page in pages if page.relative_to(SITE).parts[0] == "casos"]
-    pages = [page for page in pages if page not in case_pages]
+    legacy_pages = [page for page in pages if page.relative_to(SITE).parts[0] == "legacy"]
+    not_found = [page for page in pages if page.relative_to(SITE).as_posix() == "404.html"]
+    pages = [page for page in pages if page not in case_pages and page not in legacy_pages and page not in not_found]
     expected_pages = 1 + len(ps.developed_parts()) + ps.developed_class_count()
     if len(pages) != expected_pages:
         failures.append(f"expected {expected_pages} HTML pages, found {len(pages)}")
+    migration = json.loads((ROOT / "docs" / "ID-MIGRATION.json").read_text(encoding="utf-8"))
+    expected_legacy = 1 + len(migration["classes"]) + sum(1 for part in migration["parts"] if part["old"] is not None)
+    if len(legacy_pages) != expected_legacy:
+        failures.append(f"expected {expected_legacy} pages under site/legacy, found {len(legacy_pages)}")
+    if len(not_found) != 1:
+        failures.append("site/404.html is required to explain old identifiers and reserved URLs")
+    for number in ps.planned_parts():
+        reserved = [SITE / "parts" / f"{number:02d}.html"] + [SITE / "classes" / f"{class_id}.html" for class_id in ps.class_ids(number)]
+        failures.extend(f"planned part must not have a published page: {path.relative_to(SITE)}" for path in reserved if path.exists())
     if len(case_pages) != 2 + len(CASES):
         failures.append(f"expected {2 + len(CASES)} case pages under site/casos, found {len(case_pages)}")
-    pages = sorted(pages + case_pages)
+    pages = sorted(pages + case_pages + legacy_pages + not_found)
     for page in pages:
         page_text = page.read_text(encoding="utf-8")
         parser = LinkParser()
@@ -94,7 +105,10 @@ def main() -> int:
     if failures:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1
-    print(f"SITE_OK: {len(pages) - len(case_pages)} pages + {len(case_pages)} case pages, {len(catalog['classes'])} classes")
+    print(
+        f"SITE_OK: {len(pages) - len(case_pages) - len(legacy_pages) - len(not_found)} pages + {len(case_pages)} case pages"
+        f" + {len(legacy_pages)} legacy pages + 404, {len(catalog['classes'])} classes"
+    )
     return 0
 
 

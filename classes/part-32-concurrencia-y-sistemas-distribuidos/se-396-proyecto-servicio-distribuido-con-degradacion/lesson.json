@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-396",
+  "title": "Proyecto: servicio distribuido con degradación",
+  "stage": "E",
+  "part": "32",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion"
+}

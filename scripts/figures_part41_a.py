@@ -1,209 +1,278 @@
-"""Figures for SE-493 to SE-498 (harness and agentic engineering: a stdlib mini-harness with a scripted policy, real files and Git repositories in temporary directories; Windows 11, CPython 3.12.9; no language model was invoked)."""
+"""Figures for SE-493 to SE-498 (synthetic data, fixed seeds, virtual time; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_flow_rows import chain_rows
-from figure_kit import Fig, grouped_bars, line_chart, scatter, stacked_bars
+from experiments_part41_a import (
+    e421_atribucion, e421_preguntas, e421_segmento, e422_correlacion, e422_formato, e422_politicas, e423_contadores, e423_histogramas,
+    e424_contexto, e424_muestreo, e424_ruta_critica, e425_composicion, e425_donde_se_mide, e425_trafico, e426_reglas, e426_ruido, e426_ventanas,
+)
+from figure_kit import Fig, grouped_bars, heatmap, line_chart
 
-from figures_part40_a import bars, flow
+SINT = "Datos sintéticos con semilla fija y tiempo virtual; Windows y Ubuntu (WSL2) dan cifras idénticas."
+MEDIDO_35 = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); el valor de memoria depende de la versión del intérprete."
 
-EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; ninguna cifra viene de un modelo de lenguaje."
-SIM = "Simulación con semilla fija (parámetros del autor) ejecutada en Windows 11 con CPython 3.12.9; no mide ningún modelo real."
+
+
+def _cap(text: str) -> str:
+    return text[:1].upper() + text[1:]
+
+def n(x: float, d: int = 0) -> str:
+    """Formato español: espacio como separador de miles y coma decimal."""
+    return f"{x:,.{d}f}".replace(",", "§").replace(".", ",").replace("§", " ")
+
+
+def p(x: float, d: int = 1) -> str:
+    return n(100 * x, d) + " %"
 
 
 # ---------------------------------------------------------------- SE-493
-def se493_ablacion() -> Fig:
-    return stacked_bars(
-        "Quitar un componente del harness cambia el fallo: siete configuraciones sobre seis tareas",
-        "Barras apiladas horizontales con el destino de seis tareas de corrección de errores en siete configuraciones del harness: el completo resuelve 6 de 6 con 5 pasos de media; sin contexto, sin herramienta de escritura o con un solo paso resuelve 0 de 6; sin criterio de parada resuelve las seis pero consume 12 pasos; sin comprobación de pruebas o sin instrucciones resuelve 3 de 6 y declara terminadas en falso otras 3.",
-        ["Harness completo (5,0 pasos)", "Sin contexto entre pasos (12,0)", "Sin herramienta de escritura (12,0)", "Sin bucle, un solo paso (1,0)", "Sin criterio de parada (12,0)",
-         "Sin comprobación de pruebas (3,0)", "Sin instrucciones (3,0)"],
-        [("Resueltas", [6, 0, 0, 0, 6, 3, 3], "teal"), ("Terminadas en falso", [0, 0, 0, 0, 0, 3, 3], "coral"), ("Sin resolver", [0, 6, 6, 6, 0, 0, 0], "grey")],
-        unit="Tareas de 6 (entre paréntesis, pasos medios)", horizontal=True, label_w=270,
-        note="Cada componente falla de una manera distinta: unos impiden resolver, uno solo desperdicia pasos y dos producen el peor fallo, declarar terminada una tarea que no pasa. La política es un guion, así que el gráfico mide el harness, no a un modelo.",
-        note_kind="gold", foot=EJEC)
+def se421_localizar() -> Fig:
+    r = e421_atribucion()
+    h, total = r["aciertos"], r["incidentes"]
+    return grouped_bars(
+        "Localizar el componente lento en una cadena de cuatro servicios con cuatro conjuntos de señales",
+        f"Barras horizontales con las localizaciones correctas de {total} incidentes sintéticos con un servicio lento: mirar solo el borde acierta {h['solo borde']}, el percentil 99 absoluto {h['p99 absoluto']}, el aumento relativo del percentil 99 frente a la línea base {h['aumento relativo']} y el mismo método sin ver uno de los cuatro servicios {h['aumento relativo sin un servicio']}.",
+        ["Solo la latencia del borde", "p99 absoluto de cada servicio", "Aumento relativo del p99 frente a su línea base", "Aumento relativo con un servicio sin instrumentar"],
+        [("Localizaciones correctas", [h["solo borde"], h["p99 absoluto"], h["aumento relativo"], h["aumento relativo sin un servicio"]], "teal")],
+        unit=f"Localizaciones correctas (de {total})", horizontal=True, label_w=300, ref_lines=[(total, f"{total}")],
+        note="Cada servicio informa su duración inclusiva (la suya más la de lo que llama). La línea base de 400 peticiones sanas y los factores de lentitud de 3 a 8 son supuestos del autor. Un punto ciego no apaga la alarma: la desplaza al servicio vecino, y por eso un hueco de instrumentación se parece a una conclusión.", note_kind="coral", foot=SINT)
 
 
-def se493_anatomia() -> Fig:
-    return flow('Anatomía de un harness: lo que rodea al modelo en cada vuelta del bucle',
-                'Diagrama con dos filas de cajas: el modelo recibe instrucciones y contexto, propone una acción, el harness comprueba el permiso y la ejecuta con una herramienta, la observación vuelve al contexto, y el harness decide si repetir, verificar o parar.',
-                [[('Instrucciones y contexto visible', 'gold'), ('Modelo propone una acción', 'navy'), ('Permiso y herramienta ejecutan', 'teal')],
-                 [('Observación vuelve al contexto', 'plain'), ('Verificación con pruebas', 'teal'), ('Criterio de parada o nueva vuelta', 'coral')]],
-                note='El modelo ocupa una caja de seis. Todo lo demás lo decide el harness, y por eso un fallo del conjunto puede no ser del modelo.',
-                note_kind='gold', foot=EJEC, box_h=76)
+def se421_cliente() -> Fig:
+    r = e421_segmento()
+    names = list(r)
+    labels = [f"{name} ({p(v['cuota de tráfico %'] / 100, 2)} del tráfico)" for name, v in r.items()]
+    cols = [("tasa global > 1 % en 5 min", "Tasa global > 1 %"), ("sonda fija en el cliente 1", "Sonda fija"), ("sonda rotativa", "Sonda rotativa")]
+    return heatmap(
+        "Una falla total que afecta a un solo cliente: qué señal la detecta en una hora",
+        "Mapa de calor con el porcentaje de intentos en que cada señal detecta en una hora una falla total de un solo cliente: el umbral global de 1 por ciento en 5 minutos lo detecta siempre si el cliente aporta 23,4 o 2,3 por ciento del tráfico y en 8,7 por ciento de los intentos si aporta 0,58; una sonda fija en el cliente grande solo ve al cliente grande; una sonda rotativa por los 40 clientes detecta a todos.",
+        labels, [c[1] for c in cols],
+        [[r[nm][c[0]] * 100 for c in cols] for nm in names],
+        unit="Detección (%)", scale="teal", vmin=0, vmax=100, decimals=0, suffix=" %", label_w=330,
+        note="El cliente de la cola larga está 100 % caído y la tasa global apenas se mueve: aporta 0,58 % de las peticiones y el umbral exige 1 %. La sonda rotativa lo encuentra, pero tarda hasta 40 minutos. Cuarenta clientes con reparto 1/k son un supuesto del autor; la forma del reparto real cambia el resultado.", note_kind="gold", foot=SINT)
 
 
-def se493_resueltas() -> Fig:
-    return bars('Tareas resueltas de seis según el componente que se quita',
-                'Gráfico de barras con las tareas resueltas de seis: harness completo 6, sin criterio de parada 6, sin comprobación de pruebas 3, sin instrucciones 3, sin contexto 0, sin escritura 0 y sin bucle 0.',
-                [('Harness completo', 6, 'teal', '6'), ('Sin criterio de parada', 6, 'gold', '6'), ('Sin comprobación de pruebas', 3, 'coral', '3'),
-                 ('Sin instrucciones', 3, 'coral', '3'), ('Sin contexto', 0, 'coral', '0'), ('Sin escritura', 0, 'coral', '0'), ('Sin bucle', 0, 'coral', '0')],
-                scale=100, note='Resolver las seis no basta: la configuración sin parada llega al mismo resultado con 12 pasos en vez de 5. La eficiencia es una propiedad del harness.',
-                note_kind='gold', foot=EJEC, label_w=330)
+def se421_preguntas() -> Fig:
+    r = e421_preguntas()
+    day_mb = r["bytes por evento"] * r["peticiones por día"] / 1e6
+    return grouped_bars(
+        "Sesenta preguntas hechas después de un incidente: qué diseño de señales puede responderlas",
+        f"Barras horizontales con las preguntas respondidas de {r['preguntas']}: las métricas con tres dimensiones previstas responden {r['responde métricas']} con {n(r['series por métrica previstas'])} series; los eventos anchos con todos los campos responden {r['responde eventos anchos']} con unos {n(day_mb)} megabytes al día; las métricas con todas las combinaciones responden las {r['preguntas']} pero exigirían {n(r['series para todas las combinaciones'])} series.",
+        [f"Métricas con 3 dimensiones previstas ({n(r['series por métrica previstas'])} series)", f"Eventos anchos con todos los campos ({n(day_mb)} MB al día)",
+         f"Métricas con todas las combinaciones ({n(r['series para todas las combinaciones'])} series)"],
+        [("Preguntas respondidas", [r["responde métricas"], r["responde eventos anchos"], r["preguntas"]], "teal")],
+        unit=f"Preguntas respondidas (de {r['preguntas']})", horizontal=True, label_w=330,
+        note="Las 60 preguntas son combinaciones de 1 a 3 de las 8 dimensiones del servicio (endpoint, estado, región, curso, cliente, versión, dispositivo, plan); las dimensiones previstas son endpoint, estado y región. Los eventos conservan el detalle a cambio de volumen y de privacidad: cada campo extra es un dato que alguien puede leer.", note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-494
-def se494_casos() -> Fig:
-    from figure_kit import grouped_bars as gb
-    return gb(
-        "Un comprobador de reglas del repositorio: dónde acierta y dónde se equivoca (17 casos)",
-        "Barras horizontales con los 17 casos de un comprobador determinista de reglas: 9 aciertos al detectar una infracción, 4 omisiones, como la ruta temporal armada por concatenación, el token partido en dos cadenas, la llamada a eval por un nombre armado y la prueba vacía, 1 falsa alarma ante un comentario que menciona la ruta y 3 casos sin infracción que no se marcan.",
-        ["Infracciones detectadas (aciertos)", "Infracciones que se escapan (omisiones)", "Falsas alarmas", "Casos sin infracción que no se marcan"],
-        [("Casos", [9, 4, 1, 3], "gold")],
-        unit="Casos de 17", horizontal=True, label_w=290, ticks=[0, 3, 6, 9, 12],
-        note="Con 17 casos: 9 aciertos, 1 falsa alarma y 4 omisiones (precisión 90 %, cobertura 69 %). Una regla mecánica es barata y exacta en lo que escribe, y ciega a lo que se escribe de otra forma.",
-        note_kind="coral", foot=EJEC)
+def se422_formato() -> Fig:
+    r = e422_formato()
+    words = ["v1: «Entrega 123 aceptada para curso 45 en 83 ms»", "v2: «Entrega aceptada: id=123 curso=45 duración=83ms»", "v3: «[api] entrega id=123 (curso 45) OK tiempo=83 milisegundos»", "v4: «Submission 123 accepted for course 45 in 83 ms»"]
+    return grouped_bars(
+        "La misma línea de registro en cuatro versiones del código: extracción con una expresión regular y con campos por nombre",
+        "Barras horizontales con el porcentaje de líneas extraídas: una expresión regular escrita para la versión 1 extrae el 100 por ciento de las líneas de esa versión y 0 de las tres siguientes; leer campos por nombre de un registro JSON se mantiene en 100 por ciento en las versiones 1 a 3 y solo falla en la 4, donde se renombró un campo.",
+        words,
+        [("Regex escrita para la v1", [row["regex v1"] * 100 for row in r["filas"]], "coral"), ("Campos del JSON por nombre", [row["json por nombre"] * 100 for row in r["filas"]], "teal")],
+        unit="Líneas extraídas (%)", horizontal=True, decimals=0, label_w=330,
+        note="Cada versión se evaluó con 1 500 líneas. El registro estructurado mueve la ruptura del texto al contrato: sobrevive a un cambio de redacción y no a un campo renombrado. Por eso el nombre de un campo es una interfaz que se versiona y se prueba, no un detalle de implementación.", note_kind="gold", foot=SINT)
 
 
-def se494_donde_aplicar() -> Fig:
-    return flow('Dónde vive una regla del repositorio según cuánto se puede mecanizar',
-                'Diagrama con tres cajas en una fila: la regla escrita como prosa en el archivo de instrucciones guía al modelo pero nadie la comprueba; la misma regla como hook antes de escribir bloquea la acción; la misma regla como compuerta de integración continua rechaza el cambio.',
-                [[('Prosa en el archivo de instrucciones\nGuía, no obliga', 'gold'), ('Hook antes de escribir\nBloquea la acción', 'teal'), ('Compuerta en integración continua\nRechaza el cambio', 'navy')]],
-                note='Seis de diez reglas del ejemplo se pueden mecanizar. Las cuatro semánticas (claridad, honestidad de las fuentes) solo pueden vivir como prosa y como revisión.',
-                note_kind='gold', foot=EJEC, box_h=96)
+def se422_correlacion() -> Fig:
+    r = e422_correlacion()
+    prop = r["propagación"]
+    return line_chart(
+        "Correlación: cadenas completas según la probabilidad de conservar el identificador en cada salto",
+        "Líneas con el porcentaje de peticiones de una cadena de cinco servicios y cuatro saltos que llegan completas según la probabilidad de conservar el identificador en cada salto: la simulación coincide con la fórmula p elevada a cuatro y baja de 95,9 por ciento con 0,99 a 81,4 con 0,95, 66,3 con 0,90 y menos con 0,80.",
+        [("Simulada", [(e["p por salto"], e["completas simuladas"] * 100, "", "t") for e in prop], "teal"),
+         ("Fórmula p⁴", [(e["p por salto"], e["p^4"] * 100, "", "b") for e in prop], "gold")],
+        x_label="Probabilidad de conservar el identificador en cada salto", y_label="Peticiones con la cadena completa (%)", decimals=1,
+        x_ticks=[(e["p por salto"], n(e["p por salto"], 2)) for e in prop], y_zero=False,
+        note="La propagación falla de forma multiplicativa: cuatro saltos al 95 % dejan 81 % y la cola de peticiones incompletas es justo la de las colas y los hilos. Sin identificador, el tiempo solo desambigua con tráfico muy bajo; con una petición durando hasta 250 ms (supuesto del autor), a 20 por segundo siempre hay varias candidatas.", note_kind="coral", foot=SINT)
 
 
-def se494_resultados() -> Fig:
-    return bars('Resultado del comprobador sobre 17 casos con 13 infracciones reales',
-                'Gráfico de barras: 9 infracciones detectadas, 4 omitidas y 1 falsa alarma sobre diecisiete casos.',
-                [('Infracciones detectadas', 9, 'teal', '9'), ('Infracciones omitidas', 4, 'coral', '4'), ('Falsas alarmas', 1, 'gold', '1')],
-                scale=60, note='Las omisiones son más caras que la falsa alarma: la alarma cuesta una revisión, la omisión cuesta un defecto que pasa con apariencia de comprobado.',
-                note_kind='coral', foot=EJEC, label_w=330)
+def se422_politicas() -> Fig:
+    r = e422_politicas()
+    return grouped_bars(
+        "Muestreo de registros: errores que conserva cada política",
+        f"Barras horizontales con los errores conservados de {n(r['errores'])}: el muestreo uniforme del 10 por ciento deja {n(r['errores con 10 %'])}, es decir pierde 9 de cada 10, y conservar todos los errores más el 10 por ciento del resto deja los {n(r['errores'])}.",
+        ["Muestreo uniforme del 10 %", "Todos los errores y 10 % del resto"],
+        [("Errores conservados", [r["errores con 10 %"], r["errores"]], "teal")],
+        unit=f"Errores conservados (de {n(r['errores'])})", horizontal=True, label_w=270, ref_lines=[(r["errores"], "todos los errores")],
+        note="La redacción por patrones solo protege los formatos que alguien previó: cada variante escrita por una persona (mayúsculas, espacios, un «arroba» escrito) es un dato personal que llega al almacén. Los 200 000 registros y las variantes son sintéticos; el 2 % de errores es un supuesto del autor.", note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-495
-def se495_comandos() -> Fig:
+def se423_cardinalidad() -> Fig:
+    steps = [("endpoint × estado × región (5 × 3 × 3)", 45), ("+ curso (30)", 1350), ("+ cliente (40)", 54000), ("+ identificador de persona (20 000)", 1080000000)]
+    per = 429
+    labels = []
+    for name, series in steps:
+        mem = series * per
+        shown = f"{n(mem / 1e3, 0)} KB" if mem < 1e6 else (f"{n(mem / 1e6, 1)} MB" if mem < 1e9 else f"{n(mem / 1e9)} GB")
+        labels.append(f"{name} · {shown}")
     return grouped_bars(
-        "Treinta comandos frente a dos políticas: prefijos permitidos y análisis del comando",
-        "Barras agrupadas con los errores de dos políticas sobre treinta comandos: de 18 comandos inseguros, la lista de prefijos permite 13 y el análisis del comando 0; de 12 comandos seguros, los prefijos deniegan 0 y el análisis 1, un comando benigno con una tubería; ambos deniegan el empuje forzado.",
-        ["Inseguros permitidos (de 18)", "Seguros denegados (de 12)"],
-        [("Lista de prefijos", [13, 0], "coral"), ("Análisis del comando", [0, 1], "teal")],
-        unit="Comandos", plot_h=230, ticks=[0, 4, 8, 12, 16],
-        note="De 18 comandos inseguros, los prefijos dejan pasar 13 y el análisis, 0. De 12 seguros, los prefijos deniegan 0 y el análisis, 1. El análisis compra seguridad con una falsa denegación.",
-        note_kind="gold", foot=EJEC)
+        "El número de series de una sola métrica según las dimensiones que se le añaden",
+        "Barras horizontales en escala logarítmica con las series de una métrica: con endpoint, estado y región hay 45; añadir curso lleva a 1 350, añadir cliente a 54 000 y añadir el identificador de una persona a 1 080 millones de series.",
+        labels, [("Series", [s for _, s in steps], "coral")],
+        unit="Series de la métrica", horizontal=True, log=True, ticks=[10, 1000, 100000, 10000000, 1000000000], label_w=330,
+        note="El número de series es el producto de las cardinalidades, no la suma, y cada serie nueva cuesta memoria e índice aunque nadie la consulte. Los 429 bytes por serie son una medición de CPython en este equipo con un diccionario de claves de texto; un almacén real tiene otra constante, y la forma del crecimiento es la misma.", note_kind="coral", foot=MEDIDO_35)
 
 
-def se495_inseguros() -> Fig:
-    return bars('Comandos inseguros permitidos de 18 según la política',
-                'Gráfico de barras: la lista de prefijos permite 13 de 18 comandos inseguros y el análisis del comando permite 0; entre los 12 comandos seguros, los prefijos deniegan 0 y el análisis deniega 1.',
-                [('Lista de prefijos: inseguros permitidos', 13, 'coral', '13 de 18'), ('Análisis: inseguros permitidos', 0, 'teal', '0 de 18'),
-                 ('Lista de prefijos: seguros denegados', 0, 'teal', '0 de 12'), ('Análisis: seguros denegados', 1, 'gold', '1 de 12')],
-                scale=50, note='Un permiso por prefijo describe cómo empieza un comando, no qué hace. Los operadores de shell convierten un comando permitido en dos.',
-                note_kind='coral', foot=EJEC, label_w=380)
+def se423_contadores() -> Fig:
+    r = e423_contadores()
+    c15, c60 = r["intervalos"]
+    return grouped_bars(
+        "Contador con reinicios: incrementos que reconstruye cada forma de leer y cada intervalo de muestreo",
+        f"Barras horizontales con los incrementos de un contador de {n(r['verdad'])} con tres reinicios: restar el último valor del primero da {n(c15['diferencia ingenua'])}; con detección de reinicios da {n(c15['con reinicios'])} con scrape de 15 segundos y {n(c60['con reinicios'])} con scrape de 60.",
+        ["Incremento real (verdad de la simulación)", "Último valor menos primero, scrape cada 15 s", "Con detección de reinicios, scrape cada 15 s", "Con detección de reinicios, scrape cada 60 s"],
+        [("Incremento reconstruido", [r["verdad"], c15["diferencia ingenua"], c15["con reinicios"], c60["con reinicios"]], "teal")],
+        unit="Incremento del contador en 600 s", horizontal=True, label_w=310, ref_lines=[(r["verdad"], "real")],
+        note="Un contador sobrevive a un muestreo grueso porque acumula; un gauge no, porque el valor entre dos lecturas desaparece. La detección de reinicios pierde el tramo anterior a cada reinicio dentro del intervalo. Tasa de 100 por segundo, reinicios en 137, 301 y 452 s y picos uniformes son supuestos del autor.", note_kind="gold", foot=SINT)
 
 
-def se495_capas() -> Fig:
-    return flow('Capas de control de una llamada a herramienta, de la más barata a la más estricta',
-                'Diagrama con cuatro cajas: la herramienta debe estar ofrecida al modelo; el análisis de argumentos permite o deniega; el confinamiento resuelve rutas dentro de la raíz; la aprobación humana decide lo irreversible.',
-                [[('Herramienta ofrecida', 'plain'), ('Análisis de argumentos', 'teal'), ('Confinamiento de rutas', 'teal'), ('Aprobación humana', 'gold')]],
-                note='Cada capa cubre lo que la anterior no ve. Ninguna sustituye a la última para lo irreversible, y la última deja de valer si se concede por costumbre.',
-                note_kind='gold', foot=EJEC, box_h=80)
+def se423_histogramas() -> Fig:
+    r = e423_histogramas()
+    truth = r["verdad"]
+    designs = list(r["diseños"].items())
+    kinds = ["gold", "teal", "coral"]
+    return grouped_bars(
+        "Percentiles estimados con histogramas de tres diseños de cubetas frente al valor exacto",
+        "Barras agrupadas con la mediana, el percentil 95 y el percentil 99 de 100 000 latencias lognormales: el valor exacto es 120,5, 381 y 608,2 milisegundos y cada diseño de cubetas lo estima con un error distinto, que se ve en la diferencia de altura frente a la barra gris.",
+        ["p50", "p95", "p99"],
+        [("Valor exacto", [truth[50], truth[95], truth[99]], "grey")] + [(f"Cubetas: {name}", [v[50], v[95], v[99]], kinds[i]) for i, (name, v) in enumerate(designs)],
+        unit="Latencia (ms)", decimals=1,
+        note="La interpolación lineal dentro de una cubeta supone datos repartidos de forma uniforme y el error nunca es menor que el ancho de la cubeta donde cae el percentil. Cubetas pensadas para otro rango (hasta 10 s) estiman el p99 con un 28 % de error. Elegir cubetas es elegir el error permitido antes de ver el incidente.", note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-496
-def se496_estrategias() -> Fig:
-    sizes = [6000, 12000, 24000, 48000]
-    return line_chart(
-        "Hechos recordables tras 120 turnos según la estrategia de contexto y el tamaño de la ventana",
-        "Líneas con los hechos recordables, de 10, tras 120 turnos según el tamaño de la ventana: truncar conserva 0, 1, 4 y 10 con 6 000, 12 000, 24 000 y 48 000 fichas; resumir lo declarado 6, 6, 8 y 10; un archivo de notas del harness 8, 8, 9 y 10; con 48 000 fichas cabe toda la sesión.",
-        [("Truncar lo antiguo", list(zip(sizes, [0, 1, 4, 10])), "coral"), ("Resumir lo declarado", list(zip(sizes, [6, 6, 8, 10])), "gold"),
-         ("Archivo de notas del harness", list(zip(sizes, [8, 8, 9, 10])), "teal")],
-        x_label="Ventana de contexto (fichas)", y_label="Hechos recordables (de 10)", x_ticks=[(s, f"{s // 1000} 000") for s in sizes], y_ticks=[0, 2, 4, 6, 8, 10], point_labels="none",
-        note="Modelo determinista de 120 turnos de 400 fichas con 10 hechos en puntos fijos. Describe el mecanismo de pérdida de cada estrategia con supuestos explícitos; no mide la compactación de ningún producto.",
-        note_kind="gold", foot=EJEC)
+def se424_contexto() -> Fig:
+    r = e424_contexto()
+    return grouped_bars(
+        "Propagación del contexto en una petición de seis saltos: dónde se pierde",
+        f"Barras horizontales con el porcentaje de veces que cada frontera pierde el contexto: el salto HTTP síncrono 1 por ciento, la cola de mensajes 15, el grupo de hilos o tarea asíncrona 20 y el reintento automático 10; con esas pérdidas solo {p(r['completas'])} de las peticiones conservan una traza completa.",
+        ["Salto HTTP síncrono", "Cola de mensajes", "Grupo de hilos o tarea asíncrona", "Reintento automático"],
+        [("Contexto perdido", [1, 15, 20, 10], "coral")],
+        unit="Veces que se pierde el contexto (%)", horizontal=True, decimals=0, label_w=260,
+        note="Las probabilidades por frontera son supuestos del autor, pero el patrón es de diseño: el contexto se pierde donde cambia el medio de transporte o la unidad de ejecución. El formato W3C traceparent (versión, identificador de traza de 32 hex, identificador de span de 16 hex, banderas) se valida con una expresión regular estricta en minúsculas.", note_kind="gold", foot=SINT)
 
 
-def se496_ciclo() -> Fig:
-    return flow('Ciclo de contexto con relevo: escribir fuera de la ventana lo que debe sobrevivir',
-                'Diagrama con dos filas de cajas: la sesión trabaja y el harness registra decisiones y restricciones en un archivo de notas; cuando la ventana se acerca al límite se compacta o se abre una sesión nueva; la sesión siguiente arranca leyendo las notas y el estado del repositorio y comprueba el estado antes de seguir.',
-                [[('Sesión trabaja y deja notas', 'teal'), ('Ventana cerca del límite', 'coral'), ('Compactar o abrir sesión nueva', 'gold')],
-                 [('Leer notas y estado del repositorio', 'teal'), ('Comprobar que el estado coincide', 'navy'), ('Continuar con una tarea pequeña', 'plain')]],
-                note='Lo que importa es lo que está en disco al cierre: notas, commit y pruebas. Una sesión nueva no hereda nada que no se haya escrito.',
-                note_kind='gold', foot=EJEC, box_h=76)
+def se424_critica() -> Fig:
+    r = e424_ruta_critica()
+    a, b, c = list(r["ahorro medio ms"])
+    return grouped_bars(
+        "Reducir a la mitad un span: ahorro medio de latencia según cómo se elige el span a optimizar",
+        f"Barras horizontales con el ahorro medio de latencia en {r['árboles']} árboles de spans sintéticos con latencia media de {n(r['latencia media ms'], 0)} milisegundos al reducir a la mitad un span: {n(r['ahorro medio ms'][a], 1)} milisegundos si se elige al azar, {n(r['ahorro medio ms'][b], 1)} si se elige el span más largo y {n(r['ahorro medio ms'][c], 1)} si se elige el de la ruta crítica.",
+        [_cap(a), _cap(b), _cap(c)],
+        [("Ahorro medio", [r["ahorro medio ms"][a], r["ahorro medio ms"][b], r["ahorro medio ms"][c]], "teal")],
+        unit="Ahorro medio de latencia (ms)", horizontal=True, decimals=1, label_w=300,
+        note="Un span fuera de la ruta crítica (hijos paralelos que no son el más lento) no cambia la latencia de la petición aunque se acelere. Los árboles (3 a 5 hijos en la raíz, hasta 3 niveles, la mitad de los nodos con hijos en paralelo) son un generador del autor, no trazas observadas.", note_kind="teal", foot=SINT)
 
 
-def se496_doce_mil() -> Fig:
-    return bars('Hechos recordados de 10 con una ventana de 12 000 fichas',
-                'Gráfico de barras con una ventana de 12 000 fichas: truncar lo antiguo conserva 1 de 10 hechos, resumir lo declarado 6 y el archivo de notas del harness 8.',
-                [('Truncar lo antiguo', 1, 'coral', '1 de 10'), ('Resumir lo declarado', 6, 'gold', '6 de 10'), ('Archivo de notas del harness', 8, 'teal', '8 de 10')],
-                scale=60, note='Los 2 hechos que ninguna estrategia conserva aparecieron solo dentro de la salida de una herramienta, nunca en un mensaje de la persona: nadie los declaró ni los anotó.',
-                note_kind='coral', foot=EJEC, label_w=330)
+def se424_muestreo() -> Fig:
+    r = e424_muestreo()
+    rc = r["recuento"]
+    return grouped_bars(
+        "Muestreo de trazas: lo interesante que conserva cada política",
+        f"Barras con el porcentaje de trazas interesantes conservadas de 100 000 trazas con {n(rc['error'])} errores y {n(rc['lenta'])} lentas: el muestreo de cabeza del 1 por ciento conserva {r['cabeza 1 %']['error']} errores y {r['cabeza 1 %']['lenta']} lentas, y el muestreo por cola las conserva todas.",
+        ["Errores", "Trazas lentas"],
+        [("Muestreo de cabeza del 1 %", [r["cabeza 1 %"]["error"] / rc["error"] * 100, r["cabeza 1 %"]["lenta"] / rc["lenta"] * 100], "coral"),
+         ("Muestreo por cola", [100.0, 100.0], "teal")],
+        unit="Trazas conservadas (%)", decimals=1,
+        note="El muestreo por cola decide con la traza entera, así que exige que todos los spans de una traza lleguen al mismo recolector (enrutado por hash del identificador) y memoria para retenerlos mientras se decide. Las proporciones de 1 % de errores y 2 % de lentas son supuestos del autor.", note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-497
-def se497_reglas() -> Fig:
-    return scatter(
-        "Cinco reglas de parada sobre 4 000 tareas sintéticas: resueltas frente a costo",
-        "Dispersión de las tareas resueltas frente a las iteraciones medias de cinco reglas de parada: sin tope resuelve 69,9 por ciento con 20,1 iteraciones de media; el tope de 10 resuelve 68,8 con 5,0; el tope de 30 resuelve 69,2 con 11,2; el detector de falta de progreso resuelve 77,0 con 3,5, igual que combinado con el tope de 10.",
-        [("Reglas de parada", [(20.1, 69.9, "Sin tope (60 en las inviables)", "l"), (5.0, 68.8, "Tope de 10", "b"), (11.2, 69.2, "Tope de 30", "r"),
-                              (3.5, 77.0, "Detector de falta de progreso, solo o con tope de 10 (6 en las inviables)", "r")], "coral")],
-        x_label="Iteraciones medias por tarea", y_label="Tareas resueltas (%)", y_zero=False, x_ticks=[(0, "0"), (5, "5"), (10, "10"), (15, "15"), (20, "20"), (25, "25")],
-        y_ticks=[60, 65, 70, 75, 80], point_labels="none",
-        note="Mezcla del autor: 70 % de tareas reintentables, 15 % que exigen cambiar de plan y 15 % inviables. Un tope solo limita el daño; cambiar de plan al detectar que no hay progreso añade 7 puntos.",
-        note_kind="gold", foot=SIM)
+def se425_trafico() -> Fig:
+    r = e425_trafico()
+    esc = r["escenarios"]
+    return grouped_bars(
+        "Un presupuesto de error del 99,9 % mensual medido por peticiones y por minutos en tres incidentes",
+        "Barras horizontales con el presupuesto mensual consumido por tres incidentes según se cuente por peticiones o por minutos: un corte total de 30 minutos a las 03:00 consume 8,6 por ciento por peticiones y 69,4 por minutos; el mismo corte a las 14:00 consume 166 por ciento por peticiones y 69,4 por minutos; 5 por ciento de errores durante 8 horas consume 121 por peticiones y 1 111 por minutos.",
+        [e["nombre"] for e in esc],
+        [("Presupuesto por peticiones", [e["presupuesto gastado por peticiones %"] for e in esc], "coral"), ("Presupuesto por minutos", [e["presupuesto gastado por minutos %"] for e in esc], "teal")],
+        unit="Presupuesto de error consumido (%)", horizontal=True, log=True, decimals=1, label_w=300, ref_lines=[(100, "presupuesto agotado")],
+        note="Contar por peticiones pondera el daño por las personas afectadas; contar minutos malos no distingue el tráfico y, con un umbral de 1 %, trata como minuto perdido uno con 5 % de errores. El tráfico (5 por segundo de noche, hasta 100 de día) y los 43,2 minutos mensuales del 99,9 % son el marco del autor.", note_kind="gold", foot=SINT)
 
 
-def se497_inviables() -> Fig:
-    return bars('Iteraciones gastadas en las tareas inviables según la regla de parada',
-                'Gráfico de barras con las iteraciones gastadas en tareas inviables: sin tope 60, tope de 30 iteraciones 30, tope de 10 iteraciones 10 y detector de falta de progreso 6.',
-                [('Sin tope', 60, 'coral', '60'), ('Tope de 30', 30, 'coral', '30'), ('Tope de 10', 10, 'gold', '10'), ('Detector de falta de progreso', 6, 'teal', '6')],
-                scale=11, note='El costo de una tarea inviable es proporcional a la regla de parada, no a la tarea. Una tarea inviable sin tope gasta 10 veces más que con el detector.',
-                note_kind='gold', foot=SIM, label_w=330)
+def se425_donde() -> Fig:
+    r = e425_donde_se_mide()
+    return grouped_bars(
+        "La misma disponibilidad medida en el servidor, en el cliente y tras reintentos: fallos que se ven",
+        "Barras horizontales en escala logarítmica con el porcentaje de fallos de 200 000 solicitudes sintéticas: 0,073 si se mide en el servidor, 2,039 en el cliente con un intento, 0,0005 con tres intentos si todos los fallos fueran independientes y unas cien veces más con tres intentos cuando el fallo va pegado a la petición.",
+        ["Servidor", "Cliente, un intento", "Tres intentos si los fallos fueran independientes", "Tres intentos con fallos pegados a la petición"],
+        [("Fallos", [100 - r["servidor %"], 100 - r["cliente por intento %"], 100 - r["3 intentos si todo fuera independiente %"], 100 - r["3 intentos con fallos pegados %"]], "coral")],
+        unit="Fallos (% = 100 − éxito)", horizontal=True, log=True, label_w=310,
+        note="El servidor no cuenta lo que no llegó (2 % de fallos de red del cliente, supuesto del autor) y el reintento solo ayuda con fallos independientes: 0,03 % de peticiones que fallan siempre aparece como 0,03 % de fallos aunque se intente tres veces. Un objetivo debe nombrar el punto de medición.", note_kind="coral", foot=SINT)
 
 
-def se497_bucle() -> Fig:
-    return flow('Bucle de un agente con tres salidas distintas de «seguir intentando»',
-                'Diagrama con dos filas: el agente actúa y observa; el harness compara con el intento anterior; si el resultado se repite tres veces cambia de plan una vez; si vuelve a repetirse o se agota el tope, escala a una persona con el rastro.',
-                [[('Actuar y observar', 'plain'), ('Comparar con el intento anterior', 'teal'), ('Repetido tres veces: cambiar de plan', 'gold')],
-                 [('Verificar con pruebas', 'teal'), ('Éxito: parar', 'navy'), ('Repetido otra vez o tope: escalar', 'coral')]],
-                note='Parar bien tiene tres salidas: éxito verificado, cambio de plan y escalada con evidencia. Un tope sin escalada solo esconde el fallo.',
-                note_kind='gold', foot=EJEC, box_h=76)
+def se425_composicion() -> Fig:
+    r = e425_composicion()
+    a, b = r["duración mediana 20 min"], r["duración mediana 10 min"]
+    return grouped_bars(
+        "Meses que incumplen un SLO de 99,9 % y un SLA de 99,5 % según la duración de los incidentes",
+        f"Barras con el porcentaje de meses que incumplen el objetivo: con incidentes de duración mediana de 20 minutos, {n(a['incumple SLO 99,9 %'], 1)} por ciento incumple el SLO de 99,9 y {n(a['incumple SLA 99,5 %'], 2)} el SLA de 99,5; con duración mediana de 10 minutos, {n(b['incumple SLO 99,9 %'], 1)} y {n(b['incumple SLA 99,5 %'], 2)}.",
+        ["Incidentes de duración mediana de 20 min", "Incidentes de duración mediana de 10 min"],
+        [("Incumple el SLO de 99,9 %", [a["incumple SLO 99,9 %"], b["incumple SLO 99,9 %"]], "coral"), ("Incumple el SLA de 99,5 %", [a["incumple SLA 99,5 %"], b["incumple SLA 99,5 %"]], "gold")],
+        unit="Meses que incumplen (%)", decimals=1,
+        note="Un SLO de 99,9 % con tres o más dependencias del mismo nivel ya es optimista, y un SLA más holgado que el SLO deja margen para el contrato y no para la ingeniería. Dos incidentes de 20 minutos agotan el mes entero. 20 000 meses simulados; 1,2 incidentes por mes y la forma lognormal son supuestos del autor.", note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-498
-def se498_proteccion() -> Fig:
+def se426_reglas() -> Fig:
+    r = e426_reglas()
+    reglas = r["reglas"]
     return grouped_bars(
-        "Cinco acciones destructivas contra 15 archivos: qué sobrevive y qué se recupera",
-        "Barras horizontales con los archivos intactos, de 15, tras cinco acciones destructivas, 13 en el proyecto y 2 fuera: sin protección sobreviven 0 y se recuperan 0; con solo confinamiento sobreviven 2 y se recuperan 2; con confinamiento y copia previa sobreviven 2 y se recuperan los 15; sin confinar y con Git sobreviven 0 y se recuperan 10.",
-        ["Sin protección (0 acciones bloqueadas)", "Solo confinamiento (2 acciones bloqueadas)", "Confinamiento + copia previa (2)", "Sin confinar + Git (0)"],
-        [("Intactos tras el agente", [0, 2, 2, 0], "coral"), ("Intactos tras recuperar", [0, 2, 15, 10], "teal")],
-        unit="Archivos intactos (de 15)", horizontal=True, label_w=290, ticks=[0, 5, 10, 15],
-        note="El confinamiento impide el daño fuera de la raíz y no deshace el de dentro; la copia deshace lo de dentro y no impide nada. Git recupera 10 de 15: los archivos no versionados y los de fuera no vuelven.",
-        note_kind="coral", foot=EJEC)
+        "Seis reglas de alerta sobre 180 días de tráfico diurno y nocturno con 14 caídas y 12 degradaciones lentas",
+        "Barras horizontales con las páginas que genera cada regla y las que no corresponden a ningún incidente: el umbral de 0,5 por ciento en un minuto genera 12 622 páginas, 11 748 sin incidente, y el de 1 por ciento en 5 minutos genera 609, 396 sin incidente; las reglas por tasa de consumo del presupuesto generan entre 13 y 31 páginas y ninguna sin incidente.",
+        [_cap(x["regla"]) for x in reglas],
+        [("Páginas", [x["páginas"] for x in reglas], "gold"), ("Páginas sin incidente", [x["páginas sin incidente"] for x in reglas], "coral")],
+        unit="Páginas en 180 días", horizontal=True, label_w=300,
+        note="Ninguna regla detecta las 12 degradaciones sin pagar páginas falsas: la regla de 1 % en 5 minutos las ve todas porque de noche, con 30 peticiones por minuto, dos errores bastan. Una página que no pide acción es coste puro. Tasa de error base de 0,1 %, tráfico entre 30 y 300 por minuto e incidentes inyectados son supuestos del autor.", note_kind="coral", foot=SINT)
 
 
-def se498_capas() -> Fig:
-    return flow('Control de daño en capas: impedir, acotar y deshacer',
-                'Diagrama con cuatro cajas en una fila: confinar rutas a la raíz del proyecto, tomar una copia o un commit antes de actuar, ejecutar la acción con permisos mínimos y restaurar desde la copia si la verificación falla.',
-                [[('Confinar a la raíz', 'teal'), ('Copiar o confirmar antes', 'gold'), ('Ejecutar con permisos mínimos', 'plain'), ('Restaurar si falla', 'navy')]],
-                note='Impedir y deshacer son controles distintos y complementarios. Lo que no se puede deshacer (un envío, un pago, un borrado remoto) solo se controla impidiendo o aprobando.',
-                note_kind='gold', foot=EJEC, box_h=80)
+def se426_ruido() -> Fig:
+    r = e426_ruido()
+    return grouped_bars(
+        "Fatiga de alertas: páginas por 200 incidentes en cascada y 3 000 destellos según la política de filtrado",
+        f"Barras horizontales con las páginas que genera cada política: {n(r['páginas sin filtros'])} sin filtros, {n(r['con duración mínima'])} con una duración mínima antes de paginar y {n(r['con duración y agrupación'])} con duración mínima y agrupación por incidente.",
+        ["Sin filtros: cada alerta de cada servicio pagina", "Con duración mínima antes de paginar", "Con duración mínima y agrupación por incidente"],
+        [("Páginas", [r["páginas sin filtros"], r["con duración mínima"], r["con duración y agrupación"]], "coral")],
+        unit="Páginas", horizontal=True, label_w=310,
+        note="Filtrar no es silenciar: el filtro de duración retrasa la página por construcción y la agrupación exige conocer el mapa de dependencias para saber qué alertas pertenecen al mismo incidente. El 4 % de destellos que sobrevive al filtro es un supuesto del autor.", note_kind="gold", foot=SINT)
 
 
-def se498_intactos() -> Fig:
-    return bars('Archivos intactos de 15 después de recuperar',
-                'Gráfico de barras con los archivos intactos de 15 tras recuperar: sin protección 0, solo confinamiento 2, Git sin confinar 10 y confinamiento con copia previa 15.',
-                [('Sin protección', 0, 'coral', '0'), ('Solo confinamiento', 2, 'coral', '2'), ('Sin confinar + Git', 10, 'gold', '10'), ('Confinamiento + copia previa', 15, 'teal', '15')],
-                scale=50, note='Ninguna capa alcanza sola: las dos juntas llegan a 15 en un caso donde cada una por separado deja huecos.',
-                note_kind='gold', foot=EJEC, label_w=330)
+def se426_ventanas() -> Fig:
+    r = e426_ventanas()
+    f = r["filas"]
+    xs = [x["ventana min"] for x in f]
+    def serie(k):
+        return [(x["ventana min"], x[k]) for x in f if isinstance(x[k], (int, float))]
+    return line_chart(
+        "Umbral de 1 % de errores con ventanas de 1 a 60 minutos: minutos hasta alertar",
+        "Líneas con los minutos hasta alertar según la ventana: crecen con la ventana cuando el error es pequeño (con 2 por ciento pasan de 1 a 28 minutos) y quedan en 1 minuto con la caída total; los falsos positivos al día, que van entre paréntesis en cada ventana, bajan de 6,85 con un minuto a 0,02 con 5 y a 0 con 15 y 60.",
+        [("2 % de errores", serie("2 % de errores"), "gold"), ("10 % de errores", serie("10 % de errores"), "teal"), ("Caída total", serie("100 % de errores"), "coral")],
+        x_label="Ventana (minutos); entre paréntesis, falsos positivos por día", y_label="Minutos hasta alertar", log_x=True, log_y=True,
+        x_ticks=[(x["ventana min"], f"{x['ventana min']} ({n(x['falsos positivos por día'], 2)})") for x in f], decimals=0,
+        note="Una ventana larga suprime el ruido y retrasa lo moderado, y a una caída total no la retrasa casi nada: por eso se combinan ventanas largas para lo lento y cortas para lo grave. La ventana incluye la historia sana previa al incidente; 120 días de ruido con 100 peticiones por minuto es un supuesto del autor.", note_kind="teal", foot=SINT)
 
 
 FIGURES = {
-    "se-493-ablacion-del-harness.svg": se493_ablacion,
-    "se-493-anatomia-del-harness.svg": se493_anatomia,
-    "se-493-tareas-resueltas.svg": se493_resueltas,
-    "se-494-casos-del-comprobador.svg": se494_casos,
-    "se-494-donde-aplicar-una-regla.svg": se494_donde_aplicar,
-    "se-494-resultados-del-comprobador.svg": se494_resultados,
-    "se-495-comandos-y-politicas.svg": se495_comandos,
-    "se-495-inseguros-permitidos.svg": se495_inseguros,
-    "se-495-capas-de-permiso.svg": se495_capas,
-    "se-496-estrategias-de-contexto.svg": se496_estrategias,
-    "se-496-ciclo-con-relevo.svg": se496_ciclo,
-    "se-496-hechos-con-doce-mil.svg": se496_doce_mil,
-    "se-497-reglas-de-parada.svg": se497_reglas,
-    "se-497-iteraciones-inviables.svg": se497_inviables,
-    "se-497-bucle-con-salidas.svg": se497_bucle,
-    "se-498-proteccion-y-recuperacion.svg": se498_proteccion,
-    "se-498-capas-de-control-de-dano.svg": se498_capas,
-    "se-498-archivos-intactos.svg": se498_intactos,
+    "se-493-localizar-la-lentitud.svg": se421_localizar,
+    "se-493-falla-de-un-solo-cliente.svg": se421_cliente,
+    "se-493-preguntas-sin-respuesta.svg": se421_preguntas,
+    "se-494-cuatro-versiones-del-registro.svg": se422_formato,
+    "se-494-propagacion-y-lineas-huerfanas.svg": se422_correlacion,
+    "se-494-volumen-muestreo-y-redaccion.svg": se422_politicas,
+    "se-495-explosion-de-series.svg": se423_cardinalidad,
+    "se-495-contadores-y-picos.svg": se423_contadores,
+    "se-495-percentiles-con-histogramas.svg": se423_histogramas,
+    "se-496-donde-se-rompe-el-contexto.svg": se424_contexto,
+    "se-496-ruta-critica.svg": se424_critica,
+    "se-496-muestreo-de-trazas.svg": se424_muestreo,
+    "se-497-peticiones-o-minutos.svg": se425_trafico,
+    "se-497-donde-se-mide.svg": se425_donde,
+    "se-497-composicion-y-meses.svg": se425_composicion,
+    "se-498-seis-reglas-de-alerta.svg": se426_reglas,
+    "se-498-fatiga-y-agrupacion.svg": se426_ruido,
+    "se-498-ventanas-de-alerta.svg": se426_ventanas,
 }

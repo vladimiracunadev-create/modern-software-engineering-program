@@ -9,6 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import program_state as ps  # noqa: E402
 REQUIRED_SECTIONS = [
     "## Prerrequisitos", "## Problema auténtico",
     "## Objetivos observables", "## Mapa conceptual",
@@ -52,7 +54,7 @@ def main() -> int:
     for part in program["parts"]:
         for lesson in part["lessons"]:
             directory = ROOT / lesson["path"]
-            if lesson["number"] > 180:
+            if ps.part_phase(int(part["id"])) != 3:
                 continue
             draft_count += 1
             readme = directory / "README.md"

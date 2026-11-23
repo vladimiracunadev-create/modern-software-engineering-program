@@ -40,9 +40,19 @@ class AboutTest(unittest.TestCase):
     def test_figures_match_repository(self) -> None:
         text = _description()
         counts = _real_counts()
-        self.assertIn(f"{counts['clases']} clases en {counts['partes']} partes", text)
+        self.assertIn(f"{counts['clases']} clases desarrolladas en {counts['partes']} partes", text)
         self.assertIn(f"{counts['roles']} rutas por rol", text)
         self.assertIn(f"{counts['casos']} casos de estudio", text)
+
+    def test_names_the_parts_still_in_preparation(self) -> None:
+        catalog = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+        pending = len(catalog["unpublished_parts"])
+        text = _description()
+        if pending:
+            words = {1: "una parte", 2: "dos partes", 3: "tres partes"}
+            self.assertIn(f"y {words[pending]} en preparación", text)
+        else:
+            self.assertNotIn("en preparación", text)
 
     def test_no_stale_or_repeated_figures(self) -> None:
         text = _description()

@@ -15,33 +15,9 @@ except ModuleNotFoundError:  # importado como scripts.build_phase3
 
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
-TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
-PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 181)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(181, 193)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(193, 205)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(205, 217)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(229, 241)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(217, 229)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(253, 265)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(241, 253)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(265, 277)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(277, 289)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(289, 301)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(313, 325)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(337, 349)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(325, 337)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(301, 313)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(349, 361)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(373, 385)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(397, 409)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(433, 445)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(469, 481)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(421, 433)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(385, 397)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(409, 421)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(445, 457)}
-PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(457, 469)}
+# Todas las clases de las partes desarrolladas tienen texto editorial íntegro en content/.
+PUBLISHED_EDITORIAL_IDS = {class_id for part in ps.developed_parts() for class_id in ps.class_ids(part)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -134,13 +110,13 @@ PROFILES = {
     "20": {"artifact": "servicio con contrato y procesamiento recuperable", "environment": "Python 3.11+, servidor HTTP local, curl y cola simulada", "files": ["openapi.yaml", "service.py", "recovery.md"], "lenses": ["contrato", "solicitud", "trabajo", "idempotencia"], "failure": "reintentar una operación no idempotente y duplicar efectos", "sources": ["OPENAPI", "ASYNCAPI", "RFC-9110", "SWEBOK-4A"]},
     "21": {"artifact": "comparación de ciclo de vida entre plataformas cliente", "environment": "Android Studio, Xcode o Electron según plataforma elegida", "files": ["lifecycle.md", "prototype.md", "distribution.md"], "lenses": ["plataforma", "ciclo de vida", "estado", "distribución"], "failure": "suponer que cerrar, suspender y terminar una aplicación son el mismo evento", "sources": ["ANDROID", "APPLE", "ELECTRON", "ISO-25010"]},
     "22": {"artifact": "prototipo embebido con presupuesto y análisis temporal", "environment": "simulador o placa autorizada, toolchain declarada y analizador de trazas", "files": ["firmware.md", "timing.csv", "safety.md"], "lenses": ["recurso", "tiempo", "interrupción", "seguridad"], "failure": "bloquear una tarea crítica o incumplir un deadline sin señal observable", "sources": ["ZEPHYR", "FREERTOS", "NIST-SSDF-800-218", "SWEBOK-4A"]},
-    "23": {"artifact": "prototipo especializado con restricciones de dominio", "environment": "Jupyter o Godot según el caso, datos sintéticos y control de versiones", "files": ["domain.md", "prototype.md", "validation.md"], "lenses": ["dominio", "modelo", "restricción", "validación"], "failure": "trasladar una métrica técnica a una conclusión de dominio sin validación", "sources": ["JUPYTER", "GODOT", "ISO-25010", "SWEBOK-4A"]},
-    "24": {"artifact": "refactorización protegida por caracterización y decisión de diseño", "environment": "Python 3.11+, pruebas, analizador estático y Git", "files": ["characterization.py", "design.md", "refactoring.md"], "lenses": ["responsabilidad", "acoplamiento", "cambio", "deuda"], "failure": "refactorizar y cambiar comportamiento al mismo tiempo sin caracterización", "sources": ["SWEBOK-4A", "ISO-25010", "PYTHON"]},
-    "25": {"artifact": "dossier de arquitectura con decisiones y escenarios", "environment": "editor Markdown, Mermaid y repositorio de ADR", "files": ["context.md", "architecture.md", "adr.md"], "lenses": ["límite", "atributo", "escenario", "decisión"], "failure": "elegir un estilo arquitectónico antes de identificar fuerzas y atributos", "sources": ["C4", "ISO-25010", "SWEBOK-4A"]},
-    "26": {"artifact": "modelo persistente con garantías y recuperación probadas", "environment": "PostgreSQL o SQLite, cliente SQL y datos sintéticos", "files": ["schema.sql", "queries.sql", "recovery.md"], "lenses": ["modelo", "transacción", "índice", "recuperación"], "failure": "confundir persistencia exitosa con durabilidad o recuperabilidad verificadas", "sources": ["POSTGRESQL", "SQLITE", "SWEBOK-4A"]},
-    "27": {"artifact": "flujo de integración con contrato, reintento y reconciliación", "environment": "broker local o simulador, validador de esquemas y trazas", "files": ["asyncapi.yaml", "flow.md", "reconciliation.md"], "lenses": ["mensaje", "evento", "entrega", "consistencia"], "failure": "procesar dos veces un mensaje y producir efectos no reconciliables", "sources": ["ASYNCAPI", "CLOUDEVENTS", "OPENAPI", "SWEBOK-4A"]},
-    "28": {"artifact": "experimento distribuido con fallos y garantías declaradas", "environment": "procesos locales o contenedores, reloj monotónico y trazas correlacionadas", "files": ["model.md", "experiment.py", "failure-trace.md"], "lenses": ["concurrencia", "orden", "partición", "consenso"], "failure": "inferir orden global o exactamente-una-vez desde observaciones locales", "sources": ["RAFT", "GO-MEMORY", "ISO-25010", "SWEBOK-4A"]},
-    "29": {"artifact": "plataforma reproducible con infraestructura declarativa", "environment": "contenedores OCI, Kubernetes local y Terraform en modo plan", "files": ["Containerfile", "platform.md", "main.tf"], "lenses": ["recurso", "imagen", "declaración", "plataforma"], "failure": "aplicar infraestructura sin revisar plan, estado, permisos ni costo", "sources": ["KUBERNETES", "OCI", "TERRAFORM", "AWS-WAF", "NIST-SSDF-800-218"]},
+    "24": {"artifact": "prototipo especializado con restricciones de dominio", "environment": "Jupyter o Godot según el caso, datos sintéticos y control de versiones", "files": ["domain.md", "prototype.md", "validation.md"], "lenses": ["dominio", "modelo", "restricción", "validación"], "failure": "trasladar una métrica técnica a una conclusión de dominio sin validación", "sources": ["JUPYTER", "GODOT", "ISO-25010", "SWEBOK-4A"]},
+    "25": {"artifact": "refactorización protegida por caracterización y decisión de diseño", "environment": "Python 3.11+, pruebas, analizador estático y Git", "files": ["characterization.py", "design.md", "refactoring.md"], "lenses": ["responsabilidad", "acoplamiento", "cambio", "deuda"], "failure": "refactorizar y cambiar comportamiento al mismo tiempo sin caracterización", "sources": ["SWEBOK-4A", "ISO-25010", "PYTHON"]},
+    "27": {"artifact": "dossier de arquitectura con decisiones y escenarios", "environment": "editor Markdown, Mermaid y repositorio de ADR", "files": ["context.md", "architecture.md", "adr.md"], "lenses": ["límite", "atributo", "escenario", "decisión"], "failure": "elegir un estilo arquitectónico antes de identificar fuerzas y atributos", "sources": ["C4", "ISO-25010", "SWEBOK-4A"]},
+    "29": {"artifact": "modelo persistente con garantías y recuperación probadas", "environment": "PostgreSQL o SQLite, cliente SQL y datos sintéticos", "files": ["schema.sql", "queries.sql", "recovery.md"], "lenses": ["modelo", "transacción", "índice", "recuperación"], "failure": "confundir persistencia exitosa con durabilidad o recuperabilidad verificadas", "sources": ["POSTGRESQL", "SQLITE", "SWEBOK-4A"]},
+    "31": {"artifact": "flujo de integración con contrato, reintento y reconciliación", "environment": "broker local o simulador, validador de esquemas y trazas", "files": ["asyncapi.yaml", "flow.md", "reconciliation.md"], "lenses": ["mensaje", "evento", "entrega", "consistencia"], "failure": "procesar dos veces un mensaje y producir efectos no reconciliables", "sources": ["ASYNCAPI", "CLOUDEVENTS", "OPENAPI", "SWEBOK-4A"]},
+    "32": {"artifact": "experimento distribuido con fallos y garantías declaradas", "environment": "procesos locales o contenedores, reloj monotónico y trazas correlacionadas", "files": ["model.md", "experiment.py", "failure-trace.md"], "lenses": ["concurrencia", "orden", "partición", "consenso"], "failure": "inferir orden global o exactamente-una-vez desde observaciones locales", "sources": ["RAFT", "GO-MEMORY", "ISO-25010", "SWEBOK-4A"]},
+    "33": {"artifact": "plataforma reproducible con infraestructura declarativa", "environment": "contenedores OCI, Kubernetes local y Terraform en modo plan", "files": ["Containerfile", "platform.md", "main.tf"], "lenses": ["recurso", "imagen", "declaración", "plataforma"], "failure": "aplicar infraestructura sin revisar plan, estado, permisos ni costo", "sources": ["KUBERNETES", "OCI", "TERRAFORM", "AWS-WAF", "NIST-SSDF-800-218"]},
 }
 
 TEACHING = {
@@ -167,13 +143,13 @@ TEACHING = {
     "20": {"foundation": "Un backend coordina contratos, estado y trabajo síncrono o diferido; los límites de tiempo y los reintentos forman parte del comportamiento público.", "question": "¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?", "evidence": "contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout"},
     "21": {"foundation": "Cada plataforma cliente controla instalación, permisos, ciclo de vida, recursos y distribución; compartir código no elimina esas diferencias.", "question": "¿qué estado debe sobrevivir a pausa, cierre, actualización o pérdida de conectividad?", "evidence": "matriz de ciclo de vida, prototipo, pruebas de restauración y requisitos de distribución"},
     "22": {"foundation": "El software embebido interactúa con tiempo y mundo físico bajo presupuestos estrictos; corrección funcional y cumplimiento temporal son propiedades distintas.", "question": "¿qué deadline, recurso o estado físico convierte un retraso en fallo?", "evidence": "presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro"},
-    "23": {"foundation": "El software especializado hereda reglas, riesgos y evidencia del dominio; una técnica correcta puede ser inválida si el modelo no representa ese contexto.", "question": "¿qué afirmación de dominio se hace y qué validación permite sostenerla?", "evidence": "supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio"},
-    "24": {"foundation": "Diseñar distribuye responsabilidades y dependencias para facilitar cambios; refactorizar mejora esa estructura sin alterar comportamiento observable.", "question": "¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?", "evidence": "pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible"},
-    "25": {"foundation": "La arquitectura expresa decisiones significativas y difíciles de cambiar frente a atributos y restricciones; un diagrama solo es una vista del razonamiento.", "question": "¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?", "evidence": "escenarios medibles, vistas coherentes, ADR y análisis de consecuencias"},
-    "26": {"foundation": "Persistir datos exige modelar identidad, relaciones, concurrencia y recuperación; una consulta rápida no compensa garantías incorrectas.", "question": "¿qué invariantes deben sobrevivir a concurrencia, fallo y restauración?", "evidence": "esquema, consultas explicadas, plan de ejecución, prueba transaccional y restauración"},
-    "27": {"foundation": "Integrar sistemas introduce fronteras de propiedad, tiempo y fallo; mensajes y eventos necesitan contrato, semántica de entrega y reconciliación.", "question": "¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?", "evidence": "esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación"},
-    "28": {"foundation": "Concurrencia y distribución eliminan supuestos de orden, tiempo y conocimiento compartido; las garantías deben declararse bajo fallos concretos.", "question": "¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?", "evidence": "modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte"},
-    "29": {"foundation": "Cloud y platform engineering convierten recursos y políticas en productos internos declarativos; elasticidad, seguridad, costo y operación son parte del diseño.", "question": "¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?", "evidence": "plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada"},
+    "24": {"foundation": "El software especializado hereda reglas, riesgos y evidencia del dominio; una técnica correcta puede ser inválida si el modelo no representa ese contexto.", "question": "¿qué afirmación de dominio se hace y qué validación permite sostenerla?", "evidence": "supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio"},
+    "25": {"foundation": "Diseñar distribuye responsabilidades y dependencias para facilitar cambios; refactorizar mejora esa estructura sin alterar comportamiento observable.", "question": "¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?", "evidence": "pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible"},
+    "27": {"foundation": "La arquitectura expresa decisiones significativas y difíciles de cambiar frente a atributos y restricciones; un diagrama solo es una vista del razonamiento.", "question": "¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?", "evidence": "escenarios medibles, vistas coherentes, ADR y análisis de consecuencias"},
+    "29": {"foundation": "Persistir datos exige modelar identidad, relaciones, concurrencia y recuperación; una consulta rápida no compensa garantías incorrectas.", "question": "¿qué invariantes deben sobrevivir a concurrencia, fallo y restauración?", "evidence": "esquema, consultas explicadas, plan de ejecución, prueba transaccional y restauración"},
+    "31": {"foundation": "Integrar sistemas introduce fronteras de propiedad, tiempo y fallo; mensajes y eventos necesitan contrato, semántica de entrega y reconciliación.", "question": "¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?", "evidence": "esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación"},
+    "32": {"foundation": "Concurrencia y distribución eliminan supuestos de orden, tiempo y conocimiento compartido; las garantías deben declararse bajo fallos concretos.", "question": "¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?", "evidence": "modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte"},
+    "33": {"foundation": "Cloud y platform engineering convierten recursos y políticas en productos internos declarativos; elasticidad, seguridad, costo y operación son parte del diseño.", "question": "¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?", "evidence": "plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada"},
 }
 
 STOPWORDS = {"de", "del", "la", "las", "el", "los", "y", "e", "a", "en", "con", "como", "por", "para", "un", "una"}
@@ -203,7 +179,7 @@ def display_term(term: str) -> str:
 
 
 def source_catalog(program: dict) -> dict:
-    used = sorted({source for part in program["parts"] if part["lessons"][-1]["number"] <= TARGET_LAST_CLASS for source in PROFILES[part["id"]]["sources"]})
+    used = sorted({source for part in program["parts"] if ps.part_phase(int(part["id"])) == 3 for source in PROFILES[part["id"]]["sources"]})
     return {
         "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/activity.schema.json",
         "schema_version": 1,
@@ -214,7 +190,7 @@ def source_catalog(program: dict) -> dict:
             {"id": source_id, "title": SOURCES[source_id][0], "authority": SOURCES[source_id][1], "url": SOURCES[source_id][2], "status": "verified"}
             for source_id in used
         ],
-        "parts": {part_id: PROFILES[part_id]["sources"] for part_id in sorted(PROFILES) if int(part_id) <= 14},
+        "parts": {part_id: PROFILES[part_id]["sources"] for part_id in sorted(PROFILES) if ps.part_phase(int(part_id)) == 3},
     }
 
 
@@ -973,7 +949,7 @@ def site_page(
     following: dict | None,
 ) -> str:
     content, headings = markdown_to_html(markdown)
-    phase = 3 if lesson["number"] <= 180 else 4
+    phase = ps.part_phase(int(part["id"])) or 4
     toc = "".join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for anchor, label in headings)
     repository_url = f"https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/{lesson['path']}"
     previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
@@ -1026,7 +1002,7 @@ def with_class_navigation(
     """Garantiza el enlace anterior/siguiente correcto arriba (tras el título) y abajo.
 
     Las fuentes editoriales de content/ pueden traerlo escrito a mano. Si falta
-    (Partes 40-44) o quedó desactualizado (la última clase de una parte escrita
+    (Partes 26, 28, 45 y 48–49) o quedó desactualizado (la última clase de una parte escrita
     antes de que existiera la siguiente), se compone aquí, para que todas las clases
     lleven la misma navegación sin editar cada fuente.
     """
@@ -1083,7 +1059,7 @@ def expected_files(program: dict) -> dict[Path, str]:
     result = {ROOT / "sources/phase3.json": dump_json(source_catalog(program))}
     entries = context(program)
     for part in program["parts"]:
-        if part["lessons"][-1]["number"] > TARGET_LAST_CLASS:
+        if ps.part_phase(int(part["id"])) != 3:
             continue
         for lesson in part["lessons"]:
             _, _, previous, following = entries[lesson["id"]]

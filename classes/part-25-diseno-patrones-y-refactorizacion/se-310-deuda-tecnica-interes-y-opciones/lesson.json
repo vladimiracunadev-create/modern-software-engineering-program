@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-310",
+  "title": "Deuda técnica, interés y opciones",
+  "stage": "E",
+  "part": "25",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones"
+}

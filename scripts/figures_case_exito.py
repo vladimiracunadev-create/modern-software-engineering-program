@@ -38,11 +38,11 @@ def mapa() -> Fig:
         "Diagrama de tres columnas: cada una nombra una tensión de ingeniería, enlaza con flechas a las plataformas que la ilustran y señala las partes del curso que dan las herramientas para analizarla. Escala operada como producto: Netflix, Amazon y Spotify. Mercados de dos lados: Uber, Mercado Libre y Airbnb. Interfaz y concurrencia como ventaja: Stripe y WhatsApp.",
         [
             ("Escala operada como producto", "teal", ["Netflix", "Amazon", "Spotify"],
-             "Partes 28, 29, 31 y 35: sistemas distribuidos, nube, resiliencia y SRE"),
+             "Partes 32, 33, 36 y 41: sistemas distribuidos, nube, resiliencia y SRE"),
             ("Mercados de dos lados", "gold", ["Uber", "Mercado Libre", "Airbnb"],
-             "Partes 10, 11, 25 y 27: producto, economía, arquitectura e integración"),
+             "Partes 10, 11, 27 y 31: producto, economía, arquitectura e integración"),
             ("Interfaz y concurrencia como ventaja", "navy", ["Stripe", "WhatsApp"],
-             "Partes 13, 20, 28 y 32: contratos, backend, concurrencia y seguridad"),
+             "Partes 13, 20, 32 y 38: contratos, backend, concurrencia y seguridad"),
         ],
     )
 

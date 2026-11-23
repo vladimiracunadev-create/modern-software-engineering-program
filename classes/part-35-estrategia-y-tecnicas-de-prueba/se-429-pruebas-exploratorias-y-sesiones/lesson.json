@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-429",
+  "title": "Pruebas exploratorias y sesiones",
+  "stage": "F",
+  "part": "35",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones"
+}

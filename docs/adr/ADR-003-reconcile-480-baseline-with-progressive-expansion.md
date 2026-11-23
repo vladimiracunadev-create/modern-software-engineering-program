@@ -1,5 +1,10 @@
 # ADR-003 — Reconciliar la línea base de 480 clases con la expansión progresiva
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](../ID-MIGRATION.md) ([ADR-007](ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 - Estado: aceptada
 - Fecha: 2026-10-04
 - Alcance: arquitectura curricular, preservación y control de crecimiento

@@ -1,267 +1,238 @@
-"""Figures for SE-475 to SE-480 (SPEC, agents and agentic life cycle: synthetic data with fixed seeds, plus runs of real CPython/SQLite code on Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3; no language model was invoked)."""
+"""Figures for SE-475 to SE-480 (synthetic data with fixed seeds, real file/hash/openssl probes; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
 from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+from figure_diagrams import fan, merge
+from figures_part07_a import bars
 
 
 SINT = "Datos sintéticos con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
-EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2) con datos sintéticos; los recuentos son idénticos en ambos."
-REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
-
-# ---------------------------------------------------------------- SE-475
-def se475_validar_cada_mensaje() -> Fig:
-    return heatmap(
-        "Cien mensajes y tres niveles de comprobación: cuántos de cada clase se ejecutan",
-        "Mapa de calor con los mensajes malformados que se ejecutan, de 5 por clase, según el nivel de comprobación: con solo la forma JSON-RPC se ejecutan 25 de los 40 malformados, con versión y método de la cabecera 15 y con nombre, argumentos y alcance ninguno; los 5 mensajes con cabecera de una herramienta permitida y cuerpo de borrar historial se ejecutan en los dos primeros niveles y en el tercero no.",
-        ["JSON roto", "Sin identificador", "Versión antigua", "Método distinto en cabecera y cuerpo", "Nombre distinto en cabecera y cuerpo", "Herramienta inexistente", "Argumento de tipo equivocado", "Recurso fuera de alcance", "Cabecera permitida, cuerpo de borrar historial"],
-        ["Solo forma", "+ versión y método", "+ nombre, argumentos y alcance"],
-        [[5, 0, 0], [5, 0, 0], [5, 5, 0], [5, 5, 0], [5, 5, 5], [5, 0, 0], [5, 5, 5], [5, 5, 5], [5, 5, 0]],
-        unit="Ejecutados de 5", scale="coral", vmin=0, vmax=5, decimals=0, label_w=300, cell_h=38,
-        note="Los 60 mensajes válidos pasan siempre, en los tres niveles. La última fila es el desajuste entre quien autoriza por cabecera y quien ejecuta el cuerpo. El manejador es una imitación escrita por el autor, no una implementación conforme.",
-        note_kind="gold", foot=EJEC)
+REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); lo que difiere entre sistemas se indica en la figura."
 
 
 # ---------------------------------------------------------------- SE-475
-def se475_descripciones_y_huellas() -> Fig:
+def se403_segmentacion() -> Fig:
     return grouped_bars(
-        "Catálogo de 20 herramientas con 4 descripciones con instrucciones: buscador de patrones y huellas fijadas",
-        "Barras horizontales con los resultados de un catálogo de 20 herramientas, 4 con instrucciones escondidas: el buscador de patrones halla 3 de las 4 y marca 3 legítimas; la huella fijada alerta en 6 de 6 actualizaciones, 4 benignas y 2 maliciosas; el buscador marca solo 1 de las 2 actualizaciones maliciosas.",
-        ["Buscador: descripciones con instrucciones halladas (de 4)", "Buscador: herramientas legítimas marcadas", "Buscador: actualizaciones maliciosas marcadas (de 2)", "Huella fijada: actualizaciones que alertan (de 6)"],
-        [("Cantidad", [3, 3, 1, 6], "navy")],
-        unit="Herramientas o actualizaciones", horizontal=True, decimals=0, label_w=330,
-        note="El buscador marca 6 herramientas; la descripción que no usa palabras de mando pasa. La huella no deja pasar ningún cambio y a cambio obliga a revisar también los benignos (4 de las 6 alertas); el buscador prioriza qué leer primero y falla de las dos maneras. Las descripciones y los patrones los escribió el autor.",
-        note_kind="coral", foot=EJEC)
+        'Segmentación por huella de usuario: uniformidad, independencia entre banderas y consistencia al ampliar',
+        "Barras agrupadas con los usuarios expuestos a dos banderas al 10 por ciento sobre 100 000: con la misma huella y sin sal los expuestos a ambas son 9 821, los mismos para las dos, frente a 965 si fueran independientes; con la bandera como sal son 991 frente a 978.",
+        ["Misma huella, sin sal", "La bandera como sal"],
+        [("Expuestos a ambas banderas", [9821, 991], "coral"), ("Esperados si fueran independientes", [965, 978], "teal")],
+        unit="Usuarios de 100 000",
+        note='El chi-cuadrado del reparto es 75,8 con 99 grados de libertad, compatible con uniformidad. Sin la bandera como sal, las banderas no son experimentos independientes: el mismo 10 % de usuarios las recibe todas y cualquier efecto se confunde.', note_kind='gold', foot=SINT)
 
 
-# ---------------------------------------------------------------- SE-475
-def se475_cache_y_obsolescencia() -> Fig:
-    return grouped_bars(
-        "Caché de listados durante siete días con 120 consultas por hora y un cambio de catálogo cada seis horas de media",
-        "Barras horizontales en escala logarítmica con las lecturas por día según el tiempo de vida de la caché: sin caché 2853 y ninguna respuesta vieja; con 30 segundos 1436 y 0,04 por ciento viejas; con 5 minutos 262 y 0,71; con una hora 24 y 8,66; con un día 1 y 79,01 por ciento de respuestas viejas.",
-        ["Sin caché (0,00 % con catálogo viejo)", "30 segundos (0,04 %)", "5 minutos (0,71 %)", "1 hora (8,66 %)", "1 día (79,01 %)"],
-        [("Lecturas por día", [2853, 1436, 262, 24, 1], "navy")],
-        unit="Lecturas por día", horizontal=True, log=True, decimals=0, label_w=250,
-        note="Entre paréntesis, las respuestas con catálogo viejo; la antigüedad máxima de un cambio no visto crece de menos de 1 minuto con 30 s a 5 min, 58 min y 1 405 min (23 h). La elección del tiempo de vida es de riesgo, no de comodidad: una retirada urgente de una herramienta tarda en surtir efecto lo que dure la caché. Los cambios de catálogo son un proceso de Poisson supuesto.",
-        note_kind="gold", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-476
-def se476_contexto_con_subagentes() -> Fig:
-    return grouped_bars(
-        "Contexto de entrada procesado por un agente único y por ocho subagentes según la lectura redundante",
-        "Barras horizontales con los millones de tokens de entrada procesados: el agente único procesa 4,16 y termina con 165000; con subagentes el consumo es 0,90 con lectura mínima, 1,46 con el doble, 2,02 con el triple, 2,58 con el cuádruple y 3,70 con seis veces, y el contexto final del orquestador es siempre 17000 tokens.",
-        ["Agente único (100 %)", "Subagentes, lectura mínima 1× (22 %)", "Subagentes, 2× (35 %)", "Subagentes, 3× (49 %)", "Subagentes, 4× (62 %)", "Subagentes, 6× (89 %)"],
-        [("Tokens procesados", [4.16, 0.90, 1.46, 2.02, 2.58, 3.70], "navy")],
-        unit="Millones de tokens procesados", horizontal=True, decimals=2, label_w=260,
-        note="Entre paréntesis, el consumo frente al agente único. Contexto final: 165 000 tokens del agente único y 17 000 del orquestador. El modelo cuenta solo tokens de entrada por turno: no incluye salida, caché ni coordinación, y por eso no contradice que en la práctica los sistemas multiagente consuman más. Muestra la forma cuadrática del agente único.",
-        note_kind="gold", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-476
-def se476_hechos_que_sobreviven() -> Fig:
-    return grouped_bars(
-        "Probabilidad de que cinco hechos necesarios lleguen al orquestador según la retención de cada resumen",
-        "Barras agrupadas con la probabilidad de que lleguen los cinco hechos según la retención de cada resumen: con 99 por ciento llegan el 95,1 por ciento de las veces, con 95 el 77,4, con 90 el 59,0 y con 80 el 32,8; la simulación de 20000 corridas da 95,1, 77,3, 59,0 y 33,0.",
-        ["Retención del 99 %", "Retención del 95 %", "Retención del 90 %", "Retención del 80 %"],
-        [("Cálculo", [95.1, 77.4, 59.0, 32.8], "navy"), ("Simulación (20 000 corridas)", [95.1, 77.3, 59.0, 33.0], "teal")],
-        unit="Llegan los 5 hechos (%)", decimals=1, plot_h=260,
-        note="La probabilidad cae como la retención elevada al número de hechos. Se supone independencia entre hechos; en la práctica se pierden primero los números y los matices.",
-        note_kind="coral", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-476
-def se476_colisiones_de_edicion() -> Fig:
-    xs = [2, 3, 4, 6, 8]
+def se403_combinatoria() -> Fig:
     return line_chart(
-        "Probabilidad de conflicto de edición con 60 archivos y 5 por agente según el reparto",
-        "Líneas con la probabilidad de conflicto de edición según los agentes y el reparto: con reparto al azar 36,5 por ciento con dos agentes, 75,3 con tres, 94,4 con cuatro y 100 con seis y ocho; con propiedad por carpeta 0,0 en todos los casos; con propiedad y 20 por ciento de tareas con un archivo común 0,7, 2,0, 3,6, 8,9 y 16,0.",
-        [("Reparto al azar", list(zip(xs, [36.5, 75.3, 94.4, 100.0, 100.0])), "coral"), ("Propiedad por carpeta", list(zip(xs, [0.0, 0.0, 0.0, 0.0, 0.0])), "teal"),
-         ("Propiedad y 20 % con archivo común", list(zip(xs, [0.7, 2.0, 3.6, 8.9, 16.0])), "gold")],
-        x_label="Agentes", y_label="Probabilidad de conflicto (%)", x_ticks=[(x, str(x)) for x in xs], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none", decimals=1, plot_h=300,
-        note="Los archivos comunes reintroducen el conflicto aunque cada agente respete su zona. El trabajo real no elige archivos al azar y la propiedad rara vez se respeta al 100 %.",
-        note_kind="gold", foot=SINT)
+        'Banderas booleanas independientes: estados posibles y casos que cubren todos los pares (construcción voraz con semilla)',
+        "Líneas en escala logarítmica con los estados posibles de banderas booleanas independientes y los casos que cubren todos los pares: 4 banderas dan 16 estados y 6 casos, 8 dan 256 y 7, 12 dan 4 096 y 10, 16 dan 65 536 y 11 y 20 dan 1 048 576 estados y 11 casos.",
+        [("Estados posibles (2ⁿ)", [(4, 16, "16", "t"), (8, 256, "256", "t"), (12, 4096, "4 096", "t"), (16, 65536, "65 536", "t"), (20, 1048576, "1 048 576", "l")], "coral"),
+         ("Casos que cubren todos los pares", [(4, 6, "6", "b"), (8, 7, "7", "b"), (12, 10, "10", "t"), (16, 11, "11", "b"), (20, 11, "11", "t")], "teal")],
+        x_label="Banderas booleanas", y_label="Estados o casos", log_y=True,
+        x_ticks=[(4, "4"), (8, "8"), (12, "12"), (16, "16"), (20, "20"), (22, "")], y_ticks=[1, 10, 100, 1000, 10000, 100000, 1000000], point_labels="none",
+        note='Cubrir todos los pares es barato y no cubre las interacciones de tres o más banderas ni las dependencias entre ellas (una bandera que solo tiene sentido si otra está activa). Los 11 casos son un resultado de un algoritmo voraz, una cota superior.', note_kind='gold', foot=SINT)
+
+
+def se403_deuda() -> Fig:
+    return grouped_bars(
+        'Deuda de banderas tras 60 meses con 3 banderas nuevas por mes',
+        "Barras agrupadas con la deuda de banderas tras 60 meses con 3 banderas nuevas por mes: sin política de retirada quedan 180 vivas y 177 ya al cien por cien, código muerto; con una retirada lenta quedan 23 y 20; con fecha de caducidad y dueño 14 y 11.",
+        ["Sin política de retirada", "Retirar tras el 100 % (0,10 al mes)", "Fecha de caducidad y dueño (0,35 al mes)"],
+        [("Vivas a los 60 meses", [180, 23, 14], "coral"), ("Ya al 100 %", [177, 20, 11], "gold")],
+        unit="Banderas",
+        note='Una bandera al 100 % durante meses es una rama muerta que sigue ejecutándose en las pruebas y confundiendo a quien lee. Las probabilidades de retirada son supuestos del autor; el patrón, que la deuda crece linealmente si nadie retira, es robusto.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-476
-def se476_protocolos_de_escritura() -> Fig:
-    return grouped_bars(
-        "Tres protocolos de escritura de cuatro agentes sobre una fila compartida de SQLite en 200 rondas",
-        "Barras agrupadas con las contribuciones perdidas de 800, los reintentos y los ticks de espera de tres protocolos: la escritura ciega pierde 600 sin reintentos ni espera; la versión optimista no pierde ninguna y hace 1200 reintentos; el arrendamiento con caducidad no pierde ninguna, no reintenta y espera 980 ticks.",
-        ["Escritura ciega", "Versión optimista", "Arrendamiento con caducidad"],
-        [("Contribuciones perdidas de 800", [600, 0, 0], "coral"), ("Reintentos", [0, 1200, 0], "gold"), ("Ticks de espera", [0, 0, 980], "navy")],
-        unit="Cantidad", decimals=0, plot_h=260,
-        note="La pérdida de la escritura ciega es estructural: sobrevive una de cuatro contribuciones. Los cuatro agentes leen a la vez en cada ronda, el caso peor para la versión optimista; SQLite en memoria no reproduce la concurrencia real.",
-        note_kind="coral", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-477
-def se477_politicas_de_aprobacion() -> Fig:
-    return grouped_bars(
-        "Cuatro políticas de aprobación en 5 000 sesiones de 200 acciones con un 4 % irreversibles",
-        "Barras horizontales en escala logarítmica con los avisos por sesión y las irreversibles ejecutadas por sesión: preguntar en cada acción genera 200 avisos y deja ejecutar 3,02, con 93,5 por ciento de sesiones afectadas; preguntar por riesgo 22,5 y 1,30; aprobar un plan 11,1 y 1,18; preguntar solo lo irreversible con pausa 8,0 y 0,54, con 41,5 por ciento.",
-        ["Preguntar en cada acción (93,5 % de sesiones con alguna)", "Preguntar solo las de riesgo (73,2 %)", "Aprobar el plan y preguntar las desviaciones (69,5 %)", "Solo lo irreversible, con pausa obligatoria (41,5 %)"],
-        [("Avisos por sesión", [200.0, 22.5, 11.1, 8.0], "grey"), ("Irreversibles ejecutadas por sesión", [3.02, 1.30, 1.18, 0.54], "coral")],
-        unit="Avisos o irreversibles por sesión", horizontal=True, log=True, decimals=2, label_w=300,
-        note="Entre paréntesis, el porcentaje de sesiones con alguna acción irreversible ejecutada. El clasificador de riesgo supone un 90 % de aciertos y un 8 % de falsas alarmas. Preguntar por todo agota la atención en lo rutinario. La última política supone saber qué es irreversible. La función de atención, el 4 % y el clasificador son supuestos del autor: no se observó a ninguna persona.",
-        note_kind="coral", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-477
-def se477_deshacer_con_diario() -> Fig:
-    return stacked_bars(
-        "Sesenta acciones de un generador con semilla sobre 40 archivos y su deshacer con un diario por acción",
-        "Barra apilada con las 60 acciones de un generador sobre 40 archivos: 55 sobre archivos, que el diario deshace hasta dejar el estado igual al inicial, y 5 correos simulados que el diario no puede deshacer.",
-        ["60 acciones"], [("Acciones que el diario deshace (archivos)", [55], "teal"), ("Acciones que no se pueden deshacer (correos)", [5], "coral")],
-        unit="Acciones", horizontal=True, decimals=0, label_w=130,
-        note="El directorio cambió tras las 60 acciones y, al deshacer en orden inverso, el estado coincide con el inicial. El diario ocupa 2 216 bytes (85 % del espacio). El diario restaura el estado de los archivos y no lo que sale del sistema. Son archivos pequeños, sin enlaces simbólicos, permisos especiales ni caídas a mitad de acción.",
-        note_kind="gold", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-477
-def se477_compensar_un_flujo() -> Fig:
-    return stacked_bars(
-        "Flujo de cinco pasos con 8 % de fallo por intento: consistencia según la estrategia de compensación (20 000 ejecuciones)",
-        "Barras apiladas horizontales con el resultado de 20000 ejecuciones según la compensación: sin compensación el 34,3 por ciento queda a medias; compensar sin reintentar deja 95,5 por ciento consistente y 4,5 a medias; con dos reintentos 100,0 y 0,1; con el paso 3 irreversible 87,8 consistente y 12,1 con efecto residual.",
-        ["Sin compensación", "Compensar sin reintentar", "Compensar con 2 reintentos", "Con 2 reintentos y el paso 3 irreversible"],
-        [("Consistentes", [65.7, 95.5, 100.0, 87.8], "teal"), ("A medias", [34.3, 4.5, 0.1, 0.0], "gold"), ("Con efecto residual", [0.0, 0.0, 0.0, 12.1], "coral")],
-        unit="Ejecuciones (%)", horizontal=True, decimals=1, label_w=250,
-        note="Ejecuciones completas: 65,7 %, 65,4 %, 65,4 % y 65,6 %. Un paso irreversible deja un efecto que ninguna compensación elimina; conviene ponerlo al final. El 8 % de fallo y la independencia entre intentos son supuestos del autor.",
-        note_kind="coral", foot=SINT)
-
-
-# ---------------------------------------------------------------- SE-478
-def se478_filtros_de_instrucciones() -> Fig:
-    return heatmap(
-        "Cuatro filtros de instrucciones inyectadas sobre 200 documentos: 40 con una orden de prueba en cinco formas y 160 inocuos",
-        "Mapa de calor con las órdenes detectadas, de 8 por forma, por cuatro filtros: la frase fija detecta 8 de 8 directas y ninguna de las otras formas; normalizar y decodificar suma las de ancho cero y las codificadas; unir los campos suma las repartidas; el patrón amplio detecta las 40 y marca 19 de los 160 documentos inocuos.",
-        ["Frase fija sobre el texto sin tratar", "+ normalizar el texto y decodificar", "+ unir los campos antes de buscar", "+ patrón amplio (paráfrasis)"],
-        ["Directa", "Parafraseada", "Ancho cero", "Codificada", "Repartida"],
-        [[8, 0, 0, 0, 0], [8, 0, 8, 8, 0], [8, 0, 8, 8, 8], [8, 8, 8, 8, 8]],
-        unit="Detectadas de 8", scale="teal", vmin=0, vmax=8, decimals=0, label_w=280,
-        note="Inocuos marcados de 160: 0, 0, 0 y 19. Cada forma que se cierra añade ingeniería o falsas alarmas: el patrón amplio marca 19 de 160 inocuos. El 100 % es consecuencia de un conjunto de pruebas escrito conociendo las cinco formas; no se midió ningún modelo.",
-        note_kind="coral", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-478
-def se478_tres_capacidades() -> Fig:
-    return stacked_bars(
-        "Doce tareas típicas de un agente y cinco políticas sobre datos privados, contenido no confiable y comunicación hacia fuera",
-        "Barras apiladas horizontales con las 12 tareas según la política: sin restricción pasan 12 sin ayuda; quitar la comunicación hacia fuera deja 6 y bloquea 6; quitar el contenido no confiable deja 4 y bloquea 8; quitar los datos privados deja 2 y bloquea 10; marcar lo leído y exigir aprobación para salir deja 9 sin ayuda y 3 con aprobación, sin ninguna bloqueada.",
-        ["Sin restricción", "Quitar la comunicación hacia fuera", "Quitar el contenido no confiable", "Quitar los datos privados", "Marcar lo leído como no confiable y exigir aprobación para salir"],
-        [("Sin ayuda", [12, 6, 4, 2, 9], "teal"), ("Bloqueadas", [0, 6, 8, 10, 0], "coral"), ("Con aprobación", [0, 0, 0, 0, 3], "gold")],
-        unit="Tareas de 12", horizontal=True, decimals=0, label_w=310,
-        note="Sin restricción, 3 de las 12 tareas reúnen las tres capacidades sin aprobación. En 5 000 configuraciones de 6 herramientas de un catálogo de 15, el 73,5 % reúne las tres capacidades. Las tareas y sus capacidades son una clasificación del autor tratada como todo o nada.",
-        note_kind="gold", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-478
-def se478_registro_que_se_nota() -> Fig:
-    return heatmap(
-        "Cinco manipulaciones de un registro de auditoría de 500 eventos: fracción detectada por esquema (200 ensayos cada una)",
-        "Mapa de calor con la fracción detectada de cinco manipulaciones de un registro de 500 eventos: un registro simple detecta 0 por ciento en todas; una cadena de huellas detecta 100 por ciento de editar, borrar e intercambiar eventos y 0 de cortar los últimos 20 o reescribir y recalcular; con la huella final guardada aparte se detectan las cinco al 100 por ciento.",
-        ["Editar un evento", "Borrar un evento", "Intercambiar dos eventos", "Cortar los últimos 20 eventos", "Reescribir desde un punto y recalcular la cadena"],
-        ["Registro simple", "Cadena de huellas", "Cadena y huella final aparte"],
-        [[0, 100, 100], [0, 100, 100], [0, 100, 100], [0, 0, 100], [0, 0, 100]],
-        unit="Detectado (%)", scale="navy", vmin=0, vmax=100, decimals=0, label_w=300,
-        note="La integridad de un registro es una propiedad de quién controla la referencia: quien puede reescribir la cadena entera produce una cadena válida. Un atacante que controle también la referencia no sería detectado.",
-        note_kind="gold", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-479
-def se479_reglas_de_parada() -> Fig:
-    return heatmap(
-        "Pasos ejecutados antes de la parada según la regla, para cinco comportamientos de agente (tope de 200)",
-        "Mapa de calor con los pasos antes de la parada de cinco comportamientos según cinco reglas: repetir el mismo paso se detiene en 50 con el máximo, 25 con el presupuesto, 3 con el estado repetido y 9 sin avance; oscilar en 50, 25, 5 y 9; cambiar de estado sin avanzar en 50, 25, nunca y 9; avanzar 12 pasos y estancarse en 50, 25, nunca y 21; la tarea legítima de 60 pasos se corta por error en 50 y 25; combinadas, 3, 5, 9, 21 y 25.",
-        ["Repite el mismo paso", "Oscila entre dos estados", "Cambia de estado sin avanzar", "Avanza 12 pasos y se estanca", "Tarea larga legítima (60 pasos)"],
-        ["50 pasos", "30 000 tokens", "Estado 3 veces", "Sin avance en 8", "Combinadas"],
-        [[50, 25, 3, 9, 3], [50, 25, 5, 9, 5], [50, 25, None, 9, 9], [50, 25, None, 21, 21], [50, 25, None, None, 25]],
-        unit="Pasos hasta parar (celda vacía: no para)", scale="coral", vmin=0, vmax=50, decimals=0, label_w=260,
-        note="Las celdas vacías son los casos en que la regla no para al agente. La última fila no debe detenerse: el máximo y el presupuesto la cortan sin motivo y las combinadas heredan el falso paro. Los comportamientos son máquinas de estados del autor y los parámetros son arbitrarios.",
-        note_kind="coral", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-479
-def se479_reanudar_sin_duplicar() -> Fig:
-    return grouped_bars(
-        "Reanudar tras una caída en una tarea de 30 pasos que envía un aviso por paso (500 caídas por variante)",
-        "Barras horizontales con los avisos duplicados de media y los pasos recalculados en 500 caídas por variante: reiniciar desde cero duplica 20,90 y deja algún duplicado en el 99 por ciento de las caídas; un punto de control tras el efecto en otra transacción duplica 0,31 en el 31 por ciento; la clave de idempotencia por paso y la transacción única no duplican ninguno.",
-        ["Sin punto de control, reiniciar (99 % de caídas con duplicado)", "Punto de control tras el efecto, otra transacción (31 %)", "Clave de idempotencia por paso (0 %)", "Efecto y punto de control en una transacción (0 %)"],
-        [("Duplicados (media)", [20.90, 0.31, 0.0, 0.0], "coral"), ("Pasos recalculados", [20.9, 0.3, 0.3, 0.3], "navy")],
-        unit="Avisos duplicados o pasos recalculados", horizontal=True, decimals=2, label_w=310,
-        note="Entre paréntesis, las caídas con algún duplicado. Lo que duplica es el instante entre el efecto y el punto de control. Los efectos son filas de una base en memoria; un efecto externo necesita la clave de idempotencia en el receptor.",
-        note_kind="gold", foot=EJEC)
-
-
-# ---------------------------------------------------------------- SE-479
-def se479_evaluar_con_ruido() -> Fig:
-    xs = [20, 50, 100, 300, 1000]
+def se404_deteccion() -> Fig:
     return line_chart(
-        "Dos agentes con aciertos de 70 y 76 %: detección de la diferencia según el número de tareas (2 000 repeticiones)",
-        "Líneas en escala logarítmica con el porcentaje de repeticiones que detectan la diferencia entre dos agentes con aciertos de 70 y 76 por ciento según las tareas: la prueba z declara a B mejor en 4,3 por ciento con 20 tareas, 8,3 con 50, 15,2 con 100, 38,1 con 300 y 89,5 con 1000; los intervalos separados en 0,4, 1,1, 2,2, 10,2 y 60,7.",
-        [("Prueba z: B mejor", list(zip(xs, [4.3, 8.3, 15.2, 38.1, 89.5])), "teal"), ("Intervalos separados", list(zip(xs, [0.4, 1.1, 2.2, 10.2, 60.7])), "coral")],
-        x_label="Tareas de la evaluación", y_label="Repeticiones que detectan la diferencia (%)", log_x=True,
-        x_ticks=[(x, f"{x:,}".replace(",", " ")) for x in xs], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="all", decimals=1, plot_h=300,
-        note="Semiancho del intervalo de A: 36,5, 24,4, 17,6, 10,3 y 5,7 puntos; la prueba z declara a B peor en 0,45 %, 0,10 % y 0,00 %. Con la misma dificultad, el acierto en un intento es del 70,1 %, en tres de tres del 44,7 %, y dos intentos de una tarea discrepan en el 31,4 %. Con efectos grandes bastan veinte tareas; con seis puntos hacen falta del orden de mil.",
-        note_kind="gold", foot=SINT)
+        'Tiempo hasta detectar un defecto que sube el error de 0,5 % a 1,5 % según la fracción de tráfico que recibe el canario',
+        "Líneas en escalas logarítmicas con el tiempo hasta detectar un defecto que sube el error de 0,5 a 1,5 por ciento según la fracción de tráfico del canario: la mediana baja de 58 s con el 1 por ciento a 8 s con el 50 y el percentil 95 de 268 s a 17 s; se detecta en 40 de 40 semillas en todos los casos.",
+        [("Percentil 95", [(1, 268, "268", "t"), (5, 63, "63", "t"), (10, 40, "40", "t"), (25, 20, "20", "t"), (50, 17, "17", "t")], "coral"),
+         ("Mediana", [(1, 58, "58", "b"), (5, 20, "20", "b"), (10, 10, "10", "b"), (25, 8, "8", "b"), (50, 8, "8", "b")], "teal")],
+        x_label="Fracción de tráfico que recibe el canario (%)", y_label="Tiempo hasta detectar (s)", log_x=True, log_y=True,
+        x_ticks=[(1, "1 %"), (5, "5 %"), (10, "10 %"), (25, "25 %"), (50, "50 %")], y_ticks=[1, 10, 100, 1000], point_labels="none",
+        note='Es un compromiso: un canario pequeño daña a menos usuarios y tarda más en distinguir la señal del ruido. Las diferencias entre fracciones son medianas de 40 semillas con una prueba de dos proporciones con z = 3.', note_kind='gold', foot=SINT)
 
 
-# ---------------------------------------------------------------- SE-480
-def se480_autodeclaracion_y_verificacion() -> Fig:
-    return heatmap(
-        "Seis defectos inyectados en un servicio de diez requisitos: qué vía de verificación los detecta",
-        "Mapa de calor con seis defectos inyectados en un servicio de avisos de diez requisitos y cuatro vías de verificación: la autodeclaración con tres pruebas del camino feliz detecta 0 de 6, las pruebas por requisito de RF-01 a RF-08 detectan 6 de 6, las pruebas de reinicio y copia detectan 1 de 6 y la vista combinada 6 de 6.",
-        ["D1 envía todos los umbrales (RF-06)", "D2 no reabre al cambiar el vencimiento (RF-07)", "D3 estado de envíos en memoria (RF-09)", "D4 distingue mayúsculas en el silencio (RF-04)", "D5 historial incompleto (RF-08)", "D6 avisa tras el vencimiento (RF-05)"],
-        ["Autodeclaración", "Pruebas RF-01 a RF-08", "Reinicio y copia", "Combinada"],
-        [[0, 1, 0, 1], [0, 1, 0, 1], [0, 1, 1, 1], [0, 1, 0, 1], [0, 1, 0, 1], [0, 1, 0, 1]],
-        unit="Detectado", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v else "no", label_w=310,
-        note="Con los seis defectos a la vez, siete de diez requisitos tienen una prueba en rojo y los tres de la autodeclaración siguen en verde. Los defectos los eligió el autor: el 6 de 6 es una cota superior, no una tasa de detección.",
-        note_kind="coral", foot=EJEC)
+def se404_alarmas() -> Fig:
+    items = [
+        ("z = 1,64", 47.0, "coral", "47,0 %"),
+        ("z = 2,33", 23.5, "coral", "23,5 %"),
+        ("z = 3,00", 9.5, "gold", "9,5 %"),
+        ("z = 4,00", 2.0, "teal", "2,0 %"),
+    ]
+    return bars("Reversiones innecesarias en 200 episodios de 30 minutos sin ningún defecto, según el umbral de la prueba",
+                "Barras: sin defecto alguno, un umbral z de 1,64 hace revertir el 47 por ciento de los episodios de 30 minutos; z de 2,33, el 23,5; z de 3, el 9,5; z de 4, el 2.",
+                items, 3.6, "Una prueba que se evalúa cada segundo durante 30 minutos recibe cientos de oportunidades de equivocarse: un umbral pensado para una sola decisión produce falsas alarmas. Subir el umbral baja las falsas alarmas y alarga la detección del defecto verdadero.",
+                label_w=160, width=900, note_kind="coral", foot=SINT)
 
 
-# ---------------------------------------------------------------- SE-480
-def se480_restaurar_una_copia() -> Fig:
+def se404_tamano() -> Fig:
+    return line_chart(
+        'Canario del 5 %, horizonte de 30 minutos: tamaño del defecto frente a su detección',
+        "Línea en escalas logarítmicas con la mediana de detección de un canario del 5 por ciento según el aumento del error: 868 s con 0,10 puntos, solo detectado en 22 de 40 semillas, 274 s con 0,25, 69 s con 0,5, 18 s con 1,0 y 6 s con 2,0, con 40 de 40 detecciones desde 0,25.",
+        [("Mediana de detección", [(0.10, 868, "868 s · 22 de 40", "r"), (0.25, 274, "274 s", "t"), (0.5, 69, "69 s", "t"), (1.0, 18, "18 s", "t"), (2.0, 6, "6 s", "t")], "coral")],
+        x_label="Aumento del error (puntos porcentuales)", y_label="Mediana de detección (s)", log_x=True, log_y=True,
+        x_ticks=[(0.1, "0,10"), (0.25, "0,25"), (0.5, "0,5"), (1.0, "1,0"), (2.0, "2,0"), (4.0, "")], y_ticks=[1, 10, 100, 1000], point_labels="none",
+        note='Existe un defecto demasiado pequeño para este canario y esta ventana: la ausencia de alarma no prueba ausencia de defecto. En blue-green sin migración incompatible el retroceso es un cambio de ruta; con una migración destructiva que ya recibió escrituras nuevas, el retroceso sin perder datos fue posible en el 18,5 % de los casos simulados.', note_kind='gold', foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-477
+def se405_fallos() -> Fig:
     return grouped_bars(
-        "Restaurar una copia de un servicio con 30 entregas y 60 pasadas al día durante tres días (400 caídas por fila)",
-        "Barras agrupadas con las pasadas perdidas y los avisos reenviados de media según la frecuencia de copia: una copia cada 24 horas pierde 28,9 pasadas y reenvía 6,8 avisos, con algún reenvío en el 87 por ciento de las caídas; cada 6 horas 6,9 y 1,4, el 60 por ciento; cada hora 0,8 y 0,0, el 0 por ciento.",
-        ["Cada 24 h (87 % de caídas con reenvío)", "Cada 6 h (60 %)", "Cada 1 h (0 %)"],
-        [("Pasadas perdidas", [28.9, 6.9, 0.8], "coral"), ("Avisos reenviados", [6.8, 1.4, 0.0], "gold")],
-        unit="Pasadas o avisos (media)", decimals=1, plot_h=260,
-        note="Entre paréntesis, las caídas con algún reenvío. Todas las copias pasan la comprobación de integridad. La copia en línea de SQLite sale siempre íntegra; la frecuencia decide cuántos estudiantes reciben un aviso repetido. La caída uniforme en el tiempo y la ausencia de escrituras concurrentes son supuestos del autor.",
-        note_kind="gold", foot=EJEC)
+        'Fallo inyectado en cada paso de una actualización de 6 módulos y un manifiesto: estado final de la instalación (archivos reales)',
+        "Barras agrupadas con los puntos de fallo inyectados en cada estrategia de actualización de 6 módulos y un manifiesto y los que dejan la instalación en la versión 1 consistente: sobrescribir en sitio deja 0 de 7, reemplazar archivo por archivo 2 de 14 y las estrategias con directorio nuevo y puntero, con o sin verificación previa, 9 de 9.",
+        ["A: sobrescribir en sitio", "B: reemplazar cada archivo por separado", "C: directorio nuevo y puntero", "D: como C, con verificación previa"],
+        [("Puntos de fallo", [7, 14, 9, 9], "grey"), ("Quedan en v1 consistente", [0, 2, 9, 9], "teal")],
+        unit="Puntos de fallo inyectados", ticks=[0, 4, 8, 12, 16],
+        note='Sin interrupción las cuatro terminan en v2 consistente; la diferencia está en qué hay después de una interrupción. Con un byte alterado en un módulo descargado, C termina en una instalación corrupta y D la rechaza antes del reemplazo y conserva v1. El experimento simula el corte con una excepción y no desconecta energía ni prueba el comportamiento del sistema de archivos.', note_kind='coral', foot="Operaciones reales con archivos temporales; resultado idéntico en Windows y Ubuntu.")
+
+
+def se405_sesgo() -> Fig:
+    return stacked_bars(
+        'Sesgo de versiones en 20 000 clientes con un lanzamiento cada 14 días: versiones de retraso',
+        "Barras apiladas con las versiones de retraso de 20 000 clientes con un lanzamiento cada 14 días: a los 30 días el 78,0 por ciento está al día y el 22,0 lleva 2 o 3 de retraso; a los 90 días el 78,0 está al día, el 10,8 lleva 2 o 3 y el 11,2 lleva 4 o más; a los 180 días el 88,8 está al día y el 11,2 lleva 4 o más.",
+        ["Día 30 (versión actual 2)", "Día 90 (versión actual 6)", "Día 180 (versión actual 12)"],
+        [("Al día", [78.0, 78.0, 88.8], "teal"), ("1 de retraso", [0, 0, 0], "grey"), ("2–3 de retraso", [22.0, 10.8, 0], "gold"), ("4 o más", [0, 11.2, 11.2], "coral")],
+        unit="% de los clientes", horizontal=True, label_w=220, decimals=1,
+        note='Los clientes abren la aplicación cada 1, 2, 3, 7, 14, 30, 60 o 120 días (distribución supuesta). Se observaron 22 caminos de actualización distintos y 8 712 de 182 568 actualizaciones saltaron 3 versiones o más: cada camino tiene que haberse probado.', note_kind='gold', foot=SINT)
+
+
+def se405_saltos() -> Fig:
+    items = [
+        ("Salto de 1 versión", 160536.0, "teal", "160 536"),
+        ("Salto de 2 versiones", 13320.0, "gold", "13 320"),
+        ("Salto de 4 versiones", 6465.0, "coral", "6 465"),
+        ("Salto de 8 versiones", 2247.0, "coral", "2 247"),
+    ]
+    return bars("Actualizaciones realizadas según cuántas versiones se saltan (20 000 clientes, 180 días)",
+                "Barras: de 182 568 actualizaciones, 160 536 saltan una versión, 13 320 saltan dos, 6 465 saltan cuatro y 2 247 saltan ocho versiones.",
+                items, 0.0016, "El 4,8 % de las actualizaciones de la simulación salta cuatro o más versiones (y el 12,1 % dos o más); esas son las que ejercitan migraciones que nadie probó en conjunto. Un actualizador que solo admite pasos de una versión obliga a encadenar migraciones; uno que admite saltos obliga a probarlos.",
+                label_w=220, width=940, note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-478
+def se406_real() -> Fig:
+    return grouped_bars(
+        'Escaneo real de los tres workflows de este repositorio con siete reglas',
+        "Barras agrupadas con las acciones que usa cada uno de los tres workflows del repositorio y las que están fijadas a un SHA de 40 caracteres: 5 de 5 en pages.yml, 5 de 5 en security.yml y 10 de 10 en validate.yml; las siete reglas del escáner no producen ningún hallazgo.",
+        ["pages.yml (83 líneas)", "security.yml (90 líneas)", "validate.yml (258 líneas)"],
+        [("Acciones usadas", [5, 5, 10], "grey"), ("Fijadas a SHA", [5, 5, 10], "teal")],
+        unit="Acciones", ticks=[0, 2, 4, 6, 8, 10, 12],
+        note='Un escaneo sin hallazgos dice que no hay lo que las reglas buscan, no que el CI sea seguro: el escáner solo lee el texto. El resultado es el mismo en Windows y en Ubuntu porque lee los mismos archivos; es una medición de este repositorio en esta fecha, no una garantía.', note_kind='gold', foot=REAL)
+
+
+def se406_mutaciones() -> Fig:
+    return grouped_bars(
+        'Un escáner de reglas frente a 155 mutaciones de los workflows reales (11 operadores)',
+        "Barras horizontales con las mutaciones inyectadas y detectadas por un escáner de reglas en los workflows reales: detecta todas las que desfijan una acción, quitan permissions o los ponen en write-all, añaden pull_request_target, interpolan el título del PR o un secreto, añaden curl a bash o quitan persist-credentials, y ninguna de las tres que mantienen la forma.",
+        ["Desfijar una acción (de SHA a v4)", "Quitar permissions de nivel superior", "Poner permissions en write-all", "Añadir pull_request_target", "Interpolar el título del PR en un comando", "Añadir curl | bash",
+         "Quitar persist-credentials: false", "Interpolar un secreto en un comando", "Fijar a SHA un repositorio de otro dueño", "Fijar a un SHA válido pero malicioso", "Añadir un paso con salida de red"],
+        [("Inyectadas", [15, 10, 10, 15, 15, 15, 15, 15, 15, 15, 15], "grey"), ("Detectadas", [15, 10, 10, 15, 15, 15, 15, 15, 0, 0, 0], "teal")],
+        unit="Mutaciones", horizontal=True, label_w=270, ticks=[0, 5, 10, 15],
+        note='Detecta 110 de 155 (71,0 %). Las 45 que se escapan son todas formalmente correctas: están fijadas, con permisos mínimos, y cambian de qué se fía el workflow. Las mutaciones que no cambiaron el texto (permisos ya vacíos) se descartaron.', note_kind='coral', foot=SINT)
+
+
+def se406_alcance() -> Fig:
+    return fan(
+        'Alcance de un paso comprometido según la configuración del workflow',
+        "Diagrama de lo que alcanza un paso comprometido según la configuración del workflow: con permisos de escritura por defecto y secretos como variables alcanza código, etiquetas, releases, secretos del job y caché; con solo lectura alcanza la lectura del código; con permisos mínimos por job solo lo que ese job necesita; con pull_request_target sobre un fork, los secretos del repositorio base.",
+        ("Un paso del workflow queda comprometido", "qué alcanza depende de la configuración", "navy"),
+        [("Permisos de escritura por defecto y secretos como variables del job", "código, etiquetas, releases, secretos del job y caché", "coral"),
+         ("permissions: contents: read, sin secretos", "lectura del código; el artefacto puede alterarse dentro del job", "gold"),
+         ("permissions: {} arriba y permisos mínimos por job", "solo lo que ese job necesita; id-token solo en el job de publicación", "teal"),
+         ("pull_request_target ejecutando código de un fork", "contexto privilegiado con código no confiable: secretos del repositorio base", "coral")],
+        note='Es un modelo de alcance a partir de la documentación de GitHub Actions, sin medir ningún ataque. Reducir permisos no evita el compromiso; reduce lo que se pierde cuando ocurre.', note_kind='gold', foot="Análisis del autor a partir de la documentación oficial.")
+
+
+# ---------------------------------------------------------------- SE-479
+def se407_detectadas() -> Fig:
+    return merge(
+        'Doce manipulaciones de un release firmado y la comprobación que rechaza cada una (verificador de 12 comprobaciones)',
+        "Diagrama de diez de las doce manipulaciones de un release firmado y la comprobación del verificador que rechaza cada una, desde el artefacto cambiado con el manifiesto intacto hasta el componente retirado del SBOM y re-firmado; el verificador de 12 comprobaciones rechaza las doce.",
+        [("Artefacto cambiado, manifiesto intacto", "rechaza: huella del artefacto", "plain"), ("SBOM alterado", "rechaza: huella del SBOM", "plain"), ("Procedencia alterada", "rechaza: huella de la procedencia", "plain"),
+         ("Firma inválida o de otra clave", "rechaza: firma del manifiesto", "plain"), ("Retroceso a una secuencia menor", "rechaza: secuencia", "plain"), ("Manifiesto de otro producto", "rechaza: nombre", "plain"),
+         ("Constructor o repositorio distinto", "rechaza: constructor o repositorio esperado", "plain"), ("Artefacto cambiado y manifiesto re-firmado", "rechaza: sujeto de la procedencia ≠ artefacto", "plain"),
+         ("Bloqueo declarado distinto del usado", "rechaza: bloqueo ≠ materiales; SBOM ≠ bloqueo", "plain"), ("Componente retirado del SBOM y re-firmado", "rechaza: SBOM ≠ bloqueo", "plain")],
+        ("Verificador de 12 comprobaciones", "rechaza las doce manipulaciones", "teal"),
+        note='Doce de doce, con firmas Ed25519 reales de openssl, idéntico en Windows y Ubuntu. Las cajas agrupan 12 casos en 10 por espacio. Que el verificador las rechace sirve para las manipulaciones que el autor imaginó; no demuestra que haya cubierto las que no imaginó.', note_kind='gold', foot=REAL)
+
+
+def se407_mentiras() -> Fig:
+    return fan(
+        'Seis casos coherentes que el verificador no rechaza y qué haría falta para verlos',
+        "Diagrama de seis casos coherentes que el verificador no rechaza y el control que haría falta para verlos: código malicioso aprobado, dependencia comprometida en el bloqueo, commit distinto del revisado, clave de firma robada, segundo release con la misma secuencia y procedencia con reproducible igual a true sin reconstruir.",
+        ("Release coherente que el verificador no rechaza", "todo pasa; cada caso necesita otro control", "navy"),
+        [("Código malicioso aprobado y construido por el CI legítimo", "pasa, todo es coherente · control: revisión de código y reconstrucción desde la fuente revisada", "coral"),
+         ("Dependencia comprometida declarada en el bloqueo", "pasa · control: revisión de cambios del bloqueo y escaneo de vulnerabilidades", "coral"),
+         ("Commit distinto del revisado", "pasa, el verificador no conoce la revisión · control: registro de revisión firmado y comprobado", "coral"),
+         ("Clave de firma robada", "pasa · control: revocación, claves de corta vida, firma sin clave larga", "coral"),
+         ("Segundo release con la misma versión y secuencia", "pasa · control: registro transparente que impida reemplazos", "coral"),
+         ("Procedencia con reproducible=true sin reconstruir", "pasa, es una afirmación · control: reconstrucción independiente", "coral")],
+        note='Rechaza 0 de 6, y el sexto es el propio release legítimo con una afirmación que nadie comprueba. La integridad y la procedencia se verifican con una cadena de huellas; la confianza en el contenido no sale de ninguna cadena de huellas.', note_kind='coral', foot=REAL)
+
+
+def se407_reconstruccion() -> Fig:
+    return fan(
+        'Reconstrucción independiente desde una fuente: qué demuestra y qué no',
+        "Diagrama de tres reconstrucciones independientes: la fuente revisada coincide con el release legítimo, no coincide con el malicioso, y la fuente maliciosa coincide con el release malicioso, de modo que reproducible no equivale a legítimo.",
+        ("Reconstruir desde una fuente y comparar huellas", "qué demuestra y qué no", "navy"),
+        [("Fuente revisada frente al release legítimo", "coincide: verdadero", "teal"),
+         ("Fuente revisada frente al release malicioso", "no coincide: falso, se delata la manipulación", "teal"),
+         ("Fuente maliciosa frente al release malicioso", "coincide: verdadero, pero reproducible no equivale a legítimo", "coral")],
+        note='Una reconstrucción independiente sobre una fuente conocida y revisada convierte la mentira del primer caso en una discrepancia visible. Si la fuente es la maliciosa, el build reproducible solo reproduce con fidelidad el daño.', note_kind='gold', foot=REAL)
 
 
 # ---------------------------------------------------------------- SE-480
-def se480_paquete_de_evidencia() -> Fig:
-    return heatmap(
-        "Paquete de evidencia de diez requisitos y doce pruebas: qué requisitos tienen una variante que su prueba detecta",
-        "Mapa de calor con diez requisitos de un servicio de avisos, todos en verde con el servicio de referencia: seis de ellos, del cuatro al nueve, tienen una variante defectuosa que su prueba detecta; los cuatro restantes, uno, dos, tres y diez, no tienen variante que demuestre que su prueba puede fallar.",
-        ["RF-01 umbrales de 72, 24 y 1 hora", "RF-02 no repetir un aviso", "RF-03 no avisar si está entregada", "RF-04 no avisar si está silenciada", "RF-05 no avisar tras el vencimiento",
-         "RF-06 solo el umbral más cercano tras una caída", "RF-07 cambiar el vencimiento reabre umbrales", "RF-08 registrar cada aviso en el historial", "RF-09 reiniciar no repite avisos", "RF-10 una copia restaurada es consistente"],
-        ["Variante que su prueba detecta"],
-        [[0], [0], [0], [1], [1], [1], [1], [1], [1], [0]],
-        unit="Con variante", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v else "sin variante", label_w=330, cell_h=34,
-        note="Defectos que rompen cada requisito: RF-04 D4, RF-05 D6, RF-06 D1, RF-07 D2, RF-08 D5 y RF-09 D3. Las pruebas por requisito son 2, 1, 1, 1, 2, 1, 1, 1, 1 y 1. Cuatro requisitos están en verde sin una variante que demuestre que su prueba puede fallar: verde significa pasa, no verificado. Hay una sola variante por requisito, de modo que la figura muestra que la capacidad de detección no es nula, no cuánta tiene.",
-        note_kind="coral", foot=EJEC)
+def se408_sistemas() -> Fig:
+    return fan(
+        'Releases cruzados: cada sistema verifica el release que construyó el otro',
+        "Diagrama de los releases cruzados: el release construido y firmado en Windows con OpenSSL 3.5.7 se verifica sin fallos en Windows y en Ubuntu, el construido en Ubuntu con OpenSSL 3.0.13 se verifica sin fallos en ambos, y los dos tienen la misma huella de artefacto, 802052279bf24eb8.",
+        ("Cada sistema verifica el release del otro", "misma huella de artefacto: 802052279bf24eb8", "navy"),
+        [("Construido y firmado en Windows (OpenSSL 3.5.7)", "verificado en Windows: sin fallos · verificado en Ubuntu: sin fallos", "teal"),
+         ("Construido y firmado en Ubuntu (OpenSSL 3.0.13)", "verificado en Windows: sin fallos · verificado en Ubuntu: sin fallos", "teal")],
+        note='Las claves son distintas en cada origen y las firmas también; lo idéntico es el artefacto, porque el build es reproducible entre sistemas. Verificar una firma con otra versión de openssl es una prueba modesta de interoperabilidad, no de portabilidad de todo el canal.', note_kind='gold', foot=REAL)
+
+
+def se408_simulacros() -> Fig:
+    return fan(
+        'Cuatro simulacros de recuperación del canal de release y su resultado',
+        "Diagrama de cuatro simulacros de recuperación del canal de release: reinstalar un bundle antiguo es rechazado por la secuencia y se republica como 1.4.2 con secuencia 16; perder el repositorio se resuelve reconstruyendo con la misma huella; rotar la clave se declara antes de necesitarla; perder la clave sin rotación previa deja rechazadas todas las versiones nuevas.",
+        ("Simulacros de recuperación del canal de release", "resultado observado y cómo se recupera", "navy"),
+        [("Reinstalar el bundle firmado de 1.4.0 tras publicar 1.4.1", "rechazado por la secuencia (retroceso) · republicar como 1.4.2 con secuencia 16", "teal"),
+         ("Perder el repositorio de releases", "reconstrucción idéntica a la publicada · reconstruir desde la fuente y comparar huellas", "teal"),
+         ("Rotar la clave de firma", "declaración firmada con la clave vigente; 1.5.0 verifica con la nueva · declarar la rotación antes de necesitarla", "gold"),
+         ("Perder la clave privada sin rotación previa", "toda versión nueva rechazada por los clientes · acción humana por un canal de confianza anterior", "coral")],
+        note='Los tres primeros se resuelven con lo que el canal ya tiene; el cuarto es el que no se recupera con automatización: la recuperación de una clave perdida depende de un canal que los clientes ya hayan aceptado. Es un simulacro con un solo proceso y no la operación de un repositorio real.', note_kind='coral', foot=REAL)
+
+
+def se408_tiempos() -> Fig:
+    return grouped_bars(
+        'Costo medido de los pasos del canal sintético de release (una lectura por barra)',
+        "Barras horizontales con el tiempo de los pasos del canal sintético de release en Windows y en Ubuntu, una lectura por barra: construir, generar SBOM y procedencia y firmar toma 42,7 y 7,3 ms; republicar con nueva secuencia 45,4 y 7,1; reconstruir y comparar 0,7 y 0,8.",
+        ["Construir, generar SBOM y procedencia y firmar 1.4.0", "Republicar el contenido de 1.4.0 como 1.4.2", "Reconstruir 1.4.0 desde la fuente y comparar"],
+        [("Windows 11", [42.7, 45.4, 0.7], "coral"), ("Ubuntu WSL2", [7.3, 7.1, 0.8], "teal")],
+        unit="Tiempo (ms)", horizontal=True, label_w=290, decimals=1,
+        note='El árbol sintético tiene 42 archivos de unos cientos de bytes; el costo de un proyecto real lo dominan la compilación y la descarga de dependencias, no la firma. Las cifras cambian en cada ejecución y entre equipos; las diferencias entre sistemas reflejan sobre todo el arranque de procesos de openssl.', note_kind='gold', foot="Mediciones de reloj: una lectura por barra, no reproducibles al milisegundo.")
 
 
 FIGURES = {
-    "se-475-validar-cada-mensaje.svg": se475_validar_cada_mensaje,
-    "se-475-descripciones-y-huellas.svg": se475_descripciones_y_huellas,
-    "se-475-cache-y-obsolescencia.svg": se475_cache_y_obsolescencia,
-    "se-476-contexto-con-subagentes.svg": se476_contexto_con_subagentes,
-    "se-476-hechos-que-sobreviven.svg": se476_hechos_que_sobreviven,
-    "se-476-colisiones-de-edicion.svg": se476_colisiones_de_edicion,
-    "se-476-protocolos-de-escritura.svg": se476_protocolos_de_escritura,
-    "se-477-politicas-de-aprobacion.svg": se477_politicas_de_aprobacion,
-    "se-477-deshacer-con-diario.svg": se477_deshacer_con_diario,
-    "se-477-compensar-un-flujo.svg": se477_compensar_un_flujo,
-    "se-478-filtros-de-instrucciones.svg": se478_filtros_de_instrucciones,
-    "se-478-tres-capacidades.svg": se478_tres_capacidades,
-    "se-478-registro-que-se-nota.svg": se478_registro_que_se_nota,
-    "se-479-reglas-de-parada.svg": se479_reglas_de_parada,
-    "se-479-reanudar-sin-duplicar.svg": se479_reanudar_sin_duplicar,
-    "se-479-evaluar-con-ruido.svg": se479_evaluar_con_ruido,
-    "se-480-autodeclaracion-y-verificacion.svg": se480_autodeclaracion_y_verificacion,
-    "se-480-restaurar-una-copia.svg": se480_restaurar_una_copia,
-    "se-480-paquete-de-evidencia.svg": se480_paquete_de_evidencia,
+    "se-475-segmentacion-por-huella.svg": se403_segmentacion,
+    "se-475-combinatoria-de-banderas.svg": se403_combinatoria,
+    "se-475-deuda-de-banderas.svg": se403_deuda,
+    "se-476-deteccion-segun-canario.svg": se404_deteccion,
+    "se-476-falsas-alarmas.svg": se404_alarmas,
+    "se-476-tamano-del-defecto.svg": se404_tamano,
+    "se-477-fallo-en-cada-paso.svg": se405_fallos,
+    "se-477-sesgo-de-versiones.svg": se405_sesgo,
+    "se-477-saltos-de-version.svg": se405_saltos,
+    "se-478-workflows-reales.svg": se406_real,
+    "se-478-escaner-frente-a-mutaciones.svg": se406_mutaciones,
+    "se-478-alcance-de-un-paso-comprometido.svg": se406_alcance,
+    "se-479-manipulaciones-detectadas.svg": se407_detectadas,
+    "se-479-mentiras-coherentes.svg": se407_mentiras,
+    "se-479-reconstruccion-independiente.svg": se407_reconstruccion,
+    "se-480-verificacion-entre-sistemas.svg": se408_sistemas,
+    "se-480-simulacros-de-recuperacion.svg": se408_simulacros,
+    "se-480-costo-del-canal.svg": se408_tiempos,
 }

@@ -1,317 +1,288 @@
-"""Figures for SE-481 to SE-486 (development methodologies: runs of real CPython code over the Avisos core with 20 hand-written mutants; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3; no language model was invoked)."""
+"""Figures for SE-481 to SE-486 (synthetic data, fixed seeds, virtual time; CPython 3.12.9 on Windows 11 and 3.12.3 on Ubuntu/WSL2)."""
 from __future__ import annotations
 
-from figure_kit import Fig, _wrap, grouped_bars, heatmap, line_chart, stacked_bars
+from experiments_part40_a import (e409_cola, e409_lotes, e409_ramas, e410_cache, e410_dag, e410_matriz, e411_orden, e411_politicas,
+                                  e411_reintentos, e412_escaner, e412_tokens, e412_ventana, e413_banderas, e413_despliegue,
+                                  e413_potencia, e414_deriva, e414_estado, e414_plan)
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 
-EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2); los recuentos son idénticos en ambos y los tiempos varían de equipo en equipo."
-LAB = "Núcleo de Avisos con 20 mutantes escritos a mano (18 no equivalentes y 2 equivalentes); ejecutado en Windows 11 y Ubuntu (WSL2) con los mismos recuentos."
-
-
-def flow(title: str, desc: str, rows: list[list[tuple[str, str]]], note: str = "", note_kind: str = "gold",
-         foot: str = EJEC, width: int = 960, box_h: int = 84, gap: int = 44, size: int = 13) -> Fig:
-    """Rows of boxes joined by arrows; each box is (text, kind). Rows are joined by an elbow arrow."""
-    n_max = max(len(r) for r in rows)
-    box_w = (width - 20 - gap * (n_max - 1)) / n_max
-    for r in rows:
-        for text, _ in r:
-            lines = len(_wrap(text, size, box_w - 20))
-            assert lines * size * 1.28 <= box_h - 12, f"box overflows in {title!r}: {text!r}"
-    y = 14.0
-    boxes = []
-    for r in rows:
-        row = []
-        x = 10.0
-        for text, kind in r:
-            row.append((x, y, text, kind))
-            x += box_w + gap
-        boxes.append(row)
-        y += box_h + 40
-    y_end = y - 40 + box_h - box_h  # y of last row bottom computed below
-    last_bottom = 14 + (len(rows) - 1) * (box_h + 40) + box_h
-    note_lines = len(_wrap(note, 13, width - 40)) if note else 0
-    note_h = max(54, note_lines * 13 * 1.28 + 26) if note else 0
-    height = int(last_bottom + (note_h + 22 if note else 8) + (26 if foot else 6))
-    f = Fig(width, height, title, desc)
-    for ri, row in enumerate(boxes):
-        for ci, (x, yy, text, kind) in enumerate(row):
-            f.box(x, yy, box_w, box_h, text, kind, size)
-            if ci:
-                px = row[ci - 1][0] + box_w
-                f.arrow([(px, yy + box_h / 2), (x, yy + box_h / 2)])
-        if ri:
-            prev = boxes[ri - 1]
-            f.arrow([(prev[-1][0] + box_w / 2, prev[-1][1] + box_h), (prev[-1][0] + box_w / 2, prev[-1][1] + box_h + 20),
-                     (row[0][0] + box_w / 2, prev[-1][1] + box_h + 20), (row[0][0] + box_w / 2, row[0][1])])
-    y = last_bottom
-    if note:
-        f.box(10, y + 14, width - 20, note_h, note, note_kind, 13)
-        y += note_h + 22
-    if foot:
-        f.text(width / 2, y + 16, foot, 12, "middle", 400, "#5c1f14")
-    return f
+SINT = "Datos sintéticos con semilla fija y tiempo virtual; Windows y Ubuntu (WSL2) dan cifras idénticas."
 
 
-def mapa(title: str, desc: str, rows: list[tuple[str, str, str, str]], note: str = "", note_kind: str = "gold", foot: str = EJEC,
-         width: int = 960, left_w: float = 300, mid_w: float = 250, row_h: float = 76, gap: float = 36, size: int = 13) -> Fig:
-    """Mapping diagram: one row per case, ``(left text, verdict text, verdict kind, reason text)``, joined by arrows."""
-    right_w = width - 20 - left_w - mid_w - 2 * gap
-    for left, mid, _, right in rows:
-        for text, w in ((left, left_w), (mid, mid_w), (right, right_w)):
-            lines = len(_wrap(text, size, w - 20))
-            assert lines * size * 1.28 <= row_h - 12, f"box overflows in {title!r}: {text!r}"
-    note_lines = len(_wrap(note, 13, width - 40)) if note else 0
-    note_h = max(54, note_lines * 13 * 1.28 + 26) if note else 0
-    last_bottom = 14 + len(rows) * row_h + (len(rows) - 1) * 18
-    height = int(last_bottom + (note_h + 22 if note else 8) + (26 if foot else 6))
-    f = Fig(width, height, title, desc)
-    y = 14.0
-    for left, mid, kind, right in rows:
-        x1, x2, x3 = 10.0, 10.0 + left_w + gap, 10.0 + left_w + gap + mid_w + gap
-        f.box(x1, y, left_w, row_h, left, "plain", size)
-        f.box(x2, y, mid_w, row_h, mid, kind, size, True)
-        f.box(x3, y, right_w, row_h, right, "grey", size)
-        f.arrow([(x1 + left_w, y + row_h / 2), (x2, y + row_h / 2)])
-        f.arrow([(x2 + mid_w, y + row_h / 2), (x3, y + row_h / 2)])
-        y += row_h + 18
-    y = last_bottom
-    if note:
-        f.box(10, y + 14, width - 20, note_h, note, note_kind, 13)
-        y += note_h + 22
-    if foot:
-        f.text(width / 2, y + 16, foot, 12, "middle", 400, "#5c1f14")
-    return f
+def n(x: float, d: int = 1) -> str:
+    """Spanish number: decimal comma, space as thousands separator."""
+    s = f"{x:,.{d}f}".replace(",", " ").replace(".", ",")
+    return s
 
 
-def bars(title: str, desc: str, items: list[tuple[str, float, str, str]], scale: float, note: str = "",
-         note_kind: str = "gold", foot: str = EJEC, width: int = 960, label_w: float = 330) -> Fig:
-    step = 46
-    note_lines = len(_wrap(note, 13, width - 40)) if note else 0
-    note_h = max(54, note_lines * 13 * 1.28 + 26) if note else 0
-    height = int(16 + len(items) * step + (note_h + 18 if note else 6) + (28 if foot else 8))
-    f = Fig(width, height, title, desc)
-    y = f.hbars(items, 14, 16, scale, label_w=label_w)
-    if note:
-        f.box(10, y + 2, width - 20, note_h, note, note_kind, 13)
-        y += note_h + 18
-    if foot:
-        f.text(width / 2, y + 14, foot, 12, "middle", 400, "#5c1f14")
-    return f
+def pc(x: float, d: int = 1) -> str:
+    return n(x * 100, d) + " %"
 
 
 # ---------------------------------------------------------------- SE-481
-def se481_oraculos_y_mutantes() -> Fig:
+def se409_ramas() -> Fig:
+    d = e409_ramas()
+    cats = [f"{n(k, 1) if k < 1 else int(k)} día{'s' if k != 1 else ''}" for k in d]
+    files = ", ".join(n(v[1], 1) for v in d.values())
     return grouped_bars(
-        "Cinco oráculos sobre 18 mutantes no equivalentes del núcleo de Avisos: cuántos mata cada uno",
-        "Barras horizontales con los mutantes que mata cada oráculo de 18 no equivalentes: un caso feliz único mata 7, ocho pruebas de ejemplo (TDD) matan 15, los escenarios de aceptación con reloj matan 17, el contrato con 400 estados al azar mata 13 y un modelo de referencia ejecutable mata los 18.",
-        ["Caso feliz único", "Ocho pruebas de ejemplo (TDD)", "Escenarios de aceptación con reloj", "Contrato con 400 estados al azar", "Modelo de referencia ejecutable"],
-        [("Mutantes que mata", [7, 15, 17, 13, 18], "teal")],
-        unit="Mutantes que mata (de 18)", horizontal=True, label_w=290, ref_lines=[(18, "18")],
-        note='Ningún oráculo cubre lo mismo: el contrato deja vivos cinco mutantes que las ocho pruebas matan, y las ocho pruebas dejan vivos tres que el contrato mata. Los dos mutantes equivalentes sobreviven a todos, como debe ser. Las 20 variantes las escribió el autor; no son una muestra de defectos reales.', note_kind='gold', foot=LAB)
+        "Vida de una rama y choque de archivos con la troncal (8 personas, 400 archivos con puntos calientes)",
+        "Barras con el porcentaje de ramas que tocan algún archivo que otra persona también cambió según su vida: con medio día el 21 por ciento, con un día el 49, con dos días el 89 y con cinco días o más prácticamente todas.",
+        cats, [("Ramas con algún archivo en choque", [v[0] * 100 for v in d.values()], "coral")],
+        unit="Ramas con choque (%)", decimals=0, plot_h=260,
+        note=f"Archivos en choque (media) por vida de la rama: {files}. La probabilidad de choque no crece de forma lineal sino saturada: pasa de 21 % a 89 % en un día y medio y después ya no puede empeorar, aunque el trabajo por resolver sigue creciendo (de 0,2 a 31 archivos). Los puntos calientes (los archivos que todos tocan) y las tres modificaciones diarias por persona son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
-def se481_preguntas_y_metodologias() -> Fig:
-    return flow('Cinco preguntas de desarrollo y la metodología que responde a cada una',
-                'Diagrama con cinco preguntas encadenadas en dos filas: qué debe hacer el sistema, con qué vocabulario se dice, con qué interfaces se conecta, cómo se construye paso a paso y cómo se sabe que sigue sirviendo; a cada pregunta le corresponden BDD, ATDD y SDD, DDD, el diseño y las pruebas de contrato, TDD, y EDD y ODD.',
-                [[('¿Qué debe hacer?\nBDD · ATDD · Specification by Example · SDD', 'teal'), ('¿Con qué palabras se dice?\nDDD: lenguaje ubicuo y contextos', 'gold'), ('¿Con qué interfaces se conecta?\nDiseño por contrato y pruebas de contrato', 'teal')],
-                 [('¿Cómo se construye paso a paso?\nTDD: rojo, verde, refactor', 'coral'), ('¿Cómo sé que sigue sirviendo?\nEDD (evaluaciones) y ODD (flujo y evidencia)', 'gold')]],
-                note='Cada metodología ordena una pregunta distinta; ninguna sustituye a las demás. La clase las trata como instrumentos con un oráculo, un costo y un punto ciego, no como identidades de equipo.',
-                note_kind='teal', box_h=96)
+def se409_lotes() -> Fig:
+    d = e409_lotes()
+    rojos = ", ".join(f"{k}: {pc(v[0], 0)}" for k, v in d.items())
+    return line_chart(
+        "Integrar por lotes: cuántas veces se construye hasta aislar cada cambio defectuoso (24 000 cambios, 4 % defectuosos)",
+        "Línea con las construcciones por cambio, con bisección, según el tamaño del lote: un cambio por lote exige 1,00; con lotes de 5 baja a 0,38; el mínimo está en lotes de 10 con 0,35 y con lotes de 50 vuelve a 0,37.",
+        [("Construcciones por cambio (con bisección)", [(k, v[1], n(v[1], 2), "t") for k, v in d.items()], "teal")],
+        x_label="Cambios por lote", y_label="Construcciones por cambio", log_x=True,
+        x_ticks=[(k, str(k)) for k in d], y_ticks=[0, 0.25, 0.5, 0.75, 1.0], point_labels="none", decimals=2, plot_h=280,
+        note=f"Lotes en rojo según el tamaño: {rojos}. Agrupar ahorra construcciones hasta unos 10 cambios por lote y deja de ahorrar: con 50 cambios casi todos los lotes salen rojos y hay que aislar a mano. El ahorro se paga con retraso: el cambio bueno espera al lote y el defectuoso se localiza más tarde. El 4 % de defectos por cambio y la independencia entre cambios son supuestos.",
+        note_kind="gold", foot=SINT)
 
 
-def se481_union_de_oraculos() -> Fig:
-    return bars('Mutantes muertos por cada oráculo y por tres parejas de oráculos',
-                'Gráfico de barras con los mutantes no equivalentes muertos de 18 posibles: caso feliz 7, ocho pruebas de ejemplo 15, escenarios de aceptación 17, contrato con 400 estados 13 y modelo de referencia 18; entre las parejas, ocho pruebas más escenarios matan 17 y tanto ocho pruebas más contrato como escenarios más contrato matan los 18.',
-                [('Caso feliz único', 7, 'coral', '7'), ('Ocho pruebas de ejemplo', 15, 'gold', '15'), ('Escenarios de aceptación', 17, 'gold', '17'),
-                 ('Contrato (400 estados)', 13, 'gold', '13'), ('Modelo de referencia', 18, 'teal', '18'), ('Ocho pruebas + escenarios', 17, 'gold', '17'),
-                 ('Ocho pruebas + contrato', 18, 'teal', '18'), ('Escenarios + contrato', 18, 'teal', '18')],
-                scale=26, note='Dos oráculos de naturaleza distinta cubren lo que uno solo no ve: las ocho pruebas y el contrato, que por separado dejan vivos 3 y 5 mutantes, juntos no dejan ninguno. Dos oráculos parecidos (ocho pruebas y escenarios) comparten el punto ciego M01. Con 18 mutantes y un programa pequeño no se puede ordenar nada en general.',
-                note_kind='gold', foot=LAB)
+def se409_cola() -> Fig:
+    d = e409_cola()
+    cats = [f"{n(k, 2) if k < 1 else int(k)} día{'s' if k != 1 else ''}" for k in d]
+    return grouped_bars(
+        "Troncal rota por un choque semántico entre dos cambios que pasan por separado (por cada 1 000 integraciones)",
+        "Barras con las veces que la troncal queda en rojo por cada mil integraciones: sin cola, 54 cuando los cambios viven un cuarto de día, 213 con un día y 490 con tres días; una cola que prueba el resultado combinado los detecta antes de integrar y deja 0.",
+        cats, [("Troncal en rojo sin cola", [v[0] for v in d.values()], "coral"), ("Con cola de integración", [0 for _ in d], "teal")],
+        unit="Troncal en rojo (por 1 000 integraciones)", decimals=0, plot_h=260,
+        note="Con cola, los choques se detectan al entrar (0 en la troncal). El choque no está en ningún cambio por separado: aparece en la combinación. Con 12 cambios al día y una probabilidad de choque del 2 % por pareja solapada, vivir tres días multiplica por nueve la tasa de troncal rota. La cola no elimina el choque: lo convierte en un rechazo al entrar, antes de que lo vea el resto del equipo.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-482
-def se482_cuaderno_del_ciclo() -> Fig:
-    return line_chart(
-        "Ocho pasos rojo-verde sobre el núcleo de Avisos: mutantes muertos tras cada prueba",
-        "Línea con los mutantes muertos acumulados tras cada una de las ocho pruebas de un ciclo rojo-verde sobre el núcleo de Avisos: 1, 6, 8, 9, 9, 11, 14 y 15 de 18 posibles; cada prueba nueva falló con la versión anterior y pasó con la nueva, y la quinta no añade ninguno.",
-        [("Mutantes muertos (acumulados)", [(1, 1), (2, 6), (3, 8), (4, 9), (5, 9), (6, 11), (7, 14), (8, 15)], "teal")],
-        x_label="Prueba añadida (paso del ciclo)", y_label="Mutantes muertos de 18", x_ticks=[(i, str(i)) for i in range(1, 9)], y_ticks=[0, 5, 10, 15, 18],
-        hlines=[(18, "18 no equivalentes")], decimals=0,
-        note='Las ocho pruebas fallaron primero por la razón esperada y pasaron con la versión mínima; la prueba 5 no añadió ninguno porque protege una regla (no avisar tras el vencimiento) que ninguno de los 18 mutantes elimina. La curva depende de qué 18 mutantes escribió el autor.', note_kind='gold', foot=LAB)
+def se410_dag() -> Fig:
+    d = e410_dag()
+    items = []
+    for k in (1, 2, 3, 4, 8):
+        kind = "coral" if k == 1 else ("teal" if k >= 4 else "gold")
+        items.append((f"{k} ejecutor{'es' if k > 1 else ''}", d[k][0], kind, f"{n(d[k][0], 1)} min"))
+    items.append(("Camino crítico", d["critico"], "navy", f"{n(d['critico'], 1)} min"))
+    return bars("Duración de la misma canalización de 9 jobs según el número de ejecutores",
+                "Barras: con un ejecutor la canalización tarda 46,5 minutos; con dos 26,5, con tres 23,5 y con cuatro u ocho 22 minutos, que es el camino crítico; más ejecutores no la acortan.",
+                items, 14.0, "El trabajo total son 46,5 minutos (con 0,5 min de arranque por job); el camino crítico (preparar, compilar, pruebas e2e, empaquetar) es de 22. Pasar de 1 a 4 ejecutores ahorra 24,5 minutos; pasar de 4 a 8 no ahorra nada pero sí cuesta. Las duraciones de los jobs son supuestos del autor.",
+                label_w=150, width=940, note_kind="gold", foot=SINT)
 
 
-def se482_ciclo_rojo_verde() -> Fig:
-    return flow('El ciclo rojo-verde-refactor con sus tres comprobaciones',
-                'Diagrama del ciclo de TDD en cuatro cajas: escribir una prueba mínima y verla fallar por la razón correcta, escribir el código más simple que la pasa, refactorizar con todas las pruebas en verde y elegir la siguiente prueba; una flecha de retorno lleva de la última caja a la primera.',
-                [[('ROJO\nUna prueba mínima falla, y por la razón esperada', 'coral'), ('VERDE\nEl código más simple que la pasa, aunque sea una trampa', 'teal'), ('REFACTOR\nMejora el diseño sin cambiar el comportamiento', 'gold')],
-                 [('SIGUIENTE\nElige la prueba que más enseña, no la más fácil', 'navy')]],
-                note='Dos controles hacen del ciclo un método y no un ritual: ver la prueba fallar (si pasa de inmediato no prueba nada) y no tocar el comportamiento durante el refactor (si una prueba se rompe, el cambio no era un refactor).',
-                note_kind='teal', box_h=96)
+def se410_matriz() -> Fig:
+    d = e410_matriz()
+    names = ("completa", "pareja a pareja", "una a la vez", "9 al azar")
+    return grouped_bars(
+        "Matriz 3 sistemas × 4 versiones × 3 bases (36 combinaciones): qué defectos encuentra cada estrategia",
+        "Barras agrupadas con el porcentaje de defectos de uno, dos y tres factores que encuentra cada estrategia: la matriz completa de 36 combinaciones encuentra el 100 por ciento de todos; pareja a pareja con 12 combinaciones el 100, 100 y 39; una a la vez con 8, el 100, 52 y 28; nueve al azar, el 99, 62 y 23.",
+        [f"{name} ({d[name][0]})" for name in names],
+        [("Defecto de 1 factor", [d[k][1] * 100 for k in names], "teal"), ("De 2 factores", [d[k][2] * 100 for k in names], "gold"), ("De 3 factores", [d[k][3] * 100 for k in names], "coral")],
+        unit="Defectos encontrados (%)", decimals=0, plot_h=280,
+        note="Entre paréntesis, las combinaciones de cada estrategia. Cubrir todas las parejas con 12 de 36 combinaciones no deja escapar ningún defecto de dos factores pero sí el 61 % de los de tres. Una a la vez mira cada nivel pero no las interacciones. Cada defecto es de un solo tipo y se eligió al azar entre 400 conjuntos; la distribución real de defectos de interacción es desconocida.",
+        note_kind="gold", foot=SINT)
 
 
-def se482_sobrevivientes() -> Fig:
-    return stacked_bars(
-        "Tres mutantes sobreviven a las ocho pruebas; tres pruebas guiadas por ellos matan los 18",
-        "Barras apiladas con los mutantes muertos y vivos de 18: tras las ocho pruebas de TDD mueren 15 y sobreviven M01, M12 y M16; al añadir tres pruebas guiadas por esos sobrevivientes mueren los 18.",
-        ["Ocho pruebas de TDD", "Ocho pruebas más tres guiadas por los sobrevivientes"],
-        [("Muertos", [15, 18], "teal"), ("Vivos", [3, 0], "coral")],
-        unit="Mutantes no equivalentes", horizontal=True, label_w=300,
-        note='Los sobrevivientes señalan qué ejemplo falta; no sustituyen el criterio de quien diseña las pruebas. Matar los 18 no demuestra que el código sea correcto: demuestra que estas 18 variantes se distinguen del original con estas pruebas.', note_kind='coral', foot=LAB)
+def se410_cache() -> Fig:
+    d = e410_cache()
+    order = ["hash del lockfile", "hash + respaldo", "SHA del commit", "clave fija"]
+    return grouped_bars(
+        "Cuatro claves de caché en 600 construcciones (la dependencia cambia en el 10 % de ellas)",
+        "Barras horizontales con aciertos, restauraciones parciales y entorno obsoleto de cuatro claves de caché: el hash del lockfile acierta el 89 por ciento y tarda 26,6 segundos; con respaldo por prefijo baja a 12,2 segundos con 11 por ciento parciales; el SHA del commit acierta el 17,5 por ciento y tarda 149,9; una clave fija acierta siempre pero el 97 por ciento usa dependencias obsoletas.",
+        [f"{k} ({n(d[k][2], 1)} s)" for k in order],
+        [("Aciertos", [d[k][0] * 100 for k in order], "teal"), ("Parciales", [d[k][1] * 100 for k in order], "gold"), ("Entorno obsoleto", [d[k][3] * 100 for k in order], "coral")],
+        unit="Construcciones (%)", horizontal=True, decimals=1, label_w=250,
+        note="Entre paréntesis, la instalación media. Una clave fija da el mejor tiempo (8 s) y el peor resultado: el 97 % de las construcciones corre con dependencias que ya no coinciden con el lockfile. El tiempo ahorrado no compensa un resultado que no es reproducible. Los tiempos de 180, 45 y 8 segundos son supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-483
-def se483_refactores_y_defectos() -> Fig:
-    return heatmap(
-        "Dos estilos de prueba ante cuatro refactores y un cambio de contrato del mismo servicio",
-        "Mapa de calor con las pruebas que fallan en dos estilos tras cada cambio: el estilo clásico, con dobles con estado, pasa los cuatro refactores y falla solo con el cambio de contrato del puerto; el estilo de Londres, con dobles simulados, falla además el refactor que pide todas las entregas y filtra en el servicio; los dos detectan los seis defectos de comportamiento.",
-        ["R1 leer el reloj una vez (refactor)", "R2 pedir todas las entregas y filtrar en el servicio (refactor)", "R3 extraer el cálculo del umbral (refactor)",
-         "R4 leer lo registrado antes del reloj (refactor)", "R5 renombrar el puerto de registro (cambio de contrato)"],
-        ["Estilo clásico", "Estilo de Londres"],
-        [[0, 0], [0, 1], [0, 0], [0, 0], [1, 1]],
-        unit="Falla", scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "FALLA" if v else "pasa", cell_h=44, label_w=430,
-        note='La diferencia aparece donde el refactor cambia cómo el servicio consulta a un colaborador: la prueba de Londres fijó esa consulta, la clásica solo fijó el resultado. Ambas detectan los mismos seis defectos. Son dos suites escritas por el autor sobre un servicio pequeño.', note_kind='gold', foot=EJEC)
+def se411_orden() -> Fig:
+    d = e411_orden()
+    items = [
+        ("Barato primero", d["barato primero"][0], "teal", f"{n(d['barato primero'][0], 1)} min"),
+        ("Media de las 120 órdenes", d["media de 120 órdenes"][0], "gold", f"{n(d['media de 120 órdenes'][0], 1)} min"),
+        ("Caro primero", d["caro primero"][0], "coral", f"{n(d['caro primero'][0], 1)} min"),
+    ]
+    return bars("Minutos esperados hasta ver el primer rojo en un build fallido, según el orden de cinco etapas",
+                "Barras: ordenar las etapas de la más barata a la más cara da 7,4 minutos hasta el primer rojo; la media de las 120 órdenes posibles es 15,4 y el orden inverso, 23,4 minutos.",
+                items, 26.0, "Las cinco etapas (lint 0,3 min, tipos 1, unitarias 3, integración 8, e2e 14) y la fracción de fallos que detecta cada una son supuestos del autor. El orden por razón probabilidad/costo coincide con el óptimo de las 120 permutaciones. Un build verde cuesta 26,3 min en cualquier orden: ordenar solo ayuda a los rojos.",
+                label_w=230, width=940, note_kind="gold", foot=SINT)
 
 
-def se483_dos_estilos() -> Fig:
-    f = Fig(960, 330, 'Dónde corta cada estilo la misma colaboración entre el servicio, el repositorio, el canal y el reloj',
-            'Diagrama del servicio de recordatorios con tres colaboradores, el repositorio, el canal y el reloj: el estilo clásico los sustituye por dobles con estado y comprueba el resultado observable, mensajes entregados y envíos registrados; el estilo de Londres los sustituye por dobles simulados y comprueba las llamadas que el servicio les hace.')
-    f.box(380, 20, 200, 64, 'Servicio de recordatorios', 'navy', 14, bold=True)
-    for x, label in ((40, 'Repositorio'), (380, 'Canal'), (720, 'Reloj')):
-        f.box(x, 150, 200, 54, label, 'plain', 14)
-        f.arrow([(480, 84), (x + 100, 150)])
-    f.box(20, 238, 440, 78, 'ESTILO CLÁSICO\nDobles con estado: se mira qué mensajes se entregaron y qué envíos quedaron registrados', 'teal', 13)
-    f.box(500, 238, 440, 78, 'ESTILO DE LONDRES\nDobles simulados: se mira qué llamadas hizo el servicio y con qué argumentos', 'gold', 13)
-    return f
+def se411_politicas() -> Fig:
+    d = e411_politicas()
+    ti, fi, ni = d["ingenua"]
+    ta, fa, na = d["afinada"]
+    return grouped_bars(
+        "Reglas de texto sobre 160 workflows con 8 clases de defecto sembrado y 6 señuelos",
+        "Barras agrupadas con aciertos, falsos positivos y defectos no vistos de dos conjuntos de reglas sobre 209 defectos sembrados: las ingenuas encuentran todos pero producen 180 falsas alarmas, con precisión de 54 por ciento; las afinadas reducen las falsas alarmas a 45 y pierden 5 defectos, con precisión de 82 y exhaustividad de 98.",
+        ["Reglas ingenuas", "Reglas afinadas"],
+        [("Aciertos", [ti, ta], "teal"), ("Falsos positivos", [fi, fa], "coral"), ("Defectos no vistos", [ni, na], "gold")],
+        unit="Defectos o alarmas", decimals=0, plot_h=260,
+        note=f"Precisión {pc(ti / (ti + fi), 0)} y exhaustividad {pc(ti / (ti + ni), 0)} las ingenuas; {pc(ta / (ta + fa), 0)} y {pc(ta / (ta + na), 0)} las afinadas. Las reglas ingenuas ven todo y avisan de demasiado: por eso un equipo las desactiva. Las afinadas ignoran comentarios y acciones locales, pero se equivocan donde el defecto cambia de forma (un bloque de varias líneas) y donde el valor es seguro (el número del PR). Se afinaron con los mismos señuelos que las evalúan: son una frontera, no una tasa.",
+        note_kind="gold", foot=SINT)
 
 
-def se483_cuando_usar_cada_uno() -> Fig:
-    return mapa(
-        "Qué estilo conviene según la situación del colaborador y del cambio",
-        "Diagrama de decisión con cuatro situaciones y el estilo que conviene en cada una: un colaborador lento, externo o no determinista pide un doble con estado si es posible y simulados si no; querer refactorizar el interior sin tocar pruebas favorece el estilo clásico; diseñar de fuera hacia dentro favorece el estilo de Londres; y un cambio de interfaz de un colaborador hace fallar a ambos porque es un cambio de contrato.",
-        [("El colaborador es lento, externo o no determinista", "Doble con estado si se puede; si no, simulado", "gold", "El estilo de Londres sirve para fijar el contrato en la frontera"),
-         ("Se quiere refactorizar el interior sin tocar pruebas", "Clásico", "teal", "Aserciones sobre resultados toleran cambios de colaboración"),
-         ("Se diseña de fuera hacia dentro sin saber aún qué colabora", "Londres", "gold", "Simular descubre las interfaces que hacen falta"),
-         ("Un colaborador cambia de interfaz", "Ambos fallan", "coral", "Es un cambio de contrato, no un refactor")],
-        note='La tabla es una guía de criterio, no un resultado medido: lo medido está en la primera figura. Muchos equipos usan los dos estilos según el colaborador.', note_kind='teal', foot='')
+def se411_reintentos() -> Fig:
+    d = e411_reintentos()
+    xs = (0, 1, 2)
+
+    def lab(v: float) -> str:
+        return n(v, 1) + " %" if v >= 1 else n(v, 3) + " %"
+
+    series = [("Defecto en el 50 % de las ejecuciones (pasan)", [(k, d["defecto"][0.5][k] * 100) for k in xs], "teal"),
+              ("Defecto en el 20 % de las ejecuciones (pasan)", [(k, d["defecto"][0.2][k] * 100, lab(d["defecto"][0.2][k] * 100), "t") for k in xs], "gold"),
+              ("Defecto en el 5 % de las ejecuciones (pasan)", [(k, d["defecto"][0.05][k] * 100) for k in xs], "navy"),
+              ("Rojo falso por pruebas inestables", [(k, d["rojos_falsos"][k] * 100, lab(d["rojos_falsos"][k] * 100), "t") for k in xs], "coral")]
+    return line_chart(
+        "Reintentar pruebas: porcentaje de ejecuciones que pasan con 0, 1 o 2 reintentos",
+        "Líneas en escala logarítmica con el porcentaje de ejecuciones que pasan según los reintentos: un defecto real que aparece en el 20 por ciento de las ejecuciones pasa el 80 por ciento sin reintentos, el 96 con uno y el 99 con dos; los rojos falsos por pruebas inestables bajan de 25,9 por ciento a 0,015 con un reintento.",
+        series, x_label="Reintentos permitidos", y_label="Ejecuciones (%)", log_y=True,
+        x_ticks=[(0, "0"), (1, "1"), (2, "2")], y_ticks=[0.01, 0.1, 1, 10, 100], point_labels="none", decimals=2, plot_h=300,
+        note="Las tres primeras líneas son el porcentaje de ejecuciones que pasan con un defecto real; la roja es el porcentaje de ejecuciones en rojo por pruebas inestables (600 pruebas, 0,05 % cada una). El reintento hace desaparecer los rojos falsos (25,9 % → 0,015 %) y también hace pasar los defectos intermitentes: uno que aparece 1 vez de 5 pasa el 99,2 % con dos reintentos. Reintentar sin registrar qué se reintentó convierte una señal en ruido silencioso; hay que contar los reintentos y cuarentenar la prueba.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-484
-def se484_escenarios_y_contribucion() -> Fig:
+def se412_tokens() -> Fig:
+    d = e412_tokens()
+    order = ["solo firma", "firma + vigencia", "+ emisor y audiencia", "+ sujeto con prefijo «repo:org»", "+ sujeto exacto y vida corta"]
     return grouped_bars(
-        "Nueve escenarios en lenguaje de negocio ejecutados contra 18 mutantes: cuántos mata cada uno y cuántos solo él",
-        "Barras horizontales con los mutantes que mata cada uno de nueve escenarios Gherkin y los que mata solo él: avisar a las 72 horas mata 5 y ninguno solo él, no repetir un aviso mata 3 y los 3 solo él, quien ya entregó mata 2 y 1 solo él, la caída mata 6, el silencio con la última hora mata 9 y 1 solo él, el silencio sin el de 24 horas mata 2 y 1, el silencio por curso mata 8 y 1, la entrega vencida mata 1 y el escenario de la interfaz agradable no mata ninguno.",
-        ["Avisa a las 72 horas", "No repite un aviso enviado", "Quien ya entregó no recibe avisos", "Tras una caída solo llega el aviso más urgente",
-         "Un curso silenciado conserva el aviso de la última hora", "Un curso silenciado no recibe el de 24 horas", "El silencio de un curso no afecta a otro",
-         "Una entrega vencida no avisa", "La interfaz es agradable"],
-        [("Mutantes que mata", [5, 3, 2, 6, 9, 2, 8, 1, 0], "teal"), ("Mutantes que mata solo él", [0, 3, 1, 0, 1, 1, 1, 0, 0], "gold")],
-        unit="Mutantes (de 18)", horizontal=True, label_w=330, plot_h=380,
-        note='Los nueve escenarios usan 32 pasos y 10 definiciones de paso (3,2 pasos por definición) y matan 15 de 18; sobreviven M01, M12 y M16. El último escenario pasa siempre: su «Entonces» no afirma nada comprobable. Escenarios y mutantes los escribió el autor.', note_kind='coral', foot=EJEC)
+        "Verificar un token de identidad con más o menos comprobaciones: 12 tokens manipulados y 3 legítimos",
+        "Barras horizontales con los tokens que acepta cada nivel de verificación: solo la firma acepta 9 de 12 manipulados; añadir vigencia, 6; emisor y audiencia, 4; el sujeto con prefijo sigue aceptando 4, incluido un repositorio de otra organización; el sujeto exacto con vida corta no acepta ninguno y sigue aceptando los 3 legítimos.",
+        order,
+        [(f"Manipulados aceptados (de {d['_n']})", [d[k][0] for k in order], "coral"), (f"Legítimos aceptados (de {d['_legit']})", [d[k][2] for k in order], "teal")],
+        unit="Tokens aceptados", horizontal=True, decimals=0, label_w=270,
+        note="El prefijo «repo:org» deja pasar «repo:org-malicioso/…» y todos los repositorios de la organización: no basta con que el sujeto empiece bien. Solo el sujeto exacto (repositorio, rama o entorno) y una vida de 15 min dejan fuera a los 12. Los tokens y la clave son sintéticos y firmados con HMAC, no con la clave pública de un proveedor.",
+        note_kind="gold", foot=SINT)
 
 
-def se484_de_la_conversacion_al_paso() -> Fig:
-    return flow('De la conversación a un paso ejecutable',
-                'Diagrama de seis cajas en dos filas: la conversación de las tres perspectivas, un ejemplo concreto, un escenario con dado, cuando y entonces, la definición de paso enlazada a código, la ejecución contra el sistema y la documentación viva que se actualiza al ejecutar.',
-                [[('Conversación entre negocio, desarrollo y prueba', 'gold'), ('Ejemplo concreto con datos reales', 'teal'), ('Escenario: Dado, Cuando, Entonces', 'teal')],
-                 [('Definición de paso enlazada a código', 'plain'), ('Ejecución contra el sistema', 'coral'), ('Documentación viva que falla si miente', 'navy')]],
-                note='El valor está en las dos primeras cajas: las ambigüedades salen en la conversación, no en la herramienta. Si nadie de negocio lee ni discute los escenarios, queda una suite de pruebas escrita en un formato más costoso.',
-                note_kind='gold', box_h=84)
+def se412_ventana() -> Fig:
+    d = e412_ventana()
+    items = []
+    for k, v in d.items():
+        kind = "coral" if v[0] > 0.5 else ("gold" if v[0] > 0.01 else "teal")
+        items.append((k, v[0] * 100, kind, f"{pc(v[0], 1)} · {n(v[1], 1)} h"))
+    return bars("Probabilidad de que una credencial filtrada siga siendo útil y horas de exposición media",
+                "Barras: un secreto estático con rotación anual o de 90 días es utilizable en el 99,9 y el 99,8 por ciento de las filtraciones con unas 330 y 310 horas de exposición; un token de una hora, en el 4,8 por ciento con 0,5 horas; uno de 15 minutos, en el 0,18 por ciento con 0,12 horas.",
+                items, 5.2, "La exposición del secreto estático la fija el tiempo en detectar la fuga (14 días supuestos), no la rotación: rotar cada 90 días en vez de cada año apenas la cambia. Que el token dure 15 minutos limita el daño aunque se filtre. El atacante con mediana de 3 h (lognormal) y la detección a 14 días son supuestos del autor.",
+                label_w=290, width=1000, note_kind="gold", foot=SINT)
 
 
-def se484_entonces_vaciado() -> Fig:
+def se412_escaner() -> Fig:
+    d = e412_escaner()
+    order = ["prefijos conocidos", "entropía", "asignación sospechosa", "prefijos + asignación"]
     return grouped_bars(
-        "Reemplazar el «Entonces» de un escenario por un paso que no afirma nada: mutantes que dejan de morir",
-        "Barras horizontales con los mutantes que dejan de morir de los 15 que matan los escenarios completos al vaciar el paso Entonces de cada escenario: el de no repetir pierde 2, los de quien ya entregó, última hora, 24 horas y otro curso pierden 1 cada uno, y los de 72 horas, caída y entrega vencida no pierden ninguno.",
-        ["Avisa a las 72 horas", "No repite un aviso enviado", "Quien ya entregó no recibe avisos", "Tras una caída solo llega el aviso más urgente",
-         "Conserva el aviso de la última hora", "No recibe el de 24 horas", "No afecta a otro curso", "Una entrega vencida no avisa"],
-        [("Mutantes que dejan de morir", [0, 2, 1, 0, 1, 1, 1, 0], "coral")],
-        unit="Mutantes que dejan de morir (de 15)", horizontal=True, decimals=0, ticks=[0, 1, 2], label_w=330,
-        note='Tres escenarios pueden perder su «Entonces» sin que ninguna comprobación se resienta: quedan cubiertos por otros o no afirman lo que dicen. Es una señal para revisar el texto, no una prueba de que sobren.', note_kind='gold', foot=EJEC)
+        f"Buscar secretos en {d['_lineas']} líneas sintéticas con {d['_secretos']} secretos sembrados",
+        "Barras horizontales con aciertos, falsos positivos y secretos perdidos de cuatro detectores: buscar prefijos conocidos no da falsos positivos pero pierde 202 de 460 secretos; la entropía encuentra 343 pero señala 414 identificadores y hashes; buscar asignaciones sospechosas encuentra 393 con 4 falsos positivos y pierde 67.",
+        order,
+        [("Aciertos", [d[k][0] for k in order], "teal"), ("Falsos positivos", [d[k][1] for k in order], "coral"), ("Secretos perdidos", [d[k][2] for k in order], "gold")],
+        unit="Secretos o alarmas", horizontal=True, decimals=0, label_w=190,
+        note="Cada detector ve una forma y ciega ante otra: la entropía confunde 170 SHA de git, 153 UUID y 91 imágenes en base64 con secretos y aun así pierde las contraseñas de baja entropía. Un detector no sustituye a la rotación: lo que encuentra ya estaba expuesto. Los secretos y señuelos son cadenas inventadas.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-485
-def se485_conjuntos_de_ejemplos() -> Fig:
+def se413_despliegue() -> Fig:
+    d = e413_despliegue()
+    det = "; ".join(f"{k}: {n(v[2], 1)} min y {pc(v[4], 1)} de retrocesos falsos" for k, v in d.items())
     return grouped_bars(
-        "Cuatro conjuntos de ejemplos de aceptación y los mutantes que matan de 18",
-        "Barras horizontales con los mutantes que mata cada conjunto de ejemplos de 18 no equivalentes: cinco típicos matan 10, doce de frontera del tiempo matan 11, veinte al azar matan 8, 144 combinatorios matan 17 y dejan vivo solo M08, y frontera con típicos juntos, 17 ejemplos, matan 14.",
-        ["5 ejemplos típicos", "12 ejemplos de frontera del tiempo", "20 ejemplos al azar", "144 ejemplos combinatorios", "Frontera y típicos juntos (17 ejemplos)"],
-        [("Mutantes que mata", [10, 11, 8, 17, 14], "teal")],
-        unit="Mutantes que mata (de 18)", horizontal=True, label_w=310, ref_lines=[(18, "18")],
-        note='Más ejemplos no es mejor: 20 al azar matan menos que 12 bien elegidos. El conjunto combinatorio llega a 17 pero no mata M08 porque solo combina un estudiante y un curso; las dimensiones que el conjunto no varía quedan sin comprobar. Los resultados esperados salen de un modelo escrito aparte.', note_kind='coral', foot=EJEC)
+        "Una versión con 4 puntos de error adicional a 100 solicitudes por segundo: solicitudes fallidas hasta el retroceso (600 repeticiones)",
+        "Barras agrupadas con las solicitudes fallidas hasta el retroceso: si la versión mala se despliega de una vez fallan 240 de media y 268 en el percentil 95; con cuatro tandas, 59 y 72; con un canario del 1 por ciento al 100 por ciento, 6 y 9.",
+        list(d), [("Fallos medios", [v[0] for v in d.values()], "navy"), ("Fallos p95", [v[1] for v in d.values()], "coral")],
+        unit="Solicitudes fallidas", decimals=0, plot_h=260,
+        note=f"Detección media y retrocesos falsos de las versiones buenas, por estrategia: {det}. El canario reduce el daño en un 98 % no porque detecte antes (2,4 min frente a 1) sino porque solo lo ve una fracción del tráfico. La detección es estadística: con 1 % del tráfico y umbral estricto hay que esperar. Un retroceso falso cuesta una versión buena perdida. Poisson y normal aproximan al binomial; error base 0,5 %.",
+        note_kind="gold", foot=SINT)
 
 
-def se485_ciclo_de_aceptacion() -> Fig:
-    return flow('ATDD: la tabla de ejemplos antes que el código',
-                'Diagrama de cinco cajas en dos filas: se redacta la tabla de ejemplos con negocio, se convierte en una prueba de aceptación que falla, se desarrolla con ciclos de TDD internos hasta que pasa, se muestran los resultados a quien aceptó los ejemplos y los ejemplos pasan a la suite de regresión.',
-                [[('Tabla de ejemplos redactada con negocio', 'gold'), ('Prueba de aceptación: roja', 'coral'), ('Ciclos de TDD internos hasta el verde', 'teal')],
-                 [('Se muestra a quien aceptó los ejemplos', 'plain'), ('Los ejemplos pasan a la suite de regresión', 'navy')]],
-                note='La prueba de aceptación es el ciclo externo y cada ciclo de TDD el interno. Si los ejemplos los escribe solo quien implementa, se pierde la mitad del valor: el acuerdo.',
-                note_kind='teal', box_h=84)
-
-
-def se485_dimensiones_cubiertas() -> Fig:
+def se413_potencia() -> Fig:
+    d = e413_potencia()
+    shares = (0.01, 0.05, 0.25)
+    exs = (0.005, 0.01, 0.02, 0.04)
     return heatmap(
-        "Qué dimensiones del problema varía cada conjunto de ejemplos",
-        "Mapa de calor con las dimensiones que varía cada conjunto de ejemplos: los cinco típicos eligen tres puntos sueltos del tiempo e incluyen una vez una entrega entregada y un curso silenciado; los doce de frontera cubren los límites del tiempo pero no varían entregada ni silenciado; los veinte al azar varían tiempo, entregada y silenciado a veces; los 144 combinatorios cubren tiempo, entregada y silenciado; ninguno varía el curso ni la persona, por lo que los 144 dejan vivo M08.",
-        ["5 típicos", "12 de frontera", "20 al azar", "144 combinatorios"],
-        ["Límites del tiempo", "Entregada", "Silenciado", "Varios cursos o personas"],
-        [[0.5, 1, 0.5, 0], [1, 0, 0, 0], [0.5, 0.5, 0.5, 0], [1, 1, 1, 0]],
-        unit="Dimensión variada", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v == 1 else ("no" if v == 0 else "parcial"), cell_h=50, label_w=190,
-        note='La columna de la derecha explica el único mutante que sobrevive al conjunto más grande: ningún ejemplo distingue silenciar a una persona de silenciar un curso. Elegir ejemplos es decidir qué dimensiones se comprueban.', note_kind='gold', foot='')
+        "Probabilidad de detectar una subida del error en 10 minutos de canario (error base 0,5 %, umbral 0,1 %)",
+        "Mapa de calor con la probabilidad de detectar una subida del error según el tráfico del canario: con el 1 por ciento una subida de 0,5 puntos se detecta el 4 por ciento de las veces, una de 1 punto el 29, una de 2 puntos el 88 y una de 4 puntos el 99,98; con el 5 por ciento, el 60, 99,6, 100 y 100; con el 25 por ciento todas superan el 99,99.",
+        [pc(s, 0) + " del tráfico" for s in shares], ["+0,5 puntos", "+1 punto", "+2 puntos", "+4 puntos"],
+        [[d[f"{s}|{ex}"][2] * 100 for ex in exs] for s in shares],
+        unit="Probabilidad de detección (%)", scale="navy", vmin=0, vmax=100, decimals=1, label_w=180,
+        note="Un canario del 1 % no ve una degradación sutil: 600 solicitudes en 10 minutos dan 3 errores esperados y el umbral exige 11. La potencia depende del tráfico, no de la voluntad de mirar. Si el servicio recibe poco tráfico, el canario es un trámite. Cálculo exacto con la cola de Poisson (normal si la media supera 50).",
+        note_kind="coral", foot=SINT)
+
+
+def se413_banderas() -> Fig:
+    d = e413_banderas()
+    ks = (2, 4, 6, 8, 10)
+    vivas = d["_vivas"]
+    return grouped_bars(
+        "Banderas de funcionalidad: configuraciones posibles frente a las necesarias para cubrir todas las parejas",
+        "Barras agrupadas en escala logarítmica con las configuraciones posibles y las necesarias para cubrir todas las parejas: con 2 banderas 4 y 4; con 6, 64 y 7; con 8, 256 y 8; con 10, 1 024 y 9, el 0,9 por ciento.",
+        [f"{k} banderas" for k in ks],
+        [("Configuraciones", [d[k][0] for k in ks], "grey"), ("Para cubrir parejas", [d[k][1] for k in ks], "teal")],
+        unit="Configuraciones", log=True, decimals=0, plot_h=280,
+        note=f"Cubrir las parejas cuesta casi nada, pero no cubre las interacciones de tres banderas ni el comportamiento de las que nadie recuerda. Con 3 banderas nuevas al mes y ninguna retirada hay {vivas[1]} a los 12 meses; retirando una de cada cuatro al mes quedan {vivas[0]}. Una bandera es deuda con fecha de caducidad.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-486
-def se486_polisemia_de_entrega() -> Fig:
+def se414_plan() -> Fig:
+    d = e414_plan()
     return grouped_bars(
-        "Cuatro mil doscientas cuarenta y nueve frases con «entrega» en las Partes 00 a 39 clasificadas por sentido",
-        "Barras horizontales en escala logarítmica con las frases que contienen entrega clasificadas por reglas léxicas: 487 hablan del trabajo de una persona estudiante en 29 partes, 89 de liberar o desplegar software en 16 partes, 122 de hacer llegar un mensaje o resultado en 19 partes, 15 mezclan más de un sentido y 3 536 no tienen un sentido que las reglas reconozcan.",
-        ["Trabajo de una persona estudiante (29 partes)", "Liberar o desplegar software (16 partes)", "Hacer llegar un mensaje o resultado (19 partes)", "Frases con más de un sentido a la vez", "Frases sin sentido reconocible por las reglas"],
-        [("Frases", [487, 89, 122, 15, 3536], "gold")],
-        unit="Frases (escala logarítmica)", horizontal=True, log=True, label_w=330,
-        note='La palabra que da nombre al dominio de Avisos tiene al menos tres sentidos en el propio programa. Las reglas léxicas son burdas: las 3 536 frases sin clasificar no significan que carezcan de sentido, sino que las reglas no lo ven.', note_kind='gold', foot='Recuento léxico sobre content/part-00..39 con expresiones regulares; idéntico en Windows 11 y Ubuntu (WSL2).')
+        "Un planificador de infraestructura mínimo: 300 grafos aleatorios de 12 recursos",
+        "Barras horizontales con el porcentaje de casos de cada comprobación: aplicar las acciones en orden aleatorio falla en el 79 por ciento de los planes y en orden topológico en ninguno; repetir la aplicación deja un plan vacío en los 300 casos y los 100 ciclos inyectados se detectan.",
+        ["Orden aleatorio: planes que fallan", "Orden topológico: planes que fallan", "Repetir la aplicación: plan vacío", "Ciclos inyectados que se detectan"],
+        [("Casos", [d["aleatorio_falla"] * 100, d["topologico_falla"] * 100, d["idempotente"] / d["runs"] * 100, d["ciclos"]], "navy")],
+        unit="Casos (%)", horizontal=True, decimals=0, label_w=270,
+        note=f"Cada plan tiene {n(d['acciones'], 2)} acciones de las cuales {n(d['destructivas'], 2)} son destructivas (borrar o reemplazar) y {n(d['con_estado'], 2)} tocan recursos con estado, que solo se detectan si la política las examina. El orden no es un detalle: el 79 % de los planes se rompe si las acciones no respetan las dependencias. Los grafos y los porcentajes de recursos con estado (25 %) son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
-def se486_contextos_y_traduccion() -> Fig:
-    f = Fig(960, 330, 'Dos contextos acotados con una capa de traducción entre ellos',
-            'Diagrama con dos contextos delimitados: en el contexto académico una entrega es un trabajo con estado pendiente o recibida, en el contexto de avisos una entrega es un elemento con vencimiento y un indicador de entregada; una capa de traducción en medio convierte el estado textual en un indicador booleano y es el único lugar donde se conocen ambos vocabularios.')
-    f.group(10, 14, 400, 220, 'Contexto académico', 'teal')
-    f.box(30, 60, 360, 70, 'Entrega = trabajo de una persona estudiante\nestado: pendiente o recibida', 'plain', 13)
-    f.box(30, 150, 360, 66, 'Lenguaje: entrega, estudiante, curso, vence_en', 'teal', 13)
-    f.group(550, 14, 400, 220, 'Contexto de avisos', 'gold')
-    f.box(570, 60, 360, 70, 'Entrega = elemento con vencimiento\nsubmitted: verdadero o falso', 'plain', 13)
-    f.box(570, 150, 360, 66, 'Lenguaje: delivery, student, due, submitted', 'gold', 13)
-    f.box(425, 80, 110, 80, 'Capa de traducción', 'navy', 13, bold=True)
-    f.arrow([(410, 120), (425, 120)])
-    f.arrow([(535, 120), (550, 120)])
-    f.box(10, 250, 940, 66, 'La traducción es el único lugar que conoce los dos vocabularios: «recibida» pasa a verdadero y «pendiente» a falso. Sin ella, el texto «pendiente» cuenta como verdadero.', 'coral', 13)
-    return f
+def se414_estado() -> Fig:
+    d = e414_estado()
+    cats = [f"{k} canalizaciones sin bloqueo" for k in d]
+    return stacked_bars(
+        "Dos o tres canalizaciones que aplican a la vez sobre el mismo archivo de estado: todas las intercalaciones",
+        "Barras apiladas horizontales con las intercalaciones de leer, aplicar y escribir: con dos canalizaciones hay 20 y 18 dejan el estado distinto de la nube; con tres hay 1 680 y 1 674 lo hacen; con un bloqueo solo hay órdenes en serie y ninguna diverge.",
+        cats, [("Estado = nube", [v[0] - v[1] for v in d.values()], "teal"), ("Estado ≠ nube", [v[1] for v in d.values()], "coral")],
+        unit="Intercalaciones", horizontal=True, decimals=0, label_w=240,
+        note="Con un bloqueo o una cola solo hay órdenes en serie y 0 intercalaciones divergen. La pérdida no es un accidente raro: solo las ejecuciones en serie son seguras (2 de 20, 6 de 1 680). Cada canalización escribe el estado completo que leyó, así que la última escritura borra lo que la otra aplicó. Un bloqueo del estado (o una cola) vuelve la ejecución serial. El modelo supone que el estado se guarda entero.",
+        note_kind="coral", foot=SINT)
 
 
-def se486_con_y_sin_traduccion() -> Fig:
-    return grouped_bars(
-        "Ocho entregas del contexto académico leídas por el contexto de avisos, con y sin traducción",
-        "Barras agrupadas de ocho entregas del contexto académico: con la capa de traducción, 2 quedan como entregadas y se envían 6 avisos; sin traducir, el estado pasa como texto, cuenta las 8 como entregadas porque cualquier texto no vacío es verdadero y no se envía ningún aviso.",
-        ["Con la capa de traducción", "Sin traducir (el estado pasa como texto)"],
-        [("Contadas como entregadas", [2, 8], "gold"), ("Avisos enviados", [6, 0], "teal")],
-        unit="Entregas (de 8)",
-        note='El fallo no lanza ninguna excepción: el servicio funciona y no avisa a nadie. Un nombre compartido entre contextos sin traducción explícita produce errores silenciosos. Ocho entregas sintéticas; el mecanismo es general, la magnitud no.', note_kind='coral', foot=EJEC)
+def se414_deriva() -> Fig:
+    d = e414_deriva()
+    order = ["plan cada hora", "plan cada 6 horas", "plan diario", "solo al fusionar (3 por semana)", "plan semanal"]
+    items = []
+    for k in order:
+        v = d[k][0]
+        kind = "teal" if v < 5 else ("gold" if v < 30 else "coral")
+        items.append((k, v, kind, f"{n(v, 1)} h"))
+    return bars("Horas que vive una deriva manual hasta que una comprobación la ve (media de 5 000 derivas)",
+                "Barras: con un plan cada hora una deriva vive 0,5 horas de media; cada 6 horas, 3,0; diario, 11,9; solo al fusionar, 55,8, y con un plan semanal, 83 horas.",
+                items, 2.2, "La espera media es la mitad del intervalo entre comprobaciones; comprobar solo al fusionar depende del ritmo del equipo (3 fusiones por semana ⇒ 56 h) y es peor cuando el equipo para. Detectar más pronto no corrige: si la deriva es una corrección de emergencia, revertirla automáticamente puede provocar la caída que se quiso evitar.",
+                label_w=290, width=1000, note_kind="gold", foot=SINT)
 
 
 FIGURES = {
-    "se-481-oraculos-y-mutantes.svg": se481_oraculos_y_mutantes,
-    "se-481-preguntas-y-metodologias.svg": se481_preguntas_y_metodologias,
-    "se-481-union-de-oraculos.svg": se481_union_de_oraculos,
-    "se-482-cuaderno-del-ciclo.svg": se482_cuaderno_del_ciclo,
-    "se-482-ciclo-rojo-verde.svg": se482_ciclo_rojo_verde,
-    "se-482-sobrevivientes.svg": se482_sobrevivientes,
-    "se-483-refactores-y-defectos.svg": se483_refactores_y_defectos,
-    "se-483-dos-estilos.svg": se483_dos_estilos,
-    "se-483-cuando-usar-cada-uno.svg": se483_cuando_usar_cada_uno,
-    "se-484-escenarios-y-contribucion.svg": se484_escenarios_y_contribucion,
-    "se-484-de-la-conversacion-al-paso.svg": se484_de_la_conversacion_al_paso,
-    "se-484-entonces-vaciado.svg": se484_entonces_vaciado,
-    "se-485-conjuntos-de-ejemplos.svg": se485_conjuntos_de_ejemplos,
-    "se-485-ciclo-de-aceptacion.svg": se485_ciclo_de_aceptacion,
-    "se-485-dimensiones-cubiertas.svg": se485_dimensiones_cubiertas,
-    "se-486-polisemia-de-entrega.svg": se486_polisemia_de_entrega,
-    "se-486-contextos-y-traduccion.svg": se486_contextos_y_traduccion,
-    "se-486-con-y-sin-traduccion.svg": se486_con_y_sin_traduccion,
+    "se-481-vida-de-la-rama-y-conflictos.svg": se409_ramas,
+    "se-481-lotes-y-aislamiento-de-fallos.svg": se409_lotes,
+    "se-481-troncal-rota-sin-cola.svg": se409_cola,
+    "se-482-ruta-critica-y-ejecutores.svg": se410_dag,
+    "se-482-matriz-y-cobertura-de-defectos.svg": se410_matriz,
+    "se-482-claves-de-cache.svg": se410_cache,
+    "se-483-orden-de-las-etapas.svg": se411_orden,
+    "se-483-reglas-sobre-workflows.svg": se411_politicas,
+    "se-483-reintentos-y-defectos-intermitentes.svg": se411_reintentos,
+    "se-484-validacion-de-tokens-por-niveles.svg": se412_tokens,
+    "se-484-ventana-de-exposicion.svg": se412_ventana,
+    "se-484-detectores-de-secretos.svg": se412_escaner,
+    "se-485-estrategias-de-despliegue.svg": se413_despliegue,
+    "se-485-potencia-del-canario.svg": se413_potencia,
+    "se-485-banderas-y-combinaciones.svg": se413_banderas,
+    "se-486-orden-de-aplicacion.svg": se414_plan,
+    "se-486-estado-sin-bloqueo.svg": se414_estado,
+    "se-486-deriva-y-frecuencia-de-plan.svg": se414_deriva,
 }

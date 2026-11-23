@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-527",
+  "title": "Taller: estabilizar antes de modernizar",
+  "stage": "G",
+  "part": "43",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar"
+}

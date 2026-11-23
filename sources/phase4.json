@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verified_on": "2026-09-30",
-  "scope": "Fase 4 en desarrollo: SE-181 a SE-360",
+  "scope": "Fase 4: quince partes con contratos de actividad y rúbrica (180 clases)",
   "policy": "Fuentes primarias u oficiales; cada borrador explica su uso, pero requiere revisión técnica individual antes de ser aprobado.",
   "sources": [
     {
@@ -288,40 +288,40 @@
       "NIST-SSDF-800-218",
       "SWEBOK-4A"
     ],
-    "23": [
+    "24": [
       "JUPYTER",
       "GODOT",
       "ISO-25010",
       "SWEBOK-4A"
     ],
-    "24": [
+    "25": [
       "SWEBOK-4A",
       "ISO-25010",
       "PYTHON"
     ],
-    "25": [
+    "27": [
       "C4",
       "ISO-25010",
       "SWEBOK-4A"
     ],
-    "26": [
+    "29": [
       "POSTGRESQL",
       "SQLITE",
       "SWEBOK-4A"
     ],
-    "27": [
+    "31": [
       "ASYNCAPI",
       "CLOUDEVENTS",
       "OPENAPI",
       "SWEBOK-4A"
     ],
-    "28": [
+    "32": [
       "RAFT",
       "GO-MEMORY",
       "ISO-25010",
       "SWEBOK-4A"
     ],
-    "29": [
+    "33": [
       "KUBERNETES",
       "OCI",
       "TERRAFORM",

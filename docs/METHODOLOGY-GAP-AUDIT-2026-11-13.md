@@ -1,5 +1,10 @@
 # Auditoría de brechas: metodologías de desarrollo en la era de la IA
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](ID-MIGRATION.md) ([ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+
 Fecha: 2026-11-13. Estado: **alcance decidido el 2026-11-13: 540 clases en cinco partes nuevas (40–44)**; pendiente de aplicar a `curriculum.yaml`, roadmap y conteos, sin cambios en `curriculum.yaml`,
 README ni conteos. Complementa `ROADMAP.md` y el plan maestro; no los sustituye.
 

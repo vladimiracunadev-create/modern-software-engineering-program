@@ -1,596 +1,735 @@
-"""Experimentos de SE-463 a SE-468 (desarrollo asistido por IA).
+"""Experimentos de SE-463 a SE-468 (datos sintéticos, semilla fija, solo biblioteca estándar).
 
-Ningún experimento llama a un modelo real: los «modelos» y «revisores» son procesos sintéticos con
-parámetros declarados y semilla fija, o código estándar que se ejecuta de verdad (ast, hashlib,
-difflib, re, tempfile). Solo biblioteca estándar.
-Uso: python scripts/experiments_part38_b.py  -> imprime JSON con todas las cifras.
+Uso: python scripts/experiments_part38_b.py   (imprime una línea JSON por experimento)
+
+Todo lo que se ataca es código de juguete escrito aquí, en memoria y sin red. Las lecturas de
+reloj (e392_redos) y las sondas de e396_portabilidad cambian entre equipos y ejecuciones.
 """
-from __future__ import annotations
-
 import ast
 import hashlib
-import itertools
+import hmac
 import json
 import math
+import ntpath
+import os
+import posixpath
 import random
 import re
-import statistics
+import secrets
 import sys
 import tempfile
+import time
 from collections import Counter
 from pathlib import Path
+from urllib.parse import unquote
+
+sys.stdout.reconfigure(encoding="utf-8")
 
 
-def pct(x: float, digits: int = 1) -> float:
-    return round(100 * x, digits)
-
-
-# ------------------------------------------------------------------ SE-463
-def e463_umbral() -> dict:
-    """Un revisor automático puntúa 400 cambios (80 con defecto real); umbral frente a precisión y revisiones inútiles."""
-    rng = random.Random(463)
-    datos = []
-    for i in range(400):
-        defecto = i < 80
-        punt = rng.gauss(0.68 if defecto else 0.40, 0.17)
-        datos.append((punt, defecto))
+# ----------------------------------------------------------------- SE-463
+def e391_kanon():
+    r = random.Random(3911)
+    N = 5000
+    comunas = [f"C{i:02d}" for i in range(48)]
+    region = {c: f"R{i // 3:02d}" for i, c in enumerate(comunas)}
+    macro = {f"R{i:02d}": f"Z{i // 6}" for i in range(16)}
+    cursos = [f"K{i:02d}" for i in range(30)]
     filas = []
-    for umbral in (0.35, 0.50, 0.60, 0.70, 0.80):
-        marcados = [d for d in datos if d[0] >= umbral]
-        tp = sum(1 for _, d in marcados if d)
-        filas.append({"umbral": umbral, "marcados": len(marcados), "aciertos": tp,
-                      "precision": pct(tp / len(marcados)) if marcados else 0.0, "cobertura": pct(tp / 80),
-                      "falsas_alarmas": len(marcados) - tp})
-    return {"filas": filas}
-
-
-def _referencia(xs):
-    """Función original: agrupa notas por curso y devuelve el promedio por curso, ordenado por curso."""
-    acum = {}
-    for curso, nota in xs:
-        acum.setdefault(curso, []).append(nota)
-    return [(c, round(sum(v) / len(v), 1)) for c, v in sorted(acum.items())]
-
-
-def _refactor_ok(xs):
-    acum = {}
-    for curso, nota in xs:
-        acum.setdefault(curso, []).append(nota)
-    return [(c, round(sum(v) / len(v), 1)) for c in sorted(acum) for v in [acum[c]]]
-
-
-def _refactor_orden(xs):
-    acum = {}
-    for curso, nota in xs:
-        acum.setdefault(curso, []).append(nota)
-    return [(c, round(sum(v) / len(v), 1)) for c, v in acum.items()]  # pierde el orden
-
-
-def _refactor_tope(xs):
-    acum = {}
-    for curso, nota in xs:
-        acum.setdefault(curso, []).append(nota)
-    return [(c, round(sum(v) / len(v), 1)) for c, v in sorted(acum.items()) if len(v) < 5]  # descarta cursos con 5 notas o más
-
-
-def _refactor_vacio(xs):
-    acum = {}
-    for curso, nota in xs:
-        if nota:  # trata la nota 0.0 como ausente
-            acum.setdefault(curso, []).append(nota)
-    return [(c, round(sum(v) / len(v), 1)) for c, v in sorted(acum.items())]
-
-
-def e463_equivalencia() -> dict:
-    """Tres refactorizaciones; cuántas entradas aleatorias hacen falta para distinguir cada una de la original."""
-    rng = random.Random(4632)
-    def entrada(n):
-        return [(rng.choice("ABCDE"), rng.choice([0.0, 1.0, 2.5, 4.0, 5.5, 7.0]) if rng.random() < 0.97 else 0.0) for _ in range(n)]
-    cand = {"equivalente": _refactor_ok, "pierde el orden": _refactor_orden, "descarta la nota 0,0": _refactor_vacio,
-            "descarta cursos con 5 notas o más": _refactor_tope}
-    filas = []
-    for nombre, fn in cand.items():
-        difiere = 0
-        total = 20000
-        for _ in range(total):
-            xs = entrada(rng.randint(1, 8))
-            if fn(xs) != _referencia(xs):
-                difiere += 1
-        # probabilidad de que n entradas independientes no encuentren ninguna diferencia
-        p = difiere / total
-        fila = {"candidato": nombre, "entradas_que_difieren": difiere, "de": total, "p_por_entrada": pct(p, 2)}
-        for n in (5, 20, 100, 1000):
-            fila[f"detecta_{n}"] = pct(1 - (1 - p) ** n)
-        filas.append(fila)
-    return {"filas": filas}
-
-
-def _explica_por_comentario(src):
-    arbol = ast.parse(src)
-    f = arbol.body[0]
-    return ast.get_docstring(f).splitlines()[0]
-
-
-def e463_explicacion() -> dict:
-    """Treinta funciones; en 9 el comentario describe un comportamiento anterior. Explicador de comentarios frente a ejecución."""
-    rng = random.Random(4633)
-    ok = comentario_ok = 0
-    desfase = 0
-    for i in range(30):
-        k = rng.randint(2, 9)
-        deriva = i % 10 in (2, 5, 8)
-        doc = f"Multiplica por {k}" if not deriva else f"Multiplica por {k - 1}"
-        src = f'def f(x):\n    """{doc}."""\n    return x * {k}\n'
-        texto = _explica_por_comentario(src)
-        declarado = int(re.search(r"(\d+)", texto).group(1))
-        real = ast.parse(src).body[0].body[1].value.right.value
-        desfase += declarado != real
-        comentario_ok += declarado == real
-    return {"funciones": 30, "con_deriva": 9, "explicaciones_que_repiten_el_comentario_erroneas": desfase,
-            "coinciden_con_el_codigo": comentario_ok}
-
-
-# ------------------------------------------------------------------ SE-464
-def e464_ambiguedad() -> dict:
-    """Espacio de interpretaciones de «calcula la nota final»: cada restricción elimina combinaciones."""
-    dims = {
-        "promedio": ["aritmético", "ponderado", "mediana"],
-        "redondeo": ["mitad hacia arriba", "mitad al par", "truncar"],
-        "decimales": [0, 1, 2],
-        "escala": ["1–7", "0–100", "1–10"],
-        "nota_ausente": ["cero", "ignorar", "error"],
-        "umbral": [">=4,0", ">4,0", ">=50 %"],
+    for _ in range(N):
+        anio = min(2008, max(1990, round(r.gauss(2000, 4))))
+        c = r.choices(comunas, weights=[1 / (i + 1) ** 0.6 for i in range(48)])[0]
+        filas.append((anio, c, r.choice(cursos), r.choice("FMX")))
+    niveles = {
+        "datos exactos (año, comuna, curso, género)": lambda f: (f[0], f[1], f[2], f[3]),
+        "año a tramo de 3 y comuna a región": lambda f: (f[0] // 3, region[f[1]], f[2], f[3]),
+        "tramo de 5 años, región, sin curso": lambda f: (f[0] // 5, region[f[1]], f[3]),
+        "tramo de 5 años, macrozona, sin curso ni género": lambda f: (f[0] // 5, macro[region[f[1]]]),
     }
-    todas = list(itertools.product(*dims.values()))
-    names = list(dims)
-    def filtra(restr):
-        return [t for t in todas if all(t[names.index(k)] == v for k, v in restr.items())]
-    pasos = [("sin restricciones", {}), ("+ escala", {"escala": "1–7"}), ("+ umbral", {"escala": "1–7", "umbral": ">=4,0"}),
-             ("+ decimales", {"escala": "1–7", "umbral": ">=4,0", "decimales": 1}),
-             ("+ redondeo", {"escala": "1–7", "umbral": ">=4,0", "decimales": 1, "redondeo": "mitad hacia arriba"}),
-             ("+ nota ausente", {"escala": "1–7", "umbral": ">=4,0", "decimales": 1, "redondeo": "mitad hacia arriba", "nota_ausente": "error"}),
-             ("+ promedio", {"escala": "1–7", "umbral": ">=4,0", "decimales": 1, "redondeo": "mitad hacia arriba", "nota_ausente": "error", "promedio": "ponderado"})]
+    out = []
+    for nombre, g in niveles.items():
+        cnt = Counter(g(f) for f in filas)
+        k_min = min(cnt.values())
+        unicos = sum(1 for f in filas if cnt[g(f)] == 1)
+        menos5 = sum(1 for f in filas if cnt[g(f)] < 5)
+        out.append((nombre, len(cnt), k_min, round(100 * unicos / N, 1), round(100 * menos5 / N, 1)))
+    return {"filas": out, "N": N}
+
+
+def e391_dp():
+    r = random.Random(3912)
+    verdadero = 312
+    def lap(eps):
+        return r.expovariate(eps) - r.expovariate(eps)  # sensibilidad 1: escala 1/eps
     filas = []
-    for nombre, r in pasos:
-        n = len(filtra(r))
-        filas.append({"paso": nombre, "interpretaciones": n, "p_acertar_al_azar": pct(1 / n, 2)})
-    return {"total": len(todas), "filas": filas}
+    for eps in (0.1, 0.5, 1.0, 5.0):
+        err = sum(abs(lap(eps)) for _ in range(20000)) / 20000
+        filas.append((eps, round(err, 2)))
+    # ataque de promedio: el mismo conteo preguntado Q veces con ruido nuevo
+    prom = []
+    for Q in (1, 10, 100, 1000, 10000):
+        errs = []
+        for _ in range(200):
+            m = sum(verdadero + lap(0.5) for _ in range(Q)) / Q
+            errs.append(abs(m - verdadero))
+        prom.append((Q, round(sum(errs) / len(errs), 3), round(0.5 * Q, 1)))
+    return {"error_por_eps": filas, "promedio_repetido_eps_0.5": prom}
 
 
-def e464_distractores() -> dict:
-    """Recuperación con documentos de versiones anteriores: sin filtro de versión y con él."""
-    rng = random.Random(464)
-    VOC = "redondeo nota media curso acta periodo regla formato exportacion calculo promedio entero decimal".split()
-    resultados = {"sin_filtro": 0, "con_filtro": 0}
-    n_consultas = 300
-    for q in range(n_consultas):
-        tema = rng.sample(VOC, 3)
-        vigente = tema + [rng.choice(VOC) for _ in range(5)] + ["v3"]
-        antiguos = []
-        for k in range(rng.choice((1, 2, 4))):
-            antiguos.append(tema + [rng.choice(VOC) for _ in range(5)] + [f"v{k + 1}"])
-        docs = [vigente] + antiguos
-        # puntuación por solapamiento léxico con ruido (los antiguos tienen un solapamiento igual o mayor por ser más largos y repetidos)
-        def punt(d):
-            return sum(1 for w in set(d) if w in tema) + rng.random() * 0.8
-        orden = sorted(range(len(docs)), key=lambda i: -punt(docs[i]))
-        resultados["sin_filtro"] += orden[0] == 0
-        vig = [i for i in range(len(docs)) if "v3" in docs[i]]
-        resultados["con_filtro"] += vig[0] == 0
-    return {"consultas": n_consultas, "sin_filtro": pct(resultados["sin_filtro"] / n_consultas),
-            "con_filtro": pct(resultados["con_filtro"] / n_consultas)}
+def e391_pseudo():
+    r = random.Random(3913)
+    candidatos = [f"persona{i}@ejemplo.test" for i in range(100000)]
+    usuarios = [candidatos[i] for i in r.sample(range(100000), 12000)]
+    ajenos = [f"otra{i}@desconocido.test" for i in range(8000)]
+    todos = usuarios + ajenos
+    clave = secrets.token_bytes(32)
+    s1 = {hashlib.sha256(e.encode()).hexdigest(): e for e in todos}
+    tabla = {hashlib.sha256(e.encode()).hexdigest(): e for e in candidatos}
+    reid_hash = sum(1 for h in s1 if h in tabla)
+    hm = {hmac.new(clave, e.encode(), hashlib.sha256).hexdigest(): e for e in todos}
+    reid_hmac = sum(1 for h in hm if h in tabla)
+    # enlace entre dos conjuntos con el mismo seudónimo
+    k1, k2 = secrets.token_bytes(32), secrets.token_bytes(32)
+    a = {hmac.new(clave, e.encode(), hashlib.sha256).hexdigest() for e in usuarios[:6000]}
+    b_mismo = {hmac.new(clave, e.encode(), hashlib.sha256).hexdigest() for e in usuarios[:6000]}
+    b_otra = {hmac.new(k2, e.encode(), hashlib.sha256).hexdigest() for e in usuarios[:6000]}
+    return {"seudonimos": len(todos), "reidentificados_sha256_sin_sal": reid_hash, "reidentificados_hmac_sin_clave": reid_hmac,
+            "enlazables_misma_clave": len(a & b_mismo), "enlazables_clave_por_proposito": len(a & b_otra), "k1_distinta_de_k2": k1 != k2}
 
 
-def e464_reglas() -> dict:
-    """Detector de reglas contradictorias en archivos de instrucciones sintéticos de 5 a 40 reglas."""
-    rng = random.Random(4644)
-    claves = [f"clave{i}" for i in range(25)]
+# ----------------------------------------------------------------- SE-464
+EXT = {"pdf": "application/pdf", "png": "image/png", "txt": "text/plain"}
+
+
+def valida_ref(nombre, tam, mime, curso, m=frozenset()):
+    if not isinstance(curso, int) or isinstance(curso, bool):
+        if "N12" in m and isinstance(curso, str) and curso.isdigit():
+            curso = int(curso)
+        else:
+            return False
+    if not (1 <= curso <= (9999 if "N13" not in m else 10000)):
+        return False
+    if (tam < 0 if "N1" in m else tam <= 0):
+        return False
+    if (tam > 10_000_000 if "N2" not in m else tam >= 10_000_000):
+        return False
+    if len(nombre) > 80 and "N9" not in m:
+        return False
+    if "N7" not in m and any(ch in nombre for ch in "/\\\x00"):
+        return False
+    if "N8" not in m and not re.fullmatch(r"[A-Za-z0-9_\-. ]+", nombre):
+        return False
+    base, _, ext = nombre.rpartition(".")
+    if not base:
+        return False
+    if "N4" in m:
+        if not any(("." + e) in nombre for e in EXT):
+            return False
+        ext = next(e for e in EXT if ("." + e) in nombre)
+    elif "N3" not in m:
+        ext = ext.lower()
+    if ext not in EXT:
+        return False
+    if "N5" not in m and "." in base and re.search(r"\.(exe|bat|js|sh|html)$", base, re.I):
+        return False
+    if "N6" not in m and EXT[ext] != mime:
+        return False
+    if "N10" in m and nombre.startswith("."):
+        return True
+    if "N11" not in m and nombre.startswith("."):
+        return False
+    return True
+
+
+MUT = {"N1": "acepta tamaño negativo", "N2": "límite de tamaño con >= en vez de >", "N3": "extensión sensible a mayúsculas", "N4": "busca la extensión como subcadena",
+       "N5": "acepta doble extensión ejecutable", "N6": "no contrasta tipo MIME con extensión", "N7": "permite separadores de ruta y NUL", "N8": "sin lista blanca de caracteres",
+       "N9": "sin límite de longitud del nombre", "N10": "acepta nombres ocultos", "N11": "(equivalente) nombres ocultos sin comprobar", "N12": "acepta el curso como texto numérico", "N13": "límite superior del curso desplazado"}
+
+
+def e392_mutacion():
+    mutantes = [k for k in MUT if k != "N11"]
+    positivos = [("ensayo.pdf", 120_000, "application/pdf", 12), ("foto.png", 80_000, "image/png", 7), ("notas.txt", 900, "text/plain", 101), ("Informe 2.pdf", 4_000_000, "application/pdf", 55), ("a-b_c.txt", 10, "text/plain", 1)]
+    tipicos = [("../../etc/passwd", 100, "text/plain", 1), ("virus.exe", 100, "application/octet-stream", 1), ("a.pdf", 0, "application/pdf", 1), ("a.pdf", 100, "image/png", 1), ("a.pdf", 100, "application/pdf", 0), ("a.pdf", 100, "application/pdf", "7; DROP"), ("a.pdf", 20_000_000, "application/pdf", 1), ("a.pdf", 100, "application/pdf", -3), ("sin_extension", 5, "text/plain", 1), ("a b<c>.pdf", 5, "application/pdf", 1)]
+    bordes = [("a.pdf", 1, "application/pdf", 1), ("a.pdf", 10_000_000, "application/pdf", 1), ("a.pdf", 10_000_001, "application/pdf", 1), ("a.pdf", -1, "application/pdf", 1), ("a.pdf", 5, "application/pdf", 9999), ("a.pdf", 5, "application/pdf", 10000), ("A.PDF", 5, "application/pdf", 1), ("a.pdf.exe", 5, "application/pdf", 1), ("x.pdf.txt", 5, "text/plain", 1), ("a.pdf", 5, "application/pdf", "7"), (".oculto.pdf", 5, "application/pdf", 1), ("a" * 81 + ".pdf", 5, "application/pdf", 1), ("a\x00.pdf", 5, "application/pdf", 1), ("a/b.pdf", 5, "application/pdf", 1), ("c:\\a.pdf", 5, "application/pdf", 1)]
+    rr = random.Random(3921)
+    alfa = ["a", "B", "7", "_", "-", ".", " ", "/", "\\", "\x00", "é", "<", "pdf", "exe", "PNG", "txt"]
+    def entrada():
+        n = "".join(rr.choice(alfa) for _ in range(rr.randrange(1, 12)))
+        return (n, rr.choice([-1, 0, 1, 5000, 10_000_000, 10_000_001]), rr.choice(["application/pdf", "image/png", "text/plain", "x/y"]), rr.choice([0, 1, 9999, 10000, "7", 5]))
+    azar = [entrada() for _ in range(2000)] + [e for e in (positivos + bordes)]
+    suites = {"solo ejemplos válidos": positivos, "más negativos típicos": positivos + tipicos, "más valores de borde": positivos + tipicos + bordes, "más 2 000 entradas al azar contra la referencia": positivos + tipicos + bordes + azar}
+    out = {}
+    for nombre, s in suites.items():
+        vivos = [k for k in mutantes if not any(valida_ref(*t, m=frozenset([k])) != valida_ref(*t) for t in s)]
+        out[nombre] = {"pruebas": len(s), "detectados": len(mutantes) - len(vivos), "vivos": vivos}
+    out["_mutantes"] = len(mutantes)
+    return out
+
+
+def e392_reglas():
+    # 40 fragmentos con defecto y 40 seguros más 12 difíciles; reglas con ast
+    malos = ["eval(x)", "yaml.load(x)", "subprocess.run(cmd, shell=True)", "pickle.loads(x)", "hashlib.md5(p).hexdigest()", "token = str(random.random())", "password = 'abc123'", "requests.get(u, verify=False)"]
+    buenos = ["ast.literal_eval(x)", "yaml.safe_load(x)", "subprocess.run(cmd)", "json.loads(x)", "hashlib.sha256(p).hexdigest()", "token = secrets.token_hex(16)", "password = os.environ['P']", "requests.get(u)"]
+    dificiles_malos = ["f = eval\nf(x)", "from subprocess import run as r\nr(cmd, shell=True)", "k = True\nsubprocess.run(cmd, shell=k)", "yaml.load(x, Loader=yaml.FullLoader)", "import pickle as p\np.loads(x)", "clave = 'p' + 'ass1234'"]
+    dificiles_buenos = ["# eval(x) en un comentario", "s = 'eval(x)'", "def eval(x):\n    return x\neval(3)", "password = ''", "subprocess.run(cmd, shell=False)", "hashlib.md5(x, usedforsecurity=False)"]
+    casos = [(c, True) for c in malos * 3] + [(c, False) for c in buenos * 3] + [(c, True) for c in dificiles_malos] + [(c, False) for c in dificiles_buenos]
+    def reglas(code):
+        try:
+            t = ast.parse(code)
+        except SyntaxError:
+            return False
+        for n in ast.walk(t):
+            if isinstance(n, ast.Call):
+                f = n.func
+                nombre = f.id if isinstance(f, ast.Name) else (f.attr if isinstance(f, ast.Attribute) else "")
+                if nombre in ("eval", "exec"):
+                    return True
+                if nombre == "load" and isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name) and f.value.id == "yaml" and not any(k.arg == "Loader" for k in n.keywords):
+                    return True
+                if nombre == "loads" and isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name) and f.value.id == "pickle":
+                    return True
+                if nombre in ("run", "call", "Popen") and any(k.arg == "shell" and isinstance(k.value, ast.Constant) and k.value.value is True for k in n.keywords):
+                    return True
+                if nombre == "md5" and isinstance(f, ast.Attribute):
+                    return True
+                if nombre == "get" and any(k.arg == "verify" and isinstance(k.value, ast.Constant) and k.value.value is False for k in n.keywords):
+                    return True
+            if isinstance(n, ast.Assign):
+                for tg in n.targets:
+                    if isinstance(tg, ast.Name) and re.search(r"pass(word)?|clave|secret", tg.id, re.I) and isinstance(n.value, ast.Constant) and isinstance(n.value.value, str) and n.value.value:
+                        return True
+                    if isinstance(tg, ast.Name) and tg.id == "token" and isinstance(n.value, ast.Call) and "random" in ast.dump(n.value):
+                        return True
+        return False
+    tp = sum(1 for c, m in casos if m and reglas(c))
+    fp = sum(1 for c, m in casos if not m and reglas(c))
+    fn = sum(1 for c, m in casos if m and not reglas(c))
+    sencillos = [(c, m) for c, m in casos if c in malos or c in buenos]
+    tps = sum(1 for c, m in sencillos if m and reglas(c))
+    fps = sum(1 for c, m in sencillos if not m and reglas(c))
+    fns = sum(1 for c, m in sencillos if m and not reglas(c))
+    dif = [(c, m) for c, m in casos if c in dificiles_malos or c in dificiles_buenos]
+    tpd = sum(1 for c, m in dif if m and reglas(c))
+    fpd = sum(1 for c, m in dif if not m and reglas(c))
+    fnd = sum(1 for c, m in dif if m and not reglas(c))
+    return {"total": len(casos), "sencillos": {"fragmentos": len(sencillos), "detectados": tps, "falsas_alarmas": fps, "perdidos": fns},
+            "dificiles": {"fragmentos": len(dif), "detectados": tpd, "falsas_alarmas": fpd, "perdidos": fnd}, "todos": {"detectados": tp, "falsas_alarmas": fp, "perdidos": fn}}
+
+
+def e392_redos():
+    patron_malo = re.compile(r"^(a+)+$")
+    patron_bueno = re.compile(r"^a+$")
     filas = []
-    for n in (5, 10, 20, 40):
-        con_conflicto = 0
-        total = 500
-        for _ in range(total):
-            reglas = [(rng.choice(claves), rng.choice(["siempre", "nunca"])) for _ in range(n)]
-            vistos = {}
-            hay = False
-            for k, v in reglas:
-                if k in vistos and vistos[k] != v:
-                    hay = True
-                vistos[k] = vistos.get(k, v)
-            con_conflicto += hay
-        filas.append({"reglas": n, "con_conflicto": pct(con_conflicto / total)})
-    return {"filas": filas, "claves": len(claves)}
-
-
-# ------------------------------------------------------------------ SE-465
-def wilson(aciertos: int, n: int, z: float = 1.96) -> tuple:
-    p = aciertos / n
-    den = 1 + z * z / n
-    centro = (p + z * z / (2 * n)) / den
-    mitad = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den
-    return centro - mitad, centro + mitad
-
-
-def e465_tamano() -> dict:
-    """Intervalo de Wilson y probabilidad de ordenar bien dos sistemas (70 % frente a 75 %) según las tareas del conjunto."""
-    rng = random.Random(465)
-    filas = []
-    for n in (20, 50, 100, 300, 1000):
-        lo, hi = wilson(round(0.70 * n), n)
-        ok = 0
-        reps = 2000
-        for _ in range(reps):
-            a = sum(rng.random() < 0.70 for _ in range(n))
-            b = sum(rng.random() < 0.75 for _ in range(n))
-            ok += b > a
-        filas.append({"tareas": n, "ancho_ic_pts": round(100 * (hi - lo), 1), "ic": [pct(lo), pct(hi)],
-                      "ordena_bien": pct(ok / reps)})
+    previo = None
+    for n in range(14, 25, 2):
+        s = "a" * n + "!"
+        t0 = time.perf_counter()
+        patron_malo.match(s)
+        dt = time.perf_counter() - t0
+        t1 = time.perf_counter()
+        patron_bueno.match(s)
+        db = time.perf_counter() - t1
+        filas.append((n, round(dt * 1000, 2), round(db * 1000, 4), None if previo is None else round(dt / previo, 1)))
+        previo = dt
     return {"filas": filas}
 
 
-def e465_frontera() -> dict:
-    """Seis configuraciones sintéticas: costo por solución aceptada y latencia; cuáles están en la frontera de Pareto."""
-    configs = [("pequeño", 0.52, 0.002, 1.2), ("pequeño + reintento", 0.64, 0.004, 2.6), ("mediano", 0.68, 0.010, 2.5),
-               ("mediano + contexto", 0.76, 0.018, 4.1), ("grande", 0.80, 0.045, 6.0), ("grande + contexto + juez", 0.86, 0.110, 12.0)]
-    revision = 0.40  # costo de revisión humana de un intento, en las mismas unidades
+# ----------------------------------------------------------------- SE-465
+AV = {"N": 0.85, "A": 0.62, "L": 0.55, "P": 0.2}
+AC = {"L": 0.77, "H": 0.44}
+UI = {"N": 0.85, "R": 0.62}
+CIA = {"H": 0.56, "L": 0.22, "N": 0.0}
+
+
+def _roundup(x):
+    i = round(x * 100000)
+    return i / 100000.0 if i % 10000 == 0 else (math.floor(i / 10000) + 1) / 10.0
+
+
+def cvss(v):
+    d = dict(p.split(":") for p in v.split("/")[1:])
+    cambia = d["S"] == "C"
+    pr = {"N": 0.85, "L": 0.68 if cambia else 0.62, "H": 0.5 if cambia else 0.27}[d["PR"]]
+    iss = 1 - (1 - CIA[d["C"]]) * (1 - CIA[d["I"]]) * (1 - CIA[d["A"]])
+    imp = 7.52 * (iss - 0.029) - 3.25 * (iss - 0.02) ** 15 if cambia else 6.42 * iss
+    ex = 8.22 * AV[d["AV"]] * AC[d["AC"]] * pr * UI[d["UI"]]
+    if imp <= 0:
+        return 0.0
+    return _roundup(min(1.08 * (imp + ex), 10)) if cambia else _roundup(min(imp + ex, 10))
+
+
+def banda(s):
+    return "ninguna" if s == 0 else "baja" if s < 4 else "media" if s < 7 else "alta" if s < 9 else "crítica"
+
+
+def e393_cvss():
+    comprobaciones = {"AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H": cvss("CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"), "XSS reflejado": cvss("CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N")}
+    hallazgos = [
+        ("lectura de notas ajenas por identificador", ["AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N", "AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N", "AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"]),
+        ("cambio de nota por falta de comprobación de dueño", ["AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N", "AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N", "AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N"]),
+        ("XSS almacenado en un comentario", ["AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N", "AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:N", "AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"]),
+        ("inyección SQL en la búsqueda de entregas", ["AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H", "AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H", "AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N"]),
+        ("secreto en un registro accesible a soporte", ["AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N", "AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N", "AV:L/AC:L/PR:H/UI:N/S:U/C:L/I:N/A:N"]),
+        ("denegación por expresión regular catastrófica", ["AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H", "AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H", "AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"]),
+    ]
     filas = []
-    for nombre, exito, costo, lat in configs:
-        por_exito = (costo + revision) / exito
-        filas.append({"config": nombre, "exito": pct(exito, 0), "costo_intento": costo, "latencia_s": lat,
-                      "costo_por_aceptada": round(por_exito, 2)})
-    for f in filas:
-        f["dominada"] = any(g["exito"] >= f["exito"] and g["costo_por_aceptada"] <= f["costo_por_aceptada"] and g["latencia_s"] <= f["latencia_s"]
-                            and (g["exito"], g["costo_por_aceptada"], g["latencia_s"]) != (f["exito"], f["costo_por_aceptada"], f["latencia_s"]) for g in filas)
-    return {"filas": filas, "revision": revision}
+    for nom, vs in hallazgos:
+        sc = [cvss("CVSS:3.1/" + v) for v in vs]
+        filas.append((nom, sc, min(sc), max(sc), round(max(sc) - min(sc), 1), banda(min(sc)), banda(max(sc))))
+    return {"comprobaciones": comprobaciones, "filas": filas}
 
 
-def e465_juez() -> dict:
-    """Un juez automático sintético con sesgo de longitud y de posición frente a etiquetas humanas."""
-    rng = random.Random(4652)
-    n = 1000
-    coincide = coincide_swap = 0
-    largas_gana = 0
-    for _ in range(n):
-        calidad_a, calidad_b = rng.gauss(0, 1), rng.gauss(0, 1)
-        len_a, len_b = rng.uniform(0.5, 1.5), rng.uniform(0.5, 1.5)
-        humano = calidad_a > calidad_b
-        def juez(qa, qb, la, lb):
-            return (qa + 0.8 * la + 0.4 + rng.gauss(0, 0.5)) > (qb + 0.8 * lb + rng.gauss(0, 0.5))
-        j1 = juez(calidad_a, calidad_b, len_a, len_b)
-        j2 = not juez(calidad_b, calidad_a, len_b, len_a)  # mismas respuestas con el orden intercambiado
-        coincide += j1 == humano
-        coincide_swap += j1 == j2
-        largas_gana += (j1 == (len_a > len_b))
-    return {"n": n, "acuerdo_con_humano": pct(coincide / n), "estable_al_intercambiar_orden": pct(coincide_swap / n),
-            "gana_la_mas_larga": pct(largas_gana / n)}
-
-
-# ------------------------------------------------------------------ SE-466
-def _entropia(s: str) -> float:
-    c = Counter(s)
-    return -sum(v / len(s) * math.log2(v / len(s)) for v in c.values())
-
-
-def e466_escaner() -> dict:
-    """Doscientos mensajes sintéticos con y sin datos sensibles generados en tiempo de ejecución; escáner por patrón y por entropía."""
-    rng = random.Random(466)
-    alfabeto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    casos = []
-    for i in range(240):
-        tipo = i % 6
-        if tipo == 0:
-            texto, clase = "usuario%d@ejemplo.test pide revisar la nota" % rng.randint(1, 999), "correo"
-        elif tipo == 1:
-            cad = "".join(rng.choice(alfabeto) for _ in range(32))
-            texto, clase = "usa la clave " + cad + " para el servicio", "secreto"
-        elif tipo == 2:
-            texto, clase = "alumno con id %d-%d no ve su acta" % (rng.randint(10_000_000, 25_000_000), rng.randint(0, 9)), "identificador"
-        elif tipo == 3:
-            texto, clase = "el hash de la versión es " + "".join(rng.choice("0123456789abcdef") for _ in range(40)), "limpio"
-        elif tipo == 5:
-            texto, clase = "usa la clave " + "".join(rng.choice("0123456789abcdef") for _ in range(32)) + " para el servicio", "secreto_hex"
-        else:
-            texto, clase = "el redondeo de la nota 5,5 falla en el acta del periodo %d" % rng.randint(1, 4), "limpio"
-        casos.append((texto, clase))
-    p_correo = re.compile(r"[\w.]+@[\w.]+\.\w+")
-    p_id = re.compile(r"\b\d{7,8}-\d\b")
-    def marca_patron(t):
-        return bool(p_correo.search(t) or p_id.search(t))
-    def marca_entropia(t):
-        return any(len(w) >= 24 and _entropia(w) > 4.0 for w in t.split())
-    p_ctx = re.compile(r"(clave|contraseña|token)\s+\S{16,}")
-    def marca_contexto(t):
-        return bool(p_ctx.search(t))
+def e393_prioridad():
+    r = random.Random(3931)
+    N = 3000
+    vul = []
+    for _ in range(N):
+        cv = min(10.0, max(0.0, round(r.gauss(6.2, 1.9), 1)))
+        p = 0.02 + 0.015 * (cv >= 7)  # supuesto del autor: la gravedad influye poco en la explotación
+        expl = r.random() < p
+        vul.append((cv, expl))
+    ex_total = sum(1 for _, e in vul if e)
     res = {}
-    for clase in ("correo", "secreto", "secreto_hex", "identificador", "limpio"):
-        sub = [t for t, c in casos if c == clase]
-        res[clase] = {"n": len(sub), "patron": sum(marca_patron(t) for t in sub), "entropia": sum(marca_entropia(t) for t in sub),
-                      "contexto": sum(marca_contexto(t) for t in sub),
-                      "las_tres": sum(marca_patron(t) or marca_entropia(t) or marca_contexto(t) for t in sub)}
+    altos = [v for v in vul if v[0] >= 7]
+    res["CVSS >= 7"] = (len(altos), sum(1 for _, e in altos if e))
+    criticos = [v for v in vul if v[0] >= 9]
+    res["CVSS >= 9"] = (len(criticos), sum(1 for _, e in criticos if e))
+    res["lista de explotación conocida"] = (ex_total, ex_total)
+    # mezcla: lista de explotación conocida + CVSS >= 9 sin explotar
+    mix = {i for i, v in enumerate(vul) if v[1] or v[0] >= 9}
+    res["explotadas + CVSS >= 9"] = (len(mix), sum(1 for i in mix if vul[i][1]))
+    return {"total": N, "explotadas": ex_total, "estrategias": res}
+
+
+def e393_divulgacion():
+    r = random.Random(3932)
+    def corrige():
+        return math.exp(r.gauss(math.log(30), 0.9))
+    def adopta():
+        return r.expovariate(1 / 20)
+    out = []
+    for plazo in (45, 90, 120):
+        n = 20000
+        sin_parche = 0
+        exp_publica = []
+        total = []
+        for _ in range(n):
+            f = corrige()
+            a = adopta()
+            if f > plazo:
+                sin_parche += 1
+                exp_publica.append(f - plazo)  # días con la falla pública y sin corrección
+            total.append(f + a)
+        out.append((plazo, round(100 * sin_parche / n, 1), round(sum(exp_publica) / max(1, len(exp_publica)), 1), round(sorted(total)[n // 2], 1), round(sorted(total)[int(n * 0.9)], 1)))
+    return {"filas": out, "mediana_correccion_dias": 30}
+
+
+def _abierto(t):
+    # minutos desde el lunes 00:00; abierto lunes a viernes de 9 a 17
+    d, m = divmod(int(t), 1440)
+    return (d % 7) < 5 and 540 <= m < 1020
+
+
+def _avanza(t, trabajo):
+    while trabajo > 0:
+        d, m = divmod(t, 1440)
+        if (int(d) % 7) >= 5:
+            t = (int(d) // 7 * 7 + 7) * 1440 + 540
+            continue
+        if m < 540:
+            t = int(d) * 1440 + 540
+            continue
+        if m >= 1020:
+            sig = int(d) + 1
+            t = sig * 1440 + 540
+            continue
+        disp = 1020 - m
+        usa = min(disp, trabajo)
+        t += usa
+        trabajo -= usa
+    return t
+
+
+def e393_triaje():
+    out = []
+    for c in (1, 2, 3):
+        r = random.Random(3933)
+        t = 0.0
+        libres = [0.0] * c
+        esperas = []
+        # 6 informes por semana (10 080 min): llegadas de Poisson
+        tasa = 6 / 10080
+        horizonte = 10080 * 52
+        while True:
+            t += r.expovariate(tasa)
+            if t > horizonte:
+                break
+            valido = r.random() >= 0.40
+            trabajo = r.expovariate(1 / (360 if valido else 120))
+            k = min(range(c), key=lambda i: libres[i])
+            inicio = max(t, libres[k])
+            primera = _avanza(inicio, 15)  # primer acuse: 15 min de trabajo
+            fin = _avanza(inicio, trabajo)
+            libres[k] = fin
+            esperas.append((primera - t) / 60.0)
+        esperas.sort()
+        out.append((c, len(esperas), round(esperas[len(esperas) // 2], 1), round(esperas[int(len(esperas) * 0.9)], 1), round(esperas[int(len(esperas) * 0.99)], 1)))
+    return {"filas": out}
+
+
+# ----------------------------------------------------------------- SE-466
+def e394_embudo():
+    r = random.Random(3941)
+    reqs = 40
+    controles = 28
+    filas = []
+    for i in range(reqs):
+        tiene_control = r.random() < 0.90
+        tiene_prueba = tiene_control and r.random() < 0.78
+        edad = int(r.expovariate(1 / 70)) if tiene_prueba else None
+        paso = tiene_prueba and r.random() < 0.93
+        filas.append((tiene_control, tiene_prueba, edad, paso))
+    a = sum(1 for f in filas if f[0])
+    b = sum(1 for f in filas if f[1])
+    c = sum(1 for f in filas if f[1] and f[3])
+    d = sum(1 for f in filas if f[1] and f[3] and f[2] <= 90)
+    e = sum(1 for f in filas if f[1] and f[3] and f[2] <= 30)
+    return {"requisitos": reqs, "con_control_documentado": a, "con_prueba": b, "con_prueba_que_paso": c, "y_evidencia_de_90_dias_o_menos": d, "y_de_30_dias_o_menos": e}
+
+
+def e394_muestreo():
+    N, D = 2000, 30
+    def p_exacta(n):
+        return 1 - math.comb(N - D, n) / math.comb(N, n)
+    r = random.Random(3942)
+    pob = [1] * D + [0] * (N - D)
+    filas = []
+    for n in (10, 25, 60, 100, 200):
+        enc = 0
+        for _ in range(20000):
+            if sum(r.sample(pob, n)):
+                enc += 1
+        filas.append((n, round(100 * p_exacta(n), 1), round(100 * enc / 20000, 1)))
+    # defectos concentrados: cuentas de servicio son el 4 % de los eventos y el 60 % de los defectos
+    N2, S, DS, DO = 2000, 80, 18, 12
+    def p_estr(nS, nO):
+        pS = 1 - math.comb(S - DS, nS) / math.comb(S, nS)
+        pO = 1 - math.comb(N2 - S - DO, nO) / math.comb(N2 - S, nO)
+        return 1 - (1 - pS) * (1 - pO)
+    aleatorio_n = 25
+    pa = 1 - math.comb(N2 - (DS + DO), aleatorio_n) / math.comb(N2, aleatorio_n)
+    pe = p_estr(15, 10)
+    from math import log
+    n95 = math.ceil(log(0.05) / log(1 - D / N))
+    return {"filas": filas, "n_para_95_con_1_5_por_ciento_aprox": n95, "concentrados_25_aleatorios": round(100 * pa, 1), "concentrados_15_en_servicio_y_10_en_resto": round(100 * pe, 1)}
+
+
+def e394_cadena():
+    r = random.Random(3943)
+    def construye(n):
+        prev = "0" * 64
+        out = []
+        for i in range(n):
+            cuerpo = f"evento-{i}"
+            h = hashlib.sha256((prev + cuerpo).encode()).hexdigest()
+            out.append((cuerpo, h))
+            prev = h
+        return out
+    def verifica(cad):
+        prev = "0" * 64
+        for cuerpo, h in cad:
+            if hashlib.sha256((prev + cuerpo).encode()).hexdigest() != h:
+                return False
+            prev = h
+        return True
+    n = 1000
+    ancla = construye(n)[-1][1]  # huella publicada fuera del sistema
+    def ataques(tipo):
+        det_cadena = det_ancla = 0
+        for _ in range(100):
+            cad = construye(n)
+            k = r.randrange(1, n - 20)
+            if tipo == "modificar un evento":
+                cad[k] = ("evento-alterado", cad[k][1])
+            elif tipo == "borrar un evento":
+                del cad[k]
+            elif tipo == "reordenar dos eventos":
+                cad[k], cad[k + 1] = cad[k + 1], cad[k]
+            elif tipo == "truncar los últimos 10":
+                cad = cad[:-10]
+            elif tipo == "reescribir desde k recalculando":
+                nuevo = construye(n)
+                prev = cad[k - 1][1]
+                rest = []
+                for i in range(k, n):
+                    c = f"falso-{i}"
+                    h = hashlib.sha256((prev + c).encode()).hexdigest()
+                    rest.append((c, h))
+                    prev = h
+                cad = cad[:k] + rest
+            ok = verifica(cad)
+            det_cadena += (not ok)
+            det_ancla += ((not ok) or cad[-1][1] != ancla)
+        return det_cadena, det_ancla
+    tipos = ["modificar un evento", "borrar un evento", "reordenar dos eventos", "truncar los últimos 10", "reescribir desde k recalculando"]
+    return {"filas": [(t,) + ataques(t) for t in tipos]}
+
+
+# ----------------------------------------------------------------- SE-467
+def e395_ruta():
+    r = random.Random(3951)
+    base = "/srv/entregas"
+    alfa = ["..", ".", "/", "\\", "%2e", "%2f", "a", "....//", "..././", "%2e%2e%2f", "x"]
+    cargas = []
+    for _ in range(5000):
+        cargas.append("".join(r.choice(alfa) for _ in range(r.randrange(1, 6))))
+    def decod(s):
+        return unquote(s)
+    def sale(modulo, ruta_final, base_):
+        p = modulo.normpath(modulo.join(base_, ruta_final.lstrip("/\\") if modulo is posixpath else ruta_final.lstrip("/\\")))
+        b = modulo.normpath(base_)
+        if modulo is ntpath:
+            p, b = p.lower(), b.lower()
+        return not (p == b or p.startswith(b + modulo.sep))
+    def quita_una_vez(s):
+        return s.replace("../", "")
+    def quita_en_bucle(s):
+        while "../" in s:
+            s = s.replace("../", "")
+        return s
+    res = {}
+    for nombre, f in (("quitar «../» una vez y decodificar después", lambda s: decod(quita_una_vez(s))),
+                      ("quitar «../» en bucle y decodificar después", lambda s: decod(quita_en_bucle(s))),
+                      ("decodificar, resolver y comprobar el prefijo", lambda s: decod(s))):
+        out = {}
+        for mod, base_ in ((posixpath, "/srv/entregas"), (ntpath, "C:\\srv\\entregas")):
+            n_sale = sum(1 for c in cargas if sale(mod, f(c), base_))
+            out[mod.__name__] = n_sale
+        res[nombre] = out
+    # para la tercera, la comprobación de prefijo rechaza: cuenta las que habría servido fuera de la raíz tras comprobar
+    res["_cargas"] = len(cargas)
+    # con comprobación de prefijo, las rutas que salen se rechazan
+    comp = {}
+    for mod, base_ in ((posixpath, "/srv/entregas"), (ntpath, "C:\\srv\\entregas")):
+        comp[mod.__name__] = sum(1 for c in cargas if sale(mod, decod(c), base_) and False)
+    res["decodificar, resolver y comprobar el prefijo"] = comp
+    res["_rechazadas_por_la_comprobacion"] = {m.__name__: sum(1 for c in cargas if sale(m, decod(c), b)) for m, b in ((posixpath, "/srv/entregas"), (ntpath, "C:\\srv\\entregas"))}
+    # un ejemplo conocido
+    res["_ejemplo"] = {"....//secreto": quita_una_vez("....//secreto")}
     return res
 
 
-SNIPPETS = {
-    "consulta con texto formateado": ("q = 'SELECT * FROM notas WHERE id = ' + str(i)\ncur.execute(q)", True),
-    "consulta parametrizada": ("cur.execute('SELECT * FROM notas WHERE id = ?', (i,))", False),
-    "evaluación dinámica": ("resultado = eval(entrada)", True),
-    "evaluación literal": ("resultado = ast.literal_eval(entrada)", False),
-    "comando con shell": ("subprocess.run(cmd, shell=True)", True),
-    "comando sin shell": ("subprocess.run(['ls', ruta], shell=False)", False),
-    "hash débil": ("h = hashlib.md5(dato).hexdigest()", True),
-    "hash robusto": ("h = hashlib.sha256(dato).hexdigest()", False),
-    "yaml sin límites": ("d = yaml.load(texto)", True),
-    "yaml seguro": ("d = yaml.safe_load(texto)", False),
-    "verificación desactivada": ("requests.get(url, verify=False)", True),
-    "verificación activa": ("requests.get(url, timeout=5)", False),
-    "advertencia en comentario": ("# nunca uses eval(entrada) aquí\nr = ast.literal_eval(entrada)", False),
-    "mensaje que menciona md5": ("msg = 'el md5 está prohibido'", False),
-    "alias del hash débil": ("from hashlib import md5 as h\nx = h(dato)", True),
-    "alias de eval": ("f = eval\nr = f(entrada)", True),
-    "consulta en f-string": ("q = f'SELECT * FROM n WHERE id = {i}'\ncur.execute(q)", True),
-}
+def e395_limitador():
+    def vulnerable(intentos):
+        cont = Counter()
+        permitidos = 0
+        for ip_cabecera, _ in intentos:
+            if cont[ip_cabecera] < 5:
+                cont[ip_cabecera] += 1
+                permitidos += 1
+        return permitidos, len(cont)
+    def corregido(intentos):
+        cont = Counter()
+        permitidos = 0
+        for _, ip_conexion in intentos:
+            if cont[ip_conexion] < 5:
+                cont[ip_conexion] += 1
+                permitidos += 1
+        return permitidos, len(cont)
+    intentos = [(f"10.9.{i // 250}.{i % 250}", "198.51.100.7") for i in range(1000)]
+    honesto = [("198.51.100.7", "198.51.100.7")] * 1000
+    return {"cabecera_rotada": {"vulnerable": vulnerable(intentos), "corregido": corregido(intentos)}, "sin_rotar": {"vulnerable": vulnerable(honesto), "corregido": corregido(honesto)}}
 
 
-def _ast_marca(codigo: str) -> bool:
-    arbol = ast.parse(codigo)
-    for n in ast.walk(arbol):
-        if isinstance(n, ast.Call):
-            nombre = ast.unparse(n.func)
-            if nombre == "eval":
-                return True
-            if nombre.endswith("md5"):
-                return True
-            if nombre == "yaml.load" and len(n.args) + len(n.keywords) < 2:
-                return True
-            for kw in n.keywords:
-                if kw.arg == "shell" and isinstance(kw.value, ast.Constant) and kw.value.value is True:
-                    return True
-                if kw.arg == "verify" and isinstance(kw.value, ast.Constant) and kw.value.value is False:
-                    return True
-            if nombre.endswith(".execute") and n.args and isinstance(n.args[0], ast.Name):
-                return True  # consulta construida en otra línea: se marca por sospecha
-    for n in ast.walk(arbol):
-        if isinstance(n, ast.BinOp) and isinstance(n.op, ast.Add) and isinstance(n.left, ast.Constant) and isinstance(n.left.value, str) and "SELECT" in n.left.value:
-            return True
-    return False
-
-
-def e466_patrones() -> dict:
-    """Doce fragmentos (6 inseguros, 6 seguros): búsqueda de texto frente a recorrido del árbol sintáctico."""
-    texto_pat = [r"SELECT.*\+", r"\beval\(", r"shell=True", r"md5", r"yaml\.load\(", r"verify=False"]
+def e395_csrf():
+    clave = b"clave-de-servidor-de-ejemplo"
+    def token_para(sesion):
+        return hmac.new(clave, sesion.encode(), hashlib.sha256).hexdigest()
+    def v_presencia(sesion, tok):
+        return bool(tok)
+    def v_global(sesion, tok):
+        return tok == token_para("sesion-de-ana")  # valor único compartido por todos
+    def v_ligado(sesion, tok):
+        return hmac.compare_digest(tok or "", token_para(sesion))
+    ataques = [("sin token", "bruno", ""), ("token inventado", "bruno", "x"), ("token vacío con espacios", "bruno", " "), ("token de otra sesión", "bruno", token_para("sesion-de-ana")), ("token propio", "bruno", token_para("bruno")), ("token de la sesión de ana, usado por ana", "sesion-de-ana", token_para("sesion-de-ana"))]
     filas = []
-    for etiqueta, f in (("texto", lambda c: any(re.search(p, c) for p in texto_pat)), ("árbol", _ast_marca)):
-        tp = fp = fn = 0
-        for nombre, (codigo, inseguro) in SNIPPETS.items():
-            m = f(codigo)
-            tp += m and inseguro
-            fp += m and not inseguro
-            fn += (not m) and inseguro
-        filas.append({"tecnica": etiqueta, "verdaderos": tp, "falsos_positivos": fp, "omitidos": fn})
-    return {"filas": filas, "inseguros": sum(1 for v in SNIPPETS.values() if v[1])}
-
-
-def _huellas(src: str, n: int = 5, normalizar: bool = False):
-    import keyword
-    toks = re.findall(r"[A-Za-z_]+|\d+|[^\sA-Za-z_\d]", src)
-    if normalizar:
-        toks = ["ID" if re.match(r"[A-Za-z_]", t) and not keyword.iskeyword(t) else t for t in toks]
-    return {tuple(toks[i:i + n]) for i in range(len(toks) - n + 1)}
-
-
-def e466_similitud() -> dict:
-    """Parecido de fragmentos generados con un corpus con licencia: copia, copia renombrada, idioma común e independiente."""
-    rng = random.Random(4666)
-    corpus_fn = """
-def promedio_ponderado(valores, pesos):
-    total = 0.0
-    peso_total = 0.0
-    for valor, peso in zip(valores, pesos):
-        total += valor * peso
-        peso_total += peso
-    if peso_total == 0:
-        raise ValueError("pesos nulos")
-    return total / peso_total
-"""
-    copia = corpus_fn
-    renombrada = corpus_fn.replace("valores", "xs").replace("pesos", "ws").replace("total", "acc").replace("peso_total", "sw")
-    idioma = "for i in range(len(xs)):\n    if xs[i] > 0:\n        out.append(xs[i])\n"
-    independiente = """
-def media_ponderada(notas, coef):
-    num = sum(n * c for n, c in zip(notas, coef))
-    den = sum(coef)
-    return num / den if den else None
-"""
-    idioma_txt = "for i in range(len(xs)):" + chr(10) + "    if xs[i] > 0:" + chr(10) + "        out.append(xs[i])" + chr(10)
-    def jac(a, b):
-        return len(a & b) / len(a | b) if a | b else 0
-    filas = []
-    for nombre, src in (("copia literal", copia), ("copia con nombres cambiados", renombrada), ("idioma común (corpus de bucles)", idioma), ("solución independiente", independiente)):
-        ref_txt = idioma_txt if nombre.startswith("idioma") else corpus_fn
-        fila = {"caso": nombre}
-        for etiqueta, norm in (("literal", False), ("normalizada", True)):
-            h, ref = _huellas(src, normalizar=norm), _huellas(ref_txt, normalizar=norm)
-            fila[etiqueta] = round(len(h & ref) / len(h), 2) if h else 0
-        filas.append(fila)
+    for nom, ses, tok in ataques:
+        filas.append((nom, v_presencia(ses, tok), v_global(ses, tok), v_ligado(ses, tok)))
     return {"filas": filas}
 
 
-# ------------------------------------------------------------------ SE-467
-def e467_flujos() -> dict:
-    """200 tareas sintéticas en tres flujos; mediana de horas, defectos que escapan, intervalo por bootstrap."""
-    rng = random.Random(467)
-    n = 200
-    tareas = [(rng.lognormvariate(0.9, 0.5), rng.random() < 0.3) for _ in range(n)]  # (horas manuales, es tarea difícil)
-    def ejecutar(flujo):
-        horas, escapan = [], 0
-        for h, dificil in tareas:
-            if flujo == "manual":
-                t, p_def = h, 0.06
-            elif flujo == "asistido":
-                p_ok = 0.55 if dificil else 0.85
-                ok = rng.random() < p_ok
-                t = 0.35 * h + 0.25 * h + (0 if ok else 0.8 * h)  # generar + revisar + rehacer
-                p_def = 0.05 if ok else 0.12
-            else:  # automatizado
-                p_ok = 0.40 if dificil else 0.75
-                ok = rng.random() < p_ok
-                t = 0.10 * h + 0.30 * h + (0 if ok else 1.0 * h)  # preparar + revisar el resultado + rehacer
-                p_def = 0.09 if ok else 0.25
-            horas.append(t)
-            escapan += rng.random() < p_def
-        return horas, escapan
-    filas = []
-    for flujo in ("manual", "asistido", "automatizado"):
-        horas, esc = ejecutar(flujo)
-        boots = sorted(statistics.median(rng.choices(horas, k=n)) for _ in range(1000))
-        filas.append({"flujo": flujo, "mediana_h": round(statistics.median(horas), 2), "ic95": [round(boots[25], 2), round(boots[975], 2)],
-                      "total_h": round(sum(horas), 1), "defectos_escapan": esc})
-    return {"n": n, "filas": filas}
+def e395_algoritmo():
+    import base64
+    def b64(d):
+        return base64.urlsafe_b64encode(json.dumps(d).encode()).rstrip(b"=").decode()
+    def firma(msg, clave):
+        return base64.urlsafe_b64encode(hmac.new(clave, msg.encode(), hashlib.sha256).digest()).rstrip(b"=").decode()
+    clave = b"clave-del-servidor"
+    def emite(claims):
+        c = b64({"alg": "HS256"}) + "." + b64(claims)
+        return c + "." + firma(c, clave)
+    def parse(tok):
+        h, c, f = tok.split(".")
+        pad = lambda s: s + "=" * (-len(s) % 4)
+        return json.loads(base64.urlsafe_b64decode(pad(h))), json.loads(base64.urlsafe_b64decode(pad(c))), h + "." + c, f
+    def verifica_vulnerable(tok):
+        h, c, msg, f = parse(tok)
+        if h.get("alg") == "none":
+            return c
+        return c if hmac.compare_digest(firma(msg, clave), f) else None
+    def verifica_corregida(tok):
+        h, c, msg, f = parse(tok)
+        if h.get("alg") != "HS256":
+            return None
+        return c if hmac.compare_digest(firma(msg, clave), f) else None
+    legit = emite({"sub": "ana", "rol": "estudiante"})
+    forjado_none = b64({"alg": "none"}) + "." + b64({"sub": "ana", "rol": "docente"}) + "."
+    forjado_firma = b64({"alg": "HS256"}) + "." + b64({"sub": "ana", "rol": "docente"}) + "." + firma("x", b"otra")
+    alterado = legit.split(".")[0] + "." + b64({"sub": "ana", "rol": "docente"}) + "." + legit.split(".")[2]
+    casos = [("token legítimo", legit), ("alg none con rol docente", forjado_none), ("firma de otra clave", forjado_firma), ("carga alterada con firma vieja", alterado)]
+    return {"filas": [(n, verifica_vulnerable(t) is not None, verifica_corregida(t) is not None) for n, t in casos]}
 
 
-def e467_sensibilidad() -> dict:
-    """Con qué tasa de aciertos el flujo asistido deja de ahorrar tiempo frente al manual (revisión fija)."""
-    filas = []
-    for p_ok in (0.9, 0.7, 0.5, 0.35, 0.2):
-        for coste_rehacer in (0.8,):
-            ahorro = 1 - (0.35 + 0.25 + (1 - p_ok) * coste_rehacer)
-            filas.append({"aciertos": pct(p_ok, 0), "horas_relativas": round(1 - ahorro, 2), "ahorro": pct(ahorro, 0)})
-    equilibrio = 1 - (1 - 0.6) / 0.8
-    return {"filas": filas, "p_equilibrio": pct(equilibrio, 0)}
+# ----------------------------------------------------------------- SE-468
+def _paquete(r, n=30):
+    reqs = []
+    for i in range(n):
+        reqs.append({"id": f"R{i:02d}", "estado": "cumple", "prueba": f"T{i:02d}", "evidencia": f"ev/R{i:02d}.txt", "fecha_dias": r.randrange(1, 60), "alcance": "1.4.0", "notas": ""})
+    return reqs
 
 
-def e467_diseno() -> dict:
-    """Detectar un 15 % de diferencia en tiempo: diseño pareado frente a grupos distintos, según el número de tareas."""
-    rng = random.Random(4672)
-    filas = []
-    for n in (10, 20, 40, 80):
-        det_pareado = det_indep = 0
-        reps = 600
-        for _ in range(reps):
-            base = [rng.lognormvariate(1.0, 0.8) for _ in range(n)]
-            manual = [b * rng.lognormvariate(0, 0.15) for b in base]
-            asist = [b * 0.85 * rng.lognormvariate(0, 0.15) for b in base]
-            difs = [m - a for m, a in zip(manual, asist)]
-            t = statistics.mean(difs) / (statistics.stdev(difs) / math.sqrt(n))
-            det_pareado += t > 1.7
-            otras = [rng.lognormvariate(1.0, 0.8) * 0.85 * rng.lognormvariate(0, 0.15) for _ in range(n)]
-            sp = math.sqrt((statistics.variance(manual) + statistics.variance(otras)) / 2)
-            t2 = (statistics.mean(manual) - statistics.mean(otras)) / (sp * math.sqrt(2 / n))
-            det_indep += t2 > 1.7
-        filas.append({"tareas": n, "pareado": pct(det_pareado / reps, 0), "independiente": pct(det_indep / reps, 0)})
-    return {"filas": filas}
+def e396_validador():
+    r = random.Random(3961)
+    base = _paquete(r)
+    evid = {q["evidencia"]: f"resultado de {q['prueba']}: 12 aprobadas, 0 falladas\n" for q in base}
+    pruebas = {q["prueba"]: {"asserts": 3, "resultado": "ok"} for q in base}
+    def v1(reqs, evid, pruebas):
+        errs = []
+        for q in reqs:
+            if q["estado"] == "cumple" and not q["evidencia"]:
+                errs.append(1)
+        return errs
+    def v2(reqs, evid, pruebas):
+        errs = v1(reqs, evid, pruebas)
+        ids = [q["id"] for q in reqs]
+        if len(set(ids)) != len(ids):
+            errs.append(2)
+        for q in reqs:
+            if q["estado"] == "cumple":
+                if q["evidencia"] not in evid:
+                    errs.append(3)
+                if q["prueba"] not in pruebas:
+                    errs.append(4)
+                if q["fecha_dias"] > 90 or q["fecha_dias"] < 0:
+                    errs.append(5)
+                if q["alcance"] != "1.4.0":
+                    errs.append(6)
+            if q["estado"] == "no aplica" and not q["notas"]:
+                errs.append(7)
+            if q["estado"] == "excepción" and not q.get("dueno"):
+                errs.append(8)
+        return errs
+    def v3(reqs, evid, pruebas):
+        errs = v2(reqs, evid, pruebas)
+        vistos = Counter(hashlib.sha256(evid[q["evidencia"]].encode()).hexdigest() for q in reqs if q["evidencia"] in evid)
+        if any(v > 1 for v in vistos.values()):
+            errs.append(9)
+        for q in reqs:
+            if q["estado"] == "cumple" and q["prueba"] in pruebas:
+                if pruebas[q["prueba"]]["asserts"] == 0:
+                    errs.append(10)
+                if pruebas[q["prueba"]]["resultado"] != "ok":
+                    errs.append(11)
+            if q["estado"] == "cumple" and q["evidencia"] in evid and len(evid[q["evidencia"]].strip()) == 0:
+                errs.append(12)
+        return errs
+    ops = ["quitar la evidencia", "evidencia que no existe", "prueba que no existe", "fecha de 120 días", "alcance de otra versión", "no aplica sin justificación", "excepción sin dueño", "identificador duplicado",
+           "la misma evidencia en 10 requisitos", "prueba sin ninguna aserción", "prueba que falló marcada como cumple", "archivo de evidencia vacío",
+           "copia de la evidencia de otro requisito", "evidencia única sin relación (dice «aprobado» sin ejecutar nada)"]
+    def muta(op, k):
+        reqs = [dict(q) for q in base]
+        ev = dict(evid)
+        pr = {a: dict(b) for a, b in pruebas.items()}
+        i = r.randrange(len(reqs))
+        q = reqs[i]
+        if op == ops[0]:
+            q["evidencia"] = ""
+        elif op == ops[1]:
+            q["evidencia"] = "ev/inexistente.txt"
+        elif op == ops[2]:
+            q["prueba"] = "T99"
+        elif op == ops[3]:
+            q["fecha_dias"] = 120
+        elif op == ops[4]:
+            q["alcance"] = "1.3.0"
+        elif op == ops[5]:
+            q["estado"], q["notas"] = "no aplica", ""
+        elif op == ops[6]:
+            q["estado"] = "excepción"
+        elif op == ops[7]:
+            reqs[(i + 1) % len(reqs)]["id"] = q["id"]
+        elif op == ops[8]:
+            for j in range(10):
+                reqs[(i + j) % len(reqs)]["evidencia"] = q["evidencia"]
+        elif op == ops[9]:
+            pr[q["prueba"]]["asserts"] = 0
+        elif op == ops[10]:
+            pr[q["prueba"]]["resultado"] = "falla"
+        elif op == ops[11]:
+            ev[q["evidencia"]] = ""
+        elif op == ops[12]:
+            q["evidencia"] = reqs[(i + 5) % len(reqs)]["evidencia"]
+            q["prueba"] = reqs[(i + 5) % len(reqs)]["prueba"]
+            q["id"] = q["id"]
+        elif op == ops[13]:
+            ev[q["evidencia"]] = "APROBADO. todo correcto.\n"
+        return reqs, ev, pr
+    res = {}
+    for op in ops:
+        c = [0, 0, 0]
+        for k in range(15):
+            rq, ev, pr = muta(op, k)
+            for j, v in enumerate((v1, v2, v3)):
+                if v(rq, ev, pr):
+                    c[j] += 1
+        res[op] = c
+    tot = [sum(res[o][j] for o in ops) for j in range(3)]
+    return {"por_operador": res, "totales": tot, "mutaciones": 15 * len(ops)}
 
 
-# ------------------------------------------------------------------ SE-468
-def _enlaza(anterior: str, entrada: dict) -> str:
-    cuerpo = json.dumps(entrada, sort_keys=True, ensure_ascii=False)
-    return hashlib.sha256((anterior + cuerpo).encode("utf-8")).hexdigest()
-
-
-def e468_bitacora() -> dict:
-    """Bitácora encadenada por hash de un cambio asistido; se manipulan entradas y se verifica."""
-    entradas = [
-        {"paso": 1, "actor": "persona", "accion": "define criterios de aceptación", "artefacto": "criterios.md"},
-        {"paso": 2, "actor": "asistente", "accion": "propone parche", "artefacto": "parche-1.diff", "modelo": "<MODELO_EJEMPLO>"},
-        {"paso": 3, "actor": "persona", "accion": "rechaza hunk 2 y pide prueba", "artefacto": "revision-1.md"},
-        {"paso": 4, "actor": "asistente", "accion": "propone parche 2 y prueba", "artefacto": "parche-2.diff"},
-        {"paso": 5, "actor": "persona", "accion": "ejecuta pruebas y aprueba", "artefacto": "resultado-pruebas.txt"},
-        {"paso": 6, "actor": "persona", "accion": "integra el cambio", "artefacto": "commit"},
-    ]
-    with tempfile.TemporaryDirectory() as carpeta:
-        ruta = Path(carpeta) / "bitacora.jsonl"
-        h = "0" * 64
-        with ruta.open("w", encoding="utf-8", newline="\n") as f:
-            for e in entradas:
-                h = _enlaza(h, e)
-                f.write(json.dumps({"entrada": e, "hash": h}, ensure_ascii=False, sort_keys=True) + "\n")
-        lineas = ruta.read_text(encoding="utf-8").splitlines()
-
-    def verificar(lineas):
-        h = "0" * 64
-        for i, l in enumerate(lineas):
-            r = json.loads(l)
-            h = _enlaza(h, r["entrada"])
-            if h != r["hash"]:
-                return i + 1
-        return 0
-    base = verificar(lineas)
-    r = {"integra": base == 0, "lineas": len(lineas)}
-    # manipulaciones
-    mod = lineas[:]
-    d = json.loads(mod[2]); d["entrada"]["accion"] = "aprueba hunk 2"; mod[2] = json.dumps(d, ensure_ascii=False, sort_keys=True)
-    r["editar_entrada_3_detectada_en"] = verificar(mod)
-    mod = lineas[:2] + lineas[3:]
-    r["borrar_entrada_3_detectada_en"] = verificar(mod)
-    mod = lineas[:]
-    mod[1], mod[2] = mod[2], mod[1]
-    r["intercambiar_2_y_3_detectada_en"] = verificar(mod)
-    # reescribir todo desde un punto con hashes recalculados: la cadena local no lo detecta
-    d = json.loads(lineas[2]); d["entrada"]["accion"] = "aprueba hunk 2"
-    nuevo = lineas[:2]
-    h = json.loads(lineas[1])["hash"]
-    for l in [json.dumps(d)] + lineas[3:]:
-        e = json.loads(l)["entrada"]
-        h = _enlaza(h, e)
-        nuevo.append(json.dumps({"entrada": e, "hash": h}, ensure_ascii=False, sort_keys=True))
-    r["recalcular_la_cola_detectada_en"] = verificar(nuevo)
-    r["ancla_externa_ultimo_hash_coincide"] = json.loads(nuevo[-1])["hash"] == json.loads(lineas[-1])["hash"]
-    return r
-
-
-def e468_compuertas() -> dict:
-    """Defectos que llegan a producción según qué compuertas existan (pruebas, análisis estático, revisión humana, canario)."""
-    rng = random.Random(468)
-    compuertas = {"pruebas": 0.55, "análisis estático": 0.25, "revisión humana": 0.45, "canario": 0.35}
-    conjuntos = [("sin compuertas", []), ("solo pruebas", ["pruebas"]), ("pruebas + análisis", ["pruebas", "análisis estático"]),
-                 ("pruebas + análisis + revisión", ["pruebas", "análisis estático", "revisión humana"]),
-                 ("las cuatro", list(compuertas))]
-    filas = []
-    n = 10000
-    for nombre, cs in conjuntos:
-        llegan = 0
-        for _ in range(n):
-            if rng.random() < 0.20:  # el cambio asistido trae un defecto
-                if all(rng.random() > compuertas[c] for c in cs):
-                    llegan += 1
-        filas.append({"compuertas": nombre, "defectos_en_produccion": llegan, "de": n})
-    # revisión humana con fatiga: detección cae con el tamaño del cambio
-    fatiga = []
-    for lineas in (20, 100, 400, 1000):
-        p = 0.45 / (1 + lineas / 150)
-        fatiga.append({"lineas": lineas, "p_detectar": pct(p)})
-    return {"filas": filas, "fatiga": fatiga}
-
-
-def e468_reversion() -> dict:
-    """Revertir un cambio de 40 líneas tras k ediciones posteriores; ediciones al azar sobre 400 líneas."""
-    rng = random.Random(4682)
-    filas = []
-    total = 4000
-    for k in (0, 5, 20, 60, 150):
-        limpia = 0
-        for _ in range(total):
-            cambio = set()
-            for ini in rng.sample(range(0, 390, 10), 4):
-                cambio |= set(range(ini, ini + 10))
-            ed = {rng.randrange(400) for _ in range(k)}
-            # una reversión limpia necesita que ninguna edición posterior toque las líneas del cambio ni las contiguas
-            vecinas = cambio | {x + 1 for x in cambio} | {x - 1 for x in cambio}
-            limpia += not (ed & vecinas)
-        filas.append({"ediciones_posteriores": k, "reversion_limpia": pct(limpia / total)})
-    return {"filas": filas}
-
-
-def todo() -> dict:
-    return {
-        "e463_umbral": e463_umbral(), "e463_equivalencia": e463_equivalencia(), "e463_explicacion": e463_explicacion(),
-        "e464_ambiguedad": e464_ambiguedad(), "e464_distractores": e464_distractores(), "e464_reglas": e464_reglas(),
-        "e465_tamano": e465_tamano(), "e465_frontera": e465_frontera(), "e465_juez": e465_juez(),
-        "e466_escaner": e466_escaner(), "e466_patrones": e466_patrones(), "e466_similitud": e466_similitud(),
-        "e467_flujos": e467_flujos(), "e467_sensibilidad": e467_sensibilidad(), "e467_diseno": e467_diseno(),
-        "e468_bitacora": e468_bitacora(), "e468_compuertas": e468_compuertas(), "e468_reversion": e468_reversion(),
-    }
+def e396_portabilidad():
+    d = Path(tempfile.mkdtemp(prefix="pq32_"))
+    (d / "informe").mkdir()
+    for i, nombre in enumerate(["b.txt", "A.txt", "ñ.txt", "informe/c.txt", "informe/B.txt"]):
+        (d / nombre).parent.mkdir(exist_ok=True)
+        (d / nombre).write_bytes(f"línea 1 de {i}\r\nlínea 2\r\n".encode() if i % 2 == 0 else f"línea 1 de {i}\nlínea 2\n".encode())
+    def ingenuo():
+        h = hashlib.sha256()
+        for p in os.listdir(d):
+            q = d / p
+            if q.is_file():
+                h.update(p.encode() + q.read_bytes())
+        for root, _, files in os.walk(d / "informe"):
+            for f in files:
+                p = os.path.join(root, f)
+                h.update(p.replace(str(d), "").encode() + Path(p).read_bytes())
+        return h.hexdigest()[:16]
+    def canonico():
+        h = hashlib.sha256()
+        for q in sorted(d.rglob("*"), key=lambda p: p.relative_to(d).as_posix().encode("utf-8")):
+            if q.is_file():
+                rel = q.relative_to(d).as_posix()
+                h.update(rel.encode("utf-8") + b"\0" + q.read_bytes().replace(b"\r\n", b"\n") + b"\0")
+        return h.hexdigest()[:16]
+    try:
+        return {"sistema": sys.platform, "orden_listdir": sorted(os.listdir(d))[:0] or os.listdir(d), "hash_ingenuo": ingenuo(), "hash_canonico": canonico()}
+    finally:
+        import shutil
+        shutil.rmtree(d, ignore_errors=True)
 
 
 if __name__ == "__main__":
-    json.dump(todo(), sys.stdout, ensure_ascii=False, indent=1)
+    for nombre, fn in sorted(globals().items()):
+        if nombre.startswith("e3") and callable(fn):
+            if len(sys.argv) > 1 and not any(nombre.startswith(a) for a in sys.argv[1:]):
+                continue
+            print(json.dumps({nombre: fn()}, ensure_ascii=False))

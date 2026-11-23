@@ -1,250 +1,235 @@
-"""Figures for SE-343 to SE-348 (synthetic models with fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3).
-
-Every figure is a chart or a diagram of the mechanism; the Markdown tables of the classes keep the exact values.
-"""
+"""Figures for SE-343 to SE-348 (architectural styles: runs of real CPython code and seeded models over the Avisos case; Windows CPython 3.12.9; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import (Fig, grouped_bars, line_chart, percentile_intervals, stacked_bars, timeline)
-from figures_part07_a import bars
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
 
-SINT = "Modelos sintéticos con semilla fija; resultados idénticos en Windows y Ubuntu (WSL2) salvo donde se indica."
+from figures_part45_a import bars, flow
+
+EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; los recuentos se repiten y los tiempos varían de un equipo a otro."
+MODELO = "Modelo con parámetros del autor y semilla fija 44; muestra un mecanismo, no mide un sistema real."
 
 
 # ---------------------------------------------------------------- SE-343
-def se343_lideres() -> Fig:
-    return grouped_bars(
-        "Cinco nodos y una partición: líderes que se creen legítimos según la regla de elección",
-        "Barras agrupadas horizontales con los líderes simultáneos: con la regla «el identificador mayor que veo vivo», una partición de cinco nodos produce dos o tres líderes a la vez; con la regla de mayoría nunca hay más de uno y en un reparto 2, 2, 1 no hay ninguno. Las 15 biparticiones posibles producen dos líderes con la primera regla y nunca más de uno con la segunda.",
-        ["Sin partición", "Partición en 2 y 3", "Partición en 1 y 4", "Partición en 1, 1 y 3", "Partición en 2, 2 y 1"],
-        [("Regla «el mayor que veo»", [1, 2, 2, 3, 3], "coral"), ("Regla de mayoría", [1, 1, 1, 1, 0], "teal")],
-        unit="Líderes que se creen legítimos", horizontal=True, label_w=190,
-        note="La mayoría resuelve el cerebro dividido a cambio de disponibilidad: el grupo sin mayoría no elige a nadie (reparto 2, 2, 1). Dos mayorías siempre se cruzan en algún nodo, y de ahí sale la seguridad. En las 15 biparticiones posibles de 5 nodos la primera regla da 2 líderes en las 15 y la mayoría nunca más de 1. Es un modelo de conjuntos de nodos, sin mensajes ni tiempo.",
-        note_kind="teal", foot="Enumeración exacta de particiones; sin simulación aleatoria.")
-
-
-def se343_cerco() -> Fig:
-    return grouped_bars(
-        "Titular del arrendamiento que se pausa más de 10 s y escribe después de que otro tomó su lugar",
-        "Barras con las tareas de 10 000 cuyo arrendamiento de 10 segundos caduca antes de que el titular escriba, según la pausa media: 1 con pausas de 1 s, 73 con 2 s, 854 con 4 s y 2 918 con 8 s. Sin testigo de cerco el almacén acepta esas escrituras tardías y con testigo las rechaza todas (849 en la corrida de media 4 s).",
-        ["Pausa media 1 s", "Pausa media 2 s", "Pausa media 4 s", "Pausa media 8 s"],
-        [("Arrendamiento caducado antes de escribir", [1, 73, 854, 2918], "coral")],
-        unit="Tareas de 10 000", plot_h=260,
-        note="En la corrida de media 4 s hay 849 escrituras de un titular caducado (otra semilla da 854 caducados): sin testigo el almacén las acepta todas, con un número de cerco creciente las rechaza todas. El arrendamiento solo no basta porque el titular no sabe que caducó. Las pausas exponenciales son un supuesto del autor.",
-        note_kind="coral", foot=SINT)
-
-
-def se343_plazos() -> Fig:
-    pts = [(0, 7650, "7 650", "t"), (25, 7863, "7 863", "t"), (50, 4057, "4 057", "r"), (100, 725, "725", "t"), (150, 461, "461", "t"), (300, 333, "333", "t")]
+def se535_cola_central() -> Fig:
+    xs = [5, 10, 15, 20, 24]
     return line_chart(
-        "Elección de líder entre cinco nodos: tiempo medio hasta tener líder según la anchura del plazo aleatorio",
-        "Línea en escala logarítmica con el tiempo medio hasta tener líder según cuánto se ensancha el plazo de elección sobre 150 ms: con 0 y 25 ms de dispersión no se llega a un líder en 50 rondas (7 650 y 7 863 ms); con 50 ms, 25,5 rondas y 4 057 ms; con 150 ms, 2,49 rondas y 461 ms; con 300 ms, 1,54 rondas y 333 ms.",
-        [("Tiempo medio hasta líder (ms)", pts, "teal")],
-        x_label="Dispersión del plazo de elección sobre 150 ms (ms)", y_label="Tiempo medio hasta tener líder (ms)",
-        log_y=True, x_ticks=[(0, "0"), (25, "25"), (50, "50"), (100, "100"), (150, "150"), (300, "300")],
-        vlines=[(25, "retardo máximo de mensajes: 25 ms")], y_ticks=[100, 1000, 10000, 100000],
-        point_labels="all", y_zero=False, plot_h=300,
-        note="La dispersión de los plazos debe ser mayor que el retardo de los mensajes para que un candidato gane antes de que otro se presente: a la izquierda de la línea punteada no hay líder en 50 rondas. Con 300 ms de dispersión un líder sale en la primera ronda el 64,7 % de las veces; con 150 ms, el 40,3 %. Mayor dispersión tarda más en empezar una elección y menos en terminarla. Es un modelo simplificado inspirado en Raft, no Raft.",
-        note_kind="gold", foot=SINT)
+        "Un equipo de datos central de cuatro personas atendiendo a D dominios: espera por solicitud de un conjunto de datos nuevo",
+        "Líneas con la espera por solicitud según los dominios atendidos por un equipo central de cuatro personas, cada dominio con 0,15 solicitudes por semana: la espera media simulada es 0,00 semanas con 5 dominios, 0,03 con 10, 0,14 con 15, 0,53 con 20 y 2,17 con 24; la analítica de Erlang C coincide y el percentil 90 llega a 5,65 semanas con 24.",
+        [("Espera media simulada", list(zip(xs, [0.00, 0.03, 0.14, 0.53, 2.17])), "teal"), ("Espera media analítica", list(zip(xs, [0.00, 0.03, 0.14, 0.51, 1.97])), "navy"),
+         ("Espera p90 simulada", list(zip(xs, [0.00, 0.00, 0.50, 1.66, 5.65])), "coral")],
+        x_label="Dominios atendidos", y_label="Semanas de espera", x_ticks=[(x, str(x)) for x in xs], y_ticks=[0, 1, 2, 3, 4, 5, 6], point_labels="none", decimals=2, plot_h=300,
+        note="Utilización del equipo con 5, 10, 15, 20 y 24 dominios: 19 %, 38 %, 56 %, 75 % y 90 %. La espera no crece en línea recta: pasar de 20 a 24 dominios (un 20 % más de demanda) multiplica la espera media por cuatro. La simulación coincide con la fórmula de Erlang C hasta el 90 % de utilización, lo que valida la simulación, no el modelo de organización.",
+        note_kind="coral", foot=MODELO)
+
+
+def se535_personas_necesarias() -> Fig:
+    return grouped_bars(
+        "Con 20 dominios, personas necesarias para que la espera media no pase de 0,5 semanas según quién es dueño del dato",
+        "Barras horizontales con las personas necesarias con 20 dominios para que la espera media no pase de 0,5 semanas: un equipo central necesita 5 personas sin penalización de contexto, 6 con penalización 0,5 y 8 con 1,0; equipos por dominio necesitan 10 en total con 0,5 persona por dominio, con una espera de 0,87 que no cumple, y 13 con 0,65.",
+        ["Central, sin penalización de contexto (0,12 semanas)", "Central, penalización 0,5 (0,44)", "Central, penalización 1,0 (0,38)", "Un equipo por dominio, 0,5 persona cada uno (0,87: no cumple)", "Un equipo por dominio, 0,65 persona cada uno (0,47)"],
+        [("Personas en total", [5, 6, 8, 10, 13], "navy")],
+        unit="Personas en total", horizontal=True, decimals=0, label_w=350,
+        note="Entre paréntesis, la espera media en semanas. En este modelo la propiedad por dominio no ahorra personas: mueve el trabajo y necesita más. Lo que compra es que el conocimiento del dominio deje de ser una penalización del equipo central y que el producto de datos tenga un dueño. La penalización de contexto es un supuesto del autor.",
+        note_kind="gold", foot=MODELO)
+
+
+def se535_derivas() -> Fig:
+    return heatmap(
+        "Ocho derivas de un producto de datos y un cambio legítimo: qué comprobación del contrato las detecta",
+        "Mapa de calor con nueve cambios sobre un producto de datos de 1000 filas y las comprobaciones que fallan: D1 a D3 las detecta el esquema, D4 la completitud y el esquema, D5 la unicidad, D6 la frescura y D7 y D8 la distribución; el cambio legítimo de temporada L1 también falla la distribución y es una falsa alarma; solo con el esquema se detectan 4 de las 8 derivas.",
+        ["D1 columna renombrada", "D2 tipo cambiado a texto", "D3 columna eliminada", "D4 nulos en estudiante (12,5 %)", "D5 identificadores duplicados", "D6 datos atrasados (30 h)", "D7 unidad cambiada a minutos", "D8 significado invertido", "L1 cambio legítimo de temporada"],
+        ["Esquema", "Completitud", "Unicidad", "Frescura", "Distribución"],
+        [[1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1]],
+        unit="falla", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "falla" if v else "—", highlight=[(8, 4)], cell_h=36, label_w=290,
+        note="Las ocho derivas se detectan con cinco comprobaciones; con solo el esquema se detectarían 4. La celda resaltada es la falsa alarma: el cambio legítimo de temporada también falla la distribución. La unidad cambiada y el significado invertido son válidos para el esquema y solo se ven por su efecto en la distribución, que no distingue un defecto de un cambio real del negocio.",
+        note_kind="teal", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-344
-def se344_entrega() -> Fig:
-    return stacked_bars(
-        "Contar 1 000 entregas cuando el consumidor se cae el 5 % de las veces en el peor punto",
-        "Barras apiladas horizontales con el total contado de 1 000 entregas: aplicar y luego confirmar cuenta 1 053 por 53 duplicados de mensajes reentregados; confirmar y luego aplicar cuenta 950 y pierde 50; aplicar y registrar la clave de mensaje visto en la misma transacción cuenta exactamente 1 000.",
-        ["Aplicar y luego confirmar (al menos una vez)", "Confirmar y luego aplicar (como mucho una vez)", "Aplicar y registrar la clave en una transacción"],
-        [("Entregas contadas una vez", [1000, 950, 1000], "teal"), ("Duplicados contados de más", [53, 0, 0], "coral"),
-         ("Entregas perdidas (no contadas)", [0, 50, 0], "gold")],
-        unit="Entregas (el total correcto es 1 000)", horizontal=True, totals=False, label_w=300,
-        note="El proceso exactamente una vez no existe entre dos sistemas: lo que se logra es efecto único sobre el estado porque aplicar y recordar viven en una sola transacción. El segmento dorado son entregas que faltan: el total contado es 950. El 5 % de caídas es un supuesto del autor; el estado es una base SQLite real en memoria.",
-        note_kind="teal", foot=SINT)
-
-
-def se344_retencion() -> Fig:
-    pts = [(1, 48.20, "48,20 %", "r"), (60, 2.75, "2,75 %", "t"), (1440, 0.03, "0,03 %", "t")]
-    return line_chart(
-        "Duplicados que se reejecutan porque la clave de idempotencia ya se olvidó, según cuánto se retiene la clave",
-        "Línea en escala logarítmica con los duplicados reejecutados de 20 000, según la retención de la clave: 48,20 por ciento con 1 minuto, 2,75 con 1 hora y 0,03 con 24 horas; con 7 días no escapa ninguno (0 de 20 000, no representable en escala logarítmica). La cola larga del retraso obliga a retener mucho más que la mediana de 55 s.",
-        [("Duplicados reejecutados", pts, "coral")],
-        x_label="Retención de la clave (minutos; 1 h = 60, 24 h = 1 440)", y_label="Duplicados reejecutados (% de 20 000)",
-        log_x=True, log_y=True, x_ticks=[(1, "1 min"), (10, "10"), (60, "1 h"), (1440, "24 h")], y_ticks=[0.01, 0.1, 1, 10, 100],
-        point_labels="all", plot_h=280,
-        note="La retención de claves es una decisión de negocio sobre cuánto tarda en llegar el último duplicado posible, no un detalle de almacenamiento: con 7 días, 0 de 20 000. Además, 615 de 640 reutilizaciones de una clave con otro cuerpo habrían devuelto la respuesta ajena sin la huella del cuerpo. La distribución lognormal (mediana 55 s, p99 9 209 s) es un supuesto del autor.",
-        note_kind="gold", foot=SINT)
-
-
-def se344_salida() -> Fig:
+def se536_reubicacion() -> Fig:
     return grouped_bars(
-        "200 tareas, el 5 % se reintenta tras escribir y antes de confirmar: qué queda mal en la salida",
-        "Barras agrupadas con los defectos que deja la salida: anexar al archivo deja 9 filas duplicadas si la tarea es determinista y 14 si devuelve un valor aleatorio, con 13 claves con valores distintos; escribir por clave de tarea deja siempre 200 filas, sin duplicados ni claves con valores distintos.",
-        ["Anexar · tarea determinista", "Anexar · valor aleatorio", "Por clave · tarea determinista", "Por clave · valor aleatorio"],
-        [("Filas duplicadas", [9, 14, 0, 0], "coral"), ("Claves con valores distintos", [0, 13, 0, 0], "gold")],
-        unit="Filas o claves de 200 tareas", plot_h=260,
-        note="Escribir por clave convierte el reintento en una sobrescritura del mismo resultado (200 filas siempre); anexar convierte cada reintento en una fila más (209 y 214 filas) y, si la tarea no es determinista, en dos verdades. La tasa del 5 % y los valores son sintéticos; no se usó ningún sistema de procesamiento distribuido.",
-        note_kind="coral", foot=SINT)
+        "Pasar de 8 a 9 celdas con 100 000 inquilinos: cuántos cambian de celda según la función de asignación",
+        "Barras horizontales con los inquilinos reubicados al pasar de 8 a 9 celdas con 100000 inquilinos: el módulo del hash reubica 88985, un 89,0 por ciento; el hash por encuentro 11176, un 11,2 por ciento; el mínimo teórico es un noveno, 11111, un 11,1 por ciento.",
+        ["Módulo del hash (89,0 %)", "Hash por encuentro (11,2 %)", "Mínimo teórico, 1/9 (11,1 %)"], [("Inquilinos reubicados", [88985, 11176, 11111], "navy")],
+        unit="Inquilinos reubicados de 100 000", horizontal=True, decimals=0, label_w=250,
+        note="Entre paréntesis, la proporción reubicada. Con el módulo, añadir una celda mueve casi todo; con el hash por encuentro solo se mueve lo que la celda nueva se queda. Mover un inquilino es una migración de datos, de modo que la función de asignación decide el costo de crecer. El reparto entre las 8 celdas fue de 12 339 a 12 713 inquilinos por celda.",
+        note_kind="gold", foot=EJEC)
+
+
+def se536_radio() -> Fig:
+    return bars('Fracción de los 1 000 inquilinos que un solo inquilino venenoso deja sin servicio según cómo está repartida la flota',
+                'Gráfico de barras con la fracción de inquilinos afectada por un inquilino venenoso: en una flota compartida el 100 por ciento según el supuesto de reintentos, con ocho celdas el 10,9 por ciento, con fragmentación aleatoria de dos trabajadores de ocho el 3,0 por ciento queda caído del todo y el 45,6 por ciento queda degradado.',
+                [('Flota compartida (supuesto)', 100, 'coral', '100 %'), ('Ocho celdas', 10.9, 'gold', '10,9 %'), ('Fragmentación: caídos del todo', 3.0, 'teal', '3,0 %'),
+                 ('Fragmentación: degradados', 45.6, 'gold', '45,6 %')],
+                scale=4, label_w=330,
+                note='Las celdas acotan el daño a una fracción fija y la fragmentación lo reduce aún más a quien comparte todos sus trabajadores con el venenoso, a costa de degradar a casi la mitad. El 100 % de la flota compartida es un supuesto (los reintentos del cliente recorren todos los trabajadores), no una medición.',
+                note_kind='teal', foot=MODELO)
+
+
+def se536_costo_de_celdas() -> Fig:
+    return grouped_bars(
+        "Costo de repartir 1 000 inquilinos en 8 celdas frente a una flota compartida: capacidad, disponibilidad y punto de fallo",
+        "Barras con la capacidad necesaria para cubrir el percentil 99 de la carga: 1824 unidades con una flota compartida y 2184 con ocho celdas, un 19,8 por ciento más.",
+        ["Capacidad para cubrir el p99 de la carga"], [("Flota compartida", [1824], "teal"), ("Ocho celdas", [2184], "coral")],
+        unit="Unidades de capacidad", decimals=0, plot_h=240, width=700,
+        note="Disponibilidad de un inquilino: la de la flota (99,9 %) frente a 99,890 % con el enrutador al 99,99 % y la celda al 99,9 %. Punto de fallo compartido: la flota entera frente al enrutador. Repartir cuesta capacidad (cada celda se dimensiona a su propio p99, y los picos no se compensan entre celdas) y mueve el punto de fallo al enrutador. La carga de cada inquilino es lognormal con semilla 44; una carga real tiene otra forma.",
+        note_kind="coral", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-345
-def se345_balanceo() -> Fig:
-    return percentile_intervals(
-        "10 servidores, 200 000 solicitudes de tamaño Pareto y 85 % de carga: tiempo hasta terminar",
-        "Intervalos con la mediana, el percentil 99 y el percentil 99,9 del tiempo hasta terminar una solicitud (tamaño medio 3,0) en escala logarítmica: con turnos rotativos 13,3, 316,8 y 535,1 unidades; con reparto aleatorio 19,9, 361,6 y 632,4; con dos opciones al azar 4,5, 95,4 y 203,6; con la de menos conexiones 2,7, 52,6 y 188,5.",
-        [("Turnos rotativos", [13.3, 316.8, 535.1]), ("Aleatorio", [19.9, 361.6, 632.4]),
-         ("Dos opciones al azar, la menos cargada", [4.5, 95.4, 203.6]), ("Menos conexiones (estado global)", [2.7, 52.6, 188.5])],
-        unit="Unidades de tiempo (tamaño medio de solicitud 3,0)", marks=("mediana", "p99", "p99,9"), log=True, decimals=1, label_w=300,
-        note="Repartir por turnos equilibra el número de solicitudes, no el trabajo: un tamaño de cola pesada deja un servidor atascado mientras otros esperan, y la mediana es parecida pero el p99 es seis veces mayor que con dos opciones. Mirar solo dos servidores logra casi todo el beneficio sin estado global. Los tamaños Pareto (forma 1,5) y el 85 % son supuestos del autor.",
-        note_kind="gold", foot=SINT)
-
-
-def se345_conmutacion() -> Fig:
-    return percentile_intervals(
-        "Conmutar tras la caída del primario con 200 escrituras por segundo: costo de confirmar y escrituras perdidas",
-        "Intervalos con la latencia de confirmación en escala logarítmica: la replicación asíncrona confirma en 1,0 ms y pierde en promedio 6,11 escrituras ya confirmadas al conmutar; la semisíncrona confirma en 21,1 ms de mediana y 63,6 ms en el percentil 99 y no pierde ninguna; la síncrona, 27,5 y 75,3 ms, tampoco pierde.",
-        [("Asíncrona · pierde 6,11 escrituras", [1.0, 1.0]), ("Semisíncrona (1 réplica) · pierde 0", [21.1, 63.6]),
-         ("Síncrona (2 réplicas) · pierde 0", [27.5, 75.3])],
-        unit="Milisegundos hasta confirmar la escritura", marks=("mediana", "p99"), log=True, decimals=1, label_w=300,
-        note="La pérdida es el trabajo que el cliente ya consideró guardado y que la réplica nunca vio (6,11 escrituras en promedio con replicación asíncrona). Pagarlo en latencia lo evita: de 1 ms a 21–28 ms de mediana. El retraso de 30 ms y el tiempo de ida y vuelta lognormal son supuestos del autor, no una red medida.",
-        note_kind="coral", foot=SINT)
-
-
-def se345_reparto() -> Fig:
+def se537_linter() -> Fig:
     return grouped_bars(
-        "Repartir por hash o por rango de fecha: fragmentos que toca cada operación (de 8)",
-        "Barras agrupadas horizontales con los fragmentos de 8 que toca cada operación: con reparto por hash, las 5 000 escrituras más recientes se reparten entre los 8 fragmentos y toda consulta de un tramo de claves toca los 8; con rangos fijos, las 5 000 escrituras caen en un solo fragmento y las consultas de 100 y 10 000 claves tocan uno y la de 50 000, cinco.",
-        ["5 000 escrituras recientes", "Consulta de 100 claves consecutivas", "Consulta de 10 000 claves consecutivas", "Consulta de 50 000 claves consecutivas"],
-        [("Reparto por hash", [8, 8, 8, 8], "teal"), ("Reparto por rango fijo", [1, 1, 1, 5], "coral")],
-        unit="Fragmentos que toca la operación (de 8)", horizontal=True, label_w=250,
-        note="Cada reparto abarata una pregunta y encarece la otra: el hash esparce la escritura (578 a 674 por fragmento) y dispersa la lectura por rango; el rango agrupa la lectura y acumula las 5 000 escrituras nuevas en un fragmento. Ocho fragmentos y 100 000 claves son sintéticos; el hash es MD5 solo por su reparto, no por seguridad.",
-        note_kind="teal", foot=SINT)
+        "Un linter de cuatro señales de 12-factor sobre una aplicación con defectos y su versión corregida",
+        "Barras agrupadas con las señales contadas por un linter de árbol sintáctico sobre dos versiones de la misma aplicación: URL fija 1 y 0, estado en memoria del proceso 2 y 0, registro en archivo local 1 y 0, y lecturas del entorno 1 y 2 en la versión corregida.",
+        ["URL fija en el código", "Estado en memoria del proceso", "Registro en archivo local", "Lecturas del entorno"],
+        [("Aplicación con defectos", [1, 2, 1, 1], "coral"), ("Aplicación corregida", [0, 0, 0, 2], "teal")],
+        unit="Señales encontradas", decimals=0, plot_h=260,
+        note="Las tres primeras señales son defectos y desaparecen al corregir; las lecturas del entorno son la señal buena y suben de 1 a 2. El linter ve la forma del código, no su comportamiento: una URL construida por concatenación o un estado guardado en un atributo de clase pasarían. Detecta cuatro señales de dos aplicaciones de juguete; no certifica que una aplicación sea 12-factor.",
+        note_kind="gold", foot=EJEC)
+
+
+def se537_sesiones() -> Fig:
+    return bars('Peticiones sin sesión de 1 000 con tres instancias, 100 usuarios y una instancia que cae en la petición 500',
+                'Gráfico de barras con las peticiones que no encuentran su sesión de 1 000: con sesiones en memoria y balanceo sin afinidad 611, con afinidad por usuario 140 que corresponden a la instancia caída, y con un almacén externo compartido 0.',
+                [('En memoria, sin afinidad', 611, 'coral', '611'), ('En memoria, con afinidad', 140, 'gold', '140'), ('Almacén externo', 0, 'teal', '0')],
+                scale=0.6, label_w=300,
+                note='Una aplicación con estado en el proceso no puede escalar horizontalmente ni sobrevivir a una caída: sin afinidad falla en 611 de 1 000 peticiones aun sin caída; con afinidad pierde las sesiones de la instancia que cae. El estado externo lo resuelve a costa de una dependencia más, que el modelo no cuenta.',
+                note_kind='coral', foot=MODELO)
+
+
+def se537_desechabilidad() -> Fig:
+    return grouped_bars(
+        "Desechabilidad y configuración: qué pasa al parar un proceso, y un mismo artefacto con tres entornos",
+        "Barras agrupadas con el resultado de parar un proceso con 100 trabajos en una cola en memoria: un corte inmediato completa 40 y pierde 60; un drenaje ordenado completa 41, devuelve 60 a la cola y no pierde ninguno.",
+        ["Corte inmediato con 100 trabajos", "Drenaje ordenado, devuelve lo pendiente"],
+        [("Completados", [40, 41], "teal"), ("Perdidos", [60, 0], "coral"), ("Devueltos a la cola", [0, 60], "gold")],
+        unit="Trabajos", decimals=0, plot_h=260,
+        note="El mismo artefacto con configuración de desarrollo sale con código 0 y umbrales 12 y 48; con la de producción, con código 0 y umbrales 1, 24 y 72; sin configurar, con código 1 y el mensaje «falta AVISOS_UMBRALES». El arranque de un proceso Python tarda una mediana de 116 ms vacío y 249 ms con cuatro módulos. La misma huella del archivo con configuración distinta es la paridad que pide el factor de configuración; fallar de inmediato cuando falta es mejor que arrancar con un valor por defecto invisible. Los trabajos y el corte son un modelo; el arranque y la ejecución del artefacto sí se midieron.",
+        note_kind="teal", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-346
-def se346_reintentos() -> Fig:
-    def s(vals):
-        return list(zip((0, 20, 50, 80), vals))
+def se538_divergencias() -> Fig:
+    return grouped_bars(
+        "Módulo heredado y módulo nuevo ejecutados sobre las mismas 20 000 peticiones: divergencias por causa",
+        "Barras horizontales con las divergencias entre un módulo de avisos heredado y su reemplazo sobre 20000 peticiones sintéticas: 145 por redondeo en el borde, 57 por el plazo de extensión que el módulo nuevo olvidó y 1 por cambio de hora, 203 en total, un 1,01 por ciento.",
+        ["Redondeo en el borde, el módulo nuevo trunca minutos (71,4 %)", "Plazo de extensión, el módulo nuevo lo olvidó (28,1 %)", "Cambio de hora, solo 2 días al año (0,5 %)"],
+        [("Divergencias", [145, 57, 1], "navy")],
+        unit="Divergencias (203 en total)", horizontal=True, decimals=0, label_w=340,
+        note="Entre paréntesis, la proporción de las divergencias. Tres defectos sembrados por el autor, con frecuencias tan distintas como 145, 57 y 1. Ejecutar los dos módulos en paralelo y comparar las salidas es la forma más barata de encontrar lo que ninguna prueba imaginó, pero solo encuentra lo que el tráfico real contiene.",
+        note_kind="gold", foot=MODELO)
+
+
+def se538_modo_sombra() -> Fig:
+    xs = [1, 5, 25, 100]
     return line_chart(
-        "Éxito de las solicitudes según el fallo inyectado y la estrategia del cliente (80 solicitudes por turno)",
-        "Líneas con el éxito según el fallo inyectado: con 20 por ciento de fallo, los reintentos suben el éxito de 80,5 a 99,9 por ciento con 1,24 llamadas por solicitud; con 80 por ciento de fallo los reintentos llegan a 54,1 con 3,05 llamadas y el interruptor baja el éxito a 9,9 con 0,53 llamadas. Las curvas de reintentos e interruptor coinciden hasta el 50 por ciento.",
-        [("Sin reintentos", s([100.0, 80.5, 50.1, 20.1]), "grey"), ("Con reintentos (máx. 4)", s([100.0, 99.9, 93.1, 54.1]), "gold"),
-         ("Con interruptor", s([100.0, 99.9, 93.1, 9.9]), "coral")],
-        x_label="Fallo inyectado en la dependencia (%)", y_label="Solicitudes con éxito (%)",
-        x_ticks=[(0, "0"), (20, "20"), (50, "50"), (80, "80")], y_ticks=[0, 20, 40, 60, 80, 100],
-        point_labels="last", plot_h=300, decimals=1,
-        annotations=[(80, 54.1, "3,05 llamadas", -60, -30), (80, 9.9, "0,53 llamadas", -90, -20)],
-        note="Un experimento de caos busca el punto donde la estrategia deja de proteger: aquí, entre 50 % y 80 %, los reintentos triplican la carga sobre una dependencia ya enferma (1,90 llamadas por solicitud con 50 % de fallo y 3,05 con 80 %, frente a 1,00) y el interruptor sacrifica éxito para dejarla respirar (0,53 llamadas). El servicio, su capacidad de 100 y el exceso son un modelo del autor.",
-        note_kind="gold", foot=SINT)
+        "Probabilidad de ver cada causa de divergencia según la fracción del tráfico que se compara (500 repeticiones por fila)",
+        "Líneas en escala logarítmica con la probabilidad de observar cada divergencia según la fracción del tráfico comparada en modo sombra: con 1 por ciento se ve el plazo de extensión el 46 por ciento de las veces, el cambio de hora el 1 y el redondeo el 75; con 5 por ciento, 95, 6 y 100; con 25 por ciento, 100, 27 y 100; con todo el tráfico, siempre los tres.",
+        [("Plazo de extensión", list(zip(xs, [46, 95, 100, 100])), "gold"), ("Cambio de hora", list(zip(xs, [1, 6, 27, 100])), "coral"), ("Redondeo en el borde", list(zip(xs, [75, 100, 100, 100])), "teal")],
+        x_label="Fracción del tráfico comparada (%)", y_label="Probabilidad de verla (%)", log_x=True, x_ticks=[(x, f"{x} %") for x in xs], y_ticks=[0, 20, 40, 60, 80, 100],
+        point_labels="none", decimals=0, plot_h=300,
+        note="Un defecto que ocurre una vez en 20 000 peticiones no se ve comparando el 1 % ni el 25 % del tráfico con fiabilidad: su probabilidad es la fracción comparada. Comparar todo es la única forma de ver lo raro, y aun así solo si ocurre durante la comparación.",
+        note_kind="coral", foot=MODELO)
 
 
-def se346_planificador() -> Fig:
-    return percentile_intervals(
-        "El mismo defecto en 1 620 de 1 680 intercalaciones: ejecuciones al azar hasta verlo según el planificador",
-        "Intervalos en escala logarítmica con las ejecuciones hasta el primer fallo (mediana y percentil 95) según la probabilidad de cambiar de hilo: con 1,0 el defecto aparece en 1 y 2 ejecuciones y falla el 84,35 por ciento; con 0,1, en 5 y 17; con 0,03 solo falla el 4,84 por ciento de las ejecuciones y hacen falta 14 de mediana y 57 en el percentil 95.",
-        [("Cambio de hilo 1,0 · falla el 84,35 %", [1, 2]), ("Cambio 0,3 · falla el 40,34 %", [2, 6]),
-         ("Cambio 0,1 · falla el 15,41 %", [5, 17]), ("Cambio 0,03 · falla el 4,84 %", [14, 57])],
-        unit="Ejecuciones hasta el primer fallo", marks=("mediana", "p95"), log=True, decimals=0, label_w=300,
-        note="No todas las intercalaciones son igual de probables: los planificadores reales mantienen un hilo en marcha un buen rato, y con hilos casi siempre seguidos (0,03) una pasada limpia dice poco. Una semilla guardada permite repetir exactamente el mismo orden (misma semilla, misma traza, comprobado).",
-        note_kind="coral", foot=SINT)
-
-
-def se346_plan() -> Fig:
-    return stacked_bars(
-        "Linter de planes de caos sobre 200 mutaciones: 147 detectadas y 53 que pasan",
-        "Barras apiladas horizontales por tipo de mutación de un plan de experimento de caos: el linter de forma detecta las 50 de campo ausente o vacío, las 33 de alcance del 100 por ciento, las 29 de aborto inalcanzable y las 35 de hipótesis sin umbral, y ninguna de las 29 de resultado copiado de otro entorno ni de las 24 de reversión nunca ensayada.",
-        ["Campo ausente o vacío", "Alcance del 100 % del tráfico", "Condición de aborto inalcanzable", "Hipótesis sin umbral medible",
-         "Resultado copiado de otro entorno", "Reversión nunca ensayada"],
-        [("Detectadas", [50, 33, 29, 35, 0, 0], "teal"), ("No detectadas", [0, 0, 0, 0, 29, 24], "coral")],
-        unit="Mutaciones del plan", horizontal=True, label_w=250,
-        note="Las dos que el linter no ve son las que convierten un experimento en teatro: un resultado que no se obtuvo y una reversión que nunca se probó. Las reglas se escribieron conociendo las mutaciones, así que cada tipo sale al 0 % o al 100 %; la exactitud sobre planes reales es desconocida.",
-        note_kind="gold", foot=SINT)
+def se538_escalones() -> Fig:
+    xs = [1, 5, 25, 50, 100]
+    return line_chart(
+        "Un defecto visible en 0,4 % de las peticiones con 20 000 peticiones por escalón: usuarios afectados y probabilidad de detectarlo",
+        "Línea con la probabilidad de ver al menos 3 errores de un defecto que afecta al 0,4 por ciento de las peticiones según el escalón de tráfico: 4,7 por ciento con el 1 por ciento, 76,2 con el 5 y 100 desde el 25; los usuarios afectados esperados son 0,8, 4,0, 20,0, 40,0 y 80,0.",
+        [("Probabilidad de ver al menos 3 errores", [(1, 4.7, "4,7 %", "t"), (5, 76.2, "76,2 %", "b"), (25, 100.0, "100 %", "t"), (50, 100.0, "100 %", "t"), (100, 100.0, "100 %", "t")], "teal")],
+        x_label="Escalón de tráfico (%)", y_label="Probabilidad (%)", log_x=True, x_ticks=[(x, f"{x} %") for x in xs], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none", decimals=1, plot_h=280,
+        note="Usuarios afectados esperados por escalón: 0,8, 4,0, 20,0, 40,0 y 80,0. Un escalón demasiado pequeño no detecta y uno demasiado grande daña: con 1 % no se alcanza a ver el defecto (4,7 %) y con 5 % se ve tres de cada cuatro veces afectando a unos 4 usuarios. Si el 5 % lo detiene, el daño acumulado es de 4,8 usuarios frente a 80 si se cambia de golpe.",
+        note_kind="teal", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-347
-def se347_carrera() -> Fig:
-    return timeline(
-        "El calendario mínimo que reproduce la carrera del cupo: seis pasos de dos solicitudes",
-        "Línea de tiempo de seis pasos en el orden en que dos solicitudes leen, comprueban y escriben un cupo de 1: la solicitud A lee y comprueba, la B lee antes de que A escriba, A escribe y B, con el valor viejo, comprueba y escribe, y se aceptan dos entregas con cupo 1. De las 20 intercalaciones de este tipo, 18 (90 por ciento) fallan; un calendario fallido de 40 pasos con ruido se redujo a estos 6.",
-        [("Solicitud A", [(0, 1, "lee", "teal"), (1, 2, "comprueba", "teal"), (3, 4, "escribe", "teal")]),
-         ("Solicitud B", [(2, 3, "lee", "gold"), (4, 5, "comprueba", "gold"), (5, 6, "escribe", "gold")])],
-        unit="Orden de los pasos del calendario (sin escala de tiempo)", ticks=[0, 1, 2, 3, 4, 5, 6], t_max=6,
-        events=[(3, "A escribe; B ya leyó el cupo viejo")], label_w=140,
-        note="Un fallo reproducible se reduce eliminando pasos mientras siga fallando: lo que queda es la explicación (leer, comprobar, leer, escribir, comprobar, escribir). De las 20 intercalaciones de dos solicitudes con 3 pasos cada una, 18 aceptan dos entregas; el calendario al azar con 4 solicitudes y ruido tenía 40 pasos. El ruido son pasos ajenos al cupo y el calendario sale de la semilla 347; con hilos del sistema operativo no se controla el orden.",
-        note_kind="teal", foot=SINT)
+def se539_escenarios() -> Fig:
+    return heatmap(
+        "Seis escenarios de calidad de Avisos con su medida y su importancia en dos contextos",
+        "Mapa de calor con la importancia de seis escenarios de calidad en dos contextos: latencia y disponibilidad son de importancia alta en ambos, el radio de impacto de hasta 15 por ciento de los inquilinos es alta con un cliente dominante y baja sin él, y la coordinación de despliegue, el costo y la extensión son de importancia media en ambos.",
+        ["S1 latencia: p99 ≤ 200 ms", "S2 disponibilidad: ≥ 99,9 %", "S3 radio de impacto: ≤ 15 % de inquilinos", "S4 coordinación de despliegue: ≤ 2 equipos", "S5 costo: ≤ 12 unidades", "S6 extensión: canal nuevo sin tocar el núcleo"],
+        ["Con cliente dominante", "Sin cliente dominante"],
+        [[3, 3], [3, 3], [3, 1], [2, 2], [2, 2], [2, 2]],
+        unit="Importancia", scale="navy", vmin=1, vmax=3, cell_fmt=lambda v: {3: "alta", 2: "media", 1: "baja"}[int(v)], label_w=340, cell_h=40,
+        note="Cada escenario tiene una medida que se puede comprobar; la importancia es una decisión de negocio, no una medición. El único escenario que cambia de importancia entre los dos contextos es el radio de impacto, y eso es suficiente para cambiar el resultado.",
+        note_kind="gold", foot=MODELO)
 
 
-def se347_parcial() -> Fig:
+def se539_candidatos() -> Fig:
+    return grouped_bars(
+        "Tres candidatos con 12 equipos: valores que produce el modelo y utilidad ponderada en cada contexto",
+        "Barras agrupadas con la utilidad ponderada de tres candidatos con 12 equipos en dos contextos: el monolito modular 0,596 con cliente dominante y 0,685 sin él; los microservicios 0,583 y 0,670; las celdas con monolito modular 0,710 y 0,652.",
+        ["Monolito modular", "Microservicios (4)", "Celdas (8) con monolito modular"],
+        [("Con cliente dominante", [0.596, 0.583, 0.710], "teal"), ("Sin cliente dominante", [0.685, 0.670, 0.652], "navy")],
+        unit="Utilidad ponderada", decimals=3, plot_h=260,
+        note="Valores del modelo (p99 en ms, disponibilidad, equipos a coordinar, costo): monolito modular 80, 99,950 %, 11 y 3; microservicios 194, 99,601 %, 0 y 16; celdas 125, 99,890 %, 11 y 18. Ningún candidato cumple los seis escenarios y los tres dejan tres o cuatro sin cumplir; las utilidades difieren en menos de 0,13. Con cliente dominante ganan las celdas y sin él el monolito modular; la decisión depende del contexto antes que del estilo.",
+        note_kind="teal", foot=MODELO)
+
+
+def se539_sensibilidad() -> Fig:
     return stacked_bars(
-        "Flujo de 5 pasos con efectos: puntos de fallo que dejan el estado coherente o incoherente",
-        "Barras apiladas horizontales sobre los 5 puntos de fallo de un flujo de cinco pasos: un corte antes de cada paso, sin reintento, deja un estado incoherente en 4 de 5 puntos; perder la respuesta tras cada paso y reintentar el flujo entero lo deja incoherente en 5 de 5; con pasos idempotentes, en 0 de 5.",
-        ["Corte antes de cada paso, sin reintento", "Respuesta perdida, reintento del flujo completo", "Respuesta perdida, pasos idempotentes"],
-        [("Estado coherente", [1, 0, 5], "teal"), ("Estado incoherente", [4, 5, 0], "coral")],
-        unit="Puntos de fallo del flujo (de 5)", horizontal=True, label_w=300,
-        note="Los dos fallos parciales distintos, el corte y la respuesta perdida, necesitan defensas distintas: el corte pide atomicidad o compensación (solo el corte antes del primer paso deja todo intacto); la respuesta perdida pide idempotencia, porque el reintento repite cupo, entrega, penalización y aviso. Se enumeran todos los puntos del flujo; los efectos son contadores en memoria, sin red.",
-        note_kind="coral", foot="Enumeración exacta de los puntos de fallo; sin aleatoriedad.")
-
-
-def se347_repeticiones() -> Fig:
-    items = [("5 ejecuciones", 6.9, "coral", "6,9 %"), ("10 ejecuciones", 13.4, "coral", "13,4 %"), ("50 ejecuciones", 51.3, "gold", "51,3 %"),
-             ("100 ejecuciones", 76.3, "gold", "76,3 %"), ("200 ejecuciones", 94.4, "teal", "94,4 %"), ("300 ejecuciones", 98.7, "teal", "98,7 %")]
-    return bars("Probabilidad de ver al menos una vez un fallo que aparece en 1 de cada 70 ejecuciones",
-                "Barras con la probabilidad de ver un fallo que ocurre en 1 de cada 70 ejecuciones al repetir la prueba: 6,9 por ciento con 5 repeticiones, 13,4 con 10, 51,3 con 50, 76,3 con 100, 94,4 con 200 y 98,7 con 300.",
-                items, 5.4, "Para el 95 % hacen falta 209 repeticiones y para el 99,9 % 481; una simulación de 10 000 campañas de 10 repeticiones dio 14,0 % frente al 13,4 % teórico. Enumerar las 70 intercalaciones las cubre todas. Repetir una prueba inestable en CI sin controlar el orden no la arregla.",
-                label_w=190, width=980, note_kind="gold", foot=SINT)
+        "Qué candidato gana según el contexto, el número de equipos y la disponibilidad supuesta de la cadena de microservicios",
+        "Barras apiladas horizontales con los casos, de tres tamaños de equipo, en que gana cada candidato en cuatro situaciones: con cliente dominante ganan las celdas en los 3; sin él, el monolito modular en 2 y los microservicios desde 26 equipos en 1; con la cadena de microservicios al 99,95 por ciento ganan los microservicios en los 3 casos de ambos contextos.",
+        ["Con cliente dominante", "Sin cliente dominante", "Con cliente dominante y cadena al 99,95 %", "Sin cliente dominante y cadena al 99,95 %"],
+        [("Celdas", [3, 0, 0, 0], "teal"), ("Monolito modular", [0, 2, 0, 0], "navy"), ("Microservicios", [0, 1, 3, 3], "coral")],
+        unit="Casos de 3 tamaños de equipo (4, 12 y 30)", horizontal=True, decimals=0, label_w=290,
+        note="Sin cliente dominante, el monolito modular gana con 4 y 12 equipos y los microservicios con 30 (desde 26). El punto de sensibilidad más fuerte no es el número de equipos sino un supuesto: que la cadena de cuatro servicios tenga 99,601 % de disponibilidad. Cambiarlo a 99,95 % (con degradación y reintentos) invierte la decisión en todos los casos, y por eso esa medida debe ir al ADR como supuesto a verificar.",
+        note_kind="coral", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-348
-def se348_escalera() -> Fig:
-    return stacked_bars(
-        "La base de entregas cae 60 s de 300 (50 lecturas y 10 escrituras por segundo): qué ve cada solicitud afectada",
-        "Barras apiladas horizontales con las 3 600 solicitudes que llegan durante la caída de 60 segundos: con fallo duro fallan 3 000 lecturas y se rechazan 600 escrituras; con caché obsoleta las 3 000 lecturas se sirven obsoletas y las 600 escrituras se rechazan; con caché y cola, las 3 000 lecturas son obsoletas, ninguna falla y las 600 escrituras se encolan y se reenvían al volver.",
-        ["Fallo duro", "Caché obsoleta para lecturas", "Caché + cola de escrituras"],
-        [("Lecturas falladas", [3000, 0, 0], "coral"), ("Lecturas obsoletas servidas", [0, 3000, 3000], "gold"),
-         ("Escrituras rechazadas", [600, 600, 0], "navy"), ("Escrituras encoladas y reenviadas", [0, 0, 600], "teal")],
-        unit="Solicitudes durante la caída de 60 s", horizontal=True, label_w=220,
-        note="Cada peldaño cambia un fallo visible por un estado que hay que declarar: una lectura vieja hasta N minutos, una escritura confirmada que aún no está en la base. No se pierden datos con la cola si cabe. Pasar de uno a otro es una decisión de producto con su límite, no un interruptor técnico. Tasas y duración son supuestos del autor.",
-        note_kind="teal", foot=SINT)
+def se540_lint_de_adr() -> Fig:
+    names = ["Sección Contexto", "Sección Decisión", "Sección Alternativas", "Sección Consecuencias", "Sección Reversibilidad", "Sección Disparador de revisión",
+             "Sección Evidencia", "Al menos 2 alternativas con motivo", "Consecuencia negativa declarada", "Criterio medible", "Disparador numérico"]
+    b = [1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+    c = [1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0]
+    return heatmap(
+        "Un linter de once criterios sobre tres ADR: el completo, el que justifica con una moda y el que olvida su reversibilidad",
+        "Mapa de calor con once criterios aplicados a tres registros de decisión: el ADR-A, monolito modular con disparador de revisión, cumple 11 de 11; el ADR-B, que dice usar microservicios porque son la mejor práctica, cumple 3 de 11 y le faltan alternativas, reversibilidad, disparador, evidencia, consecuencias negativas y criterio medible; el ADR-C, celdas para el cliente grande, cumple 8 de 11 y le faltan la reversibilidad, el disparador y su criterio numérico.",
+        names, ["ADR-A", "ADR-B", "ADR-C"], [[1, y, z] for y, z in zip(b, c)],
+        unit="cumple", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "cumple" if v else "falta", cell_h=34, label_w=300,
+        note="Criterios cumplidos: 11 de 11 el ADR-A, 3 de 11 el ADR-B y 8 de 11 el ADR-C. El linter comprueba presencia y forma, no verdad: un ADR con once criterios cumplidos puede decidir mal. Sirve para rechazar lo evidentemente incompleto (el ADR-B) antes de gastar tiempo de revisión humana.",
+        note_kind="gold", foot=EJEC)
 
 
-def se348_sobrecarga() -> Fig:
-    return stacked_bars(
-        "Llegan 150 solicitudes por turno a un sistema que atiende 100, durante 120 turnos: adónde va el exceso",
-        "Barras apiladas horizontales de las 18 000 solicitudes que llegan: se atienden 12 000 en las tres políticas; sin límite quedan 6 000 en cola; con cola acotada a 200 quedan 100 y se descartan 1 761 entregas y 4 139 listados; con prioridad quedan 100 y se descartan 0 entregas y 5 900 listados.",
-        ["Sin límite", "Cola acotada a 200", "Cola acotada con prioridad"],
-        [("Atendidas", [12000, 12000, 12000], "teal"), ("En cola al final", [6000, 100, 100], "gold"),
-         ("Descartadas: entregas", [0, 1761, 0], "coral"), ("Descartadas: listados", [0, 4139, 5900], "navy")],
-        unit="Solicitudes llegadas en 120 turnos", horizontal=True, label_w=200,
-        note="Si llegan más solicitudes de las que se atienden, algo espera o se descarta; elegir qué se descarta es la política. La prioridad protege lo que no se puede reintentar sin costo: la espera media de una entrega pasa de 21,2 turnos sin límite a 2,0 con cola acotada y a 1,0 con prioridad, y la de un listado de 20,9 a 2,0 y 2,8. Que la cola crezca 50 por turno hasta 6 000 explica una espera que sube hasta unos 41 turnos (ley de Little). Las proporciones 30/70 y la capacidad son supuestos del autor.",
-        note_kind="coral", foot=SINT)
+def se540_funcion_de_aptitud() -> Fig:
+    return grouped_bars(
+        "Una función de aptitud de capas sobre un paquete de juguete: violaciones y ciclos que detecta en cuatro variantes",
+        "Barras agrupadas con las violaciones de capa y los ciclos que detecta una prueba de arquitectura sobre cuatro variantes de un paquete: la limpia no tiene ninguno y pasa; cuando el dominio importa la infraestructura hay 1 violación y 1 ciclo y falla; cuando dos módulos de aplicación se importan entre sí hay 0 violaciones y 1 ciclo y falla; una importación dinámica no se detecta y pasa.",
+        ["Limpia (pasa)", "El dominio importa la infraestructura (falla)", "Dos módulos de aplicación se importan entre sí (falla)", "Importación dinámica de la infraestructura (pasa, no la ve)"],
+        [("Violaciones de capa", [0, 1, 0, 0], "coral"), ("Ciclos", [0, 1, 1, 0], "gold")],
+        unit="Violaciones o ciclos detectados", horizontal=True, decimals=0, label_w=330,
+        note="La última variante tiene una violación real que la prueba no ve. La prueba corre en unos 10 a 40 ms y detecta lo que está escrito como importación; una importación por nombre en una cadena la elude. Una función de aptitud protege una decisión contra la deriva solo en la medida en que su mecanismo ve la forma en que se rompe.",
+        note_kind="teal", foot=EJEC)
 
 
-def se348_paquete() -> Fig:
-    return stacked_bars(
-        "Validador del paquete del servicio distribuido sobre 200 mutaciones: 101 detectadas y 99 que pasan",
-        "Barras apiladas horizontales por tipo de mutación de un paquete de servicio distribuido: el verificador de forma detecta las 59 de campo ausente, las 21 de degradación sin límite y las 21 de reintento «hasta que funcione», y ninguna de las 23 de presupuesto de tiempos incoherente, 23 de evidencia copiada, 25 de prueba nunca ejecutada ni 28 de garantía imposible.",
-        ["Campo ausente o vacío", "Degradación sin límite declarado", "Reintento «hasta que funcione»", "Presupuesto de tiempos incoherente",
-         "Evidencia copiada del servicio vecino", "Prueba de fallos que nunca se ejecutó", "Garantía imposible"],
-        [("Detectadas", [59, 21, 21, 0, 0, 0, 0], "teal"), ("No detectadas", [0, 0, 0, 23, 23, 25, 28], "coral")],
-        unit="Mutaciones del paquete", horizontal=True, label_w=260,
-        note="Un paquete completo no es un paquete correcto. Lo que ningún validador de forma ve es lo que ocurre en las revisiones reales: un presupuesto de 800 ms con 3 llamadas de 500 ms, una garantía de exactamente una vez y disponible en cualquier partición, una prueba que no se corrió. Reglas escritas conociendo las mutaciones: la exactitud sobre paquetes reales es desconocida.",
-        note_kind="gold", foot=SINT)
+def se540_ciclo_de_decision() -> Fig:
+    return flow('Ciclo de una decisión arquitectónica defendida: de los escenarios al disparador de revisión',
+                'Diagrama de cinco cajas en dos filas: escenarios de calidad con medida, alternativas evaluadas con evidencia, ADR con consecuencias negativas, función de aptitud que protege la decisión y disparador de revisión numérico; una flecha de retorno lleva del disparador a los escenarios.',
+                [[('Escenarios\nCon medida y contexto', 'teal'), ('Alternativas\nEvaluadas con evidencia y supuestos', 'gold'), ('ADR\nDecisión, costos y reversibilidad', 'teal')],
+                 [('Función de aptitud\nProtege la decisión contra la deriva', 'coral'), ('Disparador de revisión\nUn número y un plazo', 'gold')]],
+                note='Una decisión arquitectónica es una hipótesis con fecha de revisión: el disparador numérico (por ejemplo, p99 mayor que 200 ms durante 3 días seguidos) dice cuándo la evidencia obliga a volver a los escenarios.',
+                note_kind='teal', box_h=96, foot=MODELO)
 
 
 FIGURES = {
-    "se-343-lideres-que-se-creen-legitimos.svg": se343_lideres,
-    "se-343-testigo-de-cerco.svg": se343_cerco,
-    "se-343-plazos-de-eleccion.svg": se343_plazos,
-    "se-344-orden-de-aplicar-y-confirmar.svg": se344_entrega,
-    "se-344-retencion-de-claves.svg": se344_retencion,
-    "se-344-salida-por-anexo-o-por-clave.svg": se344_salida,
-    "se-345-balanceo-y-cola-pesada.svg": se345_balanceo,
-    "se-345-conmutacion-y-perdida.svg": se345_conmutacion,
-    "se-345-hash-o-rango.svg": se345_reparto,
-    "se-346-reintentos-e-interruptor.svg": se346_reintentos,
-    "se-346-planificador-y-fallo-raro.svg": se346_planificador,
-    "se-346-linter-de-planes-de-caos.svg": se346_plan,
-    "se-347-carrera-y-calendario-minimo.svg": se347_carrera,
-    "se-347-fallo-parcial-del-flujo.svg": se347_parcial,
-    "se-347-repeticiones-para-ver-un-fallo.svg": se347_repeticiones,
-    "se-348-escalera-de-degradacion.svg": se348_escalera,
-    "se-348-sobrecarga-y-prioridad.svg": se348_sobrecarga,
-    "se-348-validador-del-paquete.svg": se348_paquete,
+    "se-343-cola-central.svg": se535_cola_central,
+    "se-343-personas-necesarias.svg": se535_personas_necesarias,
+    "se-343-derivas.svg": se535_derivas,
+    "se-344-reubicacion.svg": se536_reubicacion,
+    "se-344-radio.svg": se536_radio,
+    "se-344-costo-de-celdas.svg": se536_costo_de_celdas,
+    "se-345-linter.svg": se537_linter,
+    "se-345-sesiones.svg": se537_sesiones,
+    "se-345-desechabilidad.svg": se537_desechabilidad,
+    "se-346-divergencias.svg": se538_divergencias,
+    "se-346-modo-sombra.svg": se538_modo_sombra,
+    "se-346-escalones.svg": se538_escalones,
+    "se-347-escenarios.svg": se539_escenarios,
+    "se-347-candidatos.svg": se539_candidatos,
+    "se-347-sensibilidad.svg": se539_sensibilidad,
+    "se-348-lint-de-adr.svg": se540_lint_de_adr,
+    "se-348-funcion-de-aptitud.svg": se540_funcion_de_aptitud,
+    "se-348-ciclo-de-decision.svg": se540_ciclo_de_decision,
 }

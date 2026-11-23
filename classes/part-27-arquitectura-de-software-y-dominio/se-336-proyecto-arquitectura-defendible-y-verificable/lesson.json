@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-336",
+  "title": "Proyecto: arquitectura defendible y verificable",
+  "stage": "E",
+  "part": "27",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable"
+}

@@ -1,5 +1,10 @@
 # Auditoría de cobertura — 2026-10-06
 
+> [!NOTE]
+> **Documento histórico.** Los identificadores `SE-nnn` y los números de parte de este texto usan la
+> numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
+> traducir un identificador, consulta [`ID-MIGRATION.md`](ID-MIGRATION.md) ([ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
+>
 > **Fotografía histórica del 2026-10-06.** Los conteos de abajo (72 desarrolladas) corresponden
 > a esa fecha. Estado vigente al 2026-11-16: Partes 00–39 (`SE-001`–`SE-480`) desarrolladas, a falta de
 > revisión editorial humana independiente, y Partes 40–44 (`SE-481`–`SE-540`) planificadas sin clases; ver [`STATUS.md`](../STATUS.md).

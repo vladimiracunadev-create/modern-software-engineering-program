@@ -5,17 +5,35 @@
   "parts": 49,
   "classes": 588,
   "estimated_hours": 2646,
-  "planned_parts": 49,
-  "planned_classes": 588,
-  "unpublished_parts": [],
+  "planned_parts": 51,
+  "planned_classes": 612,
+  "unpublished_parts": [
+    "34",
+    "42"
+  ],
   "phase_3_target": {
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180
   },
   "phase_4_target": {
-    "first_class": "SE-181",
-    "last_class": "SE-360",
+    "parts": [
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "24",
+      "25",
+      "27",
+      "29",
+      "31",
+      "32",
+      "33"
+    ],
     "classes": 180
   }
 }

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "SE-525",
+  "title": "Retiro, archivado y disposición de sistemas",
+  "stage": "G",
+  "part": "43",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas"
+}

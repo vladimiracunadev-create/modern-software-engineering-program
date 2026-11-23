@@ -6,21 +6,18 @@ import sys
 from pathlib import Path
 
 import build_phase3 as shared
+import program_state as ps
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
-FIRST_CLASS = 181
-LAST_CLASS = 360
-FIRST_PART = 15
-LAST_PART = 29
 
 
 def source_catalog(program: dict) -> dict:
     part_ids = {
         part["id"]
         for part in program["parts"]
-        if FIRST_CLASS <= part["lessons"][0]["number"] <= LAST_CLASS
+        if ps.part_phase(int(part["id"])) == 4
     }
     used = sorted(
         {
@@ -32,7 +29,7 @@ def source_catalog(program: dict) -> dict:
     return {
         "schema_version": 1,
         "verified_on": shared.VERIFIED_ON,
-        "scope": "Fase 4 en desarrollo: SE-181 a SE-360",
+        "scope": "Fase 4: quince partes con contratos de actividad y rúbrica (180 clases)",
         "policy": (
             "Fuentes primarias u oficiales; cada borrador explica su uso, "
             "pero requiere revisión técnica individual antes de ser aprobado."
@@ -58,13 +55,11 @@ def expected_files(program: dict) -> dict[Path, str]:
     result = {ROOT / "sources/phase4.json": shared.dump_json(source_catalog(program))}
     entries = shared.context(program)
     for part in program["parts"]:
-        if not FIRST_PART <= int(part["id"]) <= LAST_PART:
+        if ps.part_phase(int(part["id"])) != 4:
             continue
         if part["id"] not in shared.PROFILES or part["id"] not in shared.TEACHING:
             raise ValueError(f"Missing phase 4 teaching profile for part {part['id']}")
         for lesson in part["lessons"]:
-            if not FIRST_CLASS <= lesson["number"] <= LAST_CLASS:
-                continue
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
             if lesson["id"] in shared.PUBLISHED_EDITORIAL_IDS:
@@ -77,13 +72,13 @@ def expected_files(program: dict) -> dict[Path, str]:
             result[ROOT / "site/classes" / f"{lesson['id']}.html"] = shared.site_page(
                 part, lesson, markdown, previous, following
             )
-    # Clases posteriores a SE-360 con texto editorial íntegro en content/: se
-    # publican (README y página del portal) sin actividad ni rúbrica, porque los
-    # contratos de actividad cubren solo SE-001 a SE-360.
+    # Partes sin contratos de actividad (las que llegaron después de la fase 4) con texto
+    # editorial íntegro en content/: se publican (README y página del portal) sin actividad
+    # ni rúbrica, porque los contratos de actividad cubren solo las fases 3 y 4.
     for part in program["parts"]:
+        if ps.part_phase(int(part["id"])) is not None:
+            continue
         for lesson in part["lessons"]:
-            if lesson["number"] <= LAST_CLASS:
-                continue
             if not (ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md").is_file():
                 continue
             _, _, previous, following = entries[lesson["id"]]

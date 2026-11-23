@@ -7,8 +7,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FIRST_CLASS = 181
-LAST_CLASS = 360
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+import program_state as ps  # noqa: E402
+
 REQUIRED_SECTIONS = [
     "## Prerrequisitos", "## Problema auténtico", "## Objetivos observables",
     "## Temas y por qué importan", "## Mapa conceptual",
@@ -32,7 +34,7 @@ def main() -> int:
 
     for part in program["parts"]:
         for lesson in part["lessons"]:
-            if not FIRST_CLASS <= lesson["number"] <= LAST_CLASS:
+            if ps.part_phase(int(part["id"])) != 4:
                 continue
             count += 1
             directory = ROOT / lesson["path"]
@@ -70,7 +72,7 @@ def main() -> int:
 
     target = program.get("phase_4_target", {})
     expected_target = {
-        "first_class": "SE-181", "last_class": "SE-360", "classes": 180,
+        "parts": [f"{number:02d}" for number in ps.PHASE4_PARTS], "classes": 180,
     }
     if target != expected_target:
         failures.append(f"phase 4 target drift: {target}")

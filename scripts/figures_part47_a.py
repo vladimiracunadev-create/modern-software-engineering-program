@@ -1,230 +1,253 @@
-"""Figures for SE-565 to SE-570 (critical systems and safety standards: runs of real CPython code and seeded models over the Horno de curado case; Windows CPython 3.12.9; no language model was invoked)."""
+"""Figures for SE-565 to SE-570 (SPEC, agents and agentic life cycle: synthetic data with fixed seeds, plus runs of real CPython/SQLite code on Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig, dumbbell, grouped_bars, line_chart, stacked_bars
-
-from figures_part40_a import bars, flow
-
-EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; los recuentos se repiten con la misma semilla."
-MODELO = "Modelo con parámetros del autor y semilla fija 47; muestra un mecanismo, no mide un producto real."
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
 
 
-def _sci(v: float) -> str:
-    return f"{v:.2e}".replace(".", ",")
-
+SINT = "Datos sintéticos con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
+EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2) con datos sintéticos; los recuentos son idénticos en ambos."
+REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
 
 # ---------------------------------------------------------------- SE-565
-def se565_causa_comun() -> Fig:
+def se469_vocabulario_vago() -> Fig:
     return grouped_bars(
-        "Probabilidad del evento tope de un árbol de fallos del Horno de curado, sin y con una causa común",
-        "Barras en escala logarítmica con la probabilidad anual del evento tope: 2,07 por diez a la menos cinco con nueve cortes mínimos de orden dos, y 3,21 por diez a la menos cuatro cuando una calibración compartida por el lazo y el limitador añade un corte de orden uno, unas 15,5 veces más.",
-        ["Sin causa común (9 cortes de orden 2)", "Con una calibración común (corte de orden 1)"],
-        [("Probabilidad del evento tope por año", [2.07e-5, 3.21e-4], "navy")],
-        unit="Probabilidad por año", log=True, value_fmt=_sci, plot_h=250,
-        note="La calibración común aporta el 93,5 % de la probabilidad del tope con una probabilidad propia de solo 3,0e-4, mayor que la del evento tope sin ella. Una simulación Monte Carlo con las probabilidades multiplicadas por 20 y 400 000 corridas (semilla 47) dio 1,40e-2 frente a 1,38e-2 exacto. Las tasas las fijó el autor.",
-        note_kind="coral", foot=MODELO)
-
-
-def se565_rpn_contra_gravedad() -> Fig:
-    names = ["Deriva de calibración", "Conector de puerta", "Sensor en lectura baja", "Relé soldado", "Ruido del convertidor", "Reinicio por perro guardián", "Pantalla rezagada", "Memoria del registro"]
-    s_rank = {"Relé soldado": 1, "Sensor en lectura baja": 2, "Deriva de calibración": 3, "Conector de puerta": 4, "Reinicio por perro guardián": 5, "Ruido del convertidor": 6, "Pantalla rezagada": 7, "Memoria del registro": 8}
-    r_rank = {n: i + 1 for i, n in enumerate(names)}
-    rows = [(n, float(s_rank[n]), float(r_rank[n])) for n in names]
-    return dumbbell(
-        "Ocho modos de fallo del Horno de curado: puesto por gravedad y puesto por número de prioridad de riesgo",
-        "Gráfico de pares con el puesto de ocho modos de fallo según su gravedad y según su RPN: el relé del limitador soldado, de gravedad 10, pasa del puesto 1 al 4 por RPN; la deriva de calibración sube del 3 al 1 y el conector de puerta del 4 al 2.",
-        rows, unit="Puesto (1 es el más urgente)", names=("Puesto por gravedad", "Puesto por RPN"), decimals=0, lower_is_better=True, label_w=250,
-        note="El RPN multiplica tres escalas ordinales de 1 a 10: las 1000 combinaciones dan solo 120 valores distintos, y 24 combinaciones comparten el mismo número, con gravedades desde 2 hasta 10. Con cambios de una unidad en el 20 % de las valoraciones, el mismo trío encabeza en el 76,8 % de 2000 repeticiones. Las valoraciones son del autor.",
-        note_kind="gold", foot=MODELO)
-
-
-def se565_sin_fallo() -> Fig:
-    return grouped_bars(
-        "Una corrida sin ningún fallo de componente: temperatura máxima y segundos con calentador y puerta abierta, sin y con limitador",
-        "Barras con el resultado de una corrida de 900 segundos en la que el controlador cumple su especificación, pero la consigna es de 300 grados: sin limitador la temperatura llega a 300,1 y hay 684 segundos con el calentador conectado y la puerta abierta; con un limitador independiente en 250 llega a 185,4 y hay 0 segundos.",
-        ["Sin limitador", "Con limitador independiente"],
-        [("Temperatura máxima (C)", [300.1, 185.4], "coral"), ("Segundos con calentador y puerta abierta", [684, 0], "navy")],
-        unit="Grados o segundos", decimals=1, ref_lines=[(250, "límite 250 C")], plot_h=260,
-        note="Ningún componente falló: la especificación pedía calentar mientras la temperatura fuera menor que la consigna y nadie había escrito qué hacer con una puerta abierta o con una consigna superior al límite. Un análisis de fallos de componentes no ve este caso; el análisis de acciones de control no seguras lo enumera: 22 de 72 combinaciones evaluadas son peligrosas.",
-        note_kind="teal", foot=MODELO)
-
-
-# ---------------------------------------------------------------- SE-566
-def se566_arquitecturas() -> Fig:
-    return grouped_bars(
-        "Probabilidad media de fallo bajo demanda de tres arquitecturas según el intervalo entre pruebas",
-        "Barras en escala logarítmica con la PFD media: con prueba anual, 1oo1 da 8,76 por diez a la menos tres, 1oo2 5,30 por diez a la menos cuatro y 2oo3 7,15 por diez a la menos cuatro; con prueba cada dos años 1,75 por diez a la menos dos, 1,25 por diez a la menos tres y 1,98 por diez a la menos tres; con prueba cada cinco años 4,38 por diez a la menos dos, 4,50 por diez a la menos tres y 9,12 por diez a la menos tres.",
-        ["1oo1", "1oo2 (beta 0,05)", "2oo3 (beta 0,05)"],
-        [("Prueba anual", [8.76e-3, 5.30e-4, 7.15e-4], "teal"), ("Cada 2 años", [1.75e-2, 1.25e-3, 1.98e-3], "gold"), ("Cada 5 años", [4.38e-2, 4.50e-3, 9.12e-3], "coral")],
-        unit="PFD media", log=True, value_fmt=_sci, ref_lines=[(1e-3, "frontera 1e-3"), (1e-2, "frontera 1e-2")], plot_h=300,
-        note="Fórmulas simplificadas de baja demanda con una tasa de fallo peligroso no detectado de 2e-6 por hora. Las fronteras de las bandas son de 1e-2 a 1e-1 para el nivel 1, de 1e-3 a 1e-2 para el 2 y de 1e-4 a 1e-3 para el 3 en modo de baja demanda. Una simulación de 400 000 vidas dio 8,62e-3 para 1oo1 frente a 8,76e-3 de la fórmula.",
-        note_kind="gold", foot=MODELO)
-
-
-def se566_beta() -> Fig:
-    betas = [0.0, 0.02, 0.05, 0.10, 0.20]
-    pfd = [1.02e-4, 2.73e-4, 5.30e-4, 9.59e-4, 1.82e-3]
-    return line_chart(
-        "Una arquitectura 1oo2 con prueba anual: PFD media según la fracción de fallos de causa común",
-        "Línea en escala logarítmica con la PFD media de un 1oo2: 1,02 por diez a la menos cuatro sin causa común, 2,73 por diez a la menos cuatro con beta de 0,02, 5,30 por diez a la menos cuatro con 0,05, 9,59 por diez a la menos cuatro con 0,10 y 1,82 por diez a la menos tres con 0,20.",
-        [("PFD media de 1oo2", list(zip(betas, pfd)), "teal")],
-        x_label="Fracción de causa común (beta)", y_label="PFD media", log_y=True, x_ticks=[(b, f"{b:.2f}".replace(".", ",")) for b in betas],
-        y_ticks=[1e-4, 1e-3, 1e-2], point_labels="all", decimals=5, plot_h=290, hlines=[(1e-3, "frontera 1e-3")],
-        note="Con beta cero, duplicar el canal reduce la PFD a 1,02e-4; con beta 0,20 la deja en 1,82e-3, un factor 18 peor, y cruza la frontera de la banda. La redundancia no protege de lo que comparten los dos canales: misma calibración, misma fuente, misma especificación errónea.",
-        note_kind="coral", foot=MODELO)
-
-
-def se566_prueba_imperfecta() -> Fig:
-    cov = ["100 %", "99 %", "95 %", "90 %", "70 %"]
-    vals = [8.76e-3, 9.99e-3, 1.49e-2, 2.10e-2, 4.56e-2]
-    return grouped_bars(
-        "Un canal 1oo1 de 15 años de vida con prueba anual: PFD media según la cobertura de la prueba",
-        "Barras con la PFD media de un canal 1oo1 con prueba anual y vida de 15 años: 8,76 por diez a la menos tres con cobertura de prueba del 100 por ciento, 9,99 por diez a la menos tres con el 99, 1,49 por diez a la menos dos con el 95, 2,10 por diez a la menos dos con el 90 y 4,56 por diez a la menos dos con el 70.",
-        cov, [("PFD media", vals, "navy")], unit="PFD media", value_fmt=_sci, ref_lines=[(1e-2, "frontera 1e-2")], plot_h=260,
-        note="Una prueba que no detecta el 5 % de los fallos deja que esos fallos se acumulen hasta el final de la vida útil: la PFD sube un 70 % y el canal baja de banda. La cobertura de la prueba periódica es un supuesto del modelo que hay que justificar y vigilar, no un dato.",
-        note_kind="gold", foot=MODELO)
-
-
-# ---------------------------------------------------------------- SE-567
-def se567_metrica() -> Fig:
-    return grouped_bars(
-        "Métrica de fallo único de dos diseños del Horno de curado frente a tres valores de referencia no verificados",
-        "Barras con la métrica de fallo único: 60,7 por ciento con diagnóstico mínimo y 98,1 con diagnóstico por componente, con líneas de referencia en 90, 97 y 99 por ciento.",
-        ["A: diagnóstico mínimo", "B: diagnóstico por componente"], [("Métrica de fallo único (%)", [60.7, 98.1], "teal")],
-        unit="Por ciento", decimals=1, ref_lines=[(90, "90 %"), (97, "97 %"), (99, "99 %")], plot_h=250,
-        note="Los fallos peligrosos sin cubrir son 78,5 FIT en el diseño A y 3,9 FIT en el B sobre un total de 200 FIT: el diseño B supera el umbral de 97 % pero no el de 99 %. Las tasas de fallo y las coberturas por componente las fijó el autor; los tres umbrales son valores que circulan en la literatura técnica y no se verificaron contra la norma, que es de pago.",
-        note_kind="gold", foot=MODELO)
-
-
-def se567_cobertura_medida() -> Fig:
-    return grouped_bars(
-        "Inyección de 20 000 fallos de un bit en un cálculo de par: cobertura medida de cuatro esquemas de diagnóstico",
-        "Barras con la cobertura medida sobre 15 422 fallos peligrosos: sin diagnóstico 0 por ciento, comprobación de rango de la entrada 57,0, doble cálculo con comparación 67,3 y doble cálculo con relectura de la salida 100.",
-        ["Sin diagnóstico", "Rango de la entrada", "Doble cálculo y comparación", "Doble cálculo y relectura de la salida"],
-        [("Cobertura medida (%)", [0.0, 57.0, 67.3, 100.0], "teal")], unit="Por ciento de fallos peligrosos detectados", decimals=1, plot_h=270,
-        note="El doble cálculo no ve un fallo que ocurre después de la comparación (en la salida), por eso se queda en 67,3 %; la relectura de la salida lo cierra. Los fallos se inyectan en la entrada, en un valor intermedio y en la salida del canal A, con el canal B sano; solo se prueba un fallo a la vez. El 100 % vale para este modelo de fallos, no para fallos de causa común.",
-        note_kind="coral", foot=EJEC)
-
-
-def se567_diagnostico() -> Fig:
-    return flow("Diagnóstico del cálculo de par: dónde se coloca cada comprobación y qué fallos no ve",
-                "Diagrama de cuatro cajas encadenadas: entrada del pedal con comprobación de rango, canal A y canal B de cálculo, comparador que ve los fallos de los canales pero no los posteriores, y salida con relectura que cierra el último tramo.",
-                [[("Entrada\nRango: ve solo valores imposibles", "gold"), ("Canales A y B\nDoble cálculo: ve fallos de un canal", "teal"),
-                  ("Comparador\nNo ve lo que ocurre después de él", "coral"), ("Salida y relectura\nCierra el último tramo", "teal")]],
-                note="Cada diagnóstico cubre un tramo del camino del dato. La cobertura de un esquema es la unión de los tramos que cubren sus comprobaciones, y los fallos de causa común (el mismo error en ambos canales) no los ve ninguno de los tres.",
-                note_kind="teal", box_h=112, foot=MODELO)
-
-
-# ---------------------------------------------------------------- SE-568
-def se568_cobertura_acumulada() -> Fig:
-    ks = [("R1", 6), ("R2", 6), ("R3", 8), ("R4", 9), ("R0", 10), ("R5", 11)]
-    return line_chart(
-        "Sentencias ejecutadas del limitador (13 en total) al ir añadiendo pruebas derivadas de requisitos, una a una",
-        "Línea con las sentencias ejecutadas acumuladas: 6 con la prueba de R1, 6 con la de R2, 8 con R3, 9 con R4, 10 con R0 y 11 con R5, de un total de 13 sentencias.",
-        [("Sentencias ejecutadas", [(i + 1, v) for i, (_, v) in enumerate(ks)], "teal")],
-        x_label="Prueba añadida", y_label="Sentencias ejecutadas de 13", x_ticks=[(i + 1, n) for i, (n, _) in enumerate(ks)], y_ticks=[0, 4, 8, 12],
-        point_labels="all", decimals=0, plot_h=280, hlines=[(13, "13 sentencias")],
-        note="Seis pruebas, una por requisito, ejecutan 11 de 13 sentencias (84,6 %). Las dos restantes no las pide ningún requisito: una rama con un límite de temperatura imposible de alcanzar con la entrada acotada (código muerto) y una orden de depuración activada por el valor 42 (una función no prevista).",
+        "Cuatro detectores de vaguedad sobre 125 frases de requisitos: 60 vagas y 65 comprobables",
+        "Barras agrupadas con las vagas halladas, las falsas alarmas y las vagas que pasan de cuatro detectores sobre 125 frases, 60 vagas y 65 comprobables: la lista de palabras halla 40 con 10 falsas alarmas, la falta de medida halla 56 con 5, la combinación con y halla 40 sin falsas alarmas y deja pasar 20, y con o halla 56 con 15 y deja pasar 4.",
+        ["Lista de palabras vagas", "Falta de medida o estado", "Palabra vaga y sin medida", "Palabra vaga o sin medida"],
+        [("Vagas halladas", [40, 56, 40, 56], "teal"), ("Falsas alarmas", [10, 5, 0, 15], "coral"), ("Vagas que pasan", [20, 4, 20, 4], "gold")],
+        unit="Frases", decimals=0, plot_h=260,
+        note="Frases marcadas por cada detector: 50, 61, 40 y 71. Ninguno gana en todo: exigir las dos señales elimina las falsas alarmas y deja pasar 20 frases vagas; exigir una u otra deja pasar 4 a cambio de 15 falsas alarmas. Las frases y los detectores fueron escritos por el autor sabiendo qué buscan.",
         note_kind="gold", foot=EJEC)
 
 
-def se568_causas() -> Fig:
-    return flow("Tres lecturas de una sentencia que ningún requisito ejecuta, y qué hace la persona que revisa",
-                "Diagrama de tres cajas con las explicaciones posibles de código sin cubrir por pruebas de requisitos: falta una prueba, falta un requisito derivado, o el código es muerto o no previsto y se elimina o se justifica.",
-                [[("Falta una prueba\nEl requisito existe: se escribe la prueba", "teal"), ("Falta un requisito\nLa conducta es deseable: se deriva y se prueba", "gold"),
-                  ("Código muerto o no previsto\nSe elimina o se justifica por escrito", "coral")]],
-                note="La cobertura estructural no busca llegar a un número: busca las sentencias que nadie pidió. Es una comprobación de que las pruebas basadas en requisitos fueron suficientes, y su hallazgo es una de estas tres decisiones.",
-                note_kind="teal", box_h=100, foot=EJEC)
+# ---------------------------------------------------------------- SE-565
+def se469_espacio_de_interpretaciones() -> Fig:
+    xs = [0, 2, 4, 6, 8]
+    return line_chart(
+        "Ocho decisiones abiertas de dos o tres lecturas: comportamientos posibles y observados en 200 implementaciones",
+        "Líneas en escala logarítmica con los comportamientos posibles y los distintos observados en 200 implementaciones según las decisiones resueltas: con 0 hay 864 posibles y 184 distintos; con 2, 144 y 107; con 4, 36 y 36; con 6, 6 y 6; con 8, 1 y 1; las implementaciones que coinciden con la intención son 0, 1, 5, 53 y 200.",
+        [("Comportamientos posibles", list(zip(xs, [864, 144, 36, 6, 1])), "grey"), ("Distintos en 200 implementaciones", list(zip(xs, [184, 107, 36, 6, 1])), "coral")],
+        x_label="Decisiones resueltas (de 8)", y_label="Comportamientos", log_y=True, x_ticks=[(x, str(x)) for x in xs], y_ticks=[1, 10, 100, 1000],
+        point_labels="all", decimals=0, plot_h=280,
+        note="Implementaciones que coinciden con la intención (de 200): 0, 1, 5, 53 y 200 con 0, 2, 4, 6 y 8 decisiones resueltas. Cada decisión resuelta divide el espacio por su número de lecturas. Con las ocho abiertas, ninguna de 200 implementaciones coincide con la intención. El modelo supone decisiones independientes y lecturas igual de probables.",
+        note_kind="coral", foot=SINT)
 
 
-def se568_tras_r5() -> Fig:
+# ---------------------------------------------------------------- SE-565
+def se469_trazabilidad_y_vacias() -> Fig:
+    return stacked_bars(
+        "Doce defectos inyectados entre 25 entradas de especificación y 24 pruebas: qué comprobación encuentra cada uno",
+        "Barras apiladas horizontales con los defectos inyectados que encuentra cada comprobación: identificadores y criterios encuentran 8 (3 requisitos sin prueba, 2 pruebas huérfanas, 1 identificador repetido, 2 requisitos sin criterio), el árbol sintáctico añade las 3 pruebas sin aserción y llega a 11, y queda sin ver una prueba que cita el requisito RF-02 pero afirma que dos más dos son cuatro.",
+        ["Requisito sin prueba", "Prueba huérfana", "Identificador repetido", "Requisito sin criterio", "Prueba sin aserción", "Prueba que afirma algo irrelevante"],
+        [("Encontrados por identificadores y criterios", [3, 2, 1, 2, 0, 0], "teal"), ("Añadidos por el árbol sintáctico", [0, 0, 0, 0, 3, 0], "navy"), ("No encontrados", [0, 0, 0, 0, 0, 1], "coral")],
+        unit="Defectos inyectados", horizontal=True, decimals=0, label_w=280,
+        note="La comprobación formal encuentra 8 de 12 y el árbol sintáctico llega a 11. Queda sin ver una prueba con forma correcta que comprueba otra cosa. Los defectos los inyectó el autor y la comprobación se escribió para encontrarlos.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-566
+def se470_incoherencias_entre_artefactos() -> Fig:
     return grouped_bars(
-        "El limitador con y sin el requisito del sensor sin lectura: sentencias sin ejecutar tras las pruebas de requisitos",
-        "Barras con las sentencias sin ejecutar del limitador: 3 con las pruebas de los requisitos R0 a R4 y 2 tras añadir el requisito R5 de sensor sin lectura; las 2 restantes son la rama imposible y la orden de depuración.",
-        ["Pruebas de R0 a R4", "Tras añadir R5 (sensor sin lectura)"], [("Sentencias sin ejecutar", [3, 2], "coral")],
-        unit="Sentencias sin ejecutar de 13", decimals=0, plot_h=240,
-        note="La sentencia que se cubrió al añadir R5 era una conducta defensiva (devolver el estado seguro sin lectura) que existía en el código sin requisito: una conducta derivada que hasta entonces nadie había escrito. Las otras dos siguen siendo hallazgos abiertos.",
-        note_kind="teal", foot=EJEC)
+        "Hallazgos de un analizador de texto sobre constitución, plan y tareas con incoherencias inyectadas",
+        "Barras horizontales con los 18 hallazgos de un analizador de texto sobre tres artefactos de un servicio de avisos: tres requisitos sin tarea, dos decisiones del plan que violan la constitución, tres dependencias hacia tareas posteriores y tres tareas de código antes de su prueba, y un hallazgo en cada uno de los demás tipos.",
+        ["Requisito sin tarea", "Identificador de tarea duplicado", "Tarea con requisito inexistente", "Tarea sin requisito", "Plan que viola la constitución", "Plan que cita un requisito inexistente",
+         "Conflicto numérico entre decisiones (24 frente a 48 horas)", "Dependencia de una tarea posterior", "Ciclo de dependencias", "Tareas en paralelo sobre el mismo archivo", "Código planificado antes de su prueba"],
+        [("Hallazgos", [3, 1, 1, 1, 2, 1, 1, 3, 1, 1, 3], "navy")],
+        unit="Hallazgos (18 en total)", horizontal=True, decimals=0, label_w=330,
+        note="El analizador emite 18 hallazgos; 17 son incoherencias reales y uno es discutible. No ve dos problemas inyectados que exigen entender el significado: un canal distinto entre requisito y plan y un requisito sin mecanismo.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-566
+def se470_presupuesto_de_preguntas() -> Fig:
+    xs = [0, 3, 5, 8, 14]
+    return line_chart(
+        "Fracción del costo esperado de 14 ambigüedades que queda sin resolver según el número de preguntas (2 000 especificaciones)",
+        "Líneas con la fracción del costo esperado de catorce ambigüedades que queda sin resolver según las preguntas de clarificación y la estrategia: con cinco preguntas el orden del documento deja 64,3 por ciento, el azar 64,5, el mayor impacto 29,8 y el mayor costo esperado 29,3.",
+        [("Orden del documento", list(zip(xs, [100.0, 78.7, 64.3, 42.8, 0.0])), "grey"), ("Al azar", list(zip(xs, [100.0, 78.5, 64.5, 43.1, 0.0])), "gold"),
+         ("Mayor impacto", list(zip(xs, [100.0, 46.4, 29.8, 14.0, 0.0])), "teal"), ("Mayor costo esperado", list(zip(xs, [100.0, 45.8, 29.3, 13.6, 0.0])), "navy")],
+        x_label="Preguntas de clarificación", y_label="Costo esperado sin resolver (%)", x_ticks=[(x, str(x)) for x in xs], y_ticks=[0, 20, 40, 60, 80, 100],
+        point_labels="none", decimals=1, plot_h=300,
+        note="El orden del documento rinde igual que el azar: no contiene información sobre cuánto importa cada ambigüedad (las dos líneas casi se superponen). Ordenar por impacto o por costo esperado reduce a menos de la mitad lo que queda con cinco preguntas. Los impactos son supuestos del autor.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-566
+def se470_tareas_y_ruta_critica() -> Fig:
+    return grouped_bars(
+        "Cuarenta tareas con 53 dependencias: duración con distinto número de trabajadores y orden del archivo",
+        "Barras horizontales con la duración de 40 tareas con 53 dependencias: 52,3 con un trabajador, 27,6 con dos, 14,4 con cuatro y 10,8 con ocho, frente a una ruta crítica de 10,4; si se ejecutan en el orden del archivo desordenado dentro de cada fase, 8 de 53 dependencias se violan.",
+        ["1 trabajador", "2 trabajadores", "4 trabajadores", "8 trabajadores", "Ruta crítica (mínimo con cualquier número)"],
+        [("Duración", [52.3, 27.6, 14.4, 10.8, 10.4], "navy")],
+        unit="Duración", horizontal=True, decimals=1, label_w=270,
+        note="Fracción del trabajo total: 100,0 %, 52,7 %, 27,5 %, 20,6 % y 19,9 %. Hay siete olas de hasta 13 tareas. La ruta crítica es un suelo: ocho trabajadores ya están a un 4 % de ella. Si el agente ejecuta las tareas en un orden de archivo desordenado dentro de cada fase, 8 de 53 dependencias se violan. Duraciones y dependencias son sintéticas.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-567
+def se471_bucle_y_regresion() -> Fig:
+    return grouped_bars(
+        "Bucle implementar y converger con 40 criterios y 20 abiertos: pasadas según la tasa de regresión (5 000 corridas por fila)",
+        "Barras agrupadas con las pasadas del bucle según la regresión por pasada: sin regresión la mediana es de 3 y el percentil 90 de 5; con 2 por ciento, 5 y 10; con 5 por ciento, 10 y 10; con 10 por ciento, 10 y 10, con un máximo de 10 pasadas.",
+        ["0 %", "2 %", "5 %", "10 %"],
+        [("Pasadas (mediana)", [3, 5, 10, 10], "teal"), ("Percentil 90", [5, 10, 10, 10], "coral")],
+        unit="Pasadas", decimals=0, ref_lines=[(10, "máximo de 10 pasadas")], plot_h=260,
+        note="Corridas que topan el máximo de 10: 0,0 %, 9,4 %, 62,4 % y 96,3 %; criterios abiertos al parar (media): 0,00, 0,17, 1,84 y 4,88. Una regresión del 5 % por pasada deja sin converger al 62,4 % de las corridas: de 20 criterios cumplidos, uno se rompe en cada pasada. La tasa de corrección de 0,7 y la independencia entre criterios son supuestos del autor.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-567
+def se471_verificador_parcial() -> Fig:
+    return grouped_bars(
+        "Declaración de convergencia de un agente según la cobertura de su verificador (40 criterios, 5 000 corridas)",
+        "Barras agrupadas con el porcentaje de corridas que declaran convergencia y de las que lo hacen con criterios abiertos según la cobertura del verificador: con 100 por ciento declara el 90,7 y ninguna con criterios abiertos; con 80, el 94,5 y el 93,7; con 50, el 98,9 y el 98,9; con 30, el 99,9 y el 99,9.",
+        ["Cobertura del 100 %", "Cobertura del 80 %", "Cobertura del 50 %", "Cobertura del 30 %"],
+        [("Declara convergido", [90.7, 94.5, 98.9, 99.9], "gold"), ("Con criterios aún abiertos", [0.0, 93.7, 98.9, 99.9], "coral")],
+        unit="Corridas (%)", decimals=1, plot_h=260,
+        note="Criterios abiertos reales al declarar (media): 0,0, 4,4, 10,7 y 14,8. Cuanto peor es el verificador, antes declara convergencia, porque tiene menos que corregir. Los criterios que no ve nunca se corrigen. La segunda barra es la fracción de todas las corridas que declaran con criterios abiertos.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-567
+def se471_criterios_y_variantes() -> Fig:
+    return grouped_bars(
+        "Tres conjuntos de criterios ejecutables frente a diez variantes defectuosas de la regla de avisos",
+        "Barras agrupadas con los casos y las variantes defectuosas detectadas de diez por tres conjuntos de criterios: tres casos del camino feliz detectan 3, nueve casos con bordes detectan 6 y diecisiete casos completos detectan las 10.",
+        ["Camino feliz", "Camino feliz y bordes", "Criterios completos"],
+        [("Casos", [3, 9, 17], "grey"), ("Variantes detectadas (de 10)", [3, 6, 10], "teal")],
+        unit="Casos o variantes", decimals=0, ref_lines=[(10, "10 variantes")], plot_h=260,
+        note="Quedan vivas con el camino feliz: ignora entregada, ignora silencio, repite, envía todos, avisa tras vencer, elige el más lejano y solo bloquea el idéntico; con bordes: ignora entregada, ignora silencio, envía todos y elige el más lejano. Esas variantes dependen de combinaciones de estado que un caso de borde de un solo valor no ejercita. Las diez variantes y los 17 casos son del autor: el 10 de 10 es consecuencia de haberlos escrito sabiéndolo.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-568
+def se472_leer_un_repositorio_ajeno() -> Fig:
+    return grouped_bars(
+        "Cinco estrategias para encontrar los usos de una función en un repositorio sintético de 300 módulos y 1 004 KB",
+        "Barras horizontales en escala logarítmica con los módulos y los kilobytes leídos por cinco estrategias: leer todo lee 300 módulos y 1004 kilobytes y encuentra 5 de 5; buscar el nombre lee 4 y 11,8 y encuentra 4; buscar el nombre y el módulo que la define lee 9 y 27,2 y encuentra 5; un mapa vigente lee 5 y 15,3 y encuentra 5; un mapa desactualizado lee 4 y 11,8 y encuentra 4.",
+        ["Leer todo (5 de 5)", "Buscar el nombre y leer los que lo contienen (4 de 5)", "Buscar el nombre y el módulo que lo define (5 de 5)", "Mapa de arquitectura vigente (5 de 5)", "Mapa de hace un trimestre (4 de 5)"],
+        [("Módulos leídos", [300, 4, 9, 5, 4], "navy"), ("KB leídos", [1004.0, 11.8, 27.2, 15.3, 11.8], "coral")],
+        unit="Módulos o KB leídos", horizontal=True, log=True, decimals=1, label_w=300,
+        note="Entre paréntesis, los cambios hallados de 5. La búsqueda por nombre cuesta el 1,2 % de la lectura total y no ve el uso por cadena de texto. Un mapa vale lo que valga su mantenimiento. El repositorio es sintético, con módulos pequeños y un solo uso dinámico.",
+        note_kind="gold", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-568
+def se472_verificar_una_correccion() -> Fig:
+    return heatmap(
+        "Cinco errores y cuatro candidatos de arreglo: cuántos acepta cada política de verificación",
+        "Mapa de calor con los arreglos aceptados de cinco por cada política de verificación y candidato: la batería existente acepta el código sin corregir en 5 de 5 casos; la reproducción lo rechaza pero acepta el arreglo del síntoma en 5; batería y reproducción aceptan el síntoma y rechazan dos arreglos que rompen otro caso; con casos vecinos solo se aceptan los arreglos de la causa, más uno que rompe otro caso.",
+        ["Solo la batería existente", "Solo la reproducción", "Batería y reproducción", "Batería, reproducción y casos vecinos"],
+        ["Sin corregir", "Arregla el síntoma", "Arregla y rompe otro caso", "Arregla la causa"],
+        [[5, 5, 3, 5], [0, 5, 5, 5], [0, 5, 3, 5], [0, 0, 1, 5]],
+        unit="Arreglos aceptados de 5", scale="coral", vmin=0, vmax=5, decimals=0, label_w=290,
+        note="La batería existente acepta el código sin corregir en los cinco casos: por eso el error existía. Solo los casos vecinos rechazan el arreglo del síntoma. Los errores, las baterías y los arreglos son del autor.",
+        note_kind="coral", foot=EJEC)
+
+
+# ---------------------------------------------------------------- SE-568
+def se472_cuando_evaluar_una_idea() -> Fig:
+    xs = [5, 10, 25, 50, 75]
+    return line_chart(
+        "Valor esperado de tres políticas según la proporción de ideas buenas (construir 10, valor 40, evaluar 1)",
+        "Líneas con el valor esperado de tres políticas según la proporción de ideas buenas: con 5 por ciento construir todo da menos 8,12, evaluar y construir si procede menos 2,18 y no construir 0; con 25 por ciento evaluar da 3,38 frente a menos 0,19; con 50 por ciento 10,33 frente a 9,68; con 75 por ciento construir todo da 19,74 frente a 17,29.",
+        [("Construir todo", list(zip(xs, [-8.12, -6.21, -0.19, 9.68, 19.74])), "coral"), ("Evaluar y construir si procede", list(zip(xs, [-2.18, -0.84, 3.38, 10.33, 17.29])), "teal"),
+         ("No construir", list(zip(xs, [0.0, 0.0, 0.0, 0.0, 0.0])), "grey")],
+        x_label="Ideas buenas (%)", y_label="Valor esperado", x_ticks=[(x, f"{x} %") for x in xs], y_ticks=[-10, -5, 0, 5, 10, 15, 20],
+        point_labels="none", decimals=2, plot_h=300,
+        note="Mejor opción: no construir con 5 % y 10 %; evaluar con 25 % y 50 %; construir todo con 75 %. Evaluar compensa en un rango intermedio: con pocas ideas buenas conviene no construir y con casi todas buenas, construir sin evaluar. Los valores y la señal de evaluación son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-569
-def se569_clases() -> Fig:
-    return stacked_bars(
-        "Doce módulos de un software de bomba de infusión: clases de seguridad con y sin segregación documentada",
-        "Barras apiladas con el número de módulos de clase A, B y C: sin segregación, 2 de clase A, 4 de B y 6 de C; con segregación documentada, 4 de A, 4 de B y 4 de C.",
-        ["Sin segregación", "Con segregación documentada"],
-        [("Clase A", [2, 4], "teal"), ("Clase B", [4, 4], "gold"), ("Clase C", [6, 4], "coral")],
-        unit="Módulos", horizontal=True, decimals=0, label_w=190,
-        note="Sin segregación, todo lo que sirve a un módulo de clase C hereda la clase: pantalla, registro y almacén suben. Las actividades de verificación pasan de 90 a 76 con los pesos del autor (3, 6 y 10 por módulo de clase A, B y C). La segregación solo vale si está argumentada y verificada, no si se declara.",
-        note_kind="gold", foot=MODELO)
-
-
-def se569_topes() -> Fig:
+def se473_reglas_de_permiso() -> Fig:
     return grouped_bars(
-        "20 000 órdenes de velocidad con un 2 % de deslizamientos del punto decimal: órdenes peligrosas que llegan a la bomba",
-        "Barras con las órdenes peligrosas que pasan: sin control 398, con un tope global de 100 mililitros por hora 266 y con un tope por perfil de fármaco de tres veces la velocidad habitual 0.",
-        ["Sin control", "Tope global de 100 ml/h", "Tope por perfil de fármaco"], [("Órdenes peligrosas que pasan", [398, 266, 0], "coral")],
-        unit="Órdenes de 20 000", decimals=0, plot_h=250,
-        note="Un tope fijo no sabe qué se prescribió: deja pasar 266 de 398 órdenes diez veces mayores que lo prescrito. El tope por perfil las detiene todas en este modelo, a costa de mantener y verificar la biblioteca de perfiles, que pasa a ser un componente crítico. El modelo supone un solo tipo de error de tecleo.",
-        note_kind="teal", foot=MODELO)
+        "Cuatro políticas de permisos frente a 30 órdenes de shell (16 peligrosas y 14 inocuas), sin ejecutar ninguna",
+        "Barras horizontales con las órdenes que permite o frena cada política: permitirlo todo deja pasar las 16 peligrosas; la lista por prefijo deja pasar 13 y frena una inocua; el análisis de segmentos deja pasar 4 y frena una inocua; los segmentos con confinamiento de rutas frenan las 16 y ninguna inocua.",
+        ["Permitirlo todo", "Lista por prefijo", "Lista con análisis de segmentos", "Segmentos y confinamiento de rutas"],
+        [("Peligrosas permitidas (de 16)", [16, 13, 4, 0], "coral"), ("Peligrosas frenadas (de 16)", [0, 3, 12, 16], "teal"), ("Inocuas frenadas (de 14)", [0, 1, 1, 0], "gold")],
+        unit="Órdenes", horizontal=True, decimals=0, label_w=260,
+        note="El prefijo deja pasar las órdenes compuestas; el análisis de segmentos deja pasar cuatro lecturas fuera del espacio de trabajo. Las treinta órdenes se escribieron sabiendo qué reglas las evaluarían: el cero de la última fila es mérito de la construcción.",
+        note_kind="coral", foot=EJEC)
 
 
-def se569_ciclo() -> Fig:
-    return flow("Del peligro al control de software en la lógica de un ciclo de vida de dispositivo médico: lo que se encadena",
-                "Diagrama de cuatro cajas: peligro y situación peligrosa, riesgo estimado, medida de control incluida en el software o fuera de él, y clase de seguridad del módulo que determina el rigor de verificación.",
-                [[("Peligro\nSobreinfusión por una orden mal tecleada", "coral"), ("Riesgo\nGravedad y probabilidad estimadas con supuestos", "gold"),
-                  ("Control\nTope por perfil en el software o límite mecánico fuera", "teal"), ("Clase del módulo\nSegún lo que el software contribuye al peligro", "teal")]],
-                note="La clase de seguridad del software no se elige por el tamaño del módulo sino por si su fallo puede contribuir a una situación peligrosa y por qué controles externos reducen ese riesgo. Un control fuera del software puede bajar la clase; solo si es independiente y verificado.",
-                note_kind="teal", box_h=118, foot=MODELO)
+# ---------------------------------------------------------------- SE-569
+def se473_radio_de_dano() -> Fig:
+    return grouped_bars(
+        "Sesiones de 20 acciones con un 5 % de desvíos y 12 herramientas: sesiones con algún daño según la configuración (5 000 sesiones)",
+        "Barras horizontales con el porcentaje de sesiones con algún daño en 5000 sesiones de 20 acciones con un 5 por ciento de desvíos: con todas las herramientas y alcance completo 41,6; con solo las seis de la tarea 21,3; con escritura confinada 3,2; con aprobación humana para lo destructivo 0,0.",
+        ["Todas las herramientas, alcance completo (0,53 daños por sesión)", "Solo las herramientas de la tarea (0,24)", "…y escritura confinada al espacio de trabajo (0,03)", "…y lo destructivo exige aprobación humana (0,00)"],
+        [("Sesiones con algún daño", [41.6, 21.3, 3.2, 0.0], "coral")],
+        unit="Sesiones con algún daño (%)", horizontal=True, decimals=1, label_w=330,
+        note="Entre paréntesis, las acciones dañinas por sesión. Cada restricción reduce el daño por una razón distinta y se acumulan. El cero de la última fila supone una aprobación humana perfecta, la suposición más débil. El 5 % de desvíos y la elección uniforme de herramienta son del autor.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-569
+def se473_reglas_que_se_acumulan() -> Fig:
+    return grouped_bars(
+        "Reglas «permitir siempre» tras 24 semanas con 6 solicitudes semanales (500 equipos por fila)",
+        "Barras agrupadas con las reglas de permitir siempre acumuladas en 24 semanas en 500 equipos: sin revisión la mediana es de 57 reglas, 20 amplias; con revisión cada 12 semanas 38 y 4; con revisión cada 4 semanas 13 y 1.",
+        ["Nunca se revisan", "Se revisan cada 12 semanas", "Se revisan cada 4 semanas"],
+        [("Reglas (mediana)", [57, 38, 13], "navy"), ("Reglas amplias (mediana)", [20, 4, 1], "coral")],
+        unit="Reglas", decimals=0, plot_h=260,
+        note="Equipos con alguna regla amplia: 100 %, 98 % y 75 %. Sin revisión se acumulan 57 reglas y todos los equipos tienen alguna amplia; revisar cada cuatro semanas mantiene el conjunto acotado sin eliminar el problema. El 40 % de aprobaciones permanentes y el 35 % de reglas amplias son supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-570
-def se570_apoyo() -> Fig:
+def se474_gancho_y_modo_de_fallo() -> Fig:
     return grouped_bars(
-        "Cuatro afirmaciones de un argumento de seguridad: evidencias que respaldan a cada una",
-        "Barras con las evidencias por afirmación del argumento: G1 con 2, G2 con 1, G3 con 3 y G4 con 1 una vez desarrollada; G2 y G4 dependen de una sola evidencia y su retirada rompe la afirmación principal.",
-        ["G1 peligros identificados", "G2 requisitos verificados", "G3 verificación estructural", "G4 desarrollada con una evidencia"], [("Evidencias", [2, 1, 3, 1], "navy")],
-        unit="Evidencias por afirmación", decimals=0, horizontal=True, label_w=270, ref_lines=[(2, "2 evidencias")],
-        note="Al retirar una evidencia por vez, solo E3 (única de G2) y E7 (única de G4) rompen la afirmación principal G0. Antes de desarrollar G4, el argumento ni siquiera cierra: una afirmación sin desarrollar no es una afirmación apoyada. Además, E7 y E8 estaban en la carpeta sin que ninguna afirmación las usara.",
-        note_kind="gold", foot=MODELO)
+        "Un gancho de política ejecutado como proceso sobre 58 eventos (18 peligrosos): salidas y modo de fallo",
+        "Barras horizontales con las salidas de 58 eventos ejecutados como procesos reales: 40 con éxito, 12 con bloqueo, 4 con error y 2 con tiempo agotado; si solo el código 2 bloquea, 6 de las 18 acciones peligrosas se ejecutan; si todo lo que no sea éxito bloquea, ninguna.",
+        ["Éxito (código 0)", "Bloqueo (código 2)", "Error (otro código)", "Tiempo agotado", "Peligrosas ejecutadas si solo el código 2 bloquea (de 18)", "Peligrosas ejecutadas si todo lo que no sea éxito bloquea (de 18)"],
+        [("Eventos o acciones", [40, 12, 4, 2, 6, 0], "navy")],
+        unit="Eventos o acciones", horizontal=True, decimals=0, label_w=330,
+        note="Con todo lo que no sea éxito bloqueando, ninguna acción inocua se bloquea. El diseño por defecto de estos controles falla abierto: una caída o un tiempo agotado no bloquean. El gancho imita un contrato documentado, no es la herramienta; el arranque de un proceso cuesta decenas de milisegundos y cambia de equipo en equipo.",
+        note_kind="coral", foot=REAL)
 
 
-def se570_trazabilidad() -> Fig:
+# ---------------------------------------------------------------- SE-570
+def se474_cargar_habilidades() -> Fig:
     return grouped_bars(
-        "Trazabilidad de 30 requisitos y 45 pruebas: huecos, enlaces sin destino y enlaces sospechosos tras un cambio",
-        "Barras con los huecos de trazabilidad: 9 requisitos sin ninguna prueba, 2 pruebas sin requisito y, tras cambiar el texto de 3 requisitos, 3 enlaces sospechosos que obligan a revisar 4 pruebas.",
-        ["Requisitos sin prueba", "Pruebas sin requisito", "Enlaces sospechosos tras cambiar 3 requisitos", "Pruebas que hay que revisar"], [("Elementos", [9, 2, 3, 4], "coral")],
-        unit="Elementos", decimals=0, horizontal=True, label_w=330, plot_h=260,
-        note="Los enlaces se comparan por el resumen SHA-256 del texto del requisito: si el texto cambia después de enlazar la prueba, el enlace queda marcado como sospechoso. La cobertura de enlaces mide que existe un enlace, no que la prueba compruebe el requisito. Los datos son sintéticos con semilla 47.",
-        note_kind="teal", foot=MODELO)
+        "Cuarenta habilidades y cien peticiones: selección según el estilo de descripción y costo de contexto de tres formas de cargar",
+        "Barras horizontales en escala logarítmica con los tokens de contexto de tres formas de cargar 40 habilidades: cargar los 40 cuerpos cuesta unos 30496, las 40 descripciones 778 y las descripciones más un cuerpo 1541; con frases de activación se activa la habilidad correcta en 45 de 60 peticiones y con descripción genérica en 29.",
+        ["Cargar los 40 cuerpos al arrancar", "Cargar solo las 40 descripciones", "Descripciones y un cuerpo cargado (media)"],
+        [("Tokens de contexto", [30496, 778, 1541], "navy")],
+        unit="Tokens de contexto", horizontal=True, log=True, decimals=0, label_w=270,
+        note="Selección de 60 peticiones con habilidad: con frases de activación, 45 correctas, 15 incorrectas y 0 sin activar; con descripción genérica, 29 correctas, 15 incorrectas y 16 sin activar. Una buena descripción previene la falta de activación; el solape entre habilidades, que da las 15 activaciones incorrectas, es un defecto del conjunto. El selector es una coincidencia de palabras clave y los textos son sintéticos.",
+        note_kind="gold", foot=EJEC)
 
 
-def se570_estructura() -> Fig:
-    return flow("Estructura de un caso de seguridad: de la afirmación principal a la evidencia, con el contexto y las suposiciones",
-                "Diagrama de cuatro cajas: afirmación principal de que el sistema es aceptablemente seguro en un contexto, estrategia de argumento por peligros, subafirmaciones y evidencias, y suposiciones y contexto que acotan el argumento.",
-                [[("Afirmación\nEl sistema es aceptablemente seguro en este contexto", "teal"), ("Estrategia\nArgumento por peligros y por controles", "gold"),
-                  ("Evidencia\nPruebas, análisis y revisiones con versión", "teal"), ("Contexto y supuestos\nLo que no se prueba pero se asume", "coral")]],
-                note="Un caso de seguridad es un argumento estructurado con evidencia que lo respalda: el argumento sin evidencia es opinión y la evidencia sin argumento es una carpeta. Los supuestos también son parte del argumento y también se desafían.",
-                note_kind="teal", box_h=118, foot=MODELO)
+# ---------------------------------------------------------------- SE-570
+def se474_confinar_rutas() -> Fig:
+    return grouped_bars(
+        "Cuatro comprobaciones de confinamiento al directorio de trabajo sobre 22 intentos (10 legítimos y 12 de escape)",
+        "Barras agrupadas con los escapes que pasan, de 12, y los legítimos rechazados, de 10, por cuatro comprobaciones: comparar el prefijo de texto deja pasar 3 escapes y rechaza 7 legítimos; el prefijo con separador sin normalizar deja pasar 7 y rechaza 1; normalizar deja pasar 1 y no rechaza ninguno; normalizar y rechazar el byte nulo deja pasar 0 y no rechaza ninguno.",
+        ["Prefijo de texto", "Prefijo con separador, sin normalizar", "Normalizar y luego comparar", "Normalizar y rechazar el nulo"],
+        [("Escapes que pasan (de 12)", [3, 7, 1, 0], "coral"), ("Legítimos rechazados (de 10)", [7, 1, 0, 0], "gold")],
+        unit="Intentos", decimals=0, plot_h=260,
+        note="La barra invertida cambia de significado entre sistemas: queda dentro con las reglas de POSIX y fuera con las de Windows. Los enlaces simbólicos no se probaron. Pasar esta batería no demuestra que la comprobación sea correcta.",
+        note_kind="gold", foot=EJEC)
 
 
 FIGURES = {
-    "se-565-causa-comun.svg": se565_causa_comun,
-    "se-565-rpn-contra-gravedad.svg": se565_rpn_contra_gravedad,
-    "se-565-sin-fallo.svg": se565_sin_fallo,
-    "se-566-arquitecturas.svg": se566_arquitecturas,
-    "se-566-beta.svg": se566_beta,
-    "se-566-prueba-imperfecta.svg": se566_prueba_imperfecta,
-    "se-567-metrica.svg": se567_metrica,
-    "se-567-cobertura-medida.svg": se567_cobertura_medida,
-    "se-567-diagnostico.svg": se567_diagnostico,
-    "se-568-cobertura-acumulada.svg": se568_cobertura_acumulada,
-    "se-568-causas.svg": se568_causas,
-    "se-568-tras-r5.svg": se568_tras_r5,
-    "se-569-clases.svg": se569_clases,
-    "se-569-topes.svg": se569_topes,
-    "se-569-ciclo.svg": se569_ciclo,
-    "se-570-apoyo.svg": se570_apoyo,
-    "se-570-trazabilidad.svg": se570_trazabilidad,
-    "se-570-estructura.svg": se570_estructura,
+    "se-565-vocabulario-vago.svg": se469_vocabulario_vago,
+    "se-565-espacio-de-interpretaciones.svg": se469_espacio_de_interpretaciones,
+    "se-565-trazabilidad-y-vacias.svg": se469_trazabilidad_y_vacias,
+    "se-566-incoherencias-entre-artefactos.svg": se470_incoherencias_entre_artefactos,
+    "se-566-presupuesto-de-preguntas.svg": se470_presupuesto_de_preguntas,
+    "se-566-tareas-y-ruta-critica.svg": se470_tareas_y_ruta_critica,
+    "se-567-bucle-y-regresion.svg": se471_bucle_y_regresion,
+    "se-567-verificador-parcial.svg": se471_verificador_parcial,
+    "se-567-criterios-y-variantes.svg": se471_criterios_y_variantes,
+    "se-568-leer-un-repositorio-ajeno.svg": se472_leer_un_repositorio_ajeno,
+    "se-568-verificar-una-correccion.svg": se472_verificar_una_correccion,
+    "se-568-cuando-evaluar-una-idea.svg": se472_cuando_evaluar_una_idea,
+    "se-569-reglas-de-permiso.svg": se473_reglas_de_permiso,
+    "se-569-radio-de-dano.svg": se473_radio_de_dano,
+    "se-569-reglas-que-se-acumulan.svg": se473_reglas_que_se_acumulan,
+    "se-570-gancho-y-modo-de-fallo.svg": se474_gancho_y_modo_de_fallo,
+    "se-570-cargar-habilidades.svg": se474_cargar_habilidades,
+    "se-570-confinar-rutas.svg": se474_confinar_rutas,
 }

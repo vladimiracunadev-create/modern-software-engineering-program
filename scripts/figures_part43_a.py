@@ -1,222 +1,244 @@
-"""Figures for SE-517 to SE-522 (design and enterprise patterns: runs of real CPython code with ast analysis, a seeded simulation and an in-memory sqlite3 database; Windows CPython 3.12; no language model was invoked)."""
+"""Figures for SE-517 to SE-522 (modernization of a legacy grading module: synthetic data with fixed seeds, plus runs of real CPython/SQLite code on Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig, dumbbell, grouped_bars, line_chart, scatter, stacked_bars
-from figure_diagrams import chain, fan
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, fmt_exact, grouped_bars, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 
-from figures_part40_a import bars, flow
 
-EJEC = "Código ejecutado de verdad (CPython 3.12, Windows 11); los recuentos son deterministas y los tiempos varían de equipo en equipo."
-SIM = "Simulación con semilla fija sobre código ejecutado de verdad (CPython 3.12); las magnitudes son de este modelo, no de un sistema real."
+SINT = "Datos sintéticos con semilla fija; Windows y Ubuntu (WSL2) dan cifras idénticas."
+EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2) con datos sintéticos; los recuentos son idénticos en ambos."
+REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
+
+# ---------------------------------------------------------------- SE-517
+def se433_capacidad_devorada() -> Fig:
+    return line_chart(
+        "Un equipo de 100 unidades al mes: el trabajo correctivo se come lo demás si no hay reserva preventiva",
+        "Líneas con el trabajo correctivo mensual de un equipo de 100 unidades en los meses 1, 12 y 24: sin reserva sube de 19,7 a 33,0 y 59,7 unidades y desplaza al perfectivo, y la deuda pasa de 40,9 a 184,0 y 401,2; con una reserva del 20 por ciento para trabajo preventivo baja de 19,7 a 12,6 y 14,0 y la deuda a cero.",
+        [("Sin reserva", [(1, 19.7), (12, 33.0), (24, 59.7)], "coral"), ("Reserva del 20 %", [(1, 19.7), (12, 12.6), (24, 14.0)], "teal")],
+        x_label="Mes", y_label="Trabajo correctivo (unidades al mes)", x_ticks=[(1, "1"), (12, "12"), (24, "24")], y_ticks=[0, 20, 40, 60, 80], point_labels="all", decimals=1,
+        note="Sin reserva, la carga correctiva pasa de 19,7 a 59,7 unidades y desplaza al perfectivo (de 30,0 a 25,3), y la deuda llega a 401,2; con el 20 % reservado, el correctivo baja a 14,0, se entrega todo lo pedido y la deuda es 0. Los coeficientes de realimentación entre deuda e incidencias son del autor: demuestran un mecanismo, no una magnitud.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-517
-def se517_costo_del_patron() -> Fig:
-    v = [2, 4, 8, 12]
-    return line_chart(
-        'Strategy frente a if/elif: tamaño y complejidad crecen distinto con el número de variantes',
-        "Líneas en escala logarítmica con el tamaño en nodos de sintaxis y la complejidad ciclomática máxima de una función de tarifas según el número de variantes: if y elif pasa de 41 a 191 nodos y de complejidad 3 a 13; Strategy con registro pasa de 85 a 285 nodos y mantiene la complejidad en 2; el patrón cuesta más código y mantiene plana la complejidad.",
-        [("Nodos Strategy", list(zip(v, [85, 125, 205, 285])), "coral"), ("Nodos if/elif", list(zip(v, [41, 71, 131, 191])), "gold"),
-         ("Complejidad máx. if/elif", list(zip(v, [3, 5, 9, 13])), "teal"), ("Complejidad máx. Strategy", list(zip(v, [2, 2, 2, 2])), "navy")],
-        x_label="Variantes de tarifa", y_label="Nodos o complejidad ciclomática", log_y=True,
-        x_ticks=[(2, "2"), (4, "4"), (8, "8"), (12, "12")], y_ticks=[1, 10, 100, 1000], point_labels="none",
-        note='El patrón cuesta más código en todos los tamaños probados (de 1,6 a 2,1 veces los nodos) y mantiene plana la complejidad de cada función. Añadir la quinta variante cambia una función existente con if/elif y ninguna con Strategy.', note_kind='gold', foot=EJEC)
+def se433_clasificar_es_un_juicio() -> Fig:
+    return stacked_bars(
+        "600 solicitudes sintéticas: aciertos de un clasificador por palabras clave según sean claras o ambiguas",
+        "Barras apiladas horizontales con los aciertos de un clasificador por palabras clave sobre 600 solicitudes sintéticas: acierta las 456 claras y 74 de las 144 ambiguas, 88,3 por ciento en total; dos revisoras simuladas coinciden en el 76,8 por ciento con kappa 0,69, pero solo en el 34 por ciento de las ambiguas.",
+        ["Claras (456)", "Ambiguas (144)"],
+        [("Acierta el clasificador", [456, 74], "teal"), ("Falla", [0, 70], "coral")],
+        unit="Solicitudes", horizontal=True, label_w=160,
+        note="El acierto global del 88,3 % (530 de 600) esconde que una cuarta parte de la cartera es ambigua y que ahí el clasificador acierta el 51 % y el acuerdo entre dos revisoras es del 34 % (76,8 % en total, kappa 0,69). Esas solicitudes necesitan una conversación con quien las pidió. La proporción de ambiguas y las tasas de las revisoras son supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
-def se517_cuando_usar() -> Fig:
-    return flow('Pregunta por la fuerza antes de elegir el patrón',
-                'Diagrama de decisión en cuatro cajas: nombrar la fuerza que duele, comprobar que la variación existe hoy y no solo en la imaginación, medir el costo del patrón en tamaño y en indirección y escribir la condición de salida; una flecha de retorno lleva a la primera caja si la fuerza no se puede nombrar.',
-                [[('FUERZA\nNombra qué duele hoy: una variante nueva, un acoplamiento o un fallo', 'coral'), ('EVIDENCIA\nLa variación ya existe en el código o en el backlog, no en la imaginación', 'teal'), ('COSTO\nMide nodos, indirección y quien tiene que aprenderlo', 'gold')],
-                 [('SALIDA\nEscribe cuándo se retirará el patrón y cómo se sabrá', 'navy')]],
-                note='Un patrón sin fuerza nombrada es decoración con costo; con fuerza nombrada, evidencia y salida es una decisión que otra persona puede revisar.',
-                note_kind='teal', box_h=100, foot=EJEC)
+# ---------------------------------------------------------------- SE-517
+def se433_fecha_impuesta() -> Fig:
+    items = [('3 meses', 24.6, 'coral', '24,6 %'), ('4 meses (mediana)', 44.0, 'coral', '44,0 %'), ('6 meses', 71.6, 'gold', '71,6 %'), ('8 meses', 85.3, 'teal', '85,3 %'), ('12 meses', 95.6, 'teal', '95,6 %')]
+    return bars('Probabilidad de terminar a tiempo una adaptación obligatoria de mediana cuatro meses, según el margen',
+                'Barras con la probabilidad de terminar a tiempo una adaptación obligatoria cuya duración mediana es de cuatro meses según el margen disponible: 24,6 por ciento con tres meses, 44,0 con cuatro, 71,6 con seis, 85,3 con ocho y 95,6 con doce.',
+                items, 6.0, 'Empezar con un margen igual a la mediana llega a tiempo menos de la mitad de las veces. La duración (mediana 4 meses, dispersión 0,5, 15 % de dependencias ocultas que la duplican) es un supuesto del autor.',
+                label_w=190, width=940, note_kind='gold', foot=SINT)
 
-
-def se517_vocabulario_y_riesgo() -> Fig:
-    return fan(
-        'Qué aporta un catálogo de patrones y cómo se estropea',
-        "Diagrama de cuatro aportes de un catálogo de patrones, vocabulario común, solución probada, evaluación del diseño y enseñanza, y para cada uno el modo en que se estropea: se usa el nombre sin la estructura, el contexto cambió y la solución se copió igual, se convierte en lista de verificación sin fuerza o se ve patrón donde hay un nombre de clase.",
-        ("Un catálogo de patrones", "qué aporta y cómo se estropea", "navy"),
-        [("Vocabulario común", "funciona: decir «es un Decorator» condensa una estructura conocida · se estropea: se usa el nombre sin que la estructura exista", "gold"),
-         ("Solución probada", "funciona: resuelve un problema recurrente en un contexto · se estropea: el contexto cambió y la solución se copió igual", "gold"),
-         ("Evaluación del diseño", "funciona: da criterios para discutir alternativas · se estropea: se convierte en lista de verificación sin fuerza", "gold"),
-         ("Enseñanza", "funciona: permite entrar a un código ajeno más rápido · se estropea: se ve patrón donde hay un nombre de clase", "gold")],
-        note='La tabla resume el argumento de la clase; la evidencia medida está en la figura anterior y en las siguientes clases de la parte.', note_kind='gold', foot=EJEC)
+# ---------------------------------------------------------------- SE-518
+def se434_puntos_calientes() -> Fig:
+    return grouped_bars(
+        "Tres criterios para elegir 30 de 300 archivos en un historial sintético de 4 000 commits",
+        "Barras agrupadas con la parte de commits y de correcciones que caen en los 30 archivos elegidos: solo por tamaño, 10,3 y 23,5 por ciento; por frecuencia de cambio, 55,9 y 51,7; por frecuencia por tamaño, 53,3 y 55,6; los criterios coinciden con 11, 19 y 22 de los 30 archivos más corregidos.",
+        ["Solo tamaño (coincide con 11 de los 30 más corregidos)", "Solo frecuencia de cambio (19 de 30)", "Frecuencia × tamaño (22 de 30)"],
+        [("Commits en los 30 archivos", [10.3, 55.9, 53.3], "gold"), ("Correcciones en los 30 archivos", [23.5, 51.7, 55.6], "teal")],
+        unit="% del total", plot_h=250, ticks=[0, 20, 40, 60, 80], value_fmt=lambda v: fmt_exact(v) + " %",
+        note="El 10 % de los archivos concentra más de la mitad de los commits y de las correcciones. Ordenar por tamaño apenas supera al azar; el producto captura el 55,6 % de las correcciones. La relación entre tamaño y correcciones es un supuesto del autor.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-518
-def se518_singleton_y_orden() -> Fig:
-    return bars('Cuatro pruebas en las 24 ordenaciones posibles: el Singleton con estado hace que el orden importe',
-                'Gráfico de barras con las 24 ordenaciones posibles de cuatro pruebas: con un Singleton de configuración mutable fallan 18 ordenaciones y con la misma lógica y la configuración inyectada fallan 0.',
-                [('Singleton con estado mutable', 18, 'coral', '18 de 24'), ('Configuración inyectada', 0, 'teal', '0 de 24')], 28,
-                note='Un Singleton que guarda estado convierte cada prueba en dependiente de las anteriores. La falla no está en el patrón como idea, está en el estado global mutable.',
-                note_kind='coral', foot=EJEC)
+def se434_conocimiento_que_se_va() -> Fig:
+    return line_chart(
+        "Archivos huérfanos de 300 con 12 personas y una rotación del 2 % mensual (200 simulaciones)",
+        "Líneas con los archivos huérfanos, de 300, tras 12, 36 y 60 meses con una rotación del 2 por ciento mensual entre 12 personas: la mediana sube de 40 a 132 y 194 y el percentil 90 de 90 a 187 y 249.",
+        [("Percentil 90", [(12, 90), (36, 187), (60, 249)], "coral"), ("Mediana", [(12, 40), (36, 132), (60, 194)], "teal")],
+        x_label="Meses", y_label="Archivos huérfanos (de 300)", x_ticks=[(12, "12"), (36, "36"), (60, "60")], y_ticks=[0, 100, 200, 300], point_labels="all",
+        note="Con una rotación del 2 % mensual se van 9 de las 12 personas en cinco años y dos tercios de los archivos (65 % de mediana) quedan sin persona asociada. La rotación, el 35 % de archivos compartidos y la asignación al azar son supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
-def se518_prototype_copia() -> Fig:
-    return grouped_bars(
-        'Prototype: añadir un destinatario a un clon contamina a los demás si la copia es superficial',
-        "Barras horizontales con los clones afectados, de 1 000, al añadir un destinatario a uno de ellos: con copia superficial son 1 000 de 1 000 porque comparten la lista con la plantilla, con copia profunda 1 y construyendo desde cero 0; la copia profunda cuesta unos 11 microsegundos frente a 1 de la superficial y 0,6 de construir.",
-        ["Copia superficial (copy.copy), ≈1 µs", "Copia profunda (copy.deepcopy), ≈11 µs", "Construir desde cero, ≈0,6 µs"],
-        [("Clones afectados", [1000, 1, 0], "coral")],
-        unit="Clones afectados, de 1 000", horizontal=True, label_w=280, ticks=[0, 250, 500, 750, 1000],
-        note='La copia profunda corrige el defecto compartido y cuesta del orden de diez a veinte veces más que construir. Los tiempos son de un equipo y se dan como orden de magnitud.', note_kind='gold', foot=EJEC)
-
-
-def se518_cuatro_creacionales() -> Fig:
-    return fan(
-        'Cuatro patrones creacionales: la fuerza que atacan y lo que se midió',
-        "Diagrama de cuatro patrones creacionales con la fuerza que atacan y lo medido: Factory con registro rechaza al crear 2 de 5 pedidos erróneos; Builder con argumentos con nombre rechaza las 500 llamadas con tipos intercambiados que la forma posicional aceptaba; Singleton hace fallar 18 de 24 ordenaciones de pruebas con estado mutable; Prototype contamina 1 000 clones con copia superficial y 1 con profunda.",
-        ("Cuatro patrones creacionales", "la fuerza que atacan y lo que se midió", "navy"),
-        [("Factory con registro", "ataca el canal desconocido · rechaza al crear: 2 de 5 pedidos erróneos se detectan antes de enviar", "teal"),
-         ("Builder / argumentos con nombre", "ataca argumentos del mismo tipo intercambiados · 500 de 500 llamadas posicionales aceptadas; con kw_only se rechazan las 500", "teal"),
-         ("Singleton", "ofrece un único punto de acceso · 18 de 24 ordenaciones de pruebas fallan con estado mutable", "coral"),
-         ("Prototype", "copiar un objeto configurado · superficial: 1 000 contaminados; profunda: 1", "gold")],
-        note='En Python, argumentos con nombre y dataclasses sustituyen buena parte del Builder; el mecanismo del patrón sigue siendo útil en lenguajes sin ellos.', note_kind='teal', foot=EJEC)
+# ---------------------------------------------------------------- SE-518
+def se434_codigo_muerto() -> Fig:
+    return stacked_bars(
+        "Dos técnicas para encontrar código muerto en un módulo de 60 funciones con 20 realmente muertas",
+        "Barras apiladas horizontales con los candidatos de cada técnica: el análisis por nombre propone 45, 20 muertas y 25 falsas alarmas; la traza de una ejecución propone 25, 20 muertas y 5 falsas alarmas; la coincidencia de ambas propone exactamente las 20 muertas.",
+        ["Análisis por nombre (ast)", "Traza de una ejecución", "Coinciden las dos"],
+        [("Muertas halladas", [20, 20, 20], "teal"), ("Falsas alarmas", [25, 5, 0], "coral")],
+        unit="Candidatos propuestos", horizontal=True, label_w=200,
+        note="Cada técnica se equivoca por una razón distinta: el análisis por nombre falla con 15 llamadas por cadena y 10 funciones registradas, y la traza con una rama poco frecuente. La coincidencia deja cero falsas alarmas solo porque en este módulo ningún uso dinámico estaba en una rama poco frecuente; una llamada por cadena en esa rama habría engañado a las dos.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-519
-def se519_orden_de_decoradores() -> Fig:
-    return scatter(
-        'Dos órdenes de los mismos decoradores, 3000 peticiones con latencias lognormales',
-        "Dispersión de la latencia p99 y el éxito de dos órdenes de los mismos decoradores sobre 3 000 peticiones: con el reintento por fuera y un plazo de 80 ms por intento el éxito es 97,5 por ciento, la latencia p99 240 ms y 1,37 llamadas por petición; con el plazo total de 80 ms por fuera de los reintentos el éxito es 71,2 por ciento, la latencia 80 ms y 1,00 llamadas.",
-        [("Reintento por fuera, plazo por intento", [(240, 97.5, "97,5 % · 240 ms · 1,37 llamadas", "l")], "teal"), ("Plazo total por fuera de los reintentos", [(80, 71.2, "71,2 % · 80 ms · 1,00 llamadas", "r")], "coral")],
-        x_label="Latencia p99 (ms)", y_label="Éxito (%)", x_ticks=[(0, "0"), (50, "50"), (100, "100"), (150, "150"), (200, "200"), (250, "250"), (300, "")], y_ticks=[60, 70, 80, 90, 100], y_zero=False,
-        note='Los mismos dos decoradores, apilados en otro orden, producen sistemas con políticas distintas: uno compra éxito con latencia y carga; el otro acota la latencia y pierde peticiones. El orden es una decisión de diseño, no un detalle.', note_kind='coral', foot=SIM)
+def se435_cobertura_no_es_detector() -> Fig:
+    return grouped_bars(
+        "Entradas para caracterizar nota_final: líneas cubiertas (de 18) y mutantes detectados (de 12)",
+        "Barras horizontales con el porcentaje de líneas cubiertas, de 18, y de mutantes detectados, de 12, por seis conjuntos de entradas: cinco ejemplos de la documentación 89 y 33 por ciento, 100 entradas aleatorias 89 y 75, 1 000 entradas aleatorias 100 y 100 y 14 casos de borde 94 y 75.",
+        ["5 ejemplos de la documentación", "5 entradas aleatorias", "20 entradas aleatorias", "100 entradas aleatorias", "1 000 entradas aleatorias", "14 casos de borde elegidos a mano"],
+        [("Líneas cubiertas", [89, 83, 89, 89, 100, 94], "gold"), ("Mutantes detectados", [33, 50, 75, 75, 100, 75], "teal")],
+        unit="% del total (16 de 18 líneas = 89 %, 4 de 12 mutantes = 33 %)", horizontal=True, label_w=250, ticks=[0, 25, 50, 75, 100], value_fmt=lambda v: fmt_exact(v) + " %",
+        note="La cobertura de líneas no sube entre 20 y 100 entradas y los mutantes tampoco; los casos de borde cubren el 94 % y dejan vivos tres mutantes que mil entradas aleatorias matan. La función y los doce mutantes son del autor y se escribieron sabiendo qué buscaban.",
+        note_kind="gold", foot=SINT)
 
 
-def se519_cinco_estructurales() -> Fig:
-    return fan(
-        'Cinco patrones estructurales y el hecho medido de cada uno',
-        "Diagrama de cinco patrones estructurales con un hecho medido de cada uno: el Adapter unifica dos proveedores en la misma forma, la Facade reduce siete llamadas del cliente a una, el Proxy construye 37 objetos para 1 000 proxies con 37 usos, el Composite necesita una guarda ante un ciclo y el orden de apilado del Decorator cambia la política.",
-        ("Cinco patrones estructurales", "la fuerza y el hecho medido", "navy"),
-        [("Adapter", "dos proveedores con formas distintas · ambos devuelven (id, aceptado) tras la adaptación", "teal"),
-         ("Facade", "cliente que coordina subsistemas · 7 llamadas del cliente pasan a 1", "teal"),
-         ("Proxy", "objeto costoso que no siempre se usa · 1 000 proxies, 37 usos, 37 objetos construidos", "teal"),
-         ("Composite", "grupos que contienen grupos · con ciclo: lista correcta con guarda; RecursionError sin ella", "gold"),
-         ("Decorator", "añadir comportamiento sin tocar el objeto · el orden de apilado cambia la política", "gold")],
-        note='Los cinco comparten una forma (un objeto que envuelve o contiene a otro con la misma interfaz) y se distinguen por la intención: adaptar, simplificar, controlar el acceso, componer o añadir.', note_kind='teal', foot=EJEC)
+# ---------------------------------------------------------------- SE-519
+def se435_orden_de_un_conjunto() -> Fig:
+    rows = [
+        [("Semilla de hash 1", "plain"), ("pedro, marta, sofia, tomas, luis, ana", "gold"), ("Una salida", "coral")],
+        [("Semilla de hash 2", "plain"), ("pedro, marta, tomas, ana, sofia, luis", "gold"), ("Otra salida", "coral")],
+        [("Semilla de hash 3", "plain"), ("luis, pedro, tomas, sofia, ana, marta", "gold"), ("Otra salida más", "coral")],
+        [("Las ocho semillas", "plain"), ("Ocho órdenes del mismo conjunto", "gold"), ("8 salidas distintas", "coral")],
+        [("Ordenando antes de escribir", "plain"), ("El mismo orden en los ocho procesos", "teal"), ("1 salida", "teal")],
+    ]
+    return chain_rows(
+        "El mismo programa con seis alumnos en un conjunto, en ocho procesos con semilla de hash distinta",
+        "Diagrama de flujo de ocho procesos del mismo programa con seis alumnos en un conjunto: cada semilla de hash da un orden distinto y por tanto una salida distinta, ocho en total; ordenar antes de escribir da una sola salida para los ocho procesos.",
+        ["Proceso", "Orden en que el conjunto entrega los nombres", "Salida"], rows, [240, 400, 190],
+        note="Un maestro dorado que compare el texto completo falla entre procesos aunque el código sea idéntico. Ordenar elimina la variación solo si el contrato no exige otro orden. El orden de los conjuntos de cadenas depende del intérprete y de su versión.",
+        note_kind="coral", foot=EJEC)
 
 
-def se519_envoltura() -> Fig:
-    return flow('Quién envuelve a quién: el orden de la pila de decoradores',
-                'Diagrama de dos pilas de tres cajas: en la primera, el reintento envuelve al plazo y este al backend, de modo que cada intento tiene su propio plazo; en la segunda, el plazo envuelve al reintento y este al backend, de modo que un solo plazo cubre todos los intentos.',
-                [[('Reintento\n(por fuera)', 'navy'), ('Plazo por intento\n(por dentro)', 'gold'), ('Backend', 'teal')],
-                 [('Plazo total\n(por fuera)', 'navy'), ('Reintento\n(por dentro)', 'gold'), ('Backend', 'teal')]],
-                note='Cada fila es una pila. Lo que está más afuera decide primero y ve el costo de todo lo que envuelve: el plazo por fuera limita el tiempo total; el reintento por fuera multiplica los intentos.',
-                note_kind='gold', box_h=70, foot=EJEC)
+# ---------------------------------------------------------------- SE-519
+def se435_costura_y_tiempo() -> Fig:
+    return grouped_bars(
+        "300 pruebas de nota_final con una dependencia de 2 ms y con una costura que la sustituye",
+        "Barras agrupadas en escala logarítmica con el tiempo de 300 pruebas de la función de nota final: con una dependencia de 2 milisegundos 771 en Windows y 701 en Ubuntu, y con una costura que la sustituye 0,34 y 0,40, unas 2 200 y 1 800 veces menos.",
+        ["Windows 11 (CPython 3.12.9)", "Ubuntu bajo WSL2 (3.12.3)"],
+        [("Con la dependencia", [771, 701], "coral"), ("Con costura", [0.34, 0.40], "teal")],
+        unit="Tiempo de 300 pruebas (ms)", log=True, ticks=[0.1, 1, 10, 100, 1000], plot_h=250,
+        note="La espera de 2 ms es un supuesto y los tiempos de reloj cambian de equipo en equipo; la razón de varios órdenes de magnitud (unas 2 200 veces en Windows y 1 800 en Ubuntu) es la parte estable. La costura no prueba la dependencia real: queda pendiente una prueba de integración.",
+        note_kind="gold", foot=REAL)
 
 
 # ---------------------------------------------------------------- SE-520
-def se520_banderas_y_estados() -> Fig:
-    return bars('Diez mil secuencias de seis eventos: estados imposibles con banderas y con máquina de estados',
-                'Gráfico de barras con el porcentaje de secuencias de seis eventos aleatorios que terminan en una combinación imposible de banderas, 69,7 por ciento con cuatro banderas booleanas y 0 por ciento con una máquina de estados que rechaza las transiciones ilegales.',
-                [('Cuatro banderas booleanas', 69.7, 'coral', '69,7 %'), ('Tabla de transiciones', 0, 'teal', '0 %')], 6,
-                note='Cuatro banderas representan 16 combinaciones y 9 violan las reglas; la máquina tiene 5 estados y 6 transiciones legales de 25 pares posibles, y rechaza el resto por nombre. El porcentaje depende de la definición de «imposible» del autor.',
-                note_kind='coral', foot=SIM)
+def se436_costo_de_esperar() -> Fig:
+    return percentile_intervals(
+        "Esfuerzo total de actualizar una dependencia con 12 % de versiones incompatibles en 48 versiones (2 000 historias)",
+        "Intervalos con la mediana y el percentil 90 del esfuerzo total según la cadencia de actualización: cada versión 12,6 y 18,9 horas, cada 4 versiones 14,4 y 23,0, cada 12 versiones 21,1 y 35,5 y una sola vez a las 48 versiones 71,4 y 134,6.",
+        [("Cada versión", [12.6, 18.9]), ("Cada 4 versiones", [14.4, 23.0]), ("Cada 12 versiones", [21.1, 35.5]), ("Una vez a las 48", [71.4, 134.6])],
+        unit="Esfuerzo total (horas)", marks=("mediana", "p90"), label_w=170,
+        note="El número de cambios incompatibles es el mismo en las cuatro cadencias; lo que cambia es cuántos se juntan en un salto: la mayor actualización cuesta 2,1, 5,5, 12,5 y 71,4 horas de mediana. Actualizar una sola vez cuesta 5,7 veces más que en cada versión. El 12 %, el 15 % de interacción y el 5 % de mezcla de causas son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
-def se520_observer_y_comando() -> Fig:
-    return fan(
-        'Observer y Command: fugas, aislamiento de fallos y deshacer, medidos',
-        "Diagrama de cinco medidas de Observer y Command: con referencias fuertes quedan vivos 1 000 de 1 000 oyentes descartados y con referencias débiles 0; sin aislamiento un oyente que falla impide la entrega a los demás y con aislamiento se entrega a 3 y se registra 1 error; el deshacer recupera el estado inicial en 200 de 200 secuencias.",
-        ("Observer y Command", "fugas, aislamiento de fallos y deshacer", "navy"),
-        [("Observer con referencias fuertes", "1 000 oyentes descartados sin darse de baja: 1 000 siguen vivos", "coral"),
-         ("Observer con referencias débiles", "los mismos 1 000 oyentes: 0 siguen vivos", "teal"),
-         ("Notificación sin aislamiento", "4 oyentes, el segundo falla: entrega a 1 oyente", "coral"),
-         ("Notificación con aislamiento", "4 oyentes, el segundo falla: entrega a 3 y registra 1 error", "teal"),
-         ("Command con deshacer", "200 secuencias aleatorias: estado inicial recuperado en 200 de 200", "teal")],
-        note='El Observer desacopla al emisor de los receptores, pero deja a su cargo el ciclo de vida de los oyentes y el aislamiento de sus fallos: sin ellos, el desacoplamiento es una trampa.', note_kind='gold', foot=EJEC)
+# ---------------------------------------------------------------- SE-520
+def se436_ventana_de_exposicion() -> Fig:
+    return percentile_intervals(
+        "Exposición a avisos de seguridad en 40 dependencias y 31 avisos durante un año, según la política",
+        "Intervalos con la exposición mediana y la del percentil 95 a avisos de seguridad según la política de actualización: continua 22 y 107 días, lote mensual 29 y 126, lote trimestral 68 y 156 y lote anual 224 y 361.",
+        [("Continua (7 días tras la corrección)", [22, 107]), ("Lote mensual", [29, 126]), ("Lote trimestral", [68, 156]), ("Lote anual", [224, 361])],
+        unit="Días de exposición", marks=("mediana", "p95"), label_w=220,
+        note="El lote anual deja un aviso expuesto diez veces más que la política continua. Aun la continua tiene un percentil 95 de 107 días por el retraso del proveedor, que no depende de ti. El ritmo de avisos y el retraso (mediana 14 días) son supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
-def se520_cinco_conductuales() -> Fig:
-    return flow('Cinco patrones conductuales: qué parte del comportamiento se hace intercambiable',
-                'Diagrama de cinco cajas en dos filas: Strategy hace intercambiable el algoritmo, Observer hace intercambiables los receptores, Command convierte una acción en un objeto que se puede encolar y deshacer, State hace que el comportamiento dependa de un estado nombrado y Template Method fija el esqueleto y deja pasos variables.',
-                [[('STRATEGY\nel algoritmo', 'navy'), ('OBSERVER\nlos receptores', 'teal'), ('COMMAND\nla acción como objeto', 'gold')],
-                 [('STATE\nel comportamiento según el estado', 'coral'), ('TEMPLATE METHOD\nesqueleto fijo, pasos variables', 'navy')]],
-                note='Todos mueven una decisión de un condicional a un objeto. La pregunta práctica es si el condicional que se elimina crecía de verdad.',
-                note_kind='teal', box_h=76, foot=EJEC)
+# ---------------------------------------------------------------- SE-520
+def se436_radio_de_impacto() -> Fig:
+    return percentile_intervals(
+        "Paquetes arrastrados al actualizar uno, en 200 grafos sintéticos de 60 paquetes",
+        "Intervalos con los paquetes arrastrados al actualizar uno: una hoja arrastra 0 de mediana, 1 en el percentil 90 y hasta 20; un paquete intermedio 3, 9 y hasta 39; un concentrador con cinco o más dependientes 12, 27 y hasta 44.",
+        [("Hoja (0–1 dependientes; 6 797 paquetes)", [0.0, 1, 20]), ("Intermedio (2–4; 3 822)", [3.0, 9, 39]), ("Concentrador (5 o más; 1 381)", [12.0, 27, 44])],
+        unit="Paquetes arrastrados", marks=("mediana", "p90", "máx"), label_w=240,
+        note="Actualizar un concentrador arrastra 12 paquetes de mediana y 27 en el percentil 90. Los grafos son aleatorios y el 60 % de dependientes que excluye la versión nueva es un supuesto; los grafos reales tienen pocos paquetes muy centrales.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-521
-def se521_un_cambio_dos_disenos() -> Fig:
+def se437_exposicion_por_estrategia() -> Fig:
+    return percentile_intervals(
+        "Peticiones afectadas al migrar 40 rutas con 100 000 peticiones diarias y 10 % de rutas con regresión (2 000 historias)",
+        "Intervalos con las peticiones afectadas por regresiones, mediana y percentil 95, de tres estrategias de migración: el corte único 20 000 y 35 000 en 4 semanas, el escalonado al 5 por ciento 1 000 y 1 750 en 20 semanas y el escalonado con sombra previa 250 y 1 000 en 40 semanas; en las tres hay 4,0 regresiones.",
+        [("Corte único (4 semanas)", [20000, 35000]), ("Escalonado al 5 % (20 semanas)", [1000, 1750]), ("Escalonado con sombra previa (40 semanas)", [250, 1000])],
+        unit="Peticiones afectadas", marks=("mediana", "p95"), log=True, label_w=250,
+        note="La regresión ocurre las mismas 4,0 veces; cambia cuántas peticiones alcanza. El escalonado reduce el daño 20 veces a cambio de 5 veces más duración. El 10 %, los dos días hasta decidir y el 60 % de eficacia de la sombra son supuestos del autor.",
+        note_kind="gold", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-521
+def se437_sombra_y_clases_raras() -> Fig:
+    return line_chart(
+        "Comparación en sombra: peticiones necesarias para detectar una diferencia según su tasa",
+        "Línea en escala logarítmica con las peticiones que hacen falta para detectar una diferencia en comparación en sombra: 299 para el uno por ciento, 2 995 para el 0,1 y 29 956 para el 0,01, de modo que el tamaño de muestra crece como 3 dividido por la tasa.",
+        [("Peticiones necesarias", [(1, 299, "299 (96 % de 400 corridas la ven)", "t"), (0.1, 2995, "2 995 (94 %)", "t"), (0.01, 29956, "29 956 (94 %)", "t")], "coral")],
+        x_label="Tasa de diferencia que se quiere detectar (%)", y_label="Peticiones necesarias", log_x=True, log_y=True,
+        x_ticks=[(0.01, "0,01"), (0.1, "0,1"), (1, "1")], y_ticks=[100, 1000, 10000, 100000], point_labels="none",
+        note="El tamaño de muestra crece como 3 dividido por la tasa; pero una clase de tráfico que solo aparece en 4 de 52 semanas exige elegir la ventana por calendario: una ventana de 1, 4, 8 o 12 semanas incluye un cierre en el 7, 21, 31 y 43 % de los inicios posibles. El calendario de cierres es un supuesto del autor.",
+        note_kind="coral", foot=SINT)
+
+
+# ---------------------------------------------------------------- SE-521
+def se437_traduccion_anticorrupcion() -> Fig:
     return grouped_bars(
-        'El mismo cambio de regla, un descuento del 10 % hecho en un solo lugar, en dos diseños',
-        "Barras agrupadas con dos diseños del cálculo de totales ante un descuento del 10 por ciento aplicado en un solo lugar: en el diseño A, 3 clases leen el precio ajeno y la fórmula está copiada 3 veces, y los totales quedan inconsistentes (33,5 y 35); en el diseño B, con el Experto en información, 0 clases leen el precio ajeno, hay 2 copias y los totales coinciden (33,5 y 33,5).",
-        ["A: la lógica vive en quien la usa", "B: Experto en información (Linea.subtotal)"],
-        [("Clases que leen el precio ajeno", [3, 0], "coral"), ("Copias de la fórmula", [3, 2], "gold")],
-        unit="Clases o copias", ticks=[0, 1, 2, 3, 4],
-        note='Asignar el cálculo a quien tiene los datos (Experto en información) hace que un cambio de regla se haga en un lugar. No es un teorema: es una consecuencia verificable de dónde viven los datos.', note_kind='teal', foot=EJEC)
-
-
-def se521_nueve_grasp() -> Fig:
-    return flow('Los nueve principios GRASP agrupados por la pregunta que responden',
-                'Diagrama de cuatro cajas con los nueve principios GRASP agrupados por pregunta: quién hace el trabajo con Creador, Experto en información y Controlador; cómo se relacionan con Bajo acoplamiento y Alta cohesión; cómo se varía con Polimorfismo y Variaciones protegidas; y cómo se aísla con Indirección y Fabricación pura.',
-                [[('¿QUIÉN HACE EL TRABAJO?\nCreador · Experto en información · Controlador', 'navy'), ('¿CÓMO SE RELACIONAN?\nBajo acoplamiento · Alta cohesión', 'teal')],
-                 [('¿CÓMO SE VARÍA?\nPolimorfismo · Variaciones protegidas', 'gold'), ('¿CÓMO SE AÍSLA?\nIndirección · Fabricación pura', 'coral')]],
-                note='GRASP son criterios para decidir dónde poner una responsabilidad, no una lista de clases. Dos principios pueden tirar en direcciones opuestas y la decisión es del diseñador.',
-                note_kind='gold', box_h=90, foot=EJEC)
-
-
-def se521_cohesion_y_acoplamiento() -> Fig:
-    return grouped_bars(
-        'Cohesión medida con ast: pares de métodos que no comparten ningún atributo',
-        "Barras agrupadas con la cohesión medida con análisis de sintaxis: una clase de servicio con 10 métodos y 8 dependencias tiene 37 de 45 pares de métodos sin estado compartido; después de separarla, Registro (2 métodos, 1 dependencia), Notificador (2 y 3) y Migración (3 y 1) tienen 0 de 1, 0 de 1 y 0 de 3 pares sin estado compartido.",
-        ["Servicio con 10 métodos y 8 dependencias", "Registro (después de separar)", "Notificador (después de separar)", "Migración (después de separar)"],
-        [("Métodos", [10, 2, 2, 3], "grey"), ("Dependencias", [8, 1, 3, 1], "gold"), ("Pares sin estado compartido", [37, 0, 0, 0], "coral")],
-        unit="Métodos, dependencias o pares", ticks=[0, 10, 20, 30, 40],
-        note='Pares de métodos que no comparten atributos es una aproximación a la falta de cohesión (LCOM). Es una señal, no una sentencia: dos métodos pueden estar cohesionados por el dominio sin tocar el mismo atributo.', note_kind='gold', foot=EJEC)
+        "5 000 registros sintéticos del modelo antiguo: traducción ingenua frente a una capa anticorrupción",
+        "Barras horizontales con los registros, de 5 000, por resultado de la traducción: la traducción ingenua lanza excepción con 4 402; la capa anticorrupción no lanza ninguna y deja 2 175 sin errores, 642 con error de nota y 2 491 con error de fecha, y 2 429 quedan con estado desconocido; 1 606 con estado espacio o nulo se vuelven indistinguibles.",
+        ["Traducción ingenua: lanza excepción (88,0 %)", "Capa anticorrupción: sin errores", "Capa: con error de nota", "Capa: con error de fecha", "Estado «desconocido» (vacío, nulo o X)",
+         "Estado espacio y nulo, antes distintos, ahora iguales"],
+        [("Registros", [4402, 2175, 642, 2491, 2429, 1606], "gold")],
+        unit="Registros de 5 000", horizontal=True, label_w=300, ticks=[0, 1000, 2000, 3000, 4000, 5000],
+        note="La capa no lanza excepciones: clasifica y envía a cuarentena lo que no puede traducir, pero colapsa dos estados que el modelo antiguo distinguía. Un registro puede sumar más de un resultado. Las anomalías y sus frecuencias son una construcción del autor.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-522
-def se522_consultas() -> Fig:
-    return bars('Listar 200 entregas con el nombre de su curso: consultas ejecutadas',
-                'Gráfico de barras con el número de consultas a la base de datos al listar 200 entregas con el nombre de su curso: 201 con una consulta por entrega, el problema de las N más una consultas, y 1 con una sola consulta de lectura que une las dos tablas.',
-                [('Un repositorio que carga cada curso por separado', 201, 'coral', '201 consultas'), ('Una consulta de lectura con unión', 1, 'teal', '1 consulta')], 1.0,
-                note='Un Repository que oculta la base oculta también el número de consultas. La medición sale de contar las sentencias con un gancho de sqlite3, no de suponerlas.',
-                note_kind='coral', foot=EJEC, label_w=420)
+def se438_cuatro_cambios_silenciosos() -> Fig:
+    return grouped_bars(
+        "Cuatro operaciones que siguen ejecutándose con otro resultado, medidas en CPython",
+        "Barras horizontales con el porcentaje de resultados distintos de cuatro operaciones: ordenar 2 000 nombres por punto de código frente a plegado de acentos difiere en 1 828 posiciones, el 91,4 por ciento; dividir 7n entre 2 con una barra frente a dos en 500 de 1 000 casos; truncar a 6 bytes parte 114 de 1 000 nombres; redondear a un decimal cambia 50 de 1 000 centésimas.",
+        ["Ordenar: punto de código frente a plegado de acentos (2 000 nombres)", "7n/2 frente a 7n//2 (n de 1 a 1 000)", "Truncar a 6 bytes en UTF-8: carácter partido (1 000 nombres)",
+         "Redondear a un decimal: regla antigua frente a round (1 000 centésimas)"],
+        [("Resultados distintos", [91.4, 50.0, 11.4, 5.0], "coral")],
+        unit="Resultados distintos (%)", horizontal=True, label_w=330, ticks=[0, 25, 50, 75, 100], value_fmt=lambda v: fmt_exact(v) + " %",
+        note="Ninguna lanza una excepción. Los datos son sintéticos y las frecuencias reales serán otras; las sondas ilustran el tipo de cambio y no son una lista completa de las diferencias de ninguna versión.",
+        note_kind="coral", foot=REAL)
 
 
-def se522_unidad_de_trabajo() -> Fig:
-    return fan(
-        'Unit of Work: sentencias UPDATE y atomicidad, medidas con sqlite3 en memoria',
-        "Diagrama de cuatro medidas sobre una base sqlite3 en memoria: guardar todo lo cargado ejecuta 100 UPDATE aunque solo cambiaron 3 de 100 entregas y seguir los cambios ejecuta 3; con dos pasos sin transacción un fallo a mitad deja 1 persistido y el estado entregada sin el segundo paso; con una transacción deja 0 y vuelve a pendiente.",
-        ("Unit of Work", "sentencias UPDATE y atomicidad, con sqlite3 en memoria", "navy"),
-        [("Guardar todo lo cargado: 100 UPDATE", "escribe 97 filas que no cambiaron", "coral"),
-         ("Seguir los cambios (Unit of Work): 3 UPDATE", "solo escribe las filas modificadas", "teal"),
-         ("Dos pasos sin transacción, falla a mitad: 1 persistido", "queda a medias: estado «entregada» sin el segundo paso", "coral"),
-         ("Dos pasos en una transacción, falla a mitad: 0 persistidos", "vuelve atrás: estado «pendiente»", "teal")],
-        note='La unidad de trabajo agrupa lo que debe cambiar junto y lo que debe volver atrás junto. En SQL, la transacción es el mecanismo; el patrón es la disciplina de abrirla en un único lugar.', note_kind='teal', foot=EJEC)
+# ---------------------------------------------------------------- SE-522
+def se438_reescritura_por_estructura() -> Fig:
+    return grouped_bars(
+        "Reescribir la llamada leer_nota en 400 fragmentos (148 llamadas reales): reescrituras indebidas por método",
+        "Barras horizontales con las reescrituras indebidas de tres formas de reescribir la llamada leer_nota en 400 fragmentos de código de los cuales 148 son llamadas reales: la sustitución de texto hace 252, la expresión regular con límites de palabra 166 y el árbol sintáctico 0; ninguno omite una llamada real.",
+        ["Sustitución de texto", "Expresión regular con límites de palabra", "Árbol sintáctico (ast)"],
+        [("Reescrituras indebidas", [252, 166, 0], "coral")],
+        unit="Reescrituras indebidas", horizontal=True, label_w=250, ticks=[0, 100, 200, 300],
+        note="Los tres encuentran todas las llamadas y ninguno deja llamadas sin reescribir o mal reescritas; la diferencia está en lo que cambian de más: comentarios, textos, métodos de otros objetos y definiciones. Los nueve tipos de fragmento son del autor y el árbol no se probó con código mal formado ni con reflexión.",
+        note_kind="gold", foot=EJEC)
 
 
-def se522_tres_formas() -> Fig:
-    return fan(
-        'Tres formas de poner el acceso a datos en el modelo y lo que se midió de cada una',
-        "Diagrama de tres formas de poner el acceso a datos en el modelo y lo medido: un doble en memoria de un repositorio ejecuta un caso en unos 11 microsegundos frente a unos 600 con sqlite, cerca de 50 veces; una Unit of Work deja 0 filas persistidas en lugar de 1 si el fallo ocurre a mitad; con Active Record la regla pura corre sin base y la que llama a save falla sin conexión.",
-        ("Tres formas de acceso a datos", "qué modelan y qué se midió", "navy"),
-        [("Repository", "colección en memoria de agregados · doble de prueba ≈11 µs frente a sqlite ≈600 µs por caso (≈50×)", "teal"),
-         ("Unit of Work", "una transacción por caso de uso · fallo a mitad: 0 filas persistidas en lugar de 1", "teal"),
-         ("Active Record", "la entidad sabe guardarse · la regla pura corre sin base; la que llama a save falla sin conexión", "gold")],
-        note='Ambas formas de prueba son rápidas: la diferencia de 50 veces importa con miles de pruebas, no con decenas. Active Record es una opción razonable cuando el modelo es casi las tablas; deja de serlo cuando la regla de negocio crece.', note_kind='gold', foot=EJEC)
+# ---------------------------------------------------------------- SE-522
+def se438_tren_de_versiones() -> Fig:
+    return percentile_intervals(
+        "Tiempo sin soporte según la política de seguimiento de versiones: una versión al año, tres años de soporte, diez años (1 000 historias)",
+        "Intervalos con el porcentaje de tiempo sin soporte, mediana y percentil 90, de tres políticas: al ser forzado 16,3 y 24,9 con 3 migraciones y 21 meses de trabajo; con un año de margen 0,0 y 6,3 con 4 migraciones y 28 meses; paso a paso 0,0 y 0,0 con 9 migraciones y 19 meses.",
+        [("Al ser forzado (3 migraciones, 21 meses)", [16.3, 24.9]), ("Con un año de margen (4, 28 meses)", [0.0, 6.3]), ("Paso a paso, 6 meses de retraso (9, 19 meses)", [0.0, 0.0])],
+        unit="Tiempo sin soporte (% de los diez años)", marks=("mediana", "p90"), label_w=260, decimals=1,
+        note="Esperar a que termine el soporte deja al equipo sin soporte el 16 % del tiempo; seguir paso a paso hace más migraciones y menos meses de trabajo solo si cada migración pequeña cuesta el 30 %. El calendario y el 30 % son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
 FIGURES = {
-    "se-517-costo-del-patron.svg": se517_costo_del_patron,
-    "se-517-cuando-usar.svg": se517_cuando_usar,
-    "se-517-vocabulario-y-riesgo.svg": se517_vocabulario_y_riesgo,
-    "se-518-singleton-y-orden.svg": se518_singleton_y_orden,
-    "se-518-prototype-copia.svg": se518_prototype_copia,
-    "se-518-cuatro-creacionales.svg": se518_cuatro_creacionales,
-    "se-519-orden-de-decoradores.svg": se519_orden_de_decoradores,
-    "se-519-cinco-estructurales.svg": se519_cinco_estructurales,
-    "se-519-envoltura.svg": se519_envoltura,
-    "se-520-banderas-y-estados.svg": se520_banderas_y_estados,
-    "se-520-observer-y-comando.svg": se520_observer_y_comando,
-    "se-520-cinco-conductuales.svg": se520_cinco_conductuales,
-    "se-521-un-cambio-dos-disenos.svg": se521_un_cambio_dos_disenos,
-    "se-521-nueve-grasp.svg": se521_nueve_grasp,
-    "se-521-cohesion-y-acoplamiento.svg": se521_cohesion_y_acoplamiento,
-    "se-522-consultas.svg": se522_consultas,
-    "se-522-unidad-de-trabajo.svg": se522_unidad_de_trabajo,
-    "se-522-tres-formas.svg": se522_tres_formas,
+    "se-517-capacidad-devorada.svg": se433_capacidad_devorada,
+    "se-517-clasificar-es-un-juicio.svg": se433_clasificar_es_un_juicio,
+    "se-517-fecha-impuesta.svg": se433_fecha_impuesta,
+    "se-518-puntos-calientes.svg": se434_puntos_calientes,
+    "se-518-conocimiento-que-se-va.svg": se434_conocimiento_que_se_va,
+    "se-518-codigo-muerto.svg": se434_codigo_muerto,
+    "se-519-cobertura-no-es-detector.svg": se435_cobertura_no_es_detector,
+    "se-519-orden-de-un-conjunto.svg": se435_orden_de_un_conjunto,
+    "se-519-costura-y-tiempo.svg": se435_costura_y_tiempo,
+    "se-520-costo-de-esperar.svg": se436_costo_de_esperar,
+    "se-520-ventana-de-exposicion.svg": se436_ventana_de_exposicion,
+    "se-520-radio-de-impacto.svg": se436_radio_de_impacto,
+    "se-521-exposicion-por-estrategia.svg": se437_exposicion_por_estrategia,
+    "se-521-sombra-y-clases-raras.svg": se437_sombra_y_clases_raras,
+    "se-521-traduccion-anticorrupcion.svg": se437_traduccion_anticorrupcion,
+    "se-522-cuatro-cambios-silenciosos.svg": se438_cuatro_cambios_silenciosos,
+    "se-522-reescritura-por-estructura.svg": se438_reescritura_por_estructura,
+    "se-522-tren-de-versiones.svg": se438_tren_de_versiones,
 }

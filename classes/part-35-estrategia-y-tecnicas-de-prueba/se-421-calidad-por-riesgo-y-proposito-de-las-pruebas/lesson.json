@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-421",
+  "title": "Calidad por riesgo y propósito de las pruebas",
+  "stage": "F",
+  "part": "35",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas"
+}

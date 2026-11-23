@@ -1,6 +1,6 @@
 # Dropbox
 
-[↑ Casos de éxito](README.md) · [← Cloudflare](cloudflare.md)
+[↑ Casos de éxito](README.md) · [← Cloudflare](cloudflare.md) · [YouTube →](youtube.md)
 
 > **Caso de éxito.** Dropbox se constituyó en mayo de 2007, tenía más de 500 millones de usuarios registrados cuando salió a bolsa en marzo de 2018 y en 2025 ingresó 2 521 millones de dólares con 18,08 millones de usuarios de pago. Entre 2015 y 2016 migró la mayor parte del contenido de sus usuarios a infraestructura propia, un caso poco habitual de empresa de software que trae de vuelta su almacenamiento. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -393,4 +393,4 @@ Todas las URL se consultaron el 23 de noviembre de 2026 y devolvieron contenido 
 - **[B5]** [Evolution of Dropbox's Edge Network (Dropbox.Tech)](https://dropbox.tech/infrastructure/evolution-of-dropboxs-edge-network): red de 2014, peering y solución propia frente a CDN.
 - **[B6]** [Extending Magic Pocket innovation with the first petabyte scale SMR drive deployment (Dropbox.Tech, junio de 2018)](https://dropbox.tech/infrastructure/extending-magic-pocket-innovation-with-the-first-petabyte-scale-smr-drive-deployment): discos SMR y objetivos de durabilidad y disponibilidad.
 
-[↑ Casos de éxito](README.md) · [← Cloudflare](cloudflare.md)
+[↑ Casos de éxito](README.md) · [← Cloudflare](cloudflare.md) · [YouTube →](youtube.md)

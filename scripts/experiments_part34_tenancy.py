@@ -214,7 +214,11 @@ def alta_reanudable() -> dict:
     fallo["activo"] = False
     segundo = alta("acme")
     tercero = alta("acme")                                      # repetir un alta terminada no cambia nada
-    cuenta = lambda t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+    consultas = {
+        "inquilino": "SELECT COUNT(*) FROM inquilino", "admin": "SELECT COUNT(*) FROM admin", "semilla": "SELECT COUNT(*) FROM semilla",
+        "facturacion": "SELECT COUNT(*) FROM facturacion", "paso": "SELECT COUNT(*) FROM paso",
+    }
+    cuenta = lambda t: db.execute(consultas[t]).fetchone()[0]
     return {"primer_intento": primero, "pasos_tras_fallo": pasos_tras_fallo, "segundo_intento": segundo, "tercer_intento": tercero,
             "inquilinos": cuenta("inquilino"), "admins": cuenta("admin"), "filas_semilla": cuenta("semilla"), "clientes_facturacion": cuenta("facturacion"), "pasos_registrados": cuenta("paso")}
 

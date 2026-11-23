@@ -94,6 +94,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "boeing-737-max-mcas", "kind": "fallo", "name": "Boeing 737 MAX y MCAS", "year": "2018",
      "who": "Boeing y la FAA (organizaciones)", "place": "Estados Unidos, Indonesia y Etiopía",
      "hook": "Una función nueva del control de vuelo que dependía de un solo sensor empujó el morro de dos aviones hacia abajo, y los análisis de seguridad suponían que los pilotos la reconocerían y la cortarían."},
+    {"slug": "post-office-horizon", "kind": "fallo", "name": "Post Office Horizon", "year": "2000",
+     "who": "Post Office Ltd y Fujitsu (organizaciones)", "place": "Reino Unido",
+     "hook": "Un sistema contable con errores conocidos, sin función de disputa y usado como prueba contra los gestores de sucursales llevó a cientos de acusaciones injustas que los tribunales acabaron anulando."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

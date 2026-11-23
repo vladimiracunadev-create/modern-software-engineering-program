@@ -1,6 +1,6 @@
 # Boeing 737 MAX y MCAS
 
-[↑ Casos de fallo](README.md) · [← Ariane 5, vuelo 501](ariane-5-vuelo-501.md)
+[↑ Casos de fallo](README.md) · [← Ariane 5, vuelo 501](ariane-5-vuelo-501.md) · [Post Office Horizon →](post-office-horizon.md)
 
 > **Qué es esta página.** Un caso de estudio de fallo: la realidad frente a la teoría del curso. No es una clase ni un rol. Separa lo que las fuentes **documentan**, lo que este análisis **infiere** y lo que **no se sabe**. Habla de decisiones, procesos y sistemas, no de personas. Dos accidentes costaron la vida a 346 personas; este caso las recuerda con respeto, no usa sus muertes como recurso retórico y no emite juicios sobre individuos. Fecha de consulta de todas las fuentes: 23 de noviembre de 2026.
 
@@ -430,4 +430,4 @@ Todas consultadas el 23 de noviembre de 2026. Los PDF se descargaron y se extraj
 
 ---
 
-[↑ Casos de fallo](README.md) · [← Ariane 5, vuelo 501](ariane-5-vuelo-501.md)
+[↑ Casos de fallo](README.md) · [← Ariane 5, vuelo 501](ariane-5-vuelo-501.md) · [Post Office Horizon →](post-office-horizon.md)

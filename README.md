@@ -291,7 +291,7 @@ especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fue
 [guía de casos](casos/GUIDE.md).
 
 - 🚀 [**Plataformas exitosas**](casos/exito/README.md): 12 casos, de Netflix a Discord.
-- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 10 casos, de Knight Capital a Boeing 737 MAX y MCAS.
+- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 11 casos, de Knight Capital a Post Office Horizon.
 
 <!-- /state:cases -->
 

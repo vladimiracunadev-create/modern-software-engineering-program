@@ -2,7 +2,7 @@
 
 # 🧭 Programa de Ingeniería de Software Moderna
 
-## **588 clases desarrolladas · 49 partes y dos en preparación (00–50) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
+## **612 clases desarrolladas · 51 partes (00–50) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
 
 **Currículo profesional abierto en español para comprender, especificar, construir,
 probar, entregar, operar, modernizar y retirar software con evidencia.**
@@ -11,7 +11,7 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 [![Deploy Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
 [![Security](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/security.yml)
 
-[![Clases](https://img.shields.io/badge/clases-588%20desarrolladas%20·%2049%20partes-7c5cff?style=for-the-badge)](classes/README.md)
+[![Clases](https://img.shields.io/badge/clases-612%20clases%20·%2051%20partes-7c5cff?style=for-the-badge)](classes/README.md)
 [![Nivel](https://img.shields.io/badge/nivel-fundamentos%20→%20liderazgo-2e8b57?style=for-the-badge)](ROADMAP.md)
 [![Idioma](https://img.shields.io/badge/idioma-español-blue?style=for-the-badge)](README.md)
 [![Software](https://img.shields.io/badge/licencia-Apache--2.0-3fb950?style=for-the-badge&logo=apache)](LICENSE)

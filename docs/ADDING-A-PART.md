@@ -13,14 +13,14 @@ está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
 - **Títulos y rangos fijos.** `scripts/build_program_blueprint.py` ya define las 51 partes y
   sus 612 títulos en secuencia pedagógica; las Partes 00–22 conservan el número de siempre.
-  La regla de ID es `12 × parte + posición` (la posición va de 1 a 12). Las partes por
-  desarrollar son la **34** (`SE-409`–`SE-420`, etapa E) y la **42** (`SE-505`–`SE-516`,
-  etapa G). El primer encabezado de cada clase debe ser exactamente
+  La regla de ID es `12 × parte + posición` (la posición va de 1 a 12). Las partes 34
+  (`SE-409`–`SE-420`, etapa E) y 42 (`SE-505`–`SE-516`, etapa G) nacieron reservadas y ya
+  están desarrolladas. El primer encabezado de cada clase debe ser exactamente
   `# SE-NNN — <título del blueprint>`; si un título necesita cambiar, se cambia en el
   blueprint (un solo lugar) con un ADR y se regenera.
 - **Estado derivado.** Una parte está desarrollada si existen `content/part-NN/README.md`
   y los doce `content/part-NN/SE-NNN.md`. Con menos, sigue planificada (y el validador
-  avisa si el contenido está a medias). Mientras una parte esté planificada, su hueco no
+  avisa si el contenido está a medias). Mientras una parte esté planificada (hoy no hay ninguna), su hueco no
   rompe nada: la navegación anterior/siguiente salta a la clase desarrollada vecina y el
   portal sirve la página `404.html`, que explica el cambio de numeración, en las URL vacantes.
 
@@ -98,10 +98,11 @@ CHANGELOG y el plan maestro solo requieren conservar ambas filas o casillas.
 - Alt text de figuras sin corchetes (MD039) y con las secciones
   «Cómo leer la figura» y «Dónde deja de valer».
 
-## Partes reservadas: rangos y títulos fijos (ADR-007)
+## Partes 34 y 42: rangos y títulos fijos (ADR-007)
 
 Estos títulos y rangos están fijados en el blueprint y no cambian sin un ADR. Las dos partes
-nacieron **planificadas**: no existen en `classes/`, `site/` (salvo la página-aviso de la URL
+nacieron **planificadas** y ya están desarrolladas; el mismo mecanismo sirve para cualquier
+parte reservada futura: no existe en `classes/`, `site/` (salvo la página-aviso de la URL
 vacante) ni en las guías de rol hasta que exista su contenido completo
 (`content/part-NN/README.md` más los doce `SE-NNN.md`).
 
@@ -153,12 +154,13 @@ vacante) ni en las guías de rol hasta que exista su contenido completo
   experimento declara hipótesis, radio de impacto, criterio de aborto y datos sintéticos; no
   se prueba en sistemas ajenos ni se recomienda caos sin observabilidad previa.
 - **Roles:** ADR-007 decidió dos guías nuevas, *SaaS & Product Platform Engineer* (Parte 34) y
-  *Chaos Engineer* (Parte 42). Se crean con su parte: perfil en `scripts/role_profiles.py`
+  *Chaos Engineer* (Parte 42). Se crearon con su parte: perfil en `scripts/role_profiles.py`
   (con núcleo, flujo, decisiones, métricas, escenario, proyecto, fuentes y adyacentes), guía
   en `roles/` con más de 2.200 palabras y dos gráficos interpretables, y su nombre en las
-  listas `EXTRA_ADJACENT` de los roles vecinos. Hoy las partes figuran como contexto
-  planificado en `PLANNED_BY_ROLE`; al publicarse, `build_role_guides.py` enlaza su primera,
-  sexta y última clase sin más edición. El programa tiene 47 roles hasta entonces.
+  listas `EXTRA_ADJACENT` de los roles vecinos. Mientras una parte reservada no se
+  publica, figura como contexto planificado en `PLANNED_BY_ROLE`; al publicarse,
+  `build_role_guides.py` enlaza su primera, sexta y última clase sin más edición. El programa
+  tiene 47 roles, con los dos nuevos incluidos.
 - **Ampliaciones de clases existentes** (CRDT y consenso, software verde, InnerSource):
   se hacen dentro del ID existente (`SE-260`, `SE-391`, `SE-022` y
   `SE-200`), sin renumerar ni añadir IDs.

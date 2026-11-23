@@ -5,6 +5,13 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Documentación y About con el estado final (51 partes, 612 clases)
+
+- README, ROADMAP, `roles/README.md`, `casos/GUIDE.md`, `curriculum/README.md`, `llms.txt`, `DATA_LICENSES.md`, `matrices/COMPETENCY-MAP.md` y los documentos de `docs/` dejan de decir «588 clases en 49 partes» o «dos partes en preparación»: las Partes 34 y 42 ya están desarrolladas.
+- el About de GitHub y `docs/PUBLICATION-PLAN.md` citan 612 clases desarrolladas en 51 partes, 47 rutas por rol y 16 casos; `tests/test_about.py` comprueba las cifras contra `catalog.json`, `roles/` y `casos/`.
+- las cifras anteriores (480, 540 y 588) se conservan en los ADR y en este historial; se traducen con `docs/ID-MIGRATION.md`.
+- sigue pendiente la revisión editorial humana independiente.
+
 ## 2026-11-23 — Dos roles nuevos y mapa de partes por rol regularizado
 
 - nuevas guías `roles/saas-product-platform-engineer.md` (38 clases núcleo en las Partes 11, 20, 28, 29, 31, 33, 36, 38 y 41) y `roles/chaos-resilience-engineer.md` (32 clases núcleo en las Partes 26, 28, 32, 36, 39, 40 y 41); las Partes 34 y 42 figuran como ampliación planificada y enlazarán su primera, sexta y última clase al publicarse, sin más edición.

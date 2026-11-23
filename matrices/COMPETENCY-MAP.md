@@ -1,6 +1,6 @@
 # Mapa de competencias
 
-La referencia canónica usa partes `P00`–`P50` y clases `SE-001`–`SE-612` en secuencia pedagógica (ADR-007; las Partes 34 y 42 están planificadas).
+La referencia canónica usa partes `P00`–`P50` y clases `SE-001`–`SE-612` en secuencia pedagógica (ADR-007).
 
 | Competencia | Aplica | Diagnostica | Diseña | Opera/Lidera | Propietario profundo |
 | --- | --- | --- | --- | --- | --- |

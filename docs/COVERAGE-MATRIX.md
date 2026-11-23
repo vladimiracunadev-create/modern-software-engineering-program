@@ -6,9 +6,8 @@ una lista de herramientas.
 
 La presencia en esta matriz expresa **propiedad curricular**, no contenido terminado.
 Consulta la [auditoría de cobertura y profundidad](PROGRAM-COVERAGE-AUDIT-2026-10-06.md)
-para distinguir contenido desarrollado, borradores y estructura pendiente. Estado actual: 49 de las 51 partes están desarrolladas (`SE-001`–`SE-612` salvo `SE-409`–`SE-420` y
-`SE-505`–`SE-516`), a falta de revisión editorial humana independiente; las Partes 34 y 42 están
-planificadas y reservadas por ADR-007. Los números de parte de las tablas siguientes usan la
+para distinguir contenido desarrollado, borradores y estructura pendiente. Estado actual: las 51 partes están desarrolladas (`SE-001`–`SE-612`), a falta de revisión
+editorial humana independiente; las Partes 34 y 42 se reservaron por ADR-007 y ya tienen contenido. Los números de parte de las tablas siguientes usan la
 secuencia pedagógica vigente; el mapa con la numeración anterior está en
 [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
@@ -35,8 +34,8 @@ secuencia pedagógica vigente; el mapa con la numeración anterior está en
 | Patrones de diseño y estilos arquitectónicos | 26, 28 | catálogo con su costo y decisión defendida con ADR |
 | Ingeniería de datos y ML en producción | 30, 50 | plataforma de datos gobernada y sistema de ML operable |
 | Sistemas críticos y normas de seguridad | 37 | paquete de aseguramiento de un controlador |
-| Producto SaaS (planificada) | 34 | núcleo SaaS multi-tenant con facturación por uso |
-| Ingeniería del caos (planificada) | 42 | programa de caos de un servicio con evidencia |
+| Producto SaaS | 34 | núcleo SaaS multi-tenant con facturación por uso |
+| Ingeniería del caos | 42 | programa de caos de un servicio con evidencia |
 | Metodologías, harness y patrones agénticos | 45, 48–49 | política metodológica, harness gobernado y sistema con LLM evaluado |
 
 ## Brechas explícitas bajo investigación

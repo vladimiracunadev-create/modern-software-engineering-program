@@ -6,7 +6,7 @@ programa o soportan ejercicios educativos.
 
 | Familia | Naturaleza | Licencia o condición |
 | --- | --- | --- |
-| `curriculum.yaml`, `catalog.json` | Arquitectura curricular y catálogo generado de 588 clases | Selección, organización y texto original bajo CC BY-NC-SA 4.0 |
+| `curriculum.yaml`, `catalog.json` | Arquitectura curricular y catálogo generado de 612 clases | Selección, organización y texto original bajo CC BY-NC-SA 4.0 |
 | `classes/**/lesson.json` | Metadatos educativos generados por clase | CC BY-NC-SA 4.0 |
 | `classes/**/activity.yaml`, `classes/**/rubric.json` | Contratos de práctica y evaluación | CC BY-NC-SA 4.0 |
 | `sources/*.json`, `sources/pedagogical/*.json` | Registro factual y editorial de fuentes y relaciones | Selección y estructura originales bajo CC BY-NC-SA 4.0; hechos, identificadores y obras enlazadas conservan su condición propia |

@@ -5,8 +5,8 @@ incorporarse. No es un prompt ni un conjunto de instrucciones para agentes. Las 
 de contribución viven en `AGENTS.md`, `CONTRIBUTING.md` y
 `docs/PEDAGOGICAL-STANDARD.md`; aquí se describe el producto educativo.
 
-El programa vigente es de 612 posiciones de clase en 51 partes (ADR-007): 588 clases desarrolladas en 49 partes y 24
-planificadas en las dos partes reservadas (34 y 42). El número no es una cuota:
+El programa vigente es de 612 posiciones de clase en 51 partes (ADR-007), todas
+desarrolladas (`SE-001`–`SE-612`). El número no es una cuota:
 cualquier ampliación debe resolver una brecha real y respetar la
 prioridad **calidad > profundidad > coherencia > cantidad**.
 
@@ -24,12 +24,13 @@ de verdad sobre el producto educativo y su secuencia.
   documento: el estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y
   `catalog.json` (ver
   [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)).
-- Al 2026-11-23 las 49 partes desarrolladas contienen 588 clases profundizadas con
+- Al 2026-11-23 las 51 partes desarrolladas contienen 612 clases profundizadas con
   explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
   navegación, con laboratorios ejecutables en las Partes 01–05 y experimentos reproducibles
-  en las Partes 23, 26, 28, 30, 37–41 y 43–50; falta una revisión editorial humana
-  independiente. No quedan borradores ni estructuras sin desarrollar entre esas 588
-  posiciones. Las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) están planificadas.
+  en las Partes 23, 26, 28, 30, 34, 37–39, 41–42 y 43–50; falta una revisión editorial humana
+  independiente. No quedan borradores ni estructuras sin desarrollar entre esas 612
+  posiciones; las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) se incorporaron
+  después de reservarlas por ADR-007.
 - El alcance se amplió tres veces.
   [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance de 480 a 540
   clases con cinco partes (metodologías de TDD a ODD, harness y agentic engineering,
@@ -105,7 +106,7 @@ se demuestra aprendizaje.
 | 31 · Integración, eventos y mensajería (`SE-373`–`SE-384`) | Colas, streams, logs, entrega, orden, esquemas, outbox/inbox, sagas, CQRS, event sourcing y compatibilidad entre productores. | Flujo asíncrono sometido a duplicación, retraso, reordenamiento y poison messages, con reconciliación demostrada. |
 | 32 · Concurrencia y sistemas distribuidos (`SE-385`–`SE-396`) | Memoria y coordinación, relojes, fallos parciales, consistencia, CAP/PACELC, consenso, elección, replicación, retries y discovery. | Laboratorio de fallos que mide comportamiento ante partición, latencia y reinicio y explica qué garantías conserva o pierde. |
 | 33 · Cloud, plataforma e infraestructura (`SE-397`–`SE-408`) | Modelos cloud, IAM, redes, cómputo, storage, containers, Kubernetes, IaC, GitOps, multi-entorno, costes y arquitectura cloud-native. | Entorno reproducible con mínimo privilegio, políticas, costes estimados, destrucción segura y recuperación documentada. |
-| 34 · SaaS y plataformas de producto (`SE-409`–`SE-420`) | Planificada. Qué distingue a un producto SaaS, aislamiento multi-inquilino, aprovisionamiento, suscripciones y dunning, medición de uso, planes y derechos, precios y empaquetado, marketplaces, pagos con idempotencia y conciliación, comercio electrónico, SLA y operación, y un producto SaaS mínimo con evidencia. | Por definir al desarrollar la parte: núcleo SaaS multi-tenant con facturación por uso y evidencia medida. |
+| 34 · SaaS y plataformas de producto (`SE-409`–`SE-420`) | Qué distingue a un producto SaaS, aislamiento multi-inquilino, aprovisionamiento, suscripciones y dunning, medición de uso, planes y derechos, precios y empaquetado, marketplaces, pagos con idempotencia y conciliación, comercio electrónico, SLA y operación, y un producto SaaS mínimo con evidencia. | Expediente reproducible de un producto SaaS mínimo con aislamiento, facturación por uso, derechos y pruebas que detectan defectos sembrados. |
 | 35 · Estrategia y técnicas de prueba (`SE-421`–`SE-432`) | Unitarias, integración, sistema, aceptación, E2E, contrato, property-based, mutation, fuzzing, snapshots y selección de qué no probar. | Estrategia de riesgo con suites ejecutables, oráculos claros, datos controlados y análisis explícito de falsos positivos y huecos. |
 | 36 · Calidad, rendimiento y resiliencia (`SE-433`–`SE-444`) | ISO 25010/SQuaRE, deuda, análisis estático, métricas y límites, profiling, carga, percentiles, capacidad, degradación, DR y chaos. | Informe de calidad y game day con baseline, cuello de botella, mejora medida, recuperación y deuda residual priorizada. |
 | 37 · Sistemas críticos, tiempo real y normas de seguridad (`SE-445`–`SE-456`) | Riesgo y seguridad funcional (HARA, FMEA, FTA, STPA), IEC 61508, ISO 26262, DO-178C, DO-254 y ARP4754, IEC 62304, casos de seguridad y trazabilidad, RTOS y planificación de tiempo real, codificación segura (MISRA, CERT), verificación formal y model checking (TLA+, SPARK, Alloy), y verificación con MC/DC, HIL y SIL. | Paquete de aseguramiento de un controlador con análisis de peligros, trazabilidad, verificación y caso de seguridad; análisis de un fallo real frente a las normas. |
@@ -113,7 +114,7 @@ se demuestra aprendizaje.
 | 39 · Build, release y cadena de suministro (`SE-469`–`SE-480`) | Builds reproducibles, artefactos, repositorios, SBOM, provenance, signing, SLSA, OpenSSF, pinning, typosquatting y releases. | Release reconstruible y verificable con inventario, firma, procedencia y simulación de dependencia comprometida. |
 | 40 · CI/CD, IaC y platform engineering (`SE-481`–`SE-492`) | Pipelines, quality gates, ambientes, progressive delivery, canary, blue/green, rollback, IDP, portales, golden paths, DevEx y DORA/SPACE. | Camino autoservicio medido como producto, con despliegue progresivo, rollback probado y evaluación del riesgo de métricas. |
 | 41 · Observabilidad, SRE e incidentes (`SE-493`–`SE-504`) | SLI/SLO/SLA, error budgets, toil, logs, métricas, traces, OpenTelemetry, alertas, runbooks, incident command y postmortems. | Incidente simulado: DETECTAR → CONTENER → DIAGNOSTICAR → RECUPERAR → ANALIZAR → APRENDER, con timeline y acciones verificables. |
-| 42 · Ingeniería del caos (`SE-505`–`SE-516`) | Planificada. Principios y estado estable, experimentos de fallo con radio de impacto, inyección de fallos de red, recursos, nodos, Kubernetes y datos, game days, caos continuo en CI/CD, gobernanza y criterio de aborto, aprendizaje de los hallazgos, taller de experimento acotado y proyecto de programa de caos con evidencia y remediación. | Por definir al desarrollar la parte: programa de caos de un servicio con evidencia y plan de remediación. |
+| 42 · Ingeniería del caos (`SE-505`–`SE-516`) | Principios y estado estable, experimentos de fallo con radio de impacto, inyección de fallos de red, recursos, nodos, Kubernetes y datos, game days, caos continuo en CI/CD, gobernanza y criterio de aborto, aprendizaje de los hallazgos, taller de experimento acotado y proyecto de programa de caos con evidencia y remediación. | Programa de caos de un servicio con validador, huella, remediación e informe de límites. |
 | 43 · Mantenimiento y modernización legacy (`SE-517`–`SE-528`) | Arqueología, ingeniería inversa, caracterización, dependencias, deuda, strangler, branch by abstraction, ACL, migraciones, EOL y retiro. | Modernización incremental de un sistema ajeno con mapa de dependencias, compatibilidad, rollout, archivo y borrado seguro. |
 | 44 · Gestión, liderazgo y práctica profesional (`SE-529`–`SE-540`) | Rutas técnicas y de gestión, mentoring, reviews, negociación, priorización, Conway, Team Topologies, carga cognitiva, ownership y crisis. | Propuesta técnica defendida ante intereses en conflicto, plan organizacional y retrospectiva de una decisión bajo incertidumbre. |
 | 45 · Metodologías de desarrollo: de TDD a ODD (`SE-541`–`SE-552`) | Mapa de metodologías, TDD y sus escuelas, BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD en tres niveles, EDD, ODD y su contraste con SDD. | Un mismo cambio resuelto con cinco metodologías y una política de equipo que dice cuándo usar cada una, con la evidencia que cada una produce. |
@@ -176,7 +177,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 
 ## Fases de implementación
 
-1. **Consolidar la base:** preservar las 588 clases desarrolladas, eliminar metadatos editoriales
+1. **Consolidar la base:** preservar las 612 clases desarrolladas, eliminar metadatos editoriales
    que no enseñan, sincronizar índices y mantener validadores estructurales.
 2. **Profundizar por partes:** trabajar una parte completa, revisar cada tema anunciado,
    ejecutar sus prácticas y publicar contenido íntegro; un commit por parte.
@@ -197,7 +198,7 @@ Este backlog conserva el trabajo pendiente sin convertir el número de clases en
 cuota. Cada fila se cierra únicamente con revisión de la parte completa, laboratorio o
 actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 
-| Orden | Entrega | Resultado verificable | Estado al 2026-10-06 |
+| Orden | Entrega | Resultado verificable | Estado al 2026-11-23 |
 | ---: | --- | --- | --- |
 | 1 | Partes 00–01 | fundamentos profesionales y observación de un programa por capas | completadas; Parte 01 incluye laboratorio con seis pruebas |
 | 2 | Parte 02 | entorno reproducible y diagnóstico multiplataforma | completada; kit seguro con diez pruebas y adaptadores PowerShell/Bash |
@@ -208,7 +209,7 @@ actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 | 7 | Partes 15–22, 24–25, 27, 29 y 31–33 | planificación, colaboración, superficies, dominios, diseño, arquitectura, datos, integración, concurrencia y cloud | desarrolladas, a falta de revisión editorial humana independiente |
 | 8 | Partes 35–36, 38–41 y 43–44 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | desarrolladas, a falta de revisión editorial humana independiente |
 | 9 | Partes 23, 26, 28, 30, 37, 45 y 46–50 | runtimes, patrones, estilos, ingeniería de datos, sistemas críticos, metodologías, IA asistida, agentes, patrones agénticos y ML en producción | desarrolladas (ampliaciones de ADR-004 y ADR-006), a falta de revisión editorial humana independiente |
-| 10 | Partes 34 y 42 | SaaS y plataformas de producto; ingeniería del caos | planificadas y reservadas por ADR-007; sin clases publicadas |
+| 10 | Partes 34 y 42 | SaaS y plataformas de producto; ingeniería del caos | desarrolladas (partes nuevas de ADR-007), a falta de revisión editorial humana independiente |
 | 11 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
 | 12 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-612` |
 

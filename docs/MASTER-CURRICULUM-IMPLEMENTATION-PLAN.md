@@ -4,7 +4,7 @@ Estado: **fuente canónica operativa**
 
 Creado: 2026-10-06
 
-Alcance base: 480 clases; ampliado a 540 por ADR-004, a 588 por ADR-006 y puesto en secuencia pedagógica con 612 posiciones (`SE-001`–`SE-612`, Partes 34 y 42 reservadas) por ADR-007
+Alcance base: 480 clases; ampliado a 540 por ADR-004, a 588 por ADR-006 y puesto en secuencia pedagógica con 612 posiciones (`SE-001`–`SE-612`, Partes 34 y 42 reservadas y luego desarrolladas) por ADR-007
 
 ## Cómo recuperar el contexto
 
@@ -132,9 +132,9 @@ Al crear este plan existen 8 etapas, 40 partes, 480 IDs consecutivos y 521 pági
 ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de estado se
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
-Estado actual (2026-11-23): 49 de las 51 partes están desarrolladas y publicadas con CI verde
-(`SE-001`–`SE-612` salvo `SE-409`–`SE-420` y `SE-505`–`SE-516`); sus hitos figuran como hechos en
-las listas de abajo. Las Partes 34 y 42 están planificadas y reservadas por
+Estado actual (2026-11-23): las 51 partes están desarrolladas y publicadas con CI verde
+(`SE-001`–`SE-612`); sus hitos figuran como hechos en
+las listas de abajo. Las Partes 34 y 42 se reservaron por
 [ADR-007](adr/ADR-007-pedagogical-renumbering-and-new-parts.md), que también reordenó las partes en
 secuencia pedagógica; los IDs de esta lista son los vigentes y el mapa con los anteriores está en
 [`ID-MIGRATION.md`](ID-MIGRATION.md). Falta la revisión editorial humana independiente.
@@ -159,7 +159,7 @@ clase. No sustituye el temario vigente: lo enfoca y añade el artefacto o límit
 evita una explicación genérica.
 
 Las Partes 23, 26, 28, 30, 37, 45 y 46–50 se añadieron por ADR-004 y ADR-006; las Partes 34 y 42 se reservaron por
-ADR-007 y siguen planificadas. Cada casilla se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md`
+ADR-007 y ya están desarrolladas. Cada casilla se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md`
 y la parte completa está validada. Los IDs siguen la secuencia pedagógica vigente; el mapa con la numeración
 anterior está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 

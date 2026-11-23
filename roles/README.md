@@ -27,7 +27,7 @@ calidad. La profundidad se demuestra en mecanismos, decisiones, fallos, evidenci
 límites específicos; el validador sólo impide que una regresión vuelva a convertirlas
 en fichas breves.
 
-Las 49 partes publicadas (`SE-001`–`SE-612` salvo las Partes 34 y 42) tienen contenido desarrollado, a falta de revisión
+Las 51 partes (`SE-001`–`SE-612`) tienen contenido desarrollado, a falta de revisión
 editorial humana independiente.
 Una ruta describe el recorrido previsto y no certifica que el material haya sido aprobado
 por una revisión humana independiente.
@@ -1174,4 +1174,4 @@ La [rúbrica transversal](../assessments/rubric.md) y el
 
 ---
 
-[⬅️ Volver al programa](../README.md) · [📚 Abrir las 588 clases](../classes/README.md) · [🗺️ Consultar el roadmap](../ROADMAP.md)
+[⬅️ Volver al programa](../README.md) · [📚 Abrir las 612 clases](../classes/README.md) · [🗺️ Consultar el roadmap](../ROADMAP.md)

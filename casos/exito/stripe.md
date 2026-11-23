@@ -1,6 +1,6 @@
 # Stripe
 
-[↑ Casos de éxito](README.md) · [← Airbnb](airbnb.md)
+[↑ Casos de éxito](README.md) · [← Airbnb](airbnb.md) · [Slack →](slack.md)
 
 > **Qué es este caso.** Un análisis profesional de una empresa real que el programa usa para contrastar la teoría con la práctica. No es una clase ni un rol: es la realidad frente al curso. Se apoya solo en fuentes públicas citadas al final, consultadas el 16 de noviembre de 2026, y separa lo que está **documentado**, lo que es **inferido** y lo que **no se sabe**.
 
@@ -520,4 +520,4 @@ Todas consultadas el 2026-11-16 con `curl` salvo lo indicado. «Secundaria» sig
 
 ---
 
-[↑ Casos de éxito](README.md) · [← Airbnb](airbnb.md)
+[↑ Casos de éxito](README.md) · [← Airbnb](airbnb.md) · [Slack →](slack.md)

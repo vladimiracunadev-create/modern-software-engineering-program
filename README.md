@@ -290,7 +290,7 @@ histórica, problema, usuarios, funcionalidad de principio a fin, economía, arq
 especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fuentes públicas) descrito en la
 [guía de casos](casos/GUIDE.md).
 
-- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 8 casos, de Netflix a Stripe.
+- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 9 casos, de Netflix a Slack.
 - 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 8 casos, de Knight Capital a Quibi.
 
 <!-- /state:cases -->

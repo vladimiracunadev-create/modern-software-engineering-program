@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Descomponer la petición] --> N2[Reformular como problema] --> N3[Preguntas de investigación] --> N4[Rúbrica de investigabilidad] --> N5[Agrupar por necesidad]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Descomponer la petición»; luego «Reformular como problema»; luego «Preguntas de investigación»; luego «Rúbrica de investigabilidad»; luego «Agrupar por necesidad». Retornos: «Agrupar por necesidad» lleva a «Descomponer la petición» (fallo o cambio).](../../../site/assets/figures/mermaid-e2026ee41c.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una pregunta guiada, un enunciado que no pasa la rúbrica o una agrupación discutida obliga a volver a descomponer la petición; no autoriza a defender el requisito original.
 

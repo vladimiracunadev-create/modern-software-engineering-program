@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Trabajo realizado] --> B[Entrada con evidencia reproducible]
-    B --> C[Comprobación por otra persona]
-    C --> D[Autoevaluación contra niveles]
-    D --> E[Conversación estructurada]
-    E --> F{Pregunta más profunda}
-    F -->|sé la respuesta| G[Responder con evidencia]
-    F -->|no la sé| H[Declarar el límite y proponer cómo comprobarlo]
-    G --> E
-    H --> I[Plan de aprendizaje]
-    I --> A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Trabajo realizado»; luego «Entrada con evidencia reproducible»; luego «Comprobación por otra persona»; luego «Autoevaluación contra niveles»; luego «Conversación estructurada»; luego «Pregunta más profunda»; luego «Responder con evidencia» y «Declarar el límite y proponer cómo comprobarlo»; luego «Plan de aprendizaje». Retornos: «Responder con evidencia» lleva a «Conversación estructurada»; «Plan de aprendizaje» lleva a «Trabajo realizado».](../../../site/assets/figures/mermaid-305e5b03ba.svg)
 
 El mapa separa tres etapas: **producir evidencia** (la entrada comprobable), **ubicarse** (niveles) y **defender** (conversación con profundidad creciente). La flecha de retorno indica que un límite declarado no cierra la conversación: se convierte en trabajo.
 

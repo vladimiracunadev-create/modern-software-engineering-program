@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Secreto: dónde nace y quién lo lee] --> B[Almacén central con auditoría]
-    B --> C[Entrega al proceso: archivo, variable o API]
-    C --> D[Uso con mínimo privilegio]
-    D --> E[Rotación con doble validez]
-    E --> F[Revocación y destrucción]
-    C -->|descuido| G[Filtración: repositorio, registro, imagen]
-    G --> H[Detección]
-    H --> E
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Secreto: dónde nace y quién lo lee»; luego «Almacén central con auditoría»; luego «Entrega al proceso: archivo, variable o API»; luego «Uso con mínimo privilegio» y «Filtración: repositorio, registro, imagen»; luego «Detección»; luego «Rotación con doble validez»; luego «Revocación y destrucción».](../../../site/assets/figures/mermaid-d90c7e6dd8.svg)
 
 El mapa muestra el ciclo normal (de izquierda a derecha) y la **filtración** como un desvío que la **detección** devuelve a la rotación. Un sistema sin rotación practicada convierte cada detección en un incidente.
 

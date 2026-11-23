@@ -52,15 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Migración propuesta] --> B[Analizador de texto: defectos de forma]
-    B --> C[Ensayo en copia con invariantes: defectos de sentido]
-    C --> D[Plan de cortes: qué estado queda si se interrumpe]
-    D --> E[Corrección en fases compatibles]
-    E --> F[Ejecución con respaldo verificado y punto de no retorno]
-    F -->|hallazgo nuevo| A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Migración propuesta»; luego «Analizador de texto: defectos de forma»; luego «Ensayo en copia con invariantes: defectos de sentido»; luego «Plan de cortes: qué estado queda si se interrumpe»; luego «Corrección en fases compatibles»; luego «Ejecución con respaldo verificado y punto de no retorno». Retornos: «Ejecución con respaldo verificado y punto de no retorno» lleva a «Migración propuesta» (hallazgo nuevo).](../../../site/assets/figures/mermaid-6822475ea8.svg)
 
 El mapa ordena los instrumentos por el costo y por lo que ven: el analizador es barato y solo ve la forma; el ensayo en copia ve los datos; el plan de cortes ve la interrupción. Ninguno sustituye a los otros.
 

@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Problema observado] --> B[Propuesta escrita con contexto]
-    B --> C[Consulta previa a quienes conocen el límite]
-    C --> D[Siembra en personas con vínculos]
-    D --> E[Práctica visible y pequeña]
-    E --> F[Criterios de decisión delegados]
-    F --> G[Revisión con evidencia]
-    G -->|no funcionó| H[Retirar o ajustar]
-    G -->|funcionó| I[Costumbre del equipo]
-    H --> A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Problema observado»; luego «Propuesta escrita con contexto»; luego «Consulta previa a quienes conocen el límite»; luego «Siembra en personas con vínculos»; luego «Práctica visible y pequeña»; luego «Criterios de decisión delegados»; luego «Revisión con evidencia»; luego «Retirar o ajustar» y «Costumbre del equipo». Retornos: «Retirar o ajustar» lleva a «Problema observado».](../../../site/assets/figures/mermaid-f5101fe160.svg)
 
 El mapa separa cuatro palancas: el **contexto** (propuesta y consulta), las **coaliciones** (siembra), la **estructura de decisión** (criterios delegados) y la **revisión**. La flecha de retorno indica que una propuesta que no funciona se retira, no se defiende: la credibilidad se construye con la capacidad de retirar.
 

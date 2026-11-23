@@ -55,17 +55,7 @@ Podrás distinguir terminal, shell y programa; seguir análisis y expansión de 
 | Código de salida | resume resultado para el padre | automatizar decisiones explícitas |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- U[Persona o script] --> T[Terminal]
- T --> S[Shell analiza y expande]
- S --> A[Proceso A]
- A -- stdout --> B[Proceso B]
- A -- stderr --> D[Diagnóstico]
- B -- stdout --> R[Resultado]
- A -. estado .-> S
- B -. estado .-> S
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Persona o script»; luego «Terminal»; luego «Shell analiza y expande»; luego «Proceso A»; luego «Proceso B» y «Diagnóstico»; luego «Resultado». Retornos: «Proceso A» lleva a «Shell analiza y expande» (estado); «Proceso B» lleva a «Shell analiza y expande» (estado).](../../../site/assets/figures/mermaid-dd6a14105a.svg)
 
 La terminal transporta interacción; el shell crea la topología; los programas interpretan argumentos. Los flujos llevan datos, mientras los estados gobiernan decisiones.
 
@@ -87,16 +77,7 @@ Las comillas no “viajan” siempre al programa: protegen espacios o inhiben ex
 
 Un proceso suele recibir entrada estándar y producir salida estándar y error estándar. La salida puede reservarse para datos componibles; el error, para diagnóstico humano. Redirigir o combinar canales cambia quién los consume.
 
-```mermaid
-flowchart LR
-    I[stdin: datos] --> A[Comando A]
-    A -- stdout --> B[Comando B]
-    A -- stderr --> L[Diagnóstico]
-    B -- stdout --> R[Resultado]
-    B -- stderr --> L
-    A -. exit status .-> S[Decisión del shell]
-    B -. exit status .-> S
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «stdin: datos»; luego «Comando A»; luego «Comando B»; luego «Diagnóstico», «Resultado» y «Decisión del shell».](../../../site/assets/figures/mermaid-efb68bae79.svg)
 
 Si un programa mezcla advertencias con JSON en stdout, rompe al siguiente consumidor. El kit de diagnóstico multiplataforma separa informe estructurado y mensajes operativos.
 

@@ -56,20 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Informe de investigación] --> B[Factores con su fuente]
-    B --> C1[Software como única barrera]
-    B --> C2[Análisis que excluyó el software]
-    B --> C3[Condición de carrera]
-    B --> C4[Contador de un byte]
-    B --> C5[Cultura de pausas y mensajes crípticos]
-    C1 --> D[Integridad por función y defensa en profundidad]
-    C2 --> E[Análisis de peligros que incluye el software]
-    C3 --> F[Modelo de estados y parámetros versionados]
-    C4 --> G[Aritmética, invariantes y pruebas de límites]
-    C5 --> H[Caso de seguridad y revisión de supuestos]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Informe de investigación»; luego «Factores con su fuente»; luego «Software como única barrera», «Análisis que excluyó el software», «Condición de carrera», «Contador de un byte» y «Cultura de pausas y mensajes crípticos»; luego «Integridad por función y defensa en profundidad», «Análisis de peligros que incluye el software», «Modelo de estados y parámetros versionados», «Aritmética, invariantes y pruebas de límites» y «Caso de seguridad y revisión de supuestos».](../../../site/assets/figures/mermaid-efd513cb9c.svg)
 
 Cada factor se proyecta a una idea de una clase anterior y a una medida con su verificación; ninguno se cubre con una sola.
 

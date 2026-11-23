@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Base común] --> B[Rama A]
-    A --> C[Rama B]
-    B --> D{Integrar}
-    C --> D
-    D -->|fusión| E[Commit de fusión]
-    D -->|rebase| F[Commits reescritos]
-    D -->|squash| G[Un commit nuevo]
-    D -->|mismo sitio| H[Conflicto]
-    H --> I[Decisión humana]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Base común»; luego «Rama A» y «Rama B»; luego «Integrar»; luego «Commit de fusión», «Commits reescritos», «Conflicto» y «Un commit nuevo»; luego «Decisión humana».](../../../site/assets/figures/mermaid-7f6c5b5ede.svg)
 
 El mapa se lee de izquierda a derecha: dos ramas parten de una base común y se integran por una de tres estrategias; si tocan el mismo sitio aparece un conflicto que exige una decisión. No describe cuál estrategia es mejor, porque eso depende de quién más tiene los commits.
 

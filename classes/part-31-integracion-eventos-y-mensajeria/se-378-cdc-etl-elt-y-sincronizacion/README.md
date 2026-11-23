@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Origen: base de la plataforma] --> B{¿Cómo se detecta el cambio?}
-    B -->|marca de tiempo| C[Sondeo: ve altas y cambios, no bajas]
-    B -->|registro de cambios| D[Captura de cambios: altas, cambios y bajas en orden]
-    B -->|comparación completa| E[Copia completa: cara, ve todo]
-    D --> F[Flujo de cambios]
-    F --> G[Aplicar con versión y de forma idempotente]
-    C --> G
-    E --> G
-    G --> H[Destino: crudo y transformado]
-    H --> I[Reconciliar con el origen]
-    I -->|divergencia| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Origen: base de la plataforma»; luego «¿Cómo se detecta el cambio?»; luego «Sondeo: ve altas y cambios, no bajas», «Captura de cambios: altas, cambios y bajas en orden» y «Copia completa: cara, ve todo»; luego «Flujo de cambios»; luego «Aplicar con versión y de forma idempotente»; luego «Destino: crudo y transformado»; luego «Reconciliar con el origen». Retornos: «Reconciliar con el origen» lleva a «¿Cómo se detecta el cambio?» (divergencia).](../../../site/assets/figures/mermaid-08902176ca.svg)
 
 El mapa separa **detectar** de **aplicar**. Los tres métodos de detección alimentan el mismo paso de aplicación, y la reconciliación vuelve al origen para encontrar lo que ninguno vio.
 

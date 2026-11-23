@@ -52,15 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    H[Herramienta] -->|código| P[Padre]
-    H -->|mensaje en stderr| X[Persona]
-    P -->|0| OK[Continuar]
-    P -->|temporal| R[Reintentar]
-    P -->|uso o datos| A[Alertar]
-    P -->|señal| S[Investigar]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Herramienta»; luego «Padre» y «Persona»; luego «Continuar», «Reintentar», «Alertar» y «Investigar».](../../../site/assets/figures/mermaid-47bad8368c.svg)
 
 El mapa se lee como un reparto de decisiones: el código llega al padre y decide qué hacer; el mensaje llega a la persona y decide cómo corregir. No describe un orden de ejecución.
 

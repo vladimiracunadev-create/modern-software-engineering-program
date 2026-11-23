@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Mismo código y mismos datos] --> B{¿Qué cambia?}
-    B -->|versión| C[Compatibilidad: hacia atrás y hacia adelante]
-    B -->|entorno| D[Portabilidad: sistema, codificación, rutas]
-    B -->|sistema o lenguaje| E[Interoperabilidad: representación en la frontera]
-    C --> F[Matriz ejecutable]
-    D --> G[Sondas por sistema]
-    E --> H[Contrato con representaciones fijadas]
-    F --> I[Prueba en CI]
-    G --> I
-    H --> I
-    I -->|diferencia nueva| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Mismo código y mismos datos»; luego «¿Qué cambia?»; luego «Compatibilidad: hacia atrás y hacia adelante», «Portabilidad: sistema, codificación, rutas» y «Interoperabilidad: representación en la frontera»; luego «Matriz ejecutable», «Sondas por sistema» y «Contrato con representaciones fijadas»; luego «Prueba en CI». Retornos: «Prueba en CI» lleva a «¿Qué cambia?» (diferencia nueva).](../../../site/assets/figures/mermaid-d57161e8ee.svg)
 
 El mapa separa las **tres causas** de que el mismo software se comporte distinto. Cada una tiene su instrumento (matriz, sondas, contrato) y todas terminan en una prueba que se repite.
 

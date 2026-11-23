@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Riesgos con supuestos] --> B[Reparto de horas]
-    B --> C[Nivel de prueba por clase de fallo]
-    C --> D[Pruebas con demostración rojo-verde]
-    D --> E[Gates: qué bloquea y qué avisa]
-    E --> F[Exclusiones con razón y caducidad]
-    F --> G[Validador del paquete]
-    G --> H[Simulación del trimestre]
-    H --> I[Incidente o dato nuevo]
-    I -->|reestimar| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Riesgos con supuestos»; luego «Reparto de horas»; luego «Nivel de prueba por clase de fallo»; luego «Pruebas con demostración rojo-verde»; luego «Gates: qué bloquea y qué avisa»; luego «Exclusiones con razón y caducidad»; luego «Validador del paquete»; luego «Simulación del trimestre»; luego «Incidente o dato nuevo». Retornos: «Incidente o dato nuevo» lleva a «Riesgos con supuestos» (reestimar).](../../../site/assets/figures/mermaid-bf3b9094c4.svg)
 
 El mapa recorre la parte entera: de los riesgos a las pruebas, de las pruebas a los gates y de los gates a un validador que mantiene el paquete honesto. El retorno cierra el ciclo con un incidente que cambia las estimaciones.
 

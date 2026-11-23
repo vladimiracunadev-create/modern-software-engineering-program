@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Estado estable: métricas normales] --> B[Hipótesis: se mantiene bajo el fallo]
-    B --> C[Inyección acotada de un fallo]
-    C --> D{Métrica dentro del umbral}
-    D -->|sí| E[Hipótesis sostenida en ese alcance]
-    D -->|no| F[Aborto y reversión]
-    F --> G[Hallazgo: defecto o supuesto falso]
-    H[Prueba de concurrencia] --> I[Exploración con semillas]
-    I --> J[Reproducir con la misma semilla]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Estado estable: métricas normales» y «Prueba de concurrencia»; luego «Hipótesis: se mantiene bajo el fallo» y «Exploración con semillas»; luego «Inyección acotada de un fallo» y «Reproducir con la misma semilla»; luego «Métrica dentro del umbral»; luego «Hipótesis sostenida en ese alcance» y «Aborto y reversión»; luego «Hallazgo: defecto o supuesto falso».](../../../site/assets/figures/mermaid-ff89ef9479.svg)
 
 El mapa tiene dos caminos que se complementan. El **experimento de caos** parte de un estado estable y exige condiciones de aborto. La **exploración de concurrencia** convierte el azar en una semilla que se puede repetir. Ambos terminan en un hallazgo que otra persona puede reproducir.
 

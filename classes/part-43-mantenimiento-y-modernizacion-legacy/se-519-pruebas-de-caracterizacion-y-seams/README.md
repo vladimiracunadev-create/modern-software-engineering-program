@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código sin pruebas] --> B[Encontrar o crear una costura]
-    B --> C[Ejecutar sin dependencias lentas]
-    C --> D[Registrar entradas y salidas actuales]
-    D --> E[Normalizar lo no determinista]
-    E --> F[Prueba de caracterización]
-    F --> G[Medir: cobertura y mutantes]
-    G -->|sobreviven mutantes| D
-    F --> H[Cambiar con red de seguridad]
-    H -->|la prueba falla| I{Qué falló}
-    I -->|cambio no deseado| H
-    I -->|defecto conocido| J[Corregir a propósito y actualizar]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Código sin pruebas»; luego «Encontrar o crear una costura»; luego «Ejecutar sin dependencias lentas»; luego «Registrar entradas y salidas actuales»; luego «Normalizar lo no determinista»; luego «Prueba de caracterización»; luego «Medir: cobertura y mutantes» y «Cambiar con red de seguridad»; luego «Qué falló»; luego «Corregir a propósito y actualizar». Retornos: «Medir: cobertura y mutantes» lleva a «Registrar entradas y salidas actuales» (sobreviven mutantes); «Qué falló» lleva a «Cambiar con red de seguridad» (cambio no deseado).](../../../site/assets/figures/mermaid-7482549f57.svg)
 
 El mapa separa **acceder** al comportamiento (costura), **fijarlo** (registro y normalización) y **verificar la fijación** (mutantes). Una prueba de caracterización sin esa última etapa da una sensación de seguridad que no se ha medido.
 

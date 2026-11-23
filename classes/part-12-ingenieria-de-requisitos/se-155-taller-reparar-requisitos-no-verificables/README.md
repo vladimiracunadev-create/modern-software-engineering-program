@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Frase vaga] --> N2[Patrón de reparación] --> N3[Procedimiento de verificación] --> N4[Resultado]
-    N3 -->|no es finito| N5[Objetivo o riesgo]
-    N4 -->|ajuste| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Frase vaga»; luego «Patrón de reparación»; luego «Procedimiento de verificación»; luego «Resultado» y «Objetivo o riesgo». Retornos: «Resultado» lleva a «Frase vaga» (ajuste).](../../../site/assets/figures/mermaid-ea0fc5b94a.svg)
 
 El mapa se lee de izquierda a derecha: una frase vaga se repara con un patrón, la reparación tiene un procedimiento que produce un resultado. Cuando el procedimiento no puede ser finito (un «nunca»), la salida es reformular como objetivo con tasa o como riesgo aceptado. El retorno indica que un resultado inesperado puede mostrar que la reparación no capturó lo que se quería.
 

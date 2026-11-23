@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Texto en un idioma] --> B[Separar texto y código]
-    B --> C[Plurales, géneros y orden]
-    B --> D[Números, fechas y moneda]
-    B --> E[Normalización y longitud]
-    C --> F[Recursos por locale]
-    D --> F
-    E --> F
-    F -->|pseudolocalización| B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Texto en un idioma»; luego «Separar texto y código»; luego «Plurales, géneros y orden», «Números, fechas y moneda» y «Normalización y longitud»; luego «Recursos por locale». Retornos: «Recursos por locale» lleva a «Separar texto y código» (pseudolocalización).](../../../site/assets/figures/mermaid-72d5653062.svg)
 
 El mapa se lee como una separación: el texto sale del código y se vuelve a unir por locale, con reglas de plural, formatos y normalización. La pseudolocalización devuelve un resultado a la preparación. No es un proceso de traducción.
 

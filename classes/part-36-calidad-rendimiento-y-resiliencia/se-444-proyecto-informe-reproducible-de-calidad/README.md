@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta, hipótesis y umbral fijados antes] --> B[Plan con hash]
-    B --> C[Ejecución: comando, semillas, entorno]
-    C --> D[Datos crudos con SHA-256]
-    D --> E[Resultados recalculados]
-    E --> F[Veredicto derivado del umbral]
-    F --> G[Informe: resultados, veredicto, límites, no medido]
-    G --> H[Validador y ejecución en dos sistemas]
-    H -->|no coincide| C
-    H -->|coincide| I[Paquete publicable]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Pregunta, hipótesis y umbral fijados antes»; luego «Plan con hash»; luego «Ejecución: comando, semillas, entorno»; luego «Datos crudos con SHA-256»; luego «Resultados recalculados»; luego «Veredicto derivado del umbral»; luego «Informe: resultados, veredicto, límites, no medido»; luego «Validador y ejecución en dos sistemas»; luego «Paquete publicable». Retornos: «Validador y ejecución en dos sistemas» lleva a «Ejecución: comando, semillas, entorno» (no coincide).](../../../site/assets/figures/mermaid-dddc07decd.svg)
 
 El mapa pone el **plan con hash** antes de los datos y el **validador** al final. La flecha de retorno es la mitad del valor del proyecto: un paquete que no se puede volver a ejecutar con el mismo resultado se corrige o declara qué no es reproducible.
 

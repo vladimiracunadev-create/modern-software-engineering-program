@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Operación del servicio] --> B[Garantía declarada]
-    B --> C[Presupuesto de tiempo y reintentos]
-    C --> D[Falla una dependencia]
-    D --> E[Escalera: lectura obsoleta, cola de escrituras, rechazo]
-    C --> F[Sobrecarga]
-    F --> G[Cola acotada y prioridad]
-    B --> H[Prueba para cada promesa]
-    H --> I[Revisión cruzada]
-    I --> J[Límites declarados]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Operación del servicio»; luego «Garantía declarada»; luego «Presupuesto de tiempo y reintentos» y «Prueba para cada promesa»; luego «Falla una dependencia», «Sobrecarga» y «Revisión cruzada»; luego «Escalera: lectura obsoleta, cola de escrituras, rechazo», «Cola acotada y prioridad» y «Límites declarados».](../../../site/assets/figures/mermaid-3ee1f6e6af.svg)
 
 El mapa muestra que el paquete se lee en cadena: cada operación tiene una garantía; la garantía exige presupuestos; los presupuestos se ponen a prueba cuando la dependencia falla o la carga sube; y cada promesa tiene una prueba y un límite. Lo que sobra o falta en esa cadena es lo que el revisor debe encontrar.
 

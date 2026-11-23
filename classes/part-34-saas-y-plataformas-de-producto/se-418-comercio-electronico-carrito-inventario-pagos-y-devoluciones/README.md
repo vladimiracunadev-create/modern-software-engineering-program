@@ -60,20 +60,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Carrito] -->|sin reserva| B[Checkout]
-    B --> C[Reserva atómica con vencimiento]
-    C -->|pago ok| D[Venta confirmada]
-    C -->|vence o abandona| E[Stock liberado]
-    D --> F[Preparación y envío]
-    F --> G[Entrega]
-    G --> H[Devolución pedida]
-    H --> I[Producto recibido]
-    I -->|conforme| J[Reembolso y reposición]
-    D --> K[Asiento de ingreso]
-    J --> L[Asiento de reversión]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Carrito»; luego «Checkout»; luego «Reserva atómica con vencimiento»; luego «Venta confirmada» y «Stock liberado»; luego «Preparación y envío» y «Asiento de ingreso»; luego «Entrega»; luego «Devolución pedida»; luego «Producto recibido»; luego «Reembolso y reposición»; luego «Asiento de reversión».](../../../site/assets/figures/mermaid-eda19b1ab9.svg)
 
 El carrito es una intención sin compromiso; el checkout convierte la intención en reserva con vencimiento y la reserva en venta al confirmarse el pago. La liberación al vencer devuelve el stock. Tras la entrega, la devolución es otro proceso con sus estados: la reposición ocurre al recibir el producto y el reembolso genera su asiento de reversión.
 

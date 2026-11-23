@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Acuerdo de mentoría] --> B[Tarea que estira]
-    B --> C[Trabajo observable]
-    C --> D[Retroalimentación a tiempo sobre la tarea]
-    D --> E[Práctica con ajuste]
-    E --> F[Evaluación con rúbrica calibrada]
-    F -->|criterio cumplido| G[Siguiente nivel de dificultad]
-    F -->|no cumplido| H[Ajustar tarea o apoyo]
-    G --> B
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Acuerdo de mentoría»; luego «Tarea que estira»; luego «Trabajo observable»; luego «Retroalimentación a tiempo sobre la tarea»; luego «Práctica con ajuste»; luego «Evaluación con rúbrica calibrada»; luego «Siguiente nivel de dificultad» y «Ajustar tarea o apoyo». Retornos: «Siguiente nivel de dificultad» lleva a «Tarea que estira»; «Ajustar tarea o apoyo» lleva a «Tarea que estira».](../../../site/assets/figures/mermaid-56f3fe912b.svg)
 
 El mapa separa cuatro cosas: la **tarea** (qué se asigna), la **retroalimentación** (cuándo y sobre qué), la **evaluación** (con qué criterio) y el **ajuste** (qué se cambia después). La flecha de retorno indica que el acompañamiento es un ciclo: cada evaluación decide la dificultad de la tarea siguiente.
 

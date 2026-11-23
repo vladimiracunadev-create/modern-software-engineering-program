@@ -55,14 +55,7 @@ seguirás una llamada de I/O; relacionarás interrupciones con eventos; comparar
 | I/O e interrupción | coordinan dispositivos y software | separan espera de cálculo |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- P[el analizador local de eventos solicita lectura] --> K[Sistema operativo valida y programa I/O]
- K --> D[Dispositivo inicia la operación]
- D --> I[Interrupción o señal de completado]
- I --> R[Kernel despierta el hilo bloqueado]
- R --> P2[el analizador local de eventos recibe los datos]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «el analizador local de eventos solicita lectura»; luego «Sistema operativo valida y programa I/O»; luego «Dispositivo inicia la operación»; luego «Interrupción o señal de completado»; luego «Kernel despierta el hilo bloqueado»; luego «el analizador local de eventos recibe los datos».](../../../site/assets/figures/mermaid-2e8008f45a.svg)
 
 El sistema real puede usar polling, DMA, buffers y completado asíncrono. La secuencia
 muestra responsabilidades, no cada transición de hardware.

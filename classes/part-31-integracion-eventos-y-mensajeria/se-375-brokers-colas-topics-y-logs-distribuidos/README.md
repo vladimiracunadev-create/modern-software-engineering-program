@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Mensaje publicado] --> B{¿Qué ocurre tras entregarlo?}
-    B -->|se borra, un consumidor| C[Cola de trabajo]
-    B -->|se copia a cada suscripción| D[Tópico]
-    B -->|se conserva con desplazamiento| E[Log por particiones]
-    E --> F[Clave de partición: orden por clave]
-    E --> G[Retención o compactación]
-    C --> H[Consumidores competidores]
-    D --> I[Suscripciones independientes]
-    F --> J[Carga por consumidor]
-    G --> K[Reconstruir estado]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Mensaje publicado»; luego «¿Qué ocurre tras entregarlo?»; luego «Cola de trabajo», «Tópico» y «Log por particiones»; luego «Consumidores competidores», «Clave de partición: orden por clave», «Suscripciones independientes» y «Retención o compactación»; luego «Carga por consumidor» y «Reconstruir estado».](../../../site/assets/figures/mermaid-eae7c5bfa1.svg)
 
 El mapa separa tres comportamientos que los productos mezclan con frecuencia. El log añade dos decisiones propias (la clave de partición y la retención) que no existen en la cola simple.
 

@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Síntoma] --> B[Hipótesis posibles]
-    C[Señales: normal, desviada, sin datos] --> D[Candidatas compatibles]
-    B --> D
-    D --> E{¿Una sola?}
-    E -->|sí| F[Mitigar y verificar]
-    E -->|no| G[Elegir la observación que más separa]
-    G --> C
-    C -.->|telemetría perdida| H[Sesgo: parece normal]
-    H -.-> D
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Síntoma» y «Señales: normal, desviada, sin datos»; luego «Hipótesis posibles» y «Sesgo: parece normal»; luego «Candidatas compatibles»; luego «¿Una sola?»; luego «Mitigar y verificar» y «Elegir la observación que más separa». Retornos: «Elegir la observación que más separa» lleva a «Señales: normal, desviada, sin datos».](../../../site/assets/figures/mermaid-a45be60dab.svg)
 
 El mapa separa lo **observado** (con tres estados), lo **compatible** (hipótesis que sobreviven) y lo **siguiente** (la observación que más separa). La flecha de puntos advierte que la telemetría perdida se confunde con normalidad.
 

@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Impacto en el negocio] --> B[RPO y RTO]
-    B --> C[Estrategia: copias, réplicas, regiones]
-    C --> D[Copia o réplica existente]
-    D --> E[Verificación: restaurar y consultar]
-    B --> F[Orden de recuperación]
-    F --> G[Dependencias y ciclos]
-    E --> H[Ejercicio]
-    G --> H
-    H --> I[Hallazgos y acciones]
-    I -->|cambian el plan| C
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Impacto en el negocio»; luego «RPO y RTO»; luego «Estrategia: copias, réplicas, regiones» y «Orden de recuperación»; luego «Copia o réplica existente» y «Dependencias y ciclos»; luego «Verificación: restaurar y consultar»; luego «Ejercicio»; luego «Hallazgos y acciones». Retornos: «Hallazgos y acciones» lleva a «Estrategia: copias, réplicas, regiones» (cambian el plan).](../../../site/assets/figures/mermaid-3afc4c3f34.svg)
 
 El mapa separa los **objetivos** (RPO y RTO), los **medios** (copias, réplicas, orden) y la **evidencia** (verificación y ejercicio). Sin evidencia, los objetivos del primer nodo son una declaración.
 

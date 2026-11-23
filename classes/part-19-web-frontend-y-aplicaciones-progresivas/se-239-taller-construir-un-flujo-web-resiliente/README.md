@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Editando] -->|validar| B[Listo]
-    B -->|enviar con red| C[Enviando]
-    B -->|enviar sin red| D[EnCola]
-    D -->|recuperar red| C
-    C -->|éxito| E[Enviado]
-    C -->|tiempo agotado| F[Reintentando]
-    F -->|éxito| E
-    F -->|máximo| G[Fallido]
-    C -->|conflicto| H[Conflicto]
-    H -->|resolver| B
-    G -->|reintentar| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Editando»; luego «Listo»; luego «EnCola»; luego «Enviando»; luego «Reintentando» y «Conflicto»; luego «Fallido» y «Enviado». Retornos: «Conflicto» lleva a «Listo» (resolver); «Fallido» lleva a «Listo» (reintentar).](../../../site/assets/figures/mermaid-dc81f87317.svg)
 
 El mapa se lee desde la edición hasta el envío: cada flecha es un evento, y los fallos (cola, reintento, conflicto, fallo definitivo) tienen sus propias transiciones de vuelta. Un estado sin salida o sin camino al estado final es un defecto de forma; una transición ausente que no rompe esa forma es un defecto de comportamiento.
 

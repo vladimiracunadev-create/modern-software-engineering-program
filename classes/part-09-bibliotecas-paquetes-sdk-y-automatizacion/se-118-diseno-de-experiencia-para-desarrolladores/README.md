@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Journey de desarrollador] --> N2[Time to first success] --> N3[Diseño de errores] --> N4[Documentación ejecutable] --> N5[Feedback, telemetría / privacidad]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Journey de desarrollador»; luego «Time to first success»; luego «Diseño de errores»; luego «Documentación ejecutable»; luego «Feedback, telemetría / privacidad». Retornos: «Feedback, telemetría / privacidad» lleva a «Journey de desarrollador» (fallo o cambio).](../../../site/assets/figures/mermaid-49074b58aa.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

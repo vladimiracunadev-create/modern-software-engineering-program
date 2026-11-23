@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Objeto cliente] --> B{¿Qué quiero?}
-    B -->|otra interfaz| C[Adapter]
-    B -->|menos llamadas| D[Facade]
-    B -->|controlar el acceso| E[Proxy]
-    B -->|tratar grupo como uno| F[Composite]
-    B -->|añadir comportamiento| G[Decorator]
-    G --> H[Orden de la pila]
-    H --> I[Política resultante]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Objeto cliente»; luego «¿Qué quiero?»; luego «Adapter», «Facade», «Proxy», «Decorator» y «Composite»; luego «Orden de la pila»; luego «Política resultante».](../../../site/assets/figures/mermaid-95a757f764.svg)
 
 La rama del Decorator termina en una consecuencia que las otras no tienen: el orden de la pila es una decisión, y esa decisión es la política del sistema.
 

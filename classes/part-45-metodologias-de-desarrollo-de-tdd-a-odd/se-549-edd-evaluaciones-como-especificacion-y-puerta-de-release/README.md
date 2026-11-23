@@ -55,21 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Casos y criterio de calidad] --> B[Línea base medida]
-    B --> C[Cambio]
-    C --> D[Evaluación repetida]
-    D --> E[Puntuación y variación]
-    E --> F{¿Supera el umbral con margen?}
-    F -->|sí| G[Publicar]
-    F -->|no| H[Retener]
-    F -->|dudoso| I[Más casos o más repeticiones]
-    I --> D
-    G --> J[Monitorear en producción]
-    H --> K[Analizar fallos]
-    K --> A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Casos y criterio de calidad»; luego «Línea base medida»; luego «Cambio»; luego «Evaluación repetida»; luego «Puntuación y variación»; luego «¿Supera el umbral con margen?»; luego «Publicar», «Retener» y «Más casos o más repeticiones»; luego «Monitorear en producción» y «Analizar fallos». Retornos: «Más casos o más repeticiones» lleva a «Evaluación repetida»; «Analizar fallos» lleva a «Casos y criterio de calidad».](../../../site/assets/figures/mermaid-d621f270b1.svg)
 
 El mapa pone la variación en el centro. Una puerta con tres salidas (publicar, retener y «dudoso: medir más») es honesta sobre el ruido; una con dos salidas esconde la zona de duda en los falsos pases y los falsos rechazos.
 

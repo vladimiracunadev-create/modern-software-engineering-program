@@ -52,15 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Productor] -->|stdout| B[Búfer]
-    B -->|bloque lleno o flush| C[Tubería]
-    C --> D[Consumidor]
-    D -->|cierra| E[Productor recibe error]
-    A -->|stderr| F[Diagnóstico]
-    G[Archivo] -->|iterar| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Archivo»; luego «Productor»; luego «Búfer» y «Diagnóstico»; luego «Tubería»; luego «Consumidor»; luego «Productor recibe error».](../../../site/assets/figures/mermaid-368b0f5b61.svg)
 
 El mapa se lee de izquierda a derecha: el productor escribe en un búfer, el búfer entrega a la tubería cuando se llena o se vacía, y el consumidor puede cerrar en cualquier momento; el diagnóstico va por otro flujo. No describe el orden de las llamadas del sistema.
 

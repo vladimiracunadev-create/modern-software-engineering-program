@@ -55,21 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    I[Instrucciones] --> C[Contexto visible]
-    C --> M[Modelo propone acción]
-    M --> P{¿Permitida?}
-    P -->|no| O[Observación de denegación]
-    P -->|sí| H[Herramienta ejecuta]
-    H --> O2[Observación]
-    O --> C
-    O2 --> C
-    O2 --> V{¿Verificada y terminada?}
-    V -->|no| C
-    V -->|sí| S[Parada]
-    T[Traza] -.registra.-> C
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Instrucciones» y «Traza»; luego «Contexto visible»; luego «Modelo propone acción»; luego «¿Permitida?»; luego «Observación de denegación» y «Herramienta ejecuta»; luego «Observación»; luego «¿Verificada y terminada?»; luego «Parada». Retornos: «Observación de denegación» lleva a «Contexto visible»; «Observación» lleva a «Contexto visible»; «¿Verificada y terminada?» lleva a «Contexto visible» (no).](../../../site/assets/figures/mermaid-1d8d524fe1.svg)
 
 El mapa muestra que el modelo ocupa un solo nodo. Los demás son decisiones del harness: qué entra al contexto, qué se puede ejecutar, qué cuenta como terminado y qué queda registrado. La flecha de la observación al contexto es la que cierra el bucle; sin ella el agente no ve el resultado de su paso anterior.
 

@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Hipótesis: estado estable con umbral] --> B[Plan: fallo, alcance, radio, aborto]
-    B --> C[Aprobación y comunicación]
-    C --> D[Ejecución: inyección y observación]
-    D --> E{¿Se viola el criterio de aborto?}
-    E -->|sí| F[Abortar y recuperar]
-    E -->|no| G[Resultado: la hipótesis se sostiene o se refuta]
-    F --> G
-    G --> H[Aprendizaje: defensa, hallazgo, siguiente experimento]
-    H --> A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Hipótesis: estado estable con umbral»; luego «Plan: fallo, alcance, radio, aborto»; luego «Aprobación y comunicación»; luego «Ejecución: inyección y observación»; luego «¿Se viola el criterio de aborto?»; luego «Abortar y recuperar»; luego «Resultado: la hipótesis se sostiene o se refuta»; luego «Aprendizaje: defensa, hallazgo, siguiente experimento». Retornos: «Aprendizaje: defensa, hallazgo, siguiente experimento» lleva a «Hipótesis: estado estable con umbral».](../../../site/assets/figures/mermaid-d91dcdb366.svg)
 
 El mapa tiene el orden que el simulacro desordenado del problema invirtió: la **hipótesis y el plan** vienen antes de la inyección, y el **criterio de aborto** se decide antes, no durante.
 

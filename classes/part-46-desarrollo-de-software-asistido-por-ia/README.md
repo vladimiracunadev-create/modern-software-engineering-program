@@ -10,21 +10,7 @@ La [Parte 44](../part-44-gestion-liderazgo-y-practica-profesional/README.md) cer
 
 Esta parte no enseña una herramienta ni un modelo concretos, y no clasifica productos. Enseña el mecanismo mínimo para razonar sobre cualquiera: un modelo genera texto muestreando una distribución, así que su tono no mide su corrección y lo delegable es lo comprobable; un encargo debe enumerar los requisitos que el modelo no puede adivinar y la salida debe validarse fuera de él; el contexto es finito, envejece y compite, de modo que alguien decide qué entra y cuánto dura; los modos de interacción (autocompletado, chat, edición, generación) piden políticas de aceptación distintas; explorar alternativas es barato y elegir entre ellas sufre la maldición del optimizador; las pruebas, la documentación y las migraciones generadas heredan los errores de lo que controlan salvo que tengan una fuente independiente; revisar, refactorizar y explicar con ayuda exige medir al revisor y la equivalencia; la ambigüedad se cuenta y se reduce diseñando el contexto; una eval distingue señal de ruido, incluye el costo de revisar y calibra a su juez; los riesgos de datos, licencias y código inseguro se controlan con filtros que actúan aunque alguien olvide la instrucción; comparar flujos exige tareas pareadas; y un cambio asistido solo es defendible si deja un rastro verificable, una revisión con nombre y una reversión ensayada.
 
-```mermaid
-flowchart LR
-    A[Capacidades y límites] --> B[Prompting y criterios de salida]
-    B --> C[Contexto, memoria y recuperación]
-    C --> D[Autocompletado, chat, edición y generación]
-    D --> E[Prototipado y alternativas]
-    E --> F[Pruebas, documentación y migraciones]
-    F --> G[Revisión, refactorización y explicación]
-    G --> H[Context engineering]
-    H --> I[Evals]
-    I --> J[Privacidad, licencias y código inseguro]
-    J --> K[Taller: comparar flujos]
-    K --> L[Proyecto: cambio con trazabilidad]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Capacidades y límites»; luego «Prompting y criterios de salida»; luego «Contexto, memoria y recuperación»; luego «Autocompletado, chat, edición y generación»; luego «Prototipado y alternativas»; luego «Pruebas, documentación y migraciones»; luego «Revisión, refactorización y explicación»; luego «Context engineering»; luego «Evals»; luego «Privacidad, licencias y código inseguro»; luego «Taller: comparar flujos»; luego «Proyecto: cambio con trazabilidad». Retornos: «Proyecto: cambio con trazabilidad» lleva a «Capacidades y límites» (incidente o hallazgo).](../../site/assets/figures/mermaid-2b0870cfba.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, una medición nueva o un cambio de modelo reabre la pregunta de qué se puede delegar; un cambio entregado no cierra la política de uso, la fecha.
 

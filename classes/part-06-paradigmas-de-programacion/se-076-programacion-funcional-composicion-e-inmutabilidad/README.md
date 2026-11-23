@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Funciones puras / transparencia referencial] --> N2[Inmutabilidad / evolución de valores] --> N3[Funciones de orden superior] --> N4[Composición / tipos de resultado] --> N5[Recursión, evaluación / efectos]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Funciones puras / transparencia referencial»; luego «Inmutabilidad / evolución de valores»; luego «Funciones de orden superior»; luego «Composición / tipos de resultado»; luego «Recursión, evaluación / efectos». Retornos: «Recursión, evaluación / efectos» lleva a «Funciones puras / transparencia referencial» (fallo o cambio).](../../../site/assets/figures/mermaid-d2f0b38950.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

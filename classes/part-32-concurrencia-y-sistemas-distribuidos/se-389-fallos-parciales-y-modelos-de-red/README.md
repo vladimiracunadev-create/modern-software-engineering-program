@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cliente llama a servicio] --> B{Respuesta a tiempo}
-    B -->|sí| C[Éxito conocido]
-    B -->|no| D[Tiempo agotado: tres historias]
-    D --> E[Petición perdida]
-    D --> F[Ejecutada, respuesta perdida]
-    D --> G[Ejecutada, respuesta lenta]
-    D --> H[Reintento]
-    H -->|sin cuidado| I[Efecto duplicado y amplificación]
-    H -->|con clave, presupuesto y jitter| J[Reintento seguro]
-    D --> K[Detector de fallos]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Cliente llama a servicio»; luego «Respuesta a tiempo»; luego «Éxito conocido» y «Tiempo agotado: tres historias»; luego «Petición perdida», «Ejecutada, respuesta perdida», «Ejecutada, respuesta lenta», «Reintento» y «Detector de fallos»; luego «Efecto duplicado y amplificación» y «Reintento seguro».](../../../site/assets/figures/mermaid-f38203a7b7.svg)
 
 El mapa muestra que el tiempo agotado es un punto de bifurcación sin información. El reintento es la reacción natural y, sin clave de idempotencia, presupuesto ni jitter, es también el origen de dos defectos: el efecto duplicado y la amplificación de carga.
 

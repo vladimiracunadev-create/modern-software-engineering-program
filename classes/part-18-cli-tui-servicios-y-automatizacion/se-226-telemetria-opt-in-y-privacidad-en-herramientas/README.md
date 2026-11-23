@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    P[Pregunta] --> E[Evento mínimo]
-    E --> G{Compuerta}
-    G -->|sin consentimiento| N[No se envía]
-    G -->|consentimiento y sin señal de rechazo| S[Se envía]
-    S --> A[Agregación]
-    A -->|ruido o umbral| R[Resultado]
-    R --> L[Límites: quién no aparece]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Pregunta»; luego «Evento mínimo»; luego «Compuerta»; luego «No se envía» y «Se envía»; luego «Agregación»; luego «Resultado»; luego «Límites: quién no aparece».](../../../site/assets/figures/mermaid-4edf6fd56b.svg)
 
 El mapa se lee de izquierda a derecha: cada evento responde una pregunta; la compuerta decide si se envía; el resultado se agrega y se lee con la advertencia de quién no está. No describe un sistema de analítica concreto.
 

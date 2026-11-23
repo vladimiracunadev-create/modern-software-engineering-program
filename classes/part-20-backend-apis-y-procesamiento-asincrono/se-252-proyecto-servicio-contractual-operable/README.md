@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Contrato: rutas, estados, errores] --> I[Implementación]
-    I --> K[Comprobación de conformidad]
-    K -->|deriva| C
-    I --> F[Inyección de caídas]
-    F --> V[Invariantes: sin duplicados, sin pérdida]
-    I --> M[Señales y SLO]
-    M --> A[Alertas por consumo]
-    A --> R[Respuesta de una persona]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Contrato: rutas, estados, errores»; luego «Implementación»; luego «Comprobación de conformidad», «Inyección de caídas» y «Señales y SLO»; luego «Invariantes: sin duplicados, sin pérdida» y «Alertas por consumo»; luego «Respuesta de una persona». Retornos: «Comprobación de conformidad» lleva a «Contrato: rutas, estados, errores» (deriva).](../../../site/assets/figures/mermaid-708359e10c.svg)
 
 El mapa se lee desde el contrato: la implementación debe cumplirlo, y la comprobación de conformidad devuelve la deriva al contrato o a la implementación; la inyección de caídas verifica los invariantes; las señales alimentan el SLO y las alertas, que terminan en una persona. No es un orden de entrega: las tres ramas (contrato, caídas, operación) se construyen en paralelo y se juntan en la evidencia.
 

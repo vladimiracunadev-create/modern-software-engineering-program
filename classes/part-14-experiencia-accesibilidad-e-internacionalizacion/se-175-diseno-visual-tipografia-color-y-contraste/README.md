@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tokens de color y tipo] --> B[Contraste y distancia]
-    B --> C[Simulación de visión]
-    A --> D[Maquetación y reflujo]
-    D --> E[Zoom y texto ampliado]
-    C --> F[Señal redundante]
-    E --> F
-    F -->|nuevo tema| A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Tokens de color y tipo»; luego «Contraste y distancia» y «Maquetación y reflujo»; luego «Simulación de visión» y «Zoom y texto ampliado»; luego «Señal redundante». Retornos: «Señal redundante» lleva a «Tokens de color y tipo» (nuevo tema).](../../../site/assets/figures/mermaid-05598673ad.svg)
 
 El mapa se lee como un conjunto de comprobaciones sobre los mismos tokens: contraste y distancia entre colores, simulación de visión y reflujo. Todas convergen en una señal redundante (texto, forma, patrón) y un nuevo tema reabre los tokens. No es una secuencia.
 

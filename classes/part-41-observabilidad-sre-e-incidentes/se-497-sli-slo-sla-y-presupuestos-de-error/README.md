@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Experiencia de la persona usuaria] --> B[SLI: eventos buenos / eventos válidos]
-    B --> C[Punto de medición]
-    B --> D[SLO: objetivo y ventana]
-    D --> E[Presupuesto de error]
-    E --> F[Política: qué se hace al gastarlo]
-    D --> G[SLA: contrato con consecuencia]
-    E -->|consumo rápido| H[Alertas por consumo]
-    C -->|servidor o cliente| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Experiencia de la persona usuaria»; luego «SLI: eventos buenos / eventos válidos»; luego «Punto de medición» y «SLO: objetivo y ventana»; luego «Presupuesto de error» y «SLA: contrato con consecuencia»; luego «Política: qué se hace al gastarlo» y «Alertas por consumo». Retornos: «Punto de medición» lleva a «SLI: eventos buenos / eventos válidos» (servidor o cliente).](../../../site/assets/figures/mermaid-368efd965e.svg)
 
 El mapa separa el **indicador** (qué se mide y dónde), el **objetivo** (qué se promete internamente y en qué ventana) y el **contrato** (qué se debe si no se cumple). El presupuesto de error es la variable que conecta la ingeniería con las decisiones de producto.
 

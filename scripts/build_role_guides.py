@@ -10,6 +10,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 import cross_references
+import mermaid_render as mr
 import program_state as ps
 from role_profiles import (
     DEVELOPED,
@@ -33,6 +34,30 @@ MAIN_START = "<!-- role-map:start -->"
 MAIN_END = "<!-- role-map:end -->"
 INDEX_START = "<!-- role-index-depth:start -->"
 INDEX_END = "<!-- role-index-depth:end -->"
+FAMILIES_START = "<!-- role-families:start -->"
+FAMILIES_END = "<!-- role-families:end -->"
+FAMILIES_DIAGRAM = '''```mermaid
+flowchart LR
+    F["Base común"] --> BUILD["Construcción"]
+    F --> DISC["Producto y requisitos"]
+    BUILD --> CLIENT["Web · móvil · desktop"]
+    BUILD --> SYSTEMS["Systems · embedded · safety"]
+    BUILD --> SERVICES["Backend · API · datos · distribución"]
+    SERVICES --> OPS["Cloud · DevOps · SRE · observabilidad"]
+    CLIENT --> QUALITY["QA · accesibilidad · i18n · performance"]
+    SYSTEMS --> QUALITY
+    SERVICES --> QUALITY
+    OPS --> PLATFORM["Platform · DevEx · release"]
+    DISC --> GOVERN["Compliance · FinOps · green · open source"]
+    QUALITY --> ARCH["Arquitectura · modernización · soluciones"]
+    PLATFORM --> ARCH
+    GOVERN --> ARCH
+    ARCH --> LEAD["Staff · Manager · CTO"]
+    BUILD --> AI["AI-Augmented · AI Systems"]
+    AI --> AGENTIC["Agentic Harness"]
+    QUALITY --> METHOD["Domain & Methodology"]
+    ARCH --> METHOD
+```'''
 
 
 # Agrupación gruesa de las guías para el README raíz: (familia, [(archivo, foco en una línea)]).
@@ -861,6 +886,7 @@ def build(check: bool) -> None:
             "## 🧪 Evidencia de portafolio",
         )
         rendered = cross_references.resolve(rendered, "roles")
+        rendered = mr.publish_markdown(rendered, ROLE_ROOT)  # Mermaid -> SVG publicado
         if rendered != original:
             changed.append(path)
             if not check:
@@ -891,10 +917,19 @@ def build(check: bool) -> None:
         "## Fuentes y criterios del mapa",
     )
     index_rendered = cross_references.resolve(render_index_table(index_rendered), "roles")
+    index_rendered = replace_or_insert(index_rendered, FAMILIES_START, FAMILIES_END, FAMILIES_DIAGRAM, "## Familias y transiciones")
+    index_rendered = mr.publish_markdown(index_rendered, ROLE_ROOT)
     if index_rendered != index_original:
         changed.append(index_path)
         if not check:
             index_path.write_text(index_rendered, encoding="utf-8", newline="\n")
+
+    for figure_path, figure_svg in mr.registered_files().items():
+        if not figure_path.exists() or figure_path.read_text(encoding="utf-8") != figure_svg:
+            changed.append(figure_path)
+            if not check:
+                figure_path.parent.mkdir(parents=True, exist_ok=True)
+                figure_path.write_text(figure_svg, encoding="utf-8", newline="\n")
 
     if check and changed:
         names = ", ".join(str(path.relative_to(ROOT)) for path in changed)

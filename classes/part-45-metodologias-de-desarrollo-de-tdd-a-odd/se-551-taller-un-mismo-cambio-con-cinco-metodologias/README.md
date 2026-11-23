@@ -55,22 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio: silenciar un curso] --> B[TDD: dos pruebas]
-    A --> C[BDD: tres escenarios]
-    A --> D[ATDD: tabla de ejemplos]
-    A --> E[Contrato: propiedades]
-    A --> F[SDD: modelo ejecutable]
-    G[Siete silencios mal hechos] --> H[Medir cada artefacto]
-    B --> H
-    C --> H
-    D --> H
-    E --> H
-    F --> H
-    H --> I[Qué mata y qué deja vivo]
-    I --> J[Combinación recomendada]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Cambio: silenciar un curso»; luego «TDD: dos pruebas», «BDD: tres escenarios», «ATDD: tabla de ejemplos», «Contrato: propiedades», «SDD: modelo ejecutable» y «Siete silencios mal hechos»; luego «Medir cada artefacto»; luego «Qué mata y qué deja vivo»; luego «Combinación recomendada».](../../../site/assets/figures/mermaid-a5cd01b4f2.svg)
 
 El mapa muestra el diseño del taller: cinco artefactos y una misma medida. La salida no es un ganador sino una combinación justificada.
 

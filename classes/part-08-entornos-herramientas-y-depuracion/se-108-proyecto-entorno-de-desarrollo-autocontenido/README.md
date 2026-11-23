@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Contrato de bootstrap] --> N2[Configuración versionada mínima] --> N3[Diagnóstico incorporado] --> N4[Rebuild / prueba cruzada] --> N5[Limpieza / recuperación]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Contrato de bootstrap»; luego «Configuración versionada mínima»; luego «Diagnóstico incorporado»; luego «Rebuild / prueba cruzada»; luego «Limpieza / recuperación». Retornos: «Limpieza / recuperación» lleva a «Contrato de bootstrap» (fallo o cambio).](../../../site/assets/figures/mermaid-6974f47bd6.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

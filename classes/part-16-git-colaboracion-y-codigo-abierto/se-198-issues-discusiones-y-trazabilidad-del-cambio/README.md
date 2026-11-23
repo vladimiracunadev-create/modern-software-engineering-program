@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Reporte] --> B[Issue]
-    B --> C[Discusión y decisión]
-    C --> D[Cambio]
-    D --> E[Commit con referencia]
-    E --> F[Integración]
-    F -->|cierra| B
-    F -->|squash sin cuerpo| G[Vínculo perdido]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Reporte»; luego «Issue»; luego «Discusión y decisión»; luego «Cambio»; luego «Commit con referencia»; luego «Integración»; luego «Vínculo perdido». Retornos: «Integración» lleva a «Issue» (cierra).](../../../site/assets/figures/mermaid-28e96db2d6.svg)
 
 El mapa se lee de izquierda a derecha: un reporte se convierte en issue, se discute, produce un cambio que lleva una referencia y, al integrarse, cierra el issue. El camino inferior muestra cómo se rompe el vínculo. No describe el orden temporal exacto de la discusión.
 

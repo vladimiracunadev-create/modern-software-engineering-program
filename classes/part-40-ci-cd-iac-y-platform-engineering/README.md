@@ -8,21 +8,9 @@ La [Parte 39](../part-39-build-release-y-cadena-de-suministro/README.md) dejó u
 
 ## Recorrido
 
-```mermaid
-flowchart LR
-    A[Integración continua] --> B[Pipelines y cachés]
-    B --> C[Compuertas]
-    C --> D[Credenciales efímeras]
-    D --> E[Entrega y despliegue]
-    E --> F[Infraestructura como código]
-    F --> G[GitOps]
-    G --> H[Entornos de vista previa]
-    H --> I[Plataforma interna]
-    I --> J[Métricas DORA]
-    J --> K[Taller de endurecimiento]
-    K --> L[Camino a producción con retroceso]
-    L -->|incidente| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Integración continua»; luego «Pipelines y cachés»; luego «Compuertas»; luego «Credenciales efímeras»; luego «Entrega y despliegue»; luego «Infraestructura como código»; luego «GitOps»; luego «Entornos de vista previa»; luego «Plataforma interna»; luego «Métricas DORA»; luego «Taller de endurecimiento»; luego «Camino a producción con retroceso». Retornos: «Camino a producción con retroceso» lleva a «Integración continua» (incidente).](../../site/assets/figures/mermaid-b814e7a8e8.svg)
+
+**Cómo leer el diagrama:** empieza en «Integración continua» y sigue las flechas hasta el final del recorrido. Las filas se leen como una serpentina: de izquierda a derecha y, en la fila siguiente, de derecha a izquierda. Las flechas discontinuas de color coral son retornos: «Camino a producción con retroceso» lleva a «Integración continua» (incidente).
 
 ## Resultados acumulativos
 

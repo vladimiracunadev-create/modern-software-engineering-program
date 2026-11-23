@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Agente] --> B[Herramientas]
-    B --> C{Regla}
-    C -->|denegar| D[Bloqueo]
-    C -->|preguntar| E[Aprobación humana]
-    C -->|permitir| F[Acción]
-    F --> G[Alcance: rutas, dominios, recursos]
-    G --> H[Duración: sesión, tarea, permanente]
-    E -->|permitir siempre| I[Nueva regla]
-    I --> C
-    J[Aislamiento del sistema operativo] -.->|segunda barrera| F
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Agente»; luego «Herramientas»; luego «Regla» y «Aislamiento del sistema operativo»; luego «Bloqueo», «Aprobación humana» y «Acción»; luego «Nueva regla» y «Alcance: rutas, dominios, recursos»; luego «Duración: sesión, tarea, permanente». Retornos: «Nueva regla» lleva a «Regla».](../../../site/assets/figures/mermaid-bb6e4ad6dc.svg)
 
 La regla decide si una acción procede; el alcance y la duración acotan lo que esa acción puede tocar y por cuánto tiempo. El aislamiento del sistema operativo es una segunda barrera que actúa aunque la regla se equivoque. Las respuestas «permitir siempre» realimentan el conjunto de reglas.
 

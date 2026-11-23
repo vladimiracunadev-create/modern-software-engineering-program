@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Criterios de éxito] --> B[Comprobación automática]
-    A --> C[Revisión humana]
-    A --> D[Pruebas con personas]
-    B --> E[Declaración de alcance]
-    C --> E
-    D --> E
-    E -->|hallazgos| A
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Criterios de éxito»; luego «Comprobación automática», «Revisión humana» y «Pruebas con personas»; luego «Declaración de alcance». Retornos: «Declaración de alcance» lleva a «Criterios de éxito» (hallazgos).](../../../site/assets/figures/mermaid-c26aa1b79f.svg)
 
 El mapa se lee como tres fuentes de evidencia que alimentan una declaración: lo que se comprueba por regla, lo que revisa una persona con el criterio delante y lo que observan personas usando el producto. Una sola no basta; el retorno indica que cada hallazgo vuelve a los criterios. No es un orden de ejecución.
 

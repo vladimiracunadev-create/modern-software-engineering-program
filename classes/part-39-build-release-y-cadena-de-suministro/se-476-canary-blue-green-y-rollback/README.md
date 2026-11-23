@@ -54,17 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Versión nueva desplegada sin tráfico] --> B[Canary: fracción pequeña del tráfico]
-    B --> C{Métricas del canario frente a la línea base}
-    C -->|peor con evidencia| D[Retroceso: dirigir el tráfico a la versión anterior]
-    C -->|sin evidencia suficiente| E[Esperar y ampliar la fracción]
-    E --> C
-    C -->|mejor o igual tras la ventana| F[Promover a 100 %]
-    D --> G{¿Los datos escritos son legibles por la anterior?}
-    G -->|no| H[Reparación manual o compensación]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Versión nueva desplegada sin tráfico»; luego «Canary: fracción pequeña del tráfico»; luego «Métricas del canario frente a la línea base»; luego «Retroceso: dirigir el tráfico a la versión anterior», «Esperar y ampliar la fracción» y «Promover a 100 %»; luego «¿Los datos escritos son legibles por la anterior?»; luego «Reparación manual o compensación». Retornos: «Esperar y ampliar la fracción» lleva a «Métricas del canario frente a la línea base».](../../../site/assets/figures/mermaid-6b98e3c706.svg)
 
 El mapa muestra tres salidas del canario: revertir, esperar o promover. El rombo final marca el límite del retroceso: el tráfico se puede redirigir en segundos, los datos escritos no.
 

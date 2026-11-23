@@ -15,17 +15,7 @@ La parte alterna cuatro planos que deben permanecer conectados:
 - **procedimental:** algoritmo, invariante, variante, heurística y presupuesto;
 - **empírico:** ejemplos, contraejemplos, mediciones y revisión adversarial.
 
-```mermaid
-flowchart LR
-    A[Incidente ambiguo] --> B[Descomposición y vocabulario]
-    B --> C[Lógica y estructuras]
-    C --> D[Contratos e invariantes]
-    D --> E[Algoritmo y terminación]
-    E --> F[Complejidad y límites]
-    F --> G[Estados e hipótesis]
-    G --> H[Especificación contrastable]
-    H -->|contraejemplo| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Incidente ambiguo»; luego «Descomposición y vocabulario»; luego «Lógica y estructuras»; luego «Contratos e invariantes»; luego «Algoritmo y terminación»; luego «Complejidad y límites»; luego «Estados e hipótesis»; luego «Especificación contrastable». Retornos: «Especificación contrastable» lleva a «Descomposición y vocabulario» (contraejemplo).](../../site/assets/figures/mermaid-63bae0709f.svg)
 
 El ciclo vuelve al problema cuando aparece un contraejemplo. No se «arregla» una prueba cambiando el resultado esperado: se revisa qué abstracción, regla o supuesto era insuficiente.
 

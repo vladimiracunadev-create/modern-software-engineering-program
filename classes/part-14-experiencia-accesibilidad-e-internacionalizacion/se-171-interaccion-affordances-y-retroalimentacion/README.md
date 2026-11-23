@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Señal de acción] --> B[Acción de la persona]
-    B --> C[Respuesta inmediata]
-    C --> D[Resultado en el servidor]
-    D -->|éxito| E[Confirmación y deshacer]
-    D -->|fallo o demora| F[Reintento seguro]
-    F --> B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Señal de acción»; luego «Acción de la persona»; luego «Respuesta inmediata»; luego «Resultado en el servidor»; luego «Confirmación y deshacer» y «Reintento seguro». Retornos: «Reintento seguro» lleva a «Acción de la persona».](../../../site/assets/figures/mermaid-d6d5bfd85e.svg)
 
 El mapa se lee de izquierda a derecha: la señal invita, la acción desencadena una respuesta inmediata y un resultado, y el fallo o la demora llevan a un reintento que debe ser seguro. No es un orden de implementación: la respuesta inmediata y la idempotencia se diseñan a la vez.
 

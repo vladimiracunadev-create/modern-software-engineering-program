@@ -46,16 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Valor o comportamiento sin explicación] --> B[Historial: cuándo, quién, qué]
-    B --> C[Otras fuentes: incidencias, correos, personas]
-    C --> D[Afirmaciones clasificadas]
-    D --> E[ADR retrospectivo]
-    D --> F[Hipótesis a confirmar]
-    E --> G[Prevención: dueños y metadatos]
-    F -->|se confirma o se descarta| D
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Valor o comportamiento sin explicación»; luego «Historial: cuándo, quién, qué»; luego «Otras fuentes: incidencias, correos, personas»; luego «Afirmaciones clasificadas»; luego «ADR retrospectivo» y «Hipótesis a confirmar»; luego «Prevención: dueños y metadatos». Retornos: «Hipótesis a confirmar» lleva a «Afirmaciones clasificadas» (se confirma o se descarta).](../../../site/assets/figures/mermaid-34f76da40b.svg)
 
 El diagrama se lee de izquierda a derecha: un comportamiento sin explicación lleva al historial, que responde cuándo, quién y qué; otras fuentes aportan el porqué; cada afirmación se clasifica y se convierte en un ADR retrospectivo o en una hipótesis por confirmar; la prevención (dueños, metadatos) cierra el ciclo. Las hipótesis vuelven al conjunto de afirmaciones cuando se confirman o se descartan. No hay un orden obligatorio: a veces el correo aparece antes del commit.
 

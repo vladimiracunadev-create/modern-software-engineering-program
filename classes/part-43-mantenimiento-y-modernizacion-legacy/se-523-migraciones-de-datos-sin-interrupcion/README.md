@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Esquema antiguo] --> B[Expandir: añadir lo nuevo, nulo]
-    B --> C[Escribir en ambos]
-    C --> D[Rellenar lo histórico por lotes]
-    D --> E[Verificar contenido]
-    E -->|difiere| D
-    E --> F[Leer del nuevo]
-    F --> G[Dejar de escribir en el antiguo]
-    G --> H[Periodo de reposo]
-    H --> I[Contraer: retirar lo antiguo]
-    F -->|problema| C
-    G -->|problema| F
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Esquema antiguo»; luego «Expandir: añadir lo nuevo, nulo»; luego «Escribir en ambos»; luego «Rellenar lo histórico por lotes»; luego «Verificar contenido»; luego «Leer del nuevo»; luego «Dejar de escribir en el antiguo»; luego «Periodo de reposo»; luego «Contraer: retirar lo antiguo». Retornos: «Verificar contenido» lleva a «Rellenar lo histórico por lotes» (difiere); «Leer del nuevo» lleva a «Escribir en ambos» (problema); «Dejar de escribir en el antiguo» lleva a «Leer del nuevo» (problema).](../../../site/assets/figures/mermaid-a6e6aca90d.svg)
 
 El mapa separa las fases por la **reversibilidad**: hasta «leer del nuevo» se puede volver sin perder nada; tras «dejar de escribir en el antiguo» el esquema nuevo guarda datos que el antiguo no tiene; «contraer» es el único paso sin retorno. Cada flecha de vuelta es una promesa que solo vale mientras las fases anteriores se mantengan.
 

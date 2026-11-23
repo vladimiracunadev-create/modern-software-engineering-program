@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Edición sin conexión] --> B[Registro de operaciones]
-    B --> C[Envío con identificador]
-    C --> D[Servidor aplica una vez]
-    D --> E[Fusión con otras copias]
-    E --> F{Concurrentes?}
-    F -->|no| G[Orden causal]
-    F -->|sí| H[Política de conflicto]
-    H --> I[Aviso a la persona]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Edición sin conexión»; luego «Registro de operaciones»; luego «Envío con identificador»; luego «Servidor aplica una vez»; luego «Fusión con otras copias»; luego «Concurrentes?»; luego «Orden causal» y «Política de conflicto»; luego «Aviso a la persona».](../../../site/assets/figures/mermaid-c1dc12cb52.svg)
 
 El mapa se lee de izquierda a derecha: toda edición sin conexión se vuelve una operación con identificador; el servidor la aplica una sola vez; si no hay concurrencia el orden es causal; si la hay, una política decide y la persona se entera.
 

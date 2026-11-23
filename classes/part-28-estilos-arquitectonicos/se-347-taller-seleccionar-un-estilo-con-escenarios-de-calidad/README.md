@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Escenarios con medida] --> B[Importancia por contexto]
-    A --> C[Modelo de cada candidato]
-    C --> D[Medidas: p99, disponibilidad, radio, coordinación, costo, extensión]
-    D --> E[Utilidad por escenario]
-    B --> F[Utilidad ponderada]
-    E --> F
-    F --> G[Barrido de equipos e importancias]
-    G --> H[Supuesto que invierte la decisión]
-    H --> I[Disparador y medida de vigilancia]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Escenarios con medida»; luego «Importancia por contexto» y «Modelo de cada candidato»; luego «Medidas: p99, disponibilidad, radio, coordinación, costo, extensión»; luego «Utilidad por escenario»; luego «Utilidad ponderada»; luego «Barrido de equipos e importancias»; luego «Supuesto que invierte la decisión»; luego «Disparador y medida de vigilancia».](../../../site/assets/figures/mermaid-895ad7faaa.svg)
 
 El mapa muestra que el modelo sustituye a las opiniones en la columna de medidas, y que la salida útil no es el ganador sino el supuesto y su vigilancia. Cada flecha es un paso que el estudiante ejecuta y justifica.
 

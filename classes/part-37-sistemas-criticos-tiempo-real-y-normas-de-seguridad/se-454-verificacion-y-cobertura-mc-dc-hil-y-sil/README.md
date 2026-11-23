@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión con n condiciones] --> B[Vectores de prueba]
-    B --> C{Criterio}
-    C -->|decisión| D[2 pruebas mínimas]
-    C -->|condiciones| E[2 pruebas mínimas]
-    C -->|MC/DC| F[n + 1 pruebas mínimas]
-    F --> G[Cada condición, aislada, cambia el resultado]
-    A --> H[Simulación SIL]
-    H --> I[Banco con hardware HIL]
-    I --> J[Sistema real]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Decisión con n condiciones»; luego «Vectores de prueba» y «Simulación SIL»; luego «Criterio» y «Banco con hardware HIL»; luego «2 pruebas mínimas», «2 pruebas mínimas», «n + 1 pruebas mínimas» y «Sistema real»; luego «Cada condición, aislada, cambia el resultado».](../../../site/assets/figures/mermaid-4f6b72f18e.svg)
 
 La rama de arriba mide la profundidad de las pruebas sobre la lógica; la de abajo, el nivel de realismo del entorno donde se ejecutan. Son ejes independientes y los dos importan.
 

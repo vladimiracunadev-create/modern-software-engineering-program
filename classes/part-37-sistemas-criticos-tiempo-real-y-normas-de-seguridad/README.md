@@ -12,19 +12,7 @@ Esta parte no sustituye una norma ni una certificación. Las normas de seguridad
 
 La primera clase enseña a distinguir peligro, riesgo y control y a usar cuatro técnicas de análisis, midiendo qué ve cada una (`SE-445`). Las cuatro siguientes toman el marco genérico de la seguridad funcional y tres adaptaciones sectoriales (automoción, aviación y dispositivos médicos) y miden lo que cada una pide con un laboratorio propio: probabilidad de fallo y causa común, cobertura de diagnóstico por inyección de fallos, cobertura estructural y clasificación por módulos (`SE-446` a `SE-449`). La sexta organiza toda esa evidencia como un caso de seguridad con trazabilidad (`SE-450`). Las cuatro siguientes verifican el controlador: los plazos y la inversión de prioridad, las reglas de codificación, el modelo de estados con contraejemplos y la cobertura MC/DC con simulación y banco (`SE-451` a `SE-454`). Las dos últimas aplican todo a un fallo real, el Therac-25, y a un paquete de aseguramiento (`SE-455` y `SE-456`).
 
-```mermaid
-flowchart LR
-    A[Peligros y riesgo] --> B[Integridad por función]
-    B --> C[Automoción, aviación y medicina]
-    C --> D[Caso de seguridad y trazabilidad]
-    D --> E[Plazos de tiempo real]
-    E --> F[Reglas de codificación]
-    F --> G[Modelo de estados y contraejemplos]
-    G --> H[Cobertura MC/DC, SIL y HIL]
-    H --> I[Taller: un fallo real]
-    I --> J[Proyecto: paquete de aseguramiento]
-    J -->|riesgo cambia o evidencia caduca| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Peligros y riesgo»; luego «Integridad por función»; luego «Automoción, aviación y medicina»; luego «Caso de seguridad y trazabilidad»; luego «Plazos de tiempo real»; luego «Reglas de codificación»; luego «Modelo de estados y contraejemplos»; luego «Cobertura MC/DC, SIL y HIL»; luego «Taller: un fallo real»; luego «Proyecto: paquete de aseguramiento». Retornos: «Proyecto: paquete de aseguramiento» lleva a «Peligros y riesgo» (riesgo cambia o evidencia caduca).](../../site/assets/figures/mermaid-ca59cfba33.svg)
 
 El diagrama se lee de izquierda a derecha y no es un orden obligatorio de trabajo: es el orden en que se explican las piezas. El retorno indica que un paquete de aseguramiento se reabre cuando cambia el sistema, el uso o la evidencia.
 

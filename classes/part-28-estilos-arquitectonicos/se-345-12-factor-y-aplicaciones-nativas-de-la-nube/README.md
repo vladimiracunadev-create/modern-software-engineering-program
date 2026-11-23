@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código: un repositorio] --> B[Construir: una vez]
-    B --> C[Artefacto inmutable]
-    D[Configuración: entorno] --> E[Ejecutar: proceso sin estado]
-    C --> E
-    F[Servicios de apoyo: base de datos, cola, caché] --> E
-    E --> G[Registros a la salida estándar]
-    E --> H{Señal de parada}
-    H --> I[Drenar y devolver trabajo]
-    E --> J[Más copias: concurrencia por procesos]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Código: un repositorio»; luego «Construir: una vez»; luego «Artefacto inmutable», «Configuración: entorno» y «Servicios de apoyo: base de datos, cola, caché»; luego «Ejecutar: proceso sin estado»; luego «Registros a la salida estándar», «Señal de parada» y «Más copias: concurrencia por procesos»; luego «Drenar y devolver trabajo».](../../../site/assets/figures/mermaid-790a5adeb5.svg)
 
 El mapa muestra que se construye una vez y se ejecuta muchas veces con configuraciones distintas. El proceso es desechable: puede pararse en cualquier momento porque no guarda nada que no esté en un servicio de apoyo, y puede multiplicarse porque no depende de que haya una sola copia.
 

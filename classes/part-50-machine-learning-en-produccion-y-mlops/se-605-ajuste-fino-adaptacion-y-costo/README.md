@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Modelo base] --> B{¿Rinde en la población nueva?}
-    B -->|sí| C[Usarlo tal cual y medir]
-    B -->|no| D{¿Hay datos etiquetados?}
-    D -->|pocos| E[Adaptar pocos parámetros]
-    D -->|muchos| F[Adaptar completo o entrenar desde cero]
-    E --> G[Evaluar en población nueva y en la original]
-    F --> G
-    G --> H{¿Olvido aceptable y mejora real?}
-    H -->|sí| I[Registrar el modelo con su base y sus datos]
-    H -->|no| J[Más datos, otra adaptación o volver atrás]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Modelo base»; luego «¿Rinde en la población nueva?»; luego «Usarlo tal cual y medir» y «¿Hay datos etiquetados?»; luego «Adaptar pocos parámetros» y «Adaptar completo o entrenar desde cero»; luego «Evaluar en población nueva y en la original»; luego «¿Olvido aceptable y mejora real?»; luego «Registrar el modelo con su base y sus datos» y «Más datos, otra adaptación o volver atrás».](../../../site/assets/figures/mermaid-734ba44f8f.svg)
 
 El mapa empieza por medir al modelo base en la población nueva, porque la primera pregunta es si adaptar sirve. La evaluación vuelve a la población original antes de aceptar: es el paso que un equipo apurado omite.
 

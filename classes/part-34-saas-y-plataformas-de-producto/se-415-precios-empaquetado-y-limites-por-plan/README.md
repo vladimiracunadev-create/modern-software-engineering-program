@@ -57,18 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Valor que obtiene el cliente] --> B[Métrica de valor]
-    B --> C[Modelo de precio: fijo, puesto, uso, tramos]
-    C --> D[Planes con límites y funciones]
-    D --> E[Segmentos que eligen cada plan]
-    E --> F[Ingreso y costo por segmento]
-    F --> G[Revisión con datos]
-    G --> B
-    D --> H[Motor de derechos]
-    H --> I[Límite que corta o cobra el exceso]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Valor que obtiene el cliente»; luego «Métrica de valor»; luego «Modelo de precio: fijo, puesto, uso, tramos»; luego «Planes con límites y funciones»; luego «Segmentos que eligen cada plan» y «Motor de derechos»; luego «Ingreso y costo por segmento» y «Límite que corta o cobra el exceso»; luego «Revisión con datos». Retornos: «Revisión con datos» lleva a «Métrica de valor».](../../../site/assets/figures/mermaid-b19ff5e10c.svg)
 
 El valor que obtiene el cliente se resume en una métrica; el modelo de precio la convierte en dinero, los planes agrupan límites y funciones para segmentos distintos, y cada segmento aporta ingreso y cuesta algo servir. La revisión cierra el ciclo; el motor de derechos (`SE-414`) hace cumplir el diseño.
 

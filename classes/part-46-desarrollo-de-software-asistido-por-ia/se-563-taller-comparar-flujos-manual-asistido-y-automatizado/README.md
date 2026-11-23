@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Conjunto de tareas] --> B[Asignación pareada y orden alternado]
-    B --> C[Flujo manual]
-    B --> D[Flujo asistido]
-    B --> E[Flujo automatizado]
-    C --> F[Registro: horas, defectos, revisión]
-    D --> F
-    E --> F
-    F --> G[Análisis: mediana, intervalo, defectos]
-    G --> H[Sensibilidad: tasa de aciertos]
-    H --> I{Decisión}
-    I -->|diferencia clara| J[Adoptar con controles]
-    I -->|diferencia dentro del ruido| K[Medir más o no cambiar]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Conjunto de tareas»; luego «Asignación pareada y orden alternado»; luego «Flujo manual», «Flujo asistido» y «Flujo automatizado»; luego «Registro: horas, defectos, revisión»; luego «Análisis: mediana, intervalo, defectos»; luego «Sensibilidad: tasa de aciertos»; luego «Decisión»; luego «Adoptar con controles» y «Medir más o no cambiar».](../../../site/assets/figures/mermaid-24e7e86473.svg)
 
 El mapa recorre el protocolo de principio a fin. Las tres ramas parten de las mismas tareas, y la decisión se toma sobre el análisis con su incertidumbre, no sobre un promedio sin intervalo.
 

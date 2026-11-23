@@ -53,22 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tarea] --> B[Dimensiones de decisión]
-    B --> C[Espacio de interpretaciones]
-    D[Instrucciones del proyecto] --> E{Contradicciones}
-    E -->|sí| F[Elección arbitraria]
-    E -->|no| G[Reglas coherentes]
-    H[Documentos recuperados] --> I{Versión vigente}
-    I -->|sin filtro| J[Mezcla de versiones]
-    I -->|con metadatos| K[Solo lo vigente]
-    G --> L[Contexto diseñado]
-    K --> L
-    C -->|restricciones| L
-    L --> M[Pocas interpretaciones restantes]
-    M --> N[Salida revisable]
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Tarea», «Instrucciones del proyecto» y «Documentos recuperados»; luego «Dimensiones de decisión», «Contradicciones» y «Versión vigente»; luego «Elección arbitraria», «Espacio de interpretaciones», «Reglas coherentes», «Solo lo vigente» y «Mezcla de versiones»; luego «Contexto diseñado»; luego «Pocas interpretaciones restantes»; luego «Salida revisable».](../../../site/assets/figures/mermaid-8a9a5f15c6.svg)
 
 El mapa muestra tres entradas al contexto (decisiones fijadas, reglas coherentes, documentos vigentes) y una salida: el número de interpretaciones que sobreviven. Cada flecha es una forma de reducirlo y cada nodo de decisión es un lugar donde el contexto puede degradarse.
 

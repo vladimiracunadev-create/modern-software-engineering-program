@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    B[Compilación] --> A[Artefacto]
-    A --> H[Resumen y firma]
-    A --> C[Canal de entrega]
-    C --> D[Descarga a temporal]
-    D --> V{¿Verifica?}
-    V -->|sí| R[Reemplazo atómico]
-    V -->|no| X[Rechazo y aviso]
-    R --> E[Escalón de despliegue]
-    E -->|falla| U[Reversión]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Compilación»; luego «Artefacto»; luego «Resumen y firma» y «Canal de entrega»; luego «Descarga a temporal»; luego «¿Verifica?»; luego «Reemplazo atómico» y «Rechazo y aviso»; luego «Escalón de despliegue»; luego «Reversión».](../../../site/assets/figures/mermaid-0066d52df1.svg)
 
 El mapa se lee de izquierda a derecha: el artefacto lleva resumen y firma por un canal; el cliente descarga a un temporal, verifica y reemplaza; el despliegue avanza por escalones y puede revertirse. No describe un sistema de actualización concreto.
 

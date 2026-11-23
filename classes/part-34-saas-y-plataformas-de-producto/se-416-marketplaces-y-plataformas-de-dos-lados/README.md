@@ -57,20 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Lado de oferta: vendedores] --> C[Plataforma]
-    B[Lado de demanda: compradores] --> C
-    C --> D[Búsqueda y emparejamiento]
-    C --> E[Confianza: verificación, reseñas, garantía]
-    C --> F[Pago retenido]
-    F --> G[Confirmación o plazo]
-    G -->|conforme| H[Liberación al vendedor]
-    G -->|disputa| I[Resolución y reembolso]
-    D --> J[Liquidez]
-    J --> A
-    J --> B
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Lado de oferta: vendedores» y «Lado de demanda: compradores»; luego «Plataforma»; luego «Búsqueda y emparejamiento», «Confianza: verificación, reseñas, garantía» y «Pago retenido»; luego «Liquidez» y «Confirmación o plazo»; luego «Liberación al vendedor» y «Resolución y reembolso». Retornos: «Liquidez» lleva a «Lado de oferta: vendedores»; «Liquidez» lleva a «Lado de demanda: compradores».](../../../site/assets/figures/mermaid-0470fce8d9.svg)
 
 La plataforma une a los dos lados con tres capas: encontrar (búsqueda y emparejamiento), confiar (verificación, reseñas, garantía) y pagar (retención y liberación). La liquidez que resulta alimenta a ambos lados; si falta en uno, el círculo se corta.
 

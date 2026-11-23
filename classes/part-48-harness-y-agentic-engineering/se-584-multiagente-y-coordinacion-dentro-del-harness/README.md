@@ -54,20 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    T[Tarea] --> Q{¿Divisible por propiedad de archivos?}
-    Q -->|no| U[Un solo agente]
-    Q -->|sí| D[Coordinador divide y asigna]
-    D --> A1[Agente A: rama y árbol propios]
-    D --> A2[Agente B: rama y árbol propios]
-    A1 --> I[Integrador]
-    A2 --> I
-    I --> F[Fusionar de uno en uno]
-    F --> V[Menú completo tras cada fusión]
-    V -->|falla| D
-    V -->|pasa| M[Integrado]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Tarea»; luego «¿Divisible por propiedad de archivos?»; luego «Un solo agente» y «Coordinador divide y asigna»; luego «Agente A: rama y árbol propios» y «Agente B: rama y árbol propios»; luego «Integrador»; luego «Fusionar de uno en uno»; luego «Menú completo tras cada fusión»; luego «Integrado». Retornos: «Menú completo tras cada fusión» lleva a «Coordinador divide y asigna» (falla).](../../../site/assets/figures/mermaid-56a80e2fad.svg)
 
 El mapa tiene una decisión inicial (¿divisible?) y un lazo final (la verificación tras cada fusión devuelve al coordinador). El integrador es un nodo único: la fusión se hace de uno en uno para saber cuál la rompió.
 

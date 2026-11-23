@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Cliente] -->|trozo i| U[Subida por trozos]
-    U --> T[Almacenamiento temporal]
-    T -->|huella correcta| F[Archivo completo]
-    U -->|corte| R[Consultar desplazamiento]
-    R --> C
-    F --> V[Validación: tamaño, tipo, nombre generado]
-    V --> A[Análisis diferido]
-    V -->|rechazo| X[Error con forma única]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Cliente»; luego «Subida por trozos»; luego «Almacenamiento temporal» y «Consultar desplazamiento»; luego «Archivo completo»; luego «Validación: tamaño, tipo, nombre generado»; luego «Análisis diferido» y «Error con forma única». Retornos: «Consultar desplazamiento» lleva a «Cliente».](../../../site/assets/figures/mermaid-c9a791e211.svg)
 
 El mapa se lee del cliente al análisis: la subida se divide en trozos que se confirman; un corte se resuelve consultando el desplazamiento recibido, no recomenzando; el archivo completo se valida (huella, tamaño, tipo) y recibe un nombre que genera el servidor antes de pasar al análisis diferido. No describe un producto sino los puntos donde un archivo puede perderse o dañar.
 

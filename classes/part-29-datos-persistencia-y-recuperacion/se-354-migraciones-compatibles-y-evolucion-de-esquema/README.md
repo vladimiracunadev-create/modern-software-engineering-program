@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Esquema E0 y código v1] --> B[Expandir: añadir lo nuevo, mantener lo viejo]
-    B --> C[Rellenar por lotes y mantener las dos copias]
-    C --> D[Migrar los clientes a la versión v2]
-    D --> E{¿Queda alguna v1?}
-    E -->|no| F[Contraer: quitar lo viejo]
-    E -->|sí| D
-    F --> G[Punto de no retorno: respaldo]
-    B -.->|vuelta atrás segura| A
-    C -.->|vuelta atrás segura| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Esquema E0 y código v1»; luego «Expandir: añadir lo nuevo, mantener lo viejo»; luego «Rellenar por lotes y mantener las dos copias»; luego «Migrar los clientes a la versión v2»; luego «¿Queda alguna v1?»; luego «Contraer: quitar lo viejo»; luego «Punto de no retorno: respaldo». Retornos: «¿Queda alguna v1?» lleva a «Migrar los clientes a la versión v2» (sí); «Expandir: añadir lo nuevo, mantener lo viejo» lleva a «Esquema E0 y código v1» (vuelta atrás segura); «Rellenar por lotes y mantener las dos copias» lleva a «Expandir: añadir lo nuevo, mantener lo viejo» (vuelta atrás segura).](../../../site/assets/figures/mermaid-e34378e203.svg)
 
 El mapa muestra que las tres fases se pueden revertir salvo la última: hasta contraer, volver atrás es quitar lo nuevo; después de contraer, volver exige un respaldo.
 

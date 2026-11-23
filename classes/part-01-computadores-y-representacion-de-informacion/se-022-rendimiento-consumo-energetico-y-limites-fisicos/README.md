@@ -55,16 +55,7 @@ benchmark repetible; aplicarás razonamiento de cuello de botella; delimitarás 
 | Energía y carbono | amplían frontera a electricidad y hardware | evita equiparar rapidez con sostenibilidad |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- W[Trabajo útil] --> T[Tiempo]
- W --> R[Recursos]
- T --> P[Latencia y throughput]
- R --> E[Energía]
- E --> C[Emisiones bajo frontera]
- P --> D[Decisión]
- C --> D
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Trabajo útil»; luego «Tiempo» y «Recursos»; luego «Latencia y throughput» y «Energía»; luego «Emisiones bajo frontera»; luego «Decisión».](../../../site/assets/figures/mermaid-ae8569c673.svg)
 
 Tiempo, energía y emisiones se relacionan pero no son intercambiables. La intensidad de
 la red y el hardware incorporado requieren datos adicionales.

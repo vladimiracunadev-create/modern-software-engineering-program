@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Equipo de producto: necesita un servicio] --> B{¿Camino dorado?}
-    B -->|sí| C[Plantilla con guardas incorporadas]
-    B -->|no| D[Pasos manuales propios]
-    C --> E[Verificador de políticas]
-    D --> E
-    E -->|cumple| F[Despliegue]
-    E -->|no cumple| G[Corrección o excepción registrada]
-    F --> H[Medidas: pasos, errores, tiempo, adopción]
-    H --> I[Equipo de plataforma: mejora el camino]
-    I --> C
-    G --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Equipo de producto: necesita un servicio»; luego «¿Camino dorado?»; luego «Plantilla con guardas incorporadas» y «Pasos manuales propios»; luego «Verificador de políticas»; luego «Despliegue» y «Corrección o excepción registrada»; luego «Medidas: pasos, errores, tiempo, adopción»; luego «Equipo de plataforma: mejora el camino». Retornos: «Equipo de plataforma: mejora el camino» lleva a «Plantilla con guardas incorporadas».](../../../site/assets/figures/mermaid-6f0cd84b82.svg)
 
 El mapa muestra que el camino dorado y el verificador son dos mecanismos distintos: el primero **reduce** el número de pasos y de decisiones; el segundo **comprueba** el resultado venga de donde venga. La excepción registrada es parte del diseño: cuando alguien se aparta del camino, el motivo vuelve al equipo de plataforma como información para mejorarlo.
 

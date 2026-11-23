@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Señal continua] --> B[Filtro antes de muestrear]
-    B --> C[Muestreo a tasa fija]
-    C --> D[Búfer y procesamiento]
-    D --> E{Llega a tiempo?}
-    E -->|sí| F[Reproducción]
-    E -->|no| G[Subcarga o fotograma perdido]
-    F --> H[Persona]
-    G --> H
-    H -->|molestia o malestar| D
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Señal continua»; luego «Filtro antes de muestrear»; luego «Muestreo a tasa fija»; luego «Búfer y procesamiento»; luego «Llega a tiempo?»; luego «Reproducción» y «Subcarga o fotograma perdido»; luego «Persona». Retornos: «Persona» lleva a «Búfer y procesamiento» (molestia o malestar).](../../../site/assets/figures/mermaid-f9aa0a1be0.svg)
 
 El mapa tiene dos lugares donde se pierde información de forma irreversible: antes del muestreo, si no hay filtro, y en el plazo, si el procesamiento llega tarde. En ambos casos la persona lo percibe, y lo único que reduce el daño es un diseño que lo prevea.
 

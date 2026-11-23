@@ -54,20 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Texto de entrada] --> B[Contexto finito]
-    B --> C[Distribución de probabilidad sobre lo siguiente]
-    C --> D{Muestreo}
-    D -->|temperatura baja| E[Repite lo más probable]
-    D -->|temperatura alta| F[Más variedad y más error]
-    E --> G[Respuesta]
-    F --> G
-    G --> H{Hay verificación externa}
-    H -->|prueba, compilador, fuente| I[Respuesta comprobada]
-    H -->|no| J[Respuesta que solo suena bien]
-    J -->|confianza no calibrada| K[Error aceptado]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Texto de entrada»; luego «Contexto finito»; luego «Distribución de probabilidad sobre lo siguiente»; luego «Muestreo»; luego «Repite lo más probable» y «Más variedad y más error»; luego «Respuesta»; luego «Hay verificación externa»; luego «Respuesta comprobada» y «Respuesta que solo suena bien»; luego «Error aceptado».](../../../site/assets/figures/mermaid-b86514096a.svg)
 
 El mapa separa lo que ocurre dentro del modelo (contexto, distribución, muestreo) de lo que ocurre fuera (verificación). La rama final es el punto central de la clase: sin un comprobador externo, la calidad de la respuesta no puede inferirse de la propia respuesta.
 

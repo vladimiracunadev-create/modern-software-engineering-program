@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Patrón de acceso: filtro, orden, agrupación] --> B[Plan de ejecución]
-    B --> C{¿Recorre la tabla?}
-    C -->|sí| D[Medir selectividad]
-    D -->|selectiva| E[Índice sobre las columnas del filtro]
-    D -->|poco selectiva| F[Otra forma de consulta o de dato]
-    E --> G[Costo en escritura y espacio]
-    G --> H[Justificar o retirar el índice]
-    H -->|cambió el patrón| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Patrón de acceso: filtro, orden, agrupación»; luego «Plan de ejecución»; luego «¿Recorre la tabla?»; luego «Medir selectividad»; luego «Índice sobre las columnas del filtro» y «Otra forma de consulta o de dato»; luego «Costo en escritura y espacio»; luego «Justificar o retirar el índice». Retornos: «Justificar o retirar el índice» lleva a «Patrón de acceso: filtro, orden, agrupación» (cambió el patrón).](../../../site/assets/figures/mermaid-dc8a906d7f.svg)
 
 El mapa parte del patrón de acceso y no del índice: el índice es una respuesta, y su costo lo paga cada escritura. Si el patrón cambia, el índice deja de justificarse.
 

@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    T[Tarea con atributos] --> S{Selector}
-    S --> P1[Una llamada]
-    S --> P2[Workflow encadenado o paralelo]
-    S --> P3[Enrutamiento a workflow]
-    S --> P4[Agente con presupuesto]
-    S --> P5[Persona decide]
-    P4 -->|errores o costo altos| D1[Workflow con los mismos permisos]
-    D1 -->|siguen los errores| D2[Plantilla o respuesta guardada]
-    D2 -->|sin cobertura| D3[Cola para una persona]
-    D3 -->|sondas correctas| P4
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Tarea con atributos»; luego «Selector»; luego «Una llamada», «Workflow encadenado o paralelo», «Enrutamiento a workflow», «Agente con presupuesto» y «Persona decide»; luego «Workflow con los mismos permisos»; luego «Plantilla o respuesta guardada»; luego «Cola para una persona». Retornos: «Cola para una persona» lleva a «Agente con presupuesto» (sondas correctas).](../../../site/assets/figures/mermaid-f71fa712c2.svg)
 
 El mapa tiene dos mitades: arriba, la selección por atributos; abajo, la escalera por la que un agente baja cuando el entorno falla y por la que sube cuando las sondas tienen éxito.
 

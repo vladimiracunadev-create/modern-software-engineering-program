@@ -54,15 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Build: artefacto con huella] --> B[Repositorio: almacén por contenido]
-    B --> C[Integración: prueba el artefacto]
-    C -->|metadato: probado| D[Preproducción]
-    D -->|metadato: aprobado| E[Producción: mismo artefacto, otra configuración]
-    E -->|fallo| F[Retroceso: versión anterior conservada]
-    B -.->|limpieza| G{¿Se borra algo que el retroceso necesita?}
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Build: artefacto con huella»; luego «Repositorio: almacén por contenido»; luego «Integración: prueba el artefacto» y «¿Se borra algo que el retroceso necesita?»; luego «Preproducción»; luego «Producción: mismo artefacto, otra configuración»; luego «Retroceso: versión anterior conservada».](../../../site/assets/figures/mermaid-9ec66c392c.svg)
 
 El mapa muestra que el artefacto no cambia entre etapas; cambian los metadatos que dicen qué se sabe de él. El repositorio guarda también lo necesario para volver, y la limpieza es la decisión que puede destruirlo.
 

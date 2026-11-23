@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Interrupción] -->|escribe| B[Dato compartido]
-    C[Bucle principal] -->|lee y escribe| B
-    B --> D{Acceso atómico}
-    D -->|no| E[Pérdida, lectura rota o desbordamiento]
-    D -->|sí, por protección| F[Dato coherente]
-    F --> G[Coste: latencia de la interrupción]
-    E --> H[Prueba por enumeración de posiciones]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Interrupción» y «Bucle principal»; luego «Dato compartido»; luego «Acceso atómico»; luego «Pérdida, lectura rota o desbordamiento» y «Dato coherente»; luego «Prueba por enumeración de posiciones» y «Coste: latencia de la interrupción».](../../../site/assets/figures/mermaid-a0fef3d2cf.svg)
 
 El mapa muestra que un dato compartido es seguro solo si cada acceso es atómico o está protegido; la protección cuesta latencia de la interrupción, y los defectos se encuentran enumerando posiciones, no repitiendo ejecuciones.
 

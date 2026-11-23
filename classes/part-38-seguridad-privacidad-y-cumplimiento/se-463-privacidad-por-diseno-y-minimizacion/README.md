@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad de un dato] --> B{Finalidad concreta y plazo}
-    B -->|no| C[No recoger]
-    B -->|sí| D[Recoger lo mínimo]
-    D --> E[Proteger: acceso, cifrado, retención]
-    D --> F[Publicar o compartir]
-    F --> G[Generalizar: k-anonimato]
-    F --> H[Consultar con ruido: privacidad diferencial]
-    F --> I[Seudonimizar con clave por propósito]
-    E --> J[Eliminar al vencer el plazo]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Necesidad de un dato»; luego «Finalidad concreta y plazo»; luego «No recoger» y «Recoger lo mínimo»; luego «Proteger: acceso, cifrado, retención» y «Publicar o compartir»; luego «Eliminar al vencer el plazo», «Generalizar: k-anonimato», «Consultar con ruido: privacidad diferencial» y «Seudonimizar con clave por propósito».](../../../site/assets/figures/mermaid-7b743bd75f.svg)
 
 El mapa pone primero la pregunta de **finalidad**: la mejor protección de un dato es no tenerlo. Tras recoger lo mínimo, la protección en uso y la publicación se tratan por separado, y cada técnica de publicación cubre una amenaza distinta.
 

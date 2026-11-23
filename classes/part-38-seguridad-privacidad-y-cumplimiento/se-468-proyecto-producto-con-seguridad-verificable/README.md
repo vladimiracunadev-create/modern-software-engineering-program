@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Modelo de amenazas] --> B[Selección de requisitos]
-    B --> C[Control y prueba por requisito]
-    C --> D[Evidencia con fecha y huella]
-    D --> E[Validador del paquete]
-    E --> F[Ejecución en dos sistemas]
-    F --> G[Huella canónica]
-    E --> H[LIMITES.md]
-    G --> I[Revisión independiente]
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Modelo de amenazas»; luego «Selección de requisitos»; luego «Control y prueba por requisito»; luego «Evidencia con fecha y huella»; luego «Validador del paquete»; luego «Ejecución en dos sistemas» y «LIMITES.md»; luego «Huella canónica»; luego «Revisión independiente».](../../../site/assets/figures/mermaid-6b9569d3ae.svg)
 
 El paquete se construye de izquierda a derecha y termina en una **revisión independiente**: el validador reduce el trabajo de la persona revisora, no lo sustituye.
 

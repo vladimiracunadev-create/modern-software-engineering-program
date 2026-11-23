@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    I[Instrucciones y comprobador] --> L[Bucle del agente]
-    P[Permisos y confinamiento] --> L
-    T[Pruebas protegidas] --> L
-    L --> V{Terminar: ¿verificación en verde?}
-    V -->|no| N{¿Sin progreso?}
-    N -->|no| L
-    N -->|sí| E[Escalar con la traza]
-    V -->|sí| OK[Aceptar]
-    L --> R[Traza]
-    R --> EV[Evaluación y regresión]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Instrucciones y comprobador», «Permisos y confinamiento» y «Pruebas protegidas»; luego «Bucle del agente»; luego «Terminar: ¿verificación en verde?» y «Traza»; luego «¿Sin progreso?», «Aceptar» y «Evaluación y regresión»; luego «Escalar con la traza». Retornos: «¿Sin progreso?» lleva a «Bucle del agente» (no).](../../../site/assets/figures/mermaid-7d6bc5db56.svg)
 
 El mapa muestra tres controles que actúan antes (instrucciones, permisos, pruebas protegidas), dos que actúan al terminar y al atascarse (verificación obligatoria, falta de progreso) y la traza que alimenta la evaluación.
 

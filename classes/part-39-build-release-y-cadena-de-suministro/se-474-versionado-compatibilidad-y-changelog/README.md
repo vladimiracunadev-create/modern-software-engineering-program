@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio en el código] --> B{Afecta a la API pública?}
-    B -->|no| C[Parche o interno]
-    B -->|sí| D{Compatible con los clientes?}
-    D -->|añade| E[Menor]
-    D -->|rompe| F[Mayor]
-    G[Comparador de firmas] -->|ve parte| D
-    H[Revisión humana y pruebas de contrato] -->|ve el resto| D
-    E --> I[Registro de cambios]
-    F --> I
-    F --> J[Obsolescencia anunciada antes]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Cambio en el código»; luego «Afecta a la API pública?», «Comparador de firmas» y «Revisión humana y pruebas de contrato»; luego «Parche o interno» y «Compatible con los clientes?»; luego «Menor» y «Mayor»; luego «Registro de cambios» y «Obsolescencia anunciada antes».](../../../site/assets/figures/mermaid-105926a427.svg)
 
 El mapa muestra que el nivel se decide con dos fuentes de información que se complementan: la herramienta que ve la sintaxis y la persona o prueba que ve el comportamiento. La obsolescencia anunciada con antelación suaviza el mayor.
 

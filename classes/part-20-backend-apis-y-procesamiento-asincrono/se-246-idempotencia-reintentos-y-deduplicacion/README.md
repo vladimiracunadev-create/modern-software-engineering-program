@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Cliente] -->|POST + clave K| S[Servidor]
-    S --> Q{Existe K?}
-    Q -->|no| W[Ejecutar y guardar respuesta con K]
-    Q -->|sí, misma carga| G[Devolver respuesta guardada]
-    Q -->|sí, otra carga| E[422: clave reutilizada]
-    W -->|respuesta perdida| T[Tiempo agotado]
-    T -->|retroceso con jitter| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Cliente»; luego «Servidor»; luego «Existe K?»; luego «Ejecutar y guardar respuesta con K», «Devolver respuesta guardada» y «422: clave reutilizada»; luego «Tiempo agotado». Retornos: «Tiempo agotado» lleva a «Cliente» (retroceso con jitter).](../../../site/assets/figures/mermaid-edeaccba02.svg)
 
 El mapa se lee desde el cliente: la clave `K` viaja con la solicitud; el servidor decide entre ejecutar, devolver lo guardado o rechazar por reutilización. La flecha de retroceso con jitter cierra el ciclo y muestra que el reintento es parte del contrato, no un detalle del cliente. No es un protocolo único: la clave puede ser de cliente o derivarse de la carga.
 

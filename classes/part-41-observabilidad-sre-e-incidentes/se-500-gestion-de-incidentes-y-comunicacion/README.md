@@ -52,21 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Alerta o reporte] --> B[Declarar incidente]
-    B --> C[Clasificar severidad]
-    C --> D[Asignar roles]
-    D --> E[Comando]
-    D --> F[Operaciones]
-    D --> G[Comunicaciones]
-    D --> H[Escriba]
-    F --> I[Mitigar]
-    I --> J[Verificar]
-    G --> K[Actualizar a las partes]
-    J --> L[Cerrar y pasar a análisis]
-    K -->|preguntas| E
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Alerta o reporte»; luego «Declarar incidente»; luego «Clasificar severidad»; luego «Asignar roles»; luego «Operaciones», «Comunicaciones» y «Escriba»; luego «Mitigar» y «Actualizar a las partes»; luego «Verificar» y «Comando»; luego «Cerrar y pasar a análisis».](../../../site/assets/figures/mermaid-08325df7d6.svg)
 
 El mapa separa **decidir** (comando), **hacer** (operaciones), **informar** (comunicaciones) y **registrar** (escriba). La flecha de preguntas hacia el comando muestra la interrupción que la comunicación periódica debe reducir.
 

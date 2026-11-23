@@ -33,16 +33,7 @@ Analizarás impactos directos, habilitados y sistémicos; diseñarás alternativ
 | Humana | carga cognitiva, guardias, salud laboral |
 
 ## Mapa conceptual
-```mermaid
-flowchart TD
- D[Decisión] --> X[Impacto directo]
- D --> H[Conducta habilitada]
- D --> S[Efecto sistémico]
- X --> L[Ciclo de vida]
- H --> L
- S --> L
- L --> R[Rediseño y reparación]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Decisión»; luego «Impacto directo», «Conducta habilitada» y «Efecto sistémico»; luego «Ciclo de vida»; luego «Rediseño y reparación».](../../../site/assets/figures/mermaid-584654a07a.svg)
 Optimizar consumo por transacción puede aumentar consumo total si el servicio induce más uso: efecto rebote.
 
 ## Conceptos y decisiones

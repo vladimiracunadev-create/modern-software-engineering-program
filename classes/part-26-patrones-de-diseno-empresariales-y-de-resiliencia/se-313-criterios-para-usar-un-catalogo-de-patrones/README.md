@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dolor observable] --> B[Fuerza nombrada]
-    B --> C{¿Existe la variación hoy?}
-    C -->|no| D[Dejar el diseño simple]
-    C -->|sí| E[Candidato: patrón del catálogo]
-    E --> F[Medir costo: nodos, indirección, aprendizaje]
-    F --> G{¿El costo es menor que el dolor?}
-    G -->|no| D
-    G -->|sí| H[Aplicar con condición de salida]
-    H --> I[Revisar con evidencia]
-    I -->|la fuerza desapareció| D
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Dolor observable»; luego «Fuerza nombrada»; luego «¿Existe la variación hoy?»; luego «Candidato: patrón del catálogo»; luego «Medir costo: nodos, indirección, aprendizaje»; luego «¿El costo es menor que el dolor?»; luego «Aplicar con condición de salida»; luego «Revisar con evidencia»; luego «Dejar el diseño simple».](../../../site/assets/figures/mermaid-b3ebf9f15f.svg)
 
 El mapa tiene dos salidas hacia el diseño simple: antes de aplicar, si la variación no existe, y después, si la fuerza desapareció. Un patrón que no puede retirarse se vuelve parte del problema.
 

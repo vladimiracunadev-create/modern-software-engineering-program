@@ -57,19 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Experiencia del cliente] --> B[SLI: éxito por solicitud o por tarea]
-    B --> C[SLO interno más estricto]
-    C --> D[Presupuesto de errores]
-    D -->|se agota| E[Se congela la funcionalidad y se invierte en fiabilidad]
-    D -->|sobra| F[Se permite riesgo y velocidad]
-    C --> G[SLA del plan con crédito]
-    B --> H[Medición por inquilino]
-    H --> I[Soporte por severidad y plan]
-    I --> J[Comunicación y postmortem]
-    J --> A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Experiencia del cliente»; luego «SLI: éxito por solicitud o por tarea»; luego «SLO interno más estricto» y «Medición por inquilino»; luego «Presupuesto de errores», «SLA del plan con crédito» y «Soporte por severidad y plan»; luego «Se congela la funcionalidad y se invierte en fiabilidad», «Se permite riesgo y velocidad» y «Comunicación y postmortem». Retornos: «Comunicación y postmortem» lleva a «Experiencia del cliente».](../../../site/assets/figures/mermaid-37a8077818.svg)
 
 Todo parte de lo que el cliente experimenta; el SLI lo expresa en números, el SLO interno deja margen frente al SLA y el presupuesto de errores convierte el objetivo en una decisión. La medición por inquilino evita que el agregado esconda a un cliente, y el soporte y la comunicación cierran el ciclo cuando algo falla.
 

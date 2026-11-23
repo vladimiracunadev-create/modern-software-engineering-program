@@ -53,27 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    F[Fallo observado] --> R[Reproducir con la misma configuración]
-    R --> T[Leer la traza]
-    T --> P{Patrón}
-    P -->|lecturas repetidas, sin escritura| C[Contexto ausente o herramienta ausente]
-    P -->|solicitud de cierre repetida| S[Parada ignorada]
-    P -->|escritura denegada| Q[Permiso]
-    P -->|cierre sin pruebas| V[Verificación ausente]
-    P -->|pocos pasos y sin cierre| L[Tope bajo]
-    C --> D{¿Herramienta ofrecida?}
-    D -->|no| H[Herramienta ausente]
-    D -->|sí| X[Contexto ausente]
-    H --> G[Cambiar solo esa pieza y repetir]
-    X --> G
-    S --> G
-    Q --> G
-    V --> G
-    L --> G
-    G --> N[Añadir tarea de regresión]
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Fallo observado»; luego «Reproducir con la misma configuración»; luego «Leer la traza»; luego «Patrón»; luego «Contexto ausente o herramienta ausente», «Parada ignorada», «Permiso», «Verificación ausente» y «Tope bajo»; luego «¿Herramienta ofrecida?»; luego «Herramienta ausente» y «Contexto ausente»; luego «Cambiar solo esa pieza y repetir»; luego «Añadir tarea de regresión».](../../../site/assets/figures/mermaid-bd911dff82.svg)
 
 El mapa es el procedimiento: del patrón a la pieza, con una pregunta extra para el único par ambiguo (la herramienta ofrecida), y un cierre que siempre repite y siempre deja una tarea de regresión.
 

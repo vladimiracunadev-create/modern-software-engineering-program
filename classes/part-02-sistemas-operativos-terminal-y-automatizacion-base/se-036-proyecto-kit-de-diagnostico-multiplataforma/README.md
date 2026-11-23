@@ -57,19 +57,7 @@ Podrás definir un contrato versionado; separar núcleo y adaptadores; construir
 | Matriz y evidencia | separa diseño de ejecución | declarar soporte honesto |
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
- U[Persona operadora] --> CLI[Contrato CLI]
- CLI --> C[Núcleo del kit de diagnóstico multiplataforma]
- C --> P[Adaptador PowerShell]
- C --> B[Adaptador Bash]
- P --> N[Modelo normalizado]
- B --> N
- N --> R[Informe redactado]
- T[Pruebas de contrato] --> CLI
- T --> P
- T --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Persona operadora» y «Pruebas de contrato»; luego «Contrato CLI»; luego «Núcleo del kit de diagnóstico multiplataforma»; luego «Adaptador PowerShell» y «Adaptador Bash»; luego «Modelo normalizado»; luego «Informe redactado».](../../../site/assets/figures/mermaid-77612038fa.svg)
 
 La persona interactúa con un contrato estable. Los adaptadores observan plataformas, el núcleo interpreta y el informe separa evidencia, inferencia y recomendación.
 
@@ -85,19 +73,7 @@ No contiene comandos concatenados ni rutas globales. Recibe resultados de adapta
 
 PowerShell y Bash implementan capacidades con herramientas documentadas. Cada adaptador informa `supported`, `unavailable` o `failed`, junto con evidencia segura. Una capacidad ausente no se convierte en dato inventado.
 
-```mermaid
-flowchart TB
-    CLI[Contrato CLI] --> CORE[Núcleo del kit de diagnóstico multiplataforma]
-    CORE --> CFG[Configuración y redacción]
-    CORE --> WIN[Adaptador Windows/PowerShell]
-    CORE --> POSIX[Adaptador Linux-macOS/Bash]
-    WIN --> MODEL[Modelo común + detalles de plataforma]
-    POSIX --> MODEL
-    MODEL --> REPORT[Informe JSON o humano]
-    TESTS[Pruebas de contrato] --> CLI
-    TESTS --> WIN
-    TESTS --> POSIX
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Pruebas de contrato»; luego «Contrato CLI»; luego «Núcleo del kit de diagnóstico multiplataforma»; luego «Configuración y redacción», «Adaptador Windows/PowerShell» y «Adaptador Linux-macOS/Bash»; luego «Modelo común + detalles de plataforma»; luego «Informe JSON o humano».](../../../site/assets/figures/mermaid-afc566d82c.svg)
 
 El diagrama obliga a distinguir modelo común y detalle específico. Es aceptable que una plataforma aporte menos datos; no lo es ocultarlo.
 

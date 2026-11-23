@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Idempotencia] --> N2[Precondición / postcondición] --> N3[Plan / dry-run] --> N4[Retry / operaciones inciertas] --> N5[Journal / rollback]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Idempotencia»; luego «Precondición / postcondición»; luego «Plan / dry-run»; luego «Retry / operaciones inciertas»; luego «Journal / rollback». Retornos: «Journal / rollback» lleva a «Idempotencia» (fallo o cambio).](../../../site/assets/figures/mermaid-1d2a89eccc.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta de decisión] --> B[Modelo estructural]
-    A --> C[Modelo conductual]
-    A --> D[Modelo de información]
-    B --> E[Comprobación estructural]
-    D --> F[Normalización]
-    B --> G[Deriva con el código]
-    G -->|actualizar| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Pregunta de decisión»; luego «Modelo estructural», «Modelo conductual» y «Modelo de información»; luego «Comprobación estructural», «Deriva con el código» y «Normalización». Retornos: «Deriva con el código» lleva a «Modelo estructural» (actualizar).](../../../site/assets/figures/mermaid-530c211e4e.svg)
 
 El mapa se lee desde la pregunta que el modelo debe responder: según ella se elige la vista. Las comprobaciones (estructural, de deriva, de normalización) acotan lo que un modelo puede decir con verdad; la flecha de retorno indica que una deriva detectada obliga a actualizar el modelo o el código, no a ignorarla.
 

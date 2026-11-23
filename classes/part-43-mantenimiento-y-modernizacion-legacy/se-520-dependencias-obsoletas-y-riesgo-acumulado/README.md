@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dependencias directas] --> B[Dependencias transitivas]
-    B --> C[Inventario con versiones y soporte]
-    C --> D[Rezago acumulado]
-    C --> E[Avisos de seguridad]
-    D --> F[Costo del próximo salto]
-    E --> G[Ventana de exposición]
-    F --> H[Política de actualización]
-    G --> H
-    H --> I[Actualización en pasos pequeños con pruebas]
-    I -->|la prueba falla| J[Revisar el cambio incompatible]
-    I --> C
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Dependencias directas»; luego «Dependencias transitivas»; luego «Inventario con versiones y soporte»; luego «Rezago acumulado» y «Avisos de seguridad»; luego «Costo del próximo salto» y «Ventana de exposición»; luego «Política de actualización»; luego «Actualización en pasos pequeños con pruebas»; luego «Revisar el cambio incompatible». Retornos: «Actualización en pasos pequeños con pruebas» lleva a «Inventario con versiones y soporte».](../../../site/assets/figures/mermaid-fb71b9c9bd.svg)
 
 El mapa separa dos riesgos que crecen con el rezago: el **costo** del salto, que sube con cada versión omitida, y la **exposición**, que sube con cada aviso sin atender. La política consiste en decidir cuánto de cada uno se acepta.
 

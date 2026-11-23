@@ -34,16 +34,7 @@ Reconstruirás una anatomía desde evidencia, diferenciarás afirmación de obse
 | Operación | señales, recuperación, soporte y retiro |
 
 ## Mapa conceptual
-```mermaid
-flowchart LR
- U[Usuario] --> X[Interfaz] --> C[Contrato]
- C --> L[Lógica] --> D[Datos]
- L --> E[Dependencias]
- D --> O[Operación]
- O --> U
- Q[Fuentes y decisiones] --- C
- Q --- L
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Usuario»; luego «Interfaz» y «Fuentes y decisiones»; luego «Contrato»; luego «Lógica»; luego «Datos» y «Dependencias»; luego «Operación». Retornos: «Operación» lleva a «Usuario».](../../../site/assets/figures/mermaid-2ab0b8cc3a.svg)
 El recorrido es vertical: una tarea cruza superficies. Inventariar carpetas sin seguir comportamiento produce una anatomía nominal.
 
 ## Conceptos y decisiones

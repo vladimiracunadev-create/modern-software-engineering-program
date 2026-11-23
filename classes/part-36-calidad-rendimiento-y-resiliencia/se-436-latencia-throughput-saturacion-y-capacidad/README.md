@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Llegadas: tasa y forma] --> C[Cola y servidores]
-    B[Servicio: media y variabilidad] --> C
-    C --> D[Utilización ρ = λ / μ]
-    D --> E[Espera y latencia: media y cola]
-    E --> F[Objetivo de percentil]
-    F --> G[Capacidad: servidores y margen]
-    E -->|Little| H[Concurrencia L = λ · W]
-    G -->|la medida real contradice| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Llegadas: tasa y forma» y «Servicio: media y variabilidad»; luego «Cola y servidores»; luego «Utilización ρ = λ / μ»; luego «Espera y latencia: media y cola»; luego «Objetivo de percentil» y «Concurrencia L = λ · W»; luego «Capacidad: servidores y margen». Retornos: «Capacidad: servidores y margen» lleva a «Servicio: media y variabilidad» (la medida real contradice).](../../../site/assets/figures/mermaid-55959c8b65.svg)
 
 El mapa separa los **insumos** (llegadas y servicio), la **cola** como mecanismo, y la **salida** (latencia, concurrencia, servidores). Un error de capacidad suele estar en un insumo que se supuso (la variabilidad) o en el estadístico del objetivo.
 

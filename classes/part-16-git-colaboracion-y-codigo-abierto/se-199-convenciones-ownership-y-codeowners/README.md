@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Ruta cambiada] --> B[CODEOWNERS]
-    B -->|último patrón gana| C[Propietario]
-    C --> D[Revisión solicitada]
-    E[Mensaje] --> F[Validador]
-    F --> G[Registro de cambios]
-    H[Reformateo] --> I[Lista de commits a ignorar]
-    I --> J[Autoría real]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Ruta cambiada», «Mensaje» y «Reformateo»; luego «CODEOWNERS», «Validador» y «Lista de commits a ignorar»; luego «Propietario», «Registro de cambios» y «Autoría real»; luego «Revisión solicitada».](../../../site/assets/figures/mermaid-d62efd5713.svg)
 
 El mapa se lee como tres canales de reglas comprobables: de la ruta al propietario y a la revisión, del mensaje al registro de cambios y del reformateo a la autoría. En los tres, lo que no está escrito no se comprueba. No describe cuánto tarda cada comprobación.
 

@@ -10,21 +10,7 @@ La [Parte 48](../part-48-harness-y-agentic-engineering/README.md) estudió el ha
 
 Esta parte no defiende «los agentes» ni los desaconseja. Enseña a tratar cada patrón como una decisión de **quién controla el siguiente paso**, con un costo y un modo de fallo medibles. Compara un workflow fijo con un agente por tipo de solicitud (`SE-589`), mide una cadena con puertas, dos enrutadores y la paralelización con hilos reales (`SE-590`), reparte trabajo con un orquestador y mide un bucle de revisión con un verificador exacto y con un juez ruidoso (`SE-591`), contrasta ReAct con planificar y replanificar (`SE-592`), compara cinco estrategias de memoria (`SE-593`) y recupera sobre el corpus de las Partes [47](../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) y [45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) con tres recuperadores (`SE-594`). Después habla con un servidor JSON-RPC real por entrada y salida estándar (`SE-595`), prueba un diario SQLite con caídas inyectadas (`SE-596`), mide la potencia de una puerta de evaluación y el sesgo de un juez (`SE-597`), modela costo, latencia y ataques (`SE-598`), elige un patrón y degrada ante un incidente (`SE-599`) y somete cuatro candidatos a una puerta de entrada a producción (`SE-600`).
 
-```mermaid
-flowchart LR
-    A[Workflows frente a agentes] --> B[Encadenar, enrutar, paralelizar]
-    B --> C[Orquestador y evaluador]
-    C --> D[ReAct, plan y reflexión]
-    D --> E[Memoria]
-    E --> F[Recuperación]
-    F --> G[MCP y A2A]
-    G --> H[Ejecución durable]
-    H --> I[Evals y LLMOps]
-    I --> J[Costo, latencia, seguridad]
-    J --> K[Taller: elegir y degradar]
-    K --> L[Proyecto: sistema evaluado y operable]
-    L -->|fallos reales| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Workflows frente a agentes»; luego «Encadenar, enrutar, paralelizar»; luego «Orquestador y evaluador»; luego «ReAct, plan y reflexión»; luego «Memoria»; luego «Recuperación»; luego «MCP y A2A»; luego «Ejecución durable»; luego «Evals y LLMOps»; luego «Costo, latencia, seguridad»; luego «Taller: elegir y degradar»; luego «Proyecto: sistema evaluado y operable». Retornos: «Proyecto: sistema evaluado y operable» lleva a «Workflows frente a agentes» (fallos reales).](../../site/assets/figures/mermaid-620e6808d8.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que los fallos de operación vuelven al primer criterio: un sistema con LLM se revisa con la evidencia de lo que no vio.
 

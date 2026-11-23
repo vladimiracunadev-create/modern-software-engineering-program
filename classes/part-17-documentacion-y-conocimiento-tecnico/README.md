@@ -10,19 +10,7 @@ La [Parte 16](../part-16-git-colaboracion-y-codigo-abierto/README.md) terminó c
 
 Esta parte no enseña una herramienta de documentación. Enseña a describir una página por su audiencia y su tarea, a separar los cuatro tipos de página y ejecutar los pasos de un tutorial, a escribir un README que lleve a un primer éxito comprobable, a registrar decisiones con sus suposiciones y su caducidad, a dibujar diagramas que se generan y se comparan con el código, a documentar una API con ejemplos que se ejecutan, a escribir procedimientos operativos seguros de repetir, a tratar la documentación como código con comprobaciones que no cansen, a hacerla encontrable, a prepararla para lectores que no son personas, a reconstruir lo que se perdió y a entregar todo como un portal versionado, auditado y reproducible.
 
-```mermaid
-flowchart LR
-    A[Audiencia y tarea] --> B[Tipos de página]
-    B --> C[Puerta de entrada y primer éxito]
-    C --> D[Decisiones y diagramas]
-    D --> E[API y operación]
-    E --> F[Docs as code]
-    F --> G[Búsqueda y glosario]
-    G --> H[Máquinas y agentes]
-    H --> I[Conocimiento perdido]
-    I --> J[Portal versionado]
-    J -->|deriva o hallazgo| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Audiencia y tarea»; luego «Tipos de página»; luego «Puerta de entrada y primer éxito»; luego «Decisiones y diagramas»; luego «API y operación»; luego «Docs as code»; luego «Búsqueda y glosario»; luego «Máquinas y agentes»; luego «Conocimiento perdido»; luego «Portal versionado». Retornos: «Portal versionado» lleva a «Audiencia y tarea» (deriva o hallazgo).](../../site/assets/figures/mermaid-b534b5fc51.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que una deriva detectada por una comprobación, una consulta sin resultado o un hallazgo del taller reabre la pregunta de quién necesita qué; un portal aprobado no cierra la documentación, la fecha.
 

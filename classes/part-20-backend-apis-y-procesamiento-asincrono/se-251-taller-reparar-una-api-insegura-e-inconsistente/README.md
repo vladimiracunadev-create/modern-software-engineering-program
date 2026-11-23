@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[API con 10 defectos] --> S1[Suite de camino feliz]
-    A --> S2[Suite de contrato]
-    A --> S3[Suite adversaria]
-    S1 --> R[Resultados por defecto]
-    S2 --> R
-    S3 --> R
-    R --> F[Reparar uno y su prueba de regresión]
-    F --> M[Reintroducir y comprobar la detección]
-    M -->|defecto dormido| N[Nueva prueba que llegue hasta él]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «API con 10 defectos»; luego «Suite de camino feliz», «Suite de contrato» y «Suite adversaria»; luego «Resultados por defecto»; luego «Reparar uno y su prueba de regresión»; luego «Reintroducir y comprobar la detección»; luego «Nueva prueba que llegue hasta él».](../../../site/assets/figures/mermaid-bcaba86d18.svg)
 
 El mapa se lee del defecto al hallazgo: las tres suites producen resultados, cada reparación añade una prueba de regresión y la reintroducción verifica que esa prueba protege de verdad. La flecha final marca el caso del defecto dormido: si nada lo detecta, hace falta una prueba que llegue hasta él. No es un proceso lineal: el ciclo se repite hasta que no quedan defectos sin prueba.
 

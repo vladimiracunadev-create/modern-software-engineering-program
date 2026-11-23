@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Control declarado en la política] --> B[Hipótesis falsable con tolerancia]
-    B --> C[Ensayos: n repeticiones del evento]
-    C --> D{¿Cuántas fallas?}
-    D -->|ninguna con n suficiente| E[Evidencia: la tasa de fallas es menor que el límite]
-    D -->|alguna| F[Hallazgo: control débil]
-    E --> G[Registro versionado y huella]
-    F --> H[Corrección y nueva serie de ensayos]
-    G --> I[Revisión periódica]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Control declarado en la política»; luego «Hipótesis falsable con tolerancia»; luego «Ensayos: n repeticiones del evento»; luego «¿Cuántas fallas?»; luego «Evidencia: la tasa de fallas es menor que el límite» y «Hallazgo: control débil»; luego «Registro versionado y huella» y «Corrección y nueva serie de ensayos»; luego «Revisión periódica».](../../../site/assets/figures/mermaid-18a79ec0bb.svg)
 
 El mapa separa la **hipótesis** de la **evidencia**. Una afirmación de cumplimiento queda sostenida solo por un número de ensayos y una tolerancia que se declaran, no por la ausencia de hallazgos en una prueba.
 

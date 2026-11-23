@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    P[Planificador] -->|cada periodo| J[Trabajo]
-    J --> Q[Cola]
-    Q --> W1[Trabajador]
-    Q --> W2[Trabajador]
-    W1 -->|ok| D[Hecho]
-    W1 -->|falla| R{¿Reintentos?}
-    R -->|quedan| Q
-    R -->|agotados| M[Cola de muertos]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Planificador»; luego «Trabajo»; luego «Cola»; luego «Trabajador» y «Trabajador»; luego «Hecho» y «¿Reintentos?»; luego «Cola de muertos». Retornos: «¿Reintentos?» lleva a «Cola» (quedan).](../../../site/assets/figures/mermaid-0b3b0ce69b.svg)
 
 El mapa se lee como un flujo: el planificador arranca trabajos, la cola los reparte a trabajadores y un fallo vuelve a la cola hasta agotar los reintentos. No describe la sincronización interna de los trabajadores.
 

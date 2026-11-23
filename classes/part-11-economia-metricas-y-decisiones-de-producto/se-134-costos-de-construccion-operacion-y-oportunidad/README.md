@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Construir] --> N2[Operar y mantener] --> N3[Costo de oportunidad] --> N4[Estimar con incertidumbre] --> N5[Valor del tiempo]
-    N5 -->|nueva estimación o tasa| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Construir»; luego «Operar y mantener»; luego «Costo de oportunidad»; luego «Estimar con incertidumbre»; luego «Valor del tiempo». Retornos: «Valor del tiempo» lleva a «Construir» (nueva estimación o tasa).](../../../site/assets/figures/mermaid-54b10e67b5.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una tasa distinta o una estimación corregida reabre la decisión de construir; no autoriza a ajustar solo el último número.
 

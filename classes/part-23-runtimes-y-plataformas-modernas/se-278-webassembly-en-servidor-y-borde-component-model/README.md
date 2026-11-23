@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Binario .wasm] --> B[Motor: una vez]
-    B --> C[Compilar: una vez por versión]
-    C --> D[Módulo compilado en caché]
-    D --> E[Instancia por petición]
-    E --> F[Llamada]
-    F --> G[Descartar instancia]
-    H[Contrato de capacidades] -.->|revisa importaciones| C
-    I[Límites: combustible y memoria] -.-> E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Binario .wasm»; luego «Motor: una vez» y «Contrato de capacidades»; luego «Compilar: una vez por versión»; luego «Módulo compilado en caché» y «Límites: combustible y memoria»; luego «Instancia por petición»; luego «Llamada»; luego «Descartar instancia».](../../../site/assets/figures/mermaid-fbb83869c8.svg)
 
 La línea continua es el camino de una petición: lo caro (compilar) ocurre una vez por versión del módulo y lo barato (instanciar) por petición. Las líneas punteadas son los dos controles que hacen aceptable ese camino: revisar las importaciones al compilar y fijar límites al instanciar.
 

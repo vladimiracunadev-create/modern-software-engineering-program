@@ -10,21 +10,7 @@ La [Parte 41](../part-41-observabilidad-sre-e-incidentes/README.md) enseñó a o
 
 Esta parte no enseña un producto de caos, una plataforma de experimentos ni una herramienta de inyección. Enseña a distinguir una resiliencia declarada de una demostrada y a ver cómo un mecanismo de protección puede mantener caído a un sistema después de que la falla terminó, a escribir un estado estable con su banda y una regla de refutación que no refute lo sano, a dimensionar el radio de explosión y las condiciones de aborto sobre el grupo que recibe la falla, a elegir las fallas por mecanismo y por la huella que dejan, a escoger la herramienta por la capa en que actúa y no por su catálogo, a ejercitar a las personas además del sistema en un día de práctica, a llevar lo automatizable al pipeline y reconocer las regresiones que ninguna defensa ve, a comprobar la integridad de los datos y la calidad de un modelo cuando nada devuelve un error, a hacer un experimento en producción con grupo de control y a calcular la holgura de una región, a producir evidencia de seguridad con un número de ensayos y una exposición medidas, a poner un presupuesto y una regla de equidad a los experimentos, y a reunir todo en un programa con validador, huella y límites. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (una configuración que declara reintentos con pausa y se mantiene en 0 % de peticiones correctas 60 s después de terminar la falla, 54 % de ventanas sanas refutadas por una regla sin banda, 72 % de detección con 0,5 % del tráfico frente a 100 % con 2 %, un aborto global que dispara a los 10 s con el experimento esperado y no ve nada con el 0,5 %, una latencia de red que no mueve ninguna señal salvo el p99 y una caída de proceso casi idéntica a la lentitud, 311 ms de espera hasta el silencio frente a 10 ms hasta el reinicio de una conexión real, 12,6 defectos latentes tras dos años sin práctica frente a 1,1 con un día por trimestre, 5 de 6 regresiones dañinas detectadas por una lectura estática y 3 por una suite de cuatro escenarios, 4,3 escrituras confirmadas perdidas por conmutación, 72,7 % de exactitud con la mitad de las características ausentes, evacuaciones que solo se sostienen con 40 % de utilización previa si hay dos regiones, un umbral de saturación entre 10 % y 20 % de peticiones lentas, 59 ensayos para sostener una tasa de fallas menor que 5 %, 456 segundos de exposición media con una caché de 900 s, 38,6 % de meses incumplidos con un calendario fijo de experimentos y 252 de 360 especificaciones defectuosas detectadas por un validador) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Estado estable e hipótesis] --> B[Alcance, radio y aborto]
-    B --> C[Fallos de red, latencia y dependencias]
-    C --> D[Fallos de recursos e infraestructura]
-    D --> E[Kubernetes y plataformas cloud]
-    E --> F[Fallos de datos y de estado]
-    F --> G[Game days y respuesta a incidentes]
-    G --> H[Caos continuo: CI/CD y producción]
-    H --> I[Seguridad y gobernanza]
-    I --> J[Aprender de los experimentos]
-    J --> K[Taller: experimento acotado con aborto]
-    K --> L[Proyecto: programa de caos con evidencia]
-    L -->|hallazgo o cambio| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Estado estable e hipótesis»; luego «Alcance, radio y aborto»; luego «Fallos de red, latencia y dependencias»; luego «Fallos de recursos e infraestructura»; luego «Kubernetes y plataformas cloud»; luego «Fallos de datos y de estado»; luego «Game days y respuesta a incidentes»; luego «Caos continuo: CI/CD y producción»; luego «Seguridad y gobernanza»; luego «Aprender de los experimentos»; luego «Taller: experimento acotado con aborto»; luego «Proyecto: programa de caos con evidencia». Retornos: «Proyecto: programa de caos con evidencia» lleva a «Estado estable e hipótesis» (hallazgo o cambio).](../../site/assets/figures/mermaid-61e6b9a9bf.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo, un incidente o un cambio de la configuración reabre la pregunta de qué se declaraba y qué se había demostrado; un programa validado no cierra la práctica, la fecha.
 

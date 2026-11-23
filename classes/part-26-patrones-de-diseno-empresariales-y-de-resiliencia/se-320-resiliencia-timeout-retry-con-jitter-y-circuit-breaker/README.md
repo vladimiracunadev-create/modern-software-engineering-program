@@ -56,20 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Llamada a una dependencia] --> B[Timeout: cuánto espera]
-    B --> C{¿Falla?}
-    C -->|transitoria| D[Retry con jitter]
-    C -->|persistente| E[Circuit breaker abierto]
-    D --> F{¿Presupuesto de reintentos?}
-    F -->|agotado| E
-    F -->|disponible| A
-    E --> G[Falla rápido]
-    G --> H[Sondeo semiabierto]
-    H -->|éxito| I[Cerrado]
-    H -->|falla| E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Llamada a una dependencia»; luego «Timeout: cuánto espera»; luego «¿Falla?»; luego «Retry con jitter»; luego «¿Presupuesto de reintentos?»; luego «Circuit breaker abierto»; luego «Falla rápido»; luego «Sondeo semiabierto»; luego «Cerrado». Retornos: «¿Presupuesto de reintentos?» lleva a «Llamada a una dependencia» (disponible); «Sondeo semiabierto» lleva a «Circuit breaker abierto» (falla).](../../../site/assets/figures/mermaid-c788b5a8ba.svg)
 
 El mapa cierra dos bucles: el de los reintentos, limitado por un presupuesto, y el del interruptor, que sondea para recuperarse. Ambos existen para impedir que una falla se convierta en carga.
 

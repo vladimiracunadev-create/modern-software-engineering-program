@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Línea base] --> N2[Solicitud de cambio] --> N3[Análisis de alcance] --> N4[Decisión] --> N5[Nueva línea base]
-    N5 -->|auditoría| N1
-    N3 -->|demasiado ancho| N2
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Línea base»; luego «Solicitud de cambio»; luego «Análisis de alcance»; luego «Decisión»; luego «Nueva línea base». Retornos: «Nueva línea base» lleva a «Línea base» (auditoría); «Análisis de alcance» lleva a «Solicitud de cambio» (demasiado ancho).](../../../site/assets/figures/mermaid-bdf79ff498.svg)
 
 El mapa se lee de izquierda a derecha como un ciclo. Una línea base recibe solicitudes, se analiza su alcance, se decide y el resultado es una nueva línea base. Los retornos indican que una auditoría puede revelar que la línea base real difiere de la registrada, y que un alcance demasiado ancho puede devolver la solicitud para reformularla o dividirla.
 

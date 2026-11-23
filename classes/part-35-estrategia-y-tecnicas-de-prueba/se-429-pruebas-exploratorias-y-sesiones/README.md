@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Riesgos y zonas poco probadas] --> B[Misión de exploración]
-    B --> C[Heurísticas: límites, vacíos, repetir, deshacer]
-    C --> D[Sesión con registro]
-    D --> E{¿Hallazgo?}
-    E -->|defecto| F[Reportar con pasos y entrada mínima]
-    E -->|patrón| G[Regla o prueba automática]
-    F --> H[Nuevo riesgo o nueva misión]
-    G --> H
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Riesgos y zonas poco probadas»; luego «Misión de exploración»; luego «Heurísticas: límites, vacíos, repetir, deshacer»; luego «Sesión con registro»; luego «¿Hallazgo?»; luego «Reportar con pasos y entrada mínima» y «Regla o prueba automática»; luego «Nuevo riesgo o nueva misión». Retornos: «Nuevo riesgo o nueva misión» lleva a «Misión de exploración».](../../../site/assets/figures/mermaid-89e868ecee.svg)
 
 El mapa muestra que explorar alimenta a la automatización: cada hallazgo se convierte en un defecto reportado o en una regla que se automatiza. El ciclo continúa porque cada sesión enseña dónde mirar después.
 

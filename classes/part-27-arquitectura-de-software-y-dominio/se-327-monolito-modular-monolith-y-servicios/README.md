@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Escenario que fuerza la separacion] --> B{Frontera necesaria}
-    B -->|Solo orden interno| C[Modulos con reglas]
-    B -->|Despliegue independiente| D[Servicios]
-    C --> E[Comprobador de fronteras]
-    D --> F[Coste de red y consistencia]
-    F --> G[Compensaciones y observabilidad]
-    E -->|violaciones| C
-    G -->|el escenario no se cumple| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Escenario que fuerza la separacion»; luego «Frontera necesaria»; luego «Modulos con reglas» y «Servicios»; luego «Comprobador de fronteras» y «Coste de red y consistencia»; luego «Compensaciones y observabilidad». Retornos: «Comprobador de fronteras» lleva a «Modulos con reglas» (violaciones); «Compensaciones y observabilidad» lleva a «Frontera necesaria» (el escenario no se cumple).](../../../site/assets/figures/mermaid-6ca4685315.svg)
 
 El mapa muestra que la separación en servicios es una respuesta a un escenario concreto (despliegue o escalado independiente), no el paso natural después de un monolito. El comprobador mantiene las fronteras internas; las compensaciones y la observabilidad pagan las externas.
 

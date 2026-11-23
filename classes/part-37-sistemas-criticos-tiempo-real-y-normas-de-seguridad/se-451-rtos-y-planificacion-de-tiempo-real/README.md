@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Requisito de tiempo del limitador] --> B[Tareas: periodo, cómputo, plazo]
-    B --> C[Recursos compartidos y secciones críticas]
-    C --> D[Protocolo: herencia o techo]
-    D --> E[Bloqueo máximo por tarea]
-    B --> F[WCET de cada tarea]
-    E --> G[Análisis de tiempo de respuesta]
-    F --> G
-    G --> H{Respuesta menor que el plazo}
-    H -->|sí| I[Evidencia para el caso de seguridad]
-    H -->|no| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Requisito de tiempo del limitador»; luego «Tareas: periodo, cómputo, plazo»; luego «Recursos compartidos y secciones críticas» y «WCET de cada tarea»; luego «Protocolo: herencia o techo»; luego «Bloqueo máximo por tarea»; luego «Análisis de tiempo de respuesta»; luego «Respuesta menor que el plazo»; luego «Evidencia para el caso de seguridad». Retornos: «Respuesta menor que el plazo» lleva a «Tareas: periodo, cómputo, plazo» (no).](../../../site/assets/figures/mermaid-fd9e95f9ae.svg)
 
 El análisis combina tres insumos (cómputo en el peor caso, interferencia de tareas más prioritarias y bloqueo por recursos) y su resultado es una cota, no una medición.
 

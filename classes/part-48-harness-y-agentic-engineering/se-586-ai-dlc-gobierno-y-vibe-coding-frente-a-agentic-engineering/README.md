@@ -54,24 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    C[Cambio propuesto por el agente] --> K[Clasificar por riesgo]
-    K --> B[Bajo]
-    K --> M[Medio]
-    K --> A[Alto]
-    B --> G[Compuertas automáticas]
-    M --> G
-    A --> G
-    G --> R{¿Pasan?}
-    R -->|no| X[Rechazar con motivo]
-    R -->|sí| H{¿Nivel?}
-    H -->|bajo| I[Integrar y registrar]
-    H -->|medio o alto| P[Revisión humana]
-    P --> I
-    I --> O[Medir en operación]
-    O --> K
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Cambio propuesto por el agente»; luego «Clasificar por riesgo»; luego «Bajo», «Medio» y «Alto»; luego «Compuertas automáticas»; luego «¿Pasan?»; luego «Rechazar con motivo» y «¿Nivel?»; luego «Revisión humana»; luego «Integrar y registrar»; luego «Medir en operación». Retornos: «Medir en operación» lleva a «Clasificar por riesgo».](../../../site/assets/figures/mermaid-843bd5fffc.svg)
 
 El mapa es un embudo con dos puertas: las compuertas automáticas para todos y la revisión humana para lo medio y alto. El lazo final (medir en operación) devuelve información a la clasificación: una política se ajusta con lo que escapó.
 

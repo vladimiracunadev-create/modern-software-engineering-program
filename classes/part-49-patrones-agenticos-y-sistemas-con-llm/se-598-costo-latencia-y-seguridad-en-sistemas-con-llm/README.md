@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    S[Solicitud] --> C[Costo: llamadas × contexto × caché]
-    S --> L[Latencia: cadena, cola y paralelos]
-    S --> X[Seguridad: ¿qué puede leer y qué puede hacer?]
-    X --> A{Datos privados + contenido no confiable + canal de salida}
-    A -->|las tres| R[Violación: quitar una condición]
-    A -->|menos de tres| O[Aceptable con confirmación en lo irreversible]
-    C --> P[Presupuesto con tope y acción al exceder]
-    L --> P
-    R --> P
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Solicitud»; luego «Costo: llamadas × contexto × caché», «Latencia: cadena, cola y paralelos» y «Seguridad: ¿qué puede leer y qué puede hacer?»; luego «Datos privados + contenido no confiable + canal de salida»; luego «Violación: quitar una condición» y «Aceptable con confirmación en lo irreversible»; luego «Presupuesto con tope y acción al exceder».](../../../site/assets/figures/mermaid-1a7545b7d8.svg)
 
 El mapa muestra que las tres restricciones desembocan en un presupuesto con un tope y una acción, y que la seguridad se decide mirando la combinación de capacidades.
 

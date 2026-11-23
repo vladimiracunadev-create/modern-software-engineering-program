@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición] --> B[Service worker]
-    B --> C{Estrategia}
-    C -->|caché| D[Caché]
-    C -->|red| E[Red]
-    D --> F[Respuesta]
-    E --> F
-    G[Acción sin conexión] --> H[Cola local]
-    H -->|con red| I[Servidor]
-    I -->|confirmación perdida| H
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Petición» y «Acción sin conexión»; luego «Service worker» y «Cola local»; luego «Estrategia» y «Servidor»; luego «Caché» y «Red»; luego «Respuesta». Retornos: «Servidor» lleva a «Cola local» (confirmación perdida).](../../../site/assets/figures/mermaid-444099e39a.svg)
 
 El mapa se lee en dos mitades: arriba, una petición pasa por un service worker que decide entre caché y red según una estrategia; abajo, una acción sin conexión espera en una cola y se envía cuando hay red, con el riesgo de que la confirmación se pierda y la acción se repita.
 

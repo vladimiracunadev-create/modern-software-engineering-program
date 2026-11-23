@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos y carga de la plataforma] --> B{¿Qué crece?}
-    B -->|lecturas o disponibilidad| C[Replicar: copias del mismo dato]
-    B -->|volumen o escrituras| D[Particionar: repartir por clave]
-    C --> E[Riesgo: lecturas viejas y conflictos]
-    D --> F[Riesgo: movimiento de datos y clave caliente]
-    E --> G[Lectura propia, cuórum o líder]
-    F --> H[Anillo con puntos virtuales y subclaves]
-    G --> I[Decisión con medida]
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Datos y carga de la plataforma»; luego «¿Qué crece?»; luego «Replicar: copias del mismo dato» y «Particionar: repartir por clave»; luego «Riesgo: lecturas viejas y conflictos» y «Riesgo: movimiento de datos y clave caliente»; luego «Lectura propia, cuórum o líder» y «Anillo con puntos virtuales y subclaves»; luego «Decisión con medida».](../../../site/assets/figures/mermaid-52d6c0c8ab.svg)
 
 El mapa separa los dos problemas: replicar copia el mismo dato en varias máquinas; particionar reparte datos distintos. Ambos pueden combinarse y cada uno tiene su propio riesgo.
 

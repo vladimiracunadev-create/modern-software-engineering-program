@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición] --> B[Entrega + outbox, una transacción]
-    B --> C[Relevo]
-    C --> D[Corredor]
-    D --> E[Consumidor: inbox + efecto + versión]
-    E -->|falla repetida| F[Cola de mensajes fallidos]
-    E --> G[Aviso: reintentos con retroceso y aleatoriedad]
-    F --> H[Revisión y reproceso]
-    I[Paquete + validador] --> B
-    I --> E
-    J[Observabilidad: correlación, señales, registros seguros] --> C
-    J --> E
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Petición» y «Paquete + validador»; luego «Entrega + outbox, una transacción» y «Observabilidad: correlación, señales, registros seguros»; luego «Relevo»; luego «Corredor»; luego «Consumidor: inbox + efecto + versión»; luego «Cola de mensajes fallidos» y «Aviso: reintentos con retroceso y aleatoriedad»; luego «Revisión y reproceso».](../../../site/assets/figures/mermaid-df400bbd42.svg)
 
 El mapa muestra el flujo con las defensas de la parte y, aparte, el **paquete** que las documenta y el **validador** que lo revisa. El paquete describe el flujo; la simulación lo ejercita; el validador solo lee el paquete.
 

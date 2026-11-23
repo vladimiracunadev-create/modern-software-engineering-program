@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[API pública] --> N2[Compatibilidad hacia atrás] --> N3[SemVer] --> N4[Prerelease / metadata] --> N5[Deprecación / migración]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «API pública»; luego «Compatibilidad hacia atrás»; luego «SemVer»; luego «Prerelease / metadata»; luego «Deprecación / migración». Retornos: «Deprecación / migración» lleva a «API pública» (fallo o cambio).](../../../site/assets/figures/mermaid-b343c66f27.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

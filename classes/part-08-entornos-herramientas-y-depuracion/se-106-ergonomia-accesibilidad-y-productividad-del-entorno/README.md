@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Ergonomía / carga] --> N2[Teclado / foco] --> N3[Color, texto / movimiento] --> N4[Salida accesible] --> N5[Automatización / agencia]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Ergonomía / carga»; luego «Teclado / foco»; luego «Color, texto / movimiento»; luego «Salida accesible»; luego «Automatización / agencia». Retornos: «Automatización / agencia» lleva a «Ergonomía / carga» (fallo o cambio).](../../../site/assets/figures/mermaid-21c5fe96e2.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

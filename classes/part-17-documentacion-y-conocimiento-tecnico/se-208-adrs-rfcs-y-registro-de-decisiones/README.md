@@ -46,15 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Problema con alternativas] --> B[RFC: propuesta para revisar]
-    B --> C[ADR: decisión registrada]
-    C --> D[Suposiciones y fecha de revisión]
-    D -->|cambia una suposición| E[ADR que sustituye]
-    E --> C
-    C --> F[Comprobación de forma y de grafo]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Problema con alternativas»; luego «RFC: propuesta para revisar»; luego «ADR: decisión registrada»; luego «Suposiciones y fecha de revisión» y «Comprobación de forma y de grafo»; luego «ADR que sustituye». Retornos: «ADR que sustituye» lleva a «ADR: decisión registrada».](../../../site/assets/figures/mermaid-75243aa2ad.svg)
 
 El diagrama se lee de izquierda a derecha: una propuesta con alternativas se discute como RFC; la decisión se registra como ADR con sus suposiciones; la fecha de revisión da el momento de volver a mirar; si cambia una suposición, un nuevo ADR sustituye al anterior. La comprobación de forma y de grafo vigila el conjunto. Un ADR no necesita RFC previo si la decisión es pequeña y reversible; el diagrama no impone ese camino.
 

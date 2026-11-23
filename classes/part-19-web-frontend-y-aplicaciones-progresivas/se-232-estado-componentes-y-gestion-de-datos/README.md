@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuente de verdad] --> B[Estado local]
-    A --> C[Estado compartido]
-    A --> D[Estado remoto]
-    B --> E[Valor derivado]
-    C --> E
-    D --> E
-    E --> F[Vista]
-    F -->|evento| A
-    D -->|respuesta tardía| G[Carrera]
-    G --> F
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Fuente de verdad»; luego «Estado local», «Estado compartido» y «Estado remoto»; luego «Valor derivado» y «Carrera»; luego «Vista». Retornos: «Vista» lleva a «Fuente de verdad» (evento).](../../../site/assets/figures/mermaid-5adc285bdd.svg)
 
 El mapa se lee desde la fuente de verdad hacia la vista: todo lo que se pueda calcular se deriva, y las únicas entradas son los eventos de la persona y las respuestas del servidor. La rama de la carrera muestra por dónde entra el desorden: una respuesta tardía puede sobrescribir un estado más reciente.
 

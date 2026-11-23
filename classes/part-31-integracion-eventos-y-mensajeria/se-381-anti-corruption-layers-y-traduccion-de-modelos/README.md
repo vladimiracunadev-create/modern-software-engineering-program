@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema externo: su modelo y su vocabulario] --> B[Capa anticorrupción]
-    B --> C{¿Se puede traducir sin ambigüedad?}
-    C -->|sí| D[Modelo de dominio propio]
-    C -->|no| E[Cuarentena con motivo]
-    B --> F[Original conservado]
-    D --> G[Resto del sistema]
-    E --> H[Revisión humana o regla nueva]
-    A -->|cambia el proveedor| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Sistema externo: su modelo y su vocabulario»; luego «Capa anticorrupción»; luego «¿Se puede traducir sin ambigüedad?» y «Original conservado»; luego «Modelo de dominio propio» y «Cuarentena con motivo»; luego «Resto del sistema» y «Revisión humana o regla nueva».](../../../site/assets/figures/mermaid-184d7c67a0.svg)
 
 El mapa muestra la capa como **única** puerta entre los dos modelos: lo ambiguo no entra, lo traducible se normaliza y los cambios del proveedor se absorben en un lugar.
 

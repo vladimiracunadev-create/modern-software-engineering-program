@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Espacio de estados] --> N2[Backtracking] --> N3[Poda segura] --> N4[Divide / vencerás] --> N5[Recurrencias / umbral práctico]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Espacio de estados»; luego «Backtracking»; luego «Poda segura»; luego «Divide / vencerás»; luego «Recurrencias / umbral práctico». Retornos: «Recurrencias / umbral práctico» lleva a «Espacio de estados» (fallo o cambio).](../../../site/assets/figures/mermaid-4f3854e33f.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

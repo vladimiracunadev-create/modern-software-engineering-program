@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Elicitación] --> N2[Análisis] --> N3[Especificación] --> N4[Validación] --> N5[Línea base]
-    N4 -->|defecto o ausencia| N1
-    N2 -->|conflicto| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Elicitación»; luego «Análisis»; luego «Especificación»; luego «Validación»; luego «Línea base». Retornos: «Validación» lleva a «Elicitación» (defecto o ausencia); «Análisis» lleva a «Elicitación» (conflicto).](../../../site/assets/figures/mermaid-328f838918.svg)
 
 El mapa se lee como un ciclo con retornos, no como cascada. El retorno desde el análisis indica que un conflicto entre interesados obliga a volver a preguntar; el retorno desde la validación indica que un defecto o un requisito ausente reabre la elicitación. No hay fase terminal: la línea base de `SE-153` fija un estado, no cierra el ciclo.
 

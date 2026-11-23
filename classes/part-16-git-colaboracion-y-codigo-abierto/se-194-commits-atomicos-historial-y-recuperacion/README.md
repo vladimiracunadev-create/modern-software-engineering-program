@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio pequeño] --> B[Commit atómico]
-    B --> C[Historia localizable]
-    C -->|bisect| D[Commit culpable]
-    D --> E[Revertir]
-    F[Error de uso] --> G[Reflog y fsck]
-    G --> H[Recuperación]
-    I[Commit publicado] -->|no reescribir| E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Cambio pequeño» y «Error de uso»; luego «Commit atómico» y «Reflog y fsck»; luego «Historia localizable» y «Recuperación»; luego «Commit culpable» y «Commit publicado»; luego «Revertir».](../../../site/assets/figures/mermaid-e1390275ba.svg)
 
 El mapa se lee de izquierda a derecha como una cadena de causas: commits pequeños hacen la historia localizable y un culpable localizado se revierte; un error de uso se recupera si el contenido llegó a la base. Un commit publicado se corrige con otro commit. No describe el tiempo que tarda cada paso.
 

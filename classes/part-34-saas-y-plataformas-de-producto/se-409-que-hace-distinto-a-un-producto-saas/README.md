@@ -57,20 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Entrega continua] --> D[Una versión para todos]
-    B[Multi-inquilino] --> E[Aislamiento y costo compartido]
-    C[Ciclo de ingresos] --> F[Facturación y cobro correctos cada ciclo]
-    D --> G[Compatibilidad, migraciones y banderas]
-    E --> H[Cuotas, datos por inquilino y alta automática]
-    F --> I[Medición, derechos y conciliación]
-    G --> J[Operación y SLA]
-    H --> J
-    I --> J
-    J --> K[Retención: el cliente se queda]
-    K --> C
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Entrega continua», «Multi-inquilino» y «Ciclo de ingresos»; luego «Una versión para todos», «Aislamiento y costo compartido» y «Facturación y cobro correctos cada ciclo»; luego «Compatibilidad, migraciones y banderas», «Cuotas, datos por inquilino y alta automática» y «Medición, derechos y conciliación»; luego «Operación y SLA»; luego «Retención: el cliente se queda». Retornos: «Retención: el cliente se queda» lleva a «Ciclo de ingresos».](../../../site/assets/figures/mermaid-76d956c03e.svg)
 
 Cada propiedad abre un grupo de decisiones y los tres grupos terminan en la operación, que es lo que el cliente compra de verdad. El retorno de la retención hacia el ciclo de ingresos es el bucle económico: el ingreso de mañana depende de que hoy el servicio, el cobro y la medición hayan sido correctos.
 

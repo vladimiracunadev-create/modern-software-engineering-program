@@ -54,12 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Obligación externa] --> N2[Interpretación] --> N3[Requisito verificable] --> N4[Evidencia]
-    N5[Amenaza] --> N3
-    N4 -->|cambio de norma o incidente| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Obligación externa»; luego «Interpretación» y «Amenaza»; luego «Requisito verificable»; luego «Evidencia». Retornos: «Evidencia» lleva a «Obligación externa» (cambio de norma o incidente).](../../../site/assets/figures/mermaid-22f7eddc9f.svg)
 
 El mapa se lee de izquierda a derecha: la obligación se interpreta (con una persona responsable), se convierte en un requisito con criterio y se respalda con evidencia. Las amenazas son otra fuente de requisitos de seguridad. El retorno indica que un cambio de norma o un incidente reabre la obligación original, no solo el código.
 

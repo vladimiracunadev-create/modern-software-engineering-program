@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio de contrato] --> B{Dirección}
-    B -->|nuevo lee datos viejos| C[Compatible hacia atrás]
-    B -->|viejo lee datos nuevos| D[Compatible hacia adelante]
-    D --> E[Consumidor tolerante o estricto]
-    C --> F[Versión y aviso]
-    E --> F
-    F --> G[Ventana de deprecación]
-    G -->|quedan consumidores| F
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Cambio de contrato»; luego «Dirección»; luego «Compatible hacia atrás» y «Compatible hacia adelante»; luego «Consumidor tolerante o estricto»; luego «Versión y aviso»; luego «Ventana de deprecación». Retornos: «Ventana de deprecación» lleva a «Versión y aviso» (quedan consumidores).](../../../site/assets/figures/mermaid-df0626a8ff.svg)
 
 El mapa se lee desde el cambio: lo primero es la dirección en que se lee (quién lee qué), y el tipo de consumidor modula la respuesta. De ahí salen la versión, el aviso y una ventana de retirada. La flecha de retorno indica que si quedan consumidores al cierre hay que decidir de nuevo.
 

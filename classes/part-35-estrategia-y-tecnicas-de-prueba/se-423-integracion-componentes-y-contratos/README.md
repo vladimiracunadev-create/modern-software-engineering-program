@@ -53,16 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Consumidor usa campos del proveedor] --> B[Contrato del consumidor]
-    B --> C[Verificación contra el proveedor]
-    C --> D{¿Rompe a algún consumidor?}
-    D -->|sí| E[Avisar a ese consumidor]
-    D -->|no| F[Cambio compatible]
-    E --> G[Prueba por interfaz localiza la frontera]
-    G -->|nuevo uso| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Consumidor usa campos del proveedor»; luego «Contrato del consumidor»; luego «Verificación contra el proveedor»; luego «¿Rompe a algún consumidor?»; luego «Avisar a ese consumidor» y «Cambio compatible»; luego «Prueba por interfaz localiza la frontera». Retornos: «Prueba por interfaz localiza la frontera» lleva a «Contrato del consumidor» (nuevo uso).](../../../site/assets/figures/mermaid-b682b3a4d6.svg)
 
 El mapa parte de lo que el consumidor usa y no de lo que el proveedor ofrece: el contrato es la lista de lo que alguien depende. El retorno indica que un uso nuevo amplía el contrato.
 

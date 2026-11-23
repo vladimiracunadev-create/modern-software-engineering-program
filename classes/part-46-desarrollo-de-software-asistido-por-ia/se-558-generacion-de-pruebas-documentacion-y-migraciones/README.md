@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código] --> B[Pruebas generadas desde el código]
-    A --> C[Documentación generada desde el código]
-    A --> D[Migración generada desde el esquema]
-    E[Especificación] --> F[Pruebas derivadas de la especificación]
-    B -->|copia el comportamiento| G[Pasa siempre]
-    F --> H{Mutantes detectados}
-    C --> I{Ejemplos ejecutables}
-    I -->|sí| J[Se vigila sola]
-    I -->|no| K[Envejece en silencio]
-    D --> L{Validación de contenido}
-    L -->|sí| M[Cuarentena de lo inválido]
-    L -->|no| N[Valores plausibles falsos]
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Código» y «Especificación»; luego «Pruebas generadas desde el código», «Documentación generada desde el código», «Migración generada desde el esquema» y «Pruebas derivadas de la especificación»; luego «Pasa siempre», «Ejemplos ejecutables», «Validación de contenido» y «Mutantes detectados»; luego «Se vigila sola», «Envejece en silencio», «Cuarentena de lo inválido» y «Valores plausibles falsos».](../../../site/assets/figures/mermaid-b0e26396fe.svg)
 
 El mapa contrasta, en cada artefacto, el camino que **hereda** del código y el que lo **contrasta** con una fuente distinta. La diferencia se mide con mutantes en las pruebas, con ejecución en la documentación y con validación de contenido en las migraciones.
 

@@ -54,20 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio a realizar] --> B{Frontera de equipo}
-    B -->|por dominio| C[Un equipo lo completa]
-    B -->|por capa| D[Relevos entre equipos]
-    C --> E[Responsable y segundo conocedor]
-    D --> E
-    E --> F[Revisión por quien conoce]
-    F --> G[Guardia con rotación suficiente]
-    G -->|persona se va| H[Conocimiento disponible]
-    G -->|nadie más sabe| I[Archivo huérfano]
-    I --> J[Relevo, pares y documentación operable]
-    J --> E
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Cambio a realizar»; luego «Frontera de equipo»; luego «Un equipo lo completa» y «Relevos entre equipos»; luego «Responsable y segundo conocedor»; luego «Revisión por quien conoce»; luego «Guardia con rotación suficiente»; luego «Conocimiento disponible» y «Archivo huérfano»; luego «Relevo, pares y documentación operable». Retornos: «Relevo, pares y documentación operable» lleva a «Responsable y segundo conocedor».](../../../site/assets/figures/mermaid-5ffcf6234b.svg)
 
 El mapa separa tres lugares donde la estructura decide: la **frontera** (cuántos relevos), el **conocimiento** (quién sabe) y la **guardia** (quién responde). La flecha de retorno indica que un archivo huérfano no se corrige con un aviso: se corrige repartiendo el conocimiento antes de la próxima salida.
 

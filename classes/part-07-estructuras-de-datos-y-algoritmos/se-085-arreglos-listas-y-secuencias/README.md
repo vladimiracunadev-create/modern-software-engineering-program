@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Interfaz de secuencia] --> N2[Arreglo contiguo / localidad] --> N3[Lista dinámica / capacidad] --> N4[Estructuras enlazadas] --> N5[Slicing, vistas / copias]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Interfaz de secuencia»; luego «Arreglo contiguo / localidad»; luego «Lista dinámica / capacidad»; luego «Estructuras enlazadas»; luego «Slicing, vistas / copias». Retornos: «Slicing, vistas / copias» lleva a «Interfaz de secuencia» (fallo o cambio).](../../../site/assets/figures/mermaid-a8f87c1fe7.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

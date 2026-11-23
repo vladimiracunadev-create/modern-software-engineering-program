@@ -10,18 +10,7 @@ La [Parte 09](../part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) de
 
 Esta parte no enseña una metodología de producto como lista de ceremonias. Enseña a separar lo que alguien reporta, lo que ocurre, lo que necesita y lo que el equipo podría hacer; a obtener evidencia que se pueda rastrear; a contrastar hipótesis con umbrales fijados antes; y a decidir con rangos en lugar de cifras únicas. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un conteo que reordena prioridades, un promedio que no describe a nadie, un hash que se revierte) y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Petición o síntoma] --> B[Problema y necesidad]
-    B --> C[Actores y contexto]
-    C --> D[Evidencia cualitativa]
-    D --> E[Hipótesis falsables]
-    E --> F[Propuesta, segmento y alternativas]
-    F --> G[Experimento y prioridad]
-    G --> H[Protocolo ético y abandono]
-    H --> I[Brief con evidencia]
-    I -->|nueva evidencia| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Petición o síntoma»; luego «Problema y necesidad»; luego «Actores y contexto»; luego «Evidencia cualitativa»; luego «Hipótesis falsables»; luego «Propuesta, segmento y alternativas»; luego «Experimento y prioridad»; luego «Protocolo ético y abandono»; luego «Brief con evidencia». Retornos: «Brief con evidencia» lleva a «Petición o síntoma» (nueva evidencia).](../../site/assets/figures/mermaid-4010f1406b.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que una evidencia nueva, un experimento inconcluso o un criterio de abandono activado reabre el problema; un brief aprobado no cierra la pregunta, la fecha.
 

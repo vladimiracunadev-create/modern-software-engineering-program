@@ -57,14 +57,7 @@ ida y vuelta; compararás normalizaciones; y diagnosticarás mojibake conservand
 | Mojibake | bytes se decodifican con contrato incorrecto | permite reparar causa, no apariencia |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- C[Carácter abstracto í] --> P[Punto U+00ED]
- P --> E[UTF-8]
- E --> B[Bytes C3 AD]
- B -->|UTF-8| C
- B -->|Windows-1252| X[Texto mojibake Ã­]
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Carácter abstracto í»; luego «Punto U+00ED»; luego «UTF-8»; luego «Bytes C3 AD»; luego «Texto mojibake Ã­». Retornos: «Bytes C3 AD» lleva a «Carácter abstracto í» (UTF-8).](../../../site/assets/figures/mermaid-aee690ca00.svg)
 
 La última flecha muestra el mecanismo del síntoma. El dibujo simplifica grafemas: lo
 visible puede contener varios puntos de código.

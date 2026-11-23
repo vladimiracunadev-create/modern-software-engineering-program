@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Artefactos de la parte] --> B[Afirmaciones numeradas]
-    B --> C[Tabla afirmación evidencia huella]
-    C --> D[Verificador automático]
-    D -->|defectos| E[Corregir y repetir]
-    E --> D
-    D -->|sin defectos| F[Revisión por otra persona]
-    F --> G[Muestreo y reproducción]
-    G --> H[Defensa con límites declarados]
-    H -->|hallazgo| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Artefactos de la parte»; luego «Afirmaciones numeradas»; luego «Tabla afirmación evidencia huella»; luego «Verificador automático»; luego «Corregir y repetir» y «Revisión por otra persona»; luego «Muestreo y reproducción»; luego «Defensa con límites declarados». Retornos: «Corregir y repetir» lleva a «Verificador automático»; «Defensa con límites declarados» lleva a «Afirmaciones numeradas» (hallazgo).](../../../site/assets/figures/mermaid-9b264e97c1.svg)
 
 El mapa separa tres controles: el **automático** (presencia, integridad, coherencia), el **humano** (reproducción y muestreo) y la **defensa** (profundidad y límites). La flecha de retorno indica que un hallazgo de la revisión vuelve a las afirmaciones, no a la forma.
 

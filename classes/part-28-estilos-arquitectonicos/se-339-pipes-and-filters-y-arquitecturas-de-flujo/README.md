@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuente] --> B[Filtro 1: validar]
-    B --> C[Filtro 2: seleccionar]
-    C --> D[Filtro 3: enriquecer]
-    D --> E[Filtro 4: formatear]
-    E --> F[Destino]
-    B -.->|rechazados| G[Cola de rechazos]
-    D -.->|rechazados| G
-    F -.->|contrapresión| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Fuente»; luego «Filtro 1: validar»; luego «Filtro 2: seleccionar»; luego «Filtro 3: enriquecer»; luego «Filtro 4: formatear» y «Cola de rechazos»; luego «Destino». Retornos: «Destino» lleva a «Fuente» (contrapresión).](../../../site/assets/figures/mermaid-cbea7dac20.svg)
 
 Las flechas continuas son el flujo de datos; las punteadas son los dos canales que un diseño serio añade: el desvío de lo que no se puede procesar y la señal que frena a la fuente cuando el destino no da abasto. Sin ellos, el flujo funciona solo mientras todo sale bien.
 

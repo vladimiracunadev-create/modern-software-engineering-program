@@ -52,24 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Servicios] --> B[SLO y presupuesto]
-    B --> C[Alertas]
-    C --> D[Runbooks]
-    D --> E[Guardia y escalamiento]
-    B --> F[Protocolo de incidentes]
-    F --> G[Postmortem y acciones]
-    A --> H[Copias y restauración]
-    H --> I[Ejercicio y hallazgos]
-    G --> I
-    I -->|actualiza| D
-    J[Validador de referencias] --> A
-    J --> C
-    J --> D
-    J --> H
-    K[Huella en dos sistemas] --> L[Informe con límites]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Validador de referencias» y «Huella en dos sistemas»; luego «Servicios» y «Informe con límites»; luego «SLO y presupuesto» y «Copias y restauración»; luego «Alertas» y «Protocolo de incidentes»; luego «Postmortem y acciones»; luego «Ejercicio y hallazgos»; luego «Runbooks»; luego «Guardia y escalamiento».](../../../site/assets/figures/mermaid-2a4b596256.svg)
 
 El mapa muestra el paquete como un grafo de **referencias**: cada alerta apunta a un objetivo y a un runbook, cada runbook a un propietario, cada copia a una restauración y un ejercicio. El validador comprueba las aristas y la huella comprueba que el resultado se reproduce.
 

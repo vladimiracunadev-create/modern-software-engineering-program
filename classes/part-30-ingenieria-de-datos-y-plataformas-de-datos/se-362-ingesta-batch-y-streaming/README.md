@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Evento ocurre\ntiempo del evento] --> B[Retraso variable]
-    B --> C[Llega\ntiempo de llegada]
-    C --> D{¿Duplicado?}
-    D -->|sí, misma clave| E[Se ignora]
-    D -->|no| F[Ventana por tiempo del evento]
-    F --> G{¿Llegó antes de la marca de agua?}
-    G -->|sí| H[Se cuenta]
-    G -->|no| I[Tardío: corregir o apartar]
-    J[Lote] -.espera y reprocesa.-> F
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Evento ocurre tiempo del evento»; luego «Retraso variable»; luego «Llega tiempo de llegada»; luego «¿Duplicado?» y «Lote»; luego «Se ignora» y «Ventana por tiempo del evento»; luego «¿Llegó antes de la marca de agua?»; luego «Se cuenta» y «Tardío: corregir o apartar».](../../../site/assets/figures/mermaid-232446798e.svg)
 
 El mapa muestra que la marca de agua es el punto donde se decide entre esperar más (más completitud, más retraso) y publicar ya (menos retraso, más tardíos). El lote es la misma decisión con una espera fija y larga.
 

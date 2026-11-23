@@ -56,18 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-sequenceDiagram
-    participant V as Verificador (cliente)
-    participant A as Atestador (servicio en el TEE)
-    participant H as Hardware: raíz de confianza
-    V->>A: desafío fresco (nonce)
-    A->>H: pedir cita con la medición y el nonce
-    H-->>A: cita firmada con la clave del dispositivo
-    A-->>V: evidencia: medición, nonce, cita
-    V->>V: comprobar firma, nonce y medición esperada
-    V-->>A: liberar la clave de datos solo si coincide
-```
+![Diagrama de secuencia entre Verificador (cliente), Atestador (servicio en el TEE) y Hardware: raíz de confianza, con 6 eventos de arriba abajo.](../../../site/assets/figures/mermaid-588379b89e.svg)
 
 El verificador nunca confía en lo que el servicio *dice* de sí mismo: confía en una firma del hardware sobre una medición y sobre su propio desafío, y compara la medición con un valor de referencia que obtuvo por otro canal. Solo entonces libera el secreto.
 

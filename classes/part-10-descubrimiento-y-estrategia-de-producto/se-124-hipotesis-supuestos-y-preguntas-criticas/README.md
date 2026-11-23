@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Supuestos] --> N2[Hipótesis falsable] --> N3[Preguntas críticas] --> N4[Sensibilidad] --> N5[Evidencia y umbral]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Supuestos»; luego «Hipótesis falsable»; luego «Preguntas críticas»; luego «Sensibilidad»; luego «Evidencia y umbral». Retornos: «Evidencia y umbral» lleva a «Supuestos» (fallo o cambio).](../../../site/assets/figures/mermaid-858fb43b2f.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un supuesto refutado obliga a revisar la lista de supuestos; no autoriza a bajar el umbral hasta que el dato lo cumpla.
 

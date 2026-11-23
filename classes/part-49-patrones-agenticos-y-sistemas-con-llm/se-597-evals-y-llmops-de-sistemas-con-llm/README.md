@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Casos: reales, difíciles, etiquetados] --> E[Ejecutar con traza]
-    E --> K[Calificar: código, persona o juez calibrado]
-    K --> D[Comparar versiones pareando casos]
-    D --> G{Puerta: umbral y margen}
-    G -->|pasa| P[Publicar]
-    G -->|duda| M[Más casos o repeticiones]
-    G -->|no pasa| X[Rechazar]
-    P --> O[Operación: trazas, costo, escalados]
-    O -->|fallos reales| C
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Casos: reales, difíciles, etiquetados»; luego «Ejecutar con traza»; luego «Calificar: código, persona o juez calibrado»; luego «Comparar versiones pareando casos»; luego «Puerta: umbral y margen»; luego «Publicar», «Más casos o repeticiones» y «Rechazar»; luego «Operación: trazas, costo, escalados». Retornos: «Operación: trazas, costo, escalados» lleva a «Casos: reales, difíciles, etiquetados» (fallos reales).](../../../site/assets/figures/mermaid-36ab95d2bb.svg)
 
 El mapa muestra un bucle: los fallos de producción vuelven a los casos, y la puerta tiene una vía de «duda» que pide más evidencia en vez de decidir con ruido.
 

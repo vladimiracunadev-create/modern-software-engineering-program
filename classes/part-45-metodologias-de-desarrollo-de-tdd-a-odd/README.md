@@ -10,21 +10,7 @@ La [Parte 47](../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) enseñ�
 
 Esta parte no enseña una herramienta ni defiende una escuela. Enseña a leer una metodología como un **oráculo con un costo y un punto ciego**: qué cosa decide que el resultado es correcto, qué defectos no ve y cuándo se ejecuta. Compara cinco oráculos sobre el mismo núcleo y 18 defectos sembrados (`SE-541`), reconstruye el ciclo rojo-verde-refactor paso a paso (`SE-542`), mide el costo de acoplar las pruebas a la implementación en dos estilos (`SE-543`), ejecuta escenarios en lenguaje de negocio (`SE-544`) y compara conjuntos de ejemplos de aceptación (`SE-545`), mide una palabra con tres sentidos y una traducción entre contextos (`SE-546`), compara tres detectores de cambios de un proveedor (`SE-547`), comprueba la deriva entre una especificación y su código (`SE-548`), simula la puerta de una evaluación con ruido (`SE-549`) y evalúa un historial de Git contra un flujo para agentes (`SE-550`). Después aplica cinco metodologías al mismo cambio (`SE-551`) y escribe una política de equipo (`SE-552`).
 
-```mermaid
-flowchart LR
-    A[Mapa de metodologías] --> B[TDD: ciclo]
-    B --> C[TDD: escuelas y límites]
-    C --> D[BDD]
-    D --> E[ATDD y ejemplos]
-    E --> F[DDD y lenguaje]
-    F --> G[Contratos]
-    G --> H[SDD]
-    H --> I[EDD]
-    I --> J[ODD]
-    J --> K[Taller: cinco metodologías]
-    K --> L[Proyecto: política de equipo]
-    L -->|defectos escapados| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Mapa de metodologías»; luego «TDD: ciclo»; luego «TDD: escuelas y límites»; luego «BDD»; luego «ATDD y ejemplos»; luego «DDD y lenguaje»; luego «Contratos»; luego «SDD»; luego «EDD»; luego «ODD»; luego «Taller: cinco metodologías»; luego «Proyecto: política de equipo». Retornos: «Proyecto: política de equipo» lleva a «Mapa de metodologías» (defectos escapados).](../../site/assets/figures/mermaid-5535562899.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que los defectos que escapan a la política vuelven al mapa: una política se revisa con la evidencia de lo que no vio.
 

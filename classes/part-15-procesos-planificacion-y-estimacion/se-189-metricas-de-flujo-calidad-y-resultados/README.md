@@ -50,19 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión que se quiere informar] --> B[Métrica de flujo]
-    A --> C[Métrica de calidad]
-    A --> D[Métrica de resultado]
-    B --> E[Contrapeso]
-    C --> E
-    D --> E
-    E --> F{Se premia}
-    F -->|sí| G[Se infla sin mejora]
-    F -->|no| H[Informa la decisión]
-    G --> I[Revisar con otra métrica]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Decisión que se quiere informar»; luego «Métrica de flujo», «Métrica de calidad» y «Métrica de resultado»; luego «Contrapeso»; luego «Se premia»; luego «Se infla sin mejora» y «Informa la decisión»; luego «Revisar con otra métrica».](../../../site/assets/figures/mermaid-2abf9f12d8.svg)
 
 El mapa se lee desde la decisión hacia las métricas: se elige primero qué decisión informar. Cada métrica necesita un contrapeso, y premiarla la convierte en objetivo y rompe la relación con lo que medía.
 

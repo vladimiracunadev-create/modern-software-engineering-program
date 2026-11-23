@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    P[Persona] -->|teclea| G[Gramática]
-    S[Guion] -->|invoca| G
-    G --> A[Ayuda]
-    G --> E[Error de uso]
-    G --> R[Resultado]
-    A -->|stdout, código 0| P
-    E -->|stderr, código 2| S
-    R -->|stdout, código 0| S
-    G -->|cambia| C[Compatibilidad]
-    C -->|rompe a| S
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Persona» y «Guion»; luego «Gramática»; luego «Ayuda», «Error de uso», «Resultado» y «Compatibilidad». Retornos: «Ayuda» lleva a «Persona» (stdout, código 0); «Error de uso» lleva a «Guion» (stderr, código 2); «Resultado» lleva a «Guion» (stdout, código 0); «Compatibilidad» lleva a «Guion» (rompe a).](../../../site/assets/figures/mermaid-8fdc7933c9.svg)
 
 El mapa se lee como un reparto: la gramática es el punto en que coinciden dos lectores; la ayuda y los errores tienen destinos distintos; y un cambio de gramática viaja hacia quien automatiza. No describe una secuencia de ejecución.
 

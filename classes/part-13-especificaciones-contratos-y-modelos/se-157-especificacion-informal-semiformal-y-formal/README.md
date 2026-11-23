@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención en prosa] --> B[Lecturas posibles]
-    B --> C[Ejemplos que las separan]
-    B --> D[Tabla o plantilla semiformal]
-    D --> E[Predicado formal]
-    C --> F[Comprobación ejecutable]
-    E --> F
-    F -->|defecto o lectura nueva| A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Intención en prosa»; luego «Lecturas posibles»; luego «Ejemplos que las separan» y «Tabla o plantilla semiformal»; luego «Predicado formal»; luego «Comprobación ejecutable». Retornos: «Comprobación ejecutable» lleva a «Intención en prosa» (defecto o lectura nueva).](../../../site/assets/figures/mermaid-34035fbe88.svg)
 
 El mapa se lee como una cadena de reducción de ambigüedad, no como fases obligatorias: se puede parar en el ejemplo, en la tabla o en el predicado. La flecha de retorno indica que un defecto hallado o una lectura nueva reabre la intención; el predicado más elegante no corrige un requisito que nadie quería.
 

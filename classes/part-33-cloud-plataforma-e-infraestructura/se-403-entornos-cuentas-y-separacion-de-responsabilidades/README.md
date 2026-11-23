@@ -51,15 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio en el código] --> B[Desarrollo: cuenta propia]
-    B -->|promoción automática tras pruebas| C[Preproducción: cuenta propia]
-    C -->|aprobación de otra persona| D[Producción: cuenta propia]
-    E[Credencial de una persona] -->|solo su entorno| B
-    F[Acceso de emergencia] -.->|registrado y limitado en el tiempo| D
-    D --> G[Registro de auditoría: escritura separada]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Cambio en el código» y «Credencial de una persona»; luego «Desarrollo: cuenta propia»; luego «Preproducción: cuenta propia» y «Acceso de emergencia»; luego «Producción: cuenta propia»; luego «Registro de auditoría: escritura separada».](../../../site/assets/figures/mermaid-4abfa889ab.svg)
 
 El mapa separa los tres entornos en cuentas distintas, mueve los cambios por una **promoción** que exige pruebas y aprobación de otra persona, y deja el acceso de emergencia como una excepción punteada con registro. El registro de auditoría vive aparte para que quien cambia no pueda editar la evidencia.
 

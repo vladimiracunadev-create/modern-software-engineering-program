@@ -40,13 +40,7 @@ Modelarás desde necesidad hasta retiro, asignarás autoridad sin crear silos y 
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- N[Necesidad] --> R[Requisitos y riesgos] --> D[Construcción]
- D --> V[Verificación y validación] --> O[Operación]
- O --> M[Mantenimiento] --> R
- O --> T[Retiro]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Necesidad»; luego «Requisitos y riesgos»; luego «Construcción»; luego «Verificación y validación»; luego «Operación»; luego «Mantenimiento» y «Retiro». Retornos: «Mantenimiento» lleva a «Requisitos y riesgos».](../../../site/assets/figures/mermaid-f1f59822eb.svg)
 
 Los retornos muestran que operación corrige requisitos y diseño. El gráfico no prescribe fases separadas.
 

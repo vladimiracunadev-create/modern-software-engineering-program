@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-sequenceDiagram
-    participant A as Agente (cliente)
-    participant S as Servidor de herramientas
-    A->>S: initialize
-    S-->>A: nombre, versión, capacidades
-    A->>S: tools/list
-    S-->>A: herramientas con esquema de entrada
-    A->>S: tools/call get_deadline c1
-    S-->>A: resultado con texto
-    A->>S: JSON roto
-    S-->>A: error -32700
-    A->>S: tools/call con argumentos faltantes
-    S-->>A: resultado con isError verdadero
-```
+![Diagrama de secuencia entre Agente (cliente) y Servidor de herramientas, con 10 eventos de arriba abajo.](../../../site/assets/figures/mermaid-ddb877aff3.svg)
 
 El diagrama muestra la vida de una sesión: tres mensajes normales y dos fallos de naturaleza distinta, uno del protocolo y otro de la herramienta.
 

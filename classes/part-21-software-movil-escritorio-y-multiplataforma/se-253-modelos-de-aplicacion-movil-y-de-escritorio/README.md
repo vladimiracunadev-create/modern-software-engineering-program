@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Modelo de aplicación] --> B[Proceso y ventanas]
-    A --> C[Instancias]
-    A --> D[Espacio de pantalla]
-    B --> E[Qué sobrevive entre usos]
-    C --> E
-    D --> F[Qué controles se alcanzan]
-    E --> G[Decisión de arquitectura del cliente]
-    F --> G
-    G -->|medición o fallo| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Modelo de aplicación»; luego «Proceso y ventanas», «Instancias» y «Espacio de pantalla»; luego «Qué sobrevive entre usos» y «Qué controles se alcanzan»; luego «Decisión de arquitectura del cliente». Retornos: «Decisión de arquitectura del cliente» lleva a «Modelo de aplicación» (medición o fallo).](../../../site/assets/figures/mermaid-3bb4f74330.svg)
 
 El mapa se lee de izquierda a derecha y no es un proceso obligatorio: el modelo de aplicación determina tres cosas que el sistema decide (cuánto vive el proceso, cuántas copias hay, cuánta pantalla se recibe) y de ellas salen las decisiones de arquitectura. La flecha de retorno indica que una medición o un fallo en un dispositivo reabre el modelo.
 

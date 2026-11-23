@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    T[Turno de conversación] --> C[Contexto de trabajo: lo que se envía ahora]
-    C -->|se llena| S[Resumen con pérdidas]
-    T --> X[Extractor de hechos]
-    X --> A[(Almacén: clave, valor, versión, origen)]
-    Q[Pregunta] --> L[Lectura por clave o similitud]
-    A --> L
-    S --> L
-    C --> L
-    L --> R[Respuesta con origen]
-    A -->|caducidad o borrado| D[Olvido deliberado]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Turno de conversación»; luego «Contexto de trabajo: lo que se envía ahora» y «Extractor de hechos»; luego «Resumen con pérdidas», «Pregunta» y «Almacén: clave, valor, versión, origen»; luego «Lectura por clave o similitud» y «Olvido deliberado»; luego «Respuesta con origen».](../../../site/assets/figures/mermaid-50be4db244.svg)
 
 El mapa muestra tres vías de recuerdo hacia la misma pregunta: el contexto, el resumen y el almacén. Solo el almacén tiene un camino explícito de olvido.
 

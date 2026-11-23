@@ -56,15 +56,7 @@ Podrás modelar una decisión como sujeto–acción–objeto–política; interp
 | Elevación | crea un contexto más poderoso | reservarla para una necesidad explícita |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- S[Sujeto: proceso e identidad] --> E[Evaluación]
- A[Acción solicitada] --> E
- O[Objeto resuelto] --> E
- P[Permisos, ACL y política] --> E
- E --> D{Permitir o denegar}
- D --> R[Evidencia y corrección mínima]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Sujeto: proceso e identidad», «Acción solicitada», «Objeto resuelto» y «Permisos, ACL y política»; luego «Evaluación»; luego «Permitir o denegar»; luego «Evidencia y corrección mínima».](../../../site/assets/figures/mermaid-d131afe43a.svg)
 
 La decisión no vive solo en el archivo. La identidad del proceso, cada directorio padre y reglas adicionales pueden cambiar el resultado; por eso el kit de diagnóstico multiplataforma conserva el conjunto causal.
 
@@ -80,15 +72,7 @@ Un proceso hereda un contexto de seguridad al iniciarse. Cambiar de identidad o 
 
 Una explicación útil tiene cuatro piezas:
 
-```mermaid
-flowchart LR
-    S[Sujeto: proceso e identidad] --> P[Motor de autorización]
-    A[Acción: leer, escribir, ejecutar] --> P
-    O[Objeto: archivo, proceso, servicio] --> P
-    R[Reglas: permisos, ACL, política] --> P
-    P --> D{Permitir o denegar}
-    D --> E[Evidencia y auditoría]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Sujeto: proceso e identidad», «Acción: leer, escribir, ejecutar», «Objeto: archivo, proceso, servicio» y «Reglas: permisos, ACL, política»; luego «Motor de autorización»; luego «Permitir o denegar»; luego «Evidencia y auditoría».](../../../site/assets/figures/mermaid-10157e5283.svg)
 
 El mismo usuario puede leer un archivo y no modificar su directorio. Poder modificar el directorio puede permitir reemplazar una entrada aunque el archivo tenga otros permisos. Por eso “tengo permiso sobre el archivo” es una afirmación incompleta.
 

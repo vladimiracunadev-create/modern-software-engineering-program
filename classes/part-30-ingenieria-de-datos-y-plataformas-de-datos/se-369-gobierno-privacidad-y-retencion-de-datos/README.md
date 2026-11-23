@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dato entra] --> B[Clasificación: nombre y contenido]
-    B --> C{¿Personal?}
-    C -->|sí| D[Marca en el catálogo y en el contrato]
-    D --> E[Seudonimización con clave]
-    D --> F[Retención declarada]
-    D --> G[Acceso mínimo]
-    E --> H[Agregados: k mínimo]
-    F --> I[Purga programada]
-    J[Solicitud de supresión] --> K[Linaje: todas las copias]
-    K --> L[Borrado propagado]
-    K --> M[Exportaciones y copias de seguridad: plazo declarado]
-```
+![Diagrama de flujo con 13 pasos. Recorrido: «Dato entra» y «Solicitud de supresión»; luego «Clasificación: nombre y contenido» y «Linaje: todas las copias»; luego «¿Personal?», «Borrado propagado» y «Exportaciones y copias de seguridad: plazo declarado»; luego «Marca en el catálogo y en el contrato»; luego «Seudonimización con clave», «Retención declarada» y «Acceso mínimo»; luego «Agregados: k mínimo» y «Purga programada».](../../../site/assets/figures/mermaid-099373ae49.svg)
 
 El mapa une cuatro obligaciones con un mismo cimiento: saber qué datos son personales y dónde están (el catálogo y el linaje de `SE-367`). Sin ese cimiento, cada control es una promesa.
 

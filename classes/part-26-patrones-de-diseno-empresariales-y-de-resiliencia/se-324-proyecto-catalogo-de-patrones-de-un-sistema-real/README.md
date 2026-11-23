@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema real] --> B[Inventario: candidatos por estructura]
-    B --> C[Verificación: ¿cumple la definición?]
-    C -->|no| D[Descartado con razón]
-    C -->|sí| E[Fuerza y costo medido]
-    E --> F{¿Entrada completa?}
-    F -->|falta evidencia, costo o salida| G[No entra al catálogo]
-    F -->|completa| H[Catálogo]
-    H --> I[Revisión periódica]
-    I -->|la fuerza desapareció| J[Retirar o simplificar]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Sistema real»; luego «Inventario: candidatos por estructura»; luego «Verificación: ¿cumple la definición?»; luego «Descartado con razón» y «Fuerza y costo medido»; luego «¿Entrada completa?»; luego «No entra al catálogo» y «Catálogo»; luego «Revisión periódica»; luego «Retirar o simplificar».](../../../site/assets/figures/mermaid-a6480e28ce.svg)
 
 El filtro de la entrada completa es lo que distingue un catálogo de una lista: lo que no tiene evidencia, costo o salida no se registra como decisión.
 

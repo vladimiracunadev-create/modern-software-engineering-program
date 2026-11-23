@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Catálogo de fallas por mecanismo] --> B[Especificación del experimento]
-    B --> C[Validador: forma y contenido]
-    C -->|rojo| B
-    C -->|verde| D[Ejecución con control y aborto]
-    D --> E[Resultados y huella]
-    E --> F[Informe de límites]
-    F --> G[Revisión por otra persona]
-    G -->|hallazgo| H[Corrección y regresión]
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Catálogo de fallas por mecanismo»; luego «Especificación del experimento»; luego «Validador: forma y contenido»; luego «Ejecución con control y aborto»; luego «Resultados y huella»; luego «Informe de límites»; luego «Revisión por otra persona»; luego «Corrección y regresión». Retornos: «Validador: forma y contenido» lleva a «Especificación del experimento» (rojo); «Corrección y regresión» lleva a «Especificación del experimento».](../../../site/assets/figures/mermaid-49c552d39c.svg)
 
 El mapa es un ciclo: cada hallazgo vuelve como corrección y como una prueba de regresión. El validador está **antes** de la ejecución y el informe de límites **después** de la huella; ningún paso sustituye al siguiente.
 

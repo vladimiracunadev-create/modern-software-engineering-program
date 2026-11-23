@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad de los equipos] --> B[Capacidades de plataforma]
-    B --> C[Camino dorado: valores por defecto]
-    B --> D[Catálogo: quién es dueño de qué]
-    C --> E{Adopción}
-    E -->|cubre y es fácil| F[Menos carga cognitiva]
-    E -->|incompleto o costoso| G[Cada equipo improvisa]
-    B --> H{Ticket o autoservicio}
-    H -->|ticket| I[Cola humana]
-    H -->|autoservicio| J[Automatización]
-    F --> K[Medir adopción y tiempo]
-    K --> A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Necesidad de los equipos»; luego «Capacidades de plataforma»; luego «Camino dorado: valores por defecto», «Catálogo: quién es dueño de qué» y «Ticket o autoservicio»; luego «Adopción», «Cola humana» y «Automatización»; luego «Menos carga cognitiva» y «Cada equipo improvisa»; luego «Medir adopción y tiempo». Retornos: «Medir adopción y tiempo» lleva a «Necesidad de los equipos».](../../../site/assets/figures/mermaid-552398eba6.svg)
 
 El mapa muestra que la plataforma es un **ciclo de producto**: las necesidades definen las capacidades, la adopción dice si funcionan y la medición realimenta las necesidades. Una capacidad que nadie adopta no es una capacidad: es un costo.
 

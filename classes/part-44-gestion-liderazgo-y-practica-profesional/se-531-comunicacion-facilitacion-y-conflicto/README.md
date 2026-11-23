@@ -54,22 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tema a decidir] --> B[Escribir solo antes de hablar]
-    B --> C[Mostrar a la vez]
-    C --> D[Agrupar y discutir diferencias]
-    D --> E{Tipo de desacuerdo}
-    E -->|hechos| F[Medir o probar]
-    E -->|intereses| G[Negociar costos y beneficios]
-    E -->|valores| H[Escalar a quien decide]
-    F --> I[Decisión con 5 campos]
-    G --> I
-    H --> I
-    I --> J[Mensaje escrito con acuse]
-    J -->|se pierde un campo| K[Aclarar y reenviar]
-    K --> I
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Tema a decidir»; luego «Escribir solo antes de hablar»; luego «Mostrar a la vez»; luego «Agrupar y discutir diferencias»; luego «Tipo de desacuerdo»; luego «Medir o probar», «Negociar costos y beneficios» y «Escalar a quien decide»; luego «Decisión con 5 campos»; luego «Mensaje escrito con acuse»; luego «Aclarar y reenviar». Retornos: «Aclarar y reenviar» lleva a «Decisión con 5 campos».](../../../site/assets/figures/mermaid-06eb17b1ea.svg)
 
 El mapa separa tres etapas: **divergir** (escribir solas y mostrar a la vez), **clasificar** (hechos, intereses o valores) y **cerrar** (decisión por escrito con acuse). La flecha de retorno indica que un campo perdido se corrige reenviando, no discutiendo de memoria.
 

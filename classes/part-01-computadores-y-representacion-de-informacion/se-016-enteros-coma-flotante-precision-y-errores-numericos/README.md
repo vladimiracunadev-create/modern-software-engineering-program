@@ -56,17 +56,7 @@ infinito; elegirás entre entero escalado, decimal y float; y diseñarás prueba
 | Modelo de dominio | elige representación por invariantes | evita usar float por costumbre |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- D[Valor del dominio] --> M{Modelo}
- M --> I[Entero escalado]
- M --> F[Binario flotante]
- M --> C[Decimal]
- I --> O[Operaciones y límites]
- F --> O
- C --> O
- O --> V[Validación]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Valor del dominio»; luego «Modelo»; luego «Entero escalado», «Binario flotante» y «Decimal»; luego «Operaciones y límites»; luego «Validación».](../../../site/assets/figures/mermaid-2e01d24fe2.svg)
 
 No existe un tipo mejor en absoluto. La decisión depende de rango, exactitud, operaciones, interoperabilidad y costo.
 

@@ -106,7 +106,7 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             self.assertIn("## Errores comunes y cómo corregirlos", readme, lesson["id"])
             self.assertIn('class="lesson-progress"', page, lesson["id"])
             self.assertIn('class="lesson-context"', page, lesson["id"])
-            self.assertIn('class="concept-map"', page, lesson["id"])
+            self.assertIn('class="lesson-figure"', page, lesson["id"])
 
     def test_portal_reports_program_shape_without_class_states(self) -> None:
         home = (ROOT / "site/index.html").read_text(encoding="utf-8")

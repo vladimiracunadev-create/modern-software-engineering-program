@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Salida del sistema] --> B[Indicador y ventana]
-    B --> C[Línea base en sistema sano]
-    C --> D[Banda: ruido natural]
-    D --> E[Hipótesis: seguirá dentro de la banda]
-    E --> F[Inyección en el grupo experimental]
-    F --> G{¿Sale de la banda frente al control?}
-    G -->|sí| H[Hipótesis refutada]
-    G -->|no| I[No refutada: confianza acotada]
-    I -->|¿potencia suficiente?| J[Ventana más larga o más muestra]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Salida del sistema»; luego «Indicador y ventana»; luego «Línea base en sistema sano»; luego «Banda: ruido natural»; luego «Hipótesis: seguirá dentro de la banda»; luego «Inyección en el grupo experimental»; luego «¿Sale de la banda frente al control?»; luego «Hipótesis refutada» y «No refutada: confianza acotada»; luego «Ventana más larga o más muestra».](../../../site/assets/figures/mermaid-28611c0c2f.svg)
 
 El mapa separa lo que se **mide** (indicador y ventana), lo que se **aprende del sistema sano** (línea base y banda) y lo que se **decide** (la hipótesis y la regla de refutación). La rama «no refutada» termina en una pregunta, no en una conclusión: ¿el experimento habría podido refutarla?
 

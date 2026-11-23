@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Datos analíticos] --> B{¿Quién gestiona el almacenamiento?}
-    B -->|el motor| C[Almacén: esquema y transacciones propios]
-    B -->|archivos en almacenamiento de objetos| D[Lago: esquema al leer]
-    D --> E[Manifiesto de versiones]
-    E --> F[Lakehouse: transacciones, versiones, esquema]
-    D --> G[Formato de archivo]
-    G --> H[Filas: CSV, JSON, binario]
-    G --> I[Columnas: grupos, diccionario, estadísticas]
-    I --> J[Orden por la columna de filtro]
-    I --> K[Tamaño de archivo adecuado]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Datos analíticos»; luego «¿Quién gestiona el almacenamiento?»; luego «Almacén: esquema y transacciones propios» y «Lago: esquema al leer»; luego «Manifiesto de versiones» y «Formato de archivo»; luego «Lakehouse: transacciones, versiones, esquema», «Filas: CSV, JSON, binario» y «Columnas: grupos, diccionario, estadísticas»; luego «Orden por la columna de filtro» y «Tamaño de archivo adecuado».](../../../site/assets/figures/mermaid-ba99cf1c13.svg)
 
 El mapa separa la arquitectura (arriba) del formato (abajo). La elección de arquitectura define las garantías; la de formato, orden y tamaño de archivo define los bytes que se leen.
 

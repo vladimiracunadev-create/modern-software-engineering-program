@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Importe y moneda] --> B[Regla de redondeo y reparto]
-    B --> C[Asiento de doble entrada]
-    C --> D[Libro mayor]
-    D --> E{Invariantes}
-    E -->|se cumplen| F[Conciliación con el proveedor]
-    E -->|se violan| G[Alarma y bloqueo]
-    H[Petición con clave] --> C
-    F -->|diferencia| I[Investigación]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Importe y moneda»; luego «Regla de redondeo y reparto» y «Petición con clave»; luego «Asiento de doble entrada»; luego «Libro mayor»; luego «Invariantes»; luego «Conciliación con el proveedor» y «Alarma y bloqueo»; luego «Investigación».](../../../site/assets/figures/mermaid-9d1a998390.svg)
 
 El mapa separa tres controles de naturaleza distinta: las **invariantes** del libro (lo que nunca debe pasar), la **conciliación** con una fuente externa (lo que debe coincidir con el mundo) y la **clave de idempotencia** (lo que evita repetir un efecto). Cada uno ve defectos que los otros no ven.
 

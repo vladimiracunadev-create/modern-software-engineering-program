@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición] --> B[Transacción local]
-    B -->|misma transacción| C[(Entrega + outbox)]
-    C --> D[Relevo: publica y marca]
-    D --> E[Corredor]
-    E --> F[Consumidor: inbox + efecto]
-    F --> G{¿Siguiente paso falla?}
-    G -->|sí| H[Compensación del paso anterior]
-    G -->|no| I[Saga completa]
-    H -->|falla| J[Estado atascado: intervención]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Petición»; luego «Transacción local»; luego «Entrega + outbox»; luego «Relevo: publica y marca»; luego «Corredor»; luego «Consumidor: inbox + efecto»; luego «¿Siguiente paso falla?»; luego «Compensación del paso anterior» y «Saga completa»; luego «Estado atascado: intervención».](../../../site/assets/figures/mermaid-71d2de64fc.svg)
 
 El mapa separa tres problemas: la **atomicidad local** (cambio y mensaje en la misma transacción), la **entrega fiable** (relevo e inbox) y la **coordinación entre pasos** (saga con compensaciones). Cada problema tiene su propio mecanismo y su propio modo de fallar.
 

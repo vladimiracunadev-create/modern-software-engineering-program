@@ -5,6 +5,13 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Los diagramas Mermaid se publican como figuras SVG con la identidad del programa
+
+- nuevo `scripts/mermaid_render.py`: renderizador determinista, sin dependencias ni JavaScript, que dibuja a SVG los 771 bloques `mermaid` del programa (51 README de parte, 612 clases y las guías de rol) con la tipografía, los colores y las formas de `scripts/figure_kit.py`; flujos por capas con serpentina para las cadenas largas (ningún diagrama supera 940 px de ancho ni usa texto menor de 13 px), los ramificados se dibujan de arriba abajo, aristas ortogonales que no cruzan nodos, retornos de ciclo discontinuos con su etiqueta, rombos, subgrafos, `stateDiagram-v2` (convertido al mismo modelo, sin perder estados ni transiciones) y `sequenceDiagram`.
+- `classes/`, `roles/` y el portal publican la imagen (`site/assets/figures/mermaid-<hash>.svg`, nombre derivado del contenido) en lugar del bloque: el portal deja de mostrar código y la lista de relaciones que lo sustituía (`concept-map`, `mermaid-source`); `content/` conserva el bloque como fuente editable. Texto alternativo automático sin corchetes y, solo si no hay párrafo de lectura debajo, «Cómo leer el diagrama».
+- el diagrama de familias de `roles/README.md` pasa a una región generada (`role-families`) en `scripts/build_role_guides.py`; `validate_repository.py`, `validate_site.py` y `tests/test_roles.py` comprueban las imágenes en lugar de los bloques.
+- nuevo `tests/test_mermaid_render.py` (todos los bloques parsean y caben, sin bloques ni `mermaid-source` publicados, SVG dentro del `viewBox`, salida idéntica en dos ejecuciones, sin huérfanos); sintaxis y reglas en `docs/ADDING-A-PART.md` y `docs/PEDAGOGICAL-STANDARD.md`.
+
 ## 2026-11-23 — Resolución de referencias cruzadas: ninguna mención `SE-nnn` o `Parte NN` queda sin enlace
 
 - nuevo paso `scripts/cross_references.py` en la cadena de publicación: convierte toda mención `SE-nnn` y `Parte NN` en prosa (también en tablas, celdas y listas como «Partes 24–25, 27») en un enlace relativo a la clase o parte publicada y a su página del portal; respeta código, código en línea, encabezados, figuras, URL y enlaces existentes; es idempotente y determinista. Lo aplican `build_phase2`, `build_phase3`, `build_phase4`, `build_cases` y `build_role_guides` al escribir cada archivo, de modo que `content/` no se contamina ni se desincroniza tras otra renumeración.

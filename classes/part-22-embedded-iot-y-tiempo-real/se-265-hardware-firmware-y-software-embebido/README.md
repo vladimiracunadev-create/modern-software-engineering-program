@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Mundo físico] --> B[Sensor y periférico]
-    B --> C[Capa de acceso al hardware]
-    C --> D[Lógica del dispositivo]
-    D --> E[Actuador, pantalla o radio]
-    D --> F[Prueba en el equipo de desarrollo]
-    C --> G[Prueba con hardware]
-    F -->|defecto de lógica| D
-    G -->|defecto de integración| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Mundo físico»; luego «Sensor y periférico»; luego «Capa de acceso al hardware»; luego «Lógica del dispositivo» y «Prueba con hardware»; luego «Actuador, pantalla o radio» y «Prueba en el equipo de desarrollo». Retornos: «Prueba en el equipo de desarrollo» lleva a «Lógica del dispositivo» (defecto de lógica); «Prueba con hardware» lleva a «Capa de acceso al hardware» (defecto de integración).](../../../site/assets/figures/mermaid-c333bbaac2.svg)
 
 El mapa separa la **lógica**, que se comprueba con una función pura y entradas simuladas, de la **capa de acceso al hardware**, que exige el dispositivo. La mayor parte del esfuerzo de calidad consiste en empujar defectos hacia el lado barato.
 

@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuente revisada] --> B[Build reproducible]
-    B --> C[Artefacto + SBOM + procedencia]
-    C --> D[Manifiesto: nombre, versión, secuencia, huellas]
-    D --> E[Firma con clave en servicio de claves]
-    E --> F[Repositorio de releases]
-    F --> G{Verificador en otro sistema: valores esperados fijados}
-    G -->|rechaza| H[Registro del motivo]
-    G -->|acepta| I[Instalación atómica]
-    F -.-> J[Retroceso: nuevo release con secuencia mayor]
-    F -.-> K[Pérdida del repositorio: reconstruir y comparar]
-    E -.-> L[Rotación declarada o pérdida de la clave]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Fuente revisada»; luego «Build reproducible»; luego «Artefacto + SBOM + procedencia»; luego «Manifiesto: nombre, versión, secuencia, huellas»; luego «Firma con clave en servicio de claves»; luego «Repositorio de releases» y «Rotación declarada o pérdida de la clave»; luego «Verificador en otro sistema: valores esperados fijados», «Retroceso: nuevo release con secuencia mayor» y «Pérdida del repositorio: reconstruir y comparar»; luego «Registro del motivo» y «Instalación atómica».](../../../site/assets/figures/mermaid-61e426b753.svg)
 
 El mapa muestra el flujo principal de izquierda a derecha y tres recuperaciones con línea punteada. La verificación en otro sistema es el punto donde la evidencia deja de depender de quien construyó.
 

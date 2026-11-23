@@ -56,15 +56,7 @@ pipeline o ciclos.
 | Microarquitectura | solapa y reordena trabajo internamente | explica rendimiento sin cambiar semántica |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- PC[PC] --> F[Fetch]
- F --> D[Decode]
- D --> X[Execute]
- X --> M[Memory]
- M --> W[Write result]
- W --> PC
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «PC»; luego «Fetch»; luego «Decode»; luego «Execute»; luego «Memory»; luego «Write result». Retornos: «Write result» lleva a «PC».](../../../site/assets/figures/mermaid-1f6cb21639.svg)
 
 Es un modelo lógico. Una implementación puede solapar etapas, ejecutar fuera de orden
 y retirar resultados en orden; no debe leerse como un ciclo físico universal.

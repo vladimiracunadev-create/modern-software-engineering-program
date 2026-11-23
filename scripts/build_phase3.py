@@ -11,9 +11,11 @@ from pathlib import Path
 
 try:
     import cross_references
+    import mermaid_render as mr
     import program_state as ps
 except ModuleNotFoundError:  # importado como scripts.build_phase3
     from scripts import cross_references
+    from scripts import mermaid_render as mr
     from scripts import program_state as ps
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -243,6 +245,11 @@ def lesson_navigation(part: dict, lesson: dict, previous: dict | None, following
 
 
 def lesson_readme(part: dict, lesson: dict, previous: dict | None, following: dict | None) -> str:
+    """README de una clase sin texto editorial; sus diagramas Mermaid se publican como SVG."""
+    return mr.publish_markdown(_lesson_readme_source(part, lesson, previous, following), ROOT / lesson["path"])
+
+
+def _lesson_readme_source(part: dict, lesson: dict, previous: dict | None, following: dict | None) -> str:
     profile = PROFILES[part["id"]]
     teaching = TEACHING[part["id"]]
     terms = words(lesson["title"], profile)
@@ -811,57 +818,6 @@ def heading_id(value: str) -> str:
     return plain or "seccion"
 
 
-def mermaid_to_visual(source: str) -> str:
-    """Render the small flowchart subset used by lessons without a JS dependency.
-
-    The relation view intentionally favors readable claims over decorative graph
-    layout. The original Mermaid notation remains available as an accessible
-    disclosure for readers who want to inspect or reuse it.
-    """
-    node_labels = {
-        match.group(1): match.group(2).strip('"')
-        for match in re.finditer(r'([A-Za-z][A-Za-z0-9_]*)\[([^]]+)\]', source)
-    }
-    relations: list[tuple[str, str, str]] = []
-    for raw_line in source.splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("flowchart"):
-            continue
-        parts = re.split(r"\s*(-->|---)\s*", line)
-        for index in range(0, len(parts) - 2, 2):
-            left_match = re.match(r"([A-Za-z][A-Za-z0-9_]*)", parts[index])
-            right_match = re.match(r"([A-Za-z][A-Za-z0-9_]*)", parts[index + 2])
-            if not left_match or not right_match:
-                continue
-            left_id, right_id = left_match.group(1), right_match.group(1)
-            connector = "→" if parts[index + 1] == "-->" else "—"
-            relation = (
-                node_labels.get(left_id, left_id),
-                connector,
-                node_labels.get(right_id, right_id),
-            )
-            if relation not in relations:
-                relations.append(relation)
-    if not relations:
-        return f'<pre class="mermaid-source"><code>{html.escape(source)}</code></pre>'
-    rows = "".join(
-        '<div class="concept-relation">'
-        f'<span class="concept-node">{html.escape(left)}</span>'
-        f'<span class="concept-arrow" aria-hidden="true">{connector}</span>'
-        f'<span class="concept-node">{html.escape(right)}</span>'
-        "</div>"
-        for left, connector, right in relations
-    )
-    return (
-        '<figure class="concept-map">'
-        '<figcaption><span>Mapa visual</span><strong>Relaciones que debes poder explicar</strong></figcaption>'
-        f'<div class="concept-relations">{rows}</div>'
-        '<details><summary>Ver la notación fuente del diagrama</summary>'
-        f'<pre class="mermaid-source"><code>{html.escape(source)}</code></pre></details>'
-        "</figure>"
-    )
-
-
 def markdown_to_html(
     markdown: str, page: str = "classes", source_dir: str = ""
 ) -> tuple[str, list[tuple[str, str]]]:
@@ -883,7 +839,7 @@ def markdown_to_html(
             else:
                 source = chr(10).join(code_lines)
                 if code_language == "mermaid":
-                    output.append(mermaid_to_visual(source))
+                    output.append(mr.portal_figure(source))
                 else:
                     output.append(f'<pre class="code-block"><code>{html.escape(source)}</code></pre>')
                 in_code = False
@@ -946,6 +902,9 @@ def markdown_to_html(
         if figure:
             alt, source, caption = figure.group(1), figure.group(2), figure.group(3) or ""
             source = re.sub(r"^(?:\.\./)+content/part-\d+/figures/", "../assets/figures/", source)
+            source = re.sub(r"^(?:\.\./)+site/assets/figures/", "../assets/figures/", source)
+            if not caption and "/mermaid-" in source:
+                caption = mr.caption_for(source.rsplit("/", 1)[1])
             visible = caption or alt
             caption_html = f'<figcaption aria-hidden="true">{inline(visible)}</figcaption>'
 
@@ -1075,7 +1034,7 @@ def published_markdown(
         previous,
         following,
     )
-    return raw_markdown.replace(
+    linked = raw_markdown.replace(
         "](figures/", f"](../../../content/part-{part['id']}/figures/"
     ).replace(
         "(../../classes/",
@@ -1087,6 +1046,8 @@ def published_markdown(
         "(../../site/",
         "(https://vladimiracunadev-create.github.io/modern-software-engineering-program/",
     )
+    # Los diagramas Mermaid de content/ (fuente editable) se publican como SVG.
+    return mr.publish_markdown(linked, ROOT / lesson["path"])
 
 
 def publish_markdown(markdown: str, lesson: dict) -> str:
@@ -1118,6 +1079,7 @@ def expected_files(program: dict) -> dict[Path, str]:
             )
     for figure in sorted((ROOT / "content").glob("part-*/figures/*.svg")):
         result[ROOT / "site/assets/figures" / figure.name] = figure.read_text(encoding="utf-8")
+    result.update(mr.registered_files())
     return result
 
 

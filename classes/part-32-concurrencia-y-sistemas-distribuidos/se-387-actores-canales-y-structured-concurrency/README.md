@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dato con un único dueño: actor] --> B[Buzón de mensajes]
-    B --> C{Cola con límite}
-    C -->|sin límite| D[Memoria y latencia crecen]
-    C -->|con límite| E[Contrapresión: el emisor espera o recibe rechazo]
-    A --> F[Tareas hijas atadas a un bloque]
-    F --> G[Error: se cancelan las hermanas]
-    F --> H[Cancelación: puntos de espera]
-    H --> I[Operación indivisible protegida]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Dato con un único dueño: actor»; luego «Buzón de mensajes» y «Tareas hijas atadas a un bloque»; luego «Cola con límite», «Error: se cancelan las hermanas» y «Cancelación: puntos de espera»; luego «Memoria y latencia crecen», «Contrapresión: el emisor espera o recibe rechazo» y «Operación indivisible protegida».](../../../site/assets/figures/mermaid-bd853fd4af.svg)
 
 El mapa muestra dos decisiones que se confunden: el **diseño del buzón** (orden, límite, qué hacer al llenarse) y el **ciclo de vida de las tareas** (quién las espera, qué pasa al fallar o cancelarse). Ambos son contratos del servicio, no detalles de la biblioteca.
 

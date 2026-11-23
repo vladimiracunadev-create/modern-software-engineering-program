@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Medida del servicio] --> B[Tipo: contador, indicador, histograma]
-    B --> C[Nombre y unidad]
-    B --> D[Dimensiones: etiquetas]
-    D --> E[Series = producto de cardinalidades]
-    E --> F[Memoria y coste]
-    B --> G[Muestreo periódico]
-    G --> H[Qué se reconstruye: incrementos, picos, percentiles]
-    H --> I[Consulta y alerta]
-    F -->|presupuesto excedido| D
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Medida del servicio»; luego «Tipo: contador, indicador, histograma»; luego «Nombre y unidad», «Dimensiones: etiquetas» y «Muestreo periódico»; luego «Series = producto de cardinalidades» y «Qué se reconstruye: incrementos, picos, percentiles»; luego «Memoria y coste» y «Consulta y alerta». Retornos: «Memoria y coste» lleva a «Dimensiones: etiquetas» (presupuesto excedido).](../../../site/assets/figures/mermaid-539fbe3d1e.svg)
 
 El mapa separa el **tipo** (que decide qué operaciones son válidas), las **dimensiones** (que deciden el coste) y el **muestreo** (que decide qué se ve). El presupuesto de series cierra el ciclo y obliga a quitar etiquetas.
 

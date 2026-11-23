@@ -52,12 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Política de la organización] --> N2[Regla de negocio] --> N3[Requisito funcional] --> N4[Caso de prueba]
-    N2 -->|hueco o conflicto| N1
-    N4 -->|mutante vivo| N2
-```
+![Diagrama de flujo con 4 pasos. Recorrido: «Política de la organización»; luego «Regla de negocio»; luego «Requisito funcional»; luego «Caso de prueba». Retornos: «Regla de negocio» lleva a «Política de la organización» (hueco o conflicto); «Caso de prueba» lleva a «Regla de negocio» (mutante vivo).](../../../site/assets/figures/mermaid-cf9d69eeda.svg)
 
 El mapa se lee de izquierda a derecha como una cadena de concreción: una política se vuelve regla, la regla se vuelve comportamiento exigido y el comportamiento se vuelve un caso de prueba. Los retornos indican que un hueco o un conflicto en la regla obliga a volver a la política (quien decide), y que un mutante vivo obliga a revisar la regla, no solo la prueba.
 

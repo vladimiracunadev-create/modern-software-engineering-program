@@ -52,21 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    A[Experimento propuesto] --> B{¿Hipótesis falsable y escrita?}
-    B -->|sí| C{¿Radio mínimo que detecta el efecto?}
-    C -->|sí| D{¿Aborto y reversión probados?}
-    D -->|sí| E{¿El presupuesto cubre el costo máximo?}
-    E -->|sí| F{¿Responsable disponible y partes informadas?}
-    F -->|sí| G[Ejecutar con privilegio mínimo y registro]
-    B -->|no| H[Corregir o posponer]
-    C -->|no| H
-    D -->|no| H
-    E -->|no| H
-    F -->|no| H
-    G --> I[Evidencia con huella y límites declarados]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Experimento propuesto»; luego «¿Hipótesis falsable y escrita?»; luego «¿Radio mínimo que detecta el efecto?»; luego «¿Aborto y reversión probados?»; luego «¿El presupuesto cubre el costo máximo?»; luego «¿Responsable disponible y partes informadas?»; luego «Ejecutar con privilegio mínimo y registro» y «Corregir o posponer»; luego «Evidencia con huella y límites declarados».](../../../site/assets/figures/mermaid-b365716b56.svg)
 
 El mapa muestra que la compuerta se evalúa **antes** de la ejecución y que un solo «no» detiene el experimento. El privilegio mínimo y el registro son parte de la ejecución, no un trámite posterior.
 

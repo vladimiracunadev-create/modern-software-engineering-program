@@ -54,20 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Contenido no confiable: página, correo, nota, resultado de herramienta] --> B[Contexto del agente]
-    C[Datos privados] --> B
-    B --> D{Decisión del modelo}
-    D --> E[Herramienta con efecto]
-    E --> F[Comunicación hacia fuera]
-    G[Filtro de texto] -.->|detecta formas conocidas| A
-    H[Política: romper una capacidad] -.-> B
-    H -.-> E
-    D --> I[Registro de auditoría encadenado]
-    E --> I
-    I --> J[Huella externa]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Filtro de texto»; luego «Contenido no confiable: página, correo, nota, resultado de herramienta», «Datos privados» y «Política: romper una capacidad»; luego «Contexto del agente»; luego «Decisión del modelo»; luego «Herramienta con efecto»; luego «Comunicación hacia fuera» y «Registro de auditoría encadenado»; luego «Huella externa».](../../../site/assets/figures/mermaid-28ea529447.svg)
 
 Contenido no confiable y datos privados confluyen en el mismo contexto, y de ahí sale una decisión que puede tener efectos externos. El filtro actúa sobre la entrada y se evade; la política actúa sobre las capacidades; el registro, con una huella guardada fuera, permite reconstruir lo ocurrido.
 

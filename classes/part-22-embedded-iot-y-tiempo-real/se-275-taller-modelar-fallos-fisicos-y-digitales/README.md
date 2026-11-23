@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Modelo de fallos] --> B[Inyección]
-    B --> C[Comprobaciones]
-    C --> D{Detecta}
-    D -->|sí| E[Estado seguro y registro]
-    D -->|no| F[Fallo silencioso]
-    F --> G[Referencia independiente]
-    H[Corte de energía] --> I[Escritura con copias]
-    J[Puntuación de riesgos] --> K[Estabilidad del orden]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Modelo de fallos», «Corte de energía» y «Puntuación de riesgos»; luego «Inyección», «Escritura con copias» y «Estabilidad del orden»; luego «Comprobaciones»; luego «Detecta»; luego «Estado seguro y registro» y «Fallo silencioso»; luego «Referencia independiente».](../../../site/assets/figures/mermaid-f7f251c8d3.svg)
 
 El mapa muestra el método del taller: se parte de un modelo de fallos, se inyectan, se mira cuáles detectan las comprobaciones y se investiga lo silencioso. Los cortes de energía y las puntuaciones de riesgo se estudian con el mismo espíritu: enumerar y perturbar.
 

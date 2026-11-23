@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Incertidumbre del plan] --> B{Qué es}
-    B -->|puede ocurrir| C[Riesgo: probabilidad, impacto, disparador]
-    B -->|se da por cierto| D[Supuesto: validar antes de construir]
-    B -->|ya ocurrió| E[Issue: dueño y fecha]
-    B -->|se eligió| F[Decisión: contexto, opciones, revisión]
-    C --> G[Respuesta o contingencia]
-    D --> G
-    E --> G
-    F -->|disparador| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Incertidumbre del plan»; luego «Qué es»; luego «Riesgo: probabilidad, impacto, disparador», «Supuesto: validar antes de construir», «Issue: dueño y fecha» y «Decisión: contexto, opciones, revisión»; luego «Respuesta o contingencia». Retornos: «Decisión: contexto, opciones, revisión» lleva a «Incertidumbre del plan» (disparador).](../../../site/assets/figures/mermaid-2ec0a3b4ca.svg)
 
 El mapa se lee como una clasificación con consecuencias: cada categoría tiene un registro, un responsable y un disparador distintos. El retorno indica que una decisión cuyo disparador se cumple vuelve a ser una incertidumbre.
 

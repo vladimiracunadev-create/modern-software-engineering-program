@@ -56,17 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema real] --> B[Modelo: estados y transiciones]
-    B --> C[Propiedad: invariante o vivacidad]
-    C --> D[Verificador: explorar estados]
-    D --> E{¿Se cumple?}
-    E -->|sí| F[Demostrado en el modelo]
-    E -->|no| G[Contraejemplo: traza de pasos]
-    G --> H[Corregir modelo o sistema]
-    F -.->|¿modelo fiel y propiedad completa?| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Sistema real»; luego «Modelo: estados y transiciones»; luego «Propiedad: invariante o vivacidad»; luego «Verificador: explorar estados»; luego «¿Se cumple?»; luego «Demostrado en el modelo» y «Contraejemplo: traza de pasos»; luego «Corregir modelo o sistema». Retornos: «Demostrado en el modelo» lleva a «Sistema real» (¿modelo fiel y propiedad completa?).](../../../site/assets/figures/mermaid-9f918c68cc.svg)
 
 La flecha punteada es lo que la verificación no resuelve: que el modelo sea fiel y la propiedad sea la que importa.
 

@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    R[Regla del equipo] --> Q{¿Se puede comprobar con un programa?}
-    Q -->|no| P[Prosa y revisión humana]
-    Q -->|sí| W{¿Hay que impedirla al escribir?}
-    W -->|sí| H[Hook previo a la escritura]
-    W -->|no| G[Compuerta de integración]
-    H --> E[Casos de prueba de la regla]
-    G --> E
-    E --> M[Medir aciertos, falsas alarmas y omisiones]
-    M --> R
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Regla del equipo»; luego «¿Se puede comprobar con un programa?»; luego «Prosa y revisión humana» y «¿Hay que impedirla al escribir?»; luego «Hook previo a la escritura» y «Compuerta de integración»; luego «Casos de prueba de la regla»; luego «Medir aciertos, falsas alarmas y omisiones». Retornos: «Medir aciertos, falsas alarmas y omisiones» lleva a «Regla del equipo».](../../../site/assets/figures/mermaid-70678975bb.svg)
 
 El mapa sitúa la decisión en la primera pregunta. Todo lo que pasa «sí» recibe una regla ejecutable y casos de prueba; todo lo que pasa «no» se queda donde estaba, pero ahora se sabe que es una petición.
 

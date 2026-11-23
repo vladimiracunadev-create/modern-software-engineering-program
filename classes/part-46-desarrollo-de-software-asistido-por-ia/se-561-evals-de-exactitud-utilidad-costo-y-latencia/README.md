@@ -54,24 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tareas del módulo] --> B[Criterio ejecutable]
-    B --> C[Conjunto de desarrollo]
-    B --> D[Conjunto reservado]
-    C --> E[Ajustar configuración]
-    E --> F[Ejecutar eval]
-    D --> F
-    F --> G[Tasa de éxito con intervalo]
-    F --> H[Costo por intento]
-    F --> I[Latencia]
-    G --> J[Costo por solución aceptada]
-    H --> J
-    K[Revisión humana] --> J
-    J --> L{Frontera de Pareto}
-    I --> L
-    L --> M[Decisión con incertidumbre]
-```
+![Diagrama de flujo con 13 pasos. Recorrido: «Tareas del módulo»; luego «Criterio ejecutable»; luego «Conjunto de desarrollo» y «Conjunto reservado»; luego «Ajustar configuración»; luego «Ejecutar eval»; luego «Tasa de éxito con intervalo», «Costo por intento», «Latencia» y «Revisión humana»; luego «Costo por solución aceptada»; luego «Frontera de Pareto»; luego «Decisión con incertidumbre».](../../../site/assets/figures/mermaid-805b3c7087.svg)
 
 El mapa separa las **tareas y criterios** de las **medidas** (éxito, costo, latencia) y reúne todas en una decisión sobre una frontera, no sobre un solo número. El conjunto reservado evita que el ajuste sobre el de desarrollo infle la estimación final.
 

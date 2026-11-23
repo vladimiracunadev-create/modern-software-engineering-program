@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    T[Turno de trabajo] --> D{¿Decisión o restricción?}
-    D -->|sí| N[Escribir en el archivo de relevo]
-    D -->|no| C[Queda solo en el contexto]
-    C --> L{¿Ventana llena?}
-    L -->|sí| X[Truncar o resumir: se pierde]
-    L -->|no| T
-    N --> S[Sesión nueva: leer relevo y estado del repositorio]
-    X --> S
-    S --> V[Comprobar que el estado coincide]
-    V --> T
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Turno de trabajo»; luego «¿Decisión o restricción?»; luego «Escribir en el archivo de relevo» y «Queda solo en el contexto»; luego «¿Ventana llena?»; luego «Truncar o resumir: se pierde»; luego «Sesión nueva: leer relevo y estado del repositorio»; luego «Comprobar que el estado coincide». Retornos: «¿Ventana llena?» lleva a «Turno de trabajo» (no); «Comprobar que el estado coincide» lleva a «Turno de trabajo».](../../../site/assets/figures/mermaid-3d165f21a8.svg)
 
 El mapa separa dos destinos para lo que ocurre en un turno: lo que se escribe fuera de la ventana sobrevive; lo que queda solo dentro se pierde cuando la ventana se llena. La verificación al reabrir (leer, comprobar el estado) evita continuar sobre un relevo desactualizado.
 

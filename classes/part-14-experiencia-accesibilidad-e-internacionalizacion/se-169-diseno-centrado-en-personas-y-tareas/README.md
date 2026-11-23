@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Persona y contexto] --> B[Tarea y meta]
-    B --> C[Pasos y operadores]
-    C --> D[Tiempo y errores]
-    D --> E[Etapa que más pierde]
-    E -->|rediseño| C
-    A -->|variación| E
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Persona y contexto»; luego «Tarea y meta»; luego «Pasos y operadores»; luego «Tiempo y errores»; luego «Etapa que más pierde». Retornos: «Etapa que más pierde» lleva a «Pasos y operadores» (rediseño).](../../../site/assets/figures/mermaid-04da5bfbf3.svg)
 
 El mapa se lee como un lazo: la tarea se descompone en pasos, los pasos se cuestan, el costo localiza la etapa que más pierde y el rediseño vuelve a los pasos. La variación entre personas entra en cada vuelta; el mapa no es un proceso de entrega.
 

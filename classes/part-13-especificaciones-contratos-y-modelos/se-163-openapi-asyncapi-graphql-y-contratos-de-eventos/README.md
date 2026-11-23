@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Contrato de interfaz] --> B[Síncrono: petición y respuesta]
-    A --> C[Asíncrono: eventos]
-    B --> D[OpenAPI: rutas y respuestas]
-    B --> E[GraphQL: consulta y tipos]
-    C --> F[AsyncAPI: canales y mensajes]
-    D --> G[Linter: forma]
-    E --> G
-    F --> G
-    G -.->|no ve| H[Comportamiento real]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Contrato de interfaz»; luego «Síncrono: petición y respuesta» y «Asíncrono: eventos»; luego «OpenAPI: rutas y respuestas», «GraphQL: consulta y tipos» y «AsyncAPI: canales y mensajes»; luego «Linter: forma»; luego «Comportamiento real».](../../../site/assets/figures/mermaid-e3896c4e4b.svg)
 
 El mapa se lee desde el contrato: según el estilo de interacción se elige el formato; todos se pasan por un linter que comprueba forma y ninguno, por sí solo, comprueba el comportamiento. La flecha punteada marca la parte que depende de pruebas contra el servicio (`SE-166`).
 

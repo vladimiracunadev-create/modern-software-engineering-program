@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Éxito y no éxito] --> N2[Zona gris] --> N3[Reglas de parada] --> N4[Coste hundido y compromiso] --> N5[Abandonar y conservar]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Éxito y no éxito»; luego «Zona gris»; luego «Reglas de parada»; luego «Coste hundido y compromiso»; luego «Abandonar y conservar». Retornos: «Abandonar y conservar» lleva a «Éxito y no éxito» (fallo o cambio).](../../../site/assets/figures/mermaid-d525a381b6.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una zona gris que no se resuelve, un criterio imposible de medir o una regla que abandona ideas buenas obliga a revisar los umbrales; no autoriza a moverlos tras ver el resultado.
 

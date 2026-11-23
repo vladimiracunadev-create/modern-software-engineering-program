@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Artefacto] --> B[Huella]
-    B --> C[Manifiesto: nombre, versión, secuencia, huellas]
-    C --> D[Firma con clave privada]
-    E[Raíz de confianza: clave pública fijada] --> F{Verificador}
-    D --> F
-    C --> F
-    A --> F
-    G[Última secuencia vista] --> F
-    H[Lista de revocación] --> F
-    F -->|todo coincide| I[Instalar]
-    F -->|algo falla| J[Rechazar: falla cerrado]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Artefacto»; luego «Huella»; luego «Manifiesto: nombre, versión, secuencia, huellas»; luego «Raíz de confianza: clave pública fijada», «Firma con clave privada», «Última secuencia vista» y «Lista de revocación»; luego «Verificador»; luego «Instalar» y «Rechazar: falla cerrado».](../../../site/assets/figures/mermaid-e23fc1441d.svg)
 
 El mapa muestra que la firma no basta: el verificador combina cuatro cosas ajenas al atacante (clave fijada, secuencia recordada, revocación y la huella calculada por sí mismo) y rechaza ante cualquier fallo.
 

@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión que puede cambiar] --> B[Módulo que la oculta]
-    B --> C[Cohesión: lo que agrupa]
-    B --> D[Encapsulación: lo que no expone]
-    B --> E[Acoplamiento: de qué depende]
-    C --> F[Medida: LCOM4]
-    D --> G[Medida: sitios a editar]
-    E --> H[Medida: ciclos y dependencias]
-    F --> I[Cambio local o disperso]
-    G --> I
-    H --> I
-    I -->|el cambio real contradice la medida| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Decisión que puede cambiar»; luego «Módulo que la oculta»; luego «Cohesión: lo que agrupa», «Encapsulación: lo que no expone» y «Acoplamiento: de qué depende»; luego «Medida: LCOM4», «Medida: sitios a editar» y «Medida: ciclos y dependencias»; luego «Cambio local o disperso». Retornos: «Cambio local o disperso» lleva a «Decisión que puede cambiar» (el cambio real contradice la medida).](../../../site/assets/figures/mermaid-e5badff8f5.svg)
 
 El mapa parte de la decisión, no del módulo: un módulo es bueno si una decisión que cambia queda dentro de uno solo. Las tres medidas son sondas, y el cambio real es el juez que puede contradecirlas.
 

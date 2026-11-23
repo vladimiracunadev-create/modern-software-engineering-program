@@ -56,18 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición] --> B[Validación de entrada]
-    B --> C[Cola]
-    C --> D{¿Lote lleno o espera agotada?}
-    D -->|no| C
-    D -->|sí| E[Ejecución del lote en CPU o acelerador]
-    E --> F[Respuesta a cada petición]
-    G[Carga mayor que capacidad] --> H[Rechazar, degradar o escalar]
-    C --> H
-    I[Pesos y formato: precisión, tamaño, carga] --> E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Petición»; luego «Validación de entrada»; luego «Cola» y «Carga mayor que capacidad»; luego «¿Lote lleno o espera agotada?», «Rechazar, degradar o escalar» y «Pesos y formato: precisión, tamaño, carga»; luego «Ejecución del lote en CPU o acelerador»; luego «Respuesta a cada petición». Retornos: «¿Lote lleno o espera agotada?» lleva a «Cola» (no).](../../../site/assets/figures/mermaid-8ef4d10185.svg)
 
 El mapa muestra que el lote es una decisión de cola (cuánto esperar) y de cómputo (cuánto agrupar), y que la sobrecarga tiene su propia salida: una cola sin límite no es una solución.
 

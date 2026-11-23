@@ -46,16 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio en texto] --> B[Pull request]
-    B --> C[Comprobaciones: enlaces, estilo, ejemplos]
-    B --> D[Revisión humana: exactitud y claridad]
-    C --> E[Construcción reproducible]
-    D --> E
-    E --> F[Publicación con huella]
-    F -->|enlace roto o deriva| A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Cambio en texto»; luego «Pull request»; luego «Comprobaciones: enlaces, estilo, ejemplos» y «Revisión humana: exactitud y claridad»; luego «Construcción reproducible»; luego «Publicación con huella». Retornos: «Publicación con huella» lleva a «Cambio en texto» (enlace roto o deriva).](../../../site/assets/figures/mermaid-d5465293af.svg)
 
 El diagrama se lee de izquierda a derecha: un cambio abre un pull request; las comprobaciones mecánicas y la revisión humana corren en paralelo; solo si ambas pasan se construye, de forma reproducible, y se publica con una huella que permite verificar qué se publicó. El retorno indica que un enlace roto descubierto después reabre el ciclo. El diagrama no dice cuánto debe tardar cada etapa; esa medida es del equipo.
 

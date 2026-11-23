@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Carga: solicitudes con espera y cálculo] --> B{Qué domina}
-    B -->|espera de red o disco| C[Concurrencia: solapar esperas]
-    B -->|cálculo| D[Paralelismo: repartir entre núcleos]
-    C --> E[Asincronía cooperativa: ceder en cada espera]
-    D --> F[Procesos o hilos sin GIL: coordinar resultados]
-    E --> G[Medir con conteos y razones]
-    F --> G
-    G -->|parte secuencial| H[Límite de Amdahl]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Carga: solicitudes con espera y cálculo»; luego «Qué domina»; luego «Concurrencia: solapar esperas» y «Paralelismo: repartir entre núcleos»; luego «Asincronía cooperativa: ceder en cada espera» y «Procesos o hilos sin GIL: coordinar resultados»; luego «Medir con conteos y razones»; luego «Límite de Amdahl».](../../../site/assets/figures/mermaid-861e6de413.svg)
 
 El mapa parte de lo que domina la carga. La espera se resuelve con **concurrencia**: mientras una solicitud espera, otra avanza. El cálculo se resuelve con **paralelismo**: más núcleos hacen más cálculo. La **asincronía cooperativa** es una forma de lograr concurrencia con un solo hilo, a cambio de que cada tarea ceda el control. Y todo acaba chocando con la parte que no puede dividirse.
 

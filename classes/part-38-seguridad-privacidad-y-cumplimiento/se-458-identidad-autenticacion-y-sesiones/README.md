@@ -53,16 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Afirmación de identidad] --> B[Prueba: algo que sabes, tienes o eres]
-    B --> C[Verificación y decisión]
-    C --> D[Sesión: identificador con ciclo de vida]
-    D --> E[Renovación, expiración y cierre]
-    B -->|base filtrada| F[Costo por candidato]
-    B -->|credenciales reutilizadas| G[Relleno de credenciales]
-    D -->|token predecible o robado| H[Secuestro de sesión]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Afirmación de identidad»; luego «Prueba: algo que sabes, tienes o eres»; luego «Verificación y decisión», «Costo por candidato» y «Relleno de credenciales»; luego «Sesión: identificador con ciclo de vida»; luego «Renovación, expiración y cierre» y «Secuestro de sesión».](../../../site/assets/figures/mermaid-a7d2296cfc.svg)
 
 El mapa separa la **afirmación** («soy ana»), la **prueba**, la **decisión** y la **sesión**, que convierte una prueba cara en un identificador barato de presentar. Los tres ataques de la derecha actúan en puntos distintos y no se frenan con el mismo control.
 

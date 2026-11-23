@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Evento, productor / manejador] --> N2[Bucle de eventos / cola] --> N3[Callbacks, promesas / corrutinas] --> N4[Orden, duplicados e idempotencia] --> N5[Cancelación / ciclo de vida]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Evento, productor / manejador»; luego «Bucle de eventos / cola»; luego «Callbacks, promesas / corrutinas»; luego «Orden, duplicados e idempotencia»; luego «Cancelación / ciclo de vida». Retornos: «Cancelación / ciclo de vida» lleva a «Evento, productor / manejador» (fallo o cambio).](../../../site/assets/figures/mermaid-6a95c5787a.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

@@ -56,19 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Registro de metadatos] --> B[Control de siete reglas]
-    C[Plataforma construida: raw, staging, mart] --> B
-    B --> D{¿Pasa?}
-    D -->|sí| E[Se publica y se registra evidencia]
-    D -->|no| F[Se detiene y avisa al dueño con regla y conjunto]
-    G[Cambios inyectados] --> C
-    G --> A
-    F --> H[Matriz mutación por regla]
-    E --> H
-    H --> I[Cambios sin detectar: capa adicional]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Cambios inyectados»; luego «Registro de metadatos» y «Plataforma construida: raw, staging, mart»; luego «Control de siete reglas»; luego «¿Pasa?»; luego «Se publica y se registra evidencia» y «Se detiene y avisa al dueño con regla y conjunto»; luego «Matriz mutación por regla»; luego «Cambios sin detectar: capa adicional».](../../../site/assets/figures/mermaid-438f55ace5.svg)
 
 El control compara dos cosas, lo declarado en el registro y lo construido, y la matriz de mutaciones prueba el control mismo. El cambio sin detectar es el resultado más valioso del proyecto.
 

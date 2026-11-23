@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    E[Escenarios de calidad] --> M[Modelo ejecutable de la arquitectura]
-    M --> V[Veredicto por escenario]
-    V --> R[Riesgos y puntos de sensibilidad]
-    S[Sensibilidad por parametro] --> R
-    P[Participantes con especialidades distintas] --> E
-    R --> D[Decisiones a reabrir]
-    D -->|nuevo modelo| M
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Participantes con especialidades distintas»; luego «Escenarios de calidad»; luego «Modelo ejecutable de la arquitectura»; luego «Veredicto por escenario» y «Sensibilidad por parametro»; luego «Riesgos y puntos de sensibilidad»; luego «Decisiones a reabrir». Retornos: «Decisiones a reabrir» lleva a «Modelo ejecutable de la arquitectura» (nuevo modelo).](../../../site/assets/figures/mermaid-cd55cd1d3e.svg)
 
 El mapa muestra que la revisión empieza por los escenarios (y por quién los elige), pasa por un modelo ejecutable y termina en decisiones que se reabren. El retorno indica que cada cambio de decisión se vuelve a evaluar contra el mismo conjunto de escenarios.
 

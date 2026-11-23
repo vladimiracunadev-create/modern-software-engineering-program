@@ -53,16 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fallos posibles del sistema] --> B[Probabilidad e impacto por componente]
-    B --> C[Reparto del presupuesto de pruebas]
-    C --> D[Nivel que puede ver cada clase de fallo]
-    D --> E[Plan: qué se prueba y con qué técnica]
-    E --> F[Exclusiones con razón y caducidad]
-    F --> G[Incidente o dato nuevo]
-    G -->|reestimar| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Fallos posibles del sistema»; luego «Probabilidad e impacto por componente»; luego «Reparto del presupuesto de pruebas»; luego «Nivel que puede ver cada clase de fallo»; luego «Plan: qué se prueba y con qué técnica»; luego «Exclusiones con razón y caducidad»; luego «Incidente o dato nuevo». Retornos: «Incidente o dato nuevo» lleva a «Probabilidad e impacto por componente» (reestimar).](../../../site/assets/figures/mermaid-8e586fd2f2.svg)
 
 El mapa parte de los fallos y no de las técnicas: la técnica es una respuesta a una clase de fallo y a su costo. El retorno indica que la estrategia es una hipótesis con fecha: un incidente cambia una probabilidad y obliga a repartir de nuevo.
 

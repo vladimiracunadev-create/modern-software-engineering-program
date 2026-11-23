@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    L[Lenguaje del negocio] --> C[Contextos delimitados]
-    C --> M[Mapa de contextos y contratos]
-    C --> A[Agregados con invariantes]
-    A --> V[Objetos de valor]
-    A --> E[Eventos de dominio]
-    M -->|traduccion| X[Capa anticorrupcion]
-    A -->|version| K[Control de concurrencia]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Lenguaje del negocio»; luego «Contextos delimitados»; luego «Mapa de contextos y contratos» y «Agregados con invariantes»; luego «Capa anticorrupcion», «Objetos de valor», «Eventos de dominio» y «Control de concurrencia».](../../../site/assets/figures/mermaid-2eda3d89f7.svg)
 
 El mapa separa lo estratégico (contextos y sus relaciones) de lo táctico (agregados, valores, eventos). Entre contextos hay traducción explícita; dentro de un agregado hay un control que protege el invariante.
 

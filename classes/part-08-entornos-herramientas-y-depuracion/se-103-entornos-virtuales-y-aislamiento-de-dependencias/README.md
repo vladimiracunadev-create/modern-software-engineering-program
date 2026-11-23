@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Entorno virtual] --> N2[Activación / ejecutable explícito] --> N3[Dependencias de proyecto / herramientas] --> N4[Recreación / comprobación] --> N5[Secretos / configuración]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Entorno virtual»; luego «Activación / ejecutable explícito»; luego «Dependencias de proyecto / herramientas»; luego «Recreación / comprobación»; luego «Secretos / configuración». Retornos: «Secretos / configuración» lleva a «Entorno virtual» (fallo o cambio).](../../../site/assets/figures/mermaid-9deb02c34d.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

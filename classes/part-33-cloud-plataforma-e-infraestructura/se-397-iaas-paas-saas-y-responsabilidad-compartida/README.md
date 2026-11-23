@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad: ejecutar la plataforma] --> B[Modelo de servicio: IaaS, PaaS, SaaS]
-    B --> C[Capas delegadas al proveedor]
-    B --> D[Capas que siguen siendo del cliente]
-    C --> E[Evidencia: informes, certificaciones, contratos]
-    D --> F[Evidencia propia: configuración, pruebas, revisión]
-    E --> G[Decisión y riesgo residual]
-    F --> G
-    G -->|incidente| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Necesidad: ejecutar la plataforma»; luego «Modelo de servicio: IaaS, PaaS, SaaS»; luego «Capas delegadas al proveedor» y «Capas que siguen siendo del cliente»; luego «Evidencia: informes, certificaciones, contratos» y «Evidencia propia: configuración, pruebas, revisión»; luego «Decisión y riesgo residual». Retornos: «Decisión y riesgo residual» lleva a «Modelo de servicio: IaaS, PaaS, SaaS» (incidente).](../../../site/assets/figures/mermaid-e913bf227d.svg)
 
 El mapa separa lo que se **delega** (y se confía con evidencia ajena) de lo que **se conserva** (y se responde con evidencia propia). Ambas ramas terminan en una decisión de riesgo residual: nada se delega por completo, así que el riesgo que queda es la suma de lo que el proveedor falle y de lo que tú configures mal.
 

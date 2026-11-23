@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Perfil de operaciones] --> N2[Candidatos equivalentes] --> N3[Matriz de compromisos] --> N4[Cargas adversarias] --> N5[Recomendación condicionada]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Perfil de operaciones»; luego «Candidatos equivalentes»; luego «Matriz de compromisos»; luego «Cargas adversarias»; luego «Recomendación condicionada». Retornos: «Recomendación condicionada» lleva a «Perfil de operaciones» (fallo o cambio).](../../../site/assets/figures/mermaid-12cbe8a177.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

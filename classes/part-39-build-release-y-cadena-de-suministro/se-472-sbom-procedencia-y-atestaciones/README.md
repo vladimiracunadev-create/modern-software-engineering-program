@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Archivo de bloqueo] --> B[SBOM: componentes, versiones, huellas, relaciones]
-    C[Build: constructor, fuente, parámetros, materiales] --> D[Procedencia]
-    E[Artefacto y huella] --> F[Atestación: afirmación ligada a la huella]
-    B --> F
-    D --> F
-    F --> G{Verificador: ¿coincide con lo esperado?}
-    G -->|sí| H[Se puede desplegar]
-    G -->|no| I[Se rechaza]
-    J[Lo que el documento no puede decir: fuente maliciosa, constructor deshonesto] -.-> G
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Archivo de bloqueo» y «Build: constructor, fuente, parámetros, materiales»; luego «SBOM: componentes, versiones, huellas, relaciones», «Procedencia» y «Artefacto y huella»; luego «Atestación: afirmación ligada a la huella» y «Lo que el documento no puede decir: fuente maliciosa, constructor deshonesto»; luego «Verificador: ¿coincide con lo esperado?»; luego «Se puede desplegar» y «Se rechaza».](../../../site/assets/figures/mermaid-91c629111c.svg)
 
 El mapa muestra que los documentos dependen de la huella del artefacto: sin ese vínculo, un SBOM o una procedencia pueden acompañar a cualquier archivo. La línea punteada marca el límite: lo que el verificador no puede ver.
 

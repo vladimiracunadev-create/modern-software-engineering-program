@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio en el proveedor] --> B{¿Quién inicia?}
-    B -->|el proveedor empuja| C[Webhook]
-    B -->|la plataforma pregunta| D[Sondeo con petición condicional]
-    C --> E[Verificar: firma, marca de tiempo, identificador]
-    E --> F[Responder rápido y encolar]
-    F --> G[Procesar de forma idempotente]
-    D --> G
-    G --> H[Reconciliar por listado periódico]
-    H -->|diferencia| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Cambio en el proveedor»; luego «¿Quién inicia?»; luego «Webhook» y «Sondeo con petición condicional»; luego «Verificar: firma, marca de tiempo, identificador»; luego «Responder rápido y encolar»; luego «Procesar de forma idempotente»; luego «Reconciliar por listado periódico». Retornos: «Reconciliar por listado periódico» lleva a «Cambio en el proveedor» (diferencia).](../../../site/assets/figures/mermaid-09807fb3d0.svg)
 
 El mapa separa quién inicia la comunicación del tratamiento posterior, que es el mismo en ambos casos. La reconciliación vuelve al proveedor porque ni el webhook ni el sondeo garantizan haberlo visto todo.
 

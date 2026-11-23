@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Síntoma: miedo a tocar] --> B{¿Qué señal lo respalda?}
-    B -->|clase enorme| C[Cohesión y dependencias]
-    B -->|módulos que se importan en círculo| D[Ciclos]
-    B -->|cambios cada vez más caros| E[Interés de la deuda]
-    C --> F[Separar por razón de cambio]
-    D --> G[Extraer lo común]
-    E --> H{¿Compensa pagar?}
-    H -->|sí| I[Amortizar con un cambio medido]
-    H -->|no| J[Aceptar con condición de revisión]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Síntoma: miedo a tocar»; luego «¿Qué señal lo respalda?»; luego «Cohesión y dependencias», «Ciclos» y «Interés de la deuda»; luego «Separar por razón de cambio», «Extraer lo común» y «¿Compensa pagar?»; luego «Amortizar con un cambio medido» y «Aceptar con condición de revisión».](../../../site/assets/figures/mermaid-3630518cd4.svg)
 
 El mapa parte de un síntoma humano («miedo a tocar») y lo convierte en tres preguntas medibles. La última rama deja explícito que aceptar la deuda también es una decisión y tiene su condición.
 

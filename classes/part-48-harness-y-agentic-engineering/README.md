@@ -10,21 +10,7 @@ La [Parte 45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) comp
 
 Esta parte no enseña un producto de agentes ni defiende uno. Enseña a leer un agente como **un modelo dentro de una arquitectura de control** y a diagnosticar y mejorar esa arquitectura con evidencia. La primera clase quita piezas a un harness mínimo y muestra que cada ausencia deja un patrón de fallo distinto (`SE-577`); la segunda reparte las reglas del repositorio entre prosa, hook y compuerta según se puedan mecanizar (`SE-578`); la tercera compara dos políticas de permisos sobre treinta comandos (`SE-579`); la cuarta modela qué sobrevive en el contexto de una sesión larga (`SE-580`); la quinta compara reglas de parada sobre miles de tareas simuladas (`SE-581`); la sexta mide qué recuperan el confinamiento, la copia y Git tras acciones destructivas (`SE-582`); la séptima ejecuta cinco compuertas sobre doce cambios (`SE-583`); la octava fusiona ramas reales de Git (`SE-584`); la novena calcula métricas de trazas y simula comparaciones con ruido (`SE-585`); la décima clasifica cambios por riesgo y modela tres modos de gobierno (`SE-586`); el taller diagnostica seis fallos inyectados (`SE-587`) y el proyecto ensambla y evalúa un harness mínimo gobernado (`SE-588`).
 
-```mermaid
-flowchart LR
-    A[Anatomía del harness] --> B[Instrucciones y comprobador]
-    B --> C[Herramientas y permisos]
-    C --> D[Contexto y relevo]
-    D --> E[Bucles y parada]
-    E --> F[Sandbox y daño]
-    F --> G[Verificación y menú]
-    G --> H[Multiagente]
-    H --> I[Trazas y evals]
-    I --> J[Gobierno]
-    J --> K[Taller: diagnóstico]
-    K --> L[Proyecto: harness gobernado]
-    L -->|fallos nuevos| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Anatomía del harness»; luego «Instrucciones y comprobador»; luego «Herramientas y permisos»; luego «Contexto y relevo»; luego «Bucles y parada»; luego «Sandbox y daño»; luego «Verificación y menú»; luego «Multiagente»; luego «Trazas y evals»; luego «Gobierno»; luego «Taller: diagnóstico»; luego «Proyecto: harness gobernado». Retornos: «Proyecto: harness gobernado» lleva a «Anatomía del harness» (fallos nuevos).](../../site/assets/figures/mermaid-3131ac8964.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio: cada clase puede aplicarse a un harness existente. El retorno indica que los fallos nuevos vuelven a la anatomía: un harness se corrige con la evidencia de lo que falló.
 

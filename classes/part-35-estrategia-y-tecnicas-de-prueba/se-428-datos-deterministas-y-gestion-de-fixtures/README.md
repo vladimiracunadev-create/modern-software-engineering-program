@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Prueba] --> B{¿Qué estado necesita?}
-    B --> C[Fixture compartido]
-    B --> D[Base nueva por prueba]
-    B --> E[Transacción con retroceso]
-    C --> F[Dependencia del orden]
-    D --> G[Costo de preparación]
-    E --> G
-    A --> H[Fuentes de no determinismo]
-    H --> I[Inyectar, fijar o ordenar]
-    I --> J[Resultado reproducible]
-    F -->|aislar| D
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Prueba»; luego «¿Qué estado necesita?» y «Fuentes de no determinismo»; luego «Fixture compartido», «Transacción con retroceso» y «Inyectar, fijar o ordenar»; luego «Dependencia del orden» y «Resultado reproducible»; luego «Base nueva por prueba»; luego «Costo de preparación».](../../../site/assets/figures/mermaid-66e8d981f6.svg)
 
 El mapa muestra dos ejes independientes: el estado que la prueba hereda y las fuentes de variación que la atraviesan. Ambos deben controlarse para que un resultado se pueda reproducir.
 

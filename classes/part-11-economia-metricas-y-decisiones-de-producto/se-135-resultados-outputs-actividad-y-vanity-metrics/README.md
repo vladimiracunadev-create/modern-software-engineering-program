@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Producción] --> N2[Actividad] --> N3[Resultado] --> N4[Impacto] --> N5[Métrica de vanidad y meta]
-    N5 -->|la meta cambia la conducta| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Producción»; luego «Actividad»; luego «Resultado»; luego «Impacto»; luego «Métrica de vanidad y meta». Retornos: «Métrica de vanidad y meta» lleva a «Producción» (la meta cambia la conducta).](../../../site/assets/figures/mermaid-4fdb187480.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una meta modifica lo que el equipo produce; por eso una métrica se evalúa también por la conducta que provocaría.
 

@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Estado deseado: réplicas, peticiones, límites] --> B[Planificador: filtrar y puntuar nodos]
-    B --> C[Pod en un nodo]
-    C --> D[Estado actual observado]
-    D --> E{¿Coincide con el deseado?}
-    E -->|no| F[Controlador actúa: crear, reiniciar, mover]
-    F --> B
-    E -->|sí| G[Estable]
-    C -->|uso real distinto de lo pedido| H[Saturación o desperdicio]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Estado deseado: réplicas, peticiones, límites»; luego «Planificador: filtrar y puntuar nodos»; luego «Pod en un nodo»; luego «Estado actual observado» y «Saturación o desperdicio»; luego «¿Coincide con el deseado?»; luego «Controlador actúa: crear, reiniciar, mover» y «Estable». Retornos: «Controlador actúa: crear, reiniciar, mover» lleva a «Planificador: filtrar y puntuar nodos».](../../../site/assets/figures/mermaid-e14e2ca3fa.svg)
 
 El mapa muestra dos bucles. El de **ubicación** decide dónde va cada pod con lo que pide; el de **reconciliación** vuelve a ejecutarlo cuando lo observado no coincide con lo declarado. La rama inferior es la que ninguno de los dos mira: lo que el pod usa de verdad.
 

@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Contenedor de desarrollo] --> N2[Imagen, tag / digest] --> N3[Workspace, mounts / permisos] --> N4[Lifecycle / caché] --> N5[Desechabilidad / persistencia]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Contenedor de desarrollo»; luego «Imagen, tag / digest»; luego «Workspace, mounts / permisos»; luego «Lifecycle / caché»; luego «Desechabilidad / persistencia». Retornos: «Desechabilidad / persistencia» lleva a «Contenedor de desarrollo» (fallo o cambio).](../../../site/assets/figures/mermaid-3b63c642dc.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

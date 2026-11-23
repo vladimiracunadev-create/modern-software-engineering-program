@@ -50,21 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dominio elegido] --> B[Afirmación refutable]
-    B --> C[Invariantes y modelo de referencia]
-    C --> D[Experimentos con semilla]
-    D --> E[Sensibilidad de supuestos]
-    E --> F[Decisión con incertidumbre]
-    F --> G[Dosier de diez secciones]
-    G --> H[Validador de forma]
-    G --> I[Revisión de contenido]
-    G --> J[Huella canónica]
-    H --> K[Entrega]
-    I --> K
-    J --> K
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Dominio elegido»; luego «Afirmación refutable»; luego «Invariantes y modelo de referencia»; luego «Experimentos con semilla»; luego «Sensibilidad de supuestos»; luego «Decisión con incertidumbre»; luego «Dosier de diez secciones»; luego «Validador de forma», «Revisión de contenido» y «Huella canónica»; luego «Entrega».](../../../site/assets/figures/mermaid-112637bbf6.svg)
 
 El mapa termina en tres comprobaciones con naturalezas distintas: el **validador** (forma), la **revisión** (sentido) y la **huella** (integridad). Cada una ve lo que las otras no ven; la entrega las exige las tres.
 

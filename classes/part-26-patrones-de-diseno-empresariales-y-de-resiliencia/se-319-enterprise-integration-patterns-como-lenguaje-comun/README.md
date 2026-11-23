@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Canal de mensajes] --> B{¿Qué garantiza?}
-    B -->|al menos una vez| C[Puede duplicar]
-    B -->|sin orden| D[Puede desordenar]
-    B -->|mensaje veneno| E[Nunca se procesa]
-    C --> F[Idempotent Receiver]
-    D --> G[Resequencer]
-    E --> H[Dead Letter Channel con alarma]
-    A --> I[Content-Based Router]
-    A --> J[Correlation Identifier]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Canal de mensajes»; luego «¿Qué garantiza?», «Content-Based Router» y «Correlation Identifier»; luego «Puede duplicar», «Puede desordenar» y «Nunca se procesa»; luego «Idempotent Receiver», «Resequencer» y «Dead Letter Channel con alarma».](../../../site/assets/figures/mermaid-ef4eefa155.svg)
 
 Cada garantía débil se corresponde con un patrón en el receptor. El enrutador y el identificador de correlación no compensan una garantía: dan forma al flujo.
 

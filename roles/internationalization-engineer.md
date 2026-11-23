@@ -56,19 +56,7 @@ testing y workflow de traducción.
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
 
-```mermaid
-flowchart LR
-    A["🎯 Dato internacional"] --> B
-    B["🧠 Locale"] --> C
-    C["🛠️ Presentación"] --> D
-    D["🔎 Localización"] --> E["📈 Verificación"]
-    classDef intent fill:#fff3cd,stroke:#9a6700,color:#24292f
-    classDef work fill:#ddf4ff,stroke:#0969da,color:#24292f
-    classDef proof fill:#dafbe1,stroke:#1a7f37,color:#24292f
-    class A intent
-    class B,C,D work
-    class E proof
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «🎯 Dato internacional»; luego «🧠 Locale»; luego «🛠️ Presentación»; luego «🔎 Localización»; luego «📈 Verificación».](../site/assets/figures/mermaid-b6a0ce6aa8.svg)
 
 El gráfico no representa una cascada rígida. Muestra el bucle profesional que este rol
 debe poder recorrer: comprender el contexto, tomar una decisión, intervenir, observar
@@ -177,14 +165,9 @@ robusta para un servicio crítico puede ser desperdicio en una herramienta inter
 **Síntoma.** Se mezcla instante UTC con fecha local y zona implícita. La respuesta madura evita convertir la primera
 correlación en causa y conserva evidencia antes de modificar el sistema.
 
-```mermaid
-flowchart LR
-    S["⚠️ Síntoma"] --> H["🔎 Hipótesis"]
-    H --> C["🧯 Contención"]
-    C --> D["🧠 Diagnóstico"]
-    D --> R["🛠️ Recuperación"]
-    R --> P["📚 Prevención"]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «⚠️ Síntoma»; luego «🔎 Hipótesis»; luego «🧯 Contención»; luego «🧠 Diagnóstico»; luego «🛠️ Recuperación»; luego «📚 Prevención».](../site/assets/figures/mermaid-637bdc6ac9.svg)
+
+**Cómo leer el diagrama:** empieza en «⚠️ Síntoma» y sigue las flechas hasta el final del recorrido. Las filas se leen como una serpentina: de izquierda a derecha y, en la fila siguiente, de derecha a izquierda.
 
 1. **Detectar y delimitar:** identifica quién o qué está afectado, desde cuándo y qué
    cambió. Conserva timestamps, versiones, entradas y señales suficientes para no

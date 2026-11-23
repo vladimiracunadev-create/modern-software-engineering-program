@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Estrategia voraz] --> N2[Contraejemplo mínimo] --> N3[Subproblemas superpuestos] --> N4[Memoización / tabulación] --> N5[Reconstrucción de la solución]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Estrategia voraz»; luego «Contraejemplo mínimo»; luego «Subproblemas superpuestos»; luego «Memoización / tabulación»; luego «Reconstrucción de la solución». Retornos: «Reconstrucción de la solución» lleva a «Estrategia voraz» (fallo o cambio).](../../../site/assets/figures/mermaid-2f0fa7476d.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

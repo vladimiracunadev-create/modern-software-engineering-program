@@ -10,21 +10,7 @@ La [Parte 30](../part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md) t
 
 Esta parte no enseña a entrenar el mejor modelo ni defiende una plataforma. Enseña a leer un sistema de aprendizaje automático como un **sistema que se degrada**, y a convertir cada riesgo en una medida: un experimento con semilla, una comprobación que puede fallar, un umbral con un motivo escrito. La primera clase fija el mapa del ciclo de vida con cuatro fallas medidas sobre el mismo modelo y el bucle de realimentación (`SE-601`). Las siguientes miden los eslabones de entrada: los datos, las etiquetas y la fuga de información (`SE-602`) y el entrenamiento que se repite y se compara contra su propio ruido (`SE-603`). Después se evalúa con la pregunta correcta (`SE-604`), se adapta un modelo base con pocos datos y se calcula el costo (`SE-605`) y se mide cuánto cuesta servirlo con lotes y bajo sobrecarga (`SE-606`). El despliegue seguro combina sombra, canary y rollback (`SE-607`) y el monitoreo decide cuándo la deriva importa y cuándo reentrenar (`SE-608`). Siguen la seguridad y la robustez (`SE-609`) y el gobierno de la IA con la regulación (`SE-610`). La parte termina con un taller que degrada y recupera el modelo (`SE-611`) y un proyecto con una puerta de liberación que se ejecuta (`SE-612`).
 
-```mermaid
-flowchart LR
-    A[Ciclo de vida y fallas] --> B[Datos y etiquetas]
-    B --> C[Entrenamiento reproducible]
-    C --> D[Evaluación y sesgos]
-    D --> E[Adaptación y costo]
-    E --> F[Servir: latencia y lotes]
-    F --> G[Despliegue seguro]
-    G --> H[Monitoreo y reentrenamiento]
-    H --> I[Seguridad y robustez]
-    I --> J[Gobierno y regulación]
-    J --> K[Taller: degradar y recuperar]
-    K --> L[Proyecto: sistema operable]
-    L -->|la evidencia reabre el mapa| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Ciclo de vida y fallas»; luego «Datos y etiquetas»; luego «Entrenamiento reproducible»; luego «Evaluación y sesgos»; luego «Adaptación y costo»; luego «Servir: latencia y lotes»; luego «Despliegue seguro»; luego «Monitoreo y reentrenamiento»; luego «Seguridad y robustez»; luego «Gobierno y regulación»; luego «Taller: degradar y recuperar»; luego «Proyecto: sistema operable». Retornos: «Proyecto: sistema operable» lleva a «Ciclo de vida y fallas» (la evidencia reabre el mapa).](../../site/assets/figures/mermaid-78d0132e87.svg)
 
 El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los costos. El retorno indica que la evidencia del proyecto, o un incidente, vuelve a cambiar el mapa de fallas del primer eslabón.
 

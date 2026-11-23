@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Crear: recurso 1..12 en orden de dependencias] --> B{¿Corte?}
-    B -->|no| C[Entorno completo y estado completo]
-    B -->|sí| D[Estado parcial: ¿hay registro de intención?]
-    D --> E[Reconciliar o destruir lo existente]
-    C --> F[Destruir en orden inverso]
-    E --> F
-    F --> G[Barrido por etiqueta de lo que quedó]
-    G --> H[Comprobación independiente: nada existe]
-    H --> I[Prueba de destrucción archivada]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Crear: recurso 1..12 en orden de dependencias»; luego «¿Corte?»; luego «Entorno completo y estado completo» y «Estado parcial: ¿hay registro de intención?»; luego «Reconciliar o destruir lo existente»; luego «Destruir en orden inverso»; luego «Barrido por etiqueta de lo que quedó»; luego «Comprobación independiente: nada existe»; luego «Prueba de destrucción archivada».](../../../site/assets/figures/mermaid-e31c25e046.svg)
 
 El mapa muestra que crear y destruir comparten la misma incertidumbre: un corte deja un estado intermedio que el estado guardado puede o no reflejar. El **barrido por etiqueta** y la **comprobación independiente** son las dos redes de seguridad: la primera encuentra lo que el estado no sabe y la segunda demuestra que no queda nada.
 

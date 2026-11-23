@@ -59,16 +59,7 @@ capa; y declarar qué no puede inferirse desde Python.
 | Observación | cada herramienta ve una frontera | limita conclusiones y orienta la siguiente medición |
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
- U[Entrada del analizador local de eventos] --> L[Lenguaje y bibliotecas]
- L --> R[Runtime]
- R --> O[Sistema operativo]
- O --> A[ISA]
- A --> H[Microarquitectura y hardware]
- H --> O
- O --> U2[Archivo y salida]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Entrada del analizador local de eventos»; luego «Lenguaje y bibliotecas»; luego «Runtime»; luego «Sistema operativo»; luego «ISA» y «Archivo y salida»; luego «Microarquitectura y hardware». Retornos: «Microarquitectura y hardware» lleva a «Sistema operativo».](../../../site/assets/figures/mermaid-f6541559c1.svg)
 
 La flecha descendente representa contratos de ejecución; la ascendente, resultados e
 interrupciones. El mapa no afirma que una línea de Python corresponda a una instrucción.

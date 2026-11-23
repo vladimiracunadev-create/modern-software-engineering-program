@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tarea y escenarios] --> B[Prototipo semántico]
-    B --> C[Auditoría y revisión]
-    A --> D[Plan de evaluación con personas]
-    C --> E[Tabla de criterios]
-    D --> E
-    E --> F[Declaración de conformidad]
-    F -->|hallazgos| B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Tarea y escenarios»; luego «Prototipo semántico» y «Plan de evaluación con personas»; luego «Auditoría y revisión»; luego «Tabla de criterios»; luego «Declaración de conformidad». Retornos: «Declaración de conformidad» lleva a «Prototipo semántico» (hallazgos).](../../../site/assets/figures/mermaid-d10b97ed7b.svg)
 
 El mapa se lee como dos fuentes de evidencia, la auditoría del prototipo y la evaluación con personas, que alimentan una tabla de criterios y de ahí una declaración. Los hallazgos vuelven al prototipo. El plan con personas se escribe antes de construir, no después.
 

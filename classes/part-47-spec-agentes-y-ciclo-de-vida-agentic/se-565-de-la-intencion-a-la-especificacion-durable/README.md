@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Especificación: qué y por qué]
-    B --> C[Plan: cómo]
-    C --> D[Tareas]
-    D --> E[Código y pruebas]
-    E -->|evidencia| B
-    B --> F{Ambigüedad}
-    F -->|resuelta antes| G[Un comportamiento]
-    F -->|sin resolver| H[Muchos comportamientos]
-    H -->|el agente elige| E
-    E -->|cambio sin actualizar la especificación| I[Deriva]
-    I --> B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Intención»; luego «Especificación: qué y por qué»; luego «Plan: cómo» y «Ambigüedad»; luego «Tareas», «Un comportamiento» y «Muchos comportamientos»; luego «Código y pruebas»; luego «Deriva». Retornos: «Código y pruebas» lleva a «Especificación: qué y por qué» (evidencia); «Deriva» lleva a «Especificación: qué y por qué».](../../../site/assets/figures/mermaid-813f419cac.svg)
 
 El mapa muestra que la especificación es el punto al que vuelve la evidencia y de donde salen plan, tareas y pruebas. Cada ambigüedad sin resolver se resuelve igualmente, pero la resuelve quien implementa y queda escondida en el código. La deriva es la separación entre lo que el documento dice y lo que el sistema hace.
 

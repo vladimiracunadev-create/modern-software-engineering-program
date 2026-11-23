@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Vacío] -->|pedir| B[Carga]
-    B -->|datos| C[Con datos]
-    B -->|sin resultados| A
-    B -->|fallo| D[Error]
-    D -->|reintentar| B
-    C -->|actualizar| B
-```
+![Diagrama de flujo con 4 pasos. Recorrido: «Vacío»; luego «Carga»; luego «Con datos» y «Error». Retornos: «Carga» lleva a «Vacío» (sin resultados); «Error» lleva a «Carga» (reintentar); «Con datos» lleva a «Carga» (actualizar).](../../../site/assets/figures/mermaid-a5ef36f485.svg)
 
 El mapa se lee como una máquina de cuatro estados: solo se puede estar en uno a la vez y cada flecha es una transición declarada. Lo que no tiene flecha no puede ocurrir; ese es el punto del modelo. Un estado parcial (algunos datos, un fallo) se añade como un quinto estado y no como dos banderas.
 

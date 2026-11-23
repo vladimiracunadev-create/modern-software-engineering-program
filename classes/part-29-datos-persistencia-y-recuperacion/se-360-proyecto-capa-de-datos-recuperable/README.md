@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Modelo e invariantes] --> P[Paquete de datos]
-    B[Migraciones en fases] --> P
-    C[Índices y patrones de acceso] --> P
-    D[Distribución y caché] --> P
-    E[Respaldo y restauración medidos] --> P
-    F[Inventario y ciclo de vida] --> P
-    P --> G[Validador: forma y coherencia]
-    P --> H[Simulacro: incidentes inyectados]
-    G --> I[Lo que ninguno ve: LIMITES.md]
-    H --> I
-    I -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Modelo e invariantes», «Migraciones en fases», «Índices y patrones de acceso», «Distribución y caché», «Respaldo y restauración medidos» y «Inventario y ciclo de vida»; luego «Paquete de datos»; luego «Validador: forma y coherencia» y «Simulacro: incidentes inyectados»; luego «Lo que ninguno ve: LIMITES.md». Retornos: «Lo que ninguno ve: LIMITES.md» lleva a «Modelo e invariantes» (incidente o hallazgo).](../../../site/assets/figures/mermaid-a1f402a38a.svg)
 
 El mapa muestra que el paquete tiene seis fuentes y dos instrumentos de comprobación, y que su salida más importante es la lista de lo que esos instrumentos no ven.
 

@@ -10,21 +10,7 @@ La [Parte 46](../part-46-desarrollo-de-software-asistido-por-ia/README.md) ense�
 
 Esta parte no enseña una herramienta de agentes ni un producto concreto. Enseña a convertir una intención en una especificación con identificadores y criterios comprobables y a medir cuántas decisiones se delegan en quien implementa; a encadenar constitución, clarificación, plan y tareas con puertas que un analizador de texto cumple en lo formal y no en lo semántico; a definir convergencia con un verificador independiente, condiciones de parada y capacidad de detección medida con variantes defectuosas; a elegir el proceso por la situación (proyecto nuevo, cambio sobre código existente, corrección de errores, evaluación de ideas); a descomponer la autoridad de un agente en herramientas, permisos, alcance y duración y a probar un motor de reglas; a decidir el modo de fallo de un gancho, medir el costo de las habilidades y confinar rutas; a tratar las descripciones y listados de un servidor de herramientas como entrada no confiable; a delegar con contratos, zonas y protocolos de escritura; a diseñar la aprobación humana por reversibilidad; a limitar las tres capacidades que hacen posible la fuga y a conservar un registro encadenado; y a detener, reanudar y evaluar un agente con estadística honesta.
 
-```mermaid
-flowchart LR
-    A[De la intención a la especificación durable] --> B[Constitución, specify, clarify, plan y tasks]
-    B --> C[Implementación, análisis y convergencia contra SPEC]
-    C --> D[Greenfield, brownfield, bug fixing e idea assessment]
-    D --> E[Agentes, herramientas, permisos y límites de autoridad]
-    E --> F[Skills, plugins, hooks y entornos aislados]
-    F --> G[MCP, recursos, prompts, tools y confianza]
-    G --> H[Delegación, subagentes y sistemas multiagente]
-    H --> I[Human-in-the-loop, aprobación y acciones reversibles]
-    I --> J[Seguridad agentic, prompt injection y auditoría]
-    J --> K[Taller: detener, recuperar y evaluar un agente]
-    K --> L[Proyecto final: producto operable construido desde SPEC]
-    L -->|hallazgo de la revisión| A
-```
+![Diagrama de flujo con 12 pasos, de «De la intención a la especificación durable» a «Proyecto final: producto operable construido desde SPEC», con 1 retorno(s).](../../site/assets/figures/mermaid-0bc1abbe02.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo de la revisión independiente del paquete reabre la especificación: un producto entregado no cierra la especificación, la fecha.
 

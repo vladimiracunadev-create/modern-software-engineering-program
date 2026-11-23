@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    R[Solicitud con presupuesto y permisos] --> E[Enrutador con umbral]
-    E -->|conocido| W[Workflow]
-    E -->|abierto| A[Agente acotado]
-    E -->|duda| H[Persona]
-    W --> T[Herramientas por protocolo, permisos mínimos]
-    A --> T
-    T --> J[Diario con clave de idempotencia]
-    J --> TR[Traza con versiones]
-    TR --> EV[Evaluación y puerta de entrada]
-    EV -->|pasa| P[Producción con degradación y alarmas]
-    EV -->|no pasa| X[Rediseñar o reducir alcance]
-    P -->|fallos reales| EV
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Solicitud con presupuesto y permisos»; luego «Enrutador con umbral»; luego «Workflow», «Agente acotado» y «Persona»; luego «Herramientas por protocolo, permisos mínimos»; luego «Diario con clave de idempotencia»; luego «Traza con versiones»; luego «Evaluación y puerta de entrada»; luego «Producción con degradación y alarmas» y «Rediseñar o reducir alcance». Retornos: «Producción con degradación y alarmas» lleva a «Evaluación y puerta de entrada» (fallos reales).](../../../site/assets/figures/mermaid-bba4f38c43.svg)
 
 El mapa muestra el sistema como un conjunto de piezas que cada clase estudió y la puerta como el punto donde se decide con evidencia.
 

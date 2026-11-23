@@ -52,21 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Mensaje original] --> B{¿De dónde viene el segundo?}
-    B -->|el consumidor cae antes de acusar| C[Reentrega]
-    B -->|se pierde el acuse| C
-    B -->|el productor reintenta con otro id| D[Mensaje nuevo, mismo contenido]
-    B -->|el proceso supera la visibilidad| E[Entrega a otro consumidor]
-    B -->|reinicio de desplazamientos| F[Relectura]
-    C --> G[Clave del mensaje]
-    D --> H[Clave de negocio]
-    E --> G
-    F --> G
-    G --> I[Clave + efecto en una transacción]
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Mensaje original»; luego «¿De dónde viene el segundo?»; luego «Mensaje nuevo, mismo contenido», «Reentrega», «Entrega a otro consumidor» y «Relectura»; luego «Clave de negocio» y «Clave del mensaje»; luego «Clave + efecto en una transacción».](../../../site/assets/figures/mermaid-22f8e7e42a.svg)
 
 El mapa separa **de dónde viene el segundo mensaje** de **qué defensa lo reconoce**. La rama del productor es la única donde el identificador del mensaje cambia, y por eso exige la clave de negocio.
 

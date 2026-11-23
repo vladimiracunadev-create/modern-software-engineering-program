@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    E[Solicitud] --> R{Enrutador}
-    R -->|intención conocida| C[Cadena: extraer → validar → redactar]
-    R -->|confianza baja| H[Persona]
-    C --> G1[Puerta: la fecha existe y el curso es del solicitante]
-    G1 -->|falla| X[Reintento acotado o escalado]
-    G1 -->|pasa| P[Subtareas independientes en paralelo]
-    P --> J[Unión de resultados]
-    J --> S[Salida]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Solicitud»; luego «Enrutador»; luego «Cadena: extraer → validar → redactar» y «Persona»; luego «Puerta: la fecha existe y el curso es del solicitante»; luego «Reintento acotado o escalado» y «Subtareas independientes en paralelo»; luego «Unión de resultados»; luego «Salida».](../../../site/assets/figures/mermaid-5c8e174ab1.svg)
 
 El mapa muestra los tres patrones en un mismo flujo: el enrutador decide la rama, la cadena tiene una puerta entre pasos y las subtareas independientes se paralelizan antes de unir.
 

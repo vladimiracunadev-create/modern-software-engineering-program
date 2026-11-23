@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Compilación / front-end] --> N2[Formatter] --> N3[Linter] --> N4[Tipos / flujo] --> N5[Análisis estático / límites]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Compilación / front-end»; luego «Formatter»; luego «Linter»; luego «Tipos / flujo»; luego «Análisis estático / límites». Retornos: «Análisis estático / límites» lleva a «Compilación / front-end» (fallo o cambio).](../../../site/assets/figures/mermaid-33a059bee8.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

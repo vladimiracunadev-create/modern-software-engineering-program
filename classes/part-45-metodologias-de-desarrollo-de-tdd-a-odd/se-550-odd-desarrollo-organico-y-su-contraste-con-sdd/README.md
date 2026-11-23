@@ -55,22 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    A[Petición] --> B{¿Autoriza un cambio?}
-    B -->|no: explicar o investigar| C[Solo lectura]
-    B -->|sí| D{¿Cambio pequeño y claro?}
-    D -->|sí| E[Cambio sin documento persistente]
-    D -->|no: trabajo sustancial| F[Documento de tarea antes del código]
-    F --> G[ROJO: una prueba por regla]
-    G --> H[VERDE: código mínimo]
-    H --> I[REFACTOR]
-    I --> J[Commit de unas 400 líneas]
-    J --> K{¿Más tareas?}
-    K -->|sí| G
-    K -->|no| L[Push, PR y merge: decisiones aparte]
-    F --> M[Siguiente paso anotado para retomar]
-```
+![Diagrama de flujo con 13 pasos. Recorrido: «Petición»; luego «¿Autoriza un cambio?»; luego «Solo lectura» y «¿Cambio pequeño y claro?»; luego «Cambio sin documento persistente» y «Documento de tarea antes del código»; luego «ROJO: una prueba por regla» y «Siguiente paso anotado para retomar»; luego «VERDE: código mínimo»; luego «REFACTOR»; luego «Commit de unas 400 líneas»; luego «¿Más tareas?»; luego «Push, PR y merge: decisiones aparte». Retornos: «¿Más tareas?» lleva a «ROJO: una prueba por regla» (sí).](../../../site/assets/figures/mermaid-f6d145fadb.svg)
 
 El mapa tiene dos bifurcaciones antes de escribir una línea: si la petición autoriza un cambio y si el cambio es sustancial. Todo lo demás es el ciclo de TDD con un límite de tamaño y una nota para la sesión siguiente.
 

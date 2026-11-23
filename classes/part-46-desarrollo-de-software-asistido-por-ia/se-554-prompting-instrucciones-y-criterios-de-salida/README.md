@@ -53,26 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Encargo]
-    B --> C[Objetivo y contexto]
-    B --> D[Restricciones]
-    B --> E[Formato de salida]
-    B --> F[Criterios de aceptación]
-    C --> G[Modelo]
-    D --> G
-    E --> G
-    G --> H[Salida]
-    H --> I{Capa 1: formato}
-    I -->|pasa| J{Capa 2: rango}
-    J -->|pasa| K{Capa 3: coherencia}
-    K -->|pasa| L[Prueba de comportamiento]
-    I -->|falla| M[Rechazo con motivo]
-    J -->|falla| M
-    K -->|falla| M
-    F --> I
-```
+![Diagrama de flujo con 13 pasos. Recorrido: «Intención»; luego «Encargo»; luego «Objetivo y contexto», «Restricciones», «Formato de salida» y «Criterios de aceptación»; luego «Modelo»; luego «Salida»; luego «Capa 1: formato»; luego «Capa 2: rango»; luego «Capa 3: coherencia»; luego «Prueba de comportamiento» y «Rechazo con motivo».](../../../site/assets/figures/mermaid-cb8621eed5.svg)
 
 El mapa separa la **redacción** del encargo de su **comprobación**. Los criterios de aceptación alimentan las capas de validación: un criterio que no desemboca en una comprobación queda como esperanza.
 

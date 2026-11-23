@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio] --> B[PR con contexto]
-    B --> C[Comprobaciones automáticas]
-    B --> D[Triaje por riesgo]
-    D --> E[Lectura humana]
-    E -->|comentarios| F[Corrección]
-    F -->|range-diff| E
-    E --> G[Aprobación]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Cambio»; luego «PR con contexto»; luego «Comprobaciones automáticas» y «Triaje por riesgo»; luego «Lectura humana»; luego «Corrección» y «Aprobación». Retornos: «Corrección» lleva a «Lectura humana» (range-diff).](../../../site/assets/figures/mermaid-d781a06616.svg)
 
 El mapa se lee de izquierda a derecha: un cambio se presenta con contexto, se comprueba automáticamente, se prioriza y se lee; cada corrección vuelve a la lectura con una comparación de lo cambiado. No describe cuántas personas revisan ni cuánto dura cada paso.
 

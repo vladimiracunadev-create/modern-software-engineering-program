@@ -10,21 +10,7 @@ La [Parte 15](../part-15-procesos-planificacion-y-estimacion/README.md) terminó
 
 Esta parte no enseña una lista de comandos. Enseña un modelo (objetos, áreas y referencias) con el que se predice qué hará un comando, a medir qué recupera cada error, a elegir una estrategia de integración sabiendo qué historia conserva, a ordenar una revisión por riesgo, a decidir cuánto debe vivir una rama, a atar cada cambio a su motivo, a escribir reglas que una máquina pueda comprobar, a decidir con reglas visibles cómo se acepta un cambio de fuera, a inventariar licencias sin confundir una herramienta con una opinión legal, a distinguir lo que prueba una firma de lo que no, y a rescatar una fusión mal resuelta según lo que ya se publicó. Cada clase ejecuta experimentos, con Git real en repositorios temporales o con datos sintéticos de semilla fija, que muestran el límite de lo que una comprobación ve.
 
-```mermaid
-flowchart LR
-    A[Objetos y áreas] --> B[Commits atómicos]
-    B --> C[Ramas e integración]
-    C --> D[Revisión por riesgo]
-    D --> E[Flujo de ramas]
-    E --> F[Issues y trazabilidad]
-    F --> G[Convenciones y propietarios]
-    G --> H[Comunidad abierta]
-    H --> I[Licencias]
-    I --> J[Firmas y protección]
-    J --> K[Rescate]
-    K --> L[Contribución revisable]
-    L -->|rechazo o hallazgo| B
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Objetos y áreas»; luego «Commits atómicos»; luego «Ramas e integración»; luego «Revisión por riesgo»; luego «Flujo de ramas»; luego «Issues y trazabilidad»; luego «Convenciones y propietarios»; luego «Comunidad abierta»; luego «Licencias»; luego «Firmas y protección»; luego «Rescate»; luego «Contribución revisable». Retornos: «Contribución revisable» lleva a «Commits atómicos» (rechazo o hallazgo).](../../site/assets/figures/mermaid-8e456eea1e.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que una contribución rechazada o un hallazgo en la revisión reabre el tamaño y la forma de los commits; una contribución aceptada no cierra el repositorio, lo fecha.
 

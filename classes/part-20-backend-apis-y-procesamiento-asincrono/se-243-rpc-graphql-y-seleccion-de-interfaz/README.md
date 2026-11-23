@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    P[Pantalla] --> Q{Qué necesita}
-    Q -->|recursos completos| A[REST: 2 viajes, muchos bytes]
-    Q -->|campos elegidos| B[Selección de campos]
-    Q -->|forma a medida| C[Llamada tipo RPC]
-    B --> R[Resolvedores]
-    R -->|una consulta por elemento| N[N+1]
-    R -->|carga por lotes| L[2 consultas]
-    B --> K[Límite de profundidad y coste]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Pantalla»; luego «Qué necesita»; luego «REST: 2 viajes, muchos bytes», «Selección de campos» y «Llamada tipo RPC»; luego «Resolvedores» y «Límite de profundidad y coste»; luego «N+1» y «2 consultas».](../../../site/assets/figures/mermaid-778f6aa2fb.svg)
 
 El mapa se lee desde la pantalla: lo que necesita determina cuántos viajes y qué forma. La rama de la selección de campos añade un riesgo que las otras no tienen: el cliente fija la forma de la consulta y el servidor debe ejecutar cualquier forma, de ahí los resolvedores, el N+1 y los límites. No es una jerarquía de calidad.
 

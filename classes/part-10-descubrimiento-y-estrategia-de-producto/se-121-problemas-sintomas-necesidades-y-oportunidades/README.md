@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Síntoma o petición] --> N2[Problema] --> N3[Necesidad] --> N4[Oportunidad] --> N5[Causa y evidencia]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Síntoma o petición»; luego «Problema»; luego «Necesidad»; luego «Oportunidad»; luego «Causa y evidencia». Retornos: «Causa y evidencia» lleva a «Síntoma o petición» (fallo o cambio).](../../../site/assets/figures/mermaid-4ab0b4926e.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una causa nueva o un dato que contradice el enunciado obliga a reabrir el síntoma de partida; no autoriza a parchear solo la oportunidad.
 

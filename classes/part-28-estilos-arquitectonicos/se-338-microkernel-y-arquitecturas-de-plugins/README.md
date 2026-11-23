@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Núcleo mínimo] --> B[Contrato del complemento]
-    B --> C[Descubrimiento]
-    C --> D{¿Versión compatible?}
-    D -->|no| E[Rechazo al arrancar o adaptador]
-    D -->|sí| F[Registro]
-    F --> G[Despacho de eventos]
-    G --> H{¿Falla o se bloquea?}
-    H -->|excepción| I[Aislar con try y except]
-    H -->|bloqueo| J[Proceso o hilo con límite]
-    I --> G
-    J --> G
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Núcleo mínimo»; luego «Contrato del complemento»; luego «Descubrimiento»; luego «¿Versión compatible?»; luego «Rechazo al arrancar o adaptador» y «Registro»; luego «Despacho de eventos»; luego «¿Falla o se bloquea?»; luego «Aislar con try y except» y «Proceso o hilo con límite». Retornos: «Aislar con try y except» lleva a «Despacho de eventos»; «Proceso o hilo con límite» lleva a «Despacho de eventos».](../../../site/assets/figures/mermaid-85aacb42d2.svg)
 
 El mapa muestra que el contrato es el centro: el descubrimiento carga lo que declara la versión correcta y el despacho debe asumir que cualquier complemento puede fallar o bloquearse. El aislamiento no es una propiedad del estilo; es un servicio que el núcleo debe construir.
 

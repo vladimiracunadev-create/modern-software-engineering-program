@@ -10,21 +10,7 @@ La [Parte 35](../part-35-estrategia-y-tecnicas-de-prueba/README.md) decidió qu�
 
 Esta parte no enseña una herramienta de pruebas de carga ni un producto de observabilidad. Enseña a escribir un requisito de calidad como un escenario con una medida, a ver qué esconde cada estadístico y cada ventana, a decidir qué comprueba una revisión, un análisis estático y una compuerta y qué se les escapa, a elegir la forma de una prueba de carga y a distinguir un generador que oculta la espera de uno que no, a explicar con teoría de colas por qué la latencia se dispara cerca de la saturación y a planificar la capacidad desde un objetivo de cola, a medir con relojes y perfiladores sin creer que miden lo que no miden, a decidir timeouts y reintentos con presupuesto, a limitar el daño de una dependencia caída con interruptores, mamparos y respuestas degradadas, a calcular disponibilidad y durabilidad con la causa común a la vista, a comprobar la compatibilidad entre sistemas y versiones ejecutándola, a fijar presupuestos de experiencia con dueño y a someter un sistema a presión con una hipótesis, un radio acotado y un criterio de aborto. Cada clase ejecuta experimentos con datos sintéticos o sondas reales que muestran un mecanismo (una media de 157 ms sobre un p99 de 1 929 ms, un p99 de 232 ms que oculta una pausa de diez segundos, tres capas que envían 27 intentos a una base caída, siete de doce sondas que lanzan una excepción en un sistema y no en otro) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Modelos de calidad y atributos medibles] --> B[Revisión, análisis estático y quality gates]
-    B --> C[Carga, estrés, picos y endurance]
-    C --> D[Latencia, throughput, saturación y capacidad]
-    D --> E[Perfiles, benchmarks y errores de medición]
-    E --> F[Timeouts, retries, backoff y jitter]
-    F --> G[Circuit breakers, bulkheads y degradación]
-    G --> H[Disponibilidad, durabilidad y recuperación]
-    H --> I[Compatibilidad, portabilidad e interoperabilidad]
-    I --> J[Calidad de experiencia y presupuestos]
-    J --> K[Taller de presión controlada]
-    K --> L[Informe reproducible de calidad]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos, de «Modelos de calidad y atributos medibles» a «Informe reproducible de calidad», con 1 retorno(s).](../../site/assets/figures/mermaid-5e3da3de4d.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo del ensayo de presión o una queja de una persona usuaria reabre los escenarios de calidad; un informe aprobado no cierra la calidad, la fecha.
 

@@ -38,15 +38,7 @@ Separarás hecho, inferencia e hipótesis; diseñarás comprobaciones que puedan
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- Q[Pregunta] --> H[Hipótesis]
- H --> T[Prueba]
- T --> O[Observación]
- O --> I[Interpretación]
- I --> D[Decisión provisional]
- D --> Q
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Pregunta»; luego «Hipótesis»; luego «Prueba»; luego «Observación»; luego «Interpretación»; luego «Decisión provisional». Retornos: «Decisión provisional» lleva a «Pregunta».](../../../site/assets/figures/mermaid-16e6558554.svg)
 
 La decisión es provisional: nueva evidencia puede cambiarla.
 

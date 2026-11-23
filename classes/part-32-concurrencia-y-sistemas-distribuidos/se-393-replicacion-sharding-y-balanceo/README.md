@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Carga: solicitudes de tamaños muy distintos] --> B[Balanceo]
-    B --> C[Turnos o azar: iguala solicitudes, no trabajo]
-    B --> D[Dos opciones o menos conexiones: iguala la cola]
-    E[Datos: escrituras confirmadas] --> F[Replicación]
-    F --> G[Asíncrona: pérdida al conmutar]
-    F --> H[Síncrona o semisíncrona: latencia]
-    E --> I[Reparto]
-    I --> J[Hash: esparce escrituras, dispersa consultas]
-    I --> K[Rango: agrupa consultas, acumula escrituras]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Carga: solicitudes de tamaños muy distintos» y «Datos: escrituras confirmadas»; luego «Balanceo», «Replicación» y «Reparto»; luego «Turnos o azar: iguala solicitudes, no trabajo», «Dos opciones o menos conexiones: iguala la cola», «Asíncrona: pérdida al conmutar», «Síncrona o semisíncrona: latencia», «Hash: esparce escrituras, dispersa consultas» y «Rango: agrupa consultas, acumula escrituras».](../../../site/assets/figures/mermaid-91c9942b06.svg)
 
 El mapa separa tres decisiones que se confunden en una palabra («escalar»): **balancear** la carga de cómputo, **replicar** los datos para sobrevivir a una caída y **repartir** los datos entre fragmentos para crecer. Cada una tiene su propia métrica de éxito y su propio defecto característico.
 

@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Magnitud física] --> B[Sensor]
-    B --> C[Convertidor ADC]
-    C --> D[Bus I²C o SPI]
-    D --> E[Trama con código de control]
-    E --> F[Microcontrolador]
-    G[Ruido] --> C
-    H[Errores de bits] --> D
-    F --> I[Dato validado]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Magnitud física»; luego «Sensor» y «Ruido»; luego «Convertidor ADC» y «Errores de bits»; luego «Bus I²C o SPI»; luego «Trama con código de control»; luego «Microcontrolador»; luego «Dato validado».](../../../site/assets/figures/mermaid-965cfa1513.svg)
 
 El mapa recorre el camino de un dato: del sensor al microcontrolador. Cada tramo tiene su propio enemigo (ruido en el convertidor, errores de bits en el bus) y su propio coste (tiempo, energía), que esta clase mide.
 

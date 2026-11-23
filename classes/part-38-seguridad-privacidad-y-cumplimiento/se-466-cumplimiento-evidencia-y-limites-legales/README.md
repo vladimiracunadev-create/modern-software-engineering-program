@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Requisito: ley, contrato o política] --> B[Control propio]
-    B --> C[Prueba automática o revisión]
-    C --> D[Evidencia con fecha, versión y huella]
-    D --> E[Revisión por una tercera parte]
-    E -->|brecha| B
-    D --> F[Registro de auditoría]
-    F --> G[Ancla externa de la huella]
-    A -->|interpretación legal| H[Límites que no decide la ingeniería]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Requisito: ley, contrato o política»; luego «Control propio» y «Límites que no decide la ingeniería»; luego «Prueba automática o revisión»; luego «Evidencia con fecha, versión y huella»; luego «Revisión por una tercera parte» y «Registro de auditoría»; luego «Ancla externa de la huella». Retornos: «Revisión por una tercera parte» lleva a «Control propio» (brecha).](../../../site/assets/figures/mermaid-57bf6a97ee.svg)
 
 El mapa muestra la **cadena de trazabilidad** de izquierda a derecha y el **registro con ancla** como una rama. La flecha hacia los límites legales indica que la interpretación de un requisito no la decide el equipo técnico.
 

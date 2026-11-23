@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos] --> B{Dónde se construye el HTML}
-    B -->|navegador| C[Cliente]
-    B -->|petición| D[Servidor]
-    B -->|publicación| E[Estático]
-    B -->|caducidad| F[Regeneración]
-    C --> G[Primer contenido]
-    D --> G
-    E --> G
-    F --> G
-    G --> H[Interactividad]
-    H -->|desajuste o dato viejo| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Datos»; luego «Dónde se construye el HTML»; luego «Cliente», «Servidor», «Estático» y «Regeneración»; luego «Primer contenido»; luego «Interactividad». Retornos: «Interactividad» lleva a «Dónde se construye el HTML» (desajuste o dato viejo).](../../../site/assets/figures/mermaid-183a7799cd.svg)
 
 El mapa se lee desde los datos hasta la interactividad: cada rama es una estrategia que construye el mismo HTML en otro momento y lugar. La flecha de retorno indica que un desajuste entre servidor y cliente o un dato viejo obliga a revisar dónde se construye.
 

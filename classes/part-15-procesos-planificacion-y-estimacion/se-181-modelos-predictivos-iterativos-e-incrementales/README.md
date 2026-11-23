@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Requisitos y riesgo] --> B{Volatilidad y coste de cambiar}
-    B -->|baja| C[Plan predictivo]
-    B -->|alta| D[Ciclos iterativos]
-    D --> E[Incrementos liberables]
-    C --> F[Entrega única]
-    E --> G[Valor aunque se corte]
-    F --> H[Valor solo si termina]
-    G -->|aprendizaje| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Requisitos y riesgo»; luego «Volatilidad y coste de cambiar»; luego «Plan predictivo» y «Ciclos iterativos»; luego «Entrega única» y «Incrementos liberables»; luego «Valor solo si termina» y «Valor aunque se corte». Retornos: «Valor aunque se corte» lleva a «Requisitos y riesgo» (aprendizaje).](../../../site/assets/figures/mermaid-301df7c172.svg)
 
 El mapa se lee como una decisión, no como una secuencia: la volatilidad y el coste de cambiar eligen entre un plan único y ciclos. El retorno indica que lo aprendido en un incremento modifica el riesgo con el que se planifica el siguiente.
 

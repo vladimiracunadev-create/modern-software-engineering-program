@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Contrafactual y asignación] --> N2[Sesgo de selección] --> N3[Control de la asignación] --> N4[Regresión a la media] --> N5[Qué se puede afirmar]
-    N5 -->|un defecto de diseño| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Contrafactual y asignación»; luego «Sesgo de selección»; luego «Control de la asignación»; luego «Regresión a la media»; luego «Qué se puede afirmar». Retornos: «Qué se puede afirmar» lleva a «Contrafactual y asignación» (un defecto de diseño).](../../../site/assets/figures/mermaid-655ae3a82f.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un defecto de asignación o de análisis obliga a rehacer el diseño; no autoriza a corregir solo la estadística.
 

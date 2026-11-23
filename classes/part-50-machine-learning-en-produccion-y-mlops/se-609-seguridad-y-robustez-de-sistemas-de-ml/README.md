@@ -57,19 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Atacante] --> B[Entrada del servicio]
-    A --> C[Consultas repetidas a la interfaz]
-    A --> D[Datos de entrenamiento]
-    A --> E[Registro y artefactos]
-    B --> F[Evasión: la decisión cambia]
-    C --> G[Extracción: copia del modelo]
-    C --> H[Pertenencia: ¿estaba este dato?]
-    D --> I[Envenenamiento y puerta trasera]
-    E --> J[Modelo sustituido o alterado]
-    F & G & H & I & J --> K[Defensa por capa y vigilancia]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Atacante»; luego «Entrada del servicio», «Consultas repetidas a la interfaz», «Datos de entrenamiento» y «Registro y artefactos»; luego «Evasión: la decisión cambia», «Extracción: copia del modelo», «Pertenencia: ¿estaba este dato?», «Envenenamiento y puerta trasera» y «Modelo sustituido o alterado»; luego «Defensa por capa y vigilancia».](../../../site/assets/figures/mermaid-8b429f1695.svg)
 
 El mapa organiza las amenazas por el acceso del atacante, no por la técnica: quien solo controla la entrada puede intentar la evasión; quien consulta mucho, la extracción y la pertenencia; quien toca los datos o el registro, la puerta trasera y la sustitución. Esa organización decide dónde poner cada defensa.
 

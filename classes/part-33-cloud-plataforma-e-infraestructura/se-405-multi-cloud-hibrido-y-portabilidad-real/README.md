@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Motivo: disponibilidad, regulación, costo, dependencia] --> B{Estrategia}
-    B -->|dos proveedores a la vez| C[Multi-cloud activo-activo]
-    B -->|local y nube| D[Híbrido]
-    B -->|poder salir| E[Portabilidad]
-    C --> F[Costo: funciones comunes y pruebas]
-    D --> G[Costo: latencia y red entre sitios]
-    E --> H[Costo: datos y servicios gestionados]
-    F --> I[Disponibilidad ganada o perdida]
-    G --> I
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Motivo: disponibilidad, regulación, costo, dependencia»; luego «Estrategia»; luego «Multi-cloud activo-activo», «Híbrido» y «Portabilidad»; luego «Costo: funciones comunes y pruebas», «Costo: latencia y red entre sitios» y «Costo: datos y servicios gestionados»; luego «Disponibilidad ganada o perdida».](../../../site/assets/figures/mermaid-a4e688ee51.svg)
 
 El mapa parte del **motivo**, no de la tecnología, porque cada motivo pide una estrategia distinta y cada una tiene su costo propio. Las tres desembocan en la misma pregunta: cuánta disponibilidad se gana de verdad una vez descontados los puntos únicos y las funciones que se renuncian.
 

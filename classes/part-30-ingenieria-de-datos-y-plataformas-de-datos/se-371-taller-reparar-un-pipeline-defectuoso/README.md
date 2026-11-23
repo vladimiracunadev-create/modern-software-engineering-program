@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Resultado erróneo] --> B[Reproducir con réplica pequeña]
-    B --> C[Acotar la capa: primera tabla que difiere]
-    C --> D[Conciliar filas e importes entre capas]
-    D --> E{¿Una causa o varias?}
-    E -->|varias| F[Corregir una y medir]
-    F --> D
-    E -->|una| G[Corregir y verificar]
-    G --> H[Escribir la comprobación]
-    H --> I[Repetir la ejecución: ¿idempotente?]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Resultado erróneo»; luego «Reproducir con réplica pequeña»; luego «Acotar la capa: primera tabla que difiere»; luego «Conciliar filas e importes entre capas»; luego «¿Una causa o varias?»; luego «Corregir una y medir» y «Corregir y verificar»; luego «Escribir la comprobación»; luego «Repetir la ejecución: ¿idempotente?». Retornos: «Corregir una y medir» lleva a «Conciliar filas e importes entre capas».](../../../site/assets/figures/mermaid-f44a8ed60c.svg)
 
 El mapa hace explícito el bucle: tras cada corrección se vuelve a conciliar, porque la corrección de un defecto revela o altera otro. La repetición de la ejecución es una prueba aparte que sale del bucle.
 

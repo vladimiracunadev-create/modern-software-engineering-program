@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Segmentación por necesidad] --> N2[Estabilidad de segmentos] --> N3[Tamaño del mercado] --> N4[Alternativas existentes] --> N5[Segmento inicial]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Segmentación por necesidad»; luego «Estabilidad de segmentos»; luego «Tamaño del mercado»; luego «Alternativas existentes»; luego «Segmento inicial». Retornos: «Segmento inicial» lleva a «Segmentación por necesidad» (fallo o cambio).](../../../site/assets/figures/mermaid-8dafbf1fad.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un segmento inestable, un rango de mercado demasiado ancho o una alternativa que cubre el trabajo obliga a revisar el criterio de segmentación; no autoriza a reetiquetar los grupos.
 

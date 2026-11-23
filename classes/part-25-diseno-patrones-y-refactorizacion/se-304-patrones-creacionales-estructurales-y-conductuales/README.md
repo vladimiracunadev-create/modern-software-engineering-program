@@ -50,21 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Problema recurrente] --> B{Familia de patrón}
-    B --> C[Creacional: cómo se crea y quién lo crea]
-    B --> D[Estructural: cómo se compone y se adapta]
-    B --> E[Conductual: cómo se reparten las responsabilidades en ejecución]
-    C --> F[Prueba: orden y aislamiento]
-    D --> G[Prueba: contrato de la interfaz]
-    E --> H[Prueba: fallos y reentrada]
-    F --> I[¿Se resolvió el problema?]
-    G --> I
-    H --> I
-    I -->|no| J[Se retira el patrón]
-    I -->|sí| K[Se documenta intención y costo]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Problema recurrente»; luego «Familia de patrón»; luego «Creacional: cómo se crea y quién lo crea», «Estructural: cómo se compone y se adapta» y «Conductual: cómo se reparten las responsabilidades en ejecución»; luego «Prueba: orden y aislamiento», «Prueba: contrato de la interfaz» y «Prueba: fallos y reentrada»; luego «¿Se resolvió el problema?»; luego «Se retira el patrón» y «Se documenta intención y costo».](../../../site/assets/figures/mermaid-9efa7925eb.svg)
 
 El mapa parte de un problema y termina en una decisión que se puede retirar. Un patrón sin problema que lo justifique es estructura, no diseño.
 

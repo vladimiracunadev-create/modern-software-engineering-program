@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    E[Entrada] --> P[Análisis sintáctico]
-    P --> V[Validación estricta: tipos, rangos, campos]
-    V -->|falla| X[Error con forma única]
-    V -->|pasa| D[Dominio: reglas de negocio]
-    D -->|falla| X
-    D --> R[Respuesta]
-    R --> C{Contrato: esquema cerrado}
-    X --> K[Clasificación: reintentable o no]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Entrada»; luego «Análisis sintáctico»; luego «Validación estricta: tipos, rangos, campos»; luego «Dominio: reglas de negocio»; luego «Error con forma única» y «Respuesta»; luego «Clasificación: reintentable o no» y «Contrato: esquema cerrado».](../../../site/assets/figures/mermaid-b3960ebbd5.svg)
 
 El mapa se lee de la entrada a la respuesta: primero la forma (sintaxis y esquema), después el significado (dominio). Ambos fallos desembocan en la misma forma de error, que lleva una clasificación para el cliente. El contrato de salida comprueba además lo que el servicio devuelve. No son dos validaciones iguales: la de frontera rechaza lo mal formado y la del dominio rechaza lo que es válido pero inadmisible.
 

@@ -58,25 +58,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Un cambio de comportamiento] --> B{¿Qué pregunta domina?}
-    B -->|qué debe hacer| C[BDD · ATDD · SDD]
-    B -->|con qué palabras| D[DDD]
-    B -->|con qué interfaces| E[Contratos]
-    B -->|cómo construirlo| F[TDD]
-    B -->|sigue sirviendo| G[EDD · ODD]
-    C --> H[Oráculo: ejemplos o especificación]
-    D --> I[Oráculo: lenguaje y contexto]
-    E --> J[Oráculo: precondiciones y esquemas]
-    F --> K[Oráculo: pruebas de ejemplo]
-    G --> L[Oráculo: evaluaciones y flujo con evidencia]
-    H --> M[Punto ciego propio]
-    J --> M
-    K --> M
-    L --> M
-    M --> N[Combinar prácticas con puntos ciegos distintos]
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Un cambio de comportamiento»; luego «¿Qué pregunta domina?»; luego «DDD», «BDD · ATDD · SDD», «Contratos», «TDD» y «EDD · ODD»; luego «Oráculo: lenguaje y contexto», «Oráculo: ejemplos o especificación», «Oráculo: precondiciones y esquemas», «Oráculo: pruebas de ejemplo» y «Oráculo: evaluaciones y flujo con evidencia»; luego «Punto ciego propio»; luego «Combinar prácticas con puntos ciegos distintos».](../../../site/assets/figures/mermaid-3b23a553fd.svg)
 
 El mapa muestra que cada metodología nace de una pregunta, deja un oráculo y trae un punto ciego. La decisión profesional no es elegir una rama sino combinar ramas cuyos puntos ciegos no coincidan, al costo que el cambio justifique.
 

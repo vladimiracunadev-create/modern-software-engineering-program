@@ -50,19 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Registro de atención] --> B[Minimizar campos]
-    B --> C[Separar identificadores]
-    C --> D[Generalizar cuasi-identificadores]
-    D --> E[Conjunto para estudio]
-    A --> F[Identidad del paciente]
-    F -->|coincidencia dudosa| G[Revisión humana]
-    A --> H[Señales vitales]
-    H --> I[Umbral de alarma]
-    I --> J[Persona que atiende]
-    A --> K[Registro de accesos]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Registro de atención»; luego «Minimizar campos», «Identidad del paciente», «Señales vitales» y «Registro de accesos»; luego «Separar identificadores», «Revisión humana» y «Umbral de alarma»; luego «Generalizar cuasi-identificadores» y «Persona que atiende»; luego «Conjunto para estudio».](../../../site/assets/figures/mermaid-f6015aa448.svg)
 
 El mapa muestra cuatro flujos de la misma atención: el que sale hacia un estudio (privacidad), el que decide a quién pertenece (identidad), el que dispara avisos (alarma) y el que registra quién vio qué (auditoría). Cada uno falla de un modo distinto.
 

@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Llamada con latencia con cola] --> B[Timeout: cuánto esperar]
-    B -->|vence| C{¿Operación idempotente y fallo transitorio?}
-    C -->|no| D[Error inmediato al llamador]
-    C -->|sí| E[Reintento: cuántos y con qué presupuesto]
-    E --> F[Espera: exponencial con jitter]
-    F --> A
-    E -->|presupuesto agotado| D
-    A --> G[Carga sobre el servicio: trabajo útil y desperdiciado]
-    G -->|sobrecarga| H[Colapso metaestable]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Llamada con latencia con cola»; luego «Timeout: cuánto esperar» y «Carga sobre el servicio: trabajo útil y desperdiciado»; luego «¿Operación idempotente y fallo transitorio?» y «Colapso metaestable»; luego «Reintento: cuántos y con qué presupuesto»; luego «Error inmediato al llamador» y «Espera: exponencial con jitter». Retornos: «Espera: exponencial con jitter» lleva a «Llamada con latencia con cola».](../../../site/assets/figures/mermaid-4ab41aee40.svg)
 
 El mapa muestra un bucle: cada reintento vuelve a cargar el servicio, y si el servicio está sobrecargado el bucle se alimenta a sí mismo. La salida segura es el **presupuesto**, que corta el bucle.
 

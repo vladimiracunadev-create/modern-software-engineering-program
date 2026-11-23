@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código declarado] --> D[Plan: diferencia]
-    B[Estado guardado] --> D
-    C[Infraestructura real] -.->|refresco| B
-    D --> E{¿Revisado por una persona?}
-    E -->|sí| F[Apply: crear, cambiar, borrar]
-    F --> G[Estado actualizado]
-    F --> C
-    C -.->|cambio manual: deriva| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Infraestructura real»; luego «Código declarado» y «Estado guardado»; luego «Plan: diferencia»; luego «¿Revisado por una persona?»; luego «Apply: crear, cambiar, borrar»; luego «Estado actualizado». Retornos: «Apply: crear, cambiar, borrar» lleva a «Infraestructura real»; «Infraestructura real» lleva a «Infraestructura real» (cambio manual: deriva).](../../../site/assets/figures/mermaid-b39ed88d7c.svg)
 
 El mapa tiene tres versiones de la verdad: el **código** (lo que se desea), el **estado** (lo que la herramienta cree que existe) y la **infraestructura** (lo que existe). El plan compara las dos primeras y solo con un **refresco** incorpora la tercera; la línea punteada es la deriva, que el plan no ve sin ese refresco.
 

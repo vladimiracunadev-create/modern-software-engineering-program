@@ -53,22 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio integrado] --> B[Construir y verificar]
-    B --> C[Política y seguridad]
-    C --> D[Preproducción y humo]
-    D --> E[Canario con criterio de retroceso]
-    E --> F[Producción]
-    F --> G{Señal sana}
-    G -->|no| H[Retroceso ensayado]
-    G -->|sí| I[Contraer: retirar lo viejo]
-    B --> J[Paquete de evidencia]
-    C --> J
-    D --> J
-    E --> J
-    J --> K[Validador: forma, cruce, verosimilitud]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Cambio integrado»; luego «Construir y verificar»; luego «Política y seguridad»; luego «Preproducción y humo»; luego «Canario con criterio de retroceso»; luego «Producción» y «Paquete de evidencia»; luego «Señal sana» y «Validador: forma, cruce, verosimilitud»; luego «Retroceso ensayado» y «Contraer: retirar lo viejo».](../../../site/assets/figures/mermaid-3d4a2198a9.svg)
 
 El mapa tiene dos recorridos: el **camino** de la versión (de izquierda a derecha) y el **paquete de evidencia** que cada etapa alimenta. El retroceso solo es una flecha válida si el cambio de datos lo permitió; la contracción final es lo único que cierra esa puerta.
 

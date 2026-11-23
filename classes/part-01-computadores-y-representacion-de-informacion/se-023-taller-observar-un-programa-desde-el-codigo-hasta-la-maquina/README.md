@@ -57,16 +57,7 @@ cada afirmación a evidencia; formularás hipótesis rivales; y entregarás limp
 | Recursos | asignación y archivos | descubre costos y persistencia |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- T[Texto] --> B[Bytes]
- B --> P[Objetos del analizador local de eventos]
- P --> A[AST y bytecode]
- A --> X[Proceso]
- X --> R[Tiempo y memoria]
- X --> O[Salida]
- O --> V[Revisión reproducible]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Texto»; luego «Bytes»; luego «Objetos del analizador local de eventos»; luego «AST y bytecode»; luego «Proceso»; luego «Tiempo y memoria» y «Salida»; luego «Revisión reproducible».](../../../site/assets/figures/mermaid-96519ccce5.svg)
 
 Las flechas representan relaciones verificadas en el taller. No implican correspondencia uno a uno con instrucciones físicas.
 

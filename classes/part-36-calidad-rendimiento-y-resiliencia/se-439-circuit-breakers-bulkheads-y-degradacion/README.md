@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Solicitud] --> B{Criticidad}
-    B -->|crítica| C[Compartimento propio]
-    B -->|secundaria| D[Compartimento compartido y acotado]
-    D --> E{Interruptor de la dependencia}
-    E -->|cerrado| F[Llamada con timeout]
-    E -->|abierto| G[Respuesta degradada]
-    F -->|fallos seguidos| E
-    E -->|semiabierto: una sonda| F
-    C --> F
-    A -->|cola excedida| H[Descarte con criterio]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Solicitud»; luego «Criticidad» y «Descarte con criterio»; luego «Compartimento propio» y «Compartimento compartido y acotado»; luego «Interruptor de la dependencia»; luego «Llamada con timeout» y «Respuesta degradada». Retornos: «Llamada con timeout» lleva a «Interruptor de la dependencia» (fallos seguidos).](../../../site/assets/figures/mermaid-9c4e5a63fa.svg)
 
 El mapa muestra tres defensas con funciones distintas: el **interruptor** decide si llamar, el **mamparo** limita cuántos recursos puede consumir la llamada y el **descarte** decide a quién se atiende cuando no cabe todo.
 

@@ -52,23 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Constitución] --> B[Especificación]
-    B --> C[Clarificación: hasta 5 preguntas]
-    C --> B
-    B --> D[Plan]
-    A -.->|puerta: el plan respeta los principios| D
-    D --> E[Tareas]
-    E --> F{Análisis entre artefactos}
-    B --> F
-    D --> F
-    F -->|incoherencia| G[Volver al artefacto que la causa]
-    F -->|limpio| H[Implementación]
-    G --> B
-    G --> D
-    G --> E
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Constitución»; luego «Especificación»; luego «Clarificación: hasta 5 preguntas» y «Plan»; luego «Tareas»; luego «Análisis entre artefactos»; luego «Volver al artefacto que la causa» y «Implementación». Retornos: «Clarificación: hasta 5 preguntas» lleva a «Especificación»; «Volver al artefacto que la causa» lleva a «Especificación»; «Volver al artefacto que la causa» lleva a «Plan»; «Volver al artefacto que la causa» lleva a «Tareas».](../../../site/assets/figures/mermaid-564f0f9e2d.svg)
 
 La constitución actúa sobre el plan y no al revés; la clarificación vuelve a la especificación porque su resultado es una especificación más precisa. El análisis lee los tres artefactos a la vez y manda de vuelta a quien origina el problema: un requisito ambiguo se corrige en la especificación, no en las tareas.
 

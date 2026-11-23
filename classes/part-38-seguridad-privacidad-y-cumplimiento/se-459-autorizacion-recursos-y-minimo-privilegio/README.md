@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sujeto: rol y atributos] --> D[Decisión: permitir o denegar]
-    B[Recurso: dueño, curso, estado] --> D
-    C[Acción] --> D
-    E[Entorno: plazo, horario, revocación] --> D
-    D --> F[Registro de la decisión]
-    D --> G[Pruebas: matriz de casos negativos]
-    G -->|defecto| H[Política corregida]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Sujeto: rol y atributos», «Recurso: dueño, curso, estado», «Acción» y «Entorno: plazo, horario, revocación»; luego «Decisión: permitir o denegar»; luego «Registro de la decisión» y «Pruebas: matriz de casos negativos»; luego «Política corregida».](../../../site/assets/figures/mermaid-6d5be844c1.svg)
 
 El mapa separa los **insumos** de la decisión (sujeto, recurso, acción, entorno) de la **decisión** misma y de su **registro y prueba**. Un fallo suele estar en un insumo que no llegó a la función: la relación con el recurso, el estado o la revocación.
 

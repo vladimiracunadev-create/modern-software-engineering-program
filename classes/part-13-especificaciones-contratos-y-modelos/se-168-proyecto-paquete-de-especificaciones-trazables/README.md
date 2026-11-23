@@ -50,21 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Requisito]
-    B --> C[Contrato]
-    C --> D[Ejemplo]
-    C --> E[Prueba]
-    D --> E
-    F[Validador] -->|enlaces, tipos, ciclos, huellas| A
-    F --> B
-    F --> C
-    F --> D
-    F --> E
-    G[Manifiesto con huellas] --> F
-    H[Cambio] -->|alcance| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Manifiesto con huellas»; luego «Validador»; luego «Intención» y «Cambio»; luego «Requisito»; luego «Contrato»; luego «Ejemplo»; luego «Prueba».](../../../site/assets/figures/mermaid-828b771af4.svg)
 
 El mapa se lee de la intención a la prueba como cadena de justificación; el validador recorre todos los artefactos y el manifiesto fija sus huellas. Un cambio en cualquier punto tiene un alcance que se estima recorriendo los enlaces. No es un proceso de entrega: es la estructura del paquete.
 

@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Entrada del cliente] --> B[Decodificación y normalización]
-    B --> C[Validación: forma y rango]
-    C --> D{Intérprete que lo recibe}
-    D -->|SQL| E[Parámetros enlazados y lista blanca de identificadores]
-    D -->|HTML| F[Codificación por contexto]
-    D -->|Sistema de archivos| G[Resolver ruta y comprobar la raíz]
-    D -->|Proceso| H[Lista de argumentos, sin shell]
-    E --> I[Dato que no cambia de papel]
-    F --> I
-    G --> I
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Entrada del cliente»; luego «Decodificación y normalización»; luego «Validación: forma y rango»; luego «Intérprete que lo recibe»; luego «Parámetros enlazados y lista blanca de identificadores», «Codificación por contexto», «Resolver ruta y comprobar la raíz» y «Lista de argumentos, sin shell»; luego «Dato que no cambia de papel».](../../../site/assets/figures/mermaid-209e22617d.svg)
 
 El mapa separa **tratar la forma** de la entrada (decodificar, normalizar, validar) de **separar los canales** para cada intérprete. Las dos etapas se necesitan y ninguna sustituye a la otra: validar la forma no evita que un valor válido se interprete como instrucción.
 

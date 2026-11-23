@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Mapa / conjunto] --> N2[Función hash / buckets] --> N3[Igualdad / estabilidad] --> N4[Factor de carga / crecimiento] --> N5[Orden e iteración]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Mapa / conjunto»; luego «Función hash / buckets»; luego «Igualdad / estabilidad»; luego «Factor de carga / crecimiento»; luego «Orden e iteración». Retornos: «Orden e iteración» lleva a «Mapa / conjunto» (fallo o cambio).](../../../site/assets/figures/mermaid-dd830bbe78.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

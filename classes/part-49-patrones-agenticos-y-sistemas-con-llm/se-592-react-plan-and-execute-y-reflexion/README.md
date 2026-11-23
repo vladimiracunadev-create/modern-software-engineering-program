@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    T[Tarea] --> R1[ReAct: razonar → actuar → observar]
-    R1 -->|observación| R1
-    R1 --> F[Fin o tope]
-    T --> P[Plan único con N pasos]
-    P --> E[Ejecutar con código]
-    E -->|observación = plan| E
-    E -->|observación contradice el plan| X{Qué hacer}
-    X --> RP[Replanificar con el modelo]
-    X --> RF[Fallar, reflexionar y reintentar]
-    X --> ER[Fallar y escalar]
-    RP --> E
-    RF --> P
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Tarea»; luego «ReAct: razonar → actuar → observar» y «Plan único con N pasos»; luego «Fin o tope» y «Ejecutar con código»; luego «Qué hacer»; luego «Replanificar con el modelo», «Fallar, reflexionar y reintentar» y «Fallar y escalar». Retornos: «ReAct: razonar → actuar → observar» lleva a «ReAct: razonar → actuar → observar» (observación); «Ejecutar con código» lleva a «Ejecutar con código» (observación = plan); «Replanificar con el modelo» lleva a «Ejecutar con código»; «Fallar, reflexionar y reintentar» lleva a «Plan único con N pasos».](../../../site/assets/figures/mermaid-5c76b2da7e.svg)
 
 El mapa muestra que ReAct vive dentro de un bucle y el plan, fuera: el plan ejecuta con código y solo vuelve al modelo cuando una observación lo invalida.
 

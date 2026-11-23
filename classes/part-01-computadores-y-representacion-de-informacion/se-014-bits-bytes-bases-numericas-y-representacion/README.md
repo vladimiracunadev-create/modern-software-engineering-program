@@ -58,14 +58,7 @@ azar.
 | Endianess | ordena bytes de valores multibyte | evita decodificaciones incompatibles |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- V[Valor 513] --> B[Binario 00000010 00000001]
- B --> BE[Bytes big-endian 02 01]
- B --> LE[Bytes little-endian 01 02]
- BE --> V
- LE --> V
-```
+![Diagrama de flujo con 4 pasos. Recorrido: «Valor 513»; luego «Binario 00000010 00000001»; luego «Bytes big-endian 02 01» y «Bytes little-endian 01 02». Retornos: «Bytes big-endian 02 01» lleva a «Valor 513»; «Bytes little-endian 01 02» lleva a «Valor 513».](../../../site/assets/figures/mermaid-043ac9d4b0.svg)
 
 El valor es el mismo solo cuando el lector conoce ancho, signo y orden. El mapa no
 aplica a texto hasta que `SE-015` defina una codificación.

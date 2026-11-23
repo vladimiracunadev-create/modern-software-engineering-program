@@ -10,19 +10,7 @@ La [Parte 17](../part-17-documentacion-y-conocimiento-tecnico/README.md) termin�
 
 Esta parte no enseña una biblioteca ni un lenguaje. Enseña a decidir qué promete la superficie de una herramienta, a medir cuántas promesas implícitas rompe un cambio, a componerla con otras sin trazas ni retrasos, a ordenar sus fuentes de configuración con los bordes (vacío, cero, «false») resueltos, a elegir códigos que habiliten decisiones y a no depender del texto de un mensaje, a presentar sin romper la salida que otro programa lee, a darle a un servicio estados, preparación y un cierre ordenado, a repartir trabajo sin solapes ni bloqueos, a hacer cada operación repetible y reanudable, a entregarla con integridad y reversión, a medir sin vigilar y a probar todo eso en dos sistemas. Cada clase ejecuta experimentos con datos sintéticos o procesos locales que muestran un mecanismo (una abreviatura que deja de valer, un código 256 que se lee como éxito, un color que parte una búsqueda, un terminate que no limpia, un hilo que ralentiza un cálculo, un reemplazo que falla en Windows) y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Superficie y contrato]
-    B --> C[Flujos y composición]
-    C --> D[Configuración y códigos]
-    D --> E[Presentación]
-    E --> F[Servicio y ciclo de vida]
-    F --> G[Trabajo programado]
-    G --> H[Repetible y reanudable]
-    H --> I[Entrega y privacidad]
-    I --> J[Taller y paquete operable]
-    J -->|incidente o cambio| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Intención»; luego «Superficie y contrato»; luego «Flujos y composición»; luego «Configuración y códigos»; luego «Presentación»; luego «Servicio y ciclo de vida»; luego «Trabajo programado»; luego «Repetible y reanudable»; luego «Entrega y privacidad»; luego «Taller y paquete operable». Retornos: «Taller y paquete operable» lleva a «Intención» (incidente o cambio).](../../site/assets/figures/mermaid-1e3765b1b0.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un cambio de plataforma o una discrepancia entre el manifiesto y la herramienta reabre la intención; un paquete aprobado no cierra la operación, la fecha.
 

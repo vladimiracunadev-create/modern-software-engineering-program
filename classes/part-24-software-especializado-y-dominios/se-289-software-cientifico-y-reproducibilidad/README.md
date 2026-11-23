@@ -50,19 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Modelo y supuestos] --> B[Código y entorno fijados]
-    B --> C[Ejecución con semilla]
-    C --> D{Resultado}
-    D -->|mismo entorno| E[Repetición exacta]
-    D -->|otra máquina u orden| F[Diferencia numérica]
-    D -->|otras semillas| G[Dispersión de la estimación]
-    F --> H[Tolerancia declarada]
-    G --> H
-    H --> I[Afirmación con intervalo y límites]
-    I -->|datos o modelo nuevos| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Modelo y supuestos»; luego «Código y entorno fijados»; luego «Ejecución con semilla»; luego «Resultado»; luego «Repetición exacta», «Diferencia numérica» y «Dispersión de la estimación»; luego «Tolerancia declarada»; luego «Afirmación con intervalo y límites». Retornos: «Afirmación con intervalo y límites» lleva a «Modelo y supuestos» (datos o modelo nuevos).](../../../site/assets/figures/mermaid-0f9afcd1c0.svg)
 
 El mapa separa lo que se **fija** (entorno, semilla), lo que se **varía** a propósito (semillas, orden) y lo que se **declara** (tolerancia, intervalo). Una cifra sin esa tercera columna es un número, no un resultado.
 

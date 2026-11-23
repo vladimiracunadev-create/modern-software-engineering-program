@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuente por particiones] --> B[Tarea de carga]
-    B --> C{Estrategia}
-    C -->|añadir| D[No idempotente]
-    C -->|reemplazar la partición| E[Idempotente]
-    C -->|fusionar por clave| F[Idempotente]
-    E --> G[Reintento seguro]
-    F --> G
-    G --> H[Backfill: reescribir particiones]
-    H --> I[Recalcular tareas dependientes]
-    J[Datos tardíos] --> K[Ventana de reproceso]
-    K --> B
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Datos tardíos»; luego «Fuente por particiones» y «Ventana de reproceso»; luego «Tarea de carga»; luego «Estrategia»; luego «No idempotente», «Idempotente» y «Idempotente»; luego «Reintento seguro»; luego «Backfill: reescribir particiones»; luego «Recalcular tareas dependientes».](../../../site/assets/figures/mermaid-ce8ccd15cd.svg)
 
 El mapa conecta tres cosas que suelen tratarse por separado. La estrategia de carga decide si el reintento es seguro; el reintento seguro es lo que permite el backfill; y el grafo de dependencias dice hasta dónde se propaga.
 

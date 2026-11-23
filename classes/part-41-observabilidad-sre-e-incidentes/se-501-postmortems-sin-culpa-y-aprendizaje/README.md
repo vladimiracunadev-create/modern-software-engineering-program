@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Incidente resuelto] --> B[Línea de tiempo e impacto]
-    B --> C[Factores contribuyentes]
-    C --> D[Acciones: propietario, fecha, verificación]
-    D --> E[Seguimiento]
-    E --> F[Sistema cambiado]
-    F -->|menos recurrencia| A
-    E -->|acciones sin cerrar| G[El incidente se repite]
-    C -.->|culpa o causa única| H[Aprendizaje perdido]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Incidente resuelto»; luego «Línea de tiempo e impacto»; luego «Factores contribuyentes»; luego «Acciones: propietario, fecha, verificación» y «Aprendizaje perdido»; luego «Seguimiento»; luego «Sistema cambiado» y «El incidente se repite». Retornos: «Sistema cambiado» lleva a «Incidente resuelto» (menos recurrencia).](../../../site/assets/figures/mermaid-bf7e1b9c96.svg)
 
 El mapa separa el **relato** (línea de tiempo e impacto), el **análisis** (factores) y el **cambio** (acciones y seguimiento). El aprendizaje solo existe en el último paso: un postmortem que no llega a F es documentación.
 

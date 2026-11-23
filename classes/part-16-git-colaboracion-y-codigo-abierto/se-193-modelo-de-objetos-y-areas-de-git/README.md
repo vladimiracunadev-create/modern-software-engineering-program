@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Árbol de trabajo] -->|git add| B[Índice]
-    B -->|git commit| C[Commit]
-    C --> D[Árbol]
-    D --> E[Blob]
-    F[Rama] -->|apunta a| C
-    C -->|padre| G[Commit anterior]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Árbol de trabajo»; luego «Índice» y «Rama»; luego «Commit»; luego «Árbol» y «Commit anterior»; luego «Blob».](../../../site/assets/figures/mermaid-dacad58fc4.svg)
 
 El mapa se lee de izquierda a derecha para el flujo de un cambio y de arriba abajo para el contenido de un commit: apunta a un árbol, que apunta a blobs y a otros árboles, y a su commit padre. Una rama es solo un nombre que apunta a un commit. No describe la velocidad ni el orden en que Git escribe los archivos en disco.
 

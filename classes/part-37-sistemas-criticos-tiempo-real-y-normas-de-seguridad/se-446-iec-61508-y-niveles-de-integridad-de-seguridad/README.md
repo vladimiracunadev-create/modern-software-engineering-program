@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Riesgo sin protección] --> B[Reducción de riesgo requerida]
-    B --> C[Función de seguridad]
-    C --> D[Nivel de integridad]
-    D --> E[Arquitectura y diagnóstico]
-    D --> F[Proceso y evidencia sistemática]
-    E --> G[Probabilidad de fallo bajo demanda]
-    F --> H[Argumento de capacidad sistemática]
-    G --> I[Verificación y prueba periódica]
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Riesgo sin protección»; luego «Reducción de riesgo requerida»; luego «Función de seguridad»; luego «Nivel de integridad»; luego «Arquitectura y diagnóstico» y «Proceso y evidencia sistemática»; luego «Probabilidad de fallo bajo demanda» y «Argumento de capacidad sistemática»; luego «Verificación y prueba periódica».](../../../site/assets/figures/mermaid-dc22288734.svg)
 
 La integridad tiene dos ramas que se verifican de forma distinta: el cálculo de los fallos aleatorios de hardware y el argumento de proceso para los sistemáticos. Una sin la otra no sostiene el nivel.
 

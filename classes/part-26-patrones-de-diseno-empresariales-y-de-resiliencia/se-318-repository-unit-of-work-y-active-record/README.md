@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Caso de uso] --> B[Repository: leer y buscar]
-    A --> C[Unit of Work: agrupar cambios]
-    B --> D[Contar consultas]
-    C --> E[Una transacción]
-    E --> F{¿Falla a mitad?}
-    F -->|sí| G[Vuelve atrás: nada persistido]
-    F -->|no| H[Confirma todo]
-    A --> I[Active Record: la entidad se guarda]
-    I --> J[Regla y persistencia mezcladas]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Caso de uso»; luego «Repository: leer y buscar», «Unit of Work: agrupar cambios» y «Active Record: la entidad se guarda»; luego «Contar consultas», «Una transacción» y «Regla y persistencia mezcladas»; luego «¿Falla a mitad?»; luego «Vuelve atrás: nada persistido» y «Confirma todo».](../../../site/assets/figures/mermaid-7a73ca3cfd.svg)
 
 Los dos caminos de arriba separan la regla de la persistencia; el de abajo la mezcla a cambio de menos piezas. El mapa no dice cuál elegir: lo dicen las medidas de la clase.
 

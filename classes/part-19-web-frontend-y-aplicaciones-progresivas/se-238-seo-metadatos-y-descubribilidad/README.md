@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Descubrir URL] --> B{robots.txt}
-    B -->|permitido| C[Rastrear]
-    B -->|bloqueado| X[No se lee la página]
-    C --> D{noindex o canónica}
-    D -->|indexable| E[Indexar]
-    D -->|excluida o duplicada| Y[No se muestra]
-    E --> F[Mostrar]
-    F -->|título y descripción| G[Persona]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Descubrir URL»; luego «robots.txt»; luego «Rastrear» y «No se lee la página»; luego «noindex o canónica»; luego «Indexar» y «No se muestra»; luego «Mostrar»; luego «Persona».](../../../site/assets/figures/mermaid-32a46e6d2f.svg)
 
 El mapa se lee de izquierda a derecha: una URL se descubre, se decide si se puede rastrear, se lee y se decide si se indexa, y solo entonces puede mostrarse. El bloqueo en `robots.txt` corta antes de leer la página, por eso impide ver un `noindex` que esta contenga.
 

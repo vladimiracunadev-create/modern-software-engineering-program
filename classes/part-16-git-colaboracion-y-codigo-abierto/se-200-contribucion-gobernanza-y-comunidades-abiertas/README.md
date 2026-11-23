@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Persona externa] --> B[Guía de contribución]
-    B --> C[Copia propia]
-    C -->|sincronizar| D[Original]
-    C --> E[Propuesta]
-    E --> F{Regla de decisión}
-    F -->|acepta| D
-    F -->|rechaza| G[Respuesta con motivo]
-    D --> H[Conocimiento repartido]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Persona externa»; luego «Guía de contribución»; luego «Copia propia»; luego «Propuesta»; luego «Regla de decisión»; luego «Original» y «Respuesta con motivo»; luego «Conocimiento repartido».](../../../site/assets/figures/mermaid-513537dd00.svg)
 
 El mapa se lee de izquierda a derecha: una persona externa lee la guía, trabaja en su copia, la mantiene sincronizada y propone un cambio que una regla de decisión acepta o rechaza con un motivo; el conocimiento repartido es la condición de que el proyecto sobreviva. No describe el tiempo de respuesta ni la relación entre las personas.
 

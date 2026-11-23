@@ -56,17 +56,7 @@ Podrás estabilizar un escenario; convertir síntomas en afirmaciones; formular 
 | Regresión | repite contratos vecinos | comprobar que reparar no rompió otra cosa |
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
- S[Síntoma reproducido] --> E[Evidencia inicial]
- E --> H[Hipótesis rivales]
- H --> P[Prueba discriminante]
- P --> C{¿Causa confirmada?}
- C -- No --> H
- C -- Sí --> M[Cambio mínimo reversible]
- M --> V[Verificación y regresión]
- V --> D[Documentación y limpieza]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Síntoma reproducido»; luego «Evidencia inicial»; luego «Hipótesis rivales»; luego «Prueba discriminante»; luego «¿Causa confirmada?»; luego «Cambio mínimo reversible»; luego «Verificación y regresión»; luego «Documentación y limpieza». Retornos: «¿Causa confirmada?» lleva a «Hipótesis rivales» (No).](../../../site/assets/figures/mermaid-0b6c55ea00.svg)
 
 El ciclo puede repetirse varias veces. Cada iteración cambia una sola variable relevante y conserva el resultado negativo como evidencia.
 
@@ -86,20 +76,7 @@ Una buena hipótesis relaciona mecanismo y evidencia: “la variable `EVENT_ANAL
 
 ### Probar primero lo barato: las hipótesis del incidente
 
-```mermaid
-flowchart TD
-    S[Síntoma reproducido] --> P[Plataforma y capacidad]
-    P --> R[Ruta, tipo y metadatos]
-    R --> A[Identidad y autorización]
-    A --> C[Configuración efectiva]
-    C --> D[Dependencias y procedencia]
-    D --> X[Proceso, flujos y salida]
-    X --> H{Hipótesis confirmada?}
-    H -- No --> T[Nueva prueba discriminante]
-    T --> P
-    H -- Sí --> M[Cambio mínimo reversible]
-    M --> V[Verificación y regresión]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Síntoma reproducido»; luego «Plataforma y capacidad»; luego «Ruta, tipo y metadatos»; luego «Identidad y autorización»; luego «Configuración efectiva»; luego «Dependencias y procedencia»; luego «Proceso, flujos y salida»; luego «Hipótesis confirmada?»; luego «Nueva prueba discriminante» y «Cambio mínimo reversible»; luego «Verificación y regresión». Retornos: «Nueva prueba discriminante» lleva a «Plataforma y capacidad».](../../../site/assets/figures/mermaid-5e1273c2b1.svg)
 
 El orden se ajusta a la evidencia, pero impide saltar a una única explicación favorita.
 

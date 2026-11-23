@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Cambio del agente] --> M[Menú único]
-    M --> G1[Sintaxis]
-    G1 --> G2[Estilo]
-    G2 --> G3[Secretos]
-    G3 --> G4[Pruebas]
-    G4 --> G5[Pruebas no debilitadas]
-    G5 --> OK[Aceptado]
-    G1 -.falla.-> R[Rechazado con compuerta y motivo]
-    G2 -.falla.-> R
-    G3 -.falla.-> R
-    G4 -.falla.-> R
-    G5 -.falla.-> R
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Cambio del agente»; luego «Menú único»; luego «Sintaxis»; luego «Estilo»; luego «Secretos»; luego «Pruebas»; luego «Pruebas no debilitadas»; luego «Aceptado» y «Rechazado con compuerta y motivo».](../../../site/assets/figures/mermaid-3f85cd6799.svg)
 
 El menú es una cadena ordenada: lo barato primero, lo caro después. Cada compuerta puede rechazar, y el rechazo nombra qué compuerta y por qué.
 

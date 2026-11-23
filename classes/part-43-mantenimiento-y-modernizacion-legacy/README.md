@@ -10,21 +10,7 @@ La [Parte 41](../part-41-observabilidad-sre-e-incidentes/README.md) dejó un sis
 
 Esta parte no enseña una herramienta de migración ni un producto de refactorización. Enseña a clasificar el trabajo de mantenimiento y a repartir la capacidad sin que lo correctivo devore lo preventivo, a preguntar al historial y a la ejecución dónde está el riesgo y qué conocimiento se perdió, a fijar el comportamiento actual con pruebas de caracterización y costuras antes de tocarlo, a medir el costo creciente de esperar para actualizar dependencias, a sustituir un sistema por rebanadas con comparación en sombra y una capa que traduce su modelo, a catalogar los cambios silenciosos de una plataforma, a rellenar datos sin bloquear ni pisar escrituras, a mantener dos copias alineadas y dos formatos compatibles, a retirar un sistema con una ventana que cubra los ciclos de uso, a decidir entre reescribir y evolucionar con incertidumbre y a estabilizar la base antes de cruzar la puerta.
 
-```mermaid
-flowchart LR
-    A[Mantenimiento correctivo, adaptativo y perfectivo] --> B[Arqueología de código]
-    B --> C[Pruebas de caracterización y seams]
-    C --> D[Dependencias obsoletas]
-    D --> E[Strangler, branch by abstraction y anticorruption]
-    E --> F[Migraciones de runtime, lenguaje y framework]
-    F --> G[Migraciones de datos sin interrupción]
-    G --> H[Compatibilidad, coexistencia y doble escritura]
-    H --> I[Retiro, archivado y disposición]
-    I --> J[Economía de reescribir frente a evolucionar]
-    J --> K[Taller: estabilizar antes de modernizar]
-    K --> L[Proyecto: migración incremental reversible]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos, de «Mantenimiento correctivo, adaptativo y perfectivo» a «Proyecto: migración incremental reversible», con 1 retorno(s).](../../site/assets/figures/mermaid-f5b492c3ca.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo de la migración o una nueva fecha impuesta por el entorno reabre la cartera de mantenimiento; una migración terminada no cierra el mantenimiento, lo fecha.
 

@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Historia] --> N2[Reglas] --> N3[Ejemplos] --> N4[Criterios ejecutables]
-    N3 -->|pregunta abierta| N1
-    N4 -->|mutante vivo| N3
-```
+![Diagrama de flujo con 4 pasos. Recorrido: «Historia»; luego «Reglas»; luego «Ejemplos»; luego «Criterios ejecutables». Retornos: «Ejemplos» lleva a «Historia» (pregunta abierta); «Criterios ejecutables» lleva a «Ejemplos» (mutante vivo).](../../../site/assets/figures/mermaid-612cf6ef89.svg)
 
 El mapa se lee de izquierda a derecha como una conversación que se vuelve ejecutable: la historia se desglosa en reglas, las reglas en ejemplos concretos y los ejemplos en criterios que una prueba puede evaluar. Los retornos indican que una pregunta abierta devuelve a la historia y que un mutante vivo obliga a añadir ejemplos, no a repetir los existentes.
 

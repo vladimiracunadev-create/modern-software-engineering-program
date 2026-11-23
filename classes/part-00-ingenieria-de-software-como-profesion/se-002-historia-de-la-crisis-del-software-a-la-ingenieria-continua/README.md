@@ -39,16 +39,7 @@ Explicarás la llamada crisis del software, relacionarás escala con coordinaci�
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- A[Escala y dependencia] --> B[Coordinación difícil]
- B --> C[Retraso, costo, defectos]
- C --> D[Modularidad, proceso, revisión]
- D --> E[Iteración y automatización]
- E --> F[Entrega y operación continuas]
- F --> G[Nuevos riesgos]
- G --> D
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Escala y dependencia»; luego «Coordinación difícil»; luego «Retraso, costo, defectos»; luego «Modularidad, proceso, revisión»; luego «Iteración y automatización»; luego «Entrega y operación continuas»; luego «Nuevos riesgos». Retornos: «Nuevos riesgos» lleva a «Modularidad, proceso, revisión».](../../../site/assets/figures/mermaid-3ef87d2f0e.svg)
 
 Cada respuesta desplaza el cuello de botella. Automatizar compilación no aclara requisitos; desplegar rápido no garantiza recuperación.
 

@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Adjetivo] --> N2[Escenario de calidad] --> N3[Medida y ventana] --> N4[Verificación]
-    N2 --> N5[Restricción]
-    N4 -->|choque| N2
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Adjetivo»; luego «Escenario de calidad»; luego «Medida y ventana» y «Restricción»; luego «Verificación». Retornos: «Verificación» lleva a «Escenario de calidad» (choque).](../../../site/assets/figures/mermaid-6e52bb50d5.svg)
 
 El mapa se lee de izquierda a derecha como una concreción: un adjetivo se vuelve un escenario, el escenario recibe una medida con ventana y la medida se verifica. Las restricciones se separan porque no se negocian al mismo nivel; el retorno indica que el choque entre dos atributos obliga a reescribir el escenario, no a ocultarlo.
 

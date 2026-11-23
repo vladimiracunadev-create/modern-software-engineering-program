@@ -56,20 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Eventos con marca de tiempo] --> B[Definición única de característica]
-    B --> C[Unión puntual en el tiempo]
-    C --> D[Conjunto de entrenamiento]
-    E[Etiqueta con retraso y fuente] --> D
-    B --> F[Servicio en línea]
-    D --> G[Modelo]
-    F --> G
-    G --> H{¿Paridad entre D y F?}
-    H -->|no| I[Se bloquea el despliegue]
-    H -->|sí| J[Registro de lo que el servicio vio]
-    J --> D
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Eventos con marca de tiempo»; luego «Definición única de característica»; luego «Unión puntual en el tiempo», «Etiqueta con retraso y fuente» y «Servicio en línea»; luego «Conjunto de entrenamiento»; luego «Modelo»; luego «¿Paridad entre D y F?»; luego «Se bloquea el despliegue» y «Registro de lo que el servicio vio». Retornos: «Registro de lo que el servicio vio» lleva a «Conjunto de entrenamiento».](../../../site/assets/figures/mermaid-d8477eb6f4.svg)
 
 El mapa muestra que la misma definición alimenta el conjunto de entrenamiento y el servicio, y que el servicio devuelve a los datos lo que vio. Las dos flechas que salen de la definición única son la parte que más se rompe cuando se implementa una característica dos veces.
 

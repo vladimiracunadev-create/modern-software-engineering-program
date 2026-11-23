@@ -50,26 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tipo de cambio probable] --> B{Principio que lo atiende}
-    B --> C[Responsabilidad única: separar razones]
-    B --> D[Abierto/cerrado: extender sin reabrir]
-    B --> E[Sustitución: subtipos que cumplen el contrato]
-    B --> F[Segregación: interfaces por cliente]
-    B --> G[Inversión: depender de abstracciones]
-    C --> H[Medida: sitios y razones de cambio]
-    D --> I[Medida: funciones existentes modificadas]
-    E --> J[Medida: fallos de contrato]
-    F --> K[Medida: clientes afectados]
-    G --> L[Medida: ciclos y dobles de prueba]
-    H --> M[¿El cambio previsto ocurre?]
-    I --> M
-    J --> M
-    K --> M
-    L --> M
-    M -->|no ocurre| N[Se retira la estructura]
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Tipo de cambio probable»; luego «Principio que lo atiende»; luego «Responsabilidad única: separar razones», «Abierto/cerrado: extender sin reabrir», «Sustitución: subtipos que cumplen el contrato», «Segregación: interfaces por cliente» y «Inversión: depender de abstracciones»; luego «Medida: sitios y razones de cambio», «Medida: funciones existentes modificadas», «Medida: fallos de contrato», «Medida: clientes afectados» y «Medida: ciclos y dobles de prueba»; luego «¿El cambio previsto ocurre?»; luego «Se retira la estructura».](../../../site/assets/figures/mermaid-1a2c9851a4.svg)
 
 El mapa parte del tipo de cambio: sin un cambio probable, el principio no tiene a qué responder. La última flecha es parte del diseño: una estructura que nadie usa se retira.
 

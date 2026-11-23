@@ -53,13 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Texto de requisitos] --> N2[Ambigüedad] --> N5[Pregunta al autor]
-    N1 --> N3[Contradicción] --> N5
-    N1 --> N4[Incompletitud] --> N5
-    N5 -->|decisión| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Texto de requisitos»; luego «Ambigüedad», «Contradicción» y «Incompletitud»; luego «Pregunta al autor». Retornos: «Pregunta al autor» lleva a «Texto de requisitos» (decisión).](../../../site/assets/figures/mermaid-c0d9b8b49a.svg)
 
 El mapa se lee de izquierda a derecha: cada tipo de defecto se busca con su técnica y todos terminan en una pregunta con nombre y apellido. El retorno indica que la decisión modifica el texto y obliga a repetir la búsqueda, porque un arreglo puede introducir un defecto nuevo.
 

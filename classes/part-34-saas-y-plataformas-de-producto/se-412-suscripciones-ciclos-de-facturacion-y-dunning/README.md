@@ -57,20 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-stateDiagram-v2
-    [*] --> prueba
-    prueba --> activa: pago correcto
-    prueba --> cancelada: vence sin pago
-    activa --> pago_pendiente: cobro falla
-    pago_pendiente --> activa: pago correcto
-    pago_pendiente --> suspendida: reintentos agotados
-    suspendida --> activa: pago correcto
-    suspendida --> cancelada: plazo vencido
-    activa --> cancelacion_pedida: cancelar al fin del ciclo
-    cancelacion_pedida --> cancelada: fin del ciclo
-    cancelada --> [*]
-```
+![Diagrama de estados con 6 estados. Recorrido: «prueba»; luego «activa»; luego «pago pendiente» y «cancelacion pedida»; luego «suspendida»; luego «cancelada». Retornos: «pago pendiente» lleva a «activa» (pago correcto); «suspendida» lleva a «activa» (pago correcto).](../../../site/assets/figures/mermaid-a4c3ad2a7d.svg)
 
 Cada flecha es un evento con una fecha. El acceso del cliente se decide a partir del estado: plenos derechos en `activa` y `cancelacion_pedida`, derechos plenos con aviso en `pago_pendiente`, derechos reducidos o solo lectura en `suspendida`, ninguno en `cancelada`. Lo que no aparece como flecha no puede ocurrir: una suscripción cancelada no vuelve a `activa` por un pago tardío, sino que exige una reactivación explícita.
 

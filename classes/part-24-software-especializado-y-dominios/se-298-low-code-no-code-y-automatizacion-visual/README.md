@@ -50,19 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Disparador: evento o fecha] --> B{Condición}
-    B -->|sí| C[Acción 1]
-    B -->|no| D[Acción 2]
-    C --> E[Conector externo]
-    D --> E
-    E -->|falla o repite| F[Reintento]
-    F --> E
-    G[Responsable] --> H[Revisión periódica]
-    H --> A
-    E --> I[Registro de ejecuciones]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Responsable»; luego «Revisión periódica»; luego «Disparador: evento o fecha»; luego «Condición»; luego «Acción 1» y «Acción 2»; luego «Conector externo»; luego «Reintento» y «Registro de ejecuciones». Retornos: «Reintento» lleva a «Conector externo».](../../../site/assets/figures/mermaid-38c1321f0f.svg)
 
 El mapa conserva la estructura de un programa (disparador, condiciones, acciones) y añade tres elementos que el lienzo suele esconder: el **reintento** de los conectores, el **registro** de ejecuciones y el **responsable**. Los tres son los que fallan en un flujo heredado.
 

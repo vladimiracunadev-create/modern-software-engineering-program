@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Persona: dispositivo, red, necesidad] --> B[Segmento de la población]
-    B --> C[Medida: tiempo, peso, contraste, tareas completadas]
-    C --> D[Presupuesto: umbral con dueño]
-    D --> E[Compuerta: absoluta, de cambio o de tendencia]
-    E -->|supera| F[Acción: bloquear, avisar, recortar]
-    E -->|cumple| G[Seguimiento en campo]
-    G -->|segmento excluido| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Persona: dispositivo, red, necesidad»; luego «Segmento de la población»; luego «Medida: tiempo, peso, contraste, tareas completadas»; luego «Presupuesto: umbral con dueño»; luego «Compuerta: absoluta, de cambio o de tendencia»; luego «Acción: bloquear, avisar, recortar» y «Seguimiento en campo». Retornos: «Seguimiento en campo» lleva a «Segmento de la población» (segmento excluido).](../../../site/assets/figures/mermaid-2bf3f80a42.svg)
 
 El mapa parte de **personas y segmentos**, no de una cifra. La flecha final importa: el seguimiento en campo puede descubrir un segmento que el presupuesto no cubría.
 

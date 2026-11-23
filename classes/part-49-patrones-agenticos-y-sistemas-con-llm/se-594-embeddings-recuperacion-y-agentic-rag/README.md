@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    D[Documentos] --> F[Fragmentar por encabezado, con título y origen]
-    F --> L[Índice léxico BM25]
-    F --> V[Índice vectorial]
-    Q[Consulta] --> L
-    Q --> V
-    L --> H[Fusión por rango recíproco]
-    V --> H
-    H --> U{¿Puntuación sobre el umbral?}
-    U -->|no| N[Abstenerse o escalar]
-    U -->|sí| K[Top k fragmentos al modelo]
-    K --> R[Respuesta con citas]
-    R --> M[Medir acierto, abstención y respaldo]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Documentos»; luego «Fragmentar por encabezado, con título y origen» y «Consulta»; luego «Índice léxico BM25» y «Índice vectorial»; luego «Fusión por rango recíproco»; luego «¿Puntuación sobre el umbral?»; luego «Abstenerse o escalar» y «Top k fragmentos al modelo»; luego «Respuesta con citas»; luego «Medir acierto, abstención y respaldo».](../../../site/assets/figures/mermaid-77b998eaca.svg)
 
 El mapa muestra dos índices que alimentan una fusión, un umbral que permite abstenerse y una respuesta que cita sus fragmentos; la última caja devuelve el resultado a la medición.
 

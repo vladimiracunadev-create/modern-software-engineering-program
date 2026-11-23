@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Regla del negocio] --> B{Alcance de la regla}
-    B -->|una columna| C[NOT NULL, CHECK, tipo]
-    B -->|una tabla| D[UNIQUE, clave primaria]
-    B -->|dos tablas| E[Clave foránea y acción de borrado]
-    B -->|varias filas o estados| F[Disparador, aserción o servicio]
-    C --> G[El motor rechaza]
-    D --> G
-    E --> G
-    F --> H[Hay que probar que se ejecuta]
-    G --> I[Dato inválido no persiste]
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Regla del negocio»; luego «Alcance de la regla»; luego «NOT NULL, CHECK, tipo», «UNIQUE, clave primaria», «Clave foránea y acción de borrado» y «Disparador, aserción o servicio»; luego «El motor rechaza» y «Hay que probar que se ejecuta»; luego «Dato inválido no persiste».](../../../site/assets/figures/mermaid-8a2df890c2.svg)
 
 El mapa ordena las reglas por su alcance y muestra que cuanto más amplio es el alcance, menos mecanismos nativos hay y más hay que probar que la regla se ejecuta.
 

@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sensor] --> B[Dispositivo: decisión con plazo]
-    A --> C[Estrategia de reporte]
-    C --> D[Pasarela: agrega, filtra, almacena]
-    D --> E[Nube: histórico y análisis]
-    B --> F[Actuador local]
-    E -.->|red caída| F
-    D --> G[Codificación y compresión]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Sensor»; luego «Dispositivo: decisión con plazo» y «Estrategia de reporte»; luego «Pasarela: agrega, filtra, almacena»; luego «Nube: histórico y análisis» y «Codificación y compresión»; luego «Actuador local».](../../../site/assets/figures/mermaid-58028670f8.svg)
 
 El mapa separa tres niveles: el **dispositivo** decide lo que tiene plazo; la **pasarela** agrega, filtra y almacena durante cortes; la **nube** guarda el histórico y analiza. La estrategia de reporte y la codificación fijan lo que viaja entre ellos.
 

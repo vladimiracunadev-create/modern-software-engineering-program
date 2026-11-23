@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Principio] --> B[Práctica]
-    B --> C{Produce información nueva sobre el producto}
-    C -->|sí| D[Decisión distinta]
-    C -->|no| E[Coste sin efecto]
-    D --> F[Menos valor perdido]
-    E --> G[Retirar o cambiar la práctica]
-    F -->|nuevas señales| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Principio»; luego «Práctica»; luego «Produce información nueva sobre el producto»; luego «Decisión distinta» y «Coste sin efecto»; luego «Menos valor perdido» y «Retirar o cambiar la práctica». Retornos: «Menos valor perdido» lleva a «Principio» (nuevas señales).](../../../site/assets/figures/mermaid-d9c8ccae23.svg)
 
 El mapa se lee desde el principio hacia la práctica y, a partir de ahí, por una pregunta: ¿esta práctica cambia alguna decisión? Si no, se retira o se cambia. El retorno indica que lo que funciona confirma el principio y lo que no, lo cuestiona.
 

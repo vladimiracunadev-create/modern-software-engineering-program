@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad de la persona usuaria] --> B[Atributo de calidad]
-    B --> C[Escenario: fuente, estímulo, artefacto, entorno, respuesta, medida]
-    C --> D[Indicador: estadístico, ventana, alcance]
-    D --> E[Objetivo: umbral y margen]
-    E --> F[Evidencia: sintética, de laboratorio o de campo]
-    F -->|el resultado contradice la queja| C
-    F -->|los atributos chocan| B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Necesidad de la persona usuaria»; luego «Atributo de calidad»; luego «Escenario: fuente, estímulo, artefacto, entorno, respuesta, medida»; luego «Indicador: estadístico, ventana, alcance»; luego «Objetivo: umbral y margen»; luego «Evidencia: sintética, de laboratorio o de campo». Retornos: «Evidencia: sintética, de laboratorio o de campo» lleva a «Escenario: fuente, estímulo, artefacto, entorno, respuesta, medida» (el resultado contradice la queja); «Evidencia: sintética, de laboratorio o de campo» lleva a «Atributo de calidad» (los atributos chocan).](../../../site/assets/figures/mermaid-f64c500ad9.svg)
 
 El mapa separa la **necesidad** (lo que alguien espera), el **escenario** (la situación concreta), el **indicador** (cómo se resume) y el **objetivo** (el umbral). Un desacuerdo casi nunca está en el umbral: suele estar en la ventana, en el estadístico o en el alcance que cada persona suponía.
 

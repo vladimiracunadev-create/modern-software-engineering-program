@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Quién paga y quién usa] --> N2[Ingreso por modelo de precio] --> N3[Economía unitaria] --> N4[Sostenibilidad y caja] --> N5[Concentración y dependencia]
-    N5 -->|un cliente o supuesto cambia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Quién paga y quién usa»; luego «Ingreso por modelo de precio»; luego «Economía unitaria»; luego «Sostenibilidad y caja»; luego «Concentración y dependencia». Retornos: «Concentración y dependencia» lleva a «Quién paga y quién usa» (un cliente o supuesto cambia).](../../../site/assets/figures/mermaid-4c1dba6ba5.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que la pérdida de un cliente grande o un abandono mayor que el supuesto obliga a revisar quién paga y qué recibe; no autoriza a retocar solo la hoja de cálculo.
 

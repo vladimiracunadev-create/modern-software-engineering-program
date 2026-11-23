@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-sequenceDiagram
-    participant W as Workflow
-    participant J as Diario (SQLite)
-    participant X as Servicio externo
-    W->>J: ¿paso enviar hecho?
-    J-->>W: no
-    W->>X: enviar aviso con clave run1:enviar
-    X-->>W: ok
-    Note over W,X: caída aquí: efecto hecho, diario sin anotar
-    W->>J: anotar enviar (tras reanudar)
-    Note over W,J: al reanudar, repite el envío con la misma clave
-    W->>X: enviar aviso con clave run1:enviar
-    X-->>W: ya recibido: se ignora
-```
+![Diagrama de secuencia entre Workflow, Diario (SQLite) y Servicio externo, con 9 eventos de arriba abajo. Workflow envía a Diario (SQLite): ¿paso enviar hecho?; luego Diario (SQLite) envía a Workflow: no; luego Workflow envía a Servicio externo: enviar aviso con clave run1:enviar; luego Servicio externo envía a Workflow: ok; luego Nota sobre Workflow: caída aquí: efecto hecho, diario sin anotar; luego Workflow envía a Diario (SQLite): anotar enviar (tras reanudar); luego Nota sobre Workflow: al reanudar, repite el envío con la misma clave; luego Workflow envía a Servicio externo: enviar aviso con clave run1:enviar; y así hasta Servicio externo envía a Workflow: ya recibido: se ignora.](../../../site/assets/figures/mermaid-8a9a4d6da4.svg)
 
 El diagrama muestra el caso difícil: el efecto ocurrió y el diario no lo sabe. Al reanudar, el sistema repite el envío con la **misma** clave y el servicio lo reconoce y lo ignora.
 

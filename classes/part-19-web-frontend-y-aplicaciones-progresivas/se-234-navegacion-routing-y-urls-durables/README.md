@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Enlace o escritura] --> B[Análisis de la URL]
-    B --> C[Normalización]
-    C --> D[Resolución de ruta]
-    D --> E[Vista con estado]
-    E -->|pushState| F[URL nueva]
-    F --> A
-    D -->|sin ruta| G[Redirección o 404]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Enlace o escritura»; luego «Análisis de la URL»; luego «Normalización»; luego «Resolución de ruta»; luego «Vista con estado» y «Redirección o 404»; luego «URL nueva». Retornos: «URL nueva» lleva a «Enlace o escritura».](../../../site/assets/figures/mermaid-7f62bc56d1.svg)
 
 El mapa se lee como un ciclo: una dirección se analiza, se normaliza, se resuelve a una vista y la vista, al cambiar, produce otra dirección. La rama inferior es la política de lo que ya no existe: redirigir o responder que no está.
 

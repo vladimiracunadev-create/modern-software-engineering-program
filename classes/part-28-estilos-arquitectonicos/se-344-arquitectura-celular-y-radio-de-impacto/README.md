@@ -54,16 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición del inquilino] --> B[Enrutador de celdas]
-    B --> C[Celda 1: pila completa]
-    B --> D[Celda 2: pila completa]
-    B --> E[Celda N: pila completa]
-    F[Inquilino venenoso] --> C
-    C --> G[Fallo contenido en la celda 1]
-    B -.-> H[Punto de fallo compartido]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Petición del inquilino»; luego «Enrutador de celdas» y «Inquilino venenoso»; luego «Celda 2: pila completa», «Celda N: pila completa», «Celda 1: pila completa» y «Punto de fallo compartido»; luego «Fallo contenido en la celda 1».](../../../site/assets/figures/mermaid-4c61597332.svg)
 
 El mapa muestra que cada celda es una réplica completa y que el fallo de una no cruza a las otras. La línea punteada marca lo que la celda no acota: el enrutador, que es compartido y debe ser tan simple y estable como sea posible.
 

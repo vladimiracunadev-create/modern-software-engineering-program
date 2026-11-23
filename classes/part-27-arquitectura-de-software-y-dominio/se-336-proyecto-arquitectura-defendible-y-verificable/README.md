@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    D[Drivers] --> S[Escenarios medibles]
-    S --> A[ADR con alternativas]
-    A --> M[Modelo ejecutable]
-    M --> V[Veredictos y simulacion]
-    S --> F[Funciones de aptitud]
-    A --> T[Trazabilidad decision a escenario]
-    T --> I[Impacto de revertir]
-    V --> L[Validador de forma y limites declarados]
-    L -->|falla un escenario| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Drivers»; luego «Escenarios medibles»; luego «ADR con alternativas» y «Funciones de aptitud»; luego «Modelo ejecutable» y «Trazabilidad decision a escenario»; luego «Veredictos y simulacion» y «Impacto de revertir»; luego «Validador de forma y limites declarados». Retornos: «Validador de forma y limites declarados» lleva a «ADR con alternativas» (falla un escenario).](../../../site/assets/figures/mermaid-2b893fc28d.svg)
 
 El mapa muestra que el dossier se sostiene en referencias cruzadas (driver → escenario → decisión → función de aptitud) y en un modelo que las evalúa. El validador comprueba la forma de esas referencias; el modelo, los veredictos; y la lista de límites, lo que ninguno comprueba.
 

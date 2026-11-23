@@ -114,7 +114,8 @@ class RoleGuideTests(unittest.TestCase):
             with self.subTest(role=name):
                 self.assertGreaterEqual(len(text.split()), 2200)
                 self.assertIn("../classes/", text)
-                self.assertEqual(text.count("```mermaid"), 2)
+                self.assertNotIn("```mermaid", text)
+                self.assertEqual(len(re.findall(r"figures/mermaid-[0-9a-f]{10}\.svg", text)), 2)
                 self.assertIn('style=for-the-badge', text)
                 self.assertIn("<!-- role-visual:start -->", text)
                 self.assertIn("<!-- role-depth:start -->", text)

@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tarea: periodo, plazo, cómputo] --> B[Prioridades fijas]
-    B --> C[Interferencia de tareas más prioritarias]
-    C --> D[Tiempo de respuesta]
-    E[Peor caso de ejecución] --> D
-    F[Bloqueo por recurso compartido] --> D
-    D --> G{Respuesta menor o igual al plazo}
-    G -->|sí| H[Planificable]
-    G -->|no| I[Cambiar prioridades, cómputo o recurso]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Tarea: periodo, plazo, cómputo»; luego «Prioridades fijas»; luego «Interferencia de tareas más prioritarias», «Peor caso de ejecución» y «Bloqueo por recurso compartido»; luego «Tiempo de respuesta»; luego «Respuesta menor o igual al plazo»; luego «Planificable» y «Cambiar prioridades, cómputo o recurso».](../../../site/assets/figures/mermaid-a56380eb35.svg)
 
 El mapa muestra que el tiempo de respuesta se compone de tres términos: el cómputo propio, la interferencia de las tareas más prioritarias y el bloqueo por recursos. Planificable significa que el resultado cabe en el plazo con el peor caso de cada término.
 

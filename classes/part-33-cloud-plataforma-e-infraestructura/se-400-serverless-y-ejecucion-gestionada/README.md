@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Evento o petición] --> B{¿Hay una instancia caliente libre?}
-    B -->|sí| C[Ejecutar el manejador]
-    B -->|no| D[Arranque en frío: crear entorno e importar dependencias]
-    D --> C
-    C --> E{¿Confirmación recibida?}
-    E -->|sí| F[Fin]
-    E -->|no| G[Reentrega del evento]
-    G --> H{¿El manejador es idempotente?}
-    H -->|no| I[Efecto repetido]
-    H -->|sí| F
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Evento o petición»; luego «¿Hay una instancia caliente libre?»; luego «Arranque en frío: crear entorno e importar dependencias»; luego «Ejecutar el manejador»; luego «¿Confirmación recibida?»; luego «Reentrega del evento»; luego «¿El manejador es idempotente?»; luego «Fin» y «Efecto repetido».](../../../site/assets/figures/mermaid-dc47cf5359.svg)
 
 El mapa tiene dos caminos que el modelo sin servidores introduce y que un servidor permanente no tenía: la rama del **arranque en frío**, donde la primera petición paga la creación del entorno, y la de la **reentrega**, donde un evento puede llegar más de una vez. Ambas se resuelven en el código, no en la plataforma.
 

@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dato compartido y mutable] --> B[Intercalación de pasos]
-    B --> C{Se rompe una invariante}
-    C -->|sí| D[Carrera]
-    D --> E[Exclusión mutua: cerrojo]
-    E --> F[Riesgo: espera circular]
-    E --> G[Costo: contención]
-    D --> H[Alternativas: inmutabilidad, confinamiento, atómicas]
-    F --> I[Orden global de adquisición]
-    G --> J[Granularidad]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Dato compartido y mutable»; luego «Intercalación de pasos»; luego «Se rompe una invariante»; luego «Carrera»; luego «Exclusión mutua: cerrojo» y «Alternativas: inmutabilidad, confinamiento, atómicas»; luego «Riesgo: espera circular» y «Costo: contención»; luego «Orden global de adquisición» y «Granularidad».](../../../site/assets/figures/mermaid-8a920f7d91.svg)
 
 El mapa muestra que un cerrojo no es «la solución»: resuelve la carrera a cambio de dos problemas nuevos. Cada uno tiene su mitigación (orden global y granularidad) y todas compiten con la opción de no compartir el dato.
 

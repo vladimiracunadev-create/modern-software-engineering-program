@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Atacante en internet] --> B[Servicio expuesto]
-    B -->|regla de red permitida| C[Servicio interno]
-    C -->|regla permitida| D[Base de datos]
-    B -.->|credencial robada o filtrada| E[Identidad con permisos]
-    E -.->|permiso concedido| D
-    F[Repositorio, script, registro] -.->|secreto en claro| E
-    D --> G[Dato sensible]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Atacante en internet»; luego «Servicio expuesto» y «Repositorio, script, registro»; luego «Servicio interno» y «Identidad con permisos»; luego «Base de datos»; luego «Dato sensible».](../../../site/assets/figures/mermaid-8b575e02c6.svg)
 
 El mapa tiene dos vías hacia el dato: la de **red** (líneas continuas), que cuenta saltos entre reglas permitidas, y la de **identidad** (líneas punteadas), que salta las reglas de red con una credencial. Reforzar una no cierra la otra, y por eso se miden por separado.
 

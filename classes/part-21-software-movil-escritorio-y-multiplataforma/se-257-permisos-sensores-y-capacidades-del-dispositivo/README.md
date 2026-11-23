@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Función del cliente] --> B[Capacidad necesaria]
-    B --> C{Estado del permiso}
-    C -->|concedido| D[Usar]
-    C -->|aproximado| E[Usar con menor precisión]
-    C -->|denegado o revocado| F[Alternativa y explicación]
-    C -->|restringido| G[Función no disponible]
-    D --> H[Comprobar en cada uso]
-    H -->|cambia el estado| C
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Función del cliente»; luego «Capacidad necesaria»; luego «Estado del permiso»; luego «Usar con menor precisión», «Usar», «Alternativa y explicación» y «Función no disponible»; luego «Comprobar en cada uso». Retornos: «Comprobar en cada uso» lleva a «Estado del permiso» (cambia el estado).](../../../site/assets/figures/mermaid-864e747c80.svg)
 
 El diagrama se lee de arriba hacia abajo: cada función declara su capacidad, el estado del permiso decide el camino, y el estado se vuelve a comprobar en el uso porque puede cambiar. No es un proceso obligatorio sino un contrato: ningún estado queda sin camino.
 

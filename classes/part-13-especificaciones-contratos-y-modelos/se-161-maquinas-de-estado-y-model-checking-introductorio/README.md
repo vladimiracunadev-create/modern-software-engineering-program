@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Estados y transiciones] --> B[Invariante]
-    A --> C[Búsqueda en anchura]
-    B --> C
-    C --> D{Violación}
-    D -->|sí| E[Traza más corta]
-    D -->|no| F[Modelo sin violaciones]
-    A --> G[Concurrencia y simetría]
-    G -->|explosión| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Estados y transiciones»; luego «Invariante» y «Concurrencia y simetría»; luego «Búsqueda en anchura»; luego «Violación»; luego «Traza más corta» y «Modelo sin violaciones».](../../../site/assets/figures/mermaid-ffef1c4161.svg)
 
 El mapa se lee desde las transiciones: junto con el invariante alimentan la búsqueda, que devuelve una traza o confirma que no hay violación en el modelo. La concurrencia multiplica los estados y retroalimenta el coste de la búsqueda. «Sin violaciones» se refiere al modelo, no al sistema.
 

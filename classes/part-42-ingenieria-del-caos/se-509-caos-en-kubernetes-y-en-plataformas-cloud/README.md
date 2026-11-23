@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    A[Falla del catálogo] --> B{¿En qué capa se produce?}
-    B -->|conexión| C[Proxy: Toxiproxy, tc/netem]
-    B -->|contenedor y nodo| D[Orquestador: Chaos Mesh, LitmusChaos]
-    B -->|recurso de nube| E[Servicio gestionado: AWS FIS, Azure Chaos Studio]
-    B -->|instancia| F[Terminación al azar: Chaos Monkey]
-    C --> G[Controles: alcance, aborto, privilegios, auditoría]
-    D --> G
-    E --> G
-    F --> G
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Falla del catálogo»; luego «¿En qué capa se produce?»; luego «Proxy: Toxiproxy, tc/netem», «Orquestador: Chaos Mesh, LitmusChaos», «Servicio gestionado: AWS FIS, Azure Chaos Studio» y «Terminación al azar: Chaos Monkey»; luego «Controles: alcance, aborto, privilegios, auditoría».](../../../site/assets/figures/mermaid-7da68a63c0.svg)
 
 El mapa separa la **capa** de la falla del **control** que la hace segura. La herramienta es la intersección de ambos; una herramienta sin aborto o con privilegios excesivos no es candidata aunque inyecte la falla que hace falta.
 

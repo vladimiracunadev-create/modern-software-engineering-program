@@ -10,21 +10,7 @@ La [Parte 40](../part-40-ci-cd-iac-y-platform-engineering/README.md) llevó el c
 
 Esta parte no enseña un producto de observabilidad, una plataforma de alertas ni una herramienta de gestión de guardias. Enseña a distinguir lo que un sistema emite de lo que se puede preguntar durante un incidente y a localizar una lentitud con duraciones inclusivas, a escribir registros que una máquina consulta y a unir las líneas de una petición entre servicios, a presupuestar las series de una métrica antes de añadir una dimensión y a saber qué reconstruye un muestreo periódico, a seguir una petición con trazas, auditar las fronteras donde se pierde el contexto y leer la ruta crítica antes de optimizar, a convertir una promesa en un indicador, un objetivo, un presupuesto y una política, a derivar alertas del consumo del presupuesto y medir el ruido que producen, a escribir un runbook que una persona cansada pueda seguir y dimensionar una guardia y su escalamiento, a coordinar un incidente con roles, severidades medibles y una cadencia de comunicación sin creer en promedios de pocos casos, a escribir un postmortem sin culpa con factores y acciones verificables, a restaurar una copia en lugar de confiar en que se creó, a descubrir el orden real de una recuperación y sus ciclos, y a diagnosticar con telemetría incompleta distinguiendo lo normal de lo que no tiene datos. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (una cadena de cuatro servicios donde el p99 absoluto acierta 50 de 200 veces y el aumento relativo 196, un umbral global que ve en 8,7 % de los casos la falla total de un cliente pequeño, 463 GB para una métrica con un identificador de persona, 59,4 % de peticiones en una sola traza, 166 % del presupuesto mensual consumido por un corte de 30 minutos en hora punta, 12 622 páginas de una regla corta frente a 13 de una de consumo, 77 noches interrumpidas al año con dos personas de guardia, un kappa de 0,29 con criterios vagos, 100 de 180 defectos de un postmortem detectados por forma, 20 de 40 copias dañadas que un chequeo de integridad no ve, una tasa de error leída a la mitad por la pérdida selectiva de líneas y una recuperación completa del 55,4 % con cinco etapas buenas) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Señales, eventos y observabilidad útil] --> B[Logs estructurados y correlación]
-    B --> C[Métricas, dimensiones y cardinalidad]
-    C --> D[Trazas distribuidas y contexto]
-    D --> E[SLI, SLO, SLA y presupuestos de error]
-    E --> F[Alertas accionables y fatiga]
-    F --> G[Runbooks, on-call y escalamiento]
-    G --> H[Gestión de incidentes y comunicación]
-    H --> I[Postmortems sin culpa y aprendizaje]
-    I --> J[Continuidad, disaster recovery y ejercicios]
-    J --> K[Taller de diagnóstico con telemetría incompleta]
-    K --> L[Paquete operativo observable y recuperable]
-    L -->|incidente o ejercicio| A
-```
+![Diagrama de flujo con 12 pasos, de «Señales, eventos y observabilidad útil» a «Paquete operativo observable y recuperable», con 1 retorno(s).](../../site/assets/figures/mermaid-57341ca613.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo de un ejercicio reabre la pregunta de qué señales hacían falta; un paquete operativo validado no cierra la operación, la fecha.
 

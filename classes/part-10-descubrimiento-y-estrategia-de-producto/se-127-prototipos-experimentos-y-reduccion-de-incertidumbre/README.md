@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Prototipo y pregunta] --> N2[Experimento de demanda] --> N3[Tamaño y potencia] --> N4[Mirar los resultados] --> N5[Incertidumbre residual]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Prototipo y pregunta»; luego «Experimento de demanda»; luego «Tamaño y potencia»; luego «Mirar los resultados»; luego «Incertidumbre residual». Retornos: «Incertidumbre residual» lleva a «Prototipo y pregunta» (fallo o cambio).](../../../site/assets/figures/mermaid-8b19de8fa4.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una potencia insuficiente, un resultado que depende de cuándo se mira o un intervalo demasiado ancho obliga a rediseñar el experimento; no autoriza a prolongarlo hasta que salga lo esperado.
 

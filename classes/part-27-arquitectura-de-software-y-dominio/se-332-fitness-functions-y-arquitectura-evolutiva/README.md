@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    D[Decision de arquitectura] --> P[Propiedad medible]
-    P --> F[Funcion de aptitud]
-    F --> U[Umbral y estadistica]
-    U --> C[Ejecucion continua]
-    C -->|falla| R[Correccion o revision del umbral]
-    C -->|falsa alarma| U
-    R --> D
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Decision de arquitectura»; luego «Propiedad medible»; luego «Funcion de aptitud»; luego «Umbral y estadistica»; luego «Ejecucion continua»; luego «Correccion o revision del umbral». Retornos: «Ejecucion continua» lleva a «Umbral y estadistica» (falsa alarma); «Correccion o revision del umbral» lleva a «Decision de arquitectura».](../../../site/assets/figures/mermaid-b2fd872431.svg)
 
 El mapa muestra que la función de aptitud conecta la decisión con la entrega continua. Un umbral mal calibrado vuelve por el retorno: una prueba que da falsas alarmas se ignora, y una ignorada ha dejado de existir.
 

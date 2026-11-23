@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Mensaje] --> B{Garantía}
-    B -->|a lo sumo una vez| C[Puede perderse]
-    B -->|al menos una vez| D[Puede duplicarse]
-    B -->|exactamente una vez| E[Más paquetes]
-    A --> F[Cola local]
-    F -->|red caída| G[Acumula]
-    G -->|reconexión| H[Reintento con jitter]
-    H --> I[Servidor]
-    I -->|ACK| J[Confirmado]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Mensaje»; luego «Garantía» y «Cola local»; luego «Puede perderse», «Puede duplicarse», «Acumula» y «Más paquetes»; luego «Reintento con jitter»; luego «Servidor»; luego «Confirmado».](../../../site/assets/figures/mermaid-d5dd1ac20b.svg)
 
 El mapa separa la **garantía** (qué promete el protocolo cuando hay red) de la **cola** (qué hace el dispositivo cuando no la hay) y del **reintento** (cómo vuelve a entrar). Las tres decisiones son independientes y se eligen por tipo de mensaje.
 

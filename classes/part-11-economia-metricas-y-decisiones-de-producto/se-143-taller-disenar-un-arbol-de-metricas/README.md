@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Raíz y factores] --> N2[Nodos completos] --> N3[Validador y mutaciones] --> N4[Descomposición exacta] --> N5[Hoja que mover primero]
-    N5 -->|un baseline cambia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Raíz y factores»; luego «Nodos completos»; luego «Validador y mutaciones»; luego «Descomposición exacta»; luego «Hoja que mover primero». Retornos: «Hoja que mover primero» lleva a «Raíz y factores» (un baseline cambia).](../../../site/assets/figures/mermaid-21c648316b.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un baseline distinto o una hoja mal medida reabre el árbol; no autoriza a parchear solo el nodo que falló.
 

@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Evento y esquema] --> N2[Consentimiento y estado] --> N3[Minimización e identificabilidad] --> N4[Sesgo por quién consiente] --> N5[Control técnico y pruebas]
-    N5 -->|un defecto o un campo nuevo| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Evento y esquema»; luego «Consentimiento y estado»; luego «Minimización e identificabilidad»; luego «Sesgo por quién consiente»; luego «Control técnico y pruebas». Retornos: «Control técnico y pruebas» lleva a «Evento y esquema» (un defecto o un campo nuevo).](../../../site/assets/figures/mermaid-803eb477b5.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un defecto de la puerta o un campo nuevo obliga a revisar el esquema; no autoriza a corregir solo el banner.
 

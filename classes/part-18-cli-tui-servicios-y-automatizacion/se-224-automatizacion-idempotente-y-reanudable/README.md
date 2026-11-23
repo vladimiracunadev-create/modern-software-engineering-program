@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    I[Intención] --> C[Clave de idempotencia]
-    C --> O{¿Ya hecho?}
-    O -->|sí| S[Omitir]
-    O -->|no| E[Efecto]
-    E --> T[Archivo temporal]
-    T -->|reemplazo atómico| F[Archivo final]
-    E --> M[Marca de progreso]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Intención»; luego «Clave de idempotencia»; luego «¿Ya hecho?»; luego «Omitir» y «Efecto»; luego «Archivo temporal» y «Marca de progreso»; luego «Archivo final».](../../../site/assets/figures/mermaid-0a5b062540.svg)
 
 El mapa se lee como un filtro: la clave decide si el efecto ya se produjo; el efecto se escribe en un archivo temporal y se publica con un reemplazo atómico; la marca de progreso se actualiza después. No describe la durabilidad ante cortes de energía.
 

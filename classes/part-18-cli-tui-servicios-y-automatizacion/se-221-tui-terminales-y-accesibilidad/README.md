@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    S[Salida] --> T{¿Terminal?}
-    T -->|sí| C[Color y ancho real]
-    T -->|no| P[Texto plano]
-    C --> A[Alineación por ancho]
-    P --> A2[Alineación estable]
-    A --> L[Lector de pantalla]
-    A2 --> M[Máquina o registro]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Salida»; luego «¿Terminal?»; luego «Color y ancho real» y «Texto plano»; luego «Alineación por ancho» y «Alineación estable»; luego «Lector de pantalla» y «Máquina o registro».](../../../site/assets/figures/mermaid-cffd01a6fd.svg)
 
 El mapa se lee de arriba abajo: la primera pregunta es si el destino es un terminal; de ahí cuelgan color, ancho y alineación; en cualquier caso, hay una persona o un programa al final. No describe el flujo interno de una biblioteca de interfaz.
 

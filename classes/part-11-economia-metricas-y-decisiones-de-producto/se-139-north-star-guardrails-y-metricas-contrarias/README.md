@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Métrica norte] --> N2[Guardas] --> N3[Métricas contrarias] --> N4[Descomposición] --> N5[Alarmas y potencia]
-    N5 -->|un umbral o una definición cambia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Métrica norte»; luego «Guardas»; luego «Métricas contrarias»; luego «Descomposición»; luego «Alarmas y potencia». Retornos: «Alarmas y potencia» lleva a «Métrica norte» (un umbral o una definición cambia).](../../../site/assets/figures/mermaid-949ea5654a.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una guarda cruzada o una alarma falsa recurrente obliga a revisar la métrica norte; no autoriza a retirar la guarda.
 

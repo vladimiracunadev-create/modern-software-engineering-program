@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Repositorio: estado deseado versionado] --> B[Controlador: extrae y compara]
-    C[Clúster: estado actual] --> B
-    B -->|diferencia| D[Acción: crear, cambiar, podar]
-    D --> C
-    E[Escalador automático] -->|modifica réplicas| C
-    B -.->|ignorar campos ajenos| E
-    F[Revertir el commit] --> A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Escalador automático» y «Revertir el commit»; luego «Clúster: estado actual» y «Repositorio: estado deseado versionado»; luego «Controlador: extrae y compara»; luego «Acción: crear, cambiar, podar». Retornos: «Acción: crear, cambiar, podar» lleva a «Clúster: estado actual»; «Controlador: extrae y compara» lleva a «Escalador automático» (ignorar campos ajenos).](../../../site/assets/figures/mermaid-4a103ba2c5.svg)
 
 El mapa muestra el **bucle** (extraer, comparar, actuar) y un segundo actor que escribe en el mismo clúster. Cuando dos actores gobiernan el mismo campo, el sistema no converge; por eso la política debe decir qué campos pertenecen a quién.
 

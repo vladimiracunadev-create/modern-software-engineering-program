@@ -50,23 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad de reutilizar] --> B{Mecanismo}
-    B --> C[Herencia: la subclase conoce la base]
-    B --> D[Composición: el objeto contiene a otro]
-    B --> E[Delegación: reenvía una parte]
-    C --> F[Riesgo: base frágil, jerarquías cruzadas]
-    D --> G[Riesgo: orden y configuración]
-    E --> H[Riesgo: código de reenvío]
-    F --> I[Medida: cuentas erróneas, MRO]
-    G --> J[Medida: totales según el orden]
-    H --> K[Medida: contrato de la interfaz]
-    I --> L[Decisión por opción]
-    J --> L
-    K --> L
-    L -->|la base cambia| B
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Necesidad de reutilizar»; luego «Mecanismo»; luego «Herencia: la subclase conoce la base», «Composición: el objeto contiene a otro» y «Delegación: reenvía una parte»; luego «Riesgo: base frágil, jerarquías cruzadas», «Riesgo: orden y configuración» y «Riesgo: código de reenvío»; luego «Medida: cuentas erróneas, MRO», «Medida: totales según el orden» y «Medida: contrato de la interfaz»; luego «Decisión por opción». Retornos: «Decisión por opción» lleva a «Mecanismo» (la base cambia).](../../../site/assets/figures/mermaid-f73d7c33bd.svg)
 
 El mapa parte de la necesidad, no del mecanismo: reutilizar tiene tres formas y cada una tiene un riesgo y una medida. El retorno marca que un cambio en la base puede reabrir la decisión.
 

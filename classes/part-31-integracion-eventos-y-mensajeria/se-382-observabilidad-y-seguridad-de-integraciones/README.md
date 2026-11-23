@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición con correlación] --> B[Servicio A]
-    B -->|encabezados del mensaje| C[Cola]
-    C --> D[Consumidor B]
-    D --> E[Proveedor externo]
-    B --> F[Registros sin datos sensibles]
-    D --> F
-    C --> G[Métricas: profundidad, edad, procesados, errores]
-    D --> G
-    F --> H[Reconstruir el flujo por correlación]
-    G --> I[Alarmas por síntoma]
-    A --> J[Controles: autenticar, autorizar, firmar, limitar]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Petición con correlación»; luego «Servicio A» y «Controles: autenticar, autorizar, firmar, limitar»; luego «Cola»; luego «Consumidor B»; luego «Registros sin datos sensibles», «Proveedor externo» y «Métricas: profundidad, edad, procesados, errores»; luego «Reconstruir el flujo por correlación» y «Alarmas por síntoma».](../../../site/assets/figures/mermaid-36f037d0ed.svg)
 
 El mapa separa tres necesidades que comparten datos: **seguir** un flujo (correlación), **vigilar** su salud (métricas y alarmas) y **protegerlo** (controles y registros seguros). El contexto viaja dentro del mensaje, no en la memoria de quien lo atiende.
 

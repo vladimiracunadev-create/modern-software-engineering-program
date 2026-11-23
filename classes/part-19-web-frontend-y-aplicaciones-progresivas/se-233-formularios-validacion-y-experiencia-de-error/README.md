@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Entrada de la persona] --> B[Restricciones nativas]
-    B --> C[Validación del cliente]
-    C --> D[Envío]
-    D --> E[Validación del servidor]
-    E -->|errores| F[Mensaje asociado al campo]
-    F --> A
-    E -->|aceptado| G[Confirmación]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Entrada de la persona»; luego «Restricciones nativas»; luego «Validación del cliente»; luego «Envío»; luego «Validación del servidor»; luego «Mensaje asociado al campo» y «Confirmación». Retornos: «Mensaje asociado al campo» lleva a «Entrada de la persona».](../../../site/assets/figures/mermaid-234e481e42.svg)
 
 El mapa se lee de izquierda a derecha, pero solo la validación del servidor decide: las anteriores existen para dar respuesta rápida. La flecha de retorno indica que un error vuelve a la persona con el campo identificado y con lo que ya escribió.
 

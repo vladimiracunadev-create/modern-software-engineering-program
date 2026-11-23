@@ -10,19 +10,7 @@ La [Parte 13](../part-13-especificaciones-contratos-y-modelos/README.md) termin�
 
 Esta parte no enseña una herramienta ni una norma de memoria. Enseña a convertir «es usable» y «es accesible» en cálculos, simulaciones y comprobaciones con sus límites declarados: cuánto tarda cada diseño, a cuánta gente deja fuera el promedio, qué etapa pierde más personas, cuánto cuesta una estructura de navegación, qué errores deja un objetivo pequeño, qué protege una clave de idempotencia, qué combinaciones de estado son imposibles, qué ve un auditor automático y qué no, qué colores se confunden, qué anchos y preferencias quedan sin cubrir, qué rompe una suposición de una sola lengua, qué se puede concluir con pocas personas y qué parte de una declaración de conformidad es evidencia y cuál es supuesto. Cada clase ejecuta tres experimentos con datos sintéticos que muestran un mecanismo y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Tarea y personas] --> B[Estructura y navegación]
-    B --> C[Interacción y retroalimentación]
-    C --> D[Estados y recuperación]
-    D --> E[Accesibilidad: criterios]
-    E --> F[Semántica, teclado y foco]
-    F --> G[Visual, adaptación e idioma]
-    G --> H[Evaluación con personas]
-    H --> I[Auditoría y reparación]
-    I --> J[Prototipo y declaración]
-    J -->|hallazgos| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Tarea y personas»; luego «Estructura y navegación»; luego «Interacción y retroalimentación»; luego «Estados y recuperación»; luego «Accesibilidad: criterios»; luego «Semántica, teclado y foco»; luego «Visual, adaptación e idioma»; luego «Evaluación con personas»; luego «Auditoría y reparación»; luego «Prototipo y declaración». Retornos: «Prototipo y declaración» lleva a «Tarea y personas» (hallazgos).](../../site/assets/figures/mermaid-62e0060e3e.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo de la evaluación o de la auditoría reabre la tarea o la estructura; un prototipo con declaración de conformidad no cierra el diseño, lo fecha y acota su alcance.
 

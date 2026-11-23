@@ -53,16 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Artefacto verificado] --> B[Despliegue: la versión corre]
-    B --> C[Exposición: quién la usa]
-    C --> D{Señal de calidad}
-    D -->|dentro del margen| E[Aumentar exposición]
-    D -->|fuera del margen| F[Retroceso]
-    D -->|datos insuficientes| G[Esperar o ampliar]
-    H[Bandera apagada] -.-> C
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Artefacto verificado»; luego «Despliegue: la versión corre» y «Bandera apagada»; luego «Exposición: quién la usa»; luego «Señal de calidad»; luego «Aumentar exposición», «Retroceso» y «Esperar o ampliar».](../../../site/assets/figures/mermaid-d14080c2e1.svg)
 
 El mapa separa **desplegar** (poner la versión en servidores) de **exponer** (decidir quién la usa) y añade un tercer resultado de la señal, «datos insuficientes», que los diagramas simples omiten y que es la situación habitual de un canario pequeño.
 

@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Registro de uso y riesgo] --> B[Recorridos candidatos]
-    B --> C[Selección por tráfico e impacto]
-    C --> D[Criterio de aceptación ejecutable]
-    D --> E[Aserción semántica o instantánea]
-    E --> F[Presupuesto de inestabilidad por paso]
-    F -->|demasiado inestable| G[Recortar pasos o mover a un nivel inferior]
-    G --> D
-    F --> H[Suite pequeña y estable]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Registro de uso y riesgo»; luego «Recorridos candidatos»; luego «Selección por tráfico e impacto»; luego «Criterio de aceptación ejecutable»; luego «Aserción semántica o instantánea»; luego «Presupuesto de inestabilidad por paso»; luego «Recortar pasos o mover a un nivel inferior» y «Suite pequeña y estable». Retornos: «Recortar pasos o mover a un nivel inferior» lleva a «Criterio de aceptación ejecutable».](../../../site/assets/figures/mermaid-2ac1aa0189.svg)
 
 El mapa parte del uso y no de la herramienta: los recorridos se eligen por lo que importa y se recortan por lo que cuestan. El retorno indica que un recorrido inestable se acorta o se baja de nivel, no se tolera.
 

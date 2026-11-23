@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Valor y costo] --> N2[Dependencias] --> N3[Conjunto entregable] --> N4[Negociación]
-    N4 -->|ciclo o veto| N1
-    N2 -->|requisito faltante| N1
-```
+![Diagrama de flujo con 4 pasos. Recorrido: «Valor y costo»; luego «Dependencias»; luego «Conjunto entregable»; luego «Negociación». Retornos: «Negociación» lleva a «Valor y costo» (ciclo o veto); «Dependencias» lleva a «Valor y costo» (requisito faltante).](../../../site/assets/figures/mermaid-94afc640ae.svg)
 
 El mapa se lee de izquierda a derecha: el valor y el costo dan un primer orden, las dependencias lo corrigen, el resultado es un conjunto entregable y la negociación lo ajusta con las personas. Los retornos indican que un veto o un ciclo de preferencias obliga a volver a reconsiderar valor y costo, y que un requisito faltante obliga a incluirlo o a retirar los que dependen de él.
 

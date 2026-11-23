@@ -57,17 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición con inquilino] --> B[Cuota por inquilino]
-    B -->|dentro| C[Cola por inquilino]
-    B -->|excede| D[Rechazo con 429 y reintento]
-    C --> E[Planificador justo]
-    E --> F[Capacidad compartida]
-    F --> G[Métricas por inquilino]
-    G --> H[Alerta y traslado de nivel]
-    H -->|silo| I[Cómputo y datos dedicados]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Petición con inquilino»; luego «Cuota por inquilino»; luego «Cola por inquilino» y «Rechazo con 429 y reintento»; luego «Planificador justo»; luego «Capacidad compartida»; luego «Métricas por inquilino»; luego «Alerta y traslado de nivel»; luego «Cómputo y datos dedicados».](../../../site/assets/figures/mermaid-23f02f76ca.svg)
 
 La petición lleva su inquilino desde la entrada; la cuota decide si entra, la cola por inquilino evita que el exceso de uno retrase a los demás, el planificador reparte la capacidad por turnos, y las métricas por inquilino son lo que permite saber quién causó qué y mover a ese cliente a un nivel dedicado cuando la medición lo justifique.
 

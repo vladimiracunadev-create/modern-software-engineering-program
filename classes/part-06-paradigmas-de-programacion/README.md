@@ -10,17 +10,7 @@ La CLI diagnóstica ya ejecuta una regla, pero una única implementación puede 
 
 Esta parte no presenta paradigmas como etiquetas ni como una competencia de sintaxis. Cada clase vuelve sobre **motor de reglas comparado**, mantiene un contrato común y cambia deliberadamente el modelo de estado, control, composición o tiempo. Así puede distinguirse una diferencia semántica de una diferencia accidental del lenguaje.
 
-```mermaid
-flowchart LR
-    A[Contrato común] --> B[Estado y descomposición]
-    B --> C[Objetos y valores]
-    C --> D[Reglas y resolución]
-    D --> E[Eventos y flujos]
-    E --> F[Concurrencia y actores]
-    F --> G[Pruebas comunes]
-    G --> H[Decisión contextual]
-    H -->|cambio de regla| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Contrato común»; luego «Estado y descomposición»; luego «Objetos y valores»; luego «Reglas y resolución»; luego «Eventos y flujos»; luego «Concurrencia y actores»; luego «Pruebas comunes»; luego «Decisión contextual». Retornos: «Decisión contextual» lleva a «Contrato común» (cambio de regla).](../../site/assets/figures/mermaid-64ac73905f.svg)
 
 El diagrama muestra la progresión del razonamiento, no una arquitectura recomendada. Las pruebas comunes impiden declarar equivalencia por parecido visual; el retorno obliga a revalidar cuando cambia el contrato.
 

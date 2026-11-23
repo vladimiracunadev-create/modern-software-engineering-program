@@ -13,16 +13,7 @@ representación binaria, texto, aritmética, instrucciones, memoria, procesos, I
 compilación y runtime. Cada clase abre una capa sin fingir que la capa inferior deja de
 existir.
 
-```mermaid
-flowchart LR
- S[Fuente del analizador local de eventos] --> R[Representación]
- R --> T[Traducción y runtime]
- T --> I[Instrucciones]
- I --> M[Memoria y CPU]
- M --> O[Proceso e I/O]
- O --> E[Medición reproducible]
- E --> S
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Fuente del analizador local de eventos»; luego «Representación»; luego «Traducción y runtime»; luego «Instrucciones»; luego «Memoria y CPU»; luego «Proceso e I/O»; luego «Medición reproducible». Retornos: «Medición reproducible» lleva a «Fuente del analizador local de eventos».](../../site/assets/figures/mermaid-fdabe72521.svg)
 
 El diagrama no dice que la ejecución sea estrictamente lineal. Runtime, sistema
 operativo y hardware cooperan y retroalimentan el resultado. Sirve para localizar qué

@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio] --> B[Etapas baratas primero]
-    B -->|rojo| X[Se detiene: feedback temprano]
-    B --> C[Etapas caras]
-    C --> D[Políticas sobre la propia canalización]
-    D --> E{Compuerta}
-    E -->|pasa| F[Integración]
-    E -->|bloquea| G[Corrección]
-    E -->|excepción| H[Registro, dueño y caducidad]
-    H --> I[Revisión periódica]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Cambio»; luego «Etapas baratas primero»; luego «Se detiene: feedback temprano» y «Etapas caras»; luego «Políticas sobre la propia canalización»; luego «Compuerta»; luego «Integración», «Corrección» y «Registro, dueño y caducidad»; luego «Revisión periódica».](../../../site/assets/figures/mermaid-079ae74df3.svg)
 
 El mapa separa el **orden** de las etapas (cuál detiene antes), la **decisión** de la compuerta (pasa, bloquea o excepción) y el **gobierno** de las excepciones. Una compuerta sin gobierno acaba siendo una sugerencia.
 

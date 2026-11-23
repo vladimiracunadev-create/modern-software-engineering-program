@@ -57,20 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Inventario de sistemas de IA] --> B[Triaje de riesgo por uso]
-    B --> C{¿Alto riesgo o prohibido?}
-    C -->|prohibido| X[No se desarrolla]
-    C -->|alto| D[Requisitos completos: riesgo, datos, documentación, registro, supervisión, robustez]
-    C -->|transparencia| E[Avisar a la persona]
-    C -->|mínimo| F[Buenas prácticas]
-    D --> G[Evidencia de ingeniería: SE-602 a SE-609]
-    G --> H[Expediente y registro de decisiones]
-    H --> I[Revisión interna y, si procede, evaluación de conformidad]
-    I --> J[Vigilancia posterior y gestión de incidentes]
-    J --> A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Inventario de sistemas de IA»; luego «Triaje de riesgo por uso»; luego «¿Alto riesgo o prohibido?»; luego «No se desarrolla», «Requisitos completos: riesgo, datos, documentación, registro, supervisión, robustez», «Avisar a la persona» y «Buenas prácticas»; luego «Evidencia de ingeniería: SE-602 a SE-609»; luego «Expediente y registro de decisiones»; luego «Revisión interna y, si procede, evaluación de conformidad»; luego «Vigilancia posterior y gestión de incidentes». Retornos: «Vigilancia posterior y gestión de incidentes» lleva a «Inventario de sistemas de IA».](../../../site/assets/figures/mermaid-9f987d8231.svg)
 
 El mapa parte del inventario y no del modelo, porque el nivel depende del uso. La evidencia de ingeniería es lo que alimenta el expediente, y la vigilancia posterior vuelve al inventario: el gobierno es un ciclo.
 

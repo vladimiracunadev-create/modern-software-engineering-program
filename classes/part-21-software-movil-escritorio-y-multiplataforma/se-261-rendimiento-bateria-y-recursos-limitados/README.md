@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Presupuesto del producto] --> B[Tiempo de respuesta]
-    A --> C[Energía en segundo plano]
-    A --> D[Memoria]
-    B --> E[Trabajo por elemento: ventana]
-    C --> F[Despertares de radio: lote o empuje]
-    D --> G[Caché: tamaño y aciertos]
-    E --> H[Medición en dispositivos]
-    F --> H
-    G --> H
-    H -->|cifra| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Presupuesto del producto»; luego «Tiempo de respuesta», «Energía en segundo plano» y «Memoria»; luego «Trabajo por elemento: ventana», «Despertares de radio: lote o empuje» y «Caché: tamaño y aciertos»; luego «Medición en dispositivos». Retornos: «Medición en dispositivos» lleva a «Presupuesto del producto» (cifra).](../../../site/assets/figures/mermaid-ceced6b15a.svg)
 
 El mapa se lee de izquierda a derecha: el presupuesto se reparte entre tiempo, energía y memoria, cada uno se controla con una decisión distinta (ventana, lote o empuje, caché) y se contrasta con una medición en dispositivos reales. La cifra medida reabre el presupuesto.
 

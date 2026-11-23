@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos de la zona intermedia] --> B{¿Qué debe responder el modelo?}
-    B -->|preguntas de negocio claras| C[Estrella: hecho + dimensiones]
-    B -->|integrar varias fuentes con trazabilidad| D[Vault: hub, enlace, satélite]
-    C --> E[Granularidad declarada]
-    C --> F[Dimensión con historia: filas con vigencia]
-    D --> G[Solo insertar: carga repetible]
-    D --> H[Vista de negocio encima]
-    E --> I[Consultas sin abanico]
-    F --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Datos de la zona intermedia»; luego «¿Qué debe responder el modelo?»; luego «Estrella: hecho + dimensiones» y «Vault: hub, enlace, satélite»; luego «Granularidad declarada», «Dimensión con historia: filas con vigencia», «Solo insertar: carga repetible» y «Vista de negocio encima»; luego «Consultas sin abanico».](../../../site/assets/figures/mermaid-aba9353afc.svg)
 
 El mapa pone la decisión antes de las tablas: la estrella sirve la consulta; el vault sirve la integración y casi siempre necesita una vista de negocio encima para consultarse.
 

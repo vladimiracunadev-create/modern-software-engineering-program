@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Peligro] --> B{Safety o seguridad}
-    B -->|falla accidental| C[Redundancia, vigilancia, estado seguro]
-    B -->|ataque| D[Identidad, actualización, mínimo privilegio]
-    C --> E[Causa común y cobertura]
-    D --> F[Vida útil y soporte]
-    E --> G[Análisis y prueba]
-    F --> G
-    G -->|hallazgo| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Peligro»; luego «Safety o seguridad»; luego «Redundancia, vigilancia, estado seguro» y «Identidad, actualización, mínimo privilegio»; luego «Causa común y cobertura» y «Vida útil y soporte»; luego «Análisis y prueba». Retornos: «Análisis y prueba» lleva a «Peligro» (hallazgo).](../../../site/assets/figures/mermaid-ab4ed3c392.svg)
 
 El mapa recorre un peligro hasta su defensa: si el origen es un fallo accidental, la defensa es redundancia, vigilancia y un estado seguro; si es un ataque, identidad, actualización y mínimo privilegio. Ambas se examinan con su causa común y con la vida útil.
 

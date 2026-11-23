@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Nueva responsabilidad] --> B{¿Quién tiene los datos?}
-    B --> C[Experto en información]
-    A --> D{¿Quién crea el objeto?}
-    D --> E[Creador]
-    A --> F{¿Quién recibe el evento externo?}
-    F --> G[Controlador]
-    C --> H{¿Sube el acoplamiento o baja la cohesión?}
-    E --> H
-    G --> H
-    H -->|sí| I[Indirección, Fabricación pura, Polimorfismo]
-    H -->|no| J[Asignación estable]
-    I --> K[Variaciones protegidas]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Nueva responsabilidad»; luego «¿Quién tiene los datos?», «¿Quién crea el objeto?» y «¿Quién recibe el evento externo?»; luego «Experto en información», «Creador» y «Controlador»; luego «¿Sube el acoplamiento o baja la cohesión?»; luego «Indirección, Fabricación pura, Polimorfismo» y «Asignación estable»; luego «Variaciones protegidas».](../../../site/assets/figures/mermaid-7ea9bdc6df.svg)
 
 El mapa tiene un bucle de control: después de asignar con los tres primeros criterios se comprueba el acoplamiento y la cohesión, y solo entonces se recurre a los criterios de indirección y polimorfismo. Los últimos cuatro criterios corrigen los costos de los primeros.
 

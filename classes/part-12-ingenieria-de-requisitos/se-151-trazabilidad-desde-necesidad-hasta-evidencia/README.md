@@ -52,12 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Necesidad] --> N2[Requisito] --> N3[Criterio] --> N4[Prueba] --> N5[Evidencia]
-    N5 -->|enlace roto o prueba ausente| N2
-    N2 -->|cambio| N4
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Necesidad»; luego «Requisito»; luego «Criterio»; luego «Prueba»; luego «Evidencia». Retornos: «Evidencia» lleva a «Requisito» (enlace roto o prueba ausente).](../../../site/assets/figures/mermaid-b3bd7a9c7f.svg)
 
 El mapa se lee de izquierda a derecha como la cadena que debe poder recorrerse en ambos sentidos. Los retornos indican que un enlace roto o una prueba ausente obliga a revisar el requisito, y que un cambio en el requisito obliga a revisar las pruebas que dependen de él.
 

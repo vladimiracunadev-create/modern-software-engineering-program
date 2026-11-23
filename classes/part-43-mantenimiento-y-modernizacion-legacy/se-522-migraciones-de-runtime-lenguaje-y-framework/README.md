@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Versión actual] --> B[Catálogo de diferencias]
-    B --> C{Cómo se manifiesta}
-    C -->|excepción| D[Ruidoso: se descubre al usarlo]
-    C -->|resultado distinto| E[Silencioso: se mide con datos]
-    E --> F[Pruebas de caracterización]
-    D --> G[Reescritura con herramienta]
-    F --> G
-    G --> H[Compatible con ambas versiones]
-    H --> I[Matriz de pruebas en las dos]
-    I --> J[Cambio de versión en producción]
-    J -->|incidencia| K[Vuelta a la versión anterior]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Versión actual»; luego «Catálogo de diferencias»; luego «Cómo se manifiesta»; luego «Ruidoso: se descubre al usarlo» y «Silencioso: se mide con datos»; luego «Pruebas de caracterización»; luego «Reescritura con herramienta»; luego «Compatible con ambas versiones»; luego «Matriz de pruebas en las dos»; luego «Cambio de versión en producción»; luego «Vuelta a la versión anterior».](../../../site/assets/figures/mermaid-d9cd5dfcc5.svg)
 
 El mapa separa los cambios **ruidosos** de los **silenciosos** y muestra que el paso intermedio es un código compatible con ambas versiones: así el cambio de versión en producción es un interruptor y no una reescritura.
 

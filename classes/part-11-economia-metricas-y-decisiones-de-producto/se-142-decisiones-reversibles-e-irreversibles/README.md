@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Costo de equivocarse] --> N2[Costo de revertir] --> N3[Reversibilidad medida] --> N4[Despliegue progresivo] --> N5[Evidencia exigida]
-    N5 -->|aparece un daño no reversible| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Costo de equivocarse»; luego «Costo de revertir»; luego «Reversibilidad medida»; luego «Despliegue progresivo»; luego «Evidencia exigida». Retornos: «Evidencia exigida» lleva a «Costo de equivocarse» (aparece un daño no reversible).](../../../site/assets/figures/mermaid-fcac386617.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un daño que no se puede deshacer reabre el análisis; no autoriza a confiar en el script de reversión.
 

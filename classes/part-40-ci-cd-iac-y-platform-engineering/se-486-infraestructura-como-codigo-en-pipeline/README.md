@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código: estado deseado] --> B[Plan: diferencia con el estado]
-    C[Estado registrado] --> B
-    D[Realidad en la nube] -.->|se actualiza| C
-    B --> E{Revisión del plan}
-    E -->|destruye o reemplaza| F[Aprobación explícita]
-    E -->|solo crea o actualiza| G[Aplicación]
-    F --> G
-    G --> H[Orden topológico y bloqueo del estado]
-    H --> D
-    D -.->|cambio manual| I[Deriva]
-    I --> B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Realidad en la nube»; luego «Código: estado deseado», «Estado registrado» y «Deriva»; luego «Plan: diferencia con el estado»; luego «Revisión del plan»; luego «Aprobación explícita»; luego «Aplicación»; luego «Orden topológico y bloqueo del estado». Retornos: «Orden topológico y bloqueo del estado» lleva a «Realidad en la nube».](../../../site/assets/figures/mermaid-9cc01814d8.svg)
 
 El mapa muestra **tres estados** que pueden divergir (el código, el registrado y la realidad) y dos puntos de control: la revisión del plan antes de aplicar y la comprobación de deriva después. Casi todos los incidentes de esta clase son una divergencia entre dos de los tres.
 

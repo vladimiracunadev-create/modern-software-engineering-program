@@ -58,19 +58,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Inventario criptográfico] --> B{Primitiva}
-    B -->|acuerdo de claves| C[ML-KEM, en híbrido con X25519]
-    B -->|firma| D[ML-DSA o SLH-DSA]
-    B -->|simétrico y resumen| E[Claves de 256 bits y resúmenes largos]
-    A --> F{Vida útil de los datos}
-    F -->|larga| G[Prioridad alta: cosechar ahora, descifrar después]
-    F -->|corta| H[Prioridad menor]
-    C --> I[Probar tamaños: saludos, certificados, límites]
-    D --> I
-    I --> J[Despliegue gradual con retroceso]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Inventario criptográfico»; luego «Primitiva» y «Vida útil de los datos»; luego «ML-KEM, en híbrido con X25519», «ML-DSA o SLH-DSA», «Claves de 256 bits y resúmenes largos», «Prioridad alta: cosechar ahora, descifrar después» y «Prioridad menor»; luego «Probar tamaños: saludos, certificados, límites»; luego «Despliegue gradual con retroceso».](../../../site/assets/figures/mermaid-8255ed0cbf.svg)
 
 Lo que decide la prioridad es la vida útil de los datos, no el tipo de sistema. Lo que decide el riesgo operativo es el tamaño de los nuevos objetos. Lo que decide la forma del cambio es el esquema híbrido, que permite avanzar sin apostar todo a un algoritmo joven.
 

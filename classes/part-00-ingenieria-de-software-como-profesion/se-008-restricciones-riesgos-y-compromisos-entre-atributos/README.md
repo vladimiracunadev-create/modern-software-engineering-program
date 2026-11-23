@@ -33,15 +33,7 @@ Clasificarás restricciones, modelarás riesgo, compararás opciones con atribut
 | Reversibilidad | limita costo de aprender |
 
 ## Mapa conceptual
-```mermaid
-flowchart LR
- C[Contexto] --> R[Restricciones]
- C --> K[Riesgos]
- R --> O[Opciones]
- K --> O
- O --> T[Trade-offs] --> D[Decisión]
- D --> S[Señales y revisión]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Contexto»; luego «Restricciones» y «Riesgos»; luego «Opciones»; luego «Trade-offs»; luego «Decisión»; luego «Señales y revisión».](../../../site/assets/figures/mermaid-2c43933f18.svg)
 Una restricción dura invalida; una preferencia pondera. Confundirlas manipula la decisión.
 
 ## Conceptos y decisiones

@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Diseño declara mecanismos] --> B[Hipótesis: el sistema resiste la falla X]
-    B --> C[Inyección controlada de X]
-    C --> D{¿Se mantiene el estado estable?}
-    D -->|sí| E[Confianza acotada a esa falla y ese tráfico]
-    D -->|no| F[Debilidad encontrada antes del incidente]
-    F --> G[Corrección y repetición como regresión]
-    E --> H[Siguiente falla o más intensidad]
-    G --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Diseño declara mecanismos»; luego «Hipótesis: el sistema resiste la falla X»; luego «Inyección controlada de X»; luego «¿Se mantiene el estado estable?»; luego «Confianza acotada a esa falla y ese tráfico» y «Debilidad encontrada antes del incidente»; luego «Siguiente falla o más intensidad» y «Corrección y repetición como regresión». Retornos: «Corrección y repetición como regresión» lleva a «Hipótesis: el sistema resiste la falla X».](../../../site/assets/figures/mermaid-a82410db32.svg)
 
 El mapa separa lo **declarado** (la caja inicial) de lo **demostrado** (la rama sí). Una confirmación vale solo para la falla, la intensidad y el tráfico probados; una refutación es un hallazgo. Ninguna rama termina en «resiliente»: termina en «resistió esto».
 

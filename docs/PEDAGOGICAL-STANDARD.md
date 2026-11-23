@@ -117,6 +117,20 @@ Qué primitiva usar según el tipo de dato (funciones de `scripts/figure_kit.py`
 Una tabla Markdown sigue siendo la forma correcta de dar los valores exactos; la figura
 la complementa con lo que el ojo ve y la tabla no.
 
+### Diagramas Mermaid
+
+Los mapas conceptuales y los diagramas de parte, clase y rol se escriben como bloque
+`mermaid` en la fuente de `content/`, que sigue siendo la fuente editable. La
+publicación los sustituye por un SVG determinista de `scripts/mermaid_render.py`, con la
+tipografía y la paleta de `scripts/figure_kit.py`; nunca se publica el código de un
+diagrama como texto, ni en GitHub ni en el portal. Se aplican las mismas reglas que a
+cualquier figura: el diagrama muestra una relación, un orden o un mecanismo y no
+repite una tabla; la conclusión va en el párrafo que lo sigue («El diagrama se lee…»);
+el texto alternativo lo genera el renderizador con el recorrido en orden y sin
+corchetes (MD039); el texto mide al menos 13 px y cabe en su nodo (el renderizador
+falla si no cabe). Los retornos de un ciclo se escriben al final y con etiqueta. Detalle
+de la sintaxis admitida en `docs/ADDING-A-PART.md`.
+
 ## Profundidad y estilo
 
 - La extensión depende del tema; se prohíben cuotas uniformes de palabras.

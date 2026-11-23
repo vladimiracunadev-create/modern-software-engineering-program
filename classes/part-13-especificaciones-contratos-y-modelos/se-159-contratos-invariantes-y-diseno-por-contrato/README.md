@@ -50,14 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cliente] -->|cumple precondición| B[Operación]
-    B -->|garantiza postcondición| A
-    B --> C[Estado]
-    C -->|invariante| B
-    D[Subtipo] -->|acepta más, garantiza más| B
-```
+![Diagrama de flujo con 4 pasos. Recorrido: «Cliente» y «Subtipo»; luego «Operación»; luego «Estado». Retornos: «Operación» lleva a «Cliente» (garantiza postcondición); «Estado» lleva a «Operación» (invariante).](../../../site/assets/figures/mermaid-94c8ed2de6.svg)
 
 El mapa se lee como un reparto de obligaciones: el cliente cumple la precondición y recibe la postcondición; el proveedor mantiene el invariante entre operaciones; un subtipo puede ampliar lo aceptado y reforzar lo garantizado, nunca lo contrario. No describe una secuencia de ejecución.
 

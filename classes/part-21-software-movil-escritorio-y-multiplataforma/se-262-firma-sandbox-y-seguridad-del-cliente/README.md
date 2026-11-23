@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Paquete del cliente] --> B[Firma e integridad]
-    A --> C[Sandbox y rutas]
-    A --> D[Secretos]
-    B --> E{Quién recalcula?}
-    E -->|cualquiera| F[Solo detecta corrupción]
-    E -->|solo con la clave privada| G[Prueba procedencia]
-    C --> H[Confinar y normalizar]
-    D --> I[Sacar del cliente]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Paquete del cliente»; luego «Firma e integridad», «Sandbox y rutas» y «Secretos»; luego «Quién recalcula?», «Confinar y normalizar» y «Sacar del cliente»; luego «Solo detecta corrupción» y «Prueba procedencia».](../../../site/assets/figures/mermaid-d9e26ef5cf.svg)
 
 El mapa se lee de izquierda a derecha: cada parte del paquete tiene una amenaza distinta, y la pregunta decisiva en la integridad es quién puede recalcular la comprobación. Los secretos no se ocultan: se sacan del cliente.
 

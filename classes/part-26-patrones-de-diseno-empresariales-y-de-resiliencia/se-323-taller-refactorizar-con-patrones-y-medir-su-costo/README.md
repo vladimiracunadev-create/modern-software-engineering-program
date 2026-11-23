@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Función con cadena de condiciones] --> B[Registrar con maestro dorado]
-    B --> C[Sembrar mutantes: ¿los detecta?]
-    C -->|no todos| D[Añadir entradas de frontera]
-    D --> C
-    C -->|todos| E[Refactorizar en pasos pequeños]
-    E --> F[Comprobar el maestro tras cada paso]
-    F --> G[Medir antes y después]
-    G --> H{¿Compensa el costo?}
-    H -->|sí| I[Conservar con condición de salida]
-    H -->|no| J[Revertir o simplificar]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Función con cadena de condiciones»; luego «Registrar con maestro dorado»; luego «Sembrar mutantes: ¿los detecta?»; luego «Añadir entradas de frontera» y «Refactorizar en pasos pequeños»; luego «Comprobar el maestro tras cada paso»; luego «Medir antes y después»; luego «¿Compensa el costo?»; luego «Conservar con condición de salida» y «Revertir o simplificar». Retornos: «Añadir entradas de frontera» lleva a «Sembrar mutantes: ¿los detecta?».](../../../site/assets/figures/mermaid-06fab5dc21.svg)
 
 El bucle entre sembrar mutantes y añadir fronteras es el corazón del taller: la red se endurece hasta que detecta todos los cambios sembrados antes de tocar el código.
 

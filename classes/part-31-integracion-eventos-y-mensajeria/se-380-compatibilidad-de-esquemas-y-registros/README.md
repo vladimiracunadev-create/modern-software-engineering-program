@@ -52,22 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Esquema v1] --> B[Cambio propuesto]
-    B --> C{¿Compatible?}
-    C -->|nuevo lee viejos| D[Hacia atrás]
-    C -->|viejo lee nuevos| E[Hacia adelante]
-    C -->|ambos| F[Completa]
-    C -->|ninguno| G[Incompatible: fases expandir-migrar-contraer]
-    D --> H[Desplegar consumidores primero]
-    E --> I[Desplegar productores primero]
-    F --> J[Cualquier orden]
-    G --> K[Nuevo tópico o campo paralelo]
-    H --> L[Registro de esquemas verifica en CI]
-    I --> L
-    J --> L
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Esquema v1»; luego «Cambio propuesto»; luego «¿Compatible?»; luego «Hacia atrás», «Hacia adelante», «Completa» y «Incompatible: fases expandir-migrar-contraer»; luego «Desplegar consumidores primero», «Desplegar productores primero», «Cualquier orden» y «Nuevo tópico o campo paralelo»; luego «Registro de esquemas verifica en CI».](../../../site/assets/figures/mermaid-7dd65e0e64.svg)
 
 El mapa separa el **tipo de compatibilidad** del **orden de despliegue** que cada tipo permite. Un cambio incompatible no se prohíbe: se divide en pasos compatibles, como en las migraciones de base de datos.
 

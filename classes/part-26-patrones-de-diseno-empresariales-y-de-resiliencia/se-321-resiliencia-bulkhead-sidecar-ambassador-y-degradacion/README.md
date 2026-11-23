@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dependencia B se vuelve lenta] --> B{¿Recurso compartido con A?}
-    B -->|sí| C[A también falla]
-    B -->|no: compartimentos| D[Solo B se ve afectada]
-    D --> E{¿Hay respaldo para B?}
-    E -->|sí| F[Degradación: respuesta parcial o antigua]
-    E -->|no| G[Error claro y rápido]
-    A --> H[Sidecar o ambassador]
-    H --> I[Políticas de red fuera de la aplicación]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Dependencia B se vuelve lenta»; luego «¿Recurso compartido con A?» y «Sidecar o ambassador»; luego «A también falla», «Solo B se ve afectada» y «Políticas de red fuera de la aplicación»; luego «¿Hay respaldo para B?»; luego «Degradación: respuesta parcial o antigua» y «Error claro y rápido».](../../../site/assets/figures/mermaid-4b9647b2d8.svg)
 
 El mapa tiene dos mitades. La primera limita el radio del daño con recursos separados y define qué se responde cuando la dependencia afectada no está; la segunda describe un intermediario que mueve políticas fuera de la aplicación y que cuesta un salto.
 

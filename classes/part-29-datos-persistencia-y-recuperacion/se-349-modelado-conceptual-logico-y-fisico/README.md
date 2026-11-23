@@ -51,15 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dominio: entidades y reglas] --> B[Modelo conceptual: entidades, relaciones, cardinalidad]
-    B --> C[Modelo lógico: tablas, claves, dependencias]
-    C --> D[Modelo físico: tipos, índices, almacenamiento]
-    D --> E[Prueba de anomalías y de tamaño]
-    E -->|defecto| C
-    E -->|defecto de dominio| A
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Dominio: entidades y reglas»; luego «Modelo conceptual: entidades, relaciones, cardinalidad»; luego «Modelo lógico: tablas, claves, dependencias»; luego «Modelo físico: tipos, índices, almacenamiento»; luego «Prueba de anomalías y de tamaño». Retornos: «Prueba de anomalías y de tamaño» lleva a «Modelo lógico: tablas, claves, dependencias» (defecto); «Prueba de anomalías y de tamaño» lleva a «Dominio: entidades y reglas» (defecto de dominio).](../../../site/assets/figures/mermaid-76dc0e11c0.svg)
 
 El mapa separa el **dominio** (lo que el negocio afirma que es verdad), el **modelo lógico** (cómo se evita que esas afirmaciones se contradigan) y el **modelo físico** (cómo se guardan en un motor). Un defecto puede venir de cualquiera de los tres y el síntoma casi nunca lo dice.
 

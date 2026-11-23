@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Consentimiento y finalidad] --> N2[Minimización y retención] --> N3[Identificabilidad] --> N4[Seudonimización] --> N5[Daño, retiro y revisión]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Consentimiento y finalidad»; luego «Minimización y retención»; luego «Identificabilidad»; luego «Seudonimización»; luego «Daño, retiro y revisión». Retornos: «Daño, retiro y revisión» lleva a «Consentimiento y finalidad» (fallo o cambio).](../../../site/assets/figures/mermaid-34005f20b6.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una unicidad alta, un seudónimo reversible o un dato personal detectado en lugar equivocado obliga a revisar la finalidad y la minimización; no autoriza a mantener el dato porque «ya está recogido».
 

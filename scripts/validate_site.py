@@ -99,7 +99,7 @@ def main() -> int:
             if marker not in draft:
                 failures.append(f"phase 3 page lacks published draft section: SE-{number:03d} -> {marker}")
         if number <= 72:
-            for marker in ("Antes de empezar", "lesson-progress", "lesson-context", "concept-map"):
+            for marker in ("Antes de empezar", "lesson-progress", "lesson-context", "lesson-figure"):
                 if marker not in draft:
                     failures.append(f"developed page lacks pedagogical presentation: SE-{number:03d} -> {marker}")
     if failures:

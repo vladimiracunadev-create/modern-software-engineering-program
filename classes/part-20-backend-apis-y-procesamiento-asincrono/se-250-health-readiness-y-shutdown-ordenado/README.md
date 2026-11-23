@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Arranque] --> S{Sondeo de arranque}
-    S --> R{Disponibilidad: dependencias y calentamiento}
-    R -->|listo| T[Recibe tráfico]
-    T --> L{Vida: proceso sano}
-    L -->|falla| K[Reinicio]
-    T -->|señal de terminación| D[Retirar del reparto]
-    D --> E[Dejar de aceptar y esperar solicitudes en curso]
-    E --> F[Salir]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Arranque»; luego «Sondeo de arranque»; luego «Disponibilidad: dependencias y calentamiento»; luego «Recibe tráfico»; luego «Vida: proceso sano» y «Retirar del reparto»; luego «Reinicio» y «Dejar de aceptar y esperar solicitudes en curso»; luego «Salir».](../../../site/assets/figures/mermaid-e102ae63c8.svg)
 
 El mapa se lee a lo largo de la vida de una instancia: arranque, disponibilidad (con dependencias y calentamiento), vida y, al final, retirada, drenaje y salida. La vida solo comprueba que el proceso no está bloqueado; la disponibilidad decide si recibe tráfico. No son tres versiones del mismo sondeo: responden preguntas distintas y producen acciones distintas.
 

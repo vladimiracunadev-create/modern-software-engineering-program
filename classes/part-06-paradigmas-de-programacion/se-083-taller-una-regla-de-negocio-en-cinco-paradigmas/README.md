@@ -47,11 +47,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Fixture semántico común] --> N2[Implementaciones idiomáticas] --> N3[Trazas comparables] --> N4[Cambio dirigido] --> N5[Retrospectiva basada en evidencia]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Fixture semántico común»; luego «Implementaciones idiomáticas»; luego «Trazas comparables»; luego «Cambio dirigido»; luego «Retrospectiva basada en evidencia». Retornos: «Retrospectiva basada en evidencia» lleva a «Fixture semántico común» (fallo o cambio).](../../../site/assets/figures/mermaid-4bebfb67d7.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

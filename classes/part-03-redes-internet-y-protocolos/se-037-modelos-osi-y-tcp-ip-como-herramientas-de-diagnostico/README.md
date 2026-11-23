@@ -51,15 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    I[Intento de comunicación] --> O[Observación localizada]
-    O --> H[Hipótesis y alternativa]
-    H --> P[Prueba discriminante]
-    P --> D[Decisión reversible]
-    D --> E[Evidencia para la siguiente clase]
-    P -->|no separa hipótesis| H
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Intento de comunicación»; luego «Observación localizada»; luego «Hipótesis y alternativa»; luego «Prueba discriminante»; luego «Decisión reversible»; luego «Evidencia para la siguiente clase». Retornos: «Prueba discriminante» lleva a «Hipótesis y alternativa» (no separa hipótesis).](../../../site/assets/figures/mermaid-161a010299.svg)
 
 El ciclo evita el diagnóstico por intuición. La observación se ubica antes de interpretarse; la prueba debe producir resultados diferentes bajo hipótesis rivales; la decisión conserva una salida de recuperación. En esta clase la pregunta rectora es: **¿Cómo localizar la frontera responsable sin convertir las capas en una explicación ficticia?**
 

@@ -56,19 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Peligros] --> B[Controles]
-    B --> C[Requisitos verificables]
-    C --> D[Pruebas y análisis]
-    D --> E[Resultados con versión]
-    E --> F[Comprobador de huecos]
-    E --> G[Manifiesto de resúmenes]
-    F --> H[Informe de huecos]
-    G --> H
-    H --> I[Decisión de una persona]
-    I -.->|riesgo residual aceptado| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Peligros»; luego «Controles»; luego «Requisitos verificables»; luego «Pruebas y análisis»; luego «Resultados con versión»; luego «Comprobador de huecos» y «Manifiesto de resúmenes»; luego «Informe de huecos»; luego «Decisión de una persona». Retornos: «Decisión de una persona» lleva a «Peligros» (riesgo residual aceptado).](../../../site/assets/figures/mermaid-df3a934b54.svg)
 
 La cadena va del peligro a la evidencia y de vuelta, con dos comprobaciones automáticas (huecos y obsolescencia) y una decisión humana al final.
 

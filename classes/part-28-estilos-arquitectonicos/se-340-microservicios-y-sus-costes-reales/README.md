@@ -56,20 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuerza: equipos o escala] --> B[Separar en servicios]
-    B --> C[Llamadas por red]
-    B --> D[Datos por servicio]
-    B --> E[Despliegue independiente]
-    C --> F[Latencia y disponibilidad multiplicadas]
-    D --> G[Consistencia eventual y sagas]
-    E --> H{¿Contratos compatibles?}
-    H -->|sí| I[Despliegues sin coordinar]
-    H -->|no| J[Monolito distribuido]
-    F --> K[Costo operativo]
-    G --> K
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Fuerza: equipos o escala»; luego «Separar en servicios»; luego «Llamadas por red», «Datos por servicio» y «Despliegue independiente»; luego «Latencia y disponibilidad multiplicadas», «Consistencia eventual y sagas» y «¿Contratos compatibles?»; luego «Costo operativo», «Despliegues sin coordinar» y «Monolito distribuido».](../../../site/assets/figures/mermaid-9dca11c227.svg)
 
 El mapa muestra que el despliegue independiente solo se obtiene si los contratos son compatibles; si no, la rama termina en un monolito distribuido, que conserva todos los costos de la izquierda y ninguno de los beneficios.
 

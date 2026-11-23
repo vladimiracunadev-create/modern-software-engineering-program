@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Personas y promedios] --> N2[Actores y decisión] --> N3[Trabajos por hacer] --> N4[Contextos] --> N5[Agregación y segmentos]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Personas y promedios»; luego «Actores y decisión»; luego «Trabajos por hacer»; luego «Contextos»; luego «Agregación y segmentos». Retornos: «Agregación y segmentos» lleva a «Personas y promedios» (fallo o cambio).](../../../site/assets/figures/mermaid-f7844a7200.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un contexto nuevo o una agregación que se invierte obliga a revisar los actores y los trabajos; no autoriza a corregir solo la métrica.
 

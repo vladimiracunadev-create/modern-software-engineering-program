@@ -10,21 +10,7 @@ La [Parte 21](../part-21-software-movil-escritorio-y-multiplataforma/README.md) 
 
 Esta parte no enseña un microcontrolador ni una plataforma. Enseña a medir la latencia de un evento según la arquitectura, a calcular cuándo un entero de ancho fijo desborda, a contar los ciclos de un bus y comparar códigos de control, a presupuestar la vida de una pila y de una flash, a decidir si un conjunto de tareas cumple sus plazos con el peor caso, a enumerar las posiciones de una interrupción y dimensionar un búfer, a elegir una garantía de entrega y repartir los reintentos de una flota, a actualizar sin dejar el dispositivo inservible, a evaluar el alcance de una clave extraída, a decidir qué se procesa en el dispositivo, la pasarela o la nube, a calcular los límites de la redundancia y de un temporizador de vigilancia, a inyectar fallos y a reunir todo en un paquete que otra persona opere. Cada clase ejecuta simulaciones con datos sintéticos que muestran un mecanismo (un botón que espera 166 ms, una escritura que deja inservible el dispositivo en 17 de 19 cortes, una espera exponencial que no conecta a 4309 de 5000 dispositivos) y declara lo que esa simulación no demuestra.
 
-```mermaid
-flowchart LR
-    A[Hardware y firmware] --> B[Periféricos y buses]
-    B --> C[Energía, memoria y precisión]
-    C --> D[Plazos y tiempo real]
-    D --> E[Interrupciones y estado compartido]
-    E --> F[Conectividad intermitente]
-    F --> G[Actualización y recuperación]
-    G --> H[Identidad y claves]
-    H --> I[Borde y pasarelas]
-    I --> J[Safety, seguridad y vida útil]
-    J --> K[Modelo de fallos]
-    K --> L[Dispositivo operable]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Hardware y firmware»; luego «Periféricos y buses»; luego «Energía, memoria y precisión»; luego «Plazos y tiempo real»; luego «Interrupciones y estado compartido»; luego «Conectividad intermitente»; luego «Actualización y recuperación»; luego «Identidad y claves»; luego «Borde y pasarelas»; luego «Safety, seguridad y vida útil»; luego «Modelo de fallos»; luego «Dispositivo operable». Retornos: «Dispositivo operable» lleva a «Hardware y firmware» (incidente o hallazgo).](../../site/assets/figures/mermaid-891cdf747e.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente en el campo, un fallo inyectado o una actualización fallida reabre el firmware; un paquete aprobado no cierra el diseño, lo fecha.
 

@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión a revisar] --> B[Expediente con lo conocido entonces]
-    B --> C[Panel de dominios distintos]
-    C --> D[Ejercicio previo al fallo]
-    D --> E[Modos de fallo por dominio]
-    E --> F[Probabilidades escritas]
-    F --> G[Acciones y responsables]
-    G --> H[Fecha de nueva revisión]
-    H --> I[Puntuación de las probabilidades]
-    I -->|calibración| F
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Decisión a revisar»; luego «Expediente con lo conocido entonces»; luego «Panel de dominios distintos»; luego «Ejercicio previo al fallo»; luego «Modos de fallo por dominio»; luego «Probabilidades escritas»; luego «Acciones y responsables»; luego «Fecha de nueva revisión»; luego «Puntuación de las probabilidades». Retornos: «Puntuación de las probabilidades» lleva a «Probabilidades escritas» (calibración).](../../../site/assets/figures/mermaid-768d683696.svg)
 
 El mapa separa cuatro actos: **reconstruir** (expediente), **ampliar** (panel y ejercicio previo al fallo), **comprometer** (probabilidades escritas) y **aprender** (puntuación posterior). La flecha de retorno indica que las probabilidades se contrastan con lo ocurrido y mejoran la siguiente revisión.
 

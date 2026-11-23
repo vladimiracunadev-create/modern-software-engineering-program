@@ -57,17 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Servidor emite evento con identificador] --> B[Cola: al menos una vez]
-    B --> C[Almacén con clave única]
-    C --> D[Agregación por cliente y periodo de ocurrencia]
-    D --> E[Aplicación de la regla de precios]
-    E --> F[Borrador de factura]
-    F --> G[Cierre del periodo]
-    G --> H[Factura emitida inmutable]
-    C -->|evento tardío| I[Ajuste en la factura siguiente]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Servidor emite evento con identificador»; luego «Cola: al menos una vez»; luego «Almacén con clave única»; luego «Agregación por cliente y periodo de ocurrencia» y «Ajuste en la factura siguiente»; luego «Aplicación de la regla de precios»; luego «Borrador de factura»; luego «Cierre del periodo»; luego «Factura emitida inmutable».](../../../site/assets/figures/mermaid-b554a3d725.svg)
 
 Cada evento atraviesa la cola, que puede duplicarlo; el almacén lo deduplica por su identificador, la agregación lo asigna al periodo en que ocurrió y la regla de precios lo convierte en importe. Los tardíos, una vez emitida la factura, no la editan: generan un ajuste en la siguiente.
 

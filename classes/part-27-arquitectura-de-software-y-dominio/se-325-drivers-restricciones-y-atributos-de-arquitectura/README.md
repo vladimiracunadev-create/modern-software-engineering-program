@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad de negocio y contexto] --> B[Drivers y restricciones]
-    B --> C[Escenarios de calidad medibles]
-    C --> D[Tácticas y alternativas]
-    D --> E[Descartar por restricciones y dominancia]
-    E --> F[Decisión con atributos sacrificados]
-    F --> G[Verificación con simulación o prueba]
-    G -->|el escenario falla| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Necesidad de negocio y contexto»; luego «Drivers y restricciones»; luego «Escenarios de calidad medibles»; luego «Tácticas y alternativas»; luego «Descartar por restricciones y dominancia»; luego «Decisión con atributos sacrificados»; luego «Verificación con simulación o prueba». Retornos: «Verificación con simulación o prueba» lleva a «Escenarios de calidad medibles» (el escenario falla).](../../../site/assets/figures/mermaid-5727124667.svg)
 
 El mapa muestra que el estilo arquitectónico aparece tarde, después de la medida: primero se dice qué debe cumplirse, luego se descartan alternativas y solo entonces se decide. El retorno indica que un escenario que falla en la verificación obliga a revisar el escenario o la alternativa, no a ocultar el resultado.
 

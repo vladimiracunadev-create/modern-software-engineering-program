@@ -46,18 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad del lector] --> B{Actúa o piensa}
-    B -->|actúa| C{Está aprendiendo o trabajando}
-    B -->|piensa| D{Está aprendiendo o consultando}
-    C -->|aprende| E[Tutorial]
-    C -->|trabaja| F[Guía práctica]
-    D -->|consulta| G[Referencia]
-    D -->|aprende| H[Explicación]
-    E --> I[Se ejecuta]
-    F --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Necesidad del lector»; luego «Actúa o piensa»; luego «Está aprendiendo o trabajando» y «Está aprendiendo o consultando»; luego «Tutorial», «Guía práctica», «Referencia» y «Explicación»; luego «Se ejecuta».](../../../site/assets/figures/mermaid-d9895cf631.svg)
 
 El diagrama se lee de arriba abajo con dos preguntas: si la persona necesita actuar o comprender, y si está estudiando o resolviendo algo de su trabajo. De la combinación salen cuatro tipos, y los dos que piden acción comparten una propiedad que los otros dos no tienen: pueden ejecutarse. Las flechas son una guía de decisión, no una jerarquía; la clase no afirma que cuatro cajas sean la única clasificación posible.
 

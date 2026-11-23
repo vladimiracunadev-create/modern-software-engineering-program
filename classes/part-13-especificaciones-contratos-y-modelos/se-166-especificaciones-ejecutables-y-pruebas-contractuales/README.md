@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Especificación] --> B[Contrato de consumidor]
-    A --> C[Propiedad]
-    B --> D[Verificación contra el proveedor]
-    C --> E[Generación y reducción]
-    D --> F{Cambio del proveedor}
-    F -->|rompe a un consumidor| G[Aviso antes de desplegar]
-    F -->|no rompe a nadie| H[Despliegue]
-    I[Doble de prueba] -.->|no ve| F
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Especificación»; luego «Contrato de consumidor» y «Propiedad»; luego «Verificación contra el proveedor», «Generación y reducción» y «Doble de prueba»; luego «Cambio del proveedor»; luego «Aviso antes de desplegar» y «Despliegue».](../../../site/assets/figures/mermaid-fbecc754c3.svg)
 
 El mapa se lee desde la especificación: de ella salen contratos que cada consumidor fija y propiedades que se generan; ambos se ejecutan contra el proveedor. El doble queda fuera del circuito: acelera las pruebas del consumidor, y la flecha punteada marca lo que no puede ver.
 

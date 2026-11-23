@@ -53,23 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio propuesto] --> B[Revisor automático]
-    A --> C[Revisión humana]
-    B --> D{Umbral}
-    D -->|bajo| E[Muchas alarmas falsas]
-    D -->|alto| F[Defectos omitidos]
-    E --> G[Fatiga: se ignoran]
-    F --> H[Defecto llega]
-    I[Refactorización] --> J[Comparación diferencial]
-    J --> K{Entradas suficientes}
-    K -->|no| L[Diferencia rara sin detectar]
-    K -->|sí| M[Equivalencia plausible]
-    N[Código] --> O[Explicación]
-    P[Comentario] --> O
-    O -->|hereda comentario| Q[Error expresado con aplomo]
-```
+![Diagrama de flujo con 17 pasos. Recorrido: «Cambio propuesto», «Refactorización», «Código» y «Comentario»; luego «Revisor automático», «Revisión humana», «Comparación diferencial» y «Explicación»; luego «Umbral», «Entradas suficientes» y «Error expresado con aplomo»; luego «Muchas alarmas falsas», «Diferencia rara sin detectar», «Defectos omitidos» y «Equivalencia plausible»; luego «Fatiga: se ignoran» y «Defecto llega».](../../../site/assets/figures/mermaid-c43ba03a96.svg)
 
 El mapa organiza tres mecanismos distintos con el mismo patrón: una señal automática útil con un modo de fallo propio y una comprobación independiente que lo acota. La fatiga por alarmas, la diferencia rara sin detectar y la explicación heredada son los tres fallos que la clase mide.
 

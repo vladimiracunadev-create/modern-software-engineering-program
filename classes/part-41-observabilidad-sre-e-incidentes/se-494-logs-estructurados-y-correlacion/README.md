@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Evento de negocio] --> B[Registro estructurado]
-    B --> C[Campos: tiempo, nivel, servicio, mensaje, contexto]
-    C --> D[Identificador de petición y de traza]
-    D --> E[Correlación entre servicios]
-    B --> F[Política: nivel, muestreo, retención]
-    B --> G[Redacción de datos sensibles]
-    E --> H[Investigación de un incidente]
-    F --> H
-    G -->|riesgo de privacidad| H
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Evento de negocio»; luego «Registro estructurado»; luego «Campos: tiempo, nivel, servicio, mensaje, contexto», «Política: nivel, muestreo, retención» y «Redacción de datos sensibles»; luego «Identificador de petición y de traza»; luego «Correlación entre servicios»; luego «Investigación de un incidente».](../../../site/assets/figures/mermaid-cc9aa8dad3.svg)
 
 El mapa separa **forma** (campos y tipos), **correlación** (identificadores que unen líneas), y **política** (cuánto, cuánto tiempo y qué no). Un fallo en cualquiera se descubre durante el incidente, que es cuando peor viene.
 

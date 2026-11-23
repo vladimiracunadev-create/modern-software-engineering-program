@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Especificación] --> B[Plan y tareas]
-    B --> C[Código y pruebas]
-    A --> D{¿Quién manda tras la primera versión?}
-    D -->|nadie la mantiene| E[Spec-first: deriva sin aviso]
-    D -->|se mantiene y se comprueba| F[Spec-anchored]
-    D -->|se genera el código| G[Spec-as-source]
-    F --> H[Comprobador: reglas, valores, cambios]
-    G --> I[Generador y huella del archivo]
-    H --> J[Deriva detectada]
-    I --> J
-    H --> K[Significado: pruebas y revisión humana]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Especificación»; luego «Plan y tareas» y «¿Quién manda tras la primera versión?»; luego «Código y pruebas», «Spec-anchored», «Spec-first: deriva sin aviso» y «Spec-as-source»; luego «Comprobador: reglas, valores, cambios» y «Generador y huella del archivo»; luego «Significado: pruebas y revisión humana» y «Deriva detectada».](../../../site/assets/figures/mermaid-0917e71c04.svg)
 
 El mapa muestra que la pregunta es quién manda después de la primera versión. Los dos niveles superiores añaden comprobaciones mecánicas; el significado de una expresión sigue necesitando pruebas o una persona.
 

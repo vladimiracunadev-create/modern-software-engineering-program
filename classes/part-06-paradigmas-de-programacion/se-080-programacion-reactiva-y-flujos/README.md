@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Observable / contrato de notificaciones] --> N2[Operadores como álgebra de flujos] --> N3[Flujos calientes / fríos] --> N4[Backpressure / pérdida] --> N5[Errores, reintentos / cancelación]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Observable / contrato de notificaciones»; luego «Operadores como álgebra de flujos»; luego «Flujos calientes / fríos»; luego «Backpressure / pérdida»; luego «Errores, reintentos / cancelación». Retornos: «Errores, reintentos / cancelación» lleva a «Observable / contrato de notificaciones» (fallo o cambio).](../../../site/assets/figures/mermaid-1c18db9e2a.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

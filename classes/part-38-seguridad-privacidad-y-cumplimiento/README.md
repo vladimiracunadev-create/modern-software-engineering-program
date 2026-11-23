@@ -10,21 +10,7 @@ La [Parte 36](../part-36-calidad-rendimiento-y-resiliencia/README.md) enseñó a
 
 Esta parte no enseña una herramienta de pruebas de intrusión ni un producto de seguridad. Enseña a modelar amenazas buscando el camino más barato, a medir qué cuesta adivinar una contraseña o una sesión, a probar la autorización con una matriz y mutantes, a separar dato de instrucción por intérprete, a usar la criptografía por contrato, a rotar secretos sin caída, a medir cuánto identifica una combinación de atributos, a convertir abusos en pruebas, a operar la respuesta a vulnerabilidades, a construir evidencia con registros que resistan la manipulación, a desenmascarar controles aparentes y a entregar un paquete verificable.
 
-```mermaid
-flowchart LR
-    A[Principios y modelos de amenaza] --> B[Identidad, autenticación y sesiones]
-    B --> C[Autorización y mínimo privilegio]
-    C --> D[Validación, codificación e inyección]
-    D --> E[Criptografía y claves]
-    E --> F[Secretos y ambientes]
-    F --> G[Privacidad por diseño]
-    G --> H[Secure SDLC y abuso]
-    H --> I[Vulnerabilidades y divulgación]
-    I --> J[Cumplimiento y evidencia]
-    J --> K[Taller: controles aparentes]
-    K --> L[Proyecto: producto verificable]
-    L -->|hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Principios y modelos de amenaza»; luego «Identidad, autenticación y sesiones»; luego «Autorización y mínimo privilegio»; luego «Validación, codificación e inyección»; luego «Criptografía y claves»; luego «Secretos y ambientes»; luego «Privacidad por diseño»; luego «Secure SDLC y abuso»; luego «Vulnerabilidades y divulgación»; luego «Cumplimiento y evidencia»; luego «Taller: controles aparentes»; luego «Proyecto: producto verificable». Retornos: «Proyecto: producto verificable» lleva a «Principios y modelos de amenaza» (hallazgo).](../../site/assets/figures/mermaid-de775ce3c3.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio; el retorno indica que un hallazgo reabre el modelo de amenazas.
 

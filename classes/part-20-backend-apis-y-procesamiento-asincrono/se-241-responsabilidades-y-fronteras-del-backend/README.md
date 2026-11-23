@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Cliente] -->|solicitud| H[Frontera HTTP]
-    H --> V[Validación e identidad]
-    V --> T[Transacción: fila + outbox]
-    T -->|202 o 201| C
-    T --> R[Relevo]
-    R --> J[Trabajo diferido]
-    J -->|resultado consultable| C
-    J -->|fallo| M[Reintento o cola de muertos]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Cliente»; luego «Frontera HTTP»; luego «Validación e identidad»; luego «Transacción: fila + outbox»; luego «Relevo»; luego «Trabajo diferido»; luego «Reintento o cola de muertos». Retornos: «Transacción: fila + outbox» lleva a «Cliente» (202 o 201); «Trabajo diferido» lleva a «Cliente» (resultado consultable).](../../../site/assets/figures/mermaid-4c4ce2845d.svg)
 
 El mapa se lee de izquierda a derecha por el camino de una solicitud: lo que ocurre antes de la respuesta (validar, identificar, guardar de forma atómica) y lo que ocurre después (relevo, trabajo, reintento). No es una arquitectura obligatoria; sirve para decidir en qué lado de la respuesta va cada paso. La flecha hacia el cliente desde el trabajo muestra que el resultado debe poder consultarse: un 202 sin forma de saber qué pasó no es un contrato.
 

@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Entrada] --> B[Acumular tiempo]
-    B --> C{Hay un paso fijo completo?}
-    C -->|sí| D[Actualizar estado un paso]
-    D --> C
-    C -->|no| E[Dibujar con interpolación]
-    E --> F[Presentar fotograma]
-    F --> A
-    D -->|más pasos de los permitidos| G[Descartar tiempo acumulado]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Entrada»; luego «Acumular tiempo»; luego «Hay un paso fijo completo?»; luego «Actualizar estado un paso» y «Dibujar con interpolación»; luego «Descartar tiempo acumulado» y «Presentar fotograma». Retornos: «Actualizar estado un paso» lleva a «Hay un paso fijo completo?»; «Presentar fotograma» lleva a «Entrada».](../../../site/assets/figures/mermaid-18051d2d58.svg)
 
 El mapa muestra el bucle de paso fijo con acumulador: el tiempo real se acumula y se consume en pasos de duración constante; el dibujo ocurre una vez por fotograma. El descarte del exceso es la válvula que evita que un fotograma lento provoque más trabajo y por tanto otro fotograma lento.
 

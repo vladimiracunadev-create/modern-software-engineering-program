@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Vértices, aristas / dirección] --> N2[Lista / matriz de adyacencia] --> N3[BFS / distancia no ponderada] --> N4[DFS, ciclos / orden] --> N5[Componentes / alcanzabilidad]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Vértices, aristas / dirección»; luego «Lista / matriz de adyacencia»; luego «BFS / distancia no ponderada»; luego «DFS, ciclos / orden»; luego «Componentes / alcanzabilidad». Retornos: «Componentes / alcanzabilidad» lleva a «Vértices, aristas / dirección» (fallo o cambio).](../../../site/assets/figures/mermaid-60b8e6c90f.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

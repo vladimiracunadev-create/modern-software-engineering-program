@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    I[Entrada de tamaño variable] --> O[Orquestador: estima y divide]
-    O --> W1[Trabajador 1]
-    O --> W2[Trabajador 2]
-    O --> W3[Trabajador 3]
-    W1 --> S[Síntesis]
-    W2 --> S
-    W3 --> S
-    S --> V{Evaluador}
-    V -->|fallas concretas| G[Generador corrige]
-    G --> V
-    V -->|pasa| OUT[Salida]
-    V -->|tope de vueltas| E[Escalar a una persona]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Entrada de tamaño variable»; luego «Orquestador: estima y divide»; luego «Trabajador 1», «Trabajador 2» y «Trabajador 3»; luego «Síntesis»; luego «Evaluador»; luego «Generador corrige», «Salida» y «Escalar a una persona». Retornos: «Generador corrige» lleva a «Evaluador».](../../../site/assets/figures/mermaid-87ad0b2e5a.svg)
 
 El mapa muestra los dos patrones encadenados: el orquestador reparte y la síntesis pasa por un evaluador que devuelve fallas al generador hasta pasar o llegar al tope.
 

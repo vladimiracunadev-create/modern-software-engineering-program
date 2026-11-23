@@ -55,16 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Aplicación] --> B[(Base operacional\nestado actual)]
-    B -->|registro de cambios o copia| C[Zona cruda\ndato sin tocar]
-    C --> D[Zona intermedia\ntipos y duplicados]
-    D --> E[Modelo analítico\nhechos con historia]
-    E --> F[Informes y modelos]
-    B -. lectura pesada .-> G{¿bloquea a la aplicación?}
-    C -. sin tocar la operación .-> H[Reproceso posible]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Aplicación»; luego «Base operacional estado actual»; luego «Zona cruda dato sin tocar» y «¿bloquea a la aplicación?»; luego «Zona intermedia tipos y duplicados» y «Reproceso posible»; luego «Modelo analítico hechos con historia»; luego «Informes y modelos».](../../../site/assets/figures/mermaid-05fcc8d2b6.svg)
 
 El mapa separa dos caminos. La línea punteada hacia la operación es el problema de interferencia; el camino hacia la zona cruda es el que permite reprocesar cuando una transformación se equivoca, porque el dato original sigue allí.
 

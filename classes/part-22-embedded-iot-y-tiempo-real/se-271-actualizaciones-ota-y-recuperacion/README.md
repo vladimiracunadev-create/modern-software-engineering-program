@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Nueva versión] --> B[Manifiesto y verificación]
-    B --> C[Escritura en la ranura inactiva]
-    C --> D[Validación]
-    D --> E[Cambio de indicador]
-    E --> F[Arranque en la nueva]
-    F -->|falla| G[Reversión a la anterior]
-    F -->|ok| H[Confirmar]
-    I[Corte de energía] -.-> C
-    I -.-> E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Nueva versión»; luego «Manifiesto y verificación» y «Corte de energía»; luego «Escritura en la ranura inactiva»; luego «Validación»; luego «Cambio de indicador»; luego «Arranque en la nueva»; luego «Reversión a la anterior» y «Confirmar».](../../../site/assets/figures/mermaid-0e3a2418dc.svg)
 
 El mapa muestra el camino seguro: se escribe en la ranura que no está en uso, se valida y solo entonces se cambia el indicador; si la nueva no arranca, se vuelve a la anterior. Los cortes (líneas punteadas) pueden ocurrir en cualquier paso y el diseño debe tolerarlos todos.
 

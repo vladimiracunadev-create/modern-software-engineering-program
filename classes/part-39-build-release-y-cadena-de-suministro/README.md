@@ -10,21 +10,7 @@ La [Parte 38](../part-38-seguridad-privacidad-y-cumplimiento/README.md) decidió
 
 Esta parte no enseña una herramienta de CI ni un producto de firma. Enseña a construir un artefacto que otra persona pueda reconstruir bit a bit, a identificarlo por contenido y promoverlo sin reconstruirlo, a inventariar y fijar lo que contiene, a describirlo con un SBOM y una procedencia, a protegerlo con firmas con raíz de confianza fijada y secuencia, a decir qué promete un número de versión, a exponer cambios de forma gradual y reversible, a actualizar un cliente de forma atómica, a reconocer que el CI es un objetivo, y a verificar un release separando lo comprobado de lo no verificable.
 
-```mermaid
-flowchart LR
-    A[Build reproducible y hermético] --> B[Artefactos, repositorios y promoción]
-    B --> C[Dependencias y vendorización]
-    C --> D[SBOM, procedencia y atestaciones]
-    D --> E[Firmas, checksums y verificación]
-    E --> F[Versionado y changelog]
-    F --> G[Feature flags]
-    G --> H[Canary, blue-green y rollback]
-    H --> I[Instaladores y actualizaciones]
-    I --> J[Riesgos de CI]
-    J --> K[Taller: verificar procedencia]
-    K --> L[Proyecto: release firmado y recuperable]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Build reproducible y hermético»; luego «Artefactos, repositorios y promoción»; luego «Dependencias y vendorización»; luego «SBOM, procedencia y atestaciones»; luego «Firmas, checksums y verificación»; luego «Versionado y changelog»; luego «Feature flags»; luego «Canary, blue-green y rollback»; luego «Instaladores y actualizaciones»; luego «Riesgos de CI»; luego «Taller: verificar procedencia»; luego «Proyecto: release firmado y recuperable». Retornos: «Proyecto: release firmado y recuperable» lleva a «Build reproducible y hermético» (incidente o hallazgo).](../../site/assets/figures/mermaid-877f8c4eb2.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo del taller reabre el build; un expediente aprobado no cierra la cadena, la fecha.
 

@@ -56,19 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos y etiquetas con huella] --> E[Corrida de entrenamiento]
-    B[Configuración e hiperparámetros] --> E
-    C[Semilla y versiones de bibliotecas] --> E
-    D[Código con commit] --> E
-    E --> F[Modelo con huella]
-    E --> G[Métricas y registro de la corrida]
-    G --> H{¿Diferencia mayor que el ruido?}
-    H -->|no| I[No se declara mejora]
-    H -->|sí| J[Candidato a registro de modelos]
-    F --> J
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Datos y etiquetas con huella», «Configuración e hiperparámetros», «Semilla y versiones de bibliotecas» y «Código con commit»; luego «Corrida de entrenamiento»; luego «Modelo con huella» y «Métricas y registro de la corrida»; luego «¿Diferencia mayor que el ruido?»; luego «Candidato a registro de modelos» y «No se declara mejora».](../../../site/assets/figures/mermaid-5955607f45.svg)
 
 El mapa muestra que cinco insumos distintos determinan la corrida y que la decisión de promover un modelo pasa por una comparación con el ruido y no por la diferencia de dos números. La caja del ruido es la que casi siempre falta.
 

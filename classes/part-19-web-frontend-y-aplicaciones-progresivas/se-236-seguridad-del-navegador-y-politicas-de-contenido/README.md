@@ -51,21 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dato ajeno] --> B{Contexto de salida}
-    B --> C[Texto]
-    B --> D[Atributo]
-    B --> E[URL]
-    B --> F[Script]
-    C --> G[Codificación del contexto]
-    D --> G
-    E --> G
-    F --> G
-    G --> H[Página]
-    H --> I[Política de contenido]
-    I --> J[Navegador]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Dato ajeno»; luego «Contexto de salida»; luego «Texto», «Atributo», «URL» y «Script»; luego «Codificación del contexto»; luego «Página»; luego «Política de contenido»; luego «Navegador».](../../../site/assets/figures/mermaid-ce528fb614.svg)
 
 El mapa se lee de izquierda a derecha: un dato ajeno entra en un contexto concreto, debe codificarse para ese contexto y la página resultante la limita, como segunda barrera, una política que declara qué puede cargar y ejecutar. La política no sustituye a la codificación: solo reduce lo que un fallo de codificación puede hacer.
 

@@ -46,17 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código y esquema] --> B[Referencia generada]
-    C[Ejemplos escritos] --> D[Ejecución en integración continua]
-    A --> D
-    E[Errores observados] --> F[Errores documentados]
-    B --> G[Contrato publicado]
-    D --> G
-    F --> G
-    G -->|cambio| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Código y esquema», «Ejemplos escritos» y «Errores observados»; luego «Referencia generada», «Ejecución en integración continua» y «Errores documentados»; luego «Contrato publicado». Retornos: «Contrato publicado» lleva a «Código y esquema» (cambio).](../../../site/assets/figures/mermaid-928ad118d4.svg)
 
 El diagrama se lee de izquierda a derecha: la referencia se genera del código y del esquema; los ejemplos se escriben, pero se ejecutan contra el código; los errores observados alimentan los errores documentados; las tres vías forman el contrato publicado. El retorno indica que un cambio en el código reabre las tres. No se dibuja el caso en que la documentación guía el diseño; ese camino existe (diseñar la API primero), pero esta clase estudia la documentación de una API que ya se puede llamar.
 

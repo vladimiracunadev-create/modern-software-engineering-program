@@ -39,6 +39,7 @@ paso); `validate_class_contracts.py` lo exige. El modelo de profundidad y forma 
 | `scripts/figures_partNN_a.py`, `_b.py` | diccionario `FIGURES` (nombre de archivo → constructor); tres figuras por clase |
 | `scripts/experiments_partNN_*.py` | experimentos reproducibles (semilla fija o mediciones reales) |
 | `content/part-NN/figures/*.svg` | las genera `build_figures.py`; no se escriben a mano |
+| bloques `mermaid` dentro de la parte y de las clases | fuente editable de los diagramas; se publican solos como SVG (ver abajo) |
 | `roles/<rol>.md` y su perfil | solo si la parte crea un rol (ver abajo) |
 
 Además, en archivos compartidos y **solo en sus propias líneas**:
@@ -52,6 +53,44 @@ No se editan `README.md`, `ROADMAP.md`, `STATUS.md`, `classes/`, `site/`, `catal
 `curriculum.yaml` ni los scripts de generación o validación: se regeneran.
 `tests/test_figures.py` y `tests/test_navigation_gaps.py` ya incluyen automáticamente toda
 parte desarrollada.
+
+## Diagramas Mermaid: se escriben en Markdown y se publican como figura
+
+El mapa conceptual de cada clase, el diagrama de la parte y los de las guías de rol se
+escriben como bloque `mermaid` en la fuente (`content/part-NN/…`): esa es la **fuente
+editable** y no se sustituye. En la publicación (`classes/`, `roles/` y el portal en
+`site/`) cada bloque se reemplaza por una imagen SVG dibujada por
+`scripts/mermaid_render.py` con la tipografía, los colores y las formas de
+`scripts/figure_kit.py`; no hay JavaScript en el navegador ni dependencias externas.
+No se ejecuta nada aparte: `build_phase2.py`, `build_phase3.py`, `build_phase4.py` y
+`build_role_guides.py` lo aplican solos y escriben los SVG en
+`site/assets/figures/mermaid-<hash>.svg` (el nombre sale del contenido del bloque, así
+que no cambia mientras el diagrama no cambie).
+
+Sintaxis admitida (cualquier otra hace fallar el build en lugar de publicar un dibujo
+degradado): `flowchart`/`graph` con `LR`, `RL`, `TD`, `TB` o `BT`; nodos `A[…]`, `A(…)`,
+`A([…])`, `A((…))`, `A[[…]]`, `A[(…)]` y rombos `A{…}`; aristas `-->`, `---`, `-.->`,
+`==>`, `<-->`, con texto (`-->|texto|`, `-- texto -->`, `-. texto .->`); cadenas
+`A --> B --> C`, `A & B --> C`, `subgraph`, `classDef`/`class`/`:::`; `stateDiagram-v2`
+(se dibuja con el mismo motor que los flujos, sin perder estados ni transiciones) y
+`sequenceDiagram` (participantes, mensajes continuos y discontinuos, mensajes a uno
+mismo y `Note over`). Reglas de escritura que mejoran el resultado:
+
+- una etiqueta de nodo es una frase corta; las etiquetas largas se parten en líneas,
+  pero un nodo de seis líneas ya no se lee: parte el diagrama en dos;
+- el último arco de un ciclo (`L -->|hallazgo| A`) se dibuja como retorno discontinuo
+  coral: escríbelo el último y dale una etiqueta;
+- una cadena demasiado larga para el ancho de lectura se pliega en filas (serpentina) y
+  un diagrama ramificado se dibuja de arriba abajo; no hace falta elegir nada;
+- debajo del diagrama escribe el párrafo de lectura de siempre («El diagrama se lee
+  de izquierda a derecha…»). Si falta, la publicación añade «Cómo leer el diagrama»
+  generado a partir del recorrido; el texto alternativo se genera siempre solo.
+
+`tests/test_mermaid_render.py` renderiza todos los bloques de `content/`, exige que no
+quede ningún bloque ni `mermaid-source` en `classes/`, `roles/` o `site/`, que cada SVG
+publicado exista y esté referenciado, que ningún texto desborde su nodo ni el `viewBox`
+y que el resultado sea idéntico en dos ejecuciones. Para ver un diagrama antes de
+publicar: `python scripts/mermaid_render.py content/part-NN/SE-NNN.md --out <carpeta>`.
 
 ## Comandos, en este orden
 

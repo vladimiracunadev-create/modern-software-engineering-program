@@ -52,25 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Tarea] --> B{Se puede repartir en partes casi independientes}
-    B -->|no| C[Un solo agente]
-    B -->|sí| D[Agente principal]
-    D --> E[Subagente 1: contexto propio]
-    D --> F[Subagente 2: contexto propio]
-    D --> G[Subagente 3: contexto propio]
-    E --> H[Resumen]
-    F --> H
-    G --> H
-    H --> D
-    E -.->|pueden tocar| I[Archivos y estado compartido]
-    F -.-> I
-    G -.-> I
-    I --> J{Conflicto}
-    J -->|propiedad por carpeta| K[Sin colisión salvo archivos comunes]
-    J -->|versión o arrendamiento| L[Escritura serializada]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Tarea»; luego «Se puede repartir en partes casi independientes»; luego «Un solo agente» y «Agente principal»; luego «Subagente 1: contexto propio», «Subagente 2: contexto propio» y «Subagente 3: contexto propio»; luego «Resumen» y «Archivos y estado compartido»; luego «Conflicto»; luego «Sin colisión salvo archivos comunes» y «Escritura serializada». Retornos: «Resumen» lleva a «Agente principal».](../../../site/assets/figures/mermaid-bc9b8cea3b.svg)
 
 El agente principal delega solo cuando el trabajo se puede dividir; los subagentes trabajan con contexto propio y devuelven resúmenes (donde se pierde información). El estado compartido es el punto de conflicto, y su protocolo decide qué se pierde y qué se espera.
 

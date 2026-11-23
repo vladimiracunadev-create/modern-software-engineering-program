@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Función del cliente] --> B[Entradas posibles]
-    B --> C[Tacto: tamaño y separación]
-    B --> D[Teclado: orden de foco]
-    B --> E[Lector: nombre y rol]
-    A --> F[Presentación: contraste]
-    C --> G[Comprobación automática]
-    D --> G
-    F --> G
-    G --> H[Revisión con personas]
-    E --> H
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Función del cliente»; luego «Entradas posibles» y «Presentación: contraste»; luego «Tacto: tamaño y separación», «Teclado: orden de foco» y «Lector: nombre y rol»; luego «Comprobación automática»; luego «Revisión con personas».](../../../site/assets/figures/mermaid-50a105dcfe.svg)
 
 El mapa se lee de izquierda a derecha: cada función admite varias entradas, cada entrada tiene una condición que se puede comprobar en parte de forma automática, y todo pasa por una revisión con personas. El nombre y el rol para el lector solo se revisan bien con el lector.
 

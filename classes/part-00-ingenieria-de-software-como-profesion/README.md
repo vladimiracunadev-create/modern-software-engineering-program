@@ -19,16 +19,7 @@ siguientes añaden colaboración, evidencia, calidad, riesgo e impacto. El talle
 `SE-011` integra esas lentes en un producto real; el proyecto `SE-012` convierte lo
 aprendido en una ruta profesional verificable.
 
-```mermaid
-flowchart LR
- F[Fronteras] --> V[Ciclo de vida]
- V --> R[Responsabilidad]
- R --> E[Evidencia]
- E --> Q[Calidad y riesgo]
- Q --> I[Impacto]
- I --> T[Taller integrador]
- T --> P[Proyecto profesional]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Fronteras»; luego «Ciclo de vida»; luego «Responsabilidad»; luego «Evidencia»; luego «Calidad y riesgo»; luego «Impacto»; luego «Taller integrador»; luego «Proyecto profesional».](../../site/assets/figures/mermaid-1ed7d570ce.svg)
 
 El recorrido avanza desde **qué estamos cambiando** hasta **qué puedes demostrar que
 sabes decidir**. Cada clase reutiliza y corrige evidencia anterior; no son capítulos

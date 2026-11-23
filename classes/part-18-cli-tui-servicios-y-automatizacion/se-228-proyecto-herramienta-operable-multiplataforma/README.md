@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    M[Manifiesto] --> V[Validador de forma]
-    T[Herramienta] --> S[Suite de contrato]
-    S --> W[Windows]
-    S --> L[Ubuntu]
-    V --> P[Paquete]
-    W --> P
-    L --> P
-    P --> R[Revisión humana]
-    R -->|decisiones abiertas| M
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Manifiesto» y «Herramienta»; luego «Validador de forma» y «Suite de contrato»; luego «Windows» y «Ubuntu»; luego «Paquete»; luego «Revisión humana». Retornos: «Revisión humana» lleva a «Manifiesto» (decisiones abiertas).](../../../site/assets/figures/mermaid-a3bf5c062a.svg)
 
 El mapa se lee como un circuito: el manifiesto se valida por forma, la herramienta se prueba en dos sistemas, y el paquete llega a una revisión humana que puede devolver decisiones al manifiesto. No describe un orden obligatorio de trabajo.
 

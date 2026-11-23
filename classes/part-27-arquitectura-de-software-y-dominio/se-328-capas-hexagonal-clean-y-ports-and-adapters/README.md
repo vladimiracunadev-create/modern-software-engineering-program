@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    W[Adaptador web] --> A[Casos de uso]
-    A --> D[Dominio]
-    A --> P[Puerto repositorio]
-    I[Adaptador SQL] -.implementa.-> P
-    F[Doble en memoria] -.implementa.-> P
-    C[Suite de contrato] --> I
-    C --> F
-    D -.no depende de.-> I
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Adaptador web» y «Suite de contrato»; luego «Casos de uso» y «Doble en memoria»; luego «Dominio»; luego «Adaptador SQL»; luego «Puerto repositorio».](../../../site/assets/figures/mermaid-d48eb4577b.svg)
 
 El mapa muestra el sentido de las dependencias: el adaptador SQL depende del puerto del dominio, no al revés. La suite de contrato se ejecuta contra ambas implementaciones para que el doble rápido no pueda desviarse del real.
 

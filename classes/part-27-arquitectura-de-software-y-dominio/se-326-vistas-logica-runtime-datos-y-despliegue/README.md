@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    M[Modelo único del sistema] --> L[Vista lógica]
-    M --> E[Vista de ejecución]
-    M --> D[Vista de datos]
-    M --> P[Vista de despliegue]
-    E --> T[Trazas observadas]
-    T -->|aristas no declaradas| L
-    P --> R[Recorridos y radio de explosión]
-    E --> Q[Latencia de la ruta crítica]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Modelo único del sistema»; luego «Vista de ejecución», «Vista de datos» y «Vista de despliegue»; luego «Trazas observadas», «Latencia de la ruta crítica» y «Recorridos y radio de explosión»; luego «Vista lógica».](../../../site/assets/figures/mermaid-aef82eafd8.svg)
 
 El mapa muestra que las vistas son proyecciones de un mismo modelo y que la realidad (las trazas) puede contradecir a la vista lógica. Los recorridos y la latencia salen de cruzar vistas: despliegue con ejecución, ejecución con probabilidades.
 

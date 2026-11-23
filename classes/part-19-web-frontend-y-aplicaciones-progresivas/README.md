@@ -10,20 +10,7 @@ La [Parte 18](../part-18-cli-tui-servicios-y-automatizacion/README.md) terminó 
 
 Esta parte no enseña un marco. Enseña a medir qué defectos de estructura encuentra una regla y cuáles solo ve una persona, a predecir el orden de ejecución de un programa con microtareas, a decidir dónde se construye una página con bytes medidos, a elegir identidad para los elementos de una lista, a validar sin excluir a nadie, a decidir qué viaja en la URL, a fijar un presupuesto con un percentil y una muestra, a codificar por contexto, a asignar una estrategia de caché por recurso, a contener las URLs que un rastreador ve, a modelar un flujo con fallos y a entregar un paquete con su declaración de límites. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un linter que detecta 200 de 220 defectos y ninguno de los 20 que cambian el significado, una cadena de microtareas que deja sin turno a un temporizador, un estado copiado que diverge de su fuente, un reintento sincronizado que tarda 902 segundos) y declaran lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Documento] --> B[Comportamiento]
-    B --> C[Dónde se construye]
-    C --> D[Estado y datos]
-    D --> E[Formularios y URLs]
-    E --> F[Rendimiento]
-    F --> G[Seguridad]
-    G --> H[Sin conexión]
-    H --> I[Descubribilidad]
-    I --> J[Flujo resiliente]
-    J --> K[Paquete de evidencia]
-    K -->|hallazgo o cambio| A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Documento»; luego «Comportamiento»; luego «Dónde se construye»; luego «Estado y datos»; luego «Formularios y URLs»; luego «Rendimiento»; luego «Seguridad»; luego «Sin conexión»; luego «Descubribilidad»; luego «Flujo resiliente»; luego «Paquete de evidencia». Retornos: «Paquete de evidencia» lleva a «Documento» (hallazgo o cambio).](../../site/assets/figures/mermaid-0f75e39295.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo de la revisión, un cambio de política o un defecto en una costura reabre el documento; un paquete aprobado no cierra la aplicación, la fecha.
 

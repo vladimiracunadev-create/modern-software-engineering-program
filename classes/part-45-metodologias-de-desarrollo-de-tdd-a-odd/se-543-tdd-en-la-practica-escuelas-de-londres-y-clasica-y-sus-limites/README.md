@@ -53,24 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    S[Servicio de recordatorios] --> R[Repositorio]
-    S --> C[Canal de envío]
-    S --> K[Reloj]
-    subgraph Clásico
-        T1[Dobles con estado: repositorio y canal en memoria] --> V1[Verifica el resultado: mensajes entregados y envíos registrados]
-    end
-    subgraph Londres
-        T2[Dobles simulados de los tres colaboradores] --> V2[Verifica las llamadas: qué se pidió y con qué argumentos]
-    end
-    R --> T1
-    R --> T2
-    V1 --> X{Refactor del interior}
-    V2 --> X
-    X -->|conserva el resultado| Y[Clásico sigue en verde]
-    X -->|cambia cómo se consulta| Z[Londres puede romperse]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Servicio de recordatorios»; luego «Repositorio», «Canal de envío» y «Reloj»; luego «Dobles con estado: repositorio y canal en memoria» y «Dobles simulados de los tres colaboradores»; luego «Verifica el resultado: mensajes entregados y envíos registrados» y «Verifica las llamadas: qué se pidió y con qué argumentos»; luego «Refactor del interior»; luego «Clásico sigue en verde» y «Londres puede romperse».](../../../site/assets/figures/mermaid-200e1ea9f5.svg)
 
 El mapa muestra que ambos estilos prueban el mismo servicio y difieren en dónde cortan la colaboración. La diferencia aparece cuando el interior cambia sin cambiar el resultado.
 

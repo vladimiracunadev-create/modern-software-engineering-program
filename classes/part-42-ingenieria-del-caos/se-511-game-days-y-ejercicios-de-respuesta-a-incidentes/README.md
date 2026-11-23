@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Catálogo de fallas] --> B[Escenario realista]
-    B --> C[Preparación: roles, reglas, aborto]
-    C --> D[Inyección y respuesta del equipo]
-    D --> E[Observación: tiempos y decisiones]
-    E --> F[Retrospectiva sin culpa]
-    F --> G[Acciones verificables]
-    G --> H[Siguiente día o experimento automático]
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Catálogo de fallas»; luego «Escenario realista»; luego «Preparación: roles, reglas, aborto»; luego «Inyección y respuesta del equipo»; luego «Observación: tiempos y decisiones»; luego «Retrospectiva sin culpa»; luego «Acciones verificables»; luego «Siguiente día o experimento automático». Retornos: «Siguiente día o experimento automático» lleva a «Escenario realista».](../../../site/assets/figures/mermaid-0643e30b89.svg)
 
 El mapa muestra el día de práctica como un **ciclo**: los hallazgos vuelven como acciones y esas acciones se verifican en el siguiente ejercicio. Un día sin ciclo es una anécdota.
 

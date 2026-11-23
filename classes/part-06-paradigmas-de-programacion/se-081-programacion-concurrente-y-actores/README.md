@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Concurrencia, paralelismo e intercalación] --> N2[Actor, buzón / propiedad del estado] --> N3[Protocolos de mensajes] --> N4[Fallo, enlaces / supervisión] --> N5[Consistencia / presión del buzón]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Concurrencia, paralelismo e intercalación»; luego «Actor, buzón / propiedad del estado»; luego «Protocolos de mensajes»; luego «Fallo, enlaces / supervisión»; luego «Consistencia / presión del buzón». Retornos: «Consistencia / presión del buzón» lleva a «Concurrencia, paralelismo e intercalación» (fallo o cambio).](../../../site/assets/figures/mermaid-61eed41139.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Consumo del presupuesto] --> B[Tasa de consumo]
-    B --> C[Ventana larga]
-    B --> D[Ventana corta]
-    C --> E{Ambas superan}
-    D --> E
-    E -->|sí| F[Página]
-    E -->|solo lenta| G[Ticket]
-    H[Alertas relacionadas] --> I[Agrupación e inhibición]
-    I --> F
-    F --> J[Acción en el runbook]
-    F -->|sin acción| K[Fatiga: se ignora la siguiente]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Consumo del presupuesto» y «Alertas relacionadas»; luego «Tasa de consumo» y «Agrupación e inhibición»; luego «Ventana larga» y «Ventana corta»; luego «Ambas superan»; luego «Ticket» y «Página»; luego «Acción en el runbook» y «Fatiga: se ignora la siguiente».](../../../site/assets/figures/mermaid-68ca017040.svg)
 
 El mapa separa el **qué** (consumo del presupuesto), el **cuándo** (dos ventanas) y el **cuánto ruido** (agrupación). Una página sin acción cierra el ciclo hacia la fatiga.
 

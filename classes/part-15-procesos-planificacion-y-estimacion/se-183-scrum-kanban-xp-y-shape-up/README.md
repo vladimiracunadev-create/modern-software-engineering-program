@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tipo de trabajo y riesgo] --> B{Política de entrada}
-    B -->|lotes por ciclo| C[Scrum: sprint]
-    B -->|extracción continua| D[Kanban: límite de trabajo]
-    B -->|apetito fijo| E[Shape Up: ciclo de seis semanas]
-    A --> F[Prácticas técnicas: XP]
-    C --> G[Política de compromiso]
-    D --> G
-    E --> H[Política de recorte]
-    G --> I[Espera, fallos y sobrante]
-    H --> I
-    I -->|evidencia| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Tipo de trabajo y riesgo»; luego «Política de entrada» y «Prácticas técnicas: XP»; luego «Scrum: sprint», «Kanban: límite de trabajo» y «Shape Up: ciclo de seis semanas»; luego «Política de compromiso» y «Política de recorte»; luego «Espera, fallos y sobrante». Retornos: «Espera, fallos y sobrante» lleva a «Tipo de trabajo y riesgo» (evidencia).](../../../site/assets/figures/mermaid-90a923ff7d.svg)
 
 El mapa se lee desde el tipo de trabajo hacia las políticas: cada marco es una combinación de políticas de entrada, compromiso y recorte, y XP añade prácticas técnicas que valen bajo cualquiera de ellos. El retorno recuerda que las políticas se revisan con lo que se mide.
 

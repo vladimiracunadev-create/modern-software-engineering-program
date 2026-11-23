@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dominio y personas expertas] --> B[Lenguaje ubicuo]
-    B --> C{¿Una palabra, un sentido?}
-    C -->|sí| D[Un modelo]
-    C -->|no| E[Contextos delimitados]
-    E --> F[Contexto académico]
-    E --> G[Contexto de avisos]
-    F --> H[Capa de traducción]
-    G --> H
-    H --> I[Glosario y mapa de contextos]
-    I --> J[Instrucciones de repositorio para agentes]
-    J --> K[Código y pruebas con las mismas palabras]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Dominio y personas expertas»; luego «Lenguaje ubicuo»; luego «¿Una palabra, un sentido?»; luego «Un modelo» y «Contextos delimitados»; luego «Contexto académico» y «Contexto de avisos»; luego «Capa de traducción»; luego «Glosario y mapa de contextos»; luego «Instrucciones de repositorio para agentes»; luego «Código y pruebas con las mismas palabras».](../../../site/assets/figures/mermaid-a252760fe1.svg)
 
 El mapa muestra que la decisión central es si una palabra tiene un sentido o varios. Si tiene varios, cada sentido vive en un contexto y entre contextos hay una traducción explícita; el glosario y las instrucciones del repositorio comunican esa decisión a quien lee el código, incluidos los agentes.
 

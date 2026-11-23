@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Evento real: servidor cae, disco se llena, reloj se desfasa] --> B[Mecanismo de falla]
-    B --> C[Red]
-    B --> D[Recursos]
-    B --> E[Dependencias]
-    B --> F[Reloj]
-    B --> G[Discos]
-    B --> H[Procesos]
-    C & D & E & F & G & H --> I[Huella en las señales]
-    I --> J[Hipótesis y experimento]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Evento real: servidor cae, disco se llena, reloj se desfasa»; luego «Mecanismo de falla»; luego «Red», «Recursos», «Dependencias», «Reloj», «Discos» y «Procesos»; luego «Huella en las señales»; luego «Hipótesis y experimento».](../../../site/assets/figures/mermaid-7e423f067e.svg)
 
 El mapa parte del **evento** y no de la herramienta: el mecanismo determina qué se puede inyectar y la huella determina qué hay que mirar. Dos mecanismos distintos pueden dejar la misma huella, y por eso el experimento incluye la señal que los separa.
 

@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Alcance del flujo] --> B[Auditoría automática y manual]
-    B --> C[Hallazgos y gravedad]
-    C --> D[Orden de reparación]
-    D --> E[Reparación]
-    E --> F[Regresión automática]
-    F --> G[Revisión humana pendiente]
-    G -->|cambio del flujo| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Alcance del flujo»; luego «Auditoría automática y manual»; luego «Hallazgos y gravedad»; luego «Orden de reparación»; luego «Reparación»; luego «Regresión automática»; luego «Revisión humana pendiente». Retornos: «Revisión humana pendiente» lleva a «Alcance del flujo» (cambio del flujo).](../../../site/assets/figures/mermaid-ebaccd5204.svg)
 
 El mapa se lee de izquierda a derecha: se acota el alcance, se audita, se priorizan hallazgos, se repara, se protege con regresión y se declara lo que queda para una revisión humana. El retorno indica que un cambio en el flujo reabre el alcance. No es un orden fijo.
 

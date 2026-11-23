@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Tiempo de pared / CPU] --> N2[Perfil determinista / muestreo] --> N3[Asignaciones, retención / pico] --> N4[I/O / red] --> N5[Perfil como hipótesis]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Tiempo de pared / CPU»; luego «Perfil determinista / muestreo»; luego «Asignaciones, retención / pico»; luego «I/O / red»; luego «Perfil como hipótesis». Retornos: «Perfil como hipótesis» lleva a «Tiempo de pared / CPU» (fallo o cambio).](../../../site/assets/figures/mermaid-11b4552448.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

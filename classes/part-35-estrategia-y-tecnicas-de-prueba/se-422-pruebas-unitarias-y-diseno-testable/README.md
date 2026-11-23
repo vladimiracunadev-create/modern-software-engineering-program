@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Regla de negocio por tramos] --> B[Casos típicos y de frontera]
-    B --> C[Prueba con aserción sobre el valor]
-    C --> D{¿La función depende de reloj, base o red?}
-    D -->|sí| E[Separar cálculo de efectos e inyectar]
-    D -->|no| F[Medir con mutantes]
-    E --> F
-    F --> G[Sobrevivientes: caso faltante o equivalente]
-    G -->|nuevo caso| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Regla de negocio por tramos»; luego «Casos típicos y de frontera»; luego «Prueba con aserción sobre el valor»; luego «¿La función depende de reloj, base o red?»; luego «Separar cálculo de efectos e inyectar»; luego «Medir con mutantes»; luego «Sobrevivientes: caso faltante o equivalente». Retornos: «Sobrevivientes: caso faltante o equivalente» lleva a «Casos típicos y de frontera» (nuevo caso).](../../../site/assets/figures/mermaid-d5bd7f3d9f.svg)
 
 El mapa parte de la regla y no de la herramienta: la frontera determina el caso, y el diseño determina si el caso se puede escribir. El retorno indica que un mutante superviviente añade un caso, no cierra la tarea.
 

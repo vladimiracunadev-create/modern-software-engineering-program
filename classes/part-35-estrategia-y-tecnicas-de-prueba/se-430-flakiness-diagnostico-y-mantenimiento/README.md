@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fallo sin cambios en el código] --> B[Historial de ejecuciones]
-    B --> C{Tasa de fallo y correlaciones}
-    C -->|98 % o más| D[Rota: defecto determinista]
-    C -->|se agrupa con carga| E[Dependencia del entorno]
-    C -->|se agrupa tras otra prueba| F[Dependencia del orden]
-    C -->|sin patrón| G[Azar o carrera]
-    E --> H[Aislar o inyectar]
-    F --> H
-    G --> I[Enumerar intercalaciones o fijar semilla]
-    D --> J[Corregir ya]
-    H --> K[Cuarentena con fecha]
-    I --> K
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Fallo sin cambios en el código»; luego «Historial de ejecuciones»; luego «Tasa de fallo y correlaciones»; luego «Rota: defecto determinista», «Dependencia del entorno», «Dependencia del orden» y «Azar o carrera»; luego «Corregir ya», «Aislar o inyectar» y «Enumerar intercalaciones o fijar semilla»; luego «Cuarentena con fecha».](../../../site/assets/figures/mermaid-71e9bb2f33.svg)
 
 El mapa parte del historial y no de la intuición: la tasa y las correlaciones separan las causas antes de tocar el código. La cuarentena es un estado temporal con fecha, no un destino.
 

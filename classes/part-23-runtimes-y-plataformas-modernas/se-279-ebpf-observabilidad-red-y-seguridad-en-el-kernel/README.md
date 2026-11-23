@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Programa en bytecode eBPF] --> B[bpf PROG_LOAD]
-    B --> C{Verificador}
-    C -->|rechaza| D[Error y mensaje]
-    C -->|acepta| E[Compilación a código nativo]
-    E --> F[Enganche a un punto: paquetes, llamadas, trazas]
-    F --> G[Ejecución en el núcleo]
-    G <--> H[Mapas]
-    H <--> I[Lectura desde el espacio de usuario]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Programa en bytecode eBPF»; luego «bpf PROG_LOAD»; luego «Verificador»; luego «Error y mensaje» y «Compilación a código nativo»; luego «Enganche a un punto: paquetes, llamadas, trazas»; luego «Ejecución en el núcleo»; luego «Mapas»; luego «Lectura desde el espacio de usuario».](../../../site/assets/figures/mermaid-51f5cc5e11.svg)
 
 El único camino hacia la ejecución pasa por el verificador. Los mapas son el canal de datos entre el núcleo y el espacio de usuario; el programa nunca llama a una función arbitraria del núcleo, solo a un conjunto de ayudantes conocidos.
 

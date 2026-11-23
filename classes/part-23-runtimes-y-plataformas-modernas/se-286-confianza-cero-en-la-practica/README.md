@@ -56,17 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Solicitante: identidad + dispositivo + contexto] --> B[Punto de aplicación PEP]
-    B --> C[Punto de decisión PDP: política]
-    C -->|permite| D[Recurso]
-    C -->|deniega| E[Rechazo y registro]
-    F[Emisor de credenciales: vida corta, destinatario] --> A
-    G[Telemetría y detección] --> C
-    D --> G
-    E --> G
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Emisor de credenciales: vida corta, destinatario»; luego «Solicitante: identidad + dispositivo + contexto»; luego «Punto de aplicación PEP» y «Telemetría y detección»; luego «Punto de decisión PDP: política»; luego «Recurso» y «Rechazo y registro». Retornos: «Recurso» lleva a «Telemetría y detección»; «Rechazo y registro» lleva a «Telemetría y detección».](../../../site/assets/figures/mermaid-29d05b4ef6.svg)
 
 La decisión está separada de la aplicación: el punto de aplicación (un servicio, una puerta, un proxy) pregunta al de decisión y ejecuta su respuesta. Las credenciales llegan de un emisor, duran poco y nombran a su destinatario; la telemetría realimenta las decisiones y es la prueba de que funcionan.
 

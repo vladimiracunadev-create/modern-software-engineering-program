@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Iniciativas posibles] --> B[Costo de demora y duración]
-    B --> C[Orden de ejecución]
-    A --> D[Flujos de beneficio y costo]
-    D --> E[Valor presente y retorno]
-    E --> F{Tasa de descuento}
-    F -->|baja| G[Favorece beneficios tardíos]
-    F -->|alta| H[Favorece beneficios tempranos]
-    C --> I[Plan]
-    G --> I
-    H --> I
-    I --> J[Costo por usuario y equilibrio]
-    J -->|cambian los supuestos| B
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Iniciativas posibles»; luego «Costo de demora y duración» y «Flujos de beneficio y costo»; luego «Orden de ejecución» y «Valor presente y retorno»; luego «Tasa de descuento»; luego «Favorece beneficios tardíos» y «Favorece beneficios tempranos»; luego «Plan»; luego «Costo por usuario y equilibrio». Retornos: «Costo por usuario y equilibrio» lleva a «Costo de demora y duración» (cambian los supuestos).](../../../site/assets/figures/mermaid-28f7381338.svg)
 
 El mapa separa dos preguntas distintas: **qué hacer primero** (costo de demora y duración) y **qué hacer en absoluto** (valor presente a una tasa). La flecha de retorno indica que los supuestos económicos se revisan: un cambio de tasa, de demanda o de capacidad reordena el plan.
 

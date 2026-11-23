@@ -51,21 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición entrante] --> B[Contexto: traza y span]
-    B --> C[Llamadas HTTP]
-    B --> D[Colas y mensajes]
-    B --> E[Hilos y tareas]
-    C --> F[Spans en el recolector]
-    D --> F
-    E --> F
-    F --> G[Árbol de la traza]
-    G --> H[Ruta crítica]
-    F --> I[Muestreo de cabeza o de cola]
-    H --> J[Qué optimizar]
-    D -->|contexto perdido| K[Traza fragmentada]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Petición entrante»; luego «Contexto: traza y span»; luego «Llamadas HTTP», «Hilos y tareas» y «Colas y mensajes»; luego «Spans en el recolector» y «Traza fragmentada»; luego «Árbol de la traza» y «Muestreo de cabeza o de cola»; luego «Ruta crítica»; luego «Qué optimizar».](../../../site/assets/figures/mermaid-258b8b2bb7.svg)
 
 El mapa separa el **contexto** (que viaja), los **spans** (que se emiten) y el **análisis** (ruta crítica y muestreo). La fragmentación nace en la propagación y se descubre en el análisis.
 

@@ -39,16 +39,7 @@ Podrás delimitar software, sistema, producto, servicio y plataforma; explicar c
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-  N[Necesidad: matricularse] --> S[Sistema sociotécnico]
-  S --> P[Producto de inscripción]
-  P --> W[Software web]
-  P --> O[Operación y soporte]
-  S --> R[Reglas académicas]
-  W --> I[Identidad, pagos, cupos]
-  I --> E[Otros sistemas]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Necesidad: matricularse»; luego «Sistema sociotécnico»; luego «Producto de inscripción» y «Reglas académicas»; luego «Software web» y «Operación y soporte»; luego «Identidad, pagos, cupos»; luego «Otros sistemas».](../../../site/assets/figures/mermaid-627cfe1021.svg)
 
 El software implementa parte de la capacidad, pero la inscripción depende de reglas, personas, datos y sistemas externos. Ninguna frontera es natural: se elige para razonar y debe declararse.
 

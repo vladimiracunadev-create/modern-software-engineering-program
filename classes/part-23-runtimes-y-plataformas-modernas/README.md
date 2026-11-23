@@ -10,21 +10,7 @@ Las partes anteriores enseñaron a construir, probar, desplegar y operar softwar
 
 Esta parte no defiende un runtime ni una moda: enseña a leer cada uno como un **paquete de garantías con un costo medible y un límite declarado**. Las dos primeras clases estudian el módulo de WebAssembly como unidad de aislamiento dentro de un proceso: su validación, su memoria lineal, el combustible que detiene un bucle, las importaciones que son sus únicas capacidades y WASI como modelo de capacidades (`SE-277`), y después lo que cuesta ejecutarlo en un servidor y en el borde, con la separación de compilar, serializar e instanciar, la política de instancias y el papel del modelo de componentes (`SE-278`). La tercera ejecuta de verdad programas eBPF en el núcleo de Linux de WSL2: nueve programas cargados, lo que el verificador acepta o rechaza con su mensaje real y el costo por ejecución (`SE-279`). Las dos siguientes tratan los aceleradores sin hardware disponible: el modelo de ejecución y de memoria con proxies de CPU y un modelo de divergencia (`SE-280`), y el rendimiento y el costo por petición con una tabla cuyos supuestos están a la vista (`SE-281`). Después vienen las fronteras de aislamiento, con el costo de crear un hilo, una instancia y un proceso y las comprobaciones que desmontan un sandbox casero (`SE-282`), y el hardware seguro, con la lógica de medición, cita y sellado y lo que la atestación no demuestra (`SE-283`). El bloque criptográfico es la computación cuántica simulada con NumPy (`SE-284`), la criptografía poscuántica con implementaciones reales de ML-KEM y ML-DSA y el plan de migración (`SE-285`) y la confianza cero con tokens de destinatario y vida corta (`SE-286`). Cierran un taller con una batería de comportamientos hostiles contra tres candidatos (`SE-287`) y un proyecto que une todo en una plataforma con evidencia encadenada y un informe firmado con un algoritmo poscuántico (`SE-288`).
 
-```mermaid
-flowchart LR
-    A[Módulo de WebAssembly] --> B[Servidor, borde y componentes]
-    B --> C[eBPF en el núcleo]
-    C --> D[Aceleradores: modelo]
-    D --> E[Aceleradores: costo]
-    E --> F[Fronteras de aislamiento]
-    F --> G[Hardware seguro y atestación]
-    G --> H[Computación cuántica]
-    H --> I[Criptografía poscuántica]
-    I --> J[Confianza cero]
-    J --> K[Taller: batería hostil]
-    K --> L[Proyecto: plataforma con evidencia]
-    L -->|incidente o cambio de supuesto| F
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Módulo de WebAssembly»; luego «Servidor, borde y componentes»; luego «eBPF en el núcleo»; luego «Aceleradores: modelo»; luego «Aceleradores: costo»; luego «Fronteras de aislamiento»; luego «Hardware seguro y atestación»; luego «Computación cuántica»; luego «Criptografía poscuántica»; luego «Confianza cero»; luego «Taller: batería hostil»; luego «Proyecto: plataforma con evidencia». Retornos: «Proyecto: plataforma con evidencia» lleva a «Fronteras de aislamiento» (incidente o cambio de supuesto).](../../site/assets/figures/mermaid-0145a0e880.svg)
 
 El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los mecanismos y sus costos. El retorno indica que una decisión de aislamiento se revisa cuando un incidente o un cambio de supuesto (una vulnerabilidad, un algoritmo que se deprecia, un nuevo tipo de carga) invalida la evidencia, y que se vuelve a la pregunta de qué frontera contiene qué.
 

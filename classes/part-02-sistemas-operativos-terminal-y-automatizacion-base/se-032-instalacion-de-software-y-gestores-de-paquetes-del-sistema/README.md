@@ -56,16 +56,7 @@ Podrás describir paquete y grafo de dependencias; verificar procedencia disponi
 | Reversibilidad | inventaría efectos y estado | recuperar sin fingir limpieza total |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- M[Manifiesto] --> G[Grafo de dependencias]
- R[Repositorio y publicador] --> G
- G --> P[Plan resuelto]
- P --> V[Verificar origen e integridad]
- V --> A[Aplicar en alcance mínimo]
- A --> T[Probar]
- T --> U[Actualizar, retirar o revertir]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Manifiesto» y «Repositorio y publicador»; luego «Grafo de dependencias»; luego «Plan resuelto»; luego «Verificar origen e integridad»; luego «Aplicar en alcance mínimo»; luego «Probar»; luego «Actualizar, retirar o revertir».](../../../site/assets/figures/mermaid-e3aed483d3.svg)
 
 La verificación ocurre antes del cambio y la reversión se diseña antes de necesitarla. Un lockfile fija resoluciones, pero no convierte el origen en confiable.
 
@@ -81,16 +72,7 @@ El kit de diagnóstico multiplataforma inventaría cada dependencia con gestor, 
 
 Cada paquete expresa rangos y relaciones. El gestor busca una solución conjunta; actualizar uno puede cambiar otros. Un archivo de bloqueo conserva resoluciones para reproducibilidad, pero no garantiza disponibilidad futura, ausencia de vulnerabilidades ni equivalencia entre plataformas.
 
-```mermaid
-flowchart LR
-    M[Manifiesto y restricciones] --> R[Resolver grafo]
-    I[Índices firmados o metadatos] --> R
-    R --> L[Bloqueo o plan]
-    L --> V[Verificar procedencia e integridad]
-    V --> A[Aplicar en alcance elegido]
-    A --> T[Probar]
-    T --> U[Actualizar o revertir]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Manifiesto y restricciones» y «Índices firmados o metadatos»; luego «Resolver grafo»; luego «Bloqueo o plan»; luego «Verificar procedencia e integridad»; luego «Aplicar en alcance elegido»; luego «Probar»; luego «Actualizar o revertir».](../../../site/assets/figures/mermaid-94d2daa7a9.svg)
 
 Guardar el plan antes de aplicar permite revisar cambios inesperados.
 

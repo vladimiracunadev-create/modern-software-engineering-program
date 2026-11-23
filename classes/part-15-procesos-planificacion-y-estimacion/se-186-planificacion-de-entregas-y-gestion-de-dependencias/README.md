@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Elementos de trabajo] --> B[Red de dependencias]
-    B --> C[Camino crítico con medianas]
-    B --> D[Distribución del plazo]
-    E[Dependencias externas] --> D
-    F[Orden de entrega] --> G[Valor al agotarse el tiempo]
-    D --> H[Fecha con rango]
-    G --> H
-    H -->|avance real| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Elementos de trabajo» y «Orden de entrega»; luego «Red de dependencias», «Valor al agotarse el tiempo» y «Dependencias externas»; luego «Camino crítico con medianas» y «Distribución del plazo»; luego «Fecha con rango». Retornos: «Fecha con rango» lleva a «Red de dependencias» (avance real).](../../../site/assets/figures/mermaid-01899f74fc.svg)
 
 El mapa se lee desde los elementos hacia dos cálculos: el plazo (que depende de la red y de lo externo) y el valor al agotarse el tiempo (que depende del orden). El retorno indica que el avance real corrige la red.
 

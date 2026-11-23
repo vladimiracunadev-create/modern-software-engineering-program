@@ -53,14 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Propiedad: confidencialidad, integridad, autenticidad] --> B[Primitiva: cifrado autenticado, MAC, firma, derivación]
-    B --> C[Contrato de uso: nonce único, tamaño de clave, comparación segura]
-    C --> D[Claves: generación, uso, rotación, destrucción]
-    C -->|se incumple| E[Fallo de uso: nonce repetido, oráculo de tiempo]
-    D -->|filtración| F[Radio de la clave y costo de rotación]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Propiedad: confidencialidad, integridad, autenticidad»; luego «Primitiva: cifrado autenticado, MAC, firma, derivación»; luego «Contrato de uso: nonce único, tamaño de clave, comparación segura»; luego «Claves: generación, uso, rotación, destrucción» y «Fallo de uso: nonce repetido, oráculo de tiempo»; luego «Radio de la clave y costo de rotación».](../../../site/assets/figures/mermaid-cdb929d335.svg)
 
 El mapa separa la **propiedad** buscada, la **primitiva** que la entrega, su **contrato de uso** y el **ciclo de vida de las claves**. El camino de la derecha muestra que un incumplimiento del contrato y una filtración de la clave son problemas distintos con respuestas distintas.
 

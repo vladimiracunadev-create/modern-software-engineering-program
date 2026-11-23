@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código fuente] --> B[Compilador]
-    B --> C[Módulo .wasm]
-    C --> D[Validación]
-    D --> E[Instanciación]
-    E --> F[Memoria lineal propia]
-    E --> G[Importaciones concedidas]
-    G --> H[Anfitrión: funciones, WASI]
-    E --> I[Límites del anfitrión: combustible y memoria]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Código fuente»; luego «Compilador»; luego «Módulo .wasm»; luego «Validación»; luego «Instanciación»; luego «Memoria lineal propia», «Importaciones concedidas» y «Límites del anfitrión: combustible y memoria»; luego «Anfitrión: funciones, WASI».](../../../site/assets/figures/mermaid-376f9e531d.svg)
 
 El módulo solo existe como binario hasta que pasa la validación; al instanciarse recibe una memoria propia y las importaciones que el anfitrión decide enlazar. Lo que el módulo puede hacer al exterior es exactamente lo que cruza el recuadro de importaciones, y lo que el anfitrión puede imponerle (combustible, límite de memoria) no depende de la buena voluntad del módulo.
 

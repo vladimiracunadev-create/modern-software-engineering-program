@@ -87,6 +87,7 @@ def expected_files(program: dict) -> dict[Path, str]:
             result[ROOT / "site/classes" / f"{lesson['id']}.html"] = shared.site_page(
                 part, lesson, markdown, previous, following
             )
+    result.update(shared.mr.registered_files())
     return result
 
 

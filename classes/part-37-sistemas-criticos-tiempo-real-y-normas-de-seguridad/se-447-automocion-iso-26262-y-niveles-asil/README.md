@@ -54,17 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Situación de operación] --> B[Peligro]
-    B --> C[Gravedad, exposición y controlabilidad]
-    C --> D[ASIL del objetivo de seguridad]
-    D --> E[Requisitos de seguridad]
-    E --> F[Mecanismos de diagnóstico]
-    F --> G[Cobertura medida por inyección]
-    G --> H[Métricas de arquitectura]
-    H -.->|no alcanza el valor| F
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Situación de operación»; luego «Peligro»; luego «Gravedad, exposición y controlabilidad»; luego «ASIL del objetivo de seguridad»; luego «Requisitos de seguridad»; luego «Mecanismos de diagnóstico»; luego «Cobertura medida por inyección»; luego «Métricas de arquitectura». Retornos: «Métricas de arquitectura» lleva a «Mecanismos de diagnóstico» (no alcanza el valor).](../../../site/assets/figures/mermaid-edcfc2fad8.svg)
 
 La flecha punteada es el bucle de diseño: si las métricas no alcanzan lo que exige el nivel, se añaden o se mejoran diagnósticos hasta que la medida lo demuestre.
 

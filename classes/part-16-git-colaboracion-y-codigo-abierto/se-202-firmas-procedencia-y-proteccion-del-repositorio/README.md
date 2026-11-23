@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Commit] --> B[Firma con clave]
-    B --> C[Verificación con firmantes permitidos]
-    D[Rama protegida] --> E[PR obligatorio]
-    E --> F[Revisión y comprobaciones]
-    F --> G[Commits firmados]
-    G --> H[Sin push forzado]
-    I[Reescritura] -->|cambia identificadores| J[Firmas inválidas]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Commit», «Rama protegida» y «Reescritura»; luego «Firma con clave», «PR obligatorio» y «Firmas inválidas»; luego «Verificación con firmantes permitidos» y «Revisión y comprobaciones»; luego «Commits firmados»; luego «Sin push forzado».](../../../site/assets/figures/mermaid-9549d88d30.svg)
 
 El mapa se lee de izquierda a derecha: una firma se verifica contra una lista de firmantes permitidos, y una rama protegida encadena PR, revisión, comprobaciones, firma y ausencia de push forzado; una reescritura rompe las firmas de los commits afectados. No describe cómo se distribuyen las claves.
 

@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Candidato registrado con huella] --> B[Sombra: se ejecuta sin servir]
-    B --> C{¿Decisiones y tasas por segmento parecidas?}
-    C -->|no| X[Se detiene y se investiga]
-    C -->|sí| D[Canary: fracción del tráfico]
-    D --> E{¿Guardas con y sin etiqueta dentro de umbral?}
-    E -->|no| F[Rollback por puntero]
-    E -->|sí| G[Ampliación por etapas]
-    G --> H[100 % del tráfico]
-    H --> I[Modelo anterior retenido para volver]
-    F --> I
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Candidato registrado con huella»; luego «Sombra: se ejecuta sin servir»; luego «¿Decisiones y tasas por segmento parecidas?»; luego «Se detiene y se investiga» y «Canary: fracción del tráfico»; luego «¿Guardas con y sin etiqueta dentro de umbral?»; luego «Rollback por puntero» y «Ampliación por etapas»; luego «100 % del tráfico»; luego «Modelo anterior retenido para volver».](../../../site/assets/figures/mermaid-ceed85d293.svg)
 
 El mapa tiene dos salidas de seguridad, la parada tras la sombra y el rollback tras el canary, y una condición común: el modelo anterior sigue disponible, con su huella, mientras el nuevo no haya demostrado su valor.
 

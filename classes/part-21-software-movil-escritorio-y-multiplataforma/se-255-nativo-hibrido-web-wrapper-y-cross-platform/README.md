@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Requisitos del cliente] --> B[Opciones de construcción]
-    B --> C[Criterios y pesos]
-    C --> D[Puntuación]
-    D --> E[Sensibilidad]
-    B --> F[Frontera entre capas]
-    B --> G[Capacidades comunes]
-    E --> H[Decisión revisable]
-    F --> H
-    G --> H
-    H -->|medición o cambio| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Requisitos del cliente»; luego «Opciones de construcción»; luego «Criterios y pesos», «Frontera entre capas» y «Capacidades comunes»; luego «Puntuación»; luego «Sensibilidad»; luego «Decisión revisable». Retornos: «Decisión revisable» lleva a «Requisitos del cliente» (medición o cambio).](../../../site/assets/figures/mermaid-f4cd215ed3.svg)
 
 El mapa se lee de izquierda a derecha: las opciones se puntúan, pero la puntuación solo es una parte; la sensibilidad, el coste de la frontera y las capacidades comunes completan la decisión. La flecha de retorno indica que una medición reabre los requisitos.
 

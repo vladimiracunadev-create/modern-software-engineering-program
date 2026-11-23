@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Actuar y observar] --> B{¿Verificación pasa?}
-    B -->|sí| S[Parar: éxito verificado]
-    B -->|no| C{¿Mismo resultado repetido?}
-    C -->|no| A
-    C -->|sí, primera vez| P[Cambiar de plan]
-    P --> A
-    C -->|sí, otra vez| E[Escalar con la traza]
-    A --> T{¿Tope o presupuesto agotado?}
-    T -->|sí| E
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Actuar y observar»; luego «¿Verificación pasa?» y «¿Tope o presupuesto agotado?»; luego «Parar: éxito verificado» y «¿Mismo resultado repetido?»; luego «Cambiar de plan» y «Escalar con la traza». Retornos: «¿Mismo resultado repetido?» lleva a «Actuar y observar» (no); «Cambiar de plan» lleva a «Actuar y observar».](../../../site/assets/figures/mermaid-5f849e7d06.svg)
 
 El diagrama tiene tres salidas: éxito, escalada por falta de progreso persistente y escalada por tope. El cambio de plan es una vuelta del bucle, no una salida; ocurre una sola vez antes de escalar.
 

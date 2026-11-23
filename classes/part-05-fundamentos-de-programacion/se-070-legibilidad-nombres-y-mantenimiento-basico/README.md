@@ -45,15 +45,7 @@ Al terminar podrás explicar el mecanismo del lenguaje, predecir una ejecución,
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    S[Especificación el modelo de decisión diagnóstica] --> V[Valores y contratos]
-    V --> C[Control y transformación]
-    C --> E[Efectos en la frontera]
-    E --> O[Salida observable]
-    O --> T[Prueba y diagnóstico]
-    T -->|defecto o caso nuevo| S
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Especificación el modelo de decisión diagnóstica»; luego «Valores y contratos»; luego «Control y transformación»; luego «Efectos en la frontera»; luego «Salida observable»; luego «Prueba y diagnóstico». Retornos: «Prueba y diagnóstico» lleva a «Especificación el modelo de decisión diagnóstica» (defecto o caso nuevo).](../../../site/assets/figures/mermaid-46e97ee9b8.svg)
 
 El código no reemplaza la especificación: la materializa bajo reglas concretas del lenguaje y del entorno. La pregunta de esta clase es: **¿Puede una persona cambiar el comportamiento correcto sin reconstruir toda la intención?**
 

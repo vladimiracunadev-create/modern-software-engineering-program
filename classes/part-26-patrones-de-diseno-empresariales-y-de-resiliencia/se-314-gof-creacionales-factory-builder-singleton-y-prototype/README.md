@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesito crear un objeto] --> B{¿Qué duele?}
-    B -->|tipo concreto repartido| C[Factory con registro]
-    B -->|muchos argumentos| D[Argumentos con nombre o Builder]
-    B -->|un único punto de acceso| E[Instancia única inyectada]
-    B -->|copiar un objeto configurado| F[Prototype con copia profunda]
-    C --> G[Medir: errores al crear]
-    D --> H[Medir: argumentos intercambiados]
-    E --> I[Medir: pruebas dependientes del orden]
-    F --> J[Medir: contaminación de clones]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Necesito crear un objeto»; luego «¿Qué duele?»; luego «Factory con registro», «Argumentos con nombre o Builder», «Instancia única inyectada» y «Prototype con copia profunda»; luego «Medir: errores al crear», «Medir: argumentos intercambiados», «Medir: pruebas dependientes del orden» y «Medir: contaminación de clones».](../../../site/assets/figures/mermaid-e616385a06.svg)
 
 El mapa parte de lo que duele y no del patrón: cada rama termina en una medida distinta, porque cada patrón se estropea de un modo diferente.
 

@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio de configuración o de código] --> B[Lectura estática: esperas, reintentos, cortacircuitos]
-    B --> C[Suite dinámica con fallas deterministas]
-    C --> D[Preproducción con tráfico sintético]
-    D --> E[Canario con grupo de control]
-    B -->|rojo| F[Cambio bloqueado]
-    C -->|rojo| F
-    D -->|rojo| F
-    E -->|se degrada| G[Reversión automática]
-    F --> H[Corrección y nueva regresión]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Cambio de configuración o de código»; luego «Lectura estática: esperas, reintentos, cortacircuitos»; luego «Suite dinámica con fallas deterministas»; luego «Preproducción con tráfico sintético»; luego «Canario con grupo de control» y «Cambio bloqueado»; luego «Reversión automática» y «Corrección y nueva regresión».](../../../site/assets/figures/mermaid-229f7aecd7.svg)
 
 El mapa ordena las defensas por **costo y realismo crecientes**. Cada etapa atrapa regresiones que la anterior no ve y cuesta más; ninguna sustituye a la siguiente. Un rojo en cualquier etapa bloquea el cambio.
 

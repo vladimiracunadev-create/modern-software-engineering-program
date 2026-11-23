@@ -56,20 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Escenarios y modelo de SE-347] --> B[ADR: decisión y alternativas]
-    B --> C[Consecuencias negativas y reversibilidad]
-    B --> D[Supuestos de vigilancia con medida]
-    D --> E[Disparador numérico de revisión]
-    B --> F[Función de aptitud en CI]
-    F --> G{¿Se viola la restricción?}
-    G -->|sí| H[La integración falla]
-    G -->|no| I[La decisión se mantiene]
-    E --> J{¿Se cumple el disparador?}
-    J -->|sí| K[Reabrir con la evidencia]
-    J -->|no| I
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Escenarios y modelo de SE-347»; luego «ADR: decisión y alternativas»; luego «Consecuencias negativas y reversibilidad», «Supuestos de vigilancia con medida» y «Función de aptitud en CI»; luego «Disparador numérico de revisión» y «¿Se viola la restricción?»; luego «¿Se cumple el disparador?» y «La integración falla»; luego «Reabrir con la evidencia» y «La decisión se mantiene».](../../../site/assets/figures/mermaid-6dd5b7beb7.svg)
 
 El mapa muestra dos controles que mantienen viva la decisión: la función de aptitud, que actúa sobre el código en cada cambio, y el disparador, que actúa sobre las mediciones en el tiempo. Sin ellos, el ADR es un archivo; con ellos, es una decisión que se comprueba.
 

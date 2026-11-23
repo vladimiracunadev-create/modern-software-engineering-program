@@ -55,16 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Peligro] --> B[Situación peligrosa]
-    B --> C[Daño posible]
-    C --> D[Riesgo: gravedad y probabilidad]
-    D --> E[Medida de control]
-    E --> F[Requisito verificable]
-    F --> G[Prueba o análisis con evidencia]
-    G -.->|supuestos que se revisan| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Peligro»; luego «Situación peligrosa»; luego «Daño posible»; luego «Riesgo: gravedad y probabilidad»; luego «Medida de control»; luego «Requisito verificable»; luego «Prueba o análisis con evidencia». Retornos: «Prueba o análisis con evidencia» lleva a «Peligro» (supuestos que se revisan).](../../../site/assets/figures/mermaid-8506fa20e7.svg)
 
 El recorrido va del peligro a la evidencia, y la flecha punteada es la que más se olvida: los supuestos con los que se estimó el riesgo se vuelven a mirar cuando el sistema, el entorno o el uso cambian.
 

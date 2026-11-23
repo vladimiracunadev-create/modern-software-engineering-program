@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Versión nueva] --> B[Canal de distribución]
-    B --> C[Adopción en el tiempo]
-    C --> D[Versiones coexistentes]
-    D --> E[Compatibilidad del servidor]
-    E --> F[Retirada de lo viejo]
-    F -->|fracción restante| D
-    A --> G[Integridad del paquete]
-    G --> B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Versión nueva»; luego «Integridad del paquete»; luego «Canal de distribución»; luego «Adopción en el tiempo»; luego «Versiones coexistentes»; luego «Compatibilidad del servidor»; luego «Retirada de lo viejo». Retornos: «Retirada de lo viejo» lleva a «Versiones coexistentes» (fracción restante).](../../../site/assets/figures/mermaid-f56918cb7c.svg)
 
 El mapa se lee de izquierda a derecha: el canal determina la curva de adopción, la curva determina cuántas versiones conviven, y esa convivencia decide qué se puede retirar. La retirada se decide por la fracción restante de clientes, no por la fecha.
 

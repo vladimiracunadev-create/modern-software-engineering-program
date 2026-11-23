@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    S[Solicitud] --> Q1{¿Camino conocido antes de la entrada?}
-    Q1 -->|sí| W[Workflow: el código decide el orden]
-    Q1 -->|no| Q2{¿Acciones reversibles y acotadas?}
-    Q2 -->|sí| A[Agente con presupuesto de pasos y costo]
-    Q2 -->|no| P[Persona decide o se rediseña el flujo]
-    W --> M[Medir llamadas, tokens y solicitudes resueltas]
-    A --> M
-    M -->|el workflow no resuelve| Q2
-    M -->|el agente cuesta de más| W
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Solicitud»; luego «¿Camino conocido antes de la entrada?»; luego «Workflow: el código decide el orden» y «¿Acciones reversibles y acotadas?»; luego «Agente con presupuesto de pasos y costo» y «Persona decide o se rediseña el flujo»; luego «Medir llamadas, tokens y solicitudes resueltas». Retornos: «Medir llamadas, tokens y solicitudes resueltas» lleva a «¿Acciones reversibles y acotadas?» (el workflow no resuelve); «Medir llamadas, tokens y solicitudes resueltas» lleva a «Workflow: el código decide el orden» (el agente cuesta de más).](../../../site/assets/figures/mermaid-e498bccb1b.svg)
 
 El mapa muestra que la elección no es una etiqueta sino un bucle de medida: si el workflow no resuelve un tipo de solicitud se considera el agente, y si el agente resulta caro para un tipo conocido se fija ese camino como workflow.
 

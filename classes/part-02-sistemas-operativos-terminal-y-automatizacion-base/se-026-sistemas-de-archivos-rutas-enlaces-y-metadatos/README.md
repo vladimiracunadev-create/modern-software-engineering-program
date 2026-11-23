@@ -55,15 +55,7 @@ Podrás resolver rutas desde una base explícita; distinguir archivo, directorio
 | Actualización | combina apertura, escritura y reemplazo | evitar estados parciales |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- I[Ruta recibida] --> B[Base explícita]
- B --> N[Normalización]
- N --> L[Resolución de enlaces]
- L --> M[Tipo y metadatos]
- M --> O[Operación declarada]
- O --> V[Verificación posterior]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Ruta recibida»; luego «Base explícita»; luego «Normalización»; luego «Resolución de enlaces»; luego «Tipo y metadatos»; luego «Operación declarada»; luego «Verificación posterior».](../../../site/assets/figures/mermaid-268f40d246.svg)
 
 La cadena se interpreta antes de abrir. Normalizar no autoriza; resolver no garantiza existencia; abrir no garantiza durabilidad. Cada flecha añade una condición distinta.
 
@@ -79,17 +71,7 @@ La abstracción permite que distintas tecnologías presenten operaciones semejan
 
 Una ruta absoluta parte de una raíz o volumen definido por la plataforma. Una ruta relativa parte del directorio de trabajo del proceso, no necesariamente del directorio donde está el script. Ese detalle causa muchos “funciona en mi máquina”.
 
-```mermaid
-flowchart LR
-    A[Ruta recibida] --> B{¿Absoluta?}
-    B -- No --> C[Combinar con directorio base explícito]
-    B -- Sí --> D[Conservar raíz o volumen]
-    C --> E[Normalizar componentes]
-    D --> E
-    E --> F[Resolver enlaces según la operación]
-    F --> G[Comprobar tipo y metadatos]
-    G --> H[Abrir con modo declarado]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Ruta recibida»; luego «¿Absoluta?»; luego «Combinar con directorio base explícito» y «Conservar raíz o volumen»; luego «Normalizar componentes»; luego «Resolver enlaces según la operación»; luego «Comprobar tipo y metadatos»; luego «Abrir con modo declarado».](../../../site/assets/figures/mermaid-2d712c9e2d.svg)
 
 Normalizar `.` y `..` no prueba que el objetivo exista ni que esté permitido. Resolver una ruta es una operación semántica; concatenar cadenas con `/` o `\` es apenas manipulación textual.
 

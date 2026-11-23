@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Llamada a herramienta] --> B{¿Herramienta ofrecida?}
-    B -->|no| X[Denegar]
-    B -->|sí| C{¿Argumentos permitidos?}
-    C -->|no| X
-    C -->|sí| D{¿Rutas dentro de la raíz?}
-    D -->|no| X
-    D -->|sí| E{¿Irreversible o externa?}
-    E -->|sí| F[Aprobación humana]
-    E -->|no| G[Ejecutar y registrar]
-    F --> G
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Llamada a herramienta»; luego «¿Herramienta ofrecida?»; luego «¿Argumentos permitidos?»; luego «¿Rutas dentro de la raíz?»; luego «Denegar» y «¿Irreversible o externa?»; luego «Aprobación humana»; luego «Ejecutar y registrar».](../../../site/assets/figures/mermaid-cc79e768f2.svg)
 
 El diagrama es un embudo de cuatro filtros. Los dos primeros son baratos y deterministas; el tercero resuelve rutas reales; el cuarto reserva a una persona las acciones que no se pueden deshacer.
 

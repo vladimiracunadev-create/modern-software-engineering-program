@@ -56,18 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Invariante] --> B[Prueba que la vigila]
-    A --> C[Defecto sembrado que la rompe]
-    C --> D[La prueba falla]
-    B --> D
-    D --> E[Matriz defecto por prueba]
-    E --> F[Huecos: defecto sin prueba]
-    F --> B
-    E --> G[Ejecución limpia]
-    G --> H[Expediente reproducible]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Invariante»; luego «Prueba que la vigila» y «Defecto sembrado que la rompe»; luego «La prueba falla»; luego «Matriz defecto por prueba»; luego «Huecos: defecto sin prueba» y «Ejecución limpia»; luego «Expediente reproducible». Retornos: «Huecos: defecto sin prueba» lleva a «Prueba que la vigila».](../../../site/assets/figures/mermaid-4a6cf6ec7e.svg)
 
 Cada invariante tiene una prueba que la vigila y un defecto que la rompe. La matriz resultante muestra qué defectos detecta cada prueba y, sobre todo, cuáles no detecta ninguna. Un hueco vuelve a empezar el ciclo con una prueba nueva.
 

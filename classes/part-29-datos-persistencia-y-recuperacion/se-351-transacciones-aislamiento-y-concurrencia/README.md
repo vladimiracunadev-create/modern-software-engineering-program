@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Operación de negocio] --> B[Transacción: todo o nada]
-    B --> C{Qué ven las demás}
-    C --> D[Lee lo confirmado]
-    C --> E[Lee una instantánea]
-    C --> F[Serializable]
-    D --> G[Anomalías: actualización perdida, lectura no repetible]
-    E --> H[Anomalía: sesgo de escritura]
-    F --> I[Costo: bloqueos o abortos y reintentos]
-    G --> J[Invariante protegida o rota]
-    H --> J
-    I --> J
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Operación de negocio»; luego «Transacción: todo o nada»; luego «Qué ven las demás»; luego «Lee lo confirmado», «Lee una instantánea» y «Serializable»; luego «Anomalías: actualización perdida, lectura no repetible», «Anomalía: sesgo de escritura» y «Costo: bloqueos o abortos y reintentos»; luego «Invariante protegida o rota».](../../../site/assets/figures/mermaid-11276a04f0.svg)
 
 El mapa separa dos preguntas que se confunden: si los cambios de una operación se aplican enteros (atomicidad) y qué ven las demás mientras tanto (aislamiento). La segunda se responde por niveles, y cada nivel protege unas invariantes y no otras.
 

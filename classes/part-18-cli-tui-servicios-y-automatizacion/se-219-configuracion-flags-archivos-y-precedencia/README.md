@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    D[Valor por defecto] --> R[Resolvedor]
-    F[Archivo] --> R
-    E[Entorno] --> R
-    G[Flag] --> R
-    R --> V[Valor final]
-    S[Secreto] -->|archivo o stdin| R
-    R -->|registra la fuente| L[Diagnóstico]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Valor por defecto», «Archivo», «Entorno», «Flag» y «Secreto»; luego «Resolvedor»; luego «Valor final» y «Diagnóstico».](../../../site/assets/figures/mermaid-0a1bc998bc.svg)
 
 El mapa se lee como un embudo: cuatro fuentes entran a un resolvedor que devuelve un valor y, idealmente, la fuente de la que salió; el secreto entra por un canal que no es visible a otros procesos. No describe el orden de lectura de los archivos.
 

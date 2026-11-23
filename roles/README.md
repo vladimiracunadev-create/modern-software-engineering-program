@@ -109,14 +109,7 @@ evidencia y decisiones de salida.
 
 ## 🧩 Cómo está construida cada guía
 
-```mermaid
-flowchart LR
-    F["🧱 Base común"] --> P["📚 Partes núcleo"]
-    P --> C["🔗 Clases asociadas"]
-    C --> D["⚖️ Decisiones"]
-    D --> E["🧪 Evidencia"]
-    E --> O["🔭 Operación y evolución"]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «🧱 Base común»; luego «📚 Partes núcleo»; luego «🔗 Clases asociadas»; luego «⚖️ Decisiones»; luego «🧪 Evidencia»; luego «🔭 Operación y evolución».](../site/assets/figures/mermaid-39d7f83507.svg)
 
 Cada ruta conserva el contenido existente y añade un mapa visual del trabajo, clases
 enlazadas con propósito, trade-offs, incidente o fallo representativo, métricas con
@@ -1121,28 +1114,11 @@ compara su misión y responsabilidades con la guía, no sólo el título.
 
 ## Familias y transiciones
 
-```mermaid
-flowchart LR
-    F["Base común"] --> BUILD["Construcción"]
-    F --> DISC["Producto y requisitos"]
-    BUILD --> CLIENT["Web · móvil · desktop"]
-    BUILD --> SYSTEMS["Systems · embedded · safety"]
-    BUILD --> SERVICES["Backend · API · datos · distribución"]
-    SERVICES --> OPS["Cloud · DevOps · SRE · observabilidad"]
-    CLIENT --> QUALITY["QA · accesibilidad · i18n · performance"]
-    SYSTEMS --> QUALITY
-    SERVICES --> QUALITY
-    OPS --> PLATFORM["Platform · DevEx · release"]
-    DISC --> GOVERN["Compliance · FinOps · green · open source"]
-    QUALITY --> ARCH["Arquitectura · modernización · soluciones"]
-    PLATFORM --> ARCH
-    GOVERN --> ARCH
-    ARCH --> LEAD["Staff · Manager · CTO"]
-    BUILD --> AI["AI-Augmented · AI Systems"]
-    AI --> AGENTIC["Agentic Harness"]
-    QUALITY --> METHOD["Domain & Methodology"]
-    ARCH --> METHOD
-```
+<!-- role-families:start -->
+![Diagrama de flujo con 15 pasos. Recorrido: «Base común»; luego «Construcción» y «Producto y requisitos»; luego «Web · móvil · desktop», «Systems · embedded · safety», «Backend · API · datos · distribución», «Compliance · FinOps · green · open source» y «AI-Augmented · AI Systems»; luego «QA · accesibilidad · i18n · performance», «Cloud · DevOps · SRE · observabilidad» y «Agentic Harness»; luego «Platform · DevEx · release»; luego «Arquitectura · modernización · soluciones»; luego «Domain & Methodology» y «Staff · Manager · CTO».](../site/assets/figures/mermaid-78b2262259.svg)
+
+**Cómo leer el diagrama:** empieza en «Base común» y sigue las flechas hasta el final del recorrido.
+<!-- role-families:end -->
 
 El diagrama muestra transiciones frecuentes, no ascensos obligatorios. SRE no es
 “DevOps senior”, arquitectura no es el premio por dejar de programar y management no

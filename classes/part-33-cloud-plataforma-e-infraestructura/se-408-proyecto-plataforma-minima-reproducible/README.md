@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisiones de SE-397 a SE-407] --> B[Paquete: plan, estado, políticas, presupuesto, destrucción, límites]
-    B --> C[Construcción reproducible: mismos bytes en dos sistemas]
-    C --> D[Validador de forma]
-    D -->|falla| E[Corregir el paquete]
-    D -->|pasa| F[Revisión por otra persona]
-    F --> G[Reconstrucción desde un checkout limpio]
-    G --> H[Paquete aprobado y fechado]
-    D -.->|no ve| I[LIMITES.md: lo que nada comprueba]
-    I --> F
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Decisiones de SE-397 a SE-407»; luego «Paquete: plan, estado, políticas, presupuesto, destrucción, límites»; luego «Construcción reproducible: mismos bytes en dos sistemas»; luego «Validador de forma»; luego «Corregir el paquete» y «LIMITES.md: lo que nada comprueba»; luego «Revisión por otra persona»; luego «Reconstrucción desde un checkout limpio»; luego «Paquete aprobado y fechado».](../../../site/assets/figures/mermaid-1ed7934fe4.svg)
 
 El mapa tiene dos garantías con límites distintos: la **construcción reproducible** asegura que el paquete es el que se dice, y el **validador** asegura que está completo y es coherente en forma. Ninguna asegura que su contenido sea cierto; esa tarea queda a la revisión de otra persona y a `LIMITES.md`.
 

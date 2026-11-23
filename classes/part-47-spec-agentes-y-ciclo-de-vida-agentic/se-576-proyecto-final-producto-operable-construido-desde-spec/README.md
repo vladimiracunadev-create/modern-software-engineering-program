@@ -53,22 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Especificación y constitución]
-    B --> C[Plan y tareas]
-    C --> D[Implementación por agente con autoridad mínima]
-    D --> E[Convergencia: pruebas por requisito]
-    E --> F[Variantes defectuosas: ¿pueden fallar las pruebas?]
-    D --> G[Operación: reinicio, copia, restauración]
-    D --> H[Controles, parada, aprobación y registro]
-    E --> I[Paquete de evidencia]
-    F --> I
-    G --> I
-    H --> I
-    I --> J[Revisión por otra persona]
-    J -->|hallazgos| B
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Intención»; luego «Especificación y constitución»; luego «Plan y tareas»; luego «Implementación por agente con autoridad mínima»; luego «Convergencia: pruebas por requisito», «Operación: reinicio, copia, restauración» y «Controles, parada, aprobación y registro»; luego «Variantes defectuosas: ¿pueden fallar las pruebas?»; luego «Paquete de evidencia»; luego «Revisión por otra persona». Retornos: «Revisión por otra persona» lleva a «Especificación y constitución» (hallazgos).](../../../site/assets/figures/mermaid-bc6337740a.svg)
 
 El producto no se declara terminado en el nodo de implementación: pasa por pruebas por requisito, por variantes que demuestran que esas pruebas pueden fallar, por pruebas de operación y por controles del agente, y se resume en un paquete que otra persona revisa. Los hallazgos vuelven a la especificación.
 

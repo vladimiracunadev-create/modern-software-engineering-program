@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Contrato de la biblioteca] --> N2[Invariantes / pruebas de propiedades] --> N3[Casos límite / oráculo] --> N4[Benchmark versionado] --> N5[Informe / decisión]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Contrato de la biblioteca»; luego «Invariantes / pruebas de propiedades»; luego «Casos límite / oráculo»; luego «Benchmark versionado»; luego «Informe / decisión». Retornos: «Informe / decisión» lleva a «Contrato de la biblioteca» (fallo o cambio).](../../../site/assets/figures/mermaid-77595b3d18.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

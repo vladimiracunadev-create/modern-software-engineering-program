@@ -56,25 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    A[Cambio propuesto] --> B{¿Tiene reglas deterministas?}
-    B -->|no| C[Evaluación con puerta y revisión humana]
-    B -->|sí| D{¿Qué riesgo tiene?}
-    D -->|bajo| E[TDD]
-    D -->|medio| F[TDD y contrato]
-    D -->|alto| G[TDD, contrato y modelo ejecutable]
-    F --> H{¿Es ambiguo?}
-    G --> H
-    H -->|sí| I[Añadir ejemplos acordados con negocio]
-    H -->|no| J[Sin cambios]
-    E --> K[Registrar el cambio y su clase]
-    C --> K
-    I --> K
-    J --> K
-    K --> L[Revisión trimestral con los defectos escapados]
-    L --> A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Cambio propuesto»; luego «¿Tiene reglas deterministas?»; luego «Evaluación con puerta y revisión humana» y «¿Qué riesgo tiene?»; luego «TDD», «TDD y contrato» y «TDD, contrato y modelo ejecutable»; luego «¿Es ambiguo?»; luego «Añadir ejemplos acordados con negocio» y «Sin cambios»; luego «Registrar el cambio y su clase»; luego «Revisión trimestral con los defectos escapados». Retornos: «Revisión trimestral con los defectos escapados» lleva a «Cambio propuesto».](../../../site/assets/figures/mermaid-8d60d876b7.svg)
 
 El mapa es la política en forma de árbol. Tiene tres preguntas (reglas deterministas, riesgo, ambigüedad) y cinco prácticas. La última caja la cierra: la política se revisa con los defectos que escaparon, y lo que no se registra no puede corregirla.
 

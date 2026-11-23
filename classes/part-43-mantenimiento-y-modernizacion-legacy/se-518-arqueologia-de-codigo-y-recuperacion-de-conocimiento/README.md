@@ -52,23 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema sin dueño claro] --> B[Historial de versiones]
-    A --> C[Ejecución real o de pruebas]
-    A --> D[Personas y documentos]
-    B --> E[Puntos calientes: frecuencia por tamaño]
-    B --> F[Autoría y huérfanos]
-    C --> G[Código no ejecutado]
-    B --> H[Referencias por nombre]
-    D --> I[Entrevistas y registros de decisiones]
-    E --> J[Mapa de riesgo y plan]
-    F --> J
-    G --> J
-    H --> J
-    I --> J
-    J -->|nuevo hallazgo| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Sistema sin dueño claro»; luego «Historial de versiones», «Ejecución real o de pruebas» y «Personas y documentos»; luego «Puntos calientes: frecuencia por tamaño», «Autoría y huérfanos», «Referencias por nombre», «Código no ejecutado» y «Entrevistas y registros de decisiones»; luego «Mapa de riesgo y plan». Retornos: «Mapa de riesgo y plan» lleva a «Sistema sin dueño claro» (nuevo hallazgo).](../../../site/assets/figures/mermaid-89506847f6.svg)
 
 El mapa separa tres fuentes de evidencia, el **historial**, la **ejecución** y las **personas**, y muestra que ninguna basta. El historial dice qué cambió pero no por qué; la ejecución dice qué se recorrió pero solo en lo observado; las personas recuerdan por qué pero se van.
 

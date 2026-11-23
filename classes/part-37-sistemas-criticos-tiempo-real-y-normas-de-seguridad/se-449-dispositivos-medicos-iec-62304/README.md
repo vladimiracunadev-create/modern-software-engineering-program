@@ -55,16 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Peligro del dispositivo] --> B[Situación peligrosa]
-    B --> C[Contribución posible del software]
-    C --> D[Controles fuera del software]
-    D --> E[Clase de seguridad del elemento]
-    E --> F[Rigor de procesos y verificación]
-    F --> G[Evidencia en el expediente]
-    E -.->|segregación argumentada| H[Elementos de clase menor]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Peligro del dispositivo»; luego «Situación peligrosa»; luego «Contribución posible del software»; luego «Controles fuera del software»; luego «Clase de seguridad del elemento»; luego «Rigor de procesos y verificación» y «Elementos de clase menor»; luego «Evidencia en el expediente».](../../../site/assets/figures/mermaid-5d4955b330.svg)
 
 El bloque punteado es el beneficio de la segregación: si se demuestra que un elemento no puede contribuir al peligro, su clase y su esfuerzo bajan; si no se demuestra, hereda la clase.
 

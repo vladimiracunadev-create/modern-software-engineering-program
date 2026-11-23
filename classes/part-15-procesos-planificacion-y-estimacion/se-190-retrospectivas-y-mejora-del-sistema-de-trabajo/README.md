@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos del tablero] --> B[Hipótesis de causa]
-    B --> C[Una o dos acciones]
-    C --> D[Capacidad de mejora]
-    D --> E[Cambio hecho]
-    E --> F[Medición con muestra suficiente]
-    F -->|mejoró| G[Conservar]
-    F -->|no distinguible| H[Seguir midiendo o abandonar]
-    G --> A
-    H --> A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Datos del tablero»; luego «Hipótesis de causa»; luego «Una o dos acciones»; luego «Capacidad de mejora»; luego «Cambio hecho»; luego «Medición con muestra suficiente»; luego «Conservar» y «Seguir midiendo o abandonar». Retornos: «Conservar» lleva a «Datos del tablero»; «Seguir midiendo o abandonar» lleva a «Datos del tablero».](../../../site/assets/figures/mermaid-dd916288d2.svg)
 
 El mapa se lee como un ciclo de hipótesis: una causa supuesta, pocas acciones que caben en la capacidad, una medición con datos suficientes y una decisión. El retorno hacia los datos recuerda que mejorar es una práctica continua, no un evento.
 

@@ -53,17 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Control aparente] --> B[Qué dato usa y quién lo controla]
-    B --> C[Hipótesis de ruptura]
-    C --> D[Entradas que atacan el control]
-    D -->|elude| E[Explotación confirmada]
-    D -->|no elude| F[Hipótesis refutada, nueva hipótesis]
-    E --> G[Reparar la causa]
-    G --> H[Prueba que falla antes y pasa después]
-    H --> I[Regresión en integración continua]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Control aparente»; luego «Qué dato usa y quién lo controla»; luego «Hipótesis de ruptura»; luego «Entradas que atacan el control»; luego «Explotación confirmada» y «Hipótesis refutada, nueva hipótesis»; luego «Reparar la causa»; luego «Prueba que falla antes y pasa después»; luego «Regresión en integración continua».](../../../site/assets/figures/mermaid-00d5b1f4c6.svg)
 
 El mapa del taller es un ciclo de **hipótesis, ataque, reparación y regresión**. Cada control recorre las mismas etapas con un dato distinto en el centro: la ruta, la cabecera, el token y el algoritmo.
 

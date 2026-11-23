@@ -51,22 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Paquete del dispositivo] --> B[Identidad y claves]
-    A --> C[Versiones y reversión]
-    A --> D[Comunicación y reintentos]
-    A --> E[Umbrales y vigilancia]
-    A --> F[Despliegue por etapas]
-    A --> G[Responsable y revisión]
-    B --> H[Validador de forma]
-    C --> H
-    D --> H
-    E --> H
-    F --> H
-    H -->|sentido| I[Revisión humana]
-    A --> J[Simulación del dispositivo y de la flota]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Paquete del dispositivo»; luego «Identidad y claves», «Versiones y reversión», «Comunicación y reintentos», «Umbrales y vigilancia», «Despliegue por etapas», «Responsable y revisión» y «Simulación del dispositivo y de la flota»; luego «Validador de forma»; luego «Revisión humana».](../../../site/assets/figures/mermaid-2c317f3e1f.svg)
 
 El mapa muestra el paquete como el punto donde confluyen las decisiones de la parte. El validador comprueba la forma; la revisión humana, el sentido; la simulación, el efecto de cada defensa.
 

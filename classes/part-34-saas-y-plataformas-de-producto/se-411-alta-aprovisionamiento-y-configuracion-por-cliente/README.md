@@ -57,20 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Solicitud de alta con clave] --> B[Registro del inquilino: aprovisionando]
-    B --> C[Datos y semilla]
-    B --> D[Identidad: primer administrador]
-    C --> E[Facturación: cliente y plan]
-    D --> E
-    E -->|éxito| F[Estado: activo]
-    E -->|falla| G[Estado: fallido con motivo]
-    G --> H[Reintento con la misma clave]
-    G --> I[Compensar y cerrar]
-    H --> C
-    F --> J[Configuración por capas]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Solicitud de alta con clave»; luego «Registro del inquilino: aprovisionando»; luego «Datos y semilla» y «Identidad: primer administrador»; luego «Facturación: cliente y plan»; luego «Estado: activo» y «Estado: fallido con motivo»; luego «Configuración por capas», «Reintento con la misma clave» y «Compensar y cerrar». Retornos: «Reintento con la misma clave» lleva a «Datos y semilla».](../../../site/assets/figures/mermaid-e3e95d5659.svg)
 
 El alta nace con una clave que identifica la solicitud, y todo lo que ocurre después se registra contra el inquilino. Los pasos independientes (datos e identidad) pueden avanzar en paralelo; la facturación depende de ambos. Un fallo deja al inquilino en un estado explícito desde el que se puede reintentar o compensar, y solo un alta terminada abre la configuración propia del cliente.
 

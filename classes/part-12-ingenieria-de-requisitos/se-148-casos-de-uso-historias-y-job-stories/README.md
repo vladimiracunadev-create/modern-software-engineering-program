@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Actor y objetivo] --> N2[Caso de uso] --> N3[Historias cortadas] --> N4[Job story del contexto]
-    N3 --> N5[Corte vertical]
-    N5 -->|nadie lo entiende| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Actor y objetivo»; luego «Caso de uso»; luego «Historias cortadas»; luego «Job story del contexto» y «Corte vertical». Retornos: «Corte vertical» lleva a «Actor y objetivo» (nadie lo entiende).](../../../site/assets/figures/mermaid-d5a9b1fa27.svg)
 
 El mapa se lee de izquierda a derecha. El caso de uso fija la secuencia y sus variantes; la historia fija el incremento de valor; la job story fija la situación que lo motiva. El retorno indica que un corte que no se entiende obliga a volver al actor y a su objetivo, no a cortar de otro modo.
 

@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tareas] --> B[Implementar]
-    B --> C[Verificador independiente]
-    C -->|todos los criterios cumplidos| D[Convergido]
-    C -->|criterios abiertos| E[Tareas añadidas]
-    E --> B
-    C -->|más abiertos que antes| F[Regresión]
-    F --> G{Condición de parada}
-    E --> G
-    G -->|máximo de pasadas, sin progreso o presupuesto| H[Detener y llamar a una persona]
-    G -->|sigue habiendo progreso| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Tareas»; luego «Implementar»; luego «Verificador independiente»; luego «Convergido», «Tareas añadidas» y «Regresión»; luego «Condición de parada»; luego «Detener y llamar a una persona». Retornos: «Tareas añadidas» lleva a «Implementar»; «Condición de parada» lleva a «Implementar» (sigue habiendo progreso).](../../../site/assets/figures/mermaid-6271591eff.svg)
 
 El verificador es independiente del agente que implementa y su salida solo puede ser «convergido» o «tareas añadidas». La condición de parada observa el historial de pasadas, no la afirmación del agente.
 

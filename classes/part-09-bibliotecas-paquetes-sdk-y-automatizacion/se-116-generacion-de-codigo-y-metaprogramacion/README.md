@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Fuente de verdad / transformación] --> N2[Plantillas / AST] --> N3[Metaprogramación] --> N4[Determinismo / diff] --> N5[Escape hatch / ownership]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Fuente de verdad / transformación»; luego «Plantillas / AST»; luego «Metaprogramación»; luego «Determinismo / diff»; luego «Escape hatch / ownership». Retornos: «Escape hatch / ownership» lleva a «Fuente de verdad / transformación» (fallo o cambio).](../../../site/assets/figures/mermaid-7f2d79a0bf.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

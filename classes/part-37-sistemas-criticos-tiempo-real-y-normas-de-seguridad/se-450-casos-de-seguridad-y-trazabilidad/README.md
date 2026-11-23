@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Afirmación principal en un contexto] --> B[Estrategia: por peligros]
-    B --> C1[Subafirmación 1]
-    B --> C2[Subafirmación 2]
-    C1 --> E1[Evidencia con versión]
-    C2 --> E2[Evidencia con versión]
-    A -.-> S[Supuestos y contexto]
-    E1 -.->|resumen del texto| R[Requisito]
-    R -.->|cambia| X[Enlace sospechoso]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Afirmación principal en un contexto»; luego «Estrategia: por peligros» y «Supuestos y contexto»; luego «Subafirmación 1» y «Subafirmación 2»; luego «Evidencia con versión» y «Evidencia con versión»; luego «Requisito»; luego «Enlace sospechoso».](../../../site/assets/figures/mermaid-6618ce4713.svg)
 
 Las líneas continuas son el argumento; las punteadas son lo que lo vuelve auditable: los supuestos explícitos y el vínculo entre la evidencia y la versión del requisito que verificó.
 

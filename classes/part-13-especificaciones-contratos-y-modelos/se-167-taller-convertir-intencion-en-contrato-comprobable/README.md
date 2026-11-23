@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Cláusulas]
-    B --> C[Revisor de forma]
-    B --> D[Ejemplos por contraejemplo]
-    C --> E[Contrato coherente]
-    D --> E
-    E --> F[Mutación del contrato]
-    F -->|no detecta cambios de sentido| G[Decisión humana]
-    G -->|acuerdo| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Intención»; luego «Cláusulas»; luego «Revisor de forma» y «Ejemplos por contraejemplo»; luego «Contrato coherente»; luego «Mutación del contrato»; luego «Decisión humana». Retornos: «Decisión humana» lleva a «Intención» (acuerdo).](../../../site/assets/figures/mermaid-c9b88c1f26.svg)
 
 El mapa se lee como un taller: de la intención salen cláusulas, que pasan por un revisor de forma y por un bucle de ejemplos; el contrato coherente se somete a mutaciones para ver qué no detecta nadie, y eso va a una persona con el dominio. La flecha de retorno indica que un acuerdo humano modifica la intención.
 

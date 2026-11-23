@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Biblioteca] --> N2[Framework e inversión de control] --> N3[Runtime] --> N4[Plataforma] --> N5[SDK]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Biblioteca»; luego «Framework e inversión de control»; luego «Runtime»; luego «Plataforma»; luego «SDK». Retornos: «SDK» lleva a «Biblioteca» (fallo o cambio).](../../../site/assets/figures/mermaid-ab31defb98.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

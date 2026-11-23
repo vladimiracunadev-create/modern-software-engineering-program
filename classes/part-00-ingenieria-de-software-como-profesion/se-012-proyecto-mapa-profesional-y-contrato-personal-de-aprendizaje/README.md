@@ -36,15 +36,7 @@ Construirás un mapa basado en evidencia, seleccionarás una ruta con límites, 
 | Revisión | ¿qué señal cambia la ruta? |
 
 ## Mapa conceptual
-```mermaid
-flowchart LR
- E[Evidencia actual] --> B[Brechas]
- D[Dirección y contexto] --> B
- B --> X[Experimentos]
- X --> P[Portafolio y feedback]
- P --> R[Revisión]
- R --> B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Evidencia actual» y «Dirección y contexto»; luego «Brechas»; luego «Experimentos»; luego «Portafolio y feedback»; luego «Revisión». Retornos: «Revisión» lleva a «Brechas».](../../../site/assets/figures/mermaid-a814884e7c.svg)
 El contrato es adaptativo: evidencia y contexto actualizan brechas. No es una lista infinita de cursos.
 
 ## Conceptos y decisiones

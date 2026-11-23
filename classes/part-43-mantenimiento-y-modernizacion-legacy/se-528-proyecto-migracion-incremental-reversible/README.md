@@ -54,23 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[0. Expandir] --> B[1. Rellenar por lotes]
-    B --> C[2. Doble escritura]
-    C --> D[3. Leer del esquema nuevo]
-    D --> E[4. Escribir solo en el nuevo]
-    E --> F[5. Reposo]
-    F --> G[6. Contraer]
-    D -->|vuelta: sin pérdida| C
-    E -->|vuelta: pierde las escrituras nuevas| D
-    F -->|vuelta: costo creciente| E
-    G -.->|sin vuelta| X[Punto de no retorno]
-    H[Verificación de contenido] --> B
-    H --> C
-    H --> D
-    H --> E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «0. Expandir» y «Verificación de contenido»; luego «1. Rellenar por lotes»; luego «2. Doble escritura»; luego «3. Leer del esquema nuevo»; luego «4. Escribir solo en el nuevo»; luego «5. Reposo»; luego «6. Contraer»; luego «Punto de no retorno». Retornos: «3. Leer del esquema nuevo» lleva a «2. Doble escritura» (vuelta: sin pérdida); «4. Escribir solo en el nuevo» lleva a «3. Leer del esquema nuevo» (vuelta: pierde las escrituras nuevas); «5. Reposo» lleva a «4. Escribir solo en el nuevo» (vuelta: costo creciente).](../../../site/assets/figures/mermaid-d63418cc78.svg)
 
 El mapa marca con **líneas continuas** las vueltas posibles y su costo, y con una **línea punteada** el único paso sin retorno. La verificación de contenido actúa sobre todas las fases a partir del relleno: es la que decide si se avanza.
 

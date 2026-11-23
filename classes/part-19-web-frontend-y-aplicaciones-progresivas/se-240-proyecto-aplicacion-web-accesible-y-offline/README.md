@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Requisitos] --> B[Diseño del flujo]
-    B --> C[Implementación]
-    C --> D[Verificación automática]
-    D --> E[Revisión humana]
-    E --> F[Paquete de evidencia]
-    F --> G[Revisión por otra persona]
-    G -->|hallazgo| B
-    D --> H[Lista de lo no verificado]
-    E --> H
-    H --> F
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Requisitos»; luego «Diseño del flujo»; luego «Implementación»; luego «Verificación automática»; luego «Revisión humana»; luego «Lista de lo no verificado»; luego «Paquete de evidencia»; luego «Revisión por otra persona». Retornos: «Revisión por otra persona» lleva a «Diseño del flujo» (hallazgo).](../../../site/assets/figures/mermaid-e024016918.svg)
 
 El mapa se lee de los requisitos al paquete, con dos tipos de verificación (automática y humana) que alimentan tanto la evidencia como la lista de lo que no se verificó. La flecha de retorno indica que un hallazgo de la persona que revisa vuelve al diseño: el paquete no cierra el trabajo, lo fecha.
 

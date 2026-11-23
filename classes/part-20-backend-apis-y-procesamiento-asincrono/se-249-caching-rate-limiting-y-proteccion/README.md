@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    S[Solicitud] --> L{Limitador por identidad}
-    L -->|excede| X[429 + Retry-After]
-    L --> C{Caché}
-    C -->|acierto fresco| R[Respuesta]
-    C -->|fallo| F[Una carga en vuelo]
-    F --> O[Origen]
-    O --> C
-    C -->|acierto obsoleto| V[Revalidación]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Solicitud»; luego «Limitador por identidad»; luego «429 + Retry-After» y «Caché»; luego «Respuesta», «Una carga en vuelo» y «Revalidación»; luego «Origen». Retornos: «Origen» lleva a «Caché».](../../../site/assets/figures/mermaid-b044138c53.svg)
 
 El mapa se lee de la solicitud a la respuesta: primero el limitador decide si se atiende a esta identidad; después la caché decide si hay una respuesta fresca; si no, una sola carga en vuelo consulta el origen y todos los lectores esperan su resultado. El acierto obsoleto abre la revalidación. No es un orden obligatorio: algunas respuestas privadas se cachean después de identificar.
 

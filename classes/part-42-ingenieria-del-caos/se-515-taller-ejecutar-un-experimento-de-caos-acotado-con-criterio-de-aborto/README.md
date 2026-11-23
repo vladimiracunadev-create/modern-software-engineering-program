@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Hipótesis probada en preproducción y en el pipeline] --> B[Precondiciones: observabilidad, aborto, reversión, holgura]
-    B --> C[Experimento concentrado con control y experimento]
-    C --> D{¿Se mantiene el estado estable?}
-    D -->|no| E[Interruptor: detener y revertir]
-    D -->|sí| F[Más radio o más intensidad]
-    F --> G[Evacuación de una región con la métrica agregada]
-    E --> H[Corrección y repetición]
-    G --> I[Experimento continuo y automatizado]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Hipótesis probada en preproducción y en el pipeline»; luego «Precondiciones: observabilidad, aborto, reversión, holgura»; luego «Experimento concentrado con control y experimento»; luego «¿Se mantiene el estado estable?»; luego «Interruptor: detener y revertir» y «Más radio o más intensidad»; luego «Corrección y repetición» y «Evacuación de una región con la métrica agregada»; luego «Experimento continuo y automatizado».](../../../site/assets/figures/mermaid-0435ba1cf1.svg)
 
 El mapa ordena el **camino de la confianza**: cada paso requiere la evidencia del anterior. La evacuación de una región es la última etapa, no la primera, y el experimento continuo no empieza hasta que el aborto automático se probó.
 

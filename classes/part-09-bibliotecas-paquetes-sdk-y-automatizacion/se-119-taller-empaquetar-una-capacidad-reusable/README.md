@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Slice reusable] --> N2[Diseño desde consumidor] --> N3[Artefacto e instalación] --> N4[API / CLI coherentes] --> N5[Cambio compatible]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Slice reusable»; luego «Diseño desde consumidor»; luego «Artefacto e instalación»; luego «API / CLI coherentes»; luego «Cambio compatible». Retornos: «Cambio compatible» lleva a «Slice reusable» (fallo o cambio).](../../../site/assets/figures/mermaid-a23d4d6fb3.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión de producto] --> B[Datos disponibles al decidir]
-    B --> C[Partición y evaluación]
-    C --> D[Modelo]
-    D --> E[Umbral y acción]
-    E --> F[Persona o proceso]
-    F --> G[Monitoreo y deriva]
-    G -->|cambia la población| B
-    E -->|error| H[Plan de respaldo]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Decisión de producto»; luego «Datos disponibles al decidir»; luego «Partición y evaluación»; luego «Modelo»; luego «Umbral y acción»; luego «Persona o proceso» y «Plan de respaldo»; luego «Monitoreo y deriva». Retornos: «Monitoreo y deriva» lleva a «Datos disponibles al decidir» (cambia la población).](../../../site/assets/figures/mermaid-36e4f14bed.svg)
 
 El mapa conecta la decisión de producto con los datos que existen **en el momento de decidir**, no con los que existen después. La evaluación depende de esa frontera temporal; el umbral y la acción dependen del coste de cada error; y el monitoreo devuelve la información de que el entorno cambió.
 

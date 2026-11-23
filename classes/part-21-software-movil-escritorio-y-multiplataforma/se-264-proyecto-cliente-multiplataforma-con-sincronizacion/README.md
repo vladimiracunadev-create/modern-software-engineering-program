@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Edición local] --> B[Registro de operaciones]
-    B --> C[Envío con identificador]
-    C --> D{Canal con fallos}
-    D -->|pérdida| E[Reintento]
-    D -->|duplicado| F[Deduplicación por identificador]
-    D -->|desorden| G[Aplicación idempotente]
-    E --> H[Estado del servidor]
-    F --> H
-    G --> H
-    H --> I[Paquete y validador]
-    I -->|hallazgo| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Edición local»; luego «Registro de operaciones»; luego «Envío con identificador»; luego «Canal con fallos»; luego «Reintento», «Deduplicación por identificador» y «Aplicación idempotente»; luego «Estado del servidor»; luego «Paquete y validador». Retornos: «Paquete y validador» lleva a «Edición local» (hallazgo).](../../../site/assets/figures/mermaid-010891813b.svg)
 
 El mapa se lee de izquierda a derecha: toda edición local se vuelve una operación con identificador; el canal puede perder, duplicar y reordenar; reintento, deduplicación y aplicación idempotente llevan al estado del servidor; el paquete y su validador cierran el ciclo. El retorno indica que un hallazgo reabre la edición.
 

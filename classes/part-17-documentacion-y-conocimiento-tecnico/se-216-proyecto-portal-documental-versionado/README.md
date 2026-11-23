@@ -46,18 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuentes: páginas, ADR, API, runbooks] --> B[Comprobadores]
-    B --> C[Construcción reproducible]
-    C --> D[Versiones etiquetadas]
-    D --> E[Paquete con huella]
-    B --> F[Auditoría con límites]
-    D --> G[Política de enlaces entre versiones]
-    F --> H[Informe de entrega]
-    E --> H
-    G --> H
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Fuentes: páginas, ADR, API, runbooks»; luego «Comprobadores»; luego «Construcción reproducible» y «Auditoría con límites»; luego «Versiones etiquetadas»; luego «Paquete con huella» y «Política de enlaces entre versiones»; luego «Informe de entrega».](../../../site/assets/figures/mermaid-1251b5ca66.svg)
 
 El diagrama se lee de izquierda a derecha: las fuentes pasan por los comprobadores y se construyen de forma reproducible; las versiones se etiquetan; el paquete lleva huella; la auditoría informa de sus límites; la política de enlaces entre versiones completa el cuadro; todo desemboca en el informe de entrega. No es un proceso obligatorio y no incluye la publicación a un servidor, que depende de la plataforma elegida.
 

@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión técnica] --> B[Consulta: bytes leídos]
-    A --> C[Refresco: frecuencia y alcance]
-    A --> D[Retención: TB-mes]
-    A --> E[Pipeline: ruta crítica]
-    B --> F[Costo = bytes × precio × ejecuciones]
-    C --> F
-    D --> F
-    E --> G[Hora de entrega]
-    F --> H[Atribución por dueño]
-    H --> I[Presupuesto y alertas]
-    G --> J[SLO de frescura]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Decisión técnica»; luego «Consulta: bytes leídos», «Refresco: frecuencia y alcance», «Retención: TB-mes» y «Pipeline: ruta crítica»; luego «Costo = bytes × precio × ejecuciones» y «Hora de entrega»; luego «Atribución por dueño» y «SLO de frescura»; luego «Presupuesto y alertas».](../../../site/assets/figures/mermaid-a4d28bca75.svg)
 
 El mapa muestra que cada decisión tiene dos salidas posibles: dinero o tiempo. La atribución por dueño es lo que permite que alguien responda por cada una.
 

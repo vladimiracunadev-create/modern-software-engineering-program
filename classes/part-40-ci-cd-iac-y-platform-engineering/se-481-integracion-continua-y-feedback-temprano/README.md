@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio pequeño en una rama corta] --> B[Verificación automática del cambio]
-    B -->|verde| C[Integración en la troncal]
-    B -->|rojo| D[Quien lo escribió lo corrige]
-    C --> E[Verificación de la troncal]
-    E -->|rojo| F[Se revierte o se corrige primero]
-    E -->|verde| G[Artefacto candidato]
-    C --> H[Otras ramas se actualizan]
-    H -->|choque semántico| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Cambio pequeño en una rama corta»; luego «Verificación automática del cambio»; luego «Integración en la troncal» y «Quien lo escribió lo corrige»; luego «Verificación de la troncal» y «Otras ramas se actualizan»; luego «Se revierte o se corrige primero» y «Artefacto candidato». Retornos: «Otras ramas se actualizan» lleva a «Verificación automática del cambio» (choque semántico).](../../../site/assets/figures/mermaid-db05094a95.svg)
 
 El mapa separa la **verificación del cambio** (antes de integrar) de la **verificación de la troncal** (después). Un rojo en la primera detiene a una persona; un rojo en la segunda detiene a todo el equipo, y por eso la política debe decir quién lo trata y con qué prioridad.
 

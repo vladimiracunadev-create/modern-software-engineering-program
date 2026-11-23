@@ -10,20 +10,7 @@ La [Parte 14](../part-14-experiencia-accesibilidad-e-internacionalizacion/README
 
 Esta parte no enseña un marco. Enseña a elegir el modelo de proceso por la volatilidad de lo que se construye, a distinguir una práctica de su efecto, a describir un marco por sus políticas de entrada, compromiso y recorte, a explicar la espera con utilización, variabilidad y lotes, a comunicar una estimación como rango con su cobertura real, a calcular el plazo de una red con dependencias, a separar riesgos, supuestos, issues y decisiones, a diseñar puertas cuyas comprobaciones vean defectos distintos, a medir sin premiar la métrica, a acordar solo las mejoras que caben en la capacidad, a calibrar un pronóstico y a replanificar con reglas. Cada clase ejecuta simulaciones con datos sintéticos que muestran un mecanismo (un intervalo de retroalimentación de menor esfuerzo, una espera que se multiplica por diecinueve, un percentil 85 que se cumple dos de cada tres veces) y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Volatilidad y riesgo] --> B[Modelo y principios]
-    B --> C[Políticas de los marcos]
-    C --> D[Flujo y colas]
-    D --> E[Estimación con rango]
-    E --> F[Dependencias y entrega]
-    F --> G[Riesgos y decisiones]
-    G --> H[Puertas de calidad]
-    H --> I[Métricas con contrapesos]
-    I --> J[Mejora del sistema]
-    J --> K[Plan adaptativo]
-    K -->|evidencia nueva| A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Volatilidad y riesgo»; luego «Modelo y principios»; luego «Políticas de los marcos»; luego «Flujo y colas»; luego «Estimación con rango»; luego «Dependencias y entrega»; luego «Riesgos y decisiones»; luego «Puertas de calidad»; luego «Métricas con contrapesos»; luego «Mejora del sistema»; luego «Plan adaptativo». Retornos: «Plan adaptativo» lleva a «Volatilidad y riesgo» (evidencia nueva).](../../site/assets/figures/mermaid-31a4871a38.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que la evidencia de una entrega cambia la volatilidad y el riesgo con que se planifica la siguiente; un plan aprobado no cierra el trabajo, lo fecha.
 

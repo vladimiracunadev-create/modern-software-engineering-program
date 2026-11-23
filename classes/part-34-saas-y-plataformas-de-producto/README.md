@@ -10,21 +10,7 @@ Las partes anteriores enseñaron a construir, probar, desplegar y operar softwar
 
 Esta parte no defiende un modelo de negocio: enseña a leer un producto SaaS como **un conjunto de invariantes con costo y con evidencia**. Cada clase toma una propiedad (que un cliente no vea ni degrade a otro, que dar de alta no deje cuentas a medias, que el estado de una suscripción sea una decisión guardada, que cada evento de uso se cuente una sola vez, que lo contratado se haga cumplir donde se actúa, que el precio sea una decisión medible, que el dinero deje un libro que cuadra y que la promesa de servicio se pueda comprobar) y la lleva a una medición y a un límite declarado. La primera clase fija el vocabulario y la economía (entrega continua, multi-inquilino y ciclo de ingresos). Las dos siguientes tratan el aislamiento y el alta. Las cuatro del siguiente bloque cubren el ciclo de ingresos desde la suscripción hasta el precio. Las tres siguientes llevan el dinero a plataformas de dos lados, pagos y una tienda. La penúltima compromete el servicio con niveles y la última reúne todo en un taller y un proyecto integrador con evidencia reproducible.
 
-```mermaid
-flowchart LR
-    A[Qué es SaaS] --> B[Aislamiento y vecino ruidoso]
-    B --> C[Alta y configuración]
-    C --> D[Suscripciones y dunning]
-    D --> E[Medición de uso]
-    E --> F[Planes, derechos y banderas]
-    F --> G[Precios y límites]
-    G --> H[Marketplaces]
-    H --> I[Pagos, idempotencia y conciliación]
-    I --> J[Tienda: carrito, inventario, devoluciones]
-    J --> K[SLA, soporte y operación]
-    K --> L[Taller y proyecto integrador]
-    L -->|un defecto no visto| B
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Qué es SaaS»; luego «Aislamiento y vecino ruidoso»; luego «Alta y configuración»; luego «Suscripciones y dunning»; luego «Medición de uso»; luego «Planes, derechos y banderas»; luego «Precios y límites»; luego «Marketplaces»; luego «Pagos, idempotencia y conciliación»; luego «Tienda: carrito, inventario, devoluciones»; luego «SLA, soporte y operación»; luego «Taller y proyecto integrador». Retornos: «Taller y proyecto integrador» lleva a «Aislamiento y vecino ruidoso» (un defecto no visto).](../../site/assets/figures/mermaid-38842ae47a.svg)
 
 El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los mecanismos y sus costos. El retorno indica que un defecto que la batería final no ve vuelve a empezar el recorrido desde el aislamiento: se escribe la prueba que faltaba y se repite la evidencia.
 

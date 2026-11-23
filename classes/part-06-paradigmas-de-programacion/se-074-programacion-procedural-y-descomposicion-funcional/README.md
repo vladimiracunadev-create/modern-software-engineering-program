@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Procedimiento / contrato] --> N2[Descomposición por responsabilidad] --> N3[Flujo de datos / dependencias] --> N4[Efectos en los bordes] --> N5[Composición / nivel de abstracción]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Procedimiento / contrato»; luego «Descomposición por responsabilidad»; luego «Flujo de datos / dependencias»; luego «Efectos en los bordes»; luego «Composición / nivel de abstracción». Retornos: «Composición / nivel de abstracción» lleva a «Procedimiento / contrato» (fallo o cambio).](../../../site/assets/figures/mermaid-331a449226.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

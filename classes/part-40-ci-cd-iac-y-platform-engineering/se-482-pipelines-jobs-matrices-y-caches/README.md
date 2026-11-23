@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Jobs con duración] --> B[Dependencias: grafo sin ciclos]
-    B --> C[Camino crítico = duración mínima]
-    C --> D[Ejecutores: reducen hasta el camino crítico]
-    B --> E[Matriz: un job por combinación]
-    E --> F[Estrategia: completa, parejas, una a la vez]
-    A --> G[Caché: clave y respaldo]
-    G -->|clave no refleja la entrada| H[Resultado obsoleto]
-    A --> I[Artefacto entre jobs]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Jobs con duración»; luego «Dependencias: grafo sin ciclos», «Caché: clave y respaldo» y «Artefacto entre jobs»; luego «Camino crítico = duración mínima», «Matriz: un job por combinación» y «Resultado obsoleto»; luego «Ejecutores: reducen hasta el camino crítico» y «Estrategia: completa, parejas, una a la vez».](../../../site/assets/figures/mermaid-f83690f8e1.svg)
 
 El mapa separa lo que fija la **duración mínima** (el camino crítico del grafo), lo que fija el **número de trabajos** (la matriz) y lo que acelera **sin garantía de corrección** (la caché). Cada decisión tiene un modo de fallo distinto.
 

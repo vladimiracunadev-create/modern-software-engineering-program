@@ -46,17 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Documento] --> B[Metadatos validados]
-    A --> C[Fragmentos coherentes]
-    A --> D[Texto que puede contener instrucciones]
-    B --> E[Programas: índices, auditorías]
-    C --> F[Recuperación para un modelo]
-    D --> G[Tratar como dato]
-    G --> H[Permisos mínimos del agente]
-    F --> H
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Documento»; luego «Metadatos validados», «Fragmentos coherentes» y «Texto que puede contener instrucciones»; luego «Programas: índices, auditorías», «Recuperación para un modelo» y «Tratar como dato»; luego «Permisos mínimos del agente».](../../../site/assets/figures/mermaid-bc506bcd92.svg)
 
 El diagrama se lee de izquierda a derecha: un documento ofrece tres cosas a una máquina: metadatos que un programa valida, fragmentos que un modelo recupera y texto que, por ser texto, podría contener instrucciones. Lo último se trata como dato y la defensa real es limitar lo que el agente puede hacer. No se dibuja la parte humana: las propiedades de `SE-205` a `SE-213` siguen siendo necesarias; esta clase añade, no sustituye.
 

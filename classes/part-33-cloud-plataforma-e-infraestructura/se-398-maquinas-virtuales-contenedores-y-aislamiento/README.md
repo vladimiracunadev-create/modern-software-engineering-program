@@ -51,20 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Carga a ejecutar] --> B{¿Quién es el adversario?}
-    B -->|código propio y de confianza| C[Proceso o hilo]
-    B -->|código de otros equipos| D[Contenedor con límites]
-    B -->|código ajeno o hostil| E[Máquina virtual o microVM]
-    C --> F[Comparte núcleo y memoria del proceso]
-    D --> G[Comparte núcleo, vista y recursos acotados]
-    E --> H[Núcleo propio, hardware virtualizado]
-    F --> I[Evidencia: arranque, memoria, interferencia]
-    G --> I
-    H --> I
-    I -->|incidente o cambio de amenaza| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Carga a ejecutar»; luego «¿Quién es el adversario?»; luego «Proceso o hilo», «Contenedor con límites» y «Máquina virtual o microVM»; luego «Comparte núcleo y memoria del proceso», «Comparte núcleo, vista y recursos acotados» y «Núcleo propio, hardware virtualizado»; luego «Evidencia: arranque, memoria, interferencia». Retornos: «Evidencia: arranque, memoria, interferencia» lleva a «¿Quién es el adversario?» (incidente o cambio de amenaza).](../../../site/assets/figures/mermaid-ba99aaf16e.svg)
 
 El mapa empieza por el adversario, no por la tecnología: la frontera se elige según de quién se protege la plataforma. Cada rama comparte algo distinto, y esa lista de lo compartido es lo que se contrasta con la evidencia de arranque, memoria e interferencia.
 

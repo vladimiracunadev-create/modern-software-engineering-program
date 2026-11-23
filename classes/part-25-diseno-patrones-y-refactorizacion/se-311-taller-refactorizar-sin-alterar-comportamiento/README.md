@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Función heredada] --> B[Registrar entradas y salidas: maestro dorado]
-    B --> C[Paso de refactor]
-    C --> D[Comparar con el maestro]
-    D -->|igual| E[Confirmar y seguir]
-    D -->|difiere| F{¿Rareza usada?}
-    F -->|sí: conservar| G[Escribir la rareza como regla explícita]
-    F -->|no: corregir| H[Aviso y cambio de comportamiento deliberado]
-    E --> C
-    G --> C
-    H --> C
-    E --> I[Métricas antes y después]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Función heredada»; luego «Registrar entradas y salidas: maestro dorado»; luego «Paso de refactor»; luego «Comparar con el maestro»; luego «Confirmar y seguir» y «¿Rareza usada?»; luego «Métricas antes y después», «Escribir la rareza como regla explícita» y «Aviso y cambio de comportamiento deliberado». Retornos: «Confirmar y seguir» lleva a «Paso de refactor»; «Escribir la rareza como regla explícita» lleva a «Paso de refactor»; «Aviso y cambio de comportamiento deliberado» lleva a «Paso de refactor».](../../../site/assets/figures/mermaid-de47a6241e.svg)
 
 El mapa tiene un ciclo (paso, comparación, decisión) y dos salidas distintas ante una diferencia: conservar la rareza como regla o corregirla con un aviso. Ninguna diferencia se acepta sin decisión.
 

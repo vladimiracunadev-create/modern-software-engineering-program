@@ -55,15 +55,7 @@ Podrás diseñar esquema y precedencia; distinguir ausente, vacío y valor invá
 | Secreto | exige ciclo de vida y redacción | diagnosticar sin divulgar autoridad |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- D[Predeterminados seguros] --> F[Archivo]
- F --> E[Entorno]
- E --> C[CLI]
- C --> V[Validar esquema y semántica]
- V --> X[Configuración efectiva]
- X --> R[Informe con procedencia y redacción]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Predeterminados seguros»; luego «Archivo»; luego «Entorno»; luego «CLI»; luego «Validar esquema y semántica»; luego «Configuración efectiva»; luego «Informe con procedencia y redacción».](../../../site/assets/figures/mermaid-7433bac7f2.svg)
 
 La precedencia explica el origen; la validación decide si el resultado es admisible. La redacción ocurre antes de cualquier salida, no como limpieza posterior.
 
@@ -79,14 +71,7 @@ Cada opción necesita nombre, tipo, valor predeterminado, rango, sensibilidad, f
 
 El kit de diagnóstico multiplataforma adopta una cadena explícita:
 
-```mermaid
-flowchart LR
-    D[Valores seguros por defecto] --> F[Archivo de configuración]
-    F --> E[Variables de entorno]
-    E --> C[Opciones CLI]
-    C --> V[Validación y configuración efectiva]
-    V --> R[Informe con procedencia, secretos redactados]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Valores seguros por defecto»; luego «Archivo de configuración»; luego «Variables de entorno»; luego «Opciones CLI»; luego «Validación y configuración efectiva»; luego «Informe con procedencia, secretos redactados».](../../../site/assets/figures/mermaid-cfd719de83.svg)
 
 La fuente de mayor precedencia reemplaza solo campos definidos. El programa informa de dónde provino cada valor no sensible. Una cadena silenciosa genera incidentes donde una variable olvidada domina al archivo esperado.
 

@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Pila / disciplina LIFO] --> N2[Cola / disciplina FIFO] --> N3[Deque / ventanas] --> N4[Heap / prioridad parcial] --> N5[Starvation / envejecimiento]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Pila / disciplina LIFO»; luego «Cola / disciplina FIFO»; luego «Deque / ventanas»; luego «Heap / prioridad parcial»; luego «Starvation / envejecimiento». Retornos: «Starvation / envejecimiento» lleva a «Pila / disciplina LIFO» (fallo o cambio).](../../../site/assets/figures/mermaid-e733662a20.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

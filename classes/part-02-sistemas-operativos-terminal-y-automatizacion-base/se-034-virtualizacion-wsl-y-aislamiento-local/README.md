@@ -56,16 +56,7 @@ Podrás dibujar fronteras de VM, contenedor y WSL; identificar kernel y recursos
 | Persistencia | separa instancia de volúmenes/montajes | evitar pérdida y cruces inseguros |
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
- A[Aplicación] --> U[Espacio de usuario]
- U --> K{Kernel usado}
- K -->|Nativo| H[Hardware anfitrión]
- K -->|Invitado| V[Hipervisor o VM administrada]
- V --> H
- M[Montajes y red] --> U
- M --> X[Recursos externos o del anfitrión]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Aplicación» y «Montajes y red»; luego «Espacio de usuario» y «Recursos externos o del anfitrión»; luego «Kernel usado»; luego «Hipervisor o VM administrada»; luego «Hardware anfitrión».](../../../site/assets/figures/mermaid-a198e390db.svg)
 
 La aplicación puede ver un sistema distinto del anfitrión. Montajes y red cruzan fronteras; deben modelarse aparte de la etiqueta del proceso.
 
@@ -81,22 +72,7 @@ Una VM completa consume más recursos que un proceso aislado y puede reproducir 
 
 En el modelo común de Linux, namespaces ofrecen vistas separadas de procesos, red, montajes y otras identidades; cgroups contabilizan y limitan recursos. La imagen aporta espacio de usuario, no otro kernel. Por eso una imagen Linux no ejecuta directamente sobre cualquier kernel sin una capa intermedia.
 
-```mermaid
-flowchart TB
-    subgraph VM[Máquina virtual]
-      APP1[Aplicación] --> G1[Kernel invitado]
-    end
-    G1 --> H[Hipervisor/anfitrión]
-    subgraph CT[Contenedor]
-      APP2[Aplicación aislada] --> K[Kernel compartido]
-    end
-    K --> H
-    subgraph W[WSL 2]
-      APP3[Proceso Linux] --> LK[Kernel Linux administrado]
-      LK --> WH[Integración con Windows]
-    end
-    WH --> H
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Aplicación», «Aplicación aislada» y «Proceso Linux»; luego «Kernel invitado», «Kernel compartido» y «Kernel Linux administrado»; luego «Integración con Windows»; luego «Hipervisor/anfitrión».](../../../site/assets/figures/mermaid-7df891cb72.svg)
 
 El diagrama compara fronteras, no calidad. La implementación concreta puede añadir sandboxing, VM ligera o políticas adicionales.
 

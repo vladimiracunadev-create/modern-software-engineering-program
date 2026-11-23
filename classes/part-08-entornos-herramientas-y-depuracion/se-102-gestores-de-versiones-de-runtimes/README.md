@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Runtime e implementación] --> N2[Resolución por PATH] --> N3[Gestor de versiones] --> N4[Compatibilidad / sintaxis] --> N5[Actualización / rollback]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Runtime e implementación»; luego «Resolución por PATH»; luego «Gestor de versiones»; luego «Compatibilidad / sintaxis»; luego «Actualización / rollback». Retornos: «Actualización / rollback» lleva a «Runtime e implementación» (fallo o cambio).](../../../site/assets/figures/mermaid-3f3b649d01.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

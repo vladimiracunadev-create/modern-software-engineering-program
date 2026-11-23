@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Periodo de despertar] --> B[Carga por ciclo]
-    C[Corriente de reposo] --> B
-    B --> D[Corriente media]
-    D --> E[Vida de la pila]
-    F[Frecuencia de escritura] --> G[Borrados por sector]
-    H[Política de reparto] --> G
-    G --> I[Vida de la flash]
-    J[Ancho y redondeo] --> K[Error del filtro]
-    E --> L[Presupuesto]
-    I --> L
-    K --> L
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Periodo de despertar», «Corriente de reposo», «Ancho y redondeo», «Frecuencia de escritura» y «Política de reparto»; luego «Carga por ciclo», «Error del filtro» y «Borrados por sector»; luego «Corriente media» y «Vida de la flash»; luego «Vida de la pila»; luego «Presupuesto».](../../../site/assets/figures/mermaid-f48029c607.svg)
 
 El mapa tiene tres ramas independientes que convergen en un presupuesto: energía, memoria no volátil y precisión numérica. Cada una se calcula por separado y se compara con lo que el producto promete.
 

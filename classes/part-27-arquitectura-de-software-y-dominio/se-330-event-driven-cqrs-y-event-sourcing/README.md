@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Comando] --> A[Agregado]
-    A --> E[Evento con id y secuencia]
-    E --> B[Bus o registro de eventos]
-    B --> P[Proyector]
-    P --> R[Modelo de lectura]
-    B --> X[Otro contexto]
-    R -->|lectura propia| U[Usuario]
-    B -->|reproducir| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Comando»; luego «Agregado»; luego «Evento con id y secuencia»; luego «Bus o registro de eventos»; luego «Proyector» y «Otro contexto»; luego «Modelo de lectura»; luego «Usuario». Retornos: «Bus o registro de eventos» lleva a «Agregado» (reproducir).](../../../site/assets/figures/mermaid-33acf8d553.svg)
 
 El mapa muestra que el evento es el punto de encuentro: quien lo emite, quien proyecta una vista y quien reacciona desde otro contexto lo consumen en momentos distintos. La reproducción desde el registro reconstruye el estado, a un coste que crece con la historia.
 

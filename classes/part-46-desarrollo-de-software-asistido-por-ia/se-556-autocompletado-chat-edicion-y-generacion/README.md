@@ -53,23 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tarea] --> B{Alcance}
-    B -->|una línea o expresión| C[Autocompletado]
-    B -->|pregunta o diseño| D[Chat]
-    B -->|cambio en archivos existentes| E[Edición]
-    B -->|código nuevo| F[Generación]
-    C --> G[Aceptar o rechazar]
-    D --> H[Respuesta a contrastar]
-    E --> I[Diff a revisar]
-    F --> J[Archivo nuevo a entender]
-    G --> K[Pruebas y revisión]
-    I --> K
-    J --> K
-    H --> K
-    K -->|rechaza| L[Revertir o reencargar]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Tarea»; luego «Alcance»; luego «Autocompletado», «Chat», «Edición» y «Generación»; luego «Aceptar o rechazar», «Respuesta a contrastar», «Diff a revisar» y «Archivo nuevo a entender»; luego «Pruebas y revisión»; luego «Revertir o reencargar».](../../../site/assets/figures/mermaid-042a81123c.svg)
 
 El mapa organiza los modos por el **alcance** de lo que tocan y muestra que todos desembocan en la misma compuerta: pruebas y revisión. Lo que cambia es la cantidad de material que llega a esa compuerta y la facilidad de deshacerlo.
 

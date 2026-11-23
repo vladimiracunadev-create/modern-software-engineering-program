@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Índices ordenados / consultas de rango] --> N2[Bloom filter] --> N3[Sketches / aproximación] --> N4[Estructuras persistentes] --> N5[Índice como proyección]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Índices ordenados / consultas de rango»; luego «Bloom filter»; luego «Sketches / aproximación»; luego «Estructuras persistentes»; luego «Índice como proyección». Retornos: «Índice como proyección» lleva a «Índices ordenados / consultas de rango» (fallo o cambio).](../../../site/assets/figures/mermaid-bff9120ae0.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

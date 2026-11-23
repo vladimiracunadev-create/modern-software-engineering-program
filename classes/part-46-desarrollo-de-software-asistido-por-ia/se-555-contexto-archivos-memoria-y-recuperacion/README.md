@@ -53,22 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta o tarea] --> B[Recuperación]
-    C[Archivos del proyecto] --> D[Fragmentación]
-    D --> E[Índice]
-    E --> B
-    F[Memoria persistente] --> G{Caducidad}
-    G -->|vigente| H[Candidatos]
-    G -->|vencida| X[Descartada o refrescada]
-    B --> H
-    H --> I[Empaquetado en presupuesto]
-    I --> J[Ventana de contexto]
-    J --> K[Modelo]
-    K --> L[Respuesta con citas]
-    L -->|cita no coincide| M[Revisión]
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Archivos del proyecto» y «Memoria persistente»; luego «Fragmentación» y «Caducidad»; luego «Pregunta o tarea», «Índice» y «Descartada o refrescada»; luego «Recuperación»; luego «Candidatos»; luego «Empaquetado en presupuesto»; luego «Ventana de contexto»; luego «Modelo»; luego «Respuesta con citas»; luego «Revisión».](../../../site/assets/figures/mermaid-a25f2f8ce6.svg)
 
 El mapa muestra tres fuentes (recuperación, memoria, archivos) que desembocan en un cuello de botella, el presupuesto. Cada flecha es una decisión de ingeniería con su fallo: fragmentos mal partidos, hechos vencidos, candidatos que no caben.
 

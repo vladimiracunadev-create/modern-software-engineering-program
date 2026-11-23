@@ -55,21 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Release recibido: artefacto, SBOM, procedencia, manifiesto, firma] --> B[1. Firma del manifiesto con clave fijada]
-    B --> C[2. Nombre y secuencia del manifiesto]
-    C --> D[3. Huellas de artefacto, SBOM y procedencia]
-    D --> E[4. Procedencia: sujeto, constructor, repositorio]
-    E --> F[5. Coherencia: bloqueo, SBOM y artefacto]
-    F --> G{¿Alguna comprobación falla?}
-    G -->|sí| H[Rechazar y registrar cuál]
-    G -->|no| I[Verificado: coherente]
-    I --> J[6. Reconstrucción independiente desde la fuente revisada]
-    J -->|coincide| K[Procede de la fuente revisada]
-    J -->|difiere| H
-    I -.-> L[No verificable: fuente benigna, constructor honesto]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Release recibido: artefacto, SBOM, procedencia, manifiesto, firma»; luego «1. Firma del manifiesto con clave fijada»; luego «2. Nombre y secuencia del manifiesto»; luego «3. Huellas de artefacto, SBOM y procedencia»; luego «4. Procedencia: sujeto, constructor, repositorio»; luego «5. Coherencia: bloqueo, SBOM y artefacto»; luego «¿Alguna comprobación falla?»; luego «Verificado: coherente»; luego «6. Reconstrucción independiente desde la fuente revisada» y «No verificable: fuente benigna, constructor honesto»; luego «Procede de la fuente revisada» y «Rechazar y registrar cuál».](../../../site/assets/figures/mermaid-a9dcb02e7b.svg)
 
 El mapa muestra que la verificación recorre cinco grupos de comprobaciones antes de declarar coherente el release y que la reconstrucción independiente añade una sexta capa. Lo que queda en la línea punteada no lo ve ninguna comprobación.
 

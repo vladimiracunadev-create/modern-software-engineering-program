@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Agente cliente] --> B{Pieza que consume}
-    B -->|controlada por el modelo| C[Herramientas]
-    B -->|dirigida por la aplicación| D[Recursos]
-    B -->|controlada por la persona| E[Plantillas de petición]
-    C --> F[Pasarela: autoriza por cabecera]
-    F --> G[Servidor: ejecuta el cuerpo]
-    F -.->|debe coincidir con| G
-    H[Descripción de la herramienta] -->|texto no confiable en el contexto| A
-    I[Listado con ttlMs] --> J[Caché del cliente]
-    J -->|dato viejo| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Listado con ttlMs»; luego «Descripción de la herramienta» y «Caché del cliente»; luego «Agente cliente»; luego «Pieza que consume»; luego «Herramientas», «Recursos» y «Plantillas de petición»; luego «Pasarela: autoriza por cabecera»; luego «Servidor: ejecuta el cuerpo».](../../../site/assets/figures/mermaid-34ceb65c1e.svg)
 
 La figura separa tres cosas que se confunden: qué piezas se consumen (y quién decide su uso), dónde se autoriza y dónde se ejecuta (que deben decir lo mismo) y el texto de las descripciones y las cachés (que entran en el agente sin que nadie las revise).
 

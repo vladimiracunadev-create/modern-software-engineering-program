@@ -55,21 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Módulo subido] --> B[Validador: importaciones permitidas]
-    B -->|rechaza| R[Registro: rechazado y motivo]
-    B -->|acepta| C[Módulo compilado + huella SHA-256]
-    D[Petición] --> E[Instancia nueva: combustible y memoria acotados]
-    C --> E
-    E --> F{Resultado}
-    F -->|ok| G[Respuesta]
-    F -->|trampa o combustible| H[Política: aviso por defecto]
-    G --> R
-    H --> R
-    R --> I[Cadena de resúmenes]
-    I --> J[Informe firmado ML-DSA]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Módulo subido»; luego «Validador: importaciones permitidas»; luego «Módulo compilado + huella SHA-256» y «Petición»; luego «Instancia nueva: combustible y memoria acotados»; luego «Resultado»; luego «Respuesta» y «Política: aviso por defecto»; luego «Registro: rechazado y motivo»; luego «Cadena de resúmenes»; luego «Informe firmado ML-DSA».](../../../site/assets/figures/mermaid-3e058d5b33.svg)
 
 Hay dos caminos de entrada (subir un módulo y hacer una petición), un único registro encadenado al que todo se anota y un informe firmado que cierra la cadena. La política ante una falla es una decisión explícita, no un comportamiento accidental.
 

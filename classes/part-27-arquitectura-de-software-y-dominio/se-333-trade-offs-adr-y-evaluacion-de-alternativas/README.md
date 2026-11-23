@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C[Contexto y escenarios] --> A[Alternativas]
-    A --> M[Matriz o analisis de sensibilidad]
-    M --> D[Decision]
-    D --> R[ADR con consecuencias y reversibilidad]
-    R --> L[Comprobador de forma]
-    R --> F[Funcion de aptitud]
-    F -->|condicion de revision| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Contexto y escenarios»; luego «Alternativas»; luego «Matriz o analisis de sensibilidad»; luego «Decision»; luego «ADR con consecuencias y reversibilidad»; luego «Comprobador de forma» y «Funcion de aptitud». Retornos: «Funcion de aptitud» lleva a «Contexto y escenarios» (condicion de revision).](../../../site/assets/figures/mermaid-56e80668cd.svg)
 
 El mapa muestra que la matriz es una entrada de la decisión, no la decisión, y que el ADR se vincula a funciones de aptitud y a una condición de revisión. La decisión se reabre por el contexto, no por antigüedad.
 

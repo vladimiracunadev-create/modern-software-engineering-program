@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Hipótesis y efecto a detectar] --> B[Radio mínimo con potencia suficiente]
-    B --> C[Dimensiones: tráfico, duración, intensidad, alcance]
-    C --> D[Condiciones de aborto sobre el grupo experimental]
-    D --> E[Reversión probada]
-    E --> F[Ejecución y comparación con el control]
-    F -->|se supera un límite| G[Aborto y restauración]
-    F -->|termina el tiempo| H[Informe de evidencia]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Hipótesis y efecto a detectar»; luego «Radio mínimo con potencia suficiente»; luego «Dimensiones: tráfico, duración, intensidad, alcance»; luego «Condiciones de aborto sobre el grupo experimental»; luego «Reversión probada»; luego «Ejecución y comparación con el control»; luego «Aborto y restauración» y «Informe de evidencia».](../../../site/assets/figures/mermaid-8f02bd6fd0.svg)
 
 El mapa separa lo que se decide **antes** (radio, aborto y reversión) de lo que ocurre **durante** (comparación y aborto). La reversión se prueba antes del experimento, no durante.
 

@@ -46,16 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Síntoma observado] --> B{Runbook o playbook}
-    B -->|situación conocida| C[Precondiciones y pasos]
-    B -->|situación abierta| D[Preguntas de decisión]
-    C --> E[Verificación]
-    E -->|no resuelve| D
-    C -->|se interrumpe| F[Reanudar desde el paso]
-    E --> G[Registro para la revisión posterior]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Síntoma observado»; luego «Runbook o playbook»; luego «Precondiciones y pasos»; luego «Verificación» y «Reanudar desde el paso»; luego «Registro para la revisión posterior» y «Preguntas de decisión».](../../../site/assets/figures/mermaid-850cc64b80.svg)
 
 El diagrama se lee de izquierda a derecha: un síntoma lleva a un runbook si la situación es conocida, o a un playbook de preguntas si no lo es; el runbook se ejecuta con verificación y puede interrumpirse y reanudarse; si la verificación no resuelve, se vuelve a las preguntas. Todo queda registrado para la revisión posterior. No se dibuja la escalada a otra persona, que es un paso más del playbook.
 

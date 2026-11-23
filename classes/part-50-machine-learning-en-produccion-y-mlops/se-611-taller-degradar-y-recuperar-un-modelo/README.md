@@ -56,22 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Inyectar falla] --> B[Monitores: validación, PSI, puntaje, etiquetas]
-    B --> C{¿Alerta?}
-    C -->|no| D[Brecha de monitoreo]
-    C -->|sí| E[Diagnóstico por runbook]
-    E --> F{Causa}
-    F -->|entrada| G[Corregir la conversión o bloquear el lote]
-    F -->|modelo| H[Rollback al modelo anterior]
-    F -->|mundo| I[Reentrenar con ventana reciente]
-    G --> J[Verificar métrica]
-    H --> J
-    I --> J
-    J --> K[Postmortem y acciones]
-    D --> K
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Inyectar falla»; luego «Monitores: validación, PSI, puntaje, etiquetas»; luego «¿Alerta?»; luego «Brecha de monitoreo» y «Diagnóstico por runbook»; luego «Causa»; luego «Corregir la conversión o bloquear el lote», «Rollback al modelo anterior» y «Reentrenar con ventana reciente»; luego «Verificar métrica»; luego «Postmortem y acciones».](../../../site/assets/figures/mermaid-80f9b0ce7e.svg)
 
 El mapa tiene dos salidas hacia el postmortem: una falla que se mitigó y una que nadie vio. Esta última es la que más enseña, porque revela una brecha que los tableros no mostraban.
 

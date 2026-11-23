@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Detenido] -->|arrancar| B[Arrancando]
-    B -->|sonda de preparación ok| C[Preparado]
-    C -->|petición de parada| D[Drenando]
-    D -->|termina o vence el plazo| A
-    B -->|falla| E[Espera de reinicio]
-    C -->|falla| E
-    E -->|espera creciente| B
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Detenido»; luego «Arrancando»; luego «Preparado»; luego «Drenando» y «Espera de reinicio». Retornos: «Drenando» lleva a «Detenido» (termina o vence el plazo); «Espera de reinicio» lleva a «Arrancando» (espera creciente).](../../../site/assets/figures/mermaid-aa29434d66.svg)
 
 El mapa se lee como una máquina de estados: solo en «preparado» se envía tráfico; la parada pasa por «drenando» antes de detenerse; los fallos van a una espera que crece. No describe un único gestor de servicios.
 

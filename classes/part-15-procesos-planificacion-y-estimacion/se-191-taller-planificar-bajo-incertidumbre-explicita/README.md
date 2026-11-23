@@ -50,19 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Historia de rendimiento] --> B[Remuestreo]
-    C[Alcance y su crecimiento] --> B
-    B --> D[Distribución de la fecha]
-    D --> E[Percentiles comunicados]
-    E --> F{Calibración}
-    F -->|descalibrado| G[Corregir el modelo]
-    F -->|calibrado| H[Plan con supuestos]
-    H --> I[Sensibilidad de supuestos]
-    I --> J[Señales de vigilancia]
-    J -->|dato real| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Historia de rendimiento» y «Alcance y su crecimiento»; luego «Remuestreo»; luego «Distribución de la fecha»; luego «Percentiles comunicados»; luego «Calibración»; luego «Corregir el modelo» y «Plan con supuestos»; luego «Sensibilidad de supuestos»; luego «Señales de vigilancia». Retornos: «Señales de vigilancia» lleva a «Historia de rendimiento» (dato real).](../../../site/assets/figures/mermaid-d17c1fbcaa.svg)
 
 El mapa se lee de izquierda a derecha como el procedimiento del taller: del dato a la distribución, de la distribución a la comprobación y de la comprobación a la vigilancia. El retorno recuerda que cada semana de datos reales vuelve a alimentar la historia.
 

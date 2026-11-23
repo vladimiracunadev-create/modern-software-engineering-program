@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Medición de posición] --> B[Sistema de referencia]
-    B --> C[Proyección o esfera]
-    C --> D[Distancia y consulta]
-    D --> E[Índice espacial]
-    F[Instante en UTC] --> G[Regla de la zona]
-    G --> H[Hora civil mostrada]
-    H --> I[Agenda de una persona]
-    E --> J[Mapa de sedes]
-    I --> J
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Medición de posición» y «Instante en UTC»; luego «Sistema de referencia» y «Regla de la zona»; luego «Proyección o esfera» y «Hora civil mostrada»; luego «Distancia y consulta» y «Agenda de una persona»; luego «Índice espacial»; luego «Mapa de sedes».](../../../site/assets/figures/mermaid-224f021d4a.svg)
 
 El mapa tiene dos columnas independientes que se juntan en el producto: el **espacio** (de la medición a la consulta) y el **tiempo** (del instante a la hora que ve la persona). En ambas, el dato crudo no basta: hace falta la convención que lo interpreta.
 

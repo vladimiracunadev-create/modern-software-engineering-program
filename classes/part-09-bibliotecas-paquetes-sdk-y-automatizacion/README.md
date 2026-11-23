@@ -13,16 +13,7 @@ clase hace explícita una frontera pública —API, paquete, CLI, plugin o artef
 somete a instalación, error, actualización y retirada. Así se distingue reutilización
 real de código que solo funciona dentro del repositorio original.
 
-```mermaid
-flowchart LR
-    A[Capacidad interna] --> B[Contrato público]
-    B --> C[Versión y dependencia]
-    C --> D[Artefacto publicado]
-    D --> E[API / SDK / CLI]
-    E --> F[Extensión y automatización]
-    F --> G[Consumidor y compatibilidad]
-    G -->|feedback o ruptura| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Capacidad interna»; luego «Contrato público»; luego «Versión y dependencia»; luego «Artefacto publicado»; luego «API / SDK / CLI»; luego «Extensión y automatización»; luego «Consumidor y compatibilidad». Retornos: «Consumidor y compatibilidad» lleva a «Contrato público» (feedback o ruptura).](../../site/assets/figures/mermaid-56ffee34bb.svg)
 
 El diagrama sigue el viaje del consumidor. La flecha de retorno indica que una ruptura,
 una migración difícil o una nueva necesidad obligan a revisar el contrato público; no se

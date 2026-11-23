@@ -56,23 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Criterios de aceptación] --> B[Plan del cambio]
-    B --> C[Trabajo asistido]
-    C --> D[Bitácora encadenada]
-    C --> E[Diff mínimo]
-    E --> F[Compuerta: pruebas]
-    F --> G[Compuerta: análisis estático y seguridad]
-    G --> H[Compuerta: revisión humana nombrada]
-    H --> I[Integración con trailers]
-    I --> J[Compuerta: canario]
-    J --> K[Producción]
-    D --> L[Ancla externa del último hash]
-    K -->|incidente| M[Reconstrucción desde la bitácora]
-    M --> N[Reversión ensayada]
-    N --> B
-```
+![Diagrama de flujo con 14 pasos. Recorrido: «Criterios de aceptación»; luego «Plan del cambio»; luego «Trabajo asistido»; luego «Bitácora encadenada» y «Diff mínimo»; luego «Ancla externa del último hash» y «Compuerta: pruebas»; luego «Compuerta: análisis estático y seguridad»; luego «Compuerta: revisión humana nombrada»; luego «Integración con trailers»; luego «Compuerta: canario»; luego «Producción»; luego «Reconstrucción desde la bitácora»; luego «Reversión ensayada». Retornos: «Reversión ensayada» lleva a «Plan del cambio».](../../../site/assets/figures/mermaid-4912e3f295.svg)
 
 El mapa une el **trabajo** (arriba), el **rastro** (la bitácora y su ancla) y las **compuertas** (pruebas, análisis, revisión, canario). La flecha de vuelta indica que un incidente reabre el plan con la reconstrucción y la reversión ensayada.
 

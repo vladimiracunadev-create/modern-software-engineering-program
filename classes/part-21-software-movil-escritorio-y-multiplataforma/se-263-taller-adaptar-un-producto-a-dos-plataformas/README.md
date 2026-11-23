@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Producto] --> B[Funciones]
-    B --> C{Cada plataforma}
-    C -->|igual| D[Compartir]
-    C -->|distinto| E[Adaptar tras un puerto]
-    C -->|ausente| F[Degradar o excluir]
-    E --> G[Contrato del puerto]
-    G --> H[Adaptador real y falso]
-    D --> I[Decisión de alcance]
-    H --> I
-    F --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Producto»; luego «Funciones»; luego «Cada plataforma»; luego «Compartir», «Adaptar tras un puerto» y «Degradar o excluir»; luego «Contrato del puerto»; luego «Adaptador real y falso»; luego «Decisión de alcance».](../../../site/assets/figures/mermaid-cfcd7376a1.svg)
 
 El mapa se lee de izquierda a derecha: cada función se clasifica por plataforma; lo igual se comparte, lo distinto se adapta detrás de un puerto con un contrato que cumplen tanto el adaptador real como el falso, y lo ausente se degrada o se excluye. La decisión de alcance reúne todo.
 

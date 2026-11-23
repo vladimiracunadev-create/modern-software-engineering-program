@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Valor y esfuerzo] --> N2[Riesgo y confianza] --> N3[Coste del retraso] --> N4[Valor del aprendizaje] --> N5[Decisión revisable]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Valor y esfuerzo»; luego «Riesgo y confianza»; luego «Coste del retraso»; luego «Valor del aprendizaje»; luego «Decisión revisable». Retornos: «Decisión revisable» lleva a «Valor y esfuerzo» (fallo o cambio).](../../../site/assets/figures/mermaid-e62d61b374.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un ranking frágil, un coste de retraso mal estimado o una prueba cuyo valor es negativo obliga a revisar la regla de priorización; no autoriza a ajustar números hasta que salga el orden deseado.
 

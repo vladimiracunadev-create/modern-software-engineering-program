@@ -57,17 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Catálogo de planes] --> D[Motor de derechos]
-    B[Excepciones por cliente con vencimiento] --> D
-    C[Estado de la suscripción] --> D
-    E[Consumo medido] --> D
-    D -->|sí| F[Operación permitida]
-    D -->|no con razón| G[Mensaje y oferta de cambio de plan]
-    H[Banderas de funcionalidad] --> I[Qué código se ejecuta]
-    I --> F
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Catálogo de planes», «Excepciones por cliente con vencimiento», «Estado de la suscripción», «Consumo medido» y «Banderas de funcionalidad»; luego «Motor de derechos» y «Qué código se ejecuta»; luego «Mensaje y oferta de cambio de plan» y «Operación permitida».](../../../site/assets/figures/mermaid-1eb99cb28e.svg)
 
 El motor de derechos recibe cuatro entradas (plan, excepciones, estado y consumo) y produce una decisión con razón. Las banderas están a un lado: no deciden quién paga qué sino qué versión del código corre. Ambas pueden coincidir en una misma operación (una función nueva que solo ve el plan empresa), pero son dos decisiones con dueños y vidas distintos.
 

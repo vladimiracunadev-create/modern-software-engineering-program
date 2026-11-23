@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Mensaje o tarea] --> B{Orden de aplicar y confirmar}
-    B -->|aplicar y luego confirmar| C[Al menos una vez: duplicados]
-    B -->|confirmar y luego aplicar| D[Como mucho una vez: pérdidas]
-    B -->|aplicar y recordar en una transacción| E[Efecto único]
-    E --> F[Clave de idempotencia con huella]
-    F --> G[Retención frente al retraso del duplicado]
-    A --> H[Trabajo distribuido: reintento de tareas]
-    H --> I[Determinismo y escritura por clave]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Mensaje o tarea»; luego «Orden de aplicar y confirmar» y «Trabajo distribuido: reintento de tareas»; luego «Al menos una vez: duplicados», «Como mucho una vez: pérdidas», «Efecto único» y «Determinismo y escritura por clave»; luego «Clave de idempotencia con huella»; luego «Retención frente al retraso del duplicado».](../../../site/assets/figures/mermaid-9e37a2eee2.svg)
 
 El mapa separa dos preguntas. En el **consumo de mensajes**, el defecto está en el orden entre aplicar y confirmar. En el **procesamiento por lotes**, el defecto está en cómo se escribe la salida y en si la tarea produce lo mismo al repetirse. La defensa común es la idempotencia: repetir no cambia el resultado.
 

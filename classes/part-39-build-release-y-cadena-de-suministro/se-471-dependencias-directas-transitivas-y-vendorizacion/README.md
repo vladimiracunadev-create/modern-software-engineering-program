@@ -54,17 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Manifiesto: dependencias directas con rango] --> B[Resolvedor: elige versiones]
-    B --> C[Archivo de bloqueo: versiones y huellas fijadas]
-    C --> D[Clausura transitiva instalada]
-    D --> E[Artefacto]
-    F[Aviso de vulnerabilidad] --> G{¿Está en la clausura y es alcanzable?}
-    D --> G
-    G -->|sí| H[Actualizar, parchear o vendorizar con dueño]
-    H --> A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Manifiesto: dependencias directas con rango»; luego «Resolvedor: elige versiones»; luego «Archivo de bloqueo: versiones y huellas fijadas»; luego «Clausura transitiva instalada» y «Aviso de vulnerabilidad»; luego «Artefacto» y «¿Está en la clausura y es alcanzable?»; luego «Actualizar, parchear o vendorizar con dueño». Retornos: «Actualizar, parchear o vendorizar con dueño» lleva a «Manifiesto: dependencias directas con rango».](../../../site/assets/figures/mermaid-9fcf3b2441.svg)
 
 El mapa muestra que el manifiesto no es el inventario: el bloqueo y la clausura lo son. El aviso de una vulnerabilidad se compara con la clausura y vuelve al manifiesto como una actualización.
 

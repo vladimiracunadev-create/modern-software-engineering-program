@@ -53,12 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Requisitos con origen] --> N2[Especificación] --> N3[Validador] --> N4[Revisión humana] --> N5[Línea base]
-    N3 -->|defecto| N2
-    N4 -->|defecto o duda| N2
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Requisitos con origen»; luego «Especificación»; luego «Validador»; luego «Revisión humana»; luego «Línea base». Retornos: «Validador» lleva a «Especificación» (defecto); «Revisión humana» lleva a «Especificación» (defecto o duda).](../../../site/assets/figures/mermaid-6ff2c93a6b.svg)
 
 El mapa se lee de izquierda a derecha como un camino de calidad: la especificación se somete a un validador automático, luego a una revisión humana, y solo después se fija como línea base. Los retornos indican que cualquier defecto encontrado en un paso devuelve al texto; no hay paso final que libere sin la revisión humana.
 

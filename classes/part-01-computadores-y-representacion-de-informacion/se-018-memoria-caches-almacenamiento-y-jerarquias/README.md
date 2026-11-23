@@ -57,13 +57,7 @@ caché; distinguirás memoria virtual y física; medirás un patrón sin sobreat
 | Persistencia | conserva datos más allá del proceso | cambia garantías de escritura y recuperación |
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
- R[Registros] --> C[Cachés]
- C --> M[Memoria principal]
- M --> S[Almacenamiento]
- S --> X[Servicio remoto]
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Registros»; luego «Cachés»; luego «Memoria principal»; luego «Almacenamiento»; luego «Servicio remoto».](../../../site/assets/figures/mermaid-9d9c4b94f5.svg)
 
 Al descender suele crecer capacidad y latencia. Es una tendencia, no una tabla de
 tiempos universal; hardware, sistema y carga cambian los valores.

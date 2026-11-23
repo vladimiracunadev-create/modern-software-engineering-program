@@ -56,21 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Entradas del servicio] --> B[Calidad: rango, nulos, esquema]
-    A --> C[Distribución: PSI, KS por característica]
-    D[Salidas del modelo] --> E[Distribución del puntaje y tasa de marcados]
-    F[Etiquetas con retraso] --> G[Métrica real por segmento]
-    B -->|inmediato| H{¿Alerta?}
-    C -->|horas| H
-    E -->|horas| H
-    G -->|semanas| H
-    H -->|sí| I[Diagnóstico: runbook]
-    I --> J{¿Reentrenar?}
-    J -->|sí| K[Entrenar, evaluar, desplegar por etapas]
-    J -->|no| L[Corregir la fuente o ajustar el umbral]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Entradas del servicio», «Salidas del modelo» y «Etiquetas con retraso»; luego «Calidad: rango, nulos, esquema», «Distribución: PSI, KS por característica», «Distribución del puntaje y tasa de marcados» y «Métrica real por segmento»; luego «¿Alerta?»; luego «Diagnóstico: runbook»; luego «¿Reentrenar?»; luego «Entrenar, evaluar, desplegar por etapas» y «Corregir la fuente o ajustar el umbral».](../../../site/assets/figures/mermaid-1495bc4d6f.svg)
 
 El mapa ordena las señales por su retraso: la calidad de entrada avisa de inmediato, la distribución en horas y la métrica con etiquetas en semanas. La decisión de reentrenar viene después del diagnóstico, no es la respuesta automática a una alerta.
 

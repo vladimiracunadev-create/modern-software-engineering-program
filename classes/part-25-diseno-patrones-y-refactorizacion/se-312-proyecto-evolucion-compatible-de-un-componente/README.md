@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio deseado] --> B{Verificador de firma}
-    B -->|rompe| C[Versión mayor o fase de ampliación]
-    B -->|compatible| D[Contratos de consumidores]
-    D -->|falla un contrato| C
-    D -->|pasan| E[Cambio con aviso]
-    C --> F[Ampliar: conviven la versión vieja y la nueva]
-    F --> G[Migrar consumidores con plazo]
-    G --> H[Contraer: retirar la versión vieja]
-    E --> I[Observar el uso]
-    H --> I
-    I -->|un consumidor no migró| G
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Cambio deseado»; luego «Verificador de firma»; luego «Contratos de consumidores»; luego «Versión mayor o fase de ampliación» y «Cambio con aviso»; luego «Ampliar: conviven la versión vieja y la nueva»; luego «Migrar consumidores con plazo»; luego «Contraer: retirar la versión vieja»; luego «Observar el uso». Retornos: «Observar el uso» lleva a «Migrar consumidores con plazo» (un consumidor no migró).](../../../site/assets/figures/mermaid-aa77688304.svg)
 
 El mapa tiene dos filtros automáticos (firma y contratos) y un recorrido por fases cuando el cambio rompe. El retorno marca que la retirada depende de quién migró, no de la fecha.
 

@@ -10,18 +10,7 @@ La [Parte 12](../part-12-ingenieria-de-requisitos/README.md) terminó con requis
 
 Esta parte no enseña una notación. Enseña a medir cuánta ambigüedad queda en una redacción, a elegir ejemplos por lo que separan, a escribir afirmaciones que se ejecutan, a explorar todos los estados de una entidad, a validar datos sin abrir una vía de ataque, a describir interfaces síncronas y asíncronas, a cambiar un contrato sin romper a nadie, a decidir qué papel tiene la especificación frente al código, a proteger a los consumidores con pruebas contractuales y a entregar un paquete cuyos enlaces se comprueban. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un ejemplo típico que elimina la mitad de las lecturas, un patrón que tarda segundos, una huella distinta entre sistemas) y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Intención] --> B[Lecturas y ejemplos]
-    B --> C[Contratos e invariantes]
-    C --> D[Modelos y estados]
-    D --> E[Esquemas e interfaces]
-    E --> F[Evolución y versionado]
-    F --> G[Fuente de verdad]
-    G --> H[Pruebas contractuales]
-    H --> I[Paquete trazable]
-    I -->|cambio o discrepancia| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Intención»; luego «Lecturas y ejemplos»; luego «Contratos e invariantes»; luego «Modelos y estados»; luego «Esquemas e interfaces»; luego «Evolución y versionado»; luego «Fuente de verdad»; luego «Pruebas contractuales»; luego «Paquete trazable». Retornos: «Paquete trazable» lleva a «Intención» (cambio o discrepancia).](../../site/assets/figures/mermaid-24002656d7.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un cambio de política, una discrepancia entre especificación y código o una prueba que falla reabre la intención; un paquete aprobado no cierra el contrato, lo fecha.
 

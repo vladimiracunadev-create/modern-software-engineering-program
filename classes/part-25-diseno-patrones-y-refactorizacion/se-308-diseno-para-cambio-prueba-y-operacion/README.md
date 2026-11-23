@@ -50,19 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión que puede cambiar] --> B[Cambiar: módulo que la esconde]
-    A --> C[Probar: dependencia inyectada]
-    A --> D[Operar: dato registrado]
-    B --> E[Medida: módulos tocados por cambio]
-    C --> F[Medida: ejecuciones deterministas]
-    D --> G[Medida: solicitudes reconstruibles]
-    E --> H[Diseño revisable]
-    F --> H
-    G --> H
-    H -->|incidente o cambio inesperado| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Decisión que puede cambiar»; luego «Cambiar: módulo que la esconde», «Probar: dependencia inyectada» y «Operar: dato registrado»; luego «Medida: módulos tocados por cambio», «Medida: ejecuciones deterministas» y «Medida: solicitudes reconstruibles»; luego «Diseño revisable». Retornos: «Diseño revisable» lleva a «Decisión que puede cambiar» (incidente o cambio inesperado).](../../../site/assets/figures/mermaid-512308e82d.svg)
 
 El mapa muestra que las tres preocupaciones parten de la misma lista de decisiones: lo que se esconde para cambiar, lo que se inyecta para probar y lo que se registra para operar. El retorno marca que los incidentes revelan decisiones no previstas.
 

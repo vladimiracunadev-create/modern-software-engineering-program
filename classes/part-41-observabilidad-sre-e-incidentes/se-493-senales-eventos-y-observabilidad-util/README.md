@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema en producción] --> B[Señales emitidas]
-    B --> C[Eventos y registros]
-    B --> D[Métricas agregadas]
-    B --> E[Trazas]
-    C --> F[Preguntas respondibles]
-    D --> F
-    E --> F
-    F --> G[Decisión durante el incidente]
-    G -->|la pregunta no tenía señal| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Sistema en producción»; luego «Señales emitidas»; luego «Eventos y registros», «Métricas agregadas» y «Trazas»; luego «Preguntas respondibles»; luego «Decisión durante el incidente». Retornos: «Decisión durante el incidente» lleva a «Señales emitidas» (la pregunta no tenía señal).](../../../site/assets/figures/mermaid-e7f3789a7b.svg)
 
 El mapa separa lo **emitido** de lo **respondible**: las señales son una decisión de diseño previa al incidente y las preguntas son lo que el incidente exige. Cuando una pregunta no tiene señal, el ciclo se cierra en la instrumentación y no en el panel.
 

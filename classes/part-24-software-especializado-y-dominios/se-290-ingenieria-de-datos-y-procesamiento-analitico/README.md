@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuente de eventos] --> B[Ingesta]
-    B --> C[Partición por clave]
-    C --> D[Ventana por tiempo del evento]
-    D --> E[Escritura idempotente]
-    E --> F[Tabla analítica]
-    F --> G[Tablero]
-    B -->|evento tardío| D
-    E -->|fallo y reintento| E
-    F -->|regla de calidad| H[Cuarentena]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Fuente de eventos»; luego «Ingesta»; luego «Partición por clave»; luego «Ventana por tiempo del evento»; luego «Escritura idempotente»; luego «Tabla analítica»; luego «Tablero» y «Cuarentena». Retornos: «Escritura idempotente» lleva a «Escritura idempotente» (fallo y reintento).](../../../site/assets/figures/mermaid-4a1e651baa.svg)
 
 El mapa muestra tres bucles: el reintento de la escritura, la llegada tardía a una ventana ya cerrada y la desviación hacia cuarentena. Cada uno es un punto donde dos ejecuciones del mismo trabajo pueden producir tablas distintas si el diseño no lo impide.
 

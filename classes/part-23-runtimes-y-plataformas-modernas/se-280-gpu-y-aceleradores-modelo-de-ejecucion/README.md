@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Carga de trabajo] --> B{Muchos datos independientes}
-    B -->|no| X[CPU]
-    B -->|sí| C{Acceso a memoria regular}
-    C -->|no| D[Reorganizar datos o CPU]
-    C -->|sí| E{Operaciones por byte movido}
-    E -->|pocas| F[Limitada por memoria: el ancho de banda manda]
-    E -->|muchas| G[Limitada por cómputo: el pico manda]
-    F --> H[Medir antes de comprar]
-    G --> H
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Carga de trabajo»; luego «Muchos datos independientes»; luego «CPU» y «Acceso a memoria regular»; luego «Reorganizar datos o CPU» y «Operaciones por byte movido»; luego «Limitada por memoria: el ancho de banda manda» y «Limitada por cómputo: el pico manda»; luego «Medir antes de comprar».](../../../site/assets/figures/mermaid-798f0487bf.svg)
 
 Las tres preguntas ordenan la decisión: si no hay paralelismo de datos no hay acelerador; si hay, el acceso a memoria decide si el cómputo se puede alimentar; y la intensidad aritmética dice cuál de los dos techos se alcanzará primero.
 

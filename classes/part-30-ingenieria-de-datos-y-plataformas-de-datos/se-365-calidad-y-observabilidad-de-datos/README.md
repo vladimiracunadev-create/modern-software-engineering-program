@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Carga] --> B[Comprobaciones]
-    B --> C{¿Pasa?}
-    C -->|sí| D[Se publica]
-    C -->|no, crítica| E[Se detiene y avisa al dueño]
-    C -->|no, aviso| F[Se publica con marca]
-    B --> G[Serie histórica de señales]
-    G --> H[Detector con estacionalidad]
-    H --> I[Alerta accionable]
-    I --> J[Dueño decide: arreglar, aceptar o ajustar]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Carga»; luego «Comprobaciones»; luego «¿Pasa?» y «Serie histórica de señales»; luego «Se publica», «Se detiene y avisa al dueño», «Detector con estacionalidad» y «Se publica con marca»; luego «Alerta accionable»; luego «Dueño decide: arreglar, aceptar o ajustar».](../../../site/assets/figures/mermaid-d471de1155.svg)
 
 El mapa separa dos usos de la misma medida: la comprobación puntual que decide si se publica y la serie en el tiempo que permite detectar desvíos que ningún umbral fijo describe.
 

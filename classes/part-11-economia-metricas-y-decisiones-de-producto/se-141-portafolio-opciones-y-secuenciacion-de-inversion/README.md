@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Cartera y presupuesto] --> N2[Retorno esperado y arrepentimiento] --> N3[Opciones y etapas] --> N4[Dependencias y secuencia] --> N5[Revisión con nueva información]
-    N5 -->|llega evidencia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Cartera y presupuesto»; luego «Retorno esperado y arrepentimiento»; luego «Opciones y etapas»; luego «Dependencias y secuencia»; luego «Revisión con nueva información». Retornos: «Revisión con nueva información» lleva a «Cartera y presupuesto» (llega evidencia).](../../../site/assets/figures/mermaid-f4ec567f71.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que la evidencia que llega tras una etapa reabre la cartera; no autoriza a aferrarse al plan inicial.
 

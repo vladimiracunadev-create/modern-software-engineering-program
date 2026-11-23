@@ -46,18 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Palabras del lector] --> B[Buscador léxico]
-    A --> C[Glosario: término preferido y alternativos]
-    C --> B
-    D[Páginas] --> B
-    D --> E[Estructura: índices y enlaces]
-    E --> F[Alcance desde la portada]
-    B --> G[Recuperabilidad medida]
-    F --> G
-    G -->|consulta sin resultado| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Palabras del lector» y «Páginas»; luego «Glosario: término preferido y alternativos» y «Estructura: índices y enlaces»; luego «Buscador léxico» y «Alcance desde la portada»; luego «Recuperabilidad medida». Retornos: «Recuperabilidad medida» lleva a «Glosario: término preferido y alternativos» (consulta sin resultado).](../../../site/assets/figures/mermaid-902ef90594.svg)
 
 El diagrama se lee de izquierda a derecha: las palabras del lector llegan a un buscador que consulta las páginas; el glosario aporta sinónimos; la estructura aporta un segundo camino (los enlaces); ambos caminos se miden con consultas y recorridos. El retorno indica que una consulta sin resultado alimenta el glosario. No se dibuja el buscador semántico, que usa vectores en lugar de palabras y tiene otros fallos.
 

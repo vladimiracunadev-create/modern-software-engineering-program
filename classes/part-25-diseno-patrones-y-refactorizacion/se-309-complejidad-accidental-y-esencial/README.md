@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Problema del negocio] --> B[Complejidad esencial: reglas y combinaciones]
-    C[Solución elegida] --> D[Complejidad accidental: forma, estado, indirección]
-    B --> E[Mínimo irreductible]
-    D --> F[Reducible con otra forma]
-    E --> G[Medida: combinaciones de la regla]
-    F --> H[Medidas: caminos, anidamiento, cognitiva]
-    G --> I[Qué se prueba y cómo]
-    H --> I
-    I -->|el negocio cambia la regla| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Problema del negocio» y «Solución elegida»; luego «Complejidad esencial: reglas y combinaciones» y «Complejidad accidental: forma, estado, indirección»; luego «Mínimo irreductible» y «Reducible con otra forma»; luego «Medida: combinaciones de la regla» y «Medidas: caminos, anidamiento, cognitiva»; luego «Qué se prueba y cómo». Retornos: «Qué se prueba y cómo» lleva a «Problema del negocio» (el negocio cambia la regla).](../../../site/assets/figures/mermaid-a754e40301.svg)
 
 El mapa tiene dos entradas: el problema y la solución. Solo la segunda se puede cambiar sin cambiar el negocio. El retorno marca que una regla nueva cambia lo esencial.
 

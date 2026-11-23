@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Propuesta de valor] --> N2[Resultados deseados] --> N3[Oportunidad y ranking] --> N4[Indicadores y demora] --> N5[Valor percibido y cambio]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Propuesta de valor»; luego «Resultados deseados»; luego «Oportunidad y ranking»; luego «Indicadores y demora»; luego «Valor percibido y cambio». Retornos: «Valor percibido y cambio» lleva a «Propuesta de valor» (fallo o cambio).](../../../site/assets/figures/mermaid-7e19607268.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un ranking inestable, un indicador demasiado lento o una adopción menor a la esperada obliga a revisar la promesa; no autoriza a aumentar el esfuerzo de comunicación sin cambiar el valor.
 

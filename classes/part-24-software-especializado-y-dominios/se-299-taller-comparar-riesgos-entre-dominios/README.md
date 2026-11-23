@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dominios] --> B[Criterios y escala con anclas]
-    B --> C[Puntuaciones con justificación]
-    C --> D[Pesos]
-    D --> E[Ranking]
-    E --> F[Sensibilidad a los pesos]
-    C --> G[Acuerdo entre evaluadores]
-    A --> H[Riesgos por dominio]
-    H --> I[Controles y cobertura]
-    F --> J[Decisión y límites]
-    G --> J
-    I --> J
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Dominios»; luego «Criterios y escala con anclas» y «Riesgos por dominio»; luego «Puntuaciones con justificación» y «Controles y cobertura»; luego «Pesos» y «Acuerdo entre evaluadores»; luego «Ranking»; luego «Sensibilidad a los pesos»; luego «Decisión y límites».](../../../site/assets/figures/mermaid-a4fbcca67a.svg)
 
 El mapa tiene tres comprobaciones que cuelgan de la misma matriz: la **sensibilidad** a los pesos, el **acuerdo** entre quienes puntúan y la **cobertura** de los controles. Solo cuando las tres se declaran, el ranking pasa de ser una opinión con números a una opinión con límites.
 

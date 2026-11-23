@@ -55,17 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Defecto frecuente del lenguaje] --> B[Regla comprobable por máquina]
-    B --> C[Comprobación automática en cada cambio]
-    C --> D{¿Cumple?}
-    D -->|sí| E[Revisión y pruebas]
-    D -->|no| F[Corregir o desviar]
-    F --> G[Desviación justificada y revisada]
-    G --> E
-    E --> H[Análisis estático y verificación]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Defecto frecuente del lenguaje»; luego «Regla comprobable por máquina»; luego «Comprobación automática en cada cambio»; luego «¿Cumple?»; luego «Corregir o desviar»; luego «Desviación justificada y revisada»; luego «Revisión y pruebas»; luego «Análisis estático y verificación».](../../../site/assets/figures/mermaid-853bc6f926.svg)
 
 La regla sin comprobación automática se olvida; la comprobación sin procedimiento de desviación se vuelve un obstáculo que se esquiva. Las dos piezas son parte de la política.
 

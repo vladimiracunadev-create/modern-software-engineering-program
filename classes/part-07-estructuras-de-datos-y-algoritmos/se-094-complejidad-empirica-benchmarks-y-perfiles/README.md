@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Modelo de costo / pregunta] --> N2[Reloj, repetición / distribución] --> N3[Warm-up, caché / aislamiento] --> N4[Perfil / atribución] --> N5[Comparabilidad / reporte]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Modelo de costo / pregunta»; luego «Reloj, repetición / distribución»; luego «Warm-up, caché / aislamiento»; luego «Perfil / atribución»; luego «Comparabilidad / reporte». Retornos: «Comparabilidad / reporte» lleva a «Modelo de costo / pregunta» (fallo o cambio).](../../../site/assets/figures/mermaid-ecb0f9e9d0.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

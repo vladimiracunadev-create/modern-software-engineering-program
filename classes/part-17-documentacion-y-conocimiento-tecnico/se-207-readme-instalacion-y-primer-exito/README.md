@@ -46,16 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Quien llega] --> B[Qué es y para qué]
-    B --> C[Instalar]
-    C --> D[Primer éxito verificable]
-    D --> E[Dónde sigo]
-    C -->|falla un paso| F[Abandono o ayuda]
-    D --> G[Comprobación automática]
-    G -->|deriva| C
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Quien llega»; luego «Qué es y para qué»; luego «Instalar»; luego «Primer éxito verificable» y «Abandono o ayuda»; luego «Dónde sigo» y «Comprobación automática». Retornos: «Comprobación automática» lleva a «Instalar» (deriva).](../../../site/assets/figures/mermaid-5f15808cee.svg)
 
 El diagrama se lee de izquierda a derecha como el camino de quien llega: entender qué es, instalar, ver un resultado comprobable y saber dónde seguir. La rama hacia abajo muestra el coste de un paso fallido, que suele ser abandono; la de la derecha, que la comprobación automática alimenta la instalación cuando detecta deriva. El diagrama no dice cuántos pasos son demasiados; el primer experimento da una forma de estimarlo.
 

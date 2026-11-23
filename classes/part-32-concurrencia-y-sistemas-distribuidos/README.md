@@ -10,21 +10,7 @@ La [Parte 31](../part-31-integracion-eventos-y-mensajeria/README.md) dejó servi
 
 Esta parte no enseña un lenguaje de programación concurrente, un sistema de actores ni un producto de coordinación. Enseña a distinguir lo que dos tareas comparten de lo que se envían, a enumerar las intercalaciones que rompen una invariante, a decidir qué reloj usar para medir, mostrar y ordenar, a leer un tiempo agotado como un resultado desconocido y no como un error, a elegir por operación qué se rechaza y qué se reconcilia durante una partición, a exigir mayorías y testigos de cerco donde solo puede haber un titular, a hacer repetible cada efecto, a repartir y replicar con una métrica de cola larga, a probar con fallos acotados y semillas guardadas, y a declarar qué garantías ofrece un servicio y cuáles no.
 
-```mermaid
-flowchart LR
-    A[Concurrencia, paralelismo y asincronía] --> B[Memoria compartida y cerrojos]
-    B --> C[Actores, canales y concurrencia estructurada]
-    C --> D[Tiempo, relojes y orden parcial]
-    D --> E[Fallos parciales y modelos de red]
-    E --> F[Consistencia, disponibilidad y particiones]
-    F --> G[Consenso, elección y coordinación]
-    G --> H[Idempotencia y procesamiento distribuido]
-    H --> I[Replicación, sharding y balanceo]
-    I --> J[Caos controlado y pruebas de distribución]
-    J --> K[Taller: reproducir una carrera y un fallo parcial]
-    K --> L[Proyecto: servicio distribuido con degradación]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos, de «Concurrencia, paralelismo y asincronía» a «Proyecto: servicio distribuido con degradación», con 1 retorno(s).](../../site/assets/figures/mermaid-dcc1c81e99.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un fallo reproducido o un cambio en la carga reabre el diseño; un paquete aprobado no cierra la discusión, la fecha.
 

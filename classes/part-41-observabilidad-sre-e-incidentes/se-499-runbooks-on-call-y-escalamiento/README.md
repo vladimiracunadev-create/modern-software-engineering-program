@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Alerta] --> B[Runbook]
-    B --> C[Diagnóstico]
-    B --> D[Mitigación y reversión]
-    B --> E[Verificación]
-    A --> F[Guardia primaria]
-    F -->|sin respuesta a tiempo| G[Guardia secundaria]
-    G -->|sin respuesta| H[Responsable]
-    F --> I[Carga y descanso]
-    B --> J[Revisión y ejercicio]
-    J -->|deriva| B
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Alerta»; luego «Runbook» y «Guardia primaria»; luego «Diagnóstico», «Mitigación y reversión», «Verificación», «Guardia secundaria», «Revisión y ejercicio» y «Carga y descanso»; luego «Responsable». Retornos: «Revisión y ejercicio» lleva a «Runbook» (deriva).](../../../site/assets/figures/mermaid-6ada16e73f.svg)
 
 El mapa separa el **contenido** (runbook), las **personas** (guardia y niveles) y el **mantenimiento** (revisión y ejercicio). Una alerta que llega a un runbook sin guardia que responda, o a una guardia sin runbook, deja el ciclo abierto.
 

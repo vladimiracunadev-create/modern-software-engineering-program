@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Módulo, paquete e importación] --> N2[Metadata de proyecto] --> N3[sdist / wheel] --> N4[Build aislado] --> N5[Publicación / repositorio]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Módulo, paquete e importación»; luego «Metadata de proyecto»; luego «sdist / wheel»; luego «Build aislado»; luego «Publicación / repositorio». Retornos: «Publicación / repositorio» lleva a «Módulo, paquete e importación» (fallo o cambio).](../../../site/assets/figures/mermaid-74e7d9d8af.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

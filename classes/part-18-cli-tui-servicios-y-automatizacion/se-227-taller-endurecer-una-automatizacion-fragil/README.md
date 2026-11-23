@@ -52,15 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    F[Automatización frágil] --> I[Inyección de fallos]
-    I --> M[Matriz de resultados]
-    M --> D[Debilidades priorizadas]
-    D --> H[Endurecimiento]
-    H --> I2[Reinyección]
-    I2 --> R[Matriz tras el cambio]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Automatización frágil»; luego «Inyección de fallos»; luego «Matriz de resultados»; luego «Debilidades priorizadas»; luego «Endurecimiento»; luego «Reinyección»; luego «Matriz tras el cambio».](../../../site/assets/figures/mermaid-5016390391.svg)
 
 El mapa se lee como un ciclo: se mide el estado actual, se endurece y se vuelve a medir con los mismos fallos. El ciclo termina cuando cada fallo tiene un resultado esperado y una prueba. No describe un orden de implementación.
 

@@ -54,17 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    H[Harness v1 y v2] --> E[Mismas tareas]
-    E --> TR[Trazas estructuradas]
-    TR --> M[Métricas: resueltas, pasos, denegaciones]
-    M --> C{¿Diferencia mayor que el ruido?}
-    C -->|sí| A[Adoptar el cambio]
-    C -->|no, con muestra suficiente| R[Descartar el cambio]
-    C -->|no, con muestra insuficiente| N[Añadir tareas]
-    A --> G[Añadir tareas de regresión]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Harness v1 y v2»; luego «Mismas tareas»; luego «Trazas estructuradas»; luego «Métricas: resueltas, pasos, denegaciones»; luego «¿Diferencia mayor que el ruido?»; luego «Adoptar el cambio», «Descartar el cambio» y «Añadir tareas»; luego «Añadir tareas de regresión».](../../../site/assets/figures/mermaid-9c0f33188d.svg)
 
 El mapa separa tres conclusiones posibles: adoptar, descartar y *no saber todavía*. La tercera es la que más se omite y la que más ahorra falsas conclusiones.
 

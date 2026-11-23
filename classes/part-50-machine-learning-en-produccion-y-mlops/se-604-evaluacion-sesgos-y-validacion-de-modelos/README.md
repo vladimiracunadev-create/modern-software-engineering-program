@@ -57,21 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión y costo de cada error] --> B[Métrica de decisión]
-    B --> C[Umbral por costo]
-    D[Puntaje del modelo] --> C
-    D --> E[Calibración]
-    D --> F[Desglose por grupo]
-    C --> G[Tasas de error por grupo]
-    F --> G
-    E --> H[Informe con intervalos y tamaño de muestra]
-    G --> H
-    H --> I{¿Cumple los criterios de aceptación?}
-    I -->|no| J[Corregir datos, umbral o modelo]
-    I -->|sí| K[Ficha del modelo y registro]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Decisión y costo de cada error» y «Puntaje del modelo»; luego «Métrica de decisión», «Calibración» y «Desglose por grupo»; luego «Umbral por costo»; luego «Tasas de error por grupo»; luego «Informe con intervalos y tamaño de muestra»; luego «¿Cumple los criterios de aceptación?»; luego «Corregir datos, umbral o modelo» y «Ficha del modelo y registro».](../../../site/assets/figures/mermaid-12e710994f.svg)
 
 El mapa parte de la decisión y su costo y no del modelo. La métrica, el umbral, la calibración y el desglose son cuatro lecturas del mismo puntaje, y el informe las reúne con su incertidumbre antes de aceptar o rechazar.
 

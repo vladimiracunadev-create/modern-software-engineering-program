@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Entrevista como método] --> N2[Preguntas sobre el pasado] --> N3[Muestreo y saturación] --> N4[Codificación y acuerdo] --> N5[De la cita a la afirmación]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Entrevista como método»; luego «Preguntas sobre el pasado»; luego «Muestreo y saturación»; luego «Codificación y acuerdo»; luego «De la cita a la afirmación». Retornos: «De la cita a la afirmación» lleva a «Entrevista como método» (fallo o cambio).](../../../site/assets/figures/mermaid-25a0290e07.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una afirmación sin citas, un acuerdo bajo o un tema que aparece tarde obliga a revisar el método de entrevista; no autoriza a retocar solo el informe.
 

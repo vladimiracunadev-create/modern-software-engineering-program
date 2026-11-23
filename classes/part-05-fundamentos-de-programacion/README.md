@@ -17,18 +17,7 @@ Cada clase añade una capacidad al mismo programa y conserva cuatro capas:
 3. **fronteras:** CLI, archivos, JSON, errores y códigos de salida;
 4. **evidencia:** ejemplos, pruebas, fallos y comandos reproducibles.
 
-```mermaid
-flowchart LR
-    A[Especificación el modelo de decisión diagnóstica] --> B[Valores y control]
-    B --> C[Funciones y resultados]
-    C --> D[Colecciones y transformaciones]
-    D --> E[I/O y serialización]
-    E --> F[Módulos e interfaces]
-    F --> G[Pruebas y legibilidad]
-    G --> H[Transferencia entre lenguajes]
-    H --> I[CLI diagnóstica]
-    I -->|regresión o caso nuevo| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Especificación el modelo de decisión diagnóstica»; luego «Valores y control»; luego «Funciones y resultados»; luego «Colecciones y transformaciones»; luego «I/O y serialización»; luego «Módulos e interfaces»; luego «Pruebas y legibilidad»; luego «Transferencia entre lenguajes»; luego «CLI diagnóstica». Retornos: «CLI diagnóstica» lleva a «Especificación el modelo de decisión diagnóstica» (regresión o caso nuevo).](../../site/assets/figures/mermaid-d893fe81b7.svg)
 
 El flujo no autoriza una gran implementación al final. Cada paso debe ejecutar un ejemplo, fallar de forma controlada y dejar una prueba o artefacto que proteja el siguiente cambio.
 

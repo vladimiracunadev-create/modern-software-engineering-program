@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Anchos y orientación] --> D[Maquetación adaptable]
-    B[Preferencias del usuario] --> D
-    C[Conexión y dispositivo] --> D
-    D --> E[Matriz de pruebas]
-    E --> F[Defectos y lagunas]
-    F -->|cambio de diseño| D
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Anchos y orientación», «Preferencias del usuario» y «Conexión y dispositivo»; luego «Maquetación adaptable»; luego «Matriz de pruebas»; luego «Defectos y lagunas». Retornos: «Defectos y lagunas» lleva a «Maquetación adaptable» (cambio de diseño).](../../../site/assets/figures/mermaid-c9941e45ec.svg)
 
 El mapa se lee como tres fuentes de variación que entran en la maquetación y se comprueban con una matriz; los defectos y lagunas vuelven al diseño. Las tres fuentes se combinan, no se suman. No es un orden de entrega.
 

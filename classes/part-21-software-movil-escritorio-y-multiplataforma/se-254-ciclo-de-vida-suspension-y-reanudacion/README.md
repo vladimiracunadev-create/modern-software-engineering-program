@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Primer plano] -->|usuario cambia de app| B[Segundo plano]
-    B -->|inactividad| C[Suspendido]
-    C -->|sistema recupera memoria| D[Terminado sin aviso]
-    B -->|vuelve| A
-    C -->|vuelve| A
-    D -->|arranque en frío| E[Restaurar desde disco]
-    E --> A
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Primer plano»; luego «Segundo plano»; luego «Suspendido»; luego «Terminado sin aviso»; luego «Restaurar desde disco». Retornos: «Segundo plano» lleva a «Primer plano» (vuelve); «Suspendido» lleva a «Primer plano» (vuelve); «Restaurar desde disco» lleva a «Primer plano».](../../../site/assets/figures/mermaid-0171c6e693.svg)
 
 El diagrama se lee como un ciclo: las flechas hacia el estado terminado no pasan por ningún gancho que el equipo controle, de modo que lo que se guarda debe guardarse antes. La restauración es el camino normal de regreso, no una excepción.
 

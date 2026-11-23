@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Partición: dos grupos sin comunicación] --> B{Qué hace cada lado}
-    B -->|rechaza| C[Consistente, no disponible]
-    B -->|acepta| D[Disponible, divergente]
-    D --> E[Reparación al volver la red]
-    E --> F[Último escritor gana: pierde trabajo]
-    E --> G[Tipo fusionable: conserva lo que conmuta]
-    C --> H[Cuórum: mayoría necesaria]
-    A --> I[Sin partición: latencia frente a consistencia]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Partición: dos grupos sin comunicación»; luego «Qué hace cada lado» y «Sin partición: latencia frente a consistencia»; luego «Consistente, no disponible» y «Disponible, divergente»; luego «Cuórum: mayoría necesaria» y «Reparación al volver la red»; luego «Último escritor gana: pierde trabajo» y «Tipo fusionable: conserva lo que conmuta».](../../../site/assets/figures/mermaid-28c5431a94.svg)
 
 El mapa tiene dos tiempos. **Durante** la partición se elige entre rechazar y aceptar. **Después**, si se aceptó, se paga con una reparación cuyo costo depende de si las operaciones se pueden fusionar. Y, aun sin partición, existe un compromiso permanente entre esperar a más réplicas (consistencia) y responder rápido (latencia).
 

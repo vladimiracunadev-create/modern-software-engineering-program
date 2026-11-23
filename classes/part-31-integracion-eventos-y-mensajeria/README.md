@@ -10,21 +10,7 @@ La [Parte 29](../part-29-datos-persistencia-y-recuperacion/README.md) dejó una 
 
 Esta parte no enseña un corredor de mensajes ni un producto. Enseña a decidir con criterios medibles si una interacción espera o deja un mensaje, a distinguir lo que significa un comando de lo que significa un evento, a elegir entre cola, tópico y log por lo que ocurre con el mensaje tras leerse, a asumir que entre procesos solo se elige entre perder y duplicar y construir el efecto exactamente una vez en el receptor, a guardar un cambio y su mensaje en la misma transacción, a ordenar los pasos de una saga para que lo irreversible vaya al final, a llevar el estado de una base a otra sin perder los borrados, a recibir avisos de un tercero verificando firma, marca de tiempo e identificador, a cambiar la forma de un mensaje sin romper a quien lo lee, a traducir un modelo ajeno en una frontera propia, a ver y proteger el flujo sin copiar datos personales a los registros, y a provocar fallas combinadas para comprobar que las defensas funcionan juntas. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (una cadena de cinco dependencias que completa el 95,2 % de las peticiones, un consumidor idempotente que convierte 1 476 efectos duplicados en cero, un hash de contenido que descarta 635 mensajes distintos) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Síncrono o asíncrono] --> B[Mensajes, eventos y comandos]
-    B --> C[Colas, tópicos y logs]
-    C --> D[Entrega, orden y duplicación]
-    D --> E[Outbox, inbox y sagas]
-    E --> F[CDC, ETL y sincronización]
-    F --> G[Webhooks y sondeo]
-    G --> H[Compatibilidad de esquemas]
-    H --> I[Capa anticorrupción]
-    I --> J[Observabilidad y seguridad]
-    J --> K[Taller de duplicados]
-    K --> L[Proyecto de flujo tolerante]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Síncrono o asíncrono»; luego «Mensajes, eventos y comandos»; luego «Colas, tópicos y logs»; luego «Entrega, orden y duplicación»; luego «Outbox, inbox y sagas»; luego «CDC, ETL y sincronización»; luego «Webhooks y sondeo»; luego «Compatibilidad de esquemas»; luego «Capa anticorrupción»; luego «Observabilidad y seguridad»; luego «Taller de duplicados»; luego «Proyecto de flujo tolerante». Retornos: «Proyecto de flujo tolerante» lleva a «Síncrono o asíncrono» (incidente o hallazgo).](../../site/assets/figures/mermaid-be0c0e760a.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo del ensayo con fallas o un cambio de requisito reabre la decisión inicial; un paquete aprobado no cierra el diseño, lo fecha.
 

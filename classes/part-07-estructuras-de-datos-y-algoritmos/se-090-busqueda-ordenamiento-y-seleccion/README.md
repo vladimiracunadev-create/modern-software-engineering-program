@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Búsqueda lineal / binaria] --> N2[Contrato de comparación] --> N3[Estabilidad] --> N4[Familias de ordenamiento] --> N5[Selección parcial]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Búsqueda lineal / binaria»; luego «Contrato de comparación»; luego «Estabilidad»; luego «Familias de ordenamiento»; luego «Selección parcial». Retornos: «Selección parcial» lleva a «Búsqueda lineal / binaria» (fallo o cambio).](../../../site/assets/figures/mermaid-18f3a4e8f5.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

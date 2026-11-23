@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Fuerzas del problema] --> N2[Semántica antes que sintaxis] --> N3[Fronteras entre modelos] --> N4[Costo cognitivo / operativo] --> N5[Decisión reversible / experimento]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Fuerzas del problema»; luego «Semántica antes que sintaxis»; luego «Fronteras entre modelos»; luego «Costo cognitivo / operativo»; luego «Decisión reversible / experimento». Retornos: «Decisión reversible / experimento» lleva a «Fuerzas del problema» (fallo o cambio).](../../../site/assets/figures/mermaid-fd2a89ebf9.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

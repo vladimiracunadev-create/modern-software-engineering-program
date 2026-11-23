@@ -56,16 +56,7 @@ estrategia de traducción y momento; inspeccionarás AST/bytecode; explicarás l
 | Enlace/carga | resuelve dependencias y prepara proceso | explica fallos posteriores a compilar |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- S[Fuente] --> A[Tokens y AST]
- A --> I[IR o bytecode]
- I --> O[Optimización]
- O --> C[Código destino]
- C --> L[Enlace y carga]
- L --> X[Ejecución]
- X -->|perfil JIT| O
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Fuente»; luego «Tokens y AST»; luego «IR o bytecode»; luego «Optimización»; luego «Código destino»; luego «Enlace y carga»; luego «Ejecución». Retornos: «Ejecución» lleva a «Optimización» (perfil JIT).](../../../site/assets/figures/mermaid-c1edf49c5d.svg)
 
 No todos los sistemas usan todas las cajas ni en ese orden. El bucle muestra que un JIT
 puede usar evidencia de ejecución; no garantiza mejor rendimiento.

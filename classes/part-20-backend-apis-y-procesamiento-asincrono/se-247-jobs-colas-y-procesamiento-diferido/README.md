@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Solicitud] -->|fila + outbox| Q[Cola]
-    Q --> W[Trabajador: toma con visibilidad]
-    W -->|éxito: confirma| Q
-    W -->|cae| V[Reaparece tras el tiempo de visibilidad]
-    V --> Q
-    W -->|falla N veces| M[Cola de muertos]
-    M --> P[Revisión de una persona]
-    Q --> R[Estado consultable]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Solicitud»; luego «Cola»; luego «Trabajador: toma con visibilidad» y «Estado consultable»; luego «Reaparece tras el tiempo de visibilidad» y «Cola de muertos»; luego «Revisión de una persona». Retornos: «Trabajador: toma con visibilidad» lleva a «Cola» (éxito: confirma); «Reaparece tras el tiempo de visibilidad» lleva a «Cola».](../../../site/assets/figures/mermaid-c1d07b5b38.svg)
 
 El mapa se lee desde la solicitud: lo que entra por el outbox se toma con un tiempo de visibilidad; si el trabajador confirma, el trabajo sale; si cae, reaparece y se repite; si falla demasiadas veces, pasa a la cola de muertos donde lo revisa una persona. El estado es consultable en todo momento. No es el diseño de un corredor concreto sino las garantías que hay que declarar.
 

@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Demanda: peticiones por segundo] --> B[Lote: amortiza la llamada]
-    B --> C[Latencia por petición]
-    B --> D[Throughput]
-    D --> E[Unidades necesarias]
-    E --> F[Costo por hora]
-    A --> G[Utilización = demanda / capacidad comprada]
-    G --> H[Costo por petición]
-    F --> H
-    I[Parte serie + transferencia] --> J[Aceleración total]
-    J --> D
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Demanda: peticiones por segundo» y «Parte serie + transferencia»; luego «Lote: amortiza la llamada», «Utilización = demanda / capacidad comprada» y «Aceleración total»; luego «Latencia por petición» y «Throughput»; luego «Unidades necesarias»; luego «Costo por hora»; luego «Costo por petición».](../../../site/assets/figures/mermaid-987e585a0f.svg)
 
 La utilización une la demanda con la capacidad comprada y es la variable que convierte un precio por hora en un costo por petición. La aceleración total, limitada por la parte serie y la transferencia, determina el throughput real que se compra.
 

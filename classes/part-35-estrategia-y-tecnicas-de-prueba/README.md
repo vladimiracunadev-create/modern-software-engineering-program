@@ -10,21 +10,7 @@ La [Parte 33](../part-33-cloud-plataforma-e-infraestructura/README.md) dejó una
 
 Esta parte no enseña un marco de pruebas ni una herramienta. Enseña a repartir un presupuesto limitado entre fallos posibles, a medir qué detecta realmente una batería con cambios mecánicos del código, a separar un cálculo de sus dependencias para poder probarlo, a distinguir lo que un doble copia de lo que el proveedor hace, a calcular cuánto ruido produce una suite de recorridos largos, a elegir generadores que lleguen a las fronteras, a comparar estrategias de generación de entradas, a identificar lo que cambia entre procesos y sistemas sin tocar el código, a explorar con misiones y a diagnosticar una prueba que falla a veces con evidencia en lugar de intuición. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (cinco casos con el 100 % de las líneas ejecutadas que matan 9 de 16 cambios, un doble que acepta una nota de 9,0 que la base rechaza, 490 de 500 órdenes aleatorios con algún fallo por un fixture compartido, una condición de carrera que da verde en 100 ejecuciones y falla en 40 de 40) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Calidad por riesgo] --> B[Pruebas unitarias y testabilidad]
-    B --> C[Integración y contratos]
-    C --> D[Extremo a extremo y aceptación]
-    D --> E[Propiedades y modelos]
-    E --> F[Mutación y fuzzing]
-    F --> G[Dobles y entornos]
-    G --> H[Datos y fixtures deterministas]
-    H --> I[Exploración]
-    I --> J[Flakiness y mantenimiento]
-    J --> K[Taller: demostrar la detección]
-    K --> L[Proyecto: estrategia ejecutable]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Calidad por riesgo»; luego «Pruebas unitarias y testabilidad»; luego «Integración y contratos»; luego «Extremo a extremo y aceptación»; luego «Propiedades y modelos»; luego «Mutación y fuzzing»; luego «Dobles y entornos»; luego «Datos y fixtures deterministas»; luego «Exploración»; luego «Flakiness y mantenimiento»; luego «Taller: demostrar la detección»; luego «Proyecto: estrategia ejecutable». Retornos: «Proyecto: estrategia ejecutable» lleva a «Calidad por riesgo» (incidente o hallazgo).](../../site/assets/figures/mermaid-1580787e7f.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente o un hallazgo de una sesión de exploración cambia una estimación y obliga a repartir de nuevo; una estrategia aprobada no cierra la discusión, la fecha.
 

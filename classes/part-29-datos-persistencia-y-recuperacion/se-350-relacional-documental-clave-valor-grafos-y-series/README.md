@@ -51,21 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    P[Pregunta frecuente y cambio frecuente] --> M{Modelo}
-    M --> R[Filas relacionadas: unir al leer]
-    M --> D[Documentos: repetir para leer una vez]
-    M --> K[Clave-valor: una clave, una lectura]
-    M --> G[Grafo: seguir relaciones de profundidad variable]
-    M --> S[Series: ordenar por tiempo]
-    R --> C[Costo de lectura y de cambio medidos]
-    D --> C
-    K --> C
-    G --> C
-    S --> C
-    C -->|la pregunta cambió| P
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Pregunta frecuente y cambio frecuente»; luego «Modelo»; luego «Filas relacionadas: unir al leer», «Documentos: repetir para leer una vez», «Clave-valor: una clave, una lectura», «Grafo: seguir relaciones de profundidad variable» y «Series: ordenar por tiempo»; luego «Costo de lectura y de cambio medidos». Retornos: «Costo de lectura y de cambio medidos» lleva a «Pregunta frecuente y cambio frecuente» (la pregunta cambió).](../../../site/assets/figures/mermaid-cd9e175975.svg)
 
 El mapa muestra que el modelo se elige después de la pregunta y vuelve a ella: si la pregunta frecuente cambia, la elección se reabre.
 

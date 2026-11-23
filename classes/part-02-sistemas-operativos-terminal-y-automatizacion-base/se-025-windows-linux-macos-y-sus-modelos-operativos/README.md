@@ -58,15 +58,7 @@ Podrás distinguir kernel y espacio de usuario; comparar Windows, Linux y macOS 
 | Capacidad observable | comprueba una función disponible | degradar explícitamente sin adivinar por versión |
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
- A[Aplicación: kit de diagnóstico multiplataforma] --> B[Runtime y bibliotecas]
- B --> C[API del sistema]
- C --> D[Kernel]
- D --> E[Controladores y recursos]
- P[Versión, arquitectura y política] --> B
- P --> C
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Aplicación: kit de diagnóstico multiplataforma» y «Versión, arquitectura y política»; luego «Runtime y bibliotecas»; luego «API del sistema»; luego «Kernel»; luego «Controladores y recursos».](../../../site/assets/figures/mermaid-af91e57acc.svg)
 
 Las flechas no representan propiedad, sino solicitudes y restricciones. Versión, arquitectura y política pueden alterar más de una frontera; por eso el kit de diagnóstico multiplataforma registra contexto antes de culpar una capa.
 
@@ -78,15 +70,7 @@ El hardware expone procesadores, memoria y dispositivos con detalles muy especí
 
 La abstracción no elimina el hardware. Lo representa con un contrato. Cuando una aplicación abre un archivo, una biblioteca prepara la operación, una llamada al sistema cruza la frontera de protección y el kernel consulta permisos y delega en el sistema de archivos o el controlador correspondiente.
 
-```mermaid
-flowchart TB
-    A[Aplicación: kit de diagnóstico multiplataforma] --> B[Biblioteca o runtime]
-    B --> C[API del sistema]
-    C --> D[Kernel]
-    D --> E[Controlador]
-    E --> F[Hardware]
-    D --> G[Sistema de archivos y red]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Aplicación: kit de diagnóstico multiplataforma»; luego «Biblioteca o runtime»; luego «API del sistema»; luego «Kernel»; luego «Controlador» y «Sistema de archivos y red»; luego «Hardware».](../../../site/assets/figures/mermaid-e53c7ed265.svg)
 
 Leer el diagrama de arriba hacia abajo permite formular una pregunta diagnóstica por frontera: ¿la aplicación construyó bien la petición?, ¿la API existe en esta plataforma?, ¿el kernel la autorizó?, ¿el controlador pudo atenderla?
 

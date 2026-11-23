@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Hecho o intención del dominio] --> B{¿Quién debe actuar?}
-    B -->|un destinatario concreto| C[Comando: imperativo, puede rechazarse]
-    B -->|quien le interese| D[Evento: pasado, inmutable]
-    B -->|se copian datos| E[Documento: estado con versión]
-    C --> F[Sobre: id, tipo, origen, secuencia, correlación]
-    D --> F
-    E --> F
-    F --> G[Contenido mínimo suficiente]
-    G -->|consumidor llama de vuelta| H[Revisar contenido]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Hecho o intención del dominio»; luego «¿Quién debe actuar?»; luego «Comando: imperativo, puede rechazarse», «Evento: pasado, inmutable» y «Documento: estado con versión»; luego «Sobre: id, tipo, origen, secuencia, correlación»; luego «Contenido mínimo suficiente»; luego «Revisar contenido».](../../../site/assets/figures/mermaid-c28a2b01ac.svg)
 
 El mapa separa la **intención** del mensaje (quién debe actuar) del **sobre** (lo que cualquiera necesita para manejarlo) y del **contenido** (lo que solo el tipo concreto conoce). El retorno recuerda que un consumidor que llama de vuelta señala un contenido insuficiente o un tipo mal elegido.
 

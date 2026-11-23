@@ -56,15 +56,7 @@ alcanzabilidad; separarás memoria de recursos externos.
 | Recolección | recupera objetos inalcanzables | intercambia pausas, throughput y memoria |
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
- B[Bytecode del analizador local de eventos] --> V[Máquina virtual]
- V --> S[Pilas y marcos]
- V --> H[Heap de objetos]
- H --> G[Gestión automática]
- V --> N[Servicios del sistema]
- G --> H
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Bytecode del analizador local de eventos»; luego «Máquina virtual»; luego «Pilas y marcos», «Heap de objetos» y «Servicios del sistema»; luego «Gestión automática». Retornos: «Gestión automática» lleva a «Heap de objetos».](../../../site/assets/figures/mermaid-4a5f02029f.svg)
 
 El mapa separa áreas lógicas. Una especificación puede no imponer su ubicación física ni algoritmo de GC.
 

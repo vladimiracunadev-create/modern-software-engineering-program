@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dominio dueño del dato] --> B[Producto de datos]
-    B --> C[Contrato: esquema, calidad, frescura]
-    C --> D[Comprobaciones automáticas al publicar]
-    D --> E{¿Pasa?}
-    E -->|sí| F[Catálogo y consumidores]
-    E -->|no| G[El dueño corrige antes de publicar]
-    H[Plataforma de autoservicio] --> B
-    I[Gobernanza federada] --> C
-    F --> J[Consumidor reporta una deriva]
-    J --> A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Dominio dueño del dato» y «Plataforma de autoservicio»; luego «Producto de datos» y «Gobernanza federada»; luego «Contrato: esquema, calidad, frescura»; luego «Comprobaciones automáticas al publicar»; luego «¿Pasa?»; luego «Catálogo y consumidores» y «El dueño corrige antes de publicar»; luego «Consumidor reporta una deriva». Retornos: «Consumidor reporta una deriva» lleva a «Dominio dueño del dato».](../../../site/assets/figures/mermaid-92f139953a.svg)
 
 El mapa pone la plataforma y la gobernanza como servicios hacia el producto y el dueño como responsable de lo que publica. La flecha de retorno es la parte menos tecnológica: un consumidor que detecta una deriva sabe a quién reclamar.
 

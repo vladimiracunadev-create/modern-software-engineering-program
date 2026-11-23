@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio] --> B[Commits atómicos y firmados]
-    B --> C[Rama de contribución]
-    C --> D[Validador]
-    D -->|forma| E[Comprobaciones]
-    D -->|sentido| F[Revisión humana]
-    G[Licencia y origen] --> C
-    H[Issue y propietarios] --> C
-    E --> I[Fusión]
-    F --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Cambio»; luego «Commits atómicos y firmados», «Licencia y origen» y «Issue y propietarios»; luego «Rama de contribución»; luego «Validador»; luego «Comprobaciones» y «Revisión humana»; luego «Fusión».](../../../site/assets/figures/mermaid-eb4c74c18f.svg)
 
 El mapa se lee de izquierda a derecha: el cambio se prepara con las reglas de la parte, el validador comprueba la forma y deja el sentido a una persona; ambas condiciones deben cumplirse antes de la fusión. No describe el orden en que se hacen las comprobaciones.
 

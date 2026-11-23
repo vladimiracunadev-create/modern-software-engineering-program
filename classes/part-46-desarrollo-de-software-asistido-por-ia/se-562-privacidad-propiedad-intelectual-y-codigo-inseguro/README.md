@@ -56,22 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Información del módulo] --> B{Sensibilidad}
-    B -->|secreto o dato personal| C[Filtro previo al envío]
-    B -->|público o sintético| D[Se envía]
-    C -->|detecta| E[Se redacta o se bloquea]
-    C -->|no detecta| F[Fuga]
-    G[Salida del asistente] --> H{Análisis estático y revisión}
-    H -->|patrón inseguro| I[Se rechaza o corrige]
-    H -->|no detecta| J[Vulnerabilidad integrada]
-    G --> K{Parecido con corpus con licencia}
-    K -->|alto| L[Investigar procedencia]
-    K -->|bajo| M[Se registra y se integra]
-    G --> N{Dependencias nuevas}
-    N -->|inexistente o no verificada| O[Se rechaza]
-```
+![Diagrama de flujo con 15 pasos. Recorrido: «Información del módulo» y «Salida del asistente»; luego «Sensibilidad», «Análisis estático y revisión», «Parecido con corpus con licencia» y «Dependencias nuevas»; luego «Se envía», «Se rechaza o corrige», «Filtro previo al envío», «Vulnerabilidad integrada», «Investigar procedencia», «Se registra y se integra» y «Se rechaza»; luego «Se redacta o se bloquea» y «Fuga».](../../../site/assets/figures/mermaid-81ebf71431.svg)
 
 El mapa sigue la información en dos sentidos: lo que **sale** (filtro previo) y lo que **entra** (análisis de seguridad, parecido con licencias y dependencias). Cada rombo es un control con un fallo característico (fuga, vulnerabilidad integrada, procedencia desconocida), que la clase mide.
 

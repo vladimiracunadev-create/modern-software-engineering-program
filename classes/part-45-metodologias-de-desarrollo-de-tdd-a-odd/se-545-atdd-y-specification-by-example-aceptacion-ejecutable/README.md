@@ -54,24 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
-    A[Funcionalidad pedida] --> B[Dimensiones del problema]
-    B --> C[Tiempo restante]
-    B --> D[Estado de la entrega]
-    B --> E[Silencio del curso]
-    B --> F[Cursos y personas]
-    C --> G[Ejemplos de frontera]
-    D --> H[Ejemplos combinatorios]
-    E --> H
-    F --> H
-    G --> I[Tabla de ejemplos acordada]
-    H --> I
-    I --> J[Prueba de aceptación en rojo]
-    J --> K[Ciclos internos de TDD]
-    K --> L[Aceptación en verde]
-    L --> M[Regresión]
-```
+![Diagrama de flujo con 13 pasos. Recorrido: «Funcionalidad pedida»; luego «Dimensiones del problema»; luego «Tiempo restante», «Estado de la entrega», «Silencio del curso» y «Cursos y personas»; luego «Ejemplos de frontera» y «Ejemplos combinatorios»; luego «Tabla de ejemplos acordada»; luego «Prueba de aceptación en rojo»; luego «Ciclos internos de TDD»; luego «Aceptación en verde»; luego «Regresión».](../../../site/assets/figures/mermaid-9609d96abf.svg)
 
 El mapa muestra que los ejemplos nacen de las dimensiones del problema y no de la intuición del momento. La tabla acordada alimenta una prueba de aceptación que guía el desarrollo.
 

@@ -59,20 +59,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Intención de cobro con clave] --> B[Almacén de claves]
-    B -->|nueva| C[Procesador]
-    B -->|repetida| D[Respuesta guardada]
-    C --> E[Evento de resultado]
-    E --> F[Asiento en el libro]
-    F --> G[Saldos por cuenta]
-    C --> H[Liquidación del procesador]
-    F --> I[Conciliación]
-    H --> I
-    I -->|explicada| J[Cierre]
-    I -->|diferencia| K[Investigación y ajuste con asiento]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Intención de cobro con clave»; luego «Almacén de claves»; luego «Procesador» y «Respuesta guardada»; luego «Evento de resultado» y «Liquidación del procesador»; luego «Asiento en el libro»; luego «Saldos por cuenta» y «Conciliación»; luego «Cierre» y «Investigación y ajuste con asiento».](../../../site/assets/figures/mermaid-972a3b173b.svg)
 
 La clave identifica la intención del negocio y el almacén decide si es nueva (llamar al procesador) o repetida (devolver lo guardado). El resultado llega como evento, se registra en el libro con un asiento y la conciliación compara el libro con la liquidación; lo que no cuadra se investiga y se corrige con un asiento nuevo, nunca editando uno anterior.
 

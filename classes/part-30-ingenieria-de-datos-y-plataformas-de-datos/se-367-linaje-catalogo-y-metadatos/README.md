@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sentencias SQL del pipeline] --> B[Analizador de texto]
-    C[Ejecución real] --> D[Captura de eventos de linaje]
-    E[Declaraciones del dueño] --> F[Metadatos manuales]
-    B --> G[(Grafo de linaje)]
-    D --> G
-    F --> G
-    G --> H[Impacto de un cambio]
-    G --> I[Origen de un número]
-    G --> J[Catálogo: dueño, significado, sensibilidad]
-    K[Perturbación de prueba] -.valida.-> G
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Sentencias SQL del pipeline», «Ejecución real» y «Declaraciones del dueño»; luego «Analizador de texto», «Captura de eventos de linaje», «Metadatos manuales» y «Perturbación de prueba»; luego «Grafo de linaje»; luego «Impacto de un cambio», «Origen de un número» y «Catálogo: dueño, significado, sensibilidad».](../../../site/assets/figures/mermaid-f8f3ca762e.svg)
 
 El mapa muestra tres fuentes de aristas con ceguera distinta y una prueba empírica que las contrasta. El catálogo es el grafo con ficha por nodo.
 

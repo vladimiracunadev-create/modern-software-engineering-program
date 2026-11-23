@@ -40,15 +40,7 @@ Relacionarás roles con decisiones, diseñarás transferencias y revisiones, dis
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- P[Problema] --> D[Decisión]
- D --> C[Construcción]
- C --> O[Operación]
- O --> E[Evidencia]
- E --> P
- X[Producto UX Datos Seguridad Soporte] --- D
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Problema» y «Producto UX Datos Seguridad Soporte»; luego «Decisión»; luego «Construcción»; luego «Operación»; luego «Evidencia». Retornos: «Evidencia» lleva a «Problema».](../../../site/assets/figures/mermaid-b497c06e74.svg)
 
 Los roles aportan perspectivas al mismo bucle; no son etapas que lanzan trabajo sobre una pared.
 

@@ -10,21 +10,7 @@ La [Parte 24](../part-24-software-especializado-y-dominios/README.md) llevó el 
 
 Esta parte no enseña un lenguaje ni un marco. Enseña a convertir las palabras del diseño (cohesión, acoplamiento, patrón, olor, deuda) en una medida sobre un cambio concreto, y a conocer lo que esa medida no ve. Cada clase mide con código real analizado con `ast`, con pruebas de contrato, con mutación o con simulaciones de semilla fija: cuántos sitios hay que editar cuando una decisión cambia (51 con un getter que oculta el nombre pero no la unidad, 0 con comportamiento encapsulado), qué fracción de órdenes de pruebas falla con un singleton (99,8 %), cuántos mutantes matan cinco ejemplos frente a los valores de borde (12 y 19 de 19), cuántos cambios de una respuesta rompe a un consumidor sin que la suite del proveedor lo vea (14 de 23). Cada clase declara además qué no demuestra.
 
-```mermaid
-flowchart LR
-    A[Cohesión y acoplamiento] --> B[Principios y sus límites]
-    B --> C[Herencia, composición y delegación]
-    C --> D[Patrones de diseño]
-    D --> E[Funcional, reactivo y concurrente]
-    E --> F[Olores y diagnóstico]
-    F --> G[Refactorización segura]
-    G --> H[Diseño para cambio, prueba y operación]
-    H --> I[Complejidad esencial y accidental]
-    I --> J[Deuda técnica e interés]
-    J --> K[Taller de refactorización]
-    K --> L[Evolución compatible]
-    L -->|un consumidor se rompe o un cambio cuesta más de lo previsto| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Cohesión y acoplamiento»; luego «Principios y sus límites»; luego «Herencia, composición y delegación»; luego «Patrones de diseño»; luego «Funcional, reactivo y concurrente»; luego «Olores y diagnóstico»; luego «Refactorización segura»; luego «Diseño para cambio, prueba y operación»; luego «Complejidad esencial y accidental»; luego «Deuda técnica e interés»; luego «Taller de refactorización»; luego «Evolución compatible». Retornos: «Evolución compatible» lleva a «Cohesión y acoplamiento» (un consumidor se rompe o un cambio cuesta más de lo previsto).](../../site/assets/figures/mermaid-b516e65a94.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un cambio que cuesta más de lo medido, o un consumidor que se rompe, reabre el diseño; un componente evolucionado no cierra el diseño, lo fecha.
 

@@ -10,21 +10,7 @@ La [Parte 32](../part-32-concurrencia-y-sistemas-distribuidos/README.md) dejó u
 
 Esta parte no enseña un proveedor ni un producto. Enseña a decir qué capas se delegan y cuáles siguen siendo tuyas, a medir qué cuesta cada frontera de aislamiento, a ver cómo un orquestador empaqueta lo que se le pide y repara lo que falla con retardo, a anticipar los arranques en frío y los duplicados de la ejecución gestionada, a calcular la distancia entre internet y un dato, a distinguir el código, el estado y la realidad de una infraestructura, a acotar el alcance de un error con cuentas, a dimensionar capacidad con la forma de la demanda, a calcular qué gana y qué pierde un segundo proveedor, a medir cuántos pasos y errores quita un camino dorado y a destruir un entorno con una comprobación independiente. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un segundo proveedor que no mejora la disponibilidad por un DNS compartido, un plan que revierte arreglos manuales, una suma de comprobación que cambia con el sistema que creó el archivo) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Responsabilidad compartida] --> B[Aislamiento]
-    B --> C[Orquestación]
-    C --> D[Ejecución gestionada]
-    D --> E[Redes, identidad y secretos]
-    E --> F[Infraestructura como código]
-    F --> G[Entornos y cuentas]
-    G --> H[Escalado y costos]
-    H --> I[Multi-cloud y portabilidad]
-    I --> J[Plataformas internas]
-    J --> K[Taller de despliegue y destrucción]
-    K --> L[Plataforma mínima reproducible]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Responsabilidad compartida»; luego «Aislamiento»; luego «Orquestación»; luego «Ejecución gestionada»; luego «Redes, identidad y secretos»; luego «Infraestructura como código»; luego «Entornos y cuentas»; luego «Escalado y costos»; luego «Multi-cloud y portabilidad»; luego «Plataformas internas»; luego «Taller de despliegue y destrucción»; luego «Plataforma mínima reproducible». Retornos: «Plataforma mínima reproducible» lleva a «Responsabilidad compartida» (incidente o hallazgo).](../../site/assets/figures/mermaid-5aa557b5a3.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un cambio de proveedor o un hallazgo en la destrucción de un entorno reabre la matriz de responsabilidades; un paquete aprobado no cierra el diseño, lo fecha.
 

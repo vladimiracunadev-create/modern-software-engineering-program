@@ -56,22 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dependencias y contribuciones] --> B[Inventario con licencia y origen]
-    B --> C{Política de distribución}
-    C -->|permitida| D[Registrar y avisar]
-    C -->|revisar| E[Consulta legal]
-    C -->|bloqueada o desconocida| F[Reemplazar o resolver]
-    B --> G[Certificación de origen en cada contribución]
-    A --> H[Requisitos y contratos]
-    H --> I{Daño a personas usuarias}
-    I -->|sí| J[Alternativa y escalamiento]
-    I -->|no| K[Adelante]
-    E --> L[Decisión registrada]
-    F --> L
-    J --> L
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Dependencias y contribuciones»; luego «Inventario con licencia y origen» y «Requisitos y contratos»; luego «Política de distribución», «Certificación de origen en cada contribución» y «Daño a personas usuarias»; luego «Registrar y avisar», «Consulta legal», «Reemplazar o resolver», «Alternativa y escalamiento» y «Adelante»; luego «Decisión registrada».](../../../site/assets/figures/mermaid-abbfa1bc24.svg)
 
 El mapa separa tres controles: el **inventario** (qué licencia entra), la **procedencia** (quién certifica el origen) y el **análisis de daño** (a quién perjudica lo que se construye). La convergencia en la decisión registrada indica que lo importante no es tener todas las respuestas sino dejar quién decidió qué y con qué evidencia.
 

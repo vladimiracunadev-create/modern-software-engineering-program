@@ -10,21 +10,7 @@ La [Parte 25](../part-25-diseno-patrones-y-refactorizacion/README.md) enseñó a
 
 Esta parte no enseña un estilo arquitectónico ni una plataforma. Enseña a escribir un escenario con medida y a simular cuántos trabajadores exige un pico, a calcular la disponibilidad de una ruta en serie con y sin causa común, a descartar alternativas por restricciones y dominancia, a comparar la vista lógica con trazas de ejecución, a calcular qué recorridos rompe la caída de cada nodo y cómo se alarga una cadena de llamadas, a medir cuánto cuesta cruzar una frontera y cuántas operaciones quedan a medias entre servicios, a comprobar fronteras de módulos con análisis estático, a medir qué arrastra cambiar la base de datos según la dirección de las dependencias y qué detecta una suite de contrato, a comparar un modelo único con contextos y a enumerar las intercalaciones que rompen un invariante, a medir consumidores de eventos bajo duplicados y desorden, a dimensionar un proyector, a simular arranques en frío y el punto de equilibrio de costo, a evaluar funciones de aptitud por sus falsas alarmas y regresiones perdidas, a medir la sensibilidad de una matriz de decisión, a medir cuántos cambios cruzan equipos, y a ejecutar un modelo de arquitectura contra doce escenarios. La disciplina es siempre la misma: una afirmación de arquitectura se acompaña de un escenario, un modelo o una prueba que otra persona pueda ejecutar y refutar.
 
-```mermaid
-flowchart LR
-    A[Drivers y escenarios] --> B[Vistas coherentes]
-    B --> C[Agrupar en modulos o servicios]
-    C --> D[Dependencias hacia adentro]
-    D --> E[Dominio y contextos]
-    E --> F[Eventos y consistencia]
-    F --> G[Estilos de ejecucion]
-    G --> H[Funciones de aptitud]
-    H --> I[ADR y alternativas]
-    I --> J[Equipos y colas]
-    J --> K[Revision contra escenarios]
-    K --> L[Dossier verificable]
-    L -->|un escenario falla| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Drivers y escenarios»; luego «Vistas coherentes»; luego «Agrupar en modulos o servicios»; luego «Dependencias hacia adentro»; luego «Dominio y contextos»; luego «Eventos y consistencia»; luego «Estilos de ejecucion»; luego «Funciones de aptitud»; luego «ADR y alternativas»; luego «Equipos y colas»; luego «Revision contra escenarios»; luego «Dossier verificable». Retornos: «Dossier verificable» lleva a «Drivers y escenarios» (un escenario falla).](../../site/assets/figures/mermaid-c401a570a9.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un escenario que falla en la revisión o en una función de aptitud reabre la decisión que lo sostenía; un dossier validado no cierra la arquitectura, la fecha.
 

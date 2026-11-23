@@ -52,21 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Petición] --> B{Qué situación es}
-    B -->|no existe el sistema| C[Proyecto nuevo: especificación completa]
-    B -->|existe y se cambia| D[Cambio sobre código existente: mapa y caracterización]
-    B -->|comportamiento roto| E[Corrección: diagnóstico, arreglo, prueba]
-    B -->|no se sabe si conviene| F[Evaluación de idea: evidencia y decisión]
-    D --> G[Especificación del cambio]
-    C --> G
-    E --> H[Veredicto: verificado, parcial o fallido]
-    F -->|seguir| G
-    F -->|aclarar| F
-    F -->|parar| I[No construir]
-    G --> J[Plan, tareas, implementación, convergencia]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Petición»; luego «Qué situación es»; luego «Proyecto nuevo: especificación completa», «Cambio sobre código existente: mapa y caracterización», «Corrección: diagnóstico, arreglo, prueba» y «Evaluación de idea: evidencia y decisión»; luego «Especificación del cambio», «Veredicto: verificado, parcial o fallido» y «No construir»; luego «Plan, tareas, implementación, convergencia». Retornos: «Evaluación de idea: evidencia y decisión» lleva a «Evaluación de idea: evidencia y decisión» (aclarar).](../../../site/assets/figures/mermaid-c7765cab3d.svg)
 
 Los cuatro caminos tienen artefactos de partida distintos y se reúnen en la especificación del cambio solo cuando hay algo que construir. La evaluación puede terminar sin ninguna línea de código, y esa es una salida legítima.
 

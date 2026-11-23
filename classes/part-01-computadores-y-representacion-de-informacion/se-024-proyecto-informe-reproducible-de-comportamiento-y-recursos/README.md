@@ -56,16 +56,7 @@ mínimo; conservarás datos y procedencia; interpretarás incertidumbre; y respo
 | Discusión | separa resultado, inferencia y límite | impide generalización indebida |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- Q[Pregunta] --> H[Hipótesis rivales]
- H --> D[Diseño]
- D --> X[Ejecución]
- X --> R[Resultados]
- R --> I[Interpretación y límites]
- I --> V[Revisión]
- V --> Q
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Pregunta»; luego «Hipótesis rivales»; luego «Diseño»; luego «Ejecución»; luego «Resultados»; luego «Interpretación y límites»; luego «Revisión». Retornos: «Revisión» lleva a «Pregunta».](../../../site/assets/figures/mermaid-28db8e4cdf.svg)
 
 La revisión vuelve a la pregunta porque puede descubrir que el experimento no la respondía.
 

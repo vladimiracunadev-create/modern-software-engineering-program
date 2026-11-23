@@ -10,21 +10,7 @@ La [Parte 27](../part-27-arquitectura-de-software-y-dominio/README.md) dejó fro
 
 Esta parte no enseña un motor de bases de datos ni un producto. Enseña a distinguir lo que el negocio afirma de lo que el motor guarda, a medir qué cuesta cada elección de modelo, a enumerar las intercalaciones que rompen una invariante, a decidir qué regla impone el motor y cuál queda a un cliente, a leer un plan de ejecución y contar lo que cada índice cobra, a dividir un cambio incompatible en fases, a elegir una garantía de lectura y una clave de reparto, a dar a una caché su política, a medir qué ve una verificación de respaldo y qué deja pasar, a comprobar dónde queda un dato borrado, a ensayar una migración con instrumentos de distinta potencia y a entregar un paquete cuyos límites conoces. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (un contador que acierta en 6 de 90 intercalaciones, una copia del archivo que da «ok» y una suma 197 unidades menor, un hash de correo que un diccionario invierte por completo) y declara lo que esa medida no demuestra.
 
-```mermaid
-flowchart LR
-    A[Modelo conceptual, lógico y físico] --> B[Modelos de almacenamiento]
-    B --> C[Transacciones y aislamiento]
-    C --> D[Restricciones e invariantes]
-    D --> E[Consultas e índices]
-    E --> F[Migraciones compatibles]
-    F --> G[Replicación y partición]
-    G --> H[Cachés entre capas]
-    H --> I[Respaldos y restauración]
-    I --> J[Privacidad y ciclo de vida]
-    J --> K[Taller de migración peligrosa]
-    K --> L[Paquete de capa de datos]
-    L -->|incidente o hallazgo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Modelo conceptual, lógico y físico»; luego «Modelos de almacenamiento»; luego «Transacciones y aislamiento»; luego «Restricciones e invariantes»; luego «Consultas e índices»; luego «Migraciones compatibles»; luego «Replicación y partición»; luego «Cachés entre capas»; luego «Respaldos y restauración»; luego «Privacidad y ciclo de vida»; luego «Taller de migración peligrosa»; luego «Paquete de capa de datos». Retornos: «Paquete de capa de datos» lleva a «Modelo conceptual, lógico y físico» (incidente o hallazgo).](../../site/assets/figures/mermaid-020724f3cd.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, un hallazgo del ensayo de restauración o un cambio de requisito reabre el modelo; un paquete aprobado no cierra el diseño, lo fecha.
 

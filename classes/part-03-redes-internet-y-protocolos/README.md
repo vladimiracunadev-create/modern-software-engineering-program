@@ -17,18 +17,7 @@ La pedagogía de esta parte sigue cuatro movimientos conectados:
 3. **Contrastar:** formular al menos una hipótesis rival y elegir una prueba que produzca resultados distintos.
 4. **Recuperar:** restaurar el laboratorio y demostrar que el sistema vuelve a un estado coherente.
 
-```mermaid
-flowchart LR
-    A[Aplicación formula intención] --> B[DNS resuelve nombres]
-    B --> C[IP elige ruta]
-    C --> D[Enlace alcanza siguiente salto]
-    D --> E[Transporte conecta o entrega]
-    E --> F[TLS autentica y protege]
-    F --> G[HTTP expresa semántica]
-    G --> H[Intermediarios y origen responden]
-    H --> I[Medición explica el resultado]
-    I -->|nueva hipótesis| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Aplicación formula intención»; luego «DNS resuelve nombres»; luego «IP elige ruta»; luego «Enlace alcanza siguiente salto»; luego «Transporte conecta o entrega»; luego «TLS autentica y protege»; luego «HTTP expresa semántica»; luego «Intermediarios y origen responden»; luego «Medición explica el resultado». Retornos: «Medición explica el resultado» lleva a «DNS resuelve nombres» (nueva hipótesis).](../../site/assets/figures/mermaid-de46f7d4e7.svg)
 
 El orden del diagrama es causal, no una promesa de implementación literal. Una conexión reutilizada puede omitir handshakes; una caché puede responder antes del origen; QUIC integra transporte y seguridad; una aplicación puede usar su propio resolver. Precisamente por eso cada evidencia debe indicar desde qué punto y en qué instante fue obtenida.
 

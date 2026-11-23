@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Objeto, identidad / estado válido] --> N2[Mensajes / despacho] --> N3[Encapsulación como protección] --> N4[Composición frente a herencia] --> N5[Objetos de valor / entidades]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Objeto, identidad / estado válido»; luego «Mensajes / despacho»; luego «Encapsulación como protección»; luego «Composición frente a herencia»; luego «Objetos de valor / entidades». Retornos: «Objetos de valor / entidades» lleva a «Objeto, identidad / estado válido» (fallo o cambio).](../../../site/assets/figures/mermaid-e3a4fa62c8.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

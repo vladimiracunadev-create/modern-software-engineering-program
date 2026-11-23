@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Historia de usuario] --> B[Casos de abuso]
-    B --> C[Requisito negativo]
-    C --> D[Prueba que falla si la defensa se rompe]
-    D --> E[Integración continua]
-    A --> F[Diseño y revisión]
-    F --> G[Análisis estático y de dependencias]
-    E --> H[Evidencia por versión]
-    G --> H
-    H --> I[Respuesta a vulnerabilidades]
-    I -->|lección| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Historia de usuario»; luego «Casos de abuso» y «Diseño y revisión»; luego «Requisito negativo» y «Análisis estático y de dependencias»; luego «Prueba que falla si la defensa se rompe»; luego «Integración continua»; luego «Evidencia por versión»; luego «Respuesta a vulnerabilidades». Retornos: «Respuesta a vulnerabilidades» lleva a «Casos de abuso» (lección).](../../../site/assets/figures/mermaid-161965709c.svg)
 
 El mapa muestra que la prueba negativa nace de un **caso de abuso** y que el análisis automático y las pruebas producen evidencia por versión. El retorno indica que cada vulnerabilidad real agrega un caso de abuso al catálogo.
 

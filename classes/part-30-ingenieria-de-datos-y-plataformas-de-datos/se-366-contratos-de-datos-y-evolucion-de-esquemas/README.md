@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Productor] --> B[Contrato: esquema, significado, calidad, frescura, dueño]
-    B --> C[Verificador de compatibilidad en CI]
-    C --> D{¿Compatible?}
-    D -->|sí| E[Se publica con versión menor]
-    D -->|no| F[Expandir, migrar, contraer con versión mayor]
-    B --> G[Consumidores]
-    G --> H[Pruebas de contrato del consumidor]
-    H --> C
-    I[Cambio semántico] -.no lo ve el esquema.-> J[Definición con ejemplos y registro de cambios]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Productor» y «Cambio semántico»; luego «Contrato: esquema, significado, calidad, frescura, dueño» y «Definición con ejemplos y registro de cambios»; luego «Consumidores»; luego «Pruebas de contrato del consumidor»; luego «Verificador de compatibilidad en CI»; luego «¿Compatible?»; luego «Se publica con versión menor» y «Expandir, migrar, contraer con versión mayor».](../../../site/assets/figures/mermaid-7b36d7e319.svg)
 
 El mapa muestra el contrato en el centro: lo lee el verificador del productor y lo prueba cada consumidor. La línea punteada es el límite: el significado no lo comprueba el esquema.
 

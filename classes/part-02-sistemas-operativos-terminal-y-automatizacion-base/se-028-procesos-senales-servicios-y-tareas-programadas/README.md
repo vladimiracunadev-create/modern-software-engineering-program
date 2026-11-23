@@ -55,18 +55,7 @@ Podrás distinguir programa, proceso e hilo; interpretar estados de ejecución y
 | Supervisión | inicia, reinicia y limita servicios | recuperar sin bucles infinitos |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- P[Programa] --> C[Proceso creado]
- C --> L[Listo]
- L --> X[Ejecutando]
- X --> W[Esperando I/O o evento]
- W --> L
- X --> T[Terminación cooperativa]
- T --> F[Salida y recursos recuperados]
- S[Supervisor] --> C
- F --> S
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Programa» y «Supervisor»; luego «Proceso creado»; luego «Listo»; luego «Ejecutando»; luego «Esperando I/O o evento» y «Terminación cooperativa»; luego «Salida y recursos recuperados». Retornos: «Esperando I/O o evento» lleva a «Listo»; «Salida y recursos recuperados» lleva a «Supervisor».](../../../site/assets/figures/mermaid-03a378bfa1.svg)
 
 El ciclo distingue “no usa CPU” de “no progresa”. El supervisor observa resultados y decide bajo una política; no debe reiniciar indefinidamente un fallo determinista.
 
@@ -96,18 +85,7 @@ POSIX define señales que notifican eventos; algunas pueden capturarse para limp
 
 La terminación cooperativa permite dejar de aceptar trabajo, finalizar operaciones y liberar recursos. La terminación forzada reduce esa oportunidad. El código de salida comunica una categoría de resultado al proceso padre; no sustituye un diagnóstico detallado, pero forma parte del contrato.
 
-```mermaid
-stateDiagram-v2
-    [*] --> Creado
-    Creado --> Listo
-    Listo --> Ejecutando
-    Ejecutando --> Esperando: E/S o sincronización
-    Esperando --> Listo: evento disponible
-    Ejecutando --> Listo: replanificación
-    Ejecutando --> Terminando: salida o solicitud
-    Terminando --> Finalizado: recursos recuperados
-    Finalizado --> [*]
-```
+![Diagrama de estados con 6 estados. Recorrido: «Creado»; luego «Listo»; luego «Ejecutando»; luego «Esperando» y «Terminando»; luego «Finalizado». Retornos: «Esperando» lleva a «Listo» (evento disponible); «Ejecutando» lleva a «Listo» (replanificación).](../../../site/assets/figures/mermaid-bc777584f6.svg)
 
 Este modelo es deliberadamente conceptual: los estados y nombres reales varían. Sirve para preguntar si el analizador local de eventos progresa, espera o terminó, no para adivinar internals del kernel.
 

@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta de capacidad] --> B[Forma de carga: carga, estrés, pico, resistencia]
-    B --> C[Modelo del generador: abierto o cerrado]
-    C --> D[Sistema bajo prueba]
-    D --> E[Medida: latencia por ventana, errores, recursos]
-    E --> F[Criterio de parada y de aceptación]
-    F -->|el generador oculta algo| C
-    F -->|la pregunta cambia| B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Pregunta de capacidad»; luego «Forma de carga: carga, estrés, pico, resistencia»; luego «Modelo del generador: abierto o cerrado»; luego «Sistema bajo prueba»; luego «Medida: latencia por ventana, errores, recursos»; luego «Criterio de parada y de aceptación». Retornos: «Criterio de parada y de aceptación» lleva a «Modelo del generador: abierto o cerrado» (el generador oculta algo); «Criterio de parada y de aceptación» lleva a «Forma de carga: carga, estrés, pico, resistencia» (la pregunta cambia).](../../../site/assets/figures/mermaid-e89ab3f7b7.svg)
 
 El mapa separa la **forma de la carga** (qué llega y cuándo), el **modelo del generador** (si el ritmo de llegada depende de las respuestas) y la **medida**. Los errores de una prueba suelen estar en el segundo bloque, el menos visible.
 

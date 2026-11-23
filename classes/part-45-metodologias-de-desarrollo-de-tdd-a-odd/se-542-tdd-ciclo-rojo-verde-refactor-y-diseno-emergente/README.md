@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Lista de escenarios] --> B[Elegir uno]
-    B --> C[Prueba concreta]
-    C --> D{¿Falla por la razón esperada?}
-    D -->|no| C
-    D -->|sí| E[Código mínimo]
-    E --> F{¿Pasan todas?}
-    F -->|no| E
-    F -->|sí| G[Refactor con todo en verde]
-    G --> H{¿Lista vacía?}
-    H -->|no| B
-    H -->|sí| I[Sobrevivientes y escenarios que faltan]
-    I --> A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Lista de escenarios»; luego «Elegir uno»; luego «Prueba concreta»; luego «¿Falla por la razón esperada?»; luego «Código mínimo»; luego «¿Pasan todas?»; luego «Refactor con todo en verde»; luego «¿Lista vacía?»; luego «Sobrevivientes y escenarios que faltan». Retornos: «¿Falla por la razón esperada?» lleva a «Prueba concreta» (no); «¿Pasan todas?» lleva a «Código mínimo» (no); «¿Lista vacía?» lleva a «Elegir uno» (no); «Sobrevivientes y escenarios que faltan» lleva a «Lista de escenarios».](../../../site/assets/figures/mermaid-786fc7d57b.svg)
 
 El mapa muestra las dos puertas del ciclo: la prueba debe fallar por la razón esperada antes de escribir código, y todas las pruebas deben pasar antes de refactorizar. El último paso reabre la lista: lo que el conjunto no mata se convierte en escenarios nuevos.
 

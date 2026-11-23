@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Acción del agente] --> B{¿Dentro de la raíz?}
-    B -->|no| X[Impedir: bloquear]
-    B -->|sí| C[Instantánea previa]
-    C --> D[Ejecutar]
-    D --> E{¿Verificación pasa?}
-    E -->|sí| F[Conservar el cambio]
-    E -->|no| G[Restaurar la instantánea]
-    D --> H{¿Efecto externo irreversible?}
-    H -->|sí| I[Aprobación humana antes]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Acción del agente»; luego «¿Dentro de la raíz?»; luego «Impedir: bloquear» y «Instantánea previa»; luego «Ejecutar»; luego «¿Verificación pasa?» y «¿Efecto externo irreversible?»; luego «Conservar el cambio», «Restaurar la instantánea» y «Aprobación humana antes».](../../../site/assets/figures/mermaid-0e0a56a05c.svg)
 
 El mapa tiene dos mecanismos independientes: el filtro de la raíz (impedir) y la instantánea con restauración (deshacer). El tercero, la aprobación previa para efectos externos irreversibles, es el único recurso cuando no hay manera de deshacer.
 

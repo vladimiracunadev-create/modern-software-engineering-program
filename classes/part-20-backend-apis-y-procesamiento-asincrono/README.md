@@ -10,20 +10,7 @@ La [Parte 19](../part-19-web-frontend-y-aplicaciones-progresivas/README.md) term
 
 Esta parte no enseña un framework. Enseña a medir qué ocurre cuando algo cae entre dos pasos, a elegir métodos por sus garantías, a contar consultas y bytes de una pantalla, a validar con cargas límite, a atacar un verificador de tokens, a diseñar claves de idempotencia, a dimensionar una cola, a procesar archivos por trozos, a cachear sabiendo qué se sirve obsoleto, a separar vida de disponibilidad y a comprobar un contrato con mutaciones. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo (10 de 24 escenarios de caída con una violación grave, 984 filas ajenas leídas con identificadores secuenciales, 184 entregas duplicadas bajo caídas inyectadas) y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Frontera de confirmación] --> B[Recursos y métodos]
-    B --> C[Estilo de interfaz]
-    C --> D[Validación y errores]
-    D --> E[Identidad y política]
-    E --> F[Idempotencia y reintentos]
-    F --> G[Trabajo diferido]
-    G --> H[Archivos y límites]
-    H --> I[Caché y protección]
-    I --> J[Sondeos y apagado]
-    J --> K[Servicio contractual]
-    K -->|incidente o deriva| A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Frontera de confirmación»; luego «Recursos y métodos»; luego «Estilo de interfaz»; luego «Validación y errores»; luego «Identidad y política»; luego «Idempotencia y reintentos»; luego «Trabajo diferido»; luego «Archivos y límites»; luego «Caché y protección»; luego «Sondeos y apagado»; luego «Servicio contractual». Retornos: «Servicio contractual» lleva a «Frontera de confirmación» (incidente o deriva).](../../site/assets/figures/mermaid-9440374f99.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un incidente, una deriva entre contrato e implementación o un defecto hallado reabre la frontera de confirmación; un servicio que pasa su evidencia no cierra el contrato, lo fecha.
 

@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Supuestos con rango] --> N2[Modelo y valor presente] --> N3[Sensibilidad por supuesto] --> N4[Regla de abandono] --> N5[Decisión revisable]
-    N5 -->|llega evidencia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Supuestos con rango»; luego «Modelo y valor presente»; luego «Sensibilidad por supuesto»; luego «Regla de abandono»; luego «Decisión revisable». Retornos: «Decisión revisable» lleva a «Supuestos con rango» (llega evidencia).](../../../site/assets/figures/mermaid-db5fdd9cb3.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que la evidencia que llega tras la decisión reabre los supuestos; un caso aprobado no cierra la pregunta, la fecha.
 

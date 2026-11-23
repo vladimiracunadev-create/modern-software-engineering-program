@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fabricación] --> B[Clave o certificado del dispositivo]
-    B --> C[Mensaje firmado con contador o tiempo]
-    C --> D[Servidor verifica]
-    E[Extracción física] -.-> B
-    F[Reproducción de un mensaje] -.-> C
-    G[Aleatoriedad débil] -.-> B
-    D --> H[Rotación y revocación]
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Fabricación», «Extracción física» y «Aleatoriedad débil»; luego «Clave o certificado del dispositivo» y «Reproducción de un mensaje»; luego «Mensaje firmado con contador o tiempo»; luego «Servidor verifica»; luego «Rotación y revocación». Retornos: «Rotación y revocación» lleva a «Clave o certificado del dispositivo».](../../../site/assets/figures/mermaid-3667688e9f.svg)
 
 El mapa muestra el camino de una identidad (la clave se graba o se genera, se usa para firmar y el servidor la verifica) y tres ataques (extracción, reproducción, aleatoriedad débil). La rotación y la revocación cierran el ciclo.
 

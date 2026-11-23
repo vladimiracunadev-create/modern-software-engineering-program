@@ -12,21 +12,7 @@ La parte trata tres familias que suelen enseñarse por separado y que aquí comp
 
 El caso conductor es *Avisos*, el servicio de recordatorios de entregas que ya apareció en la [Parte 45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md). Cada clase lo mira con un patrón distinto: canales como estrategia y fábrica, un remitente decorado con reintentos, estados del aviso como máquina de estados, persistencia con repositorio, entrega de mensajes con receptor idempotente y llamadas a un proveedor con timeout, jitter y circuit breaker.
 
-```mermaid
-flowchart LR
-    A[Criterios para usar un catálogo] --> B[GoF creacionales]
-    B --> C[GoF estructurales]
-    C --> D[GoF conductuales]
-    D --> E[GRASP]
-    E --> F[Repository, Unit of Work, Active Record]
-    F --> G[Integración empresarial]
-    G --> H[Resiliencia I: timeout, retry, breaker]
-    H --> I[Resiliencia II: bulkhead, sidecar, degradación]
-    I --> J[Antipatrones y deuda]
-    J --> K[Taller: refactorizar y medir]
-    K --> L[Proyecto: catálogo del sistema]
-    L -->|costos que no se justificaron| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Criterios para usar un catálogo»; luego «GoF creacionales»; luego «GoF estructurales»; luego «GoF conductuales»; luego «GRASP»; luego «Repository, Unit of Work, Active Record»; luego «Integración empresarial»; luego «Resiliencia I: timeout, retry, breaker»; luego «Resiliencia II: bulkhead, sidecar, degradación»; luego «Antipatrones y deuda»; luego «Taller: refactorizar y medir»; luego «Proyecto: catálogo del sistema». Retornos: «Proyecto: catálogo del sistema» lleva a «Criterios para usar un catálogo» (costos que no se justificaron).](../../site/assets/figures/mermaid-b086d1773d.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un catálogo se revisa con la evidencia de los patrones cuyo costo no se justificó.
 

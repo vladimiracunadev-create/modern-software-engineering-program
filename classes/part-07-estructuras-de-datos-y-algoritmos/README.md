@@ -13,16 +13,7 @@ asintótica con rendimiento observado. Cada clase vuelve sobre **biblioteca de e
 y sus operaciones dominantes, protege invariantes y contrasta predicción con medición.
 Así puede distinguirse una elección estructural de una coincidencia de benchmark.
 
-```mermaid
-flowchart LR
-    A[Carga y operaciones] --> B[Representación]
-    B --> C[Invariantes]
-    C --> D[Algoritmo]
-    D --> E[Corrección y complejidad]
-    E --> F[Benchmark y perfil]
-    F --> G[Decisión]
-    G -->|cambia la carga| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Carga y operaciones»; luego «Representación»; luego «Invariantes»; luego «Algoritmo»; luego «Corrección y complejidad»; luego «Benchmark y perfil»; luego «Decisión». Retornos: «Decisión» lleva a «Carga y operaciones» (cambia la carga).](../../site/assets/figures/mermaid-53e7a08fa1.svg)
 
 El diagrama no prescribe una estructura concreta. El retorno indica que una elección
 debe reabrirse cuando cambia la proporción de operaciones, el tamaño, la distribución o

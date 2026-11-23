@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Aplicación] --> B[Almacén antiguo]
-    A --> C[Bandeja de salida en la misma transacción]
-    C --> D[Reproductor con orden y reintentos]
-    D --> E[Almacén nuevo]
-    B --> F[Reconciliación periódica]
-    E --> F
-    F -->|diferencias| G[Reparar desde la fuente de verdad]
-    G --> E
-    H[Escritor versión N+1] --> I[Contrato de datos]
-    J[Lector versión N] --> I
-    I -->|celda que falla| K[Cambio compatible por pasos]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Aplicación», «Escritor versión N+1» y «Lector versión N»; luego «Bandeja de salida en la misma transacción», «Almacén antiguo» y «Contrato de datos»; luego «Reproductor con orden y reintentos» y «Cambio compatible por pasos»; luego «Almacén nuevo»; luego «Reconciliación periódica»; luego «Reparar desde la fuente de verdad». Retornos: «Reparar desde la fuente de verdad» lleva a «Almacén nuevo».](../../../site/assets/figures/mermaid-c6b3532bc3.svg)
 
 El mapa separa dos problemas de coexistencia. A la izquierda, **dos copias del mismo dato** y cómo mantenerlas alineadas: bandeja de salida, reproducción ordenada y reconciliación. A la derecha, **dos versiones del formato** y cómo leerse entre sí: un contrato con celdas de compatibilidad explícitas.
 

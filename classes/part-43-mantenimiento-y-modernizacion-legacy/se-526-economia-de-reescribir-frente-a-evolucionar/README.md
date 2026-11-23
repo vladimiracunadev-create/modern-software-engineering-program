@@ -52,24 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema que duele] --> B{Tres opciones}
-    B --> C[No hacer nada]
-    B --> D[Evolucionar: invertir en estructura]
-    B --> E[Reescribir]
-    E --> F[Mantener el legado durante la construcción]
-    E --> G[Alcance que se mueve]
-    E --> H[Probabilidad de abandono]
-    C --> I[Costo acumulado]
-    D --> I
-    F --> I
-    G --> I
-    H --> I
-    I --> J[Sensibilidad: qué parámetro domina]
-    J --> K[Medir ese parámetro]
-    K --> B
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Sistema que duele»; luego «Tres opciones»; luego «No hacer nada», «Evolucionar: invertir en estructura» y «Reescribir»; luego «Mantener el legado durante la construcción», «Alcance que se mueve» y «Probabilidad de abandono»; luego «Costo acumulado»; luego «Sensibilidad: qué parámetro domina»; luego «Medir ese parámetro». Retornos: «Medir ese parámetro» lleva a «Tres opciones».](../../../site/assets/figures/mermaid-b08aba63f4.svg)
 
 El mapa muestra que las tres opciones comparten una medida (el costo acumulado) pero tienen términos distintos, y que el resultado del análisis no es una respuesta sino un **parámetro que vale la pena medir** antes de decidir: la flecha vuelve a la elección.
 

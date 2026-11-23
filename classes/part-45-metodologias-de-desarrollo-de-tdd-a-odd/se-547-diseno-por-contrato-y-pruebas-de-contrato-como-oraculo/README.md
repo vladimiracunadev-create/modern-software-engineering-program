@@ -55,24 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Frontera entre componentes] --> B{¿Dentro o entre?}
-    B -->|dentro| C[Diseño por contrato]
-    B -->|entre| D[Pruebas de contrato]
-    C --> E[Precondición]
-    C --> F[Poscondición]
-    C --> G[Invariante]
-    D --> H[Contrato del consumidor]
-    D --> I[Verificación contra el proveedor]
-    E --> J{¿Se comprueba en producción?}
-    J -->|con assert| K[Desaparece con -O]
-    J -->|con excepción| L[Se mantiene]
-    H --> M[Cambio del proveedor]
-    M --> N{¿Rompe al consumidor?}
-    N -->|sí| O[Alerta]
-    N -->|no| P[Sin alerta]
-```
+![Diagrama de flujo con 16 pasos. Recorrido: «Frontera entre componentes»; luego «¿Dentro o entre?»; luego «Diseño por contrato» y «Pruebas de contrato»; luego «Precondición», «Poscondición», «Invariante», «Contrato del consumidor» y «Verificación contra el proveedor»; luego «¿Se comprueba en producción?» y «Cambio del proveedor»; luego «Desaparece con -O», «Se mantiene» y «¿Rompe al consumidor?»; luego «Alerta» y «Sin alerta».](../../../site/assets/figures/mermaid-df8aa92ba3.svg)
 
 El mapa separa dos escalas con la misma idea. Dentro de un componente importa dónde se comprueba la promesa; entre componentes importa que la promesa sea la que el consumidor necesita y no más.
 

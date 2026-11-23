@@ -10,21 +10,7 @@ La [Parte 20](../part-20-backend-apis-y-procesamiento-asincrono/README.md) termi
 
 Esta parte no enseña un marco. Enseña a listar los supuestos del modelo de aplicación, a decidir qué se guarda en cada transición, a elegir una forma de construir con una decisión cuya sensibilidad se conoce, a repartir el estado entre un almacenamiento y una política de fusión, a tratar un permiso como un estado, a diseñar para varias entradas, a planificar versiones que conviven, a hacer que reintentar sea seguro, a medir recursos con un presupuesto, a razonar sobre un cliente que el atacante posee, a medir las diferencias entre plataformas y a entregar un paquete revisable. Cada clase ejecuta experimentos con datos sintéticos que muestran un mecanismo y declara lo que no demuestran.
 
-```mermaid
-flowchart LR
-    A[Modelo de aplicación] --> B[Ciclo de vida]
-    B --> C[Construcción]
-    C --> D[Almacenamiento y sincronización]
-    D --> E[Permisos y capacidades]
-    E --> F[Interacción y accesibilidad]
-    F --> G[Distribución y versiones]
-    G --> H[Offline y conflictos]
-    H --> I[Recursos]
-    I --> J[Seguridad del cliente]
-    J --> K[Dos plataformas]
-    K --> L[Cliente con sincronización]
-    L -->|medición o fallo| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Modelo de aplicación»; luego «Ciclo de vida»; luego «Construcción»; luego «Almacenamiento y sincronización»; luego «Permisos y capacidades»; luego «Interacción y accesibilidad»; luego «Distribución y versiones»; luego «Offline y conflictos»; luego «Recursos»; luego «Seguridad del cliente»; luego «Dos plataformas»; luego «Cliente con sincronización». Retornos: «Cliente con sincronización» lleva a «Modelo de aplicación» (medición o fallo).](../../site/assets/figures/mermaid-158139e628.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que una medición en un dispositivo, un fallo en uso real o un cambio de plataforma reabre el modelo; un paquete aprobado no cierra el cliente, lo fecha.
 

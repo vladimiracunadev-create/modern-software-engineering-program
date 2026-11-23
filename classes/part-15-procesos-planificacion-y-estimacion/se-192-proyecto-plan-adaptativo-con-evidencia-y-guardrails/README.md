@@ -50,18 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Plan: objetivo, supuestos y rangos] --> B[Señales semanales]
-    B --> C{Regla de replanificación}
-    C -->|no se cumple| B
-    C -->|se cumple| D[Revisión con responsable]
-    D --> E{Barreras}
-    E -->|recortar alcance| F[Plan revisado]
-    E -->|recortar calidad o seguridad| G[Prohibido]
-    F -->|nuevos datos| B
-    F --> H[Registro de decisión]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Plan: objetivo, supuestos y rangos»; luego «Señales semanales»; luego «Regla de replanificación»; luego «Revisión con responsable»; luego «Barreras»; luego «Plan revisado» y «Prohibido»; luego «Registro de decisión». Retornos: «Regla de replanificación» lleva a «Señales semanales» (no se cumple); «Plan revisado» lleva a «Señales semanales» (nuevos datos).](../../../site/assets/figures/mermaid-5f10fdea52.svg)
 
 El mapa se lee desde el plan hacia las señales y, si una regla se cumple, hacia una revisión con barreras. El recorte de alcance está permitido; el de calidad, accesibilidad o seguridad, no. Cada replanificación queda registrada como decisión.
 

@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Visitas reales] --> B[Métrica y percentil]
-    B --> C{Cumple el presupuesto}
-    C -->|no| D[Ruta crítica]
-    D --> E[Bytes, peticiones, cómputo]
-    E --> F[Cambio]
-    F --> A
-    C -->|sí con incertidumbre| G[Vigilar]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Visitas reales»; luego «Métrica y percentil»; luego «Cumple el presupuesto»; luego «Ruta crítica» y «Vigilar»; luego «Bytes, peticiones, cómputo»; luego «Cambio». Retornos: «Cambio» lleva a «Visitas reales».](../../../site/assets/figures/mermaid-da3e50f4b3.svg)
 
 El mapa se lee como un ciclo de medición: las visitas dan una métrica con un percentil que se compara con un presupuesto, y solo si no se cumple se busca en la ruta crítica qué cambiar. La rama inferior recuerda que cumplir con una muestra pequeña no es cumplir: se vigila.
 

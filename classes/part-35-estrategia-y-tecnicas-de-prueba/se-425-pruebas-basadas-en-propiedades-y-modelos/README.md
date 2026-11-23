@@ -53,16 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Regla que debe cumplirse siempre] --> B[Propiedad ejecutable]
-    B --> C[Generador de casos con semilla]
-    C --> D{¿Falla?}
-    D -->|no| E[Revisar el generador: ¿llega a las fronteras?]
-    D -->|sí| F[Reducir el contraejemplo]
-    F --> G[Caso mínimo convertido en prueba de regresión]
-    G -->|nueva regla| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Regla que debe cumplirse siempre»; luego «Propiedad ejecutable»; luego «Generador de casos con semilla»; luego «¿Falla?»; luego «Revisar el generador: ¿llega a las fronteras?» y «Reducir el contraejemplo»; luego «Caso mínimo convertido en prueba de regresión». Retornos: «Caso mínimo convertido en prueba de regresión» lleva a «Regla que debe cumplirse siempre» (nueva regla).](../../../site/assets/figures/mermaid-bd855f1c43.svg)
 
 El mapa parte de la regla y no de los casos: los casos son una consecuencia del generador. El retorno indica que un contraejemplo reducido se vuelve una prueba por ejemplo y la regla se afina.
 

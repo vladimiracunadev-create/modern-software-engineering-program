@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[REPL / ciclo de realimentación] --> N2[Notebook / grafo oculto] --> N3[Exploración frente a producto] --> N4[Proveniencia de datos] --> N5[Narrativa / verificación]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «REPL / ciclo de realimentación»; luego «Notebook / grafo oculto»; luego «Exploración frente a producto»; luego «Proveniencia de datos»; luego «Narrativa / verificación». Retornos: «Narrativa / verificación» lleva a «REPL / ciclo de realimentación» (fallo o cambio).](../../../site/assets/figures/mermaid-a425105d2b.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

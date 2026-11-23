@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Desglose en tareas] --> B[Estimación típica por tarea]
-    B --> C[Dispersión y cola larga]
-    C --> D[Distribución del total]
-    E[Historia de rendimiento] --> D
-    D --> F[Rango con percentiles]
-    F --> G[Comunicación con supuestos]
-    G -->|nueva evidencia| E
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Desglose en tareas»; luego «Estimación típica por tarea»; luego «Dispersión y cola larga» y «Historia de rendimiento»; luego «Distribución del total»; luego «Rango con percentiles»; luego «Comunicación con supuestos». Retornos: «Comunicación con supuestos» lleva a «Historia de rendimiento» (nueva evidencia).](../../../site/assets/figures/mermaid-6a768992a9.svg)
 
 El mapa se lee de izquierda a derecha como el camino de una estimación: lo típico por tarea no es el total; hay que pasar por la dispersión y por la historia para obtener un rango. El retorno indica que cada avance real actualiza la evidencia.
 

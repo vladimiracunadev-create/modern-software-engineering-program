@@ -44,15 +44,7 @@ Al finalizar podrás explicar el mecanismo con ejemplo y contraejemplo; construi
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    P[Problema situado] --> A[Abstracción explícita]
-    A --> R[Reglas e invariantes]
-    R --> S[Solución o estrategia]
-    S --> C[Casos y contraejemplos]
-    C --> E[Evidencia de aceptación]
-    E -->|modelo insuficiente| A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Problema situado»; luego «Abstracción explícita»; luego «Reglas e invariantes»; luego «Solución o estrategia»; luego «Casos y contraejemplos»; luego «Evidencia de aceptación». Retornos: «Evidencia de aceptación» lleva a «Abstracción explícita» (modelo insuficiente).](../../../site/assets/figures/mermaid-fdaaee394c.svg)
 
 El mapa separa el problema de su representación. Los casos no reemplazan reglas; las reglas no prueban que el problema esté bien encuadrado. La pregunta de esta clase es: **¿Qué estructura matemática representa mejor pertenencia, asociación, transformación y camino?**
 

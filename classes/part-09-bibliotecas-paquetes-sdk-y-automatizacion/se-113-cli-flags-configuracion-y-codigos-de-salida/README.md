@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Comandos, argumentos / flags] --> N2[Configuración / precedencia] --> N3[stdout, stderr / formatos] --> N4[Códigos de salida] --> N5[Señales, cancelación / atomicidad]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Comandos, argumentos / flags»; luego «Configuración / precedencia»; luego «stdout, stderr / formatos»; luego «Códigos de salida»; luego «Señales, cancelación / atomicidad». Retornos: «Señales, cancelación / atomicidad» lleva a «Comandos, argumentos / flags» (fallo o cambio).](../../../site/assets/figures/mermaid-cad0e2da58.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

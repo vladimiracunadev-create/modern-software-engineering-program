@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema antiguo] --> B[Fachada o abstracción]
-    B --> C[Modo sombra: ambos calculan]
-    C --> D{¿Divergencias explicadas?}
-    D -->|no| E[Decidir el comportamiento correcto]
-    E --> C
-    D -->|sí| F[Escalón de tráfico al nuevo]
-    F --> G{¿Dentro del criterio?}
-    G -->|no| H[Retroceder]
-    G -->|sí| I[Siguiente escalón]
-    I --> J[100 % y retiro del antiguo]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Sistema antiguo»; luego «Fachada o abstracción»; luego «Modo sombra: ambos calculan»; luego «¿Divergencias explicadas?»; luego «Decidir el comportamiento correcto» y «Escalón de tráfico al nuevo»; luego «¿Dentro del criterio?»; luego «Retroceder» y «Siguiente escalón»; luego «100 % y retiro del antiguo». Retornos: «Decidir el comportamiento correcto» lleva a «Modo sombra: ambos calculan».](../../../site/assets/figures/mermaid-b4e3442f14.svg)
 
 El mapa muestra dos bucles: el de la sombra, que se repite hasta que cada divergencia tiene una explicación y una decisión, y el de los escalones, que avanza solo si el criterio se cumple y retrocede si no. El retiro del sistema antiguo es el último paso, no el primero.
 

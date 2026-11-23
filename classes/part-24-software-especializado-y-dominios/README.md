@@ -10,21 +10,7 @@ La [Parte 22](../part-22-embedded-iot-y-tiempo-real/README.md) llevó el softwar
 
 Esta parte no enseña un dominio completo ni una herramienta. Enseña a medir cuántos resultados distintos produce una suma según su orden y cuánto vale una estimación con varias semillas, a hacer idempotente una carga de datos y a medir qué pierde una ventana, a detectar una fuga de la etiqueta y a leer el valor predictivo de un aviso según la prevalencia, a fijar el paso de tiempo de una simulación y probar la colisión de lo que va rápido, a calcular el pliegue de un tono y el presupuesto de un fotograma, a representar el dinero con enteros y comparar un libro mayor con un oráculo, a medir la unicidad de un conjunto «anónimo» y los dos errores de fusionar fichas, a calcular la probabilidad de reescribir una cadena y ordenar una reentrada, a distinguir un instante de una hora civil, a probar los pares de decisiones de un flujo y a declarar quién responde por él. Cada clase ejecuta simulaciones con datos sintéticos que muestran un mecanismo (205 totales distintos con los mismos números, 442 filas duplicadas con un 5 % de lotes fallidos, una exactitud que cae de 0,899 a 0,515 en producción, 20 finales distintos con paso variable, un 38,68 % de facturas con un céntimo de diferencia, un 91,2 % de registros únicos tras quitar el nombre, 180 días de una tarea corrida una hora, un 43,9 % de defectos de interacción hallados con dos pruebas) y declara lo que esa simulación no demuestra.
 
-```mermaid
-flowchart LR
-    A[Reproducibilidad científica] --> B[Datos y procesamiento analítico]
-    B --> C[Aprendizaje automático en producto]
-    C --> D[Juegos y simulación]
-    D --> E[Gráficos, audio y realidad extendida]
-    E --> F[Dinero e invariantes]
-    F --> G[Salud y sistemas regulados]
-    G --> H[Cadenas de bloques y contratos]
-    H --> I[Espacio y tiempo]
-    I --> J[Low-code]
-    J --> K[Taller de riesgos entre dominios]
-    K --> L[Diseño profundo de un dominio]
-    L -->|hallazgo o supuesto cambiado| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Reproducibilidad científica»; luego «Datos y procesamiento analítico»; luego «Aprendizaje automático en producto»; luego «Juegos y simulación»; luego «Gráficos, audio y realidad extendida»; luego «Dinero e invariantes»; luego «Salud y sistemas regulados»; luego «Cadenas de bloques y contratos»; luego «Espacio y tiempo»; luego «Low-code»; luego «Taller de riesgos entre dominios»; luego «Diseño profundo de un dominio». Retornos: «Diseño profundo de un dominio» lleva a «Reproducibilidad científica» (hallazgo o supuesto cambiado).](../../site/assets/figures/mermaid-a189b4c5f7.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo en un dominio (un oráculo que discrepa, un supuesto que cambia el signo de una decisión) reabre la afirmación que se había dado por sostenida; un dosier verificado no cierra el diseño, lo fecha.
 

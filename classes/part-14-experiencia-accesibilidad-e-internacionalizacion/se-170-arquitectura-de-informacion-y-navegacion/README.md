@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Contenido y tareas] --> B[Agrupación y etiquetas]
-    B --> C[Estructura de navegación]
-    C --> D[Alcance y profundidad]
-    D --> E[Prueba de hallazgo]
-    E -->|etiquetas o ramas confusas| B
-    C -->|entrada directa| F[Orientación]
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Contenido y tareas»; luego «Agrupación y etiquetas»; luego «Estructura de navegación»; luego «Alcance y profundidad» y «Orientación»; luego «Prueba de hallazgo». Retornos: «Prueba de hallazgo» lleva a «Agrupación y etiquetas» (etiquetas o ramas confusas).](../../../site/assets/figures/mermaid-8d077b115c.svg)
 
 El mapa se lee como un lazo de ajuste: se agrupa y etiqueta, se estructura, se mide el alcance y se comprueba si la gente encuentra; una prueba fallida devuelve a las agrupaciones. La entrada directa (un enlace de correo, una búsqueda) obliga a que cada página oriente por sí misma; el mapa no es un orden de entrega.
 

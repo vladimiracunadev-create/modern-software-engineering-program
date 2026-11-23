@@ -13,16 +13,7 @@ sobre **entorno reproducible de diagnóstico**, formula una hipótesis, elige la
 y conserva el entorno de la observación. Así se distingue una causa reproducible de una
 coincidencia introducida por editor, runtime, dependencia o instrumento.
 
-```mermaid
-flowchart LR
-    A[Síntoma] --> B[Entorno capturado]
-    B --> C[Reproducción mínima]
-    C --> D[Hipótesis rivales]
-    D --> E[Observación dirigida]
-    E --> F[Primera divergencia]
-    F --> G[Causa y regresión]
-    G -->|no reproduce| B
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Síntoma»; luego «Entorno capturado»; luego «Reproducción mínima»; luego «Hipótesis rivales»; luego «Observación dirigida»; luego «Primera divergencia»; luego «Causa y regresión». Retornos: «Causa y regresión» lleva a «Entorno capturado» (no reproduce).](../../site/assets/figures/mermaid-470752368a.svg)
 
 El diagrama representa un ciclo de investigación, no un orden rígido de herramientas.
 Si el caso mínimo deja de reproducir, se vuelve al entorno capturado; si una observación

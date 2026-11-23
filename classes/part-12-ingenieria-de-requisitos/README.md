@@ -10,18 +10,7 @@ La [Parte 10](../part-10-descubrimiento-y-estrategia-de-producto/README.md) deci
 
 Esta parte no enseña una plantilla de documento de requisitos. Enseña que un requisito es el resultado de actividades distintas —descubrir, analizar, escribir, comprobar— y que cada una falla de una forma propia: las entrevistas no llegan a lo tácito, una regla razonable deja huecos, un adjetivo admite lecturas opuestas, un ejemplo feliz no distingue nada, el orden por valor ignora las dependencias, una matriz manual se degrada, una obligación se implementa con un borde equivocado, un hash crudo confunde formato con contenido, ningún par de requisitos se contradice y el conjunto sí, y un «nunca» no se prueba con pruebas finitas. Cada clase ejecuta experimentos con datos sintéticos que muestran uno de esos mecanismos y declara lo que el experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Necesidad y origen] --> B[Reglas y requisitos funcionales]
-    B --> C[Calidad y restricciones]
-    C --> D[Relatos y ejemplos de aceptación]
-    D --> E[Orden, dependencias y negociación]
-    E --> F[Trazabilidad y obligaciones externas]
-    F --> G[Línea base y control de cambios]
-    G --> H[Defectos y reparación]
-    H --> I[Especificación revisable]
-    I -->|defecto o cambio| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Necesidad y origen»; luego «Reglas y requisitos funcionales»; luego «Calidad y restricciones»; luego «Relatos y ejemplos de aceptación»; luego «Orden, dependencias y negociación»; luego «Trazabilidad y obligaciones externas»; luego «Línea base y control de cambios»; luego «Defectos y reparación»; luego «Especificación revisable». Retornos: «Especificación revisable» lleva a «Necesidad y origen» (defecto o cambio).](../../site/assets/figures/mermaid-61420a078b.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un defecto hallado en la revisión o un cambio aprobado reabre el origen; una especificación entregada no cierra la pregunta, la fecha.
 

@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Elemento nativo] --> B[Rol, nombre y estado]
-    B --> C[Orden de foco y teclado]
-    C --> D[Tecnología de apoyo]
-    A -->|se imita con div| E[Se pierde rol, foco y teclado]
-    E --> F[ARIA compensa parte]
-    F --> D
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Elemento nativo»; luego «Rol, nombre y estado» y «Se pierde rol, foco y teclado»; luego «Orden de foco y teclado» y «ARIA compensa parte»; luego «Tecnología de apoyo».](../../../site/assets/figures/mermaid-24c8d1de6b.svg)
 
 El mapa se lee como dos caminos hacia la misma tecnología de apoyo: el nativo trae rol, nombre, foco y teclado; el imitado necesita que alguien los reconstruya con ARIA y código, y casi siempre pierde algo. La flecha de ARIA compensa solo lo que se describe; no es una receta de equivalencia.
 

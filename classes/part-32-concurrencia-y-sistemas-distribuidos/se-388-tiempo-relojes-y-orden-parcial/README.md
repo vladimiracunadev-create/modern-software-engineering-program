@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Suceso en un nodo] --> B{Qué pregunta}
-    B -->|cuánto duró| C[Reloj monotónico]
-    B -->|qué hora era| D[Reloj de pared sincronizado]
-    B -->|qué causó qué| E[Reloj lógico]
-    E --> F[Lamport: orden total consistente con causa]
-    E --> G[Vectorial: causa y concurrencia]
-    D --> H[Desfase entre nodos]
-    H --> I[Híbrido: hora física acotada más contador]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Suceso en un nodo»; luego «Qué pregunta»; luego «Reloj monotónico», «Reloj de pared sincronizado» y «Reloj lógico»; luego «Desfase entre nodos», «Lamport: orden total consistente con causa» y «Vectorial: causa y concurrencia»; luego «Híbrido: hora física acotada más contador».](../../../site/assets/figures/mermaid-10609551d9.svg)
 
 El mapa separa tres preguntas que suelen mezclarse. La duración usa un reloj que solo avanza. La hora de un suceso usa un reloj de pared con su error. La causalidad no usa la hora: usa contadores que viajan en los mensajes.
 

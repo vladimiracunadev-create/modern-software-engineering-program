@@ -56,21 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    C1[Cliente móvil] --> B1[BFF móvil]
-    C2[Cliente web] --> B2[BFF web]
-    B1 --> G[API gateway]
-    B2 --> G
-    G --> S1[Perfil]
-    G --> S2[Cursos]
-    G --> S3[Entregas]
-    G --> S4[Notificaciones]
-    S1 -.-> M[Malla: proxies y políticas]
-    S2 -.-> M
-    S3 -.-> M
-    S4 -.-> M
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Cliente móvil» y «Cliente web»; luego «BFF móvil» y «BFF web»; luego «API gateway»; luego «Perfil», «Cursos», «Entregas» y «Notificaciones»; luego «Malla: proxies y políticas».](../../../site/assets/figures/mermaid-2eafdf6904.svg)
 
 El mapa separa tres planos: el de la experiencia (los BFF, uno por cliente), el del borde (el gateway, con autenticación, límites y enrutamiento) y el del tráfico entre servicios (la malla, con proxies junto a cada servicio). Puede haber uno, dos o los tres; ninguno exige a los otros.
 

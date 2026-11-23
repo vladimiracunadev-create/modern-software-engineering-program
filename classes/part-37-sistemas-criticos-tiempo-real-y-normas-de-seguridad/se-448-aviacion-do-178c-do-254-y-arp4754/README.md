@@ -56,18 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Condición de fallo del sistema] --> B[Gravedad]
-    B --> C[Nivel de rigor del software]
-    C --> D[Requisitos de alto y bajo nivel]
-    D --> E[Pruebas basadas en requisitos]
-    E --> F[Cobertura estructural]
-    F --> G{Código sin ejecutar}
-    G -->|falta prueba| E
-    G -->|falta requisito| D
-    G -->|muerto o no previsto| H[Eliminar o justificar]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Condición de fallo del sistema»; luego «Gravedad»; luego «Nivel de rigor del software»; luego «Requisitos de alto y bajo nivel»; luego «Pruebas basadas en requisitos»; luego «Cobertura estructural»; luego «Código sin ejecutar»; luego «Eliminar o justificar». Retornos: «Código sin ejecutar» lleva a «Pruebas basadas en requisitos» (falta prueba); «Código sin ejecutar» lleva a «Requisitos de alto y bajo nivel» (falta requisito).](../../../site/assets/figures/mermaid-af0a88f54b.svg)
 
 El bucle es el centro del proceso: la cobertura estructural no cierra el trabajo, devuelve a los requisitos o a las pruebas lo que no se había visto.
 

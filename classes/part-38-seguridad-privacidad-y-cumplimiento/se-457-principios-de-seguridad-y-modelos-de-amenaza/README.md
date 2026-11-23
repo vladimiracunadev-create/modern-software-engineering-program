@@ -53,16 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Qué se protege y de quién] --> B[Diagrama de flujo de datos con fronteras]
-    B --> C[Amenazas por elemento: STRIDE]
-    C --> D[Grafo de ataque con costos]
-    D --> E[Decisión: mitigar, aceptar, transferir o eliminar]
-    E --> F[Validación: prueba o revisión que contradiga el modelo]
-    F -->|el sistema cambia| B
-    F -->|un camino nuevo aparece| D
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Qué se protege y de quién»; luego «Diagrama de flujo de datos con fronteras»; luego «Amenazas por elemento: STRIDE»; luego «Grafo de ataque con costos»; luego «Decisión: mitigar, aceptar, transferir o eliminar»; luego «Validación: prueba o revisión que contradiga el modelo». Retornos: «Validación: prueba o revisión que contradiga el modelo» lleva a «Diagrama de flujo de datos con fronteras» (el sistema cambia); «Validación: prueba o revisión que contradiga el modelo» lleva a «Grafo de ataque con costos» (un camino nuevo aparece).](../../../site/assets/figures/mermaid-99ee0e6423.svg)
 
 El mapa separa el **activo** (lo que importa), la **representación** (el diagrama), la **enumeración** (las amenazas), la **priorización** (los caminos) y la **validación**. El retorno indica que el modelo no se termina: un cambio de frontera lo reabre.
 

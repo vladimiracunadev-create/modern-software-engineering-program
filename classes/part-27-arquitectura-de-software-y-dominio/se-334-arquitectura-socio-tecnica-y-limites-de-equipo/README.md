@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    O[Estructura de equipos] --> C[Canales de comunicacion]
-    C --> A[Arquitectura resultante]
-    A --> D[Cambios que cruzan equipos]
-    D --> Q[Colas y esperas]
-    O --> K[Propiedad y conocimiento de modulos]
-    K --> R[Riesgo por salidas]
-    A -->|maniobra inversa| O
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Estructura de equipos»; luego «Canales de comunicacion» y «Propiedad y conocimiento de modulos»; luego «Arquitectura resultante» y «Riesgo por salidas»; luego «Cambios que cruzan equipos»; luego «Colas y esperas». Retornos: «Arquitectura resultante» lleva a «Estructura de equipos» (maniobra inversa).](../../../site/assets/figures/mermaid-9909d160ae.svg)
 
 El mapa muestra el doble sentido de la ley de Conway: la organización fija la arquitectura y, si se quiere otra arquitectura, hay que cambiar primero cómo se comunican los equipos. Las colas y el conocimiento son los dos costes que se miden.
 

@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Demanda por minuto] --> B[Capacidad necesaria]
-    B --> C{Política: fija, reactiva, programada}
-    C --> D[Instancias listas tras el arranque]
-    D --> E[Demanda atendida o perdida]
-    D --> F[Instancias-hora pagadas]
-    F --> G{Tarifa: bajo demanda o comprometida}
-    G --> H[Costo total]
-    E --> I[Nivel de servicio]
-    H --> J[Decisión y revisión]
-    I --> J
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Demanda por minuto»; luego «Capacidad necesaria»; luego «Política: fija, reactiva, programada»; luego «Instancias listas tras el arranque»; luego «Demanda atendida o perdida» y «Instancias-hora pagadas»; luego «Nivel de servicio» y «Tarifa: bajo demanda o comprometida»; luego «Costo total»; luego «Decisión y revisión».](../../../site/assets/figures/mermaid-430849a4bf.svg)
 
 El mapa tiene dos salidas que se comparan, el **nivel de servicio** (qué demanda se atendió) y el **costo** (qué se pagó), y las dos dependen de una política que decide cuántas instancias hay en cada momento. La tarifa es una segunda decisión, independiente de la primera: cuántas de esas instancias se compran por adelantado.
 

@@ -46,15 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta y audiencia] --> B[Nivel de abstracción]
-    B --> C[Modelo en texto]
-    C --> D[Diagrama generado]
-    C --> E[Alternativa textual]
-    D --> F[Comparación con el código]
-    F -->|diferencias| C
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Pregunta y audiencia»; luego «Nivel de abstracción»; luego «Modelo en texto»; luego «Diagrama generado» y «Alternativa textual»; luego «Comparación con el código». Retornos: «Comparación con el código» lleva a «Modelo en texto» (diferencias).](../../../site/assets/figures/mermaid-b6821bfcd1.svg)
 
 El diagrama se lee de izquierda a derecha: la pregunta y la audiencia fijan el nivel de abstracción; el modelo vive en texto y de él se generan el dibujo y su descripción alternativa; una comparación con el código devuelve las diferencias al modelo. No es un flujo obligatorio: un diagrama puede nacer de una pizarra. Lo que el esquema propone es que, para el que se mantiene, el texto sea la fuente y el dibujo una vista.
 

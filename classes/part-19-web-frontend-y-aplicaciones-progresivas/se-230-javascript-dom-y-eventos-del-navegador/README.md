@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pila de llamadas] --> B[Microtareas]
-    B --> C[Siguiente tarea]
-    C --> D[Renderizado]
-    D --> C
-    E[Evento de usuario] --> F[Captura]
-    F --> G[Destino]
-    G --> H[Burbuja]
-    H --> A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Evento de usuario»; luego «Captura»; luego «Destino»; luego «Burbuja»; luego «Pila de llamadas»; luego «Microtareas»; luego «Siguiente tarea»; luego «Renderizado». Retornos: «Renderizado» lleva a «Siguiente tarea».](../../../site/assets/figures/mermaid-eed0617b93.svg)
 
 El mapa se lee en dos mitades: a la izquierda, el bucle que ejecuta una pila, vacía las microtareas y solo entonces deja que el navegador pinte y tome otra tarea; a la derecha, el recorrido de un evento que entra por una tarea. Una microtarea recursiva o una tarea larga impiden el paso de la flecha hacia el renderizado.
 

@@ -52,22 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema en uso] --> B[Solicitud de cambio]
-    B --> C{Qué la origina}
-    C -->|un defecto| D[Correctivo]
-    C -->|el entorno cambió| E[Adaptativo]
-    C -->|alguien quiere más| F[Perfectivo]
-    C -->|proteger la capacidad de cambiar| G[Preventivo]
-    D --> H[Capacidad mensual]
-    E --> H
-    F --> H
-    G --> H
-    H -->|el correctivo consume la reserva| I[Deuda y degradación]
-    I -->|más incidencias| D
-    E -->|fecha externa| J[Restricción de calendario]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Sistema en uso»; luego «Solicitud de cambio»; luego «Qué la origina»; luego «Adaptativo», «Correctivo», «Perfectivo» y «Preventivo»; luego «Restricción de calendario» y «Capacidad mensual»; luego «Deuda y degradación». Retornos: «Deuda y degradación» lleva a «Correctivo» (más incidencias).](../../../site/assets/figures/mermaid-954c307f80.svg)
 
 El mapa separa el **origen** del cambio (un defecto, el entorno, un deseo, la salud del sistema) de su **efecto** sobre la capacidad. El bucle de la derecha es el punto central: el trabajo correctivo no solo cuesta, también alimenta, a través de la degradación, las incidencias que lo hacen necesario.
 

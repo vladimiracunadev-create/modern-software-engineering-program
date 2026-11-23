@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Flujo vulnerable] --> B[Verificador: 8 hallazgos]
-    B --> C[Un cambio por hallazgo]
-    C --> D[Prueba: el hallazgo desaparece]
-    D --> E{Quedan hallazgos}
-    E -->|sí| C
-    E -->|no| F[Flujo endurecido]
-    F --> G[Qué no ve el verificador]
-    G --> H[Revisión humana y otras herramientas]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Flujo vulnerable»; luego «Verificador: 8 hallazgos»; luego «Un cambio por hallazgo»; luego «Prueba: el hallazgo desaparece»; luego «Quedan hallazgos»; luego «Flujo endurecido»; luego «Qué no ve el verificador»; luego «Revisión humana y otras herramientas». Retornos: «Quedan hallazgos» lleva a «Un cambio por hallazgo» (sí).](../../../site/assets/figures/mermaid-eaf9133f9e.svg)
 
 El mapa insiste en el **ciclo corto**: un hallazgo, un cambio, una prueba. Corregir varios a la vez hace imposible saber qué cambio resolvió qué, y un cambio grande puede romper el despliegue sin que se sepa por qué.
 

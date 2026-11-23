@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    R[Recurso con identidad] --> M{Método}
-    M -->|GET HEAD| S[Seguro y cacheable]
-    M -->|PUT DELETE| I[Idempotente]
-    M -->|POST PATCH| N[No idempotente por defecto]
-    R --> E[ETag: versión]
-    E -->|If-Match| P[412 si cambió]
-    R --> C[Colección]
-    C --> K[Paginación por clave]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Recurso con identidad»; luego «Método», «ETag: versión» y «Colección»; luego «Seguro y cacheable», «Idempotente», «No idempotente por defecto», «412 si cambió» y «Paginación por clave».](../../../site/assets/figures/mermaid-2f5bad1901.svg)
 
 El mapa se lee desde el recurso: cada método le asigna una garantía distinta, la versión (`ETag`) protege las escrituras concurrentes y la colección necesita una paginación que no dependa de la posición. La bifurcación del método no es un menú de gustos: la fila de la garantía es lo que un intermediario asume sin leer la documentación.
 

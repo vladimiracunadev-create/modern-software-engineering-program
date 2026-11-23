@@ -56,21 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos con huella] --> B[Entrenamiento reproducible]
-    B --> C[Modelo versionado con manifiesto]
-    C --> D[Evaluación por segmento]
-    C --> E[Rollback verificado]
-    C --> F[Canary con guardas por segmento]
-    G[Monitor de deriva probado] --> H
-    D --> H[Puerta de liberación]
-    E --> H
-    F --> H
-    I[Ficha del modelo y runbook con dueño] --> H
-    H -->|11 de 11| J[Liberar por etapas]
-    H -->|alguna falla| K[Bloquear con el motivo]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Datos con huella»; luego «Entrenamiento reproducible»; luego «Modelo versionado con manifiesto»; luego «Evaluación por segmento», «Rollback verificado», «Canary con guardas por segmento», «Monitor de deriva probado» y «Ficha del modelo y runbook con dueño»; luego «Puerta de liberación»; luego «Liberar por etapas» y «Bloquear con el motivo».](../../../site/assets/figures/mermaid-b432105392.svg)
 
 El mapa converge en la puerta: cada flecha es una evidencia que se produce con una comprobación. La puerta tiene dos salidas y ninguna es ambigua: libera o bloquea con un motivo escrito.
 

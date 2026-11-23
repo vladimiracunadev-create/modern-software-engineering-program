@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema antiguo] --> B[Inventario de consumidores]
-    B --> C[Observar uso un ciclo completo]
-    C --> D[Anunciar fecha de retiro]
-    D --> E[Congelar escrituras]
-    E --> F[Apagar lectura gradualmente]
-    F --> G[Archivar con suma y prueba de restauración]
-    G --> H[Aplicar reglas de retención]
-    H --> I[Disposición segura de soportes]
-    F -->|aparece un consumidor| C
-    G -->|restauración falla| G
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Sistema antiguo»; luego «Inventario de consumidores»; luego «Observar uso un ciclo completo»; luego «Anunciar fecha de retiro»; luego «Congelar escrituras»; luego «Apagar lectura gradualmente»; luego «Archivar con suma y prueba de restauración»; luego «Aplicar reglas de retención»; luego «Disposición segura de soportes». Retornos: «Apagar lectura gradualmente» lleva a «Observar uso un ciclo completo» (aparece un consumidor); «Archivar con suma y prueba de restauración» lleva a «Archivar con suma y prueba de restauración» (restauración falla).](../../../site/assets/figures/mermaid-442f6f4545.svg)
 
 El mapa separa los pasos **reversibles** (observar, anunciar, congelar, apagar la lectura) del **irreversible** (la disposición segura de los soportes y el borrado). La flecha desde «apagar» hacia «observar» expresa que un consumidor inesperado reabre la medición.
 

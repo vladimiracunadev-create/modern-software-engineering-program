@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Riesgos identificados] --> B[Valor esperado y cola]
-    B --> C[Decisión posible]
-    C --> D{Reversible}
-    D -->|sí| E[Decide el equipo y registra]
-    D -->|no| F[Petición a quien autoriza]
-    F --> G{Vale la pena saber más}
-    G -->|valor de la información mayor al costo| H[Experimento o prueba]
-    G -->|menor| I[Decidir ahora]
-    H --> I
-    I --> J[Registro de la decisión y de su revisión]
-    J -->|cambia la información| A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Riesgos identificados»; luego «Valor esperado y cola»; luego «Decisión posible»; luego «Reversible»; luego «Decide el equipo y registra» y «Petición a quien autoriza»; luego «Vale la pena saber más»; luego «Experimento o prueba»; luego «Decidir ahora»; luego «Registro de la decisión y de su revisión». Retornos: «Registro de la decisión y de su revisión» lleva a «Riesgos identificados» (cambia la información).](../../../site/assets/figures/mermaid-e8d7bf0e51.svg)
 
 El mapa separa tres preguntas encadenadas: **qué riesgo pesa** (valor esperado y cola), **quién decide** (reversible o no) y **cuánto saber antes** (valor de la información). La flecha de retorno indica que una decisión registrada se revisa cuando cambia lo que se sabe.
 

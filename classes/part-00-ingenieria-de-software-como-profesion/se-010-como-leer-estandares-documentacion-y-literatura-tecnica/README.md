@@ -32,15 +32,7 @@ Distinguirás norma, especificación, guía y estudio; localizarás alcance, len
 | Artículo/libro | explicación o evidencia con método y contexto |
 
 ## Mapa conceptual
-```mermaid
-flowchart LR
- A[Afirmación] --> Q[Pregunta]
- Q --> F[Fuente candidata]
- F --> V[Versión y autoridad]
- V --> P[Pasaje y contexto]
- P --> I[Interpretación]
- I --> L[Límite]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Afirmación»; luego «Pregunta»; luego «Fuente candidata»; luego «Versión y autoridad»; luego «Pasaje y contexto»; luego «Interpretación»; luego «Límite».](../../../site/assets/figures/mermaid-d0d4cbcb87.svg)
 Leer solo el título salta los pasos que sostienen la afirmación.
 
 ## Conceptos y decisiones

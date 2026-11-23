@@ -44,11 +44,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Debugger, adapter / runtime] --> N2[Breakpoint / condición] --> N3[Stack frame / alcance] --> N4[Step, continue / watch] --> N5[Heisenbug / costo de pausa]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Debugger, adapter / runtime»; luego «Breakpoint / condición»; luego «Stack frame / alcance»; luego «Step, continue / watch»; luego «Heisenbug / costo de pausa». Retornos: «Heisenbug / costo de pausa» lleva a «Debugger, adapter / runtime» (fallo o cambio).](../../../site/assets/figures/mermaid-a9c88f8aa8.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

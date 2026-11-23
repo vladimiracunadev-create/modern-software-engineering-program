@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    T[Patron de trafico] --> D{Donde corre}
-    D -->|picos y poco uso| S[Funciones bajo demanda]
-    D -->|trafico sostenido| F[Servidor siempre encendido]
-    D -->|cerca del usuario| B[Borde de la red]
-    D -->|sin coordinador| P[Red de pares]
-    S --> C[Arranque en frio y limites]
-    F --> U[Utilizacion y coste fijo]
-    P --> G[Difusion por rumor]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Patron de trafico»; luego «Donde corre»; luego «Funciones bajo demanda», «Servidor siempre encendido», «Borde de la red» y «Red de pares»; luego «Arranque en frio y limites», «Utilizacion y coste fijo» y «Difusion por rumor».](../../../site/assets/figures/mermaid-db6dead1ec.svg)
 
 El mapa muestra que el patrón de tráfico, no la moda, decide el estilo. Cada rama trae su propio coste oculto: arranque en frío, utilización o convergencia.
 

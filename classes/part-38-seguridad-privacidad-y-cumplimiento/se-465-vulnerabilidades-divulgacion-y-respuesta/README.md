@@ -54,17 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Hallazgo: interno, externo o automático] --> B[Recepción y acuse]
-    B --> C[Triaje: validar y reproducir]
-    C --> D[Evaluación: gravedad, explotación, exposición]
-    D --> E[Corrección o mitigación]
-    E --> F[Divulgación coordinada y aviso]
-    F --> G[Aprendizaje: caso de abuso y prueba]
-    G --> H[Registro público: identificador y nota]
-    C -->|inválido o duplicado| I[Respuesta al reportante]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Hallazgo: interno, externo o automático»; luego «Recepción y acuse»; luego «Triaje: validar y reproducir»; luego «Evaluación: gravedad, explotación, exposición» y «Respuesta al reportante»; luego «Corrección o mitigación»; luego «Divulgación coordinada y aviso»; luego «Aprendizaje: caso de abuso y prueba»; luego «Registro público: identificador y nota».](../../../site/assets/figures/mermaid-84eeffd04c.svg)
 
 El mapa separa la **recepción** (que debe llegar a alguien) del **triaje** (validar) y de la **evaluación** (decidir prioridad). La divulgación es un paso planificado y el aprendizaje devuelve el caso al catálogo de pruebas.
 

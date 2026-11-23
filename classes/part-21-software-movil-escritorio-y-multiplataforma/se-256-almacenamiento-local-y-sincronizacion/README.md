@@ -51,17 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos del cliente] --> B[Dónde vive cada dato]
-    B --> C[Garantía de escritura]
-    C --> D[Coste por transacción]
-    B --> E[Dos copias]
-    E --> F[Política de fusión]
-    D --> G[Decisión revisable]
-    F --> G
-    G -->|medición o fallo| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Datos del cliente»; luego «Dónde vive cada dato»; luego «Garantía de escritura» y «Dos copias»; luego «Coste por transacción» y «Política de fusión»; luego «Decisión revisable». Retornos: «Decisión revisable» lleva a «Datos del cliente» (medición o fallo).](../../../site/assets/figures/mermaid-f65bf2e5b7.svg)
 
 El mapa se lee de izquierda a derecha: cada dato tiene una ubicación y una garantía, la garantía tiene un coste, y la existencia de dos copias exige una política de fusión que decide qué intención se sacrifica. La flecha de retorno indica que una medición o un fallo reabre el inventario de datos.
 

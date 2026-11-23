@@ -10,18 +10,7 @@ La [Parte 10](../part-10-descubrimiento-y-estrategia-de-producto/README.md) dej�
 
 Esta parte no enseña finanzas ni analítica como lista de fórmulas. Enseña a expresar una decisión de producto con rangos en lugar de puntos, a separar resultado de actividad, a medir sin identificar a nadie, a distinguir una diferencia de un efecto, a poner contrapesos a una meta y a decidir con cuidado cuánto cuesta equivocarse. Cada clase ejecuta experimentos con datos sintéticos y semilla fija que muestran un mecanismo (una razón que se dispara con un abandono pequeño, una curva que se aplana por mezcla, un permiso que el código no respeta, un optimizador que cruza una guarda) y declara lo que ese experimento no demuestra.
 
-```mermaid
-flowchart LR
-    A[Brief de la Parte 10] --> B[Modelo de negocio y costos]
-    B --> C[Resultados y métricas]
-    C --> D[Telemetría y consentimiento]
-    D --> E[Experimentos y causalidad]
-    E --> F[Metas, guardas y costo por resultado]
-    F --> G[Cartera y reversibilidad]
-    G --> H[Árbol de métricas]
-    H --> I[Caso de viabilidad]
-    I -->|nueva evidencia| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Brief de la Parte 10»; luego «Modelo de negocio y costos»; luego «Resultados y métricas»; luego «Telemetría y consentimiento»; luego «Experimentos y causalidad»; luego «Metas, guardas y costo por resultado»; luego «Cartera y reversibilidad»; luego «Árbol de métricas»; luego «Caso de viabilidad». Retornos: «Caso de viabilidad» lleva a «Modelo de negocio y costos» (nueva evidencia).](../../site/assets/figures/mermaid-46fcc8f328.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que una evidencia nueva reabre los supuestos del modelo; un caso aprobado no cierra la pregunta, la fecha.
 

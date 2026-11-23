@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Carga de trabajo] --> B{¿Se puede compilar a Wasm y no necesita bibliotecas del sistema?}
-    B -->|sí| C[Módulo Wasm: combustible, memoria, cero importaciones]
-    B -->|no| D{¿Código de varios inquilinos o desconocido?}
-    D -->|no| E[Proceso con entorno propio, directorio temporal y tiempo máximo]
-    D -->|sí| F[Proceso dentro de contenedor reforzado, núcleo de aplicación o microVM]
-    C --> G[Batería hostil: mismas seis pruebas]
-    E --> G
-    F --> G
-    G --> H[Matriz de contención y decisión con su condición de revisión]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Carga de trabajo»; luego «¿Se puede compilar a Wasm y no necesita bibliotecas del sistema?»; luego «Módulo Wasm: combustible, memoria, cero importaciones» y «¿Código de varios inquilinos o desconocido?»; luego «Proceso con entorno propio, directorio temporal y tiempo máximo» y «Proceso dentro de contenedor reforzado, núcleo de aplicación o microVM»; luego «Batería hostil: mismas seis pruebas»; luego «Matriz de contención y decisión con su condición de revisión».](../../../site/assets/figures/mermaid-ef0f3951ef.svg)
 
 La primera pregunta es de capacidad (¿puede ese candidato ejecutar la carga?). La segunda es de amenaza. La batería no decide: confirma que la configuración elegida contiene lo que se esperaba, y se ejecuta de nuevo cada vez que cambia la configuración.
 

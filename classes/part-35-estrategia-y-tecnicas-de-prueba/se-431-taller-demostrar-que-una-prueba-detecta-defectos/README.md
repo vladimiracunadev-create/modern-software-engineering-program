@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Prueba] --> B[Ejecutar contra el código correcto]
-    A --> C[Ejecutar contra el defecto]
-    A --> D[Ejecutar contra un refactor neutro]
-    B --> E{Pasa}
-    C --> F{Falla por aserción}
-    D --> G{Pasa}
-    E --> H[Paquete de evidencia]
-    F --> H
-    G --> H
-    H --> I[Validador: re-ejecuta y comprueba]
-    F -->|solo por excepción| J[Reforzar la aserción]
-    G -->|falla| K[Reducir acoplamiento a la implementación]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Prueba»; luego «Ejecutar contra el código correcto», «Ejecutar contra el defecto» y «Ejecutar contra un refactor neutro»; luego «Pasa», «Falla por aserción» y «Pasa»; luego «Paquete de evidencia», «Reforzar la aserción» y «Reducir acoplamiento a la implementación»; luego «Validador: re-ejecuta y comprueba».](../../../site/assets/figures/mermaid-475775ca6c.svg)
 
 El mapa muestra la demostración en tres ejecuciones: la prueba debe pasar con el código correcto, fallar con el defecto y volver a pasar con un refactor neutro. Un paquete de evidencia solo vale si alguien puede repetir las tres.
 

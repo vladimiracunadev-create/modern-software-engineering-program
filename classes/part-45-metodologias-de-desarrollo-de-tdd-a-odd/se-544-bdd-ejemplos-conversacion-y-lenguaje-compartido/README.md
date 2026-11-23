@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Conversación: negocio, desarrollo y prueba] --> B[Ejemplos concretos]
-    B --> C[Reglas y preguntas abiertas]
-    C --> D[Formulación: escenarios Dado, Cuando, Entonces]
-    D --> E[Definiciones de paso]
-    E --> F[Automatización contra el sistema]
-    F --> G{¿Pasa?}
-    G -->|no| H[Código o ejemplo equivocado]
-    G -->|sí| I[Documentación viva]
-    H --> A
-    I --> J[Regresión]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Conversación: negocio, desarrollo y prueba»; luego «Ejemplos concretos»; luego «Reglas y preguntas abiertas»; luego «Formulación: escenarios Dado, Cuando, Entonces»; luego «Definiciones de paso»; luego «Automatización contra el sistema»; luego «¿Pasa?»; luego «Código o ejemplo equivocado» y «Documentación viva»; luego «Regresión». Retornos: «Código o ejemplo equivocado» lleva a «Conversación: negocio, desarrollo y prueba».](../../../site/assets/figures/mermaid-1ea7a67e21.svg)
 
 El mapa pone la conversación al principio y la ejecución en el medio. Un fallo no siempre significa que el código está mal: puede significar que el ejemplo estaba equivocado, y ese descubrimiento regresa a la conversación.
 

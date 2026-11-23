@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Costo por resultado] --> N2[Costos fijos y variables] --> N3[Reparto del costo compartido] --> N4[Compromiso de capacidad] --> N5[Atribución y rendición de cuentas]
-    N5 -->|un reparto o un volumen cambia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Costo por resultado»; luego «Costos fijos y variables»; luego «Reparto del costo compartido»; luego «Compromiso de capacidad»; luego «Atribución y rendición de cuentas». Retornos: «Atribución y rendición de cuentas» lleva a «Costo por resultado» (un reparto o un volumen cambia).](../../../site/assets/figures/mermaid-1d6e404802.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un cambio de volumen o de reparto obliga a recalcular el costo unitario; no autoriza a corregir solo la factura.
 

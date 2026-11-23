@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Función que admite un único titular] --> B[Elegir titular]
-    B --> C{Regla}
-    C -->|el mayor que veo| D[Varios líderes en una partición]
-    C -->|mayoría con mandato| E[A lo sumo un líder por mandato]
-    E --> F[Arrendamiento: el titular puede caducar]
-    F --> G[Pausa del titular]
-    G --> H[Testigo de cerco en el recurso]
-    E --> I[Tamaño del grupo: 2f+1 tolera f caídas]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Función que admite un único titular»; luego «Elegir titular»; luego «Regla»; luego «Varios líderes en una partición» y «A lo sumo un líder por mandato»; luego «Arrendamiento: el titular puede caducar» y «Tamaño del grupo: 2f+1 tolera f caídas»; luego «Pausa del titular»; luego «Testigo de cerco en el recurso».](../../../site/assets/figures/mermaid-c5363fcab6.svg)
 
 El mapa muestra que elegir es solo el primer paso. Un líder elegido por mayoría puede perder el mandato sin enterarse, y el recurso que protege debe poder rechazarlo: de ahí el testigo de cerco. El tamaño del grupo fija cuántas caídas se toleran.
 

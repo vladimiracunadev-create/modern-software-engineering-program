@@ -270,8 +270,8 @@ def validate_role_guides() -> None:
             raise AssertionError(f"Role guide is too shallow for publication: {guide.name}")
         if text.count("../classes/") < 1:
             raise AssertionError(f"Role guide has no concrete curriculum link: {guide.name}")
-        if text.count("```mermaid") != 2:
-            raise AssertionError(f"Role guide must contain two visual models: {guide.name}")
+        if len(re.findall(r"!\[[^\]]*\]\([^)\s]*figures/mermaid-[0-9a-f]{10}\.svg", text)) != 2 or "```mermaid" in text:
+            raise AssertionError(f"Role guide must contain two published visual models (SVG): {guide.name}")
         if text.count("/se-") < 15:
             raise AssertionError(f"Role guide has too few associated class links: {guide.name}")
         if "style=for-the-badge" not in text:

@@ -27,17 +27,7 @@ El kit de diagnóstico multiplataforma comienza con un incidente deliberadamente
 
 En cada clase se añade una capacidad al kit:
 
-```mermaid
-flowchart LR
-    A[Identificar plataforma] --> B[Resolver rutas]
-    B --> C[Comprobar identidad y permisos]
-    C --> D[Observar procesos y servicios]
-    D --> E[Ejecutar comandos con contratos]
-    E --> F[Leer configuración sin exponer secretos]
-    F --> G[Inventariar dependencias]
-    G --> H[Recolectar evidencia]
-    H --> I[Explicar y proponer recuperación]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Identificar plataforma»; luego «Resolver rutas»; luego «Comprobar identidad y permisos»; luego «Observar procesos y servicios»; luego «Ejecutar comandos con contratos»; luego «Leer configuración sin exponer secretos»; luego «Inventariar dependencias»; luego «Recolectar evidencia»; luego «Explicar y proponer recuperación».](../../site/assets/figures/mermaid-37eccc1a8d.svg)
 
 El diagrama no representa una receta rígida. Representa un orden de reducción de incertidumbre: primero se describe el contexto; luego se verifica cada frontera; al final se interviene. Saltar directamente a “reinstalar todo” destruye evidencia y vuelve irreproducible el aprendizaje.
 

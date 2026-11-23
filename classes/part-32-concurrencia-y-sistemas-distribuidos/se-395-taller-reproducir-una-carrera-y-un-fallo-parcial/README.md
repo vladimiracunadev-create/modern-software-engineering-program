@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Síntoma esporádico] --> B[Modelo con pasos explícitos]
-    B --> C[Planificador controlado]
-    C --> D[Calendario que falla siempre]
-    D --> E[Reducción al mínimo]
-    E --> F[Causa: pasos y orden]
-    F --> G[Corrección]
-    G --> H[Regresión: falla antes, pasa después]
-    B --> I[Flujo con efectos: puntos de fallo]
-    I --> J[Corte frente a respuesta perdida]
-    J --> G
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Síntoma esporádico»; luego «Modelo con pasos explícitos»; luego «Planificador controlado» y «Flujo con efectos: puntos de fallo»; luego «Calendario que falla siempre» y «Corte frente a respuesta perdida»; luego «Reducción al mínimo»; luego «Causa: pasos y orden»; luego «Corrección»; luego «Regresión: falla antes, pasa después».](../../../site/assets/figures/mermaid-d46f5bf73e.svg)
 
 El mapa tiene un camino para la **carrera** (modelo, planificador, calendario, reducción) y otro para el **fallo parcial** (puntos de fallo, corte frente a respuesta perdida). Ambos desembocan en una corrección que se prueba con una regresión que falla primero.
 

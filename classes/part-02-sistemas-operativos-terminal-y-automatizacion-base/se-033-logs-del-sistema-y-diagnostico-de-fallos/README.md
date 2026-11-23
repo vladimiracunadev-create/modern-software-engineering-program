@@ -56,18 +56,7 @@ Podrás diseñar eventos estructurados; distinguir logs, métricas y trazas; cor
 | Minimización | selecciona y redacta antes de persistir | compartir evidencia con menor riesgo |
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
- O[Operación] --> L[Logs estructurados]
- O --> M[Métricas]
- O --> X[Estado y stderr]
- C[Contexto de plataforma] --> T[Línea temporal]
- L --> T
- M --> T
- X --> T
- T --> H[Hipótesis rivales]
- H --> P[Prueba discriminante]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Operación»; luego «Logs estructurados», «Métricas», «Estado y stderr» y «Contexto de plataforma»; luego «Línea temporal»; luego «Hipótesis rivales»; luego «Prueba discriminante».](../../../site/assets/figures/mermaid-e9cc6e0a92.svg)
 
 Las señales convergen en una hipótesis, no en una certeza automática. La prueba siguiente debe poder cambiar la conclusión.
 
@@ -83,18 +72,7 @@ Ninguna señal aislada es verdad completa. Un log registra lo que el programa al
 
 Un registro profesional incluye tiempo con zona o referencia inequívoca, severidad, componente, evento estable, correlación y campos relevantes. El mensaje humano complementa, no sustituye, la estructura.
 
-```mermaid
-flowchart LR
-    O[Operación del analizador local de eventos] --> A[Eventos de aplicación]
-    O --> M[Métricas locales]
-    O --> X[Código y stderr]
-    S[Contexto del sistema] --> C[Correlación temporal]
-    A --> C
-    M --> C
-    X --> C
-    C --> H[Hipótesis contrastables]
-    H --> P[Prueba mínima siguiente]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Operación del analizador local de eventos»; luego «Eventos de aplicación», «Métricas locales», «Código y stderr» y «Contexto del sistema»; luego «Correlación temporal»; luego «Hipótesis contrastables»; luego «Prueba mínima siguiente».](../../../site/assets/figures/mermaid-1282206db7.svg)
 
 La correlación aproxima relaciones; no demuestra causalidad por sí sola. Un identificador de operación une eventos mejor que buscar textos parecidos.
 

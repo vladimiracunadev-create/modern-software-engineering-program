@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Historia] --> B{Definición de listo}
-    B -->|incompleta| C[Refinar]
-    B -->|lista| D[Construir]
-    D --> E{Definición de terminado}
-    E -->|falta una comprobación| D
-    E -->|cumple| F{Aceptación}
-    F -->|criterios no cumplidos| D
-    F -->|aceptada| G[Incremento utilizable]
-    G -->|defecto escapado| H[Ajustar puertas]
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Historia»; luego «Definición de listo»; luego «Refinar» y «Construir»; luego «Definición de terminado»; luego «Aceptación»; luego «Incremento utilizable»; luego «Ajustar puertas». Retornos: «Definición de terminado» lleva a «Construir» (falta una comprobación); «Aceptación» lleva a «Construir» (criterios no cumplidos); «Ajustar puertas» lleva a «Definición de listo».](../../../site/assets/figures/mermaid-8a30b5281a.svg)
 
 El mapa se lee como una secuencia de tres puertas con retorno: cada una devuelve el trabajo si no se cumple. El retorno final indica que un defecto escapado enseña qué puerta fue insuficiente.
 

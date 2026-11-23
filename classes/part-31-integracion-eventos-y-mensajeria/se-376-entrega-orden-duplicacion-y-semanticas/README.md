@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Productor] -->|envía| B[Corredor]
-    B -->|entrega| C[Consumidor]
-    C -->|acuse| B
-    B -.->|pérdida o acuse perdido| D{Qué hacer}
-    D -->|no reintentar| E[A lo sumo una vez: se pierde]
-    D -->|reintentar| F[Al menos una vez: se duplica]
-    F --> G[Consumidor idempotente + versión]
-    G --> H[Efecto exactamente una vez]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Productor»; luego «Corredor»; luego «Consumidor» y «Qué hacer»; luego «A lo sumo una vez: se pierde» y «Al menos una vez: se duplica»; luego «Consumidor idempotente + versión»; luego «Efecto exactamente una vez». Retornos: «Consumidor» lleva a «Corredor» (acuse).](../../../site/assets/figures/mermaid-a9a908cd5c.svg)
 
 El mapa separa la **entrega**, que el transporte decide entre perder y duplicar, del **efecto**, que el consumidor controla. El camino punteado es el momento en que el emisor no sabe si el mensaje llegó.
 

@@ -56,18 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Qubits: amplitudes complejas] --> B[Puertas: transformaciones unitarias]
-    B --> C[Interferencia: refuerza o cancela]
-    C --> D[Medición: una respuesta al azar]
-    D --> E{Problema con estructura}
-    E -->|periodo, logaritmo discreto| F[Shor: ventaja exponencial]
-    E -->|búsqueda sin estructura| G[Grover: ventaja cuadrática]
-    E -->|casi todo lo demás| H[Sin ventaja conocida]
-    I[Ruido] --> J[Corrección de errores: muchos qubits físicos por lógico]
-    F --> K[Decisiones: inventario y migración criptográfica]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Qubits: amplitudes complejas» y «Ruido»; luego «Puertas: transformaciones unitarias» y «Corrección de errores: muchos qubits físicos por lógico»; luego «Interferencia: refuerza o cancela»; luego «Medición: una respuesta al azar»; luego «Problema con estructura»; luego «Shor: ventaja exponencial», «Grover: ventaja cuadrática» y «Sin ventaja conocida»; luego «Decisiones: inventario y migración criptográfica».](../../../site/assets/figures/mermaid-3a4078dcae.svg)
 
 El camino hacia la aplicación pasa siempre por una estructura del problema que la interferencia pueda explotar. Fuera de esa estructura no hay ventaja conocida. El ruido es el factor que separa lo demostrado en papel de lo ejecutable, y la decisión práctica (inventario y migración criptográfica) se toma sin esperar a que exista el hardware.
 

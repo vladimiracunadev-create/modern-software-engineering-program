@@ -10,21 +10,7 @@ La [Parte 26](../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/READM
 
 Esta parte no defiende un estilo ni recomienda una moda. Enseña a leer un estilo como un **paquete de restricciones con un costo medible**: qué propiedad compra, qué se paga y qué supuesto lo invalida. La primera clase construye el método de decisión con escenarios de calidad (`SE-337`). Las seis siguientes miden el costo de cada estilo con código: la extensión por complementos y su contrato (`SE-338`), la memoria y el orden de una cadena de filtros (`SE-339`), el precio de cruzar un proceso y la aritmética de una cadena de servicios (`SE-340`), los bytes y las rondas de una pantalla con un BFF y la confianza en el borde (`SE-341`) y las fugas entre inquilinos con el vecino ruidoso (`SE-342`). Después se trata la propiedad de los datos con una cola y cinco comprobaciones (`SE-343`), el radio de impacto de las celdas (`SE-344`), las propiedades de una aplicación que se puede copiar y reemplazar (`SE-345`) y el viaje de un estilo a otro con un comparador y escalones de tráfico (`SE-346`). La parte termina con un taller que decide con escenarios y sensibilidad (`SE-347`) y un proyecto que convierte la decisión en un registro con su prueba y su disparador (`SE-348`).
 
-```mermaid
-flowchart LR
-    A[Fuerzas de calidad] --> B[Microkernel]
-    B --> C[Pipes and filters]
-    C --> D[Microservicios]
-    D --> E[BFF, gateway y malla]
-    E --> F[Multi-tenancy]
-    F --> G[Data mesh]
-    G --> H[Celdas]
-    H --> I[12-factor]
-    I --> J[Migración entre estilos]
-    J --> K[Taller: escenarios y sensibilidad]
-    K --> L[Proyecto: ADR defendido]
-    L -->|disparador cumplido| A
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Fuerzas de calidad»; luego «Microkernel»; luego «Pipes and filters»; luego «Microservicios»; luego «BFF, gateway y malla»; luego «Multi-tenancy»; luego «Data mesh»; luego «Celdas»; luego «12-factor»; luego «Migración entre estilos»; luego «Taller: escenarios y sensibilidad»; luego «Proyecto: ADR defendido». Retornos: «Proyecto: ADR defendido» lleva a «Fuerzas de calidad» (disparador cumplido).](../../site/assets/figures/mermaid-6ea1208845.svg)
 
 El diagrama se lee de izquierda a derecha y no es un orden obligatorio de adopción: es el orden en que se explican los costos. El retorno indica que una decisión registrada se reabre cuando su disparador se cumple, y vuelve a empezar por las fuerzas.
 

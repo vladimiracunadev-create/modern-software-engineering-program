@@ -54,19 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cliente consulta el canal] --> B{¿Hay versión nueva firmada y con secuencia mayor?}
-    B -->|no| Z[Seguir]
-    B -->|sí| C[Descargar a un directorio aparte]
-    C --> D[Verificar huella y firma]
-    D -->|falla| X[Descartar; la instalación actual no se toca]
-    D -->|ok| E[Migrar la configuración de forma reversible]
-    E --> F[Activar: cambiar el puntero de forma atómica]
-    F --> G[Arrancar y comprobar]
-    G -->|falla| H[Volver al puntero anterior]
-    G -->|ok| I[Limpiar versiones antiguas tras un plazo]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Cliente consulta el canal»; luego «¿Hay versión nueva firmada y con secuencia mayor?»; luego «Seguir» y «Descargar a un directorio aparte»; luego «Verificar huella y firma»; luego «Descartar; la instalación actual no se toca» y «Migrar la configuración de forma reversible»; luego «Activar: cambiar el puntero de forma atómica»; luego «Arrancar y comprobar»; luego «Volver al puntero anterior» y «Limpiar versiones antiguas tras un plazo».](../../../site/assets/figures/mermaid-d613a48d0c.svg)
 
 El mapa muestra que todo lo que puede fallar ocurre antes de la activación y que la activación es una única operación. La versión anterior se conserva hasta que la nueva ha demostrado que arranca.
 

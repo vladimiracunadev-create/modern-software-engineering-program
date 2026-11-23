@@ -53,24 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Sistema legado] --> B[1. Construcción reproducible]
-    A --> C[2. Suite con rojo significativo]
-    A --> D[3. Caracterización de puntos calientes]
-    A --> E[4. Camino de vuelta probado]
-    A --> F[5. Línea base de métricas]
-    A --> G[6. Inventario de dependencias y propietarios]
-    B --> H{Puerta de entrada}
-    C --> H
-    D --> H
-    E --> H
-    F --> H
-    G --> H
-    H -->|todas cumplen| I[Entrar a la modernización]
-    H -->|falta alguna| J[Cerrar la condición y volver]
-    J --> H
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Sistema legado»; luego «1. Construcción reproducible», «2. Suite con rojo significativo», «3. Caracterización de puntos calientes», «4. Camino de vuelta probado», «5. Línea base de métricas» y «6. Inventario de dependencias y propietarios»; luego «Puerta de entrada»; luego «Entrar a la modernización» y «Cerrar la condición y volver». Retornos: «Cerrar la condición y volver» lleva a «Puerta de entrada».](../../../site/assets/figures/mermaid-2342c5680f.svg)
 
 El mapa muestra seis condiciones independientes que convergen en una decisión. La puerta no pide un sistema perfecto sino que **cada condición tenga evidencia**; lo que no se pueda cumplir se registra como riesgo aceptado, con dueño y fecha.
 

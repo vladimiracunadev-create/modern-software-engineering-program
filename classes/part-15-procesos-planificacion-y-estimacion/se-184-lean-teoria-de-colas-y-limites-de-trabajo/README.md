@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Llegadas] --> B[Cola]
-    B --> C[Servicio]
-    C --> D[Terminado]
-    E[Utilización] --> F[Espera]
-    G[Variabilidad y lotes] --> F
-    H[Límite de trabajo] --> I[Elementos en curso]
-    I -->|ley de Little| J[Plazo = en curso ÷ rendimiento]
-    F --> J
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Llegadas», «Utilización», «Variabilidad y lotes» y «Límite de trabajo»; luego «Cola», «Espera» y «Elementos en curso»; luego «Servicio» y «Plazo = en curso ÷ rendimiento»; luego «Terminado».](../../../site/assets/figures/mermaid-a339f9337c.svg)
 
 El mapa se lee de izquierda a derecha para el sistema de espera y de arriba abajo para sus palancas: la utilización y la variabilidad determinan la espera; el límite de trabajo determina el número de elementos en curso; la ley de Little une ambos con el plazo.
 

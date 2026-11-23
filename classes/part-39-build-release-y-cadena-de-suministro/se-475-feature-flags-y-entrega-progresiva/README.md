@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código con la función detrás de una bandera] --> B[Despliegue: bandera apagada]
-    B --> C[Evaluación: contexto de usuario + reglas]
-    C -->|huella con sal por bandera| D{Cubo menor que el porcentaje?}
-    D -->|sí| E[Variante nueva]
-    D -->|no| F[Variante anterior]
-    E --> G[Observación: métricas y errores]
-    G -->|bien| H[Ampliar el porcentaje]
-    G -->|mal| I[Apagar sin desplegar]
-    H --> J[100 %: retirar la bandera y el código muerto]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Código con la función detrás de una bandera»; luego «Despliegue: bandera apagada»; luego «Evaluación: contexto de usuario + reglas»; luego «Cubo menor que el porcentaje?»; luego «Variante nueva» y «Variante anterior»; luego «Observación: métricas y errores»; luego «Ampliar el porcentaje» y «Apagar sin desplegar»; luego «100 %: retirar la bandera y el código muerto».](../../../site/assets/figures/mermaid-4d8bc90fb8.svg)
 
 El mapa muestra que la bandera es un ciclo, no un estado: nace apagada, se amplía con observación y debe terminar retirada. El paso final es el que se olvida.
 

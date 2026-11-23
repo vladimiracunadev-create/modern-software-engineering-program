@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Regla] --> B[Descubrir ejemplos con las tres perspectivas]
-    B --> C[Escenarios declarativos]
-    C --> D[Pasos y definiciones]
-    D --> E[Suite que discrimina]
-    E --> F[Documentación viva]
-    F -->|defecto o cambio| A
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Regla»; luego «Descubrir ejemplos con las tres perspectivas»; luego «Escenarios declarativos»; luego «Pasos y definiciones»; luego «Suite que discrimina»; luego «Documentación viva». Retornos: «Documentación viva» lleva a «Regla» (defecto o cambio).](../../../site/assets/figures/mermaid-49f8d92e50.svg)
 
 El mapa se lee como un ciclo de trabajo: los ejemplos nacen de una conversación sobre la regla, se escriben en el lenguaje del dominio, se emparejan con código y se evalúan por lo que discriminan. La flecha de retorno indica que un defecto hallado o un cambio de política reabre la conversación; actualizar solo el código deja el ejemplo mintiendo.
 

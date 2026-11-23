@@ -32,13 +32,7 @@ Distinguirás calidad interna, comportamiento externo y consecuencias en context
 | Calidad en uso | efectividad, eficiencia y consecuencias para stakeholders |
 
 ## Mapa conceptual
-```mermaid
-flowchart LR
- I[Estructura interna] --> B[Comportamiento]
- B --> U[Resultado en contexto]
- C[Usuarios, tareas y entorno] --> U
- U --> F[Feedback] --> I
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Estructura interna»; luego «Comportamiento» y «Usuarios, tareas y entorno»; luego «Resultado en contexto»; luego «Feedback». Retornos: «Feedback» lleva a «Estructura interna».](../../../site/assets/figures/mermaid-003433e8db.svg)
 Una cadena plausible no es garantía: código legible facilita cambio, pero no asegura una tarea útil.
 
 ## Conceptos y decisiones

@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Falla del sistema de datos] --> B[Réplica atrasada o partición]
-    A --> C[Duplicados y desorden]
-    A --> D[Copia que no restaura]
-    A --> E[Almacén de características degradado]
-    B --> F[Pérdida de escrituras confirmadas, lecturas viejas]
-    C --> G[Efectos repetidos]
-    D --> H[Recuperación incompleta]
-    E --> I[Modelo menos exacto sin errores]
-    F & G & H & I --> J[Señal de integridad: conteos, sumas de verificación, exactitud]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Falla del sistema de datos»; luego «Réplica atrasada o partición», «Duplicados y desorden», «Copia que no restaura» y «Almacén de características degradado»; luego «Pérdida de escrituras confirmadas, lecturas viejas», «Efectos repetidos», «Recuperación incompleta» y «Modelo menos exacto sin errores»; luego «Señal de integridad: conteos, sumas de verificación, exactitud».](../../../site/assets/figures/mermaid-cf1375fccd.svg)
 
 El mapa lleva las fallas a su **consecuencia en los datos** y no a su síntoma de disponibilidad. La última caja es la clave: en estos sistemas el estado estable es una propiedad de los datos (conteos que cuadran, exactitud estable), no un porcentaje de respuestas.
 

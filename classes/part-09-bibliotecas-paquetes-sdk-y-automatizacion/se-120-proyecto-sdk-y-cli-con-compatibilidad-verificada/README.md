@@ -46,11 +46,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Contrato multicapa] --> N2[Matriz de compatibilidad] --> N3[Release candidate] --> N4[Supply chain mínima] --> N5[Aceptación desde el consumidor]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Contrato multicapa»; luego «Matriz de compatibilidad»; luego «Release candidate»; luego «Supply chain mínima»; luego «Aceptación desde el consumidor». Retornos: «Aceptación desde el consumidor» lleva a «Contrato multicapa» (fallo o cambio).](../../../site/assets/figures/mermaid-4ddefdbb5d.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

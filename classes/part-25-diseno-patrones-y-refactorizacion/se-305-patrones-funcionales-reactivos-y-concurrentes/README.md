@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Estado compartido] --> B{Quién es dueño}
-    B --> C[Nadie: funciones puras y datos inmutables]
-    B --> D[Un solo hilo: paso de mensajes]
-    B --> E[Varios: protección con operación atómica]
-    C --> F[Prueba: repetir, perturbar, comparar]
-    D --> G[Prueba: cola acotada y política de desborde]
-    E --> H[Prueba: enumerar intercalaciones]
-    F --> I[¿Qué sigue sin garantía?]
-    G --> I
-    H --> I
-    I -->|cambia la carga| B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Estado compartido»; luego «Quién es dueño»; luego «Nadie: funciones puras y datos inmutables», «Un solo hilo: paso de mensajes» y «Varios: protección con operación atómica»; luego «Prueba: repetir, perturbar, comparar», «Prueba: cola acotada y política de desborde» y «Prueba: enumerar intercalaciones»; luego «¿Qué sigue sin garantía?». Retornos: «¿Qué sigue sin garantía?» lleva a «Quién es dueño» (cambia la carga).](../../../site/assets/figures/mermaid-dbad3b2bab.svg)
 
 El mapa parte de la pregunta de propiedad y termina en lo que no queda garantizado. El retorno marca que un cambio de carga reabre la decisión.
 

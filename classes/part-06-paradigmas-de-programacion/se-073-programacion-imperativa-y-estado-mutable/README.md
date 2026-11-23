@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Estado como memoria de la ejecución] --> N2[Comandos, expresiones / secuencia] --> N3[Asignación, aliasing / mutación] --> N4[Invariantes alrededor de transiciones] --> N5[Estado local, compartido / persistente]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Estado como memoria de la ejecución»; luego «Comandos, expresiones / secuencia»; luego «Asignación, aliasing / mutación»; luego «Invariantes alrededor de transiciones»; luego «Estado local, compartido / persistente». Retornos: «Estado local, compartido / persistente» lleva a «Estado como memoria de la ejecución» (fallo o cambio).](../../../site/assets/figures/mermaid-14a0843052.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

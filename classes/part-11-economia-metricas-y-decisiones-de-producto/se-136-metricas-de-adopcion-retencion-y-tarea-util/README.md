@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Adopción] --> N2[Tarea útil] --> N3[Retención por cohortes] --> N4[Segmentos y heterogeneidad] --> N5[Censura e incertidumbre]
-    N5 -->|la definición cambia| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Adopción»; luego «Tarea útil»; luego «Retención por cohortes»; luego «Segmentos y heterogeneidad»; luego «Censura e incertidumbre». Retornos: «Censura e incertidumbre» lleva a «Adopción» (la definición cambia).](../../../site/assets/figures/mermaid-8f7df5c1cb.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una cohorte incompleta o un segmento oculto obliga a revisar la definición de adopción; no autoriza a cambiar solo el gráfico.
 

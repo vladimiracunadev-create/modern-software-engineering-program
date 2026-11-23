@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Solicitud de integración] --> B[Entorno de vista previa]
-    B --> C[Datos: sintéticos o enmascarados]
-    C --> D{Riesgo de reidentificación}
-    D -->|alto| E[Generalizar o suprimir]
-    D -->|aceptable| F[Uso del entorno]
-    F --> G{Actividad reciente}
-    G -->|sí| H[Renovar la vida]
-    G -->|no, o cerrada| I[Destruir]
-    I --> J[Datos eliminados]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Solicitud de integración»; luego «Entorno de vista previa»; luego «Datos: sintéticos o enmascarados»; luego «Riesgo de reidentificación»; luego «Generalizar o suprimir» y «Uso del entorno»; luego «Actividad reciente»; luego «Renovar la vida» y «Destruir»; luego «Datos eliminados».](../../../site/assets/figures/mermaid-60738b5db2.svg)
 
 El mapa tiene dos bucles de decisión: uno sobre los **datos** (¿se pueden reidentificar?) y otro sobre la **vida** (¿sigue en uso?). Cada uno tiene un modo de fallo distinto: el primero expone personas, el segundo gasta recursos y deja datos olvidados.
 

@@ -46,15 +46,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tarea de quien lee] --> B[Audiencia y lo que ya sabe]
-    B --> C[Vista de la verdad]
-    D[Fuente única] --> C
-    C --> E[Prueba de recorrido]
-    E -->|no encuentra o no entiende| A
-    D -->|cambia la política| C
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Tarea de quien lee»; luego «Audiencia y lo que ya sabe» y «Fuente única»; luego «Vista de la verdad»; luego «Prueba de recorrido». Retornos: «Prueba de recorrido» lleva a «Tarea de quien lee» (no encuentra o no entiende).](../../../site/assets/figures/mermaid-c0ce169c89.svg)
 
 El diagrama se lee de izquierda a derecha: una tarea concreta define a la audiencia; la audiencia determina qué vista se escribe; la vista se alimenta de una fuente única; una persona de esa audiencia la recorre para comprobar que sirve. Hay dos retornos: si no encuentra o no entiende, se vuelve a la tarea; si cambia la política, solo cambia la fuente y las vistas se regeneran o se revisan. La figura no dice cuántas vistas hacen falta; esa decisión es de cada proyecto.
 

@@ -50,20 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Transacciones] --> B[Bloque con hash del anterior]
-    B --> C[Prueba de trabajo]
-    C --> D[Difusión a la red]
-    D --> E{Hay bifurcación?}
-    E -->|sí| F[Gana la cadena más larga]
-    E -->|no| G[Bloque aceptado]
-    F --> G
-    G --> H[Confirmaciones]
-    H --> I[Probabilidad de reversión]
-    G --> J[Contrato ejecuta código]
-    J -->|error| K[No se puede corregir]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Transacciones»; luego «Bloque con hash del anterior»; luego «Prueba de trabajo»; luego «Difusión a la red»; luego «Hay bifurcación?»; luego «Gana la cadena más larga»; luego «Bloque aceptado»; luego «Confirmaciones» y «Contrato ejecuta código»; luego «Probabilidad de reversión» y «No se puede corregir».](../../../site/assets/figures/mermaid-a68b1d4e82.svg)
 
 El mapa tiene dos zonas de riesgo distintas: la **probabilística** (bifurcaciones y reversión, que dependen del poder del atacante y del tiempo) y la **determinista** (el código del contrato, que se ejecuta como fue escrito y no se puede reparar después de desplegado).
 

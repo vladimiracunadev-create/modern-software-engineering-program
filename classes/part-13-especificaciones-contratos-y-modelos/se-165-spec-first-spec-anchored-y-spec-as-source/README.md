@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Especificación] --> B[Spec-first: guía y se descarta]
-    A --> C[Spec-anchored: se mantiene con el código]
-    A --> D[Spec-as-source: genera el código]
-    C --> E[Comprobación de deriva]
-    D --> F[Generador determinista]
-    D --> G[Región generada y región manual]
-    E -->|discrepa| A
-    F --> H[Regenerar y comparar]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Especificación»; luego «Spec-first: guía y se descarta», «Spec-anchored: se mantiene con el código» y «Spec-as-source: genera el código»; luego «Comprobación de deriva», «Generador determinista» y «Región generada y región manual»; luego «Regenerar y comparar». Retornos: «Comprobación de deriva» lleva a «Especificación» (discrepa).](../../../site/assets/figures/mermaid-ae2fd234a6.svg)
 
 El mapa se lee desde el papel que se da a la especificación: cada nivel exige un mecanismo distinto para mantenerla honesta (comprobar deriva, generar de forma determinista, delimitar lo editable). La flecha de retorno indica que una discrepancia obliga a corregir el código o la especificación, nunca a dejarla.
 

@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Tres ramas] --> B[Integración con conflicto]
-    B --> C{Resolución}
-    C -->|automática| D[Intención perdida]
-    C -->|manual con las tres versiones| E[Resultado correcto]
-    D --> F{¿Publicada?}
-    F -->|no| G[Reiniciar y repetir]
-    F -->|sí| H[Corrección hacia delante]
-    F -->|revert de la fusión| I[Rama figura integrada]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Tres ramas»; luego «Integración con conflicto»; luego «Resolución»; luego «Intención perdida» y «Resultado correcto»; luego «¿Publicada?»; luego «Reiniciar y repetir», «Corrección hacia delante» y «Rama figura integrada».](../../../site/assets/figures/mermaid-39f2431a35.svg)
 
 El mapa se lee de izquierda a derecha: una integración con conflicto se resuelve de forma automática o manual; una intención perdida se rescata según si la fusión se publicó, y revertir la fusión deja la rama marcada como integrada sin sus cambios. No describe el tiempo que cuesta cada camino.
 

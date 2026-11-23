@@ -52,17 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Interacción entre componentes] --> B{¿El emisor necesita la respuesta para continuar?}
-    B -->|sí| C[Síncrona: tiempo de espera, reintento acotado, idempotencia]
-    B -->|no| D[Asíncrona: mensaje durable, consumidor, capacidad]
-    C --> E[Disponibilidad = producto de eslabones]
-    D --> F[Retraso y backlog en lugar de error]
-    E --> G[Medir y decidir]
-    F --> G
-    G -->|incidente| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Interacción entre componentes»; luego «¿El emisor necesita la respuesta para continuar?»; luego «Síncrona: tiempo de espera, reintento acotado, idempotencia» y «Asíncrona: mensaje durable, consumidor, capacidad»; luego «Disponibilidad = producto de eslabones» y «Retraso y backlog en lugar de error»; luego «Medir y decidir». Retornos: «Medir y decidir» lleva a «Interacción entre componentes» (incidente).](../../../site/assets/figures/mermaid-befb0b60b3.svg)
 
 El mapa separa la pregunta de **contrato** (¿qué necesita saber quien llama?) de las de **mecanismo** (tiempos de espera, reintentos, colas). Las dos ramas terminan en una medición porque ninguna es mejor en abstracto.
 

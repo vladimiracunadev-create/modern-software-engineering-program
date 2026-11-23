@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    T[Token] --> A[Autenticación: firma, emisor, audiencia, vigencia]
-    A -->|falla| X[401]
-    A --> C[Contexto: sujeto, rol, tenant]
-    C --> Z[Autorización: política por recurso]
-    Z -->|no permitido| Y[403 o 404]
-    Z --> R[Recurso]
-    R --> O[Comprobar dueño del objeto]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Token»; luego «Autenticación: firma, emisor, audiencia, vigencia»; luego «401» y «Contexto: sujeto, rol, tenant»; luego «Autorización: política por recurso»; luego «403 o 404» y «Recurso»; luego «Comprobar dueño del objeto».](../../../site/assets/figures/mermaid-e5c09e71d1.svg)
 
 El mapa se lee de la solicitud al recurso: la autenticación produce un sujeto, el contexto lo acompaña y la política decide por recurso y acción; la comprobación del dueño del objeto es un paso aparte que no deriva de la política general. El 404 en lugar del 403 puede ocultar la existencia de un recurso ajeno. No es una secuencia de pantallas: cada paso puede fallar por separado.
 

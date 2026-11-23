@@ -54,18 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dependencia real] --> B{¿Se puede usar en la prueba?}
-    B -->|sí, barata| C[Usar la real o una en memoria]
-    B -->|no| D[Doble: stub, fake, espía]
-    D --> E[Batería de contrato contra doble y real]
-    E --> F{¿Pasa las mismas comprobaciones?}
-    F -->|no| G[Corregir el doble o declarar la diferencia]
-    F -->|sí| H[Prueba de estado con el doble]
-    H --> I[Declarar el entorno: versión, codificación, semilla]
-    G --> E
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Dependencia real»; luego «¿Se puede usar en la prueba?»; luego «Usar la real o una en memoria» y «Doble: stub, fake, espía»; luego «Batería de contrato contra doble y real»; luego «¿Pasa las mismas comprobaciones?»; luego «Corregir el doble o declarar la diferencia» y «Prueba de estado con el doble»; luego «Declarar el entorno: versión, codificación, semilla». Retornos: «Corregir el doble o declarar la diferencia» lleva a «Batería de contrato contra doble y real».](../../../site/assets/figures/mermaid-36b48a5f9b.svg)
 
 El mapa parte de la dependencia real y baja a un doble solo cuando hace falta, y el doble se ancla a la realidad con una batería compartida. El entorno se declara al final porque también es una dependencia.
 

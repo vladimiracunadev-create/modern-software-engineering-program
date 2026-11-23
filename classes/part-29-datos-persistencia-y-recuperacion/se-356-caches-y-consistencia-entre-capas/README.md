@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Lectura de la plataforma] --> B{¿Está en la caché y vigente?}
-    B -->|sí| C[Acierto: se sirve el valor guardado]
-    B -->|no| D[Fallo: se lee de la base y se guarda]
-    E[Escritura] --> F[Cambia la base]
-    F --> G{Política}
-    G -->|TTL| H[Se espera a la expiración]
-    G -->|invalidar| I[Se borra la clave]
-    G -->|escribir también| J[Se actualiza la clave]
-    D --> K[Riesgo: relleno con un valor viejo]
-    C --> L[Riesgo: valor viejo hasta la expiración]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Lectura de la plataforma» y «Escritura»; luego «¿Está en la caché y vigente?» y «Cambia la base»; luego «Acierto: se sirve el valor guardado», «Fallo: se lee de la base y se guarda» y «Política»; luego «Riesgo: valor viejo hasta la expiración», «Riesgo: relleno con un valor viejo», «Se espera a la expiración», «Se borra la clave» y «Se actualiza la clave».](../../../site/assets/figures/mermaid-f004915669.svg)
 
 El mapa muestra que la caché tiene dos caminos de entrada (lectura que rellena y escritura que invalida o actualiza) y que sus defectos están en el cruce entre ambos.
 

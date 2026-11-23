@@ -55,16 +55,7 @@ Podrás comparar modelos de datos y error; separar contrato de adaptador; declar
 | Matriz de soporte | separa objetivo de evidencia ejecutada | prometer solo lo probado |
 ## Mapa conceptual
 
-```mermaid
-flowchart TB
- C[Contrato común del kit de diagnóstico multiplataforma] --> P[Adaptador PowerShell]
- C --> B[Adaptador Bash]
- P --> W[Capacidades Windows o PowerShell]
- B --> U[Capacidades POSIX o Unix]
- W --> N[Resultado común + detalle]
- U --> N
- N --> T[Pruebas compartidas]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Contrato común del kit de diagnóstico multiplataforma»; luego «Adaptador PowerShell» y «Adaptador Bash»; luego «Capacidades Windows o PowerShell» y «Capacidades POSIX o Unix»; luego «Resultado común + detalle»; luego «Pruebas compartidas».](../../../site/assets/figures/mermaid-b226c7e9b6.svg)
 
 El contrato converge en significado, no en sintaxis. Los detalles de plataforma se conservan en un espacio explícito para no falsear equivalencia.
 
@@ -88,16 +79,7 @@ En Bash importan el estado de órdenes, listas condicionales, pipelines y opcion
 
 El kit de diagnóstico multiplataforma encapsula cada llamada externa, captura stdout/stderr, verifica estado y convierte el resultado a una estructura común. La política se prueba con fallos inducidos.
 
-```mermaid
-flowchart TB
-    C[Contrato del kit de diagnóstico multiplataforma] --> P[Adaptador PowerShell]
-    C --> B[Adaptador Bash]
-    P --> W[APIs y herramientas Windows]
-    B --> U[APIs y herramientas POSIX]
-    W --> N[Resultado normalizado]
-    U --> N
-    N --> T[Mismas pruebas de contrato]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Contrato del kit de diagnóstico multiplataforma»; luego «Adaptador PowerShell» y «Adaptador Bash»; luego «APIs y herramientas Windows» y «APIs y herramientas POSIX»; luego «Resultado normalizado»; luego «Mismas pruebas de contrato».](../../../site/assets/figures/mermaid-71efc37827.svg)
 
 El resultado normalizado no debe borrar información específica necesaria para diagnosticar. Puede incluir un bloque común y otro `platform_details` documentado.
 

@@ -50,21 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Refactor planeado] --> B[Red de pruebas]
-    B --> C[Medida: mutantes muertos]
-    B --> D[Medida: cobertura de líneas]
-    C --> E{¿Suficiente?}
-    D --> E
-    E -->|no| F[Añadir bordes y comparación con referencia]
-    F --> B
-    E -->|sí| G[Paso pequeño]
-    G --> H[Ejecutar la red]
-    H -->|falla| I[Un solo sospechoso: el último paso]
-    H -->|pasa| J[Confirmar y seguir]
-    I --> G
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Refactor planeado»; luego «Red de pruebas»; luego «Medida: mutantes muertos» y «Medida: cobertura de líneas»; luego «¿Suficiente?»; luego «Añadir bordes y comparación con referencia» y «Paso pequeño»; luego «Ejecutar la red»; luego «Un solo sospechoso: el último paso» y «Confirmar y seguir». Retornos: «Añadir bordes y comparación con referencia» lleva a «Red de pruebas»; «Un solo sospechoso: el último paso» lleva a «Paso pequeño».](../../../site/assets/figures/mermaid-5aa7285bd5.svg)
 
 El mapa tiene dos ciclos: reforzar la red hasta que su medida sea suficiente, y avanzar en pasos que dejan un solo sospechoso cuando algo falla. Sin el primer ciclo, el segundo da una seguridad que no existe.
 

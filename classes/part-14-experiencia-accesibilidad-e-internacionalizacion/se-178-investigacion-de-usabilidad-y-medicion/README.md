@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta de la evaluación] --> B[Tareas y métricas]
-    B --> C[Muestra y reclutamiento]
-    C --> D[Observación y registro]
-    D --> E[Hallazgos cualitativos]
-    D --> F[Estimaciones con intervalo]
-    E --> G[Decisión]
-    F --> G
-    G -->|nueva pregunta| A
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Pregunta de la evaluación»; luego «Tareas y métricas»; luego «Muestra y reclutamiento»; luego «Observación y registro»; luego «Hallazgos cualitativos» y «Estimaciones con intervalo»; luego «Decisión». Retornos: «Decisión» lleva a «Pregunta de la evaluación» (nueva pregunta).](../../../site/assets/figures/mermaid-56ebcc6986.svg)
 
 El mapa se lee de izquierda a derecha con dos salidas de la observación: lo que se ve (hallazgos) y lo que se cuenta (estimaciones con su incertidumbre). Ambas alimentan una decisión y la decisión abre nuevas preguntas. No es un proceso lineal de investigación.
 

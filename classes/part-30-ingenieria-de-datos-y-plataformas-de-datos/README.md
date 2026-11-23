@@ -10,21 +10,7 @@ La [Parte 28](../part-28-estilos-arquitectonicos/README.md) enseñó a elegir es
 
 Esta parte no defiende una herramienta ni una arquitectura de moda. Enseña a leer cada decisión de una plataforma de datos como un **mecanismo con un costo medible y un punto ciego**: qué problema resuelve, qué experimento lo mide, qué no demuestra y qué evidencia permitiría abandonarlo. La primera clase fija la frontera entre lo operacional y lo analítico (`SE-361`). Las siguientes siguen el dato en el orden en que se le hacen preguntas: cómo entra, cómo se organiza, cómo se construye sin duplicar, cómo se sabe que es correcto, cómo se promete y cómo se cambia sin romper, cómo se rastrea, dónde se guarda, cómo se protege y cuánto cuesta. El taller (`SE-371`) pone a prueba todo con ocho defectos sembrados y el proyecto (`SE-372`) lo integra en una plataforma mínima que se puede romper a propósito.
 
-```mermaid
-flowchart LR
-    A[Operacional frente a analítico] --> B[Ingesta batch y streaming]
-    B --> C[Modelado: hechos y dimensiones]
-    C --> D[Transformación idempotente y backfills]
-    D --> E[Calidad y observabilidad]
-    E --> F[Contratos y evolución de esquemas]
-    F --> G[Linaje, catálogo y metadatos]
-    G --> H[Warehouse, lake, lakehouse y formatos]
-    H --> I[Gobierno, privacidad y retención]
-    I --> J[Costos y operación]
-    J --> K[Taller: pipeline defectuoso]
-    K --> L[Proyecto: plataforma gobernada]
-    L -->|cambio que el control no ve| E
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Operacional frente a analítico»; luego «Ingesta batch y streaming»; luego «Modelado: hechos y dimensiones»; luego «Transformación idempotente y backfills»; luego «Calidad y observabilidad»; luego «Contratos y evolución de esquemas»; luego «Linaje, catálogo y metadatos»; luego «Warehouse, lake, lakehouse y formatos»; luego «Gobierno, privacidad y retención»; luego «Costos y operación»; luego «Taller: pipeline defectuoso»; luego «Proyecto: plataforma gobernada». Retornos: «Proyecto: plataforma gobernada» lleva a «Calidad y observabilidad» (cambio que el control no ve).](../../site/assets/figures/mermaid-99ab04d00f.svg)
 
 El diagrama se lee de izquierda a derecha y no es un orden de adopción: es el orden en que se explican los costos. El retorno indica que lo que el control de la plataforma no detecta se cubre con otra capa de comprobación, y vuelve a empezar por la calidad.
 

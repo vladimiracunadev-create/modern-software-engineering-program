@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición] --> B[Habilidades: descripción en contexto]
-    B -->|se activa| C[Cuerpo de la habilidad]
-    C --> D[Herramienta]
-    D --> E{Gancho previo}
-    E -->|código 2| F[Bloqueo]
-    E -->|código 0| G[Ejecución en entorno aislado]
-    E -->|error o tiempo agotado| H{Modo de fallo}
-    H -->|abierto| G
-    H -->|cerrado| F
-    G --> I{Gancho posterior}
-    I --> J[Registro y revisión]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Petición»; luego «Habilidades: descripción en contexto»; luego «Cuerpo de la habilidad»; luego «Herramienta»; luego «Gancho previo»; luego «Modo de fallo»; luego «Bloqueo» y «Ejecución en entorno aislado»; luego «Gancho posterior»; luego «Registro y revisión».](../../../site/assets/figures/mermaid-dc67e751ec.svg)
 
 El mapa separa conocimiento (habilidades), control (ganchos) y confinamiento (entorno aislado). El rombo del modo de fallo es la decisión que suele quedarse sin tomar.
 

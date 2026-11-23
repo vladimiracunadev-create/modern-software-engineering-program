@@ -50,17 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Dependencia] --> B[Expresión de licencia]
-    B --> C[Analizador]
-    C -->|conocida| D{Política}
-    C -->|desconocida| E[Revisión humana]
-    D -->|permitida| F[Aceptar]
-    D -->|no permitida| G[Rechazar]
-    H[Archivo propio] --> I[Etiqueta de licencia]
-    I --> J[Comprobación de coherencia]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Dependencia» y «Archivo propio»; luego «Expresión de licencia» y «Etiqueta de licencia»; luego «Analizador» y «Comprobación de coherencia»; luego «Política» y «Revisión humana»; luego «Aceptar» y «Rechazar».](../../../site/assets/figures/mermaid-dc2bf4d12b.svg)
 
 El mapa se lee de izquierda a derecha: una dependencia declara una expresión que un analizador entiende o marca; la política decide solo lo que se entiende; los archivos propios declaran su licencia y se comprueba su coherencia. No describe obligaciones jurídicas.
 

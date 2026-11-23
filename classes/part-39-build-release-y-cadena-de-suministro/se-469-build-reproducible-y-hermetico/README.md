@@ -54,17 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Fuentes revisadas] --> B[Build: transforma entradas declaradas]
-    C[Entorno: herramientas, variables, hora, ruta] -->|si se filtra| B
-    B --> D[Artefacto y huella]
-    D --> E{Otra persona, otro sistema: misma huella?}
-    E -->|sí| F[Reproducible: se puede verificar]
-    E -->|no| G[Comparar por archivo y localizar la entrada que difiere]
-    G --> H[Declarar o neutralizar la entrada]
-    H --> B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Fuentes revisadas» y «Entorno: herramientas, variables, hora, ruta»; luego «Build: transforma entradas declaradas»; luego «Artefacto y huella»; luego «Otra persona, otro sistema: misma huella?»; luego «Reproducible: se puede verificar» y «Comparar por archivo y localizar la entrada que difiere»; luego «Declarar o neutralizar la entrada». Retornos: «Declarar o neutralizar la entrada» lleva a «Build: transforma entradas declaradas».](../../../site/assets/figures/mermaid-84fa9010e8.svg)
 
 El mapa muestra un bucle: la reproducibilidad se descubre fallando. El entorno entra por canales que nadie declaró, y la comparación entre construcciones es la herramienta que los hace visibles.
 

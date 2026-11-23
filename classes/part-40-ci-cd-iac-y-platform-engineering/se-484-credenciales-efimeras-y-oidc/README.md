@@ -52,16 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Job con permiso de pedir identidad] --> B[Token firmado: iss, aud, sub, exp]
-    B --> C[Proveedor valida firma y notificaciones]
-    C -->|regla de confianza coincide| D[Credencial temporal de minutos]
-    C -->|no coincide| X[Rechazo]
-    D --> E[Acción acotada por permisos]
-    E --> F[Expira sola]
-    G[Secreto estático] -.-> H[Exposición hasta que alguien lo rota]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Job con permiso de pedir identidad» y «Secreto estático»; luego «Token firmado: iss, aud, sub, exp» y «Exposición hasta que alguien lo rota»; luego «Proveedor valida firma y notificaciones»; luego «Credencial temporal de minutos» y «Rechazo»; luego «Acción acotada por permisos»; luego «Expira sola».](../../../site/assets/figures/mermaid-fa0871bdd2.svg)
 
 El mapa separa la **identidad** (el token que la canalización presenta), la **regla de confianza** (lo que el receptor acepta) y la **credencial** (lo que se obtiene y expira). El riesgo se concentra en la regla y en los permisos de la credencial, no en el token.
 

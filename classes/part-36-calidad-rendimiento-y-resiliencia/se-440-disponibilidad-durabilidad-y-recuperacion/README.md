@@ -52,19 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Componentes: MTBF y MTTR] --> B[Disponibilidad por componente]
-    B --> C[Composición: serie y paralelo]
-    C --> D[Disponibilidad del sistema]
-    E[Causa común: despliegue, lote, región] -->|rompe la independencia| C
-    A --> F[Durabilidad: réplicas y tiempo de reparación]
-    F --> G[Pérdida de datos esperada]
-    H[Fallo real] --> I[Detección: umbral de latidos]
-    I --> J[Recuperación: RTO y RPO]
-    J --> D
-    J --> G
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Componentes: MTBF y MTTR» y «Fallo real»; luego «Disponibilidad por componente», «Causa común: despliegue, lote, región», «Durabilidad: réplicas y tiempo de reparación» y «Detección: umbral de latidos»; luego «Composición: serie y paralelo» y «Recuperación: RTO y RPO»; luego «Disponibilidad del sistema» y «Pérdida de datos esperada».](../../../site/assets/figures/mermaid-3d32c54015.svg)
 
 El mapa conecta tres cuentas que se hacen por separado y se viven juntas. La **causa común** es la flecha que invalida el cálculo simple, y la detección es la parte de la recuperación que depende de un umbral.
 

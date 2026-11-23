@@ -50,15 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Documento recibido] --> B[Esquema: forma]
-    B -->|válido| C[Reglas entre campos]
-    C -->|válido| D[Reglas de negocio]
-    B -->|inválido| E[Rechazo con motivo]
-    C -->|inválido| E
-    F[Patrón con retroceso] -.->|agota CPU| B
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Documento recibido» y «Patrón con retroceso»; luego «Esquema: forma»; luego «Reglas entre campos»; luego «Reglas de negocio» y «Rechazo con motivo».](../../../site/assets/figures/mermaid-4f38bd5178.svg)
 
 El mapa se lee como una cascada de comprobaciones, cada una más cara y más cercana al negocio. El esquema comprueba la forma; lo que no puede expresar pasa a la capa siguiente. La flecha punteada recuerda que el validador mismo es superficie de ataque.
 

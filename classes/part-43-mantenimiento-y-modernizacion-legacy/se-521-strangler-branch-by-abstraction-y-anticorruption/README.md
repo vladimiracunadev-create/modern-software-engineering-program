@@ -52,20 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cliente] --> B[Fachada o enrutador]
-    B -->|rebanadas pendientes| C[Sistema antiguo]
-    B -->|rebanadas migradas| D[Sistema nuevo]
-    B -.->|copia del tráfico| E[Comparación en sombra]
-    C --> E
-    D --> E
-    D --> F[Capa anticorrupción]
-    F --> C
-    E -->|diferencia| G[Corregir o revertir la rebanada]
-    G --> B
-    C -->|sin tráfico y observado| H[Retiro]
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Cliente»; luego «Fachada o enrutador»; luego «Sistema nuevo»; luego «Capa anticorrupción»; luego «Sistema antiguo»; luego «Comparación en sombra» y «Retiro»; luego «Corregir o revertir la rebanada». Retornos: «Corregir o revertir la rebanada» lleva a «Fachada o enrutador».](../../../site/assets/figures/mermaid-5d8cffec68.svg)
 
 El mapa separa tres mecanismos: la **fachada** decide por dónde pasa cada petición, la **sombra** compara sin exponer y la **capa anticorrupción** traduce entre modelos. La flecha que vuelve desde el retiro indica que el sistema antiguo solo se apaga cuando nadie lo usa, no cuando la migración «terminó».
 

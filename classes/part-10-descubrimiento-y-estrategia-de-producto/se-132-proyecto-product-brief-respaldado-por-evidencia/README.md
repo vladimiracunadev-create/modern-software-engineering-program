@@ -50,11 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Brief como contrato] --> N2[Evidencia trazable] --> N3[Tipos de evidencia] --> N4[Decisión con rangos] --> N5[Abandono y límites]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Brief como contrato»; luego «Evidencia trazable»; luego «Tipos de evidencia»; luego «Decisión con rangos»; luego «Abandono y límites». Retornos: «Abandono y límites» lleva a «Brief como contrato» (fallo o cambio).](../../../site/assets/figures/mermaid-999ab5ad22.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una afirmación sin evidencia, una conclusión que depende del peso elegido o un solapamiento que impide decidir obliga a volver a la evidencia; no autoriza a mejorar la redacción del brief.
 

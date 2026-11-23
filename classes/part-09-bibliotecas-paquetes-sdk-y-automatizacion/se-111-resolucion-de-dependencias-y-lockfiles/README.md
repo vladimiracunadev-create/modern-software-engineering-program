@@ -45,11 +45,7 @@ Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su com
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    N1[Dependencia directa / transitiva] --> N2[Restricciones / marcadores] --> N3[Resolución] --> N4[Lockfile] --> N5[Integridad / dependency confusion]
-    N5 -->|fallo o cambio| N1
-```
+![Diagrama de flujo con 5 pasos. Recorrido: «Dependencia directa / transitiva»; luego «Restricciones / marcadores»; luego «Resolución»; luego «Lockfile»; luego «Integridad / dependency confusion». Retornos: «Integridad / dependency confusion» lleva a «Dependencia directa / transitiva» (fallo o cambio).](../../../site/assets/figures/mermaid-c827b58063.svg)
 
 El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
 

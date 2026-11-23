@@ -50,21 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código que huele] --> B[Medida: largo, anidamiento, complejidad, duplicación]
-    B --> C{Contexto}
-    C --> D[¿Lo cambian a menudo?]
-    C --> E[¿Es lógica o es dato?]
-    C --> F[¿Cambia por la misma razón?]
-    D --> G[Costo real]
-    E --> G
-    F --> G
-    G -->|alto| H[Candidato a refactorizar]
-    G -->|bajo| I[Se deja y se documenta por qué]
-    H --> J[SE-307: cambio seguro con pruebas]
-    I --> A
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Código que huele»; luego «Medida: largo, anidamiento, complejidad, duplicación»; luego «Contexto»; luego «¿Lo cambian a menudo?», «¿Es lógica o es dato?» y «¿Cambia por la misma razón?»; luego «Costo real»; luego «Candidato a refactorizar» y «Se deja y se documenta por qué»; luego «SE-307: cambio seguro con pruebas». Retornos: «Se deja y se documenta por qué» lleva a «Código que huele».](../../../site/assets/figures/mermaid-87b9b08f94.svg)
 
 El mapa muestra que la medida solo abre la pregunta: la decisión sale de tres preguntas de contexto. La rama de la derecha es legítima: dejar un olor tras mirar el contexto es una decisión, no una omisión.
 

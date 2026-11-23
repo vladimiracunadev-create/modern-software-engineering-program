@@ -51,19 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Cambio propuesto] --> B[Revisión por pares]
-    A --> C[Análisis estático: reglas sobre el código]
-    A --> D[Pruebas y cobertura]
-    B --> E[Quality gate: reglas de decisión]
-    C --> E
-    D --> E
-    E -->|pasa| F[Integración]
-    E -->|bloquea| G[Corrección o excepción registrada]
-    F --> H[Medida posterior: defectos que escaparon]
-    H -->|ajusta reglas y umbrales| E
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Cambio propuesto»; luego «Revisión por pares», «Análisis estático: reglas sobre el código» y «Pruebas y cobertura»; luego «Quality gate: reglas de decisión»; luego «Integración» y «Corrección o excepción registrada»; luego «Medida posterior: defectos que escaparon». Retornos: «Medida posterior: defectos que escaparon» lleva a «Quality gate: reglas de decisión» (ajusta reglas y umbrales).](../../../site/assets/figures/mermaid-101551583b.svg)
 
 El mapa muestra tres fuentes de señal que entran en una **regla de decisión**. La salida que más se olvida es la última flecha: sin medir qué defectos escaparon, los umbrales no se ajustan con datos sino con opiniones.
 

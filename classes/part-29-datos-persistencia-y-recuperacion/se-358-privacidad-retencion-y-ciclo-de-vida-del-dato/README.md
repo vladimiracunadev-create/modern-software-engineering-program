@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Recogida con finalidad] --> B[Uso y almacenamiento]
-    B --> C[Copias: réplicas, cachés, respaldos, registros]
-    B --> D[Retención con plazo]
-    D --> E{¿Venció el plazo o hay solicitud?}
-    E -->|sí| F[Borrado o anonimización]
-    F --> G[Comprobar restos: archivo, copias, índices]
-    G -->|quedan| F
-    G -->|no quedan| H[Evidencia del borrado]
-    E -->|no| B
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Recogida con finalidad»; luego «Uso y almacenamiento»; luego «Copias: réplicas, cachés, respaldos, registros» y «Retención con plazo»; luego «¿Venció el plazo o hay solicitud?»; luego «Borrado o anonimización»; luego «Comprobar restos: archivo, copias, índices»; luego «Evidencia del borrado». Retornos: «Comprobar restos: archivo, copias, índices» lleva a «Borrado o anonimización» (quedan); «¿Venció el plazo o hay solicitud?» lleva a «Uso y almacenamiento» (no).](../../../site/assets/figures/mermaid-6cd122324a.svg)
 
 El mapa muestra el ciclo completo y el bucle de verificación: el borrado solo termina cuando se comprueba dónde quedan restos, y las copias son parte del sistema.
 

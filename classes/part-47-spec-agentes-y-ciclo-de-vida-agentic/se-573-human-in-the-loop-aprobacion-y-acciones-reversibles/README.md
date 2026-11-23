@@ -53,19 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Acción propuesta] --> B{Clase de reversibilidad}
-    B -->|reversible| C[Ejecutar con diario]
-    B -->|compensable| D[Ejecutar con compensación registrada]
-    B -->|irreversible| E[Aprobación humana con pausa]
-    C --> F[Resultado]
-    D --> F
-    E -->|aprobada| F
-    E -->|denegada o sin respuesta| G[No se ejecuta]
-    F -->|error| H[Deshacer o compensar]
-    H -->|el paso irreversible quedó hecho| I[Efecto residual y aviso a las personas afectadas]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Acción propuesta»; luego «Clase de reversibilidad»; luego «Ejecutar con diario», «Ejecutar con compensación registrada» y «Aprobación humana con pausa»; luego «Resultado» y «No se ejecuta»; luego «Deshacer o compensar»; luego «Efecto residual y aviso a las personas afectadas».](../../../site/assets/figures/mermaid-758a700327.svg)
 
 La clase de reversibilidad decide cuánto control humano hace falta antes: lo reversible se ejecuta con un diario, lo compensable con una compensación registrada y lo irreversible con una aprobación consciente. Sin respuesta, la acción no procede.
 

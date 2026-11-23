@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Comportamiento que varía] --> B{¿Qué varía?}
-    B -->|algoritmo| C[Strategy]
-    B -->|receptores| D[Observer]
-    B -->|la acción misma| E[Command]
-    B -->|según el estado| F[State]
-    B -->|pasos de un esqueleto| G[Template Method]
-    D --> H[Baja de oyentes y aislamiento]
-    E --> I[Deshacer comprobado]
-    F --> J[Transiciones explícitas]
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Comportamiento que varía»; luego «¿Qué varía?»; luego «Strategy», «Observer», «Command», «State» y «Template Method»; luego «Baja de oyentes y aislamiento», «Deshacer comprobado» y «Transiciones explícitas».](../../../site/assets/figures/mermaid-97a5fd8c57.svg)
 
 Las tres ramas con consecuencias (Observer, Command, State) son las que traen una responsabilidad nueva: baja, deshacer, transiciones. Esas responsabilidades son las que se miden.
 

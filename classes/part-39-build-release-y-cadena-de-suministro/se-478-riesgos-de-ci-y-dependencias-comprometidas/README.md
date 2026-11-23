@@ -56,17 +56,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Código del repositorio y solicitudes de integración] --> B[CI: flujo de trabajo]
-    C[Acciones y dependencias de terceros] --> B
-    D[Datos del contexto: título, rama, mensaje] -->|si se interpolan| B
-    B --> E[Permisos del token y secretos]
-    B --> F[Artefacto, firma y publicación]
-    E -->|paso comprometido| G[Daño: lectura, escritura, secretos]
-    F -->|paso comprometido| H[Release firmado con contenido malicioso]
-    I[Controles: SHA fijado, permisos mínimos, entornos con aprobación, runners efímeros, reconstrucción independiente] -.-> B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Código del repositorio y solicitudes de integración», «Acciones y dependencias de terceros», «Datos del contexto: título, rama, mensaje» y «Controles: SHA fijado, permisos mínimos, entornos con aprobación, runners efímeros, reconstrucción independiente»; luego «CI: flujo de trabajo»; luego «Permisos del token y secretos» y «Artefacto, firma y publicación»; luego «Daño: lectura, escritura, secretos» y «Release firmado con contenido malicioso».](../../../site/assets/figures/mermaid-9e85a96408.svg)
 
 El mapa muestra que hay tres entradas que un atacante puede tocar (el código ajeno, las dependencias del CI y los datos del contexto) y dos activos que le interesan (los permisos y la firma). Los controles se colocan sobre las entradas y sobre el alcance.
 

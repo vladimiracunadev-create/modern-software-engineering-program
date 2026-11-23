@@ -10,21 +10,7 @@ La [Parte 43](../part-43-mantenimiento-y-modernizacion-legacy/README.md) dejó u
 
 Esta parte no enseña un marco de gestión ni una certificación. Enseña a diseñar la ruta de adopción de una práctica y a repartir la autoridad de aprobación con criterios, a medir cuántas personas deben irse para que el conocimiento quede huérfano y cuántos relevos cruza un cambio, a dejar una decisión por escrito con cinco campos y a clasificar un desacuerdo antes de tratarlo, a asignar tareas que estiren y a dar retroalimentación a tiempo, a comunicar un compromiso con su probabilidad, a calcular el valor esperado de un riesgo y el valor de la información, a probar la sensibilidad de una matriz de proveedores, a leer una expresión de licencia y verificar la procedencia de una contribución, a descontar y priorizar por costo de demora, a presentar un portafolio comprobable y defenderlo declarando los límites, a revisar una decisión por su proceso y no solo por su resultado, y a armar un dossier cuyas afirmaciones, evidencias y cifras se pueden verificar con un script y una hora de revisión.
 
-```mermaid
-flowchart LR
-    A[Liderazgo técnico sin autoridad formal] --> B[Equipos y ownership]
-    B --> C[Comunicación, facilitación y conflicto]
-    C --> D[Mentoría, feedback y crecimiento]
-    D --> E[Estimación y compromisos]
-    E --> F[Riesgos y decisiones ejecutivas]
-    F --> G[Compras y evaluación de proveedores]
-    G --> H[Propiedad intelectual, contratos y ética]
-    H --> I[Economía y costo total]
-    I --> J[Portafolio, entrevistas y defensa]
-    J --> K[Taller: revisión de una decisión difícil]
-    K --> L[Proyecto: dossier profesional defendible]
-    L -->|hallazgo de la revisión| A
-```
+![Diagrama de flujo con 12 pasos, de «Liderazgo técnico sin autoridad formal» a «Proyecto: dossier profesional defendible», con 1 retorno(s).](../../site/assets/figures/mermaid-d6f27d3ac1.svg)
 
 El diagrama se lee de izquierda a derecha y no es un proceso obligatorio. El retorno indica que un hallazgo de la revisión de una decisión o del dossier reabre la propuesta inicial: la práctica profesional se revisa, no se termina.
 

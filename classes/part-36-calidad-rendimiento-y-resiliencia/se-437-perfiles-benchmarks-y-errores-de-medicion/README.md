@@ -51,16 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Pregunta: ¿es más rápida esta versión?] --> B[Protocolo: repeticiones, procesos, estadístico]
-    B --> C[Medición: reloj, perfilador]
-    C --> D[Ruido: proceso, equipo, caché, calentamiento]
-    D --> E[Resumen: mínimo, mediana, intervalo]
-    E --> F[Decisión: diferencia mayor que el ruido]
-    F -->|no distinguible| B
-    D -->|el instrumento altera| C
-```
+![Diagrama de flujo con 6 pasos. Recorrido: «Pregunta: ¿es más rápida esta versión?»; luego «Protocolo: repeticiones, procesos, estadístico»; luego «Medición: reloj, perfilador»; luego «Ruido: proceso, equipo, caché, calentamiento»; luego «Resumen: mínimo, mediana, intervalo»; luego «Decisión: diferencia mayor que el ruido». Retornos: «Decisión: diferencia mayor que el ruido» lleva a «Protocolo: repeticiones, procesos, estadístico» (no distinguible); «Ruido: proceso, equipo, caché, calentamiento» lleva a «Medición: reloj, perfilador» (el instrumento altera).](../../../site/assets/figures/mermaid-8706b2bb17.svg)
 
 El mapa separa la **pregunta**, el **protocolo** (que se fija antes) y el **ruido** (que se mide). La flecha de retorno importa: si no se puede distinguir, la respuesta correcta es repetir con otro protocolo, no declarar un ganador.
 

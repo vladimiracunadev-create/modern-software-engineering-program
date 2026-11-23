@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Documento HTML] --> B[Árbol DOM]
-    B --> C[Árbol de accesibilidad]
-    B --> D[Cascada CSS]
-    D --> E[Estilo calculado]
-    C --> F[Tecnologías de apoyo]
-    E --> G[Pantalla]
-    F --> H[Persona usuaria]
-    G --> H
-    H -->|barrera encontrada| A
-```
+![Diagrama de flujo con 8 pasos. Recorrido: «Documento HTML»; luego «Árbol DOM»; luego «Árbol de accesibilidad» y «Cascada CSS»; luego «Tecnologías de apoyo» y «Estilo calculado»; luego «Pantalla»; luego «Persona usuaria». Retornos: «Persona usuaria» lleva a «Documento HTML» (barrera encontrada).](../../../site/assets/figures/mermaid-b3d6dfbcf3.svg)
 
 El mapa se lee desde el documento hacia la persona: el mismo árbol alimenta dos caminos, el visual y el de apoyo, y un defecto de estructura solo es visible en uno de ellos. La flecha de retorno indica que lo que una persona no puede hacer vuelve a corregir el documento, no solo la hoja de estilos.
 

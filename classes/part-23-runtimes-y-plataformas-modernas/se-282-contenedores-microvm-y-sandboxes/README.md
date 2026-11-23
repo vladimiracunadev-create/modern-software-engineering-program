@@ -57,20 +57,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Carga de trabajo] --> B{¿Confías en el código?}
-    B -->|sí| C[Hilo o proceso propio]
-    B -->|no| D{¿Mismo inquilino?}
-    D -->|sí| E[Proceso con límites o módulo Wasm]
-    D -->|no| F{¿Qué comparte con el anfitrión?}
-    F -->|núcleo| G[Contenedor reforzado o núcleo de aplicación]
-    F -->|nada salvo el hipervisor| H[microVM o máquina virtual]
-    C --> I[Límites de CPU, memoria, entorno, red]
-    E --> I
-    G --> I
-    H --> I
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Carga de trabajo»; luego «¿Confías en el código?»; luego «Hilo o proceso propio» y «¿Mismo inquilino?»; luego «Proceso con límites o módulo Wasm» y «¿Qué comparte con el anfitrión?»; luego «Contenedor reforzado o núcleo de aplicación» y «microVM o máquina virtual»; luego «Límites de CPU, memoria, entorno, red».](../../../site/assets/figures/mermaid-5d01733aa5.svg)
 
 La pregunta de entrada es la confianza en el código; la segunda, quién más comparte la máquina; la tercera, qué superficie se comparte con el anfitrión. Los límites de recursos y de entorno valen en todas las ramas, porque ninguna frontera sustituye a no entregar secretos ni permisos innecesarios.
 

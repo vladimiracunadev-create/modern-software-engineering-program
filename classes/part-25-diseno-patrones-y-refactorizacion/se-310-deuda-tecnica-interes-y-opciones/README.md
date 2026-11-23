@@ -50,21 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Decisión de atajo] --> B[Principal: costo de arreglarlo]
-    A --> C[Interés: costo extra por cada vez que se toca]
-    C --> D[Frecuencia de cambio x fricción]
-    B --> E{Política}
-    D --> E
-    E --> F[Pagar ahora]
-    E --> G[Pagar al primer cambio]
-    E --> H[No pagar y aceptar el interés]
-    F --> I[Resultado observado]
-    G --> I
-    H --> I
-    I -->|la frecuencia de cambio varía| D
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Decisión de atajo»; luego «Principal: costo de arreglarlo» y «Interés: costo extra por cada vez que se toca»; luego «Frecuencia de cambio x fricción»; luego «Política»; luego «Pagar ahora», «Pagar al primer cambio» y «No pagar y aceptar el interés»; luego «Resultado observado». Retornos: «Resultado observado» lleva a «Frecuencia de cambio x fricción» (la frecuencia de cambio varía).](../../../site/assets/figures/mermaid-b6c5de939c.svg)
 
 El mapa tiene dos parámetros que se estiman: el principal y el interés, que a su vez depende de cuántas veces se toca el código. El retorno marca que la decisión se revisa cuando cambia la frecuencia.
 

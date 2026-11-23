@@ -39,14 +39,7 @@ Identificarás afectados, separarás legalidad de responsabilidad, analizarás d
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
- D[Decisión] --> A[Afectados]
- D --> E[Evidencia e incertidumbre]
- A --> H[Beneficios y daños]
- E --> H --> O[Opciones y controles]
- O --> J[Juicio profesional] --> R[Monitorear y reparar]
-```
+![Diagrama de flujo con 7 pasos. Recorrido: «Decisión»; luego «Afectados» y «Evidencia e incertidumbre»; luego «Beneficios y daños»; luego «Opciones y controles»; luego «Juicio profesional»; luego «Monitorear y reparar».](../../../site/assets/figures/mermaid-054786ca6b.svg)
 
 El código orienta juicio; no es un algoritmo. Principios pueden entrar en tensión.
 

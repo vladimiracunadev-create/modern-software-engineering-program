@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Problema] --> B[Criterios previos]
-    B --> C[Generar N alternativas]
-    C --> D[Evaluar con ruido]
-    D --> E{Elegir}
-    E --> F[Alternativa elegida]
-    E --> G[Descartadas con razón]
-    F --> H{Destino}
-    H -->|desechable| I[Aprender y tirar]
-    H -->|evolutivo| J[Endurecer: pruebas, errores, seguridad]
-    J --> K[Producto]
-    G --> L[Registro de decisión]
-    F --> L
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Problema»; luego «Criterios previos»; luego «Generar N alternativas»; luego «Evaluar con ruido»; luego «Elegir»; luego «Alternativa elegida» y «Descartadas con razón»; luego «Destino» y «Registro de decisión»; luego «Aprender y tirar» y «Endurecer: pruebas, errores, seguridad»; luego «Producto».](../../../site/assets/figures/mermaid-d6c164a32c.svg)
 
 El mapa separa la **exploración** (generar y evaluar) de la **adopción** (endurecer o tirar). La decisión de destino se toma al elegir, no después de que el prototipo ya sea indispensable.
 

@@ -50,16 +50,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Rama corta] --> B[Integración frecuente]
-    B --> C[Tronco comprobado]
-    D[Rama larga] --> E[Integración rara]
-    E --> F[Conflictos y sorpresas]
-    C --> G[Etiqueta de versión]
-    G -->|corrección| H[Rama de versión]
-    I[Indicador de funcionalidad] --> B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Rama corta», «Indicador de funcionalidad» y «Rama larga»; luego «Integración frecuente» y «Integración rara»; luego «Tronco comprobado» y «Conflictos y sorpresas»; luego «Etiqueta de versión»; luego «Rama de versión».](../../../site/assets/figures/mermaid-a839e929b1.svg)
 
 El mapa se lee de izquierda a derecha como dos apuestas: ramas cortas con integración frecuente, o ramas largas con integración rara; las versiones publicadas pueden necesitar una rama de mantenimiento, y un indicador de funcionalidad permite integrar sin activar. No describe cuántas personas hay ni el tamaño del equipo.
 

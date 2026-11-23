@@ -52,18 +52,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Evento: borrado, corrupción, fallo de disco] --> B{¿Qué copias hay?}
-    B --> C[Copia completa periódica]
-    B --> D[Registro de cambios archivado]
-    C --> E[Restaurar copia]
-    D --> E
-    E --> F[Verificar: estructura y negocio]
-    F -->|sana| G[Volver al servicio: RTO medido]
-    F -->|no sana| H[Probar copia anterior]
-    G --> I[Pérdida: RPO medido]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Evento: borrado, corrupción, fallo de disco»; luego «¿Qué copias hay?»; luego «Copia completa periódica» y «Registro de cambios archivado»; luego «Restaurar copia»; luego «Verificar: estructura y negocio»; luego «Volver al servicio: RTO medido» y «Probar copia anterior»; luego «Pérdida: RPO medido».](../../../site/assets/figures/mermaid-f86dbb0a40.svg)
 
 El mapa muestra que un respaldo solo es una promesa hasta que se restaura y se verifica: el RPO y el RTO se miden en la restauración, no se declaran en el diseño.
 

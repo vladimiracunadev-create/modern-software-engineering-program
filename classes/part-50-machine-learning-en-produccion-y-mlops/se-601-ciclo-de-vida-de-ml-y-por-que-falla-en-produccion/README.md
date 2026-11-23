@@ -55,20 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Datos de origen] --> B[Etiquetas]
-    A --> C[Características]
-    B --> D[Entrenamiento]
-    C --> D
-    D --> E[Evaluación]
-    E --> F[Registro del modelo]
-    F --> G[Despliegue]
-    G --> H[Servicio]
-    H --> I[Monitoreo]
-    I -->|deriva o falla| D
-    H -->|decisión que cambia el mundo| A
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Datos de origen»; luego «Etiquetas» y «Características»; luego «Entrenamiento»; luego «Evaluación»; luego «Registro del modelo»; luego «Despliegue»; luego «Servicio»; luego «Monitoreo». Retornos: «Monitoreo» lleva a «Entrenamiento» (deriva o falla); «Servicio» lleva a «Datos de origen» (decisión que cambia el mundo).](../../../site/assets/figures/mermaid-4dafe6b3a2.svg)
 
 El mapa tiene dos retornos que lo distinguen de una tubería de software: el monitoreo que dispara un nuevo entrenamiento y la decisión del modelo que cambia los datos futuros. El segundo retorno es el que más cuesta ver y el que `Sculley` y colegas llaman bucle de realimentación.
 

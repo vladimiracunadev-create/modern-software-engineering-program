@@ -53,21 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart TD
-    A[Agente en ejecución] --> B{Condiciones de parada}
-    B -->|máximo de pasos, presupuesto, estado repetido, sin avance| C[Detener y guardar estado]
-    B -->|sigue con progreso| A
-    C --> D[Persona decide]
-    D --> E[Reanudar desde el punto de control]
-    E --> F{Efectos ya hechos}
-    F -->|clave de idempotencia o transacción única| G[Sin duplicados]
-    F -->|sin protección| H[Efectos repetidos]
-    A --> I[Evaluación: tareas, intentos, intervalo]
-    I --> J{Diferencia mayor que el ruido}
-    J -->|sí| K[Adoptar]
-    J -->|no| L[Más tareas o más intentos]
-```
+![Diagrama de flujo con 12 pasos. Recorrido: «Agente en ejecución»; luego «Condiciones de parada» y «Evaluación: tareas, intentos, intervalo»; luego «Detener y guardar estado» y «Diferencia mayor que el ruido»; luego «Persona decide», «Adoptar» y «Más tareas o más intentos»; luego «Reanudar desde el punto de control»; luego «Efectos ya hechos»; luego «Sin duplicados» y «Efectos repetidos». Retornos: «Condiciones de parada» lleva a «Agente en ejecución» (sigue con progreso).](../../../site/assets/figures/mermaid-b674911212.svg)
 
 El agente se vigila con condiciones de parada que observan su historial, no su opinión; al detenerse deja un estado desde el que se reanuda sin repetir efectos; y cualquier cambio se evalúa con una muestra que distingue la diferencia del ruido.
 

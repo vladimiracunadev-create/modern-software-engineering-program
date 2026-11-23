@@ -53,20 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Solicitud de fecha] --> B[Tareas con incertidumbre]
-    B --> C[Combinar con factor común]
-    A --> D[Historial de entrega por semana]
-    D --> E[Pronóstico con percentiles]
-    C --> E
-    E --> F[Compromiso con probabilidad]
-    F --> G[Límite de trabajo en curso]
-    G --> H{Cumple el ritmo}
-    H -->|sí| I[Entrega]
-    H -->|no| J[Revisar y comunicar]
-    J --> E
-```
+![Diagrama de flujo con 10 pasos. Recorrido: «Solicitud de fecha»; luego «Tareas con incertidumbre» y «Historial de entrega por semana»; luego «Combinar con factor común»; luego «Pronóstico con percentiles»; luego «Compromiso con probabilidad»; luego «Límite de trabajo en curso»; luego «Cumple el ritmo»; luego «Entrega» y «Revisar y comunicar». Retornos: «Revisar y comunicar» lleva a «Pronóstico con percentiles».](../../../site/assets/figures/mermaid-fc0a61ab1b.svg)
 
 El mapa separa tres insumos del compromiso: la **incertidumbre de las tareas**, el **ritmo observado** y la **carga aceptada**. La flecha de retorno indica que un compromiso con probabilidad se revisa cuando cambian los datos, y esa revisión es parte del compromiso, no un fallo.
 

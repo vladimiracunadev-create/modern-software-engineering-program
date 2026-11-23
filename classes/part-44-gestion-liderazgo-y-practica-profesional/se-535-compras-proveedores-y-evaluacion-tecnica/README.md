@@ -53,18 +53,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Necesidad] --> B{Construir comprar o adoptar}
-    B --> C[Requisitos que descartan]
-    C --> D[Evaluación ponderada de los que quedan]
-    D --> E[Prueba de sensibilidad de pesos]
-    E --> F[Costo total con alzas y salida]
-    F --> G[Disponibilidad compuesta y contrato]
-    G --> H[Decisión con plan de salida]
-    H -->|el proveedor cambia| I[Ejecutar salida o renegociar]
-    I --> B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Necesidad»; luego «Construir comprar o adoptar»; luego «Requisitos que descartan»; luego «Evaluación ponderada de los que quedan»; luego «Prueba de sensibilidad de pesos»; luego «Costo total con alzas y salida»; luego «Disponibilidad compuesta y contrato»; luego «Decisión con plan de salida»; luego «Ejecutar salida o renegociar». Retornos: «Ejecutar salida o renegociar» lleva a «Construir comprar o adoptar».](../../../site/assets/figures/mermaid-7f75847be7.svg)
 
 El mapa separa cinco filtros: las **puertas** (lo que no se negocia), la **ponderación** (lo que se prefiere), la **sensibilidad** (cuánto aguanta la elección), el **costo** (con alzas y salida) y la **continuidad** (disponibilidad y contrato). La flecha de retorno indica que la compra no cierra la decisión: el plan de salida mantiene viva la alternativa.
 

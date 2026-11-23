@@ -55,18 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Contexto y organización] --> B[Escenarios de calidad con medida]
-    B --> C[Tácticas candidatas]
-    C --> D[Estilos que las agrupan]
-    D --> E[Matriz y pesos]
-    E --> F{¿Margen mayor que el error del juicio?}
-    F -->|sí| G[Decisión y supuestos]
-    F -->|no| H[Más evidencia o decisión reversible]
-    G --> I[ADR con disparador de revisión]
-    H --> B
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Contexto y organización»; luego «Escenarios de calidad con medida»; luego «Tácticas candidatas»; luego «Estilos que las agrupan»; luego «Matriz y pesos»; luego «¿Margen mayor que el error del juicio?»; luego «Decisión y supuestos» y «Más evidencia o decisión reversible»; luego «ADR con disparador de revisión». Retornos: «Más evidencia o decisión reversible» lleva a «Escenarios de calidad con medida».](../../../site/assets/figures/mermaid-e21a977976.svg)
 
 El mapa muestra que la decisión no termina en la matriz: si el margen es menor que el error del juicio, el camino vuelve a los escenarios para obtener más evidencia o para elegir una opción que se pueda deshacer. Solo una decisión con margen y supuestos explícitos llega al registro.
 

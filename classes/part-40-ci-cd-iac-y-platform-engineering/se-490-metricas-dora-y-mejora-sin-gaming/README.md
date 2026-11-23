@@ -51,18 +51,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Eventos: commits, fusiones, despliegues, incidentes] --> B[Definiciones escritas]
-    B --> C[Métricas: plazo, frecuencia, fallos, recuperación]
-    C --> D{Interpretación}
-    D -->|volumen pequeño| E[Intervalo de incertidumbre]
-    D -->|se convierte en objetivo| F[Atajos: la métrica mejora, el trabajo no]
-    D -->|diagnóstico| G[Conversación y experimento]
-    G --> H[Cambio en la práctica]
-    H --> A
-    C --> I[Medidas de contrapeso: defectos, valor]
-```
+![Diagrama de flujo con 9 pasos. Recorrido: «Eventos: commits, fusiones, despliegues, incidentes»; luego «Definiciones escritas»; luego «Métricas: plazo, frecuencia, fallos, recuperación»; luego «Interpretación» y «Medidas de contrapeso: defectos, valor»; luego «Intervalo de incertidumbre», «Atajos: la métrica mejora, el trabajo no» y «Conversación y experimento»; luego «Cambio en la práctica». Retornos: «Cambio en la práctica» lleva a «Eventos: commits, fusiones, despliegues, incidentes».](../../../site/assets/figures/mermaid-23eaff86c9.svg)
 
 El mapa separa las **definiciones** (que convierten eventos en métricas), la **interpretación** (donde el ruido y el incentivo deforman) y el **uso** (diagnóstico o objetivo). Las medidas de contrapeso cierran el ciclo: impiden que una sola métrica se optimice a costa de otra.
 

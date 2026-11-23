@@ -55,19 +55,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Petición con identidad de inquilino] --> B{Nivel de aislamiento de datos}
-    B -->|tabla compartida| C[Filtro en cada consulta]
-    B -->|barrera por solicitud| D[Vista o política de fila]
-    B -->|base por inquilino| E[Conexión propia]
-    A --> F{Aislamiento de cómputo}
-    F -->|cola común| G[Vecino ruidoso afecta a todos]
-    F -->|tope por inquilino| H[El ruidoso espera, los demás no]
-    C --> I[Riesgo de fuga por consulta olvidada]
-    D --> J[Riesgo en conexiones que la eluden]
-    E --> K[Costo operativo por inquilino]
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Petición con identidad de inquilino»; luego «Nivel de aislamiento de datos» y «Aislamiento de cómputo»; luego «Filtro en cada consulta», «Vista o política de fila», «Vecino ruidoso afecta a todos», «Conexión propia» y «El ruidoso espera, los demás no»; luego «Riesgo de fuga por consulta olvidada», «Riesgo en conexiones que la eluden» y «Costo operativo por inquilino».](../../../site/assets/figures/mermaid-1ce8930e8b.svg)
 
 El mapa muestra dos ejes independientes: dónde se aíslan los datos y cómo se reparte el cómputo. Elegir un nivel fuerte en uno no resuelve el otro: una base por inquilino con un solo grupo de trabajadores sigue sufriendo al vecino ruidoso.
 

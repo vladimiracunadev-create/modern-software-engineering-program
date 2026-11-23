@@ -54,21 +54,7 @@ Al terminar podrás:
 
 ## Mapa conceptual
 
-```mermaid
-flowchart LR
-    A[Módulo y batería de pruebas] --> B[Mutantes por operador]
-    B --> C{¿Falla alguna prueba?}
-    C -->|sí| D[Mutante muerto]
-    C -->|no| E[Superviviente]
-    E --> F{¿Equivalente?}
-    F -->|no| G[Caso o aserción que falta]
-    F -->|sí| H[Documentar]
-    A --> I[Generador de entradas]
-    I --> J[Entrada que falla]
-    J --> K[Prueba de regresión mínima]
-    G --> A
-    K --> A
-```
+![Diagrama de flujo con 11 pasos. Recorrido: «Módulo y batería de pruebas»; luego «Mutantes por operador» y «Generador de entradas»; luego «¿Falla alguna prueba?» y «Entrada que falla»; luego «Mutante muerto», «Superviviente» y «Prueba de regresión mínima»; luego «¿Equivalente?»; luego «Caso o aserción que falta» y «Documentar». Retornos: «Caso o aserción que falta» lleva a «Módulo y batería de pruebas»; «Prueba de regresión mínima» lleva a «Módulo y batería de pruebas».](../../../site/assets/figures/mermaid-f23d1f171a.svg)
 
 El mapa tiene dos entradas hacia la misma batería: la mutación mide lo que la batería no detecta y el fuzzing le aporta casos que nadie escribió. Ambos cierran el ciclo añadiendo pruebas.
 

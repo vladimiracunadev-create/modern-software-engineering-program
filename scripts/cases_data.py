@@ -112,6 +112,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "solarwinds-2020", "kind": "fallo", "name": "SolarWinds 2020", "year": "2020",
      "who": "SolarWinds (organización)", "place": "Estados Unidos",
      "hook": "Un atacante insertó código en las compilaciones de una herramienta de monitoreo y las actualizaciones firmadas llegaron a agencias federales y empresas."},
+    {"slug": "cloudflare-2019", "kind": "fallo", "name": "Cloudflare 2019", "year": "2019",
+     "who": "Cloudflare (organización)", "place": "San Francisco, California (EE. UU.)",
+     "hook": "Una expresión regular de una regla del cortafuegos, desplegada a todo el mundo en segundos, agotó la CPU de la red y dejó sin servicio los dominios de Cloudflare durante 27 minutos."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

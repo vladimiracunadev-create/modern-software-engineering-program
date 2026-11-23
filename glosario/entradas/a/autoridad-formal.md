@@ -55,6 +55,8 @@ Lo que las clases dicen sobre dónde deja de valer este término:
 
 [SE-530](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-530-diseno-de-equipos-y-ownership/README.md), [SE-528](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-528-proyecto-migracion-incremental-reversible/README.md), [SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md).
 
+**Aparece en los casos de estudio:** [Post Office Horizon](../../../casos/fallo/post-office-horizon.md).
+
 ## Sinónimos y traducción
 
 El programa no registra sinónimos ni traducciones distintas de la forma del título.

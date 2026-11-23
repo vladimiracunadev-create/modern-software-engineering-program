@@ -55,7 +55,7 @@ Las clases no fijan un límite propio para este término. Los límites del tema 
 
 [SE-590](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-590-encadenado-enrutamiento-y-paralelizacion/README.md), [SE-116](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md), [SE-524](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-524-compatibilidad-coexistencia-y-doble-escritura/README.md), [SE-565](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md), [SE-558](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md), [SE-164](../../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md), [SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md), [SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md).
 
-**Aparece en los casos de estudio:** [WhatsApp](../../../casos/exito/whatsapp.md), [CrowdStrike](../../../casos/fallo/crowdstrike.md).
+**Aparece en los casos de estudio:** [WhatsApp](../../../casos/exito/whatsapp.md), [CrowdStrike](../../../casos/fallo/crowdstrike.md), [Post Office Horizon](../../../casos/fallo/post-office-horizon.md).
 
 ## Sinónimos y traducción
 

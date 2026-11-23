@@ -65,7 +65,7 @@ Lo que las clases dicen sobre dónde deja de valer este término:
 
 [SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md), [SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md), [SE-507](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md), [SE-561](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md), [SE-275](../../../classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md), [SE-603](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-603-experimentos-y-entrenamiento-reproducible/README.md), [SE-188](../../../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md), [SE-192](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md).
 
-**Aparece en los casos de estudio:** [Knight Capital](../../../casos/fallo/knight-capital.md), [Therac-25](../../../casos/fallo/therac-25.md).
+**Aparece en los casos de estudio:** [Knight Capital](../../../casos/fallo/knight-capital.md), [Therac-25](../../../casos/fallo/therac-25.md), [Boeing 737 MAX y MCAS](../../../casos/fallo/boeing-737-max-mcas.md).
 
 ## Sinónimos y traducción
 

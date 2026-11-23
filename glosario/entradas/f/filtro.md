@@ -56,7 +56,7 @@ Lo que las clases dicen sobre dónde deja de valer este término:
 
 [SE-574](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md), [SE-238](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/README.md), [SE-214](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md), [SE-267](../../../classes/part-22-embedded-iot-y-tiempo-real/se-267-restricciones-de-memoria-energia-y-computo/README.md), [SE-342](../../../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md), [SE-467](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-467-taller-explotar-y-reparar-un-control-aparente/README.md), [SE-293](../../../classes/part-24-software-especializado-y-dominios/se-293-graficos-audio-xr-y-experiencias-inmersivas/README.md), [SE-234](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/README.md).
 
-**Aparece en los casos de estudio:** [Netflix](../../../casos/exito/netflix.md), [CrowdStrike](../../../casos/fallo/crowdstrike.md).
+**Aparece en los casos de estudio:** [Netflix](../../../casos/exito/netflix.md), [Instagram](../../../casos/exito/instagram.md), [CrowdStrike](../../../casos/fallo/crowdstrike.md).
 
 ## Sinónimos y traducción
 

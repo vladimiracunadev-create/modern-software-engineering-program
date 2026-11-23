@@ -53,6 +53,8 @@ Las clases no fijan un límite propio para este término. Los límites del tema 
 
 [SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md), [SE-149](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md).
 
+**Aparece en los casos de estudio:** [Post Office Horizon](../../../casos/fallo/post-office-horizon.md).
+
 ## Sinónimos y traducción
 
 El programa no registra sinónimos ni traducciones distintas de la forma del título.

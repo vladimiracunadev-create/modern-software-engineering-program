@@ -58,7 +58,7 @@ Lo que las clases dicen sobre dónde deja de valer este término:
 
 [SE-203](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-203-taller-rescatar-una-integracion-conflictiva/README.md), [SE-584](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md), [SE-195](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md), [SE-295](../../../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md), [SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md), [SE-390](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md), [SE-481](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md), [SE-594](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-594-embeddings-recuperacion-y-agentic-rag/README.md).
 
-**Aparece en los casos de estudio:** [Amazon](../../../casos/exito/amazon.md), [Slack](../../../casos/exito/slack.md), [Knight Capital](../../../casos/fallo/knight-capital.md), [Incidente de base de datos de GitLab](../../../casos/fallo/gitlab-2017.md).
+**Aparece en los casos de estudio:** [Amazon](../../../casos/exito/amazon.md), [Slack](../../../casos/exito/slack.md), [Discord](../../../casos/exito/discord.md), [Knight Capital](../../../casos/fallo/knight-capital.md), [Incidente de base de datos de GitLab](../../../casos/fallo/gitlab-2017.md).
 
 ## Sinónimos y traducción
 

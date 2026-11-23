@@ -50,7 +50,7 @@ Las clases no fijan un límite propio para este término. Los límites del tema 
 
 [SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md).
 
-**Aparece en los casos de estudio:** [Spotify](../../../casos/exito/spotify.md), [Quibi](../../../casos/fallo/quibi.md).
+**Aparece en los casos de estudio:** [Spotify](../../../casos/exito/spotify.md), [Instagram](../../../casos/exito/instagram.md), [Quibi](../../../casos/fallo/quibi.md).
 
 ## Sinónimos y traducción
 

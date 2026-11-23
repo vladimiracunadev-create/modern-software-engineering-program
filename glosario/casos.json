@@ -59,6 +59,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "actividad": [
@@ -78,14 +83,14 @@
    "Slack"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "discord",
+   "Discord"
   ],
   [
    "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "knight-capital",
+   "Knight Capital"
   ]
  ],
  "activo": [
@@ -422,6 +427,11 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "anfitrion": [
@@ -429,6 +439,13 @@
    "exito",
    "airbnb",
    "Airbnb"
+  ]
+ ],
+ "apelacion": [
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "aprovisionamiento": [
@@ -531,6 +548,11 @@
    "exito",
    "airbnb",
    "Airbnb"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "artefacto": [
@@ -581,6 +603,11 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "atributos-de-calidad": [
@@ -593,6 +620,11 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "audiencia": [
@@ -607,9 +639,19 @@
    "Spotify"
   ],
   [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
+  [
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "autenticacion": [
@@ -632,6 +674,13 @@
    "exito",
    "stripe",
    "Stripe"
+  ]
+ ],
+ "autoridad-formal": [
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "autoritativo": [
@@ -661,6 +710,11 @@
    "fallo",
    "meta-2021",
    "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "backend": [
@@ -724,6 +778,16 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "banda": [
@@ -748,9 +812,9 @@
    "Spotify"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "base": [
@@ -778,6 +842,13 @@
    "exito",
    "amazon",
    "Amazon"
+  ]
+ ],
+ "benchmark": [
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "biblioteca": [
@@ -865,14 +936,14 @@
    "Slack"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "shopify",
+   "Shopify"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "brecha": [
@@ -921,6 +992,11 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "byte": [
@@ -930,9 +1006,21 @@
    "WhatsApp"
   ],
   [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
    "fallo",
    "therac-25",
    "Therac-25"
+  ]
+ ],
+ "cache-lru": [
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "caducidad": [
@@ -957,6 +1045,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "cambio-incompatible": [
@@ -1065,9 +1158,21 @@
    "Stripe"
   ],
   [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
    "fallo",
    "quibi",
    "Quibi"
+  ]
+ ],
+ "captura-de-cambios": [
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "caracteristica": [
@@ -1113,6 +1218,16 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "casos-de-uso": [
@@ -1171,9 +1286,16 @@
    "Slack"
   ],
   [
+   "exito",
+   "discord",
+   "Discord"
+  ]
+ ],
+ "certificado": [
+  [
    "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "ciclo": [
@@ -1189,6 +1311,11 @@
   ]
  ],
  "circuit-breaker": [
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
   [
    "fallo",
    "knight-capital",
@@ -1220,6 +1347,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "cobertura": [
@@ -1358,6 +1490,13 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "combustible": [
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "comision": [
@@ -1579,6 +1718,11 @@
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "concurrencia": [
@@ -1588,9 +1732,19 @@
    "Stripe"
   ],
   [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "condicion": [
@@ -1688,6 +1842,13 @@
    "Caída global de Meta"
   ]
  ],
+ "conflicto": [
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
+  ]
+ ],
  "conformidad": [
   [
    "fallo",
@@ -1717,9 +1878,9 @@
    "Slack"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "instagram",
+   "Instagram"
   ]
  ],
  "consecuencia": [
@@ -1790,6 +1951,16 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "contador": [
@@ -1900,6 +2071,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "contrato": [
@@ -1927,6 +2103,13 @@
    "exito",
    "slack",
    "Slack"
+  ]
+ ],
+ "contrato-de-datos": [
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "control": [
@@ -1978,6 +2161,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "corte": [
@@ -2058,6 +2246,11 @@
    "exito",
    "spotify",
    "Spotify"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
   ],
   [
    "fallo",
@@ -2299,6 +2492,13 @@
    "Ariane 5, vuelo 501"
   ]
  ],
+ "delegacion": [
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ]
+ ],
  "dependencia": [
   [
    "exito",
@@ -2346,6 +2546,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "desbordamiento": [
@@ -2372,6 +2577,11 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
   ],
   [
    "fallo",
@@ -2412,6 +2622,13 @@
    "CrowdStrike"
   ]
  ],
+ "despliegue-progresivo": [
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ]
+ ],
  "desviacion": [
   [
    "fallo",
@@ -2429,6 +2646,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "diagnostico": [
@@ -2608,6 +2830,11 @@
    "Netflix"
   ],
   [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
    "fallo",
    "tsb",
    "TSB Bank"
@@ -2652,14 +2879,19 @@
    "Spotify"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ],
   [
    "fallo",
-   "therac-25",
-   "Therac-25"
+   "crowdstrike",
+   "CrowdStrike"
   ]
  ],
  "drenaje": [
@@ -2852,6 +3084,11 @@
  ],
  "epoca": [
   [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
+  [
    "fallo",
    "therac-25",
    "Therac-25"
@@ -2877,6 +3114,11 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "escalar": [
@@ -2889,6 +3131,11 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "escalon-de-trafico": [
@@ -3064,6 +3311,16 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "estado-seguro": [
@@ -3156,9 +3413,9 @@
    "Slack"
   ],
   [
-   "fallo",
-   "therac-25",
-   "Therac-25"
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "evaluacion": [
@@ -3181,6 +3438,11 @@
    "fallo",
    "therac-25",
    "Therac-25"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "evento": [
@@ -3244,6 +3506,11 @@
    "Airbnb"
   ],
   [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
    "fallo",
    "meta-2021",
    "Caída global de Meta"
@@ -3305,6 +3572,11 @@
  ],
  "expresion": [
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "crowdstrike",
    "CrowdStrike"
@@ -3344,9 +3616,16 @@
    "Stripe"
   ],
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ]
+ ],
+ "factor-contribuyente": [
+  [
    "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "factory": [
@@ -3375,6 +3654,13 @@
    "Amazon"
   ]
  ],
+ "fallo-silencioso": [
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ]
+ ],
  "falso-positivo": [
   [
    "fallo",
@@ -3387,6 +3673,11 @@
    "exito",
    "netflix",
    "Netflix"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
   ],
   [
    "fallo",
@@ -3436,6 +3727,16 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
   ]
  ],
  "fragmentacion-aleatoria": [
@@ -3455,6 +3756,16 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
   ]
  ],
  "frontera": [
@@ -3484,6 +3795,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "fuerza": [
@@ -3491,6 +3807,11 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "funcion": [
@@ -3520,6 +3841,13 @@
    "Spotify"
   ]
  ],
+ "funcion-de-seguridad": [
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ]
+ ],
  "fusion": [
   [
    "exito",
@@ -3530,6 +3858,11 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
   ],
   [
    "fallo",
@@ -3620,6 +3953,13 @@
    "Therac-25"
   ]
  ],
+ "generador": [
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ]
+ ],
  "gobierno": [
   [
    "exito",
@@ -3652,6 +3992,11 @@
    "exito",
    "airbnb",
    "Airbnb"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
   ],
   [
    "fallo",
@@ -3695,14 +4040,14 @@
    "Slack"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "discord",
+   "Discord"
   ],
   [
    "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
+   "crowdstrike",
+   "CrowdStrike"
   ]
  ],
  "guardia": [
@@ -3722,14 +4067,14 @@
    "Airbnb"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "shopify",
+   "Shopify"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "guardrail": [
@@ -3759,6 +4104,16 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "hash-consistente": [
@@ -3771,6 +4126,11 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "hecho": [
@@ -3846,6 +4206,11 @@
    "Slack"
   ],
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
@@ -3890,6 +4255,13 @@
    "WhatsApp"
   ]
  ],
+ "holgura": [
+  [
+   "exito",
+   "instagram",
+   "Instagram"
+  ]
+ ],
  "huella": [
   [
    "exito",
@@ -3900,6 +4272,16 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
   ],
   [
    "fallo",
@@ -4053,6 +4435,11 @@
    "Mercado Libre"
   ],
   [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -4073,6 +4460,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
   ],
   [
    "fallo",
@@ -4124,6 +4516,23 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
+  ]
+ ],
+ "inquilino": [
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "instancia": [
@@ -4223,6 +4632,11 @@
    "fallo",
    "meta-2021",
    "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "interbloqueo": [
@@ -4302,6 +4716,11 @@
    "Slack"
   ],
   [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
+  [
    "fallo",
    "quibi",
    "Quibi"
@@ -4324,14 +4743,14 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "tsb",
-   "TSB Bank"
+   "exito",
+   "discord",
+   "Discord"
   ],
   [
    "fallo",
-   "therac-25",
-   "Therac-25"
+   "tsb",
+   "TSB Bank"
   ]
  ],
  "interruptor-de-circuito": [
@@ -4385,14 +4804,14 @@
    "Amazon"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "shopify",
+   "Shopify"
   ],
   [
    "fallo",
-   "quibi",
-   "Quibi"
+   "knight-capital",
+   "Knight Capital"
   ]
  ],
  "inyeccion": [
@@ -4417,6 +4836,13 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "job-stories": [
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "kernel": [
@@ -4490,6 +4916,11 @@
    "fallo",
    "quibi",
    "Quibi"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "liquidacion": [
@@ -4528,14 +4959,14 @@
    "Airbnb"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "instagram",
+   "Instagram"
   ],
   [
-   "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "lote": [
@@ -4552,6 +4983,16 @@
    "Stripe"
   ],
   [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "meta-2021",
    "Caída global de Meta"
@@ -4560,11 +5001,6 @@
    "fallo",
    "therac-25",
    "Therac-25"
-  ],
-  [
-   "fallo",
-   "gitlab-2017",
-   "Incidente de base de datos de GitLab"
   ]
  ],
  "mapa": [
@@ -4616,6 +5052,16 @@
    "exito",
    "whatsapp",
    "WhatsApp"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "margen": [
@@ -4645,11 +5091,23 @@
    "Spotify"
   ]
  ],
+ "matriz": [
+  [
+   "exito",
+   "instagram",
+   "Instagram"
+  ]
+ ],
  "mc-dc": [
   [
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "mecanismo": [
@@ -4818,6 +5276,18 @@
    "exito",
    "spotify",
    "Spotify"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ]
+ ],
+ "microvm": [
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "migracion": [
@@ -4845,6 +5315,13 @@
    "exito",
    "stripe",
    "Stripe"
+  ]
+ ],
+ "minimo-privilegio": [
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "mision": [
@@ -5003,6 +5480,11 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "monolito-modular": [
@@ -5010,6 +5492,11 @@
    "exito",
    "uber",
    "Uber"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "motor": [
@@ -5109,6 +5596,11 @@
    "Mercado Libre"
   ],
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "crowdstrike",
    "CrowdStrike"
@@ -5126,9 +5618,19 @@
    "Stripe"
   ],
   [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
+  [
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "observabilidad": [
@@ -5287,9 +5789,9 @@
    "Slack"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "origen": [
@@ -5406,14 +5908,14 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ],
   [
    "fallo",
-   "therac-25",
-   "Therac-25"
+   "crowdstrike",
+   "CrowdStrike"
   ]
  ],
  "parametro": [
@@ -5460,9 +5962,9 @@
    "Slack"
   ],
   [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "pasarela": [
@@ -5489,14 +5991,21 @@
    "Slack"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "instagram",
+   "Instagram"
   ],
   [
-   "fallo",
-   "tsb",
-   "TSB Bank"
+   "exito",
+   "discord",
+   "Discord"
+  ]
+ ],
+ "patron-de-acceso": [
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "peligro": [
@@ -5509,9 +6018,19 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "peor-caso": [
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ],
   [
    "fallo",
    "meta-2021",
@@ -5528,6 +6047,18 @@
    "exito",
    "amazon",
    "Amazon"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ]
+ ],
+ "percentil-95": [
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "permiso": [
@@ -5535,6 +6066,16 @@
    "exito",
    "slack",
    "Slack"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ],
   [
    "fallo",
@@ -5622,6 +6163,11 @@
    "exito",
    "spotify",
    "Spotify"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ],
   [
    "fallo",
@@ -5723,6 +6269,11 @@
    "Slack"
   ],
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -5736,11 +6287,6 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
-  ],
-  [
-   "fallo",
-   "therac-25",
-   "Therac-25"
   ]
  ],
  "postmortem-sin-culpa": [
@@ -5750,6 +6296,11 @@
    "Slack"
   ],
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -5763,11 +6314,6 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
-  ],
-  [
-   "fallo",
-   "therac-25",
-   "Therac-25"
   ]
  ],
  "potencia": [
@@ -6129,6 +6675,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "proyeccion": [
@@ -6146,6 +6697,11 @@
   ]
  ],
  "prueba-de-carga": [
+  [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
   [
    "fallo",
    "healthcare-gov",
@@ -6282,9 +6838,14 @@
    "Slack"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "rafaga": [
@@ -6318,6 +6879,11 @@
    "Airbnb"
   ],
   [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
@@ -6326,11 +6892,6 @@
    "fallo",
    "tsb",
    "TSB Bank"
-  ],
-  [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
   ]
  ],
  "ranura": [
@@ -6338,6 +6899,13 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "react": [
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "reconciliacion": [
@@ -6413,9 +6981,9 @@
    "Slack"
   ],
   [
-   "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "red-de-seguridad": [
@@ -6479,6 +7047,11 @@
   ]
  ],
  "referencia": [
+  [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
   [
    "fallo",
    "tsb",
@@ -6583,6 +7156,13 @@
    "Airbnb"
   ]
  ],
+ "regresion": [
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ]
+ ],
  "reintentos": [
   [
    "exito",
@@ -6632,9 +7212,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "crowdstrike",
-   "CrowdStrike"
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "relleno": [
@@ -6683,9 +7263,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "reparacion": [
@@ -6708,6 +7288,11 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "repeticion": [
@@ -6848,6 +7433,11 @@
  ],
  "resolver": [
   [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
@@ -6856,6 +7446,16 @@
    "fallo",
    "tsb",
    "TSB Bank"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "respaldo": [
@@ -7031,6 +7631,11 @@
    "fallo",
    "meta-2021",
    "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "retorno": [
@@ -7069,6 +7674,11 @@
    "Stripe"
   ],
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
@@ -7077,11 +7687,6 @@
    "fallo",
    "healthcare-gov",
    "HealthCare.gov"
-  ],
-  [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
   ]
  ],
  "retroceso-exponencial": [
@@ -7147,6 +7752,11 @@
    "fallo",
    "crowdstrike",
    "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "riesgo": [
@@ -7222,9 +7832,24 @@
    "fallo",
    "gitlab-2017",
    "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "runtime": [
+  [
+   "exito",
+   "instagram",
+   "Instagram"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
   [
    "fallo",
    "meta-2021",
@@ -7243,19 +7868,19 @@
    "Slack"
   ],
   [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
    "fallo",
    "knight-capital",
    "Knight Capital"
-  ],
-  [
-   "fallo",
-   "healthcare-gov",
-   "HealthCare.gov"
-  ],
-  [
-   "fallo",
-   "meta-2021",
-   "Caída global de Meta"
   ]
  ],
  "safety": [
@@ -7268,6 +7893,11 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
   ]
  ],
  "saga": [
@@ -7418,6 +8048,11 @@
  ],
  "senal": [
   [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
    "fallo",
    "meta-2021",
    "Caída global de Meta"
@@ -7564,6 +8199,13 @@
    "fallo",
    "quibi",
    "Quibi"
+  ]
+ ],
+ "state": [
+  [
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "sujeto": [
@@ -7728,6 +8370,11 @@
    "Amazon"
   ],
   [
+   "exito",
+   "shopify",
+   "Shopify"
+  ],
+  [
    "fallo",
    "meta-2021",
    "Caída global de Meta"
@@ -7789,6 +8436,16 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ]
  ],
  "trabajo": [
@@ -7903,6 +8560,13 @@
    "Stripe"
   ]
  ],
+ "traza": [
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ]
+ ],
  "trazabilidad": [
   [
    "fallo",
@@ -7913,6 +8577,16 @@
    "fallo",
    "ariane-5-vuelo-501",
    "Ariane 5, vuelo 501"
+  ],
+  [
+   "fallo",
+   "boeing-737-max-mcas",
+   "Boeing 737 MAX y MCAS"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
   ]
  ],
  "trinquete": [
@@ -7951,6 +8625,16 @@
    "exito",
    "airbnb",
    "Airbnb"
+  ],
+  [
+   "exito",
+   "discord",
+   "Discord"
+  ],
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
   ],
   [
    "fallo",
@@ -8014,6 +8698,11 @@
    "exito",
    "amazon",
    "Amazon"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ]
  ],
  "ventana": [
@@ -8038,9 +8727,9 @@
    "Stripe"
   ],
   [
-   "fallo",
-   "knight-capital",
-   "Knight Capital"
+   "exito",
+   "discord",
+   "Discord"
   ]
  ],
  "ventana-de-gracia": [
@@ -8240,6 +8929,18 @@
    "Spotify"
   ]
  ],
+ "vulnerabilidad": [
+  [
+   "exito",
+   "cloudflare",
+   "Cloudflare"
+  ],
+  [
+   "fallo",
+   "post-office-horizon",
+   "Post Office Horizon"
+  ]
+ ],
  "webhook": [
   [
    "exito",
@@ -8250,6 +8951,11 @@
    "exito",
    "stripe",
    "Stripe"
+  ],
+  [
+   "exito",
+   "shopify",
+   "Shopify"
   ],
   [
    "fallo",

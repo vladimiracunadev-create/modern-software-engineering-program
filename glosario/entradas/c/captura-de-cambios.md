@@ -53,6 +53,8 @@ Las clases no fijan un límite propio para este término. Los límites del tema 
 
 [SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md), [SE-362](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-362-ingesta-batch-y-streaming/README.md).
 
+**Aparece en los casos de estudio:** [Shopify](../../../casos/exito/shopify.md).
+
 ## Sinónimos y traducción
 
 **Sinónimos, siglas y variantes que usa el programa:** «CDC».

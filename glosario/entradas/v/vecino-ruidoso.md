@@ -65,7 +65,7 @@ Lo que las clases dicen sobre dónde deja de valer este término:
 
 [SE-409](../../../classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md), [SE-419](../../../classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md).
 
-**Aparece en los casos de estudio:** [Amazon](../../../casos/exito/amazon.md).
+**Aparece en los casos de estudio:** [Amazon](../../../casos/exito/amazon.md), [Shopify](../../../casos/exito/shopify.md).
 
 ## Sinónimos y traducción
 

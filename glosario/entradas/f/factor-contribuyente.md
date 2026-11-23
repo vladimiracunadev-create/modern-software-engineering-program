@@ -55,6 +55,8 @@ Lo que las clases dicen sobre dónde deja de valer este término:
 
 [SE-107](../../../classes/part-08-entornos-herramientas-y-depuracion/se-107-taller-diagnosticar-un-fallo-desconocido/README.md).
 
+**Aparece en los casos de estudio:** [Boeing 737 MAX y MCAS](../../../casos/fallo/boeing-737-max-mcas.md).
+
 ## Sinónimos y traducción
 
 **Forma en inglés o término técnico original:** «Factores contribuyentes».

@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne nueve fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab, Quibi y Ariane 5, vuelo 501. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
+Esta página reúne diez fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab, Quibi, Ariane 5, vuelo 501 y Boeing 737 MAX y MCAS. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
 
 ## Por qué se construyó
 
@@ -46,6 +46,7 @@ agrupación es orientativa: sirve para elegir por dónde empezar, no para clasif
 - [Incidente de base de datos de GitLab](gitlab-2017.md) — **2017** · GitLab Inc. (organización). Un comando ejecutado en el servidor equivocado borró datos de producción y los respaldos que debían salvarlos resultaron no servir.
 - [Quibi](quibi.md) — **2018** · Jeffrey Katzenberg y Meg Whitman. Una plataforma de vídeo corto para móvil que recaudó más de mil millones de dólares y cerró en 2020, meses después de lanzarse, porque resolvía un problema que casi nadie tenía.
 - [Ariane 5, vuelo 501](ariane-5-vuelo-501.md) — **1996** · ESA y CNES (organizaciones). En el primer vuelo del cohete europeo, software de Ariane 4 reutilizado sin revisar sus supuestos detuvo las dos unidades de guiado idénticas y el lanzador se destruyó a los 39 segundos.
+- [Boeing 737 MAX y MCAS](boeing-737-max-mcas.md) — **2018** · Boeing y la FAA (organizaciones). Una función nueva del control de vuelo que dependía de un solo sensor empujó el morro de dos aviones hacia abajo, y los análisis de seguridad suponían que los pilotos la reconocerían y la cortarían.
 
 ## Límites
 

@@ -44,7 +44,7 @@ def _box(f: Fig, x: float, y: float, w: float, text: str, kind: str = "plain", h
 
 def chain(title: str, desc: str, steps: list[tuple], note: str, foot: str, per_row: int = 4,
           note_kind: str = "gold", arrows: list[str] | None = None) -> Fig:
-    """Snake of boxes joined by arrows. ``steps`` = (text, kind[, bold]); ``arrows`` = optional labels between steps."""
+    """Rows of boxes joined by arrows, read left to right; each row connects to the next with an elbow. ``steps`` = (text, kind[, bold]); ``arrows`` = optional labels between steps."""
     f, y = sketch(title, desc)
     gap = 40
     w = (920 - gap * (per_row - 1)) / per_row
@@ -54,7 +54,7 @@ def chain(title: str, desc: str, steps: list[tuple], note: str, foot: str, per_r
     prev_bottom = 0.0
     for r, row in enumerate(rows):
         rh = max(_h(s[0], w) for s in row)
-        xs = [10 + (i if r % 2 == 0 else per_row - 1 - i) * (w + gap) for i in range(len(row))]
+        xs = [10 + i * (w + gap) for i in range(len(row))]
         if prev_exit is not None:
             mid = prev_bottom + 15
             f.arrow([(prev_exit + w / 2, prev_bottom), (prev_exit + w / 2, mid), (xs[0] + w / 2, mid), (xs[0] + w / 2, y0)])

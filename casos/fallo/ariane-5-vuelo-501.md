@@ -1,6 +1,6 @@
 # Ariane 5, vuelo 501
 
-[↑ Casos de fallo](README.md) · [← Quibi](quibi.md)
+[↑ Casos de fallo](README.md) · [← Quibi](quibi.md) · [Boeing 737 MAX y MCAS →](boeing-737-max-mcas.md)
 
 > **Qué es esta página.** Un caso de estudio de fallo: la realidad frente a la teoría del curso. No es una clase ni un rol. Separa lo que las fuentes **documentan**, lo que este análisis **infiere** y lo que **no se sabe**. Habla de decisiones, procesos y sistemas, no de personas. Fecha de consulta de todas las fuentes: 23 de noviembre de 2026.
 
@@ -460,4 +460,4 @@ Todas consultadas el 23 de noviembre de 2026. El informe de la comisión es un P
 
 ---
 
-[↑ Casos de fallo](README.md) · [← Quibi](quibi.md)
+[↑ Casos de fallo](README.md) · [← Quibi](quibi.md) · [Boeing 737 MAX y MCAS →](boeing-737-max-mcas.md)

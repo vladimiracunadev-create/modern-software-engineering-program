@@ -91,6 +91,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "ariane-5-vuelo-501", "kind": "fallo", "name": "Ariane 5, vuelo 501", "year": "1996",
      "who": "ESA y CNES (organizaciones)", "place": "Kourou, Guayana Francesa",
      "hook": "En el primer vuelo del cohete europeo, software de Ariane 4 reutilizado sin revisar sus supuestos detuvo las dos unidades de guiado idénticas y el lanzador se destruyó a los 39 segundos."},
+    {"slug": "boeing-737-max-mcas", "kind": "fallo", "name": "Boeing 737 MAX y MCAS", "year": "2018",
+     "who": "Boeing y la FAA (organizaciones)", "place": "Estados Unidos, Indonesia y Etiopía",
+     "hook": "Una función nueva del control de vuelo que dependía de un solo sensor empujó el morro de dos aviones hacia abajo, y los análisis de seguridad suponían que los pilotos la reconocerían y la cortarían."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

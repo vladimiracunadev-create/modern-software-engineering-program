@@ -238,7 +238,7 @@ def nucleus():
 
 def sitios():
     return hub(
-        "Dónde guarda Dropbox el contenido: infraestructura propia y AWS",
+        "Dónde guarda Dropbox el contenido de los usuarios",
         "Esquema de ubicaciones: centros de colocación propios en Oregón, Texas, Virginia, París y Hamburgo para la mayoría del contenido, y AWS en Estados Unidos, Australia, Europa y Japón para el resto y para localizar datos; durabilidad de al menos 99,999999999 por ciento.",
         ("Contenido de los usuarios", "navy"),
         [("Oregón (colocación propia)", "teal", "guarda"),

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de tratar la integración continua como un servidor que «corre builds» y la trates como una práctica con consecuencias medibles: cada cuánto se integra el trabajo de varias personas, cuánto cuesta cada integración tardía, cuánto tarda la señal de que algo se rompió y quién actúa cuando aparece. La habilidad profesional no es configurar un runner sino decidir, con números, cuánto trabajo se acepta en la troncal sin verificar y qué hace el equipo cuando la señal es roja.
 
-**Por qué aparece aquí.** Abre la **Parte 40** después de **Proyecto: release firmado y recuperable**: la Parte 39 dejó un artefacto que se construye de forma reproducible, se firma y se puede recuperar; ahora hay que decidir quién y cuándo lo construye. Un build reproducible que se ejecuta una vez por semana llega tarde. El caso conductor de la parte es la **canalización del repositorio de la API de entregas de la plataforma educativa** (la misma API de la Parte 36): un repositorio, ocho personas y cambios que deben llegar a producción sin romper el cierre de plazos.
+**Por qué aparece aquí.** Abre la **[Parte 40](../README.md)** después de **Proyecto: release firmado y recuperable**: la [Parte 39](../../part-39-build-release-y-cadena-de-suministro/README.md) dejó un artefacto que se construye de forma reproducible, se firma y se puede recuperar; ahora hay que decidir quién y cuándo lo construye. Un build reproducible que se ejecuta una vez por semana llega tarde. El caso conductor de la parte es la **canalización del repositorio de la API de entregas de la plataforma educativa** (la misma API de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md)): un repositorio, ocho personas y cambios que deben llegar a producción sin romper el cierre de plazos.
 
 **Error conceptual que debe corregir.** Creer que la integración continua es una herramienta que se instala: es una práctica —integrar al menos a diario en la troncal y verificar cada integración— y una herramienta que no cambia esa conducta solo automatiza la espera.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 39: una versión se identifica por su contenido (resumen del artefacto), no por una etiqueta que se puede mover. La pregunta activa es: **¿cuánto trabajo sin verificar acepta tu equipo en la troncal, y cuánto tarda en enterarse cuando esa suposición falla?**
+Recupera lo aprendido en la [Parte 39](../../part-39-build-release-y-cadena-de-suministro/README.md): una versión se identifica por su contenido (resumen del artefacto), no por una etiqueta que se puede mover. La pregunta activa es: **¿cuánto trabajo sin verificar acepta tu equipo en la troncal, y cuánto tarda en enterarse cuando esa suposición falla?**
 
 ## Prerrequisitos
 
@@ -211,7 +211,7 @@ Entrega `ci-log.md` con la predicción, las tres tablas, la política de troncal
 
 ## Caso conductor
 
-La canalización del repositorio de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el primer artefacto: la política de troncal con sus números. `SE-482` convertirá la verificación en una canalización con jobs, dependencias, matrices y cachés, y `SE-483` decidirá qué comprobaciones la bloquean. Cambia después un solo dato, la vida máxima de las ramas, y observa cuánto se mueve el choque esperado.
+La canalización del repositorio de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el primer artefacto: la política de troncal con sus números. `SE-482` convertirá la verificación en una canalización con jobs, dependencias, matrices y cachés, y `SE-483` decidirá qué comprobaciones la bloquean. Cambia después un solo dato, la vida máxima de las ramas, y observa cuánto se mueve el choque esperado.
 
 ## Preguntas frecuentes
 

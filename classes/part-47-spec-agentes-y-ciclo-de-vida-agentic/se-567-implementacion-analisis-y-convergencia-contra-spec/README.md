@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de aceptar «terminé» como una medida. Un agente que implementa unas tareas dice haber terminado en el momento en que su propio criterio se lo indica; ese criterio es, por construcción, el mismo que usó para construir. La habilidad es definir qué significa que una implementación converge contra su especificación, quién lo comprueba, cuántas pasadas se permiten, qué se hace cuando una pasada rompe lo que la anterior arregló y cuándo se detiene el bucle y se llama a una persona.
 
-**Por qué aparece aquí.** Es la tercera clase de la **Parte 47**, después de **Constitución, specify, clarify, plan y tasks**: `SE-566` produjo una cadena de artefactos sin incoherencias formales; ahora las tareas se ejecutan. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*), un caso sintético en el que no se analizó ningún sistema, institución ni persona reales.
+**Por qué aparece aquí.** Es la tercera clase de la **[Parte 47](../README.md)**, después de **Constitución, specify, clarify, plan y tasks**: `SE-566` produjo una cadena de artefactos sin incoherencias formales; ahora las tareas se ejecutan. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*), un caso sintético en el que no se analizó ningún sistema, institución ni persona reales.
 
 **Error conceptual que debe corregir.** Creer que si el agente ejecuta todas las tareas y sus pruebas pasan, la implementación cumple la especificación. Las tareas son una descomposición, no el requisito; las pruebas del agente comprueban lo que el agente entendió. Entre «todas las tareas hechas» y «todos los criterios cumplidos» hay un hueco que se mide, no se supone.
 
@@ -207,7 +207,7 @@ Entrega `convergencia-log.md` con la predicción, las tres tablas, los diecisiet
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el tercer artefacto: los criterios ejecutables, las condiciones de parada y la medida de su capacidad de detección. `SE-568` repetirá el recorrido en proyectos con código previo, en arreglos de errores y en la evaluación de ideas, y `SE-569` fijará con qué permisos trabaja el agente mientras converge. Cambia después un solo dato, la tasa de regresión, y observa a partir de qué valor tu condición de máximo de pasadas se activa más a menudo que la de convergencia.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el tercer artefacto: los criterios ejecutables, las condiciones de parada y la medida de su capacidad de detección. `SE-568` repetirá el recorrido en proyectos con código previo, en arreglos de errores y en la evaluación de ideas, y `SE-569` fijará con qué permisos trabaja el agente mientras converge. Cambia después un solo dato, la tasa de regresión, y observa a partir de qué valor tu condición de máximo de pasadas se activa más a menudo que la de convergencia.
 
 ## Preguntas frecuentes
 

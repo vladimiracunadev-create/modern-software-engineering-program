@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-373`: elegir una cola cambia el contrato de respuesta, pero no dice qué viaja por ella. Recupera también de la Parte 13 la idea de contrato: lo que el consumidor puede asumir sin volver a preguntar. La pregunta activa es: **¿qué sabe el receptor al recibir este mensaje, qué necesita preguntar y a quién?**
+Recupera lo aprendido en `SE-373`: elegir una cola cambia el contrato de respuesta, pero no dice qué viaja por ella. Recupera también de la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) la idea de contrato: lo que el consumidor puede asumir sin volver a preguntar. La pregunta activa es: **¿qué sabe el receptor al recibir este mensaje, qué necesita preguntar y a quién?**
 
 ## Prerrequisitos
 
@@ -231,7 +231,7 @@ Entrega `mensajes-log.md` con las predicciones, las tablas reproducidas con las 
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el segundo artefacto: el catálogo de mensajes con sobre y contenido. `SE-375` pregunta por dónde viajan: colas, tópicos y logs. Cambia después una sola decisión, el contenido del evento `EntregaRecibida`, y observa qué consumidores dejan de llamar de vuelta y cuáles empiezan a leer datos viejos.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el segundo artefacto: el catálogo de mensajes con sobre y contenido. `SE-375` pregunta por dónde viajan: colas, tópicos y logs. Cambia después una sola decisión, el contenido del evento `EntregaRecibida`, y observa qué consumidores dejan de llamar de vuelta y cuáles empiezan a leer datos viejos.
 
 ## Preguntas frecuentes
 

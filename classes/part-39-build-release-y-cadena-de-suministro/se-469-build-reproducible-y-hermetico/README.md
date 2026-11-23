@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que puedas responder, con evidencia y no con una promesa, a la pregunta «¿este binario sale de este código?». Construir significa transformar fuentes en un artefacto; un build es **reproducible** cuando las mismas entradas producen los mismos bytes y es **hermético** cuando solo puede leer las entradas que declaró. Sin esas dos propiedades, nadie puede comprobar que lo que se distribuye es lo que se revisó, y toda verificación posterior (firmas, procedencia, SBOM) se apoya en un artefacto que nadie puede reconstruir.
 
-**Por qué aparece aquí.** Abre la **Parte 39** después de la Parte 38 (seguridad, privacidad y cumplimiento): allí se decidió qué amenazas importan; aquí empieza la cadena que lleva el código hasta quien lo usa, y el primer eslabón es el build. Sigue a la Parte 36 en un punto concreto: allí se aprendió que una medición debe poder repetirse; aquí se aplica la misma exigencia al propio artefacto. El caso conductor es la API de entregas de la plataforma educativa, ahora empaquetada como un archivo que se publicará.
+**Por qué aparece aquí.** Abre la **[Parte 39](../README.md)** después de la [Parte 38](../../part-38-seguridad-privacidad-y-cumplimiento/README.md) (seguridad, privacidad y cumplimiento): allí se decidió qué amenazas importan; aquí empieza la cadena que lleva el código hasta quien lo usa, y el primer eslabón es el build. Sigue a la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) en un punto concreto: allí se aprendió que una medición debe poder repetirse; aquí se aplica la misma exigencia al propio artefacto. El caso conductor es la API de entregas de la plataforma educativa, ahora empaquetada como un archivo que se publicará.
 
 **Error conceptual que debe corregir.** Creer que «reproducible» significa «el CI lo construye siempre igual» o que basta con ejecutar el build en un contenedor. Un contenedor fija el sistema de archivos pero no la hora, el orden de los archivos, la ruta absoluta ni lo que la herramienta escribe en las cabeceras del archivo. Un build es reproducible solo si alguien ajeno, en otra máquina, obtiene los mismos bytes.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 36: una medición sin protocolo repetible no es evidencia, y en `SE-444` los artefactos de un paquete de informe se compararon entre Windows y Ubuntu. La pregunta activa es: **¿qué debo fijar para que otra persona obtenga exactamente los mismos bytes y cómo me entero de lo que olvidé fijar?**
+Recupera lo aprendido en la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md): una medición sin protocolo repetible no es evidencia, y en `SE-444` los artefactos de un paquete de informe se compararon entre Windows y Ubuntu. La pregunta activa es: **¿qué debo fijar para que otra persona obtenga exactamente los mismos bytes y cómo me entero de lo que olvidé fijar?**
 
 ## Prerrequisitos
 
@@ -186,7 +186,7 @@ Entrega `reproducible-log.md` con la predicción, las tres tablas, el script de 
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el primer artefacto del canal: un build reproducible con entradas declaradas. `SE-470` tratará cómo se almacena y se promueve ese artefacto sin reconstruirlo. Cambia después un solo dato, la versión de Python, y observa si el hash del release cambia: la respuesta decide si la versión del intérprete es una entrada que hay que declarar.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el primer artefacto del canal: un build reproducible con entradas declaradas. `SE-470` tratará cómo se almacena y se promueve ese artefacto sin reconstruirlo. Cambia después un solo dato, la versión de Python, y observa si el hash del release cambia: la respuesta decide si la versión del intérprete es una entrada que hay que declarar.
 
 ## Preguntas frecuentes
 

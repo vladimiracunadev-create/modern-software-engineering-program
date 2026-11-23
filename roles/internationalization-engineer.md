@@ -47,11 +47,11 @@ testing y workflow de traducción.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 01 y 03–09 para representación y software base.
-2. Partes 10–13 para usuarios, dominio y contratos.
+1. Partes [01](../classes/part-01-computadores-y-representacion-de-informacion/README.md) y [03](../classes/part-03-redes-internet-y-protocolos/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) para representación y software base.
+2. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[13](../classes/part-13-especificaciones-contratos-y-modelos/README.md) para usuarios, dominio y contratos.
 3. [Parte 14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) como núcleo.
-4. Partes 19–21 y 29 para interfaces, APIs y persistencia.
-5. Partes 35, 39–40 para pruebas, release y automatización.
+4. Partes [19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)–[21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) y [29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) para interfaces, APIs y persistencia.
+5. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md), [39](../classes/part-39-build-release-y-cadena-de-suministro/README.md)–[40](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) para pruebas, release y automatización.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -128,16 +128,16 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-067 · Entrada, salida y serialización](../classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion/README.md) | Parte 05 |
-| [SE-463 · Privacidad por diseño y minimización](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md) | Parte 38 |
-| [SE-466 · Cumplimiento, evidencia y límites legales](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) | Parte 38 |
-| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | Parte 45 |
-| [SE-545 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) | Parte 45 |
+| [SE-067 · Entrada, salida y serialización](../classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion/README.md) | [Parte 05](../classes/part-05-fundamentos-de-programacion/README.md) |
+| [SE-463 · Privacidad por diseño y minimización](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md) | [Parte 38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) |
+| [SE-466 · Cumplimiento, evidencia y límites legales](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) | [Parte 38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) |
+| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
+| [SE-545 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-014](../classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) para fijar el
 primer mecanismo, usa [SE-229](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) para integrar el
@@ -147,7 +147,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

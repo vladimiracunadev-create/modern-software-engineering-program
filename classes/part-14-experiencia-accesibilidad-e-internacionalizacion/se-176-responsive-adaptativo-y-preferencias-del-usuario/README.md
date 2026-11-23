@@ -194,7 +194,7 @@ Entrega `adaptive-log.md` con la comparación de maquetaciones, la matriz de par
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja la maquetación adaptable de la entrega, la matriz de pruebas de preferencias y el presupuesto de peso. `SE-177` añadirá idiomas y formatos, cuya expansión de texto tensiona la misma maquetación, y `SE-179` auditará todo el flujo. Cambia después una sola preferencia, añadir «colores forzados», y revisa qué filas, capturas y defectos aparecen.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja la maquetación adaptable de la entrega, la matriz de pruebas de preferencias y el presupuesto de peso. `SE-177` añadirá idiomas y formatos, cuya expansión de texto tensiona la misma maquetación, y `SE-179` auditará todo el flujo. Cambia después una sola preferencia, añadir «colores forzados», y revisa qué filas, capturas y defectos aparecen.
 
 ## Preguntas frecuentes
 

@@ -2,7 +2,7 @@
 
 Una aplicación distribuida no «usa Internet» como una caja única. Antes de recibir una respuesta, el cliente obtiene configuración local, resuelve un nombre, elige dirección y ruta, alcanza un siguiente salto, establece transporte, negocia confianza, atraviesa intermediarios y expresa una intención de aplicación. Cada fase conserva estado, garantías y modos de fallo diferentes. Esta parte enseña a recorrer esa cadena sin convertir una coincidencia temporal en causa.
 
-El caso conductor es una **petición observable de extremo a extremo** que amplía el kit de diagnóstico multiplataforma de la Parte 2. El kit ya podía describir plataforma, procesos y configuración; ahora se añade el exterior para explicar por qué una petición llegó, por qué no llegó o por qué respondió algo distinto. En cada clase se incorpora una capa de evidencia hasta entregar un servicio local que mide, degrada y se recupera de fallos controlados.
+El caso conductor es una **petición observable de extremo a extremo** que amplía el kit de diagnóstico multiplataforma de la [Parte 2](../part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md). El kit ya podía describir plataforma, procesos y configuración; ahora se añade el exterior para explicar por qué una petición llegó, por qué no llegó o por qué respondió algo distinto. En cada clase se incorpora una capa de evidencia hasta entregar un servicio local que mide, degrada y se recupera de fallos controlados.
 
 ## Pregunta rectora
 
@@ -202,7 +202,7 @@ consumidor debe conocer qué resultado obtuvo y qué parte quedó incompleta.
 La aceptación inyecta fallos deterministas de resolución, conexión, confianza, respuesta
 y consumidor lento; luego demuestra recuperación y limpieza. El proyecto declara redes
 y versiones probadas, además de lo no observado. Sus trazas se convierten en la materia
-prima que la Parte 4 transformará en modelos y estrategias contrastables.
+prima que la [Parte 4](../part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) transformará en modelos y estrategias contrastables.
 
 ## Resumen operativo del recorrido
 

@@ -281,7 +281,7 @@ incluyen 0, 65 535, 65 536 y -1.
 | --- | --- | --- |
 | conversión aprendida de memoria | falta modelo posicional | reconstruye pesos y suma |
 | overflow no aparece en Python | entero arbitrario oculta ancho | valida rango o usa serialización fija |
-| “un byte es un carácter” | capas mezcladas | define codificación en SE-015 |
+| “un byte es un carácter” | capas mezcladas | define codificación en [SE-015](../se-015-texto-unicode-codificaciones-y-mojibake/README.md) |
 | bytes invertidos entre sistemas | endianess implícito | fija orden y vector de prueba |
 
 ## Entorno y archivos clave

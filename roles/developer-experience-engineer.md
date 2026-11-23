@@ -47,10 +47,10 @@ DORA, SPACE, experimentación y gestión del cambio.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 08–10 para herramientas y discovery.
-2. Partes 14 y 16–18 para inclusión, colaboración y automatización.
-3. Partes 33 y 39, [Parte 40 — CI/CD, IaC y platform engineering](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) y Parte 41 para cloud, supply chain, platform y feedback.
-4. Parte 44 para organización; partes 46–47 para herramientas con agentes.
+1. Partes [08](../classes/part-08-entornos-herramientas-y-depuracion/README.md)–[10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) para herramientas y discovery.
+2. Partes [14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) y [16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)–[18](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) para inclusión, colaboración y automatización.
+3. Partes [33](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) y [39](../classes/part-39-build-release-y-cadena-de-suministro/README.md), [Parte 40 — CI/CD, IaC y platform engineering](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) y [Parte 41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para cloud, cadena de suministro, platform y feedback.
+4. [Parte 44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) para organización; partes 46–47 para herramientas con agentes.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -127,18 +127,18 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | Parte 08 |
-| [SE-101 · REPL, notebooks y desarrollo exploratorio](../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) | Parte 08 |
-| [SE-196 · Pull requests y revisión basada en riesgo](../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) | Parte 16 |
-| [SE-430 · Flakiness, diagnóstico y mantenimiento](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) | Parte 35 |
-| [SE-542 · TDD: ciclo rojo-verde-refactor y diseño emergente](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) | Parte 45 |
-| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | Parte 45 |
-| [SE-548 · SDD: spec-first, spec-anchored y spec-as-source](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) | Parte 45 |
+| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-101 · REPL, notebooks y desarrollo exploratorio](../classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-196 · Pull requests y revisión basada en riesgo](../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) | [Parte 16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
+| [SE-430 · Flakiness, diagnóstico y mantenimiento](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) | [Parte 35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
+| [SE-542 · TDD: ciclo rojo-verde-refactor y diseño emergente](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-542-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
+| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
+| [SE-548 · SDD: spec-first, spec-anchored y spec-as-source](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-097](../classes/part-08-entornos-herramientas-y-depuracion/se-097-editores-ide-y-servidores-de-lenguaje/README.md) para fijar el
 primer mecanismo, usa [SE-228](../classes/part-18-cli-tui-servicios-y-automatizacion/se-228-proyecto-herramienta-operable-multiplataforma/README.md) para integrar el
@@ -148,7 +148,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

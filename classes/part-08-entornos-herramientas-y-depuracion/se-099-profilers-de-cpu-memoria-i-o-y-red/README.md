@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Profilers de CPU, memoria, I/O y red** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué recurso está realmente saturado y qué herramienta puede atribuirlo?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Profilers de CPU, memoria, I/O y red** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué recurso está realmente saturado y qué herramienta puede atribuirlo?**
 
 ## Prerrequisitos
 

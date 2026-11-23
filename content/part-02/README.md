@@ -1,4 +1,4 @@
-# Parte 2 — Sistemas operativos y entorno de trabajo
+# Parte 2 — Sistemas operativos, terminal y automatización base
 
 Un programa no se ejecuta “en el computador” de manera abstracta. Se ejecuta como un proceso, bajo una identidad, con permisos concretos, dentro de un sistema de archivos, atendiendo reglas del sistema operativo y dependiendo de una configuración reproducible. Esta parte convierte ese entorno —que suele permanecer invisible hasta que algo falla— en un objeto de razonamiento técnico.
 

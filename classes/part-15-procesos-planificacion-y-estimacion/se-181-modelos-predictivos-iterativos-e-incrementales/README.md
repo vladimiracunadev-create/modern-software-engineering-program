@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que elijas un modelo de proceso por lo que cuesta equivocarse y por cuándo te enteras, no por la moda: un plan predictivo, un ciclo iterativo y una entrega incremental responden a tres preguntas distintas y se pueden combinar.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: prototipo accesible evaluado con usuarios** y abre la **Parte 15**: la Parte 14 dejó un prototipo evaluado con personas; ahora hay que decidir cómo se organiza el trabajo que lo convertirá en producto. Esta clase fija el vocabulario (predictivo, iterativo, incremental), mide qué cambia al acortar el intervalo de retroalimentación y deja el caso conductor de la parte: el plan de lanzamiento de la plataforma de entregas de tareas.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: prototipo accesible evaluado con usuarios** y abre la **[Parte 15](../README.md)**: la [Parte 14](../../part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) dejó un prototipo evaluado con personas; ahora hay que decidir cómo se organiza el trabajo que lo convertirá en producto. Esta clase fija el vocabulario (predictivo, iterativo, incremental), mide qué cambia al acortar el intervalo de retroalimentación y deja el caso conductor de la parte: el plan de lanzamiento de la plataforma de entregas de tareas.
 
 **Error conceptual que debe corregir.** Creer que «iterativo» e «incremental» son sinónimos de «ágil», o que el modelo predictivo es un error histórico: el predictivo es razonable cuando los requisitos son estables y cambiar es caro; el iterativo reduce el coste de descubrir tarde; el incremental protege el valor si el proyecto se corta.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 15 sobre procesos, planificación y estimación**. El caso conductor es el equipo que planifica el lanzamiento de la plataforma de entregas de tareas, con la regla de penalización y la recuperación de borradores de las Partes 12 y 13 como trabajo pendiente. Recupera lo aprendido de la Parte 14: una evaluación con personas dice qué hay que cambiar, y cuándo te enteras decide cuánto cuesta. La pregunta activa es: **¿cada cuánto necesito saber si estoy construyendo lo correcto, y qué hago con lo que ya entregué si el proyecto se corta?**
+Esta clase abre la **[Parte 15](../README.md) sobre procesos, planificación y estimación**. El caso conductor es el equipo que planifica el lanzamiento de la plataforma de entregas de tareas, con la regla de penalización y la recuperación de borradores de las Partes [12](../../part-12-ingenieria-de-requisitos/README.md) y [13](../../part-13-especificaciones-contratos-y-modelos/README.md) como trabajo pendiente. Recupera lo aprendido de la [Parte 14](../../part-14-experiencia-accesibilidad-e-internacionalizacion/README.md): una evaluación con personas dice qué hay que cambiar, y cuándo te enteras decide cuánto cuesta. La pregunta activa es: **¿cada cuánto necesito saber si estoy construyendo lo correcto, y qué hago con lo que ya entregué si el proyecto se corta?**
 
 ## Prerrequisitos
 
@@ -208,7 +208,7 @@ Entrega `model-log.md` con la predicción, el esfuerzo por intervalo, el valor p
 
 ## Caso conductor
 
-La plataforma de entregas de tareas es el caso conductor de la Parte 15. Esta clase deja el primer artefacto: la asignación de un modelo a cada bloque del lanzamiento, con su razón y su señal de cambio. Las clases siguientes le sumarán principios y prácticas (`SE-182` y `SE-183`), flujo y colas (`SE-184`), estimaciones con rango (`SE-185`), dependencias (`SE-186`), riesgos (`SE-187`), criterios de listo y terminado (`SE-188`), métricas (`SE-189`), mejora (`SE-190`) y un plan completo (`SE-191` y `SE-192`). Cambia después una sola decisión, la fecha de la secretaría, y revisa qué bloques debe replanificar.
+La plataforma de entregas de tareas es el caso conductor de la [Parte 15](../README.md). Esta clase deja el primer artefacto: la asignación de un modelo a cada bloque del lanzamiento, con su razón y su señal de cambio. Las clases siguientes le sumarán principios y prácticas (`SE-182` y `SE-183`), flujo y colas (`SE-184`), estimaciones con rango (`SE-185`), dependencias (`SE-186`), riesgos (`SE-187`), criterios de listo y terminado (`SE-188`), métricas (`SE-189`), mejora (`SE-190`) y un plan completo (`SE-191` y `SE-192`). Cambia después una sola decisión, la fecha de la secretaría, y revisa qué bloques debe replanificar.
 
 ## Preguntas frecuentes
 

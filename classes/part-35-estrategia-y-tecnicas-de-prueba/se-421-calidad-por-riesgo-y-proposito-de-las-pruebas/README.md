@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas qué probar, con qué nivel de prueba y cuánto esfuerzo a partir del riesgo que cada componente representa, y para que declares por escrito qué no vas a probar y por qué. Una estrategia de pruebas es un reparto de horas limitadas entre fallos posibles; sin ese reparto explícito, el reparto ocurre igual, pero por costumbre.
 
-**Por qué aparece aquí.** Las Partes 27 y 29 dejaron una arquitectura con fronteras y una capa de datos con invariantes. La Parte 35 abre el bloque de calidad preguntando cómo se sabe que todo eso funciona. Antes de hablar de pruebas unitarias, de contratos o de fuzzing hay que fijar el criterio que ordena todas las demás clases: qué fallo duele más, cuál es más probable y qué técnica puede verlo.
+**Por qué aparece aquí.** Las Partes [27](../../part-27-arquitectura-de-software-y-dominio/README.md) y [29](../../part-29-datos-persistencia-y-recuperacion/README.md) dejaron una arquitectura con fronteras y una capa de datos con invariantes. La [Parte 35](../README.md) abre el bloque de calidad preguntando cómo se sabe que todo eso funciona. Antes de hablar de pruebas unitarias, de contratos o de fuzzing hay que fijar el criterio que ordena todas las demás clases: qué fallo duele más, cuál es más probable y qué técnica puede verlo.
 
 **Error conceptual que debe corregir.** Creer que la calidad de una suite se mide por su tamaño o por su cobertura de líneas y que probar «todo» es un objetivo alcanzable. No lo es: el espacio de entradas y estados no se agota, el presupuesto sí, y repartirlo por igual o por tamaño del código gasta horas donde el fallo cuesta poco.
 
@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-La plataforma de entregas de tareas ya tiene fronteras (Parte 27) y una capa de datos recuperable (Parte 29). La pregunta que activa esta clase es: **si solo hay 40 horas para probar este sistema este trimestre, ¿dónde las pones, qué dejas sin probar y qué evidencia te haría cambiar de idea?** Escribe tu respuesta antes de seguir: es la hipótesis que la clase pone a prueba.
+La plataforma de entregas de tareas ya tiene fronteras ([Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md)) y una capa de datos recuperable ([Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md)). La pregunta que activa esta clase es: **si solo hay 40 horas para probar este sistema este trimestre, ¿dónde las pones, qué dejas sin probar y qué evidencia te haría cambiar de idea?** Escribe tu respuesta antes de seguir: es la hipótesis que la clase pone a prueba.
 
 ## Prerrequisitos
 
@@ -218,7 +218,7 @@ Entrega `estrategia-log.md` con la predicción, los diez componentes con sus sup
 
 ## Caso conductor
 
-La plataforma de entregas de tareas sigue siendo el caso conductor. Esta clase deja el primer artefacto de la Parte 35: la tabla de riesgos con el reparto de horas y la lista de exclusiones. `SE-422` pregunta cómo se escribe una prueba unitaria útil y qué diseño la hace posible. Cambia después una sola estimación (el impacto de las notificaciones de 3 a 8) y observa cuántas horas se mueven.
+La plataforma de entregas de tareas sigue siendo el caso conductor. Esta clase deja el primer artefacto de la [Parte 35](../README.md): la tabla de riesgos con el reparto de horas y la lista de exclusiones. `SE-422` pregunta cómo se escribe una prueba unitaria útil y qué diseño la hace posible. Cambia después una sola estimación (el impacto de las notificaciones de 3 a 8) y observa cuántas horas se mueven.
 
 ## Preguntas frecuentes
 

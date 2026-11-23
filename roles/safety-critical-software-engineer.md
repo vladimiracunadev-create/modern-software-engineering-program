@@ -47,11 +47,11 @@ factores humanos, incidentes y ciclos de vida largos.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00, 04 y 10–17 para ética, modelos y trazabilidad.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md), [04](../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) y [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) para ética, modelos y trazabilidad.
 2. [Parte 24 — Software especializado y dominios](../classes/part-24-software-especializado-y-dominios/README.md).
-3. Partes 22 y 25–32 para tiempo real, arquitectura y fallos.
-4. Partes 35–36 y 38–39 para verificación, resiliencia, seguridad y configuración.
-5. Partes 41 y 43–44 para incidentes, retiro y liderazgo.
+3. Partes [22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) y [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md)–[32](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) para tiempo real, arquitectura y fallos.
+4. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) para verificación, resiliencia, seguridad y configuración.
+5. Partes [41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) y [43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)–[44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) para incidentes, retiro y liderazgo.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -129,24 +129,24 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-160 · Modelos estructurales, conductuales y de información](../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) | Parte 13 |
-| [SE-187 · Riesgos, supuestos, issues y decisiones](../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) | Parte 15 |
-| [SE-291 · Machine learning como componente de producto](../classes/part-24-software-especializado-y-dominios/se-291-machine-learning-como-componente-de-producto/README.md) | Parte 24 |
-| [SE-295 · Salud, datos sensibles y sistemas regulados](../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md) | Parte 24 |
-| [SE-299 · Taller: comparar riesgos entre dominios](../classes/part-24-software-especializado-y-dominios/se-299-taller-comparar-riesgos-entre-dominios/README.md) | Parte 24 |
-| [SE-501 · Postmortems sin culpa y aprendizaje](../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md) | Parte 41 |
-| [SE-502 · Continuidad, disaster recovery y ejercicios](../classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/README.md) | Parte 41 |
-| [SE-447 · Automoción: ISO 26262 y niveles ASIL](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md) | Parte 37 |
-| [SE-448 · Aviación: DO-178C, DO-254 y ARP4754](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md) | Parte 37 |
-| [SE-449 · Dispositivos médicos: IEC 62304](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md) | Parte 37 |
-| [SE-452 · Codificación segura: MISRA y CERT](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md) | Parte 37 |
-| [SE-282 · Contenedores, microVM y sandboxes](../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md) | Parte 23 |
-| [SE-283 · Hardware seguro: TEE y atestación](../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/README.md) | Parte 23 |
+| [SE-160 · Modelos estructurales, conductuales y de información](../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) | [Parte 13](../classes/part-13-especificaciones-contratos-y-modelos/README.md) |
+| [SE-187 · Riesgos, supuestos, issues y decisiones](../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) | [Parte 15](../classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| [SE-291 · Machine learning como componente de producto](../classes/part-24-software-especializado-y-dominios/se-291-machine-learning-como-componente-de-producto/README.md) | [Parte 24](../classes/part-24-software-especializado-y-dominios/README.md) |
+| [SE-295 · Salud, datos sensibles y sistemas regulados](../classes/part-24-software-especializado-y-dominios/se-295-salud-datos-sensibles-y-sistemas-regulados/README.md) | [Parte 24](../classes/part-24-software-especializado-y-dominios/README.md) |
+| [SE-299 · Taller: comparar riesgos entre dominios](../classes/part-24-software-especializado-y-dominios/se-299-taller-comparar-riesgos-entre-dominios/README.md) | [Parte 24](../classes/part-24-software-especializado-y-dominios/README.md) |
+| [SE-501 · Postmortems sin culpa y aprendizaje](../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md) | [Parte 41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) |
+| [SE-502 · Continuidad, disaster recovery y ejercicios](../classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/README.md) | [Parte 41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) |
+| [SE-447 · Automoción: ISO 26262 y niveles ASIL](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md) | [Parte 37](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |
+| [SE-448 · Aviación: DO-178C, DO-254 y ARP4754](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-448-aviacion-do-178c-do-254-y-arp4754/README.md) | [Parte 37](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |
+| [SE-449 · Dispositivos médicos: IEC 62304](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md) | [Parte 37](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |
+| [SE-452 · Codificación segura: MISRA y CERT](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md) | [Parte 37](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |
+| [SE-282 · Contenedores, microVM y sandboxes](../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
+| [SE-283 · Hardware seguro: TEE y atestación](../classes/part-23-runtimes-y-plataformas-modernas/se-283-hardware-seguro-tee-y-atestacion/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-052](../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md) para fijar el
 primer mecanismo, usa [SE-431](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-431-taller-demostrar-que-una-prueba-detecta-defectos/README.md) para integrar el
@@ -156,7 +156,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

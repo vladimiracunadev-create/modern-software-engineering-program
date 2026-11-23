@@ -1,8 +1,8 @@
-# Parte 2 — Sistemas operativos y entorno de trabajo
+# Parte 2 — Sistemas operativos, terminal y automatización base
 
 Un programa no se ejecuta “en el computador” de manera abstracta. Se ejecuta como un proceso, bajo una identidad, con permisos concretos, dentro de un sistema de archivos, atendiendo reglas del sistema operativo y dependiendo de una configuración reproducible. Esta parte convierte ese entorno —que suele permanecer invisible hasta que algo falla— en un objeto de razonamiento técnico.
 
-El recorrido continúa el **analizador local de eventos** de la Parte 1 y lo transforma en un **kit de diagnóstico multiplataforma**. El kit no repara el equipo a ciegas: observa, explica qué encontró, diferencia hechos de hipótesis y propone acciones reversibles. Esa decisión conecta todas las clases. Cada concepto nuevo se incorpora al mismo sistema hasta producir, en la clase final, un diagnóstico ejecutable y auditable en Windows, Linux y macOS.
+El recorrido continúa el **analizador local de eventos** de la [Parte 1](../part-01-computadores-y-representacion-de-informacion/README.md) y lo transforma en un **kit de diagnóstico multiplataforma**. El kit no repara el equipo a ciegas: observa, explica qué encontró, diferencia hechos de hipótesis y propone acciones reversibles. Esa decisión conecta todas las clases. Cada concepto nuevo se incorpora al mismo sistema hasta producir, en la clase final, un diagnóstico ejecutable y auditable en Windows, Linux y macOS.
 
 ## Pregunta rectora
 
@@ -233,7 +233,7 @@ diagnóstico construida durante la parte.
 La aceptación se ejecuta en Windows, Linux y macOS dentro del alcance disponible y
 declara combinaciones no verificadas. Se revisan redacción, códigos de salida,
 repetibilidad, limpieza y límites. El informe de recursos y comportamiento enlaza con
-la petición observable que la Parte 3 seguirá fuera del equipo local.
+la petición observable que la [Parte 3](../part-03-redes-internet-y-protocolos/README.md) seguirá fuera del equipo local.
 
 ## Resumen operativo del recorrido
 

@@ -207,7 +207,7 @@ Entrega `delivery-log.md` con la predicción, las tres tablas, el criterio de de
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el quinto artefacto: el criterio de despliegue con su potencia. `SE-486` llevará la infraestructura al mismo flujo, con plan y aplicación, y `SE-492` retomará el retroceso con un esquema que cambia. Cambia después un solo dato, la tasa base de error, y observa cuánto se mueve el umbral.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el quinto artefacto: el criterio de despliegue con su potencia. `SE-486` llevará la infraestructura al mismo flujo, con plan y aplicación, y `SE-492` retomará el retroceso con un esquema que cambia. Cambia después un solo dato, la tasa base de error, y observa cuánto se mueve el umbral.
 
 ## Preguntas frecuentes
 

@@ -170,7 +170,7 @@ Entrega `trace-log.md` con la regla de extracción y su comparación, la tabla d
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la plantilla de issue, la regla de referencias y la matriz de trazabilidad. `SE-199` fija convenciones de mensajes y propietarios y `SE-200` extiende la trazabilidad a contribuciones externas. Cambia después un solo dato, la proporción de ramas integradas con squash, y revisa cuántos cierres quedan visibles.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la plantilla de issue, la regla de referencias y la matriz de trazabilidad. `SE-199` fija convenciones de mensajes y propietarios y `SE-200` extiende la trazabilidad a contribuciones externas. Cambia después un solo dato, la proporción de ramas integradas con squash, y revisa cuántos cierres quedan visibles.
 
 ## Preguntas frecuentes
 

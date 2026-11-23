@@ -170,7 +170,7 @@ Entrega `provenance-log.md` con las verificaciones de firma, la reescritura de l
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la política de protección y el procedimiento de claves. `SE-203` rescata una integración mal resuelta sobre una rama protegida y `SE-204` entrega una contribución con firma y procedencia. Cambia después un solo dato, desactivar el bypass de administración, y revisa qué eventos dejan de pasar.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la política de protección y el procedimiento de claves. `SE-203` rescata una integración mal resuelta sobre una rama protegida y `SE-204` entrega una contribución con firma y procedencia. Cambia después un solo dato, desactivar el bypass de administración, y revisa qué eventos dejan de pasar.
 
 ## Preguntas frecuentes
 

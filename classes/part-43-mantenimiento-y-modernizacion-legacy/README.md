@@ -1,6 +1,6 @@
 # Parte 43 — Mantenimiento y modernización legacy
 
-La Parte 41 dejó un sistema que se puede ver, operar y recuperar. La pregunta cambia de «¿cómo observamos y recuperamos lo que corre?» a «¿cómo se sostiene, se entiende y se transforma, durante años y sin detenerlo, un sistema que otras personas escribieron con reglas que nadie anotó?». Esta parte trabaja sobre **el módulo legado de calificaciones de la plataforma educativa**, un caso sintético: un monolito de doce años con una función que calcula la nota final, notas guardadas como texto con coma, estados de una letra, fechas de dos dígitos y un archivo de intercambio con un ministerio. Cada clase mira el mismo módulo con una lente más exigente: qué trabajo hay que hacer, dónde está el riesgo, cómo se fija su comportamiento, qué dependencias acumula, cómo se reemplaza por partes, cómo se migran su plataforma y sus datos, cómo coexisten dos versiones, cómo se retira, si conviene reescribir y qué base estable hace falta antes de empezar.
+La [Parte 41](../part-41-observabilidad-sre-e-incidentes/README.md) dejó un sistema que se puede ver, operar y recuperar. La pregunta cambia de «¿cómo observamos y recuperamos lo que corre?» a «¿cómo se sostiene, se entiende y se transforma, durante años y sin detenerlo, un sistema que otras personas escribieron con reglas que nadie anotó?». Esta parte trabaja sobre **el módulo legado de calificaciones de la plataforma educativa**, un caso sintético: un monolito de doce años con una función que calcula la nota final, notas guardadas como texto con coma, estados de una letra, fechas de dos dígitos y un archivo de intercambio con un ministerio. Cada clase mira el mismo módulo con una lente más exigente: qué trabajo hay que hacer, dónde está el riesgo, cómo se fija su comportamiento, qué dependencias acumula, cómo se reemplaza por partes, cómo se migran su plataforma y sus datos, cómo coexisten dos versiones, cómo se retira, si conviene reescribir y qué base estable hace falta antes de empezar.
 
 ## Pregunta rectora
 
@@ -152,7 +152,7 @@ El estudiante entrega la puerta de entrada con su evidencia. `SE-528` la cruza.
 
 La reversibilidad es una propiedad de cada fase, no del conjunto. El proyecto ejecuta una migración de seis fases sobre 5 000 filas, mide las filas que difieren en cada fase, cuánto cuesta volver atrás según los días y qué reposo hace falta antes de contraer.
 
-El estudiante entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md`. La Parte 44 lleva la mirada a la gestión, el liderazgo y la práctica profesional.
+El estudiante entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md`. La [Parte 44](../part-44-gestion-liderazgo-y-practica-profesional/README.md) lleva la mirada a la gestión, el liderazgo y la práctica profesional.
 
 ## Resumen operativo del recorrido
 

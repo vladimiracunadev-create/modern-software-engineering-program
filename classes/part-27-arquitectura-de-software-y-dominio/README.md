@@ -1,6 +1,6 @@
 # Parte 27 — Arquitectura de software y dominio
 
-La Parte 25 enseñó a diseñar y refactorizar dentro de un componente: patrones, acoplamiento, cohesión y evolución compatible. La pregunta ahora sube un nivel y deja de ser «cómo ordeno este código» para ser «qué fuerzas obligan a que el sistema esté partido, replicado o agrupado de una manera y no de otra, y cómo lo sabría quien lo discute». Esta parte trabaja sobre la **plataforma de entregas y corrección de tareas de un curso**, un caso sintético que recibe una ráfaga de archivos cada vez que vence un plazo, y que recorre las doce clases: escenarios de calidad, vistas, formas de agrupar, dependencias hacia adentro, lenguaje del dominio, eventos, estilos de ejecución, pruebas de arquitectura, decisiones registradas, estructura de equipos, una revisión contra escenarios y un dossier verificable.
+La [Parte 25](../part-25-diseno-patrones-y-refactorizacion/README.md) enseñó a diseñar y refactorizar dentro de un componente: patrones, acoplamiento, cohesión y evolución compatible. La pregunta ahora sube un nivel y deja de ser «cómo ordeno este código» para ser «qué fuerzas obligan a que el sistema esté partido, replicado o agrupado de una manera y no de otra, y cómo lo sabría quien lo discute». Esta parte trabaja sobre la **plataforma de entregas y corrección de tareas de un curso**, un caso sintético que recibe una ráfaga de archivos cada vez que vence un plazo, y que recorre las doce clases: escenarios de calidad, vistas, formas de agrupar, dependencias hacia adentro, lenguaje del dominio, eventos, estilos de ejecución, pruebas de arquitectura, decisiones registradas, estructura de equipos, una revisión contra escenarios y un dossier verificable.
 
 ## Pregunta rectora
 
@@ -142,7 +142,7 @@ El estudiante entrega la revisión con riesgos, puntos de sensibilidad y comprom
 
 #### SE-336 — Proyecto: arquitectura defendible y verificable
 
-Un dossier completo en forma no es una arquitectura defendida. El proyecto valida la forma de un dossier con 200 mutaciones (150 detectadas), simula mil meses de cuatro arquitecturas con picos y caídas y calcula el impacto de revertir cada decisión, que los ADR declaran solo en parte. La Parte 29 lleva las decisiones a los datos.
+Un dossier completo en forma no es una arquitectura defendida. El proyecto valida la forma de un dossier con 200 mutaciones (150 detectadas), simula mil meses de cuatro arquitecturas con picos y caídas y calcula el impacto de revertir cada decisión, que los ADR declaran solo en parte. La [Parte 29](../part-29-datos-persistencia-y-recuperacion/README.md) lleva las decisiones a los datos.
 
 El estudiante entrega el dossier, el validador, la simulación y la lista de lo que ninguno ve.
 
@@ -165,7 +165,7 @@ El estudiante entrega el dossier, el validador, la simulación y la lista de lo 
 
 ## Proyecto integrador
 
-El proyecto **SE-336** entrega un dossier de arquitectura con cuatro drivers, doce escenarios medibles, cuatro ADR con alternativas, cuatro vistas generadas desde un modelo único, seis funciones de aptitud y un modelo ejecutable; un validador de forma con 200 mutaciones; la simulación de mil meses de cuatro arquitecturas; el impacto calculado de revertir cada decisión; y la lista de lo que ni el validador ni el modelo ven, con responsable y señal para dejar de ser un supuesto.
+El proyecto **[SE-336](./se-336-proyecto-arquitectura-defendible-y-verificable/README.md)** entrega un dossier de arquitectura con cuatro drivers, doce escenarios medibles, cuatro ADR con alternativas, cuatro vistas generadas desde un modelo único, seis funciones de aptitud y un modelo ejecutable; un validador de forma con 200 mutaciones; la simulación de mil meses de cuatro arquitecturas; el impacto calculado de revertir cada decisión; y la lista de lo que ni el validador ni el modelo ven, con responsable y señal para dejar de ser un supuesto.
 
 ## Criterios de salida
 

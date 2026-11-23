@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación orientada a eventos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo conservar causalidad y control cuando el flujo lo inicia un evento externo?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación orientada a eventos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo conservar causalidad y control cuando el flujo lo inicia un evento externo?**
 
 ## Prerrequisitos
 

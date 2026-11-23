@@ -1,6 +1,6 @@
 # Parte 20 — Backend, APIs y procesamiento asíncrono
 
-La Parte 19 terminó con una aplicación web que se comporta bien sin red. La pregunta cambia de «qué hace el cliente» a «qué hay al otro lado y qué promete». Esta parte trabaja sobre el **backend de la plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: una frontera entre lo que se confirma ahora y lo que se completa después, recursos con métodos de semántica conocida, una interfaz elegida por su costo, errores con una sola forma, identidad y autorización por objeto, operaciones que se pueden repetir, trabajo diferido que se entrega al menos una vez, archivos que no caben en memoria, protección contra la avalancha, sondeos y apagado ordenado, una API defectuosa que reparar y un servicio contractual cuya promesa se comprueba.
+La [Parte 19](../part-19-web-frontend-y-aplicaciones-progresivas/README.md) terminó con una aplicación web que se comporta bien sin red. La pregunta cambia de «qué hace el cliente» a «qué hay al otro lado y qué promete». Esta parte trabaja sobre el **backend de la plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: una frontera entre lo que se confirma ahora y lo que se completa después, recursos con métodos de semántica conocida, una interfaz elegida por su costo, errores con una sola forma, identidad y autorización por objeto, operaciones que se pueden repetir, trabajo diferido que se entrega al menos una vez, archivos que no caben en memoria, protección contra la avalancha, sondeos y apagado ordenado, una API defectuosa que reparar y un servicio contractual cuya promesa se comprueba.
 
 ## Pregunta rectora
 
@@ -35,7 +35,7 @@ Al finalizar podrás defender un servicio con una frontera declarada, una polít
 
 ## Prerrequisitos enlazados
 
-- [Parte 3 — Redes e internet](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/): solicitudes, respuestas, tiempos agotados y pérdida de paquetes.
+- [Parte 3 — Redes, Internet y protocolos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/): solicitudes, respuestas, tiempos agotados y pérdida de paquetes.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): contratos, esquemas, compatibilidad y pruebas contractuales que esta parte pone en un servicio.
 - [Parte 19 — Web, frontend y aplicaciones progresivas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/): el cliente que envía las solicitudes que aquí se reciben.
 - Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos.
@@ -140,7 +140,7 @@ El estudiante entrega el registro de reparación con pruebas de regresión y la 
 
 Un contrato solo vale si una comprobación detecta la deriva, y la operabilidad solo vale si las alertas saltan a tiempo. El proyecto inyecta caídas en dos diseños y comprueba cuatro invariantes, calcula alertas por tasa de consumo en tres incidentes y mide qué capas detectan 189 mutaciones de un contrato de 12 rutas.
 
-El estudiante entrega el contrato, la inyección de caídas, las alertas y la lista de promesas comprobadas, declaradas y supuestas. La Parte 21 lleva el producto a móviles y escritorio.
+El estudiante entrega el contrato, la inyección de caídas, las alertas y la lista de promesas comprobadas, declaradas y supuestas. La [Parte 21](../part-21-software-movil-escritorio-y-multiplataforma/README.md) lleva el producto a móviles y escritorio.
 
 ## Resumen operativo del recorrido
 
@@ -161,7 +161,7 @@ El estudiante entrega el contrato, la inyección de caídas, las alertas y la li
 
 ## Proyecto integrador
 
-El proyecto **SE-252** entrega un servicio con contrato comprobable: alta con clave de idempotencia y outbox, trabajo diferido con handler idempotente, errores de forma única, política de acceso con denegación por defecto, límites, sondeos y apagado ordenado. Lo acompañan la inyección de caídas con cuatro invariantes en dos diseños, un SLO con alertas por tasa de consumo, un comprobador de conformidad con sus mutaciones y la lista de promesas comprobadas, declaradas y supuestas. Se acompaña de los límites declarados: qué fallos no se inyectaron y qué cambios de significado no detecta el comprobador.
+El proyecto **[SE-252](./se-252-proyecto-servicio-contractual-operable/README.md)** entrega un servicio con contrato comprobable: alta con clave de idempotencia y outbox, trabajo diferido con handler idempotente, errores de forma única, política de acceso con denegación por defecto, límites, sondeos y apagado ordenado. Lo acompañan la inyección de caídas con cuatro invariantes en dos diseños, un SLO con alertas por tasa de consumo, un comprobador de conformidad con sus mutaciones y la lista de promesas comprobadas, declaradas y supuestas. Se acompaña de los límites declarados: qué fallos no se inyectaron y qué cambios de significado no detecta el comprobador.
 
 ## Criterios de salida
 

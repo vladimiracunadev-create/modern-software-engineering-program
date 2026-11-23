@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Dev Containers y entornos desechables** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué debe declarar un Dev Container para ser reconstruible, seguro y prescindible?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Dev Containers y entornos desechables** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué debe declarar un Dev Container para ser reconstruible, seguro y prescindible?**
 
 ## Prerrequisitos
 
@@ -85,7 +85,7 @@ El contenedor debe poder borrarse sin perder código; volúmenes persistentes se
 
 ### Qué se puede medir de un contenedor sin descargar nada
 
-Con el motor de Docker en marcha (versión 29.9.2, Linux, controlador `overlayfs`) se midió lo que no exige un registro externo. `docker info` respondió en 1 327 ms. Se construyó una imagen desde `scratch` con un solo archivo: pesa 9 383 bytes y tiene una capa; la primera construcción tardó 4 325 ms y la segunda, con `--no-cache`, 1 221 ms. Las dos construcciones, con exactamente el mismo contexto, produjeron identificadores distintos (`ddb3953a1aea` y `244e4937f237`): la imagen incluye marcas de tiempo, igual que la rueda de Python de SE-108. `docker create` tomó 314 ms y `docker cp` leyó el archivo en 373 ms sin ejecutar nada. No se midió el arranque de un proceso con un sistema base real, porque eso exige descargar una imagen de un registro externo; es un límite declarado, y afirmar un tiempo de arranque sin medirlo sería inventar un dato.
+Con el motor de Docker en marcha (versión 29.9.2, Linux, controlador `overlayfs`) se midió lo que no exige un registro externo. `docker info` respondió en 1 327 ms. Se construyó una imagen desde `scratch` con un solo archivo: pesa 9 383 bytes y tiene una capa; la primera construcción tardó 4 325 ms y la segunda, con `--no-cache`, 1 221 ms. Las dos construcciones, con exactamente el mismo contexto, produjeron identificadores distintos (`ddb3953a1aea` y `244e4937f237`): la imagen incluye marcas de tiempo, igual que la rueda de Python de [SE-108](../se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md). `docker create` tomó 314 ms y `docker cp` leyó el archivo en 373 ms sin ejecutar nada. No se midió el arranque de un proceso con un sistema base real, porque eso exige descargar una imagen de un registro externo; es un límite declarado, y afirmar un tiempo de arranque sin medirlo sería inventar un dato.
 
 ![Barras horizontales con los tiempos medidos con el motor de Docker 29.9.2 en marcha: docker info 1 327 ms, primera construcción de la imagen desde scratch 4 325 ms, segunda 1 221 ms, docker create 314 ms y docker cp 373 ms; la ejecución de un proceso no se midió.](../../../content/part-08/figures/se-104-lo-verificado.svg)
 

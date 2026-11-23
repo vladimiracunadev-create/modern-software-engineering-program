@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -96,7 +96,7 @@ Si el productor supera al consumidor, una cola infinita solo aplaza el fallo. Se
 
 ### Reutilizar la conexión: cuánto ahorra y cuándo no
 
-Abrir una conexión por petición paga un handshake TCP cada vez. En una prueba en loopback con un servidor HTTP/1.1 local, en Windows una conexión nueva por petición tardó 1,396 ms y reutilizar la misma 0,366 ms: 3,8 veces menos. En Linux, con el mismo diseño, la conexión reutilizada tardó 44,12 ms por petición cuando el servidor escribía las cabeceras y el cuerpo en *dos* llamadas, frente a 0,31 ms con una sola escritura y 0,34 ms con `TCP_NODELAY`. Es la interacción del algoritmo de Nagle con el ACK retrasado (SE-040): reutilizar es casi siempre una
+Abrir una conexión por petición paga un handshake TCP cada vez. En una prueba en loopback con un servidor HTTP/1.1 local, en Windows una conexión nueva por petición tardó 1,396 ms y reutilizar la misma 0,366 ms: 3,8 veces menos. En Linux, con el mismo diseño, la conexión reutilizada tardó 44,12 ms por petición cuando el servidor escribía las cabeceras y el cuerpo en *dos* llamadas, frente a 0,31 ms con una sola escritura y 0,34 ms con `TCP_NODELAY`. Es la interacción del algoritmo de Nagle con el ACK retrasado ([SE-040](../se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md)): reutilizar es casi siempre una
 ventaja, pero un detalle del envío puede anularla.
 
 ![Barras horizontales en escala logarítmica con mediciones en loopback: en Windows abrir una conexión por petición tardó 1,396 ms y reutilizarla 0,366 ms (3,8 veces menos); en Linux la reutilización tardó 44,12 ms con dos escrituras por respuesta y 0,31 ms con una sola.](../../../content/part-03/figures/se-045-reutilizar-conexion.svg)

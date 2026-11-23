@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que diseñes la intervención humana como un componente con sus propias propiedades y no como un botón de «aceptar» que se pone al final. Una persona en el bucle puede ser la mejor barrera de un sistema con agentes o una formalidad que nadie lee, y la diferencia la decide el diseño: qué se le pregunta, con qué frecuencia, con qué información, qué ocurre si no contesta y qué se puede deshacer si contesta mal. La habilidad es colocar la aprobación donde cambia el resultado, reducir su costo donde no, y hacer reversible todo lo que se pueda para que equivocarse sea barato.
 
-**Por qué aparece aquí.** Es la novena clase de la **Parte 47**, después de **Delegación, subagentes y sistemas multiagente**: `SE-572` repartió el trabajo y dejó la aceptación en una persona; ahora hay que diseñar esa aceptación y lo que sucede cuando falla. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: no participó ninguna persona real, la atención de quien aprueba es un modelo con parámetros del autor y los archivos que se deshacen están en un directorio temporal.
+**Por qué aparece aquí.** Es la novena clase de la **[Parte 47](../README.md)**, después de **Delegación, subagentes y sistemas multiagente**: `SE-572` repartió el trabajo y dejó la aceptación en una persona; ahora hay que diseñar esa aceptación y lo que sucede cuando falla. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: no participó ninguna persona real, la atención de quien aprueba es un modelo con parámetros del autor y los archivos que se deshacen están en un directorio temporal.
 
 **Error conceptual que debe corregir.** Creer que cuantas más aprobaciones, más seguridad. Una persona que aprueba doscientas acciones seguidas, de las cuales ocho son peligrosas, no revisa doscientas: revisa las primeras y aprueba el resto. Cada pregunta innecesaria resta atención a la necesaria, de modo que el número de preguntas es una variable de seguridad, y la reversibilidad es más barata y más fiable que la vigilancia.
 
@@ -215,7 +215,7 @@ Entrega `aprobacion-log.md` con la predicción, las tres tablas, la clasificaci�
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el noveno artefacto: la clasificación por reversibilidad, la política de aprobación con su plantilla, el diario de deshacer y el flujo ordenado con lo irreversible al final. `SE-574` examina cómo un texto no confiable puede inducir al agente a pedir justo la aprobación que no debería y qué registro permite reconstruir lo ocurrido. Cambia después un solo dato, la fracción de acciones irreversibles, y observa a partir de qué valor preguntar por todo deja de ser la peor política.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el noveno artefacto: la clasificación por reversibilidad, la política de aprobación con su plantilla, el diario de deshacer y el flujo ordenado con lo irreversible al final. `SE-574` examina cómo un texto no confiable puede inducir al agente a pedir justo la aprobación que no debería y qué registro permite reconstruir lo ocurrido. Cambia después un solo dato, la fracción de acciones irreversibles, y observa a partir de qué valor preguntar por todo deja de ser la peor política.
 
 ## Preguntas frecuentes
 

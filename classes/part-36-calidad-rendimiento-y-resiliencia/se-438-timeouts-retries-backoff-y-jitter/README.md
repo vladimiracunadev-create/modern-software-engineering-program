@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas cuánto espera un cliente antes de rendirse, cuántas veces reintenta, cuánto aguarda entre intentos y cuándo no debe reintentar, sabiendo que cada una de esas decisiones multiplica o reduce la carga que recibe un sistema que ya está en dificultades. Los reintentos arreglan los fallos transitorios independientes y empeoran los persistentes: la habilidad es saber cuál es cuál antes de escribir el bucle.
 
-**Por qué aparece aquí.** Sigue a **Perfiles, benchmarks y errores de medición**: allí se midió la forma de la distribución de latencias; aquí se decide con esa forma cuánto esperar. Abre el bloque de resiliencia de la Parte 36, que continúa con circuit breakers, bulkheads y disponibilidad. El caso conductor es el cliente de la API de entregas que llama a la base de datos y a un servicio de almacenamiento de archivos.
+**Por qué aparece aquí.** Sigue a **Perfiles, benchmarks y errores de medición**: allí se midió la forma de la distribución de latencias; aquí se decide con esa forma cuánto esperar. Abre el bloque de resiliencia de la [Parte 36](../README.md), que continúa con circuit breakers, bulkheads y disponibilidad. El caso conductor es el cliente de la API de entregas que llama a la base de datos y a un servicio de almacenamiento de archivos.
 
 **Error conceptual que debe corregir.** Creer que reintentar es «gratis» y que un retardo exponencial con jitter resuelve las tormentas de reintentos: la espera entre intentos reparte la carga en el tiempo y no reduce la cantidad total, y con timeouts cortos y servidores que siguen trabajando para clientes ausentes el sistema colapsa igual.
 
@@ -33,7 +33,7 @@ Recupera lo aprendido en `SE-437`: una latencia tiene una distribución con cola
 
 - Haber completado `SE-437` o poder explicar por qué una sola medición de tiempo no basta.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `heapq`, `math`, `statistics`).
-- Saber qué es una operación idempotente (se trabajó en la Parte 20).
+- Saber qué es una operación idempotente (se trabajó en la [Parte 20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md)).
 
 ## Problema auténtico
 
@@ -218,7 +218,7 @@ Entrega `reintentos-log.md` con la predicción, las tres tablas de resultados, l
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 36. Esta clase deja el sexto artefacto: una política de timeouts y reintentos con presupuesto. `SE-439` añadirá lo que hace el sistema cuando la dependencia no se recupera: el circuit breaker que deja de llamar, el bulkhead que confina y la degradación controlada. Cambia después un solo dato, el timeout del cliente, y observa cuánto cambia el trabajo desperdiciado.
+La API de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el sexto artefacto: una política de timeouts y reintentos con presupuesto. `SE-439` añadirá lo que hace el sistema cuando la dependencia no se recupera: el circuit breaker que deja de llamar, el bulkhead que confina y la degradación controlada. Cambia después un solo dato, el timeout del cliente, y observa cuánto cambia el trabajo desperdiciado.
 
 ## Preguntas frecuentes
 

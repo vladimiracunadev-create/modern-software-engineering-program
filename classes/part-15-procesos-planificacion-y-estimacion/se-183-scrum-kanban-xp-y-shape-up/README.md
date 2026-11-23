@@ -212,7 +212,7 @@ Entrega `frameworks-log.md` con la tabla de políticas, la predicción, las tres
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el tercer artefacto: las tres políticas del equipo (entrada, compromiso, recorte) con su regla y su efecto medido. `SE-184` explicará con teoría de colas por qué la extracción y el límite de trabajo acortan la espera. Cambia después una sola política, por ejemplo el porcentaje de capacidad reservado para urgencias, y revisa qué otras mediciones cambian.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el tercer artefacto: las tres políticas del equipo (entrada, compromiso, recorte) con su regla y su efecto medido. `SE-184` explicará con teoría de colas por qué la extracción y el límite de trabajo acortan la espera. Cambia después una sola política, por ejemplo el porcentaje de capacidad reservado para urgencias, y revisa qué otras mediciones cambian.
 
 ## Preguntas frecuentes
 

@@ -53,12 +53,12 @@ que entregan por capacidades, no por capas aisladas.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00–09 para base técnica compartida.
-2. Partes 10–17 para producto, requisitos, proceso y documentación.
-3. [Parte 19 — Web y frontend](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md), Parte 20 para backend y Parte 29 para persistencia.
-4. Partes 25 y 27 para diseño y arquitectura.
-5. Partes 35–36 y 38–41 para pruebas, seguridad, entrega y operación.
-6. Partes 43, 46 y 47 para evolución y agentes supervisados.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) para base técnica compartida.
+2. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) para producto, requisitos, proceso y documentación.
+3. [Parte 19 — Web, frontend y aplicaciones progresivas](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md), [Parte 20](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) para backend y [Parte 29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) para persistencia.
+4. Partes [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md) y [27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) para diseño y arquitectura.
+5. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para pruebas, seguridad, entrega y operación.
+6. Partes [43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md), [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) y [47](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) para evolución y agentes supervisados.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -136,16 +136,16 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-229 · Plataforma web, HTML semántico y CSS](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) | Parte 19 |
-| [SE-235 · Rendimiento web y presupuestos](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md) | Parte 19 |
-| [SE-236 · Seguridad del navegador y políticas de contenido](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/README.md) | Parte 19 |
-| [SE-330 · Event-driven, CQRS y event sourcing](../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md) | Parte 27 |
-| [SE-341 · BFF, API gateway y service mesh](../classes/part-28-estilos-arquitectonicos/se-341-bff-api-gateway-y-service-mesh/README.md) | Parte 28 |
+| [SE-229 · Plataforma web, HTML semántico y CSS](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) | [Parte 19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| [SE-235 · Rendimiento web y presupuestos](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md) | [Parte 19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| [SE-236 · Seguridad del navegador y políticas de contenido](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/README.md) | [Parte 19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| [SE-330 · Event-driven, CQRS y event sourcing](../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md) | [Parte 27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) |
+| [SE-341 · BFF, API gateway y service mesh](../classes/part-28-estilos-arquitectonicos/se-341-bff-api-gateway-y-service-mesh/README.md) | [Parte 28](../classes/part-28-estilos-arquitectonicos/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-162](../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md) para fijar el
 primer mecanismo, usa [SE-349](../classes/part-29-datos-persistencia-y-recuperacion/se-349-modelado-conceptual-logico-y-fisico/README.md) para integrar el
@@ -155,7 +155,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

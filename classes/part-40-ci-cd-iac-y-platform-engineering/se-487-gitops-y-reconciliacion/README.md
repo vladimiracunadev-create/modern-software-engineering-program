@@ -200,7 +200,7 @@ Entrega `gitops-log.md` con la predicción, las tres tablas, la tabla de propiet
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el séptimo artefacto: la política de GitOps con propietarios, intervalo y poda. `SE-488` usará este flujo para crear entornos efímeros con datos seguros, y `SE-492` lo integrará en el camino a producción con retroceso. Cambia después un solo dato, el intervalo de reconciliación, y observa cómo cambian la deriva y las lecturas.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el séptimo artefacto: la política de GitOps con propietarios, intervalo y poda. `SE-488` usará este flujo para crear entornos efímeros con datos seguros, y `SE-492` lo integrará en el camino a producción con retroceso. Cambia después un solo dato, el intervalo de reconciliación, y observa cómo cambian la deriva y las lecturas.
 
 ## Preguntas frecuentes
 

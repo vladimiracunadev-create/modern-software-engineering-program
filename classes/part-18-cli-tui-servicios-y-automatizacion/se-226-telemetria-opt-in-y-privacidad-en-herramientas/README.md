@@ -182,7 +182,7 @@ Entrega `telemetry-log.md` con el inventario de eventos, las tres mediciones con
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su política de telemetría: opt-in, tres eventos mínimos, compuerta con señales y pruebas, agregación con umbral y límite declarado de la población. `SE-227` y `SE-228` integrarán la política en el taller y en el proyecto. Cambia después un solo detalle, un cuarto evento con el ancho del terminal, y recalcula cuántas instalaciones quedan únicas.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su política de telemetría: opt-in, tres eventos mínimos, compuerta con señales y pruebas, agregación con umbral y límite declarado de la población. `SE-227` y `SE-228` integrarán la política en el taller y en el proyecto. Cambia después un solo detalle, un cuarto evento con el ancho del terminal, y recalcula cuántas instalaciones quedan únicas.
 
 ## Preguntas frecuentes
 

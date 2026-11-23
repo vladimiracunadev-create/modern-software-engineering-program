@@ -1,6 +1,6 @@
 # Parte 26 — Patrones de diseño, empresariales y de resiliencia
 
-La Parte 25 presentó los patrones como vocabulario de diseño y la Parte 36 trató la resiliencia como cualidad. Esta parte pone ambos bajo la misma pregunta de ingeniería: **¿qué fuerza concreta resuelve este patrón, qué cuesta tenerlo y cómo sabré cuándo retirarlo?** Un patrón es una solución con nombre a un problema recurrente; el nombre ayuda a conversar y la medida ayuda a decidir. Sin la segunda, el catálogo se convierte en una lista de formas que se aplican por costumbre.
+La [Parte 25](../part-25-diseno-patrones-y-refactorizacion/README.md) presentó los patrones como vocabulario de diseño y la [Parte 36](../part-36-calidad-rendimiento-y-resiliencia/README.md) trató la resiliencia como cualidad. Esta parte pone ambos bajo la misma pregunta de ingeniería: **¿qué fuerza concreta resuelve este patrón, qué cuesta tenerlo y cómo sabré cuándo retirarlo?** Un patrón es una solución con nombre a un problema recurrente; el nombre ayuda a conversar y la medida ayuda a decidir. Sin la segunda, el catálogo se convierte en una lista de formas que se aplican por costumbre.
 
 ## Pregunta rectora
 
@@ -10,7 +10,7 @@ La Parte 25 presentó los patrones como vocabulario de diseño y la Parte 36 tra
 
 La parte trata tres familias que suelen enseñarse por separado y que aquí comparten método. Los **patrones de diseño** (GoF y GRASP) organizan responsabilidades dentro de un programa. Los **patrones empresariales y de integración** (Repository, Unit of Work, Active Record y los de mensajería) organizan la frontera entre el modelo, la base de datos y otros sistemas. Los **patrones de resiliencia** (timeout, retry, circuit breaker, bulkhead, degradación) organizan lo que pasa cuando una dependencia falla o se vuelve lenta. Las tres familias responden a una fuerza y tienen un costo.
 
-El caso conductor es *Avisos*, el servicio de recordatorios de entregas que ya apareció en la Parte 45. Cada clase lo mira con un patrón distinto: canales como estrategia y fábrica, un remitente decorado con reintentos, estados del aviso como máquina de estados, persistencia con repositorio, entrega de mensajes con receptor idempotente y llamadas a un proveedor con timeout, jitter y circuit breaker.
+El caso conductor es *Avisos*, el servicio de recordatorios de entregas que ya apareció en la [Parte 45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md). Cada clase lo mira con un patrón distinto: canales como estrategia y fábrica, un remitente decorado con reintentos, estados del aviso como máquina de estados, persistencia con repositorio, entrega de mensajes con receptor idempotente y llamadas a un proveedor con timeout, jitter y circuit breaker.
 
 ```mermaid
 flowchart LR

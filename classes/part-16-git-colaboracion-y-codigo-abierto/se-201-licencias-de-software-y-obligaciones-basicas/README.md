@@ -172,7 +172,7 @@ Entrega `license-log.md` con la política, la comparación literal y del analiza
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la política de licencias, el inventario y la lista de decisiones para asesoría. `SE-202` pregunta cómo se prueba la procedencia de lo que se publica y `SE-204` empaqueta una contribución con su licencia. Cambia después un solo dato, la política de copyleft débil de «rechazar» a «permitir», y revisa cuántos paquetes cambian de estado.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la política de licencias, el inventario y la lista de decisiones para asesoría. `SE-202` pregunta cómo se prueba la procedencia de lo que se publica y `SE-204` empaqueta una contribución con su licencia. Cambia después un solo dato, la política de copyleft débil de «rechazar» a «permitir», y revisa cuántos paquetes cambian de estado.
 
 ## Preguntas frecuentes
 

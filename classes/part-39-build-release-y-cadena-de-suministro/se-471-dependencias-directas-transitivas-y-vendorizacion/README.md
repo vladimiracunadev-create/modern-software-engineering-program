@@ -184,7 +184,7 @@ Entrega `dependencias-log.md` con la predicción, las tres tablas, el inventario
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el tercer artefacto: un inventario fijado con política de actualización y de copias. `SE-472` convertirá ese inventario en un documento que otra persona pueda leer, el SBOM, y añadirá la procedencia del artefacto. Cambia después un solo dato, la probabilidad diaria de publicación, y observa a partir de cuándo el bloqueo deja de ser opcional.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el tercer artefacto: un inventario fijado con política de actualización y de copias. `SE-472` convertirá ese inventario en un documento que otra persona pueda leer, el SBOM, y añadirá la procedencia del artefacto. Cambia después un solo dato, la probabilidad diaria de publicación, y observa a partir de cuándo el bloqueo deja de ser opcional.
 
 ## Preguntas frecuentes
 

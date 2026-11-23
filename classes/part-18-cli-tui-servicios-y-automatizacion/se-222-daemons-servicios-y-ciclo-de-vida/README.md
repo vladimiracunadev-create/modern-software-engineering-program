@@ -189,7 +189,7 @@ Entrega `lifecycle-log.md` con el ciclo de vida de `notas servir`, las tres medi
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase la convierte en un servicio con estados, sondas, drenado y reinicio con espera. `SE-223` añade lo que ese servicio hace por dentro: planificadores, trabajadores y lotes. Cambia después un solo detalle, el retardo de calentamiento de 0,8 s a 3 s, y revisa qué sonda, qué plazo y qué documentación dependían del valor anterior.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase la convierte en un servicio con estados, sondas, drenado y reinicio con espera. `SE-223` añade lo que ese servicio hace por dentro: planificadores, trabajadores y lotes. Cambia después un solo detalle, el retardo de calentamiento de 0,8 s a 3 s, y revisa qué sonda, qué plazo y qué documentación dependían del valor anterior.
 
 ## Preguntas frecuentes
 

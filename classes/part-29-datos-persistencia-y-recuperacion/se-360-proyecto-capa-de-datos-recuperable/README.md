@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues la capa de datos de la plataforma como un paquete que otra persona pueda operar, cambiar y recuperar, con sus invariantes, su plan de migraciones, sus objetivos de recuperación medidos y una lista honesta de lo que ninguna prueba ni validador ve.
 
-**Por qué aparece aquí.** Cierra la **Parte 29**: reúne el modelo (`SE-349`), los modelos de almacenamiento (`SE-350`), las transacciones (`SE-351`), las restricciones (`SE-352`), los índices (`SE-353`), las migraciones (`SE-354` y `SE-359`), la distribución (`SE-355`), las cachés (`SE-356`), la recuperación (`SE-357`) y el ciclo de vida del dato (`SE-358`) en un solo artefacto defendible.
+**Por qué aparece aquí.** Cierra la **[Parte 29](../README.md)**: reúne el modelo (`SE-349`), los modelos de almacenamiento (`SE-350`), las transacciones (`SE-351`), las restricciones (`SE-352`), los índices (`SE-353`), las migraciones (`SE-354` y `SE-359`), la distribución (`SE-355`), las cachés (`SE-356`), la recuperación (`SE-357`) y el ciclo de vida del dato (`SE-358`) en un solo artefacto defendible.
 
 **Error conceptual que debe corregir.** Creer que un paquete completo es un paquete correcto: un manifiesto con todos los campos rellenos puede describir una restauración que nunca se hizo, un invariante sin prueba o una clave guardada junto a la copia, y ningún validador de forma lo ve.
 
@@ -228,7 +228,7 @@ Entrega `paquete-datos/` con todas las piezas, `paquete-log.md` con la predicci�
 
 ## Caso conductor
 
-La capa de datos de la plataforma de entregas es el caso conductor de la Parte 29, y esta clase deja el artefacto final: el paquete de capa de datos recuperable. Sirve de base a la Parte 31, donde los datos que esta parte protege empiezan a circular entre servicios por mensajes y eventos. Cambia después una sola decisión, la retención de las copias, y observa qué cambia en el costo, en la cadena de restauración y en lo que se puede recuperar.
+La capa de datos de la plataforma de entregas es el caso conductor de la [Parte 29](../README.md), y esta clase deja el artefacto final: el paquete de capa de datos recuperable. Sirve de base a la [Parte 31](../../part-31-integracion-eventos-y-mensajeria/README.md), donde los datos que esta parte protege empiezan a circular entre servicios por mensajes y eventos. Cambia después una sola decisión, la retención de las copias, y observa qué cambia en el costo, en la cadena de restauración y en lo que se puede recuperar.
 
 ## Preguntas frecuentes
 

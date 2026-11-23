@@ -191,7 +191,7 @@ Entrega `streams-log.md` con la tabla de flujos de `notas`, las tres mediciones 
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su comportamiento como pieza de una tubería: lectura de `-`, flujos separados, vaciado por bloques, tratamiento de la tubería rota y salida con `\n`. `SE-219` decidirá cómo se configura y `SE-220` qué significa cada código. Cambia después un solo detalle, el tamaño del bloque de vaciado de 10 000 a 100 filas, y mide qué ocurre con el rendimiento y con la latencia.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su comportamiento como pieza de una tubería: lectura de `-`, flujos separados, vaciado por bloques, tratamiento de la tubería rota y salida con `\n`. `SE-219` decidirá cómo se configura y `SE-220` qué significa cada código. Cambia después un solo detalle, el tamaño del bloque de vaciado de 10 000 a 100 filas, y mide qué ocurre con el rendimiento y con la latencia.
 
 ## Preguntas frecuentes
 

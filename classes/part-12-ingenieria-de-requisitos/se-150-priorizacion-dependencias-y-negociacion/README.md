@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas las cinco historias de `SE-148`, ahora con criterios (`SE-149`), y las amplías a diez requisitos para el trimestre. Hay presupuesto para once o doce unidades de esfuerzo. Recupera lo aprendido en `SE-128` (Parte 10): un ranking por fórmula es una regla cuya robustez se mide. La pregunta activa es: **¿qué conjunto de requisitos puede entregarse de verdad con este presupuesto, y cómo se decide cuando quienes deciden quieren cosas incompatibles?**
+Retomas las cinco historias de `SE-148`, ahora con criterios (`SE-149`), y las amplías a diez requisitos para el trimestre. Hay presupuesto para once o doce unidades de esfuerzo. Recupera lo aprendido en `SE-128` ([Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md)): un ranking por fórmula es una regla cuya robustez se mide. La pregunta activa es: **¿qué conjunto de requisitos puede entregarse de verdad con este presupuesto, y cómo se decide cuando quienes deciden quieren cosas incompatibles?**
 
 ## Prerrequisitos
 

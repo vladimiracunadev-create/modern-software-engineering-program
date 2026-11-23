@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que veas el proceso de especificación como una cadena de artefactos con puertas entre ellos y no como un único documento que se escribe de una vez. Una constitución fija los principios que ningún plan puede violar; la especificación declara el comportamiento; la clarificación gasta un número limitado de preguntas donde más duele equivocarse; el plan decide cómo; las tareas ordenan el trabajo. La habilidad es saber qué comprueba cada puerta, qué comprobaciones se pueden automatizar con exactitud y cuáles requieren que una persona lea.
 
-**Por qué aparece aquí.** Es la segunda clase de la **Parte 47**, después de **De la intención a la especificación durable**: `SE-565` dejó una especificación con identificadores y criterios; ahora hay que convertirla en un plan y un conjunto de tareas sin perder la relación entre ellos. El caso conductor sigue siendo el **servicio de recordatorios de entrega de la plataforma educativa** (*Avisos*), un caso sintético en el que no se analizó ningún sistema, institución ni persona reales.
+**Por qué aparece aquí.** Es la segunda clase de la **[Parte 47](../README.md)**, después de **De la intención a la especificación durable**: `SE-565` dejó una especificación con identificadores y criterios; ahora hay que convertirla en un plan y un conjunto de tareas sin perder la relación entre ellos. El caso conductor sigue siendo el **servicio de recordatorios de entrega de la plataforma educativa** (*Avisos*), un caso sintético en el que no se analizó ningún sistema, institución ni persona reales.
 
 **Error conceptual que debe corregir.** Creer que cada artefacto es un trámite y que el plan es la especificación con más detalle. El plan introduce decisiones nuevas (una cola, un proveedor de correo, un plazo) que la especificación no contiene y que pueden contradecirla; las tareas introducen un orden que puede violar las dependencias. Las puertas existen porque los artefactos se contradicen entre sí con más frecuencia de la que cada uno se contradice a sí mismo.
 
@@ -219,7 +219,7 @@ Entrega `cadena-log.md` con la predicción, las tres tablas, la constitución de
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el segundo artefacto: la constitución, la ronda de clarificación, el plan y las tareas. `SE-567` implementará esas tareas y medirá cuándo la implementación converge contra la especificación, y `SE-568` repetirá el recorrido en proyectos con código previo y en arreglos de errores. Cambia después un solo dato, el número de preguntas disponibles, y observa a partir de cuántas la estrategia deja de importar.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el segundo artefacto: la constitución, la ronda de clarificación, el plan y las tareas. `SE-567` implementará esas tareas y medirá cuándo la implementación converge contra la especificación, y `SE-568` repetirá el recorrido en proyectos con código previo y en arreglos de errores. Cambia después un solo dato, el número de preguntas disponibles, y observa a partir de cuántas la estrategia deja de importar.
 
 ## Preguntas frecuentes
 

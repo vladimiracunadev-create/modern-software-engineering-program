@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 29 sobre transacciones (la atomicidad vale dentro de una base) y en `SE-376` sobre el receptor idempotente. La pregunta activa es: **si el proceso se cae justo entre este paso y el siguiente, ¿qué queda hecho, qué queda sin hacer y quién se entera?**
+Recupera lo aprendido en la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) sobre transacciones (la atomicidad vale dentro de una base) y en `SE-376` sobre el receptor idempotente. La pregunta activa es: **si el proceso se cae justo entre este paso y el siguiente, ¿qué queda hecho, qué queda sin hacer y quién se entera?**
 
 ## Prerrequisitos
 
@@ -224,7 +224,7 @@ Entrega `atomicidad-log.md` con las predicciones, las tres tablas reproducidas c
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el quinto artefacto: el outbox y la inbox de la plataforma y la saga de inscripción. `SE-378` pregunta cómo llevar los cambios de una base a otra para análisis y reportes. Cambia después una sola decisión, el orden del relevo, y observa si el defecto que aparece es recuperable.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el quinto artefacto: el outbox y la inbox de la plataforma y la saga de inscripción. `SE-378` pregunta cómo llevar los cambios de una base a otra para análisis y reportes. Cambia después una sola decisión, el orden del relevo, y observa si el defecto que aparece es recuperable.
 
 ## Preguntas frecuentes
 

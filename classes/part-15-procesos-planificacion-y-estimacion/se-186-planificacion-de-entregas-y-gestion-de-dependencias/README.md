@@ -218,7 +218,7 @@ Entrega `release-plan-log.md` con la red, el camino crítico, la predicción, la
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el sexto artefacto: la red de la entrega con su distribución de plazo, sus dependencias externas con fecha de aviso y el orden de entrega justificado. `SE-187` convertirá las incertidumbres de ese plan en un registro de riesgos, supuestos y decisiones. Cambia después una sola dependencia, la identidad, de externa a propia, y observa cuánto cambia el plazo.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el sexto artefacto: la red de la entrega con su distribución de plazo, sus dependencias externas con fecha de aviso y el orden de entrega justificado. `SE-187` convertirá las incertidumbres de ese plan en un registro de riesgos, supuestos y decisiones. Cambia después una sola dependencia, la identidad, de externa a propia, y observa cuánto cambia el plazo.
 
 ## Preguntas frecuentes
 

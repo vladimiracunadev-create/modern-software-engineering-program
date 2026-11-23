@@ -223,7 +223,7 @@ Entrega `camino-dorado.md` con la predicción, las tres tablas reproducidas con 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el décimo artefacto: el camino dorado y su verificador. `SE-407` pone todo a prueba en un taller: desplegar y destruir un entorno de forma segura. Cambia una regla, por ejemplo exige dos réplicas en todos los entornos, y mira cuántos servicios dejan de cumplir.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el décimo artefacto: el camino dorado y su verificador. `SE-407` pone todo a prueba en un taller: desplegar y destruir un entorno de forma segura. Cambia una regla, por ejemplo exige dos réplicas en todos los entornos, y mira cuántos servicios dejan de cumplir.
 
 ## Preguntas frecuentes
 

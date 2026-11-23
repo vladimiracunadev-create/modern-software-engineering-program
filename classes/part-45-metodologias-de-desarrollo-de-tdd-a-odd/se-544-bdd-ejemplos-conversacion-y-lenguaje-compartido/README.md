@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que uses BDD por lo que aporta y no por la herramienta que lo acompaña. Lo que aporta es una **conversación**: personas de negocio, de desarrollo y de prueba acuerdan ejemplos concretos antes de construir, y esos ejemplos se vuelven pruebas que dicen lo mismo con las mismas palabras. Lo que suele quedar de BDD en un equipo que solo adoptó la herramienta es un formato (`Dado`, `Cuando`, `Entonces`) con un costo de mantenimiento mayor que el de una prueba normal y sin la conversación que lo justificaba. La habilidad profesional es reconocer cuál de las dos cosas se está practicando y qué evidencia produce cada una.
 
-**Por qué aparece aquí.** Sigue a **TDD en la práctica** porque BDD usa el ciclo de TDD como su ciclo interno y le añade un ciclo externo de acuerdo con quien conoce el negocio. La Parte 12 trató requisitos y la Parte 13 la especificación por ejemplos; aquí se ejecutan esos ejemplos y se mide qué protegen.
+**Por qué aparece aquí.** Sigue a **TDD en la práctica** porque BDD usa el ciclo de TDD como su ciclo interno y le añade un ciclo externo de acuerdo con quien conoce el negocio. La [Parte 12](../../part-12-ingenieria-de-requisitos/README.md) trató requisitos y la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) la especificación por ejemplos; aquí se ejecutan esos ejemplos y se mide qué protegen.
 
 **Error conceptual que debe corregir.** Creer que BDD es escribir pruebas en Gherkin. La documentación oficial de Cucumber lo dice con claridad: BDD es una forma de trabajar que cierra la brecha entre personas de negocio y personas técnicas, y se apoya en tres prácticas, **descubrimiento** (explorar con ejemplos qué debería hacer el sistema), **formulación** (escribir esos ejemplos en un formato estructurado) y **automatización** (convertirlos en pruebas ejecutables). Si solo existe la tercera, se tiene un marco de pruebas con una sintaxis peculiar, no BDD.
 
@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-543`: un doble se elige por el efecto que se quiere
 ## Prerrequisitos
 
 - Haber completado `SE-543` y conocer la separación entre ciclo externo e interno.
-- Haber visto en la Parte 12 qué es un criterio de aceptación y en la Parte 13 cómo se escriben ejemplos de especificación.
+- Haber visto en la [Parte 12](../../part-12-ingenieria-de-requisitos/README.md) qué es un criterio de aceptación y en la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) cómo se escriben ejemplos de especificación.
 - Python 3.11 o posterior con `re` y `unittest`.
 
 ## Problema auténtico

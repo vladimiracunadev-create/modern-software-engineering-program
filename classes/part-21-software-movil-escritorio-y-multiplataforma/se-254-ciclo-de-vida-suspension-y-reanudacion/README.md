@@ -134,7 +134,9 @@ def leer(blob, ver, politica):
         if ver >= 2: s.setdefault('adjuntos', [])
         if ver >= 3: s.setdefault('modo', 'claro')
     if politica == 'migraciones':
-        while s['v'] < ver: s = MIGS[s['v']](s)
+        while s['v'] < ver:
+            migrar = MIGS[s['v']]
+            s = migrar(s)
     if ver >= 4 and not isinstance(s['cursor'], dict): raise TypeError('cursor')
     return s
 ```
@@ -223,7 +225,7 @@ Entrega `lifecycle-log.md` con la máquina de estados, la tabla de pérdidas por
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su política de guardado y de restauración: qué estado se guarda en cada transición y cómo se lee tras una actualización. `SE-255` compara formas de construir el cliente, `SE-256` decide dónde vive el estado y `SE-260` qué ocurre cuando dos dispositivos lo modifican. Cambia después una sola decisión, guardar cada diez ediciones en lugar de cada veinte, y revisa qué cifras hay que repetir.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su política de guardado y de restauración: qué estado se guarda en cada transición y cómo se lee tras una actualización. `SE-255` compara formas de construir el cliente, `SE-256` decide dónde vive el estado y `SE-260` qué ocurre cuando dos dispositivos lo modifican. Cambia después una sola decisión, guardar cada diez ediciones en lugar de cada veinte, y revisa qué cifras hay que repetir.
 
 ## Preguntas frecuentes
 

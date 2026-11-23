@@ -1,6 +1,6 @@
 # Parte 16 — Git, colaboración y código abierto
 
-La Parte 15 terminó con un plan que cambia con la evidencia. La pregunta cambia de «qué se hará» a «cómo se cambia el código entre muchas personas sin perder lo que importa». Esta parte trabaja sobre el **repositorio de la plataforma de entregas**, un caso sintético cuya regla de penalización recorre las doce clases: qué guarda Git cuando se hace un commit, qué tamaño debe tener un cambio para poder localizarlo, qué historia deja cada forma de integrar, dónde mirar primero en una revisión, cuánto debe vivir una rama, cómo se ata un cambio a su motivo, quién responde por cada ruta, cómo se acepta a una persona de fuera, bajo qué licencia llega cada pieza, qué prueba una firma y cómo se rescata una integración que salió mal.
+La [Parte 15](../part-15-procesos-planificacion-y-estimacion/README.md) terminó con un plan que cambia con la evidencia. La pregunta cambia de «qué se hará» a «cómo se cambia el código entre muchas personas sin perder lo que importa». Esta parte trabaja sobre el **repositorio de la plataforma de entregas**, un caso sintético cuya regla de penalización recorre las doce clases: qué guarda Git cuando se hace un commit, qué tamaño debe tener un cambio para poder localizarlo, qué historia deja cada forma de integrar, dónde mirar primero en una revisión, cuánto debe vivir una rama, cómo se ata un cambio a su motivo, quién responde por cada ruta, cómo se acepta a una persona de fuera, bajo qué licencia llega cada pieza, qué prueba una firma y cómo se rescata una integración que salió mal.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Al finalizar podrás entregar una contribución con commits atómicos y firmados
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 8 — Entornos, herramientas y depuración](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-08-entornos-herramientas-y-depuracion/): repositorios y entornos reproducibles.
 - [Parte 9 — Bibliotecas, paquetes, SDK y automatización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/): dependencias y sus licencias.
 - [Parte 15 — Procesos, planificación y estimación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/): planes que cambian con evidencia.
@@ -142,7 +142,7 @@ El estudiante escribe un procedimiento de rescate cuya primera pregunta es si ya
 
 Una contribución es revisable cuando otra persona puede probarla, atribuirla y fusionarla sin preguntar. El proyecto construye un validador de doce comprobaciones, lo ejecuta sobre catorce contribuciones con defectos plantados y analiza los dos defectos que dejan las pruebas en verde.
 
-El estudiante entrega la rama, la descripción, el validador y la lista de lo que el validador no ve. La Parte 17 documenta lo que aquí se declaró.
+El estudiante entrega la rama, la descripción, el validador y la lista de lo que el validador no ve. La [Parte 17](../part-17-documentacion-y-conocimiento-tecnico/README.md) documenta lo que aquí se declaró.
 
 ## Resumen operativo del recorrido
 
@@ -163,7 +163,7 @@ El estudiante entrega la rama, la descripción, el validador y la lista de lo qu
 
 ## Proyecto integrador
 
-El proyecto **SE-204** entrega una rama de contribución con commits atómicos y firmados, una descripción con el motivo enlazado y los riesgos, la declaración de licencia y de origen, la petición a los propietarios afectados, un validador de doce comprobaciones con la matriz de sus catorce contribuciones y la lista de lo que el validador no ve. Se acompaña de los límites declarados: qué defectos escapan a una comprobación de forma y qué parte del paquete debe leer una persona.
+El proyecto **[SE-204](./se-204-proyecto-contribucion-revisable-de-extremo-a-extremo/README.md)** entrega una rama de contribución con commits atómicos y firmados, una descripción con el motivo enlazado y los riesgos, la declaración de licencia y de origen, la petición a los propietarios afectados, un validador de doce comprobaciones con la matriz de sus catorce contribuciones y la lista de lo que el validador no ve. Se acompaña de los límites declarados: qué defectos escapan a una comprobación de forma y qué parte del paquete debe leer una persona.
 
 ## Criterios de salida
 

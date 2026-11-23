@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas tres promesas que se confunden bajo la palabra «fiable»: que el servicio responda (disponibilidad), que los datos no se pierdan (durabilidad) y que, si algo se rompe, se vuelva a un estado conocido en un tiempo y con una pérdida acotados (recuperación). Cada promesa tiene su aritmética, sus supuestos y su manera de fallar, y la habilidad es hacer la cuenta con los supuestos a la vista y no con los porcentajes de una página comercial.
 
-**Por qué aparece aquí.** Sigue a **Circuit breakers, bulkheads y degradación**: aquellas defensas deciden qué hace un sistema cuando algo falla; esta clase cuantifica qué disponibilidad y qué durabilidad se logran con ellas y con la redundancia, y cuánto cuesta una recuperación. El caso conductor es la plataforma de entregas con su base de datos replicada y su política de copias de la Parte 29.
+**Por qué aparece aquí.** Sigue a **Circuit breakers, bulkheads y degradación**: aquellas defensas deciden qué hace un sistema cuando algo falla; esta clase cuantifica qué disponibilidad y qué durabilidad se logran con ellas y con la redundancia, y cuánto cuesta una recuperación. El caso conductor es la plataforma de entregas con su base de datos replicada y su política de copias de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md).
 
 **Error conceptual que debe corregir.** Creer que duplicar un componente multiplica la fiabilidad del sistema y que los fallos de las réplicas son independientes: la redundancia solo ayuda en la capa donde se aplica, y una causa común (un despliegue, un lote de discos, una región) la anula.
 
@@ -28,13 +28,13 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-439` y en la Parte 29 (`SE-357`): un interruptor decide si llamar y una copia que no se ha restaurado es una hipótesis. La pregunta activa es: **¿qué disponibilidad y qué durabilidad promete la plataforma, con qué supuestos, y cuánto tiempo y cuántos datos puede costar la peor recuperación aceptable?**
+Recupera lo aprendido en `SE-439` y en la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) (`SE-357`): un interruptor decide si llamar y una copia que no se ha restaurado es una hipótesis. La pregunta activa es: **¿qué disponibilidad y qué durabilidad promete la plataforma, con qué supuestos, y cuánto tiempo y cuántos datos puede costar la peor recuperación aceptable?**
 
 ## Prerrequisitos
 
 - Haber completado `SE-439` o poder explicar qué hace un interruptor de circuito.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `math`, `statistics`).
-- Haber visto la Parte 29: copias, restauración y réplicas.
+- Haber visto la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md): copias, restauración y réplicas.
 
 ## Problema auténtico
 
@@ -219,7 +219,7 @@ Entrega `fiabilidad-log.md` con la predicción, las tres tablas de resultados, e
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 36. Esta clase deja el octavo artefacto: un presupuesto de fiabilidad con sus supuestos y sus objetivos de recuperación. `SE-441` pregunta qué ocurre con la compatibilidad cuando versiones, sistemas y formatos distintos conviven, y `SE-443` someterá el diseño a una presión controlada. Cambia después un solo dato, el tiempo de reparación, y observa qué pesa más: el número de réplicas o el tiempo en reponerlas.
+La plataforma de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el octavo artefacto: un presupuesto de fiabilidad con sus supuestos y sus objetivos de recuperación. `SE-441` pregunta qué ocurre con la compatibilidad cuando versiones, sistemas y formatos distintos conviven, y `SE-443` someterá el diseño a una presión controlada. Cambia después un solo dato, el tiempo de reparación, y observa qué pesa más: el número de réplicas o el tiempo en reponerlas.
 
 ## Preguntas frecuentes
 

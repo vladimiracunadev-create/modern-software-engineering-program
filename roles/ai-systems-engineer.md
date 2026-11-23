@@ -48,10 +48,10 @@ observabilidad, experimentación, coste, latencia y fallback.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00–13 para ingeniería, datos, contratos y evaluación de decisiones.
-2. Partes 20 y 25–41 para integración, arquitectura, pruebas, seguridad y operación.
-3. [Parte 46 — Desarrollo asistido por IA](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md).
-4. [Parte 47 — SPEC y agentes](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md).
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[13](../classes/part-13-especificaciones-contratos-y-modelos/README.md) para ingeniería, datos, contratos y evaluación de decisiones.
+2. Partes [20](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) y [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para integración, arquitectura, pruebas, seguridad y operación.
+3. [Parte 46 — Desarrollo de software asistido por IA](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md).
+4. [Parte 47 — SPEC, agentes y ciclo de vida agentic](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md).
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -129,19 +129,19 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-006 · Evidencia, incertidumbre y pensamiento crítico en ingeniería](../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) | Parte 00 |
-| [SE-137 · Telemetría de producto y consentimiento](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md) | Parte 11 |
-| [SE-138 · Experimentos, sesgos y causalidad básica](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md) | Parte 11 |
-| [SE-139 · North Star, guardrails y métricas contrarias](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md) | Parte 11 |
-| [SE-214 · Documentación para humanos, máquinas y LLM](../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md) | Parte 17 |
-| [SE-245 · Autenticación, autorización y contexto](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) | Parte 20 |
-| [SE-595 · Interoperabilidad entre agentes: MCP y A2A](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a/README.md) | Parte 49 |
-| [SE-600 · Proyecto: sistema con LLM evaluado y operable](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | Parte 49 |
+| [SE-006 · Evidencia, incertidumbre y pensamiento crítico en ingeniería](../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) | [Parte 00](../classes/part-00-ingenieria-de-software-como-profesion/README.md) |
+| [SE-137 · Telemetría de producto y consentimiento](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-138 · Experimentos, sesgos y causalidad básica](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-139 · North Star, guardrails y métricas contrarias](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-214 · Documentación para humanos, máquinas y LLM](../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md) | [Parte 17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| [SE-245 · Autenticación, autorización y contexto](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) | [Parte 20](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
+| [SE-595 · Interoperabilidad entre agentes: MCP y A2A](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-595-interoperabilidad-entre-agentes-mcp-y-a2a/README.md) | [Parte 49](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md) |
+| [SE-600 · Proyecto: sistema con LLM evaluado y operable](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | [Parte 49](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-244](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md) para fijar el
 primer mecanismo, usa [SE-554](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-554-prompting-instrucciones-y-criterios-de-salida/README.md) para integrar el
@@ -151,7 +151,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

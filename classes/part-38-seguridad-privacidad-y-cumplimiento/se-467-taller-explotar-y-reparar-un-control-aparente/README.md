@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que practiques el ciclo completo con el que se descubre que un control aparente no controla: formular qué debería impedir, intentar romperlo con entradas que lo ataquen a él y no a su caso más conocido, reparar la causa y no el síntoma, y dejar una prueba que habría fallado antes de la reparación. La habilidad profesional es desconfiar con método de los controles que pasan todas las pruebas felices.
 
-**Por qué aparece aquí.** Es el taller de la Parte 38 y reúne lo aprendido: la frontera de confianza (`SE-457`), la identidad y la autorización (`SE-458` y `SE-459`), la entrada que cambia de papel (`SE-460`), el uso de la criptografía (`SE-461`) y las pruebas negativas (`SE-464`). Cada una de las cuatro defensas que se ataquen hoy parece cumplir su función y confía en un dato que controla quien ataca. El caso conductor sigue siendo **la plataforma de entregas**: descarga de archivos adjuntos, límite de intentos de inicio de sesión, protección contra solicitudes forzadas desde otro sitio y token de sesión.
+**Por qué aparece aquí.** Es el taller de la [Parte 38](../README.md) y reúne lo aprendido: la frontera de confianza (`SE-457`), la identidad y la autorización (`SE-458` y `SE-459`), la entrada que cambia de papel (`SE-460`), el uso de la criptografía (`SE-461`) y las pruebas negativas (`SE-464`). Cada una de las cuatro defensas que se ataquen hoy parece cumplir su función y confía en un dato que controla quien ataca. El caso conductor sigue siendo **la plataforma de entregas**: descarga de archivos adjuntos, límite de intentos de inicio de sesión, protección contra solicitudes forzadas desde otro sitio y token de sesión.
 
 **Error conceptual que debe corregir.** Creer que un control que existe y que tiene pruebas es un control que funciona. Un filtro que quita `../` una vez, un limitador que cuenta por una cabecera que envía el cliente, una defensa que comprueba que haya un token pero no su valor y un verificador que acepta el algoritmo que el propio token declara pasan sus pruebas felices y fallan frente a la entrada que el diseñador no imaginó.
 
@@ -212,7 +212,7 @@ Entrega `taller-log.md` con las cuatro hipótesis, las cuatro tablas de resultad
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor. El taller deja el undécimo artefacto: cuatro controles reparados con sus regresiones y la pregunta de revisión «¿qué dato usa y quién lo controla?». `SE-468` integra la Parte 38 en un producto con seguridad verificable. Cambia después un solo dato, el alfabeto de las cargas (añade `;` y `%00`), y observa si el control de rutas reparado sigue en cero.
+La plataforma de entregas de tareas continúa como caso conductor. El taller deja el undécimo artefacto: cuatro controles reparados con sus regresiones y la pregunta de revisión «¿qué dato usa y quién lo controla?». `SE-468` integra la [Parte 38](../README.md) en un producto con seguridad verificable. Cambia después un solo dato, el alfabeto de las cargas (añade `;` y `%00`), y observa si el control de rutas reparado sigue en cero.
 
 ## Preguntas frecuentes
 
@@ -304,7 +304,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que las 2 072 carg
 
 ## Límites y siguiente paso
 
-Se ejecutaron cuatro experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los cuatro controles son funciones de juguete en memoria, las 5 000 cargas salen de un alfabeto del autor, las rutas se resuelven con módulos de Python y no con un sistema de archivos, y no se atacó ningún servicio ni sistema real. La siguiente clase integra la Parte 38 en un producto con seguridad verificable.
+Se ejecutaron cuatro experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los cuatro controles son funciones de juguete en memoria, las 5 000 cargas salen de un alfabeto del autor, las rutas se resuelven con módulos de Python y no con un sistema de archivos, y no se atacó ningún servicio ni sistema real. La siguiente clase integra la [Parte 38](../README.md) en un producto con seguridad verificable.
 
 ## Glosario
 

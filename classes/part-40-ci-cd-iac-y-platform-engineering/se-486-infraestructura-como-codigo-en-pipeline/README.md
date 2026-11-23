@@ -215,7 +215,7 @@ Entrega `iac-log.md` con la predicción, las tres tablas, el flujo plan-revisió
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el sexto artefacto: el flujo de infraestructura con revisión del plan, bloqueo del estado y detección de deriva. `SE-487` invertirá la dirección con GitOps, en el que un controlador reconcilia continuamente el clúster con el repositorio, y `SE-488` usará este flujo para crear entornos efímeros. Cambia después un solo dato, la frecuencia de detección, y observa cuánto vive una deriva.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el sexto artefacto: el flujo de infraestructura con revisión del plan, bloqueo del estado y detección de deriva. `SE-487` invertirá la dirección con GitOps, en el que un controlador reconcilia continuamente el clúster con el repositorio, y `SE-488` usará este flujo para crear entornos efímeros. Cambia después un solo dato, la frecuencia de detección, y observa cuánto vive una deriva.
 
 ## Preguntas frecuentes
 

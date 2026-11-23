@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que, antes de elegir un servicio en la nube, puedas decir qué capas pasan a manos del proveedor, cuáles siguen siendo tuyas y qué evidencia pedirías para confiar en las que delegas. «Está en la nube» no responde ninguna de esas preguntas; «IaaS», «PaaS» y «SaaS» solo las ordenan.
 
-**Por qué aparece aquí.** Abre la **Parte 33** después de **Proyecto: servicio distribuido con degradación**: la Parte 32 dejó un servicio que sabe degradarse cuando falla una dependencia, pero esa dependencia era una máquina que alguien operaba. Ahora la máquina, el sistema operativo y a veces el entorno de ejecución pertenecen a otra organización. El caso conductor de la parte es la plataforma de entregas de tareas de las partes anteriores, llevada a una infraestructura gestionada por terceros.
+**Por qué aparece aquí.** Abre la **[Parte 33](../README.md)** después de **Proyecto: servicio distribuido con degradación**: la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) dejó un servicio que sabe degradarse cuando falla una dependencia, pero esa dependencia era una máquina que alguien operaba. Ahora la máquina, el sistema operativo y a veces el entorno de ejecución pertenecen a otra organización. El caso conductor de la parte es la plataforma de entregas de tareas de las partes anteriores, llevada a una infraestructura gestionada por terceros.
 
 **Error conceptual que debe corregir.** Creer que contratar más gestión es contratar menos responsabilidad. La delegación mueve el trabajo de parchear y operar, pero la identidad, los datos y la configuración del servicio siguen siendo de quien lo contrata, y por eso los incidentes en la nube suelen ser de configuración y no de la infraestructura del proveedor.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 32 sobre fallos parciales: una dependencia puede fallar sin que lo sepas y el servicio debe degradarse. La pregunta activa es: **¿cuál de mis capas ya no controlo, qué hago si falla, y cuáles siguen dependiendo de que yo las configure bien?**
+Recupera lo aprendido en la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) sobre fallos parciales: una dependencia puede fallar sin que lo sepas y el servicio debe degradarse. La pregunta activa es: **¿cuál de mis capas ya no controlo, qué hago si falla, y cuáles siguen dependiendo de que yo las configure bien?**
 
 ## Prerrequisitos
 
@@ -222,7 +222,7 @@ Entrega `responsabilidades.md` con la predicción, la matriz de 12 capas con fue
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el primer artefacto: la matriz de responsabilidades de sus piezas. `SE-398` mira lo que hay bajo el servicio: cómo se aíslan una máquina virtual, un contenedor y un proceso. Cambia una celda de la matriz, por ejemplo mover el correo de SaaS a IaaS, y mira qué otras filas cambian de dueño.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el primer artefacto: la matriz de responsabilidades de sus piezas. `SE-398` mira lo que hay bajo el servicio: cómo se aíslan una máquina virtual, un contenedor y un proceso. Cambia una celda de la matriz, por ejemplo mover el correo de SaaS a IaaS, y mira qué otras filas cambian de dueño.
 
 ## Preguntas frecuentes
 

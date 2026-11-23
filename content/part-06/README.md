@@ -32,7 +32,7 @@ Al finalizar podrás justificar una combinación, señalar adaptadores y pérdid
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
 - [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 

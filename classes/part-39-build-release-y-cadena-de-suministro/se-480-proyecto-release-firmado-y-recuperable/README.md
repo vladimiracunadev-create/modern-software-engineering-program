@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que construyas un canal de release completo y lo defiendas: que produzca un artefacto reproducible, lo acompañe de un SBOM y una procedencia, lo firme con una política de verificación explícita, permita volver atrás sin perder lo que importa y sobreviva a la pérdida del repositorio de releases y de una clave. La entrega no es el código del canal sino un **expediente de release** con la evidencia de que funciona, la de que falla donde debe y una lista honesta de lo que ningún control del canal ve.
 
-**Por qué aparece aquí.** Cierra la Parte 39 y reúne los doce temas: el build reproducible, la promoción por huella, el inventario fijado, el SBOM y la procedencia, la firma y la verificación, el versionado, las banderas, el despliegue progresivo, la actualización atómica, la defensa del CI y el taller de verificación. Es el proyecto integrador de la parte, y se apoya en el caso conductor: la API de entregas y su cliente de línea de órdenes. Lo que entregues debe poder ser verificado por otra persona sin tu ayuda.
+**Por qué aparece aquí.** Cierra la [Parte 39](../README.md) y reúne los doce temas: el build reproducible, la promoción por huella, el inventario fijado, el SBOM y la procedencia, la firma y la verificación, el versionado, las banderas, el despliegue progresivo, la actualización atómica, la defensa del CI y el taller de verificación. Es el proyecto integrador de la parte, y se apoya en el caso conductor: la API de entregas y su cliente de línea de órdenes. Lo que entregues debe poder ser verificado por otra persona sin tu ayuda.
 
 **Error conceptual que debe corregir.** Creer que un canal de release se prueba cuando «publica bien» una vez. Se prueba cuando falla de las maneras previstas: ante un artefacto manipulado, una versión antigua, una clave perdida, un repositorio destruido o un release defectuoso que hay que retirar, el canal rechaza o se recupera y deja constancia. Un canal que solo se ha ejercitado en el camino feliz no tiene evidencia de recuperación.
 
@@ -189,7 +189,7 @@ Entrega el expediente `release-dossier/` completo. Se aprueba si otra persona, d
 
 ## Caso conductor
 
-La API de entregas cierra aquí su recorrido en la Parte 39: de un build reproducible a un release firmado, verificable y recuperable, con su cliente de línea de órdenes actualizable de forma atómica. La Parte 40 lleva esta cadena a un flujo de CI/CD completo, a la infraestructura como código y a la ingeniería de plataforma. Cambia después un solo dato de tu expediente, la clave de verificación esperada, y comprueba qué afirmaciones dejan de poder sostenerse.
+La API de entregas cierra aquí su recorrido en la [Parte 39](../README.md): de un build reproducible a un release firmado, verificable y recuperable, con su cliente de línea de órdenes actualizable de forma atómica. La [Parte 40](../../part-40-ci-cd-iac-y-platform-engineering/README.md) lleva esta cadena a un flujo de CI/CD completo, a la infraestructura como código y a la ingeniería de plataforma. Cambia después un solo dato de tu expediente, la clave de verificación esperada, y comprueba qué afirmaciones dejan de poder sostenerse.
 
 ## Preguntas frecuentes
 
@@ -287,7 +287,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la huella 8020
 
 ## Límites y siguiente paso
 
-Se ejecutó un proyecto de integración con un canal sintético (zip de 42 archivos, SBOM y procedencia simplificados, firmas Ed25519 de `openssl`), con verificación cruzada entre Windows 11 (CPython 3.12.9, OpenSSL 3.5.7) y Ubuntu bajo WSL2 (3.12.3, OpenSSL 3.0.13): las huellas y los rechazos fueron idénticos y los tiempos no. Los simulacros son lógicos, de un solo proceso; no se usó red, servidor, CI real, registro de artefactos ni herramienta de firma o verificación de terceros, y las claves se generan en cada ejecución. El contenido sigue pendiente de revisión humana independiente. La Parte 40 lleva esta cadena a un flujo completo de integración y entrega continuas, a la infraestructura como código y a la ingeniería de plataforma.
+Se ejecutó un proyecto de integración con un canal sintético (zip de 42 archivos, SBOM y procedencia simplificados, firmas Ed25519 de `openssl`), con verificación cruzada entre Windows 11 (CPython 3.12.9, OpenSSL 3.5.7) y Ubuntu bajo WSL2 (3.12.3, OpenSSL 3.0.13): las huellas y los rechazos fueron idénticos y los tiempos no. Los simulacros son lógicos, de un solo proceso; no se usó red, servidor, CI real, registro de artefactos ni herramienta de firma o verificación de terceros, y las claves se generan en cada ejecución. El contenido sigue pendiente de revisión humana independiente. La [Parte 40](../../part-40-ci-cd-iac-y-platform-engineering/README.md) lleva esta cadena a un flujo completo de integración y entrega continuas, a la infraestructura como código y a la ingeniería de plataforma.
 
 ## Glosario
 

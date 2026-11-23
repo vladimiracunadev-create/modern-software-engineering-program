@@ -183,7 +183,7 @@ Entrega `tui-log.md` con la política de presentación, las tres mediciones (sob
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su política de presentación: color condicionado, prefijos textuales, ancho consultado, truncado por el medio, normalización y modo sin animación. `SE-222` pasará de procesos que terminan a procesos que viven mucho tiempo y escriben registros. Cambia después un solo detalle, el ancho por defecto de 80 a 120 cuando no hay terminal, y revisa qué informes archivados y pruebas dependían del valor.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su política de presentación: color condicionado, prefijos textuales, ancho consultado, truncado por el medio, normalización y modo sin animación. `SE-222` pasará de procesos que terminan a procesos que viven mucho tiempo y escriben registros. Cambia después un solo detalle, el ancho por defecto de 80 a 120 cuando no hay terminal, y revisa qué informes archivados y pruebas dependían del valor.
 
 ## Preguntas frecuentes
 

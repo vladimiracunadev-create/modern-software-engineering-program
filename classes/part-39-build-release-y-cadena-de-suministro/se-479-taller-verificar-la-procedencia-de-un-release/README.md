@@ -4,7 +4,7 @@
 
 ## Punto profesional y fundamento pedagógico
 
-**Punto profesional.** El taller existe para que ejecutes, de principio a fin y con tus manos, la pregunta que justifica toda la Parte 39: **«¿este release es lo que dice ser?»**. Recibes un paquete con un artefacto, un SBOM, una procedencia, un manifiesto y una firma, y debes decidir si lo aceptas, qué comprobaste y qué no. La habilidad profesional no es que el verificador diga «ok»: es poder explicar, ante otra persona, qué cadena de evidencia sostiene esa palabra, qué ataques habría visto, cuáles no y qué más haría falta.
+**Punto profesional.** El taller existe para que ejecutes, de principio a fin y con tus manos, la pregunta que justifica toda la [Parte 39](../README.md): **«¿este release es lo que dice ser?»**. Recibes un paquete con un artefacto, un SBOM, una procedencia, un manifiesto y una firma, y debes decidir si lo aceptas, qué comprobaste y qué no. La habilidad profesional no es que el verificador diga «ok»: es poder explicar, ante otra persona, qué cadena de evidencia sostiene esa palabra, qué ataques habría visto, cuáles no y qué más haría falta.
 
 **Por qué aparece aquí.** Es la clase de aplicación de las seis anteriores: una reconstrucción reproducible (`SE-469`), un artefacto identificado por huella (`SE-470`), un inventario fijado (`SE-471`), un SBOM y una procedencia (`SE-472`), una firma con raíz de confianza fijada (`SE-473`), una versión con significado (`SE-474`) y un canal de construcción en cuestión (`SE-478`). Precede al proyecto final, que construye el canal en lugar de verificarlo. El caso conductor es un release de la API de entregas que unas veces es legítimo y otras ha sido manipulado de dieciocho maneras.
 
@@ -189,7 +189,7 @@ Entrega `verificacion-log.md` con la predicción, las tres tablas, el verificado
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Este taller deja el undécimo artefacto: un verificador con valores esperados fijados, un catálogo de dieciocho casos y un informe de verificación con tres estados. `SE-480` construye el canal completo en un proyecto: release firmado, verificable en dos sistemas y recuperable. Cambia después un solo dato, un valor esperado (el constructor legítimo), y observa qué casos dejan de pasar.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Este taller deja el undécimo artefacto: un verificador con valores esperados fijados, un catálogo de dieciocho casos y un informe de verificación con tres estados. `SE-480` construye el canal completo en un proyecto: release firmado, verificable en dos sistemas y recuperable. Cambia después un solo dato, un valor esperado (el constructor legítimo), y observa qué casos dejan de pasar.
 
 ## Preguntas frecuentes
 

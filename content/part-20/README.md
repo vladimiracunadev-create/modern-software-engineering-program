@@ -35,7 +35,7 @@ Al finalizar podrás defender un servicio con una frontera declarada, una polít
 
 ## Prerrequisitos enlazados
 
-- [Parte 3 — Redes e internet](../../classes/part-03-redes-internet-y-protocolos/): solicitudes, respuestas, tiempos agotados y pérdida de paquetes.
+- [Parte 3 — Redes, Internet y protocolos](../../classes/part-03-redes-internet-y-protocolos/): solicitudes, respuestas, tiempos agotados y pérdida de paquetes.
 - [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): contratos, esquemas, compatibilidad y pruebas contractuales que esta parte pone en un servicio.
 - [Parte 19 — Web, frontend y aplicaciones progresivas](../../classes/part-19-web-frontend-y-aplicaciones-progresivas/): el cliente que envía las solicitudes que aquí se reciben.
 - Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos.

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que diseñes y conduzcas un **día de práctica (game day)**: un ejercicio programado donde un equipo responde a una falla inyectada con sus propios procedimientos, herramientas y comunicación. Un día de práctica prueba lo que ninguna prueba automática prueba: que la alerta llega a una persona, que el runbook sirve a las tres de la mañana, que quien escala responde y que el equipo decide a tiempo.
 
-**Por qué aparece aquí.** Sigue a `SE-510`: allí el método llegó a los datos y a los modelos; aquí se decide quién responde y cómo se aprende. Usa la respuesta a incidentes de la Parte 41 (`SE-499`, `SE-500`, `SE-501`) como el procedimiento que se ejercita y el catálogo de fallas de `SE-508` como fuente de escenarios. El caso conductor es el equipo de la API de entregas.
+**Por qué aparece aquí.** Sigue a `SE-510`: allí el método llegó a los datos y a los modelos; aquí se decide quién responde y cómo se aprende. Usa la respuesta a incidentes de la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) (`SE-499`, `SE-500`, `SE-501`) como el procedimiento que se ejercita y el catálogo de fallas de `SE-508` como fuente de escenarios. El caso conductor es el equipo de la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que un día de práctica es una demostración para quien lo observa o una prueba que el equipo debe aprobar. Es un experimento sobre personas y procedimientos: su producto son los defectos encontrados, y un día sin hallazgos es sospechoso, no exitoso.
 

@@ -105,7 +105,7 @@ Hay un hallazgo a corregir. En los casos de archivo ausente o JSON roto, el deta
 
 Un límite que ninguna prueba cruza es una afirmación sin evidencia. El paquete rechaza entradas mayores de 1 MB, y se comprobó con tres casos. Un JSONL de 1.2 millones de líneas en blanco (unos 1.2 MB) terminó con código `3` y `input_too_large` en la línea 1000001: el contador de bytes incluye las líneas vacías, y se rechazó en unos 424 ms de reloj total en Windows, arranque del intérprete incluido. Una especificación JSON de 1.1 MB (casi todo espacios) terminó también con `3`: el tamaño se comprueba con `stat()` antes de leer el archivo. En cambio, 40 000 observaciones válidas repetidas (≈ 1.4 MB) terminaron con `4` y `duplicate_observation`: la regla del dominio actúa en la segunda línea, antes de alcanzar el límite de bytes.
 
-Esto enseña dos cosas. Primero, los límites se componen: el tamaño, el número de pasos y la unicidad de pruebas son tres defensas distintas, y cada una necesita su propia prueba. Segundo, la medición de SE-069 mostró que multiplicar por diez el límite de bytes dejaba la suite en verde, hasta que se añadió la prueba con líneas en blanco. La defensa existía y estaba sin probar.
+Esto enseña dos cosas. Primero, los límites se componen: el tamaño, el número de pasos y la unicidad de pruebas son tres defensas distintas, y cada una necesita su propia prueba. Segundo, la medición de [SE-069](../se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) mostró que multiplicar por diez el límite de bytes dejaba la suite en verde, hasta que se añadió la prueba con líneas en blanco. La defensa existía y estaba sin probar.
 
 El diseño de una CLI debe pensar en el consumidor hostil o descuidado: entradas vacías (informe inconcluso válido), codificaciones erróneas (código 5), archivos enormes (código 3) y formas inesperadas (código 3 con ubicación). El mensaje incluye la línea (`línea 2`, `línea 1000001`) para que quien depure encuentre el defecto sin adivinar. La contrapartida es privacidad: ese detalle ayuda a depurar y no debe incluir contenido ni rutas.
 
@@ -289,7 +289,7 @@ La documentación oficial define el lenguaje y la biblioteca; no demuestra que l
 
 ## Límites y siguiente paso
 
-El proyecto demuestra fundamentos y un contrato local; no publica paquete, no ejecuta diagnósticos reales ni certifica seguridad productiva. La Parte 6 comparará paradigmas para evolucionar el mismo comportamiento.
+El proyecto demuestra fundamentos y un contrato local; no publica paquete, no ejecuta diagnósticos reales ni certifica seguridad productiva. La [Parte 6](../../part-06-paradigmas-de-programacion/README.md) comparará paradigmas para evolucionar el mismo comportamiento.
 
 **Lo que no se midió.** No se construyó, instaló ni publicó el paquete; no se probó macOS, ni concurrencia, ni cargas grandes. La medición de arranque en Linux incluye el costo de un disco montado y no es comparable con Linux nativo.
 

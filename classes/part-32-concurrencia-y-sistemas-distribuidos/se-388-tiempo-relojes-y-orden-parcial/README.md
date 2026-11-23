@@ -230,7 +230,7 @@ Entrega `tiempo-log.md` con la predicción, las tres tablas, la decisión de rel
 
 ## Caso conductor
 
-La reconciliación de calificaciones entre servidores es el artefacto de esta clase en el caso conductor de la Parte 32. `SE-389` pregunta qué se sabe cuando una respuesta no llega: otra forma de no tener un estado común. Cambia después una sola decisión, el reloj usado para reconciliar, y observa qué otra (la política ante vectores incomparables) se ve afectada.
+La reconciliación de calificaciones entre servidores es el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-389` pregunta qué se sabe cuando una respuesta no llega: otra forma de no tener un estado común. Cambia después una sola decisión, el reloj usado para reconciliar, y observa qué otra (la política ante vectores incomparables) se ve afectada.
 
 ## Preguntas frecuentes
 

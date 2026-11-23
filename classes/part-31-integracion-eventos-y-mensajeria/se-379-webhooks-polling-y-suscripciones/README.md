@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-376` sobre repeticiones y ventanas de deduplicación, en `SE-373` sobre reintentos y en la Parte 19 sobre seguridad web: toda entrada que llega de fuera es no confiable hasta que se verifica. La pregunta activa es: **¿qué debe ocurrir si esta llamada llega dos veces, tarde, alterada o nunca?**
+Recupera lo aprendido en `SE-376` sobre repeticiones y ventanas de deduplicación, en `SE-373` sobre reintentos y en la [Parte 19](../../part-19-web-frontend-y-aplicaciones-progresivas/README.md) sobre seguridad web: toda entrada que llega de fuera es no confiable hasta que se verifica. La pregunta activa es: **¿qué debe ocurrir si esta llamada llega dos veces, tarde, alterada o nunca?**
 
 ## Prerrequisitos
 
@@ -228,7 +228,7 @@ Entrega `avisos-log.md` con las predicciones, las tres tablas reproducidas con l
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el séptimo artefacto: el contrato de recepción de avisos de un proveedor externo con su reconciliación. `SE-380` pregunta qué ocurre cuando el proveedor cambia la forma de los mensajes. Cambia después una sola decisión, el intervalo de reconciliación, y observa cuánto tarda en repararse un aviso perdido.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el séptimo artefacto: el contrato de recepción de avisos de un proveedor externo con su reconciliación. `SE-380` pregunta qué ocurre cuando el proveedor cambia la forma de los mensajes. Cambia después una sola decisión, el intervalo de reconciliación, y observa cuánto tarda en repararse un aviso perdido.
 
 ## Preguntas frecuentes
 

@@ -185,7 +185,7 @@ Entrega `sbom-log.md` con la predicción, las tres tablas, el SBOM y la proceden
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el cuarto artefacto: un SBOM y una procedencia ligados al artefacto por su huella. `SE-473` los protegerá con firmas y checksums y definirá la verificación. Cambia después un solo dato, el método de generación del SBOM, y observa qué componentes aparecen o desaparecen.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el cuarto artefacto: un SBOM y una procedencia ligados al artefacto por su huella. `SE-473` los protegerá con firmas y checksums y definirá la verificación. Cambia después un solo dato, el método de generación del SBOM, y observa qué componentes aparecen o desaparecen.
 
 ## Preguntas frecuentes
 

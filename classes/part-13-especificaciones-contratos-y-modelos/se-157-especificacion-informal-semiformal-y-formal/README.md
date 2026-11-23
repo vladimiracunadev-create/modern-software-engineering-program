@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que elijas cuánta precisión necesita cada promesa del sistema y sepas medir cuánta ambigüedad queda en una redacción, de modo que «la entrega tardía se penaliza» no signifique dieciséis comportamientos distintos según quién la implemente.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: especificación de requisitos revisable** y antes de **Specification by Example y BDD**: la Parte 12 terminó con requisitos que otra persona puede revisar; la Parte 13 pregunta cuándo un requisito redactado en prosa ya no alcanza y qué lo reemplaza. Esta clase fija los tres niveles de precisión (informal, semiformal, formal), el criterio para pasar de uno al siguiente y la regla de penalización por entrega tardía que las once clases siguientes irán convirtiendo en ejemplos, contratos, modelos, esquemas y paquete trazable.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: especificación de requisitos revisable** y antes de **Specification by Example y BDD**: la [Parte 12](../../part-12-ingenieria-de-requisitos/README.md) terminó con requisitos que otra persona puede revisar; la [Parte 13](../README.md) pregunta cuándo un requisito redactado en prosa ya no alcanza y qué lo reemplaza. Esta clase fija los tres niveles de precisión (informal, semiformal, formal), el criterio para pasar de uno al siguiente y la regla de penalización por entrega tardía que las once clases siguientes irán convirtiendo en ejemplos, contratos, modelos, esquemas y paquete trazable.
 
 **Error conceptual que debe corregir.** Creer que más formalidad siempre es mejor, o que una redacción cuidadosa en prosa basta: la formalidad cuesta y solo compensa donde la ambigüedad también cuesta, y la prosa cuidadosa sigue admitiendo varias lecturas que nadie nota hasta que dos personas implementan.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 13 sobre la plataforma de entregas de tareas**, el caso que recorrerá las doce clases. Recupera lo aprendido en la Parte 12: un requisito revisable dice qué se espera; ahora importa cuánto margen deja a quien lo implementa. La pregunta activa es: **¿cuántos comportamientos distintos caben en esta frase y qué nivel de precisión elimina los que no queremos?**
+Esta clase abre la **[Parte 13](../README.md) sobre la plataforma de entregas de tareas**, el caso que recorrerá las doce clases. Recupera lo aprendido en la [Parte 12](../../part-12-ingenieria-de-requisitos/README.md): un requisito revisable dice qué se espera; ahora importa cuánto margen deja a quien lo implementa. La pregunta activa es: **¿cuántos comportamientos distintos caben en esta frase y qué nivel de precisión elimina los que no queremos?**
 
 ## Prerrequisitos
 
@@ -201,7 +201,7 @@ Entrega `spec-log.md` con la regla de penalización en los tres niveles, las lec
 
 ## Caso conductor
 
-La plataforma de entregas de tareas es el caso conductor de la Parte 13. Esta clase deja el primer artefacto: la regla de penalización escrita en tres niveles, con dieciséis lecturas conocidas y una función de referencia. Las clases siguientes la convertirán en ejemplos con significado (`SE-158`), contratos con invariantes (`SE-159`), un modelo de información y de comportamiento (`SE-160` y `SE-161`), un esquema (`SE-162`) y un contrato de interfaz (`SE-163`). Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa qué artefactos hay que tocar.
+La plataforma de entregas de tareas es el caso conductor de la [Parte 13](../README.md). Esta clase deja el primer artefacto: la regla de penalización escrita en tres niveles, con dieciséis lecturas conocidas y una función de referencia. Las clases siguientes la convertirán en ejemplos con significado (`SE-158`), contratos con invariantes (`SE-159`), un modelo de información y de comportamiento (`SE-160` y `SE-161`), un esquema (`SE-162`) y un contrato de interfaz (`SE-163`). Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa qué artefactos hay que tocar.
 
 ## Preguntas frecuentes
 

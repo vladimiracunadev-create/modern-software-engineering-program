@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase trata el caos continuo: lo que se automatiza en el camino a producción y lo que se ejecuta de forma continua sobre el sistema en producción. Existe para que decidas qué parte de la ingeniería del caos se automatiza en el **pipeline de integración y entrega continuas** y qué parte espera a **preproducción**, para que escribas pruebas de falla deterministas que fallen cuando una regresión de configuración quita una protección y para que sepas qué regresiones ni la lectura de la configuración ni una suite de escenarios ven. Un pipeline que solo ejecuta pruebas de camino feliz aprueba el cambio que quita el cortacircuitos.
 
-**Por qué aparece aquí.** Sigue a `SE-511`: allí el equipo ejercita los defectos humanos; aquí se automatiza lo técnico. Usa la integración y la entrega continuas de la Parte 40 (`SE-481`, `SE-483`, `SE-485`) y los entornos preview de `SE-488`. El caso conductor es la configuración del cliente de la API de entregas que cambia con cada commit.
+**Por qué aparece aquí.** Sigue a `SE-511`: allí el equipo ejercita los defectos humanos; aquí se automatiza lo técnico. Usa la integración y la entrega continuas de la [Parte 40](../../part-40-ci-cd-iac-y-platform-engineering/README.md) (`SE-481`, `SE-483`, `SE-485`) y los entornos preview de `SE-488`. El caso conductor es la configuración del cliente de la API de entregas que cambia con cada commit.
 
 **Error conceptual que debe corregir.** Creer que una suite de caos en el pipeline es una versión pequeña del experimento en producción. Es otra cosa: una **prueba de regresión de resiliencia** sobre un sistema controlado, determinista y barato, que no mide el comportamiento con el tráfico real sino que protege lo que ya se demostró.
 

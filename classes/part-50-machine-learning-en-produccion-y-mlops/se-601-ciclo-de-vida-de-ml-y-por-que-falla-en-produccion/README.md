@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de tratar un modelo de aprendizaje automático como un componente que se entrega y se olvida, y lo trates como un sistema con ciclo de vida: datos, etiquetas, características, entrenamiento, evaluación, registro, despliegue, servicio, monitoreo y reentrenamiento, cada uno con dueño, entradas y modos de fallo propios. El modelo es una caja pequeña dentro de un sistema grande, y la experiencia de la industria es que casi todos los incidentes ocurren en las cajas que la rodean. La clase mide, sobre un mismo modelo, cuánto daño hace cada una de cuatro causas de falla en producción y muestra una quinta, el bucle de realimentación, que ninguna métrica fuera de línea puede ver. Al terminar tendrás un mapa del sistema con sus puntos de falla y una primera lista de qué medir en cada uno.
 
-**Por qué aparece aquí.** Abre la Parte 50 y es la clase que fija el vocabulario y el caso conductor, *Avisos-ML*, que decide a quién se le envía un recordatorio de entrega. Reutiliza tres ideas de partes anteriores: la calidad por atributos y la latencia de `SE-433` y `SE-436`, las señales y los SLO de `SE-493` y `SE-497`, y la pregunta de `SE-561` sobre cómo evaluar a un sistema generativo. Prepara `SE-602`, que abre el primer eslabón (los datos), y todo el resto de la parte.
+**Por qué aparece aquí.** Abre la [Parte 50](../README.md) y es la clase que fija el vocabulario y el caso conductor, *Avisos-ML*, que decide a quién se le envía un recordatorio de entrega. Reutiliza tres ideas de partes anteriores: la calidad por atributos y la latencia de `SE-433` y `SE-436`, las señales y los SLO de `SE-493` y `SE-497`, y la pregunta de `SE-561` sobre cómo evaluar a un sistema generativo. Prepara `SE-602`, que abre el primer eslabón (los datos), y todo el resto de la parte.
 
 **Error conceptual que debe corregir.** Creer que el trabajo termina cuando el modelo alcanza una buena métrica fuera de línea. La puntuación de validación mide qué tan bien el modelo se parece a los datos con que se evaluó; el sistema en producción recibe otros datos, calculados por otro código, decididos por otras personas y con etiquetas que llegan tarde. La segunda corrección: no todo cambio en las entradas daña al modelo, y no todo daño se ve en las entradas. En el laboratorio, una deriva grande de la carga dejó el AUC igual, y una deriva de concepto lo bajó sin mover ninguna entrada.
 
@@ -28,13 +28,13 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 36: la calidad se mide con atributos y la latencia se mide con percentiles. La pregunta activa es: **si el modelo que hoy está en producción en tu organización empeorara un 5 % esta semana, ¿qué señal lo mostraría, cuántos días tardaría y quién la miraría?**
+Recupera lo aprendido en la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md): la calidad se mide con atributos y la latencia se mide con percentiles. La pregunta activa es: **si el modelo que hoy está en producción en tu organización empeorara un 5 % esta semana, ¿qué señal lo mostraría, cuántos días tardaría y quién la miraría?**
 
 ## Prerrequisitos
 
 - Conocer la idea de atributo de calidad medible (`SE-433`) y de SLO (`SE-497`).
 - Saber qué es una métrica de clasificación; no se exige teoría de aprendizaje.
-- Haber visto el caso conductor *Avisos* de la Parte 45 o leer el resumen del problema auténtico de esta clase.
+- Haber visto el caso conductor *Avisos* de la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) o leer el resumen del problema auténtico de esta clase.
 - Python 3.11 o posterior, numpy 2.4.4 y scikit-learn 1.8.0; el laboratorio no necesita GPU.
 
 ## Problema auténtico

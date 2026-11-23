@@ -1,6 +1,6 @@
 # Parte 46 — Desarrollo de software asistido por IA
 
-La Parte 44 cerró el bloque de gestión, liderazgo y práctica profesional con una exigencia: defender decisiones con evidencia. La pregunta cambia de «¿cómo defendemos lo que decidimos?» a «¿cómo defendemos lo que decidimos cuando parte del trabajo lo produjo un modelo que genera texto plausible sin saber si es verdad?». Esta parte trabaja sobre **el equipo de la plataforma educativa que incorpora un asistente al trabajo sobre el módulo de calificaciones**, el mismo sistema sintético de la Parte 43: una función que calcula la nota final, notas guardadas como texto, un archivo de exportación y reglas de redondeo y aprobación que alguien tiene que fijar. El asistente es un caso de estudio y no un producto: ningún experimento llama a un modelo real, y los «modelos» son procesos sintéticos con parámetros declarados o código estándar que se ejecuta de verdad.
+La [Parte 44](../part-44-gestion-liderazgo-y-practica-profesional/README.md) cerró el bloque de gestión, liderazgo y práctica profesional con una exigencia: defender decisiones con evidencia. La pregunta cambia de «¿cómo defendemos lo que decidimos?» a «¿cómo defendemos lo que decidimos cuando parte del trabajo lo produjo un modelo que genera texto plausible sin saber si es verdad?». Esta parte trabaja sobre **el equipo de la plataforma educativa que incorpora un asistente al trabajo sobre el módulo de calificaciones**, el mismo sistema sintético de la [Parte 43](../part-43-mantenimiento-y-modernizacion-legacy/README.md): una función que calcula la nota final, notas guardadas como texto, un archivo de exportación y reglas de redondeo y aprobación que alguien tiene que fijar. El asistente es un caso de estudio y no un producto: ningún experimento llama a un modelo real, y los «modelos» son procesos sintéticos con parámetros declarados o código estándar que se ejecuta de verdad.
 
 ## Pregunta rectora
 
@@ -135,7 +135,7 @@ El estudiante entrega una eval con conjunto reservado, tamaño calculado y juez 
 
 #### SE-562 — Privacidad, propiedad intelectual y código inseguro
 
-Un riesgo no se gestiona con una instrucción sino con un control. La clase ejecuta un escáner de tres reglas sobre 240 mensajes, compara texto y árbol sobre 17 fragmentos y mide el parecido literal y normalizado con un corpus. La ampliación presenta el Reglamento de IA de la UE y la norma ISO/IEC 42001 como obligaciones que el software debe poder evidenciar; la Parte 50, aún no publicada, desarrolla la gobernanza de IA.
+Un riesgo no se gestiona con una instrucción sino con un control. La clase ejecuta un escáner de tres reglas sobre 240 mensajes, compara texto y árbol sobre 17 fragmentos y mide el parecido literal y normalizado con un corpus. La ampliación presenta el Reglamento de IA de la UE y la norma ISO/IEC 42001 como obligaciones que el software debe poder evidenciar; la [Parte 50](../part-50-machine-learning-en-produccion-y-mlops/README.md), aún no publicada, desarrolla la gobernanza de IA.
 
 El estudiante entrega la clasificación de datos con sus controles. `SE-563` compara flujos completos con esos controles incluidos.
 
@@ -151,7 +151,7 @@ El estudiante entrega el protocolo y el análisis comparativo. `SE-564` aplica e
 
 La trazabilidad es un rastro verificable, no una conversación guardada. El proyecto encadena por hash una bitácora de seis pasos y la ataca de cinco maneras, combina cuatro compuertas y mide cuánto dura la ventana de reversión limpia.
 
-El estudiante entrega un paquete con plan, bitácora anclada, diff mínimo, compuertas, revisión con nombre, ensayo de reversión y `LIMITES.md`. La Parte 47 pasa de ayudar a una persona a gobernar agentes con especificaciones durables.
+El estudiante entrega un paquete con plan, bitácora anclada, diff mínimo, compuertas, revisión con nombre, ensayo de reversión y `LIMITES.md`. La [Parte 47](../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) pasa de ayudar a una persona a gobernar agentes con especificaciones durables.
 
 ## Resumen operativo del recorrido
 

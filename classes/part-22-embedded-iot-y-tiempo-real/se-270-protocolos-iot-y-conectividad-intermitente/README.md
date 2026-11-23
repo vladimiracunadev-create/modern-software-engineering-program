@@ -222,7 +222,7 @@ Entrega `net-log.md` con la predicción, las tres tablas y la política de comun
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el sexto artefacto: la política de comunicación del nodo (garantía, cola y reintento por tipo de mensaje). `SE-271` usará ese canal para actualizar el firmware. Cambia después una sola cosa, la capacidad de la cola, y observa cuánto cambia la pérdida y la antigüedad de los datos.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el sexto artefacto: la política de comunicación del nodo (garantía, cola y reintento por tipo de mensaje). `SE-271` usará ese canal para actualizar el firmware. Cambia después una sola cosa, la capacidad de la cola, y observa cuánto cambia la pérdida y la antigüedad de los datos.
 
 ## Preguntas frecuentes
 

@@ -191,7 +191,7 @@ Entrega `scheduling-log.md` con la política de solape, la tabla de hilos y proc
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja sus políticas: omitir si sigue activa, hilos para consultas, procesos para informes y reintentos limitados con cola de muertos. `SE-224` hace que cada operación pueda repetirse sin duplicar efectos. Cambia después un solo detalle, el periodo de 60 a 90 s, y mide cuántos solapes y omisiones desaparecen.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja sus políticas: omitir si sigue activa, hilos para consultas, procesos para informes y reintentos limitados con cola de muertos. `SE-224` hace que cada operación pueda repetirse sin duplicar efectos. Cambia después un solo detalle, el periodo de 60 a 90 s, y mide cuántos solapes y omisiones desaparecen.
 
 ## Preguntas frecuentes
 

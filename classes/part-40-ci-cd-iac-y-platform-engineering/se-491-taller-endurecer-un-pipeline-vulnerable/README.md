@@ -230,7 +230,7 @@ Entrega `hardening-log.md` con la predicción, las tres tablas, el flujo origina
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el undécimo artefacto: el flujo endurecido, con una prueba por regla y una lista de lo que no se ve. `SE-492` integra todo en el camino a producción con retroceso y exige que el paquete de evidencia incluya esta verificación. Cambia después un solo dato, el título hostil, y observa cuál de las dos formas lo ejecuta.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el undécimo artefacto: el flujo endurecido, con una prueba por regla y una lista de lo que no se ve. `SE-492` integra todo en el camino a producción con retroceso y exige que el paquete de evidencia incluya esta verificación. Cambia después un solo dato, el título hostil, y observa cuál de las dos formas lo ejecuta.
 
 ## Preguntas frecuentes
 

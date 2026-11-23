@@ -90,7 +90,7 @@ Un oráculo decide el resultado esperado. Casos cubren normal, límite, inválid
 
 ### Trece pruebas, trece contratos
 
-El laboratorio de la Parte 04 tiene 13 pruebas y cada una protege un contrato. La Figura 1 las agrupa: **especificación** (completa, resultado ausente rechazado, conflicto sin resolver visible), **razonamiento** (implicación con una fila falsa, grafo con ciclo que termina, máquina de estados que rechaza lo imposible), **selección y observación** (excluye pruebas no autorizadas, preserva el subconjunto de candidatos, falla ante observaciones contradictorias, trata el presupuesto como precondición) y **evidencia** (el caso de referencia se resuelve con traza, los conteos separan teoría de tiempo, la salida es legible por máquina). Pasaron en Windows 11 con CPython 3.12.9 en 0,167 s y en Ubuntu bajo WSL2 con CPython 3.12.3 en 0,245 s.
+El laboratorio de la [Parte 04](../README.md) tiene 13 pruebas y cada una protege un contrato. La Figura 1 las agrupa: **especificación** (completa, resultado ausente rechazado, conflicto sin resolver visible), **razonamiento** (implicación con una fila falsa, grafo con ciclo que termina, máquina de estados que rechaza lo imposible), **selección y observación** (excluye pruebas no autorizadas, preserva el subconjunto de candidatos, falla ante observaciones contradictorias, trata el presupuesto como precondición) y **evidencia** (el caso de referencia se resuelve con traza, los conteos separan teoría de tiempo, la salida es legible por máquina). Pasaron en Windows 11 con CPython 3.12.9 en 0,167 s y en Ubuntu bajo WSL2 con CPython 3.12.3 en 0,245 s.
 
 ![Barras horizontales con las pruebas por grupo: especificación 3, razonamiento 3, selección y observación 4 y evidencia 3, en total 13; pasaron en Windows 11 en 0,167 s y en Linux en 0,245 s.](../../../content/part-04/figures/se-060-trece-pruebas.svg)
 
@@ -130,7 +130,7 @@ Antes de resolver, predice el resultado y la propiedad que debería conservarse.
 
 ## Ejemplo profesional
 
-El modelo de decisión diagnóstica ofrece un plan reproducible y una explicación: alternativas consideradas, prueba elegida, costo, hipótesis que separa y restricción aplicada. El proyecto incluye un simulador de papel o pseudocódigo, no requiere producto ejecutable; la Parte 5 implementará el contrato.
+El modelo de decisión diagnóstica ofrece un plan reproducible y una explicación: alternativas consideradas, prueba elegida, costo, hipótesis que separa y restricción aplicada. El proyecto incluye un simulador de papel o pseudocódigo, no requiere producto ejecutable; la [Parte 5](../../part-05-fundamentos-de-programacion/README.md) implementará el contrato.
 
 La entrega profesional hace visible el costo de simplificar. Incluye al menos una alternativa descartada y la condición que obligaría a revisar la decisión.
 
@@ -261,7 +261,7 @@ Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente
 
 ## Límites y siguiente paso
 
-La especificación reduce interpretaciones, pero no prueba que las necesidades sean correctas ni que una implementación concreta cumpla. La Parte 5 convierte el modelo de decisión diagnóstica en una herramienta CLI probada llamada la CLI diagnóstica.
+La especificación reduce interpretaciones, pero no prueba que las necesidades sean correctas ni que una implementación concreta cumpla. La [Parte 5](../../part-05-fundamentos-de-programacion/README.md) convierte el modelo de decisión diagnóstica en una herramienta CLI probada llamada la CLI diagnóstica.
 
 ## Glosario
 

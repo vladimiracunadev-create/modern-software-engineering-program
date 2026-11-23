@@ -210,7 +210,7 @@ Entrega `resources-log.md` con el presupuesto, las mediciones de lista, el model
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su presupuesto de recursos y sus decisiones de lista, sincronización y caché. `SE-262` revisa la superficie de seguridad que cada una añade, `SE-263` mide diferencias entre dos plataformas y `SE-264` integra el presupuesto en el proyecto. Cambia después una sola decisión, el sondeo cada 5 minutos por empuje, y revisa qué cifras cambian.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su presupuesto de recursos y sus decisiones de lista, sincronización y caché. `SE-262` revisa la superficie de seguridad que cada una añade, `SE-263` mide diferencias entre dos plataformas y `SE-264` integra el presupuesto en el proyecto. Cambia después una sola decisión, el sondeo cada 5 minutos por empuje, y revisa qué cifras cambian.
 
 ## Preguntas frecuentes
 

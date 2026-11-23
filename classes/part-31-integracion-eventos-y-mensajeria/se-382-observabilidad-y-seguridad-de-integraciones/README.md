@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-379` (la firma y la marca de tiempo protegen un webhook) y en la Parte 20 sobre registros y métricas de un servicio. Recupera de `SE-374` el sobre del mensaje, que ya lleva la correlación. La pregunta activa es: **si esta entrega no recibe nota, ¿cómo sé en qué componente se detuvo, y qué dato de la persona queda escrito en un lugar donde no debería?**
+Recupera lo aprendido en `SE-379` (la firma y la marca de tiempo protegen un webhook) y en la [Parte 20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md) sobre registros y métricas de un servicio. Recupera de `SE-374` el sobre del mensaje, que ya lleva la correlación. La pregunta activa es: **si esta entrega no recibe nota, ¿cómo sé en qué componente se detuvo, y qué dato de la persona queda escrito en un lugar donde no debería?**
 
 ## Prerrequisitos
 
@@ -225,7 +225,7 @@ Entrega `observabilidad-log.md` con las predicciones, las tres tablas reproducid
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el décimo artefacto: la política de correlación, señales, seguridad y registros del flujo. `SE-383` pone a prueba todo el conjunto en un taller que provoca y contiene mensajes duplicados. Cambia después una sola decisión, quitar el encabezado de un salto, y observa qué parte de la investigación deja de ser posible.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el décimo artefacto: la política de correlación, señales, seguridad y registros del flujo. `SE-383` pone a prueba todo el conjunto en un taller que provoca y contiene mensajes duplicados. Cambia después una sola decisión, quitar el encabezado de un salto, y observa qué parte de la investigación deja de ser posible.
 
 ## Preguntas frecuentes
 

@@ -338,7 +338,7 @@ Se exigen timeline, dos relojes, estado compartido explícito y conclusión cond
 
 ## Límites y siguiente paso
 
-No administra servicios ni señales del SO; eso corresponde a la Parte 02. `SE-020` abre la traducción del programa.
+No administra servicios ni señales del SO; eso corresponde a la [Parte 02](../../part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md). `SE-020` abre la traducción del programa.
 
 ---
 [← SE-018](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-020 →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)

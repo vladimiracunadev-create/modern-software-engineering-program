@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas tres ideas que se usan como sinónimos y resuelven problemas distintos: la concurrencia (varias cosas en curso a la vez), el paralelismo (varias cosas ejecutándose a la vez en hardware distinto) y la asincronía (un modo de escribir programas que esperan sin ocupar un hilo), y para que decidas cuál necesita un servicio antes de pagar su costo en complejidad.
 
-**Por qué aparece aquí.** Abre la **Parte 32** después de **Proyecto: flujo integrado tolerante a reintentos**: la Parte 31 hizo que los servicios de la plataforma de entregas se hablen por mensajes y toleren reintentos; ahora hay que entender qué ocurre dentro de cada proceso y entre procesos cuando muchas solicitudes llegan a la vez. El caso conductor de la parte es el cierre de plazo de una tarea: cientos de estudiantes entregan en los últimos minutos y el servicio de entregas debe seguir correcto, rápido y diagnosticable.
+**Por qué aparece aquí.** Abre la **[Parte 32](../README.md)** después de **Proyecto: flujo integrado tolerante a reintentos**: la [Parte 31](../../part-31-integracion-eventos-y-mensajeria/README.md) hizo que los servicios de la plataforma de entregas se hablen por mensajes y toleren reintentos; ahora hay que entender qué ocurre dentro de cada proceso y entre procesos cuando muchas solicitudes llegan a la vez. El caso conductor de la parte es el cierre de plazo de una tarea: cientos de estudiantes entregan en los últimos minutos y el servicio de entregas debe seguir correcto, rápido y diagnosticable.
 
 **Error conceptual que debe corregir.** Creer que «más hilos» o «async» acelera cualquier cosa: solapar esperas ayuda cuando hay espera, repartir cálculo ayuda cuando hay cálculo, y ninguna de las dos cosas ayuda a la parte del trabajo que debe ejecutarse en orden.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 31 sobre reintentos y mensajería: un mensaje puede llegar dos veces y una operación puede quedarse a medias. La pregunta activa es: **¿qué trabajo del servicio de entregas espera, qué trabajo calcula y qué parte debe ocurrir en orden?** Sin esa clasificación, añadir hilos o `async` es adivinar.
+Recupera lo aprendido en la [Parte 31](../../part-31-integracion-eventos-y-mensajeria/README.md) sobre reintentos y mensajería: un mensaje puede llegar dos veces y una operación puede quedarse a medias. La pregunta activa es: **¿qué trabajo del servicio de entregas espera, qué trabajo calcula y qué parte debe ocurrir en orden?** Sin esa clasificación, añadir hilos o `async` es adivinar.
 
 ## Prerrequisitos
 
@@ -233,7 +233,7 @@ Entrega `concurrencia-log.md` con la predicción, las tres tablas de resultados,
 
 ## Caso conductor
 
-La plataforma de entregas en el cierre de plazo es el caso conductor de la Parte 32. Esta clase deja el primer artefacto: la clasificación de tareas por espera y cálculo y la regla de decisión. `SE-386` mostrará qué ocurre cuando dos de esas tareas concurrentes escriben el mismo dato. Cambia después una sola proporción, la de espera, y observa qué decisión de la regla se invierte.
+La plataforma de entregas en el cierre de plazo es el caso conductor de la [Parte 32](../README.md). Esta clase deja el primer artefacto: la clasificación de tareas por espera y cálculo y la regla de decisión. `SE-386` mostrará qué ocurre cuando dos de esas tareas concurrentes escriben el mismo dato. Cambia después una sola proporción, la de espera, y observa qué decisión de la regla se invierte.
 
 ## Preguntas frecuentes
 

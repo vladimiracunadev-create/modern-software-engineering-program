@@ -89,7 +89,7 @@ Resolver partes no garantiza resolver el todo. La recomposición revisa dependen
 
 ### Un árbol de decisión que se puede ejecutar
 
-Descomponer significa nombrar *qué se decide*, *qué se supone*, *qué se puede hacer* y *qué se prohíbe*. En el laboratorio de la Parte 04 el incidente «una petición falla» se reduce a una decisión (elegir la próxima prueba segura), tres hipótesis (`dns`, `tls`, `http`), cuatro pruebas con costo (`resolve` 1, `handshake` 2, `request` 3 y `production-capture` 1) y dos restricciones transversales: solo pruebas autorizadas y un presupuesto de 5 unidades. La Figura 1 muestra la estructura. La prueba `production-capture` existe en el catálogo pero *no está autorizada*: el modelo la conoce y la excluye, y esa exclusión es una regla visible, no un olvido.
+Descomponer significa nombrar *qué se decide*, *qué se supone*, *qué se puede hacer* y *qué se prohíbe*. En el laboratorio de la [Parte 04](../README.md) el incidente «una petición falla» se reduce a una decisión (elegir la próxima prueba segura), tres hipótesis (`dns`, `tls`, `http`), cuatro pruebas con costo (`resolve` 1, `handshake` 2, `request` 3 y `production-capture` 1) y dos restricciones transversales: solo pruebas autorizadas y un presupuesto de 5 unidades. La Figura 1 muestra la estructura. La prueba `production-capture` existe en el catálogo pero *no está autorizada*: el modelo la conoce y la excluye, y esa exclusión es una regla visible, no un olvido.
 
 ![Figura 1. Árbol que descompone el incidente en decisión, tres hipótesis, cuatro pruebas con costo y dos restricciones](../../../content/part-04/figures/se-049-arbol-de-decision.svg)
 

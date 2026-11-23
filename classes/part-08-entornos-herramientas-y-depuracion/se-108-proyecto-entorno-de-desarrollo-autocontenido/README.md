@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: entorno de desarrollo autocontenido** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué evidencia demuestra que un entorno de desarrollo puede reconstruirse, diagnosticarse y eliminarse con seguridad?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: entorno de desarrollo autocontenido** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué evidencia demuestra que un entorno de desarrollo puede reconstruirse, diagnosticarse y eliminarse con seguridad?**
 
 ## Prerrequisitos
 
@@ -258,7 +258,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementac
 
 ## Límites y siguiente paso
 
-El entorno reduce variabilidad conocida, no congela hardware, red o servicios externos. La Parte 9 convertirá la capacidad de la biblioteca de estructuras y algoritmos en una biblioteca, paquete, SDK y CLI con contratos públicos y compatibilidad verificable.
+El entorno reduce variabilidad conocida, no congela hardware, red o servicios externos. La [Parte 9](../../part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) convertirá la capacidad de la biblioteca de estructuras y algoritmos en una biblioteca, paquete, SDK y CLI con contratos públicos y compatibilidad verificable.
 
 ## Glosario
 

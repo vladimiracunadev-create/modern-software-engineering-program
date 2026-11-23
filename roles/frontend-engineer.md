@@ -54,12 +54,12 @@ distintas.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00–09 para fundamentos, programación y depuración.
-2. Partes 10, 12–14 para discovery, requisitos, UX, accesibilidad e i18n.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) para fundamentos, programación y depuración.
+2. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md), [12](../classes/part-12-ingenieria-de-requisitos/README.md)–[14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) para discovery, requisitos, UX, accesibilidad e i18n.
 3. [Parte 19 — Web, frontend y aplicaciones progresivas](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md).
-4. Parte 20 para contratos con backend y Parte 25 para diseño/refactorización.
-5. Partes 35–36 y 38–40 para pruebas, calidad, seguridad y entrega.
-6. Partes 41 y 46 para observabilidad cliente e IA supervisada.
+4. [Parte 20](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) para contratos con backend y [Parte 25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md) para diseño/refactorización.
+5. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[40](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) para pruebas, calidad, seguridad y entrega.
+6. Partes [41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) y [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) para observabilidad cliente e IA supervisada.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -136,14 +136,14 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-229 · Plataforma web, HTML semántico y CSS](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) | Parte 19 |
-| [SE-230 · JavaScript, DOM y eventos del navegador](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) | Parte 19 |
-| [SE-236 · Seguridad del navegador y políticas de contenido](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/README.md) | Parte 19 |
+| [SE-229 · Plataforma web, HTML semántico y CSS](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) | [Parte 19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| [SE-230 · JavaScript, DOM y eventos del navegador](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) | [Parte 19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| [SE-236 · Seguridad del navegador y políticas de contenido](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/README.md) | [Parte 19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-076](../classes/part-06-paradigmas-de-programacion/se-076-programacion-funcional-composicion-e-inmutabilidad/README.md) para fijar el
 primer mecanismo, usa [SE-308](../classes/part-25-diseno-patrones-y-refactorizacion/se-308-diseno-para-cambio-prueba-y-operacion/README.md) para integrar el
@@ -153,7 +153,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

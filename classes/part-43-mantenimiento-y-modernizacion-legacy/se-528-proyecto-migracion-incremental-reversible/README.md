@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que ejecutes de principio a fin una migración incremental reversible y entregues un paquete que otra persona pueda comprobar, repetir y desmontar. Las clases anteriores trataron cada pieza (clasificar el trabajo, recuperar conocimiento, caracterizar, actualizar dependencias, estrangular, migrar el runtime, migrar datos, coexistir, retirar, decidir y estabilizar). Aquí se integran en un solo flujo con una pregunta de fondo: **¿en qué momento exacto deja de poderse volver atrás, qué se pierde si se vuelve, y qué evidencia justifica haber llegado hasta ahí?**
 
-**Por qué aparece aquí.** Cierra la **Parte 43** después de **Taller: estabilizar antes de modernizar**: el taller dejó la puerta de entrada; el proyecto cruza esa puerta. El caso conductor es el **módulo legado de calificaciones**: se migra su tabla de notas (texto con coma y estado de una letra) a un esquema con la nota numérica y un estado traducido, con escrituras que siguen llegando durante todo el proceso.
+**Por qué aparece aquí.** Cierra la **[Parte 43](../README.md)** después de **Taller: estabilizar antes de modernizar**: el taller dejó la puerta de entrada; el proyecto cruza esa puerta. El caso conductor es el **módulo legado de calificaciones**: se migra su tabla de notas (texto con coma y estado de una letra) a un esquema con la nota numérica y un estado traducido, con escrituras que siguen llegando durante todo el proceso.
 
 **Error conceptual que debe corregir.** Creer que una migración reversible es la que tiene un script de vuelta atrás. La reversibilidad es una propiedad de cada **fase**, no del conjunto: hasta cierta fase, volver no cuesta nada; después, volver pierde las escrituras hechas solo en el esquema nuevo; y tras contraer, no se puede. Quien no marca esa frontera tiene un botón que parece funcionar y destruye datos.
 
@@ -214,7 +214,7 @@ Entrega `migracion-reversible/` con el plan de fases, el ejecutor, la verificaci
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Este proyecto deja el último artefacto: el paquete de migración incremental reversible, que reúne las clasificaciones, el mapa de riesgo, la caracterización, la política de dependencias, el plan de rebanadas, el catálogo de la plataforma, el plan de datos, el contrato de coexistencia, la secuencia de retiro, el modelo económico y la puerta de entrada de las clases anteriores. La Parte 44 lleva la mirada a la gestión, el liderazgo y la práctica profesional. Cambia después un solo dato, las escrituras diarias de 60 a 600, y observa cuánto se acorta la ventana en que volver es barato.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Este proyecto deja el último artefacto: el paquete de migración incremental reversible, que reúne las clasificaciones, el mapa de riesgo, la caracterización, la política de dependencias, el plan de rebanadas, el catálogo de la plataforma, el plan de datos, el contrato de coexistencia, la secuencia de retiro, el modelo económico y la puerta de entrada de las clases anteriores. La [Parte 44](../../part-44-gestion-liderazgo-y-practica-profesional/README.md) lleva la mirada a la gestión, el liderazgo y la práctica profesional. Cambia después un solo dato, las escrituras diarias de 60 a 600, y observa cuánto se acorta la ventana en que volver es barato.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un sistema de aprendizaje automático que otra persona pueda operar, y para que lo demuestres con evidencia que se comprueba sola y no con un documento que se lee. Un modelo operable no es el que tiene mejor métrica sino el que puede reproducirse, evaluarse por grupos, desplegarse por etapas, volver atrás con exactitud, vigilarse con alertas probadas, defenderse de abusos básicos y explicarse a quien lo audite. El proyecto reúne lo medido en la parte en un paquete con un manifiesto, una ficha, un runbook, una configuración de canary y una puerta de liberación que ejecuta once comprobaciones sobre los archivos reales. Se prueba con cuatro variantes de un mismo proyecto: una completa y tres con un defecto cada una (sin rollback verificable, con un monitor de deriva que no puede disparar, sin guarda por segmento ni dueño ni ficha completa), y la puerta debe aprobar la primera y bloquear las otras con el motivo exacto.
 
-**Por qué aparece aquí.** Cierra la Parte 50: cada comprobación de la puerta corresponde a una clase (`SE-602` a `SE-611`). Reutiliza el proyecto de operación observable y recuperable de `SE-504`, el camino a producción con rollback de `SE-492` y el proyecto de evaluación de sistemas con LLM de `SE-600`. Prepara el trabajo con sistemas críticos (Parte 37) y con aceleradores y aislamiento (Parte 23), donde los mismos principios se aplican con requisitos más duros.
+**Por qué aparece aquí.** Cierra la [Parte 50](../README.md): cada comprobación de la puerta corresponde a una clase (`SE-602` a `SE-611`). Reutiliza el proyecto de operación observable y recuperable de `SE-504`, el camino a producción con rollback de `SE-492` y el proyecto de evaluación de sistemas con LLM de `SE-600`. Prepara el trabajo con sistemas críticos ([Parte 37](../../part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)) y con aceleradores y aislamiento ([Parte 23](../../part-23-runtimes-y-plataformas-modernas/README.md)), donde los mismos principios se aplican con requisitos más duros.
 
 **Error conceptual que debe corregir.** Creer que operabilidad es una lista de buenas intenciones o que se demuestra con una captura de un tablero. Una afirmación como «el rollback funciona» solo vale si existe una comprobación que la ejecuta; una como «el monitor de deriva alerta» solo vale si se probó inyectando una deriva y se probó también que no alerta cuando no hay. En el proyecto, el defecto «monitor con umbral inalcanzable» pasa cualquier revisión documental (existe el monitor, existe el umbral) y solo lo delata la prueba que lo dispara. La segunda corrección: una puerta que se ejecuta pero que nadie ha visto fallar es otra hipótesis; por eso se prueba con variantes defectuosas.
 
@@ -194,7 +194,7 @@ Entrega el paquete de un sistema de aprendizaje automático propio con manifiest
 
 ## Caso conductor
 
-*Avisos-ML* se libera con una puerta de once comprobaciones que bloqueó tres cambios en los primeros tres meses y con la lista declarada de lo que no ve. Con esto termina la Parte 50: el modelo ya es un artefacto operado con evidencia. Las partes siguientes aplican esa lógica a sistemas críticos (Parte 37) y a plataformas de ejecución aisladas (Parte 23).
+*Avisos-ML* se libera con una puerta de once comprobaciones que bloqueó tres cambios en los primeros tres meses y con la lista declarada de lo que no ve. Con esto termina la [Parte 50](../README.md): el modelo ya es un artefacto operado con evidencia. Las partes siguientes aplican esa lógica a sistemas críticos ([Parte 37](../../part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)) y a plataformas de ejecución aisladas ([Parte 23](../../part-23-runtimes-y-plataformas-modernas/README.md)).
 
 ## Preguntas frecuentes
 
@@ -273,7 +273,7 @@ Elige un modelo de tu organización y construye su manifiesto. Escribe tres comp
 
 ## Límites y siguiente paso
 
-El proyecto, las once comprobaciones, las cuatro variantes y los umbrales son construcciones del autor sobre datos sintéticos; la ficha y el runbook del laboratorio son marcadores. La puerta detecta los defectos sembrados y no los que nadie previó. No se evaluó ninguna plataforma de MLOps. La Parte 50 termina aquí; la Parte 37 aplica la misma disciplina de evidencia a sistemas críticos, tiempo real y normas de seguridad, con riesgos y requisitos más estrictos.
+El proyecto, las once comprobaciones, las cuatro variantes y los umbrales son construcciones del autor sobre datos sintéticos; la ficha y el runbook del laboratorio son marcadores. La puerta detecta los defectos sembrados y no los que nadie previó. No se evaluó ninguna plataforma de MLOps. La [Parte 50](../README.md) termina aquí; la [Parte 37](../../part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) aplica la misma disciplina de evidencia a sistemas críticos, tiempo real y normas de seguridad, con riesgos y requisitos más estrictos.
 
 ## Glosario
 

@@ -194,7 +194,7 @@ Entrega `spec-role-log.md` con la especificación, el comprobador, la simulació
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja una decisión de nivel por artefacto, un comprobador de deriva y un generador determinista con regiones delimitadas. `SE-166` convertirá la comprobación de firmas en pruebas que ejecutan la especificación, y `SE-167` pondrá a prueba el procedimiento completo en un taller. Cambia después una sola decisión, pasar la API de spec-anchored a spec-as-source, y revisa qué mecanismos nuevos exige.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja una decisión de nivel por artefacto, un comprobador de deriva y un generador determinista con regiones delimitadas. `SE-166` convertirá la comprobación de firmas en pruebas que ejecutan la especificación, y `SE-167` pondrá a prueba el procedimiento completo en un taller. Cambia después una sola decisión, pasar la API de spec-anchored a spec-as-source, y revisa qué mecanismos nuevos exige.
 
 ## Preguntas frecuentes
 

@@ -202,7 +202,7 @@ Entrega `preview-log.md` con la predicción, las tres tablas, la política de da
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el octavo artefacto: la política de datos y de vida de los entornos de vista previa. `SE-489` ofrecerá estos entornos como capacidad de autoservicio de una plataforma interna, y `SE-491` endurecerá la canalización que los crea. Cambia después un solo dato, el nivel de generalización, y observa cuánto cambia la unicidad.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el octavo artefacto: la política de datos y de vida de los entornos de vista previa. `SE-489` ofrecerá estos entornos como capacidad de autoservicio de una plataforma interna, y `SE-491` endurecerá la canalización que los crea. Cambia después un solo dato, el nivel de generalización, y observa cuánto cambia la unicidad.
 
 ## Preguntas frecuentes
 

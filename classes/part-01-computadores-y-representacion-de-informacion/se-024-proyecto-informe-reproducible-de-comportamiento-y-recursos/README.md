@@ -29,7 +29,7 @@
 
 `SE-023` te dio un protocolo integrado. Ahora elegirás una pregunta acotada y defenderás
 un informe que una persona pueda reproducir, cuestionar y extender. El resultado cierra
-la Parte 01 y se convertirá en insumo de la Parte 02, donde aprenderás a preparar y
+la [Parte 01](../README.md) y se convertirá en insumo de la [Parte 02](../../part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md), donde aprenderás a preparar y
 diagnosticar el entorno que hizo posibles las observaciones.
 
 ## Prerrequisitos

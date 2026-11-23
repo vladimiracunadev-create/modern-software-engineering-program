@@ -53,12 +53,12 @@ una opción extrema, no el punto de partida.
 
 ## 📚 Tu ruta en el programa
 
-1. Parte 08 para investigación y debugging; partes 12–13 para reconstruir contratos.
-2. Partes 16–17 para historia, colaboración y documentación.
-3. Partes 25, 27, 29 y 31–32 para refactorización, arquitectura, datos e integración.
-4. Partes 35–36 y 38–41 para caracterización, resiliencia, seguridad, entrega y observabilidad.
+1. [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) para investigación y debugging; partes 12–13 para reconstruir contratos.
+2. Partes [16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)–[17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) para historia, colaboración y documentación.
+3. Partes [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md), [27](../classes/part-27-arquitectura-de-software-y-dominio/README.md), [29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) y [31](../classes/part-31-integracion-eventos-y-mensajeria/README.md)–[32](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) para refactorización, arquitectura, datos e integración.
+4. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para caracterización, resiliencia, seguridad, entrega y observabilidad.
 5. [Parte 43 — Mantenimiento y modernización legacy](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md).
-6. Partes 44 y 46–47 para cambio organizacional e IA controlada sobre brownfield.
+6. Partes [44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) y [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md)–[47](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) para cambio organizacional e IA controlada sobre brownfield.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -136,23 +136,23 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-108 · Proyecto: entorno de desarrollo autocontenido](../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) | Parte 08 |
-| [SE-110 · SemVer, compatibilidad y contratos públicos](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md) | Parte 09 |
-| [SE-142 · Decisiones reversibles e irreversibles](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md) | Parte 11 |
-| [SE-164 · Compatibilidad, versionado y evolución de contratos](../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md) | Parte 13 |
-| [SE-195 · Ramas, integración, rebase y conflictos](../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md) | Parte 16 |
-| [SE-208 · ADRs, RFCs y registro de decisiones](../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md) | Parte 17 |
-| [SE-517 · Mantenimiento correctivo, adaptativo y perfectivo](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md) | Parte 43 |
-| [SE-518 · Arqueología de código y recuperación de conocimiento](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md) | Parte 43 |
-| [SE-520 · Dependencias obsoletas y riesgo acumulado](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) | Parte 43 |
-| [SE-522 · Migraciones de runtime, lenguaje y framework](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md) | Parte 43 |
-| [SE-525 · Retiro, archivado y disposición de sistemas](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md) | Parte 43 |
-| [SE-527 · Taller: estabilizar antes de modernizar](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md) | Parte 43 |
+| [SE-108 · Proyecto: entorno de desarrollo autocontenido](../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-110 · SemVer, compatibilidad y contratos públicos](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md) | [Parte 09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
+| [SE-142 · Decisiones reversibles e irreversibles](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-164 · Compatibilidad, versionado y evolución de contratos](../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md) | [Parte 13](../classes/part-13-especificaciones-contratos-y-modelos/README.md) |
+| [SE-195 · Ramas, integración, rebase y conflictos](../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md) | [Parte 16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
+| [SE-208 · ADRs, RFCs y registro de decisiones](../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md) | [Parte 17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| [SE-517 · Mantenimiento correctivo, adaptativo y perfectivo](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md) | [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) |
+| [SE-518 · Arqueología de código y recuperación de conocimiento](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-518-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md) | [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) |
+| [SE-520 · Dependencias obsoletas y riesgo acumulado](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-520-dependencias-obsoletas-y-riesgo-acumulado/README.md) | [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) |
+| [SE-522 · Migraciones de runtime, lenguaje y framework](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-522-migraciones-de-runtime-lenguaje-y-framework/README.md) | [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) |
+| [SE-525 · Retiro, archivado y disposición de sistemas](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-525-retiro-archivado-y-disposicion-de-sistemas/README.md) | [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) |
+| [SE-527 · Taller: estabilizar antes de modernizar](../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md) | [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-098](../classes/part-08-entornos-herramientas-y-depuracion/se-098-depuradores-breakpoints-y-observacion-de-estado/README.md) para fijar el
 primer mecanismo, usa [SE-366](../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md) para integrar el
@@ -162,7 +162,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

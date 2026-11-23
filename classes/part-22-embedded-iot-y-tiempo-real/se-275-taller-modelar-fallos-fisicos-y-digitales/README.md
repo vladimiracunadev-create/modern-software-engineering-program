@@ -217,7 +217,7 @@ Entrega `fault-model-log.md` con la predicción, las tres tablas y el modelo de 
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. El taller deja el undécimo artefacto: el modelo de fallos del nodo con inyección, enumeración de cortes, AMFE y lo que queda sin cubrir. `SE-276` los reúne en un dispositivo simulado completo. Cambia después una sola defensa, la referencia independiente, y observa qué fallos dejan de verse.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). El taller deja el undécimo artefacto: el modelo de fallos del nodo con inyección, enumeración de cortes, AMFE y lo que queda sin cubrir. `SE-276` los reúne en un dispositivo simulado completo. Cambia después una sola defensa, la referencia independiente, y observa qué fallos dejan de verse.
 
 ## Preguntas frecuentes
 

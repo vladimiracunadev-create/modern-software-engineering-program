@@ -188,7 +188,7 @@ Entrega `workshop-log.md` con el recuento por suite, la matriz defecto × suite,
 
 ## Caso conductor
 
-El taller reúne el recorrido de la Parte 20 sobre la plataforma de entregas. Recupera `SE-245` para D1, D2 y D10, `SE-246` para D8, `SE-248` para D6 y `SE-250` para el error de D5. La clase siguiente integra los mecanismos en un servicio contractual y operable. Cambia después una sola decisión, la suite adversaria, y revisa cuántos defectos quedan sin detectar.
+El taller reúne el recorrido de la [Parte 20](../README.md) sobre la plataforma de entregas. Recupera `SE-245` para D1, D2 y D10, `SE-246` para D8, `SE-248` para D6 y `SE-250` para el error de D5. La clase siguiente integra los mecanismos en un servicio contractual y operable. Cambia después una sola decisión, la suite adversaria, y revisa cuántos defectos quedan sin detectar.
 
 ## Preguntas frecuentes
 

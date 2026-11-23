@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -100,7 +100,7 @@ Una respuesta HTTP es un mensaje con cabeceras que informan a cada participante.
 
 ![Seis cabeceras observadas, cada una con su valor y lo que comunica: Content-Type text/html; charset=utf-8, Server cloudflare, Last-Modified del 13 de noviembre de 2026, Age 3521 segundos, alt-svc que anuncia h3, y la ausencia de ETag.](../../../content/part-03/figures/se-042-cabeceras-reales.svg)
 
-**Cómo leer la figura.** Cada fila va de una cabecera a su valor observado y a su significado; la ausencia de ETag, en coral, también comunica algo. **Dónde deja de valer:** son las cabeceras que un sitio concreto devolvió en un momento dado; otro sitio o la misma URL más tarde variarían. Las cabeceras son una conversación con intermediarios: algunas las añaden o eliminan proxies y CDN (SE-044), de modo que no se consideran una descripción fiel del origen.
+**Cómo leer la figura.** Cada fila va de una cabecera a su valor observado y a su significado; la ausencia de ETag, en coral, también comunica algo. **Dónde deja de valer:** son las cabeceras que un sitio concreto devolvió en un momento dado; otro sitio o la misma URL más tarde variarían. Las cabeceras son una conversación con intermediarios: algunas las añaden o eliminan proxies y CDN ([SE-044](../se-044-proxies-balanceadores-gateways-y-cdn/README.md)), de modo que no se consideran una descripción fiel del origen.
 
 ### Métodos y estados: lo que el servidor decide
 

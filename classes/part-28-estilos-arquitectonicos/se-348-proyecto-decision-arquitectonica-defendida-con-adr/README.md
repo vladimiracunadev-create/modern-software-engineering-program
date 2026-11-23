@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que produzcas el artefacto con que se cierra una decisión arquitectónica en un equipo profesional: un registro de decisión (ADR) que otra persona pueda leer dentro de dos años, entender por qué se decidió así, comprobar si los supuestos siguen siendo ciertos y reabrirla con evidencia. Un ADR bueno no es un acta. Es una hipótesis con fecha de revisión: dice qué fuerzas la motivaron, qué alternativas se descartaron y por qué, qué se acepta perder, qué medida la protege y qué número haría reconsiderarla. Un ADR malo justifica una decisión con una moda («es la mejor práctica») y se vuelve irrefutable justo cuando más falta hace discutirlo.
 
-**Por qué aparece aquí.** Cierra la Parte 28 y es su proyecto integrador: toma la decisión que el taller de `SE-347` produjo (con su margen, su supuesto sensible y su disparador) y la convierte en un registro defendible con una prueba automática que la protege. Retoma el ADR y las funciones de aptitud que presentó la Parte 27 (`SE-332` y `SE-333`) y los aplica a los estilos de esta parte, con una comprobación ejecutable de cada elemento.
+**Por qué aparece aquí.** Cierra la [Parte 28](../README.md) y es su proyecto integrador: toma la decisión que el taller de `SE-347` produjo (con su margen, su supuesto sensible y su disparador) y la convierte en un registro defendible con una prueba automática que la protege. Retoma el ADR y las funciones de aptitud que presentó la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) (`SE-332` y `SE-333`) y los aplica a los estilos de esta parte, con una comprobación ejecutable de cada elemento.
 
 **Error conceptual que debe corregir.** Creer que el valor del ADR está en el documento. Está en las tres cosas que lo vuelven revisable: las consecuencias negativas escritas por quien decide (si solo hay ventajas, no se evaluó nada), el disparador numérico de revisión (si no hay un número, la decisión no caduca) y la prueba que la protege contra la deriva (si la decisión se viola en silencio, el documento miente). En el experimento, un ADR con las once características se distingue de uno que justifica con una moda por 11 criterios frente a 3, y una prueba de arquitectura detecta una violación y un ciclo que ninguna revisión de código notaría a tiempo, y no ve una importación dinámica.
 
@@ -214,7 +214,7 @@ Entrega `adr-estilo.md` con el ADR de una decisión arquitectónica de esta part
 
 ## Caso conductor
 
-*Avisos* cierra la parte con un ADR vivo: una decisión con alternativas, costos aceptados, un número que la reabre y una prueba que la protege. Con ello termina la Parte 28, y `SE-348` es la última de las 540 clases planificadas del programa; la siguiente decisión de arquitectura de tu equipo es el caso real donde aplicar el método.
+*Avisos* cierra la parte con un ADR vivo: una decisión con alternativas, costos aceptados, un número que la reabre y una prueba que la protege. Con ello termina la [Parte 28](../README.md), y `SE-348` es la última de las 540 clases planificadas del programa; la siguiente decisión de arquitectura de tu equipo es el caso real donde aplicar el método.
 
 ## Preguntas frecuentes
 
@@ -291,7 +291,7 @@ Aplica el proyecto a una decisión viva de tu sistema: escribe el ADR con las on
 
 ## Límites y siguiente paso
 
-El analizador, la función de aptitud y la serie son herramientas del autor sobre registros y un paquete de juguete; no se evaluó ningún ADR real ni se ejecutó ninguna herramienta de terceros. La conclusión de que un ADR con estas características mejora las decisiones no se midió. Con este proyecto termina la Parte 28, y `SE-348` es la última de las 540 clases planificadas del programa: el paso siguiente es aplicar el método a decisiones reales de tu equipo y revisar el registro con quien las sufre.
+El analizador, la función de aptitud y la serie son herramientas del autor sobre registros y un paquete de juguete; no se evaluó ningún ADR real ni se ejecutó ninguna herramienta de terceros. La conclusión de que un ADR con estas características mejora las decisiones no se midió. Con este proyecto termina la [Parte 28](../README.md), y `SE-348` es la última de las 540 clases planificadas del programa: el paso siguiente es aplicar el método a decisiones reales de tu equipo y revisar el registro con quien las sufre.
 
 ## Glosario
 

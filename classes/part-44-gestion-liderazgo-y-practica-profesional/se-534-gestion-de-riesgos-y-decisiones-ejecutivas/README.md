@@ -193,7 +193,7 @@ Entrega `decision-log.md` con la predicción, las tres tablas, el registro de ri
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el sexto artefacto: un registro de riesgos con valor esperado y una petición de decisión. `SE-535` preguntará cómo se compra y se evalúa a un proveedor cuando la decisión pasa por un tercero, y `SE-537` cómo se traduce una inversión a costo total. Cambia después un solo dato, el ruido del experimento de 40 a 80, y observa cuánto del valor de la información se pierde.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el sexto artefacto: un registro de riesgos con valor esperado y una petición de decisión. `SE-535` preguntará cómo se compra y se evalúa a un proveedor cuando la decisión pasa por un tercero, y `SE-537` cómo se traduce una inversión a costo total. Cambia después un solo dato, el ruido del experimento de 40 a 80, y observa cuánto del valor de la información se pierde.
 
 ## Preguntas frecuentes
 

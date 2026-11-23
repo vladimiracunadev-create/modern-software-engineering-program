@@ -1,6 +1,6 @@
 # Parte 13 — Especificaciones, contratos y modelos
 
-La Parte 12 terminó con requisitos que otra persona puede revisar. La pregunta cambia de «qué se espera» a «cuánta libertad deja a quien lo implementa y cómo lo comprobaríamos». Esta parte trabaja sobre la **plataforma de entregas de tareas**, un caso sintético cuya regla de penalización por entrega tardía recorre las doce clases: una frase con dieciséis lecturas, ejemplos que separan variantes, afirmaciones válidas para todos los casos, entidades y estados, esquemas, interfaces, cambios que no rompen a nadie, una fuente de verdad, pruebas que ejecutan la especificación y un paquete que otra persona revisa siguiendo enlaces.
+La [Parte 12](../part-12-ingenieria-de-requisitos/README.md) terminó con requisitos que otra persona puede revisar. La pregunta cambia de «qué se espera» a «cuánta libertad deja a quien lo implementa y cómo lo comprobaríamos». Esta parte trabaja sobre la **plataforma de entregas de tareas**, un caso sintético cuya regla de penalización por entrega tardía recorre las doce clases: una frase con dieciséis lecturas, ejemplos que separan variantes, afirmaciones válidas para todos los casos, entidades y estados, esquemas, interfaces, cambios que no rompen a nadie, una fuente de verdad, pruebas que ejecutan la especificación y un paquete que otra persona revisa siguiendo enlaces.
 
 ## Pregunta rectora
 
@@ -33,7 +33,7 @@ Al finalizar podrás defender un contrato con ejemplos que separan, comprobacion
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 9 — Bibliotecas, paquetes, SDK y automatización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/): contratos que otra persona consume y compatibilidad entre versiones.
 - [Parte 12 — Ingeniería de requisitos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-12-ingenieria-de-requisitos/): requisitos revisables que esta parte convierte en contratos comprobables.
@@ -139,7 +139,7 @@ El estudiante deja el contrato, el registro de mutaciones y una lista de decisio
 
 Un paquete es trazable si sus enlaces se comprueban y no se confunde la huella con el sentido. El proyecto valida 41 artefactos con 240 mutaciones, estima el alcance de un cambio según la densidad de enlaces y calcula la huella del paquete en dos sistemas.
 
-El estudiante entrega el paquete, el validador y la lista de lo que no detecta. La Parte 14 diseña la experiencia de las personas que usarán la plataforma cuyo comportamiento ya está especificado.
+El estudiante entrega el paquete, el validador y la lista de lo que no detecta. La [Parte 14](../part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) diseña la experiencia de las personas que usarán la plataforma cuyo comportamiento ya está especificado.
 
 ## Resumen operativo del recorrido
 
@@ -160,7 +160,7 @@ El estudiante entrega el paquete, el validador y la lista de lo que no detecta. 
 
 ## Proyecto integrador
 
-El proyecto **SE-168** entrega un paquete de intenciones, requisitos, contratos, ejemplos y pruebas con identificadores estables, enlaces de tipos permitidos, un manifiesto con huellas, un validador con sus mutaciones, la estimación del alcance de un cambio, la huella reproducible entre sistemas y la lista de decisiones humanas abiertas con responsable y fecha. Se acompaña de los límites declarados: qué cambios de sentido no detecta el validador y qué parte del paquete no se ejecutó con herramientas de producción.
+El proyecto **[SE-168](./se-168-proyecto-paquete-de-especificaciones-trazables/README.md)** entrega un paquete de intenciones, requisitos, contratos, ejemplos y pruebas con identificadores estables, enlaces de tipos permitidos, un manifiesto con huellas, un validador con sus mutaciones, la estimación del alcance de un cambio, la huella reproducible entre sistemas y la lista de decisiones humanas abiertas con responsable y fecha. Se acompaña de los límites declarados: qué cambios de sentido no detecta el validador y qué parte del paquete no se ejecutó con herramientas de producción.
 
 ## Criterios de salida
 

@@ -187,7 +187,7 @@ Entrega `config-log.md` con la tabla de precedencia, la enumeración de 64 combi
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su resolvedor, su tabla de precedencia, el analizador estricto y la regla del secreto. `SE-220` convertirá los errores de configuración en códigos de salida con significado. Cambia después un solo detalle, la precedencia entre archivo y entorno, y revisa qué guiones, pruebas y documentación dependían del orden anterior.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su resolvedor, su tabla de precedencia, el analizador estricto y la regla del secreto. `SE-220` convertirá los errores de configuración en códigos de salida con significado. Cambia después un solo detalle, la precedencia entre archivo y entorno, y revisa qué guiones, pruebas y documentación dependían del orden anterior.
 
 ## Preguntas frecuentes
 

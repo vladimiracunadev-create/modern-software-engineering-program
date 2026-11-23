@@ -213,7 +213,7 @@ Entrega `retiro-log.md` con la predicción, las tres tablas, el inventario de co
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el noveno artefacto: la secuencia de retiro con su inventario, sus reglas de retención y su archivo verificado. `SE-526` preguntará cuándo conviene reescribir en vez de seguir evolucionando, la decisión que antecede a todo el proceso, y `SE-527` lo aplicará a un taller de estabilización. Cambia después un solo dato, la mezcla de consumidores (más anuales y menos diarios), y observa qué ventana deja de ser suficiente.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el noveno artefacto: la secuencia de retiro con su inventario, sus reglas de retención y su archivo verificado. `SE-526` preguntará cuándo conviene reescribir en vez de seguir evolucionando, la decisión que antecede a todo el proceso, y `SE-527` lo aplicará a un taller de estabilización. Cambia después un solo dato, la mezcla de consumidores (más anuales y menos diarios), y observa qué ventana deja de ser suficiente.
 
 ## Preguntas frecuentes
 

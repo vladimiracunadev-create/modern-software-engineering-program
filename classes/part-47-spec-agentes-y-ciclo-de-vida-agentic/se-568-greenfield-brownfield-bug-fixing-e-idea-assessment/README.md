@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de usar el mismo método con un agente en cuatro situaciones que no se parecen. Empezar un proyecto desde cero, cambiar uno que ya existe, corregir un error y decidir si una idea merece construirse son trabajos con riesgos distintos, evidencia distinta y un punto de parada distinto. Un agente aplicado con el mismo ritual a los cuatro produce especificaciones donde bastaba una pregunta, parches donde hacía falta un diagnóstico y código donde habría sido más barato no escribir nada. La habilidad es elegir el proceso por la situación, no por costumbre.
 
-**Por qué aparece aquí.** Es la cuarta clase de la **Parte 47**, después de **Implementación, análisis y convergencia contra SPEC**: `SE-567` cerró el ciclo de un proyecto nuevo con especificación, tareas y convergencia. Ahora el mismo servicio de recordatorios de entrega (*Avisos*) se enfrenta a una modificación sobre código existente, a un error de producción y a una idea nueva. Es un caso sintético en el que no se analizó ningún sistema, institución ni persona reales.
+**Por qué aparece aquí.** Es la cuarta clase de la **[Parte 47](../README.md)**, después de **Implementación, análisis y convergencia contra SPEC**: `SE-567` cerró el ciclo de un proyecto nuevo con especificación, tareas y convergencia. Ahora el mismo servicio de recordatorios de entrega (*Avisos*) se enfrenta a una modificación sobre código existente, a un error de producción y a una idea nueva. Es un caso sintético en el que no se analizó ningún sistema, institución ni persona reales.
 
 **Error conceptual que debe corregir.** Creer que la especificación completa siempre es el primer paso. Para un error, el primer artefacto es un diagnóstico con la reproducción del síntoma; para una idea, es la evidencia de que merece construirse; para un cambio en código ajeno, es un mapa de lo que ya existe. Escribir una especificación de funcionalidad antes de eso formaliza una suposición.
 
@@ -212,7 +212,7 @@ Entrega `situaciones-log.md` con la predicción, las tres tablas, la clasificaci
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el cuarto artefacto: la clasificación de las situaciones, el mapa del código existente y el criterio para aceptar una corrección. `SE-569` fijará con qué herramientas y permisos trabaja el agente en cada una de estas situaciones. Cambia después un solo dato, la proporción de ideas buenas, y observa en qué punto cambia la política óptima de tu organización.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el cuarto artefacto: la clasificación de las situaciones, el mapa del código existente y el criterio para aceptar una corrección. `SE-569` fijará con qué herramientas y permisos trabaja el agente en cada una de estas situaciones. Cambia después un solo dato, la proporción de ideas buenas, y observa en qué punto cambia la política óptima de tu organización.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que diseñes un sistema que maneja datos de salud sabiendo que un error de privacidad no se corrige después, que un error de identidad puede mezclar la historia de dos personas y que un exceso de alertas es en sí un riesgo para el paciente. Quien trabaja en este dominio responde por la minimización, la trazabilidad y la evidencia de cada decisión.
 
-**Por qué aparece aquí.** Es la séptima clase de la **Parte 24**, después de **Fintech, contabilidad e invariantes monetarias**: allí el dato sensible era el dinero y se protegía con invariantes; aquí es la salud, donde el daño de un error es físico o irreversible y la ley condiciona qué se puede guardar, quién lo ve y cómo se demuestra. Aparecen juntas la privacidad, la identidad, el apoyo a la decisión y la regulación. El caso conductor sigue siendo la plataforma educativa ficticia: un módulo de enfermería escolar que registra atenciones de estudiantes.
+**Por qué aparece aquí.** Es la séptima clase de la **[Parte 24](../README.md)**, después de **Fintech, contabilidad e invariantes monetarias**: allí el dato sensible era el dinero y se protegía con invariantes; aquí es la salud, donde el daño de un error es físico o irreversible y la ley condiciona qué se puede guardar, quién lo ve y cómo se demuestra. Aparecen juntas la privacidad, la identidad, el apoyo a la decisión y la regulación. El caso conductor sigue siendo la plataforma educativa ficticia: un módulo de enfermería escolar que registra atenciones de estudiantes.
 
 **Error conceptual que debe corregir.** Creer que quitar el nombre y el documento basta para anonimizar. Una combinación de edad, sexo y código postal puede identificar a una persona sola; y creer que una regla de coincidencia con umbral decide bien si dos fichas son la misma persona, cuando equivocarse en un sentido mezcla historias clínicas.
 
@@ -229,7 +229,7 @@ Entrega `health-log.md` con la predicción, la tabla de unicidad, la de fusiones
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el séptimo artefacto: el módulo de enfermería con tres almacenes, conjunto de estudio generalizado, fusión en tres zonas y alarma con persistencia. `SE-296` pasa a un dominio donde la confianza no la da una institución sino un protocolo: la cadena de bloques. Cambia después una sola decisión, el tramo de edad, y observa cuántos registros dejan de ser únicos y qué detalle útil pierdes.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el séptimo artefacto: el módulo de enfermería con tres almacenes, conjunto de estudio generalizado, fusión en tres zonas y alarma con persistencia. `SE-296` pasa a un dominio donde la confianza no la da una institución sino un protocolo: la cadena de bloques. Cambia después una sola decisión, el tramo de edad, y observa cuántos registros dejan de ser únicos y qué detalle útil pierdes.
 
 ## Preguntas frecuentes
 

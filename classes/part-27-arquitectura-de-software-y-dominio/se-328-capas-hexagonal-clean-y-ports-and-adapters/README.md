@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que ordenes las dependencias dentro de un módulo de modo que la regla de negocio no dependa de la base de datos, del framework web ni del proveedor de correo, y para que puedas medir qué ganas con eso y qué cuesta.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Monolito, modular monolith y servicios**: `SE-327` decidió dónde van las fronteras entre módulos; esta clase decide en qué dirección apuntan las dependencias dentro de cada uno. Las capas, la arquitectura hexagonal y la limpia son tres formulaciones de la misma idea: las dependencias del código apuntan hacia la regla de negocio.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Monolito, modular monolith y servicios**: `SE-327` decidió dónde van las fronteras entre módulos; esta clase decide en qué dirección apuntan las dependencias dentro de cada uno. Las capas, la arquitectura hexagonal y la limpia son tres formulaciones de la misma idea: las dependencias del código apuntan hacia la regla de negocio.
 
 **Error conceptual que debe corregir.** Creer que tener capas con nombres (presentación, negocio, datos) ya es una arquitectura limpia: una capa «de negocio» que importa el cliente de la base de datos depende de ella igual que si no existiera la capa.
 

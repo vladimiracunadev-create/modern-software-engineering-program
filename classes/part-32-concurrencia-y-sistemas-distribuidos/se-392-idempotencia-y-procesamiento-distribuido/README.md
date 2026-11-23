@@ -227,7 +227,7 @@ Entrega `idempotencia-log.md` con la predicción, las tres tablas, la clasificac
 
 ## Caso conductor
 
-El contador de entregas y el acuse son el artefacto de esta clase en el caso conductor de la Parte 32. `SE-393` aborda cómo se reparte y se copia el trabajo entre nodos una vez que cada pieza es repetible. Cambia después una sola decisión, la retención de las claves, y observa qué otra (el almacenamiento de claves) se ve afectada.
+El contador de entregas y el acuse son el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-393` aborda cómo se reparte y se copia el trabajo entre nodos una vez que cada pieza es repetible. Cambia después una sola decisión, la retención de las claves, y observa qué otra (el almacenamiento de claves) se ve afectada.
 
 ## Preguntas frecuentes
 

@@ -211,7 +211,7 @@ Entrega `a11y-log.md` con los criterios aplicables, las razones de contraste de 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja los criterios aplicables a la entrega, el auditor de reglas y la declaración de alcance. `SE-174` baja a la estructura semántica, el teclado y el foco; `SE-175` a la tipografía y el color. Cambia después un solo criterio, el tamaño de destino, y revisa qué controles y qué evidencia dependían de él.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja los criterios aplicables a la entrega, el auditor de reglas y la declaración de alcance. `SE-174` baja a la estructura semántica, el teclado y el foco; `SE-175` a la tipografía y el color. Cambia después un solo criterio, el tamaño de destino, y revisa qué controles y qué evidencia dependían de él.
 
 ## Preguntas frecuentes
 

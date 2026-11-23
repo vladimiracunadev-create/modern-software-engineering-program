@@ -249,7 +249,7 @@ Entrega `risk-compare-log.md` con la predicción, la matriz con justificaciones,
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Este taller deja el undécimo artefacto: una matriz de diez dominios con su estabilidad, su acuerdo entre evaluadores y su cobertura de controles. `SE-300` pide aplicar el método a un dominio elegido, con un diseño profundo y su propia evidencia. Cambia después una sola decisión, el peso de un criterio, y observa qué parte del orden se mueve.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Este taller deja el undécimo artefacto: una matriz de diez dominios con su estabilidad, su acuerdo entre evaluadores y su cobertura de controles. `SE-300` pide aplicar el método a un dominio elegido, con un diseño profundo y su propia evidencia. Cambia después una sola decisión, el peso de un criterio, y observa qué parte del orden se mueve.
 
 ## Preguntas frecuentes
 

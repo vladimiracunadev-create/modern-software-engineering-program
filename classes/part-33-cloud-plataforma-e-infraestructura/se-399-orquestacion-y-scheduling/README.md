@@ -228,7 +228,7 @@ Entrega `orquestacion.md` con la predicción, las tres tablas reproducidas con l
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el tercer artefacto: peticiones, límites y política de ubicación de sus servicios. `SE-400` pregunta qué ocurre cuando ni siquiera se elige el nodo y la ejecución es gestionada por completo. Cambia una cifra, por ejemplo la memoria pedida por el corrector, y mira cuántos pods dejan de caber.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el tercer artefacto: peticiones, límites y política de ubicación de sus servicios. `SE-400` pregunta qué ocurre cuando ni siquiera se elige el nodo y la ejecución es gestionada por completo. Cambia una cifra, por ejemplo la memoria pedida por el corrector, y mira cuántos pods dejan de caber.
 
 ## Preguntas frecuentes
 

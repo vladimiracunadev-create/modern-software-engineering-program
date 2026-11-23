@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que diseñes el cliente para varias formas de entrada (dedo, teclado, mouse, lector de pantalla) a la vez, y para que verifiques con cálculos y recorridos automáticos lo que se puede verificar (tamaño de objetivo, orden de foco, contraste) y reserves a las personas lo que no.
 
-**Por qué aparece aquí.** Se sitúa después de **Permisos, sensores y capacidades del dispositivo** y antes de **Actualizaciones, tiendas y distribución empresarial**: ya se decidió qué capacidades usa el cliente; ahora se decide cómo se maneja. Una aplicación que solo funciona con un dedo preciso o con un mouse excluye a quien usa otra entrada, y la Parte 14 profundiza en la experiencia; aquí se trata la base que depende de la plataforma.
+**Por qué aparece aquí.** Se sitúa después de **Permisos, sensores y capacidades del dispositivo** y antes de **Actualizaciones, tiendas y distribución empresarial**: ya se decidió qué capacidades usa el cliente; ahora se decide cómo se maneja. Una aplicación que solo funciona con un dedo preciso o con un mouse excluye a quien usa otra entrada, y la [Parte 14](../../part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) profundiza en la experiencia; aquí se trata la base que depende de la plataforma.
 
 **Error conceptual que debe corregir.** Creer que un diseño accesible es un conjunto de atributos que se añaden al final, o que un recorrido automático garantiza que la interfaz sea usable: los atributos no sustituyen el orden, el tamaño ni el sentido, y un recorrido solo ve alcance, no comprensión.
 
@@ -215,7 +215,7 @@ Entrega `interaction-log.md` con la tabla de modos de entrada, la curva de acier
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su tabla de modos de entrada y sus comprobaciones automáticas. `SE-259` pasa a cómo llegan las versiones a las personas, `SE-262` revisa la superficie de seguridad y `SE-263` decide qué diferencias de entrada hay entre las dos plataformas del taller. Cambia después una sola decisión, el lado mínimo de los objetivos de 44 a 48, y revisa qué pantallas hay que rediseñar.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su tabla de modos de entrada y sus comprobaciones automáticas. `SE-259` pasa a cómo llegan las versiones a las personas, `SE-262` revisa la superficie de seguridad y `SE-263` decide qué diferencias de entrada hay entre las dos plataformas del taller. Cambia después una sola decisión, el lado mínimo de los objetivos de 44 a 48, y revisa qué pantallas hay que rediseñar.
 
 ## Preguntas frecuentes
 

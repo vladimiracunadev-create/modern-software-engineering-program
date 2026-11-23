@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Ergonomía, accesibilidad y productividad del entorno** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo reducir fricción sin imponer una única capacidad física, interfaz o estilo de trabajo?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Ergonomía, accesibilidad y productividad del entorno** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo reducir fricción sin imponer una única capacidad física, interfaz o estilo de trabajo?**
 
 ## Prerrequisitos
 

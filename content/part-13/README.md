@@ -33,7 +33,7 @@ Al finalizar podrás defender un contrato con ejemplos que separan, comprobacion
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 9 — Bibliotecas, paquetes, SDK y automatización](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/): contratos que otra persona consume y compatibilidad entre versiones.
 - [Parte 12 — Ingeniería de requisitos](../../classes/part-12-ingenieria-de-requisitos/): requisitos revisables que esta parte convierte en contratos comprobables.

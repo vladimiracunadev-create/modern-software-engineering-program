@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -96,7 +96,7 @@ El informe no es una descarga de comandos. Ordena contexto, expectativa, observa
 
 ### La suite del laboratorio y su primera divergencia
 
-El laboratorio de la Parte 03 ejecuta siete escenarios sobre un servidor HTTP efímero en `127.0.0.1`. Cada resultado declara `scenario`, `outcome`, `attempts`, `request_id`, `failure`, `events` y `limits`, y cada evento tiene `phase`, `outcome`, `offset_ms` y `evidence`. La ejecución real de `python labs/part-03-observable-request/observable_request.py suite` produjo: `healthy` → `ok` en un intento, con las fases `dns → connect → http → correlation`; `dns_failure` → `failed` en la fase `dns` con
+El laboratorio de la [Parte 03](../README.md) ejecuta siete escenarios sobre un servidor HTTP efímero en `127.0.0.1`. Cada resultado declara `scenario`, `outcome`, `attempts`, `request_id`, `failure`, `events` y `limits`, y cada evento tiene `phase`, `outcome`, `offset_ms` y `evidence`. La ejecución real de `python labs/part-03-observable-request/observable_request.py suite` produjo: `healthy` → `ok` en un intento, con las fases `dns → connect → http → correlation`; `dns_failure` → `failed` en la fase `dns` con
 código `name_not_found`; `connection_refused` → `failed` en `connect` con `refused`; `tls_name_mismatch` → `failed` en `tls` con `name_mismatch`; `latency_timeout` → `failed` en `http_wait` con `deadline_exceeded`; y `transient_loss` y `http_503` → `recovered` tras dos intentos. El método de la clase es comparar cada caso con el sano y *ubicar la primera fase que difiere*: una lista de errores posteriores no la sustituye.
 
 ![Siete escenarios de la suite real, cada uno con la primera fase en que se aparta del caso sano y su resultado: healthy es ok; dns_failure falla en dns (name_not_found); connection_refused en connect (refused); tls_name_mismatch en tls (name_mismatch); latency_timeout en http_wait (deadline_exceeded); transient_loss y http_503 se recuperan en el segundo intento.](../../../content/part-03/figures/se-047-suite-del-laboratorio.svg)
@@ -105,7 +105,7 @@ código `name_not_found`; `connection_refused` → `failed` en `connect` con `re
 
 ### Correlación: un identificador que cruza las fronteras
 
-Para unir eventos de componentes distintos hace falta un identificador común. El laboratorio genera un `request_id`, lo propaga en una cabecera y lo registra en cada evento; la fase `correlation` del caso sano comprueba que el mismo valor aparece en cliente y servidor. Sin él, unir eventos depende de la hora, que no basta: los relojes difieren y varias peticiones coinciden en el tiempo (SE-033). Una línea temporal multicapa resulta de ordenar los eventos por
+Para unir eventos de componentes distintos hace falta un identificador común. El laboratorio genera un `request_id`, lo propaga en una cabecera y lo registra en cada evento; la fase `correlation` del caso sano comprueba que el mismo valor aparece en cliente y servidor. Sin él, unir eventos depende de la hora, que no basta: los relojes difieren y varias peticiones coinciden en el tiempo ([SE-033](../../part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)). Una línea temporal multicapa resulta de ordenar los eventos por
 `offset_ms` desde el inicio y agruparlos por `request_id`. El laboratorio además redacta las cabeceras sensibles y no guarda cuerpos: la correlación no requiere datos personales.
 
 ![Figura 2. Cuatro fases del caso sano (dns, connect, http, correlation) y un identificador de petición que une los eventos](../../../content/part-03/figures/se-047-correlacion.svg)

@@ -208,7 +208,7 @@ Entrega `slo-log.md` con la predicción, las tres tablas de resultados reproduci
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el quinto artefacto: un SLO con presupuesto y política. `SE-498` convierte el consumo del presupuesto en alertas que merecen una página, y `SE-499` define qué hace la persona de guardia al recibirla. Cambia después un solo parámetro, la duración mediana de los incidentes, y observa cuántos meses incumplen el objetivo.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el quinto artefacto: un SLO con presupuesto y política. `SE-498` convierte el consumo del presupuesto en alertas que merecen una página, y `SE-499` define qué hace la persona de guardia al recibirla. Cambia después un solo parámetro, la duración mediana de los incidentes, y observa cuántos meses incumplen el objetivo.
 
 ## Preguntas frecuentes
 

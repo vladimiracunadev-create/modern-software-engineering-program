@@ -215,7 +215,7 @@ Entrega `budget-log.md` con la predicción, las tres tablas, el presupuesto con 
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el tercer artefacto: el presupuesto de energía, memoria no volátil y precisión del nodo, con sus supuestos. `SE-268` añadirá los plazos que esas decisiones deben respetar. Cambia después una sola cosa, el periodo de despertar, y observa qué otros términos del presupuesto cambian.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el tercer artefacto: el presupuesto de energía, memoria no volátil y precisión del nodo, con sus supuestos. `SE-268` añadirá los plazos que esas decisiones deben respetar. Cambia después una sola cosa, el periodo de despertar, y observa qué otros términos del presupuesto cambian.
 
 ## Preguntas frecuentes
 

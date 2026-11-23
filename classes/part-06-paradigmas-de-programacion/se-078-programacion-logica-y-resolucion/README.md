@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación lógica y resolución** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo produce respuestas un motor lógico a partir de relaciones, variables y búsqueda?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación lógica y resolución** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo produce respuestas un motor lógico a partir de relaciones, variables y búsqueda?**
 
 ## Prerrequisitos
 

@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Plugins, extensiones y puntos de integración** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo ampliar un sistema sin convertir cada extensión en dependencia privilegiada e incompatible?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Plugins, extensiones y puntos de integración** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo ampliar un sistema sin convertir cada extensión en dependencia privilegiada e incompatible?**
 
 ## Prerrequisitos
 

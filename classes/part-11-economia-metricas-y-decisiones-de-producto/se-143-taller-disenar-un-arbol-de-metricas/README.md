@@ -4,7 +4,7 @@
 
 ## Punto profesional y fundamento pedagógico
 
-**Punto profesional.** El taller existe para que las métricas de la Parte 11 dejen de ser una lista y pasen a ser un árbol: una métrica norte descompuesta en factores calculables, cada uno con responsable, fuente, decisión y contrapeso, que otra persona puede revisar con un validador y recalcular con otros valores.
+**Punto profesional.** El taller existe para que las métricas de la [Parte 11](../README.md) dejen de ser una lista y pasen a ser un árbol: una métrica norte descompuesta en factores calculables, cada uno con responsable, fuente, decisión y contrapeso, que otra persona puede revisar con un validador y recalcular con otros valores.
 
 **Por qué aparece aquí.** Se sitúa después de **Decisiones reversibles e irreversibles** y antes de **Proyecto: caso de viabilidad técnico-económica**: las clases 135 a 142 dieron las piezas (resultados, retención, telemetría, experimentos, guardas, costos, cartera, reversibilidad); este taller las ordena en un árbol que `SE-144` usará como base del caso. No introduce un concepto nuevo: exige integrarlos y mostrar qué comprueba una herramienta y qué no.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 11: una métrica norte con guardas (`SE-139`), definiciones calculables (`SE-136`), eventos con consentimiento (`SE-137`), costos por resultado (`SE-140`) y reglas de revisión (`SE-141`, `SE-142`). La pregunta activa es: **¿qué cambia en la raíz si cambia esta hoja, quién responde por ella y cómo me entero de que está mal medida?**
+Recupera lo aprendido en la [Parte 11](../README.md): una métrica norte con guardas (`SE-139`), definiciones calculables (`SE-136`), eventos con consentimiento (`SE-137`), costos por resultado (`SE-140`) y reglas de revisión (`SE-141`, `SE-142`). La pregunta activa es: **¿qué cambia en la raíz si cambia esta hoja, quién responde por ella y cómo me entero de que está mal medida?**
 
 ## Prerrequisitos
 

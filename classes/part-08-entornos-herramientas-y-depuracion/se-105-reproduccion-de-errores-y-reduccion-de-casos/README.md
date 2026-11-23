@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Reproducción de errores y reducción de casos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cuál es el menor caso que conserva el síntoma y separa causa de coincidencia?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Reproducción de errores y reducción de casos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cuál es el menor caso que conserva el síntoma y separa causa de coincidencia?**
 
 ## Prerrequisitos
 
@@ -182,7 +182,7 @@ Elimina el tercer evento y el fallo desaparece, pero concluyes que el tercero es
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
 
-Reproduce el efecto de una prueba intermitente sobre la reducción. Cambia el defecto sintético para que falle solo el 70 % de las veces y aplica `ddmin`. **Síntoma:** el resultado cambia entre ejecuciones y a veces conserva caracteres inútiles. **Hipótesis:** una ejecución sin fallo descarta un trozo que sí era necesario. **Prueba:** repite la prueba cinco veces en cada decisión (falla si falla alguna) y compara. **Conclusión:** con pruebas intermitentes se repite cada decisión según la probabilidad del fallo (ver SE-058); el costo crece con las repeticiones. Guarda el caso, la probabilidad y el número de repeticiones en `checks.md`.
+Reproduce el efecto de una prueba intermitente sobre la reducción. Cambia el defecto sintético para que falle solo el 70 % de las veces y aplica `ddmin`. **Síntoma:** el resultado cambia entre ejecuciones y a veces conserva caracteres inútiles. **Hipótesis:** una ejecución sin fallo descarta un trozo que sí era necesario. **Prueba:** repite la prueba cinco veces en cada decisión (falla si falla alguna) y compara. **Conclusión:** con pruebas intermitentes se repite cada decisión según la probabilidad del fallo (ver [SE-058](../../part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)); el costo crece con las repeticiones. Guarda el caso, la probabilidad y el número de repeticiones en `checks.md`.
 
 ## Errores comunes y cómo corregirlos
 

@@ -175,7 +175,7 @@ Entrega `exit-codes-log.md` con la tabla de códigos, la medición de trece form
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su tabla de códigos, el manejo de tuberías en su guion nocturno y una política de reintentos. `SE-221` pasará de los códigos a la interfaz que ve una persona en un terminal, y `SE-222` a los procesos de larga vida que mueren y se reinician. Cambia después un solo detalle, el código de «datos inválidos» de 65 a 1, y revisa qué decisiones del guion dependían de la distinción.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su tabla de códigos, el manejo de tuberías en su guion nocturno y una política de reintentos. `SE-221` pasará de los códigos a la interfaz que ve una persona en un terminal, y `SE-222` a los procesos de larga vida que mueren y se reinician. Cambia después un solo detalle, el código de «datos inválidos» de 65 a 1, y revisa qué decisiones del guion dependían de la distinción.
 
 ## Preguntas frecuentes
 

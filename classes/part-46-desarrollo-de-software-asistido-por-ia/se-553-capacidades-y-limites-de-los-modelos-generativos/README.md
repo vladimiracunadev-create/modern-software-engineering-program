@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de tratar a un modelo generativo como un oráculo o como un compañero con criterio, y lo trates como lo que es: un generador de texto que produce continuaciones plausibles a partir de una distribución de probabilidad, con habilidades útiles y con modos de fallo que no avisan. Un equipo que incorpora un asistente al trabajo diario necesita una intuición operativa de qué puede esperar de él, qué no, y qué evidencia distingue una respuesta correcta de una respuesta que solo suena correcta. La habilidad es decidir, para cada tarea, cuánta verificación exige la respuesta antes de confiar en ella.
 
-**Por qué aparece aquí.** Abre la **Parte 46** después de **Proyecto: dossier profesional defendible**: la Parte 44 cerró el bloque de gestión, liderazgo y práctica profesional con la exigencia de defender decisiones con evidencia; ahora la pregunta es cómo se defiende una decisión cuando parte del trabajo lo produjo un modelo. El caso conductor de la parte es **el equipo de la plataforma educativa que incorpora un asistente al trabajo sobre el módulo de calificaciones**, el mismo sistema de la Parte 43. Es un caso sintético; no se llamó a ningún modelo real, no se evaluó ninguna herramienta comercial y ninguna institución real fue analizada.
+**Por qué aparece aquí.** Abre la **[Parte 46](../README.md)** después de **Proyecto: dossier profesional defendible**: la [Parte 44](../../part-44-gestion-liderazgo-y-practica-profesional/README.md) cerró el bloque de gestión, liderazgo y práctica profesional con la exigencia de defender decisiones con evidencia; ahora la pregunta es cómo se defiende una decisión cuando parte del trabajo lo produjo un modelo. El caso conductor de la parte es **el equipo de la plataforma educativa que incorpora un asistente al trabajo sobre el módulo de calificaciones**, el mismo sistema de la [Parte 43](../../part-43-mantenimiento-y-modernizacion-legacy/README.md). Es un caso sintético; no se llamó a ningún modelo real, no se evaluó ninguna herramienta comercial y ninguna institución real fue analizada.
 
 **Error conceptual que debe corregir.** Creer que la seguridad con la que el modelo responde informa de la probabilidad de que esté en lo cierto. El tono de una respuesta es un rasgo del texto generado, no una medida de su verdad; la relación entre confianza y acierto es una propiedad que se mide en cada tarea y que puede ser mala justo donde más importa, en las preguntas difíciles.
 
@@ -30,7 +30,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 44 sobre defender una decisión: una afirmación vale por la evidencia que la sostiene y por quién puede comprobarla. La pregunta activa es: **¿qué fracción de las respuestas que has aceptado de un asistente comprobaste de forma independiente antes de usarlas, y qué te hizo decidir que esas sí necesitaban comprobación?**
+Recupera lo aprendido en la [Parte 44](../../part-44-gestion-liderazgo-y-practica-profesional/README.md) sobre defender una decisión: una afirmación vale por la evidencia que la sostiene y por quién puede comprobarla. La pregunta activa es: **¿qué fracción de las respuestas que has aceptado de un asistente comprobaste de forma independiente antes de usarlas, y qué te hizo decidir que esas sí necesitaban comprobación?**
 
 ## Prerrequisitos
 
@@ -217,7 +217,7 @@ Entrega `modelo-limites.md` con la predicción, las tres tablas, la clasificaci�
 
 ## Caso conductor
 
-El módulo de calificaciones de la plataforma educativa es el caso conductor de la Parte 46. Esta clase deja el primer artefacto: la política de «cuándo confío y cuándo compruebo». `SE-554` preguntará cómo se escribe lo que se le pide al modelo para que la salida sea comprobable, y `SE-555` cómo se lleva a su ventana la información del módulo. Cambia después un solo dato, la posición de la respuesta correcta en la distribución, y observa cuándo el voto de mayoría deja de perjudicar.
+El módulo de calificaciones de la plataforma educativa es el caso conductor de la [Parte 46](../README.md). Esta clase deja el primer artefacto: la política de «cuándo confío y cuándo compruebo». `SE-554` preguntará cómo se escribe lo que se le pide al modelo para que la salida sea comprobable, y `SE-555` cómo se lleva a su ventana la información del módulo. Cambia después un solo dato, la posición de la respuesta correcta en la distribución, y observa cuándo el voto de mayoría deja de perjudicar.
 
 ## Preguntas frecuentes
 

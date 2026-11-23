@@ -199,7 +199,7 @@ Entrega `usability-log.md` con el protocolo, la comparación entre fórmula y si
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja el protocolo de evaluación de la entrega, la política de intervalos y la potencia de las comparaciones. `SE-179` lo aplica a un flujo excluyente con una auditoría y una reparación, y `SE-180` a un prototipo evaluado con personas. Cambia después un solo supuesto, la media de la probabilidad de hallazgo, y revisa qué tamaños de muestra y conclusiones dependían de él.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja el protocolo de evaluación de la entrega, la política de intervalos y la potencia de las comparaciones. `SE-179` lo aplica a un flujo excluyente con una auditoría y una reparación, y `SE-180` a un prototipo evaluado con personas. Cambia después un solo supuesto, la media de la probabilidad de hallazgo, y revisa qué tamaños de muestra y conclusiones dependían de él.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que registres una decisión de arquitectura con sus alternativas, sus consecuencias y su reversibilidad, para que sepas cuánto confiar en una matriz de comparación y para que decidas cuándo conviene esperar más evidencia antes de decidir.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Fitness functions y arquitectura evolutiva**: `SE-332` dejó pruebas que defienden decisiones; esas pruebas necesitan un registro de la decisión que las origina. Un ADR sin alternativas ni consecuencias no se puede cuestionar, y una decisión que no se puede cuestionar tampoco puede revisarse cuando cambia el contexto.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Fitness functions y arquitectura evolutiva**: `SE-332` dejó pruebas que defienden decisiones; esas pruebas necesitan un registro de la decisión que las origina. Un ADR sin alternativas ni consecuencias no se puede cuestionar, y una decisión que no se puede cuestionar tampoco puede revisarse cuando cambia el contexto.
 
 **Error conceptual que debe corregir.** Creer que una matriz de decisión ponderada produce una respuesta: produce una presentación de supuestos, y su resultado cambia con pesos y puntajes que son juicios.
 

@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-La Parte 2 concluye con una entrega, no con un cuestionario. Construirás un **kit de diagnóstico multiplataforma**, una herramienta local que describe el entorno del analizador local de eventos, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
+La [Parte 2](../README.md) concluye con una entrega, no con un cuestionario. Construirás un **kit de diagnóstico multiplataforma**, una herramienta local que describe el entorno del analizador local de eventos, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
 
 ### Resultado de aprendizaje
 
@@ -37,7 +37,7 @@ Al terminar podrás entregar una herramienta multiplataforma con contrato explí
 
 ## Prerrequisitos
 
-Parte 2 completa y evidencias de `SE-035`. Debes contar con una plataforma ejecutable; las demás pueden permanecer diseñadas si no existe acceso, siempre que la matriz lo diga.
+[Parte 2](../README.md) completa y evidencias de `SE-035`. Debes contar con una plataforma ejecutable; las demás pueden permanecer diseñadas si no existe acceso, siempre que la matriz lo diga.
 
 ## Problema auténtico
 
@@ -311,7 +311,7 @@ harness puede exigir que cualquier herramienta que el agente use cumpla estas pr
 
 ## Transferencia
 
-Extiende el contrato para diagnosticar una llamada de red en la Parte 3. Identifica qué nuevos datos requieren consentimiento y qué adaptadores deben cambiar.
+Extiende el contrato para diagnosticar una llamada de red en la [Parte 3](../../part-03-redes-internet-y-protocolos/README.md). Identifica qué nuevos datos requieren consentimiento y qué adaptadores deben cambiar.
 
 ## Evaluación y evidencia
 
@@ -319,7 +319,7 @@ Se evalúan contrato, modelo causal, portabilidad demostrada, seguridad, recuper
 
 ## Criterio de cierre
 
-La Parte 2 queda completada cuando el kit de diagnóstico multiplataforma puede ser ejecutado por otra persona, explica al menos dos fallos independientes, conserva contratos en PowerShell y Bash, no expone el secreto centinela, deja el entorno limpio y publica exactamente qué plataformas y escenarios fueron probados.
+La [Parte 2](../README.md) queda completada cuando el kit de diagnóstico multiplataforma puede ser ejecutado por otra persona, explica al menos dos fallos independientes, conserva contratos en PowerShell y Bash, no expone el secreto centinela, deja el entorno limpio y publica exactamente qué plataformas y escenarios fueron probados.
 
 ## Límites y siguiente paso
 

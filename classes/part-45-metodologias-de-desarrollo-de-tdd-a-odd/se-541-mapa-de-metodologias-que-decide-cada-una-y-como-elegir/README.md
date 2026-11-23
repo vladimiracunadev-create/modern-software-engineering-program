@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de elegir una metodología por su nombre y empieces a elegirla por lo que produce. TDD, BDD, ATDD, DDD, el diseño por contrato, SDD, EDD y ODD circulan como etiquetas de identidad («somos un equipo TDD»), y las etiquetas no se pueden discutir con evidencia. Lo que sí se puede discutir es qué pregunta ordena cada una, qué oráculo (qué cosa decide si el resultado es correcto) deja detrás, cuánto cuesta producirlo y qué clase de error no ve. Un ingeniero que sabe eso puede combinar prácticas, abandonar una que no rinde y explicar su decisión a quien paga el trabajo. Un ingeniero que solo conoce las etiquetas repite rituales.
 
-**Por qué aparece aquí.** Abre la **Parte 45** después de **SPEC, agentes y ciclo de vida agentic**: la Parte 47 enseñó a especificar, delegar y detener a un agente. Ahora el objeto de estudio son las prácticas con que un equipo organiza el desarrollo alrededor de un oráculo, y la razón de colocarlas después de los agentes es práctica: cuando quien escribe el código es una persona o un agente, el oráculo es lo único que no cambia de manos. La Parte 35 ya trató la estrategia y las técnicas de prueba; esta parte trata las **metodologías** que deciden cuándo y en qué orden se produce cada evidencia.
+**Por qué aparece aquí.** Abre la **[Parte 45](../README.md)** después de **SPEC, agentes y ciclo de vida agentic**: la [Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) enseñó a especificar, delegar y detener a un agente. Ahora el objeto de estudio son las prácticas con que un equipo organiza el desarrollo alrededor de un oráculo, y la razón de colocarlas después de los agentes es práctica: cuando quien escribe el código es una persona o un agente, el oráculo es lo único que no cambia de manos. La [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) ya trató la estrategia y las técnicas de prueba; esta parte trata las **metodologías** que deciden cuándo y en qué orden se produce cada evidencia.
 
 **Error conceptual que debe corregir.** Creer que las metodologías compiten entre sí y que hay una correcta. Compiten por atención y por presupuesto, pero responden preguntas distintas: qué debe hacer el sistema (BDD, ATDD, SDD), con qué palabras se dice (DDD), con qué interfaces se conecta (contratos), cómo se construye paso a paso (TDD) y cómo se sabe que sigue sirviendo cuando el resultado es probabilístico u opera en producción (EDD, ODD). En el laboratorio de esta clase, ningún oráculo basta solo y los pares de naturaleza distinta cubren lo que ninguno ve.
 
@@ -31,12 +31,12 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 47: un agente hace lo más plausible donde la especificación calla, y lo único que lo contiene es un oráculo que no haya producido él. La pregunta activa es: **¿qué práctica de las que usas hoy (pruebas de ejemplo, revisión por pares, un contrato, una validación manual) te avisaría primero si el último cambio que hiciste rompió algo, y qué clase de error no vería?**
+Recupera lo aprendido en la [Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md): un agente hace lo más plausible donde la especificación calla, y lo único que lo contiene es un oráculo que no haya producido él. La pregunta activa es: **¿qué práctica de las que usas hoy (pruebas de ejemplo, revisión por pares, un contrato, una validación manual) te avisaría primero si el último cambio que hiciste rompió algo, y qué clase de error no vería?**
 
 ## Prerrequisitos
 
 - Haber completado `SE-576` o poder explicar cómo se entrega un producto validado por el sistema y no por autodeclaración.
-- Haber visto en la Parte 35 qué es una prueba de mutación y por qué la cobertura de líneas no mide la capacidad de detección.
+- Haber visto en la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) qué es una prueba de mutación y por qué la cobertura de líneas no mide la capacidad de detección.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `itertools`, `time`).
 - Saber leer una tabla de resultados con una semilla fija.
 

@@ -232,7 +232,7 @@ Entrega `diagnostico-log.md` con la predicción, las tres tablas de resultados r
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. El taller deja el undécimo artefacto: una bitácora de diagnóstico y una lista de telemetría que vigilar. `SE-504` reúne todo en un paquete operativo reproducible: señales, objetivos, alertas, runbooks, copias y ejercicios. Cambia después un solo dato, qué señal falta, y observa cómo cambia el conjunto de candidatas.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). El taller deja el undécimo artefacto: una bitácora de diagnóstico y una lista de telemetría que vigilar. `SE-504` reúne todo en un paquete operativo reproducible: señales, objetivos, alertas, runbooks, copias y ejercicios. Cambia después un solo dato, qué señal falta, y observa cómo cambia el conjunto de candidatas.
 
 ## Preguntas frecuentes
 

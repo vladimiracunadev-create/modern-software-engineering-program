@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-373` (los reintentos son necesarios y peligrosos) y en `SE-375` (cada estructura entrega un mensaje de forma distinta). Recupera de la Parte 29 la idea de transacción: guardar la clave de un mensaje visto y el efecto en una sola unidad evita estados intermedios. La pregunta activa es: **si este mensaje llega dos veces, o tarde, ¿qué estado final queda y quién lo sabría?**
+Recupera lo aprendido en `SE-373` (los reintentos son necesarios y peligrosos) y en `SE-375` (cada estructura entrega un mensaje de forma distinta). Recupera de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) la idea de transacción: guardar la clave de un mensaje visto y el efecto en una sola unidad evita estados intermedios. La pregunta activa es: **si este mensaje llega dos veces, o tarde, ¿qué estado final queda y quién lo sabría?**
 
 ## Prerrequisitos
 
@@ -221,7 +221,7 @@ Entrega `semanticas-log.md` con las predicciones, las tres tablas reproducidas c
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el cuarto artefacto: la tabla de garantías de cada consumidor. `SE-377` pregunta cómo publicar el mensaje de forma atómica con el cambio en la base de datos y cómo coordinar pasos entre servicios. Cambia después una sola decisión, el orden de acuse y proceso del registro de calificaciones, y observa qué defecto aparece y cuál desaparece.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el cuarto artefacto: la tabla de garantías de cada consumidor. `SE-377` pregunta cómo publicar el mensaje de forma atómica con el cambio en la base de datos y cómo coordinar pasos entre servicios. Cambia después una sola decisión, el orden de acuse y proceso del registro de calificaciones, y observa qué defecto aparece y cuál desaparece.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas qué comprobaciones automáticas y humanas debe pasar un cambio antes de integrarse, y para que sepas qué puede y qué no puede afirmar cada una. Una revisión por pares, un analizador estático y una compuerta de calidad (quality gate) son instrumentos con una tasa de falsas alarmas, una tasa de defectos que no ven y un costo de espera; la habilidad es combinarlos sin confundir «el pipeline está verde» con «el cambio es correcto».
 
-**Por qué aparece aquí.** Sigue a **Modelos de calidad y atributos medibles**: ya hay escenarios con una medida; ahora hace falta decir cómo se vigila que cada cambio no los empeore. La Parte 35 trató las pruebas; esta clase trata lo que se comprueba sin ejecutar el sistema (lectura, análisis del código) y las reglas que deciden si un cambio entra. El caso conductor es el repositorio de la API de entregas.
+**Por qué aparece aquí.** Sigue a **Modelos de calidad y atributos medibles**: ya hay escenarios con una medida; ahora hace falta decir cómo se vigila que cada cambio no los empeore. La [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) trató las pruebas; esta clase trata lo que se comprueba sin ejecutar el sistema (lectura, análisis del código) y las reglas que deciden si un cambio entra. El caso conductor es el repositorio de la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que una compuerta con umbrales garantiza calidad: una compuerta solo convierte una medida en una decisión, y si la medida no ve el defecto o el umbral no se aplica al cambio, deja pasar lo que debía parar y bloquea lo que debía pasar.
 
@@ -217,7 +217,7 @@ Entrega `gates-log.md` con la predicción, las tres tablas de resultados, las tr
 
 ## Caso conductor
 
-El repositorio de la API de entregas es el caso conductor de la Parte 36. Esta clase deja el segundo artefacto: las comprobaciones del cambio con su regla de decisión. `SE-435` pondrá a prueba el escenario de eficiencia con carga, y la compuerta de esta clase decidirá si un cambio que empeora el rendimiento puede entrar. Cambia después un solo dato, el umbral de cobertura, y observa qué cambios cambian de decisión.
+El repositorio de la API de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el segundo artefacto: las comprobaciones del cambio con su regla de decisión. `SE-435` pondrá a prueba el escenario de eficiencia con carga, y la compuerta de esta clase decidirá si un cambio que empeora el rendimiento puede entrar. Cambia después un solo dato, el umbral de cobertura, y observa qué cambios cambian de decisión.
 
 ## Preguntas frecuentes
 

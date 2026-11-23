@@ -210,7 +210,7 @@ Entrega `carga-log.md` con la predicción, las tres tablas de resultados, el pla
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 36. Esta clase deja el tercer artefacto: un plan de pruebas de carga con su generador y su criterio. `SE-436` explicará con teoría de colas por qué la latencia crece tanto cerca de la saturación y `SE-438` añadirá los reintentos que aquí no existen. Cambia después un solo parámetro, la utilización base, y observa cuánto cambia el tiempo de recuperación.
+La API de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el tercer artefacto: un plan de pruebas de carga con su generador y su criterio. `SE-436` explicará con teoría de colas por qué la latencia crece tanto cerca de la saturación y `SE-438` añadirá los reintentos que aquí no existen. Cambia después un solo parámetro, la utilización base, y observa cuánto cambia el tiempo de recuperación.
 
 ## Preguntas frecuentes
 

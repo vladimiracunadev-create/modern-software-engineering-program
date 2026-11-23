@@ -226,7 +226,7 @@ Entrega `guardia-log.md` con la predicción, las tres tablas de resultados repro
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el séptimo artefacto: un runbook verificable con una rotación y un escalamiento dimensionados. `SE-500` pasa de la respuesta individual a la coordinada: qué hacen varias personas cuando el incidente es mayor, cómo se comunican y quién decide. Cambia después un solo parámetro, el número de personas de la rotación, y observa cuánto cae la carga de la persona más expuesta.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el séptimo artefacto: un runbook verificable con una rotación y un escalamiento dimensionados. `SE-500` pasa de la respuesta individual a la coordinada: qué hacen varias personas cuando el incidente es mayor, cómo se comunican y quién decide. Cambia después un solo parámetro, el número de personas de la rotación, y observa cuánto cae la carga de la persona más expuesta.
 
 ## Preguntas frecuentes
 

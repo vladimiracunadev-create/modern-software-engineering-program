@@ -16,6 +16,7 @@ except ModuleNotFoundError:  # importado como scripts.build_phase2
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_cases  # noqa: E402
+import cross_references  # noqa: E402
 import legacy_pages  # noqa: E402
 from role_profiles import PROFILES as ROLE_PROFILES  # noqa: E402
 
@@ -319,7 +320,16 @@ def relative(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
 
 
+NARRATIVE_SITE_PAGES = ("site/legacy/", "site/404.html")  # narran la migración: conservan IDs antiguos
+
+
 def write_generated(path: Path, content: str, check: bool, stale: list[str]) -> None:
+    location = relative(path)
+    if path.suffix == ".md" and not cross_references.is_historical(location):
+        # Punto único de salida de Markdown generado: toda mención SE-nnn / Parte NN sale enlazada.
+        content = cross_references.resolve(content, location.rpartition("/")[0])
+    elif path.suffix == ".html" and location.startswith("site/") and not location.startswith(NARRATIVE_SITE_PAGES):
+        content = cross_references.resolve_html(content, location.rpartition("/")[0])
     if check:
         if not path.exists() or path.read_text(encoding="utf-8") != content:
             stale.append(relative(path))
@@ -808,7 +818,8 @@ def part_page(part: dict) -> str:
             "(../../docs/PEDAGOGICAL-STANDARD.md)",
             "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/docs/PEDAGOGICAL-STANDARD.md)",
         )
-        editorial_content, editorial_headings = markdown_to_html(editorial_markdown)
+        editorial_markdown = cross_references.resolve(editorial_markdown, part["path"])
+        editorial_content, editorial_headings = markdown_to_html(editorial_markdown, "parts", part["path"])
         editorial_toc = "".join(
             f'<li><a href="#{anchor}">{html.escape(label)}</a></li>'
             for anchor, label in editorial_headings

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que definas cuándo un trabajo está listo para empezar, cuándo está terminado y cuándo se acepta, de modo que cada umbral reduzca un riesgo concreto a un coste conocido y no se convierta en una lista de verificación que se cumple por costumbre.
 
-**Por qué aparece aquí.** Se sitúa después de **Riesgos, supuestos, issues y decisiones** y antes de **Métricas de flujo, calidad y resultados**: la clase anterior registró incertidumbres; esta fija las puertas por las que pasa el trabajo (entrada, salida, aceptación) y la siguiente medirá qué ocurre al cruzarlas. Los criterios de aceptación son además el punto donde la Parte 12 (requisitos) y la Parte 13 (ejemplos y contratos) se encuentran con el proceso.
+**Por qué aparece aquí.** Se sitúa después de **Riesgos, supuestos, issues y decisiones** y antes de **Métricas de flujo, calidad y resultados**: la clase anterior registró incertidumbres; esta fija las puertas por las que pasa el trabajo (entrada, salida, aceptación) y la siguiente medirá qué ocurre al cruzarlas. Los criterios de aceptación son además el punto donde la [Parte 12](../../part-12-ingenieria-de-requisitos/README.md) (requisitos) y la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) (ejemplos y contratos) se encuentran con el proceso.
 
 **Error conceptual que debe corregir.** Creer que cuantas más comprobaciones tenga la definición de terminado menos defectos escapan, o que una definición de listo estricta siempre ahorra tiempo: las comprobaciones correlacionadas se solapan, y exigir más preparación retrasa el inicio.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo que dejó la Parte 13: ejemplos que separan lecturas y contratos comprobables. Aquí se convierten en criterios de aceptación y en puertas del proceso. La pregunta activa es: **¿qué riesgo evita cada puerta, qué cuesta y cuándo deja de aportar?**
+Recupera lo que dejó la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md): ejemplos que separan lecturas y contratos comprobables. Aquí se convierten en criterios de aceptación y en puertas del proceso. La pregunta activa es: **¿qué riesgo evita cada puerta, qué cuesta y cuándo deja de aportar?**
 
 ## Prerrequisitos
 
@@ -221,7 +221,7 @@ Entrega `gates-log.md` con las dos definiciones, los criterios de una historia, 
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el octavo artefacto: las puertas de listo, terminado y aceptación por tipo de trabajo, con el escape que justifica cada casilla. `SE-189` medirá qué ocurre cuando el trabajo cruza esas puertas. Cambia después una sola casilla, el análisis estático, y observa qué escape reaparece.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el octavo artefacto: las puertas de listo, terminado y aceptación por tipo de trabajo, con el escape que justifica cada casilla. `SE-189` medirá qué ocurre cuando el trabajo cruza esas puertas. Cambia después una sola casilla, el análisis estático, y observa qué escape reaparece.
 
 ## Preguntas frecuentes
 

@@ -186,7 +186,7 @@ Entrega `contracts-log.md` con la clase y sus contratos, los nueve defectos, la 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja los contratos de `Calificacion` (precondiciones, postcondición e invariantes) y un conductor aleatorio. `SE-160` modelará la estructura de esas entidades y `SE-161` el comportamiento como máquina de estados cuyos invariantes se comprobarán sobre todos los estados alcanzables. Cambia después un solo contrato, el tope de prórroga de 72 a 48 horas, y revisa qué ejemplos, pruebas y clientes dependían de él.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja los contratos de `Calificacion` (precondiciones, postcondición e invariantes) y un conductor aleatorio. `SE-160` modelará la estructura de esas entidades y `SE-161` el comportamiento como máquina de estados cuyos invariantes se comprobarán sobre todos los estados alcanzables. Cambia después un solo contrato, el tope de prórroga de 72 a 48 horas, y revisa qué ejemplos, pruebas y clientes dependían de él.
 
 ## Preguntas frecuentes
 

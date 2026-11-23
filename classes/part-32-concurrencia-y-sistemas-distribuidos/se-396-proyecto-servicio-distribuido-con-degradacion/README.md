@@ -4,9 +4,9 @@
 
 ## Punto profesional y fundamento pedagógico
 
-**Punto profesional.** El proyecto existe para que entregues un servicio del que se pueda decir con evidencia qué garantiza, qué deja de garantizar cuando una dependencia falla o la carga lo supera, y qué ve la persona usuaria en cada caso. Integra la Parte 32 en un paquete revisable: garantías declaradas, presupuestos de tiempo y de reintentos, escalera de degradación, protección ante sobrecarga, pruebas para cada promesa y un archivo de límites.
+**Punto profesional.** El proyecto existe para que entregues un servicio del que se pueda decir con evidencia qué garantiza, qué deja de garantizar cuando una dependencia falla o la carga lo supera, y qué ve la persona usuaria en cada caso. Integra la [Parte 32](../README.md) en un paquete revisable: garantías declaradas, presupuestos de tiempo y de reintentos, escalera de degradación, protección ante sobrecarga, pruebas para cada promesa y un archivo de límites.
 
-**Por qué aparece aquí.** Cierra la **Parte 32** después de **Taller: reproducir una carrera y un fallo parcial**: el taller dio las técnicas de diagnóstico; el proyecto las usa para sostener un servicio completo. Prepara la Parte 33, que lleva este servicio a una plataforma de nube y necesita saber qué se espera de él cuando la infraestructura falle.
+**Por qué aparece aquí.** Cierra la **[Parte 32](../README.md)** después de **Taller: reproducir una carrera y un fallo parcial**: el taller dio las técnicas de diagnóstico; el proyecto las usa para sostener un servicio completo. Prepara la [Parte 33](../../part-33-cloud-plataforma-e-infraestructura/README.md), que lleva este servicio a una plataforma de nube y necesita saber qué se espera de él cuando la infraestructura falle.
 
 **Error conceptual que debe corregir.** Creer que un paquete completo es un paquete correcto: un documento con todas las secciones puede declarar una garantía imposible, un presupuesto de tiempo incoherente o una prueba que nunca se ejecutó, y un verificador de forma no lo ve.
 
@@ -223,7 +223,7 @@ Entrega el paquete `servicio-distribuido/` completo con una prueba ejecutable po
 
 ## Caso conductor
 
-El paquete del servicio de entregas es el artefacto final de la Parte 32. La Parte 33 lleva ese servicio a una plataforma de nube y se pregunta qué responsabilidad corresponde a quién cuando la infraestructura falla. Cambia al final una sola decisión, el tamaño de la cola de escrituras, y observa qué otra (la garantía de acuse) se ve afectada.
+El paquete del servicio de entregas es el artefacto final de la [Parte 32](../README.md). La [Parte 33](../../part-33-cloud-plataforma-e-infraestructura/README.md) lleva ese servicio a una plataforma de nube y se pregunta qué responsabilidad corresponde a quién cuando la infraestructura falla. Cambia al final una sola decisión, el tamaño de la cola de escrituras, y observa qué otra (la garantía de acuse) se ve afectada.
 
 ## Preguntas frecuentes
 
@@ -320,7 +320,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 21,2 turno
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió una carga real: la caída de 60 s, la sobrecarga del 50 %, la proporción 30/70, la capacidad constante y las mutaciones del paquete son construcciones del autor, y el validador se escribió conociendo las mutaciones. La Parte 33 lleva este servicio a una plataforma de nube y se pregunta quién responde de cada capa cuando la infraestructura falla.
+Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió una carga real: la caída de 60 s, la sobrecarga del 50 %, la proporción 30/70, la capacidad constante y las mutaciones del paquete son construcciones del autor, y el validador se escribió conociendo las mutaciones. La [Parte 33](../../part-33-cloud-plataforma-e-infraestructura/README.md) lleva este servicio a una plataforma de nube y se pregunta quién responde de cada capa cuando la infraestructura falla.
 
 ## Glosario
 

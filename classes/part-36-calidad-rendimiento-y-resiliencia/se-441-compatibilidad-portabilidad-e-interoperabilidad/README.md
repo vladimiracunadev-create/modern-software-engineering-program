@@ -236,7 +236,7 @@ Entrega `compat-log.md` con la predicción, las tres tablas de resultados, el co
 
 ## Caso conductor
 
-El mensaje de entrega de la plataforma es el caso conductor de la Parte 36. Esta clase deja el noveno artefacto: un contrato de interoperabilidad y una matriz ejecutable. `SE-442` preguntará cómo se mide la experiencia de quien usa el producto en dispositivos distintos y con presupuestos explícitos. Cambia después un solo dato, la política de lectura (estricta o tolerante), y observa cuántos pares dejan de ser compatibles.
+El mensaje de entrega de la plataforma es el caso conductor de la [Parte 36](../README.md). Esta clase deja el noveno artefacto: un contrato de interoperabilidad y una matriz ejecutable. `SE-442` preguntará cómo se mide la experiencia de quien usa el producto en dispositivos distintos y con presupuestos explícitos. Cambia después un solo dato, la política de lectura (estricta o tolerante), y observa cuántos pares dejan de ser compatibles.
 
 ## Preguntas frecuentes
 

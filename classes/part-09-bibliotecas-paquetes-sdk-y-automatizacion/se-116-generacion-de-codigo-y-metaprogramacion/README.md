@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Generación de código y metaprogramación** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cuándo generar código reduce duplicación y cuándo crea una segunda fuente imposible de reconciliar?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Generación de código y metaprogramación** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cuándo generar código reduce duplicación y cuándo crea una segunda fuente imposible de reconciliar?**
 
 ## Prerrequisitos
 

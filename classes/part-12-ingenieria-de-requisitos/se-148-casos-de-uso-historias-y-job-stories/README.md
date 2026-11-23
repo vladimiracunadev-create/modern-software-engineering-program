@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas el requisito conductor de la Parte 12: recuperar borradores cuando la sesión expira. Ya tiene origen (`SE-145`), reglas (`SE-146`) y escenarios de calidad (`SE-147`). Ahora hay que contarlo de modo que la estudiante, la docente y quien programa entiendan lo mismo. Recupera lo aprendido: una regla enumerada en una tabla revela huecos que el texto corrido oculta. La pregunta activa es: **¿qué forma de contar el requisito reduce la incertidumbre que más pesa ahora: la secuencia de pasos, la conversación sobre el valor o la situación que desencadena la necesidad?**
+Retomas el requisito conductor de la [Parte 12](../README.md): recuperar borradores cuando la sesión expira. Ya tiene origen (`SE-145`), reglas (`SE-146`) y escenarios de calidad (`SE-147`). Ahora hay que contarlo de modo que la estudiante, la docente y quien programa entiendan lo mismo. Recupera lo aprendido: una regla enumerada en una tabla revela huecos que el texto corrido oculta. La pregunta activa es: **¿qué forma de contar el requisito reduce la incertidumbre que más pesa ahora: la secuencia de pasos, la conversación sobre el valor o la situación que desencadena la necesidad?**
 
 ## Prerrequisitos
 

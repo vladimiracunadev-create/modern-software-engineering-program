@@ -141,7 +141,7 @@ confirma o descarta cada una. La regla es probar primero lo más *barato* y lo q
 
 ### Reparar con límites: la secuencia real del laboratorio
 
-El laboratorio de la Parte 02 convierte el taller en una secuencia reproducible. Ejecutada con el adaptador de Bash en Ubuntu 24.04 (WSL2) sobre un workspace desechable: `prepare` informó `changed` y, repetido, `unchanged` (idempotente); `inspect` informó `healthy` sobre `Linux x86_64`; al sustituir `settings.json` por `{broken`, `inspect` informó `degraded` con la categoría `integrity` y
+El laboratorio de la [Parte 02](../README.md) convierte el taller en una secuencia reproducible. Ejecutada con el adaptador de Bash en Ubuntu 24.04 (WSL2) sobre un workspace desechable: `prepare` informó `changed` y, repetido, `unchanged` (idempotente); `inspect` informó `healthy` sobre `Linux x86_64`; al sustituir `settings.json` por `{broken`, `inspect` informó `degraded` con la categoría `integrity` y
 el mensaje `invalid settings.json`, con código de salida 2; `repair` restauró la configuración y `inspect` volvió a `healthy`; `clean` con un archivo ajeno (`student-notes.txt`) dentro se negó con código 3 y dejó el directorio con cuatro archivos; y tras retirar ese archivo, `clean` terminó con 0 dejando el workspace vacío. Lo notable es lo que *no* hace: `repair` solo repone dos archivos conocidos y no toca el marker de propiedad, y `clean`
 se niega a borrar lo que no reconoce.
 

@@ -53,11 +53,11 @@ pero no compite con el equipo por ser quien implementa más.
 
 ## 📚 Tu ruta en el programa
 
-1. Parte 00 para ética, roles y responsabilidad.
-2. Partes 10–17 para producto, economía, requisitos, planificación y colaboración.
-3. Parte 36 para calidad y resiliencia; Parte 41 para incidentes.
+1. [Parte 00](../classes/part-00-ingenieria-de-software-como-profesion/README.md) para ética, roles y responsabilidad.
+2. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) para producto, economía, requisitos, planificación y colaboración.
+3. [Parte 36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) para calidad y resiliencia; [Parte 41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para incidentes.
 4. [Parte 44 — Gestión, liderazgo y práctica profesional](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md).
-5. Partes 46–47 para gobernar adopción responsable de IA.
+5. Partes [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md)–[47](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) para gobernar adopción responsable de IA.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -134,17 +134,17 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-005 · Roles, especialidades y colaboración interdisciplinaria](../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) | Parte 00 |
-| [SE-187 · Riesgos, supuestos, issues y decisiones](../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) | Parte 15 |
-| [SE-188 · Definition of Ready, Done y aceptación](../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) | Parte 15 |
-| [SE-196 · Pull requests y revisión basada en riesgo](../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) | Parte 16 |
-| [SE-310 · Deuda técnica, interés y opciones](../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md) | Parte 25 |
-| [SE-334 · Arquitectura socio-técnica y límites de equipo](../classes/part-27-arquitectura-de-software-y-dominio/se-334-arquitectura-socio-tecnica-y-limites-de-equipo/README.md) | Parte 27 |
+| [SE-005 · Roles, especialidades y colaboración interdisciplinaria](../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) | [Parte 00](../classes/part-00-ingenieria-de-software-como-profesion/README.md) |
+| [SE-187 · Riesgos, supuestos, issues y decisiones](../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) | [Parte 15](../classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| [SE-188 · Definition of Ready, Done y aceptación](../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) | [Parte 15](../classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| [SE-196 · Pull requests y revisión basada en riesgo](../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) | [Parte 16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
+| [SE-310 · Deuda técnica, interés y opciones](../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md) | [Parte 25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md) |
+| [SE-334 · Arquitectura socio-técnica y límites de equipo](../classes/part-27-arquitectura-de-software-y-dominio/se-334-arquitectura-socio-tecnica-y-limites-de-equipo/README.md) | [Parte 27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-134](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) para fijar el
 primer mecanismo, usa [SE-497](../classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error/README.md) para integrar el
@@ -154,7 +154,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

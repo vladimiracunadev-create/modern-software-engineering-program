@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 
+import cross_references
 import program_state as ps
 from role_profiles import (
     DEVELOPED,
@@ -73,7 +74,7 @@ ROLE_GROUPS: list[tuple[str, list[tuple[str, str]]]] = [
     (
         '🚀 Cloud, entrega, confiabilidad y plataforma',
         [
-            ('devops-engineer.md', 'entrega repetible, supply chain y rollback'),
+            ('devops-engineer.md', 'entrega repetible, cadena de suministro y rollback'),
             ('build-release-engineer.md', 'artefactos, procedencia, firma y promoción'),
             ('cloud-engineer.md', 'IAM, infraestructura, automatización y recuperación'),
             ('site-reliability-engineer.md', 'SLO, capacidad, incidentes y aprendizaje'),
@@ -859,6 +860,7 @@ def build(check: bool) -> None:
             render_role_depth(filename, title, mission, profile_data, classes, parts),
             "## 🧪 Evidencia de portafolio",
         )
+        rendered = cross_references.resolve(rendered, "roles")
         if rendered != original:
             changed.append(path)
             if not check:
@@ -873,7 +875,7 @@ def build(check: bool) -> None:
         render_main_map(classes, parts),
         "### 🪜 El ecosistema de carrera técnica",
     )
-    main_rendered = render_main_intro(main_rendered)
+    main_rendered = cross_references.resolve(render_main_intro(main_rendered), "")
     if main_rendered != main_original:
         changed.append(main_path)
         if not check:
@@ -888,7 +890,7 @@ def build(check: bool) -> None:
         render_index_depth(classes, parts),
         "## Fuentes y criterios del mapa",
     )
-    index_rendered = render_index_table(index_rendered)
+    index_rendered = cross_references.resolve(render_index_table(index_rendered), "roles")
     if index_rendered != index_original:
         changed.append(index_path)
         if not check:

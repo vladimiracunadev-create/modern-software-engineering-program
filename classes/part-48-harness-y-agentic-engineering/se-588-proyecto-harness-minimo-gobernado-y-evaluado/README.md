@@ -173,7 +173,7 @@ Entrega el proyecto con: (1) el harness (código y configuración); (2) las inst
 
 ## Caso conductor
 
-El arnés de *Avisos* termina aquí: el asistente que mantiene el servicio de recordatorios trabaja dentro de un harness con instrucciones comprobadas, permisos y confinamiento, relevo de contexto, parada con escalada, directorio desechable, menú de validación, trazas y política de gobierno. La Parte 49 usa este harness como entorno para estudiar patrones agénticos y sistemas con LLM.
+El arnés de *Avisos* termina aquí: el asistente que mantiene el servicio de recordatorios trabaja dentro de un harness con instrucciones comprobadas, permisos y confinamiento, relevo de contexto, parada con escalada, directorio desechable, menú de validación, trazas y política de gobierno. La [Parte 49](../../part-49-patrones-agenticos-y-sistemas-con-llm/README.md) usa este harness como entorno para estudiar patrones agénticos y sistemas con LLM.
 
 ## Preguntas frecuentes
 
@@ -249,7 +249,7 @@ Aplica el proyecto a un repositorio tuyo real: escribe la tabla de riesgos, conf
 
 ## Límites y siguiente paso
 
-El harness de referencia se ejecutó con una política guionizada, seis tareas y cuatro escenarios del autor, en Windows 11 con CPython 3.12.9. No se ejecutó ningún modelo de lenguaje, no se probó un adversario adaptativo ni procesos hijos, y no se midió ningún equipo. El siguiente paso es la Parte 49, que usa un harness como el de este proyecto para estudiar los patrones agénticos (flujos, enrutamiento, orquestación, memoria, recuperación, interoperabilidad) y la evaluación y operación de sistemas con modelos de lenguaje.
+El harness de referencia se ejecutó con una política guionizada, seis tareas y cuatro escenarios del autor, en Windows 11 con CPython 3.12.9. No se ejecutó ningún modelo de lenguaje, no se probó un adversario adaptativo ni procesos hijos, y no se midió ningún equipo. El siguiente paso es la [Parte 49](../../part-49-patrones-agenticos-y-sistemas-con-llm/README.md), que usa un harness como el de este proyecto para estudiar los patrones agénticos (flujos, enrutamiento, orquestación, memoria, recuperación, interoperabilidad) y la evaluación y operación de sistemas con modelos de lenguaje.
 
 ## Glosario
 

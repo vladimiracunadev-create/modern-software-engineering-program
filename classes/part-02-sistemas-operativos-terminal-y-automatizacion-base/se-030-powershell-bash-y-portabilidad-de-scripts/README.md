@@ -141,7 +141,7 @@ En Bash, `$?` guarda el código del último comando, `set -e` detiene el script 
 ### Niveles de portabilidad
 
 «Portable» no es un valor binario. Un script de Bash exige Bash; uno POSIX `sh` exige un intérprete compatible, pero las herramientas externas (`sed`, `date`) varían entre sistemas; uno de PowerShell exige 5.1 o 7; y un núcleo en un
-lenguaje con adaptadores finos exige un runtime declarado. El diseño del laboratorio de la Parte 02 elige el último nivel: un núcleo en Python con un adaptador de Bash y otro de PowerShell que solo traducen argumentos y
+lenguaje con adaptadores finos exige un runtime declarado. El diseño del laboratorio de la [Parte 02](../README.md) elige el último nivel: un núcleo en Python con un adaptador de Bash y otro de PowerShell que solo traducen argumentos y
 códigos de salida. Probar el mismo contrato en Windows y en Linux (el laboratorio pasó sus diez pruebas en ambos, en Python 3.12.9 y 3.12.3) es lo que lo hace portable, no la sintaxis.
 
 ![Cuatro niveles de portabilidad, de lo más estrecho a lo más amplio: un script de Bash, un script POSIX sh, un script de PowerShell y un núcleo en un lenguaje con adaptadores finos; de cada nivel salen lo que exige de la plataforma y lo que no garantiza.](../../../content/part-02/figures/se-030-niveles-de-portabilidad.svg)

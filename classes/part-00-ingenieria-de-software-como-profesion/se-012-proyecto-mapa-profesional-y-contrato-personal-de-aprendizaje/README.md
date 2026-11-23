@@ -14,7 +14,7 @@ Cerrarás la parte conectando todos los artefactos que construiste alrededor de
 **Campus Abierto**: fronteras, ciclo de vida, análisis ético, colaboración, evidencia,
 calidad, riesgo, impacto y lectura de fuentes. El
 resultado será un contrato personal revisable que enlaza cada brecha con una práctica
-y una prueba. La Parte 01 podrá entonces aportar fundamentos de computación a una ruta
+y una prueba. La [Parte 01](../../part-01-computadores-y-representacion-de-informacion/README.md) podrá entonces aportar fundamentos de computación a una ruta
 que ya sabe por qué los necesita.
 
 ## Prerrequisitos
@@ -76,8 +76,8 @@ sostiene si hay un artefacto que otra persona pueda revisar.
 ### 2. El portafolio contiene decisiones, no solo resultados bonitos
 
 Un artefacto demuestra más cuando conserva propósito, contexto, alternativas, método,
-resultado, revisión y límite. El mapa de SE-001 muestra frontera; el caso de SE-004,
-deliberación; el log de SE-006, calidad de inferencia; la anatomía de SE-011, integración.
+resultado, revisión y límite. El mapa de [SE-001](../se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) muestra frontera; el caso de [SE-004](../se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md),
+deliberación; el log de [SE-006](../se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md), calidad de inferencia; la anatomía de [SE-011](../se-011-taller-anatomia-verificable-de-un-producto-real/README.md), integración.
 Una captura final sin proceso puede probar que algo existió, no quién lo produjo ni qué
 capacidad movilizó.
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de elegir una arquitectura por su nombre y empieces a elegirla por las fuerzas que debe resistir. «Microservicios», «monolito», «celdas» o «eventos» circulan como símbolos de madurez técnica, y un símbolo no se puede discutir con evidencia. Lo que sí se puede discutir es qué atributo de calidad exige el sistema (una latencia, una disponibilidad, una forma de cambiar), qué tácticas lo atienden y qué se pierde al adoptarlas. Un ingeniero que sabe hacerlo puede explicar a quien paga por qué un monolito modular es la respuesta correcta hoy y qué número haría cambiar esa respuesta mañana. Quien solo conoce los nombres repite la moda del año.
 
-**Por qué aparece aquí.** Abre la **Parte 28** después de la Parte 26, que enseñó patrones de diseño a escala de clases y módulos. Un estilo arquitectónico opera una escala por encima: no decide cómo se escribe una clase sino qué unidades se despliegan, cómo se comunican y qué fallo puede cruzar entre ellas. La Parte 27 presentó los drivers y atributos de arquitectura (`SE-325`), las vistas, el monolito frente a los servicios (`SE-327`), el trade-off y el ADR (`SE-333`) y la dimensión socio-técnica (`SE-334`); esta parte toma esas ideas y compara once estilos y técnicas con costos medidos en código. Esta primera clase fija el método con el que se juzgarán los once estilos y técnicas siguientes.
+**Por qué aparece aquí.** Abre la **[Parte 28](../README.md)** después de la [Parte 26](../../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md), que enseñó patrones de diseño a escala de clases y módulos. Un estilo arquitectónico opera una escala por encima: no decide cómo se escribe una clase sino qué unidades se despliegan, cómo se comunican y qué fallo puede cruzar entre ellas. La [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) presentó los drivers y atributos de arquitectura (`SE-325`), las vistas, el monolito frente a los servicios (`SE-327`), el trade-off y el ADR (`SE-333`) y la dimensión socio-técnica (`SE-334`); esta parte toma esas ideas y compara once estilos y técnicas con costos medidos en código. Esta primera clase fija el método con el que se juzgarán los once estilos y técnicas siguientes.
 
 **Error conceptual que debe corregir.** Creer que existe un estilo mejor que los demás y que elegirlo es una cuestión de conocimiento técnico. Un estilo es un conjunto de restricciones que favorece unos atributos de calidad a costa de otros. Con la misma matriz de valoraciones, en esta clase ganan cuatro estilos distintos según el contexto; ninguno gana en los cuatro. Lo que cambia entre un contexto y otro no es la tecnología, son los pesos: cuánto importa desplegar de forma independiente frente a cuánto importa operar sin esfuerzo.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 26: un patrón de diseño es una solución con una fuerza que lo motiva y un costo que lo acompaña. La pregunta activa es: **¿cuándo fue la última vez que viste elegir una tecnología de arquitectura sin que nadie escribiera qué medida debía mejorar, y cómo habrías sabido si la elección funcionó?**
+Recupera lo aprendido en la [Parte 26](../../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md): un patrón de diseño es una solución con una fuerza que lo motiva y un costo que lo acompaña. La pregunta activa es: **¿cuándo fue la última vez que viste elegir una tecnología de arquitectura sin que nadie escribiera qué medida debía mejorar, y cómo habrías sabido si la elección funcionó?**
 
 ## Prerrequisitos
 
@@ -201,7 +201,7 @@ Entrega `matriz-de-fuerzas.md` con tus escenarios, la matriz con justificaciones
 
 ## Caso conductor
 
-*Avisos* sirve de hilo para toda la parte: la regla de recordatorios de entregas que ya conoces de la Parte 45 crece hasta necesitar decisiones de arquitectura. Esta clase fija el método de decisión; `SE-338` y las siguientes lo aplican a un estilo cada vez, y `SE-347` y `SE-348` lo aplican al caso entero con una decisión defendida.
+*Avisos* sirve de hilo para toda la parte: la regla de recordatorios de entregas que ya conoces de la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) crece hasta necesitar decisiones de arquitectura. Esta clase fija el método de decisión; `SE-338` y las siguientes lo aplican a un estilo cada vez, y `SE-347` y `SE-348` lo aplican al caso entero con una decisión defendida.
 
 ## Preguntas frecuentes
 

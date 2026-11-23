@@ -216,7 +216,7 @@ Entrega `trazas-log.md` con la predicción, las tres tablas de resultados reprod
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el cuarto artefacto: un inventario de fronteras con su prueba de propagación y una política de muestreo. `SE-497` usa las señales para fijar objetivos con un presupuesto de error, y `SE-498` las convierte en alertas. Cambia después un solo parámetro, la pérdida de la cola, y observa cuántas peticiones recuperas.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el cuarto artefacto: un inventario de fronteras con su prueba de propagación y una política de muestreo. `SE-497` usa las señales para fijar objetivos con un presupuesto de error, y `SE-498` las convierte en alertas. Cambia después un solo parámetro, la pérdida de la cola, y observa cuántas peticiones recuperas.
 
 ## Preguntas frecuentes
 

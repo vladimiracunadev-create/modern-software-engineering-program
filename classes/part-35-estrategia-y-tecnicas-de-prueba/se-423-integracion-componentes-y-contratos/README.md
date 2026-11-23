@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que compruebes que las piezas de un sistema funcionan juntas sin levantar el sistema entero, y para que protejas el acuerdo entre un proveedor y sus consumidores con un contrato que cada parte pueda verificar. Un defecto de integración vive entre dos componentes que, por separado, pasan todas sus pruebas.
 
-**Por qué aparece aquí.** Sigue a **Pruebas unitarias y diseño testable**: allí cada función se comprobó aislada y con dobles; ahora hay que comprobar el acuerdo entre ellas. La Parte 27 dejó fronteras y la Parte 20 contratos de API; esta clase pregunta cómo se prueba que una frontera se respeta.
+**Por qué aparece aquí.** Sigue a **Pruebas unitarias y diseño testable**: allí cada función se comprobó aislada y con dobles; ahora hay que comprobar el acuerdo entre ellas. La [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) dejó fronteras y la [Parte 20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md) contratos de API; esta clase pregunta cómo se prueba que una frontera se respeta.
 
 **Error conceptual que debe corregir.** Creer que si cada componente pasa sus pruebas y el consumidor se prueba con un doble del proveedor, la integración queda cubierta. El doble es una copia de lo que el consumidor *cree* que el proveedor responde: si el proveedor cambia, el doble no se entera y la prueba sigue en verde.
 

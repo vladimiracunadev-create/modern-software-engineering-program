@@ -182,7 +182,7 @@ Entrega `banderas-log.md` con la predicción, las tres tablas, la política de b
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el séptimo artefacto: una política de banderas con segmentación determinista, caducidad y valor por defecto. `SE-476` aplicará la idea al despliegue: cuánto tráfico enviar a la versión nueva, cuánto esperar y cuándo revertir. Cambia después un solo dato, la probabilidad de retirada mensual, y observa cuántas banderas muertas quedan.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el séptimo artefacto: una política de banderas con segmentación determinista, caducidad y valor por defecto. `SE-476` aplicará la idea al despliegue: cuánto tráfico enviar a la versión nueva, cuánto esperar y cuándo revertir. Cambia después un solo dato, la probabilidad de retirada mensual, y observa cuántas banderas muertas quedan.
 
 ## Preguntas frecuentes
 

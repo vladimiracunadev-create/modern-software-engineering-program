@@ -47,10 +47,10 @@ GreenOps, FinOps, observabilidad, estadística y efectos rebote.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00–04 y 08 para ética, sistemas y medición.
-2. Partes 11 y 19–33 para economía y arquitectura.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[04](../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) y [08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) para ética, sistemas y medición.
+2. Partes [11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) y [19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)–[33](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) para economía y arquitectura.
 3. [Parte 36 — Calidad, rendimiento y resiliencia](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y partes 40–41 para plataforma y observabilidad.
-4. Partes 43–44 y 46 para vida útil, liderazgo y coste de IA.
+4. Partes [43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)–[44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) y [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) para vida útil, liderazgo y coste de IA.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -127,22 +127,22 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-094 · Complejidad empírica, benchmarks y perfiles](../classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles/README.md) | Parte 07 |
-| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | Parte 08 |
-| [SE-261 · Rendimiento, batería y recursos limitados](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-261-rendimiento-bateria-y-recursos-limitados/README.md) | Parte 21 |
-| [SE-267 · Restricciones de memoria, energía y cómputo](../classes/part-22-embedded-iot-y-tiempo-real/se-267-restricciones-de-memoria-energia-y-computo/README.md) | Parte 22 |
-| [SE-273 · Edge, gateways y procesamiento local](../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) | Parte 22 |
-| [SE-274 · Safety, seguridad y vida útil prolongada](../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) | Parte 22 |
-| [SE-353 · Consultas, índices y patrones de acceso](../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md) | Parte 29 |
-| [SE-356 · Cachés y consistencia entre capas](../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md) | Parte 29 |
-| [SE-358 · Privacidad, retención y ciclo de vida del dato](../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) | Parte 29 |
-| [SE-589 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | Parte 49 |
-| [SE-598 · Costo, latencia y seguridad en sistemas con LLM](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md) | Parte 49 |
+| [SE-094 · Complejidad empírica, benchmarks y perfiles](../classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles/README.md) | [Parte 07](../classes/part-07-estructuras-de-datos-y-algoritmos/README.md) |
+| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-261 · Rendimiento, batería y recursos limitados](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-261-rendimiento-bateria-y-recursos-limitados/README.md) | [Parte 21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
+| [SE-267 · Restricciones de memoria, energía y cómputo](../classes/part-22-embedded-iot-y-tiempo-real/se-267-restricciones-de-memoria-energia-y-computo/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-273 · Edge, gateways y procesamiento local](../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-274 · Safety, seguridad y vida útil prolongada](../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-353 · Consultas, índices y patrones de acceso](../classes/part-29-datos-persistencia-y-recuperacion/se-353-consultas-indices-y-patrones-de-acceso/README.md) | [Parte 29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) |
+| [SE-356 · Cachés y consistencia entre capas](../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md) | [Parte 29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) |
+| [SE-358 · Privacidad, retención y ciclo de vida del dato](../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) | [Parte 29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) |
+| [SE-589 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | [Parte 49](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md) |
+| [SE-598 · Costo, latencia y seguridad en sistemas con LLM](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md) | [Parte 49](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-013](../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) para fijar el
 primer mecanismo, usa [SE-364](../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md) para integrar el
@@ -152,7 +152,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

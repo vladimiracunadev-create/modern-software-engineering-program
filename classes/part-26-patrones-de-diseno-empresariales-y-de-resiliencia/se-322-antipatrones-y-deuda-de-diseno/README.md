@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-317`: la cohesión y el acoplamiento tiran en direc
 ## Prerrequisitos
 
 - Haber completado `SE-317` (GRASP) y `SE-313` (criterio de patrón).
-- Conocer la idea de olor de código y de refactorización de la Parte 25 y de mantenimiento de la Parte 43.
+- Conocer la idea de olor de código y de refactorización de la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) y de mantenimiento de la [Parte 43](../../part-43-mantenimiento-y-modernizacion-legacy/README.md).
 - Python 3.11 o posterior con `ast` y `random`.
 
 ## Problema auténtico

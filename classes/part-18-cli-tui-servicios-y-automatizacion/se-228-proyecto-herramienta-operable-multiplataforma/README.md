@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para entregar una herramienta de línea de comandos con un paquete que otra persona pueda revisar sin ejecutar nada: contrato observable, configuración, códigos, ciclo de vida, entrega y privacidad declarados, con pruebas de contrato ejecutadas en dos sistemas y una lista honesta de lo que ningún manifiesto puede probar.
 
-**Por qué aparece aquí.** Es la clase final de la Parte 18, después de **Taller: endurecer una automatización frágil** (`SE-227`). Reúne el contrato de `SE-217`, los flujos de `SE-218`, la precedencia de `SE-219`, los códigos de `SE-220`, la presentación de `SE-221`, el ciclo de vida de `SE-222`, la programación de `SE-223`, la reanudación de `SE-224`, la entrega de `SE-225` y la privacidad de `SE-226`, y deja un paquete que la Parte 19 (web y aplicaciones progresivas) podrá tomar como ejemplo de operabilidad.
+**Por qué aparece aquí.** Es la clase final de la [Parte 18](../README.md), después de **Taller: endurecer una automatización frágil** (`SE-227`). Reúne el contrato de `SE-217`, los flujos de `SE-218`, la precedencia de `SE-219`, los códigos de `SE-220`, la presentación de `SE-221`, el ciclo de vida de `SE-222`, la programación de `SE-223`, la reanudación de `SE-224`, la entrega de `SE-225` y la privacidad de `SE-226`, y deja un paquete que la [Parte 19](../../part-19-web-frontend-y-aplicaciones-progresivas/README.md) (web y aplicaciones progresivas) podrá tomar como ejemplo de operabilidad.
 
 **Error conceptual que debe corregir.** Creer que un manifiesto completo prueba una herramienta operable. Un manifiesto declara; las pruebas de contrato comprueban lo que se puede observar; y lo que ninguno ve —que la copia se pueda restaurar, que el usuario entienda el mensaje— exige a una persona.
 
@@ -188,7 +188,7 @@ Entrega el paquete `operable-package/` con herramienta, manifiesto, suite, evide
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18, y este proyecto la cierra: contrato, flujos, configuración, códigos, presentación, ciclo de vida, programación, reanudación, entrega y privacidad, en un paquete revisable. La Parte 19 pasa de herramientas de terminal a la plataforma web, y tomará la misma pregunta —qué se promete, cómo se comprueba y qué queda a juicio humano— para aplicaciones con interfaz. Cambia después un solo detalle, un nuevo subcomando `validar`, y revisa qué filas del manifiesto, qué pruebas y qué evidencia deben cambiar.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md), y este proyecto la cierra: contrato, flujos, configuración, códigos, presentación, ciclo de vida, programación, reanudación, entrega y privacidad, en un paquete revisable. La [Parte 19](../../part-19-web-frontend-y-aplicaciones-progresivas/README.md) pasa de herramientas de terminal a la plataforma web, y tomará la misma pregunta —qué se promete, cómo se comprueba y qué queda a juicio humano— para aplicaciones con interfaz. Cambia después un solo detalle, un nuevo subcomando `validar`, y revisa qué filas del manifiesto, qué pruebas y qué evidencia deben cambiar.
 
 ## Preguntas frecuentes
 

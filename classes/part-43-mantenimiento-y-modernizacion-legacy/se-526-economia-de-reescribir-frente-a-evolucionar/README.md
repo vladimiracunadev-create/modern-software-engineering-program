@@ -208,7 +208,7 @@ Entrega `economia-log.md` con la predicción, las tres tablas, el modelo con los
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el décimo artefacto: el modelo de costos con su sensibilidad y su decisión reversible. `SE-527` convierte esa decisión en un taller de estabilización previo a cualquier modernización, y `SE-528` ejecuta una migración incremental reversible. Cambia después un solo dato, el costo de construir de 6,0 a 3,0, y observa en qué proporción de escenarios pasa a ganar la reescritura.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el décimo artefacto: el modelo de costos con su sensibilidad y su decisión reversible. `SE-527` convierte esa decisión en un taller de estabilización previo a cualquier modernización, y `SE-528` ejecuta una migración incremental reversible. Cambia después un solo dato, el costo de construir de 6,0 a 3,0, y observa en qué proporción de escenarios pasa a ganar la reescritura.
 
 ## Preguntas frecuentes
 

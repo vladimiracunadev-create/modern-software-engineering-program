@@ -38,7 +38,7 @@ licencias y experiencia mediante evidencia de consumidor.
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
 - [Parte 5 — Fundamentos de programación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
@@ -63,7 +63,7 @@ Los experimentos son scripts autónomos que usan ruedas y entornos sintéticos e
 equipo, usuarios ni direcciones reales en las figuras. Los tiempos son de un equipo y se leen como razones. Límites declarados: el inventario de licencias y los 3 194 archivos son de
 un solo entorno y del árbol de trabajo al medir; el validador SPDX conoce 24 identificadores y no es asesoría legal; setuptools 84.0.0 (Windows) y 68.1.2 (Linux) produjeron ruedas
 distintas con el mismo `pyproject.toml`; la reproducibilidad de la rueda se logró dentro de cada plataforma y no entre ellas; no se midieron otros constructores (hatchling, flit),
-otros gestores (uv, npm, Cargo), otro intérprete ni macOS, ni se ejecutó la herramienta `reuse`. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador SE-120
+otros gestores (uv, npm, Cargo), otro intérprete ni macOS, ni se ejecutó la herramienta `reuse`. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador [SE-120](./se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)
 define el contrato y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
 
 ## Guía razonada clase por clase
@@ -217,7 +217,7 @@ construye artefactos inmutables y prueba consumidores anteriores frente al candi
 La aceptación cubre runtime mínimo y máximo, wheel y sdist, ayuda, salida estructurada,
 plugin compatible e incompatible, actualización y rollback. Changelog, hashes,
 procedencia y límites acompañan los resultados. El producto reutilizable con SDK y CLI cierra la etapa con una
-capacidad consumible; la Parte 10 partirá de problemas y necesidades para decidir qué
+capacidad consumible; la [Parte 10](../part-10-descubrimiento-y-estrategia-de-producto/README.md) partirá de problemas y necesidades para decidir qué
 producto merece construirse después.
 
 ## Resumen operativo del recorrido
@@ -239,7 +239,7 @@ producto merece construirse después.
 
 ## Proyecto integrador
 
-El proyecto **SE-120** entrega API, SDK, CLI y plugin de ejemplo; inventario de superficie
+El proyecto **[SE-120](./se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md)** entrega API, SDK, CLI y plugin de ejemplo; inventario de superficie
 pública; artefactos wheel/sdist instalados desde fuera del checkout; matriz de
 compatibilidad; pruebas de consumidor; changelog, migración, hashes y procedencia. El
 release candidato solo respalda las combinaciones ejecutadas y conserva rollback.

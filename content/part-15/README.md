@@ -35,7 +35,7 @@ Al finalizar podrás defender un plan con sus rangos, sus supuestos, sus señale
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 11 — Economía, métricas y decisiones de producto](../../classes/part-11-economia-metricas-y-decisiones-de-producto/): valor, costo de decisión y métricas con contrapesos.
 - [Parte 12 — Ingeniería de requisitos](../../classes/part-12-ingenieria-de-requisitos/): requisitos y criterios que esta parte convierte en trabajo planificado.

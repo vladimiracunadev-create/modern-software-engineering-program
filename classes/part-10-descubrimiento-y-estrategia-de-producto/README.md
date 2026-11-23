@@ -1,6 +1,6 @@
 # Parte 10 — Descubrimiento y estrategia de producto
 
-La Parte 09 dejó un SDK y una CLI cuyo contrato otra persona puede consumir. La pregunta cambia de «cómo se construye» a «qué merece construirse y cómo lo sabríamos». Esta parte trabaja sobre la **plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: tickets que parecen pedir un botón, personas con contextos distintos, entrevistas que no deben sugerir la respuesta, hipótesis que pueden fallar, experimentos con tamaño y calendario, prioridades con incertidumbre, un protocolo ético y criterios de abandono. Termina en un brief que otra persona puede revisar sin pedir contexto.
+La [Parte 09](../part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) dejó un SDK y una CLI cuyo contrato otra persona puede consumir. La pregunta cambia de «cómo se construye» a «qué merece construirse y cómo lo sabríamos». Esta parte trabaja sobre la **plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: tickets que parecen pedir un botón, personas con contextos distintos, entrevistas que no deben sugerir la respuesta, hipótesis que pueden fallar, experimentos con tamaño y calendario, prioridades con incertidumbre, un protocolo ético y criterios de abandono. Termina en un brief que otra persona puede revisar sin pedir contexto.
 
 ## Pregunta rectora
 
@@ -33,7 +33,7 @@ Al finalizar podrás defender una decisión de producto con evidencia trazable, 
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 9 — Bibliotecas, paquetes, SDK y automatización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/): contratos que otra persona consume.
 - Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos.
@@ -131,7 +131,7 @@ El estudiante deja un archivo que permite reconstruir el camino de la petición 
 
 El proyecto integra problema, evidencia, hipótesis, propuesta, segmento, experimento, prioridad, protocolo y criterios de abandono en un brief con responsable y fecha. Un validador estructural detecta diez de doce defectos inyectados y deja pasar un número alterado y una afirmación exagerada: eso lo cubre la revisión.
 
-El estudiante entrega el brief, el validador con sus pruebas, el registro de mutaciones y la decisión bajo varias ponderaciones y con rangos solapados. La Parte 11 somete ese brief a modelos de negocio, costos y métricas.
+El estudiante entrega el brief, el validador con sus pruebas, el registro de mutaciones y la decisión bajo varias ponderaciones y con rangos solapados. La [Parte 11](../part-11-economia-metricas-y-decisiones-de-producto/README.md) somete ese brief a modelos de negocio, costos y métricas.
 
 ## Resumen operativo del recorrido
 
@@ -152,7 +152,7 @@ El estudiante entrega el brief, el validador con sus pruebas, el registro de mut
 
 ## Proyecto integrador
 
-El proyecto **SE-132** entrega un brief con problema investigable, evidencias tipificadas (dijeron, hicieron, comprometieron, registro), afirmaciones trazables, una decisión con responsable y fecha, el criterio de abandono heredado de `SE-130`, el protocolo ético de `SE-129` y los límites. Se acompaña de un validador con pruebas y de un registro de mutaciones detectadas y no detectadas. El brief solo respalda las conclusiones que el expediente sostiene y conserva la opción de aprender más cuando los rangos de las alternativas se solapan.
+El proyecto **[SE-132](./se-132-proyecto-product-brief-respaldado-por-evidencia/README.md)** entrega un brief con problema investigable, evidencias tipificadas (dijeron, hicieron, comprometieron, registro), afirmaciones trazables, una decisión con responsable y fecha, el criterio de abandono heredado de `SE-130`, el protocolo ético de `SE-129` y los límites. Se acompaña de un validador con pruebas y de un registro de mutaciones detectadas y no detectadas. El brief solo respalda las conclusiones que el expediente sostiene y conserva la opción de aprender más cuando los rangos de las alternativas se solapan.
 
 ## Criterios de salida
 

@@ -195,7 +195,7 @@ Entrega `proveedores-log.md` con la predicción, las tres tablas, la matriz en d
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el séptimo artefacto: una matriz en dos capas con prueba de sensibilidad y un plan de salida. `SE-536` preguntará qué obligaciones legales, de licencia y éticas acompañan a esa compra, y `SE-537` cómo se calcula el costo total con más rigor. Cambia después un solo dato, la probabilidad anual de descontinuación de 4 % a 10 %, y observa cómo se mueve la cola de comprar.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el séptimo artefacto: una matriz en dos capas con prueba de sensibilidad y un plan de salida. `SE-536` preguntará qué obligaciones legales, de licencia y éticas acompañan a esa compra, y `SE-537` cómo se calcula el costo total con más rigor. Cambia después un solo dato, la probabilidad anual de descontinuación de 4 % a 10 %, y observa cómo se mueve la cola de comprar.
 
 ## Preguntas frecuentes
 

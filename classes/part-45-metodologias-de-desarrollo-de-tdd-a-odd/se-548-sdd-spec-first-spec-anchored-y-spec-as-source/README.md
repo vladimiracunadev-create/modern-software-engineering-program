@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas **cuánto compromiso** asume tu equipo con mantener una especificación, porque de esa decisión depende qué ocurre cuando el código cambia. El desarrollo guiado por especificaciones (SDD) se presenta a menudo como una sola cosa; sus propias descripciones distinguen tres niveles. En el primero la especificación guía la primera construcción y después puede quedar atrás. En el segundo se mantiene viva y se liga mecánicamente al código y a las pruebas. En el tercero es la fuente y el código se genera. Cada nivel compra más control a cambio de más rigidez, y ninguno elimina la deriva: la desplaza hacia lo que la máquina no sabe comprobar.
 
-**Por qué aparece aquí.** Sigue a **Diseño por contrato y pruebas de contrato** porque una especificación es un contrato con el futuro del sistema. Retoma `SE-565` a `SE-568` de la Parte 47, donde se aprendió a escribir una especificación durable y a encadenarla con plan y tareas; aquí se estudia qué pasa con ella después de la primera construcción.
+**Por qué aparece aquí.** Sigue a **Diseño por contrato y pruebas de contrato** porque una especificación es un contrato con el futuro del sistema. Retoma `SE-565` a `SE-568` de la [Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md), donde se aprendió a escribir una especificación durable y a encadenarla con plan y tareas; aquí se estudia qué pasa con ella después de la primera construcción.
 
 **Error conceptual que debe corregir.** Creer que tener una especificación evita la deriva. Birgitta Böckeler, al analizar tres herramientas de SDD, señala que todas las definiciones que encontró son spec-first y que no todas aspiran a ser spec-anchored o spec-as-source; y que a menudo queda vago o abierto cuál es la estrategia para mantener la especificación en el tiempo. Una especificación que nadie mantiene es documentación vieja con otro nombre.
 
@@ -191,7 +191,7 @@ Entrega `sdd-log.md` con la especificación, el generador o el anclaje, la tabla
 
 ## Caso conductor
 
-*Avisos* tiene cinco reglas con identificador. El cambio del último aviso de 1 a 2 horas es el caso de deriva que abre la clase; el comprobador lo habría señalado en el cambio y habría obligado a actualizar la especificación, o a explicar por qué no. La Parte 47 lo trató en el flujo `specify → plan → tasks`; aquí se trata el mantenimiento posterior.
+*Avisos* tiene cinco reglas con identificador. El cambio del último aviso de 1 a 2 horas es el caso de deriva que abre la clase; el comprobador lo habría señalado en el cambio y habría obligado a actualizar la especificación, o a explicar por qué no. La [Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) lo trató en el flujo `specify → plan → tasks`; aquí se trata el mantenimiento posterior.
 
 ## Preguntas frecuentes
 

@@ -224,7 +224,7 @@ Entrega `risk-log.md` con los cuatro registros del plan, la predicción, las tab
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el séptimo artefacto: los cuatro registros del plan (riesgos con causas comunes, supuestos ordenados, issues con dueño y decisiones con disparador). `SE-188` definirá los criterios con los que se acepta el trabajo. Cambia después una sola decisión, el doble de identidad, y revisa qué riesgo, supuesto o issue deja de aplicar.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el séptimo artefacto: los cuatro registros del plan (riesgos con causas comunes, supuestos ordenados, issues con dueño y decisiones con disparador). `SE-188` definirá los criterios con los que se acepta el trabajo. Cambia después una sola decisión, el doble de identidad, y revisa qué riesgo, supuesto o issue deja de aplicar.
 
 ## Preguntas frecuentes
 

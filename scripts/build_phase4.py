@@ -63,9 +63,9 @@ def expected_files(program: dict) -> dict[Path, str]:
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
             if lesson["id"] in shared.PUBLISHED_EDITORIAL_IDS:
-                markdown = shared.published_markdown(part, lesson, previous, following)
+                markdown = shared.publish_markdown(shared.published_markdown(part, lesson, previous, following), lesson)
             else:
-                markdown = shared.lesson_readme(part, lesson, previous, following)
+                markdown = shared.publish_markdown(shared.lesson_readme(part, lesson, previous, following), lesson)
             result[directory / "README.md"] = markdown
             result[directory / "activity.yaml"] = shared.dump_json(shared.activity(part, lesson))
             result[directory / "rubric.json"] = shared.dump_json(shared.rubric(part, lesson))
@@ -82,7 +82,7 @@ def expected_files(program: dict) -> dict[Path, str]:
             if not (ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md").is_file():
                 continue
             _, _, previous, following = entries[lesson["id"]]
-            markdown = shared.published_markdown(part, lesson, previous, following)
+            markdown = shared.publish_markdown(shared.published_markdown(part, lesson, previous, following), lesson)
             result[ROOT / lesson["path"] / "README.md"] = markdown
             result[ROOT / "site/classes" / f"{lesson['id']}.html"] = shared.site_page(
                 part, lesson, markdown, previous, following

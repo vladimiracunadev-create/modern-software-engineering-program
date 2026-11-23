@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dimensiones el **radio de explosión** de un experimento (a cuánta gente, durante cuánto tiempo y con qué intensidad se le hace daño) y para que escribas las **condiciones de aborto** que lo detienen antes de que el daño supere lo acordado. Un experimento sin límite de daño es un incidente con calendario; un límite sin condición de aborto es una promesa que nadie puede cumplir a las 23:50.
 
-**Por qué aparece aquí.** Sigue a `SE-505`: allí se midió cuánto ruido tiene un indicador y qué efecto puede ver una ventana. Aquí se invierte la pregunta: dada la potencia que se necesita, ¿cuál es el daño mínimo que la consigue? La clase usa las señales de la Parte 41 (`SE-496`, `SE-498`) para vigilar el experimento y el presupuesto de error de `SE-497` para pagarlo. El caso conductor es el cliente de la API de entregas.
+**Por qué aparece aquí.** Sigue a `SE-505`: allí se midió cuánto ruido tiene un indicador y qué efecto puede ver una ventana. Aquí se invierte la pregunta: dada la potencia que se necesita, ¿cuál es el daño mínimo que la consigue? La clase usa las señales de la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) (`SE-496`, `SE-498`) para vigilar el experimento y el presupuesto de error de `SE-497` para pagarlo. El caso conductor es el cliente de la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que el radio de explosión es «lo más pequeño posible» y que la condición de aborto es «si el sistema se cae». El radio mínimo que no detecta el efecto es un experimento inútil que cuesta lo mismo, y una condición medida sobre todo el tráfico no ve un experimento que afecta al 1 %.
 

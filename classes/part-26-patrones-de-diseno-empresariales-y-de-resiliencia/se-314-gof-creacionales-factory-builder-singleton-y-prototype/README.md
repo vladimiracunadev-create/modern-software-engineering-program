@@ -32,7 +32,7 @@ Recupera lo aprendido en `SE-313`: un patrón se justifica por una fuerza, un co
 ## Prerrequisitos
 
 - Haber completado `SE-313` y conocer el criterio fuerza-costo-salida.
-- Haber visto la inyección de dependencias en la Parte 25 y los dobles de prueba en la Parte 35.
+- Haber visto la inyección de dependencias en la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) y los dobles de prueba en la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md).
 - Python 3.11 o posterior con `copy`, `dataclasses`, `itertools` y `timeit`.
 
 ## Problema auténtico

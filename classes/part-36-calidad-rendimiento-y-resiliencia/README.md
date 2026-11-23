@@ -1,6 +1,6 @@
 # Parte 36 — Calidad, rendimiento y resiliencia
 
-La Parte 35 decidió qué pruebas ejecutar según el riesgo y cómo demostrar que una prueba detecta defectos. La pregunta cambia de «¿esta prueba ve el defecto?» a «¿qué promesa de calidad hace el sistema, con qué medida, y qué ocurre cuando se le somete a presión?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo. Cada clase convierte una palabra vaga (rápido, fiable, compatible, usable) en una medida, mide cómo se engaña quien la usa mal y declara qué no demuestra.
+La [Parte 35](../part-35-estrategia-y-tecnicas-de-prueba/README.md) decidió qué pruebas ejecutar según el riesgo y cómo demostrar que una prueba detecta defectos. La pregunta cambia de «¿esta prueba ve el defecto?» a «¿qué promesa de calidad hace el sistema, con qué medida, y qué ocurre cuando se le somete a presión?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo. Cada clase convierte una palabra vaga (rápido, fiable, compatible, usable) en una medida, mide cómo se engaña quien la usa mal y declara qué no demuestra.
 
 ## Pregunta rectora
 
@@ -38,7 +38,7 @@ Al finalizar podrás defender un informe de calidad con su plan fijado de antema
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): costo de las operaciones, colas y montículos.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): contratos comprobables y compatibilidad entre versiones.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y consistencia en el servidor.
@@ -149,7 +149,7 @@ El estudiante entrega un plan de experimento con sus hallazgos. `SE-444` lo inte
 
 Un paquete completo no es un paquete honesto. El proyecto mide qué detecta un validador sobre 240 mutaciones, qué artefactos de un canal coinciden entre dos ejecuciones y entre Windows y Ubuntu y cuántos informes de dos versiones idénticas declararían una mejora según cómo se elija el resultado.
 
-El estudiante entrega un paquete de informe con plan registrado, datos con huella, validador, ejecución en dos sistemas y `LIMITES.md`. La Parte 38 lleva la mirada a la seguridad, la privacidad y el cumplimiento.
+El estudiante entrega un paquete de informe con plan registrado, datos con huella, validador, ejecución en dos sistemas y `LIMITES.md`. La [Parte 38](../part-38-seguridad-privacidad-y-cumplimiento/README.md) lleva la mirada a la seguridad, la privacidad y el cumplimiento.
 
 ## Resumen operativo del recorrido
 

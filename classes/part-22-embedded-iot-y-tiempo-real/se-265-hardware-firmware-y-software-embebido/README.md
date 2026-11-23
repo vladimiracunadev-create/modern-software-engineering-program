@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas qué decide el hardware, qué decide el firmware y qué puede probarse sin ninguno de los dos, y para que elijas una arquitectura de firmware por lo que garantiza sobre la respuesta a un evento, no por costumbre.
 
-**Por qué aparece aquí.** Abre la **Parte 22** después de **Proyecto: cliente multiplataforma con sincronización**: la Parte 21 llevó el software a clientes que corren en sistemas operativos completos; ahora el programa corre sin sistema operativo, con memoria medida en kilobytes y con un mundo físico que no espera. La clase fija el vocabulario y el caso conductor de la parte: un nodo ambiental de una sala de estudio, simulado.
+**Por qué aparece aquí.** Abre la **[Parte 22](../README.md)** después de **Proyecto: cliente multiplataforma con sincronización**: la [Parte 21](../../part-21-software-movil-escritorio-y-multiplataforma/README.md) llevó el software a clientes que corren en sistemas operativos completos; ahora el programa corre sin sistema operativo, con memoria medida en kilobytes y con un mundo físico que no espera. La clase fija el vocabulario y el caso conductor de la parte: un nodo ambiental de una sala de estudio, simulado.
 
 **Error conceptual que debe corregir.** Creer que el software embebido es «software normal en un dispositivo pequeño»: las garantías de tiempo, el ancho de los enteros y el estado compartido con las interrupciones cambian lo que significa que un programa sea correcto.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 21 sobre ciclo de vida: un cliente móvil se suspende y se reanuda; un nodo embebido simplemente sigue corriendo, o deja de hacerlo. La pregunta activa es: **¿qué garantiza este firmware sobre la respuesta a un evento, y qué parte de esa garantía puedo comprobar sin el dispositivo?**
+Recupera lo aprendido en la [Parte 21](../../part-21-software-movil-escritorio-y-multiplataforma/README.md) sobre ciclo de vida: un cliente móvil se suspende y se reanuda; un nodo embebido simplemente sigue corriendo, o deja de hacerlo. La pregunta activa es: **¿qué garantiza este firmware sobre la respuesta a un evento, y qué parte de esa garantía puedo comprobar sin el dispositivo?**
 
 ## Prerrequisitos
 
@@ -207,7 +207,7 @@ Entrega `embedded-log.md` con la predicción, la tabla de latencia, la del acumu
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio es el caso conductor de la Parte 22. Esta clase deja el primer artefacto: el nodo en tres capas con su latencia de botón medida y sus condiciones de ancho escritas. `SE-266` añadirá los periféricos y los buses por los que el nodo habla con sus sensores. Cambia después una sola decisión, sondear o interrumpir, y observa qué garantías de tiempo cambian.
+El nodo ambiental de una sala de estudio es el caso conductor de la [Parte 22](../README.md). Esta clase deja el primer artefacto: el nodo en tres capas con su latencia de botón medida y sus condiciones de ancho escritas. `SE-266` añadirá los periféricos y los buses por los que el nodo habla con sus sensores. Cambia después una sola decisión, sondear o interrumpir, y observa qué garantías de tiempo cambian.
 
 ## Preguntas frecuentes
 

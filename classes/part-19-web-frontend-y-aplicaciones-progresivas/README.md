@@ -1,6 +1,6 @@
 # Parte 19 — Web, frontend y aplicaciones progresivas
 
-La Parte 18 terminó con herramientas que otras personas operan desde un terminal o un servicio. La pregunta cambia de «quién ejecuta mi programa» a «qué agente interpreta mi documento y qué le prometo»: el navegador, las tecnologías de apoyo y los buscadores leen la misma página con propósitos distintos. Esta parte trabaja sobre **una aplicación web de entregas de tareas que debe seguir funcionando con una conexión que va y viene**, un caso sintético que recorre las doce clases: un formulario con estructura accesible, un manejador de eventos que no depende del orden de carga, una decisión de dónde se construye el HTML, un estado con identidad, una validación que no excluye, URLs que sobreviven a un rediseño, un presupuesto de rendimiento, una política de seguridad, un service worker con una cola de envíos idempotentes, metadatos que se auditan, un flujo con fallos modelado como máquina de estados y un paquete de evidencia que otra persona puede revisar.
+La [Parte 18](../part-18-cli-tui-servicios-y-automatizacion/README.md) terminó con herramientas que otras personas operan desde un terminal o un servicio. La pregunta cambia de «quién ejecuta mi programa» a «qué agente interpreta mi documento y qué le prometo»: el navegador, las tecnologías de apoyo y los buscadores leen la misma página con propósitos distintos. Esta parte trabaja sobre **una aplicación web de entregas de tareas que debe seguir funcionando con una conexión que va y viene**, un caso sintético que recorre las doce clases: un formulario con estructura accesible, un manejador de eventos que no depende del orden de carga, una decisión de dónde se construye el HTML, un estado con identidad, una validación que no excluye, URLs que sobreviven a un rediseño, un presupuesto de rendimiento, una política de seguridad, un service worker con una cola de envíos idempotentes, metadatos que se auditan, un flujo con fallos modelado como máquina de estados y un paquete de evidencia que otra persona puede revisar.
 
 ## Pregunta rectora
 
@@ -142,7 +142,7 @@ El estudiante deja la tabla de estados, la política de reintentos y el plan de 
 
 Un manifiesto válido no es una aplicación instalable, unas cabeceras correctas no garantizan que una versión nueva llegue y una suite de pares no cubre las interacciones de tres factores. El proyecto valida un manifiesto con 120 mutaciones, audita las cabeceras de un servidor local y reduce una matriz de 108 casos a 12 midiendo los defectos que escapan, y entrega todo con una declaración de límites.
 
-El estudiante entrega el paquete con `verify.py` y `LIMITES.md`. Con él cierra la Parte 19.
+El estudiante entrega el paquete con `verify.py` y `LIMITES.md`. Con él cierra la [Parte 19](./README.md).
 
 ## Resumen operativo del recorrido
 

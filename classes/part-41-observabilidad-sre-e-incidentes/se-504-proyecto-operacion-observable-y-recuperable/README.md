@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que reúnas las piezas de la parte en un **paquete operativo** que otra persona pueda leer, validar y ejecutar: las preguntas y las señales que las responden, el objetivo de servicio y su presupuesto, las alertas derivadas, el runbook y la guardia, el protocolo de incidentes, la plantilla de postmortem, el plan de recuperación con una restauración verificada y un ejercicio con sus hallazgos. Lo valioso no es que cada pieza exista, sino que estén conectadas, se puedan comprobar y declaren lo que no cubren.
 
-**Por qué aparece aquí.** Cierra la Parte 41: `SE-493` a `SE-496` aportaron las señales, `SE-497` y `SE-498` el objetivo y las alertas, `SE-499` y `SE-500` la respuesta, `SE-501` y `SE-502` el aprendizaje y la recuperación, y `SE-503` el diagnóstico con telemetría incompleta. Sigue el patrón del proyecto de la Parte 36 (`SE-444`): un paquete reproducible con un validador y una declaración de límites. El caso conductor es la API de entregas.
+**Por qué aparece aquí.** Cierra la [Parte 41](../README.md): `SE-493` a `SE-496` aportaron las señales, `SE-497` y `SE-498` el objetivo y las alertas, `SE-499` y `SE-500` la respuesta, `SE-501` y `SE-502` el aprendizaje y la recuperación, y `SE-503` el diagnóstico con telemetría incompleta. Sigue el patrón del proyecto de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) (`SE-444`): un paquete reproducible con un validador y una declaración de límites. El caso conductor es la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que un paquete operativo completo es un sistema operable, y que una cadena de prácticas buenas por separado produce una respuesta buena. Un paquete coherente consigo mismo puede ser erróneo en su significado, y la probabilidad de que toda la cadena funcione es el producto de la de cada etapa.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en toda la Parte 41 y el patrón del proyecto de `SE-444`: un paquete reproducible tiene un validador, una huella y una declaración de límites. La pregunta activa es: **¿qué paquete mínimo permite a alguien que no estuvo aquí entender cómo operamos la API de entregas, comprobar que sus piezas encajan y saber qué todavía no hemos probado?**
+Recupera lo aprendido en toda la [Parte 41](../README.md) y el patrón del proyecto de `SE-444`: un paquete reproducible tiene un validador, una huella y una declaración de límites. La pregunta activa es: **¿qué paquete mínimo permite a alguien que no estuvo aquí entender cómo operamos la API de entregas, comprobar que sus piezas encajan y saber qué todavía no hemos probado?**
 
 ## Prerrequisitos
 
@@ -250,7 +250,7 @@ Entrega el repositorio `operacion-entregas/` y `INFORME.md`. Se aprueba si otra 
 
 ## Caso conductor
 
-La API de entregas fue el caso conductor de toda la Parte 41: de la tabla de preguntas (`SE-493`) a los registros (`SE-494`), las métricas (`SE-495`), las trazas (`SE-496`), el objetivo (`SE-497`), las alertas (`SE-498`), la guardia (`SE-499`), los incidentes (`SE-500`), los postmortems (`SE-501`), la recuperación (`SE-502`) y el diagnóstico (`SE-503`). Este proyecto deja el artefacto final: un paquete operativo validado, con su huella y su declaración de límites. La Parte 43 abre otro frente, el mantenimiento y la modernización de sistemas existentes, donde lo operado debe cambiar sin romperse. Cambia, para terminar, un solo dato, la probabilidad de la etapa de diagnóstico, y observa cuánto se mueve la recuperación completa.
+La API de entregas fue el caso conductor de toda la [Parte 41](../README.md): de la tabla de preguntas (`SE-493`) a los registros (`SE-494`), las métricas (`SE-495`), las trazas (`SE-496`), el objetivo (`SE-497`), las alertas (`SE-498`), la guardia (`SE-499`), los incidentes (`SE-500`), los postmortems (`SE-501`), la recuperación (`SE-502`) y el diagnóstico (`SE-503`). Este proyecto deja el artefacto final: un paquete operativo validado, con su huella y su declaración de límites. La [Parte 43](../../part-43-mantenimiento-y-modernizacion-legacy/README.md) abre otro frente, el mantenimiento y la modernización de sistemas existentes, donde lo operado debe cambiar sin romperse. Cambia, para terminar, un solo dato, la probabilidad de la etapa de diagnóstico, y observa cuánto se mueve la recuperación completa.
 
 ## Preguntas frecuentes
 
@@ -348,7 +348,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que 210 de 360 mut
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos de tiempo virtual con semillas fijas y sondas de plataforma reales en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3): las cifras de tiempo virtual fueron idénticas y las sondas difieren por diseño. No se operó ningún servicio real, no se ejecutó ningún runbook contra un sistema y no hubo revisión humana independiente; el paquete base, los doce operadores de mutación, las cinco etapas de la cadena y sus probabilidades son construcciones del autor, y el validador se afinó con las mismas mutaciones que lo evalúan. La Parte 43 abre el mantenimiento y la modernización de sistemas existentes, donde lo operado debe cambiar sin romperse.
+Se ejecutaron tres experimentos de tiempo virtual con semillas fijas y sondas de plataforma reales en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3): las cifras de tiempo virtual fueron idénticas y las sondas difieren por diseño. No se operó ningún servicio real, no se ejecutó ningún runbook contra un sistema y no hubo revisión humana independiente; el paquete base, los doce operadores de mutación, las cinco etapas de la cadena y sus probabilidades son construcciones del autor, y el validador se afinó con las mismas mutaciones que lo evalúan. La [Parte 43](../../part-43-mantenimiento-y-modernizacion-legacy/README.md) abre el mantenimiento y la modernización de sistemas existentes, donde lo operado debe cambiar sin romperse.
 
 ## Glosario
 

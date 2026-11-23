@@ -47,10 +47,10 @@ observabilidad, sostenibilidad y comunicación financiera.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00 y 10, seguidas por [Parte 11 — Economía, métricas y decisiones de producto](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md).
-2. Partes 15 y 27–33 para estimación, arquitectura y cloud.
-3. Partes 36, 40–41 para capacidad, plataforma y operación.
-4. Partes 43–44 y 46 para vida útil, liderazgo y coste de IA.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md) y [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md), seguidas por [Parte 11 — Economía, métricas y decisiones de producto](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md).
+2. Partes [15](../classes/part-15-procesos-planificacion-y-estimacion/README.md) y [27](../classes/part-27-arquitectura-de-software-y-dominio/README.md)–[33](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) para estimación, arquitectura y cloud.
+3. Partes [36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md), [40](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para capacidad, plataforma y operación.
+4. Partes [43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)–[44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) y [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) para vida útil, liderazgo y coste de IA.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -128,19 +128,19 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-022 · Rendimiento, consumo energético y límites físicos](../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) | Parte 01 |
-| [SE-133 · Modelos de negocio y sostenibilidad](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md) | Parte 11 |
-| [SE-143 · Taller: diseñar un árbol de métricas](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) | Parte 11 |
-| [SE-495 · Métricas, dimensiones y cardinalidad](../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md) | Parte 41 |
-| [SE-561 · Evals de exactitud, utilidad, costo y latencia](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) | Parte 46 |
-| [SE-409 · Qué hace distinto a un producto SaaS](../classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md) | Parte 34 |
-| [SE-414 · Planes, derechos de uso y banderas de funcionalidad](../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) | Parte 34 |
-| [SE-420 · Taller y proyecto integrador: producto SaaS mínimo con evidencia](../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) | Parte 34 |
+| [SE-022 · Rendimiento, consumo energético y límites físicos](../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) | [Parte 01](../classes/part-01-computadores-y-representacion-de-informacion/README.md) |
+| [SE-133 · Modelos de negocio y sostenibilidad](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-143 · Taller: diseñar un árbol de métricas](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-495 · Métricas, dimensiones y cardinalidad](../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md) | [Parte 41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) |
+| [SE-561 · Evals de exactitud, utilidad, costo y latencia](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) | [Parte 46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) |
+| [SE-409 · Qué hace distinto a un producto SaaS](../classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md) | [Parte 34](../classes/part-34-saas-y-plataformas-de-producto/README.md) |
+| [SE-414 · Planes, derechos de uso y banderas de funcionalidad](../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) | [Parte 34](../classes/part-34-saas-y-plataformas-de-producto/README.md) |
+| [SE-420 · Taller y proyecto integrador: producto SaaS mínimo con evidencia](../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) | [Parte 34](../classes/part-34-saas-y-plataformas-de-producto/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-134](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) para fijar el
 primer mecanismo, usa [SE-400](../classes/part-33-cloud-plataforma-e-infraestructura/se-400-serverless-y-ejecucion-gestionada/README.md) para integrar el
@@ -150,7 +150,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

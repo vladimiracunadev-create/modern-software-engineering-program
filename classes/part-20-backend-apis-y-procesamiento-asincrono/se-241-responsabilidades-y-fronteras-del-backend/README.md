@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas qué trabajo cabe dentro de una solicitud, qué se promete al responder y qué se difiere, y para que puedas medir qué ocurre con esa promesa cuando algo cae a mitad del camino. Un backend no es «el código que está detrás de la pantalla»: es el lugar donde un contrato público se convierte en estado persistente.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: aplicación web accesible y offline** y antes de **REST y semántica de recursos**: la Parte 19 terminó con una aplicación web que se comporta bien sin red; la Parte 20 pregunta qué hay al otro lado de esa conexión. Esta clase fija las fronteras (qué responde el servidor ahora, qué hace después, qué guarda y qué avisa) y el caso de la plataforma de entregas que las once clases siguientes endurecerán: interfaz, validación, identidad, reintentos, trabajos, archivos, protección, operación, reparación y entrega de un servicio contractual.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: aplicación web accesible y offline** y antes de **REST y semántica de recursos**: la [Parte 19](../../part-19-web-frontend-y-aplicaciones-progresivas/README.md) terminó con una aplicación web que se comporta bien sin red; la [Parte 20](../README.md) pregunta qué hay al otro lado de esa conexión. Esta clase fija las fronteras (qué responde el servidor ahora, qué hace después, qué guarda y qué avisa) y el caso de la plataforma de entregas que las once clases siguientes endurecerán: interfaz, validación, identidad, reintentos, trabajos, archivos, protección, operación, reparación y entrega de un servicio contractual.
 
 **Error conceptual que debe corregir.** Creer que un backend correcto es el que ejecuta todos los pasos antes de responder. Esa cadena síncrona hereda la latencia del peor eslabón y deja estados a medias cuando algo cae entre dos pasos; la frontera correcta decide qué se confirma ahora y qué se completa después.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 20 sobre el backend de la plataforma de entregas de tareas**. Recupera la Parte 19: una aplicación que sobrevive a la falta de red envía solicitudes que pueden perderse, repetirse o llegar tarde. La pregunta activa es: **¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?**
+Esta clase abre la **[Parte 20](../README.md) sobre el backend de la plataforma de entregas de tareas**. Recupera la [Parte 19](../../part-19-web-frontend-y-aplicaciones-progresivas/README.md): una aplicación que sobrevive a la falta de red envía solicitudes que pueden perderse, repetirse o llegar tarde. La pregunta activa es: **¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?**
 
 ## Prerrequisitos
 
@@ -192,7 +192,7 @@ Entrega `boundary-log.md` con las responsabilidades del alta asignadas, la simul
 
 ## Caso conductor
 
-La plataforma de entregas de tareas es el caso conductor de la Parte 20. Esta clase deja el primer artefacto: el reparto de responsabilidades del alta y su frontera de confirmación. Las clases siguientes lo concretarán: la interfaz (`SE-242` y `SE-243`), el contrato de errores (`SE-244`), la identidad (`SE-245`), los reintentos (`SE-246`), el trabajo diferido (`SE-247`), los archivos (`SE-248`), la protección (`SE-249`) y la operación (`SE-250`). Cambia después una sola decisión, mover el análisis de archivo al lado diferido, y revisa qué artefactos hay que tocar.
+La plataforma de entregas de tareas es el caso conductor de la [Parte 20](../README.md). Esta clase deja el primer artefacto: el reparto de responsabilidades del alta y su frontera de confirmación. Las clases siguientes lo concretarán: la interfaz (`SE-242` y `SE-243`), el contrato de errores (`SE-244`), la identidad (`SE-245`), los reintentos (`SE-246`), el trabajo diferido (`SE-247`), los archivos (`SE-248`), la protección (`SE-249`) y la operación (`SE-250`). Cambia después una sola decisión, mover el análisis de archivo al lado diferido, y revisa qué artefactos hay que tocar.
 
 ## Preguntas frecuentes
 

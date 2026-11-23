@@ -170,7 +170,7 @@ Entrega `flow-log.md` con la tabla de conflictos por vida de la rama, el caso se
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la decisión de flujo y las medidas de conflicto. `SE-198` ata cada cambio a su motivo y `SE-199` asigna propietarios al tronco. Cambia después un solo dato, la vida de la rama de 5 a 1 día, y revisa qué cambia en el tamaño de los PR y en la necesidad de indicadores de funcionalidad.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la decisión de flujo y las medidas de conflicto. `SE-198` ata cada cambio a su motivo y `SE-199` asigna propietarios al tronco. Cambia después un solo dato, la vida de la rama de 5 a 1 día, y revisa qué cambia en el tamaño de los PR y en la necesidad de indicadores de funcionalidad.
 
 ## Preguntas frecuentes
 

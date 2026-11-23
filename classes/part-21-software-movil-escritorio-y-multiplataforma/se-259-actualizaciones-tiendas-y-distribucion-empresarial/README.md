@@ -204,7 +204,7 @@ Entrega `distribution-log.md` con la tabla de canales, la adopción simulada, la
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su plan de lanzamiento y su regla de retirada. `SE-260` desarrolla el trabajo sin conexión, donde un cliente viejo puede volver con operaciones atrasadas, `SE-262` firma y verifica los paquetes, y `SE-264` integra el plan en el proyecto. Cambia después una sola decisión, el umbral de retirada de 1 % a 0,1 %, y revisa cuánto se retrasa.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su plan de lanzamiento y su regla de retirada. `SE-260` desarrolla el trabajo sin conexión, donde un cliente viejo puede volver con operaciones atrasadas, `SE-262` firma y verifica los paquetes, y `SE-264` integra el plan en el proyecto. Cambia después una sola decisión, el umbral de retirada de 1 % a 0,1 %, y revisa cuánto se retrasa.
 
 ## Preguntas frecuentes
 

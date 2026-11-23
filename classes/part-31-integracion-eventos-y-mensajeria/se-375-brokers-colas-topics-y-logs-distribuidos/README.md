@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-373` sobre colas y capacidad de recuperación y en `SE-374` sobre comandos y eventos: un comando suele ir a una cola con un solo destino; un evento puede ir a un tópico con varios oyentes. Recupera de la Parte 7 la idea de tabla hash: la clave decide en qué cubo cae un elemento. La pregunta activa es: **¿qué debe pasar con el mensaje después de que alguien lo lee?**
+Recupera lo aprendido en `SE-373` sobre colas y capacidad de recuperación y en `SE-374` sobre comandos y eventos: un comando suele ir a una cola con un solo destino; un evento puede ir a un tópico con varios oyentes. Recupera de la [Parte 7](../../part-07-estructuras-de-datos-y-algoritmos/README.md) la idea de tabla hash: la clave decide en qué cubo cae un elemento. La pregunta activa es: **¿qué debe pasar con el mensaje después de que alguien lo lee?**
 
 ## Prerrequisitos
 
@@ -229,7 +229,7 @@ Entrega `corredor-log.md` con las predicciones, las tablas reproducidas con las 
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el tercer artefacto: la asignación de cada flujo a una estructura con su clave y su retención. `SE-376` pregunta qué garantías de entrega, orden y duplicación ofrecen esas estructuras y qué debe hacer el consumidor. Cambia después una sola decisión, la clave de partición, y observa qué cambia en el orden y en el equilibrio.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el tercer artefacto: la asignación de cada flujo a una estructura con su clave y su retención. `SE-376` pregunta qué garantías de entrega, orden y duplicación ofrecen esas estructuras y qué debe hacer el consumidor. Cambia después una sola decisión, la clave de partición, y observa qué cambia en el orden y en el equilibrio.
 
 ## Preguntas frecuentes
 

@@ -47,10 +47,10 @@ property testing, fuzzing, portabilidad y reproducible builds.
 
 ## 📚 Tu ruta en el programa
 
-1. [Parte 01 — Computadores y representación](../classes/part-01-computadores-y-representacion-de-informacion/README.md) y partes 02–09 como núcleo de máquina, programación y herramientas.
-2. Partes 18 y 22 para servicios, automatización y embedded.
-3. Partes 25, 29 y 32 para diseño, almacenamiento y concurrencia.
-4. Partes 35–36 y 38–39 para pruebas, resiliencia, seguridad y build.
+1. [Parte 01 — Computadores y representación de información](../classes/part-01-computadores-y-representacion-de-informacion/README.md) y partes 02–09 como núcleo de máquina, programación y herramientas.
+2. Partes [18](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) y [22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) para servicios, automatización y embedded.
+3. Partes [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md), [29](../classes/part-29-datos-persistencia-y-recuperacion/README.md) y [32](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) para diseño, almacenamiento y concurrencia.
+4. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) para pruebas, resiliencia, seguridad y build.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -128,16 +128,16 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-020 · Compilación, interpretación, bytecode y JIT](../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) | Parte 01 |
-| [SE-094 · Complejidad empírica, benchmarks y perfiles](../classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles/README.md) | Parte 07 |
-| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | Parte 08 |
-| [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | Parte 08 |
-| [SE-391 · Consenso, elección y coordinación](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-391-consenso-eleccion-y-coordinacion/README.md) | Parte 32 |
+| [SE-020 · Compilación, interpretación, bytecode y JIT](../classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) | [Parte 01](../classes/part-01-computadores-y-representacion-de-informacion/README.md) |
+| [SE-094 · Complejidad empírica, benchmarks y perfiles](../classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles/README.md) | [Parte 07](../classes/part-07-estructuras-de-datos-y-algoritmos/README.md) |
+| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-391 · Consenso, elección y coordinación](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-391-consenso-eleccion-y-coordinacion/README.md) | [Parte 32](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-017](../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) para fijar el
 primer mecanismo, usa [SE-320](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) para integrar el
@@ -147,7 +147,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

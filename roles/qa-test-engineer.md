@@ -54,13 +54,13 @@ automatización, análisis de producto y comprensión técnica.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00, 04–08 para razonamiento, programación y depuración.
-2. Partes 10, 12–14 para producto, requisitos y experiencia.
-3. Partes 20, 25–27 para APIs, diseño y testabilidad.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md), [04](../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)–[08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) para razonamiento, programación y depuración.
+2. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md), [12](../classes/part-12-ingenieria-de-requisitos/README.md)–[14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) para producto, requisitos y experiencia.
+3. Partes [20](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md), [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md)–[27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) para APIs, diseño y testabilidad.
 4. [Parte 35 — Estrategia y técnicas de prueba](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md).
-5. Parte 36 para calidad, rendimiento y resiliencia.
-6. Partes 38–41 para seguridad, pipeline, despliegue e incidentes.
-7. Parte 46 para generación y evaluación de pruebas con IA.
+5. [Parte 36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) para calidad, rendimiento y resiliencia.
+6. Partes [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para seguridad, pipeline, despliegue e incidentes.
+7. [Parte 46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) para generación y evaluación de pruebas con IA.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -136,29 +136,29 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-069 · Pruebas tempranas y diseño por ejemplos](../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) | Parte 05 |
-| [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | Parte 08 |
-| [SE-188 · Definition of Ready, Done y aceptación](../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) | Parte 15 |
-| [SE-307 · Refactorización segura apoyada por pruebas](../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md) | Parte 25 |
-| [SE-311 · Taller: refactorizar sin alterar comportamiento](../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md) | Parte 25 |
-| [SE-422 · Pruebas unitarias y diseño testable](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md) | Parte 35 |
-| [SE-425 · Pruebas basadas en propiedades y modelos](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) | Parte 35 |
-| [SE-427 · Dobles, virtualización y entornos de prueba](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md) | Parte 35 |
-| [SE-428 · Datos deterministas y gestión de fixtures](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md) | Parte 35 |
-| [SE-429 · Pruebas exploratorias y sesiones](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) | Parte 35 |
-| [SE-558 · Generación de pruebas, documentación y migraciones](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) | Parte 46 |
-| [SE-561 · Evals de exactitud, utilidad, costo y latencia](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) | Parte 46 |
-| [SE-597 · Evals y LLMOps de sistemas con LLM](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) | Parte 49 |
-| [SE-450 · Casos de seguridad y trazabilidad](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) | Parte 37 |
-| [SE-454 · Verificación y cobertura: MC/DC, HIL y SIL](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md) | Parte 37 |
-| [SE-505 · Principios de la ingeniería del caos: estado estable e hipótesis](../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) | Parte 42 |
-| [SE-510 · Fallos de datos y de estado: réplicas, particiones y corrupción](../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) | Parte 42 |
-| [SE-516 · Proyecto: programa de caos de un servicio con evidencia y remediación](../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md) | Parte 42 |
+| [SE-069 · Pruebas tempranas y diseño por ejemplos](../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) | [Parte 05](../classes/part-05-fundamentos-de-programacion/README.md) |
+| [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-188 · Definition of Ready, Done y aceptación](../classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion/README.md) | [Parte 15](../classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| [SE-307 · Refactorización segura apoyada por pruebas](../classes/part-25-diseno-patrones-y-refactorizacion/se-307-refactorizacion-segura-apoyada-por-pruebas/README.md) | [Parte 25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md) |
+| [SE-311 · Taller: refactorizar sin alterar comportamiento](../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md) | [Parte 25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md) |
+| [SE-422 · Pruebas unitarias y diseño testable](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md) | [Parte 35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
+| [SE-425 · Pruebas basadas en propiedades y modelos](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) | [Parte 35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
+| [SE-427 · Dobles, virtualización y entornos de prueba](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-427-dobles-virtualizacion-y-entornos-de-prueba/README.md) | [Parte 35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
+| [SE-428 · Datos deterministas y gestión de fixtures](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-428-datos-deterministas-y-gestion-de-fixtures/README.md) | [Parte 35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
+| [SE-429 · Pruebas exploratorias y sesiones](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-429-pruebas-exploratorias-y-sesiones/README.md) | [Parte 35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
+| [SE-558 · Generación de pruebas, documentación y migraciones](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-558-generacion-de-pruebas-documentacion-y-migraciones/README.md) | [Parte 46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) |
+| [SE-561 · Evals de exactitud, utilidad, costo y latencia](../classes/part-46-desarrollo-de-software-asistido-por-ia/se-561-evals-de-exactitud-utilidad-costo-y-latencia/README.md) | [Parte 46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md) |
+| [SE-597 · Evals y LLMOps de sistemas con LLM](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) | [Parte 49](../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md) |
+| [SE-450 · Casos de seguridad y trazabilidad](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) | [Parte 37](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |
+| [SE-454 · Verificación y cobertura: MC/DC, HIL y SIL](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-454-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md) | [Parte 37](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |
+| [SE-505 · Principios de la ingeniería del caos: estado estable e hipótesis](../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) | [Parte 42](../classes/part-42-ingenieria-del-caos/README.md) |
+| [SE-510 · Fallos de datos y de estado: réplicas, particiones y corrupción](../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) | [Parte 42](../classes/part-42-ingenieria-del-caos/README.md) |
+| [SE-516 · Proyecto: programa de caos de un servicio con evidencia y remediación](../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md) | [Parte 42](../classes/part-42-ingenieria-del-caos/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-147](../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md) para fijar el
 primer mecanismo, usa [SE-430](../classes/part-35-estrategia-y-tecnicas-de-prueba/se-430-flakiness-diagnostico-y-mantenimiento/README.md) para integrar el
@@ -168,7 +168,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

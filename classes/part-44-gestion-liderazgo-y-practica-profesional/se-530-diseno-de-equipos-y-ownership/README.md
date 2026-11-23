@@ -197,7 +197,7 @@ Entrega `ownership-log.md` con la predicción, las tres tablas, el mapa de propi
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el segundo artefacto: un mapa de propiedad, un criterio de fronteras y una regla de guardia. `SE-531` preguntará cómo se conversan los desacuerdos que aparecen en las fronteras, y `SE-532` cómo se transfiere el conocimiento de una persona a otra. Cambia después un solo dato, el tamaño del equipo de ocho a cinco, y observa cómo cambia el factor de camión del reparto con dos conocedores.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el segundo artefacto: un mapa de propiedad, un criterio de fronteras y una regla de guardia. `SE-531` preguntará cómo se conversan los desacuerdos que aparecen en las fronteras, y `SE-532` cómo se transfiere el conocimiento de una persona a otra. Cambia después un solo dato, el tamaño del equipo de ocho a cinco, y observa cómo cambia el factor de camión del reparto con dos conocedores.
 
 ## Preguntas frecuentes
 

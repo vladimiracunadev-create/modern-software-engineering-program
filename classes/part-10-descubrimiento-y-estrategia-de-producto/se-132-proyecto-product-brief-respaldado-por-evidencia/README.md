@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para entregar un product brief en el que cada afirmación se pueda rastrear a evidencia, cada decisión tenga responsable, fecha y criterio de abandono, y los límites estén dichos; y para comprobar por qué un brief que pasa una validación mecánica aún puede ser falso.
 
-**Por qué aparece aquí.** Se sitúa después de **Taller: convertir una petición en un problema investigable** y antes de **Modelos de negocio y sostenibilidad**: `SE-131` practicó la transformación de una petición en un problema investigable; este proyecto integra lo producido en `SE-121` a `SE-131` —problema, actores, evidencia, hipótesis, propuesta, segmento, experimento, prioridad, protocolo y criterios de abandono— en un único documento que otra persona pueda revisar, disputar y ejecutar. Cierra la Parte 10 y entrega el insumo de la Parte 11, que examina el brief con modelos de negocio, costos y métricas.
+**Por qué aparece aquí.** Se sitúa después de **Taller: convertir una petición en un problema investigable** y antes de **Modelos de negocio y sostenibilidad**: `SE-131` practicó la transformación de una petición en un problema investigable; este proyecto integra lo producido en `SE-121` a `SE-131` —problema, actores, evidencia, hipótesis, propuesta, segmento, experimento, prioridad, protocolo y criterios de abandono— en un único documento que otra persona pueda revisar, disputar y ejecutar. Cierra la [Parte 10](../README.md) y entrega el insumo de la [Parte 11](../../part-11-economia-metricas-y-decisiones-de-producto/README.md), que examina el brief con modelos de negocio, costos y métricas.
 
 **Error conceptual que debe corregir.** Presentar un brief como un documento de convicción, con afirmaciones sin evidencia trazable, una decisión sin responsable y sin criterio de abandono, y creer que si pasa una validación mecánica es correcto.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Este es **el proyecto integrador de la Parte 10 sobre la plataforma de entregas**. Recupera cada artefacto producido: el registro de tickets (`SE-121`), el mapa de actores (`SE-122`), la evidencia de entrevistas (`SE-123`), el mapa de hipótesis (`SE-124`), la propuesta de valor (`SE-125`), el mapa de mercado (`SE-126`), el plan de experimento (`SE-127`), el registro de prioridad (`SE-128`), el protocolo ético (`SE-129`), las reglas de parada (`SE-130`) y el taller (`SE-131`). La pregunta activa es: **¿puede otra persona leer este brief, comprobar de dónde sale cada afirmación y decidir con él sin pedirme nada más?**
+Este es **el proyecto integrador de la [Parte 10](../README.md) sobre la plataforma de entregas**. Recupera cada artefacto producido: el registro de tickets (`SE-121`), el mapa de actores (`SE-122`), la evidencia de entrevistas (`SE-123`), el mapa de hipótesis (`SE-124`), la propuesta de valor (`SE-125`), el mapa de mercado (`SE-126`), el plan de experimento (`SE-127`), el registro de prioridad (`SE-128`), el protocolo ético (`SE-129`), las reglas de parada (`SE-130`) y el taller (`SE-131`). La pregunta activa es: **¿puede otra persona leer este brief, comprobar de dónde sale cada afirmación y decidir con él sin pedirme nada más?**
 
 ## Prerrequisitos
 
@@ -306,7 +306,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el brief de la
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos y un validador con evidencias y participantes sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. El validador solo comprueba estructura, las doce mutaciones no representan todos los defectos posibles y las ponderaciones y rangos son supuestos del autor. La Parte 10 termina aquí; la Parte 11 somete el brief a modelos de negocio, costos de construcción y operación, y métricas de producto.
+Se ejecutaron tres experimentos y un validador con evidencias y participantes sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. El validador solo comprueba estructura, las doce mutaciones no representan todos los defectos posibles y las ponderaciones y rangos son supuestos del autor. La [Parte 10](../README.md) termina aquí; la [Parte 11](../../part-11-economia-metricas-y-decisiones-de-producto/README.md) somete el brief a modelos de negocio, costos de construcción y operación, y métricas de producto.
 
 ## Glosario
 

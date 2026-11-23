@@ -172,7 +172,7 @@ Entrega `integration-log.md` con la historia que deja cada estrategia, la probab
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la regla de integración y la medición de conflictos. `SE-196` revisa los cambios que llegan por estas integraciones y `SE-197` pregunta cuánto debe vivir una rama. Cambia después un solo dato, el número de ediciones por rama de 4 a 8, y revisa cómo cambia la probabilidad de conflicto y la regla de equipo.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la regla de integración y la medición de conflictos. `SE-196` revisa los cambios que llegan por estas integraciones y `SE-197` pregunta cuánto debe vivir una rama. Cambia después un solo dato, el número de ediciones por rama de 4 a 8, y revisa cómo cambia la probabilidad de conflicto y la regla de equipo.
 
 ## Preguntas frecuentes
 

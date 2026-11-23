@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas tres decisiones que suelen mezclarse en una sola: qué hechos existen en el dominio (modelo conceptual), cómo se organizan sin contradecirse (modelo lógico) y cómo se almacenan en un motor concreto (modelo físico), y para que midas qué cuesta equivocarse en cada nivel antes de que haya datos que migrar.
 
-**Por qué aparece aquí.** Abre la **Parte 29** después de **Proyecto: arquitectura defendible y verificable**: la Parte 27 dejó fronteras, agregados y decisiones registradas; ahora esas fronteras tienen que guardarse en algún sitio que sobreviva al proceso, al despliegue y al error de una persona. El caso conductor de la parte es la capa de datos de la plataforma de entregas de tareas: estudiantes, cursos, entregas y calificaciones.
+**Por qué aparece aquí.** Abre la **[Parte 29](../README.md)** después de **Proyecto: arquitectura defendible y verificable**: la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) dejó fronteras, agregados y decisiones registradas; ahora esas fronteras tienen que guardarse en algún sitio que sobreviva al proceso, al despliegue y al error de una persona. El caso conductor de la parte es la capa de datos de la plataforma de entregas de tareas: estudiantes, cursos, entregas y calificaciones.
 
 **Error conceptual que debe corregir.** Creer que «modelar datos» es dibujar tablas: una tabla es una decisión física y lógica a la vez, y mezclarlas hace que un detalle del motor (el tipo de una clave, una columna con lista) se convierta en una propiedad del negocio que nadie decidió.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 27 sobre agregados y fronteras: un agregado es la unidad que cambia junta. La pregunta activa es: **¿qué hechos de la plataforma deben vivir en un solo lugar, cuáles pueden repetirse y cuál es el costo de equivocarme?**
+Recupera lo aprendido en la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) sobre agregados y fronteras: un agregado es la unidad que cambia junta. La pregunta activa es: **¿qué hechos de la plataforma deben vivir en un solo lugar, cuáles pueden repetirse y cuál es el costo de equivocarme?**
 
 ## Prerrequisitos
 
@@ -213,7 +213,7 @@ Entrega `modelo-log.md` con la predicción, las tres tablas de resultados, el mo
 
 ## Caso conductor
 
-La capa de datos de la plataforma de entregas es el caso conductor de la Parte 29. Esta clase deja el primer artefacto: el modelo conceptual y un `schema.sql` con sus decisiones clasificadas. `SE-350` comparará qué ocurre cuando los mismos datos se guardan como filas, documentos, claves y grafos. Cambia después una sola decisión, la clave primaria, y observa qué otras decisiones se ven afectadas.
+La capa de datos de la plataforma de entregas es el caso conductor de la [Parte 29](../README.md). Esta clase deja el primer artefacto: el modelo conceptual y un `schema.sql` con sus decisiones clasificadas. `SE-350` comparará qué ocurre cuando los mismos datos se guardan como filas, documentos, claves y grafos. Cambia después una sola decisión, la clave primaria, y observa qué otras decisiones se ven afectadas.
 
 ## Preguntas frecuentes
 

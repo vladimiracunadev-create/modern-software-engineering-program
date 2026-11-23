@@ -119,7 +119,7 @@ La especificación de [POSIX](https://pubs.opengroup.org/onlinepubs/9799919799/)
 
 ### Codificación del nombre no es codificación del contenido
 
-Un nombre de archivo y los bytes guardados en él atraviesan capas diferentes. Poder abrir `inscripción.txt` no significa que el texto sea UTF-8; y decodificar el contenido no garantiza que dos formas Unicode del nombre se comparen igual. Esta separación recupera lo aprendido en SE-015.
+Un nombre de archivo y los bytes guardados en él atraviesan capas diferentes. Poder abrir `inscripción.txt` no significa que el texto sea UTF-8; y decodificar el contenido no garantiza que dos formas Unicode del nombre se comparen igual. Esta separación recupera lo aprendido en [SE-015](../../part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md).
 
 ### Medir lo que un sistema de archivos promete
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que elijas con criterio qué comprueba una prueba: el **resultado** que el servicio deja en el mundo o las **llamadas** que hace a sus colaboradores. Es la diferencia práctica entre las dos escuelas de TDD y decide cuánto cuesta cambiar el código mañana. Una suite acoplada a cómo el servicio consulta a sus colaboradores obliga a reescribir pruebas cada vez que el servicio reorganiza su interior; una suite que mira solo resultados tolera el refactor, pero puede no ver un defecto que el servicio comete contra un colaborador. Quien conoce el mecanismo elige por colaborador y por cambio, no por escuela.
 
-**Por qué aparece aquí.** Sigue a **TDD: ciclo rojo-verde-refactor y diseño emergente** porque el ciclo no dice cómo se escribe cada prueba cuando el código colabora con un repositorio, un canal de envío y un reloj. Ahí las escuelas se separan. La Parte 25 trató la inyección de dependencias y la Parte 35 los dobles de prueba; aquí se miden sus consecuencias sobre un refactor.
+**Por qué aparece aquí.** Sigue a **TDD: ciclo rojo-verde-refactor y diseño emergente** porque el ciclo no dice cómo se escribe cada prueba cuando el código colabora con un repositorio, un canal de envío y un reloj. Ahí las escuelas se separan. La [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) trató la inyección de dependencias y la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) los dobles de prueba; aquí se miden sus consecuencias sobre un refactor.
 
 **Error conceptual que debe corregir.** Creer que «mock» y «stub» son sinónimos y que una escuela es la correcta. Fowler distingue dos cosas: el tipo de **doble** (un objeto que sustituye a un colaborador) y el tipo de **verificación** (sobre el estado resultante o sobre el comportamiento, es decir, las llamadas recibidas). La escuela clásica prefiere objetos reales y dobles solo cuando es incómodo usar el real; la de Londres (también llamada mockista) sustituye los colaboradores con comportamiento interesante y verifica las interacciones. Cada una tiene un costo distinto y los dos aparecen en equipos competentes.
 
@@ -32,7 +32,7 @@ Recupera lo aprendido en `SE-542`: el refactor se hace con las pruebas en verde 
 ## Prerrequisitos
 
 - Haber completado `SE-542` o poder explicar el ciclo rojo-verde-refactor y por qué el refactor no debe romper pruebas.
-- Conocer en la Parte 25 qué es una dependencia inyectada y, en la Parte 35, qué es un doble de prueba.
+- Conocer en la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) qué es una dependencia inyectada y, en la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md), qué es un doble de prueba.
 - Python 3.11 o posterior con `unittest` y `unittest.mock`.
 
 ## Problema auténtico

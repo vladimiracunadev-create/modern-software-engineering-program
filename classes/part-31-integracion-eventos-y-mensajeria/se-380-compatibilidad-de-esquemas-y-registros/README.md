@@ -235,7 +235,7 @@ Entrega `esquemas-log.md` con las predicciones, las tres tablas reproducidas con
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el octavo artefacto: las reglas de evolución de los mensajes con su verificación y la política ante lo desconocido. `SE-381` pregunta cómo traducir los modelos de un sistema externo al de la plataforma sin que sus cambios la contaminen. Cambia después una sola decisión, el tipo de lector de un consumidor, y observa qué cambios dejan de romperlo.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el octavo artefacto: las reglas de evolución de los mensajes con su verificación y la política ante lo desconocido. `SE-381` pregunta cómo traducir los modelos de un sistema externo al de la plataforma sin que sus cambios la contaminen. Cambia después una sola decisión, el tipo de lector de un consumidor, y observa qué cambios dejan de romperlo.
 
 ## Preguntas frecuentes
 

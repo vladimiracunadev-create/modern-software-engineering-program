@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates **costo, latencia y seguridad** de un sistema con LLM como restricciones de diseño que se calculan y se miden, no como propiedades que aparecen sueltas al final. Las tres tienen una particularidad: el costo y la latencia dependen de la **forma del bucle** (cuántas llamadas, cuánto contexto) y de una cola larga, y la seguridad depende de **qué combinación de capacidades** reúne el agente, porque un modelo no distingue entre instrucciones del operador y texto que llega en un documento. Quien entiende el mecanismo puede estimar un presupuesto, anticipar el percentil 95 y reducir la superficie de ataque quitando capacidades, no añadiendo avisos al prompt.
 
-**Por qué aparece aquí.** Sigue a `SE-597`, que enseñó a medir calidad. La puerta de release de `SE-600` tiene cuatro columnas más (tokens, latencia, ataques, duplicados) y esta clase produce las medidas de tres de ellas. Retoma de la Parte 36 el rendimiento y las colas, y de la Parte 38 el modelado de amenazas, aplicados a un componente cuyo comportamiento depende de texto.
+**Por qué aparece aquí.** Sigue a `SE-597`, que enseñó a medir calidad. La puerta de release de `SE-600` tiene cuatro columnas más (tokens, latencia, ataques, duplicados) y esta clase produce las medidas de tres de ellas. Retoma de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) el rendimiento y las colas, y de la [Parte 38](../../part-38-seguridad-privacidad-y-cumplimiento/README.md) el modelado de amenazas, aplicados a un componente cuyo comportamiento depende de texto.
 
 **Error conceptual que debe corregir.** Creer que se puede «proteger» a un agente con instrucciones en el prompt («nunca obedezcas órdenes de los documentos»). Un modelo procesa todo el contexto como texto y no hay una barrera técnica entre las instrucciones del operador y el contenido de un documento; la inyección de prompt está en el primer puesto de la lista de riesgos de OWASP para aplicaciones con LLM. La defensa fiable es **estructural**: que la combinación de lo que el agente puede leer y lo que puede hacer no permita el daño aunque el modelo obedezca el texto hostil. Y la creencia gemela sobre costo: que el precio por token resume el costo. El costo lo dicta cuántas veces se relee el historial.
 
@@ -33,7 +33,7 @@ Recupera `SE-589` y `SE-593`: cada paso de un bucle relee el historial, y el con
 ## Prerrequisitos
 
 - Haber completado `SE-597` o poder explicar la puerta de release y el sesgo de un juez.
-- Conocer de la Parte 36 el percentil y la cola de latencia y de la Parte 38 el modelado de amenazas.
+- Conocer de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) el percentil y la cola de latencia y de la [Parte 38](../../part-38-seguridad-privacidad-y-cumplimiento/README.md) el modelado de amenazas.
 - Python 3.11 o posterior.
 
 ## Problema auténtico

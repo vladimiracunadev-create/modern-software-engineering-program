@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Backtracking, divide y vencerás** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar alternativas sin confundir búsqueda exhaustiva, poda y descomposición independiente?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Backtracking, divide y vencerás** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar alternativas sin confundir búsqueda exhaustiva, poda y descomposición independiente?**
 
 ## Prerrequisitos
 

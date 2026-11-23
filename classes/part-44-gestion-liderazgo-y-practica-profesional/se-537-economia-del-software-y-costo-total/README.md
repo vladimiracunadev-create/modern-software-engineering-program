@@ -198,7 +198,7 @@ Entrega `economia-log.md` con la predicción, las tres tablas, el orden de las i
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el noveno artefacto: un orden de ejecución por costo de demora, una comparación de proyectos por valor presente y un punto de cruce. `SE-538` preguntará cómo se presenta ese trabajo como carrera profesional, y `SE-540` reunirá estos números en un dossier. Cambia después un solo dato, la tasa de descuento de 10 % a 20 %, y observa qué proyecto pasa a ser primero.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el noveno artefacto: un orden de ejecución por costo de demora, una comparación de proyectos por valor presente y un punto de cruce. `SE-538` preguntará cómo se presenta ese trabajo como carrera profesional, y `SE-540` reunirá estos números en un dossier. Cambia después un solo dato, la tasa de descuento de 10 % a 20 %, y observa qué proyecto pasa a ser primero.
 
 ## Preguntas frecuentes
 

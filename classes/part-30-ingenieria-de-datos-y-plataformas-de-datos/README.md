@@ -1,6 +1,6 @@
 # Parte 30 — Ingeniería de datos y plataformas de datos
 
-La Parte 28 enseñó a elegir estilos arquitectónicos con escenarios de calidad y a defender la elección con un registro de decisión. Esta parte trata el dato como un producto de ingeniería con su propio ciclo de vida: sale de la base que sirve a la aplicación, llega a una plataforma, se organiza para responder preguntas, se transforma de forma repetible, se vigila, se promete a quienes lo consumen, se rastrea, se almacena en un formato con costo, se gobierna y se paga. El recorrido está pensado para quien debe responder a la pregunta «¿puedo confiar en este número y qué pasa si lo cambio?» con evidencia y no con una captura de pantalla.
+La [Parte 28](../part-28-estilos-arquitectonicos/README.md) enseñó a elegir estilos arquitectónicos con escenarios de calidad y a defender la elección con un registro de decisión. Esta parte trata el dato como un producto de ingeniería con su propio ciclo de vida: sale de la base que sirve a la aplicación, llega a una plataforma, se organiza para responder preguntas, se transforma de forma repetible, se vigila, se promete a quienes lo consumen, se rastrea, se almacena en un formato con costo, se gobierna y se paga. El recorrido está pensado para quien debe responder a la pregunta «¿puedo confiar en este número y qué pasa si lo cambio?» con evidencia y no con una captura de pantalla.
 
 ## Pregunta rectora
 

@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Entornos virtuales y aislamiento de dependencias** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué aísla realmente un entorno virtual y qué sigue compartiendo con el sistema?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Entornos virtuales y aislamiento de dependencias** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué aísla realmente un entorno virtual y qué sigue compartiendo con el sistema?**
 
 ## Prerrequisitos
 

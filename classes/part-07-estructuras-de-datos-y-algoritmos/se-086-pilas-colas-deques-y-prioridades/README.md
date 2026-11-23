@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Pilas, colas, deques y prioridades** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia el comportamiento cuando la estructura impone LIFO, FIFO o prioridad?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Pilas, colas, deques y prioridades** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia el comportamiento cuando la estructura impone LIFO, FIFO o prioridad?**
 
 ## Prerrequisitos
 

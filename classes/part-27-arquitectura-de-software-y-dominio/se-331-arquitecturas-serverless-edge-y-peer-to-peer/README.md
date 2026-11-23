@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas dónde ejecutar cada parte del sistema (funciones bajo demanda, un servidor siempre encendido, el borde de la red o una malla de pares) con una cuenta de latencia, de costo y de disponibilidad, y no con el nombre de la tecnología.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Event-driven, CQRS y event sourcing**: `SE-330` dejó consumidores que reaccionan a eventos; esta clase decide dónde corren, cuánto cuestan y qué pasa cuando no hay instancia lista. Cada estilo desplaza responsabilidades: serverless traslada la operación al proveedor, el borde acerca el cómputo al usuario y peer-to-peer distribuye la coordinación entre los participantes.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Event-driven, CQRS y event sourcing**: `SE-330` dejó consumidores que reaccionan a eventos; esta clase decide dónde corren, cuánto cuestan y qué pasa cuando no hay instancia lista. Cada estilo desplaza responsabilidades: serverless traslada la operación al proveedor, el borde acerca el cómputo al usuario y peer-to-peer distribuye la coordinación entre los participantes.
 
 **Error conceptual que debe corregir.** Creer que «serverless» es «más barato» o «sin servidores»: es un modelo de pago por uso con límites de tiempo y de estado, y su coste y su latencia dependen del patrón de tráfico, no del nombre.
 

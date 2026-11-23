@@ -105,7 +105,7 @@ Si se relaja la búsqueda en el servidor, queda una configuración válida: extr
 
 ### Registrar la decisión
 
-Una contradicción detectada se registra con: el conflicto (0 de 4 configuraciones cumplen), las opciones, quién decide, las preguntas abiertas (¿qué dato necesita realmente buscarse?, ¿con qué latencia?, ¿qué riesgo se acepta?) y el plazo. Un registro así convierte un hallazgo en una decisión revisable. El laboratorio de la Parte 04 refleja la misma idea: ante observaciones contradictorias, el modelo falla en voz alta con el conflicto en lugar de ocultarlo.
+Una contradicción detectada se registra con: el conflicto (0 de 4 configuraciones cumplen), las opciones, quién decide, las preguntas abiertas (¿qué dato necesita realmente buscarse?, ¿con qué latencia?, ¿qué riesgo se acepta?) y el plazo. Un registro así convierte un hallazgo en una decisión revisable. El laboratorio de la [Parte 04](../README.md) refleja la misma idea: ante observaciones contradictorias, el modelo falla en voz alta con el conflicto en lugar de ocultarlo.
 
 ![Diagrama de cuatro elementos del registro de una contradicción: la contradicción de los tres requisitos sin solución conjunta, las opciones, quién decide y las preguntas abiertas; no se escoge en silencio.](../../../content/part-04/figures/se-059-registro-de-la-decision.svg)
 

@@ -216,7 +216,7 @@ Entrega `postmortem-log.md` con la predicción, las tres tablas de resultados re
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el noveno artefacto: un postmortem con factores y acciones verificables y un seguimiento. `SE-502` pregunta cómo preparar lo que todavía no ha ocurrido: continuidad, recuperación y ejercicios. Cambia después un solo parámetro, el cumplimiento de las acciones, y observa cuánto pesa en el tercer año.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el noveno artefacto: un postmortem con factores y acciones verificables y un seguimiento. `SE-502` pregunta cómo preparar lo que todavía no ha ocurrido: continuidad, recuperación y ejercicios. Cambia después un solo parámetro, el cumplimiento de las acciones, y observa cuánto pesa en el tercer año.
 
 ## Preguntas frecuentes
 

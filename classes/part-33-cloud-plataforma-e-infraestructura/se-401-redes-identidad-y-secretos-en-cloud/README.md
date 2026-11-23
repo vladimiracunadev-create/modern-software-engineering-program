@@ -213,7 +213,7 @@ La **microsegmentación** es la versión de red de lo mismo: en lugar de segment
 
 **Cómo leer la figura.** Cada barra es una regla de red y su longitud, cuántos de los 40 servicios caen de media cuando el atacante parte de uno al azar. Mira que pasar de red plana a segmentos por equipo no cambia casi nada: como un equipo llama al siguiente, el atacante recorre el anillo. La caída llega con la lista de permitidos por servicio y se profundiza al limitar qué operaciones expone cada conexión. **Dónde deja de valer:** el grafo es sintético (3 llamadas por servicio), las probabilidades de caída son supuestos y no hay ninguna vulnerabilidad real detrás; el modelo trata las listas de permitidos como si estuvieran bien mantenidas, y una regla «por si acaso» que añade conexiones que nadie usa devuelve el resultado hacia la red plana. No se ejecutó mTLS ni una malla de servicios.
 
-**Límite y decisión.** El experimento no mide una malla de servicios ni el coste de operar certificados, que es real: autoridad certificadora, rotación, observabilidad y un nuevo punto de fallo si el proxy cae. Una regla práctica: empezar por el inventario real de llamadas (qué servicio llama a cuál, medido, no supuesto), generar la lista de permitidos desde ese inventario, registrar en modo de observación qué bloquearía antes de aplicarla y añadir identidad cuando el cambio de red no basta. La confianza cero no elimina la detección: la clase de identidad y sesiones de la Parte 38 (SE-458) muestra qué ocurre con una credencial robada cuando el equipo comprometido es el dueño de la identidad.
+**Límite y decisión.** El experimento no mide una malla de servicios ni el coste de operar certificados, que es real: autoridad certificadora, rotación, observabilidad y un nuevo punto de fallo si el proxy cae. Una regla práctica: empezar por el inventario real de llamadas (qué servicio llama a cuál, medido, no supuesto), generar la lista de permitidos desde ese inventario, registrar en modo de observación qué bloquearía antes de aplicarla y añadir identidad cuando el cambio de red no basta. La confianza cero no elimina la detección: la clase de identidad y sesiones de la [Parte 38](../../part-38-seguridad-privacidad-y-cumplimiento/README.md) ([SE-458](../../part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md)) muestra qué ocurre con una credencial robada cuando el equipo comprometido es el dueño de la identidad.
 
 ## Definiciones de trabajo
 
@@ -273,7 +273,7 @@ Entrega `red-identidad-secretos.md` con la predicción, las tres tablas reproduc
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el quinto artefacto: el grafo de flujos, la política mínima y el inventario de secretos. `SE-402` pregunta cómo se declara todo esto de forma repetible. Cambia una regla, por ejemplo abre el puerto de la base de datos al bastión, y observa qué otro camino aparece.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el quinto artefacto: el grafo de flujos, la política mínima y el inventario de secretos. `SE-402` pregunta cómo se declara todo esto de forma repetible. Cambia una regla, por ejemplo abre el puerto de la base de datos al bastión, y observa qué otro camino aparece.
 
 ## Preguntas frecuentes
 

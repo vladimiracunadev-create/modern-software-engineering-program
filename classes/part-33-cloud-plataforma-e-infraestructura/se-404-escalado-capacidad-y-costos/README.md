@@ -256,7 +256,7 @@ Entrega `capacidad-y-costos.md` con la predicción, las tres tablas reproducidas
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el octavo artefacto: la política de capacidad y el nivel de compromiso. `SE-405` pregunta qué pasa si parte de esta capacidad está en otro proveedor o en una instalación propia. Cambia un supuesto, por ejemplo el tiempo de arranque, y observa cuánto se mueve la demanda sin atender.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el octavo artefacto: la política de capacidad y el nivel de compromiso. `SE-405` pregunta qué pasa si parte de esta capacidad está en otro proveedor o en una instalación propia. Cambia un supuesto, por ejemplo el tiempo de arranque, y observa cuánto se mueve la demanda sin atender.
 
 ## Preguntas frecuentes
 
@@ -274,7 +274,7 @@ Se puede comprometer poco, por debajo de la mediana, donde la curva es plana y e
 
 ### ¿Qué pasa con las solicitudes que no se atienden?
 
-En el modelo se pierden. En un sistema real se encolan, se reintentan o se degradan; cada una de esas opciones tiene su costo de latencia y de estado y es una decisión de diseño de la Parte 32.
+En el modelo se pierden. En un sistema real se encolan, se reintentan o se degradan; cada una de esas opciones tiene su costo de latencia y de estado y es una decisión de diseño de la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md).
 
 ## Fallo controlado y diagnóstico
 

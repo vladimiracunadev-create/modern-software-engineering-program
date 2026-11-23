@@ -249,7 +249,7 @@ Entrega `consenso-log.md` con la predicción, las tres tablas, la clasificación
 
 ## Caso conductor
 
-El ejecutor único del cierre de plazo es el artefacto de esta clase en el caso conductor de la Parte 32. `SE-392` pregunta qué hacer con lo que aun así se ejecuta dos veces: el procesamiento idempotente. Cambia después una sola decisión, el tamaño del grupo de coordinación, y observa qué otra (cuántas caídas se toleran) se ve afectada.
+El ejecutor único del cierre de plazo es el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-392` pregunta qué hacer con lo que aun así se ejecuta dos veces: el procesamiento idempotente. Cambia después una sola decisión, el tamaño del grupo de coordinación, y observa qué otra (cuántas caídas se toleran) se ve afectada.
 
 ## Preguntas frecuentes
 

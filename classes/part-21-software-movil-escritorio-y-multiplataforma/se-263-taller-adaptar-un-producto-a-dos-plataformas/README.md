@@ -225,7 +225,7 @@ Entrega `adaptation-log.md` con el inventario de diferencias medidas en dos sist
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 llega al taller con diez decisiones y las aplica a dos plataformas con un inventario medido. El proyecto `SE-264` integra todo en un cliente que sincroniza y en un paquete revisable. Cambia después una sola decisión, excluir la función de arrastrar y soltar en una plataforma, y revisa qué contrato, qué prueba y qué texto de la interfaz cambian.
+El cliente de entregas de la [Parte 21](../README.md) llega al taller con diez decisiones y las aplica a dos plataformas con un inventario medido. El proyecto `SE-264` integra todo en un cliente que sincroniza y en un paquete revisable. Cambia después una sola decisión, excluir la función de arrastrar y soltar en una plataforma, y revisa qué contrato, qué prueba y qué texto de la interfaz cambian.
 
 ## Preguntas frecuentes
 

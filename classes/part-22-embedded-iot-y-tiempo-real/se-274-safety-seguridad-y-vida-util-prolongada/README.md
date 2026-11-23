@@ -219,7 +219,7 @@ Entrega `safety-log.md` con la predicción, las tres tablas y el análisis de pe
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el décimo artefacto: el análisis de peligros del nodo con estado seguro, defensa, supuesto y comprobación. `SE-275` lo convierte en un taller de modelado de fallos. Cambia después una sola cosa, el plazo del temporizador de vigilancia, y observa qué reinicios y qué indisponibilidad cambian.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el décimo artefacto: el análisis de peligros del nodo con estado seguro, defensa, supuesto y comprobación. `SE-275` lo convierte en un taller de modelado de fallos. Cambia después una sola cosa, el plazo del temporizador de vigilancia, y observa qué reinicios y qué indisponibilidad cambian.
 
 ## Preguntas frecuentes
 

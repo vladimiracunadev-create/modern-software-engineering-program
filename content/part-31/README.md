@@ -37,7 +37,7 @@ Al finalizar podrás defender un flujo integrado con sus invariantes, su contrat
 ## Prerrequisitos enlazados
 
 - [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): contratos, compatibilidad entre versiones y pruebas de contrato.
-- [Parte 19 — Web, front-end y aplicaciones progresivas](../../classes/part-19-web-frontend-y-aplicaciones-progresivas/): entradas no confiables, firmas y seguridad de interfaces.
+- [Parte 19 — Web, frontend y aplicaciones progresivas](../../classes/part-19-web-frontend-y-aplicaciones-progresivas/): entradas no confiables, firmas y seguridad de interfaces.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y trabajo asíncrono.
 - [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): contextos delimitados y decisiones registradas.
 - [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): transacciones, migraciones compatibles y copias de seguridad.

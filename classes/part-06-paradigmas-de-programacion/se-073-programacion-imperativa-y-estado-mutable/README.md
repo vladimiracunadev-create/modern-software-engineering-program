@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación imperativa y estado mutable** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia una decisión cuando el estado se modifica paso a paso?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación imperativa y estado mutable** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia una decisión cuando el estado se modifica paso a paso?**
 
 ## Prerrequisitos
 
@@ -173,7 +173,7 @@ Solo si sus valores son inmutables (números, cadenas, tuplas de inmutables). Si
 
 ### ¿Evitar la mutación es siempre mejor?
 
-No. Copiar para actualizar un elemento de una lista de 10 000 tardó unos 98 µs frente a 81 ns en sitio (Parte 06, `SE-076`). Mutar en un ámbito pequeño y con propietario claro es más barato; el riesgo está en la mutación visible desde lejos.
+No. Copiar para actualizar un elemento de una lista de 10 000 tardó unos 98 µs frente a 81 ns en sitio ([Parte 06](../README.md), `SE-076`). Mutar en un ámbito pequeño y con propietario claro es más barato; el riesgo está en la mutación visible desde lejos.
 
 ### ¿Por qué `acc=[]` como argumento por defecto es un error si «funciona»?
 
@@ -227,7 +227,7 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 
 ## Puente hacia el trabajo con agentes
 
-Un agente que edita código o estructuras de datos comparte con el estudiante el mismo riesgo: modifica un objeto que otro paso del flujo también lee. Si el harness entrega a la herramienta una referencia al estado de la conversación en lugar de una copia, una herramienta que falla a medias deja el estado corrupto para el resto de la sesión. La práctica es la de esta clase: las herramientas trabajan sobre una copia o un delta y el estado compartido se actualiza en un solo punto, con registro de qué cambió. La Parte 08 vuelve sobre esto al hablar de contratos de herramientas.
+Un agente que edita código o estructuras de datos comparte con el estudiante el mismo riesgo: modifica un objeto que otro paso del flujo también lee. Si el harness entrega a la herramienta una referencia al estado de la conversación en lugar de una copia, una herramienta que falla a medias deja el estado corrupto para el resto de la sesión. La práctica es la de esta clase: las herramientas trabajan sobre una copia o un delta y el estado compartido se actualiza en un solo punto, con registro de qué cambió. La [Parte 08](../../part-08-entornos-herramientas-y-depuracion/README.md) vuelve sobre esto al hablar de contratos de herramientas.
 
 ## Transferencia
 

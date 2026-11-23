@@ -181,7 +181,7 @@ Entrega `rollout-log.md` con la predicción, las tres tablas, la política de de
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el octavo artefacto: una política de despliegue progresivo con criterios de abortar y una regla de migraciones reversibles. `SE-477` tratará lo que el servidor no controla: instaladores y actualizaciones en el equipo de la persona usuaria. Cambia después un solo dato, la fracción del canario, y observa cuántas personas se dañan antes de la detección.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el octavo artefacto: una política de despliegue progresivo con criterios de abortar y una regla de migraciones reversibles. `SE-477` tratará lo que el servidor no controla: instaladores y actualizaciones en el equipo de la persona usuaria. Cambia después un solo dato, la fracción del canario, y observa cuántas personas se dañan antes de la detección.
 
 ## Preguntas frecuentes
 

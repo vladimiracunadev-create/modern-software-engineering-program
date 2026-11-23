@@ -1,6 +1,6 @@
 # Parte 40 — CI/CD, IaC y platform engineering
 
-La Parte 39 dejó un artefacto que se construye de forma reproducible, se firma y se recupera. La pregunta cambia a «¿cómo llega cada cambio a producción, con qué comprobaciones, con qué identidad y cómo se vuelve atrás?». Esta parte trabaja sobre **la canalización de la API de entregas de la plataforma educativa**, un caso sintético. Cada clase mide un mecanismo (choque de ramas, ruta crítica, compuertas, ventana de exposición, potencia de un canario, estado concurrente, deriva, reidentificación, adopción, ruido de métricas, inyección, retroceso) y declara qué no demuestra.
+La [Parte 39](../part-39-build-release-y-cadena-de-suministro/README.md) dejó un artefacto que se construye de forma reproducible, se firma y se recupera. La pregunta cambia a «¿cómo llega cada cambio a producción, con qué comprobaciones, con qué identidad y cómo se vuelve atrás?». Esta parte trabaja sobre **la canalización de la API de entregas de la plataforma educativa**, un caso sintético. Cada clase mide un mecanismo (choque de ramas, ruta crítica, compuertas, ventana de exposición, potencia de un canario, estado concurrente, deriva, reidentificación, adopción, ruido de métricas, inyección, retroceso) y declara qué no demuestra.
 
 ## Pregunta rectora
 
@@ -101,7 +101,7 @@ Un hallazgo, un cambio, una prueba. Corrige ocho defectos, ejecuta una inyecció
 
 #### SE-492 — Proyecto: camino a producción con retroceso
 
-El código vuelve, los datos no. Ensaya migraciones con SQLite, hace la ablación de compuertas y valida 120 paquetes. Entrega: camino con evidencia. La Parte 41 pasa a la observabilidad.
+El código vuelve, los datos no. Ensaya migraciones con SQLite, hace la ablación de compuertas y valida 120 paquetes. Entrega: camino con evidencia. La [Parte 41](../part-41-observabilidad-sre-e-incidentes/README.md) pasa a la observabilidad.
 
 ## Resumen operativo del recorrido
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que, antes de escribir un bucle de agente, te preguntes si el sistema necesita uno. Un agente es un patrón caro: cada paso es una llamada al modelo que vuelve a leer todo lo anterior, el número de pasos no se conoce de antemano y cada decisión intermedia es una oportunidad de error. Un workflow, en cambio, deja el orden de los pasos en el código y usa el modelo solo donde el lenguaje natural es el problema. Quien entiende la diferencia no pregunta «¿agente o no?» como una cuestión de moda sino como una de **quién decide el siguiente paso** y de cuánto cuesta equivocarse en esa decisión.
 
-**Por qué aparece aquí.** Abre la **Parte 49** después de la Parte 48, donde el objeto de estudio era el harness que rodea a un agente de programación. Ahora el agente es una pieza de un sistema que tú construyes, y la primera decisión de diseño es si esa pieza debe existir. Las Partes 45–47 enseñaron a pedir código a un asistente, a especificar y a verificar con evidencia; esta parte aplica esa misma disciplina a sistemas con modelos de lenguaje dentro, y empieza por el criterio de elección porque cada clase siguiente es un patrón que solo se justifica si el anterior no bastaba.
+**Por qué aparece aquí.** Abre la **[Parte 49](../README.md)** después de la [Parte 48](../../part-48-harness-y-agentic-engineering/README.md), donde el objeto de estudio era el harness que rodea a un agente de programación. Ahora el agente es una pieza de un sistema que tú construyes, y la primera decisión de diseño es si esa pieza debe existir. Las Partes [45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)–[47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) enseñaron a pedir código a un asistente, a especificar y a verificar con evidencia; esta parte aplica esa misma disciplina a sistemas con modelos de lenguaje dentro, y empieza por el criterio de elección porque cada clase siguiente es un patrón que solo se justifica si el anterior no bastaba.
 
 **Error conceptual que debe corregir.** Creer que «agente» es la versión avanzada de «workflow» y que más autonomía es más capacidad. La documentación de Anthropic distingue dos arquitecturas: en un **workflow** el código orquesta modelos y herramientas por caminos predefinidos; en un **agente** el propio modelo dirige su proceso y el uso de herramientas. Esa fuente recomienda empezar por la solución más simple y subir en complejidad solo cuando se demuestra que hace falta, porque la autonomía se paga en latencia, costo y posibilidad de error acumulado. La autonomía no es capacidad: es una decisión de dónde poner el control.
 
@@ -27,12 +27,12 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 45: una práctica se elige por el oráculo que deja y por su punto ciego, no por su nombre. La pregunta activa es: **la última vez que alguien propuso «un agente que lo haga», ¿qué paso concreto del problema no se podía escribir de antemano, y cuántos de los demás pasos sí?**
+Recupera lo aprendido en la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md): una práctica se elige por el oráculo que deja y por su punto ciego, no por su nombre. La pregunta activa es: **la última vez que alguien propuso «un agente que lo haga», ¿qué paso concreto del problema no se podía escribir de antemano, y cuántos de los demás pasos sí?**
 
 ## Prerrequisitos
 
-- Haber completado la Parte 45, en particular `SE-551` (comparar metodologías sobre el mismo cambio) y `SE-552` (política con clasificación de cambios).
-- Conocer en la Parte 47 la diferencia entre delegar una tarea a un agente y especificarla.
+- Haber completado la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md), en particular `SE-551` (comparar metodologías sobre el mismo cambio) y `SE-552` (política con clasificación de cambios).
+- Conocer en la [Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) la diferencia entre delegar una tarea a un agente y especificarla.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar.
 
 ## Problema auténtico

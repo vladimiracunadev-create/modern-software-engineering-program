@@ -198,7 +198,7 @@ Entrega `models-log.md` con el modelo, el comprobador, las 300 mutaciones, la co
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja el modelo de ocho entidades con comprobadores de consistencia y de deriva. `SE-161` tomará la entidad `Entrega` y modelará su ciclo de vida como máquina de estados, y `SE-162` convertirá los campos y restricciones en esquemas de validación. Cambia después una sola decisión, hacer opcional la prórroga por tarea, y revisa qué parte del modelo, de la base y del código cambia.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja el modelo de ocho entidades con comprobadores de consistencia y de deriva. `SE-161` tomará la entidad `Entrega` y modelará su ciclo de vida como máquina de estados, y `SE-162` convertirá los campos y restricciones en esquemas de validación. Cambia después una sola decisión, hacer opcional la prórroga por tarea, y revisa qué parte del modelo, de la base y del código cambia.
 
 ## Preguntas frecuentes
 

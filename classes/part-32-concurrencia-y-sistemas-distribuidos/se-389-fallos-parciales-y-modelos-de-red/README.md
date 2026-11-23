@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-388`: sin reloj común, el orden es parcial. La pre
 
 - Haber completado `SE-388` o poder explicar la diferencia entre medir y ordenar con relojes.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `statistics`).
-- Haber visto en la Parte 31 (`SE-384`) un flujo tolerante a reintentos.
+- Haber visto en la [Parte 31](../../part-31-integracion-eventos-y-mensajeria/README.md) (`SE-384`) un flujo tolerante a reintentos.
 
 ## Problema auténtico
 
@@ -220,7 +220,7 @@ Entrega `fallos-log.md` con la predicción, las tres tablas, el modelo de fallos
 
 ## Caso conductor
 
-La llamada del servicio de entregas al de calificaciones es el artefacto de esta clase en el caso conductor de la Parte 32. `SE-390` pregunta qué se puede prometer cuando una parte queda aislada: las garantías que quedan al fallar la red. Cambia después una sola decisión, el número de capas que reintentan, y observa qué otra (la carga sobre el servicio final) se ve afectada.
+La llamada del servicio de entregas al de calificaciones es el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-390` pregunta qué se puede prometer cuando una parte queda aislada: las garantías que quedan al fallar la red. Cambia después una sola decisión, el número de capas que reintentan, y observa qué otra (la carga sobre el servicio final) se ve afectada.
 
 ## Preguntas frecuentes
 

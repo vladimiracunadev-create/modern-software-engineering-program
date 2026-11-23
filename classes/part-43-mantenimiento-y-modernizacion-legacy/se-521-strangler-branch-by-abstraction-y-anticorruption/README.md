@@ -208,7 +208,7 @@ Entrega `estrangulamiento-log.md` con la predicción, las tres tablas, el plan d
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el quinto artefacto: el plan de rebanadas con su sombra y su capa de traducción. `SE-522` preguntará cómo se migra el runtime que sostiene al módulo, y `SE-523` cómo se migran los datos que la capa traduce. Cambia después un solo dato, el calendario de cierre de cuatro semanas a ocho, y observa cómo cambia la ventana necesaria.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el quinto artefacto: el plan de rebanadas con su sombra y su capa de traducción. `SE-522` preguntará cómo se migra el runtime que sostiene al módulo, y `SE-523` cómo se migran los datos que la capa traduce. Cambia después un solo dato, el calendario de cierre de cuatro semanas a ocho, y observa cómo cambia la ventana necesaria.
 
 ## Preguntas frecuentes
 

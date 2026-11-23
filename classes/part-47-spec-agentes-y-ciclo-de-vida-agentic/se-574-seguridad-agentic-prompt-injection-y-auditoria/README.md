@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de pensar la seguridad de un agente como el problema de que alguien le escriba algo malicioso y la pienses como el problema de que el agente lee texto de fuentes que no controlas y puede hacer cosas con lo que lee. La inyección de instrucciones no es un fallo que se corrige con un filtro mejor: es consecuencia de que un modelo no distingue de forma fiable entre los datos que debe procesar y las instrucciones que debe obedecer. La habilidad es diseñar para que, aunque el agente sea engañado, el daño esté acotado, y para que quede un registro que permita reconstruir qué leyó, qué decidió y qué hizo.
 
-**Por qué aparece aquí.** Es la décima clase de la **Parte 47**, después de **Human-in-the-loop, aprobación y acciones reversibles**: `SE-573` diseñó la intervención de la persona; ahora hay que suponer que alguien intentará que el agente pida justo la aprobación que no debería. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: las «instrucciones inyectadas» son una orden de prueba inofensiva (`CANARIO`), no se desarrolló ninguna técnica de ataque efectiva y no se invocó ningún modelo.
+**Por qué aparece aquí.** Es la décima clase de la **[Parte 47](../README.md)**, después de **Human-in-the-loop, aprobación y acciones reversibles**: `SE-573` diseñó la intervención de la persona; ahora hay que suponer que alguien intentará que el agente pida justo la aprobación que no debería. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: las «instrucciones inyectadas» son una orden de prueba inofensiva (`CANARIO`), no se desarrolló ninguna técnica de ataque efectiva y no se invocó ningún modelo.
 
 **Error conceptual que debe corregir.** Creer que un filtro de «frases peligrosas» protege al agente. Un filtro detecta las formas que conoce y se evade con una paráfrasis, un carácter invisible, una codificación o repartiendo la orden en dos campos. Los filtros sirven para priorizar la revisión y registrar sospechas, y no pueden ser la defensa: la defensa es la arquitectura, que limita lo que el agente puede hacer cuando falla.
 
@@ -213,7 +213,7 @@ Entrega `seguridad-agentic-log.md` con la predicción, las tres tablas, el inven
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el décimo artefacto: el modelo de amenazas con las tres capacidades, la política que rompe una, el filtro como señal y el registro de auditoría con su referencia externa. `SE-575` reúne todo en un taller: detener un agente que se descontrola, recuperarlo y evaluarlo con rigor. Cambia después un solo dato, la proporción de tareas que necesitan las tres capacidades, y observa a partir de qué valor la aprobación humana en el paso de salida se convierte en el cuello de botella.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el décimo artefacto: el modelo de amenazas con las tres capacidades, la política que rompe una, el filtro como señal y el registro de auditoría con su referencia externa. `SE-575` reúne todo en un taller: detener un agente que se descontrola, recuperarlo y evaluarlo con rigor. Cambia después un solo dato, la proporción de tareas que necesitan las tres capacidades, y observa a partir de qué valor la aprobación humana en el paso de salida se convierte en el cuello de botella.
 
 ## Preguntas frecuentes
 

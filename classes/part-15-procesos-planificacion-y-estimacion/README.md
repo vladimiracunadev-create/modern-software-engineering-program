@@ -1,6 +1,6 @@
 # Parte 15 — Procesos, planificación y estimación
 
-La Parte 14 terminó con un prototipo evaluado con personas. La pregunta cambia de «qué se construye» a «cómo se organiza el trabajo, qué se promete y cómo se sabe a tiempo que el plan dejó de valer». Esta parte trabaja sobre el **plan de lanzamiento de la plataforma de entregas de tareas**, un caso sintético: la recuperación de borradores y la regla de penalización de las Partes 12 y 13 son el trabajo pendiente. Recorre un modelo de proceso por bloque, los principios que sostienen un ciclo corto, cuatro marcos leídos por sus políticas, la teoría de colas que explica la espera, estimaciones con rango, redes con dependencias, registros de riesgos y decisiones, puertas de listo y terminado, métricas con contrapesos, retrospectivas con capacidad limitada y un plan adaptativo con disparadores y barreras.
+La [Parte 14](../part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) terminó con un prototipo evaluado con personas. La pregunta cambia de «qué se construye» a «cómo se organiza el trabajo, qué se promete y cómo se sabe a tiempo que el plan dejó de valer». Esta parte trabaja sobre el **plan de lanzamiento de la plataforma de entregas de tareas**, un caso sintético: la recuperación de borradores y la regla de penalización de las Partes [12](../part-12-ingenieria-de-requisitos/README.md) y [13](../part-13-especificaciones-contratos-y-modelos/README.md) son el trabajo pendiente. Recorre un modelo de proceso por bloque, los principios que sostienen un ciclo corto, cuatro marcos leídos por sus políticas, la teoría de colas que explica la espera, estimaciones con rango, redes con dependencias, registros de riesgos y decisiones, puertas de listo y terminado, métricas con contrapesos, retrospectivas con capacidad limitada y un plan adaptativo con disparadores y barreras.
 
 ## Pregunta rectora
 
@@ -35,7 +35,7 @@ Al finalizar podrás defender un plan con sus rangos, sus supuestos, sus señale
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 11 — Economía, métricas y decisiones de producto](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/): valor, costo de decisión y métricas con contrapesos.
 - [Parte 12 — Ingeniería de requisitos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-12-ingenieria-de-requisitos/): requisitos y criterios que esta parte convierte en trabajo planificado.
@@ -140,7 +140,7 @@ El estudiante entrega un plan comunicado como distribución con tres supuestos v
 
 #### SE-192 — Proyecto: plan adaptativo con evidencia y guardrails
 
-Toda regla de replanificación intercambia falsas alarmas por retraso. El proyecto mide seis reglas, valida un plan con 200 mutaciones y separa en mil proyectos el efecto de ordenar por valor del de prometer menos. La Parte 16 pasa a cómo se colabora sobre el código con Git.
+Toda regla de replanificación intercambia falsas alarmas por retraso. El proyecto mide seis reglas, valida un plan con 200 mutaciones y separa en mil proyectos el efecto de ordenar por valor del de prometer menos. La [Parte 16](../part-16-git-colaboracion-y-codigo-abierto/README.md) pasa a cómo se colabora sobre el código con Git.
 
 El estudiante entrega el plan, la regla elegida con su costo, las barreras con su comprobación y la lista de lo que no ve el validador.
 
@@ -163,7 +163,7 @@ El estudiante entrega el plan, la regla elegida con su costo, las barreras con s
 
 ## Proyecto integrador
 
-El proyecto **SE-192** entrega un plan adaptativo con objetivo, supuestos con responsable y fecha, rangos con confianza calibrados, disparadores con señal, umbral, ventana y responsable, barreras con comprobación, métricas con definición y fecha de revisión, además de la simulación que muestra el costo de la regla elegida y la separación entre ordenar por valor y prometer menos. Se acompaña de los límites declarados: qué cambios de sentido no detecta el validador y qué parte del plan no se comprobó con proyectos reales.
+El proyecto **[SE-192](./se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md)** entrega un plan adaptativo con objetivo, supuestos con responsable y fecha, rangos con confianza calibrados, disparadores con señal, umbral, ventana y responsable, barreras con comprobación, métricas con definición y fecha de revisión, además de la simulación que muestra el costo de la regla elegida y la separación entre ordenar por valor y prometer menos. Se acompaña de los límites declarados: qué cambios de sentido no detecta el validador y qué parte del plan no se comprobó con proyectos reales.
 
 ## Criterios de salida
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que delegues trabajo a otros agentes por una razón que puedas medir y con un contrato que puedas comprobar. Delegar a un subagente ofrece tres cosas —un contexto limpio, paralelismo y separación de responsabilidades— y cobra tres: lectura repetida, información que se pierde en el resumen y conflictos cuando dos agentes tocan lo mismo. La habilidad es decidir qué trabajo se reparte, cómo se define lo que cada agente recibe y devuelve, cómo se evita que dos agentes pisen el mismo archivo y qué se pierde por el camino.
 
-**Por qué aparece aquí.** Es la octava clase de la **Parte 47**, después de **MCP, recursos, prompts, tools y confianza**: `SE-571` examinó lo que un agente consume de servidores externos; ahora el agente consume el trabajo de otros agentes. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: no se lanzó ningún subagente ni se invocó ningún modelo, y las simulaciones y el experimento con SQLite estudian la aritmética del contexto, las colisiones y los protocolos de escritura, no el comportamiento de agentes reales.
+**Por qué aparece aquí.** Es la octava clase de la **[Parte 47](../README.md)**, después de **MCP, recursos, prompts, tools y confianza**: `SE-571` examinó lo que un agente consume de servidores externos; ahora el agente consume el trabajo de otros agentes. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: no se lanzó ningún subagente ni se invocó ningún modelo, y las simulaciones y el experimento con SQLite estudian la aritmética del contexto, las colisiones y los protocolos de escritura, no el comportamiento de agentes reales.
 
 **Error conceptual que debe corregir.** Creer que más agentes equivalen a más capacidad. Un sistema multiagente ayuda cuando el trabajo se puede repartir en partes casi independientes y cuando la información necesaria excede lo que cabe en un contexto; ayuda poco cuando las partes dependen unas de otras o comparten archivos. En ese caso añade coordinación, consume más recursos y puede producir peor resultado que un agente solo.
 
@@ -230,7 +230,7 @@ Entrega `delegacion-log.md` con la predicción, las tres tablas, la descomposici
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el octavo artefacto: la descomposición con zonas, los contratos de delegación, el protocolo de escritura y el criterio de aceptación del conjunto. `SE-573` examina cuándo y cómo interviene una persona, y qué acciones se pueden deshacer. Cambia después un solo dato, el número de archivos comunes, y observa a partir de cuántos la propiedad por carpeta deja de evitar los conflictos.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el octavo artefacto: la descomposición con zonas, los contratos de delegación, el protocolo de escritura y el criterio de aceptación del conjunto. `SE-573` examina cuándo y cómo interviene una persona, y qué acciones se pueden deshacer. Cambia después un solo dato, el número de archivos comunes, y observa a partir de cuántos la propiedad por carpeta deja de evitar los conflictos.
 
 ## Preguntas frecuentes
 

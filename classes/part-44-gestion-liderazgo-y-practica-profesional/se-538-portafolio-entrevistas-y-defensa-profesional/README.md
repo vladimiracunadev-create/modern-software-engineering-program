@@ -198,7 +198,7 @@ Entrega `portafolio-log.md` con la predicción, las tres tablas, tres entradas d
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el décimo artefacto: entradas de portafolio comprobables, una autoevaluación por niveles y una defensa por profundidad. `SE-539` preguntará cómo se conduce una revisión de una decisión difícil, donde esta defensa se vuelve un ejercicio colectivo, y `SE-540` reunirá todo en un dossier. Cambia después un solo dato, el porcentaje de acierto por azar en las preguntas profundas de 20 % a 50 %, y observa cuánto se acerca la impresión de defender todo a la de declarar el límite.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el décimo artefacto: entradas de portafolio comprobables, una autoevaluación por niveles y una defensa por profundidad. `SE-539` preguntará cómo se conduce una revisión de una decisión difícil, donde esta defensa se vuelve un ejercicio colectivo, y `SE-540` reunirá todo en un dossier. Cambia después un solo dato, el porcentaje de acierto por azar en las preguntas profundas de 20 % a 50 %, y observa cuánto se acerca la impresión de defender todo a la de declarar el límite.
 
 ## Preguntas frecuentes
 

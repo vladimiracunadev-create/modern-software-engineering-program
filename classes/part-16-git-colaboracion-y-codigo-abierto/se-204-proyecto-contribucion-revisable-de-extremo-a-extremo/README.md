@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para entregar una contribución que otra persona pueda revisar, probar, atribuir, licenciar y fusionar siguiendo enlaces y comandos, sin preguntar nada a quien la escribió. El criterio profesional no es que el cambio sea inteligente sino que sea verificable: cada afirmación del paquete tiene detrás un comando que se ejecuta y un límite declarado.
 
-**Por qué aparece aquí.** Cierra la Parte 16 y reúne todas sus clases: el modelo de objetos (`SE-193`), los commits atómicos (`SE-194`), la integración (`SE-195`), la revisión (`SE-196`), el flujo (`SE-197`), la trazabilidad (`SE-198`), las convenciones y propietarios (`SE-199`), la contribución externa (`SE-200`), las licencias (`SE-201`), las firmas y la protección (`SE-202`) y el rescate (`SE-203`). Deja un paquete de contribución que la Parte 17 documenta y que las partes siguientes dan por revisable.
+**Por qué aparece aquí.** Cierra la [Parte 16](../README.md) y reúne todas sus clases: el modelo de objetos (`SE-193`), los commits atómicos (`SE-194`), la integración (`SE-195`), la revisión (`SE-196`), el flujo (`SE-197`), la trazabilidad (`SE-198`), las convenciones y propietarios (`SE-199`), la contribución externa (`SE-200`), las licencias (`SE-201`), las firmas y la protección (`SE-202`) y el rescate (`SE-203`). Deja un paquete de contribución que la [Parte 17](../../part-17-documentacion-y-conocimiento-tecnico/README.md) documenta y que las partes siguientes dan por revisable.
 
 **Error conceptual que debe corregir.** Creer que una contribución está lista cuando las pruebas pasan. Las pruebas comprueban lo que alguien escribió; un paquete revisable además tiene historia atómica, motivo enlazado, licencia, firma, propietarios y tamaño razonables, y declara lo que ninguna comprobación ve. Una afirmación vacía pasa todas las comprobaciones de forma.
 
@@ -172,7 +172,7 @@ Entrega la rama de contribución, la descripción del PR, el validador con su ma
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Este proyecto deja el paquete de contribución y el validador. La Parte 17 documenta lo que aquí se declaró (guía de contribución, descripción, límites) y las partes de construcción que siguen la heredan como convención de trabajo. Cambia después un solo dato, el umbral de líneas por commit, y revisa qué contribuciones de la matriz cambian de resultado.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Este proyecto deja el paquete de contribución y el validador. La [Parte 17](../../part-17-documentacion-y-conocimiento-tecnico/README.md) documenta lo que aquí se declaró (guía de contribución, descripción, límites) y las partes de construcción que siguen la heredan como convención de trabajo. Cambia después un solo dato, el umbral de líneas por commit, y revisa qué contribuciones de la matriz cambian de resultado.
 
 ## Preguntas frecuentes
 
@@ -268,7 +268,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el validador d
 
 ## Límites y siguiente paso
 
-Se ejecutó un experimento con repositorios temporales, claves desechables y defectos plantados por el autor en Windows y Ubuntu (WSL2) con resultados idénticos. Las doce comprobaciones se ajustaron a los trece defectos, los umbrales son arbitrarios y no se probó ningún alojamiento, protección de rama ni revisor humano. La Parte 17 pregunta cómo se documenta lo que esta contribución declara.
+Se ejecutó un experimento con repositorios temporales, claves desechables y defectos plantados por el autor en Windows y Ubuntu (WSL2) con resultados idénticos. Las doce comprobaciones se ajustaron a los trece defectos, los umbrales son arbitrarios y no se probó ningún alojamiento, protección de rama ni revisor humano. La [Parte 17](../../part-17-documentacion-y-conocimiento-tecnico/README.md) pregunta cómo se documenta lo que esta contribución declara.
 
 ## Glosario
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues, como lo haría un equipo de plataforma, algo que otra persona pueda ejecutar, atacar y auditar: una plataforma mínima que acepta código ajeno, lo valida antes de ejecutarlo, lo ejecuta con límites, registra cada paso de forma que un cambio posterior se detecte y entrega un informe firmado con una firma que sobreviva a un ordenador cuántico. No es un diseño sobre el papel: la referencia que acompaña esta clase se ejecuta, rechaza módulos hostiles al subirlos, corta un bucle infinito, niega crecer la memoria, convierte una trampa en una decisión de política y detecta que se borró o se alteró una entrada del registro. El valor profesional está en la evidencia: cada afirmación de seguridad se acompaña de la prueba que la ejercita.
 
-**Por qué aparece aquí.** Es el proyecto de la Parte 23: une WebAssembly y su arranque (`SE-277` y `SE-278`), el control de lo que corre en el núcleo (`SE-279`), el costo de decidir dónde ejecutar (`SE-280` y `SE-281`), las fronteras (`SE-282`), la evidencia de hardware (`SE-283`), la migración criptográfica (`SE-284` y `SE-285`) y la confianza cero (`SE-286`), con el taller de `SE-287` como batería de pruebas. Retoma `SE-398` a `SE-400` (aislamiento, orquestación y serverless), `SE-472` y `SE-473` (atestaciones y firmas) y `SE-461` (criptografía y claves).
+**Por qué aparece aquí.** Es el proyecto de la [Parte 23](../README.md): une WebAssembly y su arranque (`SE-277` y `SE-278`), el control de lo que corre en el núcleo (`SE-279`), el costo de decidir dónde ejecutar (`SE-280` y `SE-281`), las fronteras (`SE-282`), la evidencia de hardware (`SE-283`), la migración criptográfica (`SE-284` y `SE-285`) y la confianza cero (`SE-286`), con el taller de `SE-287` como batería de pruebas. Retoma `SE-398` a `SE-400` (aislamiento, orquestación y serverless), `SE-472` y `SE-473` (atestaciones y firmas) y `SE-461` (criptografía y claves).
 
 **Error conceptual que debe corregir.** Creer que una plataforma segura es una colección de mecanismos. Lo que la hace revisable es la correspondencia entre una *amenaza*, un *mecanismo* y una *prueba que falla si el mecanismo falta*. En la referencia, por ejemplo, la amenaza «una regla pide acceso a archivos» tiene como mecanismo el validador de importaciones y como prueba una regla que importa `leer_archivo` y debe ser rechazada al subir; si alguien relaja el validador, esa prueba se pone en rojo. Un proyecto sin esa tabla tiene mecanismos que nadie sabe si siguen funcionando.
 
@@ -206,7 +206,7 @@ Entrega el expediente descrito en la evidencia de aprendizaje y el código de tu
 
 ## Caso conductor
 
-*Avisos* abre su plataforma de reglas con un expediente que el comité puede ejecutar y discutir, y con una lista honesta de lo que falta. Con este proyecto se cierra la Parte 23 y con ella el recorrido de runtimes y plataformas modernas: de un módulo aislado a una plataforma con evidencia.
+*Avisos* abre su plataforma de reglas con un expediente que el comité puede ejecutar y discutir, y con una lista honesta de lo que falta. Con este proyecto se cierra la [Parte 23](../README.md) y con ella el recorrido de runtimes y plataformas modernas: de un módulo aislado a una plataforma con evidencia.
 
 ## Preguntas frecuentes
 
@@ -281,7 +281,7 @@ Elige una carga de tu sistema que hoy ejecute código de terceros o configuraci�
 
 ## Límites y siguiente paso
 
-La referencia es una plataforma mínima ejecutada en una máquina: sin autenticación de clientes, sin frontera alrededor del anfitrión, sin hardware seguro, sin almacenamiento durable y con una biblioteca de firma de estudio. Con este proyecto se cierra la Parte 23. Lo que sigue en el programa depende de lo que decida cada sesión de contenido; para esta línea, el paso natural es integrar la plataforma con las partes de operación y observabilidad (`SE-493` a `SE-504`) y con una cadena de suministro firmada (`SE-469` a `SE-480`).
+La referencia es una plataforma mínima ejecutada en una máquina: sin autenticación de clientes, sin frontera alrededor del anfitrión, sin hardware seguro, sin almacenamiento durable y con una biblioteca de firma de estudio. Con este proyecto se cierra la [Parte 23](../README.md). Lo que sigue en el programa depende de lo que decida cada sesión de contenido; para esta línea, el paso natural es integrar la plataforma con las partes de operación y observabilidad (`SE-493` a `SE-504`) y con una cadena de suministro firmada (`SE-469` a `SE-480`).
 
 ## Glosario
 

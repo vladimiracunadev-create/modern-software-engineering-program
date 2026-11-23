@@ -198,7 +198,7 @@ Entrega `i18n-log.md` con el recurso de mensajes, las categorías de plural por 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja los mensajes de la plataforma como recursos por locale, las pruebas de plural, la política de fechas y números y la pseudolocalización. `SE-178` medirá si las personas completan tareas con esos mensajes; `SE-179` auditará un flujo completo en dos lenguas. Cambia después una sola cadena, «entrega pendiente», y revisa qué plurales, géneros y espacios necesita en cada locale.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja los mensajes de la plataforma como recursos por locale, las pruebas de plural, la política de fechas y números y la pseudolocalización. `SE-178` medirá si las personas completan tareas con esos mensajes; `SE-179` auditará un flujo completo en dos lenguas. Cambia después una sola cadena, «entrega pendiente», y revisa qué plurales, géneros y espacios necesita en cada locale.
 
 ## Preguntas frecuentes
 

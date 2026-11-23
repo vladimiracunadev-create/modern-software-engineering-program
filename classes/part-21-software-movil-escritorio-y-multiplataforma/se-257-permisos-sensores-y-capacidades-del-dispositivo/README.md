@@ -213,7 +213,7 @@ Entrega `permissions-log.md` con la tabla de capacidades, la matriz de estados c
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su tabla de capacidades y su matriz de estados. `SE-258` pasa a las formas de interactuar con el cliente, `SE-262` analiza la superficie de seguridad que cada capacidad añade, y `SE-263` decide qué capacidades difieren entre las dos plataformas del taller. Cambia después una sola decisión, pedir la cámara al arrancar en lugar de al adjuntar, y revisa qué pruebas y textos cambian.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su tabla de capacidades y su matriz de estados. `SE-258` pasa a las formas de interactuar con el cliente, `SE-262` analiza la superficie de seguridad que cada capacidad añade, y `SE-263` decide qué capacidades difieren entre las dos plataformas del taller. Cambia después una sola decisión, pedir la cámara al arrancar en lugar de al adjuntar, y revisa qué pruebas y textos cambian.
 
 ## Preguntas frecuentes
 

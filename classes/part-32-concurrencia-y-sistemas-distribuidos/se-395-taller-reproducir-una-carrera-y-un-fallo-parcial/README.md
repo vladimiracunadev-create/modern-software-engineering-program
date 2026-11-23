@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que practiques el oficio más caro de los sistemas concurrentes y distribuidos: convertir un síntoma esporádico («a veces se aceptan dos entregas con un solo cupo», «a veces el acuse llega y el registro no») en un caso que falla siempre, que es lo más pequeño posible y que queda como prueba de regresión estable. Es trabajo de diagnóstico, no de diseño: parte de un fallo observado y termina en una evidencia que otra persona puede ejecutar.
 
-**Por qué aparece aquí.** Cierra el bloque de técnicas de la **Parte 32** después de **Caos controlado y pruebas de distribución**: ya sabes qué es una intercalación, un tiempo agotado ambiguo, un reintento y una exploración con semillas. Aquí se aplican juntos a dos fallos concretos de la plataforma de entregas. Prepara el proyecto final, que exige entregar un paquete con garantías declaradas y pruebas que las comprueben.
+**Por qué aparece aquí.** Cierra el bloque de técnicas de la **[Parte 32](../README.md)** después de **Caos controlado y pruebas de distribución**: ya sabes qué es una intercalación, un tiempo agotado ambiguo, un reintento y una exploración con semillas. Aquí se aplican juntos a dos fallos concretos de la plataforma de entregas. Prepara el proyecto final, que exige entregar un paquete con garantías declaradas y pruebas que las comprueben.
 
 **Error conceptual que debe corregir.** Creer que un fallo esporádico se arregla «añadiendo un cerrojo donde parece» o repitiendo la prueba hasta que pase: sin reproducirlo y reducirlo no se sabe si se corrigió, solo si dejó de aparecer esta semana.
 
@@ -235,7 +235,7 @@ Entrega `taller-log.md` y `reproductor/` con el síntoma, el modelo, el calendar
 
 ## Caso conductor
 
-La carrera del cupo y el flujo del acuse son los casos del taller en el caso conductor de la Parte 32. `SE-396` pide integrarlo todo en un paquete de servicio con garantías declaradas y degradación. Cambia después una sola decisión, el orden de los pasos del flujo, y observa qué punto de fallo cambia de clasificación.
+La carrera del cupo y el flujo del acuse son los casos del taller en el caso conductor de la [Parte 32](../README.md). `SE-396` pide integrarlo todo en un paquete de servicio con garantías declaradas y degradación. Cambia después una sola decisión, el orden de los pasos del flujo, y observa qué punto de fallo cambia de clasificación.
 
 ## Preguntas frecuentes
 

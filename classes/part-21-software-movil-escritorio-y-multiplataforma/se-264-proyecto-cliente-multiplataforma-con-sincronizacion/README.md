@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para entregar un paquete que otra persona pueda revisar sin pedir contexto: el cliente de la plataforma de entregas con su ciclo de vida, su almacenamiento, su protocolo de sincronización con operaciones idempotentes, sus permisos, su plan de distribución y su modelo de amenazas, con evidencia medida y un validador cuyos límites se conocen.
 
-**Por qué aparece aquí.** Cierra la **Parte 21** después de **Taller: adaptar un producto a dos plataformas**: las once clases anteriores dejaron una tabla de modelos, una política de guardado, una decisión de construcción, un inventario de datos, una tabla de capacidades, una tabla de entradas, un plan de lanzamiento, una política de conflicto, un presupuesto, un modelo de amenazas y un inventario de diferencias. El proyecto los reúne en un paquete con trazabilidad y con una prueba de extremo a extremo de la sincronización. Deja la base que la Parte 22 usará al pasar a dispositivos con recursos todavía más limitados.
+**Por qué aparece aquí.** Cierra la **[Parte 21](../README.md)** después de **Taller: adaptar un producto a dos plataformas**: las once clases anteriores dejaron una tabla de modelos, una política de guardado, una decisión de construcción, un inventario de datos, una tabla de capacidades, una tabla de entradas, un plan de lanzamiento, una política de conflicto, un presupuesto, un modelo de amenazas y un inventario de diferencias. El proyecto los reúne en un paquete con trazabilidad y con una prueba de extremo a extremo de la sincronización. Deja la base que la [Parte 22](../../part-22-embedded-iot-y-tiempo-real/README.md) usará al pasar a dispositivos con recursos todavía más limitados.
 
 **Error conceptual que debe corregir.** Creer que un paquete con muchos documentos y un validador en verde está terminado: el validador comprueba presencia y forma, no que la evidencia diga algo, y una sincronización que funciona sin fallos no prueba que funcione con duplicados, pérdidas y reordenamientos.
 
@@ -231,7 +231,7 @@ Entrega `client-package-log.md` con el paquete, la simulación de sincronizació
 
 ## Caso conductor
 
-El cliente de la plataforma de entregas de tareas cierra aquí la Parte 21: un paquete con las decisiones del ciclo de vida, la construcción, el almacenamiento, los permisos, la interacción, la distribución, la sincronización, los recursos, la seguridad y las diferencias entre plataformas. La Parte 22 lleva el razonamiento a dispositivos con recursos y plazos aún más estrictos. Cambia después una sola decisión, pasar de «el título gana el último escritor» a «conservar ambas versiones», y revisa qué artefactos, qué pruebas y qué decisiones abiertas se mueven.
+El cliente de la plataforma de entregas de tareas cierra aquí la [Parte 21](../README.md): un paquete con las decisiones del ciclo de vida, la construcción, el almacenamiento, los permisos, la interacción, la distribución, la sincronización, los recursos, la seguridad y las diferencias entre plataformas. La [Parte 22](../../part-22-embedded-iot-y-tiempo-real/README.md) lleva el razonamiento a dispositivos con recursos y plazos aún más estrictos. Cambia después una sola decisión, pasar de «el título gana el último escritor» a «conservar ambas versiones», y revisa qué artefactos, qué pruebas y qué decisiones abiertas se mueven.
 
 ## Preguntas frecuentes
 

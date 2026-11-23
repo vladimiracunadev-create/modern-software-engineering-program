@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un camino completo a producción que pueda defenderse ante otra persona: qué comprueba cada etapa, qué evidencia deja, cómo se vuelve atrás y qué parte del riesgo sigue sin cubrirse. La habilidad profesional no es encadenar herramientas sino demostrar tres cosas con datos: que cada compuerta tiene una razón, que el retroceso funciona con los datos y no solo con el código, y que el paquete de evidencia dice algo verdadero.
 
-**Por qué aparece aquí.** Cierra la **Parte 40** después de **Taller: endurecer un pipeline vulnerable**: ya hay integración con política de troncal (`SE-481`), un grafo de trabajos (`SE-482`), compuertas y excepciones (`SE-483`), identidades de corta vida (`SE-484`), un criterio de despliegue (`SE-485`), un flujo de infraestructura (`SE-486`), una política de GitOps (`SE-487`), entornos de vista previa (`SE-488`), una plataforma (`SE-489`), un panel con contrapesos (`SE-490`) y un flujo endurecido (`SE-491`). El proyecto los ensambla. El caso conductor es la canalización de la API de entregas llevada a producción.
+**Por qué aparece aquí.** Cierra la **[Parte 40](../README.md)** después de **Taller: endurecer un pipeline vulnerable**: ya hay integración con política de troncal (`SE-481`), un grafo de trabajos (`SE-482`), compuertas y excepciones (`SE-483`), identidades de corta vida (`SE-484`), un criterio de despliegue (`SE-485`), un flujo de infraestructura (`SE-486`), una política de GitOps (`SE-487`), entornos de vista previa (`SE-488`), una plataforma (`SE-489`), un panel con contrapesos (`SE-490`) y un flujo endurecido (`SE-491`). El proyecto los ensambla. El caso conductor es la canalización de la API de entregas llevada a producción.
 
 **Error conceptual que debe corregir.** Creer que un camino a producción con muchas etapas es un camino seguro: sin un ensayo de retroceso con los datos reales, sin saber qué fallo tiene un solo guardián y sin un paquete de evidencia que cruce sus propios campos, las etapas son un ritual.
 
@@ -215,7 +215,7 @@ Entrega `release-path-log.md` con la predicción, las tres tablas, el diagrama d
 
 ## Caso conductor
 
-La canalización de la API de entregas cierra aquí su recorrido en la Parte 40. Este proyecto deja el duodécimo artefacto: el camino a producción con retroceso ensayado y paquete de evidencia, que alimenta la Parte 41, donde las señales de producción (observabilidad, SLO, incidentes) deciden si una versión sana lo es de verdad. Cambia después un solo dato, la fase en que contraes el esquema, y observa cuándo el retroceso deja de ser posible.
+La canalización de la API de entregas cierra aquí su recorrido en la [Parte 40](../README.md). Este proyecto deja el duodécimo artefacto: el camino a producción con retroceso ensayado y paquete de evidencia, que alimenta la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md), donde las señales de producción (observabilidad, SLO, incidentes) deciden si una versión sana lo es de verdad. Cambia después un solo dato, la fase en que contraes el esquema, y observa cuándo el retroceso deja de ser posible.
 
 ## Preguntas frecuentes
 
@@ -308,7 +308,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 10 errores
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con cifras publicadas idénticas. No se desplegó nada en producción ni se midió ninguna canalización real; la matriz de doce fallos y ocho compuertas, los costos relativos, los 120 paquetes mutados y las reglas del validador son juicios del autor (que escribió las mutaciones y el validador), la migración usa SQLite en memoria con diez filas y el contenido sigue pendiente de revisión humana independiente. La Parte 41 continúa con la observabilidad: cómo se sabe, en producción, si la versión que pasó todo el camino está sana.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con cifras publicadas idénticas. No se desplegó nada en producción ni se midió ninguna canalización real; la matriz de doce fallos y ocho compuertas, los costos relativos, los 120 paquetes mutados y las reglas del validador son juicios del autor (que escribió las mutaciones y el validador), la migración usa SQLite en memoria con diez filas y el contenido sigue pendiente de revisión humana independiente. La [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) continúa con la observabilidad: cómo se sabe, en producción, si la versión que pasó todo el camino está sana.
 
 ## Glosario
 

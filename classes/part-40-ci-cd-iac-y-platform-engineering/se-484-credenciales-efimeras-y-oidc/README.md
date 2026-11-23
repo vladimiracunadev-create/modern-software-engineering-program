@@ -220,7 +220,7 @@ Entrega `oidc-log.md` con la predicción, las tres tablas, la regla de confianza
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el cuarto artefacto: la regla de confianza del despliegue, con sus pruebas con tokens manipulados. `SE-485` usará esa identidad para desplegar de forma continua y decidirá qué condiciones hacen falta para exponer una versión. Cambia después un solo dato, la vida máxima del token, y observa cómo cambia la fracción de filtraciones utilizables.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el cuarto artefacto: la regla de confianza del despliegue, con sus pruebas con tokens manipulados. `SE-485` usará esa identidad para desplegar de forma continua y decidirá qué condiciones hacen falta para exponer una versión. Cambia después un solo dato, la vida máxima del token, y observa cómo cambia la fracción de filtraciones utilizables.
 
 ## Preguntas frecuentes
 

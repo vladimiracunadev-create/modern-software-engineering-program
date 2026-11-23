@@ -36,7 +36,7 @@ Al finalizar podrás entregar una contribución con commits atómicos y firmados
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 8 — Entornos, herramientas y depuración](../../classes/part-08-entornos-herramientas-y-depuracion/): repositorios y entornos reproducibles.
 - [Parte 9 — Bibliotecas, paquetes, SDK y automatización](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/): dependencias y sus licencias.
 - [Parte 15 — Procesos, planificación y estimación](../../classes/part-15-procesos-planificacion-y-estimacion/): planes que cambian con evidencia.

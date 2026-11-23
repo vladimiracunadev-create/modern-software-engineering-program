@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación funcional, composición e inmutabilidad** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué se gana al expresar la decisión como transformación de valores sin efectos ocultos?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación funcional, composición e inmutabilidad** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué se gana al expresar la decisión como transformación de valores sin efectos ocultos?**
 
 ## Prerrequisitos
 

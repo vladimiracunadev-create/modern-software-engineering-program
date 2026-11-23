@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Árboles, tries y estructuras jerárquicas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué invariante convierte una jerarquía en una estructura buscable?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Árboles, tries y estructuras jerárquicas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué invariante convierte una jerarquía en una estructura buscable?**
 
 ## Prerrequisitos
 

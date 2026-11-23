@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **REPL, notebooks y desarrollo exploratorio** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar rápidamente sin convertir estado invisible y orden de celdas en evidencia falsa?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **REPL, notebooks y desarrollo exploratorio** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar rápidamente sin convertir estado invisible y orden de celdas en evidencia falsa?**
 
 ## Prerrequisitos
 

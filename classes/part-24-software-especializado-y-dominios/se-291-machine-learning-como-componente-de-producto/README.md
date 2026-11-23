@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates un modelo de aprendizaje automático como un componente con contrato, límites y fallos propios dentro de un producto, y no como una caja que «tiene una exactitud». Quien lo integra responde por cómo se evaluó, qué pasa cuando se equivoca y cuándo deja de valer.
 
-**Por qué aparece aquí.** Es la tercera clase de la **Parte 24**, después de **Ingeniería de datos y procesamiento analítico**: allí las tablas del tablero se volvieron repetibles; aquí esas tablas alimentan un modelo que decide a quién avisar. Un error de datos ya no mueve un número, mueve una decisión sobre personas. El caso conductor sigue siendo la plataforma educativa ficticia: un aviso temprano a docentes sobre estudiantes con riesgo de no completar un curso.
+**Por qué aparece aquí.** Es la tercera clase de la **[Parte 24](../README.md)**, después de **Ingeniería de datos y procesamiento analítico**: allí las tablas del tablero se volvieron repetibles; aquí esas tablas alimentan un modelo que decide a quién avisar. Un error de datos ya no mueve un número, mueve una decisión sobre personas. El caso conductor sigue siendo la plataforma educativa ficticia: un aviso temprano a docentes sobre estudiantes con riesgo de no completar un curso.
 
 **Error conceptual que debe corregir.** Creer que una métrica alta en el conjunto de prueba prueba que el modelo servirá en producción. La métrica solo vale si la prueba imita las condiciones de uso: sin fuga de información, con la prevalencia real de lo que se predice y con datos del mismo tipo que los futuros.
 
@@ -221,7 +221,7 @@ Entrega `ml-log.md` con la predicción, la tabla de fuga, la de prevalencia, la 
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el tercer artefacto: el aviso de riesgo con línea base, revisión de fuga, métricas con prevalencia, alarma de deriva y respaldo. `SE-292` pasa a otro dominio, un juego educativo donde el tiempo y el estado de muchas entidades son lo que debe ser correcto. Cambia después una sola decisión, el umbral del aviso, y observa cuántos avisos nuevos son falsos.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el tercer artefacto: el aviso de riesgo con línea base, revisión de fuga, métricas con prevalencia, alarma de deriva y respaldo. `SE-292` pasa a otro dominio, un juego educativo donde el tiempo y el estado de muchas entidades son lo que debe ser correcto. Cambia después una sola decisión, el umbral del aviso, y observa cuántos avisos nuevos son falsos.
 
 ## Preguntas frecuentes
 

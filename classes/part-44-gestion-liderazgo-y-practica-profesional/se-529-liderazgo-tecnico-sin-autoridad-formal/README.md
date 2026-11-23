@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que puedas conseguir que una decisión técnica se adopte sin poder ordenarla. Quien no tiene autoridad formal solo dispone de tres palancas: el contexto que comparte (para que otras personas decidan mejor), las decisiones que deja por escrito (para que se puedan discutir y recordar) y las coaliciones que construye (para que la práctica no dependa de una sola voz). La habilidad profesional no es convencer sino reducir el costo para que otras personas cambien con buenas razones, y medir si eso ocurrió.
 
-**Por qué aparece aquí.** Sigue a **Proyecto: migración incremental reversible** (`SE-528`): una migración de seis fases fracasa o triunfa menos por la técnica que por quién acepta cada fase y cuándo. La Parte 44 toma ahora al equipo, no al código. El caso conductor es **el equipo de plataforma educativa** (ocho personas que mantienen el módulo de calificaciones y otros servicios) y una ingeniera sénior sin cargo de jefatura que quiere que el equipo adopte una práctica concreta: documentar cada decisión de diseño con un registro breve antes de implementarla.
+**Por qué aparece aquí.** Sigue a **Proyecto: migración incremental reversible** (`SE-528`): una migración de seis fases fracasa o triunfa menos por la técnica que por quién acepta cada fase y cuándo. La [Parte 44](../README.md) toma ahora al equipo, no al código. El caso conductor es **el equipo de plataforma educativa** (ocho personas que mantienen el módulo de calificaciones y otros servicios) y una ingeniera sénior sin cargo de jefatura que quiere que el equipo adopte una práctica concreta: documentar cada decisión de diseño con un registro breve antes de implementarla.
 
 **Error conceptual que debe corregir.** Creer que el liderazgo técnico es tener razón con más insistencia. Una propuesta correcta que nadie adopta no cambia el sistema, y una propuesta adoptada por obediencia se abandona cuando la persona que la empujaba mira a otro lado. Lo que se puede diseñar es la ruta de adopción: a quién se consulta primero, qué se escribe, cuánto trabajo de aprobación se concentra en una sola persona y qué pasa cuando hay desacuerdo.
 
@@ -194,7 +194,7 @@ Entrega `liderazgo-log.md` con la predicción, las tres tablas, el mapa de influ
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el primer artefacto: una propuesta con ruta de adopción y reglas de delegación. `SE-530` preguntará cómo se organiza el equipo para que esa autoridad repartida no dependa de una persona, y `SE-531` cómo se conversa cuando la propuesta choca con otra. Cambia después un solo dato, la densidad de vínculos de 0,12 a 0,06, y observa cómo se reparte el éxito de cada siembra.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el primer artefacto: una propuesta con ruta de adopción y reglas de delegación. `SE-530` preguntará cómo se organiza el equipo para que esa autoridad repartida no dependa de una persona, y `SE-531` cómo se conversa cuando la propuesta choca con otra. Cambia después un solo dato, la densidad de vínculos de 0,12 a 0,06, y observa cómo se reparte el éxito de cada siembra.
 
 ## Preguntas frecuentes
 

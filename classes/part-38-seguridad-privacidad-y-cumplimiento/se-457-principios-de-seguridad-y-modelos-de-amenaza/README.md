@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de pensar la seguridad como una lista de controles y empieces a pensarla como una pregunta que se puede responder con evidencia: qué se protege, de quién, por qué camino y a qué costo para quien ataca. La habilidad no es memorizar categorías de amenazas sino producir un modelo pequeño, escrito, que otra persona pueda discutir, que cambie cuando el sistema cambia y que decida qué defensa vale la pena construir primero.
 
-**Por qué aparece aquí.** Abre la **Parte 38** después de **Proyecto: informe reproducible de calidad**: la Parte 36 enseñó a prometer una calidad medible y a desconfiar de la propia medición; ahora la pregunta cambia de «¿cumple su promesa?» a «¿qué pasa cuando alguien quiere que no la cumpla?». El caso conductor es el mismo de la parte anterior, **la plataforma de entregas de tareas**, vista esta vez desde el lado de quien la ataca: alterar una nota, leer entregas ajenas, hacerse pasar por un docente.
+**Por qué aparece aquí.** Abre la **[Parte 38](../README.md)** después de **Proyecto: informe reproducible de calidad**: la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) enseñó a prometer una calidad medible y a desconfiar de la propia medición; ahora la pregunta cambia de «¿cumple su promesa?» a «¿qué pasa cuando alguien quiere que no la cumpla?». El caso conductor es el mismo de la parte anterior, **la plataforma de entregas de tareas**, vista esta vez desde el lado de quien la ataca: alterar una nota, leer entregas ajenas, hacerse pasar por un docente.
 
 **Error conceptual que debe corregir.** Creer que la seguridad consiste en arreglar la vulnerabilidad más grave que se conoce. Un atacante racional no elige el defecto más peligroso sino el camino más barato hasta lo que quiere, y arreglar uno por uno los defectos que asustan puede dejar intacto ese camino.
 
@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 27 sobre fronteras y decisiones registradas, y en la Parte 36 sobre medir con un plan fijado de antemano. La pregunta activa es: **si alguien quisiera cambiar la nota de una persona en la plataforma, ¿cuál sería el camino más barato, y qué evidencia tienes de que no existe?**
+Recupera lo aprendido en la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) sobre fronteras y decisiones registradas, y en la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) sobre medir con un plan fijado de antemano. La pregunta activa es: **si alguien quisiera cambiar la nota de una persona en la plataforma, ¿cuál sería el camino más barato, y qué evidencia tienes de que no existe?**
 
 ## Prerrequisitos
 
@@ -214,7 +214,7 @@ Entrega `amenazas-log.md` con la predicción, el diagrama con sus fronteras, la 
 
 ## Caso conductor
 
-La plataforma de entregas de tareas es el caso conductor de la Parte 38. Esta clase deja el primer artefacto: el modelo de amenazas con su diagrama, su grafo y su política de revisión. `SE-458` pregunta cómo se prueba quién eres, y `SE-459` qué puedes hacer una vez probado. Cambia después un solo dato, el costo de la arista de elevación de rol, y observa qué decisión de defensa pasa a ser la más rentable.
+La plataforma de entregas de tareas es el caso conductor de la [Parte 38](../README.md). Esta clase deja el primer artefacto: el modelo de amenazas con su diagrama, su grafo y su política de revisión. `SE-458` pregunta cómo se prueba quién eres, y `SE-459` qué puedes hacer una vez probado. Cambia después un solo dato, el costo de la arista de elevación de rol, y observa qué decisión de defensa pasa a ser la más rentable.
 
 ## Preguntas frecuentes
 

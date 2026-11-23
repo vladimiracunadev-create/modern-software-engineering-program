@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Gestores de versiones de runtimes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo garantizar que terminal, editor, CI y contenedor ejecuten el mismo runtime esperado?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Gestores de versiones de runtimes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo garantizar que terminal, editor, CI y contenedor ejecuten el mismo runtime esperado?**
 
 ## Prerrequisitos
 

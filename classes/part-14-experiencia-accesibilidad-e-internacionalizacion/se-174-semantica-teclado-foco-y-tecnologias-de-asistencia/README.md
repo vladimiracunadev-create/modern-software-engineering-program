@@ -212,7 +212,7 @@ Entrega `semantics-log.md` con la ficha de los componentes de la entrega, el cá
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja la ficha semántica del formulario de entrega con sus nombres, su orden de foco y su estructura. `SE-175` aplicará el diseño visual sobre esa estructura sin romperla; `SE-176` la adaptará a distintos anchos y preferencias. Cambia después un solo control, el botón «Enviar», de `button` a `div role="button"`, y revisa qué comportamientos pierde.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja la ficha semántica del formulario de entrega con sus nombres, su orden de foco y su estructura. `SE-175` aplicará el diseño visual sobre esa estructura sin romperla; `SE-176` la adaptará a distintos anchos y preferencias. Cambia después un solo control, el botón «Enviar», de `button` a `div role="button"`, y revisa qué comportamientos pierde.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que razones sobre la seguridad de un cliente que corre en un dispositivo ajeno: quién puede recalcular una comprobación de integridad, qué confina realmente el sandbox, qué comprobación de rutas es correcta y qué secretos no pueden vivir en el cliente.
 
-**Por qué aparece aquí.** Se sitúa después de **Rendimiento, batería y recursos limitados** y antes de **Taller: adaptar un producto a dos plataformas**: el cliente ya sincroniza, pide capacidades y se actualiza; esta clase examina qué puede hacer quien controla el dispositivo. Aplica el modelo de amenazas de la Parte 17 a un artefacto que el atacante tiene en las manos.
+**Por qué aparece aquí.** Se sitúa después de **Rendimiento, batería y recursos limitados** y antes de **Taller: adaptar un producto a dos plataformas**: el cliente ya sincroniza, pide capacidades y se actualiza; esta clase examina qué puede hacer quien controla el dispositivo. Aplica el modelo de amenazas de la [Parte 17](../../part-17-documentacion-y-conocimiento-tecnico/README.md) a un artefacto que el atacante tiene en las manos.
 
 **Error conceptual que debe corregir.** Creer que lo que está dentro del cliente puede ocultarse (una clave ofuscada, una comprobación de integridad sin clave, una lista de rutas permitidas por prefijo) o que el sandbox de la plataforma protege contra una mala comprobación del propio código: quien posee el dispositivo puede leer y ejecutar el cliente.
 
@@ -212,7 +212,7 @@ Entrega `client-security-log.md` con el modelo de amenazas, la tabla de integrid
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su modelo de amenazas y sus reglas de integridad, confinamiento y secretos. `SE-263` decide cómo se aplican en dos plataformas con modelos de seguridad distintos y `SE-264` integra la firma y el modelo en el proyecto. Cambia después una sola decisión, mover una clave del cliente a un intercambio con el servidor, y revisa qué cambia.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su modelo de amenazas y sus reglas de integridad, confinamiento y secretos. `SE-263` decide cómo se aplican en dos plataformas con modelos de seguridad distintos y `SE-264` integra la firma y el modelo en el proyecto. Cambia después una sola decisión, mover una clave del cliente a un intercambio con el servidor, y revisa qué cambia.
 
 ## Preguntas frecuentes
 

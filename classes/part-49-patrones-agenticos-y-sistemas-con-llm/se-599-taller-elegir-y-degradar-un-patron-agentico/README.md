@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que practiques dos decisiones que en un sistema real se toman bajo presión: **elegir** el patrón agéntico más simple que resuelve una tarea y **degradarlo** de forma ordenada cuando el entorno falla (el proveedor del modelo se cae, el costo se dispara, la latencia se vuelve inaceptable). Elegir se vuelve una función con reglas escritas y probadas, no una conversación. Degradar se vuelve un mecanismo con disparadores, escalones y vuelta atrás, que se ensaya antes del incidente. Quien lo ha hecho una vez sabe que el mejor sistema no es el que nunca falla sino el que falla hacia un comportamiento seguro y conocido.
 
-**Por qué aparece aquí.** Es la clase práctica de la parte: reúne la elección de `SE-589` a `SE-592`, la memoria y la recuperación de `SE-593` y `SE-594`, la durabilidad de `SE-596` y las restricciones de `SE-597` y `SE-598`. Aplica a un sistema con LLM la idea de degradación elegante de la Parte 36 y el interruptor de circuito de la Parte 32, y deja preparado el proyecto de `SE-600`.
+**Por qué aparece aquí.** Es la clase práctica de la parte: reúne la elección de `SE-589` a `SE-592`, la memoria y la recuperación de `SE-593` y `SE-594`, la durabilidad de `SE-596` y las restricciones de `SE-597` y `SE-598`. Aplica a un sistema con LLM la idea de degradación elegante de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) y el interruptor de circuito de la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md), y deja preparado el proyecto de `SE-600`.
 
 **Error conceptual que debe corregir.** Creer que degradar es «tener un plan B» escrito en un documento. Un plan que no se ejecuta con frecuencia falla cuando hace falta: el nivel inferior no está desplegado, no tiene los permisos, nadie sabe cómo activarlo, o su calidad no se midió. Una degradación es **un camino de código con disparadores medibles y pruebas**, y se ensaya con incidentes simulados. Y la creencia gemela: que degradar es una pérdida; en la simulación, el sistema que degrada resuelve más solicitudes durante el incidente que el que insiste en el agente, y responde en la mitad de tiempo.
 
@@ -32,7 +32,7 @@ Recupera `SE-589` y `SE-598`: se elige el patrón más simple que cubre la varia
 ## Prerrequisitos
 
 - Haber completado `SE-589` a `SE-598`, en particular el árbol de decisión, el presupuesto y la regla de las tres condiciones.
-- Conocer de las Partes 32 y 36 el interruptor de circuito y la degradación elegante.
+- Conocer de las Partes [32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) y [36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) el interruptor de circuito y la degradación elegante.
 - Python 3.11 o posterior.
 
 ## Problema auténtico

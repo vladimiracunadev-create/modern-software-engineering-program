@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas tres cosas que el lenguaje cotidiano confunde: repetir una ejecución, obtener un resultado estable y poder defender que ese resultado describe el fenómeno. Quien escribe software científico responde por las tres, y cada una exige evidencia distinta.
 
-**Por qué aparece aquí.** Abre la **Parte 24** después de **Proyecto: dispositivo simulado operable y actualizable**: la Parte 22 terminó con un dispositivo cuyas simulaciones ya dependían de semillas y de supuestos declarados; ahora el centro es el programa cuyo producto es un número que otras personas usarán para decidir. La Parte 24 recorre dominios con reglas propias, y este es el primero porque sus preguntas (qué se repite, qué se mide y qué se supone) reaparecen en todos los demás. El caso conductor de la parte es una **plataforma educativa ficticia que incorpora, clase a clase, una pieza de un dominio especializado**; aquí, un modelo que estima cuántas entregas llegarán a tiempo.
+**Por qué aparece aquí.** Abre la **[Parte 24](../README.md)** después de **Proyecto: dispositivo simulado operable y actualizable**: la [Parte 22](../../part-22-embedded-iot-y-tiempo-real/README.md) terminó con un dispositivo cuyas simulaciones ya dependían de semillas y de supuestos declarados; ahora el centro es el programa cuyo producto es un número que otras personas usarán para decidir. La [Parte 24](../README.md) recorre dominios con reglas propias, y este es el primero porque sus preguntas (qué se repite, qué se mide y qué se supone) reaparecen en todos los demás. El caso conductor de la parte es una **plataforma educativa ficticia que incorpora, clase a clase, una pieza de un dominio especializado**; aquí, un modelo que estima cuántas entregas llegarán a tiempo.
 
 **Error conceptual que debe corregir.** Creer que «reproducible» significa «da el mismo número». Un número idéntico demuestra que el programa es determinista; no demuestra que sea estable frente a otra semilla, otro orden de suma u otra máquina, ni que el modelo represente el fenómeno.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 22 sobre simulaciones con semilla fija: una semilla hace repetible una ejecución, pero una sola ejecución es una muestra de tamaño uno. La pregunta activa es: **¿qué debo conservar para que otra persona repita mi cálculo y qué debo variar para saber si mi cifra significa algo?**
+Recupera lo aprendido en la [Parte 22](../../part-22-embedded-iot-y-tiempo-real/README.md) sobre simulaciones con semilla fija: una semilla hace repetible una ejecución, pero una sola ejecución es una muestra de tamaño uno. La pregunta activa es: **¿qué debo conservar para que otra persona repita mi cálculo y qué debo variar para saber si mi cifra significa algo?**
 
 ## Prerrequisitos
 
@@ -235,7 +235,7 @@ Entrega `science-log.md` con la predicción, la tabla de totales distintos, la t
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el primer artefacto: el modelo de entregas con semilla declarada, 200 repeticiones y una tolerancia escrita. `SE-290` moverá los datos de ese modelo por una cadena de procesamiento. Cambia después una sola decisión, el número de semillas, y observa cuánto se mueve el intervalo publicado.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el primer artefacto: el modelo de entregas con semilla declarada, 200 repeticiones y una tolerancia escrita. `SE-290` moverá los datos de ese modelo por una cadena de procesamiento. Cambia después una sola decisión, el número de semillas, y observa cuánto se mueve el intervalo publicado.
 
 ## Preguntas frecuentes
 

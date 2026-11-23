@@ -210,7 +210,7 @@ Entrega `metricas-log.md` con la predicción, las tres tablas de resultados repr
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el tercer artefacto: un catálogo de métricas con tipo, unidad, dimensiones y presupuesto. `SE-496` pregunta cómo seguir una petición entre servicios con trazas, y `SE-497` convierte estas métricas en indicadores y objetivos. Cambia después un solo dato, el número de clientes, y observa cuánto se acerca la métrica al límite.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el tercer artefacto: un catálogo de métricas con tipo, unidad, dimensiones y presupuesto. `SE-496` pregunta cómo seguir una petición entre servicios con trazas, y `SE-497` convierte estas métricas en indicadores y objetivos. Cambia después un solo dato, el número de clientes, y observa cuánto se acerca la métrica al límite.
 
 ## Preguntas frecuentes
 

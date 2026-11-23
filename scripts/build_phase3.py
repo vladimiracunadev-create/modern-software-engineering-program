@@ -3,14 +3,17 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import posixpath
 import re
 import sys
 from pathlib import Path
 
 
 try:
+    import cross_references
     import program_state as ps
 except ModuleNotFoundError:  # importado como scripts.build_phase3
+    from scripts import cross_references
     from scripts import program_state as ps
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -763,13 +766,40 @@ def rubric(part: dict, lesson: dict) -> dict:
     }
 
 
-def inline_markdown(value: str) -> str:
+SITE_LESSON_PATH = re.compile(r"classes/part-\d\d-[^/]+/se-(\d{3})-[^/]+(?:/README\.md|/)?")
+SITE_PART_PATH = re.compile(r"classes/part-(\d\d)-[^/]+(?:/README\.md|/)?")
+
+
+def site_href(href: str, page: str, source_dir: str) -> str:
+    """Traduce un enlace relativo al README de una clase o parte al HTML equivalente del portal.
+
+    ``source_dir`` es la carpeta (relativa a la raíz) del Markdown que contiene el enlace y
+    ``page`` la carpeta del portal donde vivirá la página: ``classes`` o ``parts``. Los enlaces
+    absolutos y los que no apuntan a clases o partes publicadas no se tocan.
+    """
+    if href.startswith(("http://", "https://")) or not source_dir:
+        return href
+    path, hash_mark, anchor = href.partition("#")
+    resolved = posixpath.normpath(posixpath.join(source_dir, path))
+    suffix = hash_mark + anchor
+    lesson = SITE_LESSON_PATH.fullmatch(resolved)
+    if lesson:
+        target = f"SE-{lesson.group(1)}.html"
+        return (target if page == "classes" else f"../classes/{target}") + suffix
+    part = SITE_PART_PATH.fullmatch(resolved)
+    if part:
+        target = f"{part.group(1)}.html"
+        return (f"../parts/{target}" if page == "classes" else target) + suffix
+    return href
+
+
+def inline_markdown(value: str, page: str = "classes", source_dir: str = "") -> str:
     escaped = html.escape(value)
     escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
     escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
     escaped = re.sub(
-        r"\[([^]]+)\]\((https?://[^)]+|\.{1,2}/[^)]+)\)",
-        r'<a href="\2">\1</a>',
+        r"\[([^]]+)\]\((https?://[^)]+|\.{1,2}/[^)]+|\d\d\.html[^)]*)\)",
+        lambda match: f'<a href="{site_href(match.group(2), page, source_dir)}">{match.group(1)}</a>',
         escaped,
     )
     return escaped
@@ -832,7 +862,10 @@ def mermaid_to_visual(source: str) -> str:
     )
 
 
-def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
+def markdown_to_html(
+    markdown: str, page: str = "classes", source_dir: str = ""
+) -> tuple[str, list[tuple[str, str]]]:
+    inline = lambda value: inline_markdown(value, page, source_dir)  # noqa: E731
     lines = markdown.splitlines()
     output: list[str] = []
     headings: list[tuple[str, str]] = []
@@ -870,7 +903,7 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
             anchor = heading_id(label)
             if level == 2:
                 headings.append((anchor, re.sub(r"[`*_]", "", label)))
-            output.append(f'<h{level} id="{anchor}">{inline_markdown(label)}</h{level}>')
+            output.append(f'<h{level} id="{anchor}">{inline(label)}</h{level}>')
             index += 1
             continue
         if line.startswith(">"):
@@ -882,7 +915,7 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
             if quoted and re.fullmatch(r"\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]", quoted[0], re.IGNORECASE):
                 callout_kind = quoted.pop(0)[2:-1].casefold()
             callout_class = f"callout {callout_kind}".strip()
-            output.append(f'<aside class="{callout_class}">{inline_markdown(" ".join(quoted))}</aside>')
+            output.append(f'<aside class="{callout_class}">{inline(" ".join(quoted))}</aside>')
             continue
         if "|" in line and index + 1 < len(lines) and re.match(r"^\s*\|?\s*:?-+", lines[index + 1]):
             headers = [cell.strip() for cell in line.strip().strip("|").split("|")]
@@ -891,8 +924,8 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
             while index < len(lines) and "|" in lines[index] and lines[index].strip():
                 rows.append([cell.strip() for cell in lines[index].strip().strip("|").split("|")])
                 index += 1
-            head = "".join(f"<th>{inline_markdown(cell)}</th>" for cell in headers)
-            body = "".join("<tr>" + "".join(f"<td>{inline_markdown(cell)}</td>" for cell in row) + "</tr>" for row in rows)
+            head = "".join(f"<th>{inline(cell)}</th>" for cell in headers)
+            body = "".join("<tr>" + "".join(f"<td>{inline(cell)}</td>" for cell in row) + "</tr>" for row in rows)
             output.append(f'<div class="table-wrap"><table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>')
             continue
         unordered = re.match(r"^-\s+(.+)$", line)
@@ -905,7 +938,7 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
                 match = re.match(pattern, lines[index])
                 if not match:
                     break
-                items.append(f"<li>{inline_markdown(match.group(1))}</li>")
+                items.append(f"<li>{inline(match.group(1))}</li>")
                 index += 1
             output.append(f"<{tag}>{''.join(items)}</{tag}>")
             continue
@@ -914,7 +947,7 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
             alt, source, caption = figure.group(1), figure.group(2), figure.group(3) or ""
             source = re.sub(r"^(?:\.\./)+content/part-\d+/figures/", "../assets/figures/", source)
             visible = caption or alt
-            caption_html = f'<figcaption aria-hidden="true">{inline_markdown(visible)}</figcaption>'
+            caption_html = f'<figcaption aria-hidden="true">{inline(visible)}</figcaption>'
 
             output.append(
                 '<figure class="lesson-figure">'
@@ -937,7 +970,7 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
                 break
             paragraph.append(lines[index].strip())
             index += 1
-        output.append(f"<p>{inline_markdown(' '.join(paragraph))}</p>")
+        output.append(f"<p>{inline(' '.join(paragraph))}</p>")
     return "".join(output), headings
 
 
@@ -948,7 +981,7 @@ def site_page(
     previous: dict | None,
     following: dict | None,
 ) -> str:
-    content, headings = markdown_to_html(markdown)
+    content, headings = markdown_to_html(markdown, "classes", lesson["path"])
     phase = ps.part_phase(int(part["id"])) or 4
     toc = "".join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for anchor, label in headings)
     repository_url = f"https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/{lesson['path']}"
@@ -990,7 +1023,8 @@ def site_page(
     kind_label = {"class": "Clase", "studio": "Taller", "project": "Proyecto"}.get(
         lesson["kind"], lesson["kind"].capitalize()
     )
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">Fase {phase} · {lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Una clase de la Parte {part['id']} — {html.escape(part['title'])}. Comprende el mecanismo, úsalo para decidir y conserva evidencia revisable.</p></header>{progress}<div class="notice">{notice}</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article></div><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Programa de Ingeniería de Software Moderna · Fase {phase} en reconstrucción</footer></body></html>\n"""
+    page_html = f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">Fase {phase} · {lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Una clase de la Parte {part['id']} — {html.escape(part['title'])}. Comprende el mecanismo, úsalo para decidir y conserva evidencia revisable.</p></header>{progress}<div class="notice">{notice}</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article></div><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Programa de Ingeniería de Software Moderna · Fase {phase} en reconstrucción</footer></body></html>\n"""
+    return cross_references.resolve_html(page_html, "site/classes")
 
 
 def with_class_navigation(
@@ -1055,6 +1089,11 @@ def published_markdown(
     )
 
 
+def publish_markdown(markdown: str, lesson: dict) -> str:
+    """Último paso de la publicación de una clase: enlaza SE-nnn / Parte NN y normaliza nombres."""
+    return cross_references.resolve(markdown, lesson["path"])
+
+
 def expected_files(program: dict) -> dict[Path, str]:
     result = {ROOT / "sources/phase3.json": dump_json(source_catalog(program))}
     entries = context(program)
@@ -1067,10 +1106,10 @@ def expected_files(program: dict) -> dict[Path, str]:
             if lesson["id"] in PUBLISHED_EDITORIAL_IDS:
                 # Estas clases tienen fuentes editoriales explícitas. Publicarlas
                 # no sustituye la revisión de la parte como recorrido completo.
-                markdown = published_markdown(part, lesson, previous, following)
+                markdown = publish_markdown(published_markdown(part, lesson, previous, following), lesson)
                 result[directory / "README.md"] = markdown
             else:
-                markdown = lesson_readme(part, lesson, previous, following)
+                markdown = publish_markdown(lesson_readme(part, lesson, previous, following), lesson)
                 result[directory / "README.md"] = markdown
             result[directory / "activity.yaml"] = dump_json(activity(part, lesson))
             result[directory / "rubric.json"] = dump_json(rubric(part, lesson))

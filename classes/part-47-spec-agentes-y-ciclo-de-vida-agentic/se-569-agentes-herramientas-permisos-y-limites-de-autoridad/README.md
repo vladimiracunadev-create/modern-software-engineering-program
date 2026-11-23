@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de describir a un agente por lo que sabe y empieces a describirlo por lo que puede hacer. Un agente es un modelo que llama herramientas en un bucle; lo que lo hace peligroso o útil no es su inteligencia sino su autoridad: qué herramientas tiene, con qué permisos, sobre qué recursos y durante cuánto tiempo. La habilidad es diseñar esa autoridad con el mínimo necesario, comprobar que las reglas dicen lo que se cree que dicen y revisarlas antes de que se acumulen.
 
-**Por qué aparece aquí.** Es la quinta clase de la **Parte 47**, después de **Greenfield, brownfield, bug fixing e idea assessment**: `SE-568` eligió el proceso según la situación; ahora hay que decidir con qué manos trabaja el agente en cada una. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético; no se ejecutó ninguna herramienta contra un sistema real y las órdenes que se evalúan son cadenas de texto que nunca se ejecutan.
+**Por qué aparece aquí.** Es la quinta clase de la **[Parte 47](../README.md)**, después de **Greenfield, brownfield, bug fixing e idea assessment**: `SE-568` eligió el proceso según la situación; ahora hay que decidir con qué manos trabaja el agente en cada una. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético; no se ejecutó ninguna herramienta contra un sistema real y las órdenes que se evalúan son cadenas de texto que nunca se ejecutan.
 
 **Error conceptual que debe corregir.** Creer que una lista de permitidos escrita como prefijos de órdenes («permite `ls`, `git status`») limita al agente a esas órdenes. Una orden compuesta, una sustitución o una ruta fuera del espacio de trabajo cambian lo que ocurre sin cambiar el prefijo. Una regla de permisos es un programa pequeño con sus propios fallos y debe someterse a pruebas como cualquier otro.
 
@@ -205,7 +205,7 @@ Entrega `autoridad-log.md` con la predicción, las tres tablas, el inventario de
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el quinto artefacto: el inventario de autoridad, la política de permisos con su batería y el calendario de revisión. `SE-570` añadirá los mecanismos con que el agente carga conocimiento y se somete a controles —habilidades, extensiones y ganchos— y entornos aislados donde ejecutar. Cambia después un solo dato, la probabilidad de desvío, y observa a partir de qué valor la aprobación humana pasa a ser la barrera principal y no la última.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el quinto artefacto: el inventario de autoridad, la política de permisos con su batería y el calendario de revisión. `SE-570` añadirá los mecanismos con que el agente carga conocimiento y se somete a controles —habilidades, extensiones y ganchos— y entornos aislados donde ejecutar. Cambia después un solo dato, la probabilidad de desvío, y observa a partir de qué valor la aprobación humana pasa a ser la barrera principal y no la última.
 
 ## Preguntas frecuentes
 

@@ -203,7 +203,7 @@ Entrega `agile-log.md` con la tabla de prácticas, la predicción, las tres simu
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el segundo artefacto: la tabla de prácticas del equipo con su decisión y su señal, y una duración de ciclo justificada. `SE-183` comparará cuatro marcos con ese mismo criterio. Cambia después una sola práctica, por ejemplo la demostración con usuarias, y observa qué otra decisión del calendario depende de ella.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el segundo artefacto: la tabla de prácticas del equipo con su decisión y su señal, y una duración de ciclo justificada. `SE-183` comparará cuatro marcos con ese mismo criterio. Cambia después una sola práctica, por ejemplo la demostración con usuarias, y observa qué otra decisión del calendario depende de ella.
 
 ## Preguntas frecuentes
 

@@ -40,8 +40,8 @@ Podrás ejecutar ML-KEM-768 y ML-DSA-65 reales, leer sus tamaños frente a X2551
 
 ## Prerrequisitos enlazados
 
-- [Parte 01 — Computadores y representación de la información](../../classes/part-01-computadores-y-representacion-de-informacion/): CPU e instrucciones (`SE-017`), memoria y cachés (`SE-018`), procesos e interrupciones (`SE-019`), compilación y JIT (`SE-020`) y runtimes y máquinas virtuales (`SE-021`).
-- [Parte 21 — Software móvil, de escritorio y multiplataforma](../../classes/part-21-software-movil-escritorio-y-multiplataforma/): firma, sandbox y seguridad del cliente (`SE-262`).
+- [Parte 01 — Computadores y representación de información](../../classes/part-01-computadores-y-representacion-de-informacion/): CPU e instrucciones (`SE-017`), memoria y cachés (`SE-018`), procesos e interrupciones (`SE-019`), compilación y JIT (`SE-020`) y runtimes y máquinas virtuales (`SE-021`).
+- [Parte 21 — Software móvil, escritorio y multiplataforma](../../classes/part-21-software-movil-escritorio-y-multiplataforma/): firma, sandbox y seguridad del cliente (`SE-262`).
 - [Parte 33 — Cloud, plataforma e infraestructura](../../classes/part-33-cloud-plataforma-e-infraestructura/): máquinas virtuales, contenedores y aislamiento (`SE-398`), orquestación (`SE-399`), serverless (`SE-400`) y redes, identidad y secretos en cloud (`SE-401`).
 - [Parte 36 — Calidad, rendimiento y resiliencia](../../classes/part-36-calidad-rendimiento-y-resiliencia/): latencia, throughput y saturación (`SE-436`), perfiles y errores de medición (`SE-437`) y escalado y costos (`SE-404` en la Parte 33).
 - [Parte 38 — Seguridad, privacidad y cumplimiento](../../classes/part-38-seguridad-privacidad-y-cumplimiento/): modelos de amenaza (`SE-457`), identidad y sesiones (`SE-458`), autorización y mínimo privilegio (`SE-459`), criptografía aplicada y claves (`SE-461`) y secretos (`SE-462`).

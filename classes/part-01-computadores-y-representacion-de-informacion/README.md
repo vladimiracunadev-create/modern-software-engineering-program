@@ -266,7 +266,7 @@ depende de reproducibilidad y calidad causal, no de obtener un resultado llamati
 
 Una segunda persona ejecuta desde un entorno declarado y revisa si los datos permiten la
 conclusión. El informe separa observado, inferido y no medido. Ese hábito prepara la
-Parte 2, donde el analizador local de eventos se convierte en el kit de diagnóstico
+[Parte 2](../part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md), donde el analizador local de eventos se convierte en el kit de diagnóstico
 multiplataforma y el entorno operativo pasa de contexto a objeto explícito de diagnóstico.
 
 ## Resumen operativo del recorrido

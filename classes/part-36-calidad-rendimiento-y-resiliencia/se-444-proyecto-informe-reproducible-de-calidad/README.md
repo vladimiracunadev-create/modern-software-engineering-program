@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un informe de calidad que otra persona pueda volver a ejecutar, auditar y refutar: la pregunta, la hipótesis y el umbral fijados antes; el entorno y las semillas; los datos crudos con su huella; los resultados recalculados desde esos datos; el veredicto derivado del umbral; y una lista honesta de lo que no se midió. La habilidad no es redactar conclusiones sino construir un paquete en el que la conclusión no pueda sostenerse sin la evidencia, ni la evidencia sin su procedencia.
 
-**Por qué aparece aquí.** Cierra la **Parte 36** después de **Taller: someter un sistema a presión controlada**: las once clases anteriores produjeron mediciones, modelos y experimentos; el proyecto los convierte en un solo artefacto revisable. Es también el primer proyecto del programa que se evalúa por su reproducibilidad entre sistemas: el informe se ejecuta en Windows y en Ubuntu y los artefactos deben coincidir o declarar por qué no. El caso conductor es el informe de calidad de la API de entregas.
+**Por qué aparece aquí.** Cierra la **[Parte 36](../README.md)** después de **Taller: someter un sistema a presión controlada**: las once clases anteriores produjeron mediciones, modelos y experimentos; el proyecto los convierte en un solo artefacto revisable. Es también el primer proyecto del programa que se evalúa por su reproducibilidad entre sistemas: el informe se ejecuta en Windows y en Ubuntu y los artefactos deben coincidir o declarar por qué no. El caso conductor es el informe de calidad de la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que un informe con números, gráficos y un veredicto es evidencia: sin datos crudos con huella, sin umbral fijado de antemano y sin la selección de resultados declarada, el mismo informe puede declarar una mejora inexistente en casi todos los casos, y un validador que solo comprueba coherencia no distingue una elección de un olvido.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en toda la Parte 36: escenarios con medida (`SE-433`), compuertas (`SE-434`), carga (`SE-435`, `SE-436`), mediciones con protocolo (`SE-437`), reintentos, interruptores y recuperación (`SE-438` a `SE-440`), compatibilidad y presupuestos (`SE-441`, `SE-442`) y el experimento de presión (`SE-443`). La pregunta activa es: **¿qué paquete mínimo permite a alguien que no estuvo aquí repetir mis mediciones, obtener lo mismo y decir qué no puedo afirmar?**
+Recupera lo aprendido en toda la [Parte 36](../README.md): escenarios con medida (`SE-433`), compuertas (`SE-434`), carga (`SE-435`, `SE-436`), mediciones con protocolo (`SE-437`), reintentos, interruptores y recuperación (`SE-438` a `SE-440`), compatibilidad y presupuestos (`SE-441`, `SE-442`) y el experimento de presión (`SE-443`). La pregunta activa es: **¿qué paquete mínimo permite a alguien que no estuvo aquí repetir mis mediciones, obtener lo mismo y decir qué no puedo afirmar?**
 
 ## Prerrequisitos
 
@@ -226,7 +226,7 @@ Entrega el paquete `informe-calidad/` y `proyecto-log.md` con la predicción, la
 
 ## Caso conductor
 
-El informe de calidad de la API de entregas cierra el caso conductor de la Parte 36. Este proyecto deja el último artefacto: un paquete que reúne los escenarios de `SE-433`, las compuertas de `SE-434`, las pruebas de `SE-435` y `SE-436`, el protocolo de `SE-437`, las políticas de `SE-438` a `SE-440`, la matriz de `SE-441`, los presupuestos de `SE-442` y el experimento de `SE-443`. La Parte 38 lleva la mirada a la seguridad, la privacidad y el cumplimiento, donde el mismo paquete se somete a otras preguntas. Cambia después un solo dato, el número de métricas que informas, y observa cómo cambia la tasa de mejoras falsas.
+El informe de calidad de la API de entregas cierra el caso conductor de la [Parte 36](../README.md). Este proyecto deja el último artefacto: un paquete que reúne los escenarios de `SE-433`, las compuertas de `SE-434`, las pruebas de `SE-435` y `SE-436`, el protocolo de `SE-437`, las políticas de `SE-438` a `SE-440`, la matriz de `SE-441`, los presupuestos de `SE-442` y el experimento de `SE-443`. La [Parte 38](../../part-38-seguridad-privacidad-y-cumplimiento/README.md) lleva la mirada a la seguridad, la privacidad y el cumplimiento, donde el mismo paquete se somete a otras preguntas. Cambia después un solo dato, el número de métricas que informas, y observa cómo cambia la tasa de mejoras falsas.
 
 ## Preguntas frecuentes
 
@@ -318,7 +318,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 58 % de det
 
 ## Límites y siguiente paso
 
-Se ejecutaron los tres experimentos en Windows y Ubuntu (WSL2), con resultados idénticos en el validador y la selección y diferencias esperables en los artefactos que dependen del sistema. No se midió ninguna API real; los datos, el ruido, el validador y las doce mutaciones son construcciones del autor (el validador se escribió conociendo las mutaciones), la reproducibilidad se midió en dos sistemas de un equipo y con una versión de Python en cada uno, y el informe no certifica la calidad de ningún sistema. La Parte 38 continúa con seguridad, privacidad y cumplimiento.
+Se ejecutaron los tres experimentos en Windows y Ubuntu (WSL2), con resultados idénticos en el validador y la selección y diferencias esperables en los artefactos que dependen del sistema. No se midió ninguna API real; los datos, el ruido, el validador y las doce mutaciones son construcciones del autor (el validador se escribió conociendo las mutaciones), la reproducibilidad se midió en dos sistemas de un equipo y con una versión de Python en cada uno, y el informe no certifica la calidad de ningún sistema. La [Parte 38](../../part-38-seguridad-privacidad-y-cumplimiento/README.md) continúa con seguridad, privacidad y cumplimiento.
 
 ## Glosario
 

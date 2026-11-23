@@ -240,7 +240,7 @@ Entrega `rt-log.md` con la predicción, la tabla de planificabilidad, la de plaz
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el cuarto artefacto: el análisis de plazos de las tareas del nodo con su peor caso, sus prioridades y el bloqueo del mutex de la flash. `SE-269` entra en cómo esas tareas y las interrupciones comparten estado. Cambia después una sola cosa, el cómputo de la radio, y observa qué plazos pierden margen.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el cuarto artefacto: el análisis de plazos de las tareas del nodo con su peor caso, sus prioridades y el bloqueo del mutex de la flash. `SE-269` entra en cómo esas tareas y las interrupciones comparten estado. Cambia después una sola cosa, el cómputo de la radio, y observa qué plazos pierden margen.
 
 ## Preguntas frecuentes
 

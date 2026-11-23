@@ -34,7 +34,7 @@ Al finalizar podrás defender un diseño con una tarea, escenarios, cálculos co
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 12 — Ingeniería de requisitos](../../classes/part-12-ingenieria-de-requisitos/): necesidades de las personas y criterios de aceptación revisables.
 - [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): comportamiento especificado, estados, esquemas y contratos que esta parte hace usables.

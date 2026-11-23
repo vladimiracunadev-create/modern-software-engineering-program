@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas cuándo comunicar contextos por eventos, cuándo separar la escritura de la lectura y cuándo guardar la historia en lugar del estado, y para que midas las garantías que esa decisión exige a quien consume eventos.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Domain-Driven Design estratégico y táctico**: `SE-329` dibujó contextos con contratos pequeños; los eventos son una forma de que esos contratos viajen sin que un contexto llame al otro. A cambio de desacoplar en el tiempo, el sistema hereda duplicados, desorden y retrasos que una llamada directa no tenía.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Domain-Driven Design estratégico y táctico**: `SE-329` dibujó contextos con contratos pequeños; los eventos son una forma de que esos contratos viajen sin que un contexto llame al otro. A cambio de desacoplar en el tiempo, el sistema hereda duplicados, desorden y retrasos que una llamada directa no tenía.
 
 **Error conceptual que debe corregir.** Creer que «event-driven», CQRS y event sourcing son una sola cosa o que vienen juntos: son tres decisiones independientes con costes distintos, y adoptar las tres sin un escenario que las fuerce multiplica la complejidad.
 

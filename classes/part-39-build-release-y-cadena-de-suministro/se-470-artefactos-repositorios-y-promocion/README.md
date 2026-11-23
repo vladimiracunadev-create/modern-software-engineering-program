@@ -185,7 +185,7 @@ Entrega `artefactos-log.md` con la predicción, las tres tablas, la política de
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el segundo artefacto: una política de promoción por huella con metadatos de estado y una retención justificada. `SE-471` abre el contenido del artefacto: qué dependencias contiene y de dónde vienen. Cambia después un solo dato, la tasa de deriva, y observa a partir de qué valor la reconstrucción deja de ser aceptable.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el segundo artefacto: una política de promoción por huella con metadatos de estado y una retención justificada. `SE-471` abre el contenido del artefacto: qué dependencias contiene y de dónde vienen. Cambia después un solo dato, la tasa de deriva, y observa a partir de qué valor la reconstrucción deja de ser aceptable.
 
 ## Preguntas frecuentes
 

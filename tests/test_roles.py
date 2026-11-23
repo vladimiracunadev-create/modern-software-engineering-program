@@ -151,7 +151,8 @@ class RoleGuideTests(unittest.TestCase):
 
     def test_support_classes_are_developed_and_exist(self) -> None:
         pattern = re.compile(r"Ya desarrolladas de apoyo \(" + re.escape(ps.developed_label()) + r"\):(.+)")
-        main = (ROOT / "README.md").read_text(encoding="utf-8")
+        # Las referencias "Partes NN–MM" se publican con cada número enlazado a su parte.
+        main = re.sub(r"\[(\d\d)\]\([^)]*\)", r"\1", (ROOT / "README.md").read_text(encoding="utf-8"))
         matches = pattern.findall(main)
         developed_ids = {class_id for part in ps.developed_parts() for class_id in ps.class_ids(part)}
         self.assertEqual(len(matches), len(EXPECTED_GUIDES))

@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Scripting repetible y tareas idempotentes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué debe ocurrir al ejecutar una automatización dos veces, interrumpirla o retomarla?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Scripting repetible y tareas idempotentes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué debe ocurrir al ejecutar una automatización dos veces, interrumpirla o retomarla?**
 
 ## Prerrequisitos
 

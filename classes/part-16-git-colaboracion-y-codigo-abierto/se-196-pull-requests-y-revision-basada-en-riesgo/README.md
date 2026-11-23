@@ -169,7 +169,7 @@ Entrega `review-log.md` con la plantilla de PR, el criterio de triaje con sus su
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la plantilla de PR y el criterio de triaje. `SE-197` discute cuánto debe vivir la rama de un PR y `SE-199` automatiza la asignación de revisores. Cambia después un solo dato, el presupuesto de lectura del 30 % al 15 %, y revisa cuánto cambia la ventaja del criterio por riesgo.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la plantilla de PR y el criterio de triaje. `SE-197` discute cuánto debe vivir la rama de un PR y `SE-199` automatiza la asignación de revisores. Cambia después un solo dato, el presupuesto de lectura del 30 % al 15 %, y revisa cuánto cambia la ventaja del criterio por riesgo.
 
 ## Preguntas frecuentes
 

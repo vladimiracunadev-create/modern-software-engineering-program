@@ -38,7 +38,7 @@ recursos invalida tu recomendación.
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
 - [Parte 5 — Fundamentos de programación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
@@ -59,7 +59,7 @@ mochila y subsecuencia común con programación dinámica; n reinas, suma de sub
 persistente; pendientes log-log, ruido y sobrecosto de `cProfile` y `tracemalloc`; matrices de compromisos por carga, y un oráculo diferencial con seis defectos inyectados.
 Los experimentos son scripts autónomos que no tocan datos reales. Los tiempos son de un equipo y se leen como razones: una misma medición dio una pendiente de 1,21 en una pasada y de
 1,02 en otra, y esa variación se declara en la clase. No se midió otro intérprete, otro hardware ni cargas reales. Esta parte no tiene laboratorio propio en `labs/`; el proyecto
-integrador SE-096 define el contrato y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
+integrador [SE-096](./se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md) define el contrato y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
 
 ## Guía razonada clase por clase
 
@@ -210,7 +210,7 @@ declaradas.
 La aceptación cubre vacío, duplicado, empate, actualización, ciclo y escala; separa
 resultados funcionales de rendimiento. El informe declara plataformas y variabilidad.
 La regresión de prioridades empatadas que aparece al cambiar entorno será el síntoma que
-la Parte 8 investigará con el entorno reproducible de diagnóstico.
+la [Parte 8](../part-08-entornos-herramientas-y-depuracion/README.md) investigará con el entorno reproducible de diagnóstico.
 
 ## Resumen operativo del recorrido
 
@@ -231,7 +231,7 @@ la Parte 8 investigará con el entorno reproducible de diagnóstico.
 
 ## Proyecto integrador
 
-El proyecto **SE-096** entrega una biblioteca con API común, al menos dos estructuras o
+El proyecto **[SE-096](./se-096-proyecto-biblioteca-comparada-con-casos-limite/README.md)** entrega una biblioteca con API común, al menos dos estructuras o
 algoritmos intercambiables, pruebas de propiedades, casos límite, cargas versionadas,
 benchmarks y perfiles reproducibles. El informe recomienda una alternativa para dos
 perfiles de operaciones distintos y declara el punto en que la decisión debe revisarse.

@@ -21,6 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+import cross_references  # noqa: E402
 from cases_data import CASES, GITHUB_BLOB, KINDS, SKELETON_MARKER, cases_of  # noqa: E402
 
 PROGRAM_NAME = "Programa de Ingeniería de Software Moderna"
@@ -235,7 +236,7 @@ def case_html_markdown(markdown: str, source: str) -> str:
         return f"[{label}]({site_target(source_dir, target, case_files)}{caption})"
 
     lines = [line for line in markdown.splitlines() if not line.startswith(NAV_PREFIX)]
-    body = "\n".join(lines)
+    body = cross_references.resolve("\n".join(lines), source_dir)
     body = body.replace(SKELETON_MARKER, "")
     return LINK.sub(replace, body)
 
@@ -306,10 +307,15 @@ def expected_files() -> dict[Path, str]:
 
     files: dict[Path, str] = {}
     for kind, rel in GROUP_FILES.items():
-        files[ROOT / rel] = group_markdown(kind)
+        files[ROOT / rel] = cross_references.resolve(group_markdown(kind), posixpath.dirname(rel))
     # Group pages are generated first so the portal reads the fresh text.
-    fresh = {rel: group_markdown(kind) for kind, rel in GROUP_FILES.items()}
-    files.update(site_pages(lambda rel: fresh[rel] if rel in fresh else read(rel)))
+    fresh = {rel: files[ROOT / rel] for rel in GROUP_FILES.values()}
+    files.update(
+        {
+            path: cross_references.resolve_html(content, posixpath.dirname(path.relative_to(ROOT).as_posix()))
+            for path, content in site_pages(lambda rel: fresh[rel] if rel in fresh else read(rel)).items()
+        }
+    )
     for svg in sorted((ROOT / "casos/figures").glob("*.svg")):
         files[ROOT / "site/casos/figures" / svg.name] = svg.read_text(encoding="utf-8")
     return files

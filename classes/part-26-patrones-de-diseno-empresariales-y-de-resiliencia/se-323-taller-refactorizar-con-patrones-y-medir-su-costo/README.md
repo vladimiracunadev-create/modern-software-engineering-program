@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-313`, `SE-316` y `SE-322`: un patrón necesita fuer
 ## Prerrequisitos
 
 - Haber completado `SE-313` a `SE-322`.
-- Conocer la idea de mutación de la Parte 35 y la de maestro dorado como prueba de caracterización.
+- Conocer la idea de mutación de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) y la de maestro dorado como prueba de caracterización.
 - Python 3.11 o posterior con `ast`, `random` y `timeit`.
 
 ## Problema auténtico
@@ -98,7 +98,7 @@ Una red que nunca falla no demuestra que funciona. Se siembran seis cambios pequ
 
 ### 3. Las fronteras hay que escribirlas
 
-Para que el maestro detecte los tres mutantes que sobreviven, se añaden **384 entradas de frontera**: todas las combinaciones de canal (4), urgencia (2), horas en {20, 21, 23, 24} (4), adjuntos en {2, 3} (2) y grupo en {50, 51, 100, 101, 1000, 1001} (6). Con las 5000 más las 384, el maestro detecta **6 de 6** y el refactor sigue sin diferir de la función antigua (0 diferencias). La lección es la del análisis de valores límite (Parte 35): los defectos viven en los bordes y las entradas al azar casi nunca los tocan. Más entradas al azar no resuelven el problema; las fronteras se **escriben**.
+Para que el maestro detecte los tres mutantes que sobreviven, se añaden **384 entradas de frontera**: todas las combinaciones de canal (4), urgencia (2), horas en {20, 21, 23, 24} (4), adjuntos en {2, 3} (2) y grupo en {50, 51, 100, 101, 1000, 1001} (6). Con las 5000 más las 384, el maestro detecta **6 de 6** y el refactor sigue sin diferir de la función antigua (0 diferencias). La lección es la del análisis de valores límite ([Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md)): los defectos viven en los bordes y las entradas al azar casi nunca los tocan. Más entradas al azar no resuelven el problema; las fronteras se **escriben**.
 
 ### 4. Refactorizar a Strategy con registro, en pasos pequeños
 

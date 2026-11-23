@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación reactiva y flujos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo modelar un flujo que produce cero, uno o muchos valores y también termina o falla?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación reactiva y flujos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo modelar un flujo que produce cero, uno o muchos valores y también termina o falla?**
 
 ## Prerrequisitos
 

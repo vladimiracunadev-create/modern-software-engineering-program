@@ -199,7 +199,7 @@ Entrega `workshop-log.md` con la intención, las cláusulas, el linter y su eval
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Este taller deja un contrato de la regla de penalización con cláusulas revisadas, cinco ejemplos que separan las variantes distinguibles, un revisor de coherencia y una lista de decisiones humanas. `SE-168` lo empaquetará con el resto de artefactos de la parte, con enlaces entre intención, requisitos, contratos, ejemplos y pruebas. Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa qué cláusulas, ejemplos y pruebas deben cambiar.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Este taller deja un contrato de la regla de penalización con cláusulas revisadas, cinco ejemplos que separan las variantes distinguibles, un revisor de coherencia y una lista de decisiones humanas. `SE-168` lo empaquetará con el resto de artefactos de la parte, con enlaces entre intención, requisitos, contratos, ejemplos y pruebas. Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa qué cláusulas, ejemplos y pruebas deben cambiar.
 
 ## Preguntas frecuentes
 

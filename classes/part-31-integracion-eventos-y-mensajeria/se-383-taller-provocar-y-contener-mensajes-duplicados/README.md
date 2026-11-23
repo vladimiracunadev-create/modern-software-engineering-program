@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que aprendas a contener duplicados provocándolos primero: producirás a propósito cinco causas distintas de un efecto repetido en un consumidor sin defensa, medirás qué defensa contiene cada una, y descubrirás dos formas en que una defensa mal colocada falla al revés (perdiendo el efecto en lugar de duplicarlo, o descartando intentos legítimos). Termina con un procedimiento reutilizable para diagnosticar un duplicado real a partir de su causa y no de su síntoma.
 
-**Por qué aparece aquí.** Es el taller de la **Parte 31**: reúne la entrega al menos una vez (`SE-376`), el outbox y la inbox (`SE-377`), el receptor externo (`SE-379`) y la observabilidad (`SE-382`) en una práctica donde el objetivo es romper y arreglar. En la plataforma de entregas, un duplicado significa una calificación repetida o un correo doble, y el equipo necesita un método para encontrar su origen sin adivinar.
+**Por qué aparece aquí.** Es el taller de la **[Parte 31](../README.md)**: reúne la entrega al menos una vez (`SE-376`), el outbox y la inbox (`SE-377`), el receptor externo (`SE-379`) y la observabilidad (`SE-382`) en una práctica donde el objetivo es romper y arreglar. En la plataforma de entregas, un duplicado significa una calificación repetida o un correo doble, y el equipo necesita un método para encontrar su origen sin adivinar.
 
 **Error conceptual que debe corregir.** Creer que «los duplicados» son un solo problema con una sola solución (una tabla de mensajes vistos). Hay causas que nacen antes del corredor, en el corredor y después, y una defensa que atrapa unas deja pasar otras; además, colocar la defensa en el orden o en el alcance equivocado produce pérdidas y rechazos injustos que se parecen a un duplicado resuelto.
 
@@ -234,7 +234,7 @@ Entrega `taller-duplicados-log.md` con las predicciones, las tres tablas reprodu
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. El taller deja el undécimo artefacto: la matriz de defensas por causas y el procedimiento de diagnóstico de un duplicado. `SE-384` los integra en un flujo completo tolerante a reintentos. Cambia después una sola decisión, el plazo de visibilidad, y observa cuántas causas del taller dependen de un valor de configuración.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). El taller deja el undécimo artefacto: la matriz de defensas por causas y el procedimiento de diagnóstico de un duplicado. `SE-384` los integra en un flujo completo tolerante a reintentos. Cambia después una sola decisión, el plazo de visibilidad, y observa cuántas causas del taller dependen de un valor de configuración.
 
 ## Preguntas frecuentes
 

@@ -1,6 +1,6 @@
 # Parte 39 — Build, release y cadena de suministro
 
-La Parte 38 decidió qué amenazas, datos y obligaciones importan. La pregunta cambia de «¿qué puede salir mal con el sistema?» a «¿cómo llega el código desde quien lo revisó hasta quien lo ejecuta, y qué evidencia permite a otra persona comprobar que no cambió por el camino?». Esta parte trabaja sobre **el canal de release de la API de entregas de la plataforma educativa y de su cliente de línea de órdenes**, un caso sintético: un árbol de código que se empaqueta, se almacena, se firma, se verifica, se versiona, se expone gradualmente y se actualiza en equipos ajenos.
+La [Parte 38](../part-38-seguridad-privacidad-y-cumplimiento/README.md) decidió qué amenazas, datos y obligaciones importan. La pregunta cambia de «¿qué puede salir mal con el sistema?» a «¿cómo llega el código desde quien lo revisó hasta quien lo ejecuta, y qué evidencia permite a otra persona comprobar que no cambió por el camino?». Esta parte trabaja sobre **el canal de release de la API de entregas de la plataforma educativa y de su cliente de línea de órdenes**, un caso sintético: un árbol de código que se empaqueta, se almacena, se firma, se verifica, se versiona, se expone gradualmente y se actualiza en equipos ajenos.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Además podrás comparar firmas de API con `ast` y combinar un control automáti
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): contratos y compatibilidad entre versiones.
 - [Parte 35 — Estrategia y técnicas de prueba](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-estrategia-y-tecnicas-de-prueba/): pruebas de contrato y capacidad de detección.
 - [Parte 36 — Calidad, rendimiento y resiliencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-36-calidad-rendimiento-y-resiliencia/): protocolos de medición, reintentos y recuperación.
@@ -119,7 +119,7 @@ Un verificador de doce comprobaciones rechaza 12 de 12 manipulaciones y 0 de 6 c
 
 #### SE-480 — Proyecto: release firmado y recuperable
 
-Verificación cruzada entre Windows y Ubuntu con la misma huella 802052279bf24eb8 y cuatro simulacros de recuperación. Se entrega un expediente con `LIMITES.md`. La Parte 40 lleva la cadena a CI/CD, infraestructura como código y plataforma.
+Verificación cruzada entre Windows y Ubuntu con la misma huella 802052279bf24eb8 y cuatro simulacros de recuperación. Se entrega un expediente con `LIMITES.md`. La [Parte 40](../part-40-ci-cd-iac-y-platform-engineering/README.md) lleva la cadena a CI/CD, infraestructura como código y plataforma.
 
 ## Resumen operativo del recorrido
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que razones sobre lo que una persona ve y oye como una señal muestreada con un presupuesto de tiempo, y no como «gráficos» o «sonido» en abstracto: cada muestra, búfer y fotograma tiene un plazo, un límite de información y un coste de perderlo que la persona nota.
 
-**Por qué aparece aquí.** Es la quinta clase de la **Parte 24**, después de **Videojuegos, loops, entidades y simulación**: allí el presupuesto era el fotograma de la simulación; aquí el presupuesto baja a milisegundos de audio y a la latencia entre un movimiento de cabeza y la imagen. Un fallo de plazo ya no se ve como un error: se oye como un chasquido o se siente como un mareo. El caso conductor sigue siendo la plataforma educativa ficticia: una sala virtual de clase con voz espacial y una pantalla compartida.
+**Por qué aparece aquí.** Es la quinta clase de la **[Parte 24](../README.md)**, después de **Videojuegos, loops, entidades y simulación**: allí el presupuesto era el fotograma de la simulación; aquí el presupuesto baja a milisegundos de audio y a la latencia entre un movimiento de cabeza y la imagen. Un fallo de plazo ya no se ve como un error: se oye como un chasquido o se siente como un mareo. El caso conductor sigue siendo la plataforma educativa ficticia: una sala virtual de clase con voz espacial y una pantalla compartida.
 
 **Error conceptual que debe corregir.** Creer que más resolución y más tasa de muestreo mejoran siempre la experiencia. Más muestras cuestan más tiempo y más ancho de banda; por debajo de ciertos límites se pierde información que no vuelve (aliasing), y por encima de otros, se añade latencia o se pierden fotogramas que la persona sí nota.
 
@@ -227,7 +227,7 @@ Entrega `media-log.md` con la predicción, las tres tablas, el tamaño de búfer
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el quinto artefacto: la sala virtual con búfer adaptable, filtro antes de muestrear, vigilancia del percentil 99 del fotograma y alternativas sensoriales. `SE-294` entra en un dominio donde el error no se oye ni se ve, sino que se cobra: el dinero. Cambia después una sola decisión, el tamaño del búfer, y observa qué fallos aparecen y cuáles desaparecen.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el quinto artefacto: la sala virtual con búfer adaptable, filtro antes de muestrear, vigilancia del percentil 99 del fotograma y alternativas sensoriales. `SE-294` entra en un dominio donde el error no se oye ni se ve, sino que se cobra: el dinero. Cambia después una sola decisión, el tamaño del búfer, y observa qué fallos aparecen y cuáles desaparecen.
 
 ## Preguntas frecuentes
 

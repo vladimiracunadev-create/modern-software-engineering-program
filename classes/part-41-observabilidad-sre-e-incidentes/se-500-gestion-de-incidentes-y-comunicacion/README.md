@@ -214,7 +214,7 @@ Entrega `incidentes-log.md` con la predicción, las tres tablas de resultados re
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el octavo artefacto: un protocolo de incidentes con roles, severidades medibles y cadencia. `SE-501` pregunta cómo convertir lo ocurrido en aprendizaje sin buscar culpables, y `SE-502` cómo prepararse para el peor caso. Cambia después un solo parámetro, la cadencia, y observa dónde está el mínimo del tiempo de quien dirige.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el octavo artefacto: un protocolo de incidentes con roles, severidades medibles y cadencia. `SE-501` pregunta cómo convertir lo ocurrido en aprendizaje sin buscar culpables, y `SE-502` cómo prepararse para el peor caso. Cambia después un solo parámetro, la cadencia, y observa dónde está el mínimo del tiempo de quien dirige.
 
 ## Preguntas frecuentes
 

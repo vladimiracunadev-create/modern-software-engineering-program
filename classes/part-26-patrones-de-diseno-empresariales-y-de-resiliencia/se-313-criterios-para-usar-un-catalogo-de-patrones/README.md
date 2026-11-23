@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que uses un catálogo de patrones como lo que es: un conjunto de **soluciones con nombre a problemas recurrentes, cada una con consecuencias**. La habilidad profesional no es conocer los veintitrés patrones de la Gang of Four ni reconocerlos en un código ajeno; es poder decir, ante un problema concreto, qué fuerza lo causa, qué patrón la ataca, cuánto cuesta tenerlo y cuándo se retira. Quien aplica un patrón sin esa cadena está decorando; quien la tiene puede aplicar un patrón, no aplicarlo o aplicar uno más simple, y defender la decisión ante otra persona.
 
-**Por qué aparece aquí.** Es la primera clase de la Parte 26 porque las once siguientes la reutilizan: cada patrón se somete a la misma pregunta. La Parte 25 enseñó los patrones como vocabulario y la Parte 45 enseñó a tratar una práctica como un oráculo con costo y punto ciego; esta clase une ambas ideas y establece el criterio.
+**Por qué aparece aquí.** Es la primera clase de la [Parte 26](../README.md) porque las once siguientes la reutilizan: cada patrón se somete a la misma pregunta. La [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) enseñó los patrones como vocabulario y la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) enseñó a tratar una práctica como un oráculo con costo y punto ciego; esta clase une ambas ideas y establece el criterio.
 
 **Error conceptual que debe corregir.** Creer que un diseño con más patrones es un mejor diseño. El catálogo de la Gang of Four describe cada patrón con una sección de **consecuencias** que enumera ventajas y costos, precisamente porque ninguno es gratuito. El error aparece con dos caras: el programador que acaba de aprender el catálogo y lo ve en todas partes, y el equipo que usa los nombres de los patrones como señal de calidad en una revisión de código sin comprobar la estructura.
 
@@ -28,12 +28,12 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 45: una práctica se evalúa por lo que decide, lo que no ve y lo que cuesta. La pregunta activa es: **¿cuál es el último patrón que aplicaste o viste aplicar, qué dolor concreto resolvía y qué evidencia tienes de que el dolor existía antes del patrón?**
+Recupera lo aprendido en la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md): una práctica se evalúa por lo que decide, lo que no ve y lo que cuesta. La pregunta activa es: **¿cuál es el último patrón que aplicaste o viste aplicar, qué dolor concreto resolvía y qué evidencia tienes de que el dolor existía antes del patrón?**
 
 ## Prerrequisitos
 
-- Haber leído la Parte 25 (diseño, patrones y refactorización) y conocer la idea de costura y de inyección de dependencias.
-- Haber completado la Parte 45 y recordar el núcleo de *Avisos* y la idea de medir con variantes.
+- Haber leído la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) (diseño, patrones y refactorización) y conocer la idea de costura y de inyección de dependencias.
+- Haber completado la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) y recordar el núcleo de *Avisos* y la idea de medir con variantes.
 - Python 3.11 o posterior; el experimento usa `ast`, `difflib` y `timeit`.
 
 ## Problema auténtico

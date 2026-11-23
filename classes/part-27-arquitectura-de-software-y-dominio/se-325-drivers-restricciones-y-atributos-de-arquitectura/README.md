@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que conviertas «necesitamos una buena arquitectura» en drivers, restricciones y escenarios de calidad que se puedan medir, y para que sepas qué decisiones fuerzan y cuáles solo reflejan una preferencia.
 
-**Por qué aparece aquí.** Abre la **Parte 27** después de **Proyecto: evolución compatible de un componente**: la Parte 25 enseñó a diseñar y refactorizar dentro de un componente; ahora la pregunta sube de nivel y pasa a ser qué fuerzas obligan a dividir, agrupar o replicar componentes. La clase fija el vocabulario y el caso conductor de la parte: la plataforma de entregas y corrección de tareas de un curso, que recibe una ráfaga de archivos cada vez que vence un plazo.
+**Por qué aparece aquí.** Abre la **[Parte 27](../README.md)** después de **Proyecto: evolución compatible de un componente**: la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) enseñó a diseñar y refactorizar dentro de un componente; ahora la pregunta sube de nivel y pasa a ser qué fuerzas obligan a dividir, agrupar o replicar componentes. La clase fija el vocabulario y el caso conductor de la parte: la plataforma de entregas y corrección de tareas de un curso, que recibe una ráfaga de archivos cada vez que vence un plazo.
 
 **Error conceptual que debe corregir.** Creer que una arquitectura se elige por estilo (monolito, microservicios, hexagonal) antes de saber qué atributo de calidad la fuerza: los estilos son respuestas, y sin la pregunta cualquiera parece buena.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo que la Parte 25 dejó sobre cambio: un componente se refactoriza para que el siguiente cambio cueste menos. La pregunta activa es: **¿qué escenario concreto de calidad obliga a que este sistema esté partido o replicado de esta manera, y qué alternativa descartamos al aceptarlo?**
+Recupera lo que la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md) dejó sobre cambio: un componente se refactoriza para que el siguiente cambio cueste menos. La pregunta activa es: **¿qué escenario concreto de calidad obliga a que este sistema esté partido o replicado de esta manera, y qué alternativa descartamos al aceptarlo?**
 
 ## Prerrequisitos
 
@@ -215,7 +215,7 @@ Entrega `drivers.md` con drivers, restricciones, cinco escenarios medibles, la s
 
 ## Caso conductor
 
-La plataforma de entregas y corrección de tareas de un curso es el caso conductor de la Parte 27. Esta clase deja el primer artefacto: los drivers, las restricciones y los escenarios que las siguientes clases usarán para evaluar vistas, estilos y decisiones. `SE-326` mostrará el sistema desde varias vistas coherentes con estos escenarios. Cambia después un solo escenario, el pico de 40 a 60 peticiones por segundo, y observa qué decisiones dejan de sostenerse.
+La plataforma de entregas y corrección de tareas de un curso es el caso conductor de la [Parte 27](../README.md). Esta clase deja el primer artefacto: los drivers, las restricciones y los escenarios que las siguientes clases usarán para evaluar vistas, estilos y decisiones. `SE-326` mostrará el sistema desde varias vistas coherentes con estos escenarios. Cambia después un solo escenario, el pico de 40 a 60 peticiones por segundo, y observa qué decisiones dejan de sostenerse.
 
 ## Preguntas frecuentes
 

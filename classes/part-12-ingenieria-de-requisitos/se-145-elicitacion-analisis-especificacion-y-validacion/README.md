@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que un requisito deje de ser «lo que dijo la persona que habló más fuerte» y pase a ser el resultado de cuatro actividades distintas —descubrir, analizar, escribir y comprobar— cada una con su propia forma de fallar y su propia evidencia.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: caso de viabilidad técnico-económica** y antes de **Requisitos funcionales y reglas de negocio**: la Parte 10 terminó con un brief que dice qué problema merece resolverse y la Parte 11 con un caso de viabilidad que dice cuánto cuesta y rinde. La Parte 12 cambia la pregunta de «¿conviene?» a «¿qué exactamente debe hacer el sistema y cómo lo sabremos?». Esta clase fija el ciclo de cuatro actividades que las once siguientes profundizan, y deja un expediente mínimo de la función «recuperar borradores cuando la sesión expira», el requisito conductor de toda la parte.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: caso de viabilidad técnico-económica** y antes de **Requisitos funcionales y reglas de negocio**: la [Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md) terminó con un brief que dice qué problema merece resolverse y la [Parte 11](../../part-11-economia-metricas-y-decisiones-de-producto/README.md) con un caso de viabilidad que dice cuánto cuesta y rinde. La [Parte 12](../README.md) cambia la pregunta de «¿conviene?» a «¿qué exactamente debe hacer el sistema y cómo lo sabremos?». Esta clase fija el ciclo de cuatro actividades que las once siguientes profundizan, y deja un expediente mínimo de la función «recuperar borradores cuando la sesión expira», el requisito conductor de toda la parte.
 
 **Error conceptual que debe corregir.** Creer que los requisitos «están ahí» y solo hay que recogerlos, y que una lista bien redactada ya es una especificación validada.
 
@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 12 sobre la plataforma de entregas de tareas**, el mismo caso de la Parte 10, ahora en su etapa de especificación. Recupera lo aprendido en las Partes 10 y 11: ya sabes qué problema merece atención (los estudiantes pierden el borrador cuando la sesión expira) y cuánto puede costar resolverlo; falta decir con precisión qué debe hacer el sistema. La pregunta activa es: **¿cómo sé que lo que voy a escribir como requisito es lo que alguien necesita, y que lo escribí de forma que se pueda comprobar?**
+Esta clase abre la **[Parte 12](../README.md) sobre la plataforma de entregas de tareas**, el mismo caso de la [Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md), ahora en su etapa de especificación. Recupera lo aprendido en las Partes [10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md) y [11](../../part-11-economia-metricas-y-decisiones-de-producto/README.md): ya sabes qué problema merece atención (los estudiantes pierden el borrador cuando la sesión expira) y cuánto puede costar resolverlo; falta decir con precisión qué debe hacer el sistema. La pregunta activa es: **¿cómo sé que lo que voy a escribir como requisito es lo que alguien necesita, y que lo escribí de forma que se pueda comprobar?**
 
 ## Prerrequisitos
 
@@ -220,7 +220,7 @@ Entrega `requirements-cycle.md` con los cuatro pasos aplicados al caso: al menos
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 12. Esta clase deja el primer artefacto: el requisito REQ-001 con su necesidad de origen, un supuesto y un criterio. Las clases siguientes lo someten a otras lentes: reglas de negocio (`SE-146`), calidad y restricciones (`SE-147`), historias y casos de uso (`SE-148`), ejemplos de aceptación (`SE-149`), prioridad (`SE-150`), trazabilidad (`SE-151`) y así hasta la especificación revisable de `SE-156`. Cambia después una sola decisión —por ejemplo, la retención a 365 días— y revisa qué líneas del expediente cambian.
+La plataforma de entregas es el caso conductor de la [Parte 12](../README.md). Esta clase deja el primer artefacto: el requisito REQ-001 con su necesidad de origen, un supuesto y un criterio. Las clases siguientes lo someten a otras lentes: reglas de negocio (`SE-146`), calidad y restricciones (`SE-147`), historias y casos de uso (`SE-148`), ejemplos de aceptación (`SE-149`), prioridad (`SE-150`), trazabilidad (`SE-151`) y así hasta la especificación revisable de `SE-156`. Cambia después una sola decisión —por ejemplo, la retención a 365 días— y revisa qué líneas del expediente cambian.
 
 ## Preguntas frecuentes
 

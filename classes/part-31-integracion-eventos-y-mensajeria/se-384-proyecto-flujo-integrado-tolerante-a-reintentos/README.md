@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un flujo de integración completo cuyas garantías puedas defender con medidas: el paquete reúne contratos de mensaje, clave de idempotencia, política de reintentos, cola de mensajes fallidos, compatibilidad de esquemas, outbox e inbox, observabilidad, seguridad y límites, y lo acompañas de un validador cuyos puntos ciegos conoces, una simulación con fallas inyectadas que compara el flujo ingenuo con el tolerante y un cálculo de qué carga recibe un servicio cuando todos los mensajes reintentan a la vez.
 
-**Por qué aparece aquí.** Cierra la **Parte 31**: integra `SE-373` (síncrono y asíncrono), `SE-374` (qué viaja), `SE-375` (por dónde), `SE-376` (qué garantías), `SE-377` (atomicidad con outbox e inbox), `SE-378` (sincronización), `SE-379` (avisos externos), `SE-380` (compatibilidad), `SE-381` (traducción), `SE-382` (observabilidad y seguridad) y `SE-383` (duplicados) en un solo flujo de la plataforma de entregas: una entrega se guarda, se publica, se califica, se avisa al estudiante y se registra.
+**Por qué aparece aquí.** Cierra la **[Parte 31](../README.md)**: integra `SE-373` (síncrono y asíncrono), `SE-374` (qué viaja), `SE-375` (por dónde), `SE-376` (qué garantías), `SE-377` (atomicidad con outbox e inbox), `SE-378` (sincronización), `SE-379` (avisos externos), `SE-380` (compatibilidad), `SE-381` (traducción), `SE-382` (observabilidad y seguridad) y `SE-383` (duplicados) en un solo flujo de la plataforma de entregas: una entrega se guarda, se publica, se califica, se avisa al estudiante y se registra.
 
 **Error conceptual que debe corregir.** Creer que un paquete con todas las secciones y un validador que pasa demuestra un flujo correcto. El validador del proyecto ve la forma y algunas incoherencias numéricas, y deja pasar justo lo que requiere entender el sentido: una firma que se nombra pero no se usa, una cola de fallidos sin dueño, una clave demasiado gruesa o un registro que copia datos personales. Un flujo tolerante se demuestra provocándole fallas, no leyendo su documento.
 
@@ -227,7 +227,7 @@ Entrega el paquete, el validador con sus pruebas, la simulación con las cinco i
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31 y este proyecto lo cierra. El paquete de integración conecta con la Parte 32, que lleva estos mensajes a la concurrencia y a los sistemas distribuidos: lo que aquí fueron simulaciones de un solo proceso será allí varias máquinas con relojes distintos y particiones de red. Cambia después una sola decisión, la política de reintentos, y observa qué parámetro del paquete deja de ser coherente con otro.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md) y este proyecto lo cierra. El paquete de integración conecta con la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md), que lleva estos mensajes a la concurrencia y a los sistemas distribuidos: lo que aquí fueron simulaciones de un solo proceso será allí varias máquinas con relojes distintos y particiones de red. Cambia después una sola decisión, la política de reintentos, y observa qué parámetro del paquete deja de ser coherente con otro.
 
 ## Preguntas frecuentes
 
@@ -319,7 +319,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que las 140 detecc
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún corredor, red, concurrencia ni medición de tiempo de reloj: el paquete es un texto sintético, el validador se ajustó con los mismos casos que lo evalúan, las fallas inyectadas y sus tasas son del autor y todos los mensajes fallan a la vez en el cálculo de la tormenta. Los resultados no se extrapolan a ningún sistema. La Parte 32 pregunta qué ocurre cuando varias máquinas ejecutan estos flujos a la vez: concurrencia, paralelismo y sistemas distribuidos.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún corredor, red, concurrencia ni medición de tiempo de reloj: el paquete es un texto sintético, el validador se ajustó con los mismos casos que lo evalúan, las fallas inyectadas y sus tasas son del autor y todos los mensajes fallan a la vez en el cálculo de la tormenta. Los resultados no se extrapolan a ningún sistema. La [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) pregunta qué ocurre cuando varias máquinas ejecutan estos flujos a la vez: concurrencia, paralelismo y sistemas distribuidos.
 
 ## Glosario
 

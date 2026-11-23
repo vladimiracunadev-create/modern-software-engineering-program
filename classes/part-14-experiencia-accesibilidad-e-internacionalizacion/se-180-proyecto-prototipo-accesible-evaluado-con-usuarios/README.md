@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un prototipo accesible de la entrega de una tarea, junto con el plan de evaluación con personas, la evidencia y una declaración de conformidad que distinga lo comprobado, lo revisado y lo no cubierto, de modo que otra persona pueda repetir y cuestionar cada afirmación.
 
-**Por qué aparece aquí.** Cierra la Parte 14 después de **Taller: auditar y reparar un flujo excluyente** y antes de la Parte 15 (**Modelos predictivos, iterativos e incrementales**): reúne la tarea y los escenarios de `SE-169`, la estructura de `SE-170`, la interacción y los estados de `SE-171` y `SE-172`, los criterios, la semántica y lo visual de `SE-173` a `SE-175`, la adaptación y el idioma de `SE-176` y `SE-177`, el protocolo de `SE-178` y el método de `SE-179`. Deja un artefacto que la Parte 15 tratará como trabajo con estimación y plan.
+**Por qué aparece aquí.** Cierra la [Parte 14](../README.md) después de **Taller: auditar y reparar un flujo excluyente** y antes de la [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md) (**Modelos predictivos, iterativos e incrementales**): reúne la tarea y los escenarios de `SE-169`, la estructura de `SE-170`, la interacción y los estados de `SE-171` y `SE-172`, los criterios, la semántica y lo visual de `SE-173` a `SE-175`, la adaptación y el idioma de `SE-176` y `SE-177`, el protocolo de `SE-178` y el método de `SE-179`. Deja un artefacto que la [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md) tratará como trabajo con estimación y plan.
 
 **Error conceptual que debe corregir.** Creer que un prototipo accesible es uno que pasó una herramienta, o que una evaluación con cinco personas autoriza a afirmar conformidad: la conformidad se declara con alcance, evidencia de cada criterio y una política explícita para lo no probado, y la evaluación con personas planifica su reclutamiento, su tamaño y su incertidumbre.
 
@@ -196,7 +196,7 @@ Entrega `prototype.html`, `accessibility.md`, `usability-notes.md` y `project-lo
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14 y este proyecto lo cierra: reúne el modelo de tarea, la estructura, la interacción, los estados, los criterios, la semántica, lo visual, la adaptación, el idioma, la evaluación y la auditoría en un prototipo con su evidencia. La Parte 15 estima y planifica el trabajo de llevarlo a producción. Cambia después un solo supuesto, la prevalencia de una barrera, y revisa qué parte del plan y de la declaración cambia.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md) y este proyecto lo cierra: reúne el modelo de tarea, la estructura, la interacción, los estados, los criterios, la semántica, lo visual, la adaptación, el idioma, la evaluación y la auditoría en un prototipo con su evidencia. La [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md) estima y planifica el trabajo de llevarlo a producción. Cambia después un solo supuesto, la prevalencia de una barrera, y revisa qué parte del plan y de la declaración cambia.
 
 ## Preguntas frecuentes
 
@@ -296,7 +296,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el prototipo c
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se reclutó a nadie, no se usó ningún escáner de producción ni se evaluó un producto real, y las prevalencias, las cuatro modalidades con igual probabilidad, el 8 % de error y los porcentajes de la política de conformidad son supuestos del autor. La Parte 15 estima y planifica el trabajo de llevar el prototipo a producción.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se reclutó a nadie, no se usó ningún escáner de producción ni se evaluó un producto real, y las prevalencias, las cuatro modalidades con igual probabilidad, el 8 % de error y los porcentajes de la política de conformidad son supuestos del autor. La [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md) estima y planifica el trabajo de llevar el prototipo a producción.
 
 ## Glosario
 

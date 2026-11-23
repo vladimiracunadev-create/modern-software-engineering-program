@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-337`: un estilo compra una propiedad con una restri
 
 - Haber completado `SE-337` o poder escribir un escenario de calidad con medida.
 - Saber cargar un módulo de Python y manejar excepciones.
-- Haber visto los patrones Strategy (`SE-316`) y Adapter (`SE-315`) de la Parte 26.
+- Haber visto los patrones Strategy (`SE-316`) y Adapter (`SE-315`) de la [Parte 26](../../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md).
 - Python 3.11 o posterior; el laboratorio usa solo la biblioteca estándar.
 
 ## Problema auténtico
@@ -112,7 +112,7 @@ Cargar un módulo de Python ejecuta su código con los privilegios del proceso. 
 
 ### 7. Cuándo no usarlo
 
-Con dos o tres extensiones previsibles y un solo equipo, una interfaz y tres implementaciones en el mismo repositorio (el patrón Strategy de la Parte 26) dan la misma extensión sin descubrimiento, sin versión y sin aislamiento. El microkernel compensa cuando las extensiones las escriben personas que no se coordinan con el núcleo, cuando su número crece sin que nadie lo planifique o cuando deben poder instalarse sin recompilar el sistema. Si el contrato cambia cada semana, el costo de mantener la compatibilidad supera lo que se ahorra.
+Con dos o tres extensiones previsibles y un solo equipo, una interfaz y tres implementaciones en el mismo repositorio (el patrón Strategy de la [Parte 26](../../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)) dan la misma extensión sin descubrimiento, sin versión y sin aislamiento. El microkernel compensa cuando las extensiones las escriben personas que no se coordinan con el núcleo, cuando su número crece sin que nadie lo planifique o cuando deben poder instalarse sin recompilar el sistema. Si el contrato cambia cada semana, el costo de mantener la compatibilidad supera lo que se ahorra.
 
 ## Alta de canales sin tocar el núcleo
 

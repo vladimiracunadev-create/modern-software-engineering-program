@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que conviertas una palabra como «rápido», «fiable» o «usable» en una promesa que se pueda comprobar: qué atributo de calidad importa, en qué situación, con qué estadístico, sobre qué ventana y con qué umbral. La habilidad profesional no es conocer la lista de atributos sino saber qué número, medido cómo, permite decir «cumple» o «no cumple» sin que dos personas lleguen a conclusiones opuestas.
 
-**Por qué aparece aquí.** Abre la **Parte 36** después de **Proyecto: estrategia ejecutable por riesgo**: la Parte 35 decidió qué pruebas ejecutar según el riesgo; ahora hace falta decir contra qué se compara el resultado de esas pruebas. Una prueba sin criterio de aceptación produce un número y ninguna decisión. El caso conductor de la parte es la **API de entregas de la plataforma educativa**: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo.
+**Por qué aparece aquí.** Abre la **[Parte 36](../README.md)** después de **Proyecto: estrategia ejecutable por riesgo**: la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) decidió qué pruebas ejecutar según el riesgo; ahora hace falta decir contra qué se compara el resultado de esas pruebas. Una prueba sin criterio de aceptación produce un número y ninguna decisión. El caso conductor de la parte es la **API de entregas de la plataforma educativa**: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo.
 
 **Error conceptual que debe corregir.** Creer que la calidad es una propiedad del software que se «tiene» o «no tiene» y que un promedio la resume: la calidad es una relación entre un atributo, una situación de uso y un criterio de aceptación, y el mismo sistema cumple con una definición del objetivo y falla con otra.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 35 sobre riesgo: una prueba se justifica por el riesgo que reduce. La pregunta activa es: **¿qué promesa de calidad le hace la plataforma a quien entrega una tarea el día del cierre, y qué medida permitiría decir, sin discutir, que se cumplió?**
+Recupera lo aprendido en la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) sobre riesgo: una prueba se justifica por el riesgo que reduce. La pregunta activa es: **¿qué promesa de calidad le hace la plataforma a quien entrega una tarea el día del cierre, y qué medida permitiría decir, sin discutir, que se cumplió?**
 
 ## Prerrequisitos
 
@@ -214,7 +214,7 @@ Entrega `calidad-log.md` con la predicción, las tres tablas de resultados, cuat
 
 ## Caso conductor
 
-La API de entregas de la plataforma educativa es el caso conductor de la Parte 36. Esta clase deja el primer artefacto: los escenarios de calidad con sus medidas. `SE-434` preguntará cómo se comprueba la calidad del código y del cambio antes de que llegue a producción, y `SE-435` ejecutará la carga que pone a prueba el escenario de eficiencia. Cambia después un solo dato, la proporción de peticiones lentas, y observa qué definición del objetivo deja de ver la cola.
+La API de entregas de la plataforma educativa es el caso conductor de la [Parte 36](../README.md). Esta clase deja el primer artefacto: los escenarios de calidad con sus medidas. `SE-434` preguntará cómo se comprueba la calidad del código y del cambio antes de que llegue a producción, y `SE-435` ejecutará la carga que pone a prueba el escenario de eficiencia. Cambia después un solo dato, la proporción de peticiones lentas, y observa qué definición del objetivo deja de ver la cola.
 
 ## Preguntas frecuentes
 

@@ -203,7 +203,7 @@ Entrega `states-log.md` con la tabla de transiciones, el verificador, la traza d
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja la máquina de estados de la entrega con tres invariantes comprobados exhaustivamente, la traza de un defecto de apelación y una tabla de crecimiento de estados. `SE-162` pasará a lo que viaja por el sistema, con esquemas que validan los datos, y `SE-163` a los contratos de interfaz que los transportan. Cambia después una sola decisión, permitir apelar una entrega ya apelada, y revisa qué invariantes dejan de cumplirse.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja la máquina de estados de la entrega con tres invariantes comprobados exhaustivamente, la traza de un defecto de apelación y una tabla de crecimiento de estados. `SE-162` pasará a lo que viaja por el sistema, con esquemas que validan los datos, y `SE-163` a los contratos de interfaz que los transportan. Cambia después una sola decisión, permitir apelar una entrega ya apelada, y revisa qué invariantes dejan de cumplirse.
 
 ## Preguntas frecuentes
 

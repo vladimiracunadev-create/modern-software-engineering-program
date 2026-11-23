@@ -1,6 +1,6 @@
 # Parte 22 — Embedded, IoT y tiempo real
 
-La Parte 21 llevó el software a clientes que corren sobre un sistema operativo completo, con memoria abundante y una red casi siempre disponible. La pregunta cambia de «qué hace el programa» a «qué hace cuando la memoria se mide en kilobytes, el tiempo es parte de lo correcto y nadie puede ir a reiniciarlo». Esta parte trabaja sobre un **nodo ambiental de una sala de estudio**, un caso sintético: mide temperatura, humedad y CO₂, tiene un botón y un extractor, y debe funcionar quince años con una pila. Recorre el firmware y su separación del hardware, los buses y los convertidores, el presupuesto de energía, memoria y precisión, los plazos y la planificación, los datos compartidos con las interrupciones, la comunicación por una red que se corta, la actualización remota, la identidad y las claves, el procesamiento en el borde, la seguridad y la vida útil, el modelado de fallos y un dispositivo simulado operable.
+La [Parte 21](../part-21-software-movil-escritorio-y-multiplataforma/README.md) llevó el software a clientes que corren sobre un sistema operativo completo, con memoria abundante y una red casi siempre disponible. La pregunta cambia de «qué hace el programa» a «qué hace cuando la memoria se mide en kilobytes, el tiempo es parte de lo correcto y nadie puede ir a reiniciarlo». Esta parte trabaja sobre un **nodo ambiental de una sala de estudio**, un caso sintético: mide temperatura, humedad y CO₂, tiene un botón y un extractor, y debe funcionar quince años con una pila. Recorre el firmware y su separación del hardware, los buses y los convertidores, el presupuesto de energía, memoria y precisión, los plazos y la planificación, los datos compartidos con las interrupciones, la comunicación por una red que se corta, la actualización remota, la identidad y las claves, el procesamiento en el borde, la seguridad y la vida útil, el modelado de fallos y un dispositivo simulado operable.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Al finalizar podrás defender un dispositivo con sus plazos de peor caso, su pre
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): eventos duplicados, compatibilidad entre versiones y contratos comprobables.
 - [Parte 15 — Procesos, planificación y estimación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/): flujo, colas, riesgos y reglas de replanificación.
@@ -141,7 +141,7 @@ El estudiante entrega el modelo de fallos del nodo con lo que queda sin cubrir. 
 
 #### SE-276 — Proyecto: dispositivo simulado operable y actualizable
 
-Un dispositivo es operable cuando otra persona puede mantenerlo sin su autor. El proyecto simula un mes de mil dispositivos con cuatro configuraciones, valida un paquete con 200 mutaciones y separa en un despliegue a mil dispositivos el efecto de las etapas del de la reversión. La Parte 24 pasa a los dominios especializados.
+Un dispositivo es operable cuando otra persona puede mantenerlo sin su autor. El proyecto simula un mes de mil dispositivos con cuatro configuraciones, valida un paquete con 200 mutaciones y separa en un despliegue a mil dispositivos el efecto de las etapas del de la reversión. La [Parte 24](../part-24-software-especializado-y-dominios/README.md) pasa a los dominios especializados.
 
 El estudiante entrega el paquete, el validador, la simulación y la lista de lo que el validador no ve.
 
@@ -164,7 +164,7 @@ El estudiante entrega el paquete, el validador, la simulación y la lista de lo 
 
 ## Proyecto integrador
 
-El proyecto **SE-276** entrega un paquete de dispositivo con nueve secciones (identidad, versiones y reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsable y revisión), un validador de forma con sus mutaciones, la simulación de un mes de una flota con cuatro configuraciones, la separación de las etapas y la reversión en un despliegue y la lista de decisiones de sentido que el validador no ve. Se acompaña de los límites declarados: qué parte del paquete no se comprobó con hardware ni con un cargador real.
+El proyecto **[SE-276](./se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md)** entrega un paquete de dispositivo con nueve secciones (identidad, versiones y reversión, claves, umbrales, reintentos, despliegue, vigilancia, responsable y revisión), un validador de forma con sus mutaciones, la simulación de un mes de una flota con cuatro configuraciones, la separación de las etapas y la reversión en un despliegue y la lista de decisiones de sentido que el validador no ve. Se acompaña de los límites declarados: qué parte del paquete no se comprobó con hardware ni con un cargador real.
 
 ## Criterios de salida
 

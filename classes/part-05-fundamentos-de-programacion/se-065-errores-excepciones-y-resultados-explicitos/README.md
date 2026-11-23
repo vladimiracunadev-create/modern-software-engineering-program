@@ -248,7 +248,7 @@ Clasifica los fallos reproducibles de [`labs/part-05-diagnostic-cli`](https://gi
 
 ## Puente hacia el trabajo con agentes
 
-Los agentes viven de errores: una herramienta falla, el agente lee el mensaje y decide qué hacer. La calidad de ese mensaje es calidad de diseño. Un error que dice `error` o un traceback de 200 líneas son igual de inútiles para un modelo; un código estable (`budget_exceeded`) con un detalle corto permite que el agente reintente con otro argumento o se detenga. Los controles que se derivan: los errores esperados de una herramienta se devuelven como valores con un código estable y un detalle acotado, los defectos no se ocultan (se registran con traza fuera del contexto del modelo) y ninguna captura amplia transforma un fallo de seguridad en un reintento silencioso. El contrato de salidas del laboratorio (SE-072) es un ejemplo mínimo de este diseño.
+Los agentes viven de errores: una herramienta falla, el agente lee el mensaje y decide qué hacer. La calidad de ese mensaje es calidad de diseño. Un error que dice `error` o un traceback de 200 líneas son igual de inútiles para un modelo; un código estable (`budget_exceeded`) con un detalle corto permite que el agente reintente con otro argumento o se detenga. Los controles que se derivan: los errores esperados de una herramienta se devuelven como valores con un código estable y un detalle acotado, los defectos no se ocultan (se registran con traza fuera del contexto del modelo) y ninguna captura amplia transforma un fallo de seguridad en un reintento silencioso. El contrato de salidas del laboratorio ([SE-072](../se-072-proyecto-herramienta-de-linea-de-comandos-probada/README.md)) es un ejemplo mínimo de este diseño.
 
 ## Transferencia
 

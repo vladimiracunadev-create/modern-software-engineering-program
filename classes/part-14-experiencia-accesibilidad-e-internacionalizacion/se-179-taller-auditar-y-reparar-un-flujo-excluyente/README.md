@@ -203,7 +203,7 @@ Entrega `workshop-log.md` con el alcance, los hallazgos, la comparación de órd
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Este taller deja el registro de hallazgos del formulario de entrega, el orden de reparación elegido, la versión reparada y la regresión. `SE-180` los integra en un prototipo evaluado con personas, con un informe de conformidad que distingue lo comprobado de lo supuesto. Cambia después un solo criterio, el de entrada redundante, y revisa qué hallazgos y pruebas cambian.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Este taller deja el registro de hallazgos del formulario de entrega, el orden de reparación elegido, la versión reparada y la regresión. `SE-180` los integra en un prototipo evaluado con personas, con un informe de conformidad que distingue lo comprobado de lo supuesto. Cambia después un solo criterio, el de entrada redundante, y revisa qué hallazgos y pruebas cambian.
 
 ## Preguntas frecuentes
 

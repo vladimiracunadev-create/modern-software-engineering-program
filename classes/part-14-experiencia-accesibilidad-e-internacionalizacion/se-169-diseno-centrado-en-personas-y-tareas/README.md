@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que partas de lo que una persona intenta lograr, en qué condiciones y con qué margen de error, y no de la pantalla que alguien ya dibujó; así el diseño se discute con cálculos y observaciones y no con gustos.
 
-**Por qué aparece aquí.** Abre la Parte 14 después de **Proyecto: paquete de especificaciones trazables** y antes de **Arquitectura de información y navegación**: `SE-168` dejó especificado cómo se comporta la plataforma de entregas; esta clase pregunta para quién y para qué tarea. Fija la tarea «entregar una tarea y recibir un recibo» como caso de la parte, y deja el modelo de tareas que `SE-170` convertirá en estructura de navegación.
+**Por qué aparece aquí.** Abre la [Parte 14](../README.md) después de **Proyecto: paquete de especificaciones trazables** y antes de **Arquitectura de información y navegación**: `SE-168` dejó especificado cómo se comporta la plataforma de entregas; esta clase pregunta para quién y para qué tarea. Fija la tarea «entregar una tarea y recibir un recibo» como caso de la parte, y deja el modelo de tareas que `SE-170` convertirá en estructura de navegación.
 
 **Error conceptual que debe corregir.** Creer que centrar el diseño en las personas es dibujar una persona ficticia promedio y complacerla: un diseño centrado en tareas y personas decide con la distribución de capacidades y contextos, con el paso que más gente pierde y con el costo de cada operación, no con un retrato.
 
@@ -195,7 +195,7 @@ Entrega `task-log.md` con la tarea, los tres escenarios, los operadores de dos d
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja el modelo de la tarea «entregar y obtener constancia», tres escenarios y el embudo. `SE-170` organizará la información y la navegación alrededor de esas tareas, y `SE-171` decidirá cómo responde la interfaz a cada acción. Cambia después un solo supuesto, la tasa de la etapa de subida, y revisa qué decisiones dependían de él.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja el modelo de la tarea «entregar y obtener constancia», tres escenarios y el embudo. `SE-170` organizará la información y la navegación alrededor de esas tareas, y `SE-171` decidirá cómo responde la interfaz a cada acción. Cambia después un solo supuesto, la tasa de la etapa de subida, y revisa qué decisiones dependían de él.
 
 ## Preguntas frecuentes
 

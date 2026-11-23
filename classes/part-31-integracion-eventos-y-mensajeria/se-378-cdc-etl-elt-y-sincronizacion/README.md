@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-376` sobre orden y versiones y en `SE-377` sobre outbox: el outbox publica **eventos de negocio** elegidos por el servicio; la captura de cambios publica **cambios de filas** tal como ocurrieron en la base. Recupera de la Parte 29 qué es una réplica y su retraso. La pregunta activa es: **si el destino se queda atrás o se equivoca, ¿cómo lo sabría y cómo lo corregiría?**
+Recupera lo aprendido en `SE-376` sobre orden y versiones y en `SE-377` sobre outbox: el outbox publica **eventos de negocio** elegidos por el servicio; la captura de cambios publica **cambios de filas** tal como ocurrieron en la base. Recupera de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) qué es una réplica y su retraso. La pregunta activa es: **si el destino se queda atrás o se equivoca, ¿cómo lo sabría y cómo lo corregiría?**
 
 ## Prerrequisitos
 
@@ -174,7 +174,7 @@ Los errores son pocos porque cada clave cambia unas cien veces y solo se nota el
 
 ### Ampliación: calidad de datos y linaje en un pipeline
 
-Una copia correcta de un origen no garantiza datos correctos: reproduce fielmente lo que el origen tenga, incluidos nulos, duplicados y unidades cambiadas. Un **pipeline de datos** es una cadena de activos (tablas, ficheros, vistas) donde cada uno se deriva de los anteriores, y dos propiedades se vuelven operativas cuando esa cadena crece: la **calidad** (¿este lote cumple lo que sus consumidores suponen?) y el **linaje** (¿de qué depende cada activo y qué depende de él?). Esta clase ya trata cómo mover y reconciliar cambios; esta ampliación trata cómo saber que lo movido es utilizable y a quién avisar cuando no lo es. La Parte 30 del programa, de ingeniería de datos y todavía no publicada al redactar esta ampliación, retoma el tema con almacenes, modelado analítico y gobierno; aquí solo se fija la base.
+Una copia correcta de un origen no garantiza datos correctos: reproduce fielmente lo que el origen tenga, incluidos nulos, duplicados y unidades cambiadas. Un **pipeline de datos** es una cadena de activos (tablas, ficheros, vistas) donde cada uno se deriva de los anteriores, y dos propiedades se vuelven operativas cuando esa cadena crece: la **calidad** (¿este lote cumple lo que sus consumidores suponen?) y el **linaje** (¿de qué depende cada activo y qué depende de él?). Esta clase ya trata cómo mover y reconciliar cambios; esta ampliación trata cómo saber que lo movido es utilizable y a quién avisar cuando no lo es. La [Parte 30](../../part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md) del programa, de ingeniería de datos y todavía no publicada al redactar esta ampliación, retoma el tema con almacenes, modelado analítico y gobierno; aquí solo se fija la base.
 
 **Mecanismo: un control es una aserción sobre un lote, y cada aserción ve una dimensión.** Los controles habituales son el de **no nulo** (un campo obligatorio no viene vacío), el de **unicidad** (una clave no se repite), el de **rango** (un valor entra en lo plausible), el de **volumen** (el número de filas no se aleja de lo histórico), el de **distribución** (la media o la forma de una columna no se desplaza), el de **frescura** (la última marca de tiempo no está demasiado atrasada) y el de **esquema** (las columnas y tipos son los esperados). Herramientas como [Great Expectations](https://greatexpectations.io/) o las [pruebas de dbt](https://docs.getdbt.com/docs/build/data-tests) los expresan como código versionado junto al pipeline. Los de fila (nulo, unicidad, rango) se evalúan sobre cada registro; los de lote (volumen, distribución, frescura) comparan el lote entero con una referencia, y esa referencia y su umbral son parámetros con consecuencia: un umbral estrecho produce falsas alarmas y uno ancho deja pasar defectos.
 
@@ -208,7 +208,7 @@ Una copia correcta de un origen no garantiza datos correctos: reproduce fielment
 
 Con linaje de tabla, cambiar el correo de clientes alerta a 4 activos cuando solo 1 lo usa; con linaje de columna se avisa a quien corresponde y el resto no aprende a ignorar las alertas. El coste es que el linaje de columna exige analizar las consultas, y las expresiones dinámicas o las funciones opacas lo dejan incompleto: un linaje que omite una dependencia es peor que uno sobrado, porque da seguridad que no existe.
 
-**Límite y decisión.** El experimento no mide una plataforma real ni el coste de mantener los controles. La decisión práctica: partir de los defectos que dañarían a los consumidores, elegir el control que ve cada uno y comprobar con un lote inyectado que salta (la prueba negativa de la seguridad aplicada a datos); poner las alertas en el activo que genera el defecto, no en el tablero donde se descubre; y registrar el linaje al menos de columna en los activos que alimentan decisiones. Los almacenes, los contratos de datos y el gobierno del dato quedan para la Parte 30.
+**Límite y decisión.** El experimento no mide una plataforma real ni el coste de mantener los controles. La decisión práctica: partir de los defectos que dañarían a los consumidores, elegir el control que ve cada uno y comprobar con un lote inyectado que salta (la prueba negativa de la seguridad aplicada a datos); poner las alertas en el activo que genera el defecto, no en el tablero donde se descubre; y registrar el linaje al menos de columna en los activos que alimentan decisiones. Los almacenes, los contratos de datos y el gobierno del dato quedan para la [Parte 30](../../part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md).
 
 ## Definiciones de trabajo
 
@@ -263,7 +263,7 @@ Entrega `sincronizacion-log.md` con las predicciones, las tres tablas reproducid
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el sexto artefacto: el mecanismo de sincronización de cada destino con su procedimiento de arranque y reconciliación. `SE-379` pregunta cómo avisarse entre sistemas de organizaciones distintas: webhooks, sondeo y suscripciones. Cambia después una sola decisión, la marca `>` por `>=`, y observa qué divergencia desaparece y cuál queda.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el sexto artefacto: el mecanismo de sincronización de cada destino con su procedimiento de arranque y reconciliación. `SE-379` pregunta cómo avisarse entre sistemas de organizaciones distintas: webhooks, sondeo y suscripciones. Cambia después una sola decisión, la marca `>` por `>=`, y observa qué divergencia desaparece y cuál queda.
 
 ## Preguntas frecuentes
 

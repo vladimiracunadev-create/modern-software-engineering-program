@@ -59,9 +59,9 @@ medición con percentiles y perfiles.
 1. [Parte 01 — Computadores y representación de información](../classes/part-01-computadores-y-representacion-de-informacion/README.md).
 2. [Parte 33 — Cloud, plataforma e infraestructura](../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
    para aislamiento, contenedores y orquestación.
-3. Parte 36 para latencia, capacidad y resiliencia, y Parte 38 para criptografía y secretos.
-4. Parte 32 para concurrencia y fallos parciales.
-5. Parte 23: WebAssembly, eBPF, GPU, sandboxes, hardware seguro, cuántica y confianza cero.
+3. [Parte 36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) para latencia, capacidad y resiliencia, y [Parte 38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) para criptografía y secretos.
+4. [Parte 32](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) para concurrencia y fallos parciales.
+5. [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md): WebAssembly, eBPF, GPU, sandboxes, hardware seguro, cuántica y confianza cero.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -139,20 +139,20 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-013 · Arquitectura básica de un computador moderno](../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) | Parte 01 |
-| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | Parte 08 |
-| [SE-401 · Redes, identidad y secretos en cloud](../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md) | Parte 33 |
-| [SE-402 · Infraestructura como código y estado](../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) | Parte 33 |
-| [SE-281 · Rendimiento y costo en aceleradores](../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md) | Parte 23 |
-| [SE-285 · Criptografía poscuántica y migración](../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) | Parte 23 |
-| [SE-286 · Confianza cero en la práctica](../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) | Parte 23 |
-| [SE-287 · Taller: elegir y aislar un runtime para una carga no confiable](../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) | Parte 23 |
-| [SE-288 · Proyecto: plataforma de ejecución aislada con evidencia](../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) | Parte 23 |
+| [SE-013 · Arquitectura básica de un computador moderno](../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) | [Parte 01](../classes/part-01-computadores-y-representacion-de-informacion/README.md) |
+| [SE-099 · Profilers de CPU, memoria, I/O y red](../classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-401 · Redes, identidad y secretos en cloud](../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md) | [Parte 33](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) |
+| [SE-402 · Infraestructura como código y estado](../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) | [Parte 33](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) |
+| [SE-281 · Rendimiento y costo en aceleradores](../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
+| [SE-285 · Criptografía poscuántica y migración](../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
+| [SE-286 · Confianza cero en la práctica](../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
+| [SE-287 · Taller: elegir y aislar un runtime para una carga no confiable](../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
+| [SE-288 · Proyecto: plataforma de ejecución aislada con evidencia](../classes/part-23-runtimes-y-plataformas-modernas/se-288-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) | [Parte 23](../classes/part-23-runtimes-y-plataformas-modernas/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-017](../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) para fijar el
 primer mecanismo, usa [SE-398](../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) para integrar el
@@ -162,7 +162,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

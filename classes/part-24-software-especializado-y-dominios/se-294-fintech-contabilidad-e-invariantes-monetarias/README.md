@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que representes el dinero como un dominio con reglas propias (cantidad entera, moneda, regla de redondeo, doble entrada, idempotencia) y para que sepas qué invariantes comprobar y qué defectos esas invariantes no ven. Quien programa dinero responde de cada céntimo y de cada cobro repetido.
 
-**Por qué aparece aquí.** Es la sexta clase de la **Parte 24**, después de **Gráficos, audio, XR y experiencias inmersivas**: allí el error se oía o se sentía; aquí es una cifra que alguien paga o deja de cobrar, y que además puede auditarse. El dominio financiero hereda de las clases anteriores la no asociatividad de `SE-289`, la idempotencia de `SE-290` y la evaluación sin ilusiones de `SE-291`, y les añade la obligación de que todo cuadre. El caso conductor sigue siendo la plataforma educativa ficticia: el cobro de matrículas y cuotas.
+**Por qué aparece aquí.** Es la sexta clase de la **[Parte 24](../README.md)**, después de **Gráficos, audio, XR y experiencias inmersivas**: allí el error se oía o se sentía; aquí es una cifra que alguien paga o deja de cobrar, y que además puede auditarse. El dominio financiero hereda de las clases anteriores la no asociatividad de `SE-289`, la idempotencia de `SE-290` y la evaluación sin ilusiones de `SE-291`, y les añade la obligación de que todo cuadre. El caso conductor sigue siendo la plataforma educativa ficticia: el cobro de matrículas y cuotas.
 
 **Error conceptual que debe corregir.** Creer que el dinero «es un decimal» y que si una suma cuadra, el sistema es correcto. Una cantidad en coma flotante pierde céntimos sin avisar, y un libro que conserva el total puede estar cobrando el importe equivocado; las invariantes dicen lo que nunca debe pasar, no lo que debe pasar.
 
@@ -224,7 +224,7 @@ Entrega `money-log.md` con la predicción, la tabla de comprobaciones, la de mut
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el sexto artefacto: el cobro de matrículas con importes enteros, redondeo declarado, libro de doble entrada, clave de idempotencia y conciliación. `SE-295` pasa a datos todavía más delicados que el dinero: los de salud. Cambia después una sola decisión, dónde se redondea el IVA, y observa cuántas facturas cambian de total.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el sexto artefacto: el cobro de matrículas con importes enteros, redondeo declarado, libro de doble entrada, clave de idempotencia y conciliación. `SE-295` pasa a datos todavía más delicados que el dinero: los de salud. Cambia después una sola decisión, dónde se redondea el IVA, y observa cuántas facturas cambian de total.
 
 ## Preguntas frecuentes
 

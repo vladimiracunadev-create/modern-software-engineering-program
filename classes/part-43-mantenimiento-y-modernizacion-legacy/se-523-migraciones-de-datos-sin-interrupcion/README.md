@@ -210,7 +210,7 @@ Entrega `migracion-datos-log.md` con la predicción, las tres tablas, el plan de
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el séptimo artefacto: el plan de fases y el relleno verificado de la nota numérica. `SE-524` preguntará cómo coexisten los dos esquemas y qué pasa cuando la doble escritura falla, y `SE-525` cómo se retira el esquema antiguo. Cambia después un solo dato, el costo por lote de 5 ms a 50 ms, y observa qué tamaño de lote deja de cumplir el objetivo.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el séptimo artefacto: el plan de fases y el relleno verificado de la nota numérica. `SE-524` preguntará cómo coexisten los dos esquemas y qué pasa cuando la doble escritura falla, y `SE-525` cómo se retira el esquema antiguo. Cambia después un solo dato, el costo por lote de 5 ms a 50 ms, y observa qué tamaño de lote deja de cumplir el objetivo.
 
 ## Preguntas frecuentes
 

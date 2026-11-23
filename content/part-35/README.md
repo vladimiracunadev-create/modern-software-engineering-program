@@ -36,7 +36,7 @@ Al finalizar podrás defender una estrategia de pruebas con su tabla de riesgos 
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): enumeración de casos y razonamiento sobre evidencia.
 - [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): invariantes, compatibilidad y contratos comprobables.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): contratos de respuesta, idempotencia y errores consistentes.
 - [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): fronteras, atributos de calidad y revisión contra escenarios.

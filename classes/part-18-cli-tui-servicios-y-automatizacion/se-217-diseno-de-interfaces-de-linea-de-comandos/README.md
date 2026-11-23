@@ -197,7 +197,7 @@ Entrega `cli-contract.md` con la gramática de `notas`, la tabla de invocaciones
 
 ## Caso conductor
 
-La herramienta `notas` de la plataforma de entregas es el caso conductor de la Parte 18. Esta clase deja su gramática y su contrato de errores. `SE-218` pregunta cómo entra y sale la información (entrada estándar, tuberías, codificación), `SE-219` cómo se configura y `SE-220` qué significan sus códigos. Cambia después un solo detalle, el nombre de `--salida` a `--destino`, y revisa qué guiones, ejemplos y documentación dependían de él.
+La herramienta `notas` de la plataforma de entregas es el caso conductor de la [Parte 18](../README.md). Esta clase deja su gramática y su contrato de errores. `SE-218` pregunta cómo entra y sale la información (entrada estándar, tuberías, codificación), `SE-219` cómo se configura y `SE-220` qué significan sus códigos. Cambia después un solo detalle, el nombre de `--salida` a `--destino`, y revisa qué guiones, ejemplos y documentación dependían de él.
 
 ## Preguntas frecuentes
 

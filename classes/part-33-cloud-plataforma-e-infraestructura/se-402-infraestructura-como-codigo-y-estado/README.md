@@ -91,7 +91,7 @@ La deriva es la diferencia entre lo que el estado cree y lo que existe, nacida d
 
 ### 4. Bloqueo del estado
 
-Cuando una aplicación lee el estado, calcula y lo escribe entero, dos aplicaciones simultáneas pueden leer la misma versión y la última en escribir borra el trabajo de la otra: es la actualización perdida de la Parte 29 aplicada a un archivo que describe infraestructura. Los almacenes remotos de estado ofrecen un bloqueo que impide que dos operaciones lo modifiquen a la vez. El bloqueo tiene su propio fallo: si el proceso muere con el bloqueo tomado, nadie puede aplicar hasta que alguien lo libera, y liberarlo a la fuerza sin comprobar que nadie escribe repite el problema.
+Cuando una aplicación lee el estado, calcula y lo escribe entero, dos aplicaciones simultáneas pueden leer la misma versión y la última en escribir borra el trabajo de la otra: es la actualización perdida de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) aplicada a un archivo que describe infraestructura. Los almacenes remotos de estado ofrecen un bloqueo que impide que dos operaciones lo modifiquen a la vez. El bloqueo tiene su propio fallo: si el proceso muere con el bloqueo tomado, nadie puede aplicar hasta que alguien lo libera, y liberarlo a la fuerza sin comprobar que nadie escribe repite el problema.
 
 ### 5. Grafo de dependencias y paralelismo
 
@@ -224,7 +224,7 @@ Entrega `iac-estado.md` con la predicción, las tres tablas reproducidas con las
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el sexto artefacto: la descripción declarativa de su infraestructura con su política de estado. `SE-403` pregunta en qué cuentas y entornos se aplica y quién puede hacerlo. Cambia una dependencia, por ejemplo hacer que la base de datos dependa de otra subred, y observa cómo cambia el camino crítico.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el sexto artefacto: la descripción declarativa de su infraestructura con su política de estado. `SE-403` pregunta en qué cuentas y entornos se aplica y quién puede hacerlo. Cambia una dependencia, por ejemplo hacer que la base de datos dependa de otra subred, y observa cómo cambia el camino crítico.
 
 ## Preguntas frecuentes
 

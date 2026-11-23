@@ -60,12 +60,12 @@ explicar riesgos y dividir trabajo sin perder el objetivo común.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00–04: profesión, computador, sistema operativo, red y razonamiento.
-2. Partes 05–09: programación, paradigmas, algoritmos, herramientas y paquetes.
-3. Partes 10–17: producto, requisitos, especificaciones, procesos, Git y documentación.
-4. Partes 25–27 y 35–38: diseño, arquitectura, pruebas, calidad y seguridad.
-5. Parte 41: observabilidad e incidentes; Parte 43: evolución y legacy.
-6. Partes 46–47: IA y agentes bajo verificación humana.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[04](../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md): profesión, computador, sistema operativo, red y razonamiento.
+2. Partes [05](../classes/part-05-fundamentos-de-programacion/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md): programación, paradigmas, algoritmos, herramientas y paquetes.
+3. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md): producto, requisitos, especificaciones, procesos, Git y documentación.
+4. Partes [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md)–[27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) y [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md): diseño, arquitectura, pruebas, calidad y seguridad.
+5. [Parte 41](../classes/part-41-observabilidad-sre-e-incidentes/README.md): observabilidad e incidentes; [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md): evolución y legacy.
+6. Partes [46](../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md)–[47](../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md): IA y agentes bajo verificación humana.
 
 Empieza por [la Parte 00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 y usa el [índice completo](../classes/README.md) para seguir la secuencia.
@@ -147,17 +147,17 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-066 · Colecciones y transformación de datos](../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md) | Parte 05 |
-| [SE-100 · Compiladores, linters, formatters y análisis estático](../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) | Parte 08 |
-| [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | Parte 08 |
-| [SE-208 · ADRs, RFCs y registro de decisiones](../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md) | Parte 17 |
-| [SE-209 · Diagramas, modelos y documentación visual](../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md) | Parte 17 |
-| [SE-332 · Fitness functions y arquitectura evolutiva](../classes/part-27-arquitectura-de-software-y-dominio/se-332-fitness-functions-y-arquitectura-evolutiva/README.md) | Parte 27 |
+| [SE-066 · Colecciones y transformación de datos](../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md) | [Parte 05](../classes/part-05-fundamentos-de-programacion/README.md) |
+| [SE-100 · Compiladores, linters, formatters y análisis estático](../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-208 · ADRs, RFCs y registro de decisiones](../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md) | [Parte 17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| [SE-209 · Diagramas, modelos y documentación visual](../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md) | [Parte 17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| [SE-332 · Fitness functions y arquitectura evolutiva](../classes/part-27-arquitectura-de-software-y-dominio/se-332-fitness-functions-y-arquitectura-evolutiva/README.md) | [Parte 27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-065](../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md) para fijar el
 primer mecanismo, usa [SE-310](../classes/part-25-diseno-patrones-y-refactorizacion/se-310-deuda-tecnica-interes-y-opciones/README.md) para integrar el
@@ -167,7 +167,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

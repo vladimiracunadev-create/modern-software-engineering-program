@@ -36,8 +36,8 @@ Al finalizar podrás defender una plataforma mínima con su matriz de responsabi
 
 ## Prerrequisitos enlazados
 
-- [Parte 2 — Sistemas operativos, terminal y automatización](../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/): procesos, archivos y automatización con scripts.
-- [Parte 3 — Redes, internet y protocolos](../../classes/part-03-redes-internet-y-protocolos/): direcciones, enrutamiento y latencia.
+- [Parte 2 — Sistemas operativos, terminal y automatización base](../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/): procesos, archivos y automatización con scripts.
+- [Parte 3 — Redes, Internet y protocolos](../../classes/part-03-redes-internet-y-protocolos/): direcciones, enrutamiento y latencia.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](../../classes/part-20-backend-apis-y-procesamiento-asincrono/): colas, reintentos e idempotencia.
 - [Parte 27 — Arquitectura de software y dominio](../../classes/part-27-arquitectura-de-software-y-dominio/): fronteras, decisiones registradas y atributos de calidad.
 - [Parte 29 — Datos, persistencia y recuperación](../../classes/part-29-datos-persistencia-y-recuperacion/): transacciones, actualización perdida y copias de seguridad.

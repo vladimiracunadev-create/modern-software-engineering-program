@@ -32,7 +32,7 @@ Recupera lo aprendido en `SE-314`: cada patrón creacional tiene un modo de estr
 ## Prerrequisitos
 
 - Haber completado `SE-313` y `SE-314`.
-- Conocer la idea de interfaz y de delegación y los dobles de prueba de la Parte 35.
+- Conocer la idea de interfaz y de delegación y los dobles de prueba de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md).
 - Python 3.11 o posterior con `random`, `abc` y `timeit`.
 
 ## Problema auténtico

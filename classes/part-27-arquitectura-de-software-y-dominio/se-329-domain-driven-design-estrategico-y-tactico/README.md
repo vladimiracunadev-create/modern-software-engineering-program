@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que traces fronteras de significado entre equipos (diseño estratégico) y para que protejas las reglas que no pueden romperse dentro de cada frontera (diseño táctico), con una medida de qué ganas y qué te cuesta.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Capas, hexagonal, clean y ports and adapters**: `SE-328` ordenó las dependencias dentro de un módulo; esta clase decide qué significa cada palabra del negocio dentro de ese módulo y dónde dejan de significar lo mismo. El «lenguaje ubicuo» no es un glosario: es una frontera de modelo.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Capas, hexagonal, clean y ports and adapters**: `SE-328` ordenó las dependencias dentro de un módulo; esta clase decide qué significa cada palabra del negocio dentro de ese módulo y dónde dejan de significar lo mismo. El «lenguaje ubicuo» no es un glosario: es una frontera de modelo.
 
 **Error conceptual que debe corregir.** Creer que un único modelo de «Entrega» o de «Estudiante» para toda la organización es una virtud: un modelo único obliga a que todos los equipos se pongan de acuerdo sobre cada atributo y acopla sus cambios.
 

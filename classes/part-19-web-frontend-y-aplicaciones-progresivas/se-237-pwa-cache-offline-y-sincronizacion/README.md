@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que diseñes una aplicación web que siga siendo útil sin conexión sabiendo qué promete cada estrategia de caché, cómo se actualiza el código que vive en el dispositivo y qué ocurre con lo que la persona hizo mientras no había red, de modo que «funciona offline» sea una propiedad con casos, límites y reglas de reconciliación, y no un efecto secundario de una biblioteca.
 
-**Por qué aparece aquí.** Se sitúa después de **Seguridad del navegador y políticas de contenido** y antes de **SEO, metadatos y descubribilidad**: `SE-236` fijó qué puede hacer una página con lo que recibe y quién puede leerlo; esta clase añade un componente que se instala una vez, intercepta las peticiones y vive mucho más que una visita: el service worker. Aquí el caso conductor de la Parte 19 muestra su razón de ser, una estudiante que entrega una tarea con una conexión que va y viene.
+**Por qué aparece aquí.** Se sitúa después de **Seguridad del navegador y políticas de contenido** y antes de **SEO, metadatos y descubribilidad**: `SE-236` fijó qué puede hacer una página con lo que recibe y quién puede leerlo; esta clase añade un componente que se instala una vez, intercepta las peticiones y vive mucho más que una visita: el service worker. Aquí el caso conductor de la [Parte 19](../README.md) muestra su razón de ser, una estudiante que entrega una tarea con una conexión que va y viene.
 
 **Error conceptual que debe corregir.** Creer que «caché primero» es la estrategia offline y que basta con precargar los archivos: cada estrategia cambia la obsolescencia por velocidad, el nombre de la caché decide cuánto se vuelve a descargar y reintentar un envío sin una clave que lo identifique duplica el efecto.
 

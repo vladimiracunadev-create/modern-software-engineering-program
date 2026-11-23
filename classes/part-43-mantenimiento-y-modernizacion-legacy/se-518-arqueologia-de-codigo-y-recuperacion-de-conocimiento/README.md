@@ -211,7 +211,7 @@ Entrega `arqueologia-log.md` con la predicción, las tres tablas, un mapa de pun
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el segundo artefacto: el mapa de riesgo (puntos calientes, huérfanos y candidatos a código muerto). `SE-519` preguntará cómo se protegen los comportamientos de esos puntos calientes antes de modificarlos, y `SE-520` cómo se mide el riesgo que acumulan las dependencias. Cambia después un solo dato, la rotación mensual de 2 % a 0,5 %, y observa a partir de qué horizonte los huérfanos dejan de ser un problema.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el segundo artefacto: el mapa de riesgo (puntos calientes, huérfanos y candidatos a código muerto). `SE-519` preguntará cómo se protegen los comportamientos de esos puntos calientes antes de modificarlos, y `SE-520` cómo se mide el riesgo que acumulan las dependencias. Cambia después un solo dato, la rotación mensual de 2 % a 0,5 %, y observa a partir de qué horizonte los huérfanos dejan de ser un problema.
 
 ## Preguntas frecuentes
 

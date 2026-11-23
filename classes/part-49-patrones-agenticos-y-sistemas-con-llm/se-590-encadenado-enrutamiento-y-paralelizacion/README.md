@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que construyas workflows con modelos de lenguaje a partir de tres piezas pequeñas y medibles: **encadenar** pasos con una puerta entre ellos, **enrutar** cada solicitud al camino que le corresponde y **paralelizar** lo que es independiente. Son los patrones más baratos y los más revisables de toda la parte, y los que resuelven la mayoría de los casos de producción. Quien los domina puede decir, para cada uno, qué error multiplica, qué error corta y qué costo añade, y por eso decide con números qué patrón poner antes de recurrir a un agente.
 
-**Por qué aparece aquí.** Sigue a `SE-589`, donde se decidió que gran parte de *Avisos* se resuelve con workflows. Esta clase construye esos workflows. Reutiliza ideas de la Parte 36 (cómo se componen las fiabilidades de pasos en serie) y de la Parte 35 (las puertas son pruebas colocadas dentro del flujo).
+**Por qué aparece aquí.** Sigue a `SE-589`, donde se decidió que gran parte de *Avisos* se resuelve con workflows. Esta clase construye esos workflows. Reutiliza ideas de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) (cómo se componen las fiabilidades de pasos en serie) y de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) (las puertas son pruebas colocadas dentro del flujo).
 
 **Error conceptual que debe corregir.** Creer que dividir una tarea en pasos «mejora el resultado» por sí solo. Dividir en pasos reduce la dificultad de cada llamada, pero multiplica las oportunidades de error: si cada paso acierta el 95 %, tres pasos en cadena aciertan el 85,7 %. El beneficio de encadenar aparece solo si entre paso y paso hay una **puerta** que detecta el error cuando todavía es barato corregirlo. Del mismo modo, paralelizar no es siempre más rápido ni más barato, y votar no es siempre más preciso.
 
@@ -32,7 +32,7 @@ Recupera `SE-589`: el workflow decide el orden de los pasos y el agente lo decid
 ## Prerrequisitos
 
 - Haber completado `SE-589` o poder explicar la diferencia entre workflow y agente y el árbol de decisión.
-- Conocer de la Parte 36 el producto de fiabilidades de pasos en serie.
+- Conocer de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) el producto de fiabilidades de pasos en serie.
 - Python 3.11 o posterior con la biblioteca estándar.
 
 ## Problema auténtico

@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -113,11 +113,11 @@ def con_reintento(operacion, intentos=5, base=0.05, tope=2.0):
 
 ![Dos rangos de espera aleatoria con jitter completo en una prueba local: el servidor responde 503 dos veces y luego 200; tras el primer intento la espera es aleatoria entre 0 y 0,05 s y tras el segundo entre 0 y 0,10 s; el cliente terminó en 99,7 ms en Windows y 70,7 ms en Linux.](../../../content/part-03/figures/se-048-reintento-con-backoff.svg)
 
-**Cómo leer la figura.** Cada fila es una espera entre intentos y su pista va del mínimo (0) al máximo posible: 0,05 s tras el primer 503 y 0,10 s tras el segundo. El valor concreto es aleatorio dentro de ese rango (jitter completo). **Dónde deja de valer:** esto solo es seguro para operaciones idempotentes; reintentar un pago sin una clave de idempotencia puede cobrarlo dos veces (SE-040). Además, el reintento amplifica la carga: con tres capas que reintentan cada una tres veces, una petición puede convertirse en 27, de modo que el reintento se hace en *una* capa y con un presupuesto global.
+**Cómo leer la figura.** Cada fila es una espera entre intentos y su pista va del mínimo (0) al máximo posible: 0,05 s tras el primer 503 y 0,10 s tras el segundo. El valor concreto es aleatorio dentro de ese rango (jitter completo). **Dónde deja de valer:** esto solo es seguro para operaciones idempotentes; reintentar un pago sin una clave de idempotencia puede cobrarlo dos veces ([SE-040](../se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md)). Además, el reintento amplifica la carga: con tres capas que reintentan cada una tres veces, una petición puede convertirse en 27, de modo que el reintento se hace en *una* capa y con un presupuesto global.
 
 ### Presupuesto de tiempo y plazos por fase
 
-Un *plazo total* (deadline) acota la experiencia de la persona; los *límites por fase* (conexión, lectura) evitan que una fase consuma todo el presupuesto y permiten saber cuál se agotó. Con las fases medidas en SE-037 (DNS 9 ms, TCP 131 ms, TLS 146 ms y espera 144 ms, unos 430 ms en total), un plazo de 2000 ms deja unos 1570 ms de margen: caben unos cuatro intentos *sin espera* y menos con retroceso. El plazo debe *propagarse*: si el cliente concede 2 s, el
+Un *plazo total* (deadline) acota la experiencia de la persona; los *límites por fase* (conexión, lectura) evitan que una fase consuma todo el presupuesto y permiten saber cuál se agotó. Con las fases medidas en [SE-037](../se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md) (DNS 9 ms, TCP 131 ms, TLS 146 ms y espera 144 ms, unos 430 ms en total), un plazo de 2000 ms deja unos 1570 ms de margen: caben unos cuatro intentos *sin espera* y menos con retroceso. El plazo debe *propagarse*: si el cliente concede 2 s, el
 servicio que llama a otro no puede darle más de lo que queda. Un plazo sin propagar produce el peor caso: el cliente se rinde y el servidor sigue trabajando en una petición que nadie espera.
 
 ![Figura 2. Barras con las fases medidas de una petición (9, 131, 146 y 144 ms) frente a un plazo total de 2000 ms](../../../content/part-03/figures/se-048-presupuesto-de-tiempo.svg)
@@ -288,7 +288,7 @@ Las RFC describen contratos de protocolo, no certifican una red, proveedor o her
 
 ## Límites y siguiente paso
 
-El proyecto demuestra diseño y diagnóstico en laboratorio; no certifica disponibilidad productiva ni sustituye monitoreo externo. Sus resultados alimentan la Parte 4, donde el mismo incidente se formaliza como problema, invariantes y algoritmo.
+El proyecto demuestra diseño y diagnóstico en laboratorio; no certifica disponibilidad productiva ni sustituye monitoreo externo. Sus resultados alimentan la [Parte 4](../../part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md), donde el mismo incidente se formaliza como problema, invariantes y algoritmo.
 
 ## Glosario
 

@@ -1,6 +1,6 @@
 # Parte 21 — Software móvil, escritorio y multiplataforma
 
-La Parte 20 terminó con un servicio que otras personas operan. Esta parte cambia de lado: el cliente corre en un dispositivo que el equipo no controla, con un proceso que el sistema puede terminar, una pantalla que no elige, una batería finita y un dueño que puede quitarle permisos. Trabaja sobre el **cliente de la plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: un borrador de entrega que debe sobrevivir a pausas, actualizaciones y desconexiones, y llegar intacto al otro dispositivo.
+La [Parte 20](../part-20-backend-apis-y-procesamiento-asincrono/README.md) terminó con un servicio que otras personas operan. Esta parte cambia de lado: el cliente corre en un dispositivo que el equipo no controla, con un proceso que el sistema puede terminar, una pantalla que no elige, una batería finita y un dueño que puede quitarle permisos. Trabaja sobre el **cliente de la plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: un borrador de entrega que debe sobrevivir a pausas, actualizaciones y desconexiones, y llegar intacto al otro dispositivo.
 
 ## Pregunta rectora
 
@@ -139,7 +139,7 @@ El estudiante entrega el inventario de diferencias y los contratos. `SE-264` int
 
 Un cliente que sincroniza sin fallos no está probado. El proyecto simula un canal con pérdidas, duplicados y desorden, reproduce la respuesta perdida con un servidor local y muta 240 veces el paquete para medir qué ve el validador.
 
-El estudiante entrega el paquete y la lista de decisiones abiertas. La Parte 22 lleva el razonamiento a software embebido.
+El estudiante entrega el paquete y la lista de decisiones abiertas. La [Parte 22](../part-22-embedded-iot-y-tiempo-real/README.md) lleva el razonamiento a software embebido.
 
 ## Resumen operativo del recorrido
 
@@ -160,7 +160,7 @@ El estudiante entrega el paquete y la lista de decisiones abiertas. La Parte 22 
 
 ## Proyecto integrador
 
-El proyecto **SE-264** entrega un paquete del cliente de la plataforma de entregas con la matriz de ciclo de vida, la decisión de construcción, el esquema local, el protocolo de sincronización con operaciones idempotentes, la política de conflicto, los permisos, el plan de distribución y el modelo de amenazas, una prueba de extremo a extremo con un canal con pérdidas, duplicados y desorden, un validador con sus 240 mutaciones medidas y las decisiones humanas abiertas con responsable y fecha.
+El proyecto **[SE-264](./se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md)** entrega un paquete del cliente de la plataforma de entregas con la matriz de ciclo de vida, la decisión de construcción, el esquema local, el protocolo de sincronización con operaciones idempotentes, la política de conflicto, los permisos, el plan de distribución y el modelo de amenazas, una prueba de extremo a extremo con un canal con pérdidas, duplicados y desorden, un validador con sus 240 mutaciones medidas y las decisiones humanas abiertas con responsable y fecha.
 
 ## Criterios de salida
 

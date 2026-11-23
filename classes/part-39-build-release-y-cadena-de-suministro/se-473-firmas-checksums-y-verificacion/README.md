@@ -185,7 +185,7 @@ Entrega `firmas-log.md` con la predicción, las tres tablas, la política de ver
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el quinto artefacto: un manifiesto firmado con una política de verificación, de rotación y de revocación. `SE-474` tratará qué significa el número de versión que ese manifiesto firma y qué promete a quien actualiza. Cambia después un solo dato, la procedencia de la clave pública, y observa cuántos ataques más pasan.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el quinto artefacto: un manifiesto firmado con una política de verificación, de rotación y de revocación. `SE-474` tratará qué significa el número de versión que ese manifiesto firma y qué promete a quien actualiza. Cambia después un solo dato, la procedencia de la clave pública, y observa cuántos ataques más pasan.
 
 ## Preguntas frecuentes
 

@@ -171,7 +171,7 @@ Entrega `rescue-log.md` con la tabla de órdenes y estrategias, los tres rescate
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. El taller deja el procedimiento de rescate y la prueba de la intención. `SE-204` entrega una contribución completa que otra persona puede revisar y fusionar sin necesidad de este rescate. Cambia después un solo dato, la rama fusionada en último lugar, y revisa qué estrategias automáticas aciertan.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). El taller deja el procedimiento de rescate y la prueba de la intención. `SE-204` entrega una contribución completa que otra persona puede revisar y fusionar sin necesidad de este rescate. Cambia después un solo dato, la rama fusionada en último lugar, y revisa qué estrategias automáticas aciertan.
 
 ## Preguntas frecuentes
 

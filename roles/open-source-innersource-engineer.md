@@ -42,15 +42,15 @@ prácticas dentro de una organización para reducir silos sin crear código hué
 ## 🧠 Qué necesitas saber
 
 Git y code review, MIT/Apache/GPL y compatibilidad básica, governance, maintainers,
-CODEOWNERS, issues, releases, vulnerability disclosure, supply chain, OSPO,
+CODEOWNERS, issues, releases, vulnerability disclosure, cadena de suministro, OSPO,
 InnerSource, comunidades, financiación, métricas y bus factor.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00, 09–11 para ética, paquetes y sostenibilidad.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md), [09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md)–[11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) para ética, paquetes y sostenibilidad.
 2. [Parte 16 — Git, colaboración y código abierto](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md).
-3. Partes 17, 38–40 para documentación, seguridad y releases.
-4. Partes 43–44 para EOL, ownership y organización.
+3. Partes [17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md), [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[40](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) para documentación, seguridad y releases.
+4. Partes [43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md)–[44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) para EOL, ownership y organización.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -127,14 +127,14 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-112 · Paquetes, módulos y publicación](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) | Parte 09 |
-| [SE-119 · Taller: empaquetar una capacidad reusable](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md) | Parte 09 |
-| [SE-202 · Firmas, procedencia y protección del repositorio](../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md) | Parte 16 |
+| [SE-112 · Paquetes, módulos y publicación](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) | [Parte 09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
+| [SE-119 · Taller: empaquetar una capacidad reusable](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md) | [Parte 09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
+| [SE-202 · Firmas, procedencia y protección del repositorio](../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md) | [Parte 16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-110](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md) para fijar el
 primer mecanismo, usa [SE-286](../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) para integrar el
@@ -144,7 +144,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

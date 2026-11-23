@@ -221,7 +221,7 @@ Entrega `bench-log.md` con la predicción, las tres tablas, el protocolo de comp
 
 ## Caso conductor
 
-La ordenación de entregas de la API es el caso conductor de la Parte 36. Esta clase deja el quinto artefacto: un protocolo de benchmark con su prueba A/A. `SE-438` tomará los tiempos medidos para decidir timeouts y reintentos, que dependen de la cola de la distribución. Cambia después un solo dato, el número de repeticiones, y observa cómo cambia la tasa de falsas diferencias.
+La ordenación de entregas de la API es el caso conductor de la [Parte 36](../README.md). Esta clase deja el quinto artefacto: un protocolo de benchmark con su prueba A/A. `SE-438` tomará los tiempos medidos para decidir timeouts y reintentos, que dependen de la cola de la distribución. Cambia después un solo dato, el número de repeticiones, y observa cómo cambia la tasa de falsas diferencias.
 
 ## Preguntas frecuentes
 

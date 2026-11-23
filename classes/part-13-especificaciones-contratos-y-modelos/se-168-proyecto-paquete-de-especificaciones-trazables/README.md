@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para entregar un paquete que otra persona pueda revisar sin pedir contexto: intenciones, requisitos, contratos, ejemplos y pruebas enlazados entre sí, con una comprobación mecánica de que los enlaces existen y no se han movido, una estimación de cuánto alcanza un cambio y una huella reproducible del conjunto.
 
-**Por qué aparece aquí.** Cierra la **Parte 13** después de **Taller: convertir intención en contrato comprobable**: los doce artefactos de la parte (regla en tres niveles, escenarios, contratos, modelo, máquina de estados, esquema, contrato de interfaz, política de evolución, nivel por artefacto, pruebas contractuales, taller) se reúnen en un solo paquete, con la trazabilidad que ninguna clase aislada podía dar. Deja la base que la Parte 14 usará al diseñar la experiencia sobre un contrato conocido.
+**Por qué aparece aquí.** Cierra la **[Parte 13](../README.md)** después de **Taller: convertir intención en contrato comprobable**: los doce artefactos de la parte (regla en tres niveles, escenarios, contratos, modelo, máquina de estados, esquema, contrato de interfaz, política de evolución, nivel por artefacto, pruebas contractuales, taller) se reúnen en un solo paquete, con la trazabilidad que ninguna clase aislada podía dar. Deja la base que la [Parte 14](../../part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) usará al diseñar la experiencia sobre un contrato conocido.
 
 **Error conceptual que debe corregir.** Creer que un paquete con muchos documentos y enlaces es un paquete trazable: los enlaces pueden existir y decir cosas distintas, y una huella solo prueba que los bytes no cambiaron, no que el texto de un requisito conserve su sentido.
 
@@ -198,7 +198,7 @@ Entrega el paquete con su manifiesto, el validador, las 240 mutaciones, la estim
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Este proyecto reúne la regla de penalización escrita en tres niveles (`SE-157`), sus escenarios (`SE-158`), los contratos (`SE-159`), el modelo y la máquina de estados (`SE-160` y `SE-161`), el esquema (`SE-162`), el contrato de interfaz (`SE-163`), la política de evolución (`SE-164`), la decisión de nivel (`SE-165`), las pruebas contractuales (`SE-166`) y el contrato del taller (`SE-167`), con identificadores, enlaces y huellas. Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa el alcance estimado frente a los artefactos que realmente tuviste que tocar.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Este proyecto reúne la regla de penalización escrita en tres niveles (`SE-157`), sus escenarios (`SE-158`), los contratos (`SE-159`), el modelo y la máquina de estados (`SE-160` y `SE-161`), el esquema (`SE-162`), el contrato de interfaz (`SE-163`), la política de evolución (`SE-164`), la decisión de nivel (`SE-165`), las pruebas contractuales (`SE-166`) y el contrato del taller (`SE-167`), con identificadores, enlaces y huellas. Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa el alcance estimado frente a los artefactos que realmente tuviste que tocar.
 
 ## Preguntas frecuentes
 
@@ -300,7 +300,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el paquete del
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): mutaciones y alcance idénticos, huella distinta con el modo de texto por defecto e idéntica con el salto de línea fijo, tiempos distintos. El paquete es sintético, el validador comprueba forma y huellas, y los grafos de alcance son supuestos del autor. No se usó firma criptográfica, no se auditó ningún paquete real y la Parte 13 no tiene laboratorio propio en `labs/`. La siguiente parte pregunta cómo se diseña la experiencia de las personas que usarán la plataforma cuyo comportamiento ya está especificado.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): mutaciones y alcance idénticos, huella distinta con el modo de texto por defecto e idéntica con el salto de línea fijo, tiempos distintos. El paquete es sintético, el validador comprueba forma y huellas, y los grafos de alcance son supuestos del autor. No se usó firma criptográfica, no se auditó ningún paquete real y la [Parte 13](../README.md) no tiene laboratorio propio en `labs/`. La siguiente parte pregunta cómo se diseña la experiencia de las personas que usarán la plataforma cuyo comportamiento ya está especificado.
 
 ## Glosario
 

@@ -1,6 +1,6 @@
 # Parte 29 — Datos, persistencia y recuperación
 
-La Parte 27 dejó fronteras, agregados y decisiones registradas. La pregunta cambia de «cómo se divide el sistema» a «qué pasa con los datos cuando varias personas escriben a la vez, un cliente se equivoca, un despliegue cambia el esquema o una copia es lo único que queda». Esta parte trabaja sobre **la capa de datos de la plataforma de entregas de tareas**, un caso sintético: estudiantes, cursos, entregas y calificaciones guardados en una base que debe seguir siendo correcta, rápida, evolucionable y recuperable. Recorre el modelo conceptual, lógico y físico, la elección entre filas, documentos, claves y grafos, las transacciones y el aislamiento, las restricciones, los índices, las migraciones compatibles, la replicación y la partición, las cachés, los respaldos con su restauración, el ciclo de vida de los datos personales, un taller de migración peligrosa y un paquete de capa de datos recuperable.
+La [Parte 27](../part-27-arquitectura-de-software-y-dominio/README.md) dejó fronteras, agregados y decisiones registradas. La pregunta cambia de «cómo se divide el sistema» a «qué pasa con los datos cuando varias personas escriben a la vez, un cliente se equivoca, un despliegue cambia el esquema o una copia es lo único que queda». Esta parte trabaja sobre **la capa de datos de la plataforma de entregas de tareas**, un caso sintético: estudiantes, cursos, entregas y calificaciones guardados en una base que debe seguir siendo correcta, rápida, evolucionable y recuperable. Recorre el modelo conceptual, lógico y físico, la elección entre filas, documentos, claves y grafos, las transacciones y el aislamiento, las restricciones, los índices, las migraciones compatibles, la replicación y la partición, las cachés, los respaldos con su restauración, el ciclo de vida de los datos personales, un taller de migración peligrosa y un paquete de capa de datos recuperable.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Al finalizar podrás defender una capa de datos con sus invariantes, su plan de 
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): costo de las operaciones, tablas hash e índices como estructuras de búsqueda.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): invariantes, compatibilidad entre versiones y contratos comprobables.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y consistencia en el servidor.
@@ -146,7 +146,7 @@ El estudiante entrega una migración corregida en fases con invariantes y punto 
 
 Un paquete completo no es un paquete correcto. El proyecto mide qué detecta un validador sobre 200 mutaciones de un paquete, simula un mes con un borrado y una corrupción silenciosa bajo tres estrategias de respaldo y calcula el costo comprimido de retener copias.
 
-El estudiante entrega un paquete de capa de datos con su restauración ensayada y `LIMITES.md`. La Parte 31 lleva esos datos a la integración entre servicios por mensajes y eventos.
+El estudiante entrega un paquete de capa de datos con su restauración ensayada y `LIMITES.md`. La [Parte 31](../part-31-integracion-eventos-y-mensajeria/README.md) lleva esos datos a la integración entre servicios por mensajes y eventos.
 
 ## Resumen operativo del recorrido
 

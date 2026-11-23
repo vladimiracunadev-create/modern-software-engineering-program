@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que conviertas lo medido en las once clases anteriores en **una política de equipo**: una tabla que dice qué evidencia se exige a cada clase de cambio, quién la produce, dónde se ejecuta y cuándo se revisa la propia política. Una política así reemplaza la discusión de identidad («somos un equipo TDD») por una decisión con razones, costos y una fecha de revisión. También es el documento que se le entrega a un agente: lo que el agente debe producir y comprobar en cada cambio depende de la clase del cambio, y esa clasificación es una decisión humana.
 
-**Por qué aparece aquí.** Cierra la Parte 45. Reúne el mapa de `SE-541`, los oráculos de `SE-542` a `SE-548`, la puerta de evaluación de `SE-549`, el flujo de `SE-550` y la comparación de `SE-551`, y los lleva al nivel en que se decide cómo trabaja un equipo. Prepara la Parte 48, donde ese mismo criterio se aplica al harness que rodea a un agente.
+**Por qué aparece aquí.** Cierra la [Parte 45](../README.md). Reúne el mapa de `SE-541`, los oráculos de `SE-542` a `SE-548`, la puerta de evaluación de `SE-549`, el flujo de `SE-550` y la comparación de `SE-551`, y los lleva al nivel en que se decide cómo trabaja un equipo. Prepara la [Parte 48](../../part-48-harness-y-agentic-engineering/README.md), donde ese mismo criterio se aplica al harness que rodea a un agente.
 
 **Error conceptual que debe corregir.** Creer que una política metodológica es una lista de prácticas obligatorias. Una política que lo exige todo a todo es la más cara y, en la simulación de la clase, la que evita menos impacto por hora invertida. La política útil asigna **menos prácticas a los cambios de bajo riesgo y más a los de alto riesgo, y reconoce los cambios para los que una práctica no produce oráculo** (sin reglas deterministas, TDD no aplica).
 
@@ -35,7 +35,7 @@ Recupera lo aprendido en `SE-551`: una combinación de prácticas de naturaleza 
 ## Prerrequisitos
 
 - Haber completado `SE-541` a `SE-551`.
-- Tener presente la clasificación de cambios de la Parte 36 (riesgo) y la de la Parte 44 (decisiones de equipo).
+- Tener presente la clasificación de cambios de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) (riesgo) y la de la [Parte 44](../../part-44-gestion-liderazgo-y-practica-profesional/README.md) (decisiones de equipo).
 - Python 3.11 o posterior; la simulación usa la biblioteca estándar.
 
 ## Problema auténtico
@@ -237,7 +237,7 @@ Una política que reduce la evidencia para los cambios de bajo riesgo debe tener
 
 ## Puente hacia el trabajo con agentes
 
-La política es el documento que convierte esta parte en instrucciones para un agente. Por cada clase de cambio dice qué artefactos debe producir, qué comprobaciones debe ejecutar y qué no puede tocar (los contratos, los casos de evaluación, la propia política). La clasificación la propone el agente y la confirma una persona. El resultado es una instrucción de repositorio que se verifica en la integración continua. La Parte 48 la usa como entrada: un harness es, en buena medida, la forma de hacer cumplir una política como esta, de modo determinista, a un agente que no la recuerda.
+La política es el documento que convierte esta parte en instrucciones para un agente. Por cada clase de cambio dice qué artefactos debe producir, qué comprobaciones debe ejecutar y qué no puede tocar (los contratos, los casos de evaluación, la propia política). La clasificación la propone el agente y la confirma una persona. El resultado es una instrucción de repositorio que se verifica en la integración continua. La [Parte 48](../../part-48-harness-y-agentic-engineering/README.md) la usa como entrada: un harness es, en buena medida, la forma de hacer cumplir una política como esta, de modo determinista, a un agente que no la recuerda.
 
 ## Transferencia
 
@@ -265,7 +265,7 @@ Escribe la política de tu equipo con tres clases de cambio y cinco prácticas. 
 
 ## Límites y siguiente paso
 
-La simulación usa supuestos del autor salvo las tasas de detección, y estas salen de una función pequeña con defectos sembrados; no se midió ningún equipo. La Parte 48 (`SE-577` en adelante) estudia el harness que hace cumplir políticas como esta a un agente: instrucciones de repositorio, herramientas, permisos, contexto y bucles.
+La simulación usa supuestos del autor salvo las tasas de detección, y estas salen de una función pequeña con defectos sembrados; no se midió ningún equipo. La [Parte 48](../../part-48-harness-y-agentic-engineering/README.md) (`SE-577` en adelante) estudia el harness que hace cumplir políticas como esta a un agente: instrucciones de repositorio, herramientas, permisos, contexto y bucles.
 
 ## Glosario
 

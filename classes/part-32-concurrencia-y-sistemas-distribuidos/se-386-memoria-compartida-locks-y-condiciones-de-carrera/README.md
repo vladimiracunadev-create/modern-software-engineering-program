@@ -33,7 +33,7 @@ Recupera lo aprendido en `SE-385`: concurrencia es varias tareas en curso; aquí
 
 - Haber completado `SE-385` o poder explicar la diferencia entre concurrencia y paralelismo.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`threading`, `itertools`, `random`).
-- Haber visto en la Parte 29 (`SE-351`) la enumeración de intercalaciones sobre una base de datos.
+- Haber visto en la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) (`SE-351`) la enumeración de intercalaciones sobre una base de datos.
 
 ## Problema auténtico
 
@@ -227,7 +227,7 @@ Entrega `carreras-log.md` con la predicción, las tres tablas, el orden global d
 
 ## Caso conductor
 
-El contador y el cupo del cierre de plazo son el caso conductor de la Parte 32. Esta clase deja el segundo artefacto: el orden de adquisición y la clasificación de datos compartidos. `SE-387` propone evitar el problema pasando mensajes en vez de compartir memoria. Cambia después una sola decisión, la granularidad, y observa qué otra decisión (el orden de cerrojos) se ve afectada.
+El contador y el cupo del cierre de plazo son el caso conductor de la [Parte 32](../README.md). Esta clase deja el segundo artefacto: el orden de adquisición y la clasificación de datos compartidos. `SE-387` propone evitar el problema pasando mensajes en vez de compartir memoria. Cambia después una sola decisión, la granularidad, y observa qué otra decisión (el orden de cerrojos) se ve afectada.
 
 ## Preguntas frecuentes
 

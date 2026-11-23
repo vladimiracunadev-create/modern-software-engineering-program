@@ -208,7 +208,7 @@ Entrega `gates-log.md` con la predicción, las tres tablas, la lista de compuert
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el tercer artefacto: la lista ordenada de compuertas con su política de excepciones. `SE-484` retirará de esas compuertas las credenciales de larga vida y `SE-485` decidirá qué debe cumplirse para desplegar. Cambia después un solo dato, la fracción de defectos que detecta la etapa más cara, y observa si el orden óptimo cambia.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el tercer artefacto: la lista ordenada de compuertas con su política de excepciones. `SE-484` retirará de esas compuertas las credenciales de larga vida y `SE-485` decidirá qué debe cumplirse para desplegar. Cambia después un solo dato, la fracción de defectos que detecta la etapa más cara, y observa si el orden óptimo cambia.
 
 ## Preguntas frecuentes
 

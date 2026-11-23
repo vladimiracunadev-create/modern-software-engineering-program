@@ -182,7 +182,7 @@ Entrega `ci-riesgos-log.md` con la predicción, las tres tablas, el modelo de am
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el décimo artefacto: un modelo de amenazas del CI con permisos mínimos, dependencias fijadas, un escáner evaluado y un plan de respuesta. `SE-479` pondrá a prueba la cadena completa en un taller: verificar la procedencia de un release. Cambia después un solo dato, el permiso por defecto del token, y observa cuánto crece el alcance de un paso comprometido.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el décimo artefacto: un modelo de amenazas del CI con permisos mínimos, dependencias fijadas, un escáner evaluado y un plan de respuesta. `SE-479` pondrá a prueba la cadena completa en un taller: verificar la procedencia de un release. Cambia después un solo dato, el permiso por defecto del token, y observa cuánto crece el alcance de un paso comprometido.
 
 ## Preguntas frecuentes
 

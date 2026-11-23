@@ -38,7 +38,7 @@ accesibilidad y limpieza verificables.
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
 - [Parte 5 — Fundamentos de programación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
@@ -211,7 +211,7 @@ secretos ni procesos.
 
 La aceptación mide tiempo y bloqueos de una persona nueva, reproduce la regresión y
 demuestra la prueba que la previene. Se registran host, combinaciones verificadas y
-límites del aislamiento. La Parte 9 usará ese entorno para empaquetar la capacidad como
+límites del aislamiento. La [Parte 9](../part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) usará ese entorno para empaquetar la capacidad como
 producto consumible y compatible.
 
 ## Resumen operativo del recorrido
@@ -233,7 +233,7 @@ producto consumible y compatible.
 
 ## Proyecto integrador
 
-El proyecto **SE-108** entrega configuración versionada de runtime, dependencias,
+El proyecto **[SE-108](./se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md)** entrega configuración versionada de runtime, dependencias,
 herramientas y contenedor; un corpus mínimo que reproduce la regresión; comandos de
 construcción, prueba, diagnóstico y limpieza; y un informe de incorporación desde
 checkout limpio. El entorno se considera desechable: debe poder reconstruirse y retirarse.

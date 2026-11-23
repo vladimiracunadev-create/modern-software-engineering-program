@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-318`: una operación de varios pasos necesita una f
 ## Prerrequisitos
 
 - Haber completado `SE-318` y conocer la idea de transacción y de efecto repetido.
-- Haber visto en la Parte 31 (integración, eventos y mensajería) qué es una cola y un evento, y en la Parte 32 qué es un fallo parcial.
+- Haber visto en la [Parte 31](../../part-31-integracion-eventos-y-mensajeria/README.md) (integración, eventos y mensajería) qué es una cola y un evento, y en la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) qué es un fallo parcial.
 - Python 3.11 o posterior con `random` y `collections`.
 
 ## Problema auténtico

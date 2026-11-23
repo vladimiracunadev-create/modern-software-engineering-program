@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto integra la parte en un entregable que un equipo puede mantener: un **catálogo de los patrones de un sistema** donde cada entrada responde por la fuerza que resuelve, dónde vive en el código, qué evidencia la sostiene, cuánto cuesta y bajo qué condición se retira. Un catálogo así sirve a tres personas: a quien llega nuevo y necesita entender por qué el código tiene esa forma, a quien revisa un cambio y quiere saber qué patrón se está tocando, y a quien decide qué simplificar porque conoce el costo de cada pieza. La habilidad profesional es producirlo con medidas y no con impresiones, y saber qué entradas rechazar.
 
-**Por qué aparece aquí.** Cierra la parte: aplica el criterio de `SE-313`, los patrones de `SE-314` a `SE-321`, las métricas de `SE-322` y el ciclo de medida de `SE-323`. Precede a la Parte 28, donde la pregunta de diseño sube de escala (de qué patrón usar en un módulo a qué estilo arquitectónico organiza el sistema).
+**Por qué aparece aquí.** Cierra la parte: aplica el criterio de `SE-313`, los patrones de `SE-314` a `SE-321`, las métricas de `SE-322` y el ciclo de medida de `SE-323`. Precede a la [Parte 28](../../part-28-estilos-arquitectonicos/README.md), donde la pregunta de diseño sube de escala (de qué patrón usar en un módulo a qué estilo arquitectónico organiza el sistema).
 
 **Error conceptual que debe corregir.** Creer que identificar patrones en un código es buscar clases cuyo nombre contiene `Strategy`, `Factory` o `Observer`. En el corpus etiquetado de esta clase, un detector por **nombre de clase** acierta con una precisión del 29 % y una exhaustividad del 25 %: encuentra los pocos patrones que anuncian su nombre y cinco clases que lo llevan sin la estructura, y no ve seis patrones reales con otro nombre. Un detector por **estructura** (un árbol de sintaxis que busca la forma, no el nombre) llega al 86 % de precisión y al 75 % de exhaustividad en el mismo corpus, con límites que el propio experimento muestra. Ni uno ni otro sustituye la lectura de una persona.
 
@@ -114,7 +114,7 @@ El procedimiento del proyecto tiene cuatro pasos y cada uno se justifica con un 
 
 ### 5. Registrar las decisiones de arquitectura junto al catálogo
 
-Un catálogo responde «qué patrones hay y por qué»; un **registro de decisiones de arquitectura** (ADR) responde «qué decidimos en cada momento y con qué contexto». Nygard propone un formato corto (contexto, decisión, consecuencias, estado) para registrar decisiones. Se complementan: una entrada del catálogo enlaza a la decisión que la originó, y una decisión de retirar un patrón enlaza a la entrada que cierra. La Parte 28 retoma el registro de decisiones a escala de estilos arquitectónicos.
+Un catálogo responde «qué patrones hay y por qué»; un **registro de decisiones de arquitectura** (ADR) responde «qué decidimos en cada momento y con qué contexto». Nygard propone un formato corto (contexto, decisión, consecuencias, estado) para registrar decisiones. Se complementan: una entrada del catálogo enlaza a la decisión que la originó, y una decisión de retirar un patrón enlaza a la entrada que cierra. La [Parte 28](../../part-28-estilos-arquitectonicos/README.md) retoma el registro de decisiones a escala de estilos arquitectónicos.
 
 ### 6. Qué se rechaza y por qué
 
@@ -242,7 +242,7 @@ Construye el catálogo de un sistema que conozcas bien y entrégalo a una person
 
 ## Límites y siguiente paso
 
-El corpus es de 14 fragmentos escritos por el autor, el detector estructural se escribió conociéndolo y la validación de entradas comprueba que los campos existan, no que sean ciertos; no se midió la utilidad de un catálogo para un equipo. El siguiente paso es la Parte 28, **Estilos arquitectónicos**, que sube la escala de la pregunta: de qué patrón usar en un módulo a qué estilo organiza el sistema entero y con qué escenarios de calidad se defiende.
+El corpus es de 14 fragmentos escritos por el autor, el detector estructural se escribió conociéndolo y la validación de entradas comprueba que los campos existan, no que sean ciertos; no se midió la utilidad de un catálogo para un equipo. El siguiente paso es la [Parte 28](../../part-28-estilos-arquitectonicos/README.md), **Estilos arquitectónicos**, que sube la escala de la pregunta: de qué patrón usar en un módulo a qué estilo organiza el sistema entero y con qué escenarios de calidad se defiende.
 
 ## Glosario
 

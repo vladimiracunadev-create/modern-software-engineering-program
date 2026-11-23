@@ -1,6 +1,6 @@
 # Parte 35 — Estrategia y técnicas de prueba
 
-La Parte 33 dejó una plataforma mínima reproducible. La pregunta cambia de «cómo se construye y se despliega» a «cómo se sabe que funciona, y cuánto se está dispuesto a no saber». Esta parte trabaja sobre **la estrategia de pruebas de la plataforma de entregas de tareas**, un caso sintético: diez componentes, 40 horas de pruebas por trimestre, una integración continua que no debe pasar de diez minutos y una lista de incidentes. Recorre el reparto de un presupuesto de pruebas por riesgo, las pruebas unitarias y el diseño que las permite, las pruebas de integración y de contrato, los recorridos de extremo a extremo y los criterios de aceptación, las pruebas basadas en propiedades y en modelos, la mutación y el fuzzing, los dobles y los entornos, los datos y los fixtures deterministas, la exploración con misiones, las pruebas inestables, un taller para demostrar que una prueba detecta defectos y un proyecto que entrega una estrategia ejecutable y validable.
+La [Parte 33](../part-33-cloud-plataforma-e-infraestructura/README.md) dejó una plataforma mínima reproducible. La pregunta cambia de «cómo se construye y se despliega» a «cómo se sabe que funciona, y cuánto se está dispuesto a no saber». Esta parte trabaja sobre **la estrategia de pruebas de la plataforma de entregas de tareas**, un caso sintético: diez componentes, 40 horas de pruebas por trimestre, una integración continua que no debe pasar de diez minutos y una lista de incidentes. Recorre el reparto de un presupuesto de pruebas por riesgo, las pruebas unitarias y el diseño que las permite, las pruebas de integración y de contrato, los recorridos de extremo a extremo y los criterios de aceptación, las pruebas basadas en propiedades y en modelos, la mutación y el fuzzing, los dobles y los entornos, los datos y los fixtures deterministas, la exploración con misiones, las pruebas inestables, un taller para demostrar que una prueba detecta defectos y un proyecto que entrega una estrategia ejecutable y validable.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Al finalizar podrás defender una estrategia de pruebas con su tabla de riesgos 
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): enumeración de casos y razonamiento sobre evidencia.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): invariantes, compatibilidad y contratos comprobables.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): contratos de respuesta, idempotencia y errores consistentes.
 - [Parte 27 — Arquitectura de software y dominio](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-arquitectura-de-software-y-dominio/): fronteras, atributos de calidad y revisión contra escenarios.
@@ -146,7 +146,7 @@ El estudiante entrega la matriz de detección y un paquete re-ejecutable. `SE-43
 
 Una estrategia que nadie valida es un documento. El proyecto simula 2 000 trimestres con seis estrategias, reasigna el presupuesto tras un incidente y mide qué detecta un validador de tres niveles sobre 200 mutaciones del paquete.
 
-El estudiante entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md`. La Parte 36 lleva esos riesgos a atributos de calidad medibles, carga y resiliencia.
+El estudiante entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md`. La [Parte 36](../part-36-calidad-rendimiento-y-resiliencia/README.md) lleva esos riesgos a atributos de calidad medibles, carga y resiliencia.
 
 ## Resumen operativo del recorrido
 

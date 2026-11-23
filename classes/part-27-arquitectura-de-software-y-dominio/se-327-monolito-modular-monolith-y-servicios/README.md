@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que compares tres formas de agrupar los mismos componentes (un monolito, un monolito modular y servicios) por lo que cuesta cruzar cada frontera y por lo que garantiza cada una sobre la consistencia, y no por la moda de cada época.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Vistas lógica, runtime, datos y despliegue**: las vistas mostraron qué componentes existen y cómo se llaman; ahora se decide cuántas unidades de despliegue forman y qué fronteras se imponen. La decisión se toma contra los escenarios de `SE-325`, no contra una preferencia.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Vistas lógica, runtime, datos y despliegue**: las vistas mostraron qué componentes existen y cómo se llaman; ahora se decide cuántas unidades de despliegue forman y qué fronteras se imponen. La decisión se toma contra los escenarios de `SE-325`, no contra una preferencia.
 
 **Error conceptual que debe corregir.** Creer que «monolito» y «microservicios» son dos bandos: son extremos de un continuo de fronteras, y la mayor parte del beneficio de una frontera (límites claros entre módulos) puede obtenerse sin pagar el coste de la red.
 

@@ -196,7 +196,7 @@ no de la decoración final.
 
 La aceptación parte de un checkout limpio y prueba éxito, entrada inválida, dependencia
 fallida y repetición. El informe declara plataformas verificadas y límites. La CLI diagnóstica deja
-una regla estable que la Parte 6 expresará mediante paradigmas distintos para comparar
+una regla estable que la [Parte 6](../part-06-paradigmas-de-programacion/README.md) expresará mediante paradigmas distintos para comparar
 semántica, no familiaridad.
 
 ## Resumen operativo del recorrido

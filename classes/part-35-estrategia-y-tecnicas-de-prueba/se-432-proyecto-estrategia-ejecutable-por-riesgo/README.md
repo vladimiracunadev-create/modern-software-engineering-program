@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto integra la parte en un artefacto: una estrategia de pruebas ejecutable para la plataforma de entregas, con riesgos y su reparto de horas, el nivel de prueba de cada clase de fallo, las pruebas que lo sostienen y su demostración, los criterios de bloqueo, las exclusiones con caducidad y los límites. La estrategia no es un documento que se archiva: se valida con un programa, se simula un trimestre y se reajusta tras un incidente.
 
-**Por qué aparece aquí.** Es el cierre de la Parte 35: usa el riesgo de `SE-421`, los niveles de `SE-422` a `SE-426`, los dobles y el entorno de `SE-427` a `SE-430` y la demostración de `SE-431`. La Parte 36 llevará esa estrategia hacia atributos de calidad medibles, rendimiento y resiliencia.
+**Por qué aparece aquí.** Es el cierre de la [Parte 35](../README.md): usa el riesgo de `SE-421`, los niveles de `SE-422` a `SE-426`, los dobles y el entorno de `SE-427` a `SE-430` y la demostración de `SE-431`. La [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) llevará esa estrategia hacia atributos de calidad medibles, rendimiento y resiliencia.
 
 **Error conceptual que debe corregir.** Creer que una estrategia es una lista de buenas prácticas («pirámide de pruebas, cobertura de 80 %, pruebas de regresión»). Una estrategia es un conjunto de decisiones con razones que se pueden contradecir: qué se prueba más, qué se excluye, cuándo se cambia de idea y qué evidencia haría cambiarla.
 
@@ -225,7 +225,7 @@ Entrega `estrategia.json`, el validador con el resultado de sus 200 mutaciones, 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la parte. Esta clase deja el artefacto final: la estrategia de pruebas ejecutable con su validador, su simulación y sus límites. La Parte 36 toma esos riesgos y los convierte en atributos de calidad medibles, en rendimiento y en resiliencia. Cambia después una sola decisión, la caducidad máxima de las exclusiones de 90 a 30 días, y observa cuántas del paquete vencen y qué revisión exigen.
+La plataforma de entregas es el caso conductor de la parte. Esta clase deja el artefacto final: la estrategia de pruebas ejecutable con su validador, su simulación y sus límites. La [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) toma esos riesgos y los convierte en atributos de calidad medibles, en rendimiento y en resiliencia. Cambia después una sola decisión, la caducidad máxima de las exclusiones de 90 a 30 días, y observa cuántas del paquete vencen y qué revisión exigen.
 
 ## Preguntas frecuentes
 
@@ -319,7 +319,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 11 % de red
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con un simulador, un paquete y un validador escritos por el autor en Windows y Ubuntu (WSL2), con salidas idénticas. La probabilidad de defecto, el impacto, la distribución de los cambios y el costo de un escape son supuestos; las reglas del validador se ajustaron con las mismas mutaciones que lo miden. No se midió ningún equipo, integración continua ni incidente real. La Parte 36 convierte estos riesgos en atributos de calidad medibles y los lleva a carga, percentiles, capacidad y resiliencia.
+Se ejecutaron tres experimentos con un simulador, un paquete y un validador escritos por el autor en Windows y Ubuntu (WSL2), con salidas idénticas. La probabilidad de defecto, el impacto, la distribución de los cambios y el costo de un escape son supuestos; las reglas del validador se ajustaron con las mismas mutaciones que lo miden. No se midió ningún equipo, integración continua ni incidente real. La [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) convierte estos riesgos en atributos de calidad medibles y los lleva a carga, percentiles, capacidad y resiliencia.
 
 ## Glosario
 

@@ -47,11 +47,11 @@ OTA, edge, safety y diagnóstico con instrumentación.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00–09, con énfasis en 01–04 y 07–08.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md), con énfasis en 01–04 y 07–08.
 2. [Parte 22 — Embedded, IoT y tiempo real](../classes/part-22-embedded-iot-y-tiempo-real/README.md).
-3. Partes 24, 31–32 para dominio crítico, mensajería y concurrencia.
-4. Partes 35–36 y 38–41 para pruebas, resiliencia, seguridad, entrega y telemetría.
-5. Parte 43 para EOL y retirada de flotas.
+3. Partes [24](../classes/part-24-software-especializado-y-dominios/README.md), [31](../classes/part-31-integracion-eventos-y-mensajeria/README.md)–[32](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) para dominio crítico, mensajería y concurrencia.
+4. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para pruebas, resiliencia, seguridad, entrega y telemetría.
+5. [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) para EOL y retirada de flotas.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -127,16 +127,16 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-265 · Hardware, firmware y software embebido](../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md) | Parte 22 |
-| [SE-270 · Protocolos IoT y conectividad intermitente](../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md) | Parte 22 |
-| [SE-273 · Edge, gateways y procesamiento local](../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) | Parte 22 |
-| [SE-274 · Safety, seguridad y vida útil prolongada](../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) | Parte 22 |
-| [SE-276 · Proyecto: dispositivo simulado operable y actualizable](../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) | Parte 22 |
+| [SE-265 · Hardware, firmware y software embebido](../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-270 · Protocolos IoT y conectividad intermitente](../classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-273 · Edge, gateways y procesamiento local](../classes/part-22-embedded-iot-y-tiempo-real/se-273-edge-gateways-y-procesamiento-local/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-274 · Safety, seguridad y vida útil prolongada](../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| [SE-276 · Proyecto: dispositivo simulado operable y actualizable](../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) | [Parte 22](../classes/part-22-embedded-iot-y-tiempo-real/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-017](../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) para fijar el
 primer mecanismo, usa [SE-439](../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md) para integrar el
@@ -146,7 +146,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

@@ -47,11 +47,11 @@ design, testing manual/automático y gestión de defectos.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00, 10–13 para ética, usuarios y requisitos.
-2. [Parte 14 — Experiencia, accesibilidad e i18n](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md).
-3. Partes 19 y 21 para web y clientes.
-4. Partes 35–36 y 38 para estrategia de prueba, calidad y cumplimiento.
-5. Partes 40 y 44 para gates y cambio organizacional.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md), [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[13](../classes/part-13-especificaciones-contratos-y-modelos/README.md) para ética, usuarios y requisitos.
+2. [Parte 14 — Experiencia, accesibilidad e internacionalización](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md).
+3. Partes [19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) y [21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) para web y clientes.
+4. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) para estrategia de prueba, calidad y cumplimiento.
+5. Partes [40](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) y [44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) para gates y cambio organizacional.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -128,19 +128,19 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-106 · Ergonomía, accesibilidad y productividad del entorno](../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md) | Parte 08 |
-| [SE-169 · Diseño centrado en personas y tareas](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md) | Parte 14 |
-| [SE-170 · Arquitectura de información y navegación](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-170-arquitectura-de-informacion-y-navegacion/README.md) | Parte 14 |
-| [SE-171 · Interacción, affordances y retroalimentación](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md) | Parte 14 |
-| [SE-178 · Investigación de usabilidad y medición](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-178-investigacion-de-usabilidad-y-medicion/README.md) | Parte 14 |
-| [SE-221 · TUI, terminales y accesibilidad](../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md) | Parte 18 |
-| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | Parte 45 |
-| [SE-545 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) | Parte 45 |
+| [SE-106 · Ergonomía, accesibilidad y productividad del entorno](../classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md) | [Parte 08](../classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| [SE-169 · Diseño centrado en personas y tareas](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md) | [Parte 14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
+| [SE-170 · Arquitectura de información y navegación](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-170-arquitectura-de-informacion-y-navegacion/README.md) | [Parte 14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
+| [SE-171 · Interacción, affordances y retroalimentación](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md) | [Parte 14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
+| [SE-178 · Investigación de usabilidad y medición](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-178-investigacion-de-usabilidad-y-medicion/README.md) | [Parte 14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
+| [SE-221 · TUI, terminales y accesibilidad](../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md) | [Parte 18](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
+| [SE-544 · BDD: ejemplos, conversación y lenguaje compartido](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-544-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
+| [SE-545 · ATDD y Specification by Example: aceptación ejecutable](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-545-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-122](../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md) para fijar el
 primer mecanismo, usa [SE-239](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) para integrar el
@@ -150,7 +150,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

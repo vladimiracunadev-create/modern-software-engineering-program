@@ -203,7 +203,7 @@ Entrega `dependencias-log.md` con la predicción, las tres tablas, el inventario
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el cuarto artefacto: el inventario y la política de actualización. `SE-521` preguntará cómo se reemplaza el módulo por partes sin interrumpir su uso, y `SE-522` cómo se migra el runtime que sostiene todo. Cambia después un solo dato, la probabilidad de cambio incompatible, y observa en qué punto esperar deja de costar más.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el cuarto artefacto: el inventario y la política de actualización. `SE-521` preguntará cómo se reemplaza el módulo por partes sin interrumpir su uso, y `SE-522` cómo se migra el runtime que sostiene todo. Cambia después un solo dato, la probabilidad de cambio incompatible, y observa en qué punto esperar deja de costar más.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de tratar el mantenimiento como «lo que queda después de construir» y lo trates como el modo de vida normal de un sistema que sigue en uso. Un equipo que recibe un módulo con doce años de historia necesita decidir cada semana si lo que tiene delante es una corrección, una adaptación impuesta por el entorno, una mejora pedida por alguien o trabajo para que el sistema siga siendo cambiable. La habilidad es clasificar con honestidad, repartir la capacidad entre esas cuatro clases de trabajo sin que una devore a las otras y saber cuándo una fecha impuesta desde fuera convierte un trabajo cómodo en una emergencia.
 
-**Por qué aparece aquí.** Abre la **Parte 43** después de **Proyecto: operación observable y recuperable**: la Parte 41 dejó un sistema que se puede ver y recuperar mientras opera; ahora la pregunta es cómo se sostiene y se cambia ese sistema durante años. El caso conductor de la parte es el **módulo legado de calificaciones de la plataforma educativa**: un monolito de doce años con una función que calcula la nota final, un archivo de intercambio con el ministerio, una base de datos con textos como «5,5» y reglas de redondeo que nadie escribió. Es un caso sintético; ninguna institución ni sistema reales fueron analizados.
+**Por qué aparece aquí.** Abre la **[Parte 43](../README.md)** después de **Proyecto: operación observable y recuperable**: la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) dejó un sistema que se puede ver y recuperar mientras opera; ahora la pregunta es cómo se sostiene y se cambia ese sistema durante años. El caso conductor de la parte es el **módulo legado de calificaciones de la plataforma educativa**: un monolito de doce años con una función que calcula la nota final, un archivo de intercambio con el ministerio, una base de datos con textos como «5,5» y reglas de redondeo que nadie escribió. Es un caso sintético; ninguna institución ni sistema reales fueron analizados.
 
 **Error conceptual que debe corregir.** Creer que el mantenimiento es corregir errores. En la tipología del mantenimiento la corrección es solo una de cuatro categorías y nada obliga a que sea la mayor: el sistema también debe adaptarse a un entorno que cambia y ampliarse con lo que alguien pidió, y por debajo de todo hay un trabajo invisible, el que mantiene la capacidad de cambiar, que si no se protege deja de hacerse.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 41 sobre operar un sistema: una señal solo vale si cambia una decisión. La pregunta activa es: **¿cuántas de las solicitudes de cambio que recibió tu último proyecto eran correcciones, cuántas eran imposiciones del entorno y cuántas eran peticiones de mejora, y quién decidió esa clasificación?**
+Recupera lo aprendido en la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) sobre operar un sistema: una señal solo vale si cambia una decisión. La pregunta activa es: **¿cuántas de las solicitudes de cambio que recibió tu último proyecto eran correcciones, cuántas eran imposiciones del entorno y cuántas eran peticiones de mejora, y quién decidió esa clasificación?**
 
 ## Prerrequisitos
 
@@ -214,7 +214,7 @@ Entrega `mantenimiento-log.md` con la predicción, las tres tablas, la clasifica
 
 ## Caso conductor
 
-El módulo de calificaciones de la plataforma educativa es el caso conductor de la Parte 43. Esta clase deja el primer artefacto: la cartera clasificada y la política de capacidad. `SE-518` preguntará cómo se recupera el conocimiento que el equipo perdió sobre el módulo, y `SE-519` cómo se protegen sus comportamientos antes de tocarlos. Cambia después un solo dato, la realimentación entre deuda e incidencias, y observa a partir de qué valor la reserva deja de compensar.
+El módulo de calificaciones de la plataforma educativa es el caso conductor de la [Parte 43](../README.md). Esta clase deja el primer artefacto: la cartera clasificada y la política de capacidad. `SE-518` preguntará cómo se recupera el conocimiento que el equipo perdió sobre el módulo, y `SE-519` cómo se protegen sus comportamientos antes de tocarlos. Cambia después un solo dato, la realimentación entre deuda e incidencias, y observa a partir de qué valor la reserva deja de compensar.
 
 ## Preguntas frecuentes
 
@@ -224,7 +224,7 @@ Refactorizar es una técnica; el mantenimiento preventivo es la categoría de tr
 
 ### ¿Una mejora de rendimiento es perfectiva o correctiva?
 
-Depende del origen. Si el rendimiento incumple un objetivo declarado (por ejemplo un escenario de calidad de la Parte 36), es correctiva; si nadie lo había exigido y se quiere mejorar, es perfectiva. La clasificación se apoya en lo que el sistema prometía, no en el tipo de trabajo técnico.
+Depende del origen. Si el rendimiento incumple un objetivo declarado (por ejemplo un escenario de calidad de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md)), es correctiva; si nadie lo había exigido y se quiere mejorar, es perfectiva. La clasificación se apoya en lo que el sistema prometía, no en el tipo de trabajo técnico.
 
 ### ¿Hay un porcentaje correcto de capacidad para cada categoría?
 

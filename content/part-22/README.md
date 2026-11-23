@@ -36,7 +36,7 @@ Al finalizar podrás defender un dispositivo con sus plazos de peor caso, su pre
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](../../classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 13 — Especificaciones, contratos y modelos](../../classes/part-13-especificaciones-contratos-y-modelos/): eventos duplicados, compatibilidad entre versiones y contratos comprobables.
 - [Parte 15 — Procesos, planificación y estimación](../../classes/part-15-procesos-planificacion-y-estimacion/): flujo, colas, riesgos y reglas de replanificación.

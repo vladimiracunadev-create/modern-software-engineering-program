@@ -101,7 +101,7 @@ corridas procesan el mismo contenido serializado, no que otra serialización pro
 ### 6. El dossier de referencia: un programa mínimo que sigue la ruta
 
 Un programa pequeño basta para reunir las seis capas. El siguiente `event_analyzer.py` toma un evento sintético, lo serializa de forma canónica, inspecciona
-la traducción de una función, ejecuta un cálculo y captura tiempos y memoria. Es una versión mínima y autocontenida del tipo de artefacto que produce el laboratorio de la Parte 01.
+la traducción de una función, ejecuta un cálculo y captura tiempos y memoria. Es una versión mínima y autocontenida del tipo de artefacto que produce el laboratorio de la [Parte 01](../README.md).
 
 ```python
 import ast, dis, hashlib, json, platform, sys, time, tracemalloc, unicodedata

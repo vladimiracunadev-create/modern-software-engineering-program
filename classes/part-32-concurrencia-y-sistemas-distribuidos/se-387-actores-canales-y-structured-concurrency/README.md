@@ -226,7 +226,7 @@ Entrega `mensajes-log.md` con la predicción, las tres tablas, el diseño del ac
 
 ## Caso conductor
 
-El actor «cupo» y su buzón son el artefacto de esta clase en el caso conductor de la Parte 32. `SE-388` pregunta cómo ordenar sucesos cuando ni siquiera hay un reloj común entre emisores. Cambia después una sola decisión, el tamaño del buzón, y observa qué otra (el rechazo ante el llenado) se ve afectada.
+El actor «cupo» y su buzón son el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-388` pregunta cómo ordenar sucesos cuando ni siquiera hay un reloj común entre emisores. Cambia después una sola decisión, el tamaño del buzón, y observa qué otra (el rechazo ante el llenado) se ve afectada.
 
 ## Preguntas frecuentes
 

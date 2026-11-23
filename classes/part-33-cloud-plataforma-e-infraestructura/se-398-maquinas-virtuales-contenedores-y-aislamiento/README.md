@@ -223,7 +223,7 @@ Entrega `aislamiento.md` con la predicción, las tres tablas medidas en tu equip
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el segundo artefacto: el cuadro de fronteras para sus piezas. `SE-399` pregunta quién decide dónde corre cada unidad y qué hace cuando falla. Cambia una pieza, por ejemplo mover el corrector a un contenedor, y mira qué parte del modelo de amenaza deja de sostenerse.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el segundo artefacto: el cuadro de fronteras para sus piezas. `SE-399` pregunta quién decide dónde corre cada unidad y qué hace cuando falla. Cambia una pieza, por ejemplo mover el corrector a un contenedor, y mira qué parte del modelo de amenaza deja de sostenerse.
 
 ## Preguntas frecuentes
 

@@ -1,6 +1,6 @@
 # Parte 25 — Diseño, patrones y refactorización
 
-La Parte 24 llevó el diseño a un dominio profundo. Esta parte hace la pregunta que sigue cuando el sistema ya existe y tiene usuarios: **cómo se reparte el código para que pueda cambiar sin romperse, cómo se corrige cuando se repartió mal y cómo se evoluciona sin romper a quien lo usa**. Trabaja sobre un caso conductor sintético, el componente `tarifas` de una plataforma de entregas, que calcula el costo de un envío y que a lo largo de la parte se mide, se separa, se prueba, se refactoriza y se evoluciona. Recorre la cohesión, el acoplamiento y la encapsulación, los principios SOLID y sus límites, la herencia, la composición y la delegación, los patrones creacionales, estructurales y conductuales, los patrones funcionales, reactivos y concurrentes, los olores de código y su diagnóstico, la refactorización segura con una red de pruebas medida, el diseño para el cambio, la prueba y la operación, la complejidad accidental y esencial, la deuda técnica con su interés, un taller de refactorización de una función heredada y un proyecto de evolución compatible.
+La [Parte 24](../part-24-software-especializado-y-dominios/README.md) llevó el diseño a un dominio profundo. Esta parte hace la pregunta que sigue cuando el sistema ya existe y tiene usuarios: **cómo se reparte el código para que pueda cambiar sin romperse, cómo se corrige cuando se repartió mal y cómo se evoluciona sin romper a quien lo usa**. Trabaja sobre un caso conductor sintético, el componente `tarifas` de una plataforma de entregas, que calcula el costo de un envío y que a lo largo de la parte se mide, se separa, se prueba, se refactoriza y se evoluciona. Recorre la cohesión, el acoplamiento y la encapsulación, los principios SOLID y sus límites, la herencia, la composición y la delegación, los patrones creacionales, estructurales y conductuales, los patrones funcionales, reactivos y concurrentes, los olores de código y su diagnóstico, la refactorización segura con una red de pruebas medida, el diseño para el cambio, la prueba y la operación, la complejidad accidental y esencial, la deuda técnica con su interés, un taller de refactorización de una función heredada y un proyecto de evolución compatible.
 
 ## Pregunta rectora
 
@@ -142,7 +142,7 @@ El estudiante entrega el refactor con una decisión por rareza heredada. `SE-312
 
 #### SE-312 — Proyecto: evolución compatible de un componente
 
-Compatible es lo que no rompe a quien usa, no lo que no cambia la firma. El proyecto compara un verificador de firmas con ocho consumidores, estima la ventana de deprecación de 500 clientes y mide quién detecta los cambios de una respuesta de doce campos. La Parte 27 pasa a la arquitectura.
+Compatible es lo que no rompe a quien usa, no lo que no cambia la firma. El proyecto compara un verificador de firmas con ocho consumidores, estima la ventana de deprecación de 500 clientes y mide quién detecta los cambios de una respuesta de doce campos. La [Parte 27](../part-27-arquitectura-de-software-y-dominio/README.md) pasa a la arquitectura.
 
 El estudiante entrega el paquete de evolución con sus fases y la lista de lo que ninguna comprobación ve.
 
@@ -165,7 +165,7 @@ El estudiante entrega el paquete de evolución con sus fases y la lista de lo qu
 
 ## Proyecto integrador
 
-El proyecto **SE-312** entrega un paquete de evolución con un verificador de compatibilidad por firma y su comparación con ocho consumidores, los contratos de esos consumidores, la ventana de deprecación estimada con sus supuestos, el plan por fases (ampliar, migrar, contraer) de cuatro cambios del componente `tarifas` y la lista de lo que ni el verificador, ni los contratos ni el modelo de migración ven. Se acompaña de los límites declarados: qué parte del paquete no se contrastó con consumidores reales ni con una infraestructura de despliegue.
+El proyecto **[SE-312](./se-312-proyecto-evolucion-compatible-de-un-componente/README.md)** entrega un paquete de evolución con un verificador de compatibilidad por firma y su comparación con ocho consumidores, los contratos de esos consumidores, la ventana de deprecación estimada con sus supuestos, el plan por fases (ampliar, migrar, contraer) de cuatro cambios del componente `tarifas` y la lista de lo que ni el verificador, ni los contratos ni el modelo de migración ven. Se acompaña de los límites declarados: qué parte del paquete no se contrastó con consumidores reales ni con una infraestructura de despliegue.
 
 ## Criterios de salida
 

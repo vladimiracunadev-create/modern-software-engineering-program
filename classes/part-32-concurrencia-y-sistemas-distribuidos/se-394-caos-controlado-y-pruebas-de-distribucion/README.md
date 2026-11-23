@@ -219,7 +219,7 @@ Entrega `caos-log.md` con la predicción, las tres tablas, un plan de experiment
 
 ## Caso conductor
 
-El plan de caos del cierre de plazo es el artefacto de esta clase en el caso conductor de la Parte 32. `SE-395` convierte una carrera y un fallo parcial en un caso reproducible y mínimo. Cambia después una sola decisión, la tasa de fallo inyectada, y observa qué otra (la estrategia de reintentos) se ve afectada.
+El plan de caos del cierre de plazo es el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-395` convierte una carrera y un fallo parcial en un caso reproducible y mínimo. Cambia después una sola decisión, la tasa de fallo inyectada, y observa qué otra (la estrategia de reintentos) se ve afectada.
 
 ## Preguntas frecuentes
 

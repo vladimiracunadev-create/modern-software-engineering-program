@@ -200,7 +200,7 @@ Entrega `idempotency-log.md` con la clasificación de operaciones, la matriz de 
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su publicación nocturna con claves por fila, escritura atómica y reanudación verificada. `SE-225` aplica la misma técnica a una actualización de binarios: descargar a un temporal, verificar y reemplazar. Cambia después un solo detalle, el tamaño del lote de 20 a 200 filas, y revisa si la matriz de caídas sigue dando los mismos resultados y cuánto cuesta repetir un lote.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su publicación nocturna con claves por fila, escritura atómica y reanudación verificada. `SE-225` aplica la misma técnica a una actualización de binarios: descargar a un temporal, verificar y reemplazar. Cambia después un solo detalle, el tamaño del lote de 20 a 200 filas, y revisa si la matriz de caídas sigue dando los mismos resultados y cuánto cuesta repetir un lote.
 
 ## Preguntas frecuentes
 

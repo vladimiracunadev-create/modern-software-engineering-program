@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **SemVer, compatibilidad y contratos públicos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué constituye la API pública y cuándo un cambio exige migración?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **SemVer, compatibilidad y contratos públicos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué constituye la API pública y cuándo un cambio exige migración?**
 
 ## Prerrequisitos
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para separar lo que alguien reporta, lo que de verdad ocurre, lo que la persona necesita y lo que el equipo podría hacer, de modo que una decisión de producto no descanse en la frase más repetida de un ticket.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: SDK y CLI con compatibilidad verificada** y antes de **Usuarios, actores, trabajos y contextos**: la Parte 09 terminó con un SDK y una CLI cuyo contrato otra persona puede consumir; la Parte 10 cambia la pregunta de «cómo se construye» a «qué merece construirse». Esta clase fija el vocabulario (síntoma, problema, necesidad, oportunidad) que las once siguientes usarán como unidades de evidencia, y deja un enunciado de problema revisable que `SE-122` convertirá en personas, actores y contextos.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: SDK y CLI con compatibilidad verificada** y antes de **Usuarios, actores, trabajos y contextos**: la [Parte 09](../../part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) terminó con un SDK y una CLI cuyo contrato otra persona puede consumir; la [Parte 10](../README.md) cambia la pregunta de «cómo se construye» a «qué merece construirse». Esta clase fija el vocabulario (síntoma, problema, necesidad, oportunidad) que las once siguientes usarán como unidades de evidencia, y deja un enunciado de problema revisable que `SE-122` convertirá en personas, actores y contextos.
 
 **Error conceptual que debe corregir.** Tomar un síntoma repetido como si fuera el problema, y un problema como si ya fuera una oportunidad validada.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 10 sobre la plataforma de entregas de tareas**, el caso que recorrerá las doce clases. Recupera lo aprendido en la Parte 09 sobre contratos: un contrato dice qué se promete, no si alguien lo necesita. La pregunta activa es: **¿qué diferencia hay entre lo que la gente dice, lo que ocurre y lo que necesita, y cuál de las tres debe guiar una decisión?**
+Esta clase abre la **[Parte 10](../README.md) sobre la plataforma de entregas de tareas**, el caso que recorrerá las doce clases. Recupera lo aprendido en la [Parte 09](../../part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) sobre contratos: un contrato dice qué se promete, no si alguien lo necesita. La pregunta activa es: **¿qué diferencia hay entre lo que la gente dice, lo que ocurre y lo que necesita, y cuál de las tres debe guiar una decisión?**
 
 ## Prerrequisitos
 
@@ -195,7 +195,7 @@ Entrega `discovery-log.md` con 600 tickets sintéticos (o los generados por tu s
 
 ## Caso conductor
 
-La plataforma de entregas de tareas es el caso conductor de la Parte 10. Esta clase deja el primer artefacto: tickets sintéticos, causa más frecuente (la expiración de sesión), un enunciado de problema y un rango de oportunidad. Las clases siguientes preguntarán quiénes son las personas afectadas (`SE-122`), qué se sabe de ellas por entrevistas (`SE-123`) y qué hipótesis se pueden contrastar (`SE-124`). Cambia después una sola decisión —por ejemplo, fusionar dos causas— y revisa qué conclusiones del registro cambian.
+La plataforma de entregas de tareas es el caso conductor de la [Parte 10](../README.md). Esta clase deja el primer artefacto: tickets sintéticos, causa más frecuente (la expiración de sesión), un enunciado de problema y un rango de oportunidad. Las clases siguientes preguntarán quiénes son las personas afectadas (`SE-122`), qué se sabe de ellas por entrevistas (`SE-123`) y qué hipótesis se pueden contrastar (`SE-124`). Cambia después una sola decisión —por ejemplo, fusionar dos causas— y revisa qué conclusiones del registro cambian.
 
 ## Preguntas frecuentes
 

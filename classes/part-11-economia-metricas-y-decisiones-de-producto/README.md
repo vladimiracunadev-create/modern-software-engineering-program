@@ -1,6 +1,6 @@
 # Parte 11 — Economía, métricas y decisiones de producto
 
-La Parte 10 dejó un brief respaldado por evidencia: qué problema merece atención y qué se sabe de él. La pregunta cambia de «qué merece construirse» a «puede sostenerse, cómo sabremos si funciona y qué decidimos con la incertidumbre que queda». Esta parte continúa con la **plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: un modelo de negocio con centros educativos como clientes, un costo de propiedad que no es solo construir, métricas que se confunden con actividad, retención que se lee mal, telemetría que identifica sin querer, experimentos que se rompen, metas que arrastran lo que no miden, costos que se reparten, carteras, decisiones que no se pueden deshacer y, al final, un árbol de métricas y un caso de viabilidad que otra persona puede recalcular.
+La [Parte 10](../part-10-descubrimiento-y-estrategia-de-producto/README.md) dejó un brief respaldado por evidencia: qué problema merece atención y qué se sabe de él. La pregunta cambia de «qué merece construirse» a «puede sostenerse, cómo sabremos si funciona y qué decidimos con la incertidumbre que queda». Esta parte continúa con la **plataforma de entregas de tareas**, un caso sintético que recorre las doce clases: un modelo de negocio con centros educativos como clientes, un costo de propiedad que no es solo construir, métricas que se confunden con actividad, retención que se lee mal, telemetría que identifica sin querer, experimentos que se rompen, metas que arrastran lo que no miden, costos que se reparten, carteras, decisiones que no se pueden deshacer y, al final, un árbol de métricas y un caso de viabilidad que otra persona puede recalcular.
 
 ## Pregunta rectora
 
@@ -33,7 +33,7 @@ Al finalizar podrás defender una decisión de producto con supuestos declarados
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir y comparar sin confundir un resultado con un modelo.
 - [Parte 10 — Descubrimiento y estrategia de producto](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-10-descubrimiento-y-estrategia-de-producto/): problema, evidencia, hipótesis y brief.
 - Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar y datos sintéticos.
@@ -134,7 +134,7 @@ El estudiante deja `metric-tree.md`. `SE-144` lo usa como base.
 
 El proyecto integra supuestos con rango, valor presente como intervalo (mediana 459 mil, p5 −470 mil, p95 2 962 mil, 72,9 % de probabilidad de ser positivo), oscilación por supuesto, una compuerta de abandono cuyo costo se mide y un validador que detecta 12 de 16 mutaciones.
 
-El estudiante entrega el caso, el validador con sus pruebas, el registro de mutaciones y la decisión con responsable y fecha. La Parte 12 usa este caso como contexto para elicitar requisitos.
+El estudiante entrega el caso, el validador con sus pruebas, el registro de mutaciones y la decisión con responsable y fecha. La [Parte 12](../part-12-ingenieria-de-requisitos/README.md) usa este caso como contexto para elicitar requisitos.
 
 ## Resumen operativo del recorrido
 
@@ -155,7 +155,7 @@ El estudiante entrega el caso, el validador con sus pruebas, el registro de muta
 
 ## Proyecto integrador
 
-El proyecto **SE-144** entrega un caso de viabilidad con supuestos declarados con rango, fuente y estado, valor presente como intervalo con probabilidad de ser positivo, oscilación por supuesto, una regla de abandono con su efecto en riesgo y en valor esperado, una decisión con responsable y fecha y los límites. Se acompaña de un validador con sus pruebas y el registro de dieciséis mutaciones con las que sobreviven explicadas.
+El proyecto **[SE-144](./se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md)** entrega un caso de viabilidad con supuestos declarados con rango, fuente y estado, valor presente como intervalo con probabilidad de ser positivo, oscilación por supuesto, una regla de abandono con su efecto en riesgo y en valor esperado, una decisión con responsable y fecha y los límites. Se acompaña de un validador con sus pruebas y el registro de dieciséis mutaciones con las que sobreviven explicadas.
 
 ## Criterios de salida
 

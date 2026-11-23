@@ -1,6 +1,6 @@
 # Parte 31 — Integración, eventos y mensajería
 
-La Parte 29 dejó una capa de datos correcta dentro de un servicio. La pregunta cambia de «qué pasa con los datos de un servicio» a «qué pasa cuando varios sistemas deben ponerse de acuerdo sin compartir una transacción, un reloj ni un horario de despliegue». Esta parte trabaja sobre **el flujo de la plataforma de entregas de tareas**, un caso sintético: una entrega llega, se guarda, se califica, se avisa al estudiante y se registra para análisis, con un calificador, un servicio de avisos, una analítica y un sistema académico externo. Recorre la elección entre esperar una respuesta y dejar un mensaje, la diferencia entre comandos, eventos y documentos, las colas, los tópicos y los logs, las semánticas de entrega, orden y duplicación, el outbox, la inbox y las sagas, la captura de cambios y la sincronización de bases, los webhooks y el sondeo, la compatibilidad de esquemas, la traducción entre modelos, la observabilidad y la seguridad de las integraciones, un taller para provocar y contener duplicados y un proyecto de flujo tolerante a reintentos.
+La [Parte 29](../part-29-datos-persistencia-y-recuperacion/README.md) dejó una capa de datos correcta dentro de un servicio. La pregunta cambia de «qué pasa con los datos de un servicio» a «qué pasa cuando varios sistemas deben ponerse de acuerdo sin compartir una transacción, un reloj ni un horario de despliegue». Esta parte trabaja sobre **el flujo de la plataforma de entregas de tareas**, un caso sintético: una entrega llega, se guarda, se califica, se avisa al estudiante y se registra para análisis, con un calificador, un servicio de avisos, una analítica y un sistema académico externo. Recorre la elección entre esperar una respuesta y dejar un mensaje, la diferencia entre comandos, eventos y documentos, las colas, los tópicos y los logs, las semánticas de entrega, orden y duplicación, el outbox, la inbox y las sagas, la captura de cambios y la sincronización de bases, los webhooks y el sondeo, la compatibilidad de esquemas, la traducción entre modelos, la observabilidad y la seguridad de las integraciones, un taller para provocar y contener duplicados y un proyecto de flujo tolerante a reintentos.
 
 ## Pregunta rectora
 
@@ -37,7 +37,7 @@ Al finalizar podrás defender un flujo integrado con sus invariantes, su contrat
 ## Prerrequisitos enlazados
 
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): contratos, compatibilidad entre versiones y pruebas de contrato.
-- [Parte 19 — Web, front-end y aplicaciones progresivas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/): entradas no confiables, firmas y seguridad de interfaces.
+- [Parte 19 — Web, frontend y aplicaciones progresivas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/): entradas no confiables, firmas y seguridad de interfaces.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y trabajo asíncrono.
 - [Parte 27 — Arquitectura de software y dominio](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-arquitectura-de-software-y-dominio/): contextos delimitados y decisiones registradas.
 - [Parte 29 — Datos, persistencia y recuperación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-datos-persistencia-y-recuperacion/): transacciones, migraciones compatibles y copias de seguridad.
@@ -102,7 +102,7 @@ El estudiante entrega el esquema de outbox e inbox y la saga con su pivote. `SE-
 
 #### SE-378 — CDC, ETL, ELT y sincronización
 
-Sincronizar es elegir qué cambios se ven y cómo se aplican. La clase mide qué filas faltan, sobran o están viejas según el método de detección, compara el ahorro de lectura de la copia incremental con el costo de escritura de registrar cambios y aplica eventos repetidos y desordenados con y sin versión. La ampliación añade controles de calidad de un lote (qué defecto ve cada control) y linaje de tabla frente a linaje de columna; la Parte 30, aún no publicada, retoma el tema con almacenes y gobierno del dato.
+Sincronizar es elegir qué cambios se ven y cómo se aplican. La clase mide qué filas faltan, sobran o están viejas según el método de detección, compara el ahorro de lectura de la copia incremental con el costo de escritura de registrar cambios y aplica eventos repetidos y desordenados con y sin versión. La ampliación añade controles de calidad de un lote (qué defecto ve cada control) y linaje de tabla frente a linaje de columna; la [Parte 30](../part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md), aún no publicada, retoma el tema con almacenes y gobierno del dato.
 
 El estudiante entrega el mecanismo de sincronización de cada destino con su arranque y su reconciliación. `SE-379` pregunta cómo avisarse con sistemas ajenos.
 
@@ -146,7 +146,7 @@ El estudiante entrega la matriz de defensas por causas y un procedimiento de dia
 
 Un paquete completo no es un paquete correcto. El proyecto mide qué detecta un validador sobre 200 mutaciones, compara un flujo ingenuo con uno tolerante bajo fallas combinadas y calcula el pico de carga de 600 reintentos simultáneos con y sin aleatoriedad.
 
-El estudiante entrega el paquete de integración, el validador, la simulación y `LIMITES.md`. La Parte 32 lleva estas ideas a la concurrencia y a los sistemas distribuidos.
+El estudiante entrega el paquete de integración, el validador, la simulación y `LIMITES.md`. La [Parte 32](../part-32-concurrencia-y-sistemas-distribuidos/README.md) lleva estas ideas a la concurrencia y a los sistemas distribuidos.
 
 ## Resumen operativo del recorrido
 

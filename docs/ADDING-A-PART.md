@@ -34,7 +34,7 @@ paso); `validate_class_contracts.py` lo exige. El modelo de profundidad y forma 
 | Ruta | Contenido |
 | --- | --- |
 | `content/part-NN/README.md` | guía de la parte (con «Evidencia medida y límites») |
-| `content/part-NN/SE-NNN.md` ×12 | clases íntegras; figuras como `](figures/<archivo>.svg)` |
+| `content/part-NN/SE-NNN.md` ×12 | clases íntegras; figuras con la ruta relativa `figures/<archivo>.svg` |
 | `content/part-NN/part.json` | `{"sources": ["ID", …], "extra_sources": [{…}]}`: fuentes iniciales de la parte; `extra_sources` usa el formato de `sources/baseline.json` (`id`, `title`, `authority`, `url`, `status`, `used_for`) y sirve para fuentes que no están en la línea base |
 | `scripts/figures_partNN_a.py`, `_b.py` | diccionario `FIGURES` (nombre de archivo → constructor); tres figuras por clase |
 | `scripts/experiments_partNN_*.py` | experimentos reproducibles (semilla fija o mediciones reales) |
@@ -164,3 +164,13 @@ vacante) ni en las guías de rol hasta que exista su contenido completo
 - **Ampliaciones de clases existentes** (CRDT y consenso, software verde, InnerSource):
   se hacen dentro del ID existente (`SE-260`, `SE-391`, `SE-022` y
   `SE-200`), sin renumerar ni añadir IDs.
+
+## Referencias cruzadas
+
+Escribe `SE-nnn` y `Parte NN` como texto normal en `content/` y en los generadores: la publicación
+(`scripts/cross_references.py`, invocado por `build_phase2/3/4`, `build_cases` y `build_role_guides`) las
+convierte en enlaces relativos a la clase o parte y a su página del portal, y reescribe cualquier
+«Parte NN — nombre» al título oficial de `curriculum.yaml`. No enlaces a mano ni cites títulos de memoria.
+`tests/test_cross_references.py` falla si una página publicada conserva una mención desnuda, inexistente
+o con un nombre de parte distinto del oficial. Los documentos históricos (`docs/ID-MIGRATION*`, ADR,
+`CHANGELOG.md`, tracker y `site/legacy/`) están exentos.

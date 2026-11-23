@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: una regla de negocio en cinco paradigmas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué diferencias reales aparecen al implementar la misma regla en cinco modelos?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: una regla de negocio en cinco paradigmas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué diferencias reales aparecen al implementar la misma regla en cinco modelos?**
 
 ## Prerrequisitos
 

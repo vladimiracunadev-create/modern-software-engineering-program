@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues una aplicación web de entregas accesible y utilizable sin conexión **junto con un paquete de evidencia que otra persona pueda revisar**: el manifiesto, las estrategias de caché, la tabla de estados, las URLs, las cabeceras, el presupuesto, el informe de accesibilidad con sus dos columnas y una matriz de pruebas con sus límites. Un proyecto profesional no se evalúa por lo que funciona en tu máquina, sino por lo que otra persona puede comprobar y por lo que declaras que no comprobaste.
 
-**Por qué aparece aquí.** Cierra la **Parte 19** después de **Taller: construir un flujo web resiliente**: las clases `SE-229` a `SE-238` aportaron las piezas y `SE-239` las ensambló en un flujo; este proyecto las empaqueta como un entregable con criterios de aceptación. Introduce además tres verificaciones que cierran la parte: un validador del manifiesto con mutaciones, una auditoría de cabeceras contra un servidor local y una matriz de pruebas reducida con cobertura de pares, cuyo límite se mide.
+**Por qué aparece aquí.** Cierra la **[Parte 19](../README.md)** después de **Taller: construir un flujo web resiliente**: las clases `SE-229` a `SE-238` aportaron las piezas y `SE-239` las ensambló en un flujo; este proyecto las empaqueta como un entregable con criterios de aceptación. Introduce además tres verificaciones que cierran la parte: un validador del manifiesto con mutaciones, una auditoría de cabeceras contra un servidor local y una matriz de pruebas reducida con cobertura de pares, cuyo límite se mide.
 
 **Error conceptual que debe corregir.** Creer que una aplicación «pasa» porque el manifiesto es válido, las cabeceras son correctas y la matriz de pruebas es pequeña: cada una de esas comprobaciones deja fuera una clase de defecto (archivos que no existen, un service worker que no se actualiza, interacciones de tres factores) y el paquete debe decir cuáles.
 
@@ -207,7 +207,7 @@ Entrega el paquete completo con `verify.py` y `LIMITES.md`. Se aprueba si otra p
 
 ## Caso conductor
 
-El proyecto cierra el caso conductor de la Parte 19: la aplicación web de entregas con conectividad irregular queda empaquetada con su evidencia. Las partes siguientes del programa (por ejemplo, las que tratan de aplicaciones móviles y de escritorio) reutilizan el método: criterios comprobables, verificadores con mutaciones, declaración de límites. Cambia después una sola decisión, el icono maskable, y revisa qué comprobaciones y qué evidencias hay que repetir.
+El proyecto cierra el caso conductor de la [Parte 19](../README.md): la aplicación web de entregas con conectividad irregular queda empaquetada con su evidencia. Las partes siguientes del programa (por ejemplo, las que tratan de aplicaciones móviles y de escritorio) reutilizan el método: criterios comprobables, verificadores con mutaciones, declaración de límites. Cambia después una sola decisión, el icono maskable, y revisa qué comprobaciones y qué evidencias hay que repetir.
 
 ## Preguntas frecuentes
 
@@ -312,7 +312,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la matriz de 1
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El manifiesto, el servidor de ocho respuestas y los 60 defectos de tres factores son construcciones del autor; no se instaló la aplicación, no se ejecutó un service worker en un navegador y no se evaluó con personas con discapacidad. Este proyecto cierra la Parte 19; la siguiente parte del programa cambia de superficie.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El manifiesto, el servidor de ocho respuestas y los 60 defectos de tres factores son construcciones del autor; no se instaló la aplicación, no se ejecutó un service worker en un navegador y no se evaluó con personas con discapacidad. Este proyecto cierra la [Parte 19](../README.md); la siguiente parte del programa cambia de superficie.
 
 ## Glosario
 

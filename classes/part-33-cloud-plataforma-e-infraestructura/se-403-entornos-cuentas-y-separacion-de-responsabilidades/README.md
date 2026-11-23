@@ -216,7 +216,7 @@ Entrega `entornos-y-cuentas.md` con la predicción, las tres tablas reproducidas
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el séptimo artefacto: el mapa de cuentas, la promoción y las separaciones de funciones. `SE-404` pregunta cuánta capacidad hay en cada entorno y cuánto cuesta. Cambia una estructura, por ejemplo fusionar preproducción y producción, y mira cuánto crece el porcentaje de errores que cruzan.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el séptimo artefacto: el mapa de cuentas, la promoción y las separaciones de funciones. `SE-404` pregunta cuánta capacidad hay en cada entorno y cuánto cuesta. Cambia una estructura, por ejemplo fusionar preproducción y producción, y mira cuánto crece el porcentaje de errores que cruzan.
 
 ## Preguntas frecuentes
 

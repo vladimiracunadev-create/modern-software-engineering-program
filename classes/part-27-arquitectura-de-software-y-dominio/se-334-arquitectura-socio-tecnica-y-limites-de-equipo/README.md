@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates la estructura de los equipos como parte de la arquitectura: para que midas cuánta coordinación exige un reparto de módulos, cuánto conocimiento se pierde cuando alguien se va y cuánto se alarga un cambio que pasa por varios equipos.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Trade-offs, ADR y evaluación de alternativas**: `SE-333` registró decisiones técnicas; esas decisiones las ejecutan personas organizadas de cierta forma, y esa forma las condiciona. Una arquitectura que ignora la organización que la construye termina reproduciendo el organigrama, quiera o no.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Trade-offs, ADR y evaluación de alternativas**: `SE-333` registró decisiones técnicas; esas decisiones las ejecutan personas organizadas de cierta forma, y esa forma las condiciona. Una arquitectura que ignora la organización que la construye termina reproduciendo el organigrama, quiera o no.
 
 **Error conceptual que debe corregir.** Creer que la arquitectura es un asunto puramente técnico y la organización un asunto aparte: los límites de los equipos fijan quién puede cambiar qué sin pedir permiso, y por tanto qué fronteras técnicas se sostienen.
 

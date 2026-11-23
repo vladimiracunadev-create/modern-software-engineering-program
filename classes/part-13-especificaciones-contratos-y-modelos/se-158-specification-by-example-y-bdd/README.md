@@ -199,7 +199,7 @@ Entrega `examples-log.md` con los escenarios, las once variantes (o las tuyas), 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja los escenarios de la regla de penalización con una suite que separa las lecturas de `SE-157` y un comprobador de forma. `SE-159` convertirá lo que esos ejemplos tienen en común en afirmaciones válidas para todos los casos, como «la nota final nunca supera la nota entregada». Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa qué escenarios deben cambiar y cuáles no.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja los escenarios de la regla de penalización con una suite que separa las lecturas de `SE-157` y un comprobador de forma. `SE-159` convertirá lo que esos ejemplos tienen en común en afirmaciones válidas para todos los casos, como «la nota final nunca supera la nota entregada». Cambia después una sola decisión, el tope del 50 % al 30 %, y revisa qué escenarios deben cambiar y cuáles no.
 
 ## Preguntas frecuentes
 

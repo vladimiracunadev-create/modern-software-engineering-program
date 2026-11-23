@@ -1,6 +1,6 @@
 # Parte 17 — Documentación y conocimiento técnico
 
-La Parte 16 terminó con cambios que otra persona puede revisar. La pregunta cambia de «cómo se propone un cambio» a «cómo sabe alguien qué hay, por qué es así y qué hacer cuando falla». Esta parte trabaja sobre el **portal documental de la plataforma de entregas de tareas**, un caso sintético que retoma la regla de penalización por entrega tardía de la Parte 13 y la documenta para estudiantes, docentes, secretaría, mantenimiento y agentes sin que cuatro textos digan cuatro cosas.
+La [Parte 16](../part-16-git-colaboracion-y-codigo-abierto/README.md) terminó con cambios que otra persona puede revisar. La pregunta cambia de «cómo se propone un cambio» a «cómo sabe alguien qué hay, por qué es así y qué hacer cuando falla». Esta parte trabaja sobre el **portal documental de la plataforma de entregas de tareas**, un caso sintético que retoma la regla de penalización por entrega tardía de la [Parte 13](../part-13-especificaciones-contratos-y-modelos/README.md) y la documenta para estudiantes, docentes, secretaría, mantenimiento y agentes sin que cuatro textos digan cuatro cosas.
 
 ## Pregunta rectora
 
@@ -162,7 +162,7 @@ El estudiante entrega el portal, la política de retirada, el paquete con su hue
 
 ## Proyecto integrador
 
-El proyecto **SE-216** entrega un portal documental con páginas por tipo, dueños y fechas, decisiones registradas con suposiciones, una API con ejemplos ejecutados, runbooks con pasos clasificados, un glosario, metadatos validados, una política para las páginas retiradas, tres versiones etiquetadas, una auditoría que reúne los comprobadores de la parte, un paquete con huella reproducible en dos sistemas y un informe que separa lo comprobado, lo inferido y lo no ejecutado. Se acompaña de los límites declarados y de la lista de defectos que ninguna comprobación ve.
+El proyecto **[SE-216](./se-216-proyecto-portal-documental-versionado/README.md)** entrega un portal documental con páginas por tipo, dueños y fechas, decisiones registradas con suposiciones, una API con ejemplos ejecutados, runbooks con pasos clasificados, un glosario, metadatos validados, una política para las páginas retiradas, tres versiones etiquetadas, una auditoría que reúne los comprobadores de la parte, un paquete con huella reproducible en dos sistemas y un informe que separa lo comprobado, lo inferido y lo no ejecutado. Se acompaña de los límites declarados y de la lista de defectos que ninguna comprobación ve.
 
 ## Criterios de salida
 

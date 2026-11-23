@@ -194,7 +194,7 @@ Entrega `visual-log.md` con los tokens de la plataforma, la tabla de distancia d
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja los tokens de color y tipografía, las señales redundantes de estado y las comprobaciones de contraste y reflujo. `SE-176` adaptará esa maquetación a anchos y preferencias, y `SE-177` a idiomas y formatos. Cambia después un solo token, el color de error, y revisa qué pares, qué estados y qué capturas dependían de él.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja los tokens de color y tipografía, las señales redundantes de estado y las comprobaciones de contraste y reflujo. `SE-176` adaptará esa maquetación a anchos y preferencias, y `SE-177` a idiomas y formatos. Cambia después un solo token, el color de error, y revisa qué pares, qué estados y qué capturas dependían de él.
 
 ## Preguntas frecuentes
 

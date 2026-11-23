@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para reunir modelo de negocio, costos, métricas, riesgos y reversibilidad en un caso de viabilidad que otra persona puede recalcular, cuestionar y decidir sin pedir contexto: un valor presente con rango, un supuesto dominante, una regla de abandono y una decisión con responsable y fecha.
 
-**Por qué aparece aquí.** Cierra la **Parte 11** después de **Taller: diseñar un árbol de métricas** y antes de la **Parte 12**: las clases 133 a 143 produjeron las piezas (economía unitaria, costo de propiedad, métricas, telemetría, experimentos, guardas, costo por resultado, cartera, reversibilidad y árbol); este proyecto las integra. Lo que entrega alimenta la ingeniería de requisitos: un caso de viabilidad aprobado es el contexto de las decisiones que `SE-145` en adelante tomarán sobre qué construir.
+**Por qué aparece aquí.** Cierra la **[Parte 11](../README.md)** después de **Taller: diseñar un árbol de métricas** y antes de la **[Parte 12](../../part-12-ingenieria-de-requisitos/README.md)**: las clases 133 a 143 produjeron las piezas (economía unitaria, costo de propiedad, métricas, telemetría, experimentos, guardas, costo por resultado, cartera, reversibilidad y árbol); este proyecto las integra. Lo que entrega alimenta la ingeniería de requisitos: un caso de viabilidad aprobado es el contexto de las decisiones que `SE-145` en adelante tomarán sobre qué construir.
 
 **Error conceptual que debe corregir.** Creer que un caso de viabilidad con un valor presente positivo y un validador en verde está decidido, y que una regla de abandono sirve para aumentar el valor esperado.
 
@@ -198,7 +198,7 @@ Entrega `viability-case.md` con la tabla de supuestos, el valor presente como in
 
 ## Caso conductor
 
-La plataforma de entregas de tareas cierra aquí su recorrido por la Parte 11 con un caso de viabilidad. Reúne el modelo de negocio (`SE-133`), el costo de propiedad (`SE-134`), las definiciones de adopción y retención (`SE-136`), el árbol de métricas (`SE-143`) y las reglas de reversibilidad (`SE-142`). La Parte 12 usará este caso como contexto para elicitar, analizar y especificar requisitos. Cambia después un supuesto —por ejemplo, el tamaño de los centros— y revisa qué conclusiones del caso cambian.
+La plataforma de entregas de tareas cierra aquí su recorrido por la [Parte 11](../README.md) con un caso de viabilidad. Reúne el modelo de negocio (`SE-133`), el costo de propiedad (`SE-134`), las definiciones de adopción y retención (`SE-136`), el árbol de métricas (`SE-143`) y las reglas de reversibilidad (`SE-142`). La [Parte 12](../../part-12-ingenieria-de-requisitos/README.md) usará este caso como contexto para elicitar, analizar y especificar requisitos. Cambia después un supuesto —por ejemplo, el tamaño de los centros— y revisa qué conclusiones del caso cambian.
 
 ## Preguntas frecuentes
 
@@ -295,7 +295,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la plataforma 
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna plataforma, mercado ni empresa real; los rangos, la forma del modelo, la independencia entre supuestos, el ruido de la señal del mes 6 y las dieciséis mutaciones son supuestos o elecciones del autor, de modo que la exactitud real del validador es desconocida. La Parte 12 pasa de decidir si financiar a elicitar y especificar qué construir.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna plataforma, mercado ni empresa real; los rangos, la forma del modelo, la independencia entre supuestos, el ruido de la señal del mes 6 y las dieciséis mutaciones son supuestos o elecciones del autor, de modo que la exactitud real del validador es desconocida. La [Parte 12](../../part-12-ingenieria-de-requisitos/README.md) pasa de decidir si financiar a elicitar y especificar qué construir.
 
 ## Glosario
 

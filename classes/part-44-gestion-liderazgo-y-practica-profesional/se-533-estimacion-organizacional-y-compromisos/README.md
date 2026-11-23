@@ -197,7 +197,7 @@ Entrega `compromisos-log.md` con la predicción, las tres tablas, el pronóstico
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el quinto artefacto: un compromiso probabilístico con regla de carga. `SE-534` preguntará cómo se gestionan los riesgos que ese compromiso asume y cómo se presentan decisiones ejecutivas, y `SE-537` cómo se traduce el tiempo en costo. Cambia después un solo dato, la carga del equipo de 85 % a 95 %, y observa cómo cambia el ciclo y con él la fecha prometida.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el quinto artefacto: un compromiso probabilístico con regla de carga. `SE-534` preguntará cómo se gestionan los riesgos que ese compromiso asume y cómo se presentan decisiones ejecutivas, y `SE-537` cómo se traduce el tiempo en costo. Cambia después un solo dato, la carga del equipo de 85 % a 95 %, y observa cómo cambia el ciclo y con él la fecha prometida.
 
 ## Preguntas frecuentes
 

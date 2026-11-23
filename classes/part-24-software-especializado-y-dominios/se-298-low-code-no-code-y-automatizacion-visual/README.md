@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates una automatización construida con bloques visuales como software de producción: tiene ramas que probar, eventos que llegan repetidos, un responsable que puede irse y límites de plataforma que no se ven en el lienzo. Quien la revisa o la hereda responde por lo que hace aunque nadie haya escrito una línea de código.
 
-**Por qué aparece aquí.** Es la décima clase de la **Parte 24**, después de **Sistemas geoespaciales y temporales**: allí las convenciones ocultas eran el sistema de referencia y la zona horaria; aquí son las del motor que ejecuta el flujo. Cierra la serie de dominios individuales: es el dominio donde más personas crean software sin formación de ingeniería, de modo que concentra los riesgos de las clases anteriores (duplicados de `SE-290`, cobros repetidos de `SE-294`, datos sensibles de `SE-295`) en manos que no los esperan. El caso conductor sigue siendo la plataforma educativa ficticia: una automatización de avisos que lee una hoja de cálculo y envía mensajes a estudiantes.
+**Por qué aparece aquí.** Es la décima clase de la **[Parte 24](../README.md)**, después de **Sistemas geoespaciales y temporales**: allí las convenciones ocultas eran el sistema de referencia y la zona horaria; aquí son las del motor que ejecuta el flujo. Cierra la serie de dominios individuales: es el dominio donde más personas crean software sin formación de ingeniería, de modo que concentra los riesgos de las clases anteriores (duplicados de `SE-290`, cobros repetidos de `SE-294`, datos sensibles de `SE-295`) en manos que no los esperan. El caso conductor sigue siendo la plataforma educativa ficticia: una automatización de avisos que lee una hoja de cálculo y envía mensajes a estudiantes.
 
 **Error conceptual que debe corregir.** Creer que «no-code» significa «sin ingeniería». Quitar el código quita la sintaxis, no las decisiones: quedan las condiciones, los reintentos, los permisos, los datos y la responsabilidad, solo que escondidas en un diagrama que parece sencillo.
 
@@ -229,7 +229,7 @@ Entrega `flow-log.md` con la predicción, la tabla de pares, la de duplicados, l
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el décimo artefacto: la automatización de avisos con pruebas de pares, receptor idempotente de 24 horas, dos responsables y un registro de ejecuciones. `SE-299` es el taller que compara los riesgos de todos los dominios vistos. Cambia después una sola decisión, el número de responsables, y observa qué fracción de flujos queda sin dueño a los cinco años.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el décimo artefacto: la automatización de avisos con pruebas de pares, receptor idempotente de 24 horas, dos responsables y un registro de ejecuciones. `SE-299` es el taller que compara los riesgos de todos los dominios vistos. Cambia después una sola decisión, el número de responsables, y observa qué fracción de flujos queda sin dueño a los cinco años.
 
 ## Preguntas frecuentes
 

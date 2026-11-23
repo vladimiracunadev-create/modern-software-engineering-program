@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un servicio pequeño pero completo cuyo contrato se pueda comprobar y cuyo comportamiento ante fallos se pueda demostrar: alta con clave de idempotencia, trabajo diferido con outbox, errores con forma única, política de acceso, límites y sondeos. La evidencia no es que funcione, sino cuántas caídas inyectadas sobrevive sin violar sus invariantes y qué alertas dispararía.
 
-**Por qué aparece aquí.** Se sitúa después de **Taller: reparar una API insegura e inconsistente** y antes de **Modelos de aplicación móvil y de escritorio**: `SE-251` reparó una API existente; este proyecto integra en un servicio nuevo los mecanismos de `SE-241` a `SE-250` y declara cuánto de lo que promete se ha comprobado. Es el cierre de la Parte 20 y la base operativa que la Parte 21 supone cuando lleva el producto a móviles y escritorio.
+**Por qué aparece aquí.** Se sitúa después de **Taller: reparar una API insegura e inconsistente** y antes de **Modelos de aplicación móvil y de escritorio**: `SE-251` reparó una API existente; este proyecto integra en un servicio nuevo los mecanismos de `SE-241` a `SE-250` y declara cuánto de lo que promete se ha comprobado. Es el cierre de la [Parte 20](../README.md) y la base operativa que la [Parte 21](../../part-21-software-movil-escritorio-y-multiplataforma/README.md) supone cuando lleva el producto a móviles y escritorio.
 
 **Error conceptual que debe corregir.** Creer que un servicio es «contractual» porque tiene un archivo OpenAPI, y «operable» porque tiene un endpoint de salud. El contrato solo vale si una comprobación detecta que la implementación se aparta de él, y la operabilidad solo vale si hay alertas que salten a tiempo ante los incidentes que importan.
 
@@ -31,7 +31,7 @@ Recupera `SE-251`: la API defectuosa se reparó con pruebas que detectan cada de
 ## Prerrequisitos
 
 - Haber completado `SE-251` o poder explicar qué evidencia entregó y qué quedó abierto.
-- Haber completado la Parte 20 hasta `SE-251` o poder explicar qué mecanismo aporta cada clase.
+- Haber completado la [Parte 20](../README.md) hasta `SE-251` o poder explicar qué mecanismo aporta cada clase.
 - Python 3.11 o posterior; el servicio usa `sqlite3`, `random` y `json`.
 - Saber qué es un objetivo de nivel de servicio (SLO) a nivel de «porcentaje de solicitudes buenas en una ventana».
 
@@ -185,7 +185,7 @@ Entrega `service-log.md` con el contrato, la inyección de caídas en dos diseñ
 
 ## Caso conductor
 
-El proyecto cierra la Parte 20 sobre la plataforma de entregas. Retoma cada clase: `SE-241` para la frontera, `SE-242` y `SE-243` para la interfaz, `SE-244` para los errores, `SE-245` para la identidad, `SE-246` para las claves, `SE-247` para el trabajo, `SE-248` para los archivos, `SE-249` para la protección, `SE-250` para la operación y `SE-251` para la verificación. La Parte 21 lleva el producto a móviles y escritorio, donde el cliente impone nuevas restricciones de conectividad y de actualización. Cambia una sola decisión, el SLO de 99,5 % a 99,9 %, y revisa qué artefactos hay que tocar.
+El proyecto cierra la [Parte 20](../README.md) sobre la plataforma de entregas. Retoma cada clase: `SE-241` para la frontera, `SE-242` y `SE-243` para la interfaz, `SE-244` para los errores, `SE-245` para la identidad, `SE-246` para las claves, `SE-247` para el trabajo, `SE-248` para los archivos, `SE-249` para la protección, `SE-250` para la operación y `SE-251` para la verificación. La [Parte 21](../../part-21-software-movil-escritorio-y-multiplataforma/README.md) lleva el producto a móviles y escritorio, donde el cliente impone nuevas restricciones de conectividad y de actualización. Cambia una sola decisión, el SLO de 99,5 % a 99,9 %, y revisa qué artefactos hay que tocar.
 
 ## Preguntas frecuentes
 
@@ -277,7 +277,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que las cifras sin
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió a ninguna persona: las caídas, el SLO, los incidentes y las mutaciones son construcciones del autor. La Parte 21 lleva el producto a móviles y escritorio.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió a ninguna persona: las caídas, el SLO, los incidentes y las mutaciones son construcciones del autor. La [Parte 21](../../part-21-software-movil-escritorio-y-multiplataforma/README.md) lleva el producto a móviles y escritorio.
 
 ## Glosario
 

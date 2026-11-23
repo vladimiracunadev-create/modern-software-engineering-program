@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Paquetes, módulos y publicación** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué transforma un árbol fuente en artefactos instalables, inmutables y verificables?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Paquetes, módulos y publicación** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué transforma un árbol fuente en artefactos instalables, inmutables y verificables?**
 
 ## Prerrequisitos
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que no empieces una modernización sobre un terreno que se mueve. Modernizar un sistema inestable mezcla dos fuentes de fallo: las del sistema viejo, que ya existían, y las del cambio, que acabas de introducir; sin una base estable no se puede saber cuál es cuál, y cada resultado rojo abre una discusión sin respuesta. La habilidad es definir y verificar una **puerta de entrada a la modernización**: una construcción reproducible, una suite cuyo rojo signifique algo, una caracterización de los puntos calientes, un camino de vuelta probado y una línea base de métricas con su incertidumbre.
 
-**Por qué aparece aquí.** Es el taller de la **Parte 43** y recoge lo anterior: la cartera clasificada (`SE-517`), el mapa de riesgo (`SE-518`), la caracterización (`SE-519`), la política de dependencias (`SE-520`) y la decisión económica reversible (`SE-526`). Prepara el proyecto final, `SE-528`, que ejecutará una migración incremental sobre la base que este taller deje. El caso conductor es el **módulo legado de calificaciones**.
+**Por qué aparece aquí.** Es el taller de la **[Parte 43](../README.md)** y recoge lo anterior: la cartera clasificada (`SE-517`), el mapa de riesgo (`SE-518`), la caracterización (`SE-519`), la política de dependencias (`SE-520`) y la decisión económica reversible (`SE-526`). Prepara el proyecto final, `SE-528`, que ejecutará una migración incremental sobre la base que este taller deje. El caso conductor es el **módulo legado de calificaciones**.
 
 **Error conceptual que debe corregir.** Creer que estabilizar es una fase de limpieza que retrasa lo importante. La estabilización es lo que convierte la modernización en un experimento interpretable: sin ella, un fallo tras el cambio puede ser un test inestable, una construcción que depende de la hora o una regresión real, y no hay manera de distinguirlas. Tampoco es cierto que estabilizar sea «arreglar todo»: es alcanzar un conjunto pequeño de condiciones verificables.
 
@@ -208,7 +208,7 @@ Entrega `estabilizacion-log.md` con la predicción, las tres tablas, las seis co
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Este taller deja el undécimo artefacto: la puerta de entrada con su evidencia y su decisión. `SE-528` ejecuta sobre esa base una migración incremental reversible de principio a fin. Cambia después un solo dato, la probabilidad de fallo de las pruebas inestables de 5 % a 1 %, y observa cuándo los reintentos dejan de ser la causa principal del defecto escondido.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Este taller deja el undécimo artefacto: la puerta de entrada con su evidencia y su decisión. `SE-528` ejecuta sobre esa base una migración incremental reversible de principio a fin. Cambia después un solo dato, la probabilidad de fallo de las pruebas inestables de 5 % a 1 %, y observa cuándo los reintentos dejan de ser la causa principal del defecto escondido.
 
 ## Preguntas frecuentes
 

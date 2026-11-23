@@ -80,7 +80,7 @@ El mapa separa lo que fija la **duración mínima** (el camino crítico del graf
 
 ### 1. La canalización como grafo de jobs
 
-Un **job** es una unidad de trabajo que se ejecuta en un ejecutor aislado, con su propio sistema de archivos, de modo que nada de lo que un job deja en disco está disponible para otro salvo que se transmita de forma explícita. Un **paso** es una instrucción dentro de un job y comparte con sus hermanos el mismo entorno. Las dependencias entre jobs (`needs` en la sintaxis de GitHub Actions) forman un **grafo dirigido sin ciclos**: un job empieza cuando han terminado todos los que necesita. Esa estructura es la que determina qué puede ejecutarse a la vez y qué debe esperar. Diseñar la canalización es decidir dónde cortar: un job grande es simple y lento; muchos jobs pequeños son rápidos y pagan un arranque cada uno (descarga de imagen, preparación del entorno, restauración de caché). Además, cada frontera entre jobs obliga a decidir qué cruza: un binario compilado, un informe, un conjunto de datos de prueba. Lo que cruza se llama artefacto y debería ser inmutable e identificable por su contenido, como se vio en la Parte 39.
+Un **job** es una unidad de trabajo que se ejecuta en un ejecutor aislado, con su propio sistema de archivos, de modo que nada de lo que un job deja en disco está disponible para otro salvo que se transmita de forma explícita. Un **paso** es una instrucción dentro de un job y comparte con sus hermanos el mismo entorno. Las dependencias entre jobs (`needs` en la sintaxis de GitHub Actions) forman un **grafo dirigido sin ciclos**: un job empieza cuando han terminado todos los que necesita. Esa estructura es la que determina qué puede ejecutarse a la vez y qué debe esperar. Diseñar la canalización es decidir dónde cortar: un job grande es simple y lento; muchos jobs pequeños son rápidos y pagan un arranque cada uno (descarga de imagen, preparación del entorno, restauración de caché). Además, cada frontera entre jobs obliga a decidir qué cruza: un binario compilado, un informe, un conjunto de datos de prueba. Lo que cruza se llama artefacto y debería ser inmutable e identificable por su contenido, como se vio en la [Parte 39](../../part-39-build-release-y-cadena-de-suministro/README.md).
 
 ### 2. Camino crítico, ejecutores y anomalías
 
@@ -216,7 +216,7 @@ Entrega `pipeline-log.md` con la predicción, las tres tablas, el grafo con su c
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el segundo artefacto: el grafo de jobs con su camino crítico, la matriz y la clave de caché. `SE-483` decidirá qué comprobaciones bloquean la integración y en qué orden, y `SE-484` dará a esos jobs credenciales de corta vida. Cambia después un solo dato, el arranque por job, y observa si sigue valiendo la pena dividir un job.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el segundo artefacto: el grafo de jobs con su camino crítico, la matriz y la clave de caché. `SE-483` decidirá qué comprobaciones bloquean la integración y en qué orden, y `SE-484` dará a esos jobs credenciales de corta vida. Cambia después un solo dato, el arranque por job, y observa si sigue valiendo la pena dividir un job.
 
 ## Preguntas frecuentes
 

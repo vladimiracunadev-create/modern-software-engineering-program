@@ -214,7 +214,7 @@ Entrega `metrics-log.md` con la predicción, el resumen de plazos, la serie de v
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el noveno artefacto: un tablero de cinco números con su decisión y su contrapeso, con el tamaño de muestra visible. `SE-190` usará esas mediciones para decidir qué mejora del sistema de trabajo probar y cómo saber si funcionó. Cambia después una sola métrica, la velocidad en puntos, de visible a interna, y observa qué decisiones dependían de ella.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el noveno artefacto: un tablero de cinco números con su decisión y su contrapeso, con el tamaño de muestra visible. `SE-190` usará esas mediciones para decidir qué mejora del sistema de trabajo probar y cómo saber si funcionó. Cambia después una sola métrica, la velocidad en puntos, de visible a interna, y observa qué decisiones dependían de ella.
 
 ## Preguntas frecuentes
 

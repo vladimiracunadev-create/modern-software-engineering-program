@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas el requisito conductor de la Parte 12: recuperar borradores cuando la sesión expira. `SE-146` dejó qué hace; ahora la estudiante espera que el borrador reaparezca «rápido», que el servicio esté «siempre disponible» y que sus datos estén «seguros». Recupera lo aprendido: un adjetivo sin criterio no se verifica. La pregunta activa es: **¿qué número, con qué estadístico, en qué ventana y medido de qué manera hace verificable cada adjetivo, y cuál de ellos cede si chocan?**
+Retomas el requisito conductor de la [Parte 12](../README.md): recuperar borradores cuando la sesión expira. `SE-146` dejó qué hace; ahora la estudiante espera que el borrador reaparezca «rápido», que el servicio esté «siempre disponible» y que sus datos estén «seguros». Recupera lo aprendido: un adjetivo sin criterio no se verifica. La pregunta activa es: **¿qué número, con qué estadístico, en qué ventana y medido de qué manera hace verificable cada adjetivo, y cuál de ellos cede si chocan?**
 
 ## Prerrequisitos
 

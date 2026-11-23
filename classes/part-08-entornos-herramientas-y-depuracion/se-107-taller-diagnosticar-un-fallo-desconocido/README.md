@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: diagnosticar un fallo desconocido** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo investigar un fallo desconocido sin saltar de herramienta en herramienta?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: diagnosticar un fallo desconocido** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo investigar un fallo desconocido sin saltar de herramienta en herramienta?**
 
 ## Prerrequisitos
 

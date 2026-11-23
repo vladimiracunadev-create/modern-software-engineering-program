@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase es un taller: parte de una suite de catorce pruebas que «pasan» y exige demostrar, para cada una, qué defecto detecta, que falla con él y pasa sin él, y que no se rompe ante un refactor que conserva el comportamiento. Una prueba cuyo poder de detección no se ha demostrado es una hipótesis; esta clase enseña a convertirla en evidencia.
 
-**Por qué aparece aquí.** Cierra los diez temas anteriores de la Parte 35 aplicándolos a una suite concreta: el riesgo de `SE-421`, las fronteras de `SE-422`, los contratos de `SE-423`, las propiedades de `SE-425`, la mutación de `SE-426` y el entorno de `SE-427` a `SE-430` confluyen en una pregunta práctica: ¿esta prueba sirve? El proyecto `SE-432` usa el resultado como evidencia de la estrategia.
+**Por qué aparece aquí.** Cierra los diez temas anteriores de la [Parte 35](../README.md) aplicándolos a una suite concreta: el riesgo de `SE-421`, las fronteras de `SE-422`, los contratos de `SE-423`, las propiedades de `SE-425`, la mutación de `SE-426` y el entorno de `SE-427` a `SE-430` confluyen en una pregunta práctica: ¿esta prueba sirve? El proyecto `SE-432` usa el resultado como evidencia de la estrategia.
 
 **Error conceptual que debe corregir.** Creer que una prueba que pasa y que ejecuta código «detecta» defectos. Tres de las catorce pruebas del taller matan mutantes sin comprobar ningún valor, una pasa por la razón equivocada y dos se rompen con refactorizaciones que no cambian lo que hace el código.
 

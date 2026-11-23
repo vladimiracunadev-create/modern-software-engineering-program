@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa **el caso de la plataforma de entregas** y reúne las herramientas de la Parte 10. Recupera el problema de `SE-121`, el mapa de actores de `SE-122`, la guía de entrevista de `SE-123`, las hipótesis de `SE-124` a `SE-127`, la priorización de `SE-128`, el protocolo de `SE-129` y los criterios de `SE-130`, y los aplica a una petición. La pregunta activa es: **¿qué habría que averiguar para saber si esta petición describe un problema real?**
+Esta clase continúa **el caso de la plataforma de entregas** y reúne las herramientas de la [Parte 10](../README.md). Recupera el problema de `SE-121`, el mapa de actores de `SE-122`, la guía de entrevista de `SE-123`, las hipótesis de `SE-124` a `SE-127`, la priorización de `SE-128`, el protocolo de `SE-129` y los criterios de `SE-130`, y los aplica a una petición. La pregunta activa es: **¿qué habría que averiguar para saber si esta petición describe un problema real?**
 
 ## Prerrequisitos
 

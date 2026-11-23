@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: empaquetar una capacidad reusable** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo demostrar que una capacidad reusable sobrevive a build, instalación y uso externo?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: empaquetar una capacidad reusable** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo demostrar que una capacidad reusable sobrevive a build, instalación y uso externo?**
 
 ## Prerrequisitos
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que documentes una API de modo que quien la consume pueda usarla sin leer el código, y para que sepas qué parte de esa documentación se comprueba sola (ejemplos ejecutables, firmas, códigos de respuesta) y qué parte depende de que alguien la escriba y la mantenga. Una API publicada es una promesa a terceros, y su documentación es donde la promesa se escribe.
 
-**Por qué aparece aquí.** Se sitúa después de **Diagramas, modelos y documentación visual** y antes de **Runbooks, playbooks y documentación operacional**: los diagramas mostraron estructura; esta clase documenta la frontera que otros cruzan, la que la Parte 13 describió como contrato (OpenAPI, compatibilidad y versionado) y que aquí se estudia desde el lado de quien lee y se equivoca. Deja la técnica de ejecutar los ejemplos que `SE-212` integrará en la publicación.
+**Por qué aparece aquí.** Se sitúa después de **Diagramas, modelos y documentación visual** y antes de **Runbooks, playbooks y documentación operacional**: los diagramas mostraron estructura; esta clase documenta la frontera que otros cruzan, la que la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) describió como contrato (OpenAPI, compatibilidad y versionado) y que aquí se estudia desde el lado de quien lee y se equivoca. Deja la técnica de ejecutar los ejemplos que `SE-212` integrará en la publicación.
 
 **Error conceptual que debe corregir.** Creer que una API documentada es una API con una especificación completa de campos. Un cliente que se equivoca recibe códigos de respuesta, mensajes y estados que la documentación casi nunca cubre, y un ejemplo que no se ejecuta es una promesa sin comprobar.
 
@@ -86,7 +86,7 @@ La documentación suele cubrir el camino feliz. Pero quien integra una API pasa 
 
 ### 4. Qué se promete: estabilidad y versionado
 
-Una API publicada es una promesa a terceros. Documentarla incluye declarar qué es estable (no cambiará sin aviso y ventana), qué es experimental (puede cambiar) y qué es interno (no debe usarse). Sin esa declaración, cada cliente decide por su cuenta qué tomar como contrato, y el proveedor descubre cuáles eran al romperlos. La Parte 13 midió el efecto de esta ambigüedad en la compatibilidad; aquí interesa que el contrato escrito sea lo que el consumidor ve.
+Una API publicada es una promesa a terceros. Documentarla incluye declarar qué es estable (no cambiará sin aviso y ventana), qué es experimental (puede cambiar) y qué es interno (no debe usarse). Sin esa declaración, cada cliente decide por su cuenta qué tomar como contrato, y el proveedor descubre cuáles eran al romperlos. La [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) midió el efecto de esta ambigüedad en la compatibilidad; aquí interesa que el contrato escrito sea lo que el consumidor ve.
 
 ### 5. Cobertura no es calidad
 
@@ -211,7 +211,7 @@ Entrega la API de ejemplo, los diez ejemplos, el ejecutor, la tabla de códigos 
 
 ## Caso conductor
 
-La API de la plataforma de entregas, cuyo contrato describió la Parte 13, queda documentada con ejemplos que se ejecutan y una página de errores. Esta clase deja el ejecutor de ejemplos, que `SE-212` integra en la publicación, y la tabla de códigos observados, que `SE-211` reutiliza al documentar qué hacer cuando un código inesperado aparece en producción.
+La API de la plataforma de entregas, cuyo contrato describió la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md), queda documentada con ejemplos que se ejecutan y una página de errores. Esta clase deja el ejecutor de ejemplos, que `SE-212` integra en la publicación, y la tabla de códigos observados, que `SE-211` reutiliza al documentar qué hacer cuando un código inesperado aparece en producción.
 
 ## Preguntas frecuentes
 

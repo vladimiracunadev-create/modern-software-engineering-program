@@ -22,7 +22,7 @@
 
 El software que no puede reconstruirse ni atribuirse es difícil de parchear y confiar.
 Build & Release Engineering gobierna toolchains, dependencias, versionado, artefactos,
-promoción y entrega para reducir variación y riesgo de supply chain.
+promoción y entrega para reducir variación y riesgo de cadena de suministro.
 
 ## 🗓️ Un día en el puesto
 
@@ -47,11 +47,11 @@ release strategies y respuesta a dependencias comprometidas.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 01–09 para toolchains, paquetes y automatización.
-2. Partes 16–18 para Git, releases y documentación.
-3. Parte 33 y [Parte 39 — Build, release y supply chain](../classes/part-39-build-release-y-cadena-de-suministro/README.md).
-4. Partes 35–36 y 38–41 para gates, seguridad, despliegue y observación.
-5. Parte 43 para parches y EOL.
+1. Partes [01](../classes/part-01-computadores-y-representacion-de-informacion/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) para toolchains, paquetes y automatización.
+2. Partes [16](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)–[18](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) para Git, releases y documentación.
+3. [Parte 33](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) y [Parte 39 — Build, release y cadena de suministro](../classes/part-39-build-release-y-cadena-de-suministro/README.md).
+4. Partes [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) y [38](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md)–[41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para gates, seguridad, despliegue y observación.
+5. [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) para parches y EOL.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -127,22 +127,22 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-225 · Distribución de binarios y actualizaciones](../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md) | Parte 18 |
-| [SE-259 · Actualizaciones, tiendas y distribución empresarial](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md) | Parte 21 |
-| [SE-262 · Firma, sandbox y seguridad del cliente](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md) | Parte 21 |
-| [SE-471 · Dependencias directas, transitivas y vendorización](../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md) | Parte 39 |
-| [SE-474 · Versionado, compatibilidad y changelog](../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md) | Parte 39 |
-| [SE-475 · Feature flags y entrega progresiva](../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md) | Parte 39 |
-| [SE-477 · Instaladores, paquetes y actualizaciones](../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md) | Parte 39 |
-| [SE-478 · Riesgos de CI y dependencias comprometidas](../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md) | Parte 39 |
-| [SE-479 · Taller: verificar la procedencia de un release](../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md) | Parte 39 |
-| [SE-582 · Sandboxes, reversibilidad y control de daño](../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) | Parte 48 |
-| [SE-583 · Verificación, gates y menú único de validación](../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md) | Parte 48 |
+| [SE-225 · Distribución de binarios y actualizaciones](../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md) | [Parte 18](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
+| [SE-259 · Actualizaciones, tiendas y distribución empresarial](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-259-actualizaciones-tiendas-y-distribucion-empresarial/README.md) | [Parte 21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
+| [SE-262 · Firma, sandbox y seguridad del cliente](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-262-firma-sandbox-y-seguridad-del-cliente/README.md) | [Parte 21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
+| [SE-471 · Dependencias directas, transitivas y vendorización](../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md) | [Parte 39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) |
+| [SE-474 · Versionado, compatibilidad y changelog](../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md) | [Parte 39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) |
+| [SE-475 · Feature flags y entrega progresiva](../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md) | [Parte 39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) |
+| [SE-477 · Instaladores, paquetes y actualizaciones](../classes/part-39-build-release-y-cadena-de-suministro/se-477-instaladores-paquetes-y-actualizaciones/README.md) | [Parte 39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) |
+| [SE-478 · Riesgos de CI y dependencias comprometidas](../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md) | [Parte 39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) |
+| [SE-479 · Taller: verificar la procedencia de un release](../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md) | [Parte 39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) |
+| [SE-582 · Sandboxes, reversibilidad y control de daño](../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) | [Parte 48](../classes/part-48-harness-y-agentic-engineering/README.md) |
+| [SE-583 · Verificación, gates y menú único de validación](../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md) | [Parte 48](../classes/part-48-harness-y-agentic-engineering/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-100](../classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) para fijar el
 primer mecanismo, usa [SE-285](../classes/part-23-runtimes-y-plataformas-modernas/se-285-criptografia-poscuantica-y-migracion/README.md) para integrar el
@@ -152,7 +152,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
@@ -313,7 +313,7 @@ Developer/DevOps → Build Engineer → Release Engineer → Staff Developer Pro
 ## ⚠️ Mitos frecuentes
 
 - “CI verde significa release confiable.” Puede faltar procedencia o recuperación.
-- “El lockfile resuelve supply chain.” Fija selección, no legitimidad ni seguridad.
+- “El lockfile resuelve la cadena de suministro.” Fija selección, no legitimidad ni seguridad.
 - “Rollback es volver al binario.” Datos y contratos también evolucionan.
 
 ## 🚀 Siguientes pasos

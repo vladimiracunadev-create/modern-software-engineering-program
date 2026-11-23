@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas el expediente de la Parte 12 con su inventario de defectos. Varios requisitos que parecían razonables no se pueden probar: «seguro», «rápido», «fácil», «nunca». Recupera lo aprendido en `SE-147`: un adjetivo se vuelve verificable con estadístico, población y ventana, y en `SE-149`: un criterio se vuelve verificable con ejemplos en las fronteras. La pregunta activa es: **¿qué procedimiento, ejecutado por alguien que no escribió la frase, daría un sí o un no, y qué hago cuando ningún procedimiento finito puede darlo?**
+Retomas el expediente de la [Parte 12](../README.md) con su inventario de defectos. Varios requisitos que parecían razonables no se pueden probar: «seguro», «rápido», «fácil», «nunca». Recupera lo aprendido en `SE-147`: un adjetivo se vuelve verificable con estadístico, población y ventana, y en `SE-149`: un criterio se vuelve verificable con ejemplos en las fronteras. La pregunta activa es: **¿qué procedimiento, ejecutado por alguien que no escribió la frase, daría un sí o un no, y qué hago cuando ningún procedimiento finito puede darlo?**
 
 ## Prerrequisitos
 

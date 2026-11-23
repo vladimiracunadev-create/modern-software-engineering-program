@@ -185,7 +185,7 @@ Entrega `release-log.md` con el contrato de entrega, la tabla de integridad, la 
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. Esta clase deja su contrato de entrega: artefacto con resumen y firma, verificación antes de reemplazar, orden de versiones correcto, escalones con umbral y reversión. `SE-226` pregunta cómo obtener la señal de salud sin vigilar a las personas. Cambia después un solo detalle, el umbral de detención de 1 % a 5 %, y mide cuántos clientes más se rompen con cada tasa de defecto.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). Esta clase deja su contrato de entrega: artefacto con resumen y firma, verificación antes de reemplazar, orden de versiones correcto, escalones con umbral y reversión. `SE-226` pregunta cómo obtener la señal de salud sin vigilar a las personas. Cambia después un solo detalle, el umbral de detención de 1 % a 5 %, y mide cuántos clientes más se rompen con cada tasa de defecto.
 
 ## Preguntas frecuentes
 

@@ -222,7 +222,7 @@ Entrega `presupuestos-log.md` con la predicción, las tres tablas de resultados,
 
 ## Caso conductor
 
-El portal de la plataforma de entregas es el caso conductor de la Parte 36. Esta clase deja el décimo artefacto: un presupuesto de experiencia con sus compuertas. `SE-443` reunirá todas las defensas y medidas de la parte en una prueba bajo presión controlada. Cambia después un solo dato, la proporción de teléfonos lentos, y observa qué le pasa al percentil 75 de la población.
+El portal de la plataforma de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el décimo artefacto: un presupuesto de experiencia con sus compuertas. `SE-443` reunirá todas las defensas y medidas de la parte en una prueba bajo presión controlada. Cambia después un solo dato, la proporción de teléfonos lentos, y observa qué le pasa al percentil 75 de la población.
 
 ## Preguntas frecuentes
 

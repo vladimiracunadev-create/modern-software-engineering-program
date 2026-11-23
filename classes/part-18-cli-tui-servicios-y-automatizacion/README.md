@@ -1,6 +1,6 @@
 # Parte 18 — CLI, TUI, servicios y automatización
 
-La Parte 17 terminó con una documentación que otra persona puede seguir. La pregunta cambia de «cómo se explica» a «qué ocurre cuando alguien, o algo, ejecuta la herramienta». Esta parte trabaja sobre `notas`, una **herramienta de línea de comandos sintética** de la plataforma de entregas de tareas que recorre las doce clases: una gramática con dos lectores, un flujo de datos por tuberías, una configuración con fuentes en conflicto, códigos de salida que habilitan decisiones, una presentación que sobrevive a un registro y a un lector de pantalla, un servicio con ciclo de vida, trabajos programados, una publicación que se puede repetir, una entrega con integridad y escalones, una telemetría que pide permiso, un taller que rompe una copia de seguridad diez veces y un paquete que otra persona revisa sin ejecutar nada.
+La [Parte 17](../part-17-documentacion-y-conocimiento-tecnico/README.md) terminó con una documentación que otra persona puede seguir. La pregunta cambia de «cómo se explica» a «qué ocurre cuando alguien, o algo, ejecuta la herramienta». Esta parte trabaja sobre `notas`, una **herramienta de línea de comandos sintética** de la plataforma de entregas de tareas que recorre las doce clases: una gramática con dos lectores, un flujo de datos por tuberías, una configuración con fuentes en conflicto, códigos de salida que habilitan decisiones, una presentación que sobrevive a un registro y a un lector de pantalla, un servicio con ciclo de vida, trabajos programados, una publicación que se puede repetir, una entrega con integridad y escalones, una telemetría que pide permiso, un taller que rompe una copia de seguridad diez veces y un paquete que otra persona revisa sin ejecutar nada.
 
 ## Pregunta rectora
 
@@ -141,7 +141,7 @@ El estudiante deja la matriz antes y después y una lista de fallos que el talle
 
 Un manifiesto declara; las pruebas de contrato comprueban; y lo que ninguno ve exige a una persona. El proyecto ejecuta trece pruebas de contrato en dos sistemas, las prueba con seis defectos inyectados, valida un manifiesto con 102 mutantes y compara esperas fijas con esperas por evento.
 
-El estudiante entrega el paquete operable con la tabla de diferencias entre plataformas y las decisiones humanas abiertas. La Parte 19 pasa de las herramientas de terminal a la plataforma web y las aplicaciones progresivas.
+El estudiante entrega el paquete operable con la tabla de diferencias entre plataformas y las decisiones humanas abiertas. La [Parte 19](../part-19-web-frontend-y-aplicaciones-progresivas/README.md) pasa de las herramientas de terminal a la plataforma web y las aplicaciones progresivas.
 
 ## Resumen operativo del recorrido
 

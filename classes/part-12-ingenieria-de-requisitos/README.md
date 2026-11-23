@@ -1,6 +1,6 @@
 # Parte 12 — Ingeniería de requisitos
 
-La Parte 10 decidió qué problema merece resolverse y la Parte 11 cuánto cuesta y rinde resolverlo. La pregunta cambia de «¿conviene?» a «¿qué exactamente debe hacer el sistema y cómo lo sabremos?». Esta parte sigue la **plataforma de entregas de tareas** y su requisito conductor —recuperar el borrador cuando la sesión expira— a lo largo de doce clases: de dónde sale cada requisito, qué reglas lo gobiernan, con qué calidad debe cumplirse, cómo se cuenta, con qué ejemplos se acepta, en qué orden se hace, cómo se rastrea, qué obligaciones externas lo condicionan, cómo se protege de los cambios, qué defectos esconde y cómo se repara lo que no se puede verificar. Termina en una especificación que otra persona puede revisar sin pedir contexto.
+La [Parte 10](../part-10-descubrimiento-y-estrategia-de-producto/README.md) decidió qué problema merece resolverse y la [Parte 11](../part-11-economia-metricas-y-decisiones-de-producto/README.md) cuánto cuesta y rinde resolverlo. La pregunta cambia de «¿conviene?» a «¿qué exactamente debe hacer el sistema y cómo lo sabremos?». Esta parte sigue la **plataforma de entregas de tareas** y su requisito conductor —recuperar el borrador cuando la sesión expira— a lo largo de doce clases: de dónde sale cada requisito, qué reglas lo gobiernan, con qué calidad debe cumplirse, cómo se cuenta, con qué ejemplos se acepta, en qué orden se hace, cómo se rastrea, qué obligaciones externas lo condicionan, cómo se protege de los cambios, qué defectos esconde y cómo se repara lo que no se puede verificar. Termina en una especificación que otra persona puede revisar sin pedir contexto.
 
 ## Pregunta rectora
 
@@ -33,7 +33,7 @@ Al finalizar podrás defender una especificación con origen, criterio, responsa
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, enumerar y no confundir un resultado con un modelo.
 - [Parte 10 — Descubrimiento y estrategia de producto](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-10-descubrimiento-y-estrategia-de-producto/): el problema y la evidencia de los que parte esta parte.
 - [Parte 11 — Economía, métricas y decisiones de producto](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/): el caso de viabilidad que decide qué especificar.
@@ -132,7 +132,7 @@ El estudiante entrega las reparaciones con su procedimiento y la reformulación 
 
 Una especificación revisable responde sin su autor. El proyecto entrega la especificación, un validador con pruebas y 16 mutaciones (11 detectadas, 5 que escapan), el camino crítico de los requisitos (9 días frente a 17) y la estimación por captura–recaptura de los defectos que dejan dos revisoras, que subestima cuando algunos son difíciles para ambas.
 
-El estudiante entrega el expediente completo. La Parte 13 toma este texto y estudia cómo expresarlo con mayor formalidad.
+El estudiante entrega el expediente completo. La [Parte 13](../part-13-especificaciones-contratos-y-modelos/README.md) toma este texto y estudia cómo expresarlo con mayor formalidad.
 
 ## Resumen operativo del recorrido
 
@@ -153,7 +153,7 @@ El estudiante entrega el expediente completo. La Parte 13 toma este texto y estu
 
 ## Proyecto integrador
 
-El proyecto **SE-156** entrega una especificación con problema, supuestos, fuera de alcance, requisitos con origen, texto singular y verificable, criterio de aceptación, dueño, prioridad y dependencias, la línea base de `SE-153`, las obligaciones de `SE-152` y el inventario de defectos de `SE-154`. Se acompaña de un validador con pruebas, de un registro de mutaciones detectadas y no detectadas, del camino crítico y de un informe de revisión por dos personas con criterios distintos y la estimación de lo que queda por encontrar. La especificación solo respalda lo que el expediente sostiene y declara sus defectos abiertos.
+El proyecto **[SE-156](./se-156-proyecto-especificacion-de-requisitos-revisable/README.md)** entrega una especificación con problema, supuestos, fuera de alcance, requisitos con origen, texto singular y verificable, criterio de aceptación, dueño, prioridad y dependencias, la línea base de `SE-153`, las obligaciones de `SE-152` y el inventario de defectos de `SE-154`. Se acompaña de un validador con pruebas, de un registro de mutaciones detectadas y no detectadas, del camino crítico y de un informe de revisión por dos personas con criterios distintos y la estimación de lo que queda por encontrar. La especificación solo respalda lo que el expediente sostiene y declara sus defectos abiertos.
 
 ## Criterios de salida
 

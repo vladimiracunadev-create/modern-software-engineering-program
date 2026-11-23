@@ -185,7 +185,7 @@ Entrega `instalador-log.md` con la predicción, las tres tablas, el procedimient
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el noveno artefacto: un procedimiento de actualización atómica, verificada y reversible para el cliente de línea de órdenes, con una tabla de rutas de actualización. `SE-478` volverá sobre el canal que construye y firma todo esto: el CI y sus dependencias. Cambia después un solo dato, la frecuencia de lanzamientos, y observa cuántos caminos de actualización aparecen.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el noveno artefacto: un procedimiento de actualización atómica, verificada y reversible para el cliente de línea de órdenes, con una tabla de rutas de actualización. `SE-478` volverá sobre el canal que construye y firma todo esto: el CI y sus dependencias. Cambia después un solo dato, la frecuencia de lanzamientos, y observa cuántos caminos de actualización aparecen.
 
 ## Preguntas frecuentes
 

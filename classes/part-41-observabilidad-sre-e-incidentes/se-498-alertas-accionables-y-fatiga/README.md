@@ -210,7 +210,7 @@ Entrega `alertas-log.md` con la predicción, las tres tablas de resultados repro
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el sexto artefacto: un conjunto de alertas derivadas del SLO, con su ruido medido. `SE-499` define qué hace quien recibe la página: el runbook, la guardia y el escalamiento. Cambia después un solo parámetro, la ventana larga, y observa cuántas degradaciones recuperas y cuántas páginas pagas.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el sexto artefacto: un conjunto de alertas derivadas del SLO, con su ruido medido. `SE-499` define qué hace quien recibe la página: el runbook, la guardia y el escalamiento. Cambia después un solo parámetro, la ventana larga, y observa cuántas degradaciones recuperas y cuántas páginas pagas.
 
 ## Preguntas frecuentes
 

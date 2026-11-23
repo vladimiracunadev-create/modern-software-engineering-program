@@ -4,9 +4,9 @@
 
 ## Punto profesional y fundamento pedagógico
 
-**Punto profesional.** El proyecto existe para que reúnas lo trabajado en la Parte 44 en un dossier que otra persona pueda leer, comprobar y cuestionar sin tu ayuda. Un dossier profesional no es una carpeta con documentos sino un conjunto de afirmaciones, cada una vinculada a una evidencia concreta e inalterada, con sus cifras coherentes entre documentos y con los límites declarados por escrito. La habilidad profesional es diseñar el dossier para quien lo revisa: que cada afirmación se pueda comprobar rápido, que una alteración posterior se detecte y que lo que no se hizo figure donde se espera.
+**Punto profesional.** El proyecto existe para que reúnas lo trabajado en la [Parte 44](../README.md) en un dossier que otra persona pueda leer, comprobar y cuestionar sin tu ayuda. Un dossier profesional no es una carpeta con documentos sino un conjunto de afirmaciones, cada una vinculada a una evidencia concreta e inalterada, con sus cifras coherentes entre documentos y con los límites declarados por escrito. La habilidad profesional es diseñar el dossier para quien lo revisa: que cada afirmación se pueda comprobar rápido, que una alteración posterior se detecte y que lo que no se hizo figure donde se espera.
 
-**Por qué aparece aquí.** Cierra la Parte 44 integrando los artefactos de `SE-529` a `SE-539`: la propuesta con su ruta de adopción, el mapa de propiedad, el mensaje de decisión, el acuerdo de mentoría, el compromiso probabilístico, el registro de riesgos, la matriz de proveedores, el inventario de licencias, el análisis económico, el portafolio y la revisión de una decisión. El caso conductor es **el equipo de plataforma educativa**: el dossier defiende, ante un comité, la decisión de adaptar la exportación al nuevo formato del ministerio con el almacenamiento elegido.
+**Por qué aparece aquí.** Cierra la [Parte 44](../README.md) integrando los artefactos de `SE-529` a `SE-539`: la propuesta con su ruta de adopción, el mapa de propiedad, el mensaje de decisión, el acuerdo de mentoría, el compromiso probabilístico, el registro de riesgos, la matriz de proveedores, el inventario de licencias, el análisis económico, el portafolio y la revisión de una decisión. El caso conductor es **el equipo de plataforma educativa**: el dossier defiende, ante un comité, la decisión de adaptar la exportación al nuevo formato del ministerio con el almacenamiento elegido.
 
 **Error conceptual que debe corregir.** Creer que un dossier completo es un dossier comprobable y que una revisión lee todo. Quien revisa dispone de una hora y examina una muestra: en la simulación de la clase, si 3 de 30 afirmaciones carecen de respaldo y se inspeccionan 5, se descubre alguna solo el 43 % de las veces. Por eso el diseño importa más que la extensión: con una tabla que enlaza cada afirmación con su evidencia y su huella, la misma hora permite comprobar unas 22 afirmaciones en vez de unas 6.
 
@@ -195,7 +195,7 @@ Entrega la carpeta `dossier/` con los siete archivos requeridos (`README.md`, `d
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Este proyecto deja el último artefacto: el dossier, que reúne la propuesta, la propiedad, la comunicación, la mentoría, el compromiso, el riesgo, el proveedor, la licencia, el costo, el portafolio y la revisión. La Parte 46 lleva la mirada al desarrollo de software asistido por IA, donde la comprobabilidad de lo producido se vuelve central. Cambia después un solo dato, el número de afirmaciones sin respaldo de 3 a 6, y observa cuánto aumenta la probabilidad de ser visto con cinco inspecciones.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Este proyecto deja el último artefacto: el dossier, que reúne la propuesta, la propiedad, la comunicación, la mentoría, el compromiso, el riesgo, el proveedor, la licencia, el costo, el portafolio y la revisión. La [Parte 46](../../part-46-desarrollo-de-software-asistido-por-ia/README.md) lleva la mirada al desarrollo de software asistido por IA, donde la comprobabilidad de lo producido se vuelve central. Cambia después un solo dato, el número de afirmaciones sin respaldo de 3 a 6, y observa cuánto aumenta la probabilidad de ser visto con cinco inspecciones.
 
 ## Preguntas frecuentes
 
@@ -291,7 +291,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 43,3 % de p
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre seis dossiers construidos por el autor en un directorio temporal, en Windows y Ubuntu (WSL2), con resultados idénticos. No se revisó ningún dossier ni persona reales; los dossiers de prueba, los tiempos de revisión y la elección uniforme de la muestra son construcciones del autor, y el verificador comprueba forma, integridad y coherencia etiquetada, no veracidad. La Parte 46 lleva la mirada a las capacidades y límites de los modelos generativos y al desarrollo de software asistido por IA.
+Se ejecutaron tres experimentos con datos sintéticos y un verificador sobre seis dossiers construidos por el autor en un directorio temporal, en Windows y Ubuntu (WSL2), con resultados idénticos. No se revisó ningún dossier ni persona reales; los dossiers de prueba, los tiempos de revisión y la elección uniforme de la muestra son construcciones del autor, y el verificador comprueba forma, integridad y coherencia etiquetada, no veracidad. La [Parte 46](../../part-46-desarrollo-de-software-asistido-por-ia/README.md) lleva la mirada a las capacidades y límites de los modelos generativos y al desarrollo de software asistido por IA.
 
 ## Glosario
 

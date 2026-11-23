@@ -30,7 +30,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: comparación semántica con pruebas comunes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo sostener una comparación semántica reproducible sin declarar un ganador universal?**
+Esta clase continúa el **motor de reglas comparado de la [Parte 06](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: comparación semántica con pruebas comunes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo sostener una comparación semántica reproducible sin declarar un ganador universal?**
 
 ## Prerrequisitos
 
@@ -230,7 +230,7 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 
 ## Puente hacia el trabajo con agentes
 
-Cuando un agente propone cambiar una implementación por otra «equivalente», la revisión debería exigir la misma matriz de evidencia: contrato común, prueba diferencial, superficie de cambio, mutantes y límites declarados. El informe de este proyecto es, en pequeño, el artefacto que un revisor humano o automático necesita para aceptar o rechazar un cambio generado. La Parte 07 aplica este tipo de comparación a estructuras de datos y algoritmos, y las partes sobre evaluación de agentes la generalizan a cambios hechos por modelos.
+Cuando un agente propone cambiar una implementación por otra «equivalente», la revisión debería exigir la misma matriz de evidencia: contrato común, prueba diferencial, superficie de cambio, mutantes y límites declarados. El informe de este proyecto es, en pequeño, el artefacto que un revisor humano o automático necesita para aceptar o rechazar un cambio generado. La [Parte 07](../../part-07-estructuras-de-datos-y-algoritmos/README.md) aplica este tipo de comparación a estructuras de datos y algoritmos, y las partes sobre evaluación de agentes la generalizan a cambios hechos por modelos.
 
 ## Transferencia
 
@@ -269,7 +269,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementac
 
 ## Límites y siguiente paso
 
-El proyecto demuestra equivalencia para el corpus y propiedades declaradas, no para todas las entradas posibles ni para cargas de producción. La Parte 7 usará el comportamiento acordado para estudiar estructuras y algoritmos bajo una carga explícita.
+El proyecto demuestra equivalencia para el corpus y propiedades declaradas, no para todas las entradas posibles ni para cargas de producción. La [Parte 7](../../part-07-estructuras-de-datos-y-algoritmos/README.md) usará el comportamiento acordado para estudiar estructuras y algoritmos bajo una carga explícita.
 
 ## Glosario
 

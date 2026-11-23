@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Resolución de dependencias y lockfiles** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo convierte un resolvedor restricciones declaradas en una instalación concreta?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Resolución de dependencias y lockfiles** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo convierte un resolvedor restricciones declaradas en una instalación concreta?**
 
 ## Prerrequisitos
 

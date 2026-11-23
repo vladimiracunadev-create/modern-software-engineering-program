@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -112,7 +112,7 @@ autenticar al servidor. El último caso muestra por qué «desactivar la verific
 
 ![Cuatro intentos reales contra un servidor TLS local con certificado autofirmado, cada uno con su veredicto: sin confianza falla con self-signed certificate (código 18); con la CA del laboratorio funciona con TLS 1.3 y ALPN h2 en 3 ms; con otro nombre falla con Hostname mismatch (código 62); con la verificación desactivada funciona, pero sin protección.](../../../content/part-03/figures/se-043-veredictos-locales.svg)
 
-**Cómo leer la figura.** Cada fila va de una configuración del cliente a su veredicto (coral si falla, teal si funciona y dorado si funciona sin verificar) y a su lectura; los códigos son los de OpenSSL. **Dónde deja de valer:** el laboratorio usa un certificado propio en loopback y no ejercita revocación, transparencia de certificados ni cadenas largas. No sustituye la práctica con un certificado emitido por una CA real, y el laboratorio de la Parte 03 *simula* la validación de nombre sin handshake criptográfico (límite que declara).
+**Cómo leer la figura.** Cada fila va de una configuración del cliente a su veredicto (coral si falla, teal si funciona y dorado si funciona sin verificar) y a su lectura; los códigos son los de OpenSSL. **Dónde deja de valer:** el laboratorio usa un certificado propio en loopback y no ejercita revocación, transparencia de certificados ni cadenas largas. No sustituye la práctica con un certificado emitido por una CA real, y el laboratorio de la [Parte 03](../README.md) *simula* la validación de nombre sin handshake criptográfico (límite que declara).
 
 ### El almacén de confianza también es parte del sistema
 

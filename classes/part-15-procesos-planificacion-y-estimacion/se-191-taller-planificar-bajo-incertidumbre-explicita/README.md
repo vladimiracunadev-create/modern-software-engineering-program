@@ -215,7 +215,7 @@ Entrega `workshop-log.md` con la predicción, la tabla de calibración, la compa
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. El taller deja el undécimo artefacto: un plan de lanzamiento comunicado como distribución, calibrado con retrospectiva, con tres supuestos vigilados. `SE-192` lo convertirá en un plan adaptativo con reglas de replanificación y barreras. Cambia después una sola cosa, el rendimiento de las últimas cuatro semanas, y observa qué parte del plan debe recalcularse.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). El taller deja el undécimo artefacto: un plan de lanzamiento comunicado como distribución, calibrado con retrospectiva, con tres supuestos vigilados. `SE-192` lo convertirá en un plan adaptativo con reglas de replanificación y barreras. Cambia después una sola cosa, el rendimiento de las últimas cuatro semanas, y observa qué parte del plan debe recalcularse.
 
 ## Preguntas frecuentes
 

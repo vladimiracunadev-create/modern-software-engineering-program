@@ -217,7 +217,7 @@ Entrega `portabilidad.md` con la predicción, las tres tablas reproducidas con l
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el noveno artefacto: la estrategia de portabilidad y su costo. `SE-406` pregunta cómo se ofrece todo esto a los equipos sin que cada uno lo reconstruya. Cambia un supuesto, por ejemplo la probabilidad de conmutación, y observa cuánto se mueve la disponibilidad.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el noveno artefacto: la estrategia de portabilidad y su costo. `SE-406` pregunta cómo se ofrece todo esto a los equipos sin que cada uno lo reconstruya. Cambia un supuesto, por ejemplo la probabilidad de conmutación, y observa cuánto se mueve la disponibilidad.
 
 ## Preguntas frecuentes
 

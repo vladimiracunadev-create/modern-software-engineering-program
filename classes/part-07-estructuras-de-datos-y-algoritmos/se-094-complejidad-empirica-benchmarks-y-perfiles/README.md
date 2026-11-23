@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Complejidad empírica, benchmarks y perfiles** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo medir costo sin convertir ruido, calentamiento o una carga irreal en conclusión?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Complejidad empírica, benchmarks y perfiles** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo medir costo sin convertir ruido, calentamiento o una carga irreal en conclusión?**
 
 ## Prerrequisitos
 

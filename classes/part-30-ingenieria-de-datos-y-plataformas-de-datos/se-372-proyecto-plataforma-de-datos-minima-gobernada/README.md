@@ -212,7 +212,7 @@ Entrega `plataforma-de-datos-gobernada.md` con el registro de metadatos de al me
 
 ## Caso conductor
 
-*Avisos* cierra la parte con una plataforma mínima que se puede auditar y romper. Los datos que produce alimentan, en la Parte 50, los sistemas de aprendizaje automático, y ahí los contratos, el linaje y la privacidad dejan de ser opcionales.
+*Avisos* cierra la parte con una plataforma mínima que se puede auditar y romper. Los datos que produce alimentan, en la [Parte 50](../../part-50-machine-learning-en-produccion-y-mlops/README.md), los sistemas de aprendizaje automático, y ahí los contratos, el linaje y la privacidad dejan de ser opcionales.
 
 ## Preguntas frecuentes
 
@@ -288,7 +288,7 @@ Elige tres conjuntos de datos de tu organización y escribe su registro. Impleme
 
 ## Límites y siguiente paso
 
-Los tres conjuntos, las siete reglas y las diez mutaciones son construcciones del autor, y la matriz mide qué familia de defectos ve cada regla, no la tasa de defectos de ninguna plataforma; el control solo corre sobre SQLite y no cubre catálogo, captura de linaje en ejecución, claves gestionadas ni costo. Que el control detecte 9 de 10 no dice que detecte 9 de 10 de los defectos reales. No se evaluó ninguna herramienta. Con esta clase se cierra la Parte 30: lo que sigue en el programa, empezando por la Parte 50, usa estos datos para entrenar y servir modelos, donde la calidad, el linaje y la privacidad de lo que entra determinan lo que sale.
+Los tres conjuntos, las siete reglas y las diez mutaciones son construcciones del autor, y la matriz mide qué familia de defectos ve cada regla, no la tasa de defectos de ninguna plataforma; el control solo corre sobre SQLite y no cubre catálogo, captura de linaje en ejecución, claves gestionadas ni costo. Que el control detecte 9 de 10 no dice que detecte 9 de 10 de los defectos reales. No se evaluó ninguna herramienta. Con esta clase se cierra la [Parte 30](../README.md): lo que sigue en el programa, empezando por la [Parte 50](../../part-50-machine-learning-en-produccion-y-mlops/README.md), usa estos datos para entrenar y servir modelos, donde la calidad, el linaje y la privacidad de lo que entra determinan lo que sale.
 
 ## Glosario
 

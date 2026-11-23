@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que establezcas los **límites** de la práctica: cuánto daño puede pagar el presupuesto de error, quién carga con él, qué privilegios se conceden a la herramienta que inyecta, cuándo un experimento no debe hacerse y qué no puede demostrar la ingeniería del caos. La disciplina tiene una paradoja ética: para reducir el daño de los incidentes provoca daño controlado, y la diferencia entre ambos depende de decisiones de diseño sobre radio, equidad, permisos y calendario.
 
-**Por qué aparece aquí.** Sigue a `SE-512`: allí el caos entró al pipeline y a la producción continua; aquí se pregunta qué le da derecho a un equipo a ejecutar un experimento, quién lo autoriza, con qué permisos y cómo queda registrado. Usa el presupuesto de error de la Parte 41 (`SE-497`), el radio y el aborto de `SE-506` y el experimento acotado de `SE-515`. El caso conductor es el programa de experimentos de la API de entregas.
+**Por qué aparece aquí.** Sigue a `SE-512`: allí el caos entró al pipeline y a la producción continua; aquí se pregunta qué le da derecho a un equipo a ejecutar un experimento, quién lo autoriza, con qué permisos y cómo queda registrado. Usa el presupuesto de error de la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) (`SE-497`), el radio y el aborto de `SE-506` y el experimento acotado de `SE-515`. El caso conductor es el programa de experimentos de la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que «es un experimento controlado» basta como justificación. Un experimento tiene personas afectadas, un costo en presupuesto, privilegios que se pueden abusar y una conclusión limitada; un programa que no declara esas cuatro cosas es un riesgo con buena prensa.
 

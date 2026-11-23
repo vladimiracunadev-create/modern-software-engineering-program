@@ -222,7 +222,7 @@ Entrega `flow-log.md` con la predicción, la tabla de espera, la comprobación d
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el cuarto artefacto: la medición de trabajo en curso, rendimiento y plazo del equipo, y un límite justificado con la ley de Little. `SE-185` usará esos datos como historia para estimar con rangos. Cambia después una sola variable, el tamaño del lote de revisión, y revisa qué cambia en el plazo.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el cuarto artefacto: la medición de trabajo en curso, rendimiento y plazo del equipo, y un límite justificado con la ley de Little. `SE-185` usará esos datos como historia para estimar con rangos. Cambia después una sola variable, el tamaño del lote de revisión, y revisa qué cambia en el plazo.
 
 ## Preguntas frecuentes
 

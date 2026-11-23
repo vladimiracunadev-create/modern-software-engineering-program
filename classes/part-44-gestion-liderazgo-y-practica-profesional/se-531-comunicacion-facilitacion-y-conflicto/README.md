@@ -197,7 +197,7 @@ Entrega `conversacion-log.md` con la predicción, las tres tablas, la agenda de 
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el tercer artefacto: un método de sesión y un mensaje de decisión con acuse. `SE-532` preguntará cómo se transfiere conocimiento y se da retroalimentación entre personas, y `SE-533` cómo se comunican los compromisos con su incertidumbre. Cambia después un solo dato, el sesgo del primero, de 30 % a 60 %, y observa cuánto crece la fracción de ensayos con error mayor al 15 %.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el tercer artefacto: un método de sesión y un mensaje de decisión con acuse. `SE-532` preguntará cómo se transfiere conocimiento y se da retroalimentación entre personas, y `SE-533` cómo se comunican los compromisos con su incertidumbre. Cambia después un solo dato, el sesgo del primero, de 30 % a 60 %, y observa cuánto crece la fracción de ensayos con error mayor al 15 %.
 
 ## Preguntas frecuentes
 

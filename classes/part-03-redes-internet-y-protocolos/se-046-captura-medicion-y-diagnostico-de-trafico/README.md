@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -119,7 +119,7 @@ sensibles. En este diagnóstico no hizo falta una captura: los tiempos por fase 
 
 ![Cuatro puntos de observación, cada uno con lo que ve y lo que no ve: el cliente (curl -w), el servidor (registros), el sistema operativo (ss) y la red (captura de paquetes, no ejecutada aquí); el color del centro indica si se midió, se simuló en el laboratorio o no se ejecutó.](../../../content/part-03/figures/se-046-puntos-de-observacion.svg)
 
-**Cómo leer la figura.** Cada fila va de un punto de vista (con su estado) a lo que ve y a lo que no ve; el color del centro indica si se midió (teal), se simuló en el laboratorio local (dorado) o no se ejecutó (gris). **Dónde deja de valer:** no se ejecutó ninguna captura de paquetes (no estaban disponibles herramientas autorizadas en este equipo), así que las afirmaciones sobre retransmisiones o ventanas son conceptuales, no medidas. Y correlacionar eventos de dos puntos exige un identificador común o relojes sincronizados (SE-033).
+**Cómo leer la figura.** Cada fila va de un punto de vista (con su estado) a lo que ve y a lo que no ve; el color del centro indica si se midió (teal), se simuló en el laboratorio local (dorado) o no se ejecutó (gris). **Dónde deja de valer:** no se ejecutó ninguna captura de paquetes (no estaban disponibles herramientas autorizadas en este equipo), así que las afirmaciones sobre retransmisiones o ventanas son conceptuales, no medidas. Y correlacionar eventos de dos puntos exige un identificador común o relojes sincronizados ([SE-033](../../part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)).
 
 ## Definiciones de trabajo
 

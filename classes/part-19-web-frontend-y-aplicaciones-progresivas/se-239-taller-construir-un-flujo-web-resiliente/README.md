@@ -212,7 +212,7 @@ Entrega `workshop-log.md` con la tabla de estados, la comprobación de forma y s
 
 ## Caso conductor
 
-El taller ensambla el caso conductor de la Parte 19: la aplicación de entregas con conectividad irregular como un flujo completo. Deja la tabla de estados, la política de reintentos y el plan de escenarios que el proyecto `SE-240` verifica de punta a punta con un manifiesto, unas cabeceras y una matriz de pruebas. Cambia después una sola decisión, el máximo de reintentos de seis a tres, y revisa qué escenarios cambian de resultado.
+El taller ensambla el caso conductor de la [Parte 19](../README.md): la aplicación de entregas con conectividad irregular como un flujo completo. Deja la tabla de estados, la política de reintentos y el plan de escenarios que el proyecto `SE-240` verifica de punta a punta con un manifiesto, unas cabeceras y una matriz de pruebas. Cambia después una sola decisión, el máximo de reintentos de seis a tres, y revisa qué escenarios cambian de resultado.
 
 ## Preguntas frecuentes
 

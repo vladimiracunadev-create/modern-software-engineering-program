@@ -216,7 +216,7 @@ Entrega `isr-log.md` con la predicción, la enumeración de posiciones, la frecu
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el quinto artefacto: la regla de datos compartidos del nodo, con quién escribe, quién lee, cómo se protege y cuánto retrasa cada protección. `SE-270` lleva esos datos a través de una red que se corta. Cambia después una sola protección, la sección crítica del contador, y observa qué plazo del análisis cambia.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el quinto artefacto: la regla de datos compartidos del nodo, con quién escribe, quién lee, cómo se protege y cuánto retrasa cada protección. `SE-270` lleva esos datos a través de una red que se corta. Cambia después una sola protección, la sección crítica del contador, y observa qué plazo del análisis cambia.
 
 ## Preguntas frecuentes
 

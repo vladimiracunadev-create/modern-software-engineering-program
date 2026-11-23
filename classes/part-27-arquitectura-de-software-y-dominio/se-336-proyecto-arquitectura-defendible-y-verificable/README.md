@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un dossier de arquitectura que otra persona pueda comprobar: con escenarios medibles, decisiones registradas, un modelo ejecutable, un validador de la forma del dossier y la lista honesta de lo que ni el modelo ni el validador ven.
 
-**Por qué aparece aquí.** Cierra la **Parte 27** después de **Taller: revisar una arquitectura contra escenarios**: el taller encontró fallas; el proyecto las corrige con decisiones registradas, repite la evaluación y entrega un conjunto verificable. Integra drivers (`SE-325`), vistas (`SE-326`), agrupación (`SE-327`), dominio y puertos (`SE-328`, `SE-329`), eventos (`SE-330`), estilos (`SE-331`), funciones de aptitud (`SE-332`), ADR (`SE-333`), equipos (`SE-334`) y revisión (`SE-335`).
+**Por qué aparece aquí.** Cierra la **[Parte 27](../README.md)** después de **Taller: revisar una arquitectura contra escenarios**: el taller encontró fallas; el proyecto las corrige con decisiones registradas, repite la evaluación y entrega un conjunto verificable. Integra drivers (`SE-325`), vistas (`SE-326`), agrupación (`SE-327`), dominio y puertos (`SE-328`, `SE-329`), eventos (`SE-330`), estilos (`SE-331`), funciones de aptitud (`SE-332`), ADR (`SE-333`), equipos (`SE-334`) y revisión (`SE-335`).
 
 **Error conceptual que debe corregir.** Creer que un dossier completo en forma es una arquitectura defendida: el validador puede aprobar un dossier cuyo modelo ejecutable falla cuatro escenarios, y un modelo puede cumplirlo todo con parámetros que nadie ha medido.
 
@@ -225,7 +225,7 @@ Entrega `architecture-dossier/` con el modelo, los doce escenarios, los ADR con 
 
 ## Caso conductor
 
-La plataforma de entregas y corrección de tareas cierra aquí su recorrido por la Parte 27. El proyecto deja el duodécimo artefacto: un dossier de arquitectura ejecutable, con decisiones registradas, simulación de operación, impacto de revertir y límites declarados. La Parte 29 lleva esas decisiones a los datos: modelado, persistencia, consistencia y recuperación. Cambia después una sola decisión, el objetivo de disponibilidad, y observa qué ADR y qué funciones de aptitud deben tocarse.
+La plataforma de entregas y corrección de tareas cierra aquí su recorrido por la [Parte 27](../README.md). El proyecto deja el duodécimo artefacto: un dossier de arquitectura ejecutable, con decisiones registradas, simulación de operación, impacto de revertir y límites declarados. La [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) lleva esas decisiones a los datos: modelado, persistencia, consistencia y recuperación. Cambia después una sola decisión, el objetivo de disponibilidad, y observa qué ADR y qué funciones de aptitud deben tocarse.
 
 ## Preguntas frecuentes
 

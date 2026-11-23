@@ -1,6 +1,6 @@
 # Parte 48 — Harness y agentic engineering
 
-La Parte 45 comparó metodologías como oráculos: qué evidencia produce cada una y qué defectos deja pasar. La pregunta cambia de «¿qué práctica ordena el desarrollo?» a «¿qué entorno hace que un agente de código cumpla lo que esas prácticas exigen?». Esta parte estudia el **harness**, todo lo que rodea al modelo en un agente: instrucciones del repositorio, contexto, herramientas, permisos, bucle, parada, aislamiento, verificación, coordinación, observabilidad y gobierno. Lo hace con un único caso, **el arnés del equipo de *Avisos***: un entorno mínimo en Python con seis tareas de mantenimiento, una política guionizada que hace de «modelo» y controles que se quitan, se ponen y se miden uno por uno.
+La [Parte 45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) comparó metodologías como oráculos: qué evidencia produce cada una y qué defectos deja pasar. La pregunta cambia de «¿qué práctica ordena el desarrollo?» a «¿qué entorno hace que un agente de código cumpla lo que esas prácticas exigen?». Esta parte estudia el **harness**, todo lo que rodea al modelo en un agente: instrucciones del repositorio, contexto, herramientas, permisos, bucle, parada, aislamiento, verificación, coordinación, observabilidad y gobierno. Lo hace con un único caso, **el arnés del equipo de *Avisos***: un entorno mínimo en Python con seis tareas de mantenimiento, una política guionizada que hace de «modelo» y controles que se quitan, se ponen y se miden uno por uno.
 
 ## Pregunta rectora
 
@@ -149,7 +149,7 @@ El estudiante entrega el diagnóstico de los seis fallos con una tarea de regres
 
 Un control sin escenario que lo ejerza es una creencia. El proyecto ensambla un harness mínimo con seis controles y lo evalúa con seis tareas normales y cuatro escenarios adversos: sin controles se contiene 1 de 4 comportamientos descuidados y con ellos 4 de 4, sin costo en las tareas normales.
 
-El estudiante entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites. La Parte 49 usa un harness como este para estudiar patrones agénticos.
+El estudiante entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites. La [Parte 49](../part-49-patrones-agenticos-y-sistemas-con-llm/README.md) usa un harness como este para estudiar patrones agénticos.
 
 ## Resumen operativo del recorrido
 

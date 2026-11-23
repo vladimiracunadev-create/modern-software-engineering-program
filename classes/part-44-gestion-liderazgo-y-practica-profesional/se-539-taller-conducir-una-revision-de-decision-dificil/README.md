@@ -195,7 +195,7 @@ Entrega `revision-log.md` con la predicción, las tres tablas, el expediente fec
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Este taller deja el undécimo artefacto: una revisión adversarial de una decisión con expediente, panel, modos de fallo y probabilidades. `SE-540` reunirá los artefactos de la parte en un dossier defendible. Cambia después un solo dato, la precisión de la auditoría de 85 % a 65 %, y observa a partir de cuántas decisiones por persona juzgar el proceso deja de ser mejor que juzgar los resultados.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Este taller deja el undécimo artefacto: una revisión adversarial de una decisión con expediente, panel, modos de fallo y probabilidades. `SE-540` reunirá los artefactos de la parte en un dossier defendible. Cambia después un solo dato, la precisión de la auditoría de 85 % a 65 %, y observa a partir de cuántas decisiones por persona juzgar el proceso deja de ser mejor que juzgar los resultados.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que elijas entre esperar la respuesta de otro componente y dejarle un mensaje con criterios medibles, en lugar de por costumbre o por moda: cuánto baja la disponibilidad cuando una petición cruza varias dependencias, cuánta carga añaden los reintentos apilados y cuánto tarda en recuperarse una cola después de una caída.
 
-**Por qué aparece aquí.** Abre la **Parte 31** después de **Proyecto: capa de datos recuperable**: la Parte 29 dejó datos correctos dentro de un servicio; ahora la plataforma de entregas de tareas tiene que hablar con el calificador automático, el servicio de avisos y la analítica sin que un fallo de uno derribe a los demás. El caso conductor de la parte es ese flujo: una entrega llega, se califica, se avisa al estudiante y se registra para análisis.
+**Por qué aparece aquí.** Abre la **[Parte 31](../README.md)** después de **Proyecto: capa de datos recuperable**: la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) dejó datos correctos dentro de un servicio; ahora la plataforma de entregas de tareas tiene que hablar con el calificador automático, el servicio de avisos y la analítica sin que un fallo de uno derribe a los demás. El caso conductor de la parte es ese flujo: una entrega llega, se califica, se avisa al estudiante y se registra para análisis.
 
 **Error conceptual que debe corregir.** Creer que «asíncrono» es sinónimo de «más rápido» o «más fiable». Una cola no elimina el fallo, lo traslada: cambia errores inmediatos por retraso y cambia una pregunta (¿respondió?) por otra (¿se procesó, cuándo y cuántas veces?).
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 20 sobre idempotencia y trabajo asíncrono y en la Parte 29 sobre consistencia de datos: dentro de un servicio una transacción protege la invariante; entre servicios no hay transacción compartida. La pregunta activa es: **¿qué debe saber el usuario ahora mismo, qué puede enterarse después y qué le cuesta a cada servicio que el otro esté caído?**
+Recupera lo aprendido en la [Parte 20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md) sobre idempotencia y trabajo asíncrono y en la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) sobre consistencia de datos: dentro de un servicio una transacción protege la invariante; entre servicios no hay transacción compartida. La pregunta activa es: **¿qué debe saber el usuario ahora mismo, qué puede enterarse después y qué le cuesta a cada servicio que el otro esté caído?**
 
 ## Prerrequisitos
 
@@ -225,7 +225,7 @@ Entrega `integracion-log.md` con las tres predicciones, las tablas reproducidas 
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el primer artefacto: la clasificación de interacciones y la política de una llamada síncrona. `SE-374` pregunta qué viaja en el mensaje cuando se elige la ruta asíncrona. Cambia después una sola decisión, el número de dependencias en la ruta crítica, y observa qué política de reintentos deja de ser necesaria.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el primer artefacto: la clasificación de interacciones y la política de una llamada síncrona. `SE-374` pregunta qué viaja en el mensaje cuando se elige la ruta asíncrona. Cambia después una sola decisión, el número de dependencias en la ruta crítica, y observa qué política de reintentos deja de ser necesaria.
 
 ## Preguntas frecuentes
 

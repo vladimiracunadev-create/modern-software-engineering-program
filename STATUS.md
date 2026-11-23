@@ -8,11 +8,11 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Etapas | 8 especificadas |
 | Partes | 51 desarrolladas (00–50) |
 | Clases | 612 desarrolladas |
-| Contenido desarrollado | Partes 00–50 (`SE-001`–`SE-612`), pendiente de revisión editorial humana independiente |
+| Contenido desarrollado | Partes [00](./classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](./classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
 | Alcance de fase 3 | 180 clases (`SE-001`–`SE-180`) |
-| Alcance de fase 4 | 180 clases (Partes 15–22, 24–25, 27, 29 y 31–33) |
+| Alcance de fase 4 | 180 clases (Partes [15](./classes/part-15-procesos-planificacion-y-estimacion/README.md)–[22](./classes/part-22-embedded-iot-y-tiempo-real/README.md), [24](./classes/part-24-software-especializado-y-dominios/README.md)–[25](./classes/part-25-diseno-patrones-y-refactorizacion/README.md), [27](./classes/part-27-arquitectura-de-software-y-dominio/README.md), [29](./classes/part-29-datos-persistencia-y-recuperacion/README.md) y [31](./classes/part-31-integracion-eventos-y-mensajeria/README.md)–[33](./classes/part-33-cloud-plataforma-e-infraestructura/README.md)) |
 | Horas | 2.754 estimadas; pendientes de validación por contenido |
 | Metadatos de clase | 612 archivos generados |
 | Registro bibliográfico | 612 entradas sembradas desde fuentes base |

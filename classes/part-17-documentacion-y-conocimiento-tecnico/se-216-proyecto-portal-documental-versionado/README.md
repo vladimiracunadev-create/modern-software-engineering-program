@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para entregar un portal documental que otra persona pueda mantener sin ti: páginas con dueño y tipo, decisiones registradas, una API con ejemplos que se ejecutan, runbooks seguros de repetir, un glosario, comprobaciones automáticas, versiones coherentes consigo mismas y un paquete cuya huella se reproduce en dos sistemas, junto con un informe que dice qué se comprobó y qué no.
 
-**Por qué aparece aquí.** Cierra la **Parte 17** después de **Taller: reconstruir conocimiento perdido**: las once clases anteriores produjeron piezas y comprobadores, y esta los reúne en una sola entrega con la trazabilidad que ninguna aislaba. Deja la base que la Parte 18 usará al construir interfaces de línea de comandos, cuyas opciones, ayudas y ejemplos serán la documentación de otro tipo de contrato.
+**Por qué aparece aquí.** Cierra la **[Parte 17](../README.md)** después de **Taller: reconstruir conocimiento perdido**: las once clases anteriores produjeron piezas y comprobadores, y esta los reúne en una sola entrega con la trazabilidad que ninguna aislaba. Deja la base que la [Parte 18](../../part-18-cli-tui-servicios-y-automatizacion/README.md) usará al construir interfaces de línea de comandos, cuyas opciones, ayudas y ejemplos serán la documentación de otro tipo de contrato.
 
 **Error conceptual que debe corregir.** Creer que un portal con muchas páginas y todos los comprobadores en verde está terminado. Las comprobaciones mecánicas detectan lo que deja una señal en el texto y no ven una página limpia que dice algo falso; y las versiones solo son coherentes si alguien decide qué pasa con los enlaces entre ellas.
 
@@ -209,7 +209,7 @@ Entrega el portal con tres etiquetas, el lector de versiones, la política de p�
 
 ## Caso conductor
 
-Esta clase cierra el caso conductor de la Parte 17: el portal documental de la plataforma de entregas, con todas las piezas de las clases anteriores reunidas, versionadas y auditadas. Entrega a la Parte 18 una lección concreta: las opciones, las ayudas y los ejemplos de una interfaz de línea de comandos son documentación que se comprueba con las mismas técnicas.
+Esta clase cierra el caso conductor de la [Parte 17](../README.md): el portal documental de la plataforma de entregas, con todas las piezas de las clases anteriores reunidas, versionadas y auditadas. Entrega a la [Parte 18](../../part-18-cli-tui-servicios-y-automatizacion/README.md) una lección concreta: las opciones, las ayudas y los ejemplos de una interfaz de línea de comandos son documentación que se comprueba con las mismas técnicas.
 
 ## Preguntas frecuentes
 

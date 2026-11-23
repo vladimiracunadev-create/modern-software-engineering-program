@@ -170,7 +170,7 @@ Entrega `history-log.md` con las cuatro historias y sus ejecuciones de bisecció
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la política de commits y la lista de lo recuperable. `SE-195` abre ramas y exige decidir cómo se integran; `SE-196` revisa los cambios que esta política hace pequeños. Cambia después un solo dato, el tamaño máximo de un commit, y revisa qué commits de la historia dejarían de cumplir la política.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja la política de commits y la lista de lo recuperable. `SE-195` abre ramas y exige decidir cómo se integran; `SE-196` revisa los cambios que esta política hace pequeños. Cambia después un solo dato, el tamaño máximo de un commit, y revisa qué commits de la historia dejarían de cumplir la política.
 
 ## Preguntas frecuentes
 

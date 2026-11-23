@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas lo que un sistema emite (señales) de lo que una persona puede preguntarle durante un incidente (observabilidad), para que elijas qué señal responde qué pregunta y para que sepas cuándo un panel que parece completo deja una falla sin explicar. Un equipo que instrumenta «todo» y no puede localizar una lentitud tiene datos, no observabilidad.
 
-**Por qué aparece aquí.** Sigue al proyecto de **camino a producción con rollback** (`SE-492`): el código ya llega a producción y se puede revertir, pero revertir es una decisión que necesita evidencia. Esta clase abre la Parte 41 con la pregunta previa a cualquier alerta, objetivo o guardia: ¿qué señales hacen falta para decidir qué hacer? El caso conductor es la API de entregas de la plataforma educativa, ahora operada en producción.
+**Por qué aparece aquí.** Sigue al proyecto de **camino a producción con rollback** (`SE-492`): el código ya llega a producción y se puede revertir, pero revertir es una decisión que necesita evidencia. Esta clase abre la [Parte 41](../README.md) con la pregunta previa a cualquier alerta, objetivo o guardia: ¿qué señales hacen falta para decidir qué hacer? El caso conductor es la API de entregas de la plataforma educativa, ahora operada en producción.
 
 **Error conceptual que debe corregir.** Creer que observabilidad es tener las tres herramientas (registros, métricas y trazas) o muchos paneles. Lo que importa es qué preguntas puedes responder con lo que se emitió, incluidas las que no previste.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 40: una versión llega a producción por un camino con compuertas y se puede revertir. La pregunta activa es: **cuando la API de entregas se vuelve lenta un martes a las 14:00, ¿qué tienes que haber emitido antes para saber en cuánto tiempo, dónde y a quién afecta?**
+Recupera lo aprendido en la [Parte 40](../../part-40-ci-cd-iac-y-platform-engineering/README.md): una versión llega a producción por un camino con compuertas y se puede revertir. La pregunta activa es: **cuando la API de entregas se vuelve lenta un martes a las 14:00, ¿qué tienes que haber emitido antes para saber en cuánto tiempo, dónde y a quién afecta?**
 
 ## Prerrequisitos
 
@@ -209,7 +209,7 @@ Entrega `observabilidad-log.md` con la predicción, las tres tablas de resultado
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el primer artefacto: una tabla de preguntas con sus señales y huecos. `SE-494` pregunta cómo escribir los registros para que se puedan consultar y correlacionar, y `SE-495` cómo agregar métricas sin que el número de series estalle. Cambia después un solo dato de la tabla, la cuota del cliente pequeño, y observa a partir de qué punto deja de ser invisible.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el primer artefacto: una tabla de preguntas con sus señales y huecos. `SE-494` pregunta cómo escribir los registros para que se puedan consultar y correlacionar, y `SE-495` cómo agregar métricas sin que el número de series estalle. Cambia después un solo dato de la tabla, la cuota del cliente pequeño, y observa a partir de qué punto deja de ser invisible.
 
 ## Preguntas frecuentes
 

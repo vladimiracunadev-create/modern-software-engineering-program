@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto integra la parte: elegir un dominio, formular una afirmación que se pueda refutar, escribir las invariantes y un modelo de referencia, medir con experimentos reproducibles, probar cuánto depende la decisión de los supuestos y entregar un dosier que otra persona pueda verificar. Quien lo entrega responde por lo que el dosier dice y por lo que ningún validador ve.
 
-**Por qué aparece aquí.** Cierra la **Parte 24** después de **Taller: comparar riesgos entre dominios**: el taller dio un método para comparar y mostró sus límites; el proyecto aplica ese método a un dominio, con la profundidad que una comparación no alcanza. Reúne las prácticas de las diez clases anteriores (variar semillas, escribir idempotencia, comparar con un oráculo, declarar la precisión) en un solo entregable. El caso conductor es la plataforma educativa ficticia, y el ejemplo desarrollado es una conciliación de pagos; tú eliges el tuyo.
+**Por qué aparece aquí.** Cierra la **[Parte 24](../README.md)** después de **Taller: comparar riesgos entre dominios**: el taller dio un método para comparar y mostró sus límites; el proyecto aplica ese método a un dominio, con la profundidad que una comparación no alcanza. Reúne las prácticas de las diez clases anteriores (variar semillas, escribir idempotencia, comparar con un oráculo, declarar la precisión) en un solo entregable. El caso conductor es la plataforma educativa ficticia, y el ejemplo desarrollado es una conciliación de pagos; tú eliges el tuyo.
 
 **Error conceptual que debe corregir.** Creer que un dosier completo es un dosier correcto. Un validador de estructura comprueba que existan las secciones y que algunas cifras coincidan; no sabe si la conclusión sigue de la evidencia, si un enlace dice lo que se le atribuye ni si un límite es real o de adorno.
 
@@ -240,7 +240,7 @@ Entrega `domain-package-log.md` con la predicción, el dosier de diez secciones,
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Este proyecto deja el último artefacto de la parte: un dosier de dominio con su validador, su sensibilidad y su manifiesto. La **Parte 25** abandona los dominios y vuelve al diseño del propio código: cohesión, acoplamiento y encapsulación. Cambia después una sola decisión, el rango de un supuesto, y observa si la decisión sigue sostenida.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Este proyecto deja el último artefacto de la parte: un dosier de dominio con su validador, su sensibilidad y su manifiesto. La **[Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md)** abandona los dominios y vuelve al diseño del propio código: cohesión, acoplamiento y encapsulación. Cambia después una sola decisión, el rango de un supuesto, y observa si la decisión sigue sostenida.
 
 ## Preguntas frecuentes
 

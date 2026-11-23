@@ -197,7 +197,7 @@ Entrega `contract-tests-log.md` con los cinco contratos, la matriz de ocho cambi
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja cinco contratos de consumidor, una propiedad con reducción y una comprobación de dobles contra el proveedor real. `SE-167` los integrará en un taller que convierte una intención en un contrato comprobable de extremo a extremo, y `SE-168` los empaquetará con su trazabilidad. Cambia después una sola decisión, retirar el campo `links`, y revisa qué consumidores, ejemplos y pruebas se ven afectados.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja cinco contratos de consumidor, una propiedad con reducción y una comprobación de dobles contra el proveedor real. `SE-167` los integrará en un taller que convierte una intención en un contrato comprobable de extremo a extremo, y `SE-168` los empaquetará con su trazabilidad. Cambia después una sola decisión, retirar el campo `links`, y revisa qué consumidores, ejemplos y pruebas se ven afectados.
 
 ## Preguntas frecuentes
 

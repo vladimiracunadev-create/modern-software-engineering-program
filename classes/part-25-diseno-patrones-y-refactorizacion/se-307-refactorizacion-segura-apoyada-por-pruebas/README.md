@@ -110,7 +110,8 @@ def visit_Compare(self, node):
     cambios = {ast.LtE: ast.Lt, ast.Lt: ast.LtE, ast.Gt: ast.GtE, ast.GtE: ast.Gt}
     for i, op in enumerate(node.ops):
         if type(op) in cambios and self._toca():
-            node.ops[i] = cambios[type(op)]()
+            nuevo = cambios[type(op)]
+            node.ops[i] = nuevo()
 ```
 
 | Conjunto de pruebas | Mutantes muertos |

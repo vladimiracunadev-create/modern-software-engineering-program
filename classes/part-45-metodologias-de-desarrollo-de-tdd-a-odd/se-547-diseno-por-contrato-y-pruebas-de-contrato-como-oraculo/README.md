@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que escribas **lo que prometes en cada frontera** de forma que una máquina lo pueda comprobar, y para que sepas qué clase de contrato comprueba cada técnica. Hay dos escalas. Dentro de un componente, el **diseño por contrato** expresa precondiciones, poscondiciones e invariantes que el propio código verifica al ejecutarse. Entre componentes, las **pruebas de contrato** comprueban que lo que un proveedor entrega es lo que un consumidor necesita. Las dos son oráculos que no dependen de que alguien haya imaginado el caso concreto, y por eso son el contrapeso natural de los ejemplos. También tienen puntos ciegos propios que importan: una aserción puede desaparecer en producción, y un contrato demasiado estricto genera alertas que se aprenden a ignorar.
 
-**Por qué aparece aquí.** Sigue a **DDD como lenguaje ubicuo** porque la frontera entre contextos de `SE-546` es exactamente donde un contrato debe vivir: la traducción convierte un modelo en otro y el contrato dice qué entra y qué sale. La Parte 13 trató especificaciones y contratos de API; la Parte 35, las pruebas de contrato dentro de la estrategia. Aquí se miden sus propiedades como metodología.
+**Por qué aparece aquí.** Sigue a **DDD como lenguaje ubicuo** porque la frontera entre contextos de `SE-546` es exactamente donde un contrato debe vivir: la traducción convierte un modelo en otro y el contrato dice qué entra y qué sale. La [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) trató especificaciones y contratos de API; la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md), las pruebas de contrato dentro de la estrategia. Aquí se miden sus propiedades como metodología.
 
 **Error conceptual que debe corregir.** Creer que una precondición escrita con `assert` es un contrato que protege en producción. En Python, la opción de optimización (`-O`) elimina las aserciones; un programa que verifica sus precondiciones solo con `assert` las pierde cuando se ejecuta optimizado. Es un fallo de despliegue, no de código, y es silencioso: el programa sigue funcionando y deja de comprobar.
 
@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-546`: una frontera entre contextos necesita una tra
 ## Prerrequisitos
 
 - Haber completado `SE-546` o poder explicar qué es una capa anticorrupción.
-- Haber visto en la Parte 13 qué es un contrato de API.
+- Haber visto en la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) qué es un contrato de API.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`json`, `subprocess`).
 
 ## Problema auténtico

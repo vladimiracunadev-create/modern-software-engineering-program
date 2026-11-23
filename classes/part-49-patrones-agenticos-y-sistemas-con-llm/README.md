@@ -1,6 +1,6 @@
 # Parte 49 — Patrones agénticos y sistemas con LLM
 
-La Parte 48 estudió el harness que rodea a un agente de programación. La pregunta cambia de «¿cómo gobierno el entorno de un agente que programa?» a «¿cómo construyo, mido y opero un sistema que lleva un modelo de lenguaje dentro?». Esta parte recorre los patrones con que se organiza ese sistema (workflows, agentes, orquestadores, evaluadores, memoria, recuperación), los protocolos que lo conectan con otros (MCP y A2A) y las condiciones que lo hacen operable: ejecución durable, evaluación con ruido, costo, latencia, seguridad y degradación. Usa un único caso sintético, el **asistente de *Avisos***, que atiende a coordinación con consultas de plazo, silencios de curso e incidencias abiertas.
+La [Parte 48](../part-48-harness-y-agentic-engineering/README.md) estudió el harness que rodea a un agente de programación. La pregunta cambia de «¿cómo gobierno el entorno de un agente que programa?» a «¿cómo construyo, mido y opero un sistema que lleva un modelo de lenguaje dentro?». Esta parte recorre los patrones con que se organiza ese sistema (workflows, agentes, orquestadores, evaluadores, memoria, recuperación), los protocolos que lo conectan con otros (MCP y A2A) y las condiciones que lo hacen operable: ejecución durable, evaluación con ruido, costo, latencia, seguridad y degradación. Usa un único caso sintético, el **asistente de *Avisos***, que atiende a coordinación con consultas de plazo, silencios de curso e incidencias abiertas.
 
 ## Pregunta rectora
 
@@ -8,7 +8,7 @@ La Parte 48 estudió el harness que rodea a un agente de programación. La pregu
 
 ## Antes del recorrido clase por clase
 
-Esta parte no defiende «los agentes» ni los desaconseja. Enseña a tratar cada patrón como una decisión de **quién controla el siguiente paso**, con un costo y un modo de fallo medibles. Compara un workflow fijo con un agente por tipo de solicitud (`SE-589`), mide una cadena con puertas, dos enrutadores y la paralelización con hilos reales (`SE-590`), reparte trabajo con un orquestador y mide un bucle de revisión con un verificador exacto y con un juez ruidoso (`SE-591`), contrasta ReAct con planificar y replanificar (`SE-592`), compara cinco estrategias de memoria (`SE-593`) y recupera sobre el corpus de las Partes 47 y 45 con tres recuperadores (`SE-594`). Después habla con un servidor JSON-RPC real por entrada y salida estándar (`SE-595`), prueba un diario SQLite con caídas inyectadas (`SE-596`), mide la potencia de una puerta de evaluación y el sesgo de un juez (`SE-597`), modela costo, latencia y ataques (`SE-598`), elige un patrón y degrada ante un incidente (`SE-599`) y somete cuatro candidatos a una puerta de entrada a producción (`SE-600`).
+Esta parte no defiende «los agentes» ni los desaconseja. Enseña a tratar cada patrón como una decisión de **quién controla el siguiente paso**, con un costo y un modo de fallo medibles. Compara un workflow fijo con un agente por tipo de solicitud (`SE-589`), mide una cadena con puertas, dos enrutadores y la paralelización con hilos reales (`SE-590`), reparte trabajo con un orquestador y mide un bucle de revisión con un verificador exacto y con un juez ruidoso (`SE-591`), contrasta ReAct con planificar y replanificar (`SE-592`), compara cinco estrategias de memoria (`SE-593`) y recupera sobre el corpus de las Partes [47](../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) y [45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) con tres recuperadores (`SE-594`). Después habla con un servidor JSON-RPC real por entrada y salida estándar (`SE-595`), prueba un diario SQLite con caídas inyectadas (`SE-596`), mide la potencia de una puerta de evaluación y el sesgo de un juez (`SE-597`), modela costo, latencia y ataques (`SE-598`), elige un patrón y degrada ante un incidente (`SE-599`) y somete cuatro candidatos a una puerta de entrada a producción (`SE-600`).
 
 ```mermaid
 flowchart LR
@@ -49,7 +49,7 @@ Podrás diseñar un diario de pasos y una clave de idempotencia que hagan seguro
 - [Parte 46 — Desarrollo de software asistido por IA](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-46-desarrollo-de-software-asistido-por-ia/): evaluaciones de asistentes.
 - [Parte 47 — SPEC, agentes y ciclo de vida agentic](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/): especificar, delegar y detener a un agente.
 - [Parte 45 — Metodologías de desarrollo: de TDD a ODD](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/): evaluaciones como puerta de release (`SE-549`) y política con evidencia (`SE-552`).
-- Parte 48 (harness y agentic engineering): el entorno que gobierna a un agente; esta parte construye el sistema que lleva un modelo dentro.
+- [Parte 48](../part-48-harness-y-agentic-engineering/README.md) (harness y agentic engineering): el entorno que gobierna a un agente; esta parte construye el sistema que lleva un modelo dentro.
 - Python 3.11+ y terminal; los experimentos usan solo la biblioteca estándar. `SE-595` lanza un proceso hijo de Python y `SE-596` usa `sqlite3`.
 
 ## Bloques y progresión
@@ -62,7 +62,7 @@ Podrás diseñar un diario de pasos y una clave de idempotencia que hagan seguro
 
 ## Evidencia medida y límites
 
-Las figuras y los ejemplos de esta parte usan experimentos ejecutados con la biblioteca estándar de Python en este repositorio. **No se invocó ningún modelo de lenguaje, no se ejecutó ningún producto de agentes o de recuperación de terceros (MCP o A2A de terceros, Temporal, bases vectoriales, frameworks de agentes) y no se evaluó ningún proveedor.** El «modelo» de los experimentos es un componente sintético con semilla fija y tasas de error declaradas. Lo que es código real y medido es todo lo que rodea al modelo: las herramientas, el enrutador, el verificador, los hilos, la recuperación sobre el corpus real de las Partes 47 y 45, el servidor JSON-RPC por un proceso hijo, el diario SQLite y la política de capacidades.
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con la biblioteca estándar de Python en este repositorio. **No se invocó ningún modelo de lenguaje, no se ejecutó ningún producto de agentes o de recuperación de terceros (MCP o A2A de terceros, Temporal, bases vectoriales, frameworks de agentes) y no se evaluó ningún proveedor.** El «modelo» de los experimentos es un componente sintético con semilla fija y tasas de error declaradas. Lo que es código real y medido es todo lo que rodea al modelo: las herramientas, el enrutador, el verificador, los hilos, la recuperación sobre el corpus real de las Partes [47](../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) y [45](../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md), el servidor JSON-RPC por un proceso hijo, el diario SQLite y la política de capacidades.
 
 Los experimentos son: 2 000 solicitudes sintéticas con un workflow, un agente y un híbrido (`SE-589`); una cadena de tres pasos, dos enrutadores sobre 2 000 solicitudes, ocho subtareas con hilos reales y una votación (`SE-590`); 500 repasos con reparto fijo y dinámico y un bucle de revisión de un aviso con un verificador y con un juez ruidoso (`SE-591`); cuatro estrategias en 3 000 episodios por tasa de sorpresas (`SE-592`); cinco estrategias de memoria sobre 300 conversaciones de 80 turnos (`SE-593`); tres recuperadores sobre 835 fragmentos y 120 consultas sintéticas, con reformulación y abstención (`SE-594`).
 
@@ -134,7 +134,7 @@ El estudiante entrega la lista de pasos con efecto de su sistema con su clave y 
 
 #### SE-597 — Evals y LLMOps de sistemas con LLM
 
-Una evaluación es un instrumento con ruido. La clase mide falsos positivos y potencia de una puerta con cuatro tamaños de conjunto, el sesgo de un juez y la variación de un mismo sistema, y define una traza estructurada. La ampliación añade cuándo ajustar un modelo (fine-tuning) frente a instrucciones y recuperación y qué condiciones impone a la evaluación; la Parte 50, aún no publicada, trata el ciclo de vida de modelos.
+Una evaluación es un instrumento con ruido. La clase mide falsos positivos y potencia de una puerta con cuatro tamaños de conjunto, el sesgo de un juez y la variación de un mismo sistema, y define una traza estructurada. La ampliación añade cuándo ajustar un modelo (fine-tuning) frente a instrucciones y recuperación y qué condiciones impone a la evaluación; la [Parte 50](../part-50-machine-learning-en-produccion-y-mlops/README.md), aún no publicada, trata el ciclo de vida de modelos.
 
 El estudiante entrega 30 casos con su señal de calificación y una puerta fijada antes de medir. `SE-598` trata costo, latencia y seguridad.
 
@@ -156,7 +156,7 @@ El estudiante entrega su selector con tres tareas propias y su escalera de degra
 
 La calidad es una columna de cinco. La clase aplica una puerta de entrada a cuatro candidatos y muestra que solo el híbrido gobernado la supera; el estudiante repite el ejercicio con su propio sistema y documenta lo que no midió.
 
-El estudiante entrega el dossier con la puerta, los resultados, las capacidades, la degradación, los límites y una condición de revisión. La Parte 26 usa el vocabulario de patrones de diseño para revisar estos y otros sistemas.
+El estudiante entrega el dossier con la puerta, los resultados, las capacidades, la degradación, los límites y una condición de revisión. La [Parte 26](../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) usa el vocabulario de patrones de diseño para revisar estos y otros sistemas.
 
 ## Resumen operativo del recorrido
 

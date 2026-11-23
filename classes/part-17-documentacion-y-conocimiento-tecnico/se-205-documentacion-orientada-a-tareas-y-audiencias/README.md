@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas, antes de escribir una línea, quién va a leer cada página y qué va a hacer con ella, y para que puedas medir lo que cuesta no decidirlo: lectores que no encuentran lo que necesitan, datos repetidos que se contradicen y textos que sirven a todos y no ayudan a nadie.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: contribución revisable de extremo a extremo** y abre la **Parte 17**: la Parte 16 terminó con cambios que otra persona puede revisar, pero un cambio revisable no basta si quien llega al proyecto no sabe cómo proponerlo, cómo ejecutarlo ni por qué es como es. Esta clase fija el vocabulario de la parte (audiencia, tarea, vista, fuente única) y presenta el caso que la recorre: el **portal documental de la plataforma de entregas**, donde la regla de penalización por entrega tardía que la Parte 13 especificó debe explicarse a estudiantes, docentes, secretaría y mantenimiento sin que cuatro textos digan cuatro cosas.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: contribución revisable de extremo a extremo** y abre la **[Parte 17](../README.md)**: la [Parte 16](../../part-16-git-colaboracion-y-codigo-abierto/README.md) terminó con cambios que otra persona puede revisar, pero un cambio revisable no basta si quien llega al proyecto no sabe cómo proponerlo, cómo ejecutarlo ni por qué es como es. Esta clase fija el vocabulario de la parte (audiencia, tarea, vista, fuente única) y presenta el caso que la recorre: el **portal documental de la plataforma de entregas**, donde la regla de penalización por entrega tardía que la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) especificó debe explicarse a estudiantes, docentes, secretaría y mantenimiento sin que cuatro textos digan cuatro cosas.
 
 **Error conceptual que debe corregir.** Creer que documentar es volcar lo que se sabe del sistema ordenado por componente, y que más documentación es siempre mejor. Quien lee llega con una tarea, no con una curiosidad por la arquitectura; una página correcta que está en el lugar equivocado, o que repite un dato que ya vive en otra, es un coste para el lector y una deuda para quien la mantiene.
 
@@ -22,7 +22,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 17 sobre documentación y conocimiento técnico** con un caso que no cambia entre clases: el portal documental de la plataforma de entregas de tareas. Recupera lo aprendido en la Parte 16: una contribución revisable necesita contexto que el diff no trae. La pregunta activa es: **¿quién va a leer esta página, qué quiere conseguir con ella y qué pasa si no la encuentra o si dice algo distinto de otra?**
+Esta clase abre la **[Parte 17](../README.md) sobre documentación y conocimiento técnico** con un caso que no cambia entre clases: el portal documental de la plataforma de entregas de tareas. Recupera lo aprendido en la [Parte 16](../../part-16-git-colaboracion-y-codigo-abierto/README.md): una contribución revisable necesita contexto que el diff no trae. La pregunta activa es: **¿quién va a leer esta página, qué quiere conseguir con ella y qué pasa si no la encuentra o si dice algo distinto de otra?**
 
 ## Prerrequisitos
 
@@ -201,7 +201,7 @@ Entrega `audiencias.md`, `fuente.md`, las cuatro vistas, el modelo de navegació
 
 ## Caso conductor
 
-El portal documental de la plataforma de entregas de tareas es el caso conductor de la Parte 17. Esta clase deja el primer artefacto: un inventario de tareas por audiencia y una fuente única para la regla de penalización. Las clases siguientes lo tipifican (`SE-206`), lo convierten en una puerta de entrada (`SE-207`), registran las decisiones que lo moldearon (`SE-208`), lo dibujan (`SE-209`), lo exponen como API (`SE-210`), lo hacen operable (`SE-211`), lo construyen como código (`SE-212`), lo hacen buscable (`SE-213`), lo preparan para máquinas (`SE-214`), recuperan lo que se perdió (`SE-215`) y lo versionan (`SE-216`).
+El portal documental de la plataforma de entregas de tareas es el caso conductor de la [Parte 17](../README.md). Esta clase deja el primer artefacto: un inventario de tareas por audiencia y una fuente única para la regla de penalización. Las clases siguientes lo tipifican (`SE-206`), lo convierten en una puerta de entrada (`SE-207`), registran las decisiones que lo moldearon (`SE-208`), lo dibujan (`SE-209`), lo exponen como API (`SE-210`), lo hacen operable (`SE-211`), lo construyen como código (`SE-212`), lo hacen buscable (`SE-213`), lo preparan para máquinas (`SE-214`), recuperan lo que se perdió (`SE-215`) y lo versionan (`SE-216`).
 
 ## Preguntas frecuentes
 

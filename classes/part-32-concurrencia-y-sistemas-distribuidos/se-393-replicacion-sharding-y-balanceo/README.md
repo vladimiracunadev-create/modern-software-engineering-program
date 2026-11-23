@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas, con números, cómo repartir el trabajo y los datos de un servicio entre varias máquinas: qué política de balanceo mantiene bajo el percentil 99 cuando los trabajos son de tamaños muy distintos, cuántas escrituras confirmadas puedes perder al conmutar según cuántas réplicas esperes, y qué clave de reparto conviene a las consultas de la plataforma sin crear un fragmento caliente.
 
-**Por qué aparece aquí.** Sigue a **Idempotencia y procesamiento distribuido**: con piezas repetibles, ahora se pueden repartir. En la Parte 29 (`SE-355`) se vio la replicación y el reparto de datos desde la base de datos; aquí se mira desde el servicio: los balanceadores, la conmutación por error y el reparto de la carga cuando crece. El caso conductor es el cierre de plazo: diez servidores reciben entregas de tamaños muy distintos.
+**Por qué aparece aquí.** Sigue a **Idempotencia y procesamiento distribuido**: con piezas repetibles, ahora se pueden repartir. En la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) (`SE-355`) se vio la replicación y el reparto de datos desde la base de datos; aquí se mira desde el servicio: los balanceadores, la conmutación por error y el reparto de la carga cuando crece. El caso conductor es el cierre de plazo: diez servidores reciben entregas de tamaños muy distintos.
 
 **Error conceptual que debe corregir.** Creer que repartir las solicitudes por igual reparte el trabajo por igual, o que la replicación asíncrona «copia» sin pérdida: lo primero ignora la cola pesada de los tamaños, lo segundo ignora el retraso de la réplica.
 
@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-392`: una operación repetible puede ejecutarse en 
 
 - Haber completado `SE-392` o poder explicar por qué la idempotencia permite reintentar en otro nodo.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `heapq`, `hashlib`, `statistics`).
-- Haber visto en la Parte 29 (`SE-355`) el hash consistente y las lecturas obsoletas.
+- Haber visto en la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) (`SE-355`) el hash consistente y las lecturas obsoletas.
 
 ## Problema auténtico
 
@@ -219,7 +219,7 @@ Entrega `reparto-log.md` con la predicción, las tres tablas, la política de ba
 
 ## Caso conductor
 
-La distribución del cierre de plazo es el artefacto de esta clase en el caso conductor de la Parte 32. `SE-394` pregunta cómo comprobar que el sistema aguanta fallos reales: caos controlado. Cambia después una sola decisión, la clave de reparto, y observa qué otra (la consulta por tramo) se ve afectada.
+La distribución del cierre de plazo es el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-394` pregunta cómo comprobar que el sistema aguanta fallos reales: caos controlado. Cambia después una sola decisión, la clave de reparto, y observa qué otra (la consulta por tramo) se ve afectada.
 
 ## Preguntas frecuentes
 

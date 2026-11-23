@@ -211,7 +211,7 @@ Entrega `licencias-log.md` con la predicción, las tres tablas, el inventario cl
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el octavo artefacto: un inventario de licencias con política, una verificación de origen de las contribuciones y un análisis ético de una solicitud. `SE-537` preguntará cuánto cuesta todo esto en el costo total del software, y `SE-540` reunirá estos artefactos en un dossier. Cambia después un solo dato, la probabilidad de sanción por reclamo, de 0,22 % a 0,05 %, y observa si la ventaja del flujo escondido sobrevive en tu análisis.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el octavo artefacto: un inventario de licencias con política, una verificación de origen de las contribuciones y un análisis ético de una solicitud. `SE-537` preguntará cuánto cuesta todo esto en el costo total del software, y `SE-540` reunirá estos artefactos en un dossier. Cambia después un solo dato, la probabilidad de sanción por reclamo, de 0,22 % a 0,05 %, y observa si la ventaja del flujo escondido sobrevive en tu análisis.
 
 ## Preguntas frecuentes
 

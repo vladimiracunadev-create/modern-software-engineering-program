@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates el HTML y el CSS como un contrato con el navegador y con las tecnologías de apoyo, no como una capa de decoración: un `button` real ya trae foco, teclado y rol; un `div` con `onclick` obliga a reconstruirlo, y a menudo se reconstruye mal. Aprenderás a medir qué defectos de estructura puede encontrar una regla automática y cuáles solo ve una persona.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: herramienta operable multiplataforma** y antes de **JavaScript, DOM y eventos del navegador**: la Parte 18 terminó con programas que se operan desde un terminal o un servicio; la Parte 19 abre una superficie distinta, el navegador, donde quien ejecuta tu software es un agente de usuario que interpreta tu documento. Esta clase fija ese contrato mínimo (estructura, nombre accesible, cascada, contraste) y presenta el caso que recorrerá las doce clases: un **formulario web para entregar una tarea que debe seguir funcionando con conectividad irregular**.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: herramienta operable multiplataforma** y antes de **JavaScript, DOM y eventos del navegador**: la [Parte 18](../../part-18-cli-tui-servicios-y-automatizacion/README.md) terminó con programas que se operan desde un terminal o un servicio; la [Parte 19](../README.md) abre una superficie distinta, el navegador, donde quien ejecuta tu software es un agente de usuario que interpreta tu documento. Esta clase fija ese contrato mínimo (estructura, nombre accesible, cascada, contraste) y presenta el caso que recorrerá las doce clases: un **formulario web para entregar una tarea que debe seguir funcionando con conectividad irregular**.
 
 **Error conceptual que debe corregir.** Creer que «si se ve bien, está bien» o que un HTML válido es un HTML accesible: el navegador construye un árbol de accesibilidad a partir de la semántica, no del aspecto, y un documento de etiquetas bien balanceadas puede tener todos los defectos de estructura que importan.
 
@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 19 sobre una aplicación web de entregas con conectividad irregular**. Recupera de la Parte 18 que una herramienta que otros operan necesita contratos explícitos; en el navegador, el contrato del documento lo interpretan agentes que no son tu código. La pregunta activa es: **¿qué promete mi HTML a quien no ve la pantalla, qué decide mi CSS y qué defectos me enseñaría una máquina frente a los que solo ve una persona?**
+Esta clase abre la **[Parte 19](../README.md) sobre una aplicación web de entregas con conectividad irregular**. Recupera de la [Parte 18](../../part-18-cli-tui-servicios-y-automatizacion/README.md) que una herramienta que otros operan necesita contratos explícitos; en el navegador, el contrato del documento lo interpretan agentes que no son tu código. La pregunta activa es: **¿qué promete mi HTML a quien no ve la pantalla, qué decide mi CSS y qué defectos me enseñaría una máquina frente a los que solo ve una persona?**
 
 ## Prerrequisitos
 
@@ -198,7 +198,7 @@ Entrega `web-log.md` con la página base, el linter con sus ocho reglas, el resu
 
 ## Caso conductor
 
-La aplicación web de entregas con conectividad irregular es el caso conductor de la Parte 19. Esta clase deja el primer artefacto: un formulario con estructura semántica, nombres accesibles y colores con contraste verificado. Las clases siguientes añadirán comportamiento con JavaScript (`SE-230`), decidirán dónde se renderiza (`SE-231`), gestionarán estado y datos (`SE-232`), validarán el formulario con mensajes de error (`SE-233`), definirán sus URLs (`SE-234`) y lo harán rápido, seguro, instalable y descubrible. Cambia después un solo dato, el color de acento de la marca, y revisa qué pares de color dejan de cumplir.
+La aplicación web de entregas con conectividad irregular es el caso conductor de la [Parte 19](../README.md). Esta clase deja el primer artefacto: un formulario con estructura semántica, nombres accesibles y colores con contraste verificado. Las clases siguientes añadirán comportamiento con JavaScript (`SE-230`), decidirán dónde se renderiza (`SE-231`), gestionarán estado y datos (`SE-232`), validarán el formulario con mensajes de error (`SE-233`), definirán sus URLs (`SE-234`) y lo harán rápido, seguro, instalable y descubrible. Cambia después un solo dato, el color de acento de la marca, y revisa qué pares de color dejan de cumplir.
 
 ## Preguntas frecuentes
 

@@ -220,7 +220,7 @@ Entrega `ota-log.md` con la predicción, la enumeración de cortes, la tabla de 
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el séptimo artefacto: el plan de actualización del nodo con ranuras, validación, reversión, etapas y criterio de parada. `SE-272` pregunta cómo el nodo sabe que lo que recibe es legítimo. Cambia después una sola cosa, el tamaño de la primera etapa, y observa qué defectos deja de ver.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el séptimo artefacto: el plan de actualización del nodo con ranuras, validación, reversión, etapas y criterio de parada. `SE-272` pregunta cómo el nodo sabe que lo que recibe es legítimo. Cambia después una sola cosa, el tamaño de la primera etapa, y observa qué defectos deja de ver.
 
 ## Preguntas frecuentes
 

@@ -200,7 +200,7 @@ Entrega `evolution-log.md` con el esquema base, la tabla de diez cambios y tres 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja una taxonomía de cambios medida, una política de versionado y una ventana de deprecación estimada. `SE-165` preguntará cómo mantener la especificación como fuente de verdad para que esa política se cumpla, y `SE-166` cómo comprobar que los consumidores siguen funcionando. Cambia después una sola decisión, renombrar `plazo` a `vence`, y revisa qué consumidores, ejemplos y esquemas se ven afectados.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja una taxonomía de cambios medida, una política de versionado y una ventana de deprecación estimada. `SE-165` preguntará cómo mantener la especificación como fuente de verdad para que esa política se cumpla, y `SE-166` cómo comprobar que los consumidores siguen funcionando. Cambia después una sola decisión, renombrar `plazo` a `vence`, y revisa qué consumidores, ejemplos y esquemas se ven afectados.
 
 ## Preguntas frecuentes
 

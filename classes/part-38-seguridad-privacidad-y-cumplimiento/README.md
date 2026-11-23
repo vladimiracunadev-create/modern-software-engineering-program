@@ -1,6 +1,6 @@
 # Parte 38 — Seguridad, privacidad y cumplimiento
 
-La Parte 36 enseñó a prometer una calidad medible y a medirla sin engañarse. La pregunta cambia de «¿cumple su promesa?» a «¿qué pasa cuando alguien quiere que no la cumpla?». Esta parte trabaja sobre **la plataforma de entregas de tareas**, un caso sintético, vista desde quien la ataca y desde quien la protege: alterar una nota, leer entregas ajenas, suplantar a un docente. Cada clase convierte una creencia («está cifrado», «tiene límite de intentos», «está anonimizado») en una medida, muestra cómo falla y declara qué no demuestra.
+La [Parte 36](../part-36-calidad-rendimiento-y-resiliencia/README.md) enseñó a prometer una calidad medible y a medirla sin engañarse. La pregunta cambia de «¿cumple su promesa?» a «¿qué pasa cuando alguien quiere que no la cumpla?». Esta parte trabaja sobre **la plataforma de entregas de tareas**, un caso sintético, vista desde quien la ataca y desde quien la protege: alterar una nota, leer entregas ajenas, suplantar a un docente. Cada clase convierte una creencia («está cifrado», «tiene límite de intentos», «está anonimizado») en una medida, muestra cómo falla y declara qué no demuestra.
 
 ## Pregunta rectora
 
@@ -120,7 +120,7 @@ Un control que confía en un dato del atacante no controla. Rompe y repara cuatr
 
 #### SE-468 — Proyecto: producto con seguridad verificable
 
-Un paquete completo no es un paquete verdadero. Mide tres validadores frente a 210 mutaciones y la huella entre dos sistemas. Entrega el paquete con `LIMITES.md`. La Parte 39 pasa a build, release y cadena de suministro.
+Un paquete completo no es un paquete verdadero. Mide tres validadores frente a 210 mutaciones y la huella entre dos sistemas. Entrega el paquete con `LIMITES.md`. La [Parte 39](../part-39-build-release-y-cadena-de-suministro/README.md) pasa a build, release y cadena de suministro.
 
 ## Resumen operativo del recorrido
 

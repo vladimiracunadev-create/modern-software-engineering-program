@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que distingas lo que una cadena de bloques garantiza (que un historial no se altera sin que se note, bajo ciertos supuestos de poder de cómputo) de lo que no garantiza (que el dato registrado sea verdad, que el código sea correcto o que un atacante no pueda ganar con probabilidad pequeña), y para que decidas con evidencia si un problema necesita una cadena o una base de datos con auditoría.
 
-**Por qué aparece aquí.** Es la octava clase de la **Parte 24**, después de **Salud, datos sensibles y sistemas regulados**: allí la confianza descansaba en instituciones, controles de acceso y registros de auditoría; aquí se pregunta qué ocurre cuando no hay una autoridad central y la confianza se sustituye por un protocolo. Dinero, identidad y regulación reaparecen con una restricción nueva: lo que se escribe no se puede borrar. El caso conductor sigue siendo la plataforma educativa ficticia: certificados de curso verificables por terceros.
+**Por qué aparece aquí.** Es la octava clase de la **[Parte 24](../README.md)**, después de **Salud, datos sensibles y sistemas regulados**: allí la confianza descansaba en instituciones, controles de acceso y registros de auditoría; aquí se pregunta qué ocurre cuando no hay una autoridad central y la confianza se sustituye por un protocolo. Dinero, identidad y regulación reaparecen con una restricción nueva: lo que se escribe no se puede borrar. El caso conductor sigue siendo la plataforma educativa ficticia: certificados de curso verificables por terceros.
 
 **Error conceptual que debe corregir.** Creer que «está en la cadena» equivale a «es verdad» o «es seguro». La cadena garantiza orden e inmutabilidad probabilística de lo escrito; no valida lo escrito, no protege un contrato mal programado y no elimina la necesidad de decidir quién escribe y por qué.
 
@@ -249,7 +249,7 @@ Entrega `chain-log.md` con la predicción, la tabla de intentos, la de doble gas
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el octavo artefacto: los certificados con firma digital, un resumen diario sellado y una tabla de decisión que justifica por qué no se emiten con un contrato. `SE-297` pasa a un dominio donde las coordenadas y los relojes parecen simples y no lo son. Cambia después una sola decisión, el número de confirmaciones, y observa cómo cambia la probabilidad de reversión y el tiempo de espera.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el octavo artefacto: los certificados con firma digital, un resumen diario sellado y una tabla de decisión que justifica por qué no se emiten con un contrato. `SE-297` pasa a un dominio donde las coordenadas y los relojes parecen simples y no lo son. Cambia después una sola decisión, el número de confirmaciones, y observa cómo cambia la probabilidad de reversión y el tiempo de espera.
 
 ## Preguntas frecuentes
 

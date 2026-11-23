@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que construyas una cadena de datos cuyo resultado no cambie porque algo falló a la mitad, porque un evento llegó tarde o porque una clave es mucho más popular que las demás, y para que sepas decir cuándo el número de un tablero es completo y cuándo es provisional.
 
-**Por qué aparece aquí.** Es la segunda clase de la **Parte 24**, después de **Software científico y reproducibilidad**: allí el problema era que un cálculo pudiera repetirse; aquí el cálculo es continuo, recibe datos de otros sistemas y corre sobre varias máquinas, de modo que fallos parciales, retrasos y desequilibrios sustituyen al orden de las sumas como fuente de resultados distintos. El caso conductor sigue siendo la plataforma educativa ficticia: ahora, el flujo de eventos de entrega que alimenta un tablero para docentes.
+**Por qué aparece aquí.** Es la segunda clase de la **[Parte 24](../README.md)**, después de **Software científico y reproducibilidad**: allí el problema era que un cálculo pudiera repetirse; aquí el cálculo es continuo, recibe datos de otros sistemas y corre sobre varias máquinas, de modo que fallos parciales, retrasos y desequilibrios sustituyen al orden de las sumas como fuente de resultados distintos. El caso conductor sigue siendo la plataforma educativa ficticia: ahora, el flujo de eventos de entrega que alimenta un tablero para docentes.
 
 **Error conceptual que debe corregir.** Creer que una cadena de datos «procesa cada evento una vez» porque el planificador lo promete. Lo que existe es entrega al menos una vez más una escritura que debe ser segura de repetir; el efecto de «exactamente una vez» se construye con idempotencia, no se recibe.
 
@@ -229,7 +229,7 @@ Entrega `data-log.md` con la predicción, la tabla de duplicados, la curva de ev
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el segundo artefacto: la cadena de entregas con carga idempotente, ventana de 120 s y reparto salado para un curso caliente. `SE-291` usará esas tablas como entrada de un modelo de aprendizaje automático. Cambia después una sola decisión, la tolerancia de la ventana, y observa qué se compra y qué se paga.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el segundo artefacto: la cadena de entregas con carga idempotente, ventana de 120 s y reparto salado para un curso caliente. `SE-291` usará esas tablas como entrada de un modelo de aprendizaje automático. Cambia después una sola decisión, la tolerancia de la ventana, y observa qué se compra y qué se paga.
 
 ## Preguntas frecuentes
 

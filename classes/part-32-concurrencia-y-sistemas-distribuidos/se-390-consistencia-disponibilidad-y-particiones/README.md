@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-389`: tras un silencio no se sabe qué ocurrió. La
 
 - Haber completado `SE-389` o poder explicar por qué un tiempo agotado es ambiguo.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `itertools`, `math`).
-- Haber visto la replicación y las lecturas obsoletas en la Parte 29 (`SE-355`).
+- Haber visto la replicación y las lecturas obsoletas en la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) (`SE-355`).
 
 ## Problema auténtico
 
@@ -175,7 +175,7 @@ Un **CRDT** (tipo de datos replicado sin conflicto, [crdt.tech](https://crdt.tec
 
 **Mecanismo: la baja solo quita lo que vio.** En un conjunto con altas y bajas, «aplicar cada operación al llegar» no converge porque alta y baja del mismo elemento no conmutan: con alta y luego baja el elemento no está, con baja y luego alta sí. El **OR-Set** (conjunto de observar y quitar) resuelve esto dando a cada alta una etiqueta única y haciendo que cada baja lleve consigo las etiquetas de ese elemento que su origen había visto. La baja quita solo esas etiquetas; un alta concurrente, con etiqueta distinta, sobrevive. Así, de las dos reglas posibles ante una alta y una baja concurrentes, el OR-Set elige **el alta gana**. El estado es el conjunto de etiquetas de altas menos el de etiquetas quitadas: ambas partes crecen solo por unión, y la fusión es una unión.
 
-**Causa: converger no es lo mismo que ser correcto.** La alternativa habitual es el **último escritor gana**: cada operación lleva una marca de tiempo y manda la mayor. Converge si las marcas son únicas y totalmente ordenadas, pero descarta altas concurrentes que ninguna baja había visto y, con relojes desfasados (clase SE-388), decide con una hora equivocada. Además, dos operaciones con la misma marca solo se ordenan si se desempata, por ejemplo con el identificador de la réplica.
+**Causa: converger no es lo mismo que ser correcto.** La alternativa habitual es el **último escritor gana**: cada operación lleva una marca de tiempo y manda la mayor. Converge si las marcas son únicas y totalmente ordenadas, pero descarta altas concurrentes que ninguna baja había visto y, con relojes desfasados (clase [SE-388](../se-388-tiempo-relojes-y-orden-parcial/README.md)), decide con una hora equivocada. Además, dos operaciones con la misma marca solo se ordenan si se desempata, por ejemplo con el identificador de la réplica.
 
 **Experimento reproducible.** `scripts/experiments_part32_ext.py` ejecuta 5 000 corridas por diseño (semilla 345) con tres réplicas y 12 operaciones sobre 3 elementos, 60 % altas y 40 % bajas. Antes de emitir su operación, cada réplica recibe al azar parte de las operaciones pendientes de las demás; cada baja lleva las altas que su origen había visto. Al final, cada réplica recibe todas las operaciones en orden aleatorio y 5 repetidas. Se mide si las tres réplicas terminan iguales y si el estado coincide con la especificación «un elemento está si alguna alta no fue observada por ninguna baja».
 
@@ -189,7 +189,7 @@ Un **CRDT** (tipo de datos replicado sin conflicto, [crdt.tech](https://crdt.tec
 
 **Cómo leer la figura.** Para cada diseño, la barra coral es la fracción de corridas en que las réplicas no convergen y la dorada la de corridas en que el estado final no es el que prescribe la regla del alta que gana. Mira que el último escritor casi no diverge y sin embargo incumple la regla en cuatro de cada diez corridas: convergencia y corrección son preguntas distintas. **Dónde deja de valer:** el modelo tiene tres réplicas, 12 operaciones y entrega aleatoria; no hay caídas de réplicas, fusión parcial ni compactación. El OR-Set de la figura guarda las etiquetas quitadas indefinidamente, y en un sistema real esa acumulación crece con el tiempo y obliga a compactar con un conocimiento causal que requiere coordinación.
 
-**Límite y decisión.** Un CRDT no elimina la coordinación: la mueve al diseño. Sirve cuando las operaciones del dominio tienen una fusión natural (contadores de eventos, conjuntos de etiquetas, texto colaborativo). No sirve para invariantes globales como un cupo, un saldo no negativo o una clave única, que exigen coordinación (SE-391). La decisión es por dato: elegir el tipo que codifica la regla de negocio, probar la fusión con operaciones desordenadas y duplicadas, y declarar cuánta metadata crecerá.
+**Límite y decisión.** Un CRDT no elimina la coordinación: la mueve al diseño. Sirve cuando las operaciones del dominio tienen una fusión natural (contadores de eventos, conjuntos de etiquetas, texto colaborativo). No sirve para invariantes globales como un cupo, un saldo no negativo o una clave única, que exigen coordinación ([SE-391](../se-391-consenso-eleccion-y-coordinacion/README.md)). La decisión es por dato: elegir el tipo que codifica la regla de negocio, probar la fusión con operaciones desordenadas y duplicadas, y declarar cuánta metadata crecerá.
 
 ## Definiciones de trabajo
 
@@ -240,7 +240,7 @@ Entrega `consistencia-log.md` con la predicción, las tres tablas, la clasificac
 
 ## Caso conductor
 
-La decisión por operación durante una partición es el artefacto de esta clase en el caso conductor de la Parte 32. `SE-391` pregunta cómo se ponen de acuerdo los nodos para que haya una sola respuesta cuando hace falta. Cambia después una sola decisión, el cuórum de escritura, y observa qué otra (la disponibilidad ante una caída) se ve afectada.
+La decisión por operación durante una partición es el artefacto de esta clase en el caso conductor de la [Parte 32](../README.md). `SE-391` pregunta cómo se ponen de acuerdo los nodos para que haya una sola respuesta cuando hace falta. Cambia después una sola decisión, el cuórum de escritura, y observa qué otra (la disponibilidad ante una caída) se ve afectada.
 
 ## Preguntas frecuentes
 

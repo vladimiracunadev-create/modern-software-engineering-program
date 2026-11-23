@@ -220,7 +220,7 @@ Entrega `capacidad-log.md` con la predicción, las tres tablas de resultados, el
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 36. Esta clase deja el cuarto artefacto: un modelo de capacidad con su objetivo de cola. `SE-437` preguntará cómo se mide el tiempo de verdad, con relojes, perfiles y benchmarks, y qué errores comete esa medición. Cambia después un solo parámetro, la variabilidad del servicio, y observa cuántos servidores te ahorra.
+La API de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el cuarto artefacto: un modelo de capacidad con su objetivo de cola. `SE-437` preguntará cómo se mide el tiempo de verdad, con relojes, perfiles y benchmarks, y qué errores comete esa medición. Cambia después un solo parámetro, la variabilidad del servicio, y observa cuántos servidores te ahorra.
 
 ## Preguntas frecuentes
 

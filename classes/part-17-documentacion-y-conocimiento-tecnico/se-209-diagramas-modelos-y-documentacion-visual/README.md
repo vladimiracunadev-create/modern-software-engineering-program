@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que decidas cuándo un diagrama enseña algo que un párrafo no puede, cómo evitar que se vuelva ilegible o mentiroso, y cómo mantenerlo de forma que su diferencia con el código se pueda ver. Un diagrama es una afirmación sobre el sistema y debe poder contrastarse como cualquier otra.
 
-**Por qué aparece aquí.** Se sitúa después de **ADRs, RFCs y registro de decisiones** y antes de **API docs, ejemplos y contratos publicados**: las decisiones dicen por qué, los diagramas muestran estructura y relaciones, y la clase siguiente documenta lo que otros consumen. Retoma los modelos de la Parte 13 desde el lado de la comunicación y adelanta el diagrama como código que `SE-212` automatiza.
+**Por qué aparece aquí.** Se sitúa después de **ADRs, RFCs y registro de decisiones** y antes de **API docs, ejemplos y contratos publicados**: las decisiones dicen por qué, los diagramas muestran estructura y relaciones, y la clase siguiente documenta lo que otros consumen. Retoma los modelos de la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) desde el lado de la comunicación y adelanta el diagrama como código que `SE-212` automatiza.
 
 **Error conceptual que debe corregir.** Creer que un diagrama más completo es un diagrama mejor, o que dibujar es documentar. Un diagrama con todo no responde a ninguna pregunta, y un dibujo hecho a mano sin una forma de compararlo con el sistema envejece sin que nadie lo note.
 

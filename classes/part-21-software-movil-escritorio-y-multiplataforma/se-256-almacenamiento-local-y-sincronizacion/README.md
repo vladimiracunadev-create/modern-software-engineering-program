@@ -215,7 +215,7 @@ Entrega `storage-log.md` con el inventario de datos, las mediciones de SQLite, e
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su inventario de datos y su política de fusión. `SE-257` decide qué capacidades del dispositivo se piden, `SE-260` desarrolla el trabajo sin conexión y la resolución de conflictos con relojes lógicos, y `SE-264` integra todo en un cliente que sincroniza. Cambia después una sola decisión, la sincronización de SQLite de completa a normal, y revisa qué cifras y qué garantías cambian.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su inventario de datos y su política de fusión. `SE-257` decide qué capacidades del dispositivo se piden, `SE-260` desarrolla el trabajo sin conexión y la resolución de conflictos con relojes lógicos, y `SE-264` integra todo en un cliente que sincroniza. Cambia después una sola decisión, la sincronización de SQLite de completa a normal, y revisa qué cifras y qué garantías cambian.
 
 ## Preguntas frecuentes
 

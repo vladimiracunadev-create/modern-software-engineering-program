@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que **midas** un sistema con LLM con el mismo rigor con que mides cualquier otro componente que decide cosas: con un conjunto de casos, un criterio de calificación, una comparación entre versiones que tenga en cuenta el ruido y una puerta que decida si una versión sale. Un sistema con un modelo dentro cambia aunque nadie toque el código (el proveedor actualiza el modelo, el prompt cambia una palabra, una herramienta devuelve otro texto), así que sin evaluaciones no hay forma de saber si «mejoró» o «empeoró». El «LLMOps» es lo que rodea a esa medición: trazas, versiones de prompts y modelos, monitoreo y el ciclo por el que los fallos de producción se convierten en casos de prueba.
 
-**Por qué aparece aquí.** Sigue a `SE-596`, donde el sistema se volvió durable. Ahora hay que decidir con evidencia si una nueva versión puede salir. Retoma de la Parte 45 (`SE-549`) la evaluación como especificación y puerta de release, y de la Parte 35 la estrategia de prueba; la novedad es aplicarla a un componente **probabilístico** y con un criterio que a veces ejerce un juez.
+**Por qué aparece aquí.** Sigue a `SE-596`, donde el sistema se volvió durable. Ahora hay que decidir con evidencia si una nueva versión puede salir. Retoma de la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) (`SE-549`) la evaluación como especificación y puerta de release, y de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) la estrategia de prueba; la novedad es aplicarla a un componente **probabilístico** y con un criterio que a veces ejerce un juez.
 
 **Error conceptual que debe corregir.** Creer que una evaluación da un número y que comparar números basta. Una evaluación es un **instrumento con ruido**: el sistema puede responder distinto a la misma entrada, los casos son una muestra, el juez tiene sesgos. Con 100 casos, una mejora real de unos 4 puntos pasa desapercibida en 85 de cada 100 evaluaciones; con 1 600 se detecta en 82 de cada 100. Declarar «v2 es mejor que v1» porque sacó 3 puntos más sobre 100 casos es leer ruido como señal. Y la creencia gemela: que un juez basado en un modelo «califica como una persona»: tiene sesgos medibles, como preferir la primera respuesta.
 
@@ -27,12 +27,12 @@
 
 ## Antes de empezar
 
-Recupera `SE-549` (Parte 45): una evaluación es un instrumento con ruido y una puerta necesita umbral, margen y zona de duda. La pregunta activa es: **cuando compararon dos versiones de algo con una muestra pequeña, ¿qué diferencia habría tenido que aparecer para que la tomaran por real?**
+Recupera `SE-549` ([Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)): una evaluación es un instrumento con ruido y una puerta necesita umbral, margen y zona de duda. La pregunta activa es: **cuando compararon dos versiones de algo con una muestra pequeña, ¿qué diferencia habría tenido que aparecer para que la tomaran por real?**
 
 ## Prerrequisitos
 
 - Haber completado `SE-596` o poder explicar la reanudación y la idempotencia.
-- Conocer de la Parte 45 la evaluación como puerta de release y el efecto del número de casos y repeticiones.
+- Conocer de la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) la evaluación como puerta de release y el efecto del número de casos y repeticiones.
 - Python 3.11 o posterior.
 
 ## Problema auténtico
@@ -123,9 +123,9 @@ La disciplina se resume en un bucle con cuatro propiedades: los casos crecen con
 
 ### Ampliación: cuándo ajustar el modelo (fine-tuning) y qué exige de la evaluación
 
-El **ajuste fino** (*fine-tuning*) continúa el entrenamiento de un modelo ya entrenado con ejemplos propios, de modo que cambian sus pesos (todos, o un subconjunto pequeño como en [LoRA](https://arxiv.org/abs/2106.09685), que entrena matrices de rango bajo añadidas al modelo, o con bibliotecas como [PEFT](https://huggingface.co/docs/peft/index)). Esta clase evalúa sistemas con modelos; el ajuste fino añade un caso en el que el modelo que se evalúa es uno que el equipo fabricó, con datos que el equipo eligió. La Parte 50 del programa, todavía no publicada al redactar esta ampliación, trata el ciclo de vida de modelos; aquí se fija solo cuándo conviene y qué condiciones impone a la evaluación.
+El **ajuste fino** (*fine-tuning*) continúa el entrenamiento de un modelo ya entrenado con ejemplos propios, de modo que cambian sus pesos (todos, o un subconjunto pequeño como en [LoRA](https://arxiv.org/abs/2106.09685), que entrena matrices de rango bajo añadidas al modelo, o con bibliotecas como [PEFT](https://huggingface.co/docs/peft/index)). Esta clase evalúa sistemas con modelos; el ajuste fino añade un caso en el que el modelo que se evalúa es uno que el equipo fabricó, con datos que el equipo eligió. La [Parte 50](../../part-50-machine-learning-en-produccion-y-mlops/README.md) del programa, todavía no publicada al redactar esta ampliación, trata el ciclo de vida de modelos; aquí se fija solo cuándo conviene y qué condiciones impone a la evaluación.
 
-**La escalera de intervenciones.** Antes de ajustar, existen alternativas más baratas y reversibles, en este orden: mejorar el contexto y las instrucciones (prompt), añadir recuperación de información (RAG, SE-594), usar herramientas, y solo entonces ajustar. Cada peldaño cambia algo distinto. El ajuste fino enseña sobre todo **forma y comportamiento** (formato de salida, tono, un criterio de clasificación, una tarea estrecha repetida muchas veces) y es un mal sitio para guardar **hechos** que cambian, porque actualizarlos obliga a reentrenar y el modelo puede inventar con la misma seguridad. La recuperación sirve para hechos; el ajuste, para conducta.
+**La escalera de intervenciones.** Antes de ajustar, existen alternativas más baratas y reversibles, en este orden: mejorar el contexto y las instrucciones (prompt), añadir recuperación de información (RAG, [SE-594](../se-594-embeddings-recuperacion-y-agentic-rag/README.md)), usar herramientas, y solo entonces ajustar. Cada peldaño cambia algo distinto. El ajuste fino enseña sobre todo **forma y comportamiento** (formato de salida, tono, un criterio de clasificación, una tarea estrecha repetida muchas veces) y es un mal sitio para guardar **hechos** que cambian, porque actualizarlos obliga a reentrenar y el modelo puede inventar con la misma seguridad. La recuperación sirve para hechos; el ajuste, para conducta.
 
 **Cuándo sí.** Una tarea estrecha y estable, con cientos o miles de ejemplos etiquetados de calidad, un criterio de éxito medible, un volumen que justifica el coste y un modelo más pequeño que, ajustado, iguale al grande sin ajustar para ese uso (menor latencia y costo por solicitud). **Cuándo no:** pocos ejemplos, una definición de calidad que aún cambia, conocimiento que se actualiza, o un modelo base que se sustituirá en meses (el ajuste hay que rehacerlo con cada base nueva).
 

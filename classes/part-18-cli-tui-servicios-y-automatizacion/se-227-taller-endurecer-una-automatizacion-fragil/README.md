@@ -184,7 +184,7 @@ Entrega `hardening-log.md` con las debilidades, la matriz de diez fallos antes y
 
 ## Caso conductor
 
-La herramienta `notas` es el caso conductor de la Parte 18. El taller endurece su copia de seguridad con las técnicas de las clases anteriores: contrato de códigos (`SE-220`), tiempo límite y reinicios (`SE-222`), reemplazo atómico y reanudación (`SE-224`), verificación de integridad (`SE-225`) y compuerta de privacidad (`SE-226`). `SE-228` reúne todo en un paquete operable. Cambia después un solo detalle, el tiempo límite de 1,5 s a 10 s, y revisa cuántos escenarios cambian y qué pasa con un cuelgue real de 8 s.
+La herramienta `notas` es el caso conductor de la [Parte 18](../README.md). El taller endurece su copia de seguridad con las técnicas de las clases anteriores: contrato de códigos (`SE-220`), tiempo límite y reinicios (`SE-222`), reemplazo atómico y reanudación (`SE-224`), verificación de integridad (`SE-225`) y compuerta de privacidad (`SE-226`). `SE-228` reúne todo en un paquete operable. Cambia después un solo detalle, el tiempo límite de 1,5 s a 10 s, y revisa cuántos escenarios cambian y qué pasa con un cuelgue real de 8 s.
 
 ## Preguntas frecuentes
 

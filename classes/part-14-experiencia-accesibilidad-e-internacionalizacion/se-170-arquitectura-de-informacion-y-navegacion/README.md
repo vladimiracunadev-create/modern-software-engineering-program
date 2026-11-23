@@ -200,7 +200,7 @@ Entrega `ia-log.md` con el esquema de agrupaciones y etiquetas, el cálculo de a
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja el esquema de información de las tareas de `SE-169` y las comprobaciones de alcance y huérfanas. `SE-171` decidirá cómo responden los controles de cada página; `SE-172` qué ocurre cuando una página no tiene datos o falla. Cambia después una sola etiqueta, «Calificaciones» por «Mis notas», y revisa qué búsquedas, enlaces y soportes dependían de ella.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja el esquema de información de las tareas de `SE-169` y las comprobaciones de alcance y huérfanas. `SE-171` decidirá cómo responden los controles de cada página; `SE-172` qué ocurre cuando una página no tiene datos o falla. Cambia después una sola etiqueta, «Calificaciones» por «Mis notas», y revisa qué búsquedas, enlaces y soportes dependían de ella.
 
 ## Preguntas frecuentes
 

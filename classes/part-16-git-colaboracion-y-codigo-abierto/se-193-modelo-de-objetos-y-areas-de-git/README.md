@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que una persona deje de usar Git como una lista de comandos que a veces funciona y lo use como lo que es: una base de objetos direccionada por contenido, tres áreas donde un cambio puede estar y referencias que apuntan a commits. Con ese modelo se puede predecir qué hará un comando antes de ejecutarlo y saber qué se puede recuperar después de un error.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: plan adaptativo con evidencia y guardrails** y antes de **Commits atómicos, historial y recuperación**. La Parte 15 dejó un plan que cambia con la evidencia; ese plan vive en un repositorio y cada cambio debe poder revisarse, deshacerse y atribuirse. Esta clase construye el modelo mental sobre el que las clases siguientes razonan: sin saber qué guarda un commit no se puede decidir qué significa «atómico», qué destruye un `reset` ni por qué una reescritura cambia tantos identificadores.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: plan adaptativo con evidencia y guardrails** y antes de **Commits atómicos, historial y recuperación**. La [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md) dejó un plan que cambia con la evidencia; ese plan vive en un repositorio y cada cambio debe poder revisarse, deshacerse y atribuirse. Esta clase construye el modelo mental sobre el que las clases siguientes razonan: sin saber qué guarda un commit no se puede decidir qué significa «atómico», qué destruye un `reset` ni por qué una reescritura cambia tantos identificadores.
 
 **Error conceptual que debe corregir.** Creer que Git guarda diferencias entre versiones y que un commit es «el cambio». Un commit apunta a una instantánea completa del árbol; las diferencias se calculan al mostrarlas y solo el empaquetado las usa para ahorrar espacio. De ese error nacen predicciones falsas sobre renombres, duplicados y recuperación.
 
@@ -26,11 +26,11 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 15: una estimación o un plan es una afirmación que se revisa con evidencia. La pregunta activa es: **¿qué guarda exactamente Git cuando hago un commit, dónde puede estar un cambio antes de llegar ahí y qué queda si me equivoco?**
+Recupera lo aprendido en la [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md): una estimación o un plan es una afirmación que se revisa con evidencia. La pregunta activa es: **¿qué guarda exactamente Git cuando hago un commit, dónde puede estar un cambio antes de llegar ahí y qué queda si me equivoco?**
 
 ## Prerrequisitos
 
-- Haber completado la Parte 15 o poder explicar cómo un plan se actualiza con evidencia.
+- Haber completado la [Parte 15](../../part-15-procesos-planificacion-y-estimacion/README.md) o poder explicar cómo un plan se actualiza con evidencia.
 - Python 3.11 o posterior, Git 2.40 o posterior y un terminal con acceso a ambos.
 - Trabajar solo en repositorios temporales y con identidades de ejemplo; nada de lo que se hace aquí toca un remoto.
 
@@ -176,7 +176,7 @@ Entrega `objects-log.md` con la reconstrucción de un blob, un árbol y un commi
 
 ## Caso conductor
 
-El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja el modelo de objetos y de áreas con el que las siguientes razonan: `SE-194` pregunta cuándo un cambio es lo bastante pequeño para ser un commit y qué se recupera tras un error, y `SE-195` trata las ramas como nombres que se mueven. Cambia después un solo dato, el modo de un archivo, y revisa qué objetos cambian y qué commit lo mostraría.
+El repositorio de la plataforma de entregas es el caso conductor de la [Parte 16](../README.md). Esta clase deja el modelo de objetos y de áreas con el que las siguientes razonan: `SE-194` pregunta cuándo un cambio es lo bastante pequeño para ser un commit y qué se recupera tras un error, y `SE-195` trata las ramas como nombres que se mueven. Cambia después un solo dato, el modo de un archivo, y revisa qué objetos cambian y qué commit lo mostraría.
 
 ## Preguntas frecuentes
 

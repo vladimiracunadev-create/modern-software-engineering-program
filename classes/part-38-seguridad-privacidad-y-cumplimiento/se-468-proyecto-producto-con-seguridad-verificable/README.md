@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues un producto cuya seguridad otra persona pueda comprobar sin creerte: requisitos de verificación elegidos con un criterio, cada uno con su prueba, su evidencia con fecha y huella, un validador que revisa el paquete y una lista honesta de lo que ninguna comprobación ve. La habilidad profesional es producir un paquete reproducible, no una declaración.
 
-**Por qué aparece aquí.** Cierra la **Parte 38** e integra lo anterior: el modelo de amenazas (`SE-457`), identidad y acceso (`SE-458`, `SE-459`), entradas (`SE-460`), criptografía y secretos (`SE-461`, `SE-462`), privacidad (`SE-463`), proceso y abusos (`SE-464`), respuesta (`SE-465`), evidencia (`SE-466`) y controles aparentes (`SE-467`). El caso conductor es **la plataforma de entregas**, evaluada contra una selección de requisitos del OWASP ASVS 5.0.
+**Por qué aparece aquí.** Cierra la **[Parte 38](../README.md)** e integra lo anterior: el modelo de amenazas (`SE-457`), identidad y acceso (`SE-458`, `SE-459`), entradas (`SE-460`), criptografía y secretos (`SE-461`, `SE-462`), privacidad (`SE-463`), proceso y abusos (`SE-464`), respuesta (`SE-465`), evidencia (`SE-466`) y controles aparentes (`SE-467`). El caso conductor es **la plataforma de entregas**, evaluada contra una selección de requisitos del OWASP ASVS 5.0.
 
 **Error conceptual que debe corregir.** Creer que un paquete completo es un paquete verdadero. Un validador que comprueba que cada requisito tenga evidencia detecta lo que falta y no detecta la evidencia que parece buena y no prueba nada.
 
@@ -34,7 +34,7 @@ Recupera `SE-466` (cadena requisito–evidencia) y `SE-467` (control aparente). 
 
 - Haber completado `SE-467`.
 - Python 3.11 o posterior; solo biblioteca estándar.
-- Haber leído las clases de la Parte 38.
+- Haber leído las clases de la [Parte 38](../README.md).
 
 ## Problema auténtico
 
@@ -181,7 +181,7 @@ Entrega el paquete, el validador, las huellas de dos sistemas y `LIMITES.md`. Se
 
 ## Caso conductor
 
-La plataforma de entregas queda con un paquete de seguridad verificable. La Parte 39 pasa a la construcción, la versión y la cadena de suministro. Cambia un solo dato, el plazo de frescura, y observa qué requisitos dejan de estar vigentes.
+La plataforma de entregas queda con un paquete de seguridad verificable. La [Parte 39](../../part-39-build-release-y-cadena-de-suministro/README.md) pasa a la construcción, la versión y la cadena de suministro. Cambia un solo dato, el plazo de frescura, y observa qué requisitos dejan de estar vigentes.
 
 ## Preguntas frecuentes
 
@@ -267,7 +267,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 195 de 210
 
 ## Límites y siguiente paso
 
-Se ejecutaron dos experimentos en Windows y Ubuntu (WSL2): el validador con cifras idénticas y la huella con diferencias por diseño. Los requisitos, mutaciones y validadores son del autor; no se evaluó ningún producto real. La Parte 39 pasa a build, release y cadena de suministro.
+Se ejecutaron dos experimentos en Windows y Ubuntu (WSL2): el validador con cifras idénticas y la huella con diferencias por diseño. Los requisitos, mutaciones y validadores son del autor; no se evaluó ningún producto real. La [Parte 39](../../part-39-build-release-y-cadena-de-suministro/README.md) pasa a build, release y cadena de suministro.
 
 ## Glosario
 

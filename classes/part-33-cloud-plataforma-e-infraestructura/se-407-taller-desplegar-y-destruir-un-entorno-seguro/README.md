@@ -229,7 +229,7 @@ Entrega `taller-entorno.md` con la predicción, las tres tablas reproducidas con
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Este taller deja el undécimo artefacto: el ciclo de vida completo de un entorno de laboratorio, con su prueba de destrucción. `SE-408` integra todo en un proyecto: una plataforma mínima y reproducible. Cambia una decisión, por ejemplo la caducidad de 24 a 72 horas, y observa cuántos restos cuesta por entorno olvidado.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Este taller deja el undécimo artefacto: el ciclo de vida completo de un entorno de laboratorio, con su prueba de destrucción. `SE-408` integra todo en un proyecto: una plataforma mínima y reproducible. Cambia una decisión, por ejemplo la caducidad de 24 a 72 horas, y observa cuántos restos cuesta por entorno olvidado.
 
 ## Preguntas frecuentes
 

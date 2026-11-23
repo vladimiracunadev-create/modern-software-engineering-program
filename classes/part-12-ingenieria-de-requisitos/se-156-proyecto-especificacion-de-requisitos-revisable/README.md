@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para reunir en un solo expediente lo que las once clases anteriores produjeron por separado —origen, reglas, calidad, relatos, ejemplos, orden, trazabilidad, obligaciones, línea base y defectos— de modo que otra persona pueda revisarlo, encontrar lo que falta y decidir si se puede construir sobre él sin pedir contexto.
 
-**Por qué aparece aquí.** Se sitúa después de **Taller: reparar requisitos no verificables** y antes de la Parte 13 (**Especificación informal, semiformal y formal**): la Parte 12 enseñó a producir y a depurar requisitos; este proyecto los integra en una especificación con un validador y una revisión medida, y entrega a la Parte 13 un texto que se puede formalizar porque sus afirmaciones tienen origen, criterio y responsable.
+**Por qué aparece aquí.** Se sitúa después de **Taller: reparar requisitos no verificables** y antes de la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) (**Especificación informal, semiformal y formal**): la [Parte 12](../README.md) enseñó a producir y a depurar requisitos; este proyecto los integra en una especificación con un validador y una revisión medida, y entrega a la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) un texto que se puede formalizar porque sus afirmaciones tienen origen, criterio y responsable.
 
 **Error conceptual que debe corregir.** Creer que una especificación revisable es una especificación revisada, y que haber encontrado pocos defectos en una revisión prueba que quedan pocos.
 
@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas todo el expediente de la Parte 12: requisito conductor con origen (`SE-145`), reglas (`SE-146`), escenarios de calidad (`SE-147`), historias (`SE-148`), ejemplos (`SE-149`), orden (`SE-150`), trazabilidad (`SE-151`), obligaciones (`SE-152`), línea base (`SE-153`), defectos (`SE-154`) y reparaciones (`SE-155`). Recupera lo aprendido en `SE-132` (Parte 10): un validador de briefs detectó lo estructural y no lo semántico. La pregunta activa es: **¿qué debe tener este expediente para que otra persona decida, sin preguntarme, si se puede construir sobre él, y cómo estimo qué defectos le quedan?**
+Retomas todo el expediente de la [Parte 12](../README.md): requisito conductor con origen (`SE-145`), reglas (`SE-146`), escenarios de calidad (`SE-147`), historias (`SE-148`), ejemplos (`SE-149`), orden (`SE-150`), trazabilidad (`SE-151`), obligaciones (`SE-152`), línea base (`SE-153`), defectos (`SE-154`) y reparaciones (`SE-155`). Recupera lo aprendido en `SE-132` ([Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md)): un validador de briefs detectó lo estructural y no lo semántico. La pregunta activa es: **¿qué debe tener este expediente para que otra persona decida, sin preguntarme, si se puede construir sobre él, y cómo estimo qué defectos le quedan?**
 
 ## Prerrequisitos
 
@@ -39,7 +39,7 @@ Retomas todo el expediente de la Parte 12: requisito conductor con origen (`SE-1
 
 ## Problema auténtico
 
-El equipo entrega a la Parte 13 un documento de 40 páginas. La primera lectora tarda un día en descubrir que un requisito cita un criterio que no existe, que otro tiene prioridad «Alta» (valor que la escala no admite) y que dos tienen plazos incompatibles. Pregunta: «¿cuántos defectos más hay?». Nadie sabe, y el equipo contesta que dos personas lo revisaron y encontraron casi lo mismo, lo cual suena tranquilizador.
+El equipo entrega a la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) un documento de 40 páginas. La primera lectora tarda un día en descubrir que un requisito cita un criterio que no existe, que otro tiene prioridad «Alta» (valor que la escala no admite) y que dos tienen plazos incompatibles. Pregunta: «¿cuántos defectos más hay?». Nadie sabe, y el equipo contesta que dos personas lo revisaron y encontraron casi lo mismo, lo cual suena tranquilizador.
 
 ## Objetivos observables
 
@@ -189,7 +189,7 @@ Los identificadores, los números de la revisión y las fechas son ilustrativos.
 
 ## Práctica guiada
 
-1. Reúne el expediente de la Parte 12 en `spec.md` y lista qué falta para cada campo obligatorio.
+1. Reúne el expediente de la [Parte 12](../README.md) en `spec.md` y lista qué falta para cada campo obligatorio.
 2. Predice qué defectos detectará tu validador y cuáles no, antes de ejecutarlo.
 3. Escribe `validate_spec.py` y sus pruebas; aplica las 16 mutaciones y guarda el registro bajo `evidence/`.
 4. Declara dependencias y costos, y calcula el camino crítico.
@@ -210,7 +210,7 @@ Entrega `spec.md`, `validate_spec.py` con sus pruebas, el registro de 16 mutacio
 
 ## Caso conductor
 
-La plataforma de entregas llega aquí a su especificación revisable: el requisito conductor de `SE-145` tiene origen, reglas, calidad, relatos, ejemplos, prioridad, trazabilidad, obligaciones, línea base, defectos y reparaciones. La Parte 13 tomará este expediente y se preguntará cómo expresarlo con mayor formalidad: especificaciones informales, semiformales y formales, contratos y modelos. Cambia después una sola decisión —por ejemplo, la política de retención— y revisa qué partes del expediente, de las pruebas y de la línea base deben actualizarse.
+La plataforma de entregas llega aquí a su especificación revisable: el requisito conductor de `SE-145` tiene origen, reglas, calidad, relatos, ejemplos, prioridad, trazabilidad, obligaciones, línea base, defectos y reparaciones. La [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) tomará este expediente y se preguntará cómo expresarlo con mayor formalidad: especificaciones informales, semiformales y formales, contratos y modelos. Cambia después una sola decisión —por ejemplo, la política de retención— y revisa qué partes del expediente, de las pruebas y de la línea base deben actualizarse.
 
 ## Preguntas frecuentes
 
@@ -309,7 +309,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la especificac
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. La especificación base, las 16 mutaciones, los costos y las probabilidades de detección son supuestos del autor, la lista de palabras vagas es un ejemplo mínimo y no participó ninguna revisora real. La Parte 13 toma este expediente y estudia cómo expresarlo con mayor formalidad: especificaciones, contratos y modelos.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. La especificación base, las 16 mutaciones, los costos y las probabilidades de detección son supuestos del autor, la lista de palabras vagas es un ejemplo mínimo y no participó ninguna revisora real. La [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) toma este expediente y estudia cómo expresarlo con mayor formalidad: especificaciones, contratos y modelos.
 
 ## Glosario
 

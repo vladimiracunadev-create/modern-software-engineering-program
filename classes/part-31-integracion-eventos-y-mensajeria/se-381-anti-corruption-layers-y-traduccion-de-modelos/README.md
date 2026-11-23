@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en `SE-380` (los esquemas evolucionan y los lectores tolerantes limitan el daño) y en la Parte 27 sobre contextos delimitados: cada parte del sistema tiene su propio lenguaje. La pregunta activa es: **¿qué palabra de ese sistema ha entrado en mi código sin que yo la eligiera, y qué pasa el día que la cambien?**
+Recupera lo aprendido en `SE-380` (los esquemas evolucionan y los lectores tolerantes limitan el daño) y en la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) sobre contextos delimitados: cada parte del sistema tiene su propio lenguaje. La pregunta activa es: **¿qué palabra de ese sistema ha entrado en mi código sin que yo la eligiera, y qué pasa el día que la cambien?**
 
 ## Prerrequisitos
 
@@ -221,7 +221,7 @@ Entrega `traduccion-log.md` con las predicciones, las tres tablas reproducidas c
 
 ## Caso conductor
 
-El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 31. Esta clase deja el noveno artefacto: el mapa de traducción del sistema académico con su política de cuarentena. `SE-382` pregunta cómo ver y proteger el flujo completo: observabilidad y seguridad de las integraciones. Cambia después una sola decisión, la precisión de la nota interna, y observa qué información deja de perderse.
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la [Parte 31](../README.md). Esta clase deja el noveno artefacto: el mapa de traducción del sistema académico con su política de cuarentena. `SE-382` pregunta cómo ver y proteger el flujo completo: observabilidad y seguridad de las integraciones. Cambia después una sola decisión, la precisión de la nota interna, y observa qué información deja de perderse.
 
 ## Preguntas frecuentes
 

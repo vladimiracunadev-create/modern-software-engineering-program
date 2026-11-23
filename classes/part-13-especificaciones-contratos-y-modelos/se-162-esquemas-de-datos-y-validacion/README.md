@@ -191,7 +191,7 @@ Entrega `schema-log.md` con el esquema, el validador, la medición de documentos
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja el esquema del documento de entrega, un validador mínimo medido y una decisión abierto/cerrado. `SE-163` colocará ese esquema dentro de contratos de interfaz (rutas, respuestas, eventos) y `SE-164` estudiará cómo cambiarlo sin romper a nadie. Cambia después una sola decisión, hacer `nota` opcional hasta que la entrega esté calificada, y revisa qué esquemas, reglas y ejemplos cambian.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja el esquema del documento de entrega, un validador mínimo medido y una decisión abierto/cerrado. `SE-163` colocará ese esquema dentro de contratos de interfaz (rutas, respuestas, eventos) y `SE-164` estudiará cómo cambiarlo sin romper a nadie. Cambia después una sola decisión, hacer `nota` opcional hasta que la entrega esté calificada, y revisa qué esquemas, reglas y ejemplos cambian.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto entrega un dispositivo simulado que se puede operar y actualizar: un paquete que reúne identidad, versiones, reversión, reintentos, despliegue por etapas, umbrales y un responsable, un validador que dice qué cubre y qué no, y una simulación de un mes y de una flota que muestra qué aporta cada defensa.
 
-**Por qué aparece aquí.** Cierra la **Parte 22**: reúne el nodo y su firmware (`SE-265` y `SE-266`), el presupuesto (`SE-267`), los plazos y los datos compartidos (`SE-268` y `SE-269`), la comunicación (`SE-270`), la actualización (`SE-271`), la identidad (`SE-272`), el procesamiento en el borde (`SE-273`), las defensas (`SE-274`) y el modelo de fallos (`SE-275`). La Parte 24 pasa del dispositivo a los dominios especializados.
+**Por qué aparece aquí.** Cierra la **[Parte 22](../README.md)**: reúne el nodo y su firmware (`SE-265` y `SE-266`), el presupuesto (`SE-267`), los plazos y los datos compartidos (`SE-268` y `SE-269`), la comunicación (`SE-270`), la actualización (`SE-271`), la identidad (`SE-272`), el procesamiento en el borde (`SE-273`), las defensas (`SE-274`) y el modelo de fallos (`SE-275`). La [Parte 24](../../part-24-software-especializado-y-dominios/README.md) pasa del dispositivo a los dominios especializados.
 
 **Error conceptual que debe corregir.** Creer que un dispositivo es operable porque funciona en la mesa, o que un paquete que pasa un validador de forma está bien: el dispositivo es operable cuando tolera fallos de red, cuelgues y actualizaciones, y el paquete puede ser coherente en forma y peligroso en sentido.
 
@@ -226,7 +226,7 @@ Entrega `device-package-log.md` con el paquete en nueve secciones, la predicció
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio cierra aquí su caso conductor de la Parte 22. El proyecto deja el duodécimo artefacto: el paquete del dispositivo operable y actualizable, con su validador, su simulación y sus límites, que reúne los once anteriores. La Parte 24 deja el dispositivo y pasa a los dominios especializados, empezando por el software científico y la reproducibilidad. Cambia después una sola decisión, el tamaño de la primera etapa, y observa qué fallos dejan de detectarse.
+El nodo ambiental de una sala de estudio cierra aquí su caso conductor de la [Parte 22](../README.md). El proyecto deja el duodécimo artefacto: el paquete del dispositivo operable y actualizable, con su validador, su simulación y sus límites, que reúne los once anteriores. La [Parte 24](../../part-24-software-especializado-y-dominios/README.md) deja el dispositivo y pasa a los dominios especializados, empezando por el software científico y la reproducibilidad. Cambia después una sola decisión, el tamaño de la primera etapa, y observa qué fallos dejan de detectarse.
 
 ## Preguntas frecuentes
 
@@ -317,7 +317,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 99,9 % de d
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se simuló ningún componente real ni se actualizó un dispositivo: las probabilidades de cuelgue, de corte y de fallo, el informe y la reparación del 90 % y las 200 mutaciones son construcciones del autor, y el validador se afinó con los mismos casos que lo evalúan. La Parte 24 pasa del dispositivo a los dominios especializados, y empieza por el software científico y la reproducibilidad.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se simuló ningún componente real ni se actualizó un dispositivo: las probabilidades de cuelgue, de corte y de fallo, el informe y la reparación del 90 % y las 200 mutaciones son construcciones del autor, y el validador se afinó con los mismos casos que lo evalúan. La [Parte 24](../../part-24-software-especializado-y-dominios/README.md) pasa del dispositivo a los dominios especializados, y empieza por el software científico y la reproducibilidad.
 
 ## Glosario
 

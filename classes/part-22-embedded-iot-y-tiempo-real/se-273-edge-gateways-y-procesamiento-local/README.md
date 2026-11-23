@@ -216,7 +216,7 @@ Entrega `edge-log.md` con la predicción, las tres tablas y la asignación de de
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el noveno artefacto: la asignación de las decisiones del nodo al dispositivo, la pasarela y la nube con su estrategia de reporte y su formato. `SE-274` pregunta qué ocurre con la seguridad y la vida útil de esa arquitectura. Cambia después una sola cosa, el umbral de la banda muerta, y observa qué eventos pasan a verse tarde o a no verse.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el noveno artefacto: la asignación de las decisiones del nodo al dispositivo, la pasarela y la nube con su estrategia de reporte y su formato. `SE-274` pregunta qué ocurre con la seguridad y la vida útil de esa arquitectura. Cambia después una sola cosa, el umbral de la banda muerta, y observa qué eventos pasan a verse tarde o a no verse.
 
 ## Preguntas frecuentes
 

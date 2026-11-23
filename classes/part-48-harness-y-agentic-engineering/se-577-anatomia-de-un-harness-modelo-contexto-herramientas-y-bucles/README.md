@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de atribuir al modelo todo lo que hace un agente de código. Cuando un agente corrige bien un error o destruye un directorio, el resultado depende de un conjunto de piezas que no son el modelo: las instrucciones que recibe, el contexto que ve en cada paso, las herramientas que puede invocar, los permisos que las acotan, el bucle que repite la secuencia, la condición que lo detiene y la verificación que decide si lo hecho cuenta. Ese conjunto se llama **harness** (arnés). Un ingeniero que lo ve como una arquitectura puede ubicar un fallo, cambiar una pieza y medir el efecto; uno que lo ve como «el prompt» cambia palabras hasta que algo mejora y no sabe por qué.
 
-**Por qué aparece aquí.** Sigue a la Parte 45 porque las metodologías de allí (pruebas, ejemplos, contratos, especificaciones, evaluaciones) producen *oráculos*, y un oráculo solo sirve si algo lo ejecuta en el momento correcto y obliga a respetarlo. El harness es ese algo. La Parte 47 enseñó a especificar y delegar; esta parte enseña a construir el entorno donde la delegación ocurre con control.
+**Por qué aparece aquí.** Sigue a la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) porque las metodologías de allí (pruebas, ejemplos, contratos, especificaciones, evaluaciones) producen *oráculos*, y un oráculo solo sirve si algo lo ejecuta en el momento correcto y obliga a respetarlo. El harness es ese algo. La [Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) enseñó a especificar y delegar; esta parte enseña a construir el entorno donde la delegación ocurre con control.
 
 **Error conceptual que debe corregir.** Creer que mejorar un agente es mejorar el modelo o el prompt. Una configuración con el mismo modelo guionizado resuelve 6 de 6 tareas o 0 de 6 según qué pieza falte. La mayor parte de las fallas que se observan en un agente de código son fallas del entorno: no veía el resultado de su paso anterior, no tenía la herramienta, nadie le exigió ejecutar las pruebas, nadie lo detuvo.
 
@@ -32,8 +32,8 @@ Recupera lo aprendido en `SE-552`: una política de equipo asigna evidencia seg�
 
 ## Prerrequisitos
 
-- Haber completado la Parte 45, en particular `SE-551` y `SE-552`, o poder explicar qué es un oráculo y por qué una política necesita evidencia.
-- Haber trabajado con especificaciones y delegación a agentes (Parte 47).
+- Haber completado la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md), en particular `SE-551` y `SE-552`, o poder explicar qué es un oráculo y por qué una política necesita evidencia.
+- Haber trabajado con especificaciones y delegación a agentes ([Parte 47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)).
 - Python 3.11 o posterior y la biblioteca estándar; el laboratorio crea directorios temporales y los borra.
 - Leer un mensaje de fallo de `unittest`.
 

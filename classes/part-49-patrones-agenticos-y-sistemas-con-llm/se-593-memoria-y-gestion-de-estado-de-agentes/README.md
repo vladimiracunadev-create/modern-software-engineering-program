@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates la memoria de un agente como lo que es: **estado**, con las mismas preguntas que cualquier otro estado de un sistema. ¿Qué se guarda, quién lo escribe, cuánto dura, cómo se actualiza cuando cambia, cómo se lee, cómo se borra y qué ocurre cuando está equivocado? Un modelo de lenguaje no recuerda nada entre llamadas: lo que «recuerda» es lo que el sistema coloca en su contexto. Por eso la memoria de un agente es una decisión de ingeniería, medible, con costos y modos de fallo propios.
 
-**Por qué aparece aquí.** Sigue a `SE-592`, donde el bucle acumulaba historial. Allí se vio que cada paso relee todo lo anterior; aquí se pregunta qué pasa cuando ese historial no cabe, cuando la conversación dura días o cuando un dato cambia. Retoma de la Parte 13 la idea de modelo de datos y de la Parte 27 la de fuente única de verdad: una memoria que duplica un dato sin versión es una réplica que se desincroniza.
+**Por qué aparece aquí.** Sigue a `SE-592`, donde el bucle acumulaba historial. Allí se vio que cada paso relee todo lo anterior; aquí se pregunta qué pasa cuando ese historial no cabe, cuando la conversación dura días o cuando un dato cambia. Retoma de la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) la idea de modelo de datos y de la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) la de fuente única de verdad: una memoria que duplica un dato sin versión es una réplica que se desincroniza.
 
 **Error conceptual que debe corregir.** Creer que una ventana de contexto grande resuelve la memoria. Una ventana grande pospone el problema, cuesta tokens en cada llamada y no garantiza que el modelo use bien lo que está en medio (hay evidencia de que la posición importa: «Lost in the Middle»). Y la creencia gemela: que «resumir» es gratuito. Un resumen es una compresión con pérdidas cuyo error no se ve: el hecho que no se resumió o la actualización que se omitió dejan al sistema con un valor viejo que parece vigente.
 
@@ -32,7 +32,7 @@ Recupera `SE-592`: cada vuelta del bucle relee el historial y eso encarece y ala
 ## Prerrequisitos
 
 - Haber completado `SE-592` o poder explicar el costo del historial creciente en un bucle de agente.
-- Conocer de la Parte 13 qué es una clave y un modelo de datos, y de la Parte 27 la fuente única de verdad.
+- Conocer de la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md) qué es una clave y un modelo de datos, y de la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) la fuente única de verdad.
 - Python 3.11 o posterior.
 
 ## Problema auténtico

@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: biblioteca comparada con casos límite** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo entregar una biblioteca comparada cuya corrección y rendimiento puedan discutirse con evidencia?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: biblioteca comparada con casos límite** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo entregar una biblioteca comparada cuya corrección y rendimiento puedan discutirse con evidencia?**
 
 ## Prerrequisitos
 
@@ -265,7 +265,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementac
 
 ## Límites y siguiente paso
 
-La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La Parte 8 tomará un fallo y una regresión de la biblioteca de estructuras y algoritmos para construir un entorno de diagnóstico reproducible.
+La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La [Parte 8](../../part-08-entornos-herramientas-y-depuracion/README.md) tomará un fallo y una regresión de la biblioteca de estructuras y algoritmos para construir un entorno de diagnóstico reproducible.
 
 ## Glosario
 

@@ -217,7 +217,7 @@ Entrega `caracterizacion-log.md` con la predicción, las tres tablas, el archivo
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el tercer artefacto: la prueba de caracterización de `nota_final` con su costura. `SE-520` preguntará qué riesgo acumulan las dependencias que el módulo usa, y `SE-521` cómo se sustituye el módulo por partes apoyándose en estas pruebas. Cambia después un solo dato, el porcentaje de partes ausentes del 5 % a cero, y observa qué mutantes dejan de ser detectables.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el tercer artefacto: la prueba de caracterización de `nota_final` con su costura. `SE-520` preguntará qué riesgo acumulan las dependencias que el módulo usa, y `SE-521` cómo se sustituye el módulo por partes apoyándose en estas pruebas. Cambia después un solo dato, el porcentaje de partes ausentes del 5 % a cero, y observa qué mutantes dejan de ser detectables.
 
 ## Preguntas frecuentes
 

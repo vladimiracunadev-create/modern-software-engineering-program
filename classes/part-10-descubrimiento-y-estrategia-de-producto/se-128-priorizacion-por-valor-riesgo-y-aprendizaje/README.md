@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa **el caso de la plataforma de entregas**. Recupera el plan de experimento de `SE-127` y los ítems que ha ido generando la Parte 10, añade una decisión propia sobre **en qué orden hacerlos y qué parte de ese orden es creíble** y deja un registro de priorización para `SE-129`. La pregunta activa es: **¿qué debo hacer primero, y qué tan seguro puedo estar de ese orden?**
+Esta clase continúa **el caso de la plataforma de entregas**. Recupera el plan de experimento de `SE-127` y los ítems que ha ido generando la [Parte 10](../README.md), añade una decisión propia sobre **en qué orden hacerlos y qué parte de ese orden es creíble** y deja un registro de priorización para `SE-129`. La pregunta activa es: **¿qué debo hacer primero, y qué tan seguro puedo estar de ese orden?**
 
 ## Prerrequisitos
 

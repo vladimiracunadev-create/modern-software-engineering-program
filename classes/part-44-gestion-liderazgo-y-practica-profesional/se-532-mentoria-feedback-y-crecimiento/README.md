@@ -193,7 +193,7 @@ Entrega `mentoria-log.md` con la predicción, las tres tablas, el acuerdo de men
 
 ## Caso conductor
 
-El equipo de plataforma educativa es el caso conductor de la Parte 44. Esta clase deja el cuarto artefacto: un acuerdo de mentoría con retroalimentación fechada y una rúbrica. `SE-533` preguntará cómo se estima y se compromete trabajo con incertidumbre, y `SE-538` cómo se articulan los niveles y la defensa profesional. Cambia después un solo dato, la indulgencia de las evaluadoras de 0,5 a 1,0, y observa cuánto se deteriora el acuerdo sin rúbrica.
+El equipo de plataforma educativa es el caso conductor de la [Parte 44](../README.md). Esta clase deja el cuarto artefacto: un acuerdo de mentoría con retroalimentación fechada y una rúbrica. `SE-533` preguntará cómo se estima y se compromete trabajo con incertidumbre, y `SE-538` cómo se articulan los niveles y la defensa profesional. Cambia después un solo dato, la indulgencia de las evaluadoras de 0,5 a 1,0, y observa cuánto se deteriora el acuerdo sin rúbrica.
 
 ## Preguntas frecuentes
 

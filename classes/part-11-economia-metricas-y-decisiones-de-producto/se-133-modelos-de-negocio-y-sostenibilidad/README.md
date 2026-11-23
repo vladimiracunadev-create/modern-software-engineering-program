@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para separar quién paga, qué valor recibe, cuánto cuesta servirlo y qué mantiene vivo al producto, de modo que una decisión de negocio no descanse en una razón de adquisición que solo funciona con los valores centrales.
 
-**Por qué aparece aquí.** Se sitúa después de **Proyecto: product brief respaldado por evidencia** y antes de **Costos de construcción, operación y oportunidad**: la Parte 10 terminó con un brief que dice qué merece construirse; la Parte 11 pregunta si puede sostenerse y con qué evidencia se medirá. Esta clase fija el vocabulario económico (pagador, ingreso, margen de contribución, adquisición, abandono, concentración) que las once siguientes usarán, y deja un modelo de negocio con rangos que `SE-134` descompondrá en costos.
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: product brief respaldado por evidencia** y antes de **Costos de construcción, operación y oportunidad**: la [Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md) terminó con un brief que dice qué merece construirse; la [Parte 11](../README.md) pregunta si puede sostenerse y con qué evidencia se medirá. Esta clase fija el vocabulario económico (pagador, ingreso, margen de contribución, adquisición, abandono, concentración) que las once siguientes usarán, y deja un modelo de negocio con rangos que `SE-134` descompondrá en costos.
 
 **Error conceptual que debe corregir.** Tomar el crecimiento o una razón entre valor de vida y costo de adquisición como prueba de sostenibilidad, cuando ambos dependen de supuestos de abandono y de precio que casi nunca se conocen con precisión.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 11 sobre la economía de la plataforma de entregas de tareas**, el caso que la Parte 10 dejó con un brief. Recupera lo aprendido sobre rangos y supuestos declarados: un número sin rango oculta cuánto de él es suposición. La pregunta activa es: **¿qué tendría que ser verdad para que este negocio se sostenga, y qué parte de eso se ha medido?**
+Esta clase abre la **[Parte 11](../README.md) sobre la economía de la plataforma de entregas de tareas**, el caso que la [Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md) dejó con un brief. Recupera lo aprendido sobre rangos y supuestos declarados: un número sin rango oculta cuánto de él es suposición. La pregunta activa es: **¿qué tendría que ser verdad para que este negocio se sostenga, y qué parte de eso se ha medido?**
 
 ## Prerrequisitos
 
@@ -198,7 +198,7 @@ Entrega `viability-log.md` con la tabla de supuestos (rango, fuente, estado), la
 
 ## Caso conductor
 
-La plataforma de entregas de tareas es el caso conductor de la Parte 11. Esta clase deja el primer artefacto: un modelo con supuestos y rangos, una razón con adquisición expresada como intervalo y una medida de concentración. `SE-134` descompondrá los costos que aquí entraron como un solo número; `SE-135` y `SE-136` definirán qué se mide para saber si los supuestos de uso y abandono se cumplen. Cambia después un solo supuesto —por ejemplo, el abandono— y revisa qué conclusiones del registro cambian.
+La plataforma de entregas de tareas es el caso conductor de la [Parte 11](../README.md). Esta clase deja el primer artefacto: un modelo con supuestos y rangos, una razón con adquisición expresada como intervalo y una medida de concentración. `SE-134` descompondrá los costos que aquí entraron como un solo número; `SE-135` y `SE-136` definirán qué se mide para saber si los supuestos de uso y abandono se cumplen. Cambia después un solo supuesto —por ejemplo, el abandono— y revisa qué conclusiones del registro cambian.
 
 ## Preguntas frecuentes
 

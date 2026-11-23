@@ -6,11 +6,11 @@
 
 **Punto profesional.** La clase existe para que construyas la recuperación de información de un sistema con LLM **como un componente que se mide**, no como un paso de moda. Un modelo responde mejor sobre documentos propios si el sistema le entrega los fragmentos pertinentes, y esa entrega es un problema de búsqueda con sus métricas de siempre: acierto en el primer resultado, acierto entre los cinco primeros, rango recíproco. Quien comprende qué hace un embedding, qué hace BM25 y qué aporta decidir cuándo recuperar puede elegir el recuperador con evidencia, saber cuándo abstenerse y evitar el error más común: confiar en que «buscar por significado» es siempre mejor que buscar por palabras.
 
-**Por qué aparece aquí.** Sigue a `SE-593`, donde la memoria se leía por clave. Cuando no se conoce la clave, hay que buscar. Usa de la Parte 29 los conceptos de índice y de la Parte 35 las métricas de prueba; aplica la regla de las clases anteriores: cada capacidad añadida (reformular, recuperar de nuevo) es una decisión que debe justificarse con una medida.
+**Por qué aparece aquí.** Sigue a `SE-593`, donde la memoria se leía por clave. Cuando no se conoce la clave, hay que buscar. Usa de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) los conceptos de índice y de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) las métricas de prueba; aplica la regla de las clases anteriores: cada capacidad añadida (reformular, recuperar de nuevo) es una decisión que debe justificarse con una medida.
 
 **Error conceptual que debe corregir.** Creer que los embeddings «entienden» y por eso reemplazan a la búsqueda léxica. Un embedding es un vector que se calcula con un modelo y cuya cercanía aproxima la similitud de significado según lo que el modelo aprendió; captura paráfrasis que BM25 no ve, pero puede fallar con identificadores, números y términos poco frecuentes, y su calidad depende del modelo y del dominio. La búsqueda híbrida existe porque cada método falla donde el otro acierta. Y la creencia gemela: que «agentic RAG» (un agente que decide cuándo recuperar y reformula) mejora siempre: es una capacidad más, con costo, que hay que medir.
 
-**Secuencia de aprendizaje.** Antes de ejecutar predices el acierto en primer lugar de tres recuperadores con consultas exactas y con erratas, y si una reformulación automática mejora. Después ejecutas sobre un corpus real (los fragmentos de las Partes 47 y 45 de este programa) y miras qué ocurre.
+**Secuencia de aprendizaje.** Antes de ejecutar predices el acierto en primer lugar de tres recuperadores con consultas exactas y con erratas, y si una reformulación automática mejora. Después ejecutas sobre un corpus real (los fragmentos de las Partes [47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) y [45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) de este programa) y miras qué ocurre.
 
 **Evidencia de aprendizaje.** `recuperacion-log.md` con tu predicción, las dos tablas medidas, un conjunto de al menos 20 consultas etiquetadas de tu propio corpus, el umbral de abstención elegido y la política de citas.
 
@@ -32,14 +32,14 @@ Recupera `SE-593`: la memoria externa se lee por clave y esa lectura es exacta. 
 ## Prerrequisitos
 
 - Haber completado `SE-593` o poder explicar la diferencia entre lectura por clave y por similitud.
-- Conocer de la Parte 29 qué es un índice y de la Parte 35 qué es una métrica de acierto.
+- Conocer de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) qué es un índice y de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) qué es una métrica de acierto.
 - Python 3.11 o posterior con la biblioteca estándar.
 
 ## Problema auténtico
 
 El asistente de *Avisos* debe contestar preguntas sobre el propio programa de formación (políticas, plazos, procedimientos) a partir de documentos escritos por personas. Un docente pregunta «¿qué se hace cuando un aviso se envía dos veces?» y la respuesta está en un fragmento que habla de «idempotencia» y «reintentos» sin usar la palabra «duplicado». Otro escribe con una errata («recordartorio») y una palabra en singular donde el documento está en plural. Y un tercero pregunta algo que **no está** en ningún documento: ¿qué debe hacer el sistema?
 
-Hay que decidir cómo fragmentar los documentos, cómo recuperar, cuántos fragmentos entregar al modelo, cuándo decir «no encontré nada» y cómo citar el origen de cada afirmación. Esta clase mide cada decisión sobre 835 fragmentos reales de las Partes 47 y 45 de este programa.
+Hay que decidir cómo fragmentar los documentos, cómo recuperar, cuántos fragmentos entregar al modelo, cuándo decir «no encontré nada» y cómo citar el origen de cada afirmación. Esta clase mide cada decisión sobre 835 fragmentos reales de las Partes [47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) y [45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) de este programa.
 
 ## Objetivos observables
 
@@ -177,7 +177,7 @@ Entrega `recuperacion-log.md` con tu predicción, las dos tablas medidas, 20 con
 
 ## Caso conductor
 
-El asistente de *Avisos* contesta preguntas sobre el programa citando fragmentos. Aquí se mide su recuperación sobre el propio corpus de las Partes 47 y 45. En `SE-597` esa medida se convierte en una evaluación continua con puerta de release y en `SE-598` se estudia el riesgo de que un fragmento recuperado contenga instrucciones hostiles.
+El asistente de *Avisos* contesta preguntas sobre el programa citando fragmentos. Aquí se mide su recuperación sobre el propio corpus de las Partes [47](../../part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md) y [45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md). En `SE-597` esa medida se convierte en una evaluación continua con puerta de release y en `SE-598` se estudia el riesgo de que un fragmento recuperado contenga instrucciones hostiles.
 
 ## Preguntas frecuentes
 

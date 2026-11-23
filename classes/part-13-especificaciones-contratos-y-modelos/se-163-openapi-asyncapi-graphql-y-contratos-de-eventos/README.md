@@ -196,7 +196,7 @@ Entrega `interface-log.md` con el documento OpenAPI, el linter, las 240 mutacion
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja el contrato de la API de entregas (OpenAPI), una política de coste de consultas y las reglas de entrega de los eventos de calificación. `SE-164` hará evolucionar ese contrato sin romper a los consumidores y `SE-166` comprobará que el servicio lo cumple. Cambia después una sola decisión, responder 200 en lugar de 201 al crear, y revisa qué consumidores, ejemplos y pruebas dependían de ello.
+La plataforma de entregas es el caso conductor de la [Parte 13](../README.md). Esta clase deja el contrato de la API de entregas (OpenAPI), una política de coste de consultas y las reglas de entrega de los eventos de calificación. `SE-164` hará evolucionar ese contrato sin romper a los consumidores y `SE-166` comprobará que el servicio lo cumple. Cambia después una sola decisión, responder 200 en lugar de 201 al crear, y revisa qué consumidores, ejemplos y pruebas dependían de ello.
 
 ## Preguntas frecuentes
 

@@ -35,7 +35,7 @@ Recupera lo aprendido en `SE-319`: una garantía débil traslada una obligación
 ## Prerrequisitos
 
 - Haber completado `SE-315` (orden de decoradores) y `SE-319` (idempotencia).
-- Conocer percentiles de latencia (Parte 36) y la idea de saturación (Parte 41).
+- Conocer percentiles de latencia ([Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md)) y la idea de saturación ([Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md)).
 - Python 3.11 o posterior con `random` y `heapq`.
 
 ## Problema auténtico

@@ -141,7 +141,8 @@ Un ejecutor de plan que detecta sorpresas y devuelve el control al modelo:
 def ejecutar_plan(plan, herramientas, esperado):
     resultados = []
     for i, paso in enumerate(plan):
-        obs = herramientas[paso["tool"]](**paso["args"])
+        herramienta = herramientas[paso["tool"]]
+        obs = herramienta(**paso["args"])
         if not esperado(paso, obs):                 # sorpresa: la observación contradice el plan
             return {"estado": "sorpresa", "paso": i, "obs": obs, "hecho": resultados}
         resultados.append(obs)

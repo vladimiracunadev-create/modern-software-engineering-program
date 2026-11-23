@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que conviertas «terminado» en un estado que un programa puede afirmar o negar. En un harness, la **verificación** es la pieza que decide si el trabajo del agente cuenta. Una **compuerta** (*gate*) es una comprobación obligatoria y automática (sintaxis, estilo, secretos, pruebas); un **menú único de validación** es un solo punto de entrada que ejecuta todas las compuertas en el mismo orden para el agente, para la persona y para la integración continua. La decisión profesional es qué compuertas existen, en qué orden corren, qué detectan y qué dejan pasar, y asegurar que nadie (ni el agente) pueda declarar terminado un cambio sin pasarlas.
 
-**Por qué aparece aquí.** Sigue al control de daño (`SE-582`): impedir y deshacer limitan el costo de un error; la verificación decide si el cambio se acepta. Reúne lo de la Parte 45: las pruebas, los contratos y las evaluaciones son los oráculos; el menú es el lugar donde se ejecutan.
+**Por qué aparece aquí.** Sigue al control de daño (`SE-582`): impedir y deshacer limitan el costo de un error; la verificación decide si el cambio se acepta. Reúne lo de la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md): las pruebas, los contratos y las evaluaciones son los oráculos; el menú es el lugar donde se ejecutan.
 
 **Error conceptual que debe corregir.** Creer que «las pruebas pasan» equivale a «el cambio es correcto». En el conjunto de la clase, las pruebas solas atrapan 2 de 11 defectos; un menú con cinco compuertas atrapa 9, y los dos restantes (un error que ninguna prueba ejerce y una prueba que replica el error) no los atrapa ninguna. Las pruebas son una compuerta, y además pueden ser manipuladas por quien también escribe el código.
 

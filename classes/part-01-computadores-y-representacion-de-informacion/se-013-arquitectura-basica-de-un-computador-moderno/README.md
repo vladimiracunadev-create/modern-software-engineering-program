@@ -35,7 +35,7 @@ sus datos y decisiones durante toda la parte.
 
 ## Prerrequisitos
 
-Parte 00 o capacidad para separar observación e inferencia. Python 3.11+, terminal y un directorio de práctica sin datos reales.
+[Parte 00](../../part-00-ingenieria-de-software-como-profesion/README.md) o capacidad para separar observación e inferencia. Python 3.11+, terminal y un directorio de práctica sin datos reales.
 
 ## Problema auténtico
 

@@ -1,6 +1,6 @@
 # Parte 14 — Experiencia, accesibilidad e internacionalización
 
-La Parte 13 terminó con un comportamiento especificado y comprobable. La pregunta cambia de «qué promete el sistema» a «quién puede usar esa promesa, con qué cuerpo, en qué idioma y en qué condiciones». Esta parte trabaja sobre la **entrega de una tarea en la plataforma de entregas**, el mismo caso sintético, y la recorre con una lente distinta en cada clase: la tarea y quien la hace, dónde vive en la estructura, cómo responde cada control, qué se ve cuando algo falla, quién puede percibirla y operarla, cómo se ve bajo otra visión, otro ancho y otro idioma, cómo se mide si las personas la logran y cómo se audita, se repara y se declara.
+La [Parte 13](../part-13-especificaciones-contratos-y-modelos/README.md) terminó con un comportamiento especificado y comprobable. La pregunta cambia de «qué promete el sistema» a «quién puede usar esa promesa, con qué cuerpo, en qué idioma y en qué condiciones». Esta parte trabaja sobre la **entrega de una tarea en la plataforma de entregas**, el mismo caso sintético, y la recorre con una lente distinta en cada clase: la tarea y quien la hace, dónde vive en la estructura, cómo responde cada control, qué se ve cuando algo falla, quién puede percibirla y operarla, cómo se ve bajo otra visión, otro ancho y otro idioma, cómo se mide si las personas la logran y cómo se audita, se repara y se declara.
 
 ## Pregunta rectora
 
@@ -34,7 +34,7 @@ Al finalizar podrás defender un diseño con una tarea, escenarios, cálculos co
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 12 — Ingeniería de requisitos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-12-ingenieria-de-requisitos/): necesidades de las personas y criterios de aceptación revisables.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): comportamiento especificado, estados, esquemas y contratos que esta parte hace usables.
@@ -140,7 +140,7 @@ El estudiante entrega el registro de hallazgos, la reparación y la lista de lo 
 
 Una declaración de conformidad vale por su alcance y por la política de lo no probado. El proyecto calcula con qué probabilidad un plan ve una barrera y cubre cuatro modalidades, mide el acuerdo entre evaluadores con kappa y aplica una política para lo no probado.
 
-El estudiante entrega el paquete con el prototipo, la tabla de criterios, el plan y los límites. La Parte 15 estima y planifica el trabajo de llevar el prototipo a producción.
+El estudiante entrega el paquete con el prototipo, la tabla de criterios, el plan y los límites. La [Parte 15](../part-15-procesos-planificacion-y-estimacion/README.md) estima y planifica el trabajo de llevar el prototipo a producción.
 
 ## Resumen operativo del recorrido
 
@@ -161,7 +161,7 @@ El estudiante entrega el paquete con el prototipo, la tabla de criterios, el pla
 
 ## Proyecto integrador
 
-El proyecto **SE-180** entrega un prototipo del formulario de entrega con estructura semántica y estados, una tabla de criterios con los cuatro estados (pasa, falla, no probado, no aplica) y su política para lo no probado, un plan de evaluación con cuotas por modalidad y la probabilidad de ver cada barrera, el acuerdo entre evaluadores con kappa y prevalencia, una declaración de alcance y la lista de decisiones humanas abiertas con responsable y fecha. Se acompaña de los límites declarados y de una explicación de qué parte de cada afirmación es observación, inferencia o suposición.
+El proyecto **[SE-180](./se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md)** entrega un prototipo del formulario de entrega con estructura semántica y estados, una tabla de criterios con los cuatro estados (pasa, falla, no probado, no aplica) y su política para lo no probado, un plan de evaluación con cuotas por modalidad y la probabilidad de ver cada barrera, el acuerdo entre evaluadores con kappa y prevalencia, una declaración de alcance y la lista de decisiones humanas abiertas con responsable y fecha. Se acompaña de los límites declarados y de una explicación de qué parte de cada afirmación es observación, inferencia o suposición.
 
 ## Criterios de salida
 

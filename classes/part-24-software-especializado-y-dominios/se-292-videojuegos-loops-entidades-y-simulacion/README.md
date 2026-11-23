@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que diseñes el bucle de un juego sabiendo qué promete sobre el tiempo, el determinismo y la colisión, y para que distingas un problema de rendimiento de un problema de corrección que solo se manifiesta cuando el rendimiento cae.
 
-**Por qué aparece aquí.** Es la cuarta clase de la **Parte 24**, después de **Machine learning como componente de producto**: allí el riesgo era una métrica que no representaba el uso; aquí el riesgo es un programa interactivo cuyo estado debe avanzar de forma coherente aunque el tiempo entre fotogramas varíe. Un juego es una simulación con una persona dentro del bucle, y por eso concentra problemas de tiempo, estado compartido y presupuesto que otros dominios tratan por separado. El caso conductor sigue siendo la plataforma educativa ficticia: un juego de laboratorio de física para clase.
+**Por qué aparece aquí.** Es la cuarta clase de la **[Parte 24](../README.md)**, después de **Machine learning como componente de producto**: allí el riesgo era una métrica que no representaba el uso; aquí el riesgo es un programa interactivo cuyo estado debe avanzar de forma coherente aunque el tiempo entre fotogramas varíe. Un juego es una simulación con una persona dentro del bucle, y por eso concentra problemas de tiempo, estado compartido y presupuesto que otros dominios tratan por separado. El caso conductor sigue siendo la plataforma educativa ficticia: un juego de laboratorio de física para clase.
 
 **Error conceptual que debe corregir.** Creer que mover los objetos «según el tiempo transcurrido» hace el juego independiente de la velocidad de la máquina. Escala la velocidad aparente, pero deja el resultado dependiente de cuánto duró cada fotograma, lo que vuelve irrepetibles las partidas y hace que los objetos rápidos atraviesen las paredes.
 
@@ -237,7 +237,7 @@ Entrega `game-log.md` con la predicción, la tabla de finales por política de p
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el cuarto artefacto: el laboratorio de física con paso fijo, colisión barrida y tope de pasos. `SE-293` mira lo que sale por los altavoces y la pantalla: gráficos, audio y experiencias inmersivas, donde el presupuesto de tiempo es todavía más estricto. Cambia después una sola decisión, el paso fijo de 1/60 a 1/120, y observa qué garantía mejora y qué presupuesto empeora.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el cuarto artefacto: el laboratorio de física con paso fijo, colisión barrida y tope de pasos. `SE-293` mira lo que sale por los altavoces y la pantalla: gráficos, audio y experiencias inmersivas, donde el presupuesto de tiempo es todavía más estricto. Cambia después una sola decisión, el paso fijo de 1/60 a 1/120, y observa qué garantía mejora y qué presupuesto empeora.
 
 ## Preguntas frecuentes
 

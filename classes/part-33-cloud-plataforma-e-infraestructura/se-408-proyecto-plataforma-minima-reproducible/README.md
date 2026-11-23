@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues una plataforma mínima que otra persona pueda reconstruir, revisar y destruir sin pedirte contexto: un paquete con la descripción de la infraestructura, el plan, las políticas, el presupuesto, la prueba de destrucción y los límites. Un paquete así no demuestra que la plataforma sea buena; demuestra que su evidencia se puede comprobar, y que la persona que lo entrega sabe qué parte no se comprueba.
 
-**Por qué aparece aquí.** Cierra la **Parte 33** después de **Taller: desplegar y destruir un entorno seguro**: las once clases anteriores dejaron una matriz de responsabilidades, fronteras de aislamiento, peticiones de recursos, una clasificación de piezas, el grafo de flujos y permisos, el estado y su política, el mapa de cuentas, la política de capacidad, la estrategia de portabilidad, el camino dorado y el ciclo de vida de un entorno. El caso conductor es la plataforma de entregas llevada a una infraestructura gestionada, y este proyecto reúne esas decisiones en un paquete verificable.
+**Por qué aparece aquí.** Cierra la **[Parte 33](../README.md)** después de **Taller: desplegar y destruir un entorno seguro**: las once clases anteriores dejaron una matriz de responsabilidades, fronteras de aislamiento, peticiones de recursos, una clasificación de piezas, el grafo de flujos y permisos, el estado y su política, el mapa de cuentas, la política de capacidad, la estrategia de portabilidad, el camino dorado y el ciclo de vida de un entorno. El caso conductor es la plataforma de entregas llevada a una infraestructura gestionada, y este proyecto reúne esas decisiones en un paquete verificable.
 
 **Error conceptual que debe corregir.** Creer que un paquete completo es un paquete correcto. Un validador puede comprobar que no falta ninguna sección, que los hashes coinciden y que no hay un secreto en claro, y no puede ver que la prueba de destrucción es de 2019, que el gasto supera diez mil veces el tope ni que la evidencia fue copiada de otro paquete. Lo que el validador no ve es el contenido de la sección de límites.
 
@@ -232,7 +232,7 @@ Entrega `plataforma-minima/` con el manifiesto, el validador y sus pruebas, el s
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33 y este proyecto la cierra: el paquete reúne el artefacto de cada clase y lo hace reconstruible. La Parte 35 cambia de pregunta: de cómo se construye y se entrega la plataforma a cómo se prueba con una estrategia por riesgo. Cambia una decisión, por ejemplo la política de estado o el plazo de caducidad, y comprueba cuántas partes del paquete deben cambiar y cuáles se conservan.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md) y este proyecto la cierra: el paquete reúne el artefacto de cada clase y lo hace reconstruible. La [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) cambia de pregunta: de cómo se construye y se entrega la plataforma a cómo se prueba con una estrategia por riesgo. Cambia una decisión, por ejemplo la política de estado o el plazo de caducidad, y comprueba cuántas partes del paquete deben cambiar y cuáles se conservan.
 
 ## Preguntas frecuentes
 
@@ -334,7 +334,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que las cinco suma
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la validación y la simulación del gasto fueron idénticas, y las sumas coincidieron solo al normalizar. El paquete se generó con una semilla y no hay infraestructura real, el validador y sus mutaciones los escribí yo y el gasto, la tasa de olvido y el fallo del barrido son supuestos del autor. No se desplegó nada en un proveedor ni se evaluó una organización. La Parte 35 pasa de construir y entregar la plataforma a probarla con una estrategia por riesgo.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): la validación y la simulación del gasto fueron idénticas, y las sumas coincidieron solo al normalizar. El paquete se generó con una semilla y no hay infraestructura real, el validador y sus mutaciones los escribí yo y el gasto, la tasa de olvido y el fallo del barrido son supuestos del autor. No se desplegó nada en un proveedor ni se evaluó una organización. La [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) pasa de construir y entregar la plataforma a probarla con una estrategia por riesgo.
 
 ## Glosario
 

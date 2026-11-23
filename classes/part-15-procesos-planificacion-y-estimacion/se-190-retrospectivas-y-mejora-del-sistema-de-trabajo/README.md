@@ -225,7 +225,7 @@ Entrega `retro-log.md` con la predicción, las acciones acordadas con hipótesis
 
 ## Caso conductor
 
-La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el décimo artefacto: una acción de mejora con hipótesis, señal, duración y criterio de abandono, elegida con la capacidad real del equipo. `SE-191` combinará todo lo anterior en un taller de planificación bajo incertidumbre. Cambia después una sola cosa, el tamaño del lote de revisión, y observa cuánto tarda en notarse en el tablero.
+La plataforma de entregas de tareas continúa como caso conductor de la [Parte 15](../README.md). Esta clase deja el décimo artefacto: una acción de mejora con hipótesis, señal, duración y criterio de abandono, elegida con la capacidad real del equipo. `SE-191` combinará todo lo anterior en un taller de planificación bajo incertidumbre. Cambia después una sola cosa, el tamaño del lote de revisión, y observa cuánto tarda en notarse en el tablero.
 
 ## Preguntas frecuentes
 

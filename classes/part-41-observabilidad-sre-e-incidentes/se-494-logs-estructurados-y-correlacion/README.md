@@ -225,7 +225,7 @@ Entrega `registros-log.md` con la predicción, las tres tablas de resultados rep
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el segundo artefacto: un esquema de registros con identificadores de correlación y políticas. `SE-495` pregunta cómo resumir esos eventos como métricas sin que el número de series se dispare, y `SE-496` cómo propagar el contexto con trazas. Cambia después un solo parámetro, la probabilidad de propagación, y observa cuántos saltos admite la cadena.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el segundo artefacto: un esquema de registros con identificadores de correlación y políticas. `SE-495` pregunta cómo resumir esos eventos como métricas sin que el número de series se dispare, y `SE-496` cómo propagar el contexto con trazas. Cambia después un solo parámetro, la probabilidad de propagación, y observa cuántos saltos admite la cadena.
 
 ## Preguntas frecuentes
 

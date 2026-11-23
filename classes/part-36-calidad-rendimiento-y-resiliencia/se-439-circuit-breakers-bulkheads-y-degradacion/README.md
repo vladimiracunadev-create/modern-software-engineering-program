@@ -210,7 +210,7 @@ Entrega `degradacion-log.md` con la predicción, las tres tablas de resultados, 
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 36. Esta clase deja el séptimo artefacto: un mapa de dependencias con sus defensas y sus señales. `SE-440` formulará con números qué disponibilidad se alcanza con estas defensas y qué pasa con los datos cuando algo se pierde. Cambia después un solo parámetro, el tiempo de apertura, y observa el compromiso entre protección y recuperación.
+La API de entregas es el caso conductor de la [Parte 36](../README.md). Esta clase deja el séptimo artefacto: un mapa de dependencias con sus defensas y sus señales. `SE-440` formulará con números qué disponibilidad se alcanza con estas defensas y qué pasa con los datos cuando algo se pierde. Cambia después un solo parámetro, el tiempo de apertura, y observa el compromiso entre protección y recuperación.
 
 ## Preguntas frecuentes
 

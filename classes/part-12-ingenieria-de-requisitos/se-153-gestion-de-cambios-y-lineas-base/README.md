@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas el expediente de la Parte 12: cuatro requisitos elegidos, con origen, criterio, pruebas y obligaciones. La docente pide cambiar la retención de 60 a 30 segundos y añadir una purga; Seguridad pide cifrar también los metadatos. Recupera lo aprendido en `SE-151`: el alcance de un cambio se calcula recorriendo enlaces. La pregunta activa es: **¿qué estoy cambiando respecto de lo acordado, a quién alcanza, quién lo aprueba y cómo identifico la versión resultante?**
+Retomas el expediente de la [Parte 12](../README.md): cuatro requisitos elegidos, con origen, criterio, pruebas y obligaciones. La docente pide cambiar la retención de 60 a 30 segundos y añadir una purga; Seguridad pide cifrar también los metadatos. Recupera lo aprendido en `SE-151`: el alcance de un cambio se calcula recorriendo enlaces. La pregunta activa es: **¿qué estoy cambiando respecto de lo acordado, a quién alcanza, quién lo aprueba y cómo identifico la versión resultante?**
 
 ## Prerrequisitos
 

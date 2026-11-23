@@ -33,7 +33,7 @@ Recupera lo aprendido en `SE-317`: el diseño se prueba con un cambio. La pregun
 ## Prerrequisitos
 
 - Haber completado `SE-317` y conocer la idea de Experto en información.
-- Conocer SQL básico (SELECT, UPDATE, JOIN) y la idea de transacción de la Parte 29 (datos, persistencia y recuperación).
+- Conocer SQL básico (SELECT, UPDATE, JOIN) y la idea de transacción de la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md) (datos, persistencia y recuperación).
 - Python 3.11 o posterior con `sqlite3` y `timeit`.
 
 ## Problema auténtico

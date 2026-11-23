@@ -1,6 +1,6 @@
 # Parte 24 — Software especializado y dominios
 
-La Parte 22 llevó el software a dispositivos sin sistema operativo, donde el tiempo y los recursos son parte de lo correcto. La pregunta cambia de «qué hace el programa en un dispositivo» a «qué reglas trae el dominio en que trabajo y qué evidencia permite afirmar que mi software las respeta». Esta parte trabaja sobre una **plataforma educativa ficticia que incorpora, clase a clase, una pieza de un dominio especializado**: un modelo de entregas a tiempo, una cadena de datos de entregas, un aviso de riesgo con aprendizaje automático, un laboratorio de física, una sala virtual con voz y casco, el cobro de matrículas, un módulo de enfermería escolar, certificados verificables, un mapa de sedes con calendario, y una automatización de avisos. Recorre la reproducibilidad del software científico, la ingeniería de datos y el procesamiento analítico, el aprendizaje automático como componente de producto, los videojuegos y la simulación, los gráficos, el audio y la realidad extendida, las invariantes del dinero, los datos de salud y los sistemas regulados, las cadenas de bloques y los contratos inteligentes, los sistemas geoespaciales y temporales, el low-code, un taller de comparación de riesgos entre dominios y un proyecto de diseño profundo de un dominio elegido.
+La [Parte 22](../part-22-embedded-iot-y-tiempo-real/README.md) llevó el software a dispositivos sin sistema operativo, donde el tiempo y los recursos son parte de lo correcto. La pregunta cambia de «qué hace el programa en un dispositivo» a «qué reglas trae el dominio en que trabajo y qué evidencia permite afirmar que mi software las respeta». Esta parte trabaja sobre una **plataforma educativa ficticia que incorpora, clase a clase, una pieza de un dominio especializado**: un modelo de entregas a tiempo, una cadena de datos de entregas, un aviso de riesgo con aprendizaje automático, un laboratorio de física, una sala virtual con voz y casco, el cobro de matrículas, un módulo de enfermería escolar, certificados verificables, un mapa de sedes con calendario, y una automatización de avisos. Recorre la reproducibilidad del software científico, la ingeniería de datos y el procesamiento analítico, el aprendizaje automático como componente de producto, los videojuegos y la simulación, los gráficos, el audio y la realidad extendida, las invariantes del dinero, los datos de salud y los sistemas regulados, las cadenas de bloques y los contratos inteligentes, los sistemas geoespaciales y temporales, el low-code, un taller de comparación de riesgos entre dominios y un proyecto de diseño profundo de un dominio elegido.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Al finalizar podrás defender un diseño de dominio con su afirmación refutable
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): medir, comparar y no confundir un resultado con un modelo.
 - [Parte 13 — Especificaciones, contratos y modelos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/): invariantes, contratos comprobables y modelos de referencia.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): reintentos, idempotencia y entrega al menos una vez.
@@ -141,7 +141,7 @@ El estudiante entrega la matriz con anclas, justificaciones, estabilidad, acuerd
 
 #### SE-300 — Proyecto: diseño profundo de un dominio elegido
 
-Un dosier completo no es un dosier correcto. El proyecto valida un dosier con ocho mutaciones, mide qué supuestos cambian el signo de una decisión de construir o comprar y compara una huella de bytes con una canónica. La Parte 25 vuelve al diseño del código.
+Un dosier completo no es un dosier correcto. El proyecto valida un dosier con ocho mutaciones, mide qué supuestos cambian el signo de una decisión de construir o comprar y compara una huella de bytes con una canónica. La [Parte 25](../part-25-diseno-patrones-y-refactorizacion/README.md) vuelve al diseño del código.
 
 El estudiante entrega el dosier, el validador, la sensibilidad, el manifiesto y la lista de lo que el validador no ve.
 
@@ -164,7 +164,7 @@ El estudiante entrega el dosier, el validador, la sensibilidad, el manifiesto y 
 
 ## Proyecto integrador
 
-El proyecto **SE-300** entrega un dosier de dominio con diez secciones (dominio, afirmación, invariantes, datos, experimentos, riesgos, límites, fuentes, decisiones y revisión), un validador de forma con sus mutaciones, un análisis de sensibilidad de la decisión, un manifiesto con huellas canónicas y la lista de afirmaciones que el validador no ve, firmada por quien revisó el contenido. Se acompaña de los límites declarados: qué parte del dosier no se comprobó con datos reales, con un proveedor real ni con una persona experta en el dominio.
+El proyecto **[SE-300](./se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)** entrega un dosier de dominio con diez secciones (dominio, afirmación, invariantes, datos, experimentos, riesgos, límites, fuentes, decisiones y revisión), un validador de forma con sus mutaciones, un análisis de sensibilidad de la decisión, un manifiesto con huellas canónicas y la lista de afirmaciones que el validador no ve, firmada por quien revisó el contenido. Se acompaña de los límites declarados: qué parte del dosier no se comprobó con datos reales, con un proveedor real ni con una persona experta en el dominio.
 
 ## Criterios de salida
 

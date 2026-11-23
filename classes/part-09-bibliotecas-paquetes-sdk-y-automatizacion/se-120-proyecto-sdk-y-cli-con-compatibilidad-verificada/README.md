@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: SDK y CLI con compatibilidad verificada** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué conjunto mínimo de artefactos y pruebas sostiene un SDK y CLI listos para consumidores reales?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la [Parte 09](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: SDK y CLI con compatibilidad verificada** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué conjunto mínimo de artefactos y pruebas sostiene un SDK y CLI listos para consumidores reales?**
 
 ## Prerrequisitos
 
@@ -269,7 +269,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementac
 
 ## Límites y siguiente paso
 
-El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La Parte 10 cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
+El proyecto acredita un release candidato dentro de su matriz, no disponibilidad, seguridad o soporte productivo. La [Parte 10](../../part-10-descubrimiento-y-estrategia-de-producto/README.md) cambiará el foco desde construir correctamente hacia descubrir qué problema y resultado de producto justifican la siguiente inversión.
 
 ## Glosario
 

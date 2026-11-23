@@ -4,9 +4,9 @@
 
 ## Punto profesional y fundamento pedagógico
 
-**Punto profesional.** La clase existe para que reúnas la Parte 42 en un **programa de experimentos con evidencia**: un catálogo de fallas, especificaciones de experimento validadas, resultados con control y huella reproducible, y una declaración de lo que nada de eso demuestra. El taller de `SE-515` ejecuta un experimento acotado; el proyecto exige reunir todos los experimentos y entregarlos de forma que otra persona lo pueda repetir, refutar y mantener.
+**Punto profesional.** La clase existe para que reúnas la [Parte 42](../README.md) en un **programa de experimentos con evidencia**: un catálogo de fallas, especificaciones de experimento validadas, resultados con control y huella reproducible, y una declaración de lo que nada de eso demuestra. El taller de `SE-515` ejecuta un experimento acotado; el proyecto exige reunir todos los experimentos y entregarlos de forma que otra persona lo pueda repetir, refutar y mantener.
 
-**Por qué aparece aquí.** Cierra la Parte 42: `SE-505` y `SE-506` fijaron el estado estable y el radio y el aborto, `SE-507` y `SE-508` las fallas de red, de dependencias y de recursos, `SE-509` las herramientas, `SE-510` los datos y el aprendizaje automático, `SE-511` y `SE-512` la práctica con personas y con el pipeline, `SE-513` la gobernanza, `SE-514` el aprendizaje y la evidencia y `SE-515` el experimento acotado. Sigue el patrón del proyecto de la Parte 41 (`SE-504`): un paquete reproducible con un validador y una declaración de límites. El caso conductor es la API de entregas.
+**Por qué aparece aquí.** Cierra la [Parte 42](../README.md): `SE-505` y `SE-506` fijaron el estado estable y el radio y el aborto, `SE-507` y `SE-508` las fallas de red, de dependencias y de recursos, `SE-509` las herramientas, `SE-510` los datos y el aprendizaje automático, `SE-511` y `SE-512` la práctica con personas y con el pipeline, `SE-513` la gobernanza, `SE-514` el aprendizaje y la evidencia y `SE-515` el experimento acotado. Sigue el patrón del proyecto de la [Parte 41](../../part-41-observabilidad-sre-e-incidentes/README.md) (`SE-504`): un paquete reproducible con un validador y una declaración de límites. El caso conductor es la API de entregas.
 
 **Error conceptual que debe corregir.** Creer que un programa de caos es una colección de experimentos, o que un validador que acepta la especificación garantiza que el experimento es bueno. El programa es un sistema con dueños, calendario, presupuesto y registro, y el validador solo comprueba forma y contenido, no si la métrica existe ni si la hipótesis puede refutarse de verdad.
 
@@ -33,7 +33,7 @@ Recupera lo aprendido en las once clases anteriores. La pregunta activa es: **¿
 ## Prerrequisitos
 
 - Haber completado `SE-505` a `SE-515` o poder explicar cada artefacto que dejaron (matriz de declarado y demostrado, hipótesis con banda, especificación, catálogo, herramientas, plan de práctica, etapa de pipeline, experimentos de datos, plan de producción, criterios de seguridad y política de límites).
-- Haber ejecutado al menos una vez los experimentos de la Parte 42 desde un checkout limpio.
+- Haber ejecutado al menos una vez los experimentos de la [Parte 42](../README.md) desde un checkout limpio.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`hashlib`, `json`).
 
 ## Problema auténtico
@@ -216,7 +216,7 @@ Entrega el paquete `caos-programa/` con las seis piezas del proyecto, la evaluac
 
 ## Caso conductor
 
-La API de entregas cierra la Parte 42 con este paquete. Deja el duodécimo artefacto: el programa de experimentos con su validador, su huella y sus límites. La Parte 43 pasa de probar sistemas nuevos a mantener y modernizar sistemas existentes, donde estas mismas pruebas de caracterización y de regresión se vuelven la red de seguridad del cambio. Cambia ahora un solo dato del paquete, la fracción del grupo experimental, y observa cómo cambia lo que el experimento puede confirmar.
+La API de entregas cierra la [Parte 42](../README.md) con este paquete. Deja el duodécimo artefacto: el programa de experimentos con su validador, su huella y sus límites. La [Parte 43](../../part-43-mantenimiento-y-modernizacion-legacy/README.md) pasa de probar sistemas nuevos a mantener y modernizar sistemas existentes, donde estas mismas pruebas de caracterización y de regresión se vuelven la red de seguridad del cambio. Cambia ahora un solo dato del paquete, la fracción del grupo experimental, y observa cómo cambia lo que el experimento puede confirmar.
 
 ## Preguntas frecuentes
 

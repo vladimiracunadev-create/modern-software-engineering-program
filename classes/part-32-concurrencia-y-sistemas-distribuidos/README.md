@@ -1,6 +1,6 @@
 # Parte 32 — Concurrencia y sistemas distribuidos
 
-La Parte 31 dejó servicios que se hablan por mensajes y toleran reintentos. La pregunta cambia de «cómo se conectan» a «qué sabe cada participante cuando muchas cosas ocurren a la vez, el reloj no coincide y una respuesta no llega». Esta parte trabaja sobre **el servicio de entregas de la plataforma en el cierre de plazo**, un caso sintético: cientos de estudiantes entregan en los últimos minutos, un contador y un cupo se actualizan desde varios procesos, una réplica se aísla de la red y una dependencia falla de forma intermitente. El servicio debe seguir siendo correcto, rápido y diagnosticable, y quien lo opera debe poder decir qué promete cuando algo falla.
+La [Parte 31](../part-31-integracion-eventos-y-mensajeria/README.md) dejó servicios que se hablan por mensajes y toleran reintentos. La pregunta cambia de «cómo se conectan» a «qué sabe cada participante cuando muchas cosas ocurren a la vez, el reloj no coincide y una respuesta no llega». Esta parte trabaja sobre **el servicio de entregas de la plataforma en el cierre de plazo**, un caso sintético: cientos de estudiantes entregan en los últimos minutos, un contador y un cupo se actualizan desde varios procesos, una réplica se aísla de la red y una dependencia falla de forma intermitente. El servicio debe seguir siendo correcto, rápido y diagnosticable, y quien lo opera debe poder decir qué promete cuando algo falla.
 
 ## Pregunta rectora
 
@@ -36,7 +36,7 @@ Al finalizar podrás defender un servicio distribuido con garantías declaradas 
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, enumeración de casos y razonamiento sobre evidencia.
 - [Parte 7 — Estructuras de datos y algoritmos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/): colas, costos y estructuras de búsqueda.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): idempotencia, reintentos y consistencia en el servidor.
 - [Parte 29 — Datos, persistencia y recuperación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-datos-persistencia-y-recuperacion/): transacciones, intercalaciones, replicación y cachés.
@@ -143,7 +143,7 @@ El estudiante entrega un reproductor mínimo con una regresión que falla antes 
 
 Un paquete completo no es un paquete correcto. El proyecto compara tres estrategias ante una caída de la base, tres políticas ante una sobrecarga del 50 % y mide qué detecta un validador de forma sobre 200 mutaciones de un paquete.
 
-El estudiante entrega un paquete de servicio con garantías, presupuestos, escalera de degradación, protección ante sobrecarga, pruebas por promesa y `LIMITES.md`. La Parte 33 lleva ese servicio a una plataforma de nube.
+El estudiante entrega un paquete de servicio con garantías, presupuestos, escalera de degradación, protección ante sobrecarga, pruebas por promesa y `LIMITES.md`. La [Parte 33](../part-33-cloud-plataforma-e-infraestructura/README.md) lleva ese servicio a una plataforma de nube.
 
 ## Resumen operativo del recorrido
 

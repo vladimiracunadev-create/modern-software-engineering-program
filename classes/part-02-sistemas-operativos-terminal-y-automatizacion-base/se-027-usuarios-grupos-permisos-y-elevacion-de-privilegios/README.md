@@ -116,7 +116,7 @@ La causa no siempre es el modo del archivo. Puede intervenir una ACL, política 
 
 ### Los secretos exigen permisos y también disciplina de uso
 
-Restringir un archivo no impide que un proceso autorizado imprima su contenido en logs, lo pase como argumento visible o lo herede a un proceso hijo. La protección combina almacenamiento, acceso mínimo, redacción, rotación y ciclo de vida. La clase SE-031 desarrollará esta cadena.
+Restringir un archivo no impide que un proceso autorizado imprima su contenido en logs, lo pase como argumento visible o lo herede a un proceso hijo. La protección combina almacenamiento, acceso mínimo, redacción, rotación y ciclo de vida. La clase [SE-031](../se-031-variables-de-entorno-configuracion-y-secretos/README.md) desarrollará esta cadena.
 
 ### `chmod` no significa lo mismo en todas partes
 

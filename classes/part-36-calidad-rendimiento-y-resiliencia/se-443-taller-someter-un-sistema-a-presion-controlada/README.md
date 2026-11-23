@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que ejecutes una prueba de presión controlada sobre un sistema: formules una hipótesis sobre su comportamiento estable, inyectes un fallo con un radio de impacto acotado, observes con criterios de aborto definidos de antemano y concluyas qué defensa funcionó y cuál era una creencia. La habilidad no es romper cosas sino diseñar un experimento en el que romper una cosa enseñe algo sin dañar a nadie.
 
-**Por qué aparece aquí.** Cierra el bloque de rendimiento y resiliencia de la **Parte 36** después de **Calidad de experiencia y presupuestos**: las clases anteriores midieron el escenario de eficiencia (`SE-433` a `SE-437`), diseñaron reintentos, interruptores y mamparos (`SE-438` y `SE-439`), calcularon disponibilidad y recuperación (`SE-440`) y fijaron presupuestos (`SE-442`). Este taller las junta en un experimento: someter la API de entregas a cuatro fallos y comprobar si cada defensa hace lo que su diseño dice. Después viene el proyecto, que empaqueta la evidencia en un informe reproducible.
+**Por qué aparece aquí.** Cierra el bloque de rendimiento y resiliencia de la **[Parte 36](../README.md)** después de **Calidad de experiencia y presupuestos**: las clases anteriores midieron el escenario de eficiencia (`SE-433` a `SE-437`), diseñaron reintentos, interruptores y mamparos (`SE-438` y `SE-439`), calcularon disponibilidad y recuperación (`SE-440`) y fijaron presupuestos (`SE-442`). Este taller las junta en un experimento: someter la API de entregas a cuatro fallos y comprobar si cada defensa hace lo que su diseño dice. Después viene el proyecto, que empaqueta la evidencia en un informe reproducible.
 
 **Error conceptual que debe corregir.** Creer que una prueba de caos o un día de simulacro demuestran resiliencia: demuestran el comportamiento ante los fallos que se inyectaron, con la sensibilidad del criterio de «estado estable» que se eligió, y un experimento mal diseñado da falsas alarmas, no ve fallos sutiles o daña a las personas usuarias.
 
@@ -215,7 +215,7 @@ Entrega `taller-log.md` con la predicción, las tres tablas de resultados, el pl
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 36. Este taller deja el undécimo artefacto: un plan de experimento y sus hallazgos. `SE-444` lo integrará con la evidencia de la parte en un informe reproducible y verificable. Cambia después un solo dato, el umbral de la hipótesis, y observa cuántas ejecuciones sanas abortan.
+La API de entregas es el caso conductor de la [Parte 36](../README.md). Este taller deja el undécimo artefacto: un plan de experimento y sus hallazgos. `SE-444` lo integrará con la evidencia de la parte en un informe reproducible y verificable. Cambia después un solo dato, el umbral de la hipótesis, y observa cuántas ejecuciones sanas abortan.
 
 ## Preguntas frecuentes
 

@@ -1,6 +1,6 @@
 # Parte 41 — Observabilidad, SRE e incidentes
 
-La Parte 40 llevó el código a producción por un camino con compuertas y un retorno seguro. La pregunta cambia de «¿cómo llega una versión a producción?» a «¿cómo sabemos qué le está pasando una vez allí, qué promesa defendemos, qué hacemos cuando falla y cómo volvemos si todo se pierde?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa operada en producción**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo y cinco servicios que cooperan. Cada clase convierte una práctica de operación (observar, medir, avisar, responder, aprender, recuperar) en un mecanismo que se puede medir, mide cómo se engaña quien la usa mal y declara qué no demuestra.
+La [Parte 40](../part-40-ci-cd-iac-y-platform-engineering/README.md) llevó el código a producción por un camino con compuertas y un retorno seguro. La pregunta cambia de «¿cómo llega una versión a producción?» a «¿cómo sabemos qué le está pasando una vez allí, qué promesa defendemos, qué hacemos cuando falla y cómo volvemos si todo se pierde?». Esta parte trabaja sobre **la API de entregas de la plataforma educativa operada en producción**, un caso sintético: subir una entrega, listar las entregas de un curso y consultar una calificación, con picos de uso en los cierres de plazo y cinco servicios que cooperan. Cada clase convierte una práctica de operación (observar, medir, avisar, responder, aprender, recuperar) en un mecanismo que se puede medir, mide cómo se engaña quien la usa mal y declara qué no demuestra.
 
 ## Pregunta rectora
 
@@ -154,7 +154,7 @@ El estudiante entrega una bitácora de diagnóstico y la lista de telemetría a 
 
 Un paquete coherente no es un servicio operable. El proyecto mide qué detecta un validador sobre 360 mutaciones, calcula la recuperación completa como producto de cinco etapas y compara la huella de los resultados en dos sistemas.
 
-El estudiante entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites. La Parte 43 lleva la mirada al mantenimiento y la modernización de sistemas existentes.
+El estudiante entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites. La [Parte 43](../part-43-mantenimiento-y-modernizacion-legacy/README.md) lleva la mirada al mantenimiento y la modernización de sistemas existentes.
 
 ## Resumen operativo del recorrido
 

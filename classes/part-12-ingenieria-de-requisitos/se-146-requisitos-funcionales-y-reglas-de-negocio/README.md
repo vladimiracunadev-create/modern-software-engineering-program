@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Retomas el requisito conductor de la Parte 12: recuperar borradores cuando la sesión expira. Alrededor hay una política que la plataforma de entregas debe seguir: qué pasa con una entrega que llega tarde. Recupera lo aprendido en `SE-145`: un requisito sin origen no se puede cuestionar y una suposición sin responsable no se puede comprobar. La pregunta activa es: **¿qué parte de lo que voy a implementar es una decisión de la organización, qué parte es comportamiento del sistema y cómo sé que la regla cubre todos los casos?**
+Retomas el requisito conductor de la [Parte 12](../README.md): recuperar borradores cuando la sesión expira. Alrededor hay una política que la plataforma de entregas debe seguir: qué pasa con una entrega que llega tarde. Recupera lo aprendido en `SE-145`: un requisito sin origen no se puede cuestionar y una suposición sin responsable no se puede comprobar. La pregunta activa es: **¿qué parte de lo que voy a implementar es una decisión de la organización, qué parte es comportamiento del sistema y cómo sé que la regla cubre todos los casos?**
 
 ## Prerrequisitos
 

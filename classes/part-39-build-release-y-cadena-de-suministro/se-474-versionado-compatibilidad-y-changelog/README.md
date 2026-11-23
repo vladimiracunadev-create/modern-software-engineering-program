@@ -35,7 +35,7 @@ Recupera lo aprendido en `SE-473`: el manifiesto firmado liga nombre, versión y
 
 - Haber completado `SE-473` o poder explicar la diferencia entre una versión y una secuencia monótona.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`ast`, `random`, `collections`).
-- Haber visto contratos y compatibilidad de API en la Parte 13.
+- Haber visto contratos y compatibilidad de API en la [Parte 13](../../part-13-especificaciones-contratos-y-modelos/README.md).
 
 ## Problema auténtico
 
@@ -93,7 +93,7 @@ La **API pública** es lo que el proyecto promete mantener: funciones y clases d
 
 ### 3. Detección automática y sus límites
 
-Un **comparador de firmas** extrae las funciones y métodos públicos de dos versiones y compara sus parámetros: si desaparece un elemento, si cambia el nombre o el orden de un parámetro obligatorio, si se añade uno obligatorio o cambia un valor por omisión, el cambio es incompatible; si se añade un elemento o un parámetro opcional, es compatible con funcionalidad. Es barato, no tiene falsos negativos sobre esas categorías y se puede ejecutar en cada solicitud de integración. Sus límites son dos. Primero, no ve los cambios de **comportamiento** con la firma intacta: una escala distinta, un orden distinto, una excepción nueva. Segundo, puede dar falsas alarmas (hacer opcional un parámetro obligatorio es compatible, pero un comparador conservador lo marca como incompatible). Las pruebas de contrato (Parte 35), los ejemplos ejecutables en la documentación y la revisión humana cubren el comportamiento.
+Un **comparador de firmas** extrae las funciones y métodos públicos de dos versiones y compara sus parámetros: si desaparece un elemento, si cambia el nombre o el orden de un parámetro obligatorio, si se añade uno obligatorio o cambia un valor por omisión, el cambio es incompatible; si se añade un elemento o un parámetro opcional, es compatible con funcionalidad. Es barato, no tiene falsos negativos sobre esas categorías y se puede ejecutar en cada solicitud de integración. Sus límites son dos. Primero, no ve los cambios de **comportamiento** con la firma intacta: una escala distinta, un orden distinto, una excepción nueva. Segundo, puede dar falsas alarmas (hacer opcional un parámetro obligatorio es compatible, pero un comparador conservador lo marca como incompatible). Las pruebas de contrato ([Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md)), los ejemplos ejecutables en la documentación y la revisión humana cubren el comportamiento.
 
 ### 4. Registro de cambios
 
@@ -188,7 +188,7 @@ Entrega `versionado-log.md` con la predicción, las tres tablas, la política de
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 39. Esta clase deja el sexto artefacto: una política de versionado, compatibilidad y obsolescencia con un registro de cambios. `SE-475` tratará cómo se expone un cambio a una parte de los usuarios antes de declararlo disponible para todos: banderas y entrega progresiva. Cambia después un solo dato, la proporción de cambios de comportamiento, y observa cuánto vale el comparador.
+La API de entregas es el caso conductor de la [Parte 39](../README.md). Esta clase deja el sexto artefacto: una política de versionado, compatibilidad y obsolescencia con un registro de cambios. `SE-475` tratará cómo se expone un cambio a una parte de los usuarios antes de declararlo disponible para todos: banderas y entrega progresiva. Cambia después un solo dato, la proporción de cambios de comportamiento, y observa cuánto vale el comparador.
 
 ## Preguntas frecuentes
 

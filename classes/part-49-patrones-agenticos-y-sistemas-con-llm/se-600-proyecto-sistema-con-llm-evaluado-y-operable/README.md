@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues, para un sistema con LLM que elijas, **la evidencia con que otra persona decidiría ponerlo en producción**: qué patrón usa y por qué, cómo se mide su calidad, cuánto cuesta y tarda en el caso malo, qué ataque lo rompe y cómo se contiene, qué pasa si se interrumpe a mitad y cómo degrada. Es la diferencia entre «funciona en mi demostración» y «puede operar». No se construye el sistema más sofisticado: se construye el más simple que supera una puerta de entrada declarada de antemano y se documenta con honestidad dónde no se midió.
 
-**Por qué aparece aquí.** Cierra la Parte 49 integrando las medidas de las once clases anteriores en una única puerta: calidad (`SE-589` a `SE-592`, `SE-597`), contexto y recuperación (`SE-593`, `SE-594`), integraciones (`SE-595`), durabilidad (`SE-596`), costo, latencia y seguridad (`SE-598`) y degradación (`SE-599`). Aplica la lógica de la política de equipo de `SE-552` (Parte 45): evidencia exigida según el riesgo, con excepciones y revisión.
+**Por qué aparece aquí.** Cierra la [Parte 49](../README.md) integrando las medidas de las once clases anteriores en una única puerta: calidad (`SE-589` a `SE-592`, `SE-597`), contexto y recuperación (`SE-593`, `SE-594`), integraciones (`SE-595`), durabilidad (`SE-596`), costo, latencia y seguridad (`SE-598`) y degradación (`SE-599`). Aplica la lógica de la política de equipo de `SE-552` ([Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)): evidencia exigida según el riesgo, con excepciones y revisión.
 
 **Error conceptual que debe corregir.** Creer que un sistema «evaluado y operable» es uno con buena calidad en una evaluación. La calidad es una columna de cinco. El experimento del proyecto muestra cuatro candidatos con calidades de 85,0 % a 99,0 % y solo uno supera la puerta completa: el agente solo cumple la calidad (97,5 %) pero falla en tokens y en seguridad; el híbrido sin gobierno tiene la mejor calidad y falla en seguridad y duplicados; solo el híbrido gobernado (enrutamiento, permisos mínimos, diario con clave) pasa. Operar es el conjunto de condiciones que rodean a la calidad.
 
@@ -33,7 +33,7 @@ Recupera `SE-597`, `SE-598` y `SE-599`: una puerta se declara antes de medir, la
 ## Prerrequisitos
 
 - Haber completado `SE-589` a `SE-599`.
-- Haber completado la Parte 45, en particular `SE-552` (política con evidencia exigida) y `SE-549` (evaluación como puerta de release).
+- Haber completado la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md), en particular `SE-552` (política con evidencia exigida) y `SE-549` (evaluación como puerta de release).
 - Python 3.11 o posterior y un sistema o caso de uso propio con un modelo de lenguaje, real o simulado.
 
 ## Problema auténtico
@@ -251,7 +251,7 @@ Aplica el proyecto a un sistema con LLM de tu entorno, aunque sea pequeño. Defi
 
 ## Límites y siguiente paso
 
-Los cuatro candidatos son configuraciones sintéticas que recombinan medidas de otras clases; no se ejecutó un sistema completo, ni se usó un modelo de lenguaje, un proveedor o un tráfico reales; la puerta es una elección del autor. Una revisión editorial humana independiente de la parte sigue pendiente. La Parte 26 pasa del sistema con LLM al catálogo de patrones de diseño, empresariales y de resiliencia, que sirve de vocabulario común para diseñar y revisar estos sistemas y cualquier otro.
+Los cuatro candidatos son configuraciones sintéticas que recombinan medidas de otras clases; no se ejecutó un sistema completo, ni se usó un modelo de lenguaje, un proveedor o un tráfico reales; la puerta es una elección del autor. Una revisión editorial humana independiente de la parte sigue pendiente. La [Parte 26](../../part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) pasa del sistema con LLM al catálogo de patrones de diseño, empresariales y de resiliencia, que sirve de vocabulario común para diseñar y revisar estos sistemas y cualquier otro.
 
 ## Glosario
 

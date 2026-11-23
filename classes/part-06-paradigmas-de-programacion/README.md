@@ -32,7 +32,7 @@ Al finalizar podrás justificar una combinación, señalar adaptadores y pérdid
 
 ## Prerrequisitos enlazados
 
-- [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
+- [Parte 4 — Pensamiento computacional y resolución de problemas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
 - [Parte 5 — Fundamentos de programación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
@@ -210,7 +210,7 @@ la comparación distingue semántica, lenguaje, runtime y experiencia del equipo
 
 La aceptación cubre éxito, inválido, empate, repetición, secuencia y cancelación, y exige
 una recomendación distinta para dos escenarios de cambio. Se declara qué se ejecutó y
-qué solo se razonó. La Parte 7 conservará el contrato y preguntará qué representación de
+qué solo se razonó. La [Parte 7](../part-07-estructuras-de-datos-y-algoritmos/README.md) conservará el contrato y preguntará qué representación de
 datos sostiene su carga con costos aceptables.
 
 ## Resumen operativo del recorrido
@@ -232,7 +232,7 @@ datos sostiene su carga con costos aceptables.
 
 ## Proyecto integrador
 
-El proyecto **SE-084** entrega un corpus versionado, al menos dos implementaciones ejecutables, pruebas contractuales compartidas, propiedades, trazas comparables y un informe de decisión para dos cargas distintas. No existe un ganador universal: la recomendación debe vincular fuerzas, evidencia, consecuencias y condición de reversión.
+El proyecto **[SE-084](./se-084-proyecto-comparacion-semantica-con-pruebas-comunes/README.md)** entrega un corpus versionado, al menos dos implementaciones ejecutables, pruebas contractuales compartidas, propiedades, trazas comparables y un informe de decisión para dos cargas distintas. No existe un ganador universal: la recomendación debe vincular fuerzas, evidencia, consecuencias y condición de reversión.
 
 ## Criterios de salida
 

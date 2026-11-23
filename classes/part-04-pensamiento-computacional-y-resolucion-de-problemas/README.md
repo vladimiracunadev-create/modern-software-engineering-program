@@ -194,7 +194,7 @@ y límites; cada ejemplo se vincula a una regla y cada regla a una prueba o argu
 
 La aceptación compara implementación de referencia o pseudocódigo ejecutable con casos
 normales, límite y adversariales. Se declara qué se demostró, qué solo se midió y qué
-permanece supuesto. Esa especificación será la materia que la Parte 5 transforme en un
+permanece supuesto. Esa especificación será la materia que la [Parte 5](../part-05-fundamentos-de-programacion/README.md) transforme en un
 programa modular, probado y mantenible.
 
 ## Resumen operativo del recorrido
@@ -216,7 +216,7 @@ programa modular, probado y mantenible.
 
 ## Hilo pedagógico
 
-Las clases 49 a 51 enseñan a recortar y representar; 52 a 54 establecen contratos y argumentos; 55 y 56 introducen recursos y límites; 57 y 58 convierten la solución en un proceso observable. El taller 59 reabre el problema frente a ambigüedad humana. El proyecto 60 integra todo en una especificación que alimentará la implementación de la Parte 5.
+Las clases 49 a 51 enseñan a recortar y representar; 52 a 54 establecen contratos y argumentos; 55 y 56 introducen recursos y límites; 57 y 58 convierten la solución en un proceso observable. El taller 59 reabre el problema frente a ambigüedad humana. El proyecto 60 integra todo en una especificación que alimentará la implementación de la [Parte 5](../part-05-fundamentos-de-programacion/README.md).
 
 ## Evidencias acumulativas
 

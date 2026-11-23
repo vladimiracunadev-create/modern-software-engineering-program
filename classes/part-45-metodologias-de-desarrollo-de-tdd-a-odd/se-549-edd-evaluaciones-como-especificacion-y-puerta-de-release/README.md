@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates una evaluación como lo que es, un **instrumento de medida con ruido**, y no como una prueba determinista con otro nombre. En los componentes cuya salida es probabilística (un clasificador, un asistente basado en un modelo de lenguaje, un agente) no hay un resultado único que una aserción pueda exigir. El desarrollo guiado por evaluaciones (EDD) propone que un conjunto de casos con criterios de calidad cumpla dos funciones a la vez: **especificación** de lo que se espera y **puerta** que decide si un cambio se publica. Funciona si quien la usa sabe cuánto ruido tiene la medida y cuántos casos hacen falta para que la puerta distinga una regresión de una fluctuación.
 
-**Por qué aparece aquí.** Sigue a **SDD** porque una especificación no puede dictar una salida única cuando el sistema es probabilístico; lo que sí puede dictar es una distribución de calidad aceptable. Retoma la Parte 46 (evaluaciones de exactitud, utilidad, costo y latencia) y la Parte 36 (calidad y resiliencia) desde el ángulo del proceso: no cómo se mide un modelo, sino cómo se decide con la medida.
+**Por qué aparece aquí.** Sigue a **SDD** porque una especificación no puede dictar una salida única cuando el sistema es probabilístico; lo que sí puede dictar es una distribución de calidad aceptable. Retoma la [Parte 46](../../part-46-desarrollo-de-software-asistido-por-ia/README.md) (evaluaciones de exactitud, utilidad, costo y latencia) y la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) (calidad y resiliencia) desde el ángulo del proceso: no cómo se mide un modelo, sino cómo se decide con la medida.
 
 **Error conceptual que debe corregir.** Creer que EDD es TDD con evaluaciones. Las evaluaciones son más lentas, más costosas y, sobre todo, **no deterministas**: la misma versión puede dar resultados distintos en dos corridas. Anthropic lo dice sobre agentes: lo que pasó en una corrida puede fallar en la siguiente, y por eso se miden proporciones de éxito y métricas como pass@k (probabilidad de al menos un acierto en k intentos). Una puerta que compara dos puntuaciones de una sola corrida toma decisiones con el ruido.
 
@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-548`: una especificación no basta si nada comprueb
 ## Prerrequisitos
 
 - Haber completado `SE-548` o poder explicar qué es una especificación y su deriva.
-- Haber visto en la Parte 46 qué se mide en una evaluación de un asistente.
+- Haber visto en la [Parte 46](../../part-46-desarrollo-de-software-asistido-por-ia/README.md) qué se mide en una evaluación de un asistente.
 - Python 3.11 o posterior con `random`; el experimento no usa ningún modelo.
 
 ## Problema auténtico

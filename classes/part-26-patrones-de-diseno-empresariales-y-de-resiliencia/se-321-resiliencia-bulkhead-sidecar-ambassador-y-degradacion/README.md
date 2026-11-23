@@ -34,7 +34,7 @@ Recupera lo aprendido en `SE-320`: un control mal calibrado crea fallos. La preg
 ## Prerrequisitos
 
 - Haber completado `SE-315`, `SE-319` y `SE-320`.
-- Conocer la idea de grupo de hilos y de saturación (Partes 32 y 41).
+- Conocer la idea de grupo de hilos y de saturación (Partes [32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) y [41](../../part-41-observabilidad-sre-e-incidentes/README.md)).
 - Python 3.11 o posterior con `heapq`, `socket`, `threading` y `statistics`.
 
 ## Problema auténtico

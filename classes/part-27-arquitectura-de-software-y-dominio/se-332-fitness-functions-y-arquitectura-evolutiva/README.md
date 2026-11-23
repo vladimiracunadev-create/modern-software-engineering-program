@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que conviertas una decisión de arquitectura en una prueba automática que la defienda a lo largo del tiempo, y para que sepas elegir su umbral y su frecuencia sin que falle al azar ni deje pasar el deterioro.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Arquitecturas serverless, edge y peer-to-peer**: `SE-331` terminó con umbrales («si el tráfico supera 22 rps, la revisión vuelve a un servidor»); una decisión con umbral que nadie comprueba es un deseo. Una arquitectura evolutiva es la que cambia de forma guiada, y la guía son pruebas que miden las propiedades que importan.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Arquitecturas serverless, edge y peer-to-peer**: `SE-331` terminó con umbrales («si el tráfico supera 22 rps, la revisión vuelve a un servidor»); una decisión con umbral que nadie comprueba es un deseo. Una arquitectura evolutiva es la que cambia de forma guiada, y la guía son pruebas que miden las propiedades que importan.
 
 **Error conceptual que debe corregir.** Creer que una función de aptitud es «un test más»: es una medida de una propiedad arquitectónica con un umbral, una frecuencia y una estadística, y su calidad se juzga por dos errores (falsas alarmas y alarmas perdidas), no solo por si «pasa».
 

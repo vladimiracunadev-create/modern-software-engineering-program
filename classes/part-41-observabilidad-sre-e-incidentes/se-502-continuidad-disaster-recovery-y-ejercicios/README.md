@@ -218,7 +218,7 @@ Entrega `recuperacion-log.md` con la predicción, las tres tablas de resultados 
 
 ## Caso conductor
 
-La API de entregas es el caso conductor de la Parte 41. Esta clase deja el décimo artefacto: un plan de recuperación con RPO, RTO, verificaciones y ejercicios. `SE-503` pone a prueba el diagnóstico cuando la telemetría falta, como ocurre en un desastre, y `SE-504` reúne todo en un paquete operativo. Cambia después un solo parámetro, el intervalo de copia, y observa cuánto cuesta cada minuto de RPO.
+La API de entregas es el caso conductor de la [Parte 41](../README.md). Esta clase deja el décimo artefacto: un plan de recuperación con RPO, RTO, verificaciones y ejercicios. `SE-503` pone a prueba el diagnóstico cuando la telemetría falta, como ocurre en un desastre, y `SE-504` reúne todo en un paquete operativo. Cambia después un solo parámetro, el intervalo de copia, y observa cuánto cuesta cada minuto de RPO.
 
 ## Preguntas frecuentes
 

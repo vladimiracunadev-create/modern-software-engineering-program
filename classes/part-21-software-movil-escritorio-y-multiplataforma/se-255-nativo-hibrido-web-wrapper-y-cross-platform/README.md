@@ -207,7 +207,7 @@ Entrega `stack-decision-log.md` con la tabla de criterios, la sensibilidad a los
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí la decisión sobre cómo construirlo y su sensibilidad. `SE-256` decide dónde vive el estado, `SE-257` qué capacidades del dispositivo se pedirán y `SE-263` aplica esta decisión al adaptar el producto a dos plataformas. Cambia después un solo peso, el del equipo existente, y revisa qué decisión sobrevive.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí la decisión sobre cómo construirlo y su sensibilidad. `SE-256` decide dónde vive el estado, `SE-257` qué capacidades del dispositivo se pedirán y `SE-263` aplica esta decisión al adaptar el producto a dos plataformas. Cambia después un solo peso, el del equipo existente, y revisa qué decisión sobrevive.
 
 ## Preguntas frecuentes
 

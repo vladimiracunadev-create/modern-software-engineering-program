@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que trates una coordenada y un instante como datos con modelo propio: una posición depende de un sistema de referencia y de una forma de la Tierra, y un momento depende de una zona y de reglas que cambian. Quien programa un mapa o una agenda responde por los errores que aparecen lejos del lugar y de la época en que se probó.
 
-**Por qué aparece aquí.** Es la novena clase de la **Parte 24**, después de **Blockchain, consenso y contratos inteligentes**: allí el reloj y el orden eran los de un protocolo; aquí son los del mundo, con husos horarios, cambios de hora y una Tierra que no es plana. Lo que parece un número (una latitud, una hora) esconde una convención, y el fallo aparece cuando alguien cruza una frontera, un meridiano o una noche de cambio de hora. El caso conductor sigue siendo la plataforma educativa ficticia: un mapa de sedes y un calendario de sesiones en vivo para estudiantes de varios países.
+**Por qué aparece aquí.** Es la novena clase de la **[Parte 24](../README.md)**, después de **Blockchain, consenso y contratos inteligentes**: allí el reloj y el orden eran los de un protocolo; aquí son los del mundo, con husos horarios, cambios de hora y una Tierra que no es plana. Lo que parece un número (una latitud, una hora) esconde una convención, y el fallo aparece cuando alguien cruza una frontera, un meridiano o una noche de cambio de hora. El caso conductor sigue siendo la plataforma educativa ficticia: un mapa de sedes y un calendario de sesiones en vivo para estudiantes de varios países.
 
 **Error conceptual que debe corregir.** Creer que una latitud y una longitud son coordenadas planas y que una hora local identifica un instante. Los grados de longitud miden menos cuanto más cerca del polo, y una hora de pared sin zona puede ser ambigua, inexistente o corrida según el día del año.
 
@@ -231,7 +231,7 @@ Entrega `geo-log.md` con la predicción, la tabla de error por latitud, la de un
 
 ## Caso conductor
 
-La plataforma educativa ficticia es el caso conductor de la Parte 24. Esta clase deja el noveno artefacto: el mapa de sedes con haversine y prefiltro de rejilla, y el calendario con instante UTC, zona y hora local de la regla. `SE-298` pasa a un dominio donde el código lo escriben personas que no se dicen programadoras: la automatización visual. Cambia después una sola decisión, el tamaño de la celda, y observa cuántos candidatos más se examinan en la ciudad densa.
+La plataforma educativa ficticia es el caso conductor de la [Parte 24](../README.md). Esta clase deja el noveno artefacto: el mapa de sedes con haversine y prefiltro de rejilla, y el calendario con instante UTC, zona y hora local de la regla. `SE-298` pasa a un dominio donde el código lo escriben personas que no se dicen programadoras: la automatización visual. Cambia después una sola decisión, el tamaño de la celda, y observa cuántos candidatos más se examinan en la ciudad densa.
 
 ## Preguntas frecuentes
 

@@ -47,11 +47,11 @@ priorización, aceptación, trazabilidad, validación y gestión de cambios.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 00 y 04 para ética, abstracción y razonamiento.
-2. Partes 10–11 para discovery, valor y economía.
+1. Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md) y [04](../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) para ética, abstracción y razonamiento.
+2. Partes [10](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)–[11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) para discovery, valor y economía.
 3. [Parte 12 — Ingeniería de requisitos](../classes/part-12-ingenieria-de-requisitos/README.md).
-4. Partes 13–15 para especificación, experiencia y planificación.
-5. Partes 17, 24, 35 y 44 para documentación, dominios, aceptación y negociación.
+4. Partes [13](../classes/part-13-especificaciones-contratos-y-modelos/README.md)–[15](../classes/part-15-procesos-planificacion-y-estimacion/README.md) para especificación, experiencia y planificación.
+5. Partes [17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md), [24](../classes/part-24-software-especializado-y-dominios/README.md), [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) y [44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) para documentación, dominios, aceptación y negociación.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -128,21 +128,21 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-146 · Requisitos funcionales y reglas de negocio](../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md) | Parte 12 |
-| [SE-148 · Casos de uso, historias y job stories](../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) | Parte 12 |
-| [SE-150 · Priorización, dependencias y negociación](../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) | Parte 12 |
-| [SE-152 · Requisitos regulatorios, de datos y seguridad](../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) | Parte 12 |
-| [SE-155 · Taller: reparar requisitos no verificables](../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md) | Parte 12 |
-| [SE-156 · Proyecto: especificación de requisitos revisable](../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) | Parte 12 |
-| [SE-325 · Drivers, restricciones y atributos de arquitectura](../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md) | Parte 27 |
-| [SE-577 · Anatomía de un harness: modelo, contexto, herramientas y bucles](../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) | Parte 48 |
-| [SE-578 · Instrucciones de repositorio y cumplimiento determinista](../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md) | Parte 48 |
-| [SE-546 · DDD como lenguaje ubicuo y contexto para agentes](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) | Parte 45 |
+| [SE-146 · Requisitos funcionales y reglas de negocio](../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md) | [Parte 12](../classes/part-12-ingenieria-de-requisitos/README.md) |
+| [SE-148 · Casos de uso, historias y job stories](../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) | [Parte 12](../classes/part-12-ingenieria-de-requisitos/README.md) |
+| [SE-150 · Priorización, dependencias y negociación](../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) | [Parte 12](../classes/part-12-ingenieria-de-requisitos/README.md) |
+| [SE-152 · Requisitos regulatorios, de datos y seguridad](../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) | [Parte 12](../classes/part-12-ingenieria-de-requisitos/README.md) |
+| [SE-155 · Taller: reparar requisitos no verificables](../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md) | [Parte 12](../classes/part-12-ingenieria-de-requisitos/README.md) |
+| [SE-156 · Proyecto: especificación de requisitos revisable](../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) | [Parte 12](../classes/part-12-ingenieria-de-requisitos/README.md) |
+| [SE-325 · Drivers, restricciones y atributos de arquitectura](../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md) | [Parte 27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) |
+| [SE-577 · Anatomía de un harness: modelo, contexto, herramientas y bucles](../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) | [Parte 48](../classes/part-48-harness-y-agentic-engineering/README.md) |
+| [SE-578 · Instrucciones de repositorio y cumplimiento determinista](../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md) | [Parte 48](../classes/part-48-harness-y-agentic-engineering/README.md) |
+| [SE-546 · DDD como lenguaje ubicuo y contexto para agentes](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-546-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) | [Parte 45](../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-121](../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md) para fijar el
 primer mecanismo, usa [SE-172](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-172-estados-vacios-carga-error-y-recuperacion/README.md) para integrar el
@@ -152,7 +152,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

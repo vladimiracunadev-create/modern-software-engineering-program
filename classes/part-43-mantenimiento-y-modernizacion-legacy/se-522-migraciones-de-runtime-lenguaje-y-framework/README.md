@@ -204,7 +204,7 @@ Entrega `migracion-runtime-log.md` con la predicción, las tres tablas, el catá
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el sexto artefacto: el catálogo de diferencias de plataforma con sus sondas y la política de versiones. `SE-523` preguntará cómo se migran los datos sin interrumpir el servicio, y `SE-524` cómo coexisten dos versiones del sistema mientras tanto. Cambia después un solo dato, el redondeo de empates, y observa cuántas notas cruzan la frontera del aprobado.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el sexto artefacto: el catálogo de diferencias de plataforma con sus sondas y la política de versiones. `SE-523` preguntará cómo se migran los datos sin interrumpir el servicio, y `SE-524` cómo coexisten dos versiones del sistema mientras tanto. Cambia después un solo dato, el redondeo de empates, y observa cuántas notas cruzan la frontera del aprobado.
 
 ## Preguntas frecuentes
 

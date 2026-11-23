@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que dejes de tratar la intención como si ya fuera una especificación. Quien trabaja con un agente de código descubre pronto que el agente hace exactamente lo que se le dice y, donde no se le dice nada, hace lo más plausible. La diferencia entre «lo más plausible» y «lo que se quería» es el trabajo del ingeniero. La habilidad es convertir un deseo («avisar a los estudiantes antes de que venzan las entregas») en un documento que otra persona, o un agente, pueda implementar sin adivinar, que pueda comprobarse con una prueba y que siga siendo cierto después de seis cambios.
 
-**Por qué aparece aquí.** Abre la **Parte 47** después de **Proyecto: cambio real con trazabilidad y revisión humana**: la Parte 46 enseñó a usar asistentes sobre un cambio concreto, con trazabilidad y revisión. Ahora el objeto de trabajo cambia: ya no es un cambio sobre un código existente sino la especificación desde la que se construye. El caso conductor de la parte es el **servicio de recordatorios de entrega de la plataforma educativa** (en adelante, *Avisos*): envía a cada estudiante un aviso 72, 24 y 1 hora antes del vencimiento de una entrega, salvo que ya haya entregado o haya silenciado el aviso. Es un caso sintético y deliberadamente pequeño; ningún sistema, institución ni persona reales fueron analizados.
+**Por qué aparece aquí.** Abre la **[Parte 47](../README.md)** después de **Proyecto: cambio real con trazabilidad y revisión humana**: la [Parte 46](../../part-46-desarrollo-de-software-asistido-por-ia/README.md) enseñó a usar asistentes sobre un cambio concreto, con trazabilidad y revisión. Ahora el objeto de trabajo cambia: ya no es un cambio sobre un código existente sino la especificación desde la que se construye. El caso conductor de la parte es el **servicio de recordatorios de entrega de la plataforma educativa** (en adelante, *Avisos*): envía a cada estudiante un aviso 72, 24 y 1 hora antes del vencimiento de una entrega, salvo que ya haya entregado o haya silenciado el aviso. Es un caso sintético y deliberadamente pequeño; ningún sistema, institución ni persona reales fueron analizados.
 
 **Error conceptual que debe corregir.** Creer que una especificación es un prompt largo. Un prompt se escribe para una conversación y se pierde con ella; una especificación se escribe para sobrevivir al agente, a la sesión y a quien la redactó. Tiene identificadores que otros documentos citan, criterios que una prueba puede ejecutar, decisiones con su razón y una historia de cambios. Alargar un prompt solo aumenta el número de lugares donde puede esconderse una ambigüedad.
 
@@ -28,7 +28,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 46: un asistente es un componente cuyo resultado se verifica, no una autoridad. La pregunta activa es: **¿cuántas veces la última funcionalidad que pediste a una herramienta de IA (o a una persona) salió «bien» pero distinta de la que tenías en la cabeza, y qué frase de tu petición permitía ambas lecturas?**
+Recupera lo aprendido en la [Parte 46](../../part-46-desarrollo-de-software-asistido-por-ia/README.md): un asistente es un componente cuyo resultado se verifica, no una autoridad. La pregunta activa es: **¿cuántas veces la última funcionalidad que pediste a una herramienta de IA (o a una persona) salió «bien» pero distinta de la que tenías en la cabeza, y qué frase de tu petición permitía ambas lecturas?**
 
 ## Prerrequisitos
 
@@ -157,7 +157,7 @@ Se generó una especificación con 24 requisitos (`RF-01` a `RF-24`) más una en
 | Prueba que afirma algo irrelevante | 1 | no | no |
 | **Total** | **12** | **8** | **11** |
 
-La comprobación de identificadores encuentra 8 de los 12 defectos; el recorrido del árbol sintáctico añade los tres de las pruebas sin aserción y llega a 11. El que queda es el más peligroso: una prueba con forma correcta que comprueba otra cosa. Solo una persona que lea la prueba junto al requisito lo ve, o una prueba de mutación (la técnica de la Parte 35 y de `SE-567`) que mutile el comportamiento y observe si algo falla.
+La comprobación de identificadores encuentra 8 de los 12 defectos; el recorrido del árbol sintáctico añade los tres de las pruebas sin aserción y llega a 11. El que queda es el más peligroso: una prueba con forma correcta que comprueba otra cosa. Solo una persona que lea la prueba junto al requisito lo ve, o una prueba de mutación (la técnica de la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) y de `SE-567`) que mutile el comportamiento y observe si algo falla.
 
 ![Barras apiladas horizontales con los defectos inyectados que encuentra cada comprobación: identificadores y criterios encuentran 8, el árbol sintáctico añade las 3 pruebas sin aserción y llega a 11, y queda sin ver una prueba que cita un requisito pero afirma otra cosa.](../../../content/part-47/figures/se-565-trazabilidad-y-vacias.svg)
 
@@ -214,7 +214,7 @@ Entrega `spec-log.md` con la predicción, las tres tablas reproducidas, la espec
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el primer artefacto: la especificación mínima con identificadores, criterios, no-objetivos y registro de decisiones. `SE-566` la convertirá en constitución, clarificaciones, plan y tareas con comprobaciones entre artefactos, y `SE-567` medirá cuándo la implementación converge contra ella. Cambia después un solo dato, el número de decisiones abiertas, y observa a partir de cuántas la probabilidad de acertar sin decidir deja de ser razonable para tu equipo.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el primer artefacto: la especificación mínima con identificadores, criterios, no-objetivos y registro de decisiones. `SE-566` la convertirá en constitución, clarificaciones, plan y tareas con comprobaciones entre artefactos, y `SE-567` medirá cuándo la implementación converge contra ella. Cambia después un solo dato, el número de decisiones abiertas, y observa a partir de cuántas la probabilidad de acertar sin decidir deja de ser razonable para tu equipo.
 
 ## Preguntas frecuentes
 

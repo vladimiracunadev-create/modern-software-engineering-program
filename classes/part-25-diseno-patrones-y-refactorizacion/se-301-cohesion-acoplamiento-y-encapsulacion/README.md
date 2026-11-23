@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que puedas decir qué agrupa un módulo, de qué depende y qué esconde, y para que conviertas esas tres preguntas en números que se pueden contrastar con un cambio real, no en adjetivos como «limpio» o «desacoplado».
 
-**Por qué aparece aquí.** Abre la **Parte 25** después de **Proyecto: diseño profundo de un dominio elegido**: la Parte 24 profundizó en un dominio; ahora el foco pasa de «qué debe hacer el sistema» a «cómo se reparte para que pueda cambiar». La clase fija el vocabulario y el caso conductor de la parte: el componente `tarifas` de una plataforma de entregas, que calcula el costo de un envío.
+**Por qué aparece aquí.** Abre la **[Parte 25](../README.md)** después de **Proyecto: diseño profundo de un dominio elegido**: la [Parte 24](../../part-24-software-especializado-y-dominios/README.md) profundizó en un dominio; ahora el foco pasa de «qué debe hacer el sistema» a «cómo se reparte para que pueda cambiar». La clase fija el vocabulario y el caso conductor de la parte: el componente `tarifas` de una plataforma de entregas, que calcula el costo de un envío.
 
 **Error conceptual que debe corregir.** Creer que cohesión, acoplamiento y encapsulación son opiniones de estilo: son propiedades que se observan en cuántos lugares hay que tocar cuando una decisión cambia, y cada una se puede medir de forma parcial, con límites conocidos.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Recupera lo aprendido en la Parte 24 sobre dominios: un dominio delimita qué reglas importan. La pregunta activa es: **¿qué decisión de `tarifas` quedaría escondida en cada módulo, y cuántos lugares tocaría yo si esa decisión cambiara?**
+Recupera lo aprendido en la [Parte 24](../../part-24-software-especializado-y-dominios/README.md) sobre dominios: un dominio delimita qué reglas importan. La pregunta activa es: **¿qué decisión de `tarifas` quedaría escondida en cada módulo, y cuántos lugares tocaría yo si esa decisión cambiara?**
 
 ## Prerrequisitos
 
@@ -224,7 +224,7 @@ Entrega `design-log.md` con la predicción, la tabla de LCOM4, el conteo de siti
 
 ## Caso conductor
 
-El componente `tarifas` de la plataforma de entregas es el caso conductor de la Parte 25. Esta clase deja el primer artefacto: `Envio` separado en tres módulos con las decisiones que esconde cada uno y un orden de capas. `SE-302` examinará qué principios de diseño guían esas separaciones y dónde dejan de valer. Cambia después una sola decisión, la unidad del peso, y observa qué módulos se mueven.
+El componente `tarifas` de la plataforma de entregas es el caso conductor de la [Parte 25](../README.md). Esta clase deja el primer artefacto: `Envio` separado en tres módulos con las decisiones que esconde cada uno y un orden de capas. `SE-302` examinará qué principios de diseño guían esas separaciones y dónde dejan de valer. Cambia después una sola decisión, la unidad del peso, y observa qué módulos se mueven.
 
 ## Preguntas frecuentes
 

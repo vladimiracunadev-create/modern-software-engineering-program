@@ -30,7 +30,7 @@
 
 ## Antes de empezar
 
-Retomas el expediente de la Parte 12. Hasta ahora los requisitos venían de personas; ahora aparecen otros que nadie «pidió» porque ya existían: conservar los datos solo el tiempo necesario, registrar quién accedió, proteger la comunicación. Recupera lo aprendido en `SE-147`: una restricción tiene origen externo y no se negocia como un requisito más. La pregunta activa es: **¿cómo convierto una obligación externa en algo que pueda probar, quién la interpreta y cómo detecto una implementación que parece cumplirla sin hacerlo?**
+Retomas el expediente de la [Parte 12](../README.md). Hasta ahora los requisitos venían de personas; ahora aparecen otros que nadie «pidió» porque ya existían: conservar los datos solo el tiempo necesario, registrar quién accedió, proteger la comunicación. Recupera lo aprendido en `SE-147`: una restricción tiene origen externo y no se negocia como un requisito más. La pregunta activa es: **¿cómo convierto una obligación externa en algo que pueda probar, quién la interpreta y cómo detecto una implementación que parece cumplirla sin hacerlo?**
 
 ## Prerrequisitos
 

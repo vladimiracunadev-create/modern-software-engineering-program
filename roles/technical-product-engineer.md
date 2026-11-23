@@ -53,12 +53,12 @@ entender restricciones técnicas y medir outcomes sin confundir velocidad con ap
 
 ## 📚 Tu ruta en el programa
 
-1. Parte 00 y partes 05–09 para lenguaje técnico suficiente.
+1. [Parte 00](../classes/part-00-ingenieria-de-software-como-profesion/README.md) y partes 05–09 para lenguaje técnico suficiente.
 2. [Parte 10 — Descubrimiento y estrategia de producto](../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) y partes 11–14 para economía, requisitos y UX.
-3. Partes 15–17 para planificación, colaboración y documentación.
-4. Partes 19–20 para comprender superficies y contratos.
-5. Partes 25–27 y 36 para diseño, arquitectura, calidad y resiliencia.
-6. Parte 44 y partes 46–47 para liderazgo y experimentación asistida con IA.
+3. Partes [15](../classes/part-15-procesos-planificacion-y-estimacion/README.md)–[17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md) para planificación, colaboración y documentación.
+4. Partes [19](../classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md)–[20](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) para comprender superficies y contratos.
+5. Partes [25](../classes/part-25-diseno-patrones-y-refactorizacion/README.md)–[27](../classes/part-27-arquitectura-de-software-y-dominio/README.md) y [36](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) para diseño, arquitectura, calidad y resiliencia.
+6. [Parte 44](../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md) y partes 46–47 para liderazgo y experimentación asistida con IA.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -135,15 +135,15 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-143 · Taller: diseñar un árbol de métricas](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) | Parte 11 |
-| [SE-409 · Qué hace distinto a un producto SaaS](../classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md) | Parte 34 |
-| [SE-414 · Planes, derechos de uso y banderas de funcionalidad](../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) | Parte 34 |
-| [SE-420 · Taller y proyecto integrador: producto SaaS mínimo con evidencia](../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) | Parte 34 |
+| [SE-143 · Taller: diseñar un árbol de métricas](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) | [Parte 11](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| [SE-409 · Qué hace distinto a un producto SaaS](../classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md) | [Parte 34](../classes/part-34-saas-y-plataformas-de-producto/README.md) |
+| [SE-414 · Planes, derechos de uso y banderas de funcionalidad](../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) | [Parte 34](../classes/part-34-saas-y-plataformas-de-producto/README.md) |
+| [SE-420 · Taller y proyecto integrador: producto SaaS mínimo con evidencia](../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) | [Parte 34](../classes/part-34-saas-y-plataformas-de-producto/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-121](../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md) para fijar el
 primer mecanismo, usa [SE-172](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-172-estados-vacios-carga-error-y-recuperacion/README.md) para integrar el
@@ -153,7 +153,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

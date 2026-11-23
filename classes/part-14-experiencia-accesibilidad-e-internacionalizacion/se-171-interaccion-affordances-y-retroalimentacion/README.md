@@ -198,7 +198,7 @@ Entrega `interaction-log.md` con el contrato de interacción del botón, la tabl
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja el contrato de interacción de «Enviar entrega», con tamaño, respuesta, idempotencia y deshacer. `SE-172` tratará qué ve la persona cuando no hay datos, cuando se espera y cuando algo falla; `SE-173` verificará si todo esto es accesible. Cambia después una sola constante, la paciencia mediana de 1,5 s a 3 s, y revisa qué duplicados desaparecen y cuáles no.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja el contrato de interacción de «Enviar entrega», con tamaño, respuesta, idempotencia y deshacer. `SE-172` tratará qué ve la persona cuando no hay datos, cuando se espera y cuando algo falla; `SE-173` verificará si todo esto es accesible. Cambia después una sola constante, la paciencia mediana de 1,5 s a 3 s, y revisa qué duplicados desaparecen y cuáles no.
 
 ## Preguntas frecuentes
 

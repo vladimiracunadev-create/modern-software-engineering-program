@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que un sistema con LLM **sobreviva a sus propias interrupciones sin repetir ni perder efectos**. Un agente o un workflow con modelos tarda segundos o minutos, llama a servicios externos que fallan y corre en procesos que se reinician. Si se cae a mitad de camino, hay tres preguntas: ¿qué pasos ya se hicieron?, ¿cómo se reanuda sin rehacerlos? y, sobre todo, ¿qué pasa con el paso que **sí ocurrió fuera pero no se anotó dentro**? La respuesta de ingeniería es un **diario** de pasos más **claves de idempotencia** en los efectos, y reintentos con retroceso aleatorio para no convertir una caída en una tormenta.
 
-**Por qué aparece aquí.** Sigue a `SE-595`, donde las herramientas viven en otros procesos y las tareas de otros agentes pueden durar. Aplica de la Parte 31 (mensajería y entrega al menos una vez), de la Parte 32 (fallos parciales en sistemas distribuidos) y de la Parte 36 (resiliencia) un caso específico: los efectos de un agente no se pueden «deshacer leyendo otra vez».
+**Por qué aparece aquí.** Sigue a `SE-595`, donde las herramientas viven en otros procesos y las tareas de otros agentes pueden durar. Aplica de la [Parte 31](../../part-31-integracion-eventos-y-mensajeria/README.md) (mensajería y entrega al menos una vez), de la [Parte 32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) (fallos parciales en sistemas distribuidos) y de la [Parte 36](../../part-36-calidad-rendimiento-y-resiliencia/README.md) (resiliencia) un caso específico: los efectos de un agente no se pueden «deshacer leyendo otra vez».
 
 **Error conceptual que debe corregir.** Creer que reintentar es seguro porque «si falló, no pasó nada». El fallo que importa no es el que ocurre **antes** del efecto sino el que ocurre **después** del efecto y **antes** de que el sistema lo registre: el aviso salió, el proceso murió, al reanudar el sistema no sabe que salió y lo envía otra vez. La segunda creencia equivocada es que reintentar más rápido es reintentar mejor: mil clientes que reintentan al mismo ritmo convierten un servidor que se recupera en un servidor que se vuelve a caer.
 
@@ -33,7 +33,7 @@ Recupera `SE-592` y `SE-595`: un plan con pasos con efectos puede interrumpirse 
 ## Prerrequisitos
 
 - Haber completado `SE-595` o poder explicar el ciclo de una tarea con estados y tiempo máximo.
-- Conocer de las Partes 31 y 32 la entrega al menos una vez y los fallos parciales.
+- Conocer de las Partes [31](../../part-31-integracion-eventos-y-mensajeria/README.md) y [32](../../part-32-concurrencia-y-sistemas-distribuidos/README.md) la entrega al menos una vez y los fallos parciales.
 - Python 3.11 o posterior con `sqlite3` de la biblioteca estándar.
 
 ## Problema auténtico

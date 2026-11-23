@@ -29,7 +29,7 @@
 
 ## Antes de empezar
 
-Retomas el expediente de la Parte 12 con su línea base. Las solicitudes de cambio se aprobaron una a una, y el conjunto sigue teniendo problemas que ninguna solicitud tocó. Recupera lo aprendido en `SE-146`: una tabla de decisión reveló huecos y conflictos que las reglas individuales ocultaban. La pregunta activa es: **¿qué técnica encuentra una frase con dos lecturas, un grupo de requisitos incompatibles y un caso que nadie contempló, y qué defecto escapa a cada una?**
+Retomas el expediente de la [Parte 12](../README.md) con su línea base. Las solicitudes de cambio se aprobaron una a una, y el conjunto sigue teniendo problemas que ninguna solicitud tocó. Recupera lo aprendido en `SE-146`: una tabla de decisión reveló huecos y conflictos que las reglas individuales ocultaban. La pregunta activa es: **¿qué técnica encuentra una frase con dos lecturas, un grupo de requisitos incompatibles y un caso que nadie contempló, y qué defecto escapa a cada una?**
 
 ## Prerrequisitos
 

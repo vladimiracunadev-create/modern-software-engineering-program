@@ -1,6 +1,6 @@
 # Parte 33 — Cloud, plataforma e infraestructura
 
-La Parte 32 dejó un servicio que sabe degradarse cuando falla una dependencia, pero esa dependencia seguía siendo una máquina que alguien operaba. La pregunta cambia de «cómo falla un sistema distribuido» a «qué pasa cuando la máquina, la red, la identidad y el despliegue pertenecen en parte a otra organización y se describen como código». Esta parte trabaja sobre **la plataforma de entregas de tareas llevada a una infraestructura gestionada**, un caso sintético: una aplicación web, un corrector de entregas, una base de datos y avisos a estudiantes que deben ejecutarse, aislarse, repartirse en nodos, conectarse con permisos mínimos, declararse como código, separarse en entornos, dimensionarse, mantenerse portables y ofrecerse a otros equipos sin que cada uno reconstruya lo mismo. Recorre IaaS, PaaS y SaaS con la responsabilidad compartida, las máquinas virtuales, los contenedores y su aislamiento, la orquestación y el scheduling, la ejecución gestionada sin servidores, las redes, la identidad y los secretos, la infraestructura como código y su estado, los entornos y las cuentas, el escalado y los costos, el multi-cloud y la portabilidad, las plataformas internas y los caminos dorados, un taller de despliegue y destrucción de un entorno y un paquete de plataforma mínima y reproducible.
+La [Parte 32](../part-32-concurrencia-y-sistemas-distribuidos/README.md) dejó un servicio que sabe degradarse cuando falla una dependencia, pero esa dependencia seguía siendo una máquina que alguien operaba. La pregunta cambia de «cómo falla un sistema distribuido» a «qué pasa cuando la máquina, la red, la identidad y el despliegue pertenecen en parte a otra organización y se describen como código». Esta parte trabaja sobre **la plataforma de entregas de tareas llevada a una infraestructura gestionada**, un caso sintético: una aplicación web, un corrector de entregas, una base de datos y avisos a estudiantes que deben ejecutarse, aislarse, repartirse en nodos, conectarse con permisos mínimos, declararse como código, separarse en entornos, dimensionarse, mantenerse portables y ofrecerse a otros equipos sin que cada uno reconstruya lo mismo. Recorre IaaS, PaaS y SaaS con la responsabilidad compartida, las máquinas virtuales, los contenedores y su aislamiento, la orquestación y el scheduling, la ejecución gestionada sin servidores, las redes, la identidad y los secretos, la infraestructura como código y su estado, los entornos y las cuentas, el escalado y los costos, el multi-cloud y la portabilidad, las plataformas internas y los caminos dorados, un taller de despliegue y destrucción de un entorno y un paquete de plataforma mínima y reproducible.
 
 ## Pregunta rectora
 
@@ -36,8 +36,8 @@ Al finalizar podrás defender una plataforma mínima con su matriz de responsabi
 
 ## Prerrequisitos enlazados
 
-- [Parte 2 — Sistemas operativos, terminal y automatización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/): procesos, archivos y automatización con scripts.
-- [Parte 3 — Redes, internet y protocolos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/): direcciones, enrutamiento y latencia.
+- [Parte 2 — Sistemas operativos, terminal y automatización base](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/): procesos, archivos y automatización con scripts.
+- [Parte 3 — Redes, Internet y protocolos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/): direcciones, enrutamiento y latencia.
 - [Parte 20 — Backend, APIs y procesamiento asíncrono](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/): colas, reintentos e idempotencia.
 - [Parte 27 — Arquitectura de software y dominio](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-arquitectura-de-software-y-dominio/): fronteras, decisiones registradas y atributos de calidad.
 - [Parte 29 — Datos, persistencia y recuperación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-datos-persistencia-y-recuperacion/): transacciones, actualización perdida y copias de seguridad.
@@ -147,7 +147,7 @@ El estudiante entrega el ciclo de vida de un entorno de laboratorio con su prueb
 
 Un paquete completo no es un paquete correcto. El proyecto construye el mismo paquete en dos sistemas hasta que sus sumas coinciden, mide qué detecta un validador sobre 208 mutaciones y simula el gasto de entornos olvidados con y sin plazo.
 
-El estudiante entrega la plataforma mínima con su manifiesto, su validador y `LIMITES.md`. La Parte 35 cambia de pregunta: de cómo se construye y se entrega la plataforma a cómo se prueba con una estrategia por riesgo.
+El estudiante entrega la plataforma mínima con su manifiesto, su validador y `LIMITES.md`. La [Parte 35](../part-35-estrategia-y-tecnicas-de-prueba/README.md) cambia de pregunta: de cómo se construye y se entrega la plataforma a cómo se prueba con una estrategia por riesgo.
 
 ## Resumen operativo del recorrido
 

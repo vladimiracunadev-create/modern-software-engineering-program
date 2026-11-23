@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Depuradores, breakpoints y observación de estado** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Dónde detener la ejecución para observar la primera divergencia y no solo el síntoma final?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la [Parte 08](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Depuradores, breakpoints y observación de estado** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Dónde detener la ejecución para observar la primera divergencia y no solo el síntoma final?**
 
 ## Prerrequisitos
 

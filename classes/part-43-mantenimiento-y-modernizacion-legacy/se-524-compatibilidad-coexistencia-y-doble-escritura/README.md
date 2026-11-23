@@ -212,7 +212,7 @@ Entrega `coexistencia-log.md` con la predicción, las tres tablas, el diseño de
 
 ## Caso conductor
 
-El módulo de calificaciones es el caso conductor de la Parte 43. Esta clase deja el octavo artefacto: el diseño de coexistencia con su reconciliación y su contrato. `SE-525` preguntará cómo se retira el sistema antiguo cuando la coexistencia termine, y `SE-526` cuándo conviene reescribir en vez de seguir evolucionando. Cambia después un solo dato, la tasa de fallo del segundo almacén de 1 % a 0,01 %, y observa si los reintentos bastan.
+El módulo de calificaciones es el caso conductor de la [Parte 43](../README.md). Esta clase deja el octavo artefacto: el diseño de coexistencia con su reconciliación y su contrato. `SE-525` preguntará cómo se retira el sistema antiguo cuando la coexistencia termine, y `SE-526` cuándo conviene reescribir en vez de seguir evolucionando. Cambia después un solo dato, la tasa de fallo del segundo almacén de 1 % a 0,01 %, y observa si los reintentos bastan.
 
 ## Preguntas frecuentes
 

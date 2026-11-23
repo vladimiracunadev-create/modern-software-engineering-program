@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que elijas los **ejemplos de aceptación** con el mismo cuidado con que eliges el diseño. Un ejemplo de aceptación es un caso concreto que quien encarga el trabajo acepta como prueba de que el cambio hace lo que pidió. Lo que decide si esos ejemplos protegen es qué dimensiones del problema varían y cuáles no, no cuántos son. Un equipo que escribe veinte ejemplos «típicos» cree tener una suite de aceptación y tiene una colección de casos que comparten los mismos supuestos. La habilidad profesional es reconocer qué dimensiones faltan.
 
-**Por qué aparece aquí.** Sigue a **BDD** porque la formulación en escenarios deja abierta la pregunta que esta clase responde: qué ejemplos elegir. ATDD (desarrollo guiado por pruebas de aceptación) y Specification by Example (especificar con ejemplos) son el mismo movimiento visto desde dos lados: los ejemplos acordados con negocio son a la vez la especificación y la prueba. La Parte 35 trató el análisis de valores límite y la partición de equivalencia; aquí se miden sus efectos sobre un conjunto de ejemplos de aceptación.
+**Por qué aparece aquí.** Sigue a **BDD** porque la formulación en escenarios deja abierta la pregunta que esta clase responde: qué ejemplos elegir. ATDD (desarrollo guiado por pruebas de aceptación) y Specification by Example (especificar con ejemplos) son el mismo movimiento visto desde dos lados: los ejemplos acordados con negocio son a la vez la especificación y la prueba. La [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) trató el análisis de valores límite y la partición de equivalencia; aquí se miden sus efectos sobre un conjunto de ejemplos de aceptación.
 
 **Error conceptual que debe corregir.** Creer que más ejemplos protegen más. En el laboratorio, veinte ejemplos al azar matan menos mutantes que doce ejemplos elegidos en los límites del tiempo, y 144 ejemplos combinatorios no matan un mutante que un solo ejemplo bien elegido mataría. El número de ejemplos no dice nada; las dimensiones que varían, sí.
 
@@ -33,7 +33,7 @@ Recupera lo aprendido en `SE-544`: un escenario protege por su «Entonces». La 
 ## Prerrequisitos
 
 - Haber completado `SE-544` o poder explicar qué es un escenario y qué lo hace decorativo.
-- Haber visto en la Parte 35 qué son la partición en clases de equivalencia y el análisis de valores límite.
+- Haber visto en la [Parte 35](../../part-35-estrategia-y-tecnicas-de-prueba/README.md) qué son la partición en clases de equivalencia y el análisis de valores límite.
 - Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar.
 
 ## Problema auténtico

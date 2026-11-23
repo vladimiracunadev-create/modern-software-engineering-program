@@ -47,11 +47,11 @@ seguridad de plugins y diferencias entre plataformas.
 
 ## 📚 Tu ruta en el programa
 
-1. Partes 01–09 para máquina, sistema operativo y construcción.
-2. Partes 13–14 y 17–18 para contratos, UX, documentación y procesos.
+1. Partes [01](../classes/part-01-computadores-y-representacion-de-informacion/README.md)–[09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) para máquina, sistema operativo y construcción.
+2. Partes [13](../classes/part-13-especificaciones-contratos-y-modelos/README.md)–[14](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) y [17](../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)–[18](../classes/part-18-cli-tui-servicios-y-automatizacion/README.md) para contratos, UX, documentación y procesos.
 3. [Parte 21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) como núcleo.
-4. Partes 29, 35–39 y 41 para persistencia, pruebas, supply chain y diagnóstico.
-5. Parte 43 para migración, compatibilidad y retiro.
+4. Partes [29](../classes/part-29-datos-persistencia-y-recuperacion/README.md), [35](../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)–[39](../classes/part-39-build-release-y-cadena-de-suministro/README.md) y [41](../classes/part-41-observabilidad-sre-e-incidentes/README.md) para persistencia, pruebas, cadena de suministro y diagnóstico.
+5. [Parte 43](../classes/part-43-mantenimiento-y-modernizacion-legacy/README.md) para migración, compatibilidad y retiro.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol
@@ -127,15 +127,15 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
+de las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
-| [SE-115 · Plugins, extensiones y puntos de integración](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) | Parte 09 |
-| [SE-261 · Rendimiento, batería y recursos limitados](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-261-rendimiento-bateria-y-recursos-limitados/README.md) | Parte 21 |
-| [SE-337 · Estilos como respuestas a fuerzas de calidad](../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | Parte 28 |
-| [SE-338 · Microkernel y arquitecturas de plugins](../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md) | Parte 28 |
+| [SE-115 · Plugins, extensiones y puntos de integración](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) | [Parte 09](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
+| [SE-261 · Rendimiento, batería y recursos limitados](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-261-rendimiento-bateria-y-recursos-limitados/README.md) | [Parte 21](../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
+| [SE-337 · Estilos como respuestas a fuerzas de calidad](../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | [Parte 28](../classes/part-28-estilos-arquitectonicos/README.md) |
+| [SE-338 · Microkernel y arquitecturas de plugins](../classes/part-28-estilos-arquitectonicos/se-338-microkernel-y-arquitecturas-de-plugins/README.md) | [Parte 28](../classes/part-28-estilos-arquitectonicos/README.md) |
 
 **Cómo recorrerla.** Empieza por [SE-025](../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) para fijar el
 primer mecanismo, usa [SE-258](../classes/part-21-software-movil-escritorio-y-multiplataforma/se-258-interaccion-tactil-teclado-mouse-y-accesibilidad/README.md) para integrar el
@@ -145,7 +145,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes [00](../classes/part-00-ingenieria-de-software-como-profesion/README.md)–[50](../classes/part-50-machine-learning-en-produccion-y-mlops/README.md) (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

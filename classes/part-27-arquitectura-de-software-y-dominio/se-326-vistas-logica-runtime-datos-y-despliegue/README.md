@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que describas un sistema desde varias vistas que responden preguntas distintas, para que compruebes que no se contradicen y para que sepas qué pregunta de calidad solo se contesta mirando una vista concreta.
 
-**Por qué aparece aquí.** Continúa la **Parte 27** después de **Drivers, restricciones y atributos de arquitectura**: los escenarios de `SE-325` dicen qué debe cumplirse; las vistas dicen cómo está hecho el sistema para poder comprobarlo. Un escenario de latencia se evalúa en la vista de ejecución; uno de disponibilidad, en la de despliegue; uno de modificabilidad, en la lógica.
+**Por qué aparece aquí.** Continúa la **[Parte 27](../README.md)** después de **Drivers, restricciones y atributos de arquitectura**: los escenarios de `SE-325` dicen qué debe cumplirse; las vistas dicen cómo está hecho el sistema para poder comprobarlo. Un escenario de latencia se evalúa en la vista de ejecución; uno de disponibilidad, en la de despliegue; uno de modificabilidad, en la lógica.
 
 **Error conceptual que debe corregir.** Creer que «el diagrama de arquitectura» es una sola imagen: cada vista omite a propósito casi todo lo demás, y un diagrama que mezcla módulos, procesos y servidores no responde bien a ninguna pregunta.
 
@@ -91,7 +91,7 @@ La **vista de ejecución** (de procesos o de ejecución) muestra qué se llama e
 
 ### 4. Vista de datos
 
-La **vista de datos** muestra qué entidades existen, quién las escribe, quién las lee y dónde viven. Responde a «¿quién es dueño de este dato?» y gobierna la consistencia y la privacidad. Dos escritores sobre la misma tabla sin un dueño definido son el origen de la mayoría de las inconsistencias; un dato personal que se copia a tres almacenes multiplica el esfuerzo de borrarlo. Esta vista conecta con la Parte 29, pero aquí importa por una razón: una decisión de despliegue (separar servidores) cambia las garantías de datos (una transacción deja de ser local).
+La **vista de datos** muestra qué entidades existen, quién las escribe, quién las lee y dónde viven. Responde a «¿quién es dueño de este dato?» y gobierna la consistencia y la privacidad. Dos escritores sobre la misma tabla sin un dueño definido son el origen de la mayoría de las inconsistencias; un dato personal que se copia a tres almacenes multiplica el esfuerzo de borrarlo. Esta vista conecta con la [Parte 29](../../part-29-datos-persistencia-y-recuperacion/README.md), pero aquí importa por una razón: una decisión de despliegue (separar servidores) cambia las garantías de datos (una transacción deja de ser local).
 
 ### 5. Vista de despliegue y coherencia entre vistas
 

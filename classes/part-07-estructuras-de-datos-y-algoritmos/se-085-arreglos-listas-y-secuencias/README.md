@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Arreglos, listas y secuencias** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué cambia al elegir almacenamiento contiguo, secuencia dinámica o nodos enlazados?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Arreglos, listas y secuencias** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué cambia al elegir almacenamiento contiguo, secuencia dinámica o nodos enlazados?**
 
 ## Prerrequisitos
 
@@ -92,7 +92,7 @@ El deque no es gratis en todo: guarda bloques enlazados y el acceso por índice 
 
 ![Barras con el tiempo de vaciar una cola de 10 000 a 80 000 elementos con lista y con deque.](../../../content/part-07/figures/se-085-pop0-frente-a-deque.svg)
 
-**Cómo leer la figura.** Cada par de barras corresponde a un tamaño. Lo que importa es cómo crece la barra coral al duplicar `n`, no su valor absoluto. **Dónde deja de valer:** los valores son de un equipo y un intérprete; en Linux (CPython 3.12.3) la proporción se mantuvo (875,7 ms frente a 10,6 ms con 80 000). Si la cola nunca supera unos cientos de elementos, `pop(0)` es aceptable (véase SE-095).
+**Cómo leer la figura.** Cada par de barras corresponde a un tamaño. Lo que importa es cómo crece la barra coral al duplicar `n`, no su valor absoluto. **Dónde deja de valer:** los valores son de un equipo y un intérprete; en Linux (CPython 3.12.3) la proporción se mantuvo (875,7 ms frente a 10,6 ms con 80 000). Si la cola nunca supera unos cientos de elementos, `pop(0)` es aceptable (véase [SE-095](../se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)).
 
 ### Capacidad reservada: por qué `append` es barato en promedio
 

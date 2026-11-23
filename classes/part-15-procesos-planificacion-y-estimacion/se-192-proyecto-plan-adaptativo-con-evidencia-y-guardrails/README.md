@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto entrega un plan que cambia con la evidencia sin cambiar por capricho: dice qué se prometió, bajo qué supuestos, qué señales vigila, qué regla dispara la replanificación y qué barreras no se negocian, y demuestra con una simulación qué ganan y qué cuestan esas reglas.
 
-**Por qué aparece aquí.** Cierra la **Parte 15**: reúne el modelo de proceso (`SE-181`), las políticas y el flujo (`SE-182` a `SE-184`), las estimaciones y dependencias (`SE-185` y `SE-186`), los registros (`SE-187`), las puertas (`SE-188`), las métricas (`SE-189`), la mejora (`SE-190`) y el pronóstico calibrado (`SE-191`). La Parte 16 pasará a cómo se colabora sobre el código con Git.
+**Por qué aparece aquí.** Cierra la **[Parte 15](../README.md)**: reúne el modelo de proceso (`SE-181`), las políticas y el flujo (`SE-182` a `SE-184`), las estimaciones y dependencias (`SE-185` y `SE-186`), los registros (`SE-187`), las puertas (`SE-188`), las métricas (`SE-189`), la mejora (`SE-190`) y el pronóstico calibrado (`SE-191`). La [Parte 16](../../part-16-git-colaboracion-y-codigo-abierto/README.md) pasará a cómo se colabora sobre el código con Git.
 
 **Error conceptual que debe corregir.** Creer que un plan adaptativo es un plan sin compromisos, o que una regla de replanificación sensible detecta los problemas a tiempo sin costo: toda regla intercambia falsas alarmas por retraso de detección, y un plan que se rehace ante cada oscilación pierde credibilidad.
 
@@ -225,7 +225,7 @@ Entrega `plan-log.md` con el plan en ocho secciones, la predicción, las tres ta
 
 ## Caso conductor
 
-La plataforma de entregas de tareas cierra aquí su caso conductor de la Parte 15. El proyecto deja el duodécimo artefacto: el plan adaptativo con evidencia, señales, regla de replanificación, barreras y límites, que reúne los once anteriores. La Parte 16 deja el plan y pasa a cómo se colabora sobre el código con Git. Cambia después una sola decisión, el plazo de 22 a 26 semanas, y observa cuánto cambian las falsas alarmas del disparador.
+La plataforma de entregas de tareas cierra aquí su caso conductor de la [Parte 15](../README.md). El proyecto deja el duodécimo artefacto: el plan adaptativo con evidencia, señales, regla de replanificación, barreras y límites, que reúne los once anteriores. La [Parte 16](../../part-16-git-colaboracion-y-codigo-abierto/README.md) deja el plan y pasa a cómo se colabora sobre el código con Git. Cambia después una sola decisión, el plazo de 22 a 26 semanas, y observa cuánto cambian las falsas alarmas del disparador.
 
 ## Preguntas frecuentes
 
@@ -321,7 +321,7 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 68 % de fal
 
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se planificó ningún proyecto real ni se observó una replanificación: el rendimiento gamma, la caída del rendimiento, el valor lognormal, las reglas de alcance y las doscientas mutaciones son construcciones del autor, y el validador se afinó con los mismos casos que lo evalúan. La Parte 16 pasa de planificar el trabajo a colaborar sobre el código con Git.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se planificó ningún proyecto real ni se observó una replanificación: el rendimiento gamma, la caída del rendimiento, el valor lognormal, las reglas de alcance y las doscientas mutaciones son construcciones del autor, y el validador se afinó con los mismos casos que lo evalúan. La [Parte 16](../../part-16-git-colaboracion-y-codigo-abierto/README.md) pasa de planificar el trabajo a colaborar sobre el código con Git.
 
 ## Glosario
 

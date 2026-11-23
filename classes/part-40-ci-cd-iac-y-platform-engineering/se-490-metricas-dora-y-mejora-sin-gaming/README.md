@@ -201,7 +201,7 @@ Entrega `dora-log.md` con la predicción, las tres tablas, las definiciones escr
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el décimo artefacto: el panel de métricas con sus definiciones, sus intervalos y sus contrapesos. `SE-491` endurecerá la canalización con un taller y `SE-492` entregará el camino a producción con retroceso, cuya mejora se medirá con este panel. Cambia después un solo dato, el punto de inicio del plazo, y observa cuánto cambia la métrica.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el décimo artefacto: el panel de métricas con sus definiciones, sus intervalos y sus contrapesos. `SE-491` endurecerá la canalización con un taller y `SE-492` entregará el camino a producción con retroceso, cuya mejora se medirá con este panel. Cambia después un solo dato, el punto de inicio del plazo, y observa cuánto cambia la métrica.
 
 ## Preguntas frecuentes
 

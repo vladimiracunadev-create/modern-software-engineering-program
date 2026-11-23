@@ -192,7 +192,7 @@ Entrega `states-log.md` con la tabla de estados de la vista, la enumeración de 
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja los estados de «mis entregas», la política de reintento y la del indicador. `SE-173` comprobará que esos estados son perceptibles y comprensibles para todos, `SE-174` que tienen estructura semántica y foco. Cambia después un solo evento, añadir «sin conexión», y revisa qué transiciones, textos y pruebas necesita.
+La plataforma de entregas es el caso conductor de la [Parte 14](../README.md). Esta clase deja los estados de «mis entregas», la política de reintento y la del indicador. `SE-173` comprobará que esos estados son perceptibles y comprensibles para todos, `SE-174` que tienen estructura semántica y foco. Cambia después un solo evento, añadir «sin conexión», y revisa qué transiciones, textos y pruebas necesita.
 
 ## Preguntas frecuentes
 

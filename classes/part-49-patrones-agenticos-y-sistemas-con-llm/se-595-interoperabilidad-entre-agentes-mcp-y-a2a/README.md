@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que entiendas qué resuelven y qué no resuelven los protocolos que conectan agentes con herramientas (**MCP**, Model Context Protocol) y agentes con otros agentes (**A2A**, Agent2Agent). Un protocolo común convierte un problema de integraciones a medida (cada agente con cada herramienta) en uno de adaptadores (cada pieza habla el protocolo una vez), pero no resuelve la confianza: lo que una herramienta describe o devuelve entra al contexto del modelo y puede intentar dirigirlo. Quien conoce el mecanismo de los mensajes sabe qué validar en el cliente, qué asumir del servidor y dónde poner el límite.
 
-**Por qué aparece aquí.** Sigue a `SE-594`, donde el agente recuperaba de un índice propio. Ahora la herramienta o el otro agente viven en otro proceso, de otro equipo o de otro proveedor. Esta clase usa de las Partes 13 y 20 la idea de contrato de API y de la Parte 45 la de prueba de contrato: un servidor que dice ofrecer una herramienta con un esquema es una promesa que el cliente puede comprobar.
+**Por qué aparece aquí.** Sigue a `SE-594`, donde el agente recuperaba de un índice propio. Ahora la herramienta o el otro agente viven en otro proceso, de otro equipo o de otro proveedor. Esta clase usa de las Partes [13](../../part-13-especificaciones-contratos-y-modelos/README.md) y [20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md) la idea de contrato de API y de la [Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) la de prueba de contrato: un servidor que dice ofrecer una herramienta con un esquema es una promesa que el cliente puede comprobar.
 
 **Error conceptual que debe corregir.** Creer que «hablar el protocolo» equivale a «ser seguro» o «ser fiable». MCP y A2A estandarizan **cómo se piden y se responden las cosas**: mensajes, descubrimiento de herramientas, estados de una tarea. No estandarizan la veracidad de lo que una herramienta devuelve, la honestidad de su descripción ni los permisos que se le dan. La especificación de MCP advierte que las descripciones y anotaciones de las herramientas deben tratarse como no confiables salvo que provengan de un servidor de confianza. Un servidor compatible puede ser malicioso o estar mal hecho.
 
@@ -33,7 +33,7 @@ Recupera `SE-594`: lo recuperado entra al contexto del modelo y debe tratarse co
 ## Prerrequisitos
 
 - Haber completado `SE-594` o poder explicar la inyección indirecta por contenido recuperado.
-- Conocer de las Partes 13 y 20 qué es un contrato de API y un esquema de entrada.
+- Conocer de las Partes [13](../../part-13-especificaciones-contratos-y-modelos/README.md) y [20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md) qué es un contrato de API y un esquema de entrada.
 - Python 3.11 o posterior con la biblioteca estándar.
 
 ## Problema auténtico
@@ -103,7 +103,7 @@ JSON-RPC define códigos para los fallos del protocolo: −32700 (JSON malformad
 
 ### 4. Aritmética de conectores y su precio
 
-El protocolo reduce los conectores, pero añade un costo que la aritmética no cuenta: cada servidor es **código de terceros** con acceso a lo que el agente le entregue, cada versión del protocolo hay que soportarla y cada servidor añade superficie de ataque. Es la misma idea que cualquier dependencia: reducir el trabajo de integración a cambio de confiar en una pieza externa. La decisión de qué servidores instalar es de seguridad de la cadena de suministro (Parte 39): procedencia, versión fijada, revisión y permisos mínimos.
+El protocolo reduce los conectores, pero añade un costo que la aritmética no cuenta: cada servidor es **código de terceros** con acceso a lo que el agente le entregue, cada versión del protocolo hay que soportarla y cada servidor añade superficie de ataque. Es la misma idea que cualquier dependencia: reducir el trabajo de integración a cambio de confiar en una pieza externa. La decisión de qué servidores instalar es de seguridad de la cadena de suministro ([Parte 39](../../part-39-build-release-y-cadena-de-suministro/README.md)): procedencia, versión fijada, revisión y permisos mínimos.
 
 ![Barras con los conectores necesarios para cuatro agentes y seis herramientas: a medida hacen falta 24 y con un protocolo común 10.](../../../content/part-49/figures/se-595-integraciones.svg)
 
@@ -190,7 +190,7 @@ Para aprender, sí: es pequeño. En producción, usa una biblioteca mantenida, f
 
 ### ¿Cómo pruebo un servidor sin un modelo?
 
-Con un cliente de guion que envíe los mensajes y compare las respuestas con el esquema declarado, como hace el experimento. Es una prueba de contrato (Parte 45) del servidor.
+Con un cliente de guion que envíe los mensajes y compare las respuestas con el esquema declarado, como hace el experimento. Es una prueba de contrato ([Parte 45](../../part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md)) del servidor.
 
 ## Fallo controlado y diagnóstico
 

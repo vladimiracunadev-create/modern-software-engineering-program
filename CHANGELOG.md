@@ -5,6 +5,15 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Resolución de referencias cruzadas: ninguna mención `SE-nnn` o `Parte NN` queda sin enlace
+
+- nuevo paso `scripts/cross_references.py` en la cadena de publicación: convierte toda mención `SE-nnn` y `Parte NN` en prosa (también en tablas, celdas y listas como «Partes 24–25, 27») en un enlace relativo a la clase o parte publicada y a su página del portal; respeta código, código en línea, encabezados, figuras, URL y enlaces existentes; es idempotente y determinista. Lo aplican `build_phase2`, `build_phase3`, `build_phase4`, `build_cases` y `build_role_guides` al escribir cada archivo, de modo que `content/` no se contamina ni se desincroniza tras otra renumeración.
+- los nombres de parte («Parte 20 — Backend y APIs», «Redes e internet», «Web y frontend», «SPEC y agentes», etc.) y los títulos citados en enlaces a clases se normalizan al título oficial de `curriculum.yaml`; el H1 de `content/part-02/README.md` se corrige a ese título.
+- el portal enlaza igual los avisos y tarjetas generados, y las páginas de parte dejan de mostrar los enlaces a otras partes como texto plano con corchetes.
+- cinco falsos positivos de validadores ingenuos corregidos en el origen: la plantilla de `docs/ADDING-A-PART.md` y los listados de código de `SE-254`, `SE-307` y `SE-592` ya no contienen la forma `](...)`.
+- consistencia terminológica: «supply chain» pasa a «cadena de suministro» en las guías de rol y en los textos de sus generadores.
+- `tests/test_cross_references.py` falla si una página publicada (`classes/`, `site/`, `roles/`, `casos/`, README) conserva una mención desnuda, una referencia a una clase o parte inexistente, un enlace relativo roto, un nombre de parte distinto del oficial o un título de clase distinto entre README, portal y catálogo; `docs/ID-MIGRATION*`, los ADR, este historial, el tracker y `site/legacy/` quedan exentos.
+
 ## 2026-11-23 — Documentación y About con el estado final (51 partes, 612 clases)
 
 - README, ROADMAP, `roles/README.md`, `casos/GUIDE.md`, `curriculum/README.md`, `llms.txt`, `DATA_LICENSES.md`, `matrices/COMPETENCY-MAP.md` y los documentos de `docs/` dejan de decir «588 clases en 49 partes» o «dos partes en preparación»: las Partes 34 y 42 ya están desarrolladas.

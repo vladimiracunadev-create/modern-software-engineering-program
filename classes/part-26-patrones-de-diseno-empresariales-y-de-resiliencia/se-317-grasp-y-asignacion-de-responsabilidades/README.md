@@ -32,7 +32,7 @@ Recupera lo aprendido en `SE-316`: un estado imposible se evita haciéndolo irre
 ## Prerrequisitos
 
 - Haber completado `SE-313` a `SE-316`.
-- Conocer las ideas de cohesión y acoplamiento de la Parte 25.
+- Conocer las ideas de cohesión y acoplamiento de la [Parte 25](../../part-25-diseno-patrones-y-refactorizacion/README.md).
 - Python 3.11 o posterior con `ast` y `textwrap`.
 
 ## Problema auténtico

@@ -6,7 +6,7 @@
 
 **Punto profesional.** El proyecto existe para que entregues el cambio de un componente que tiene usuarios sin romperlos: un plan de evolución con un verificador de compatibilidad cuyos límites conoces, contratos de los consumidores, una ventana de deprecación estimada con sus supuestos y la lista de lo que ninguna de esas comprobaciones ve.
 
-**Por qué aparece aquí.** Cierra la **Parte 25**: reúne el diseño de `SE-301` a `SE-305`, el diagnóstico y la refactorización de `SE-306` a `SE-311` y la deuda de `SE-310`, y los lleva al problema que el taller dejó abierto, el de cambiar una interfaz pública. Abre la Parte 27, donde las decisiones de arquitectura cambian el tamaño de lo que puede evolucionar.
+**Por qué aparece aquí.** Cierra la **[Parte 25](../README.md)**: reúne el diseño de `SE-301` a `SE-305`, el diagnóstico y la refactorización de `SE-306` a `SE-311` y la deuda de `SE-310`, y los lleva al problema que el taller dejó abierto, el de cambiar una interfaz pública. Abre la [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md), donde las decisiones de arquitectura cambian el tamaño de lo que puede evolucionar.
 
 **Error conceptual que debe corregir.** Creer que un cambio compatible es el que no cambia la firma: la firma es una parte pequeña de lo que los consumidores usan; los valores por defecto, el redondeo, los rangos aceptados y los campos que se añaden a una respuesta rompen a algunos sin cambiar una sola línea de la interfaz declarada.
 
@@ -234,7 +234,7 @@ Entrega `evolution-package-log.md` con la predicción, la tabla del verificador 
 
 ## Caso conductor
 
-El componente `tarifas` cierra la Parte 25 con un plan de evolución: un verificador de firmas como filtro, contratos de ocho consumidores, un redondeo histórico conservado con nombre, una ventana de deprecación estimada y las tres fases de cada cambio. Conserva los artefactos de `SE-301` a `SE-311`. La Parte 27 sube de nivel y se pregunta qué restricciones arquitectónicas condicionan lo que un componente puede evolucionar. Cambia después una sola decisión, la fecha de retirada de la versión antigua, y observa cuántos consumidores quedan sin migrar.
+El componente `tarifas` cierra la [Parte 25](../README.md) con un plan de evolución: un verificador de firmas como filtro, contratos de ocho consumidores, un redondeo histórico conservado con nombre, una ventana de deprecación estimada y las tres fases de cada cambio. Conserva los artefactos de `SE-301` a `SE-311`. La [Parte 27](../../part-27-arquitectura-de-software-y-dominio/README.md) sube de nivel y se pregunta qué restricciones arquitectónicas condicionan lo que un componente puede evolucionar. Cambia después una sola decisión, la fecha de retirada de la versión antigua, y observa cuántos consumidores quedan sin migrar.
 
 ## Preguntas frecuentes
 

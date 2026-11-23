@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la [Parte 3](../README.md)**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -107,7 +107,7 @@ para la solicitud y la respuesta.
 
 **Cómo leer la figura.** Cada barra es una fase obtenida por diferencia de tiempos acumulados. La lectura diagnóstica es comparativa: si el RTT es 146 ms y el handshake TCP dura 131 ms, la fase está en orden;
 si durara 900 ms habría pérdida o un camino anómalo. **Dónde deja de valer:** la medición es de un equipo y una ruta, con DNS ya en caché. Un primer acceso añadiría la resolución real (decenas de milisegundos), y con una
-conexión reutilizada (SE-045) TCP y TLS desaparecen de la petición. El mismo método se aplica a cualquier destino: se mide con *tu* red.
+conexión reutilizada ([SE-045](../se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md)) TCP y TLS desaparecen de la petición. El mismo método se aplica a cualquier destino: se mide con *tu* red.
 
 ### Los modelos como mapa de evidencias
 

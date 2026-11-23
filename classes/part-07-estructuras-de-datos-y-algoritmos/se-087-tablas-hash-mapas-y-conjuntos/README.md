@@ -27,7 +27,7 @@
 
 ## Antes de empezar
 
-Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Tablas hash, mapas y conjuntos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué exige una búsqueda por clave para seguir siendo correcta y predecible?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la [Parte 07](../README.md)**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Tablas hash, mapas y conjuntos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué exige una búsqueda por clave para seguir siendo correcta y predecible?**
 
 ## Prerrequisitos
 
@@ -170,7 +170,7 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ### ¿`set` es siempre más rápido que una lista para saber si algo está?
 
-No siempre: construir el set cuesta. Con 10 000 elementos y una sola consulta la lista fue más rápida; con tres consultas ya conviene el set (véase SE-095). Depende de cuántas veces se consulta.
+No siempre: construir el set cuesta. Con 10 000 elementos y una sola consulta la lista fue más rápida; con tres consultas ya conviene el set (véase [SE-095](../se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)). Depende de cuántas veces se consulta.
 
 ### ¿Puedo usar una lista como clave?
 

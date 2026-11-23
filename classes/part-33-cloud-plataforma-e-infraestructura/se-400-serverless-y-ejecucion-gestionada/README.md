@@ -232,7 +232,7 @@ Entrega `ejecucion-gestionada.md` con la predicción, las tres tablas reproducid
 
 ## Caso conductor
 
-La plataforma de entregas es el caso conductor de la Parte 33. Esta clase deja el cuarto artefacto: la clasificación de sus piezas para ejecución gestionada y el diseño de idempotencia del aviso de recibo. `SE-401` mira quién puede hablar con quién y con qué credenciales en todo esto. Cambia una pieza, por ejemplo mover el corrector a una función, y mira qué límite te impide hacerlo.
+La plataforma de entregas es el caso conductor de la [Parte 33](../README.md). Esta clase deja el cuarto artefacto: la clasificación de sus piezas para ejecución gestionada y el diseño de idempotencia del aviso de recibo. `SE-401` mira quién puede hablar con quién y con qué credenciales en todo esto. Cambia una pieza, por ejemplo mover el corrector a una función, y mira qué límite te impide hacerlo.
 
 ## Preguntas frecuentes
 

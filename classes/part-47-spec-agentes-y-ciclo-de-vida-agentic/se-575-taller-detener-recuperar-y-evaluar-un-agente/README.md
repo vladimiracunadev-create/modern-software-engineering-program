@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que reúnas en una sola práctica tres capacidades que se enseñaron por separado y que se necesitan juntas en cuanto un agente trabaja sin que nadie lo mire: detenerlo cuando se descontrola, recuperarlo cuando se cae sin duplicar lo que ya hizo y evaluarlo con una vara que no se deje engañar por el ruido. Un agente que no se puede parar es un gasto sin tope; uno que no se puede reanudar repite sus efectos o pierde su trabajo; uno que no se puede evaluar solo tiene la palabra de quien lo construyó. La habilidad es diseñar las tres cosas antes de que hagan falta y probarlas provocando el fallo.
 
-**Por qué aparece aquí.** Es la undécima clase de la **Parte 47** y su taller, después de **Seguridad agentic, prompt injection y auditoría**: `SE-569` a `SE-574` diseñaron la autoridad, los controles, la confianza, la delegación, la aprobación y el registro; ahora se ensayan juntos sobre un agente que falla. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: los «agentes» del taller son máquinas de estados deterministas y simulaciones con semilla fija, no se invocó ningún modelo y los efectos son filas de una base SQLite en memoria.
+**Por qué aparece aquí.** Es la undécima clase de la **[Parte 47](../README.md)** y su taller, después de **Seguridad agentic, prompt injection y auditoría**: `SE-569` a `SE-574` diseñaron la autoridad, los controles, la confianza, la delegación, la aprobación y el registro; ahora se ensayan juntos sobre un agente que falla. El caso conductor sigue siendo el **servicio de recordatorios de entrega** (*Avisos*). Es un caso sintético: los «agentes» del taller son máquinas de estados deterministas y simulaciones con semilla fija, no se invocó ningún modelo y los efectos son filas de una base SQLite en memoria.
 
 **Error conceptual que debe corregir.** Creer que un agente que falla se arregla reiniciándolo y que uno que acierta en una prueba está evaluado. Reiniciar sin punto de control repite los efectos que ya ocurrieron (los avisos se envían dos veces); evaluar con pocas tareas y un solo intento confunde diferencias reales con azar, y con tareas difíciles que a veces se resuelven y a veces no, el mismo agente da resultados distintos cada vez.
 
@@ -217,7 +217,7 @@ Entrega `taller-agente-log.md` con la predicción, las tres tablas, las condicio
 
 ## Caso conductor
 
-El servicio *Avisos* es el caso conductor de la Parte 47. Esta clase deja el undécimo artefacto: las reglas de parada calibradas, el plan de recuperación probado con caídas y el protocolo de evaluación con intervalos. `SE-576` los integra en el proyecto final: un producto operable construido desde una especificación, validado por el sistema y no por autodeclaración. Cambia después un solo dato, la diferencia entre agentes, y observa cuántas tareas necesitas para ver una mejora de tres puntos.
+El servicio *Avisos* es el caso conductor de la [Parte 47](../README.md). Esta clase deja el undécimo artefacto: las reglas de parada calibradas, el plan de recuperación probado con caídas y el protocolo de evaluación con intervalos. `SE-576` los integra en el proyecto final: un producto operable construido desde una especificación, validado por el sistema y no por autodeclaración. Cambia después un solo dato, la diferencia entre agentes, y observa cuántas tareas necesitas para ver una mejora de tres puntos.
 
 ## Preguntas frecuentes
 

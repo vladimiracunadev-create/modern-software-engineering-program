@@ -114,7 +114,7 @@ El kit de diagnóstico multiplataforma registra inicio, fin y duración con meca
 
 Logs pueden revelar rutas personales, argumentos, nombres de usuario, tokens o contenido. La política define campos permitidos, redacción, retención, acceso y eliminación. Recolectar todo “por si acaso” aumenta riesgo y ruido.
 
-La redacción debe ocurrir antes de serializar. Los valores secretos centinela de SE-031 vuelven a usarse para probar que no aparecen en eventos ni archivos comprimidos.
+La redacción debe ocurrir antes de serializar. Los valores secretos centinela de [SE-031](../se-031-variables-de-entorno-configuracion-y-secretos/README.md) vuelven a usarse para probar que no aparecen en eventos ni archivos comprimidos.
 
 ### Diagnosticar es iterar hipótesis, no buscar una línea roja
 
@@ -169,7 +169,7 @@ comprueba que la corrección cambia el resultado, para no confundir correlación
 
 ## Caso conductor: el kit de diagnóstico multiplataforma construye una línea temporal
 
-El analizador local de eventos devuelve código `3`: configuración ausente. El kit de diagnóstico multiplataforma recoge versión, configuración efectiva redactada, metadatos de la ruta y eventos con el mismo identificador. Descubre que la ruta provino de una variable heredada, no del archivo esperado. Esa relación ya está explicada por la precedencia de SE-031.
+El analizador local de eventos devuelve código `3`: configuración ausente. El kit de diagnóstico multiplataforma recoge versión, configuración efectiva redactada, metadatos de la ruta y eventos con el mismo identificador. Descubre que la ruta provino de una variable heredada, no del archivo esperado. Esa relación ya está explicada por la precedencia de [SE-031](../se-031-variables-de-entorno-configuracion-y-secretos/README.md).
 
 El informe separa:
 

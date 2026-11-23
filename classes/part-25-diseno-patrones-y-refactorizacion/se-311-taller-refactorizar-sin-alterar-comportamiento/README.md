@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que ejecutes un refactor completo sobre una función heredada de `tarifas` con la técnica que cuida el comportamiento cuando no hay especificación: registrar lo que hace hoy (un maestro dorado), avanzar en pasos que se comparan con ese registro, decidir caso por caso qué rarezas se conservan y cuáles se corrigen, y entregar la evidencia de cada decisión.
 
-**Por qué aparece aquí.** Es el taller de la mitad de la Parte 25 y reúne las clases anteriores: el diagnóstico de `SE-306`, la red de `SE-307`, las decisiones de diseño de `SE-308`, la complejidad de `SE-309` y la estimación de interés de `SE-310`. Prepara el proyecto de `SE-312`, que evoluciona un componente sin romper a sus usuarios.
+**Por qué aparece aquí.** Es el taller de la mitad de la [Parte 25](../README.md) y reúne las clases anteriores: el diagnóstico de `SE-306`, la red de `SE-307`, las decisiones de diseño de `SE-308`, la complejidad de `SE-309` y la estimación de interés de `SE-310`. Prepara el proyecto de `SE-312`, que evoluciona un componente sin romper a sus usuarios.
 
 **Error conceptual que debe corregir.** Creer que, si un refactor «se ve más limpio» y las pruebas existentes pasan, el comportamiento se conservó: en el código heredado hay comportamientos no documentados que alguien usa, y los pasos aparentemente inocentes (simplificar una comparación, cambiar el redondeo) los cambian sin que ninguna prueba lo diga.
 

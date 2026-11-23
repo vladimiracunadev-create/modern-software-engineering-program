@@ -198,7 +198,7 @@ Entrega `platform-log.md` con la predicción, las tres tablas, el catálogo de c
 
 ## Caso conductor
 
-La canalización de la API de entregas es el caso conductor de la Parte 40. Esta clase deja el noveno artefacto: el catálogo de capacidades con sus medidas. `SE-490` medirá la entrega con las métricas DORA y la forma de no falsearlas, y `SE-492` usará estas capacidades para el camino a producción. Cambia después un solo dato, el costo de empezar, y observa cuánto cambia la adopción.
+La canalización de la API de entregas es el caso conductor de la [Parte 40](../README.md). Esta clase deja el noveno artefacto: el catálogo de capacidades con sus medidas. `SE-490` medirá la entrega con las métricas DORA y la forma de no falsearlas, y `SE-492` usará estas capacidades para el camino a producción. Cambia después un solo dato, el costo de empezar, y observa cuánto cambia la adopción.
 
 ## Preguntas frecuentes
 

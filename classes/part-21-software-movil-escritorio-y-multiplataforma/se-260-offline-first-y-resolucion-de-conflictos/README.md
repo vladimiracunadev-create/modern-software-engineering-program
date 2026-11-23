@@ -214,7 +214,7 @@ Entrega `offline-log.md` con la política de conflicto por tipo de dato, la comp
 
 ## Caso conductor
 
-El cliente de entregas de la Parte 21 deja aquí su política de conflicto por dato y su regla de operaciones idempotentes. `SE-261` mide el coste en recursos de sincronizar, `SE-262` firma y valida lo que viaja, y `SE-264` integra el protocolo en el proyecto. Cambia después una sola decisión, el título pasa de último escritor a conservar ambas versiones, y revisa qué pantallas y qué pruebas cambian.
+El cliente de entregas de la [Parte 21](../README.md) deja aquí su política de conflicto por dato y su regla de operaciones idempotentes. `SE-261` mide el coste en recursos de sincronizar, `SE-262` firma y valida lo que viaja, y `SE-264` integra el protocolo en el proyecto. Cambia después una sola decisión, el título pasa de último escritor a conservar ambas versiones, y revisa qué pantallas y qué pruebas cambian.
 
 ## Preguntas frecuentes
 

@@ -6,7 +6,7 @@
 
 **Punto profesional.** El taller existe para que revises una arquitectura completa contra escenarios con un modelo ejecutable, para que sepas cuánto se puede fiar de esa revisión según quién la haga y para que distingas los parámetros que de verdad deciden un veredicto de los que solo parecen importar.
 
-**Por qué aparece aquí.** Es el taller de la **Parte 27** y reúne las diez clases anteriores: escenarios (`SE-325`), vistas (`SE-326`), agrupación (`SE-327`), contratos y dominio (`SE-328`, `SE-329`), eventos (`SE-330`), estilos de ejecución (`SE-331`), funciones de aptitud (`SE-332`), ADR (`SE-333`) y equipos (`SE-334`). Se aplican a una arquitectura concreta para ver dónde falla antes de construirla.
+**Por qué aparece aquí.** Es el taller de la **[Parte 27](../README.md)** y reúne las diez clases anteriores: escenarios (`SE-325`), vistas (`SE-326`), agrupación (`SE-327`), contratos y dominio (`SE-328`, `SE-329`), eventos (`SE-330`), estilos de ejecución (`SE-331`), funciones de aptitud (`SE-332`), ADR (`SE-333`) y equipos (`SE-334`). Se aplican a una arquitectura concreta para ver dónde falla antes de construirla.
 
 **Error conceptual que debe corregir.** Creer que una revisión de arquitectura es una reunión de opiniones: una revisión es una evaluación de escenarios contra un modelo, con un método que dice qué se evalúa, quién participa y qué se concluye, y con sesgos que hay que conocer.
 

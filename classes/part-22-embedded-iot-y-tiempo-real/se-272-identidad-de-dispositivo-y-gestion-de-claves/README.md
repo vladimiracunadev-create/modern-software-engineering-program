@@ -213,7 +213,7 @@ Entrega `identity-log.md` con la predicción, las tres tablas y la política de 
 
 ## Caso conductor
 
-El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el octavo artefacto: la política de identidad del nodo con claves por dispositivo, anti-reproducción por contador, aleatoriedad de hardware y rotación. `SE-273` lleva el procesamiento al borde de la red. Cambia después una sola cosa, el esquema de claves, y observa qué extracción deja de comprometer a toda la flota.
+El nodo ambiental de una sala de estudio continúa como caso conductor de la [Parte 22](../README.md). Esta clase deja el octavo artefacto: la política de identidad del nodo con claves por dispositivo, anti-reproducción por contador, aleatoriedad de hardware y rotación. `SE-273` lleva el procesamiento al borde de la red. Cambia después una sola cosa, el esquema de claves, y observa qué extracción deja de comprometer a toda la flota.
 
 ## Preguntas frecuentes
 

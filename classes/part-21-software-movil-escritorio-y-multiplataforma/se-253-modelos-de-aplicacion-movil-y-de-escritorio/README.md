@@ -6,7 +6,7 @@
 
 **Punto profesional.** La clase existe para que elijas el modelo de aplicación (proceso, ventanas, instancias, arranque) antes de elegir herramienta, y para que sepas qué supuestos del escritorio dejan de valer en un teléfono: que el proceso sigue vivo, que hay una sola copia ejecutándose y que la pantalla tiene un ancho conocido.
 
-**Por qué aparece aquí.** Abre la **Parte 21** después de **Proyecto: servicio contractual operable**: la Parte 20 terminó con un servicio que otras personas operan; esta parte pregunta qué ocurre en el otro extremo, el cliente que corre en un dispositivo ajeno, que el equipo no controla. Esta clase fija el vocabulario de modelos (móvil, escritorio, ventana, instancia, proceso) y el caso conductor de la parte: el **cliente de la plataforma de entregas**, que edita un borrador de entrega con o sin conexión.
+**Por qué aparece aquí.** Abre la **[Parte 21](../README.md)** después de **Proyecto: servicio contractual operable**: la [Parte 20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md) terminó con un servicio que otras personas operan; esta parte pregunta qué ocurre en el otro extremo, el cliente que corre en un dispositivo ajeno, que el equipo no controla. Esta clase fija el vocabulario de modelos (móvil, escritorio, ventana, instancia, proceso) y el caso conductor de la parte: el **cliente de la plataforma de entregas**, que edita un borrador de entrega con o sin conexión.
 
 **Error conceptual que debe corregir.** Creer que un cliente móvil es una versión pequeña de uno de escritorio, o que "la aplicación" es una cosa con un ciclo de vida único: el sistema decide cuántas copias hay, cuánto vive el proceso y qué espacio de pantalla recibe, y cada decisión rompe un supuesto distinto del código.
 
@@ -26,7 +26,7 @@
 
 ## Antes de empezar
 
-Esta clase abre la **Parte 21 sobre el cliente de la plataforma de entregas**: una aplicación que muestra tareas y deja editar un borrador de entrega en un teléfono, en un portátil o en ambos. Recupera lo aprendido en la Parte 20: un servicio se opera porque se conoce su proceso. Aquí el proceso es de otra persona y de otro sistema operativo. La pregunta activa es: **¿qué supuestos de mi código dependen del modelo de aplicación y cuáles sobreviven si lo cambio?**
+Esta clase abre la **[Parte 21](../README.md) sobre el cliente de la plataforma de entregas**: una aplicación que muestra tareas y deja editar un borrador de entrega en un teléfono, en un portátil o en ambos. Recupera lo aprendido en la [Parte 20](../../part-20-backend-apis-y-procesamiento-asincrono/README.md): un servicio se opera porque se conoce su proceso. Aquí el proceso es de otra persona y de otro sistema operativo. La pregunta activa es: **¿qué supuestos de mi código dependen del modelo de aplicación y cuáles sobreviven si lo cambio?**
 
 ## Prerrequisitos
 
@@ -220,7 +220,7 @@ Entrega `platform-model-log.md` con la tabla de supuestos por modelo, la simulac
 
 ## Caso conductor
 
-El cliente de la plataforma de entregas de tareas es el caso conductor de la Parte 21. Esta clase deja el primer artefacto: la tabla de supuestos que cada modelo de aplicación rompe. `SE-254` mide qué hace falta guardar en cada transición del ciclo de vida, `SE-255` compara formas de construir el cliente, `SE-256` decide dónde vive el estado y `SE-260` qué ocurre cuando dos dispositivos editan sin conexión. Cambia después una sola decisión, permitir o prohibir la segunda instancia, y revisa qué artefactos hay que tocar.
+El cliente de la plataforma de entregas de tareas es el caso conductor de la [Parte 21](../README.md). Esta clase deja el primer artefacto: la tabla de supuestos que cada modelo de aplicación rompe. `SE-254` mide qué hace falta guardar en cada transición del ciclo de vida, `SE-255` compara formas de construir el cliente, `SE-256` decide dónde vive el estado y `SE-260` qué ocurre cuando dos dispositivos editan sin conexión. Cambia después una sola decisión, permitir o prohibir la segunda instancia, y revisa qué artefactos hay que tocar.
 
 ## Preguntas frecuentes
 

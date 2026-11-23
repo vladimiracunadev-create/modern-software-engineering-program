@@ -1,0 +1,420 @@
+{
+  "sources": [
+    "PYTHON-3",
+    "P34-AWS-SAAS-LENS",
+    "P34-AWS-SAAS-FUNDAMENTALS",
+    "P34-AWS-TENANT-ISOLATION",
+    "P34-AZURE-MULTITENANT",
+    "P34-AZURE-TENANCY-MODELS",
+    "P34-AZURE-PRICING",
+    "P34-AZURE-NOISY-NEIGHBOR",
+    "P34-AZURE-RATE-LIMITING",
+    "P34-AZURE-SAGA",
+    "P34-MSA-SAGA",
+    "P34-12FACTOR",
+    "P34-PG-RLS",
+    "P34-STRIPE-SUBSCRIPTIONS",
+    "P34-STRIPE-BILLING-CYCLE",
+    "P34-STRIPE-PRORATIONS",
+    "P34-STRIPE-TRIALS",
+    "P34-STRIPE-SMART-RETRIES",
+    "P34-STRIPE-SUBSCRIPTION-WEBHOOKS",
+    "P34-STRIPE-USAGE",
+    "P34-STRIPE-RECORD-USAGE",
+    "P34-STRIPE-ENTITLEMENTS",
+    "P34-STRIPE-IDEMPOTENCY",
+    "P34-STRIPE-PAYMENT-INTENTS",
+    "P34-STRIPE-REFUNDS",
+    "P34-STRIPE-DISPUTES",
+    "P34-STRIPE-WEBHOOKS",
+    "P34-STRIPE-CONNECT",
+    "P34-PCI-DSS",
+    "P34-IETF-IDEMPOTENCY-KEY",
+    "P34-FOWLER-ACCOUNTING",
+    "P34-FOWLER-TOGGLES",
+    "P34-OPENFEATURE",
+    "P34-SRE-SLO",
+    "P34-SRE-IMPLEMENTING-SLOS",
+    "P34-SHOPIFY-SHARDS",
+    "P34-SQLITE-UPSERT",
+    "P34-SQLITE-ISOLATION"
+  ],
+  "extra_sources": [
+    {
+      "id": "P34-AWS-SAAS-LENS",
+      "title": "AWS Well-Architected Framework: SaaS Lens",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/saas-lens/saas-lens.html",
+      "status": "living",
+      "used_for": [
+        "saas-model",
+        "operations"
+      ]
+    },
+    {
+      "id": "P34-AWS-SAAS-FUNDAMENTALS",
+      "title": "SaaS Architecture Fundamentals",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/saas-architecture-fundamentals/saas-architecture-fundamentals.html",
+      "status": "living",
+      "used_for": [
+        "control-plane",
+        "onboarding"
+      ]
+    },
+    {
+      "id": "P34-AWS-TENANT-ISOLATION",
+      "title": "SaaS Tenant Isolation Strategies",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/saas-tenant-isolation-strategies/saas-tenant-isolation-strategies.html",
+      "status": "living",
+      "used_for": [
+        "tenant-isolation"
+      ]
+    },
+    {
+      "id": "P34-AZURE-MULTITENANT",
+      "title": "Architecting multitenant solutions on Azure",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/overview",
+      "status": "living",
+      "used_for": [
+        "multitenancy"
+      ]
+    },
+    {
+      "id": "P34-AZURE-TENANCY-MODELS",
+      "title": "Tenancy models for a multitenant solution",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/considerations/tenancy-models",
+      "status": "living",
+      "used_for": [
+        "tenancy-models"
+      ]
+    },
+    {
+      "id": "P34-AZURE-PRICING",
+      "title": "Pricing models for a multitenant solution",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/considerations/pricing-models",
+      "status": "living",
+      "used_for": [
+        "pricing"
+      ]
+    },
+    {
+      "id": "P34-AZURE-NOISY-NEIGHBOR",
+      "title": "Noisy Neighbor antipattern",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/antipatterns/noisy-neighbor/noisy-neighbor",
+      "status": "living",
+      "used_for": [
+        "noisy-neighbor"
+      ]
+    },
+    {
+      "id": "P34-AZURE-RATE-LIMITING",
+      "title": "Rate Limiting pattern",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern",
+      "status": "living",
+      "used_for": [
+        "quotas"
+      ]
+    },
+    {
+      "id": "P34-AZURE-SAGA",
+      "title": "Saga distributed transactions pattern",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/saga",
+      "status": "living",
+      "used_for": [
+        "saga",
+        "onboarding"
+      ]
+    },
+    {
+      "id": "P34-MSA-SAGA",
+      "title": "Pattern: Saga",
+      "authority": "microservices.io",
+      "url": "https://microservices.io/patterns/data/saga.html",
+      "status": "living",
+      "used_for": [
+        "saga"
+      ]
+    },
+    {
+      "id": "P34-12FACTOR",
+      "title": "The Twelve-Factor App",
+      "authority": "Heroku (A. Wiggins)",
+      "url": "https://12factor.net/",
+      "status": "living",
+      "used_for": [
+        "configuration"
+      ]
+    },
+    {
+      "id": "P34-PG-RLS",
+      "title": "PostgreSQL: Row Security Policies",
+      "authority": "PostgreSQL Global Development Group",
+      "url": "https://www.postgresql.org/docs/current/ddl-rowsecurity.html",
+      "status": "living",
+      "used_for": [
+        "row-level-security"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-SUBSCRIPTIONS",
+      "title": "Stripe: How subscriptions work",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/overview",
+      "status": "living",
+      "used_for": [
+        "subscriptions"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-BILLING-CYCLE",
+      "title": "Stripe: Billing cycle",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/billing-cycle",
+      "status": "living",
+      "used_for": [
+        "billing-cycle"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-PRORATIONS",
+      "title": "Stripe: Prorations",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/prorations",
+      "status": "living",
+      "used_for": [
+        "proration"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-TRIALS",
+      "title": "Stripe: Subscription trials",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/trials",
+      "status": "living",
+      "used_for": [
+        "trials"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-SMART-RETRIES",
+      "title": "Stripe: Automate payment retries",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/revenue-recovery/smart-retries",
+      "status": "living",
+      "used_for": [
+        "dunning"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-SUBSCRIPTION-WEBHOOKS",
+      "title": "Stripe: Using webhooks with subscriptions",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/webhooks",
+      "status": "living",
+      "used_for": [
+        "webhooks"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-USAGE",
+      "title": "Stripe: Usage-based billing",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/usage-based",
+      "status": "living",
+      "used_for": [
+        "usage-metering"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-RECORD-USAGE",
+      "title": "Stripe: Record usage for billing",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage",
+      "status": "living",
+      "used_for": [
+        "usage-metering"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-ENTITLEMENTS",
+      "title": "Stripe: Entitlements",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/billing/entitlements",
+      "status": "living",
+      "used_for": [
+        "entitlements"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-IDEMPOTENCY",
+      "title": "Stripe: Idempotent requests",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/api/idempotent_requests",
+      "status": "living",
+      "used_for": [
+        "idempotency"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-PAYMENT-INTENTS",
+      "title": "Stripe: The Payment Intents API",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/payments/payment-intents",
+      "status": "living",
+      "used_for": [
+        "payment-lifecycle"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-REFUNDS",
+      "title": "Stripe: Refunds",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/refunds",
+      "status": "living",
+      "used_for": [
+        "refunds"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-DISPUTES",
+      "title": "Stripe: Disputes",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/disputes",
+      "status": "living",
+      "used_for": [
+        "disputes"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-WEBHOOKS",
+      "title": "Stripe: Webhooks",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/webhooks",
+      "status": "living",
+      "used_for": [
+        "webhooks"
+      ]
+    },
+    {
+      "id": "P34-STRIPE-CONNECT",
+      "title": "Stripe: Connect",
+      "authority": "Stripe",
+      "url": "https://docs.stripe.com/connect",
+      "status": "living",
+      "used_for": [
+        "marketplace-payments"
+      ]
+    },
+    {
+      "id": "P34-PCI-DSS",
+      "title": "PCI Data Security Standard",
+      "authority": "PCI Security Standards Council",
+      "url": "https://www.pcisecuritystandards.org/standards/pci-dss/",
+      "status": "living",
+      "used_for": [
+        "card-data-security"
+      ]
+    },
+    {
+      "id": "P34-IETF-IDEMPOTENCY-KEY",
+      "title": "The Idempotency-Key HTTP Header Field (Internet-Draft)",
+      "authority": "IETF HTTPAPI Working Group",
+      "url": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+      "status": "draft",
+      "used_for": [
+        "idempotency"
+      ]
+    },
+    {
+      "id": "P34-FOWLER-ACCOUNTING",
+      "title": "Accounting Transaction",
+      "authority": "Martin Fowler",
+      "url": "https://martinfowler.com/eaaDev/AccountingTransaction.html",
+      "status": "stable",
+      "used_for": [
+        "double-entry"
+      ]
+    },
+    {
+      "id": "P34-FOWLER-TOGGLES",
+      "title": "Feature Toggles (aka Feature Flags)",
+      "authority": "Martin Fowler",
+      "url": "https://martinfowler.com/articles/feature-toggles.html",
+      "status": "living",
+      "used_for": [
+        "feature-flags"
+      ]
+    },
+    {
+      "id": "P34-OPENFEATURE",
+      "title": "OpenFeature",
+      "authority": "Cloud Native Computing Foundation",
+      "url": "https://openfeature.dev/",
+      "status": "living",
+      "used_for": [
+        "feature-flags"
+      ]
+    },
+    {
+      "id": "P34-SRE-SLO",
+      "title": "Service Level Objectives (SRE Book)",
+      "authority": "Google",
+      "url": "https://sre.google/sre-book/service-level-objectives/",
+      "status": "living",
+      "used_for": [
+        "slo"
+      ]
+    },
+    {
+      "id": "P34-SRE-IMPLEMENTING-SLOS",
+      "title": "Implementing SLOs (SRE Workbook)",
+      "authority": "Google",
+      "url": "https://sre.google/workbook/implementing-slos/",
+      "status": "living",
+      "used_for": [
+        "slo",
+        "error-budget"
+      ]
+    },
+    {
+      "id": "P34-SHOPIFY-SHARDS",
+      "title": "Shard Balancing: Moving Shops Confidently with Zero-Downtime at Terabyte-scale",
+      "authority": "Shopify Engineering",
+      "url": "https://shopify.engineering/mysql-database-shard-balancing-terabyte-scale",
+      "status": "living",
+      "used_for": [
+        "tenant-migration"
+      ]
+    },
+    {
+      "id": "P34-SQLITE-UPSERT",
+      "title": "SQLite: UPSERT",
+      "authority": "SQLite",
+      "url": "https://www.sqlite.org/lang_upsert.html",
+      "status": "living",
+      "used_for": [
+        "lab-tooling",
+        "idempotency"
+      ]
+    },
+    {
+      "id": "P34-SQLITE-ISOLATION",
+      "title": "SQLite: Isolation in SQLite",
+      "authority": "SQLite",
+      "url": "https://www.sqlite.org/isolation.html",
+      "status": "living",
+      "used_for": [
+        "lab-tooling",
+        "concurrency"
+      ]
+    }
+  ]
+}

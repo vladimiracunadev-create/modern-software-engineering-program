@@ -15,10 +15,10 @@
 | Auditoría e historia de licencias | `LICENSING_AUDIT.md`, `docs/LICENSING_HISTORY.md` | 2 documentos |
 | Arquitectura de automatización | `docs/WORKFLOW-ARCHITECTURE.md` | 3 workflows |
 | Validador de licencias | `scripts/validate_licensing.py` | 1 |
-| Índices de parte | `classes/part-*/README.md` | 49 |
-| Materiales de clase | `classes/part-*/se-*/README.md` | 588 |
-| Metadatos de clase | `classes/part-*/se-*/lesson.json` | 588 |
-| Fuentes por clase | `sources/class-sources.json` | 588 entradas |
+| Índices de parte | `classes/part-*/README.md` | 50 |
+| Materiales de clase | `classes/part-*/se-*/README.md` | 600 |
+| Metadatos de clase | `classes/part-*/se-*/lesson.json` | 600 |
+| Fuentes por clase | `sources/class-sources.json` | 600 entradas |
 | Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
 | Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 contratos |
 | Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 contratos |
@@ -27,7 +27,7 @@
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
-| Páginas del sitio | `site/**/*.html` (sin `site/casos/`, `site/legacy/` ni `site/404.html`) | 638 |
+| Páginas del sitio | `site/**/*.html` (sin `site/casos/`, `site/legacy/` ni `site/404.html`) | 651 |
 | Casos de estudio | `casos/GUIDE.md`, `casos/{exito,fallo}/*.md` | 1 guía, 2 páginas de grupo y 16 casos |
 | Páginas de casos | `site/casos/**/*.html` | 18 |
 

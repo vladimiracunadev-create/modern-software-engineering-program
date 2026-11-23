@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-588 clases desarrolladas · 49 partes desarrolladas (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`) · 24 clases planificadas sin publicar · alcance total 612 clases en 51 partes (`SE-001`–`SE-612`).
+600 clases desarrolladas · 50 partes desarrolladas (`SE-001`–`SE-504` y `SE-517`–`SE-612`) · 12 clases planificadas sin publicar · alcance total 612 clases en 51 partes (`SE-001`–`SE-612`).
 
 > [!WARNING]
-> Las Partes 00–33, 35–41 y 43–50 (`SE-001`–`SE-408`, `SE-421`–`SE-504` y `SE-517`–`SE-612`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 34 y 42 (`SE-409`–`SE-420` y `SE-505`–`SE-516`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. La Parte 42 (`SE-505`–`SE-516`) está **planificada**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 49 partes desarrolladas
+## Las 50 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -46,6 +46,7 @@
 | 31 | [Integración, eventos y mensajería](part-31-integracion-eventos-y-mensajeria/README.md) | E | SE-373–SE-384 | `suite` |
 | 32 | [Concurrencia y sistemas distribuidos](part-32-concurrencia-y-sistemas-distribuidos/README.md) | E | SE-385–SE-396 | `suite` |
 | 33 | [Cloud, plataforma e infraestructura](part-33-cloud-plataforma-e-infraestructura/README.md) | E | SE-397–SE-408 | `suite` |
+| 34 | [SaaS y plataformas de producto](part-34-saas-y-plataformas-de-producto/README.md) | E | SE-409–SE-420 | `suite` |
 | 35 | [Estrategia y técnicas de prueba](part-35-estrategia-y-tecnicas-de-prueba/README.md) | F | SE-421–SE-432 | `suite` |
 | 36 | [Calidad, rendimiento y resiliencia](part-36-calidad-rendimiento-y-resiliencia/README.md) | F | SE-433–SE-444 | `suite` |
 | 37 | [Sistemas críticos, tiempo real y normas de seguridad](part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) | F | SE-445–SE-456 | `suite` |
@@ -66,12 +67,11 @@
 
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
-| 34 | SaaS y plataformas de producto | SE-409–SE-420 | planificada, sin clases publicadas |
 | 42 | Ingeniería del caos | SE-505–SE-516 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 588 clases desarrolladas
+## Índice plano de las 600 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -553,6 +553,20 @@ sin recorrer carpetas manualmente.
 - [SE-406 — Plataformas internas y golden paths](part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-406.html)
 - [SE-407 — Taller: desplegar y destruir un entorno seguro](part-33-cloud-plataforma-e-infraestructura/se-407-taller-desplegar-y-destruir-un-entorno-seguro/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-407.html)
 - [SE-408 — Proyecto: plataforma mínima reproducible](part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-408.html)
+## [Parte 34 — SaaS y plataformas de producto](part-34-saas-y-plataformas-de-producto/README.md)
+
+- [SE-409 — Qué hace distinto a un producto SaaS](part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-409.html)
+- [SE-410 — Aislamiento multi-inquilino y vecino ruidoso](part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-410.html)
+- [SE-411 — Alta, aprovisionamiento y configuración por cliente](part-34-saas-y-plataformas-de-producto/se-411-alta-aprovisionamiento-y-configuracion-por-cliente/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-411.html)
+- [SE-412 — Suscripciones, ciclos de facturación y dunning](part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-412.html)
+- [SE-413 — Medición de uso y facturación por consumo](part-34-saas-y-plataformas-de-producto/se-413-medicion-de-uso-y-facturacion-por-consumo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-413.html)
+- [SE-414 — Planes, derechos de uso y banderas de funcionalidad](part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-414.html)
+- [SE-415 — Precios, empaquetado y límites por plan](part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-415.html)
+- [SE-416 — Marketplaces y plataformas de dos lados](part-34-saas-y-plataformas-de-producto/se-416-marketplaces-y-plataformas-de-dos-lados/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-416.html)
+- [SE-417 — Pagos, idempotencia y conciliación](part-34-saas-y-plataformas-de-producto/se-417-pagos-idempotencia-y-conciliacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-417.html)
+- [SE-418 — Comercio electrónico: carrito, inventario, pagos y devoluciones](part-34-saas-y-plataformas-de-producto/se-418-comercio-electronico-carrito-inventario-pagos-y-devoluciones/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-418.html)
+- [SE-419 — SLA por nivel, soporte y operación del producto](part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-419.html)
+- [SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-420.html)
 ## [Parte 35 — Estrategia y técnicas de prueba](part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 - [SE-421 — Calidad por riesgo y propósito de las pruebas](part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-421.html)

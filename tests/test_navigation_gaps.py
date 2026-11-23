@@ -45,7 +45,7 @@ class NavigationGapTests(unittest.TestCase):
             self.assertEqual(by_id[before] + 1, by_id[after], f"hueco de la Parte {part:02d}")
             self._assert_nav(before, following=after)
             self._assert_nav(after, previous=before)
-        self.assertGreaterEqual(gaps, 2)
+        self.assertEqual(gaps, len(ps.planned_parts()))
 
     def test_every_class_links_its_developed_neighbours_only(self) -> None:
         reserved = reserved_ids()

@@ -675,18 +675,18 @@ anterior está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
 ### Parte 34 — SaaS y plataformas de producto
 
-- [ ] `SE-409` — qué hace distinto a un producto SaaS.
-- [ ] `SE-410` — aislamiento multi-inquilino y vecino ruidoso.
-- [ ] `SE-411` — alta, aprovisionamiento y configuración por cliente.
-- [ ] `SE-412` — suscripciones, ciclos de facturación y dunning.
-- [ ] `SE-413` — medición de uso y facturación por consumo.
-- [ ] `SE-414` — planes, derechos de uso y banderas de funcionalidad.
-- [ ] `SE-415` — precios, empaquetado y límites por plan.
-- [ ] `SE-416` — marketplaces y plataformas de dos lados.
-- [ ] `SE-417` — pagos, idempotencia y conciliación.
-- [ ] `SE-418` — comercio electrónico: carrito, inventario, pagos y devoluciones.
-- [ ] `SE-419` — sLA por nivel, soporte y operación del producto.
-- [ ] `SE-420` — Taller y proyecto integrador: producto SaaS mínimo con evidencia.
+- [x] `SE-409` — qué hace distinto a un producto SaaS.
+- [x] `SE-410` — aislamiento multi-inquilino y vecino ruidoso.
+- [x] `SE-411` — alta, aprovisionamiento y configuración por cliente.
+- [x] `SE-412` — suscripciones, ciclos de facturación y dunning.
+- [x] `SE-413` — medición de uso y facturación por consumo.
+- [x] `SE-414` — planes, derechos de uso y banderas de funcionalidad.
+- [x] `SE-415` — precios, empaquetado y límites por plan.
+- [x] `SE-416` — marketplaces y plataformas de dos lados.
+- [x] `SE-417` — pagos, idempotencia y conciliación.
+- [x] `SE-418` — comercio electrónico: carrito, inventario, pagos y devoluciones.
+- [x] `SE-419` — sLA por nivel, soporte y operación del producto.
+- [x] `SE-420` — Taller y proyecto integrador: producto SaaS mínimo con evidencia.
 
 ### Parte 35 — Testing
 

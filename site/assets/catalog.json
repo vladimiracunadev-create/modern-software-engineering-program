@@ -4490,6 +4490,138 @@
       "url": "classes/SE-408.html"
     },
     {
+      "id": "SE-409",
+      "title": "Qué hace distinto a un producto SaaS",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-409.html"
+    },
+    {
+      "id": "SE-410",
+      "title": "Aislamiento multi-inquilino y vecino ruidoso",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-410.html"
+    },
+    {
+      "id": "SE-411",
+      "title": "Alta, aprovisionamiento y configuración por cliente",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-411.html"
+    },
+    {
+      "id": "SE-412",
+      "title": "Suscripciones, ciclos de facturación y dunning",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-412.html"
+    },
+    {
+      "id": "SE-413",
+      "title": "Medición de uso y facturación por consumo",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-413.html"
+    },
+    {
+      "id": "SE-414",
+      "title": "Planes, derechos de uso y banderas de funcionalidad",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-414.html"
+    },
+    {
+      "id": "SE-415",
+      "title": "Precios, empaquetado y límites por plan",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-415.html"
+    },
+    {
+      "id": "SE-416",
+      "title": "Marketplaces y plataformas de dos lados",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-416.html"
+    },
+    {
+      "id": "SE-417",
+      "title": "Pagos, idempotencia y conciliación",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-417.html"
+    },
+    {
+      "id": "SE-418",
+      "title": "Comercio electrónico: carrito, inventario, pagos y devoluciones",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-418.html"
+    },
+    {
+      "id": "SE-419",
+      "title": "SLA por nivel, soporte y operación del producto",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-419.html"
+    },
+    {
+      "id": "SE-420",
+      "title": "Taller y proyecto integrador: producto SaaS mínimo con evidencia",
+      "part": "34",
+      "part_title": "SaaS y plataformas de producto",
+      "stage": "E",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-420.html"
+    },
+    {
       "id": "SE-421",
       "title": "Calidad por riesgo y propósito de las pruebas",
       "part": "35",

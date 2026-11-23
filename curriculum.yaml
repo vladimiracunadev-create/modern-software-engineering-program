@@ -28,9 +28,9 @@
     ],
     "classes": 180
   },
-  "part_count": 49,
-  "class_count": 588,
-  "estimated_hours": 2646,
+  "part_count": 50,
+  "class_count": 600,
+  "estimated_hours": 2700,
   "planned_scope": {
     "decision": "docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md",
     "decisions": [
@@ -44,13 +44,6 @@
     "first_class": "SE-001",
     "last_class": "SE-612",
     "unpublished_parts": [
-      {
-        "id": "34",
-        "title": "SaaS y plataformas de producto",
-        "first_class": "SE-409",
-        "last_class": "SE-420",
-        "status": "planned"
-      },
       {
         "id": "42",
         "title": "Ingeniería del caos",
@@ -3696,6 +3689,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible"
+        }
+      ]
+    },
+    {
+      "id": "34",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "SaaS y plataformas de producto",
+      "owner": "suite",
+      "path": "classes/part-34-saas-y-plataformas-de-producto",
+      "lessons": [
+        {
+          "id": "SE-409",
+          "number": 409,
+          "title": "Qué hace distinto a un producto SaaS",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-409-que-hace-distinto-a-un-producto-saas"
+        },
+        {
+          "id": "SE-410",
+          "number": 410,
+          "title": "Aislamiento multi-inquilino y vecino ruidoso",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-410-aislamiento-multi-inquilino-y-vecino-ruidoso"
+        },
+        {
+          "id": "SE-411",
+          "number": 411,
+          "title": "Alta, aprovisionamiento y configuración por cliente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-411-alta-aprovisionamiento-y-configuracion-por-cliente"
+        },
+        {
+          "id": "SE-412",
+          "number": 412,
+          "title": "Suscripciones, ciclos de facturación y dunning",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning"
+        },
+        {
+          "id": "SE-413",
+          "number": 413,
+          "title": "Medición de uso y facturación por consumo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-413-medicion-de-uso-y-facturacion-por-consumo"
+        },
+        {
+          "id": "SE-414",
+          "number": 414,
+          "title": "Planes, derechos de uso y banderas de funcionalidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad"
+        },
+        {
+          "id": "SE-415",
+          "number": 415,
+          "title": "Precios, empaquetado y límites por plan",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-415-precios-empaquetado-y-limites-por-plan"
+        },
+        {
+          "id": "SE-416",
+          "number": 416,
+          "title": "Marketplaces y plataformas de dos lados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-416-marketplaces-y-plataformas-de-dos-lados"
+        },
+        {
+          "id": "SE-417",
+          "number": 417,
+          "title": "Pagos, idempotencia y conciliación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-417-pagos-idempotencia-y-conciliacion"
+        },
+        {
+          "id": "SE-418",
+          "number": 418,
+          "title": "Comercio electrónico: carrito, inventario, pagos y devoluciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-418-comercio-electronico-carrito-inventario-pagos-y-devoluciones"
+        },
+        {
+          "id": "SE-419",
+          "number": 419,
+          "title": "SLA por nivel, soporte y operación del producto",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-419-sla-por-nivel-soporte-y-operacion-del-producto"
+        },
+        {
+          "id": "SE-420",
+          "number": 420,
+          "title": "Taller y proyecto integrador: producto SaaS mínimo con evidencia",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia"
         }
       ]
     },

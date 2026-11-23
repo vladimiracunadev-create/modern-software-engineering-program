@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne once plataformas que lograron escala, ingresos o una posición difícil de disputar: Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb, Stripe, Slack, Shopify y Instagram. Cada una tiene su propio caso, escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases.
+Esta página reúne doce plataformas que lograron escala, ingresos o una posición difícil de disputar: Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb, Stripe, Slack, Shopify, Instagram y Discord. Cada una tiene su propio caso, escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases.
 
 ## Por qué se construyó
 
@@ -48,6 +48,7 @@ agrupación es orientativa: sirve para elegir por dónde empezar, no para clasif
 - [Slack](slack.md) — **2014** · Stewart Butterfield y otros tres cofundadores. Una mensajería de equipos que creció de cientos a decenas de miles de personas por organización y cuyos incidentes publicados enseñan cómo se rompe y se repara una plataforma de tiempo real.
 - [Shopify](shopify.md) — **2004** · Tobias Lütke. Una plataforma de comercio multi-inquilino que sigue siendo un monolito de Rails y que aisló a sus comerciantes en pods para que la venta de uno no tumbe a los demás.
 - [Instagram](instagram.md) — **2010** · Kevin Systrom y Mike Krieger. Una aplicación de fotos que llegó a más de cien millones de usuarios registrados con muy pocos ingenieros y que Facebook compró en 2012 cuando aún no tenía ingresos.
+- [Discord](discord.md) — **2015** · Jason Citron y Stanislav Vishnevskiy. Un chat para jugadores que escaló a más de 90 millones de usuarios diarios con Elixir, Rust y bases de datos que su equipo cambió tres veces por la forma real de sus datos.
 
 ## Límites
 

@@ -1,6 +1,6 @@
 # Instagram
 
-[↑ Casos de éxito](README.md) · [← Shopify](shopify.md)
+[↑ Casos de éxito](README.md) · [← Shopify](shopify.md) · [Discord →](discord.md)
 
 > **Caso de éxito.** Instagram se lanzó el 6 de octubre de 2010 con una aplicación de fotos que nació de otra idea, tuvo más de cien millones de usuarios registrados cuando Facebook completó su compra en agosto de 2012 y hoy forma parte de una familia de aplicaciones que alcanza 3 580 millones de personas al día. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -386,4 +386,4 @@ Todas las URL siguientes se consultaron el 23 de noviembre de 2026 y devolvieron
 - **[I9]** [Throughput autoscaling: Dynamic sizing for Facebook.com (Engineering at Meta, septiembre de 2020)](https://engineering.fb.com/2020/09/14/networking-traffic/throughput-autoscaling/): escalado automático del servicio Django de Instagram.
 - **[I10]** [How Meta built the infrastructure for Threads (Engineering at Meta, diciembre de 2023)](https://engineering.fb.com/2023/12/19/core-infra/how-meta-built-the-infrastructure-for-threads/): lanzamiento, trabajo asíncrono y grafo de seguidores de Instagram.
 
-[↑ Casos de éxito](README.md) · [← Shopify](shopify.md)
+[↑ Casos de éxito](README.md) · [← Shopify](shopify.md) · [Discord →](discord.md)

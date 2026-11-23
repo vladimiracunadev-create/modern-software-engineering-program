@@ -291,7 +291,7 @@ especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fue
 [guía de casos](casos/GUIDE.md).
 
 - 🚀 [**Plataformas exitosas**](casos/exito/README.md): 14 casos, de Netflix a Dropbox.
-- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 11 casos, de Knight Capital a Post Office Horizon.
+- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 12 casos, de Knight Capital a Equifax 2017.
 
 <!-- /state:cases -->
 

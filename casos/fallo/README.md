@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne once fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab, Quibi, Ariane 5, vuelo 501, Boeing 737 MAX y MCAS y Post Office Horizon. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
+Esta página reúne doce fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab, Quibi, Ariane 5, vuelo 501, Boeing 737 MAX y MCAS, Post Office Horizon y Equifax 2017. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
 
 ## Por qué se construyó
 
@@ -48,6 +48,7 @@ agrupación es orientativa: sirve para elegir por dónde empezar, no para clasif
 - [Ariane 5, vuelo 501](ariane-5-vuelo-501.md) — **1996** · ESA y CNES (organizaciones). En el primer vuelo del cohete europeo, software de Ariane 4 reutilizado sin revisar sus supuestos detuvo las dos unidades de guiado idénticas y el lanzador se destruyó a los 39 segundos.
 - [Boeing 737 MAX y MCAS](boeing-737-max-mcas.md) — **2018** · Boeing y la FAA (organizaciones). Una función nueva del control de vuelo que dependía de un solo sensor empujó el morro de dos aviones hacia abajo, y los análisis de seguridad suponían que los pilotos la reconocerían y la cortarían.
 - [Post Office Horizon](post-office-horizon.md) — **2000** · Post Office Ltd y Fujitsu (organizaciones). Un sistema contable con errores conocidos, sin función de disputa y usado como prueba contra los gestores de sucursales llevó a cientos de acusaciones injustas que los tribunales acabaron anulando.
+- [Equifax 2017](equifax-2017.md) — **2017** · Equifax (organización). Una vulnerabilidad conocida con parche disponible se quedó sin aplicar en un portal de disputas y expuso los datos personales de unos 148 millones de personas.
 
 ## Límites
 

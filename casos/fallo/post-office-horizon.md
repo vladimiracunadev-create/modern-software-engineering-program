@@ -1,6 +1,6 @@
 # Post Office Horizon
 
-[↑ Casos de fallo](README.md) · [← Boeing 737 MAX y MCAS](boeing-737-max-mcas.md)
+[↑ Casos de fallo](README.md) · [← Boeing 737 MAX y MCAS](boeing-737-max-mcas.md) · [Equifax 2017 →](equifax-2017.md)
 
 > **Qué es esta página.** Un caso de estudio de fallo: la realidad frente a la teoría del curso. No es una clase ni un rol. Separa lo que las fuentes **documentan**, lo que este análisis **infiere** y lo que **no se sabe**. Habla de decisiones, procesos y sistemas, no de personas. Cientos de personas fueron acusadas injustamente de robo y fraude, algunas encarceladas y algunas fallecieron antes de ser reparadas; este caso las trata con respeto, no nombra a ninguna persona afectada y no emite juicios sobre individuos. Fecha de consulta de todas las fuentes: 23 de noviembre de 2026.
 
@@ -414,4 +414,4 @@ Todas consultadas el 23 de noviembre de 2026. Los PDF se descargaron y se extraj
 
 ---
 
-[↑ Casos de fallo](README.md) · [← Boeing 737 MAX y MCAS](boeing-737-max-mcas.md)
+[↑ Casos de fallo](README.md) · [← Boeing 737 MAX y MCAS](boeing-737-max-mcas.md) · [Equifax 2017 →](equifax-2017.md)

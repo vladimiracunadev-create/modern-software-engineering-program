@@ -103,6 +103,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "post-office-horizon", "kind": "fallo", "name": "Post Office Horizon", "year": "2000",
      "who": "Post Office Ltd y Fujitsu (organizaciones)", "place": "Reino Unido",
      "hook": "Un sistema contable con errores conocidos, sin función de disputa y usado como prueba contra los gestores de sucursales llevó a cientos de acusaciones injustas que los tribunales acabaron anulando."},
+    {"slug": "equifax-2017", "kind": "fallo", "name": "Equifax 2017", "year": "2017",
+     "who": "Equifax (organización)", "place": "Atlanta, Georgia (EE. UU.)",
+     "hook": "Una vulnerabilidad conocida con parche disponible se quedó sin aplicar en un portal de disputas y expuso los datos personales de unos 148 millones de personas."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

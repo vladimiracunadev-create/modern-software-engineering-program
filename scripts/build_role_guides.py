@@ -173,6 +173,14 @@ def render_index_table(text: str) -> str:
         last_row += 1
     result = "\n".join(out) + ("\n" if text.endswith("\n") else "")
     count = len(PROFILES)
+    developed = ps.developed_parts()
+    planned = ps.planned_parts()
+    if planned:
+        state = f"{len(developed)} de {ps.PLANNED_PART_COUNT} partes publicadas, {ps.part_ranges(developed)}; {ps.the_parts(planned)} {ps.verb_planned(planned)}"
+    else:
+        state = f"{ps.PLANNED_PART_COUNT} partes, 00–{ps.LAST_PART_NUMBER:02d}, todas publicadas"
+    text_state = re.compile(r"Las rutas convierten las partes del programa \([^)]*\)")
+    result = text_state.sub(lambda _m: f"Las rutas convierten las partes del programa ({state})", result)
     result = re.sub(r"Las \d+ guías superan", f"Las {count} guías superan", result)
     result = re.sub(r"## Mapa de \d+ roles", f"## Mapa de {count} roles", result)
     result = re.sub(r"no son \d+ cursos ni una promesa de empleo, sino \d+ lentes", f"no son {count} cursos ni una promesa de empleo, sino {count} lentes", result)

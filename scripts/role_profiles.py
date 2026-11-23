@@ -580,7 +580,7 @@ PROFILES = {
         "POSIX|WASM|EBPF|FIRECRACKER|CONFCOMP|SRE", "systems-programmer.md|security-engineer.md|performance-engineer.md",
     ),
     "saas-product-platform-engineer.md": profile(
-        "Producto digital", "semi-senior → principal", "11:133,134,136,140,142;20:241,244,245,246,247,249;28:342,344;29:351,354,355,357,358;31:376,377,379,380;33:397,401,404,406;36:436,438,439,440;38:459,462,463,466;41:495,497,498,500",
+        "Producto digital", "semi-senior → principal", "11:133,136,140,142;20:241,244,245,246,247;28:342,344;29:351,354,355,357,358;31:376,377,379,380;33:397,401,404,406;34:409,410,411,412,413,414,415,417,419,420;36:436,438,440;38:459,462,463,466;41:495,497,498",
         "Tenant|Plan y derecho|Uso|Operación|Economía",
         "Aislamiento o densidad|elegir silo pool o modelo híbrido según riesgo de vecino ruidoso cumplimiento y costo de servir|prueba de aislamiento entre tenants y costo por tenant medido;Facturar por uso o por plan|decidir qué evento medible se cobra y con qué tolerancia a duplicados y retrasos|conciliación entre medición facturación y datos de producto;Migración global o por oleadas|cambiar esquema o plan sin detener a todos los clientes a la vez|despliegue por cohortes con compatibilidad entre versiones y reversión",
         "Costo de servir por tenant|recursos y operación atribuibles a un cliente|prorratear a ojo y esconder tenants deficitarios;Margen por plan|diferencia entre precio efectivo y costo de servir|celebrar ingresos sin descontar soporte y excepciones;Retención neta de uso|continuidad y expansión del uso real tras la activación|confundir cuentas creadas con tenants activos",
@@ -589,7 +589,7 @@ PROFILES = {
         "SAASLENS|STRIPEIDEM|TWELVEFACTOR|SRE", "backend-engineer.md|platform-engineer.md|finops-engineer.md",
     ),
     "chaos-resilience-engineer.md": profile(
-        "Confiabilidad", "semi-senior → principal", "26:320,321,322;28:337,340,344;32:388,389,390,391,392,394,396;36:435,436,438,439,440,443;39:475,476;40:485,487,490,492;41:497,498,499,500,501,502,503",
+        "Confiabilidad", "semi-senior → principal", "26:320,321,322;28:337,340,344;32:388,389,390,391,392,394,396;36:435,436,438,439,440,443;39:475,476;40:485,487,490,492;41:497,498,499,500,501,502,503;42:505,506,507,508,510,511,512,513,514,516",
         "Estado estable|Hipótesis|Experimento|Contención|Aprendizaje",
         "Radio de impacto o realismo|empezar con fallos pequeños y ampliar el alcance solo con evidencia de contención|condiciones de aborto y registro del alcance real de cada experimento;Producción o preproducción|decidir dónde se inyecta según fidelidad del fallo y riesgo asumido|comparación de hallazgos entre entornos y autorización explícita;Reintentar o degradar|elegir la respuesta del sistema al fallo parcial antes de inyectarlo|experimento que demuestra que la degradación conserva la tarea útil",
         "Hipótesis refutadas|supuestos de resiliencia que el experimento desmintió|premiar experimentos que siempre pasan;Tiempo de detección y recuperación|segundos hasta la señal y hasta recuperar el estado estable|medir solo el promedio y no el peor caso;Hallazgos cerrados|debilidades corregidas y verificadas con un nuevo experimento|contar hallazgos abiertos sin priorizar por impacto",

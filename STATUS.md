@@ -6,21 +6,20 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | --- | --- |
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | 8 especificadas |
-| Partes | 50 desarrolladas de 51 planificadas |
-| Clases | 600 desarrolladas de 612 planificadas |
-| Contenido desarrollado | Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`), pendiente de revisión editorial humana independiente |
+| Partes | 51 desarrolladas (00–50) |
+| Clases | 612 desarrolladas |
+| Contenido desarrollado | Partes 00–50 (`SE-001`–`SE-612`), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
-| Alcance planificado sin publicar | Parte 42 (`SE-505`–`SE-516`), sin clases publicadas |
 | Alcance de fase 3 | 180 clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | 180 clases (Partes 15–22, 24–25, 27, 29 y 31–33) |
-| Horas | 2.700 estimadas en las partes desarrolladas (2.754 en el alcance planificado); pendientes de validación por contenido |
-| Metadatos de clase | 600 archivos generados |
-| Registro bibliográfico | 600 entradas sembradas desde fuentes base |
+| Horas | 2.754 estimadas; pendientes de validación por contenido |
+| Metadatos de clase | 612 archivos generados |
+| Registro bibliográfico | 612 entradas sembradas desde fuentes base |
 | Rutas profesionales | 47 guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | 651 páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
-| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 600 clases ni en las 50 partes |
-| Portal definitivo | catálogo navegable con las 600 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
+| Sitio | 664 páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
+| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 612 clases ni en las 51 partes |
+| Portal definitivo | catálogo navegable con las 612 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado

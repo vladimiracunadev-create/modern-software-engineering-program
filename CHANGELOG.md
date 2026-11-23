@@ -16,6 +16,11 @@
 - `content/part-34/` añade el README y las doce clases `SE-409`–`SE-420` (aislamiento y vecino ruidoso con y sin cuotas, alta reanudable, suscripciones y dunning, medición de uso idempotente, motor de derechos, precios y límites, marketplaces, pagos con libro de partida doble y conciliación, tienda con inventario atómico y niveles de servicio por inquilino), con 36 figuras (`scripts/figures_part34_a.py` y `_b.py`) y cinco experimentos reproducibles (`scripts/experiments_part34_*.py`, semilla 34).
 - los títulos de la Parte 34 pasan en `scripts/build_program_blueprint.py` a los de la clase desarrollada; los temas de tenencia e identidad, ciclo de vida del tenant, APIs y webhooks, economía unitaria y plataformas extensibles se integran como secciones dentro de las clases correspondientes.
 - sin cambio de la numeración (`SE-409`–`SE-420` son los IDs reservados por ADR-007); detalle y commit en `docs/PART-EXECUTION-TRACKER.md`.
+## 2026-11-23 — Parte 42: Ingeniería del caos (`SE-505`–`SE-516`)
+
+- nueva parte desarrollada: README y doce clases en `content/part-42/`, con estado estable e hipótesis, radio y aborto, fallas de red, de recursos, de herramientas, de datos y de ML, game days, caos continuo, gobernanza, aprendizaje, taller y proyecto integrador;
+- 36 figuras (`scripts/figures_part42_a.py` y `_b.py`) y experimentos reproducibles (`scripts/experiments_part42_*.py`) con simulador de tiempo virtual y una medición real de sockets locales; fuentes verificadas de principlesofchaos.org, Chaos Mesh, LitmusChaos, Toxiproxy, AWS FIS, Azure Chaos Studio, Google SRE y el blog de ingeniería de Netflix;
+- `docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md`: las 12 casillas de la Parte 42 pasan a `[x]`; contenido pendiente de revisión humana independiente.
 
 ## 2026-11-23 — Secuencia pedagógica: renumeración y Partes 34 y 42 reservadas
 

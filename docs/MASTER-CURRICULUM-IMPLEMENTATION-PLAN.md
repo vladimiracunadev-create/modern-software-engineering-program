@@ -795,18 +795,18 @@ anterior está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
 ### Parte 42 — Ingeniería del caos
 
-- [ ] `SE-505` — principios de la ingeniería del caos: estado estable e hipótesis.
-- [ ] `SE-506` — diseñar experimentos de fallo: alcance y radio de impacto.
-- [ ] `SE-507` — inyección de fallos de red, latencia y dependencias.
-- [ ] `SE-508` — fallos de recursos e infraestructura: CPU, memoria, disco y nodos.
-- [ ] `SE-509` — caos en Kubernetes y en plataformas cloud.
-- [ ] `SE-510` — fallos de datos y de estado: réplicas, particiones y corrupción.
-- [ ] `SE-511` — game days y ejercicios de respuesta a incidentes.
-- [ ] `SE-512` — caos continuo: automatización en CI/CD y en producción.
-- [ ] `SE-513` — seguridad y gobernanza de los experimentos: abortar, autorizar y registrar.
-- [ ] `SE-514` — aprender de los experimentos: hallazgos, métricas y mejora.
-- [ ] `SE-515` — Taller: ejecutar un experimento de caos acotado con criterio de aborto.
-- [ ] `SE-516` — Proyecto: programa de caos de un servicio con evidencia y remediación.
+- [x] `SE-505` — principios de la ingeniería del caos: estado estable e hipótesis.
+- [x] `SE-506` — diseñar experimentos de fallo: alcance y radio de impacto.
+- [x] `SE-507` — inyección de fallos de red, latencia y dependencias.
+- [x] `SE-508` — fallos de recursos e infraestructura: CPU, memoria, disco y nodos.
+- [x] `SE-509` — caos en Kubernetes y en plataformas cloud.
+- [x] `SE-510` — fallos de datos y de estado: réplicas, particiones y corrupción.
+- [x] `SE-511` — game days y ejercicios de respuesta a incidentes.
+- [x] `SE-512` — caos continuo: automatización en CI/CD y en producción.
+- [x] `SE-513` — seguridad y gobernanza de los experimentos: abortar, autorizar y registrar.
+- [x] `SE-514` — aprender de los experimentos: hallazgos, métricas y mejora.
+- [x] `SE-515` — Taller: ejecutar un experimento de caos acotado con criterio de aborto.
+- [x] `SE-516` — Proyecto: programa de caos de un servicio con evidencia y remediación.
 
 ### Parte 43 — Legacy y retiro
 

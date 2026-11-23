@@ -144,7 +144,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`), también tienen contenido desarrollado y
+de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -157,6 +157,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-444 · Proyecto: informe reproducible de calidad](../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) | Parte 36 |
 | [SE-480 · Proyecto: release firmado y recuperable](../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md) | Parte 39 |
 | [SE-504 · Proyecto: operación observable y recuperable](../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md) | Parte 41 |
+| [SE-505 · Principios de la ingeniería del caos: estado estable e hipótesis](../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) | Parte 42 |
+| [SE-510 · Fallos de datos y de estado: réplicas, particiones y corrupción](../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) | Parte 42 |
+| [SE-516 · Proyecto: programa de caos de un servicio con evidencia y remediación](../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md) | Parte 42 |
 
 **Cómo recorrerla.** Empieza por [SE-320](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) para fijar el
 primer mecanismo, usa [SE-439](../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md) para integrar el
@@ -166,26 +169,15 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Parte 42 (sin clases publicadas)
+## ✅ Ampliación completada: todas las partes del alcance
 
 > [!NOTE]
-> La Parte 42 (`SE-505`–`SE-516`) está **planificada**; sus números están reservados desde el 23 de
-> noviembre de 2026 ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)). Todavía no
-> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
-> considerarse disponible.
+> Todas las partes del alcance ya están desarrolladas ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
 
-| Parte planificada | Rango previsto | Qué cambiará para este rol |
-| --- | --- | --- |
-| **Parte 42 · Ingeniería del caos** | `SE-505`–`SE-516` | Aportará el núcleo del rol: hipótesis de estado estable, diseño de experimentos, radio de impacto, criterios de aborto, game days y aprendizaje verificado. |
-
-Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
-desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
-evidencia de que el contenido exista ni de que su alcance final coincida con esta
-descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

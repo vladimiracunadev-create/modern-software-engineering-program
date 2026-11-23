@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-600 clases desarrolladas · 50 partes desarrolladas (`SE-001`–`SE-504` y `SE-517`–`SE-612`) · 12 clases planificadas sin publicar · alcance total 612 clases en 51 partes (`SE-001`–`SE-612`).
+612 clases desarrolladas · 51 partes desarrolladas (`SE-001`–`SE-612`) · alcance completo: 612 clases en 51 partes.
 
 > [!WARNING]
-> Las Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. La Parte 42 (`SE-505`–`SE-516`) está **planificada**, sin clases publicadas.
+> Las Partes 00–50 (`SE-001`–`SE-612`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Todo el alcance del programa está publicado.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 50 partes desarrolladas
+## Las 51 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -54,6 +54,7 @@
 | 39 | [Build, release y cadena de suministro](part-39-build-release-y-cadena-de-suministro/README.md) | F | SE-469–SE-480 | `suite` |
 | 40 | [CI/CD, IaC y platform engineering](part-40-ci-cd-iac-y-platform-engineering/README.md) | F | SE-481–SE-492 | `suite` |
 | 41 | [Observabilidad, SRE e incidentes](part-41-observabilidad-sre-e-incidentes/README.md) | G | SE-493–SE-504 | `suite` |
+| 42 | [Ingeniería del caos](part-42-ingenieria-del-caos/README.md) | G | SE-505–SE-516 | `suite` |
 | 43 | [Mantenimiento y modernización legacy](part-43-mantenimiento-y-modernizacion-legacy/README.md) | G | SE-517–SE-528 | `suite` |
 | 44 | [Gestión, liderazgo y práctica profesional](part-44-gestion-liderazgo-y-practica-profesional/README.md) | G | SE-529–SE-540 | `suite` |
 | 45 | [Metodologías de desarrollo: de TDD a ODD](part-45-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | H | SE-541–SE-552 | `suite` |
@@ -63,15 +64,9 @@
 | 49 | [Patrones agénticos y sistemas con LLM](part-49-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-589–SE-600 | `suite` |
 | 50 | [Machine learning en producción y MLOps](part-50-machine-learning-en-produccion-y-mlops/README.md) | H | SE-601–SE-612 | `suite` |
 
-## Partes planificadas sin publicar
-
-| Parte | Título | Clases | Estado |
-| --- | --- | --- | --- |
-| 42 | Ingeniería del caos | SE-505–SE-516 | planificada, sin clases publicadas |
-
 ---
 
-## Índice plano de las 600 clases desarrolladas
+## Índice plano de las 612 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -665,6 +660,20 @@ sin recorrer carpetas manualmente.
 - [SE-502 — Continuidad, disaster recovery y ejercicios](part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-502.html)
 - [SE-503 — Taller: diagnosticar con telemetría incompleta](part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-503.html)
 - [SE-504 — Proyecto: operación observable y recuperable](part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-504.html)
+## [Parte 42 — Ingeniería del caos](part-42-ingenieria-del-caos/README.md)
+
+- [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-505.html)
+- [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-506.html)
+- [SE-507 — Inyección de fallos de red, latencia y dependencias](part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-507.html)
+- [SE-508 — Fallos de recursos e infraestructura: CPU, memoria, disco y nodos](part-42-ingenieria-del-caos/se-508-fallos-de-recursos-e-infraestructura-cpu-memoria-disco-y-nodos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-508.html)
+- [SE-509 — Caos en Kubernetes y en plataformas cloud](part-42-ingenieria-del-caos/se-509-caos-en-kubernetes-y-en-plataformas-cloud/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-509.html)
+- [SE-510 — Fallos de datos y de estado: réplicas, particiones y corrupción](part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-510.html)
+- [SE-511 — Game days y ejercicios de respuesta a incidentes](part-42-ingenieria-del-caos/se-511-game-days-y-ejercicios-de-respuesta-a-incidentes/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-511.html)
+- [SE-512 — Caos continuo: automatización en CI/CD y en producción](part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-512.html)
+- [SE-513 — Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar](part-42-ingenieria-del-caos/se-513-seguridad-y-gobernanza-de-los-experimentos-abortar-autorizar-y-registrar/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-513.html)
+- [SE-514 — Aprender de los experimentos: hallazgos, métricas y mejora](part-42-ingenieria-del-caos/se-514-aprender-de-los-experimentos-hallazgos-metricas-y-mejora/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-514.html)
+- [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-515.html)
+- [SE-516 — Proyecto: programa de caos de un servicio con evidencia y remediación](part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-516.html)
 ## [Parte 43 — Mantenimiento y modernización legacy](part-43-mantenimiento-y-modernizacion-legacy/README.md)
 
 - [SE-517 — Mantenimiento correctivo, adaptativo y perfectivo](part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-517.html)

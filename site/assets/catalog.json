@@ -5546,6 +5546,138 @@
       "url": "classes/SE-504.html"
     },
     {
+      "id": "SE-505",
+      "title": "Principios de la ingeniería del caos: estado estable e hipótesis",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-505.html"
+    },
+    {
+      "id": "SE-506",
+      "title": "Diseñar experimentos de fallo: alcance y radio de impacto",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-506.html"
+    },
+    {
+      "id": "SE-507",
+      "title": "Inyección de fallos de red, latencia y dependencias",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-507.html"
+    },
+    {
+      "id": "SE-508",
+      "title": "Fallos de recursos e infraestructura: CPU, memoria, disco y nodos",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-508.html"
+    },
+    {
+      "id": "SE-509",
+      "title": "Caos en Kubernetes y en plataformas cloud",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-509.html"
+    },
+    {
+      "id": "SE-510",
+      "title": "Fallos de datos y de estado: réplicas, particiones y corrupción",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-510.html"
+    },
+    {
+      "id": "SE-511",
+      "title": "Game days y ejercicios de respuesta a incidentes",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-511.html"
+    },
+    {
+      "id": "SE-512",
+      "title": "Caos continuo: automatización en CI/CD y en producción",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-512.html"
+    },
+    {
+      "id": "SE-513",
+      "title": "Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-513.html"
+    },
+    {
+      "id": "SE-514",
+      "title": "Aprender de los experimentos: hallazgos, métricas y mejora",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-514.html"
+    },
+    {
+      "id": "SE-515",
+      "title": "Taller: ejecutar un experimento de caos acotado con criterio de aborto",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-515.html"
+    },
+    {
+      "id": "SE-516",
+      "title": "Proyecto: programa de caos de un servicio con evidencia y remediación",
+      "part": "42",
+      "part_title": "Ingeniería del caos",
+      "stage": "G",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-516.html"
+    },
+    {
       "id": "SE-517",
       "title": "Mantenimiento correctivo, adaptativo y perfectivo",
       "part": "43",

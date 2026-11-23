@@ -1,0 +1,359 @@
+{
+  "sources": [
+    "CHAOS-PRINCIPLES",
+    "CHAOS-BASIRI-IEEE",
+    "NETFLIX-SIMIAN-ARMY",
+    "NETFLIX-CHAOS-UPGRADED",
+    "NETFLIX-CHAP",
+    "NETFLIX-CHAOSMONKEY",
+    "CHAOS-MESH-DOCS",
+    "CHAOS-MESH-NETWORK",
+    "CHAOS-MESH-SCOPE",
+    "LITMUSCHAOS-DOCS",
+    "TOXIPROXY",
+    "AWS-FIS-DOCS",
+    "AWS-FIS-STOP",
+    "AWS-FIS-TEMPLATES",
+    "AZURE-CHAOS-STUDIO",
+    "AWS-WA-GAMEDAYS",
+    "AWS-WA-FAILURE-INJECTION",
+    "AWS-BUILDERS-RETRIES",
+    "SRE-CASCADING-FAILURES",
+    "SRE-HANDLING-OVERLOAD",
+    "SRE-TESTING-RELIABILITY",
+    "SRE-SLO",
+    "SRE-EMBRACING-RISK",
+    "FOWLER-CIRCUIT-BREAKER",
+    "METASTABLE-FAILURES",
+    "JEPSEN",
+    "HIDDEN-TECH-DEBT-ML",
+    "LINUX-TC-NETEM",
+    "DORA-2022-2554",
+    "NIST-SP-800-34",
+    "ACM-CODE-ETHICS",
+    "PYTHON-3",
+    "IETF-RFC-5280"
+  ],
+  "extra_sources": [
+    {
+      "id": "CHAOS-PRINCIPLES",
+      "title": "Principles of Chaos Engineering",
+      "authority": "Chaos Engineering community",
+      "url": "https://principlesofchaos.org/",
+      "status": "living",
+      "used_for": [
+        "steady-state",
+        "hypothesis",
+        "blast-radius"
+      ]
+    },
+    {
+      "id": "CHAOS-BASIRI-IEEE",
+      "title": "Chaos Engineering (IEEE Software 33(3), 2016)",
+      "authority": "Basiri et al. / Netflix",
+      "url": "https://arxiv.org/abs/1702.05843",
+      "status": "stable",
+      "used_for": [
+        "chaos-method"
+      ]
+    },
+    {
+      "id": "NETFLIX-SIMIAN-ARMY",
+      "title": "The Netflix Simian Army",
+      "authority": "Netflix Technology Blog",
+      "url": "https://netflixtechblog.com/the-netflix-simian-army-16e57fbab116",
+      "status": "living",
+      "used_for": [
+        "chaos-monkey",
+        "history"
+      ]
+    },
+    {
+      "id": "NETFLIX-CHAOS-UPGRADED",
+      "title": "Chaos Engineering Upgraded",
+      "authority": "Netflix Technology Blog",
+      "url": "https://netflixtechblog.com/chaos-engineering-upgraded-878d341f15fa",
+      "status": "living",
+      "used_for": [
+        "chaos-kong",
+        "experiment-example"
+      ]
+    },
+    {
+      "id": "NETFLIX-CHAP",
+      "title": "ChAP: Chaos Automation Platform",
+      "authority": "Netflix Technology Blog",
+      "url": "https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f",
+      "status": "living",
+      "used_for": [
+        "control-experiment",
+        "diffuse-concentrated"
+      ]
+    },
+    {
+      "id": "NETFLIX-CHAOSMONKEY",
+      "title": "Netflix Chaos Monkey",
+      "authority": "Netflix / GitHub",
+      "url": "https://github.com/Netflix/chaosmonkey",
+      "status": "living",
+      "used_for": [
+        "chaos-monkey-tool"
+      ]
+    },
+    {
+      "id": "CHAOS-MESH-DOCS",
+      "title": "Chaos Mesh documentation",
+      "authority": "Chaos Mesh project",
+      "url": "https://chaos-mesh.org/docs/",
+      "status": "living",
+      "used_for": [
+        "kubernetes-chaos",
+        "fault-types"
+      ]
+    },
+    {
+      "id": "CHAOS-MESH-NETWORK",
+      "title": "Chaos Mesh: Simulate Network Faults",
+      "authority": "Chaos Mesh project",
+      "url": "https://chaos-mesh.org/docs/simulate-network-chaos-on-kubernetes/",
+      "status": "living",
+      "used_for": [
+        "network-faults"
+      ]
+    },
+    {
+      "id": "CHAOS-MESH-SCOPE",
+      "title": "Chaos Mesh: Define the Scope of Chaos Experiments",
+      "authority": "Chaos Mesh project",
+      "url": "https://chaos-mesh.org/docs/define-chaos-experiment-scope/",
+      "status": "living",
+      "used_for": [
+        "blast-radius",
+        "selectors"
+      ]
+    },
+    {
+      "id": "LITMUSCHAOS-DOCS",
+      "title": "What is Litmus?",
+      "authority": "LitmusChaos project (CNCF)",
+      "url": "https://docs.litmuschaos.io/docs/introduction/what-is-litmus",
+      "status": "living",
+      "used_for": [
+        "kubernetes-chaos",
+        "probes"
+      ]
+    },
+    {
+      "id": "TOXIPROXY",
+      "title": "Toxiproxy",
+      "authority": "Shopify / GitHub",
+      "url": "https://github.com/Shopify/toxiproxy",
+      "status": "living",
+      "used_for": [
+        "network-proxy",
+        "toxics"
+      ]
+    },
+    {
+      "id": "AWS-FIS-DOCS",
+      "title": "What is AWS Fault Injection Service?",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/fis/latest/userguide/what-is.html",
+      "status": "living",
+      "used_for": [
+        "managed-fault-injection"
+      ]
+    },
+    {
+      "id": "AWS-FIS-STOP",
+      "title": "Stop conditions for AWS FIS",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/fis/latest/userguide/stop-conditions.html",
+      "status": "living",
+      "used_for": [
+        "abort-conditions"
+      ]
+    },
+    {
+      "id": "AWS-FIS-TEMPLATES",
+      "title": "AWS FIS experiment templates",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/fis/latest/userguide/experiment-templates.html",
+      "status": "living",
+      "used_for": [
+        "experiment-template"
+      ]
+    },
+    {
+      "id": "AZURE-CHAOS-STUDIO",
+      "title": "What is Azure Chaos Studio?",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/azure/chaos-studio/chaos-studio-overview",
+      "status": "living",
+      "used_for": [
+        "managed-fault-injection"
+      ]
+    },
+    {
+      "id": "AWS-WA-GAMEDAYS",
+      "title": "REL12-BP05 Conduct game days regularly",
+      "authority": "AWS Well-Architected",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_testing_resiliency_game_days_resiliency.html",
+      "status": "living",
+      "used_for": [
+        "game-days"
+      ]
+    },
+    {
+      "id": "AWS-WA-FAILURE-INJECTION",
+      "title": "Use chaos engineering to test resiliency",
+      "authority": "AWS Well-Architected",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_testing_resiliency_failure_injection_resiliency.html",
+      "status": "living",
+      "used_for": [
+        "ci-fault-injection"
+      ]
+    },
+    {
+      "id": "AWS-BUILDERS-RETRIES",
+      "title": "Timeouts, retries, and backoff with jitter",
+      "authority": "AWS Builders' Library",
+      "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+      "status": "living",
+      "used_for": [
+        "retries",
+        "backoff"
+      ]
+    },
+    {
+      "id": "SRE-CASCADING-FAILURES",
+      "title": "Addressing Cascading Failures",
+      "authority": "Google SRE book",
+      "url": "https://sre.google/sre-book/addressing-cascading-failures/",
+      "status": "living",
+      "used_for": [
+        "cascading-failures"
+      ]
+    },
+    {
+      "id": "SRE-HANDLING-OVERLOAD",
+      "title": "Handling Overload",
+      "authority": "Google SRE book",
+      "url": "https://sre.google/sre-book/handling-overload/",
+      "status": "living",
+      "used_for": [
+        "load-shedding"
+      ]
+    },
+    {
+      "id": "SRE-TESTING-RELIABILITY",
+      "title": "Testing for Reliability",
+      "authority": "Google SRE book",
+      "url": "https://sre.google/sre-book/testing-reliability/",
+      "status": "living",
+      "used_for": [
+        "reliability-testing"
+      ]
+    },
+    {
+      "id": "SRE-SLO",
+      "title": "Service Level Objectives",
+      "authority": "Google SRE book",
+      "url": "https://sre.google/sre-book/service-level-objectives/",
+      "status": "living",
+      "used_for": [
+        "slo"
+      ]
+    },
+    {
+      "id": "SRE-EMBRACING-RISK",
+      "title": "Embracing Risk",
+      "authority": "Google SRE book",
+      "url": "https://sre.google/sre-book/embracing-risk/",
+      "status": "living",
+      "used_for": [
+        "error-budget"
+      ]
+    },
+    {
+      "id": "FOWLER-CIRCUIT-BREAKER",
+      "title": "CircuitBreaker",
+      "authority": "Martin Fowler",
+      "url": "https://martinfowler.com/bliki/CircuitBreaker.html",
+      "status": "living",
+      "used_for": [
+        "circuit-breaker"
+      ]
+    },
+    {
+      "id": "METASTABLE-FAILURES",
+      "title": "Metastable Failures in Distributed Systems (HotOS 2021)",
+      "authority": "Bronson et al.",
+      "url": "https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf",
+      "status": "stable",
+      "used_for": [
+        "metastable-failure"
+      ]
+    },
+    {
+      "id": "JEPSEN",
+      "title": "Jepsen: distributed systems safety research",
+      "authority": "Jepsen",
+      "url": "https://jepsen.io/",
+      "status": "living",
+      "used_for": [
+        "data-system-faults"
+      ]
+    },
+    {
+      "id": "HIDDEN-TECH-DEBT-ML",
+      "title": "Hidden Technical Debt in Machine Learning Systems (NIPS 2015)",
+      "authority": "Sculley et al.",
+      "url": "https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+      "status": "stable",
+      "used_for": [
+        "ml-risks"
+      ]
+    },
+    {
+      "id": "LINUX-TC-NETEM",
+      "title": "tc-netem(8)",
+      "authority": "Linux man-pages",
+      "url": "https://man7.org/linux/man-pages/man8/tc-netem.8.html",
+      "status": "living",
+      "used_for": [
+        "network-emulation"
+      ]
+    },
+    {
+      "id": "DORA-2022-2554",
+      "title": "Regulation (EU) 2022/2554 on digital operational resilience for the financial sector",
+      "authority": "European Union",
+      "url": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj",
+      "status": "stable",
+      "used_for": [
+        "resilience-testing-regulation"
+      ]
+    },
+    {
+      "id": "NIST-SP-800-34",
+      "title": "Contingency Planning Guide for Federal Information Systems (SP 800-34 Rev. 1)",
+      "authority": "NIST",
+      "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final",
+      "status": "stable",
+      "used_for": [
+        "contingency-testing"
+      ]
+    },
+    {
+      "id": "ACM-CODE-ETHICS",
+      "title": "ACM Code of Ethics and Professional Conduct",
+      "authority": "ACM",
+      "url": "https://www.acm.org/code-of-ethics",
+      "status": "living",
+      "used_for": [
+        "avoid-harm"
+      ]
+    }
+  ]
+}

@@ -28,9 +28,9 @@
     ],
     "classes": 180
   },
-  "part_count": 50,
-  "class_count": 600,
-  "estimated_hours": 2700,
+  "part_count": 51,
+  "class_count": 612,
+  "estimated_hours": 2754,
   "planned_scope": {
     "decision": "docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md",
     "decisions": [
@@ -43,15 +43,7 @@
     "estimated_hours": 2754,
     "first_class": "SE-001",
     "last_class": "SE-612",
-    "unpublished_parts": [
-      {
-        "id": "42",
-        "title": "Ingeniería del caos",
-        "first_class": "SE-505",
-        "last_class": "SE-516",
-        "status": "planned"
-      }
-    ]
+    "unpublished_parts": []
   },
   "stages": [
     {
@@ -4537,6 +4529,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable"
+        }
+      ]
+    },
+    {
+      "id": "42",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Ingeniería del caos",
+      "owner": "suite",
+      "path": "classes/part-42-ingenieria-del-caos",
+      "lessons": [
+        {
+          "id": "SE-505",
+          "number": 505,
+          "title": "Principios de la ingeniería del caos: estado estable e hipótesis",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis"
+        },
+        {
+          "id": "SE-506",
+          "number": 506,
+          "title": "Diseñar experimentos de fallo: alcance y radio de impacto",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto"
+        },
+        {
+          "id": "SE-507",
+          "number": 507,
+          "title": "Inyección de fallos de red, latencia y dependencias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias"
+        },
+        {
+          "id": "SE-508",
+          "number": 508,
+          "title": "Fallos de recursos e infraestructura: CPU, memoria, disco y nodos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-508-fallos-de-recursos-e-infraestructura-cpu-memoria-disco-y-nodos"
+        },
+        {
+          "id": "SE-509",
+          "number": 509,
+          "title": "Caos en Kubernetes y en plataformas cloud",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-509-caos-en-kubernetes-y-en-plataformas-cloud"
+        },
+        {
+          "id": "SE-510",
+          "number": 510,
+          "title": "Fallos de datos y de estado: réplicas, particiones y corrupción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion"
+        },
+        {
+          "id": "SE-511",
+          "number": 511,
+          "title": "Game days y ejercicios de respuesta a incidentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-511-game-days-y-ejercicios-de-respuesta-a-incidentes"
+        },
+        {
+          "id": "SE-512",
+          "number": 512,
+          "title": "Caos continuo: automatización en CI/CD y en producción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion"
+        },
+        {
+          "id": "SE-513",
+          "number": 513,
+          "title": "Seguridad y gobernanza de los experimentos: abortar, autorizar y registrar",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-513-seguridad-y-gobernanza-de-los-experimentos-abortar-autorizar-y-registrar"
+        },
+        {
+          "id": "SE-514",
+          "number": 514,
+          "title": "Aprender de los experimentos: hallazgos, métricas y mejora",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-ingenieria-del-caos/se-514-aprender-de-los-experimentos-hallazgos-metricas-y-mejora"
+        },
+        {
+          "id": "SE-515",
+          "number": 515,
+          "title": "Taller: ejecutar un experimento de caos acotado con criterio de aborto",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto"
+        },
+        {
+          "id": "SE-516",
+          "number": 516,
+          "title": "Proyecto: programa de caos de un servicio con evidencia y remediación",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion"
         }
       ]
     },

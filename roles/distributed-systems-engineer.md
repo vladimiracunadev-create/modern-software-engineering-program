@@ -126,7 +126,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`), también tienen contenido desarrollado y
+de las Partes 00–50 (`SE-001`–`SE-612`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -145,6 +145,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-453 · Verificación formal y model checking: TLA+, SPARK y Alloy](../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md) | Parte 37 |
 | [SE-279 · eBPF: observabilidad, red y seguridad en el kernel](../classes/part-23-runtimes-y-plataformas-modernas/se-279-ebpf-observabilidad-red-y-seguridad-en-el-kernel/README.md) | Parte 23 |
 | [SE-286 · Confianza cero en la práctica](../classes/part-23-runtimes-y-plataformas-modernas/se-286-confianza-cero-en-la-practica/README.md) | Parte 23 |
+| [SE-505 · Principios de la ingeniería del caos: estado estable e hipótesis](../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) | Parte 42 |
+| [SE-510 · Fallos de datos y de estado: réplicas, particiones y corrupción](../classes/part-42-ingenieria-del-caos/se-510-fallos-de-datos-y-de-estado-replicas-particiones-y-corrupcion/README.md) | Parte 42 |
+| [SE-516 · Proyecto: programa de caos de un servicio con evidencia y remediación](../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md) | Parte 42 |
 
 **Cómo recorrerla.** Empieza por [SE-319](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-319-enterprise-integration-patterns-como-lenguaje-comun/README.md) para fijar el
 primer mecanismo, usa [SE-380](../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md) para integrar el
@@ -154,26 +157,15 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–41 y 43–50 (`SE-001`–`SE-504` y `SE-517`–`SE-612`) están
+> El mapa expresa el currículo vigente. Las Partes 00–50 (`SE-001`–`SE-612`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Parte 42 (sin clases publicadas)
+## ✅ Ampliación completada: todas las partes del alcance
 
 > [!NOTE]
-> La Parte 42 (`SE-505`–`SE-516`) está **planificada**; sus números están reservados desde el 23 de
-> noviembre de 2026 ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)). Todavía no
-> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
-> considerarse disponible.
+> Todas las partes del alcance ya están desarrolladas ([ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
 
-| Parte planificada | Rango previsto | Qué cambiará para este rol |
-| --- | --- | --- |
-| **Parte 42 · Ingeniería del caos** | `SE-505`–`SE-516` | Probará empíricamente las garantías declaradas bajo particiones, retrasos y réplicas divergentes. |
-
-Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
-desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
-evidencia de que el contenido exista ni de que su alcance final coincida con esta
-descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

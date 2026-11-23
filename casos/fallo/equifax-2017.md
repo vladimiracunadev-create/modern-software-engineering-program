@@ -1,6 +1,6 @@
 # Equifax 2017
 
-[↑ Casos de fallo](README.md) · [← Post Office Horizon](post-office-horizon.md)
+[↑ Casos de fallo](README.md) · [← Post Office Horizon](post-office-horizon.md) · [SolarWinds 2020 →](solarwinds-2020.md)
 
 > **Qué es esta página.** Un caso de estudio de fallo: la realidad frente a la teoría del curso. No es una clase ni un rol. Separa lo que las fuentes **documentan**, lo que este análisis **infiere** y lo que **no se sabe**. Habla de decisiones, procesos y sistemas, no de personas: los testimonios del informe se citan por su rol y sin nombres. Fecha de consulta de todas las fuentes: 23 de noviembre de 2026.
 
@@ -428,4 +428,4 @@ Todas consultadas el 23 de noviembre de 2026. El PDF del Comité se descargó y 
 
 ---
 
-[↑ Casos de fallo](README.md) · [← Post Office Horizon](post-office-horizon.md)
+[↑ Casos de fallo](README.md) · [← Post Office Horizon](post-office-horizon.md) · [SolarWinds 2020 →](solarwinds-2020.md)

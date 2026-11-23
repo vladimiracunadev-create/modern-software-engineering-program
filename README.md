@@ -291,7 +291,7 @@ especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fue
 [guía de casos](casos/GUIDE.md).
 
 - 🚀 [**Plataformas exitosas**](casos/exito/README.md): 15 casos, de Netflix a YouTube.
-- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 12 casos, de Knight Capital a Equifax 2017.
+- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 13 casos, de Knight Capital a SolarWinds 2020.
 
 <!-- /state:cases -->
 

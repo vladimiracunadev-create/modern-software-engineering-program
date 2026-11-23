@@ -28,7 +28,7 @@
 | Laboratorio validado de la [Parte 01](./classes/part-01-computadores-y-representacion-de-informacion/README.md) | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la [Parte 02](./classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
 | Páginas del sitio | `site/**/*.html` (sin `site/casos/`, `site/legacy/` ni `site/404.html`) | 664 |
-| Casos de estudio | `casos/GUIDE.md`, `casos/{exito,fallo}/*.md` | 1 guía, 2 páginas de grupo y 27 casos |
-| Páginas de casos | `site/casos/**/*.html` | 29 |
+| Casos de estudio | `casos/GUIDE.md`, `casos/{exito,fallo}/*.md` | 1 guía, 2 páginas de grupo y 28 casos |
+| Páginas de casos | `site/casos/**/*.html` | 30 |
 
 Todos los conteos se validan contra `curriculum.yaml`.

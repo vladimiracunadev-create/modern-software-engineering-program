@@ -109,6 +109,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "equifax-2017", "kind": "fallo", "name": "Equifax 2017", "year": "2017",
      "who": "Equifax (organización)", "place": "Atlanta, Georgia (EE. UU.)",
      "hook": "Una vulnerabilidad conocida con parche disponible se quedó sin aplicar en un portal de disputas y expuso los datos personales de unos 148 millones de personas."},
+    {"slug": "solarwinds-2020", "kind": "fallo", "name": "SolarWinds 2020", "year": "2020",
+     "who": "SolarWinds (organización)", "place": "Estados Unidos",
+     "hook": "Un atacante insertó código en las compilaciones de una herramienta de monitoreo y las actualizaciones firmadas llegaron a agencias federales y empresas."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne doce plataformas que lograron escala, ingresos o una posición difícil de disputar: Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb, Stripe, Slack, Shopify, Instagram y Discord. Cada una tiene su propio caso, escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases.
+Esta página reúne trece plataformas que lograron escala, ingresos o una posición difícil de disputar: Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb, Stripe, Slack, Shopify, Instagram, Discord y Cloudflare. Cada una tiene su propio caso, escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases.
 
 ## Por qué se construyó
 
@@ -49,6 +49,7 @@ agrupación es orientativa: sirve para elegir por dónde empezar, no para clasif
 - [Shopify](shopify.md) — **2004** · Tobias Lütke. Una plataforma de comercio multi-inquilino que sigue siendo un monolito de Rails y que aisló a sus comerciantes en pods para que la venta de uno no tumbe a los demás.
 - [Instagram](instagram.md) — **2010** · Kevin Systrom y Mike Krieger. Una aplicación de fotos que llegó a más de cien millones de usuarios registrados con muy pocos ingenieros y que Facebook compró en 2012 cuando aún no tenía ingresos.
 - [Discord](discord.md) — **2015** · Jason Citron y Stanislav Vishnevskiy. Un chat para jugadores que escaló a más de 90 millones de usuarios diarios con Elixir, Rust y bases de datos que su equipo cambió tres veces por la forma real de sus datos.
+- [Cloudflare](cloudflare.md) — **2009** · Matthew Prince, Michelle Zatlyn y Lee Holloway. Una red global que se puso entre los sitios y sus visitantes, publica con detalle sus propias caídas y reescribió su proxy, su configuración y su cómputo cuando NGINX y los contenedores dejaron de bastar.
 
 ## Límites
 

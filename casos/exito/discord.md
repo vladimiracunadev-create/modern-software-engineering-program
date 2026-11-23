@@ -1,6 +1,6 @@
 # Discord
 
-[↑ Casos de éxito](README.md) · [← Instagram](instagram.md)
+[↑ Casos de éxito](README.md) · [← Instagram](instagram.md) · [Cloudflare →](cloudflare.md)
 
 > **Caso de éxito.** Discord nació en mayo de 2015 como un chat para hablar mientras se juega y, según sus propios datos internos del cuarto trimestre de 2025, tiene más de 90 millones de usuarios activos diarios. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -384,4 +384,4 @@ Todas las URL se consultaron el 23 de noviembre de 2026 y devolvieron contenido 
 - **[D8]** [How Discord Handles Two and Half Million Concurrent Voice Users using WebRTC](https://discord.com/blog/how-discord-handles-two-and-half-million-concurrent-voice-users-using-webrtc): voz cliente-servidor, WebRTC nativo y señalización en Elixir (2018).
 - **[D9]** [Work at Discord (discord.com/careers)](https://discord.com/careers): puestos en San Francisco o en remoto y centro de ingeniería en Lisboa.
 
-[↑ Casos de éxito](README.md) · [← Instagram](instagram.md)
+[↑ Casos de éxito](README.md) · [← Instagram](instagram.md) · [Cloudflare →](cloudflare.md)

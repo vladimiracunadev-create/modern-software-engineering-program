@@ -290,7 +290,7 @@ histórica, problema, usuarios, funcionalidad de principio a fin, economía, arq
 especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fuentes públicas) descrito en la
 [guía de casos](casos/GUIDE.md).
 
-- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 12 casos, de Netflix a Discord.
+- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 13 casos, de Netflix a Cloudflare.
 - 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 11 casos, de Knight Capital a Post Office Horizon.
 
 <!-- /state:cases -->

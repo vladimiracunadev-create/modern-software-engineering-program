@@ -392,7 +392,7 @@ Cada enlace es una clase real; el texto dice qué mecanismo del caso ilustra. La
 | --- | --- | --- |
 | [CrowdStrike (2024)](crowdstrike.md) | Un cambio de contenido llega a todos sin barrera gradual y deja sin servicio | Allí se bloquearon millones de equipos de clientes; aquí, la red del propio proveedor |
 | [Caída global de Meta (2021)](meta-2021.md) | Las herramientas de respuesta dependían de lo que había caído | Allí fue un cambio de red y de acceso físico; aquí, una regla de software |
-| AWS S3 (2017) | Una acción operativa con un parámetro mal acotado causa una caída amplia | Allí fue un comando que retiraba capacidad; aquí, una regla que agotó la CPU |
+| [AWS S3 (2017)](aws-s3-2017.md) | Una acción operativa con un parámetro mal acotado causa una caída amplia | Allí fue un comando que retiraba capacidad; aquí, una regla que agotó la CPU |
 
 ## Fuentes públicas verificadas
 

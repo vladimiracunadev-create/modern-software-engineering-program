@@ -12,6 +12,13 @@
 - los conteos de casos salen del registro `scripts/cases_data.py` (README, STATUS, FILE_INDEX, About y portal); `scripts/build_cases.py` genera las listas y los textos de los grupos
 - correcciones asociadas: un título de figura que disparaba la regla `dropbox-api-token` de gitleaks y las entradas del glosario que citan casos
 
+## 2026-11-23 — Ocho casos de fallo nuevos: Ariane 5, Boeing 737 MAX, Post Office Horizon, Equifax, SolarWinds, Cloudflare, AWS S3 y Southwest
+
+- `casos/fallo/` pasa a tener ocho casos más, cada uno con su `scripts/figures_case_<slug>.py` y fuentes públicas comprobadas con descarga o lectura: `ariane-5-vuelo-501` (informe de la comisión de 1996), `boeing-737-max-mcas` (KNKT, EAIB, NTSB, JATR, FAA y el informe del personal de la mayoría del Comité de la Cámara, citado como tal), `post-office-horizon` (sentencias Bates n.º 6 y Hamilton, ley de 2024 y volumen 1 de la investigación pública), `equifax-2017` (informe del Comité de Supervisión y GAO), `solarwinds-2020` (CISA, SolarWinds y Microsoft), `cloudflare-2019` (post mortem oficial), `aws-s3-2017` (resumen oficial) y `southwest-2022` (comunicado del DOT y crónicas de la audiencia del Senado).
+- cada caso separa lo documentado, lo inferido y lo desconocido, trata con respeto a las víctimas, no emite juicios sobre personas y declara su alcance: AWS S3 se apoya en una sola fuente primaria breve; Southwest no pudo apoyarse en el texto de la orden del DOT ni en el informe del Senado; Equifax, SolarWinds y Boeing dejan fuera los acuerdos económicos y procesos que no se pudieron verificar.
+- los conteos de casos (README, ROADMAP, STATUS, FILE_INDEX, About y portal) se derivan del registro `scripts/cases_data.py`; `scripts/build_cases.py` reescribe las cifras del About y `scripts/validate_cases.py` exige un mínimo por grupo en lugar de un número fijo.
+- nuevo `scripts/case_fig_generic.py` con constructores de figuras por datos (cadenas, columnas, capas, contexto, árbol de fallas, pares y láminas de defensa en profundidad) con alturas automáticas y pie de figura en varias líneas; ninguna figura repite una tabla.
+
 ## 2026-11-23 — Glosario del programa: superficie propia con una entrada por concepto
 
 - nueva superficie `glosario/` (no son clases ni roles; no cambia 612 clases ni 51 partes): 2.743 conceptos (inventario en `glosario/INVENTARIO.md`) extraídos de las definiciones, glosarios y temas de las clases y de las 47 guías de rol, normalizados y deduplicados;

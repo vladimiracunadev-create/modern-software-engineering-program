@@ -412,7 +412,7 @@ Cada enlace es una clase real; el texto dice qué mecanismo del caso ilustra. La
 
 | Caso | Parecido | Diferencia |
 | --- | --- | --- |
-| SolarWinds (2020) | Un compromiso de seguridad detectado mucho después de la entrada | Allí el atacante comprometió el proceso de construcción de un proveedor; aquí explotó un parche no aplicado |
+| [SolarWinds (2020)](solarwinds-2020.md) | Un compromiso de seguridad detectado mucho después de la entrada | Allí el atacante comprometió el proceso de construcción de un proveedor; aquí explotó un parche no aplicado |
 | [GitLab (2017)](gitlab-2017.md) | Controles que existían y no funcionaban cuando hicieron falta | Allí el daño fue de disponibilidad y datos propios; aquí, de datos de terceros |
 | [Meta (2021)](meta-2021.md) | Un fallo de visibilidad agrava el incidente | Allí fue una caída propia; aquí, una intrusión externa |
 

@@ -21,7 +21,9 @@ de él salen los conteos del README, del ROADMAP, del STATUS, del About y del po
 escribe a mano en otro sitio. Se amplía añadiendo entradas al final de cada grupo.
 
 - Éxito: `netflix`, `whatsapp`, `uber`, `mercado-libre`, `amazon`, `spotify`, `airbnb`, `stripe`.
-- Fallo: `knight-capital`, `healthcare-gov`, `tsb`, `meta-2021`, `crowdstrike`, `therac-25`, `gitlab-2017`, `quibi`
+- Fallo: `knight-capital`, `healthcare-gov`, `tsb`, `meta-2021`, `crowdstrike`, `therac-25`, `gitlab-2017`, `quibi` y, en la ampliación,
+  `ariane-5-vuelo-501`, `boeing-737-max-mcas`, `post-office-horizon`, `equifax-2017`, `solarwinds-2020`,
+  `cloudflare-2019`, `aws-s3-2017` y `southwest-2022`.
 
 Cada caso vive en `casos/<exito|fallo>/<slug>.md`. Mientras otra sesión lo escribe, el archivo es un
 esqueleto con la marca `<!-- case:status=skeleton -->` y una nota «en elaboración». **Quien escribe un caso

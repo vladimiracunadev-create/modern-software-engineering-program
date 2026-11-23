@@ -101,7 +101,7 @@ El experimento lo muestra con una trampa bien escondida. Quitar los pares de `[1
 
 La alternativa es construir un resultado nuevo: la comprensión `[v for v in xs if v % 2]` dio el resultado correcto en ambos casos. Las reglas que siguen son: no modificar una colección mientras se itera sobre ella; iterar sobre una copia si hace falta mutar; y preferir construir una colección nueva. En el laboratorio, `apply_observation` devuelve un `State` nuevo y no toca el anterior, de modo que el bucle de `run_diagnosis` no tiene este riesgo.
 
-![Figura 2. Tabla con cuatro experimentos: quitar pares de [1..6], de [2,4,6,8], añadir una clave a un diccionario durante el recorrido y filtrar con una comprensión](../../../content/part-05/figures/se-063-mutar-mientras-se-recorre.svg)
+![Figura 2. Tabla con cuatro experimentos: quitar pares de la lista del 1 al 6, de la lista 2, 4, 6, 8, añadir una clave a un diccionario durante el recorrido y filtrar con una comprensión](../../../content/part-05/figures/se-063-mutar-mientras-se-recorre.svg)
 
 **Cómo leer la figura.** La segunda fila es la importante: el mismo código que funcionó con la primera entrada falla con la segunda. La cuarta muestra el patrón que evita ambos problemas. **Dónde deja de valer:** el comportamiento exacto (saltar elementos) es el de la lista de CPython; en otras estructuras o lenguajes puede ser un error, un salto distinto o comportamiento indefinido. Nunca debe usarse como técnica.
 

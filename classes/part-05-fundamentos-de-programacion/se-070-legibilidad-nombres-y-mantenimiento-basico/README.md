@@ -101,7 +101,7 @@ Un buen nombre también puede mentir. Si `cost` dejara de ser un entero de unida
 
 El nivel de abstracción importa más que la longitud. `run_diagnosis` cuenta la historia (aplicar cada observación, acumular la línea de tiempo, recomendar la próxima prueba), y delega lo detallado. Si una función mezcla «abrir el archivo», «validar el esquema» y «elegir el siguiente paso», cada lector tiene que subir y bajar niveles continuamente. Los comentarios se reservan para el porqué que el código no puede decir; docstrings, para la interfaz pública: el paquete tiene cero y la intención vive en nombres y tipos, algo defendible a este tamaño pero que cambiaría con más consumidores.
 
-![Figura 2. Barras con el costo de leer r[1] de una tupla frente a probe.cost de un dataclass en Windows y Linux, y una tabla sobre qué obliga a saber cada lectura](../../../content/part-05/figures/se-070-nombre-o-indice.svg)
+![Figura 2. Barras con el costo de leer la posición 1 de una tupla frente a probe.cost de un dataclass en Windows y Linux, y una tabla sobre qué obliga a saber cada lectura](../../../content/part-05/figures/se-070-nombre-o-indice.svg)
 
 **Cómo leer la figura.** Las barras son nanosegundos por lectura, con la tupla en dorado y el atributo en verde. La tabla inferior resume la diferencia de claridad, que es la razón de la elección. **Dónde deja de valer:** las diferencias de nanosegundos no justifican nada por sí mismas, y un microbenchmark no mide el costo de entender. Un nombre específico no sustituye una descripción del contrato si el concepto es sutil.
 

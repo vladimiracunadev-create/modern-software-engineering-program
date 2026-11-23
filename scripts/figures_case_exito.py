@@ -35,14 +35,16 @@ def _columns(title: str, desc: str, columns: list[tuple[str, str, list[str], str
 def mapa() -> Fig:
     return _columns(
         "Mapa de las plataformas exitosas: la tensión que resuelven y la teoría que la explica",
-        "Diagrama de tres columnas: cada una nombra una tensión de ingeniería, enlaza con flechas a las plataformas que la ilustran y señala las partes del curso que dan las herramientas para analizarla. Escala operada como producto: Netflix, Amazon y Spotify. Mercados de dos lados: Uber, Mercado Libre y Airbnb. Interfaz y concurrencia como ventaja: Stripe y WhatsApp.",
+        "Diagrama de cuatro columnas: cada una nombra una tensión de ingeniería, enlaza con flechas a las plataformas que la ilustran y señala las partes del curso que dan las herramientas para analizarla. Escala operada como producto: Netflix, Amazon, Spotify, Cloudflare, YouTube y Dropbox. Mercados y plataformas de varios lados: Uber, Mercado Libre, Airbnb, Shopify e Instagram. Interfaz y concurrencia como ventaja: Stripe, WhatsApp, Slack y Discord. Infraestructura pública de pagos: Pix.",
         [
-            ("Escala operada como producto", "teal", ["Netflix", "Amazon", "Spotify"],
+            ("Escala operada como producto", "teal", ["Netflix", "Amazon", "Spotify", "Cloudflare", "YouTube", "Dropbox"],
              "Partes 32, 33, 36 y 41: sistemas distribuidos, nube, resiliencia y SRE"),
-            ("Mercados de dos lados", "gold", ["Uber", "Mercado Libre", "Airbnb"],
+            ("Mercados y plataformas de varios lados", "gold", ["Uber", "Mercado Libre", "Airbnb", "Shopify", "Instagram"],
              "Partes 10, 11, 27 y 31: producto, economía, arquitectura e integración"),
-            ("Interfaz y concurrencia como ventaja", "navy", ["Stripe", "WhatsApp"],
+            ("Interfaz y concurrencia como ventaja", "navy", ["Stripe", "WhatsApp", "Slack", "Discord"],
              "Partes 13, 20, 32 y 38: contratos, backend, concurrencia y seguridad"),
+            ("Infraestructura pública de pagos", "coral", ["Pix"],
+             "Partes 31, 34, 36 y 41: integración, pagos, calidad y operación"),
         ],
     )
 

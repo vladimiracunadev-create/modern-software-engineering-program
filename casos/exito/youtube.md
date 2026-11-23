@@ -1,6 +1,6 @@
 # YouTube
 
-[↑ Casos de éxito](README.md) · [← Dropbox](dropbox.md)
+[↑ Casos de éxito](README.md) · [← Dropbox](dropbox.md) · [Pix →](pix.md)
 
 > **Caso de éxito.** YouTube se fundó en febrero de 2005, Google anunció su compra por 1 650 millones de dólares en acciones el 9 de octubre de 2006 y en 2025 sus anuncios generaron 40 367 millones de dólares dentro de Alphabet. Su base de datos dio origen a un proyecto abierto, Vitess, y su procesamiento de vídeo acabó en hardware propio. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -383,4 +383,4 @@ Todas las URL se consultaron el 23 de noviembre de 2026 y devolvieron contenido 
 - **[Y10]** [YouTube Partner Program overview and eligibility (ayuda de YouTube)](https://support.google.com/youtube/answer/72851): umbrales de monetización.
 - **[Y11]** [Recommendations (YouTube, «How YouTube Works»)](https://www.youtube.com/howyoutubeworks/product-features/recommendations/): señales, página de inicio y controles.
 
-[↑ Casos de éxito](README.md) · [← Dropbox](dropbox.md)
+[↑ Casos de éxito](README.md) · [← Dropbox](dropbox.md) · [Pix →](pix.md)

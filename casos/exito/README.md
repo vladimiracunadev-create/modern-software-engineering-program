@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne quince plataformas que lograron escala, ingresos o una posición difícil de disputar: Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb, Stripe, Slack, Shopify, Instagram, Discord, Cloudflare, Dropbox y YouTube. Cada una tiene su propio caso, escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases.
+Esta página reúne dieciséis plataformas que lograron escala, ingresos o una posición difícil de disputar: Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb, Stripe, Slack, Shopify, Instagram, Discord, Cloudflare, Dropbox, YouTube y Pix. Cada una tiene su propio caso, escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases.
 
 ## Por qué se construyó
 
@@ -52,6 +52,7 @@ agrupación es orientativa: sirve para elegir por dónde empezar, no para clasif
 - [Cloudflare](cloudflare.md) — **2009** · Matthew Prince, Michelle Zatlyn y Lee Holloway. Una red global que se puso entre los sitios y sus visitantes, publica con detalle sus propias caídas y reescribió su proxy, su configuración y su cómputo cuando NGINX y los contenedores dejaron de bastar.
 - [Dropbox](dropbox.md) — **2007** · Drew Houston y Arash Ferdowsi. Una carpeta que se sincroniza entre dispositivos y que, al llegar a miles de millones de archivos, migró entre 2015 y 2016 la mayor parte de su almacenamiento a infraestructura propia, y su margen bruto pasó de 54 % a 76 % entre 2015 y 2017.
 - [YouTube](youtube.md) — **2005** · Chad Hurley y Steve Chen. Una plataforma de vídeo comprada por Google en 2006 por 1 650 millones de dólares en acciones, cuya base de datos dio origen a Vitess y cuyo procesamiento de vídeo acabó en hardware propio.
+- [Pix](pix.md) — **2020** · Banco Central do Brasil (organización). El sistema de pagos instantáneos que un banco central diseñó, reguló y opera, y que en cinco años pasó de cero a casi 80 000 millones de transacciones al año con liquidación continua las 24 horas.
 
 ## Límites
 

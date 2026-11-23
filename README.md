@@ -290,7 +290,7 @@ histórica, problema, usuarios, funcionalidad de principio a fin, economía, arq
 especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fuentes públicas) descrito en la
 [guía de casos](casos/GUIDE.md).
 
-- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 15 casos, de Netflix a YouTube.
+- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 16 casos, de Netflix a Pix.
 - 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 14 casos, de Knight Capital a Cloudflare 2019.
 
 <!-- /state:cases -->

@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne catorce fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab, Quibi, Ariane 5, vuelo 501, Boeing 737 MAX y MCAS, Post Office Horizon, Equifax 2017, SolarWinds 2020 y Cloudflare 2019. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
+Esta página reúne quince fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab, Quibi, Ariane 5, vuelo 501, Boeing 737 MAX y MCAS, Post Office Horizon, Equifax 2017, SolarWinds 2020, Cloudflare 2019 y Interrupción de Amazon S3 en 2017. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
 
 ## Por qué se construyó
 
@@ -51,6 +51,7 @@ agrupación es orientativa: sirve para elegir por dónde empezar, no para clasif
 - [Equifax 2017](equifax-2017.md) — **2017** · Equifax (organización). Una vulnerabilidad conocida con parche disponible se quedó sin aplicar en un portal de disputas y expuso los datos personales de unos 148 millones de personas.
 - [SolarWinds 2020](solarwinds-2020.md) — **2020** · SolarWinds (organización). Un atacante insertó código en las compilaciones de una herramienta de monitoreo y las actualizaciones firmadas llegaron a agencias federales y empresas.
 - [Cloudflare 2019](cloudflare-2019.md) — **2019** · Cloudflare (organización). Una expresión regular de una regla del cortafuegos, desplegada a todo el mundo en segundos, agotó la CPU de la red y dejó sin servicio los dominios de Cloudflare durante 27 minutos.
+- [Interrupción de Amazon S3 en 2017](aws-s3-2017.md) — **2017** · Amazon Web Services (organización). Un comando con una entrada mal escrita retiró demasiada capacidad de los subsistemas de índice y ubicación de S3 y la región US-EAST-1 dejó de servir peticiones durante unas cuatro horas.
 
 ## Límites
 

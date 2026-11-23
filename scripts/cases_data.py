@@ -118,6 +118,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "cloudflare-2019", "kind": "fallo", "name": "Cloudflare 2019", "year": "2019",
      "who": "Cloudflare (organización)", "place": "San Francisco, California (EE. UU.)",
      "hook": "Una expresión regular de una regla del cortafuegos, desplegada a todo el mundo en segundos, agotó la CPU de la red y dejó sin servicio los dominios de Cloudflare durante 27 minutos."},
+    {"slug": "aws-s3-2017", "kind": "fallo", "name": "Interrupción de Amazon S3 en 2017", "year": "2017",
+     "who": "Amazon Web Services (organización)", "place": "Norte de Virginia (EE. UU.)",
+     "hook": "Un comando con una entrada mal escrita retiró demasiada capacidad de los subsistemas de índice y ubicación de S3 y la región US-EAST-1 dejó de servir peticiones durante unas cuatro horas."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

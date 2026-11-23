@@ -1,6 +1,6 @@
 # Cloudflare 2019
 
-[↑ Casos de fallo](README.md) · [← SolarWinds 2020](solarwinds-2020.md)
+[↑ Casos de fallo](README.md) · [← SolarWinds 2020](solarwinds-2020.md) · [Interrupción de Amazon S3 en 2017 →](aws-s3-2017.md)
 
 > **Qué es esta página.** Un caso de estudio de fallo: la realidad frente a la teoría del curso. No es una clase ni un rol. Separa lo que las fuentes **documentan**, lo que este análisis **infiere** y lo que **no se sabe**. Habla de decisiones, procesos y sistemas, no de personas. Fecha de consulta de todas las fuentes: 23 de noviembre de 2026.
 
@@ -406,4 +406,4 @@ Todas consultadas el 23 de noviembre de 2026. Las páginas se abrieron y se extr
 
 ---
 
-[↑ Casos de fallo](README.md) · [← SolarWinds 2020](solarwinds-2020.md)
+[↑ Casos de fallo](README.md) · [← SolarWinds 2020](solarwinds-2020.md) · [Interrupción de Amazon S3 en 2017 →](aws-s3-2017.md)

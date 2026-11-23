@@ -291,7 +291,7 @@ especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fue
 [guía de casos](casos/GUIDE.md).
 
 - 🚀 [**Plataformas exitosas**](casos/exito/README.md): 16 casos, de Netflix a Pix.
-- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 14 casos, de Knight Capital a Cloudflare 2019.
+- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 15 casos, de Knight Capital a Interrupción de Amazon S3 en 2017.
 
 <!-- /state:cases -->
 

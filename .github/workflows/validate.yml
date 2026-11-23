@@ -17,7 +17,7 @@ jobs:
   structure:
     name: Structure · Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -67,6 +67,11 @@ jobs:
         run: |
           python scripts/build_cases.py --check
           python scripts/validate_cases.py
+
+      - name: Verify glossary surface
+        run: |
+          python scripts/build_glossary.py --check
+          python scripts/validate_glossary.py
 
       - name: Validate generated site and links
         run: python scripts/validate_site.py

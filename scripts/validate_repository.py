@@ -365,7 +365,7 @@ def validate_phase2_outputs() -> None:
     pages = sorted(
         page
         for page in (ROOT / "site").rglob("*.html")
-        if page.relative_to(ROOT / "site").parts[0] not in ("casos", "legacy")
+        if page.relative_to(ROOT / "site").parts[0] not in ("casos", "glosario", "legacy")
         and page.relative_to(ROOT / "site").as_posix() != "404.html"
     )
     activities = sorted((ROOT / "classes").glob("part-*/se-*/activity.yaml"))

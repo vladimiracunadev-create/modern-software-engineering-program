@@ -43,9 +43,10 @@ def main() -> int:
     failures: list[str] = []
     pages = sorted(SITE.rglob("*.html"))
     case_pages = [page for page in pages if page.relative_to(SITE).parts[0] == "casos"]
+    glossary_pages = [page for page in pages if page.relative_to(SITE).parts[0] == "glosario"]
     legacy_pages = [page for page in pages if page.relative_to(SITE).parts[0] == "legacy"]
     not_found = [page for page in pages if page.relative_to(SITE).as_posix() == "404.html"]
-    pages = [page for page in pages if page not in case_pages and page not in legacy_pages and page not in not_found]
+    pages = [page for page in pages if page not in case_pages and page not in glossary_pages and page not in legacy_pages and page not in not_found]
     expected_pages = 1 + len(ps.developed_parts()) + ps.developed_class_count()
     if len(pages) != expected_pages:
         failures.append(f"expected {expected_pages} HTML pages, found {len(pages)}")
@@ -60,7 +61,9 @@ def main() -> int:
         failures.extend(f"planned part must not have a published page: {path.relative_to(SITE)}" for path in reserved if path.exists())
     if len(case_pages) != 2 + len(CASES):
         failures.append(f"expected {2 + len(CASES)} case pages under site/casos, found {len(case_pages)}")
-    pages = sorted(pages + case_pages + legacy_pages + not_found)
+    if len(glossary_pages) < 2:
+        failures.append(f"expected the glossary portal under site/glosario, found {len(glossary_pages)} pages")
+    pages = sorted(pages + case_pages + glossary_pages + legacy_pages + not_found)
     for page in pages:
         page_text = page.read_text(encoding="utf-8")
         parser = LinkParser()
@@ -106,7 +109,7 @@ def main() -> int:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1
     print(
-        f"SITE_OK: {len(pages) - len(case_pages) - len(legacy_pages) - len(not_found)} pages + {len(case_pages)} case pages"
+        f"SITE_OK: {len(pages) - len(case_pages) - len(glossary_pages) - len(legacy_pages) - len(not_found)} pages + {len(case_pages)} case pages + {len(glossary_pages)} glossary pages"
         f" + {len(legacy_pages)} legacy pages + 404, {len(catalog['classes'])} classes"
     )
     return 0

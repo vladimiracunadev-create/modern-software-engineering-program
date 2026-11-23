@@ -41,7 +41,7 @@ class PhaseTwoGenerationTests(unittest.TestCase):
         pages = [
             page
             for page in (ROOT / "site").rglob("*.html")
-            if page.relative_to(ROOT / "site").parts[0] not in ("casos", "legacy")
+            if page.relative_to(ROOT / "site").parts[0] not in ("casos", "glosario", "legacy")
             and page.relative_to(ROOT / "site").as_posix() != "404.html"
         ]
         self.assertEqual(1 + len(ps.developed_parts()) + ps.developed_class_count(), len(pages))

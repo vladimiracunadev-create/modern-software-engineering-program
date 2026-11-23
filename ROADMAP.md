@@ -227,6 +227,14 @@ Superficie propia, fuera de las clases, las partes y los roles: plataformas exit
 [éxito](casos/exito/README.md) y [fallo](casos/fallo/README.md) y se publican también en el portal. No
 cambian los contadores ni requieren un ADR de ampliación de clases.
 
+## Glosario
+
+Superficie propia, fuera de las clases, las partes y los roles: una entrada por concepto del programa (definición, mecanismo,
+errores, límites, relaciones, clases donde se enseña y fuentes). Se extrae de las definiciones, los glosarios y los temas de las
+clases y de las guías de rol, se describe en [`glosario/README.md`](glosario/README.md) y su inventario en
+[`glosario/INVENTARIO.md`](glosario/INVENTARIO.md), y se publica también en el portal con búsqueda por término. No cambia los
+contadores ni requiere un ADR de ampliación de clases.
+
 ## Criterio de término del programa
 
 El programa no está terminado porque existan 612 posiciones o cualquier otra cifra. Está

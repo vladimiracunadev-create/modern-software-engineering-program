@@ -156,6 +156,16 @@ crean partes y no alteran la escala de clases y partes. Su contrato está en
 [`casos/GUIDE.md`](../casos/GUIDE.md); `scripts/build_cases.py` genera las páginas y `scripts/validate_cases.py`
 las valida en la CI.
 
+## Superficie del glosario
+
+El programa mantiene también una superficie propia de **glosario** (`glosario/`): una entrada por concepto
+(`glosario/entradas/<letra>/<slug>.md`), un inventario (`glosario/INVENTARIO.md`), índices alfabéticos y por familias y
+las páginas del portal con búsqueda (`site/glosario/`). No son clases ni roles, no crean partes y no alteran la escala de clases y
+partes. Los conceptos se extraen de `content/` y `roles/` con `scripts/glossary_data.py`; el texto compuesto de cada entrada
+(`scripts/glossary_compose.py`) cita lo que las clases ya enseñan, y el texto escrito a mano vive en `glosario/curado/`.
+`scripts/build_glossary.py` genera las páginas y `scripts/validate_glossary.py` las valida en la CI. Las clases publicadas
+cierran con un bloque «Glosario» que enlaza sus conceptos a las entradas, de modo que el vínculo es en ambos sentidos.
+
 ## Criterio de término de la expansión
 
 La expansión no termina al crear carpetas. Requiere las 612 clases completas, fuentes

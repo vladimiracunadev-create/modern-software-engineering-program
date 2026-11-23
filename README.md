@@ -24,7 +24,7 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-sitio%20vivo-222?style=flat-square&logo=githubpages&logoColor=white)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 [![SPEC + MCP](https://img.shields.io/badge/SPEC%20·%20MCP-ruta%20agentic-8A2BE2?style=flat-square)](classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/README.md)
 
-[📚 Índice completo de clases](classes/README.md) · [🧭 Rutas por rol](roles/README.md) · [🧪 Producto transversal](blueprints/reference-product/README.md) · [🌐 Aplicación web](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
+[📚 Índice completo de clases](classes/README.md) · [🧭 Rutas por rol](roles/README.md) · [📖 Glosario](glosario/README.md) · [🧪 Producto transversal](blueprints/reference-product/README.md) · [🌐 Aplicación web](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
 </div>
 
@@ -294,6 +294,22 @@ especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fue
 - 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 13 casos, de Knight Capital a SolarWinds 2020.
 
 <!-- /state:cases -->
+
+<!-- state:glossary -->
+
+## 📖 Glosario: el vocabulario del programa
+
+Además de las partes, los roles y los casos, el programa ofrece una superficie propia: un **glosario profundo** con
+2731 conceptos (628 troncales y 2103 de apoyo). No son clases ni roles y no cambian el
+número de clases: cada entrada define el término, explica por qué importa y cómo funciona, advierte de errores y límites, lo
+relaciona con otros conceptos y enlaza las clases y los casos donde se enseña. Se consulta cuando una clase usa un término que no
+dominas y se usa para volver a la clase que lo desarrolla.
+
+- 🔎 [**Buscar un término en el portal**](https://vladimiracunadev-create.github.io/modern-software-engineering-program/glosario/index.html), con búsqueda por término y por sigla.
+- 🔤 [**Índice alfabético y por familias**](glosario/README.md): cómo se lee una entrada, conteos y accesos a todas las entradas.
+- 🧮 [**Inventario**](glosario/INVENTARIO.md): de dónde salen los conceptos, cómo se normalizaron y cómo se tipifican.
+
+<!-- /state:glossary -->
 
 ## 🧭 Rutas sugeridas por rol
 
@@ -1392,6 +1408,8 @@ curriculum.yaml    manifiesto generado de las partes desarrolladas y del alcance
 catalog.json       conteos canónicos del programa
 classes/           clases, índices de parte, actividades y rúbricas
 roles/             índice y 47 guías profesionales
+casos/             casos de estudio de plataformas exitosas y de fallo
+glosario/          glosario: una entrada por concepto, índices e inventario
 curriculum/        línea base anterior preservada para migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios

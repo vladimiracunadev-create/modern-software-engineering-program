@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import cross_references as cr  # noqa: E402
 
-MARKDOWN_SURFACES = ("classes/**/*.md", "roles/*.md", "casos/**/*.md", "README.md", "STATUS.md", "FILE_INDEX.md")
+MARKDOWN_SURFACES = ("classes/**/*.md", "roles/*.md", "casos/**/*.md", "glosario/*.md", "glosario/entradas/**/*.md", "glosario/indice/*.md", "glosario/familias/*.md", "README.md", "STATUS.md", "FILE_INDEX.md")
 HTML_EXEMPT = ("site/legacy/", "site/404.html")  # narran la migración y conservan IDs antiguos
 LINK = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
 

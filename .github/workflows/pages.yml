@@ -23,6 +23,12 @@ on:
       - "scripts/cases_data.py"
       - "scripts/validate_cases.py"
       - "casos/**"
+      - "scripts/build_glossary.py"
+      - "scripts/glossary_data.py"
+      - "scripts/glossary_compose.py"
+      - "scripts/glossary_links.py"
+      - "scripts/validate_glossary.py"
+      - "glosario/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -36,7 +42,7 @@ jobs:
   build:
     name: Verify site artifact
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     permissions:
       contents: read
     steps:
@@ -61,7 +67,9 @@ jobs:
           python scripts/validate_encoding.py
           python scripts/validate_site.py
           python scripts/validate_cases.py
-          python -c "import json; from pathlib import Path; c=json.loads(Path('curriculum.yaml').read_text(encoding='utf-8')); pages=[p for p in Path('site').rglob('*.html') if p.relative_to('site').parts[0] not in ('casos','legacy') and p.name!='404.html']; n=1+c['part_count']+c['class_count']; assert len(pages)==n, (len(pages), n)"
+          python scripts/build_glossary.py --check
+          python scripts/validate_glossary.py
+          python -c "import json; from pathlib import Path; c=json.loads(Path('curriculum.yaml').read_text(encoding='utf-8')); pages=[p for p in Path('site').rglob('*.html') if p.relative_to('site').parts[0] not in ('casos','glosario','legacy') and p.name!='404.html']; n=1+c['part_count']+c['class_count']; assert len(pages)==n, (len(pages), n)"
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6

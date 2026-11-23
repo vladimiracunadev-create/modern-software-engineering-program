@@ -27,6 +27,8 @@ calidad. La profundidad se demuestra en mecanismos, decisiones, fallos, evidenci
 límites específicos; el validador sólo impide que una regresión vuelva a convertirlas
 en fichas breves.
 
+Cada rol tiene además su entrada en el [glosario](../glosario/README.md), con los términos de su oficio enlazados a las clases donde se enseñan.
+
 Las 51 partes (`SE-001`–`SE-612`) tienen contenido desarrollado, a falta de revisión
 editorial humana independiente.
 Una ruta describe el recorrido previsto y no certifica que el material haya sido aprobado

@@ -1,0 +1,7852 @@
+{
+ "abstraccion-de-rama": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "acceso-de-emergencia": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "acelerador": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "acoplamiento": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "acotar": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "activacion": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "actividad": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "activo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "actor": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "adopcion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "afirmacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "agente": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "agregado": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "aislamiento": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "ajuste": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "al-menos-una-vez": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "alcance": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "algoritmo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "alias": [
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "almacen": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "alternativas-existentes": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "analisis": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "analisis-estatico": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "ancho-de-banda": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "anfitrion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "arbol": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "arbol-de-metricas": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "argumento": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "arquitectura": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "arranque-en-frio": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "artefacto": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "asercion": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "atestacion": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "atomicidad": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "atributo": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "atributos-de-calidad": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "audiencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "autenticacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "autoritativo": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "autorizacion": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "backend": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "backoff": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "baja": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "balanceador": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "banda": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "base": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "biblioteca": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "blob": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "bloqueo": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "blue-green": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "borde": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "brecha": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "bufer": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "bulkhead": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "byte": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "caducidad": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "calibracion": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "cambio-incompatible": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "camino-a-produccion": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "camino-critico": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "canario": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "cancelacion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "capa": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "capacidad": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "captura": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "caracteristica": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "caracterizacion": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "cardinalidad": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "casos-de-uso": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "celda": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "ciclo": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "circuit-breaker": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "clave-de-idempotencia": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "cobertura": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "codificacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "codigo-muerto": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "cohesion": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "cola-larga": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "coleccion": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "comando": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "combinacion": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "comision": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "compatibilidad-hacia-atras": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "compensacion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "competencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "complejidad": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "complemento": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "componente": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "composicion": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "compromiso": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "compromisos-entre-atributos": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "compuerta": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "concentracion": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "conciliacion": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "concurrencia": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "condicion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "condicion-de-carrera": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "confianza": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "confinamiento": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "confirmacion": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "conformidad": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "conjunto": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "consecuencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "consenso": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "consentimiento": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "consistencia-eventual": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "constitucion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "constructor-de-datos": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "contador": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "contencion": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "contenedor": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "contextos": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "contracargo": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "contrato": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "controlador": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "correlacion": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "corte": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "costo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "costura": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "cota": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "creador": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "criterio-de-abandono": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "criterio-de-salida": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "cubo-de-fichas": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "cuello-de-botella": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "cuorum": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "cuota": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "cursor": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "custodia": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ]
+ ],
+ "dano": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "dato-tardio": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "deadline": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "decision-reversible": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "deduplicacion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "defecto-latente": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "defensa-en-profundidad": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "degradacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "dependencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "derecho": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "desbordamiento": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "descarte-de-carga": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "descubrimiento": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "desintermediacion": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "despliegue-continuo": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "despliegue-escalonado": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "despliegue-por-etapas": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "deuda": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "diagnostico": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "diagrama": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "dimension": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "dispersion": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "disponibilidad": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "disposicion": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "disposicion-a-pagar": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "dispositivo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "divergencia": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "doble": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "doble-escritura": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "documento": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "dominio": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "durabilidad": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "edicion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "efecto": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "embudo": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "encadenado": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "encapsulacion": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "endurecimiento": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "energia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "enlace": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "ensayo": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "entorno": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "entorno-aislado": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "epoca": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "escalamiento": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "escalar": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "escalon-de-trafico": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "escenario": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "especificacion": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "espera": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "esquema": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "esquema-de-datos": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "estabilidad": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "estado": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "estado-actual": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "estado-estable": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "estado-seguro": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "estado-vacio": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "estrategia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "estructura": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "etiqueta": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "evaluacion": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "evento": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "evidencia": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "excepcion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "explicacion": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "exposicion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "expresion": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "extension": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "extremo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "factory": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "factura": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "fallo-parcial": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "falso-positivo": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "filtro": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "flujo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "fragmentacion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "fragmentacion-aleatoria": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "fragmento": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "frontera": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "fuente-de-verdad": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "fuerza": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "funcion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "fusion": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "fuzzing": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "garantia": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "generacion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "gobierno": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "grafo": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "grafo-de-dependencias": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "grupo-de-control": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "guarda": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "guardia": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "guardrail": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "hallazgo": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "hash-consistente": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "hecho": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "herramientas": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "hibrido": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "hilo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "hipotesis": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "hmac": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "huella": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "idempotencia": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "idempotente": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "imagen": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "impacto": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "incertidumbre": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "incidente": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "indicador": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "indice": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "infraestructura-como-codigo": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "ingenieria": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "ingenieria-del-caos": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "instancia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "instante": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "instrumento": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "integrador": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "intencion": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "interbloqueo": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "interes": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "interes-publico": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "interfaz": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "intermediario": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "interpretacion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "interrupcion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "interruptor-de-circuito": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "invariante": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "inventario": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "inyeccion": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "issue": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "kernel": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "latencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "limite": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "linea-base": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "liquidacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "liquidez": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "locale": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "lote": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "mantenimiento": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "mapa": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "maquina-de-estados": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "maquina-virtual": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "margen": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "mecanismo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "medicion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "medida": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "meseta": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "metadatos": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "metrica": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "metrica-contraria": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "metrica-de-vanidad": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "microservicio": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "migracion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "mision": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "mitigacion": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "modelo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "modelo-de-amenazas": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "modelo-de-ingreso": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "modulo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "monitor": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "monolito": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "monolito-modular": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "motor": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "mutacion": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "necesidades": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "normalizacion": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "normativo": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "nucleo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "objeto": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "observabilidad": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "observacion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "opcion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "operacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "oportunidades": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "oraculo": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "organizacion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "origen": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "orquestacion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "orquestador": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "ownership": [
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "page-fault": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "pagina": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "paquete": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "parametro": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "particion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "patron": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "peligro": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "peor-caso": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "percentil": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "permiso": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "pipeline": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "plan": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "plan-adaptativo": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "planificacion": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "planificador": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "plano-de-control": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "plataforma": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "plataforma-interna": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "playbook": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "plazo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "portafolio": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "poscondicion": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "postmortem": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "postmortem-sin-culpa": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "potencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "practica": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "precision": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "precondicion": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "preferencia": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "prefijo": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "preguntas-criticas": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "presupuesto": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "presupuesto-de-error": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "principal": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "problemas": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "procedencia": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "proceso": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "produccion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "producto": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "profundidad": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "progreso": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "propiedad": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "propietario": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "proposicion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "propuesta-de-valor": [
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "prototipo": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "proxy": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "proyeccion": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "prueba-de-caracterizacion": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "prueba-de-carga": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "prueba-de-contrato": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "prueba-de-integracion": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "prueba-de-restauracion": [
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "prueba-unitaria": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "puerta": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "puerto": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "punto-de-equilibrio": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "quality-gate": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "radio-de-explosion": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "radio-de-impacto": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "rafaga": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "raiz": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "rango": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "ranura": [
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "reconciliacion": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "recorrido-critico": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "recuperacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "recurso": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "red-de-seguridad": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "redaccion": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "redireccion": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "reduccion": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "reemplazo": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "referencia": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "region": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "registro": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "registro-de-auditoria": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "regla": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "reintentos": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "relacion": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "relleno": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "reloj-vectorial": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "rendimiento": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "reparacion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "repeticion": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "replica": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "replicacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "reposicion": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "reproduccion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "reserva": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "resolucion": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "resolvedor": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "resolver": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ]
+ ],
+ "respaldo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "responsabilidad": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "responsabilidad-compartida": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "restauracion": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "restricciones": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "resultado": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "resultado-explicito": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "resultados-deseados": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "retencion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "retiro": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "retorno": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "retraso-de-replicacion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "retroceso": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "retroceso-exponencial": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "reversibilidad": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "reversion-automatica": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "revision": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "revision-independiente": [
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "riesgo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "rojo": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "rotacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ]
+ ],
+ "ruido": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "runbook": [
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "runtime": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "ruta": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "safety": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "saga": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "salto": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "saturacion": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "secreto": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "secuencia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "segmentacion": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "segmento": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "seguridad": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "senal": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "serializacion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ]
+ ],
+ "servicio": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "sesgo-de-posicion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "simulacro": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "simulado": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "sistema-operativo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "sobre": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "sobrecarga": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "sorpresa": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "sujeto": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ]
+ ],
+ "suposicion": [
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "supuestos": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ],
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "suscripcion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "tarea": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "tarea-util": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "telemetria": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "terminal": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "throughput": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "tiempo-de-recuperacion": [
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "timeout": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "tipo": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "token": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "tormenta-de-reintentos": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "trabajador": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "trabajo": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "traduccion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "transaccion": [
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "transicion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "traspaso": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "trazabilidad": [
+  [
+   "fallo",
+   "therac-25",
+   "Therac-25"
+  ]
+ ],
+ "trinquete": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ]
+ ],
+ "troncal": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "tuberia": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "validacion": [
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ],
+ "valor": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "valor-por-defecto": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ]
+ ],
+ "variante": [
+  [
+   "fallo",
+   "quibi",
+   "Quibi"
+  ]
+ ],
+ "vecino-ruidoso": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ]
+ ],
+ "ventana": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ]
+ ],
+ "ventana-de-gracia": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "ventana-de-retencion": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "verde": [
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "fallo",
+   "knight-capital",
+   "Knight Capital"
+  ],
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "verificacion": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "verificacion-independiente": [
+  [
+   "fallo",
+   "healthcare-gov",
+   "HealthCare.gov"
+  ]
+ ],
+ "verificador": [
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "version": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "versionado": [
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ]
+ ],
+ "vista": [
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "airbnb",
+   "Airbnb"
+  ],
+  [
+   "fallo",
+   "tsb",
+   "TSB Bank"
+  ],
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "vista-logica": [
+  [
+   "fallo",
+   "meta-2021",
+   "Caída global de Meta"
+  ]
+ ],
+ "volumen": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "whatsapp",
+   "WhatsApp"
+  ],
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ]
+ ],
+ "webhook": [
+  [
+   "exito",
+   "mercado-libre",
+   "Mercado Libre"
+  ],
+  [
+   "exito",
+   "stripe",
+   "Stripe"
+  ],
+  [
+   "fallo",
+   "gitlab-2017",
+   "Incidente de base de datos de GitLab"
+  ]
+ ],
+ "zona": [
+  [
+   "exito",
+   "netflix",
+   "Netflix"
+  ],
+  [
+   "exito",
+   "uber",
+   "Uber"
+  ],
+  [
+   "exito",
+   "amazon",
+   "Amazon"
+  ],
+  [
+   "exito",
+   "spotify",
+   "Spotify"
+  ],
+  [
+   "fallo",
+   "crowdstrike",
+   "CrowdStrike"
+  ]
+ ]
+}

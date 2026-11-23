@@ -11,10 +11,12 @@ from pathlib import Path
 
 try:
     import cross_references
+    import glossary_links
     import mermaid_render as mr
     import program_state as ps
 except ModuleNotFoundError:  # importado como scripts.build_phase3
     from scripts import cross_references
+    from scripts import glossary_links
     from scripts import mermaid_render as mr
     from scripts import program_state as ps
 
@@ -775,6 +777,7 @@ def rubric(part: dict, lesson: dict) -> dict:
 
 SITE_LESSON_PATH = re.compile(r"classes/part-\d\d-[^/]+/se-(\d{3})-[^/]+(?:/README\.md|/)?")
 SITE_PART_PATH = re.compile(r"classes/part-(\d\d)-[^/]+(?:/README\.md|/)?")
+SITE_GLOSSARY_PATH = re.compile(r"glosario/entradas/([^/]+)/([^/]+)\.md")
 
 
 def site_href(href: str, page: str, source_dir: str) -> str:
@@ -793,6 +796,12 @@ def site_href(href: str, page: str, source_dir: str) -> str:
     if lesson:
         target = f"SE-{lesson.group(1)}.html"
         return (target if page == "classes" else f"../classes/{target}") + suffix
+    glossary = SITE_GLOSSARY_PATH.fullmatch(resolved)
+    if glossary:
+        target = f"glosario/{glossary.group(1)}/{glossary.group(2)}.html"
+        return f"../{target}" + suffix
+    if resolved == "glosario/README.md":
+        return "../glosario/index.html" + suffix
     part = SITE_PART_PATH.fullmatch(resolved)
     if part:
         target = f"{part.group(1)}.html"
@@ -1046,6 +1055,8 @@ def published_markdown(
         "(../../site/",
         "(https://vladimiracunadev-create.github.io/modern-software-engineering-program/",
     )
+    # Los términos de la clase se enlazan a su entrada del glosario (vínculo de ida y vuelta).
+    linked = glossary_links.link_class(linked, lesson["id"], lesson["path"])
     # Los diagramas Mermaid de content/ (fuente editable) se publican como SVG.
     return mr.publish_markdown(linked, ROOT / lesson["path"])
 

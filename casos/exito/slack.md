@@ -1,6 +1,6 @@
 # Slack
 
-[↑ Casos de éxito](README.md) · [← Stripe](stripe.md)
+[↑ Casos de éxito](README.md) · [← Stripe](stripe.md) · [Shopify →](shopify.md)
 
 > **Caso de éxito.** Slack pasó de ser un producto lanzado en 2014 a una plataforma que en enero de 2021 tenía más de 756 000 organizaciones y 156 000 clientes de pago, y que Salesforce adquirió en julio de 2021. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -428,4 +428,4 @@ Todas las URL se consultaron el 23 de noviembre de 2026 y devolvieron contenido 
 - **[S8]** [Slack's Incident on 2-22-22](https://slack.engineering/slacks-incident-on-2-22-22/): caché vaciada, consulta dispersa y limitación de arranque.
 - **[S9]** [Slack's Migration to a Cellular Architecture](https://slack.engineering/slacks-migration-to-a-cellular-architecture/): fallo gris del 30 de junio de 2021 y drenaje de zonas.
 
-[↑ Casos de éxito](README.md) · [← Stripe](stripe.md)
+[↑ Casos de éxito](README.md) · [← Stripe](stripe.md) · [Shopify →](shopify.md)

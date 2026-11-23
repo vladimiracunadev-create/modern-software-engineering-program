@@ -81,6 +81,28 @@ CASES: list[dict[str, str]] = [
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}
 
 
+NUMBER_WORDS = {8: "ocho", 9: "nueve", 10: "diez", 11: "once", 12: "doce", 13: "trece", 14: "catorce",
+                15: "quince", 16: "dieciséis", 17: "diecisiete", 18: "dieciocho", 19: "diecinueve", 20: "veinte",
+                21: "veintiuno", 22: "veintidós", 23: "veintitrés", 24: "veinticuatro", 25: "veinticinco",
+                26: "veintiséis", 27: "veintisiete", 28: "veintiocho", 29: "veintinueve", 30: "treinta",
+                31: "treinta y uno", 32: "treinta y dos"}
+
+
+def number_word(count: int) -> str:
+    """Spanish word for a case count (digits above the table), so prose never hard-codes a count."""
+    return NUMBER_WORDS.get(count, str(count))
+
+
+def count_of(kind: str | None = None) -> int:
+    return len([c for c in CASES if kind is None or c["kind"] == kind])
+
+
+def names_phrase(kind: str) -> str:
+    """'A, B y C' with the names of the cases of a kind, in registry order."""
+    names = [c["name"] for c in cases_of(kind)]
+    return ", ".join(names[:-1]) + " y " + names[-1]
+
+
 def cases_of(kind: str) -> list[dict[str, str]]:
     return [case for case in CASES if case["kind"] == kind]
 

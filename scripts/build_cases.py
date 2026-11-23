@@ -1,7 +1,7 @@
 """Generate the "Casos de estudio" surface: group pages, section text and the portal pages.
 
 * ``casos/exito/README.md`` and ``casos/fallo/README.md`` come from ``scripts/cases_data.py``;
-* the 16 case files ``casos/<kind>/<slug>.md`` are written by hand (a skeleton carries
+* the case files ``casos/<kind>/<slug>.md`` are written by hand (a skeleton carries
   ``SKELETON_MARKER`` until the case is written) and are only *read* here;
 * ``site/casos/**`` holds the portal pages (group indexes, one page per case) and
   ``site/casos/figures/`` a copy of ``casos/figures/*.svg``.
@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import cross_references  # noqa: E402
-from cases_data import CASES, GITHUB_BLOB, KINDS, SKELETON_MARKER, cases_of  # noqa: E402
+from cases_data import CASES, GITHUB_BLOB, KINDS, SKELETON_MARKER, cases_of, count_of, names_phrase, number_word  # noqa: E402
 
 PROGRAM_NAME = "Programa de Ingeniería de Software Moderna"
 GUIDE = "casos/GUIDE.md"
@@ -59,8 +59,8 @@ def index_lines(kind: str) -> str:
 GROUP_TEXT = {
     "exito": {
         "what": (
-            "Esta página reúne ocho plataformas que lograron escala, ingresos o una posición difícil de disputar: "
-            "Netflix, WhatsApp, Uber, Mercado Libre, Amazon, Spotify, Airbnb y Stripe. Cada una tiene su propio caso, "
+            f"Esta página reúne {number_word(count_of('exito'))} plataformas que lograron escala, ingresos o una posición difícil de disputar: "
+            f"{names_phrase('exito')}. Cada una tiene su propio caso, "
             "escrito como un estudio completo: ficha histórica, problema, usuarios, funcionalidad de principio a fin, "
             "economía, arquitectura con esquemas, casos especiales, línea de tiempo y vínculo con las clases."
         ),
@@ -84,8 +84,7 @@ GROUP_TEXT = {
     },
     "fallo": {
         "what": (
-            "Esta página reúne ocho fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB, la caída "
-            "global de Meta en 2021, CrowdStrike, Therac-25, el incidente de GitLab en 2017 y Quibi. Cada uno tiene su "
+            f"Esta página reúne {number_word(count_of('fallo'))} fallos de plataformas y sistemas: {names_phrase('fallo')}. Cada uno tiene su "
             "propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las "
             "mejoras que debieron hacerse."
         ),
@@ -182,6 +181,8 @@ def skeleton(case: dict[str, str]) -> str:
 # --------------------------------------------------------------------------- README section
 def readme_section() -> str:
     exito, fallo = len(cases_of("exito")), len(cases_of("fallo"))
+    first_e, last_e = cases_of("exito")[0]["name"], cases_of("exito")[-1]["name"]
+    first_f, last_f = cases_of("fallo")[0]["name"], cases_of("fallo")[-1]["name"]
     return f"""## 🏛️ Casos de estudio: la realidad frente a la teoría
 
 Además de las partes y los roles, el programa ofrece una superficie propia: **casos de estudio** de plataformas
@@ -191,8 +192,8 @@ histórica, problema, usuarios, funcionalidad de principio a fin, economía, arq
 especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fuentes públicas) descrito en la
 [guía de casos]({GUIDE}).
 
-- 🚀 [**Plataformas exitosas**](casos/exito/README.md): {exito} casos, de Netflix a Stripe.
-- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): {fallo} casos, de Knight Capital a Quibi.
+- 🚀 [**Plataformas exitosas**](casos/exito/README.md): {exito} casos, de {first_e} a {last_e}.
+- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): {fallo} casos, de {first_f} a {last_f}.
 """
 
 
@@ -301,6 +302,19 @@ def site_pages(read) -> dict[Path, str]:
     return result
 
 
+ABOUT_FILES = (".github/repository-metadata.json", "docs/PUBLICATION-PLAN.md")
+ABOUT_COUNT = re.compile(r"\d+ casos de estudio")
+
+
+def about_files() -> dict[Path, str]:
+    """The About text quotes the number of cases; it is derived from the registry, never typed by hand."""
+    result: dict[Path, str] = {}
+    for rel in ABOUT_FILES:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        result[ROOT / rel] = ABOUT_COUNT.sub(f"{len(CASES)} casos de estudio", text)
+    return result
+
+
 def expected_files() -> dict[Path, str]:
     def read(rel: str) -> str:
         return (ROOT / rel).read_text(encoding="utf-8")
@@ -316,6 +330,7 @@ def expected_files() -> dict[Path, str]:
             for path, content in site_pages(lambda rel: fresh[rel] if rel in fresh else read(rel)).items()
         }
     )
+    files.update(about_files())
     for svg in sorted((ROOT / "casos/figures").glob("*.svg")):
         files[ROOT / "site/casos/figures" / svg.name] = svg.read_text(encoding="utf-8")
     return files

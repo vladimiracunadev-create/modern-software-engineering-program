@@ -17,7 +17,8 @@ except ModuleNotFoundError:  # importado como scripts.build_phase2
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-import build_cases  # noqa: E402
+import build_cases
+from cases_data import CASES, count_of, number_word  # noqa: E402
 import cross_references  # noqa: E402
 import legacy_pages  # noqa: E402
 from role_profiles import PROFILES as ROLE_PROFILES  # noqa: E402
@@ -638,8 +639,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Rutas profesionales | {ROLE_COUNT} guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
-| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
+| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las {2 + len(CASES)} de `site/casos/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
+| Casos de estudio | {len(CASES)} casos ({count_of('exito')} de éxito y {count_of('fallo')} de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
@@ -687,8 +688,8 @@ def file_index(program: dict) -> str:
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
 | Páginas del sitio | `site/**/*.html` (sin `site/casos/`, `site/legacy/` ni `site/404.html`) | {1 + program['part_count'] + program['class_count']} |
-| Casos de estudio | `casos/GUIDE.md`, `casos/{{exito,fallo}}/*.md` | 1 guía, 2 páginas de grupo y 16 casos |
-| Páginas de casos | `site/casos/**/*.html` | 18 |
+| Casos de estudio | `casos/GUIDE.md`, `casos/{{exito,fallo}}/*.md` | 1 guía, 2 páginas de grupo y {len(CASES)} casos |
+| Páginas de casos | `site/casos/**/*.html` | {2 + len(CASES)} |
 
 Todos los conteos se validan contra `curriculum.yaml`.
 """
@@ -771,7 +772,7 @@ def site_index(program: dict) -> str:
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 07 · contenido desarrollado</p><h3>Estructuras de datos y algoritmos</h3><p>Una biblioteca de estructuras y algoritmos relaciona operaciones e invariantes con complejidad, casos límite y mediciones reproducibles.</p></div><a href="parts/07.html">Estudiar la Parte 07 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 08 · contenido desarrollado</p><h3>Entornos, herramientas y depuración</h3><p>Un entorno reproducible de diagnóstico conecta síntomas, hipótesis, primera divergencia, herramientas y recuperación.</p></div><a href="parts/08.html">Estudiar la Parte 08 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · contenido desarrollado</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Estudiar la Parte 09 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Superficie propia · no son clases ni roles</p><h3>Casos de estudio: la realidad frente a la teoría</h3><p>Ocho plataformas exitosas y ocho fallos, cada uno con ficha histórica, arquitectura, línea de tiempo y vínculo con las clases del curso.</p></div><a href="casos/exito/index.html">Casos de éxito →</a><a href="casos/fallo/index.html">Casos de fallo →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Superficie propia · no son clases ni roles</p><h3>Casos de estudio: la realidad frente a la teoría</h3><p>{number_word(count_of('exito')).capitalize()} plataformas exitosas y {number_word(count_of('fallo'))} fallos, cada uno con ficha histórica, arquitectura, línea de tiempo y vínculo con las clases del curso.</p></div><a href="casos/exito/index.html">Casos de éxito →</a><a href="casos/fallo/index.html">Casos de fallo →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las {program['class_count']} clases desarrolladas</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
 <footer>Generado desde curriculum.yaml · Línea base {program['baseline_date']}</footer><script src="assets/app.js"></script></body></html>\n"""

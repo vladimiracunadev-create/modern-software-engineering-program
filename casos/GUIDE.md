@@ -14,12 +14,14 @@ el [estándar pedagógico](../docs/PEDAGOGICAL-STANDARD.md) y la
 - Se leen **después** de la teoría. Cada caso enlaza las clases reales (`SE-nnn`) que explican lo que
   muestra; no las sustituye.
 
-## Los 16 casos (lista fija)
+## Los casos (registro único)
 
-La lista vive en [`scripts/cases_data.py`](../scripts/cases_data.py) y no se cambia sin decisión explícita.
+El registro vive en [`scripts/cases_data.py`](../scripts/cases_data.py) y no se cambia sin decisión explícita:
+de él salen los conteos del README, del ROADMAP, del STATUS, del About y del portal; ninguna cifra de casos se
+escribe a mano en otro sitio. Se amplía añadiendo entradas al final de cada grupo.
 
 - Éxito: `netflix`, `whatsapp`, `uber`, `mercado-libre`, `amazon`, `spotify`, `airbnb`, `stripe`.
-- Fallo: `knight-capital`, `healthcare-gov`, `tsb`, `meta-2021`, `crowdstrike`, `therac-25`, `gitlab-2017`, `quibi`.
+- Fallo: `knight-capital`, `healthcare-gov`, `tsb`, `meta-2021`, `crowdstrike`, `therac-25`, `gitlab-2017`, `quibi`
 
 Cada caso vive en `casos/<exito|fallo>/<slug>.md`. Mientras otra sesión lo escribe, el archivo es un
 esqueleto con la marca `<!-- case:status=skeleton -->` y una nota «en elaboración». **Quien escribe un caso
@@ -130,7 +132,7 @@ portal y los validadores los genera el sistema.
 
 ## Qué validan los scripts
 
-`python scripts/validate_cases.py` comprueba: que existan los 16 casos y las dos páginas de grupo; que
+`python scripts/validate_cases.py` comprueba: que existan todos los casos del registro y las dos páginas de grupo; que
 cada caso tenga su navegación; que los enlaces relativos existan; que el índice de cada página liste todos
 los casos; y, para un caso terminado, el esquema de secciones, la longitud mínima, las figuras, el texto
 alternativo sin corchetes, los enlaces a clases reales y las fuentes. `tests/test_cases.py` repite estas

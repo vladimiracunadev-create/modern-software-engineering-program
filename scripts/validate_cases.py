@@ -1,6 +1,6 @@
 """Validate the "Casos de estudio" surface (see casos/GUIDE.md).
 
-Always checked: the 16 fixed cases exist, group pages list every case, every case carries the exact
+Always checked: the registered cases exist, group pages list every case, every case carries the exact
 navigation, relative links resolve. Checked only for a finished case (no skeleton marker): section schema,
 minimum length, figures, alt text without brackets, links to real classes and public sources.
 """
@@ -30,6 +30,7 @@ COMMON_HEAD = [
 FAILURE_ONLY = ["Qué falló en cada instancia", "Causa raíz y factores", "Mejoras que debieron hacerse"]
 COMMON_TAIL = ["Vínculo con el curso", "Qué no generalizar", "Fuentes públicas verificadas"]
 MIN_WORDS = 2000
+MIN_CASES_PER_KIND = 8
 MIN_FIGURES = 2
 MIN_CLASS_LINKS = 5
 MIN_SOURCES = 5
@@ -88,10 +89,9 @@ def main() -> int:
     failures: list[str] = []
     if not (ROOT / "casos/GUIDE.md").is_file():
         failures.append("casos/GUIDE.md missing")
-    expected = {"exito": 8, "fallo": 8}
-    for kind, count in expected.items():
-        if len(cases_of(kind)) != count:
-            failures.append(f"fixed list must have {count} {kind} cases")
+    for kind in KINDS:
+        if len(cases_of(kind)) < MIN_CASES_PER_KIND:
+            failures.append(f"the registry must keep at least {MIN_CASES_PER_KIND} {kind} cases")
         group = ROOT / "casos" / kind / "README.md"
         if not group.is_file():
             failures.append(f"missing group page casos/{kind}/README.md")

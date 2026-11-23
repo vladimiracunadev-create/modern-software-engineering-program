@@ -7,7 +7,7 @@
 
 ## Qué es
 
-Esta página reúne ocho fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB, la caída global de Meta en 2021, CrowdStrike, Therac-25, el incidente de GitLab en 2017 y Quibi. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
+Esta página reúne ocho fallos de plataformas y sistemas: Knight Capital, HealthCare.gov, TSB Bank, Caída global de Meta, CrowdStrike, Therac-25, Incidente de base de datos de GitLab y Quibi. Cada uno tiene su propio caso, con lo que falló en cada instancia, la causa raíz, los factores que contribuyeron y las mejoras que debieron hacerse.
 
 ## Por qué se construyó
 

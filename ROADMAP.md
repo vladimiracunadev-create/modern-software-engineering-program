@@ -221,8 +221,8 @@ un ID posterior a `SE-612`.
 
 ## Casos de estudio
 
-Superficie propia, fuera de las clases, las partes y los roles: ocho plataformas exitosas y ocho
-fallos, leídos después de la teoría para contrastarla con la realidad. Se definen en
+Superficie propia, fuera de las clases, las partes y los roles: plataformas exitosas y fallos (el registro único
+[`scripts/cases_data.py`](scripts/cases_data.py) fija cuántos), leídos después de la teoría para contrastarla con la realidad. Se definen en
 [`casos/GUIDE.md`](casos/GUIDE.md) (esquema único, reglas editoriales y contrato de figuras), se indexan en
 [éxito](casos/exito/README.md) y [fallo](casos/fallo/README.md) y se publican también en el portal. No
 cambian los contadores ni requieren un ADR de ampliación de clases.

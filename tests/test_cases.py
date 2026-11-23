@@ -19,16 +19,18 @@ import validate_cases  # noqa: E402
 from build_figures import collect  # noqa: E402
 from cases_data import CASES, KINDS, SKELETON_MARKER, case_path, cases_of  # noqa: E402
 
-SLUGS = {
+# The first sixteen cases are the original fixed list; later batches only append to the registry.
+ORIGINAL_SLUGS = {
     "exito": ["netflix", "whatsapp", "uber", "mercado-libre", "amazon", "spotify", "airbnb", "stripe"],
     "fallo": ["knight-capital", "healthcare-gov", "tsb", "meta-2021", "crowdstrike", "therac-25", "gitlab-2017", "quibi"],
 }
 
 
 class CasesSurfaceTests(unittest.TestCase):
-    def test_fixed_list_of_sixteen_cases(self) -> None:
-        for kind, slugs in SLUGS.items():
-            self.assertEqual(slugs, [case["slug"] for case in cases_of(kind)])
+    def test_registry_keeps_the_original_cases_and_unique_slugs(self) -> None:
+        for kind, slugs in ORIGINAL_SLUGS.items():
+            self.assertEqual(slugs, [case["slug"] for case in cases_of(kind)][: len(slugs)])
+        self.assertEqual(len(CASES), len({case["slug"] for case in CASES}))
         for case in CASES:
             self.assertTrue((ROOT / case_path(case)).is_file(), case_path(case))
             self.assertTrue(case["hook"].endswith("."), case["slug"])

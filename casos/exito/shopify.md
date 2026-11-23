@@ -1,6 +1,6 @@
 # Shopify
 
-[↑ Casos de éxito](README.md) · [← Slack](slack.md)
+[↑ Casos de éxito](README.md) · [← Slack](slack.md) · [Instagram →](instagram.md)
 
 > **Caso de éxito.** Shopify nació en 2004 de un programador que quería vender tablas de snowboard por internet y en 2025 facilitó 378 400 millones de dólares de ventas de sus comerciantes, con ingresos de 11 556 millones. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -416,4 +416,4 @@ Todas las URL se consultaron el 23 de noviembre de 2026 y devolvieron contenido 
 - **[H10]** [Webhook best practices](https://shopify.engineering/17488672-webhook-best-practices): espera de 10 segundos y reintentos durante 48 horas en la entrega de webhooks (2012).
 - **[H11]** [Horizontally scaling the Rails backend of Shop app with Vitess](https://shopify.engineering/horizontally-scaling-the-rails-backend-of-shop-app-with-vitess): Vitess en la aplicación Shop (2024).
 
-[↑ Casos de éxito](README.md) · [← Slack](slack.md)
+[↑ Casos de éxito](README.md) · [← Slack](slack.md) · [Instagram →](instagram.md)

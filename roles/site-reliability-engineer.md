@@ -100,7 +100,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [🔭 Observability Engineer](observability-engineer.md); [🚚 DevOps Engineer](devops-engineer.md); [🗄️ Database Reliability Engineer](database-reliability-engineer.md);
+- [🔭 Observability Engineer](observability-engineer.md); [🚚 DevOps Engineer](devops-engineer.md); [🗄️ Database Reliability Engineer](database-reliability-engineer.md); [🌪️ Chaos & Resilience Engineer](chaos-resilience-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.

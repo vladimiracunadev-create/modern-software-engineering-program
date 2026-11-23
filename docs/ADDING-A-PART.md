@@ -158,7 +158,7 @@ vacante) ni en las guías de rol hasta que exista su contenido completo
   en `roles/` con más de 2.200 palabras y dos gráficos interpretables, y su nombre en las
   listas `EXTRA_ADJACENT` de los roles vecinos. Hoy las partes figuran como contexto
   planificado en `PLANNED_BY_ROLE`; al publicarse, `build_role_guides.py` enlaza su primera,
-  sexta y última clase sin más edición. El programa tiene 45 roles hasta entonces.
+  sexta y última clase sin más edición. El programa tiene 47 roles hasta entonces.
 - **Ampliaciones de clases existentes** (CRDT y consenso, software verde, InnerSource):
   se hacen dentro del ID existente (`SE-260`, `SE-391`, `SE-022` y
   `SE-200`), sin renumerar ni añadir IDs.

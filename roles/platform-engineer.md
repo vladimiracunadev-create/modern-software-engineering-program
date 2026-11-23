@@ -100,7 +100,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [🧰 Developer Experience Engineer](developer-experience-engineer.md); [🚚 DevOps Engineer](devops-engineer.md); [🧭 Staff / Principal Engineer y Technical Lead](technical-leadership.md); [🧬 MLOps / ML Platform Engineer](mlops-ml-platform-engineer.md);
+- [🧰 Developer Experience Engineer](developer-experience-engineer.md); [🚚 DevOps Engineer](devops-engineer.md); [🧭 Staff / Principal Engineer y Technical Lead](technical-leadership.md); [🧬 MLOps / ML Platform Engineer](mlops-ml-platform-engineer.md); [🏢 SaaS / Product Platform Engineer](saas-product-platform-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.

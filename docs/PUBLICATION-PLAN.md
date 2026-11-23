@@ -9,7 +9,7 @@
 
 ## About publicado
 
-> 🧭 Currículo abierto en español para aprender ingeniería de software de los fundamentos a la operación, la arquitectura y la IA con agentes · 588 clases desarrolladas en 49 partes y dos partes en preparación, 45 rutas por rol y 16 casos de estudio de plataformas reales · práctica reproducible, figuras y fuentes verificadas · Python + Pages
+> 🧭 Currículo abierto en español para aprender ingeniería de software de los fundamentos a la operación, la arquitectura y la IA con agentes · 588 clases desarrolladas en 49 partes y dos partes en preparación, 47 rutas por rol y 16 casos de estudio de plataformas reales · práctica reproducible, figuras y fuentes verificadas · Python + Pages
 
 Reglas del texto:
 

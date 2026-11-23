@@ -48,6 +48,7 @@ ROLE_GROUPS: list[tuple[str, list[tuple[str, str]]]] = [
             ('desktop-engineer.md', 'integración nativa, instalación y actualización'),
             ('embedded-iot-engineer.md', 'firmware, RTOS, energía, telemetría y OTA'),
             ('safety-critical-software-engineer.md', 'hazards, controles y assurance'),
+            ('saas-product-platform-engineer.md', 'tenencia, planes, uso facturable y economía unitaria'),
         ],
     ),
     (
@@ -79,6 +80,7 @@ ROLE_GROUPS: list[tuple[str, list[tuple[str, str]]]] = [
             ('observability-engineer.md', 'logs, métricas, trazas y diagnóstico'),
             ('platform-engineer.md', 'IDP, golden paths y autoservicio'),
             ('developer-experience-engineer.md', 'tooling, onboarding y feedback loops'),
+            ('chaos-resilience-engineer.md', 'hipótesis de estado estable, inyección de fallos y diseño para degradar'),
         ],
     ),
     (
@@ -122,6 +124,68 @@ ROLE_GROUPS: list[tuple[str, list[tuple[str, str]]]] = [
         ],
     ),
 ]
+
+
+# Filas nuevas de la tabla de roles/README.md: (familia, nombre, misión corta). Las filas existentes conservan su texto
+# y solo se recalcula la columna «Ruta principal» a partir del núcleo de cada perfil.
+INDEX_ROWS_NEW = {
+    "saas-product-platform-engineer.md": ("Producto digital", "SaaS / Product Platform Engineer", "aislar, medir, limitar y cobrar el uso de un producto compartido por muchos clientes"),
+    "chaos-resilience-engineer.md": ("Confiabilidad", "Chaos & Resilience Engineer", "demostrar con experimentos controlados que el sistema cumple su tarea útil cuando falla"),
+}
+
+
+def collapse_parts(part_ids: list[str]) -> str:
+    """«01, 23, 32–33» a partir de los números de parte del núcleo."""
+
+    numbers = sorted(int(part) for part in part_ids)
+    chunks: list[str] = []
+    start = prev = numbers[0]
+    for number in [*numbers[1:], None]:
+        if number is not None and number == prev + 1:
+            prev = number
+            continue
+        chunks.append(f"{start:02d}" if start == prev else f"{start:02d}–{prev:02d}")
+        if number is not None:
+            start = prev = number
+    return ", ".join(chunks)
+
+
+def render_index_table(text: str) -> str:
+    """Recalcula la columna «Ruta principal», añade filas de roles nuevos y los conteos de la prosa."""
+
+    lines = text.splitlines()
+    out: list[str] = []
+    last_row = -1
+    for line in lines:
+        match = re.search(r"\]\(([a-z0-9-]+\.md)\) \|", line)
+        if line.startswith("| ") and match and match.group(1) in PROFILES:
+            cells = line.split(" | ")
+            cells[-1] = collapse_parts(list(PROFILES[match.group(1)]["core"])) + " |"
+            line = " | ".join(cells)
+            last_row = len(out)
+        out.append(line)
+    present = "\n".join(out)
+    for filename, (family, name, mission) in INDEX_ROWS_NEW.items():
+        if f"]({filename})" in present:
+            continue
+        row = f"| {family} | [{name}]({filename}) | {mission} | {collapse_parts(list(PROFILES[filename]['core']))} |"
+        out.insert(last_row + 1, row)
+        last_row += 1
+    result = "\n".join(out) + ("\n" if text.endswith("\n") else "")
+    count = len(PROFILES)
+    result = re.sub(r"Las \d+ guías superan", f"Las {count} guías superan", result)
+    result = re.sub(r"## Mapa de \d+ roles", f"## Mapa de {count} roles", result)
+    result = re.sub(r"no son \d+ cursos ni una promesa de empleo, sino \d+ lentes", f"no son {count} cursos ni una promesa de empleo, sino {count} lentes", result)
+    return result
+
+
+def render_main_intro(text: str) -> str:
+    count = len(PROFILES)
+    text = re.sub(r"El programa ofrece \*\*\d+ guías profesionales", f"El programa ofrece **{count} guías profesionales", text)
+    text = re.sub(r"No son \d+ cursos", f"No son {count} cursos", text)
+    text = re.sub(r"índice y \d+ guías profesionales", f"índice y {count} guías profesionales", text)
+    text = re.sub(r"\*\*\d+ rutas profesionales\*\*", f"**{count} rutas profesionales**", text)
+    return text
 
 
 def replace_or_insert(
@@ -801,6 +865,7 @@ def build(check: bool) -> None:
         render_main_map(classes, parts),
         "### 🪜 El ecosistema de carrera técnica",
     )
+    main_rendered = render_main_intro(main_rendered)
     if main_rendered != main_original:
         changed.append(main_path)
         if not check:
@@ -815,6 +880,7 @@ def build(check: bool) -> None:
         render_index_depth(classes, parts),
         "## Fuentes y criterios del mapa",
     )
+    index_rendered = render_index_table(index_rendered)
     if index_rendered != index_original:
         changed.append(index_path)
         if not check:

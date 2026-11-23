@@ -22,7 +22,7 @@ Cada guía contiene:
 - progresión, plan 30/60/90, transiciones vecinas, mitos y preguntas de preparación;
 - fuentes primarias u oficiales conectadas con el oficio.
 
-Las 45 guías superan **2.200 palabras** sin usar esa cifra como sustituto de
+Las 47 guías superan **2.200 palabras** sin usar esa cifra como sustituto de
 calidad. La profundidad se demuestra en mecanismos, decisiones, fallos, evidencia y
 límites específicos; el validador sólo impide que una regresión vuelva a convertirlas
 en fichas breves.
@@ -32,71 +32,74 @@ editorial humana independiente.
 Una ruta describe el recorrido previsto y no certifica que el material haya sido aprobado
 por una revisión humana independiente.
 
-## Mapa de 45 roles
+## Mapa de 47 roles
 
 El mapa se deriva de las capacidades de las partes publicadas y de las nueve partes
-de ampliación de ADR-004 y ADR-006 (23, 26, 28, 30, 37, 45 y 48–50): no son 45 cursos ni una promesa de empleo, sino 45 lentes
+de ampliación de ADR-004 y ADR-006 (23, 26, 28, 30, 37, 45 y 48–50): no son 47 cursos ni una promesa de empleo, sino 47 lentes
 profesionales reutilizando el mismo programa. Agentic Harness Engineer y Domain &
 Methodology Engineer nacen de la brecha documentada en la
 [auditoría de metodologías](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md). Las tres últimas
 guías (MLOps / ML Platform Engineer, AI Governance & Responsible AI Engineer y Runtime &
 Systems Engineer) nacen de [ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)
 y se apoyan en las Partes 23, 30, 37 y 50, ya desarrolladas, además de las partes núcleo de cada ruta.
+Las dos últimas guías (SaaS / Product Platform Engineer y Chaos & Resilience Engineer) nacen de
+[ADR-007](../docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md) y dependen de las Partes 34 y 42;
+el estado de esas partes se declara en la sección de ampliación de cada guía.
 Los perfiles cercanos se mantienen separados solo cuando cambian responsabilidades,
 evidencia y decisiones de salida.
 
 | Familia | Rol | Misión | Ruta principal |
 | --- | --- | --- | --- |
-| Ingeniería general | [Software Engineer](software-engineer.md) | construir y evolucionar software de extremo a extremo | 00–17 + especialidad |
-| Ingeniería general | [Systems Programmer](systems-programmer.md) | controlar memoria, procesos, concurrencia y recursos | 01–09, 18, 22, 24–33 |
-| Producto digital | [Backend Engineer](backend-engineer.md) | diseñar servicios, dominio y datos confiables | 05–13, 20, 24–35 |
-| Producto digital | [Frontend Engineer](frontend-engineer.md) | construir interfaces accesibles y mantenibles | 05–14, 19, 24, 30–34 |
-| Producto digital | [Full-stack Engineer](full-stack-engineer.md) | integrar experiencia, servicios y entrega | 05–20, 24–35 |
-| Clientes | [Mobile Engineer](mobile-engineer.md) | operar bajo ciclos interrumpidos y conectividad variable | 05–14, 20–21, 26–35 |
-| Clientes | [Desktop Engineer](desktop-engineer.md) | integrar, distribuir y actualizar clientes de escritorio | 01–18, 21, 26, 30–36 |
-| Sistemas físicos | [Embedded & IoT Engineer](embedded-iot-engineer.md) | respetar límites de tiempo, memoria, energía y hardware | 01–09, 22–35 |
-| Sistemas críticos | [Safety-Critical Software Engineer](safety-critical-software-engineer.md) | trazar hazards hasta controles y evidencia | 00, 04, 10–17, 22–37 |
-| Interfaces | [API Engineer](api-engineer.md) | gobernar contratos compatibles y consumibles | 03, 05–13, 17, 20, 25–35 |
-| Datos | [Data Engineer](data-engineer.md) | entregar datos trazables, oportunos y evolutivos | 01–13, 26–35 |
-| Datos | [Database Reliability Engineer](database-reliability-engineer.md) | asegurar capacidad, cambios y recuperación de datos | 01–09, 18, 20, 25–36 |
-| Distribución | [Distributed Systems Engineer](distributed-systems-engineer.md) | preservar garantías frente a fallos parciales | 01–13, 20, 24–35 |
-| Calidad | [QA / Test Automation Engineer](qa-test-engineer.md) | convertir riesgos en evidencia y regresión | 04–14, 20, 24, 30–35 |
-| Calidad | [Performance Engineer](performance-engineer.md) | medir capacidad y eliminar cuellos de botella reales | 01–08, 19–20, 26–35 |
-| Inclusión | [Accessibility Engineer](accessibility-engineer.md) | eliminar barreras en tareas completas | 00, 10–14, 19, 21, 30–37 |
-| Globalización | [Internationalization Engineer](internationalization-engineer.md) | separar lógica de idioma, tiempo y cultura | 01, 03–14, 19–21, 26, 30–34 |
-| Análisis | [Requirements Engineer / Business Systems Analyst](requirements-engineer.md) | transformar necesidades y conflictos en acuerdos trazables | 00, 04, 10–17, 23, 30, 37 |
-| Entrega | [DevOps Engineer](devops-engineer.md) | hacer repetible y segura la entrega de cambios | 02–03, 08–09, 16–18, 29–35 |
-| Entrega | [Build & Release Engineer](build-release-engineer.md) | producir artefactos verificables y reversibles | 01–09, 16–18, 29–36 |
-| Cloud | [Cloud Engineer](cloud-engineer.md) | automatizar infraestructura segura y recuperable | 01–09, 16–18, 20, 25–36 |
-| Confiabilidad | [Site Reliability Engineer](site-reliability-engineer.md) | gestionar confiabilidad mediante software y SLO | 02–03, 20, 26–36 |
-| Confiabilidad | [Observability Engineer](observability-engineer.md) | convertir telemetría en diagnóstico y acción | 02–03, 08, 20, 26–39 |
-| Plataforma | [Platform Engineer](platform-engineer.md) | ofrecer capacidades internas autoservicio | 08–20, 29, 33–39 |
-| Plataforma | [Developer Experience Engineer](developer-experience-engineer.md) | reducir fricción y tiempo de feedback con evidencia | 08–18, 29, 33–39 |
-| Seguridad | [Security Engineer](security-engineer.md) | integrar prevención, detección y respuesta | 02–03, 09, 12–14, 20, 29–35 |
-| Gobierno | [Compliance Engineer](compliance-engineer.md) | transformar obligaciones en controles y evidencia | 00, 10–17, 23, 32–37 |
-| Economía | [FinOps Engineer](finops-engineer.md) | relacionar consumo tecnológico, valor y riesgo | 00, 10–11, 15, 25–38 |
-| Sostenibilidad | [Green Software Engineer](green-software-engineer.md) | reducir recursos y carbono con mediciones comparables | 00–11, 19–38 |
-| Conocimiento | [Technical Writer / Documentation Engineer](technical-writer.md) | hacer utilizable y mantenible el conocimiento técnico | 00, 04–20, 33–39 |
-| Colaboración | [Open Source & InnerSource Engineer](open-source-innersource-engineer.md) | sostener contribución, governance y ownership | 00, 09–17, 32–37 |
-| Evolución | [Legacy Modernization Engineer](legacy-modernization-engineer.md) | cambiar sistemas críticos sin perder continuidad | 08, 12–17, 24–36 |
-| Diseño sistémico | [Software Architect](software-architect.md) | alinear restricciones, calidad y evolución | 10–17, 20, 23–37 |
-| Diseño de soluciones | [Solutions Architect](solutions-architect.md) | integrar contexto, producto, terceros y transición | 00, 10–17, 19–39 |
-| Producto técnico | [Technical Product Engineer](technical-product-engineer.md) | unir discovery, economía y factibilidad | 00, 10–20, 24–25, 31, 37–39 |
-| Liderazgo técnico | [Staff / Principal / Technical Lead](technical-leadership.md) | multiplicar decisiones más allá de un equipo | 00, 10–17, 24–39 |
-| Liderazgo de personas | [Engineering Manager](engineering-manager.md) | sostener personas, flujo, calidad y crecimiento | 00, 10–17, 31, 35–39 |
-| Dirección | [CTO / Dirección de Tecnología](cto.md) | responder por estrategia, organización y riesgo | 00, 10–17, 23–39 |
-| Ingeniería con IA | [AI-Augmented Software Engineer](ai-augmented-software-engineer.md) | desarrollar con agentes bajo verificación humana | 00, 05, 08–17, 24, 30–39 |
-| Sistemas con IA | [AI Systems Engineer](ai-systems-engineer.md) | integrar modelos con evals, guardrails y fallback | 00–13, 20, 24–39 |
-| Ingeniería agentic | [Agentic Harness Engineer](agentic-harness-engineer.md) | gobernar contexto, herramientas, bucles, evaluación y recuperación de agentes | 05, 18, 20, 35, 38–39 (+41–42) |
-| Metodología y dominio | [Domain & Methodology Engineer](domain-methodology-engineer.md) | convertir TDD, BDD, ATDD, DDD, contratos y SDD en práctica verificable | 05, 12–13, 24–25, 30 (+40, 43) |
-| MLOps y plataforma de ML | [MLOps / ML Platform Engineer](mlops-ml-platform-engineer.md) | operar modelos reproducibles, desplegables, observables y reversibles | 23, 26–27, 34–35, 38, 42 (+45–46) |
-| Gobierno de IA | [AI Governance & Responsible AI Engineer](ai-governance-responsible-ai-engineer.md) | convertir riesgo, equidad y regulación de IA en controles y evidencia | 00, 32, 38–39, 42 (+46) |
-| Runtimes y plataformas | [Runtime & Systems Engineer](runtime-systems-engineer.md) | elegir y medir entornos de ejecución, aislamiento y aceleradores | 01, 28–32 (+47–48) |
+| Ingeniería general | [Software Engineer](software-engineer.md) | construir y evolucionar software de extremo a extremo | 05–06, 12, 16, 25–27, 35, 41, 45 |
+| Ingeniería general | [Systems Programmer](systems-programmer.md) | controlar memoria, procesos, concurrencia y recursos | 01–02, 06, 23, 26, 28, 32, 36–37 |
+| Producto digital | [Backend Engineer](backend-engineer.md) | diseñar servicios, dominio y datos confiables | 20, 26–29, 31, 36, 41 |
+| Producto digital | [Frontend Engineer](frontend-engineer.md) | construir interfaces accesibles y mantenibles | 06, 14, 19, 25–26, 28, 35–36 |
+| Producto digital | [Full-stack Engineer](full-stack-engineer.md) | integrar experiencia, servicios y entrega | 13, 19–20, 27, 29, 35, 40–41, 45 |
+| Clientes | [Mobile Engineer](mobile-engineer.md) | operar bajo ciclos interrumpidos y conectividad variable | 14, 21, 26, 35–36, 38–39 |
+| Clientes | [Desktop Engineer](desktop-engineer.md) | integrar, distribuir y actualizar clientes de escritorio | 02, 14, 18, 21, 26, 38–39 |
+| Sistemas físicos | [Embedded & IoT Engineer](embedded-iot-engineer.md) | respetar límites de tiempo, memoria, energía y hardware | 01, 22–23, 36–39 |
+| Sistemas críticos | [Safety-Critical Software Engineer](safety-critical-software-engineer.md) | trazar hazards hasta controles y evidencia | 04, 12–13, 22, 35–38, 45 |
+| Interfaces | [API Engineer](api-engineer.md) | gobernar contratos compatibles y consumibles | 13, 17, 20, 26, 31, 35, 38, 43, 45 |
+| Datos | [Data Engineer](data-engineer.md) | entregar datos trazables, oportunos y evolutivos | 29–33, 41, 50 |
+| Datos | [Database Reliability Engineer](database-reliability-engineer.md) | asegurar capacidad, cambios y recuperación de datos | 28–30, 32, 36, 41, 43 |
+| Distribución | [Distributed Systems Engineer](distributed-systems-engineer.md) | preservar garantías frente a fallos parciales | 26, 28–29, 31–32, 36, 41 |
+| Calidad | [QA / Test Automation Engineer](qa-test-engineer.md) | convertir riesgos en evidencia y regresión | 12–13, 30, 35–36, 45, 50 |
+| Calidad | [Performance Engineer](performance-engineer.md) | medir capacidad y eliminar cuellos de botella reales | 01, 07–08, 23, 32, 36, 41 |
+| Inclusión | [Accessibility Engineer](accessibility-engineer.md) | eliminar barreras en tareas completas | 10, 12, 14, 19, 21, 35–36, 40 |
+| Globalización | [Internationalization Engineer](internationalization-engineer.md) | separar lógica de idioma, tiempo y cultura | 01, 12, 14, 17, 19, 21, 29, 35 |
+| Análisis | [Requirements Engineer / Business Systems Analyst](requirements-engineer.md) | transformar necesidades y conflictos en acuerdos trazables | 10, 12–14, 17, 38, 45, 47 |
+| Entrega | [DevOps Engineer](devops-engineer.md) | hacer repetible y segura la entrega de cambios | 02, 18, 33, 36, 39–41 |
+| Entrega | [Build & Release Engineer](build-release-engineer.md) | producir artefactos verificables y reversibles | 08–09, 16, 23, 38–40 |
+| Cloud | [Cloud Engineer](cloud-engineer.md) | automatizar infraestructura segura y recuperable | 03, 23, 32–33, 36, 38, 40–41 |
+| Confiabilidad | [Site Reliability Engineer](site-reliability-engineer.md) | gestionar confiabilidad mediante software y SLO | 03, 23, 26, 32, 36, 41, 43, 50 |
+| Confiabilidad | [Observability Engineer](observability-engineer.md) | convertir telemetría en diagnóstico y acción | 03, 08, 20, 23, 30, 32, 36, 41, 49 |
+| Plataforma | [Platform Engineer](platform-engineer.md) | ofrecer capacidades internas autoservicio | 09, 23, 28, 30, 33, 40, 44, 50 |
+| Plataforma | [Developer Experience Engineer](developer-experience-engineer.md) | reducir fricción y tiempo de feedback con evidencia | 08–09, 17–18, 40, 44, 46, 48 |
+| Seguridad | [Security Engineer](security-engineer.md) | integrar prevención, detección y respuesta | 20, 23, 38–39, 41, 47, 49–50 |
+| Gobierno | [Compliance Engineer](compliance-engineer.md) | transformar obligaciones en controles y evidencia | 00, 12, 30, 37–38, 41, 44, 50 |
+| Economía | [FinOps Engineer](finops-engineer.md) | relacionar consumo tecnológico, valor y riesgo | 11, 23, 28, 30, 33, 36, 44, 49–50 |
+| Sostenibilidad | [Green Software Engineer](green-software-engineer.md) | reducir recursos y carbono con mediciones comparables | 01, 11, 19, 23, 30, 33, 36, 50 |
+| Conocimiento | [Technical Writer / Documentation Engineer](technical-writer.md) | hacer utilizable y mantenible el conocimiento técnico | 09, 13–14, 17, 41, 45–47 |
+| Colaboración | [Open Source & InnerSource Engineer](open-source-innersource-engineer.md) | sostener contribución, governance y ownership | 09, 16–17, 23, 30, 39–40, 44 |
+| Evolución | [Legacy Modernization Engineer](legacy-modernization-engineer.md) | cambiar sistemas críticos sin perder continuidad | 08, 25, 28–31, 39, 43–44 |
+| Diseño sistémico | [Software Architect](software-architect.md) | alinear restricciones, calidad y evolución | 12, 25–28, 30, 32, 36, 44 |
+| Diseño de soluciones | [Solutions Architect](solutions-architect.md) | integrar contexto, producto, terceros y transición | 10–11, 27–28, 30–31, 33, 38, 44 |
+| Producto técnico | [Technical Product Engineer](technical-product-engineer.md) | unir discovery, economía y factibilidad | 10–12, 14–15, 30, 45–46 |
+| Liderazgo técnico | [Staff / Principal / Technical Lead](technical-leadership.md) | multiplicar decisiones más allá de un equipo | 15, 17, 25, 27–28, 41, 44–46 |
+| Liderazgo de personas | [Engineering Manager](engineering-manager.md) | sostener personas, flujo, calidad y crecimiento | 11, 15, 36, 40–41, 44, 46, 50 |
+| Dirección | [CTO / Dirección de Tecnología](cto.md) | responder por estrategia, organización y riesgo | 11, 15, 23, 27, 33, 38, 43–44, 46, 50 |
+| Ingeniería con IA | [AI-Augmented Software Engineer](ai-augmented-software-engineer.md) | desarrollar con agentes bajo verificación humana | 13, 35, 45–48 |
+| Sistemas con IA | [AI Systems Engineer](ai-systems-engineer.md) | integrar modelos con evals, guardrails y fallback | 20, 24, 30, 36, 41, 46–47, 49–50 |
+| Ingeniería agentic | [Agentic Harness Engineer](agentic-harness-engineer.md) | gobernar contexto, herramientas, bucles, evaluación y recuperación de agentes | 18, 20, 23, 41, 46–50 |
+| Metodología y dominio | [Domain & Methodology Engineer](domain-methodology-engineer.md) | convertir TDD, BDD, ATDD, DDD, contratos y SDD en práctica verificable | 06, 12–13, 25, 27, 35, 45, 47 |
+| MLOps y plataforma de ML | [MLOps / ML Platform Engineer](mlops-ml-platform-engineer.md) | operar modelos reproducibles, desplegables, observables y reversibles | 30–31, 33, 36, 39–41, 49–50 |
+| Gobierno de IA | [AI Governance & Responsible AI Engineer](ai-governance-responsible-ai-engineer.md) | convertir riesgo, equidad y regulación de IA en controles y evidencia | 00, 30, 37–38, 46–50 |
+| Runtimes y plataformas | [Runtime & Systems Engineer](runtime-systems-engineer.md) | elegir y medir entornos de ejecución, aislamiento y aceleradores | 01, 22–23, 32–33, 36–39 |
 
 <!-- role-index-depth:start -->
 <div align="center">
 
-[![Rutas](https://img.shields.io/badge/rutas-45-6f42c1?style=for-the-badge)](#mapa-de-45-roles)
+[![Rutas](https://img.shields.io/badge/rutas-47-6f42c1?style=for-the-badge)](#mapa-de-47-roles)
 [![Clases](https://img.shields.io/badge/clases-asociadas%20y%20enlazadas-0969da?style=for-the-badge)](#-parte--clases--evidencia)
 [![Evidencia](https://img.shields.io/badge/foco-decisiones%20y%20evidencia-2da44e?style=for-the-badge)](../assessments/rubric.md)
 
@@ -226,6 +229,26 @@ son específicos de cada profesión.
 - **✅ Ya desarrolladas de apoyo (Partes 00–33, 35–41 y 43–50):** [SE-229](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md) · [SE-235](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/README.md) · [SE-236](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/README.md) · [SE-330](../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md) · [SE-341](../classes/part-28-estilos-arquitectonicos/se-341-bff-api-gateway-y-service-mesh/README.md).
 - **🧪 Proyecto profesional:** **Fragmento vertical de producto** — entregar una tarea accesible con API datos pipeline y observabilidad.
 - **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →](full-stack-engineer.md)
+
+#### [🏢 SaaS / Product Platform Engineer](saas-product-platform-engineer.md)
+
+> Convierte un servicio en un producto que muchos clientes comparten sin molestarse entre sí: tenencia aislada, planes con derechos medibles, uso facturable, operación confiable y un costo de servir que deja margen.
+
+- **🧱 Partes núcleo:** [Parte 11 · Economía, métricas y decisiones de producto](../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) · [Parte 20 · Backend, APIs y procesamiento asíncrono](../classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) · [Parte 28 · Estilos arquitectónicos](../classes/part-28-estilos-arquitectonicos/README.md) · [Parte 29 · Datos, persistencia y recuperación](../classes/part-29-datos-persistencia-y-recuperacion/README.md) · [Parte 31 · Integración, eventos y mensajería](../classes/part-31-integracion-eventos-y-mensajeria/README.md) · [Parte 33 · Cloud, plataforma e infraestructura](../classes/part-33-cloud-plataforma-e-infraestructura/README.md) · [Parte 36 · Calidad, rendimiento y resiliencia](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) · [Parte 38 · Seguridad, privacidad y cumplimiento](../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md) · [Parte 41 · Observabilidad, SRE e incidentes](../classes/part-41-observabilidad-sre-e-incidentes/README.md).
+- **🔗 Clases asociadas:**
+  - **Parte 11:** [SE-133](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md) · [SE-134](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) · [SE-136](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md) · [SE-140](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md) · [SE-142](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md).
+  - **Parte 20:** [SE-241](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-241-responsabilidades-y-fronteras-del-backend/README.md) · [SE-244](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md) · [SE-245](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) · [SE-246](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) · [SE-247](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-247-jobs-colas-y-procesamiento-diferido/README.md) · [SE-249](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md).
+  - **Parte 28:** [SE-342](../classes/part-28-estilos-arquitectonicos/se-342-multi-tenancy-y-aislamiento/README.md) · [SE-344](../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md).
+  - **Parte 29:** [SE-351](../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) · [SE-354](../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md) · [SE-355](../classes/part-29-datos-persistencia-y-recuperacion/se-355-replicacion-particion-y-distribucion/README.md) · [SE-357](../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) · [SE-358](../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md).
+  - **Parte 31:** [SE-376](../classes/part-31-integracion-eventos-y-mensajeria/se-376-entrega-orden-duplicacion-y-semanticas/README.md) · [SE-377](../classes/part-31-integracion-eventos-y-mensajeria/se-377-outbox-inbox-sagas-y-compensacion/README.md) · [SE-379](../classes/part-31-integracion-eventos-y-mensajeria/se-379-webhooks-polling-y-suscripciones/README.md) · [SE-380](../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md).
+  - **Parte 33:** [SE-397](../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md) · [SE-401](../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md) · [SE-404](../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md) · [SE-406](../classes/part-33-cloud-plataforma-e-infraestructura/se-406-plataformas-internas-y-golden-paths/README.md).
+  - **Parte 36:** [SE-436](../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) · [SE-438](../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md) · [SE-439](../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md) · [SE-440](../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md).
+  - **Parte 38:** [SE-459](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md) · [SE-462](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md) · [SE-463](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-463-privacidad-por-diseno-y-minimizacion/README.md) · [SE-466](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md).
+  - **Parte 41:** [SE-495](../classes/part-41-observabilidad-sre-e-incidentes/se-495-metricas-dimensiones-y-cardinalidad/README.md) · [SE-497](../classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error/README.md) · [SE-498](../classes/part-41-observabilidad-sre-e-incidentes/se-498-alertas-accionables-y-fatiga/README.md) · [SE-500](../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md).
+- **✅ Ya desarrolladas de apoyo (Partes 00–33, 35–41 y 43–50):** [SE-138](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md) · [SE-143](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) · [SE-144](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md) · [SE-252](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-252-proyecto-servicio-contractual-operable/README.md) · [SE-360](../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md) · [SE-384](../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md) · [SE-408](../classes/part-33-cloud-plataforma-e-infraestructura/se-408-proyecto-plataforma-minima-reproducible/README.md) · [SE-468](../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md) · [SE-504](../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md).
+- **🔭 Planificada, sin clases publicadas:** Parte 34 (`SE-409`–`SE-420`).
+- **🧪 Proyecto profesional:** **Núcleo SaaS multi-tenant medido** — construir aprovisionamiento medición de uso facturación y límites por plan con aislamiento verificable.
+- **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →](saas-product-platform-engineer.md)
 
 
 ### Clientes
@@ -590,6 +613,24 @@ son específicos de cada profesión.
 - **🔭 Planificada, sin clases publicadas:** Parte 42 (`SE-505`–`SE-516`).
 - **🧪 Proyecto profesional:** **Plataforma de diagnóstico interoperable** — responder preguntas de fallo sin depender de dashboards preconstruidos.
 - **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →](observability-engineer.md)
+
+#### [🌪️ Chaos & Resilience Engineer](chaos-resilience-engineer.md)
+
+> Comprueba con experimentos controlados que un sistema sigue cumpliendo su tarea útil cuando algo falla: formula la hipótesis, acota el daño, inyecta el fallo, observa y corrige lo que la evidencia refute.
+
+- **🧱 Partes núcleo:** [Parte 26 · Patrones de diseño, empresariales y de resiliencia](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [Parte 28 · Estilos arquitectónicos](../classes/part-28-estilos-arquitectonicos/README.md) · [Parte 32 · Concurrencia y sistemas distribuidos](../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) · [Parte 36 · Calidad, rendimiento y resiliencia](../classes/part-36-calidad-rendimiento-y-resiliencia/README.md) · [Parte 39 · Build, release y cadena de suministro](../classes/part-39-build-release-y-cadena-de-suministro/README.md) · [Parte 40 · CI/CD, IaC y platform engineering](../classes/part-40-ci-cd-iac-y-platform-engineering/README.md) · [Parte 41 · Observabilidad, SRE e incidentes](../classes/part-41-observabilidad-sre-e-incidentes/README.md).
+- **🔗 Clases asociadas:**
+  - **Parte 26:** [SE-320](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-320-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) · [SE-321](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) · [SE-322](../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-322-antipatrones-y-deuda-de-diseno/README.md).
+  - **Parte 28:** [SE-337](../classes/part-28-estilos-arquitectonicos/se-337-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) · [SE-340](../classes/part-28-estilos-arquitectonicos/se-340-microservicios-y-sus-costes-reales/README.md) · [SE-344](../classes/part-28-estilos-arquitectonicos/se-344-arquitectura-celular-y-radio-de-impacto/README.md).
+  - **Parte 32:** [SE-388](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-388-tiempo-relojes-y-orden-parcial/README.md) · [SE-389](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) · [SE-390](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-390-consistencia-disponibilidad-y-particiones/README.md) · [SE-391](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-391-consenso-eleccion-y-coordinacion/README.md) · [SE-392](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md) · [SE-394](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-394-caos-controlado-y-pruebas-de-distribucion/README.md) · [SE-396](../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md).
+  - **Parte 36:** [SE-435](../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md) · [SE-436](../classes/part-36-calidad-rendimiento-y-resiliencia/se-436-latencia-throughput-saturacion-y-capacidad/README.md) · [SE-438](../classes/part-36-calidad-rendimiento-y-resiliencia/se-438-timeouts-retries-backoff-y-jitter/README.md) · [SE-439](../classes/part-36-calidad-rendimiento-y-resiliencia/se-439-circuit-breakers-bulkheads-y-degradacion/README.md) · [SE-440](../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md) · [SE-443](../classes/part-36-calidad-rendimiento-y-resiliencia/se-443-taller-someter-un-sistema-a-presion-controlada/README.md).
+  - **Parte 39:** [SE-475](../classes/part-39-build-release-y-cadena-de-suministro/se-475-feature-flags-y-entrega-progresiva/README.md) · [SE-476](../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md).
+  - **Parte 40:** [SE-485](../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md) · [SE-487](../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md) · [SE-490](../classes/part-40-ci-cd-iac-y-platform-engineering/se-490-metricas-dora-y-mejora-sin-gaming/README.md) · [SE-492](../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md).
+  - **Parte 41:** [SE-497](../classes/part-41-observabilidad-sre-e-incidentes/se-497-sli-slo-sla-y-presupuestos-de-error/README.md) · [SE-498](../classes/part-41-observabilidad-sre-e-incidentes/se-498-alertas-accionables-y-fatiga/README.md) · [SE-499](../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) · [SE-500](../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md) · [SE-501](../classes/part-41-observabilidad-sre-e-incidentes/se-501-postmortems-sin-culpa-y-aprendizaje/README.md) · [SE-502](../classes/part-41-observabilidad-sre-e-incidentes/se-502-continuidad-disaster-recovery-y-ejercicios/README.md) · [SE-503](../classes/part-41-observabilidad-sre-e-incidentes/se-503-taller-diagnosticar-con-telemetria-incompleta/README.md).
+- **✅ Ya desarrolladas de apoyo (Partes 00–33, 35–41 y 43–50):** [SE-246](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md) · [SE-249](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md) · [SE-347](../classes/part-28-estilos-arquitectonicos/se-347-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [SE-357](../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) · [SE-404](../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md) · [SE-444](../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) · [SE-480](../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md) · [SE-504](../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md).
+- **🔭 Planificada, sin clases publicadas:** Parte 42 (`SE-505`–`SE-516`).
+- **🧪 Proyecto profesional:** **Programa de caos de un servicio** — diseñar hipótesis de estado estable inyectar fallos acotados y remediar lo que se refute.
+- **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →](chaos-resilience-engineer.md)
 
 
 ### Plataforma

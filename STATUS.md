@@ -17,7 +17,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Horas | 2.646 estimadas en las partes desarrolladas (2.754 en el alcance planificado); pendientes de validación por contenido |
 | Metadatos de clase | 588 archivos generados |
 | Registro bibliográfico | 588 entradas sembradas desde fuentes base |
-| Rutas profesionales | 45 guías con responsabilidades, límites, recorrido y evidencia |
+| Rutas profesionales | 47 guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | 638 páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/`, las de `site/legacy/` (mapa de identificadores antiguos) y `site/404.html` |
 | Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 588 clases ni en las 49 partes |
 | Portal definitivo | catálogo navegable con las 588 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |

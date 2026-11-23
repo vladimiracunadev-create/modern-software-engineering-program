@@ -1,4 +1,4 @@
-"""Datos editoriales curados para las rutas profesionales (hoy 45).
+"""Datos editoriales curados para las rutas profesionales (hoy 47).
 
 No representan ofertas universales ni estados de madurez de las clases. Su función es
 relacionar responsabilidades profesionales con partes, clases y evidencias reales del
@@ -81,6 +81,9 @@ SOURCES = {
     "EBPF": ("What is eBPF?", "eBPF Foundation", "https://ebpf.io/what-is-ebpf/"),
     "FIRECRACKER": ("Firecracker microVM", "Firecracker project", "https://firecracker-microvm.github.io/"),
     "CONFCOMP": ("Confidential Computing Consortium", "Linux Foundation", "https://confidentialcomputing.io/"),
+    "SAASLENS": ("SaaS Lens, AWS Well-Architected Framework", "Amazon Web Services", "https://docs.aws.amazon.com/wellarchitected/latest/saas-lens/saas-lens.html"),
+    "STRIPEIDEM": ("Idempotent requests", "Stripe", "https://docs.stripe.com/api/idempotent_requests"),
+    "CHAOSPRINCIPLES": ("Principles of Chaos Engineering", "Principles of Chaos Engineering", "https://principlesofchaos.org/"),
 }
 
 PART_CONTEXT = {
@@ -576,6 +579,24 @@ PROFILES = {
         "Plataforma de ejecución aislada|ejecutar una carga no confiable con aislamiento cuotas y observabilidad medidas|comparación de tres runtimes con modelo de amenaza benchmark de arranque y densidad política de capacidades y runbook de contención",
         "POSIX|WASM|EBPF|FIRECRACKER|CONFCOMP|SRE", "systems-programmer.md|security-engineer.md|performance-engineer.md",
     ),
+    "saas-product-platform-engineer.md": profile(
+        "Producto digital", "semi-senior → principal", "11:133,134,136,140,142;20:241,244,245,246,247,249;28:342,344;29:351,354,355,357,358;31:376,377,379,380;33:397,401,404,406;36:436,438,439,440;38:459,462,463,466;41:495,497,498,500",
+        "Tenant|Plan y derecho|Uso|Operación|Economía",
+        "Aislamiento o densidad|elegir silo pool o modelo híbrido según riesgo de vecino ruidoso cumplimiento y costo de servir|prueba de aislamiento entre tenants y costo por tenant medido;Facturar por uso o por plan|decidir qué evento medible se cobra y con qué tolerancia a duplicados y retrasos|conciliación entre medición facturación y datos de producto;Migración global o por oleadas|cambiar esquema o plan sin detener a todos los clientes a la vez|despliegue por cohortes con compatibilidad entre versiones y reversión",
+        "Costo de servir por tenant|recursos y operación atribuibles a un cliente|prorratear a ojo y esconder tenants deficitarios;Margen por plan|diferencia entre precio efectivo y costo de servir|celebrar ingresos sin descontar soporte y excepciones;Retención neta de uso|continuidad y expansión del uso real tras la activación|confundir cuentas creadas con tenants activos",
+        "Tenant ruidoso degrada a los demás|un cliente grande lanza una importación masiva y el resto sufre latencia y errores|aislar por tenant y correlacionar cuota cola y consumo de la base compartida|aplicar límite por plan mover la carga a una cola dedicada y comunicar con evidencia",
+        "Núcleo SaaS multi-tenant medido|construir aprovisionamiento medición de uso facturación y límites por plan con aislamiento verificable|modelo de tenencia pruebas de aislamiento eventos de uso reconciliados informe de margen por plan y runbook de tenant",
+        "SAASLENS|STRIPEIDEM|TWELVEFACTOR|SRE", "backend-engineer.md|platform-engineer.md|finops-engineer.md",
+    ),
+    "chaos-resilience-engineer.md": profile(
+        "Confiabilidad", "semi-senior → principal", "26:320,321,322;28:337,340,344;32:388,389,390,391,392,394,396;36:435,436,438,439,440,443;39:475,476;40:485,487,490,492;41:497,498,499,500,501,502,503",
+        "Estado estable|Hipótesis|Experimento|Contención|Aprendizaje",
+        "Radio de impacto o realismo|empezar con fallos pequeños y ampliar el alcance solo con evidencia de contención|condiciones de aborto y registro del alcance real de cada experimento;Producción o preproducción|decidir dónde se inyecta según fidelidad del fallo y riesgo asumido|comparación de hallazgos entre entornos y autorización explícita;Reintentar o degradar|elegir la respuesta del sistema al fallo parcial antes de inyectarlo|experimento que demuestra que la degradación conserva la tarea útil",
+        "Hipótesis refutadas|supuestos de resiliencia que el experimento desmintió|premiar experimentos que siempre pasan;Tiempo de detección y recuperación|segundos hasta la señal y hasta recuperar el estado estable|medir solo el promedio y no el peor caso;Hallazgos cerrados|debilidades corregidas y verificadas con un nuevo experimento|contar hallazgos abiertos sin priorizar por impacto",
+        "El reintento amplifica la caída|una dependencia lenta provoca reintentos en cascada y satura al servicio sano|reconstruir la línea temporal con trazas colas y presupuestos de reintento|cortar con circuit breaker limitar reintentos y repetir el experimento hasta que la hipótesis se sostenga",
+        "Programa de caos de un servicio|diseñar hipótesis de estado estable inyectar fallos acotados y remediar lo que se refute|catálogo de experimentos criterios de aborto resultados con evidencia informe de remediación y game day documentado",
+        "CHAOSPRINCIPLES|SRE|CLOUDPATTERNS|OTEL", "site-reliability-engineer.md|distributed-systems-engineer.md|observability-engineer.md",
+    ),
 }
 
 # Vecinos añadidos por ADR-006: las rutas existentes enlazan a los tres roles nuevos donde hay
@@ -586,7 +607,14 @@ EXTRA_ADJACENT = {
     "compliance-engineer.md": ["ai-governance-responsible-ai-engineer.md"],
     "systems-programmer.md": ["runtime-systems-engineer.md"],
     "security-engineer.md": ["runtime-systems-engineer.md"],
-    "platform-engineer.md": ["mlops-ml-platform-engineer.md"],
+    "platform-engineer.md": ["mlops-ml-platform-engineer.md", "saas-product-platform-engineer.md"],
+    "backend-engineer.md": ["saas-product-platform-engineer.md"],
+    "finops-engineer.md": ["saas-product-platform-engineer.md"],
+    "technical-product-engineer.md": ["saas-product-platform-engineer.md"],
+    "site-reliability-engineer.md": ["chaos-resilience-engineer.md"],
+    "distributed-systems-engineer.md": ["chaos-resilience-engineer.md"],
+    "observability-engineer.md": ["chaos-resilience-engineer.md"],
+    "qa-test-engineer.md": ["chaos-resilience-engineer.md"],
 }
 for _name, _extra in EXTRA_ADJACENT.items():
     PROFILES[_name]["adjacent"] = [*PROFILES[_name]["adjacent"], *_extra]
@@ -652,6 +680,8 @@ DEVELOPED = {
     "domain-methodology-engineer.md": [52, 57, 60, 69, 146, 153, 208, 329, 543, 545, 547, 549, 550, 551],
     "mlops-ml-platform-engineer.md": [290, 291, 349, 354, 357, 399, 404, 472, 476, 553, 561, 562, 369, 370, 606, 609, 610],
     "ai-governance-responsible-ai-engineer.md": [8, 117, 129, 153, 226, 291, 295, 358, 464, 465, 472, 497, 500, 501],
+    "saas-product-platform-engineer.md": [138, 143, 144, 252, 360, 384, 408, 468, 504],
+    "chaos-resilience-engineer.md": [246, 249, 347, 357, 404, 444, 480, 504],
     "runtime-systems-engineer.md": [13, 17, 18, 99, 386, 387, 401, 402, 469, 470, 281, 285, 286, 287, 288],
 }
 
@@ -675,6 +705,7 @@ _ROWS_SAAS = {
     "backend-engineer.md": "Trasladará los servicios al contexto SaaS: identidad de organización, medición de uso, facturación y aprovisionamiento del tenant.",
     "platform-engineer.md": "Tratará la plataforma como producto con clientes internos y externos: aprovisionamiento por tenant, cuotas y operación autoservicio.",
     "finops-engineer.md": "Medirá el costo de servir por tenant y lo conectará con planes, precios y márgenes mediante economía unitaria.",
+    "saas-product-platform-engineer.md": "Aportará el núcleo del rol: modelo de tenencia, planes y derechos de uso, medición, facturación por uso y economía unitaria como un solo sistema verificable.",
     "cto.md": "Enlazará la estrategia de producto con la arquitectura de un SaaS: modelo de negocio, riesgo de plataforma y confiabilidad como promesa comercial.",
 }
 _ROWS_CHAOS = {
@@ -685,6 +716,7 @@ _ROWS_CHAOS = {
     "distributed-systems-engineer.md": "Probará empíricamente las garantías declaradas bajo particiones, retrasos y réplicas divergentes.",
     "qa-test-engineer.md": "Ampliará la estrategia de pruebas con experimentos de fallo en sistemas reales y con la lectura de sus resultados.",
     "security-engineer.md": "Definirá la gobernanza de los experimentos: autorización, alcance, ética y trazabilidad, sin abrir una vía de ataque nueva.",
+    "chaos-resilience-engineer.md": "Aportará el núcleo del rol: hipótesis de estado estable, diseño de experimentos, radio de impacto, criterios de aborto, game days y aprendizaje verificado.",
     "cloud-engineer.md": "Aplicará fallos de nodos, zonas y servicios gestionados a arquitecturas cloud para medir su degradación real.",
     "database-reliability-engineer.md": "Verificará con fallos de réplicas, particiones y restauraciones que las promesas de recuperación de datos se cumplen.",
 }

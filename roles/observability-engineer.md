@@ -92,7 +92,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [📈 Site Reliability Engineer](site-reliability-engineer.md); [⏱️ Performance Engineer](performance-engineer.md); [🛤️ Platform Engineer](platform-engineer.md);
+- [📈 Site Reliability Engineer](site-reliability-engineer.md); [⏱️ Performance Engineer](performance-engineer.md); [🛤️ Platform Engineer](platform-engineer.md); [🌪️ Chaos & Resilience Engineer](chaos-resilience-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.

@@ -46,6 +46,8 @@ EXPECTED_GUIDES = {
     "qa-test-engineer.md",
     "requirements-engineer.md",
     "runtime-systems-engineer.md",
+    "saas-product-platform-engineer.md",
+    "chaos-resilience-engineer.md",
     "safety-critical-software-engineer.md",
     "security-engineer.md",
     "site-reliability-engineer.md",
@@ -133,7 +135,7 @@ class RoleGuideTests(unittest.TestCase):
     def test_planned_parts_are_marked_and_never_linked(self) -> None:
         main = (ROOT / "README.md").read_text(encoding="utf-8")
         index = (ROOT / "roles" / "README.md").read_text(encoding="utf-8")
-        self.assertEqual(len(EXPECTED_GUIDES), 45)
+        self.assertEqual(len(EXPECTED_GUIDES), 47)
         for name in EXPECTED_GUIDES:
             text = (ROOT / "roles" / name).read_text(encoding="utf-8")
             with self.subTest(role=name):

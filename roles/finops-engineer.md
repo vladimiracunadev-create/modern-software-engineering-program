@@ -92,7 +92,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [☁️ Cloud Engineer](cloud-engineer.md); [🧭 Technical Product Engineer](technical-product-engineer.md); [🧭 CTO / Dirección de Tecnología](cto.md);
+- [☁️ Cloud Engineer](cloud-engineer.md); [🧭 Technical Product Engineer](technical-product-engineer.md); [🧭 CTO / Dirección de Tecnología](cto.md); [🏢 SaaS / Product Platform Engineer](saas-product-platform-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.

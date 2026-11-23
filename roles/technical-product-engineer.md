@@ -100,7 +100,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [🧾 Requirements Engineer / Business Systems Analyst](requirements-engineer.md); [🧩 Solutions Architect](solutions-architect.md); [💸 FinOps Engineer](finops-engineer.md);
+- [🧾 Requirements Engineer / Business Systems Analyst](requirements-engineer.md); [🧩 Solutions Architect](solutions-architect.md); [💸 FinOps Engineer](finops-engineer.md); [🏢 SaaS / Product Platform Engineer](saas-product-platform-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.

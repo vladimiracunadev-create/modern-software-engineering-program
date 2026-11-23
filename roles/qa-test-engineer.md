@@ -102,7 +102,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [🧑‍💻 Software Engineer](software-engineer.md); [⏱️ Performance Engineer](performance-engineer.md); [♿ Accessibility Engineer](accessibility-engineer.md);
+- [🧑‍💻 Software Engineer](software-engineer.md); [⏱️ Performance Engineer](performance-engineer.md); [♿ Accessibility Engineer](accessibility-engineer.md); [🌪️ Chaos & Resilience Engineer](chaos-resilience-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.

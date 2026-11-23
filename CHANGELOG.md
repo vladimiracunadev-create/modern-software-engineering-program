@@ -5,6 +5,13 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Dos roles nuevos y mapa de partes por rol regularizado
+
+- nuevas guías `roles/saas-product-platform-engineer.md` (38 clases núcleo en las Partes 11, 20, 28, 29, 31, 33, 36, 38 y 41) y `roles/chaos-resilience-engineer.md` (32 clases núcleo en las Partes 26, 28, 32, 36, 39, 40 y 41); las Partes 34 y 42 figuran como ampliación planificada y enlazarán su primera, sexta y última clase al publicarse, sin más edición.
+- la columna «Ruta principal» y los conteos de `roles/README.md` y del README salen ahora de `scripts/build_role_guides.py` desde el núcleo de cada perfil (antes conservaban la numeración anterior); 47 guías.
+- vecinos recíprocos en siete guías existentes; `tests/test_roles.py` y el About pasan a 47.
+- commit pendiente de registrar en `docs/PART-EXECUTION-TRACKER.md`.
+
 ## 2026-11-23 — Secuencia pedagógica: renumeración y Partes 34 y 42 reservadas
 
 - [ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md) ordena el programa por dependencia de estudio, con la IA al final: 51 partes y 612 posiciones (`SE-001`–`SE-612`). Las Partes 00–22 conservan número e IDs; las antiguas 23–48 (26 partes, 312 clases) cambian de número; las Partes 34 (SaaS y plataformas de producto, `SE-409`–`SE-420`) y 42 (ingeniería del caos, `SE-505`–`SE-516`) quedan reservadas y planificadas, y la navegación salta esos huecos.

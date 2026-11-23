@@ -12,7 +12,8 @@
 - las fases 3 y 4 se declaran por parte (`PHASE3_PARTS`, `PHASE4_PARTS` en `scripts/program_state.py`); las 360 actividades y rúbricas no cambian.
 - roles: la Parte 06 es núcleo de Software Engineer, Systems Programmer, Domain & Methodology Engineer y Frontend Engineer; las Partes 34 y 42 figuran como contexto planificado de nueve y diez guías. Siguen 45 roles y 16 casos.
 - About: «588 clases desarrolladas en 49 partes y dos partes en preparación»; `tests/test_about.py` comprueba el texto contra `catalog.json`.
-- pruebas nuevas de navegación entre huecos (`tests/test_navigation_gaps.py`); sin commit todavía registrado: el hash se añade tras la CI.
+- pruebas nuevas de navegación entre huecos (`tests/test_navigation_gaps.py`).
+- commit `b88bc9f3` (Validate, Pages y Security en verde); detalle en `docs/PART-EXECUTION-TRACKER.md`.
 
 ## 2026-11-17 — «Planificadas» solo donde hay partes por publicar y About nuevo
 

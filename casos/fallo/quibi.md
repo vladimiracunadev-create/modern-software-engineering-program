@@ -1,6 +1,6 @@
 # Quibi
 
-[↑ Casos de fallo](README.md) · [← Incidente de base de datos de GitLab](gitlab-2017.md)
+[↑ Casos de fallo](README.md) · [← Incidente de base de datos de GitLab](gitlab-2017.md) · [Ariane 5, vuelo 501 →](ariane-5-vuelo-501.md)
 
 Quibi fue un servicio de vídeo por suscripción pensado solo para el teléfono, con episodios de diez minutos o menos y producciones con talento reconocido. Recaudó unos 1.750 millones de dólares, se lanzó el 6 de abril de 2020 y anunció su cierre el 21 de octubre del mismo año. No es un fallo de ingeniería: el servicio funcionó, tuvo funciones técnicas propias y sus responsables lo cerraron devolviendo efectivo a los inversores. Es un fallo de producto y de mercado, y por eso su valor para el curso está en las decisiones de descubrimiento, hipótesis, métricas y capital que lo rodearon. Este caso usa solo lo que es público; los datos internos de Quibi no lo son y no se infieren.
 
@@ -651,4 +651,4 @@ Todas las URL se abrieron el 16 de noviembre de 2026.
 
 ---
 
-[↑ Casos de fallo](README.md) · [← Incidente de base de datos de GitLab](gitlab-2017.md)
+[↑ Casos de fallo](README.md) · [← Incidente de base de datos de GitLab](gitlab-2017.md) · [Ariane 5, vuelo 501 →](ariane-5-vuelo-501.md)

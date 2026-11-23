@@ -79,6 +79,9 @@ CASES: list[dict[str, str]] = [
     {"slug": "quibi", "kind": "fallo", "name": "Quibi", "year": "2018",
      "who": "Jeffrey Katzenberg y Meg Whitman", "place": "Los Ángeles, California (EE. UU.)",
      "hook": "Una plataforma de vídeo corto para móvil que recaudó más de mil millones de dólares y cerró en 2020, meses después de lanzarse, porque resolvía un problema que casi nadie tenía."},
+    {"slug": "ariane-5-vuelo-501", "kind": "fallo", "name": "Ariane 5, vuelo 501", "year": "1996",
+     "who": "ESA y CNES (organizaciones)", "place": "Kourou, Guayana Francesa",
+     "hook": "En el primer vuelo del cohete europeo, software de Ariane 4 reutilizado sin revisar sus supuestos detuvo las dos unidades de guiado idénticas y el lanzador se destruyó a los 39 segundos."},
 ]
 
 GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}

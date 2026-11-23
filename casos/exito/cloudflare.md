@@ -1,6 +1,6 @@
 # Cloudflare
 
-[↑ Casos de éxito](README.md) · [← Discord](discord.md)
+[↑ Casos de éxito](README.md) · [← Discord](discord.md) · [Dropbox →](dropbox.md)
 
 > **Caso de éxito.** Cloudflare se constituyó en julio de 2009, salió a bolsa en septiembre de 2019 y en 2025 facturó 2 167,9 millones de dólares con una red de más de 330 ciudades en más de 125 países. Es también una de las empresas que más detalladamente publica sus propias caídas. Este caso explica qué se sabe, con fuentes, de cómo lo logró, qué se infiere y qué no se sabe, y lo contrasta con las clases del curso. Es una superficie aparte de las clases.
 
@@ -413,4 +413,4 @@ Todas las URL se consultaron el 23 de noviembre de 2026 y devolvieron contenido 
 - **[C8]** [Cloud Computing without Containers](https://blog.cloudflare.com/cloud-computing-without-containers/): aislados de V8 y arranques en frío.
 - **[C9]** [DDoS threat report for the third quarter of 2025, including Aisuru](https://blog.cloudflare.com/ddos-threat-report-2025-q3/): botnet Aisuru y ataques de hasta 29,7 Tbps.
 
-[↑ Casos de éxito](README.md) · [← Discord](discord.md)
+[↑ Casos de éxito](README.md) · [← Discord](discord.md) · [Dropbox →](dropbox.md)

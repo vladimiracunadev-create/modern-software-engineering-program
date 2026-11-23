@@ -118,7 +118,7 @@ PART_CONTEXT = {
     "31": ("eventos, mensajería y compatibilidad", "flujo tolerante a duplicados"),
     "32": ("concurrencia, coordinación y fallos parciales", "experimento distribuido de degradación"),
     "33": ("cloud, infraestructura y plataformas", "entorno reproducible y eliminable"),
-    "34": ("producto SaaS, tenencia, planes, facturación por uso y economía unitaria", "núcleo de un SaaS multi-tenant con facturación por uso"),
+    "34": ("producto SaaS, multi-inquilino, suscripciones, pagos, comercio y SLA", "núcleo de un SaaS multi-tenant con facturación por uso"),
     "35": ("estrategia de pruebas guiada por riesgo", "suite que demuestra detección de defectos"),
     "36": ("calidad, rendimiento y resiliencia", "informe medido y game day"),
     "37": ("sistemas críticos, tiempo real y normas de seguridad", "paquete de aseguramiento de un controlador"),

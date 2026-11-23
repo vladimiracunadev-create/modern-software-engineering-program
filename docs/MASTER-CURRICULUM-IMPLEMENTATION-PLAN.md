@@ -675,18 +675,18 @@ anterior está en [`ID-MIGRATION.md`](ID-MIGRATION.md).
 
 ### Parte 34 — SaaS y plataformas de producto
 
-- [ ] `SE-409` — saaS como producto y como operación: del software al servicio continuo.
-- [ ] `SE-410` — tenencia, organizaciones e identidad en un producto SaaS.
-- [ ] `SE-411` — planes, derechos de uso y control de funcionalidades.
-- [ ] `SE-412` — medición de uso, facturación y suscripciones.
-- [ ] `SE-413` — activación, onboarding y ciclo de vida de la cuenta.
-- [ ] `SE-414` — ciclo de vida del tenant: aprovisionamiento, migración y baja.
-- [ ] `SE-415` — aPIs públicas, webhooks y ecosistema de integraciones.
-- [ ] `SE-416` — plataformas extensibles: plugins, SDK y marketplaces.
-- [ ] `SE-417` — confiabilidad como promesa comercial: SLA, SLO y créditos.
-- [ ] `SE-418` — economía unitaria y costo de servir por tenant.
-- [ ] `SE-419` — Taller: diseñar los planes y el aislamiento de un SaaS.
-- [ ] `SE-420` — Proyecto: núcleo de un SaaS multi-tenant con facturación por uso.
+- [ ] `SE-409` — qué hace distinto a un producto SaaS.
+- [ ] `SE-410` — aislamiento multi-inquilino y vecino ruidoso.
+- [ ] `SE-411` — alta, aprovisionamiento y configuración por cliente.
+- [ ] `SE-412` — suscripciones, ciclos de facturación y dunning.
+- [ ] `SE-413` — medición de uso y facturación por consumo.
+- [ ] `SE-414` — planes, derechos de uso y banderas de funcionalidad.
+- [ ] `SE-415` — precios, empaquetado y límites por plan.
+- [ ] `SE-416` — marketplaces y plataformas de dos lados.
+- [ ] `SE-417` — pagos, idempotencia y conciliación.
+- [ ] `SE-418` — comercio electrónico: carrito, inventario, pagos y devoluciones.
+- [ ] `SE-419` — sLA por nivel, soporte y operación del producto.
+- [ ] `SE-420` — Taller y proyecto integrador: producto SaaS mínimo con evidencia.
 
 ### Parte 35 — Testing
 

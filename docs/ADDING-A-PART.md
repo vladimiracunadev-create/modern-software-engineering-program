@@ -109,18 +109,18 @@ vacante) ni en las guías de rol hasta que exista su contenido completo
 
 | Clase | Tipo | Título exacto |
 | --- | --- | --- |
-| `SE-409` | clase | SaaS como producto y como operación: del software al servicio continuo |
-| `SE-410` | clase | Tenencia, organizaciones e identidad en un producto SaaS |
-| `SE-411` | clase | Planes, derechos de uso y control de funcionalidades |
-| `SE-412` | clase | Medición de uso, facturación y suscripciones |
-| `SE-413` | clase | Activación, onboarding y ciclo de vida de la cuenta |
-| `SE-414` | clase | Ciclo de vida del tenant: aprovisionamiento, migración y baja |
-| `SE-415` | clase | APIs públicas, webhooks y ecosistema de integraciones |
-| `SE-416` | clase | Plataformas extensibles: plugins, SDK y marketplaces |
-| `SE-417` | clase | Confiabilidad como promesa comercial: SLA, SLO y créditos |
-| `SE-418` | clase | Economía unitaria y costo de servir por tenant |
-| `SE-419` | taller | Taller: diseñar los planes y el aislamiento de un SaaS |
-| `SE-420` | proyecto | Proyecto: núcleo de un SaaS multi-tenant con facturación por uso |
+| `SE-409` | clase | Qué hace distinto a un producto SaaS |
+| `SE-410` | clase | Aislamiento multi-inquilino y vecino ruidoso |
+| `SE-411` | clase | Alta, aprovisionamiento y configuración por cliente |
+| `SE-412` | clase | Suscripciones, ciclos de facturación y dunning |
+| `SE-413` | clase | Medición de uso y facturación por consumo |
+| `SE-414` | clase | Planes, derechos de uso y banderas de funcionalidad |
+| `SE-415` | clase | Precios, empaquetado y límites por plan |
+| `SE-416` | clase | Marketplaces y plataformas de dos lados |
+| `SE-417` | clase | Pagos, idempotencia y conciliación |
+| `SE-418` | clase | Comercio electrónico: carrito, inventario, pagos y devoluciones |
+| `SE-419` | taller | SLA por nivel, soporte y operación del producto |
+| `SE-420` | proyecto | Taller y proyecto integrador: producto SaaS mínimo con evidencia |
 
 ### Parte 42 — Ingeniería del caos (`SE-505`–`SE-516`)
 

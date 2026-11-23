@@ -199,7 +199,7 @@ anteriores y la inteligencia artificial cierra el recorrido. Las citas anteriore
 | 31 | Integración, eventos y mensajería | SE-373–SE-384 | colas, streams, sagas y compatibilidad | [📘 leer](classes/part-31-integracion-eventos-y-mensajeria/README.md) |
 | 32 | Concurrencia y sistemas distribuidos | SE-385–SE-396 | coordinación, fallos, consistencia y consenso | [📘 leer](classes/part-32-concurrencia-y-sistemas-distribuidos/README.md) |
 | 33 | Cloud, plataforma e infraestructura | SE-397–SE-408 | nube, contenedores, IaC y costes | [📘 leer](classes/part-33-cloud-plataforma-e-infraestructura/README.md) |
-| 34 | SaaS y plataformas de producto | SE-409–SE-420 | tenencia, planes, facturación por uso, ciclo de vida del tenant y economía unitaria | planificada |
+| 34 | SaaS y plataformas de producto | SE-409–SE-420 | multi-inquilino, suscripciones, facturación por uso, planes y derechos, pagos, comercio y SLA | planificada |
 | 35 | Estrategia y técnicas de prueba | SE-421–SE-432 | niveles, propiedades, contratos y E2E | [📘 leer](classes/part-35-estrategia-y-tecnicas-de-prueba/README.md) |
 | 36 | Calidad, rendimiento y resiliencia | SE-433–SE-444 | atributos, carga, degradación y recuperación | [📘 leer](classes/part-36-calidad-rendimiento-y-resiliencia/README.md) |
 | 37 | Sistemas críticos, tiempo real y normas de seguridad | SE-445–SE-456 | HARA, IEC 61508, ISO 26262, DO-178C, RTOS y verificación | [📘 leer](classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) |

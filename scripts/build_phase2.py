@@ -126,7 +126,7 @@ README_FOCUS = {
     "31": "colas, streams, sagas y compatibilidad",
     "32": "coordinación, fallos, consistencia y consenso",
     "33": "nube, contenedores, IaC y costes",
-    "34": "tenencia, planes, facturación por uso, ciclo de vida del tenant y economía unitaria",
+    "34": "multi-inquilino, suscripciones, facturación por uso, planes y derechos, pagos, comercio y SLA",
     "35": "niveles, propiedades, contratos y E2E",
     "36": "atributos, carga, degradación y recuperación",
     "37": "HARA, IEC 61508, ISO 26262, DO-178C, RTOS y verificación",

@@ -5,6 +5,13 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Ocho casos de éxito nuevos: Slack, Shopify, Instagram, Discord, Cloudflare, Dropbox, YouTube y Pix
+
+- casos nuevos en `casos/exito/` (de 8 a 16 de éxito), cada uno con su `scripts/figures_case_<slug>.py` (21 a 26 figuras que no repiten tablas), fuentes públicas verificadas y las etiquetas documentado, inferido y no se sabe: Slack (10-K y blog de ingeniería), Shopify (10-K y blog), Instagram (10-K de Facebook de 2012 y de Meta, prensa fechada y Engineering at Meta), Discord (blog; empresa privada sin cifras financieras), Cloudflare (10-K, prospecto y análisis de sus tres caídas), Dropbox (prospecto y 10-K) y YouTube (10-K de Alphabet y de Google, comunicado de 2006 y trabajos de Google Research), y Pix (informes y manuales del Banco Central do Brasil); YouTube y Pix quedan más acotados y lo declaran
+- `scripts/figures_case_exito.py`: el mapa visual de éxito pasa a cuatro columnas con los 16 casos
+- los conteos de casos salen del registro `scripts/cases_data.py` (README, STATUS, FILE_INDEX, About y portal); `scripts/build_cases.py` genera las listas y los textos de los grupos
+- correcciones asociadas: un título de figura que disparaba la regla `dropbox-api-token` de gitleaks y las entradas del glosario que citan casos
+
 ## 2026-11-23 — Glosario del programa: superficie propia con una entrada por concepto
 
 - nueva superficie `glosario/` (no son clases ni roles; no cambia 612 clases ni 51 partes): 2.743 conceptos (inventario en `glosario/INVENTARIO.md`) extraídos de las definiciones, glosarios y temas de las clases y de las 47 guías de rol, normalizados y deduplicados;

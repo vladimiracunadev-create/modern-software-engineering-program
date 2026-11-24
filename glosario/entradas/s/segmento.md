@@ -2,43 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Segmentación por necesidad](./segmentacion-por-necesidad.md) · [Segmento inicial →](./segmento-inicial.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
 
 ## Definición
 
-Subpoblación definida de antemano que se vigila por separado.
-
-Definición de trabajo de [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md).
+En monitoreo y despliegue de modelos, un **segmento** es una subpoblación definida de antemano que se vigila por separado ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md), existe con este propósito: la clase existe para que pongas un modelo nuevo en producción sin apostar a todos los usuarios a la vez.
+Un indicador global puede mejorar mientras un grupo empeora. [SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md) lo muestra: el Brier global dice que el candidato mejora (0,163 a 0,159) mientras el AUC baja (0,837 a 0,819), y el daño se concentra en un segmento.
 
 ## Cómo funciona
 
-Según [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md):
-
-El modelo vigente es una regresión logística entrenada con 8 000 filas del periodo antiguo; el candidato es un boosting entrenado con 40 000 filas del periodo reciente, en el que una anomalía de etiquetado registró como puntual el 60 % de las entregas tardías del segmento que usa móvil y entrega de noche. En un conjunto de producción de 40 000 filas, el vigente tuvo AUC 0,837 y Brier 0,163, y el candidato AUC 0,819 y Brier 0,159: el Brier global dice que mejora y el AUC global que empeora. Por segmentos, el candidato mejora en el 83 % restante (AUC de 0,836 a 0,840; Brier de 0,160 a 0,144) y empeora en el segmento móvil y nocturno (AUC de 0,838 a 0,832; Brier de 0,176 a 0,232).
-
-Según [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md):
-
-El equipo de *Avisos-ML* escribe el plan de despliegue del candidato. Etapa 1, sombra durante 24 horas: se vigila el desacuerdo y la tasa de marcados en cuatro segmentos definidos de antemano (dispositivo y franja horaria); la regla es pausar si algún segmento se aparta más de 10 puntos. La sombra de la primera noche pausa el plan: en el segmento móvil y nocturno el candidato marca al 4 % frente al 59 % del vigente. El equipo revisa los datos de entrenamiento y encuentra la anomalía de etiquetado, reentrena con el segmento corregido y repite la sombra. Etapa 2, canary del 5 % durante cinco días con guardas de latencia, errores y marcados por segmento, y la métrica con etiquetas cuando llegan.
+El modelo vigente es una regresión logística entrenada con 8 000 filas del periodo antiguo; el candidato es un boosting entrenado con 40 000 filas del periodo reciente, en el que una anomalía de etiquetado registró como puntual el 60 % de las entregas tardías del segmento que usa móvil y entrega de noche. Al medir por segmento, el candidato empeora en el segmento móvil y nocturno aunque mejore en el total. El plan de despliegue vigila segmentos definidos antes de empezar.
 
 ## Ejemplo
 
-Ejemplo de [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md) (sección «Ejemplo mínimo»):
-
-Si devuelve `False`, el despliegue se pausa y una persona mira el segmento. La función no necesita etiquetas, por eso puede ejecutarse desde la primera hora; lo que no sabe es cuál de los dos modelos acierta.
+[SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md): en la etapa de sombra de 24 horas, se vigila el desacuerdo y la tasa de marcados en cuatro segmentos (dispositivo y franja horaria); la regla es pausar si alguno se aparta más de 10 puntos. La primera noche, en el segmento móvil y nocturno el candidato marca al 4 % frente al 59 % del vigente: el plan se pausa y se descubre el problema de etiquetado.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Definir los segmentos después de ver los resultados; vigilar solo agregados.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Brier de 0,160 a 0,144) y empeora en el segmento móvil y nocturno (AUC de 0,838 a 0,832; ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md))
+Demasiados segmentos producen alarmas por azar; deben elegirse por razón de negocio o de riesgo.
 
 ## Relación con otros conceptos
 

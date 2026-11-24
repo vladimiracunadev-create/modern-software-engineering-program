@@ -55,8 +55,8 @@ El nivel **troncal** marca los conceptos que estructuran una parte; los de **apo
 | Conceptos con entrada | 2743 |
 | Troncales | 625 |
 | De apoyo | 2118 |
-| Desarrolladas | 502 |
-| Compuestas desde las clases | 2241 |
+| Desarrolladas | 514 |
+| Compuestas desde las clases | 2229 |
 | Siglas | 93 |
 | Guías de rol | 47 |
 

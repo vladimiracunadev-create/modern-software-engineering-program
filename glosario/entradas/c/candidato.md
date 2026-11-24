@@ -2,44 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Candidata](./candidata.md) · [Candidato descartado →](./candidato-descartado.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
 
 ## Definición
 
-Configuración del sistema que se somete a la puerta.
-
-Definición de trabajo de [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md).
+En la evaluación de sistemas con modelos, un **candidato** es una configuración del sistema que se somete a la puerta ([SE-600](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md), existe con este propósito: el proyecto existe para que entregues, para un sistema con LLM que elijas, **la evidencia con que otra persona decidiría ponerlo en producción**: qué patrón usa y por qué, cómo se mide su calidad, cuánto cuesta y tarda en el caso malo, qué ataque lo rompe y cómo se contiene, qué pasa si se interrumpe a mitad y cómo degrada.
+Elegir entre configuraciones (un workflow, un agente, un híbrido) exige medir cada una con los mismos criterios y decidir con una puerta fijada antes de medir.
 
 ## Cómo funciona
 
-Según [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md):
-
-Cada columna tiene su método. La **calidad** se mide con el conjunto de casos de `SE-597`: pareada, con repeticiones y con la puerta estadística; en el experimento, los candidatos van de 85,0 % (workflow solo, que escala las incidencias) a 99,0 % (híbrido). Los **tokens** salen del modelo de costo de `SE-589` y `SE-598`: 774 el workflow, 1 862 el agente, 1 421 el híbrido. La **latencia p95** sale de la cadena de llamadas de `SE-598`: unas 6 s para el workflow (dos llamadas) y unas 18 s para los candidatos con agente (la cadena de ocho llamadas). Los **ataques** salen de la simulación de `SE-598`: 19,23 % sin defensa y 0,00 % con la política de no tener canal de salida junto a contenido no confiable.
-
-Según [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md):
-
-El equipo de *Avisos* entrega un dossier de nueve páginas a una comisión de revisión. La primera página es la puerta con sus umbrales y sus justificaciones, firmada antes de medir. Las páginas siguientes presentan los cuatro candidatos medidos con 400 casos (250 reales anonimizados, 100 difíciles y 50 adversariales) y tres repeticiones; el híbrido gobernado pasa las cinco columnas, con calidad 98,1 % (intervalo del 96,9 % al 99,0 %). La comisión pregunta por el ataque que no se probó y el equipo responde con el documento de límites: se probaron 40 correos hostiles, no se probó contenido en otro idioma ni documentos adjuntos. Se acuerda publicar con un 10 % del tráfico, una alarma de escalado por encima del 12 % y una revisión a los 30 días.
+Cada candidato se mide en varias columnas con su método: la **calidad** con el conjunto de casos de [SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md) (pareada, con repeticiones y puerta estadística); los **tokens** y la **latencia p95** con los modelos de costo y de cadena de llamadas de [SE-589](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-589-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) y [SE-598](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-598-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md); y una prueba de seguridad. En el experimento, los candidatos van de 85,0 % de calidad (workflow solo) a 99,0 % (híbrido), con 774 tokens el workflow, 1 862 el agente y 1 421 el híbrido.
 
 ## Ejemplo
 
-Ejemplo de [SE-600 — Proyecto: sistema con LLM evaluado y operable](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* entrega un dossier de nueve páginas a una comisión de revisión. La primera página es la puerta con sus umbrales y sus justificaciones, firmada antes de medir. Las páginas siguientes presentan los cuatro candidatos medidos con 400 casos (250 reales anonimizados, 100 difíciles y 50 adversariales) y tres repeticiones; el híbrido gobernado pasa las cinco columnas, con calidad 98,1 % (intervalo del 96,9 % al 99,0 %). La comisión pregunta por el ataque que no se probó y el equipo responde con el documento de límites: se probaron 40 correos hostiles, no se probó contenido en otro idioma ni documentos adjuntos.
+[SE-600](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md): el equipo de *Avisos* entrega un dossier a una comisión; la primera página es la puerta con umbrales, firmada antes de medir; luego cuatro candidatos medidos con 400 casos y tres repeticiones; el híbrido gobernado pasa las cinco columnas con calidad 98,1 % (intervalo 96,9 % a 99,0 %).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Fijar umbrales después de ver los resultados; comparar candidatos en conjuntos distintos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Cómo leer la figura.** Cada tarjeta es un candidato con sus cinco medidas a la derecha y el criterio que incumple debajo: coral si no pasa la puerta y verde azulado si pasa. ([SE-600](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md))
-- Define dos candidatos, escribe la puerta antes de medir, mide al menos calidad, costo, latencia y una prueba de seguridad, declara qué no mediste y decide con una condición de revisión. ([SE-600](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-600-proyecto-sistema-con-llm-evaluado-y-operable/README.md))
+Los números son de un experimento sintético; el dossier debe declarar lo que no se midió y la condición de revisión.
 
 ## Relación con otros conceptos
 

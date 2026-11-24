@@ -2,44 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Copyright y licencia](./copyright-y-licencia.md) · [Corrección hacia delante →](./correccion-hacia-delante.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 ## Definición
 
-Conjunto de entradas que un fuzzer conserva y muta.
-
-Definición de trabajo de [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md).
+En pruebas con *fuzzing*, el **corpus** es el conjunto de entradas que un fuzzer conserva y muta ([SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)). (En recuperación de información, «corpus» designa el conjunto de documentos indexados; aquí es el de las pruebas.)
 
 ## Por qué importa
 
-La clase donde se define, [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md), existe con este propósito: la clase existe para que midas la calidad de las pruebas con mutación (¿qué cambios del código detectan?) y para que uses la generación automática de entradas (fuzzing) donde los casos escritos a mano no llegan, sabiendo qué conocimiento del formato hace falta darle al generador.
+El corpus es la memoria del fuzzer: cada entrada que descubre nuevo comportamiento se conserva y se muta, de modo que la búsqueda avanza en vez de empezar de cero.
 
 ## Cómo funciona
 
-Según [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md):
-
-Un fuzzer encuentra entradas que fallan; el trabajo útil es reducirlas, entender la causa y fijarlas como pruebas. Una entrada hallada y no convertida en prueba reaparece la próxima vez que alguien cambie el código. La entrada mínima se guarda como caso de regresión y el defecto se corrige; el fuzzer sigue corriendo con la entrada original en su corpus.
-
-Según [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md):
-
-El equipo de la plataforma ejecuta cada noche una mutación acotada sobre los módulos que cambiaron en el día: genera los mutantes con `ast` solo en las líneas modificadas, los ejecuta contra las pruebas del módulo y publica una lista de supervivientes con su línea y el operador. Cada superviviente se revisa en la reunión semanal y se convierte en un caso nuevo, en una aserción más fuerte o en una nota de equivalencia. Para los analizadores que reciben archivos externos, un trabajo de fuzzing estructurado corre con una semilla distinta cada noche, con un corpus guardado y con el límite de tiempo de 10 minutos; las entradas que fallan se reducen y pasan a `tests/regresion/`.
+Un fuzzer genera variantes de las entradas del corpus y conserva las que alcanzan código nuevo o provocan fallos. Su trabajo termina en una entrada que falla; lo útil después es **reducirla**, entender la causa y fijarla como prueba. [SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md) insiste en que una entrada hallada y no convertida en prueba reaparece la próxima vez que alguien cambie el código: la entrada mínima se guarda como caso de regresión, el defecto se corrige y el fuzzer sigue con la entrada original en su corpus.
 
 ## Ejemplo
 
-Ejemplo de [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma ejecuta cada noche una mutación acotada sobre los módulos que cambiaron en el día: genera los mutantes con `ast` solo en las líneas modificadas, los ejecuta contra las pruebas del módulo y publica una lista de supervivientes con su línea y el operador. Cada superviviente se revisa en la reunión semanal y se convierte en un caso nuevo, en una aserción más fuerte o en una nota de equivalencia.
+Un analizador de archivos recibe un corpus inicial de unos pocos archivos válidos; tras horas, el fuzzer encuentra una entrada que cuelga el analizador; se reduce a 12 bytes, se añade como prueba y se corrige.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)) son:
-
-- **La cobertura sube y los mutantes muertos no** — causa: se añadieron casos que ejecutan líneas sin afirmar fronteras. Corrección: medir la puntuación de mutación al añadir casos.
-- **Un mutante sobrevive y nadie sabe por qué** — causa: no se clasifica. Corrección: caso faltante, aserción débil o equivalente, con razón escrita.
+Descartar el corpus entre ejecuciones; no convertir los hallazgos en pruebas de regresión.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con un módulo sintético de 21 líneas, 18 mutantes y cuatro defectos escritos por el autor, en Windows y Ubuntu (WSL2), con salidas idénticas. No se usó una herramienta de mutación ni un fuzzer real, y los generadores estructurado y guiado contienen valores que el autor sabía que importaban. La equivalencia se decidió con una rejilla finita.
+Un corpus pobre limita lo que se explora; el *fuzzing* encuentra fallos, no demuestra su ausencia.
 
 ## Relación con otros conceptos
 

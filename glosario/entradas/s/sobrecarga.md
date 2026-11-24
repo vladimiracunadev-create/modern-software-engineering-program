@@ -2,43 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Sobreasignación](./sobreasignacion.md) · [Sobremuestreo →](./sobremuestreo.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 50](../../../classes/part-50-machine-learning-en-produccion-y-mlops/README.md)
 
 ## Definición
 
-Carga mayor que la capacidad del servicio.
-
-Definición de trabajo de [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md).
+La **sobrecarga** es una carga mayor que la capacidad del servicio ([SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md), en el contexto de servir modelos).
 
 ## Por qué importa
 
-La clase donde se define, [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md), existe con este propósito: la clase existe para que dimensiones el servicio de un modelo con mediciones y no con la ficha del hardware.
+Cuando la demanda supera la capacidad, la cola crece mientras dura la sobrecarga y la latencia de cola deja de estar acotada. La decisión es si hace falta una política de sobrecarga, procesamiento por lotes o nada.
 
 ## Cómo funciona
 
-Según [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md):
-
-Con una carga igual a la capacidad sin lotes, el p99 sin lotes fue 9,4 ms y con lote dinámico de 2 ms y 64 fue 2,3 ms. Con el doble de la capacidad, el servicio sin lotes acumuló una cola de la que el p99 llegó a 858 ms en la simulación (y crece mientras dura la sobrecarga), mientras que el servicio con lote dinámico mantuvo un p99 de 1,9 ms, porque su capacidad (peticiones por segundo) es mucho mayor. Con cuatro veces la capacidad, 1 291 ms contra 1,1 ms. La diferencia no es una mejora de latencia: es la diferencia entre un servicio estable y uno cuya cola no tiene fin. La simulación no limita la cola; un servicio real tampoco puede tenerla infinita.
-
-Según [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md):
-
-Mide el costo por petición contra el tamaño de lote de un modelo que sirvas. Dibuja la curva y localiza el óptimo. Escribe cuánta espera cabría en tu SLO y simula el doble de tráfico. Decide con eso si necesitas lotes, una política de sobrecarga o nada.
+[SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md) simula un servicio de modelo con y sin lotes dinámicos. Con una carga igual a la capacidad sin lotes, el p99 fue 9,4 ms sin lotes y 2,3 ms con lote dinámico de 2 ms y 64. Con el doble de la capacidad, el servicio sin lotes acumuló una cola de la que el p99 llegó a 858 ms (y crece mientras dura la sobrecarga), mientras que el servicio con lote dinámico mantuvo un p99 de 1,9 ms, porque su capacidad en peticiones por segundo es mucho mayor. Con cuatro veces la capacidad, 1 291 ms contra 1,1 ms.
 
 ## Ejemplo
 
-Caso medido en la sección «Con sobrecarga, el lote evita el colapso» de [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md):
-
-Con una carga igual a la capacidad sin lotes, el p99 sin lotes fue 9,4 ms y con lote dinámico de 2 ms y 64 fue 2,3 ms. Con el doble de la capacidad, el servicio sin lotes acumuló una cola de la que el p99 llegó a 858 ms en la simulación (y crece mientras dura la sobrecarga), mientras que el servicio con lote dinámico mantuvo un p99 de 1,9 ms, porque su capacidad (peticiones por segundo) es mucho mayor. Con cuatro veces la capacidad, 1 291 ms contra 1,1 ms.
+La clase pide medir el costo por petición contra el tamaño de lote, localizar el óptimo, calcular cuánta espera cabe en el SLO y simular el doble de tráfico.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Probar solo con la carga esperada; creer que más lote siempre ayuda, cuando la espera de formar el lote consume el SLO.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con el doble de la capacidad, el servicio sin lotes acumuló una cola de la que el p99 llegó a 858 ms en la simulación (y crece mientras dura la sobrecarga), mientras que el servicio con lote dinámico mantuvo un p99 de 1,9 ms, porque su capacidad (peticiones por segundo) es mucho mayor. ([SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md))
+Son resultados de una simulación. Frente a una sobrecarga sostenida, ninguna técnica de lotes sustituye al descarte de carga o a más capacidad.
 
 ## Relación con otros conceptos
 

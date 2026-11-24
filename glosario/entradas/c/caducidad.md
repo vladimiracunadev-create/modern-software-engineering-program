@@ -2,41 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Cadencia de actualización](./cadencia-de-actualizacion.md) · [Caducidad de la evidencia →](./caducidad-de-la-evidencia.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
 
 ## Definición
 
-Momento a partir del cual un registro deja de valer o se borra.
-
-Definición de trabajo de [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md).
+La **caducidad** es el momento a partir del cual un registro deja de valer o se borra. En [SE-593](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md) se aplica a la memoria de un agente; en [SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md), a las exclusiones de una estrategia de pruebas.
 
 ## Por qué importa
 
-La clase donde se define, [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md), existe con este propósito: la clase existe para que trates la memoria de un agente como lo que es:
+Lo que se guarda para siempre se vuelve obsoleto y, si son datos personales, un riesgo. Una memoria con datos personales necesita caducidad, borrado a petición y control de quién escribe ([SE-593](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md)). Es una decisión que ninguna otra estrategia de memoria ofrece: **olvidar a propósito**.
 
 ## Cómo funciona
 
-Según [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md):
-
-La tabla de costos muestra una paradoja útil: la estrategia que más recupera gasta menos tokens por pregunta. El almacén cuesta, sin embargo, en otro sitio: el extractor (una llamada o una regla por turno), la escritura, la consulta y el mantenimiento del esquema. Y hay una decisión que ninguna de las otras estrategias ofrece: **olvidar a propósito**. Una memoria con datos personales necesita caducidad (un silencio caduca el día indicado), borrado a petición y control de quién puede escribir. Una memoria que solo crece es un archivo de datos personales sin base legal. La política de olvido es parte del diseño y se prueba.
-
-Según [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md):
-
-El equipo de *Avisos* define cuatro tipos de hecho persistente: silencios por curso, preferencias de canal, excepciones de plazo y contactos alternativos. Cada tipo tiene clave, esquema, caducidad y quién puede escribirlo. El agente no escribe directamente: propone un registro con la cita del turno de donde lo sacó y una validación de código comprueba el esquema y que el solicitante tenga permiso sobre el curso. Las lecturas se hacen por clave antes de cada respuesta que dependa de un hecho y la respuesta cita el origen («según la instrucción de María del 3 de noviembre»). Cada mes se revisa una muestra de 50 registros contra la conversación original y se mide cuántos eran falsos o estaban obsoletos.
+Cada tipo de hecho persistente tiene clave, esquema, caducidad y quién puede escribirlo. El agente no escribe directamente: propone un registro con la cita del turno de donde lo sacó, y una validación de código comprueba el esquema y que quien solicita tenga permiso. La caducidad hace que lo almacenado deje de ser consultado cuando pierde vigencia.
 
 ## Ejemplo
 
-Ejemplo de [SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md) (sección «Ejemplo mínimo»):
-
-Un almacén de hechos con versión y caducidad:
+[SE-593](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md): el equipo de *Avisos* define cuatro tipos de hecho persistente (silencios por curso, preferencias de canal, excepciones de plazo y contactos alternativos); un silencio caduca el día indicado.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Guardar sin fecha de vencimiento; borrar al caducar sin comprobar que algo no depende del registro.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-593 — Memoria y gestión de estado de agentes](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-593-memoria-y-gestion-de-estado-de-agentes/README.md)) son: Las conversaciones, la fracción de turnos con hechos, el acierto del extractor y la retención del resumen son parámetros del autor; no se midió ningún modelo ni ningún producto de memoria. El siguiente paso, `SE-594`, trata la lectura cuando no se conoce la clave: qué es un embedding, cómo se recupera por similitud y qué cambia cuando el agente decide cuándo y qué recuperar.
+La caducidad reduce el volumen y el riesgo, pero no sustituye al borrado a petición ni a la validación del esquema.
 
 ## Relación con otros conceptos
 

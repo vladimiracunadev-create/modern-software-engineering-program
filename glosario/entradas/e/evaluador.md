@@ -2,43 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Evaluación sumativa](./evaluacion-sumativa.md) · [Evasión →](./evasion.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
 
 ## Definición
 
-Componente que juzga un resultado y devuelve las fallas concretas.
-
-Definición de trabajo de [SE-591 — Orquestador-trabajadores y evaluador-optimizador](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md).
+Un **evaluador** es el componente que juzga un resultado y devuelve las fallas concretas ([SE-591](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md)). En el patrón generador-evaluador, un generador produce, el evaluador revisa y devuelve *qué falló*, y el generador corrige.
 
 ## Por qué importa
 
-En [SE-591 — Orquestador-trabajadores y evaluador-optimizador](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md), el tema «Evaluador exacto» importa porque devuelve fallas que el generador sabe corregir.
+Convierte una puerta de «pasa o no pasa» en un bucle de mejora. Pero un evaluador es una fuente de verdad solo en la medida de su acierto: un resultado general de la clase.
 
 ## Cómo funciona
 
-Según [SE-591 — Orquestador-trabajadores y evaluador-optimizador](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md):
-
-El patrón añade un bucle: un generador produce, un evaluador revisa y devuelve **qué falló**, y el generador corrige. Es una puerta (`SE-590`) con retroalimentación. Funciona cuando hay un criterio de evaluación claro y la iteración mejora el resultado. En el experimento, el aviso tiene cuatro restricciones comprobables y el generador sintético corrige cada falla señalada con probabilidad 0,80 y estropea con 0,03 lo que estaba bien. Sin revisión, pasan el 35,5 %. Con un evaluador **programático** que ve exactamente las fallas, una vuelta lleva al 77,3 %, dos al 92,8 % y tres al 97,9 %, con 1,92 generaciones por aviso. El rendimiento marginal decrece: cada vuelta corrige una fracción de lo que queda.
-
-Según [SE-591 — Orquestador-trabajadores y evaluador-optimizador](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md):
-
-**Diagnóstico paso a paso.** (1) Se mide el número de vueltas por aviso: sube de 1,6 a 3,4. (2) Se revisa el evaluador: es un modelo juez que acepta «URGENTE» si la fecha es correcta. (3) Se compara con el verificador programático: detecta el tono en el 100 % de los casos. (4) Se identifica que el juez deja pasar lo que debía corregir y que ordena cambios en lo que estaba bien, de modo que el generador oscila.
+Funciona cuando hay un criterio de evaluación claro y la iteración mejora el resultado. En el experimento de [SE-591](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md), el aviso tiene cuatro restricciones comprobables y el generador sintético corrige cada falla señalada con probabilidad 0,80 y estropea con 0,03 lo que estaba bien; sin revisión pasan el 35,5 %. El diagnóstico de la clase muestra qué ocurre con un evaluador malo: un modelo juez acepta «URGENTE» si la fecha es correcta y ordena cambios en lo que estaba bien, y el generador oscila (las vueltas por aviso suben de 1,6 a 3,4). El verificador programático detecta el tono en el 100 % de los casos.
 
 ## Ejemplo
 
-Ejemplo de [SE-591 — Orquestador-trabajadores y evaluador-optimizador](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md) (sección «Caso conductor»):
-
-El repaso semanal de entregas de *Avisos* se vuelve orquestador-trabajadores y la redacción de los avisos, evaluador-optimizador con verificador. En `SE-592` se estudiará el bucle del agente que sigue cuando el trabajo no se puede dividir de antemano y, en `SE-597`, cómo se evalúan estos componentes con puertas estadísticas.
+Para criterios comprobables por código (formato, tono, fecha) conviene un verificador programático; el modelo juez se reserva para lo que el código no decide.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Usar un juez sin medir su acierto; permitir que el evaluador ordene cambios sobre lo que estaba bien.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Es un resultado general: un evaluador es una fuente de verdad solo en la medida de su acierto. ([SE-591](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-591-orquestador-trabajadores-y-evaluador-optimizador/README.md))
+Sin criterio claro, la iteración no converge. El número de vueltas necesita una condición de parada.
 
 ## Relación con otros conceptos
 

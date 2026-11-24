@@ -2,43 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Despliegue progresivo](./despliegue-progresivo.md) · [Detección de secretos →](./deteccion-de-secretos.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 37](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
 
 ## Definición
 
-Excepción justificada, revisada y registrada de una regla.
-
-Definición de trabajo de [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md).
+En un estándar de codificación, una **desviación** es una excepción justificada, revisada y registrada de una regla ([SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md)). (En estadística, «desviación» designa la dispersión de una medida; aquí es la excepción formal.)
 
 ## Por qué importa
 
-En [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md), el tema «Desviaciones» importa porque hacen la política sostenible y auditable.
+Una regla mecánica también se equivoca. Si un aviso no se puede descartar con una justificación revisada, el equipo aprende a ignorar los avisos y la política deja de proteger.
 
 ## Cómo funciona
 
-Según [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md):
-
-Una regla mecánica también se equivoca. La regla de recursión marca una función `altura` que recorre un árbol llamándose a sí misma, aunque su profundidad esté acotada por la del árbol y sea perfectamente analizable. Si el aviso no se puede descartar con una justificación revisada, el equipo aprende a ignorar los avisos y la política deja de proteger. La respuesta no es abandonar la regla sino ajustarla (permitir recursión con una cota declarada y comprobada) o permitir una **desviación**: una excepción por escrito, con su motivo, su alcance y quién la aprobó.
-
-Según [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md):
-
-Un equipo adopta un estándar de codificación con un comprobador en la integración continua. El primer día aparecen 4 000 avisos en la base de código existente; el equipo, abrumado, decide silenciar la regla más ruidosa. Una persona de calidad propone otra estrategia: congelar la base existente con un archivo de avisos conocidos, exigir cero avisos nuevos y atacar el archivo por riesgo, empezando por las funciones del limitador. En tres meses, el archivo baja de 4 000 a 900 y las desviaciones registradas son 12, cada una con un motivo y una aprobación. El comprobador deja de ser un obstáculo porque tiene una salida: corregir o desviar con justificación. Lo difícil no fue elegir las reglas, fue sostener el procedimiento.
+[SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md): la regla de recursión marca una función `altura` que recorre un árbol llamándose a sí misma, aunque su profundidad esté acotada y sea analizable. La respuesta no es abandonar la regla sino ajustarla (permitir recursión con una cota declarada y comprobada) o permitir una desviación: una excepción por escrito, con su motivo, su alcance y quién la aprobó. Para bases existentes, la clase propone congelar los avisos conocidos en un archivo, exigir cero avisos nuevos y atacar el archivo por riesgo.
 
 ## Ejemplo
 
-Ejemplo de [SE-452 — Codificación segura: MISRA y CERT](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md) (sección «Ejemplo profesional»):
-
-Un equipo adopta un estándar de codificación con un comprobador en la integración continua. El primer día aparecen 4 000 avisos en la base de código existente; el equipo, abrumado, decide silenciar la regla más ruidosa. Una persona de calidad propone otra estrategia: congelar la base existente con un archivo de avisos conocidos, exigir cero avisos nuevos y atacar el archivo por riesgo, empezando por las funciones del limitador. En tres meses, el archivo baja de 4 000 a 900 y las desviaciones registradas son 12, cada una con un motivo y una aprobación. El comprobador deja de ser un obstáculo porque tiene una salida: corregir o desviar con justificación.
+[SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md): un equipo adopta un estándar y aparecen 4 000 avisos el primer día; en lugar de silenciar la regla más ruidosa, congela la base existente, exige cero avisos nuevos y reduce el archivo empezando por las funciones del limitador.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Silenciar una regla ruidosa en lugar de desviarse con justificación; desviaciones sin dueño ni alcance.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La respuesta no es abandonar la regla sino ajustarla (permitir recursión con una cota declarada y comprobada) o permitir una **desviación**: una excepción por escrito, con su motivo, su alcance y quién la aprobó. ([SE-452](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-452-codificacion-segura-misra-y-cert/README.md))
+Cuantas más desviaciones, menos vale el estándar; deben revisarse periódicamente.
 
 ## Relación con otros conceptos
 

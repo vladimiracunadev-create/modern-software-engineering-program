@@ -2,43 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Referencia independiente](./referencia-independiente.md) · [Reflog →](./reflog.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 49](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/README.md)
 
 ## Definición
 
-Texto de retroalimentación sobre un intento fallido que se usa en el siguiente.
-
-Definición de trabajo de [SE-592 — ReAct, plan-and-execute y reflexión](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md).
+La **reflexión** (Shinn et al.) es un texto de retroalimentación sobre un intento fallido que se usa en el siguiente ([SE-592](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md)).
 
 ## Por qué importa
 
-En [SE-592 — ReAct, plan-and-execute y reflexión](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md), el tema «Reflexión» importa porque una segunda oportunidad con una pista, si hay señal de fallo.
+Es una forma de que un agente aprenda dentro de una tarea sin reentrenar. Pero solo ayuda si hay una señal de fallo externa; sin ella, el modelo evalúa su propio resultado con los mismos sesgos con que lo produjo.
 
 ## Cómo funciona
 
-Según [SE-592 — ReAct, plan-and-execute y reflexión](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md):
-
-La reflexión (Shinn et al.) convierte el resultado de un intento fallido en un **texto de retroalimentación** («falló porque el estudiante 3 no tenía contacto; comprueba el contacto antes de enviar») que se añade al contexto del siguiente intento. Cuesta al menos dos llamadas más (reflexionar y volver a planificar) y solo ayuda si hay una **señal de fallo externa**: un código de error, un verificador, una prueba. Sin esa señal, el modelo reflexiona sobre su propia respuesta sin saber si falló, y es fácil que racionalice lo hecho.
-
-Según [SE-592 — ReAct, plan-and-execute y reflexión](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md):
-
-Sirve poco. Sin una señal externa, el modelo evalúa su propio resultado con los mismos sesgos con que lo produjo. Con un verificador, la reflexión recibe una falla concreta y puede mejorar.
+El resultado de un intento fallido se convierte en un texto («falló porque el estudiante 3 no tenía contacto; comprueba el contacto antes de enviar») que se añade al contexto del siguiente intento. Cuesta al menos dos llamadas más (reflexionar y volver a planificar) y solo ayuda si hay una **señal de fallo externa**: un código de error, un verificador, una prueba. Con un verificador, la reflexión recibe una falla concreta y puede mejorar.
 
 ## Ejemplo
 
-Ejemplo de [SE-592 — ReAct, plan-and-execute y reflexión](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md) (sección «Preguntas frecuentes»):
-
-Sirve poco. Sin una señal externa, el modelo evalúa su propio resultado con los mismos sesgos con que lo produjo. Con un verificador, la reflexión recibe una falla concreta y puede mejorar.
+Un agente de envíos recibe de la herramienta el error «contacto vacío» para un estudiante; la reflexión añade esa regla al siguiente intento.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+Pedir reflexión sin verificador externo: sirve poco, porque el modelo valida su propio resultado con sus sesgos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La reflexión (Shinn et al.) convierte el resultado de un intento fallido en un **texto de retroalimentación** («falló porque el estudiante 3 no tenía contacto; comprueba el contacto antes de enviar») que se añade al contexto del siguiente intento. ([SE-592](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-592-react-plan-and-execute-y-reflexion/README.md))
+El costo extra de llamadas debe justificarse por la mejora medida; combinar con condiciones de parada para no reflexionar indefinidamente.
 
 ## Relación con otros conceptos
 

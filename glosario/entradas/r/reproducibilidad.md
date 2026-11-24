@@ -2,48 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Reproducción y revisión](./reproduccion-y-revision.md) · [Reproducibilidad entre sistemas →](./reproducibilidad-entre-sistemas.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Capacidad de obtener el mismo resultado con el mismo código y los mismos datos.
-
-Definición de trabajo de [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md): Posibilidad de repetir método con información suficiente.
+La **reproducibilidad** es la capacidad de obtener el mismo resultado con el mismo código y los mismos datos ([SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md)). [SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) la presenta como la posibilidad de repetir un método con información suficiente. Es una propiedad que se demuestra, no que se declara: se comprueba haciendo que otra persona, u otro entorno, repita el procedimiento y comparando el resultado.
 
 ## Por qué importa
 
-En [SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md), el tema «Reproducibilidad» importa porque un resultado calculado se reproduce; el que toca el sistema difiere.
-
-En [SE-420 — Taller y proyecto integrador: producto SaaS mínimo con evidencia](../../../classes/part-34-saas-y-plataformas-de-producto/se-420-taller-y-proyecto-integrador-producto-saas-minimo-con-evidencia/README.md), el tema «Reproducibilidad» importa porque un tercero puede repetir la evidencia.
+Un resultado que no se puede reproducir no se puede auditar, depurar ni confiar en él. Las comparaciones entre versiones, los benchmarks y los informes dependen de ello. Cambia qué se registra al producir un artefacto: versiones, entradas, orden, codificación y entorno, no solo el código.
 
 ## Cómo funciona
 
-Según [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md):
+La reproducibilidad exige controlar las fuentes de variación. [SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) clasifica ocho artefactos comparados: idénticos, diferentes por un defecto de escritura (corregible), diferentes por su naturaleza (por ejemplo, una fecha de generación) y diferentes por diseño. Al pasar de dos ejecuciones en el mismo sistema a Windows frente a Ubuntu, la parte idéntica se reduce: el entorno es una fuente de variación. La parte roja (defectos de escritura) se puede corregir, por ejemplo con escritura determinista.
 
-**Cómo leer la figura.** Cada barra son los ocho artefactos clasificados para una comparación: en verde los idénticos, en rojo los que difieren por un defecto de escritura, en dorado por su naturaleza y en gris por diseño. Mira primero cuánto se reduce el verde al pasar de dos ejecuciones en el mismo sistema a Windows frente a Ubuntu, y que la parte roja se puede corregir. **Dónde deja de valer:** son dos sistemas en un equipo y una versión de Python en cada uno; otras versiones, otros sistemas de archivos o una configuración regional distinta podrían cambiar el resultado, y la reproducibilidad byte a byte de un informe con gráficos binarios exige controlar además fechas incrustadas y versiones de bibliotecas.
+[SE-504](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md) indica prácticas concretas: serializar con claves ordenadas y UTF-8 y declarar las versiones, para que la huella no cambie entre sistemas por codificación, orden o versión no declarados. La causa de las diferencias suele ser un valor por defecto del entorno que nadie fijó.
 
 ## Ejemplo
 
-Caso medido en la sección «Reproducibilidad entre sistemas» de [SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md):
+```python
+import json, hashlib
+datos = {"b": 1, "a": 2}
+s = json.dumps(datos, sort_keys=True, ensure_ascii=False).encode("utf-8")
+print(hashlib.sha256(s).hexdigest())      # igual en Windows y en Linux
+```
 
-Un paquete es reproducible si otra persona, con otro equipo, obtiene lo mismo. Los resultados que dependen solo de un generador con semilla fija y de aritmética (los de tiempo virtual) son idénticos en cualquier sistema con la misma versión de Python, y se comprueban con una **huella** (un resumen criptográfico del resultado serializado de forma determinista, con claves ordenadas y codificación explícita). Los que tocan el sistema de archivos, la codificación local o los separadores difieren por diseño, y la tarea no es borrar la diferencia sino declararla.
+Sin `sort_keys` ni codificación explícita, la huella puede variar con el orden de inserción o la configuración regional.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-504 — Proyecto: operación observable y recuperable](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md)) son:
-
-- **El validador da 0 problemas y el ejercicio falla** — causa: solo comprueba existencia y forma. Corrección: añadir coincidencias de significado verificables y mantener el ejercicio.
-- **La huella cambia entre sistemas** — causa: codificación, orden o versión no declarados. Corrección: serializar con claves ordenadas y UTF-8, y declarar las versiones.
+- **La huella cambia entre sistemas.** Causa: codificación, orden o versión no declarados; corrección: serializar con claves ordenadas y UTF-8 y declarar las versiones ([SE-504](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md)).
+- **El validador da 0 problemas y el ejercicio falla.** Causa: solo comprueba existencia y forma; corrección: añadir coincidencias de significado verificables ([SE-504](../../../classes/part-41-observabilidad-sre-e-incidentes/se-504-proyecto-operacion-observable-y-recuperable/README.md)).
+- **Confundirla con repetición o replicación.** [SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md) los separa: repetir, reproducir y replicar fallan por razones distintas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** son dos sistemas en un equipo y una versión de Python en cada uno; otras versiones, otros sistemas de archivos o una configuración regional distinta podrían cambiar el resultado, y la reproducibilidad byte a byte de un informe con gráficos binarios exige controlar además fechas incrustadas y versiones de bibliotecas. ([SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md))
+Los resultados de [SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md) son de dos sistemas en un equipo, con una versión de Python en cada uno: otras versiones, sistemas de archivos o configuraciones regionales podrían cambiarlos. La reproducibilidad byte a byte de un informe con gráficos binarios exige controlar además fechas incrustadas y versiones de bibliotecas. Y no todo debe ser reproducible bit a bit: a veces basta una tolerancia declarada.
 
 ## Relación con otros conceptos
 

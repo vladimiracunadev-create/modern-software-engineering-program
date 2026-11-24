@@ -2,54 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Postura del dispositivo](./postura-del-dispositivo.md) · [Potencia estadística →](./potencia-estadistica.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Probabilidad de detectar un efecto real.
-
-Definición de trabajo de [SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md): Probabilidad de que un experimento refute una hipótesis falsa con el efecto y la ventana dados.
-- En [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md): Probabilidad de que un contraste detecte un efecto real de un tamaño dado.
-- En [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md): Probabilidad de detectar una mejora real.
-- En [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md): Probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
+La **potencia** (estadística) es la probabilidad de detectar un efecto real ([SE-585](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md)). El programa la formula con el mismo núcleo en varias clases: la probabilidad de que un experimento refute una hipótesis falsa con el efecto y la ventana dados ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)), de que un contraste detecte un efecto real de un tamaño dado ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)), de detectar una mejora real ([SE-597](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md)) o de detectarlo con un procedimiento y un tamaño de muestra dados ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)). Es la otra cara del error de no detectar.
 
 ## Por qué importa
 
-En [SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md), el tema «Potencia» importa porque con pocas tareas no se detecta una mejora real.
+Un resultado «sin efecto» solo significa algo si el experimento podía haberlo visto. Sin potencia, «no se encontró nada» es compatible con «no se podía encontrar». [SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) lo traduce a decisiones: no confirmar una hipótesis con 2 % de potencia, y escribir el efecto mínimo detectable junto con la conclusión.
 
 ## Cómo funciona
 
-Según [SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md):
+La potencia depende del tamaño del efecto, de la variabilidad, del tamaño de muestra o ventana y del umbral de decisión. Aumentarla cuesta datos o tiempo. [SE-585](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md) muestra el compromiso con una regla sobre discordancias: se cuentan las tareas en que solo una de dos versiones acierta; con *b* tareas en que solo B acierta y *c* en que solo A, se declara mejor a B si (*b* − *c*)/√(*b* + *c*) supera 1,96. Comparar el harness contra sí mismo declara «mejora» 2,1 %, 3,0 % y 3,0 % de las veces, cerca del 2,5 % de una prueba de una cola al 95 %. Esa regla controla el error de falsas mejoras y cobra su precio: la potencia, porque exige diferencias mayores para declararlas.
 
-Una prueba sobre las discordancias (las tareas en que solo uno de los dos acierta) distingue la diferencia del azar: con *b* tareas en que solo B acierta y *c* en que solo A, se declara mejor a B si (*b* − *c*)/√(*b* + *c*) supera 1,96. Con esa regla, comparar el harness contra sí mismo declara «mejora» 2,1 %, 3,0 % y 3,0 % de las veces, cerca del 2,5 % de una prueba de una cola al 95 %. La regla controla el error y cobra su precio: la potencia.
-
-Según [SE-585 — Observabilidad y evals del propio harness](../../../classes/part-48-harness-y-agentic-engineering/se-585-observabilidad-y-evals-del-propio-harness/README.md):
-
-**Corrección.** Se fija un conjunto de tareas, se ejecutan ambas versiones sobre el mismo conjunto, se aplica la regla de discordancias y se anota la potencia. La lección es que un número sin su ruido no es evidencia.
+En despliegue ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)), el canario que dice «sin errores» puede carecer de tráfico suficiente para ver el cambio: hay que calcular la potencia y exigir un tráfico mínimo.
 
 ## Ejemplo
 
-Ejemplo de [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) (sección «Preguntas frecuentes»):
+[SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md): un umbral de SLO parece detectar más (53 % con 5 s), pero lo consigue porque el indicador sano (96,5 %) ya está pegado al umbral (96 %) y refuta ventanas sanas con frecuencia: su «potencia» incluye las falsas alarmas. Moraleja: potencia sin tasa de falsas alarmas engaña. Ilustración de simulación:
 
-Se amplían las ventanas, se repite el experimento en horas de más tráfico, se usan sondas sintéticas que generen carga controlada o se acepta una potencia baja y se dice. Lo que no se hace es declarar «no refutada» sin decir que no podía refutarse.
+```python
+detecta = sum(prueba(simular(efecto=0.05, n=200)) for _ in range(5000)) / 5000
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La hipótesis nunca se refuta** — causa: potencia baja: ventana corta o efecto pequeño. Corrección: ampliar la ventana o repetir y declarar el efecto mínimo detectable. ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md))
-- **Se confirma una hipótesis con 2 % de potencia** — causa: no se calculó lo que el experimento podía ver. Corrección: escribir el efecto mínimo detectable junto con la conclusión. ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md))
-- **El canario dice «sin errores» y producción falla** — causa: tráfico insuficiente para ver el cambio. Corrección: calcular la potencia y exigir tráfico mínimo. ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md))
+- **La hipótesis nunca se refuta.** Causa: potencia baja (ventana corta o efecto pequeño); corrección: ampliar la ventana o repetir y declarar el efecto mínimo detectable ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)).
+- **Confirmar con 2 % de potencia.** Causa: no se calculó lo que el experimento podía ver ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)).
+- **El canario sin errores y producción que falla.** Causa: tráfico insuficiente; corrección: calcular la potencia ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El umbral de SLO parece detectar más (53 % con 5 s), pero lo consigue porque el indicador sano (96,5 %) ya está pegado al umbral (96 %) y refuta ventanas sanas con frecuencia: su «potencia» incluye las falsas alarmas. ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md))
+Las cifras son de simulaciones de las clases con datos sintéticos. La potencia se calcula para un efecto supuesto: si el efecto real es menor, la potencia real también. Y una potencia alta no valida el procedimiento por sí sola: hay que controlar también el error de falsa alarma.
 
 ## Relación con otros conceptos
 

@@ -2,56 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Problemas](./problemas.md) · [Procedimiento y contrato →](./procedimiento-y-contrato.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Registro de quién construyó un artefacto, a partir de qué fuente y con qué materiales y parámetros.
-
-Definición de trabajo de [SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-117 — Licencias, procedencia y reutilización](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md): Origen, versión, autor, url, hash y transformación permiten rastrear un componente.
-- En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md): Evidencia sobre origen y cadena de publicación.
-- En [SE-202 — Firmas, procedencia y protección del repositorio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md): Información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
-- En [SE-024 — Proyecto: informe reproducible de comportamiento y recursos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md): Cadena que permite rastrear evidencia.
+La **procedencia** (*provenance*) es el registro de quién construyó un artefacto, a partir de qué fuente y con qué materiales y parámetros ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)). Otras clases la usan con matices: origen, versión, autor, URL, hash y transformación que permiten rastrear un componente ([SE-117](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md)); evidencia sobre origen y cadena de publicación ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)); información sobre qué construyó un artefacto y con qué proceso ([SE-202](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md)); cadena que permite rastrear evidencia ([SE-024](../../../classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md)).
 
 ## Por qué importa
 
-En [SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md), el tema «Procedencia» importa porque permite comprobar quién construyó qué y con qué.
-
-En [SE-117 — Licencias, procedencia y reutilización](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md), el tema «Procedencia» importa porque origen, versión, autor, URL, hash y transformación permiten rastrear un componente.
-
-En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md), el tema «Procedencia» importa porque relaciona artefacto con publicador y canal
+Sin procedencia, un binario o un paquete es una caja cerrada: no se sabe de qué código salió ni quién lo produjo. Eso impide verificar que lo que se despliega es lo que se revisó. Cambia qué se exige de una dependencia o de un artefacto propio: no solo un hash, sino de dónde viene.
 
 ## Cómo funciona
 
-Según [SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md), en la sección «Procedencia»:
+[SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md) dice que la procedencia responde cinco preguntas: quién lo construyó (el *constructor*), a partir de qué fuente (repositorio y commit), con qué materiales (dependencias, herramientas), con qué parámetros y cuál es su huella (el *sujeto*). Un marco como SLSA organiza esos campos en niveles según cuánta confianza hay que depositar en el constructor: en los niveles bajos la procedencia existe y la genera el propio *build*; en los altos la genera una plataforma de construcción aislada, de la que el equipo de desarrollo no puede alterar los datos. La diferencia es esencial: una procedencia escrita por quien construye prueba lo que el constructor *dice*; una generada por una plataforma independiente prueba algo mucho más difícil de falsificar.
 
-La **procedencia** de un artefacto responde cinco preguntas: quién lo construyó (el *constructor*), a partir de qué fuente (repositorio y commit), con qué materiales (dependencias, herramientas), con qué parámetros y cuál es su huella (el *sujeto*). Un marco como SLSA organiza estos campos en niveles según cuánta confianza hay que depositar en el constructor: en los niveles bajos la procedencia existe y la genera el propio build; en los altos la genera una plataforma de construcción aislada de la que el equipo de desarrollo no puede alterar los datos. La diferencia es esencial: una procedencia que escribe quien construye prueba lo que el constructor *dice*, y una que genera una plataforma independiente prueba algo mucho más difícil de falsificar.
-
-Según [SE-117 — Licencias, procedencia y reutilización](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md), en la sección «Procedencia»:
-
-Origen, versión, autor, URL, hash y transformación permiten rastrear un componente. Copiar y modificar requiere registrar cambios y conservar atribución. Un SBOM describe composición; no certifica que cada dato sea correcto.
+[SE-117](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md) añade para componentes copiados: registrar cambios y conservar atribución. Y recuerda que un SBOM describe composición pero no certifica que cada dato sea correcto.
 
 ## Ejemplo
 
-Ejemplo de [SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md) (sección «Ejemplo profesional»):
+Un artefacto publicado lleva una declaración con: constructor (la plataforma de CI), repositorio y commit, parámetros del build, y el hash del archivo. El consumidor verifica la declaración contra valores esperados fijados de antemano. Ilustración:
 
-El CI de la API de entregas genera el SBOM a partir del bloqueo y del contenido del artefacto final (escaneo de los archivos copiados en `third_party/`), y escribe una procedencia con el commit, el identificador del trabajo de construcción, el hash del bloqueo y la huella del artefacto. Ambos documentos tienen como sujeto la huella del artefacto y se almacenan junto a él como metadatos (`SE-470`).
+```json
+{"sujeto": {"sha256": "..."}, "constructor": "ci.ejemplo", "fuente": "repo@commit", "materiales": ["dep@1.2.3"]}
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La verificación de la procedencia pasa siempre** — causa: valores esperados tomados del propio documento. Corrección: fijar de antemano constructor, repositorio y rama. ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md))
+- **La verificación pasa siempre.** Causa: los valores esperados se tomaron del propio documento; corrección: fijar de antemano constructor, repositorio y rama ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)).
+- **Confundir procedencia con SBOM.** La primera dice cómo se produjo; el segundo, qué contiene ([SE-117](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md)).
+- **Creer que firmar equivale a procedencia.** Una firma dice quién firmó, no cómo se construyó.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **procedencia** de un artefacto responde cinco preguntas: quién lo construyó (el *constructor*), a partir de qué fuente (repositorio y commit), con qué materiales (dependencias, herramientas), con qué parámetros y cuál es su huella (el *sujeto*). ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md))
+La procedencia demuestra origen, no ausencia de defectos ni de código malicioso en la fuente. Los niveles de SLSA son un marco externo cuyo detalle conviene contrastar con su especificación. Y la procedencia autogenerada por el constructor solo vale si se confía en el constructor.
 
 ## Relación con otros conceptos
 

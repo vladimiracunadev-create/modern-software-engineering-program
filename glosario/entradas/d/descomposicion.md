@@ -2,49 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Descomponer la petición](./descomponer-la-peticion.md) · [Descomposición exacta →](./descomposicion-exacta.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-Reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
+**Descomposición** es separar un todo en partes que se puedan tratar por separado. El programa usa la palabra con tres sentidos:
 
-Definición de trabajo de [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-447 — Automoción: ISO 26262 y niveles ASIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md): Satisfacer un requisito con elementos redundantes de nivel menor que sean independientes.
-- En [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md): Separación de un problema en resultados coordinables.
+- **De un problema** ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)): separarlo en resultados coordinables.
+- **De una métrica** ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)): repartir el cambio de una métrica entre los factores que la componen, con convención y orden declarados.
+- **De un requisito de seguridad** ([SE-447](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md)): satisfacerlo con elementos redundantes de nivel menor que sean independientes.
 
 ## Por qué importa
 
-En [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), el tema «Descomposición» importa porque explica qué factor movió la métrica y evita celebrar o corregir el equivocado.
-
-En [SE-447 — Automoción: ISO 26262 y niveles ASIL](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md), el tema «Descomposición» importa porque permite repartir rigor entre elementos independientes.
+Un problema grande no se puede estimar, repartir ni verificar; uno partido en piezas sí. Y una métrica agregada que cambia sin explicación no sirve para decidir: hay que saber qué factor se movió. La decisión que cambia es qué criterio se usa para cortar, porque dos cortes distintos pueden ser ambos «razonables» y llevar a trabajos diferentes.
 
 ## Cómo funciona
 
-Según [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), en la sección «Descomposición»:
-
-Una métrica norte producto de factores (alcance × frecuencia × éxito) se descompone para saber qué factor explicó un cambio. Con logaritmos, la contribución de cada factor suma el cambio total sin depender del orden; con sustitución secuencial, depende del orden y se informa un rango. Cuando el cambio total es pequeño, las participaciones se vuelven inestables y no se informan como porcentajes.
+- **Problemas** ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)): se declara un **criterio de descomposición** (por pregunta, no por herramienta) y se revisa el árbol contra él. Las partes deben ser coordinables: tener entradas y resultados claros.
+- **Métricas** ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)): una métrica norte producto de factores (alcance × frecuencia × éxito) se descompone para saber qué factor explicó un cambio. Con logaritmos, la contribución de cada factor suma el cambio total sin depender del orden; con sustitución secuencial depende del orden y se informa un rango. Si el cambio total es pequeño, las participaciones son inestables y no se informan como porcentajes.
+- **Seguridad** ([SE-447](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-447-automocion-iso-26262-y-niveles-asil/README.md)): se cubre un requisito con elementos redundantes independientes de nivel menor; la independencia es lo que se comprueba.
 
 ## Ejemplo
 
-Ejemplo de [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md) (sección «Preguntas frecuentes»):
+[SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md): si el alcance sube un 10 % y el éxito baja un 5 %, el logaritmo reparte el cambio total en dos aportes que suman exactamente el total. Ilustración:
 
-No. El árbol de la Figura 1 puede dibujarse a mano. El código llega después, cuando se quiere ejecutar el modelo y comprobar sus reglas; si la descomposición está mal, el programa solo automatiza el error.
+```python
+import math
+aporte = {k: math.log(nuevo[k]/viejo[k]) for k in viejo}
+total = math.log(prod(nuevo.values())/prod(viejo.values()))   # == sum(aporte.values())
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La descomposición atribuye 90 % a un factor** — causa: se usó un solo orden de sustitución. Corrección: usar logaritmos o informar el rango de órdenes. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
-- **Dos personas dibujan árboles distintos y ambos parecen válidos** — causa: falta un criterio de descomposición. Corrección: declarar el criterio (por pregunta, no por herramienta) y revisar contra él. ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md))
+- **Atribuir 90 % a un factor.** Causa: un solo orden de sustitución; corrección: logaritmos o informar el rango de órdenes ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)).
+- **Dos árboles distintos, ambos «válidos».** Causa: falta criterio de descomposición; corrección: declararlo y revisar contra él ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)).
+- **Creer que la descomposición explica el porqué.** Dice cuánto aportó cada factor, no por qué cambió.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** la descomposición supone que la métrica es un producto exacto de los factores y que no hay interacciones fuera del producto; no dice por qué cambió cada factor. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
+Supone que la métrica es un producto exacto de los factores y que no hay interacciones fuera del producto ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)). En problemas muy acoplados, partir sin criterio ofrece una ilusión de orden. Y los tres sentidos no son intercambiables: descomponer un problema no es descomponer una métrica.
 
 ## Relación con otros conceptos
 

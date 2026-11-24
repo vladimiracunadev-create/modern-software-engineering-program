@@ -2,53 +2,49 @@
 
 [↑ Glosario](../../README.md) · [← Seccionamiento](./seccionamiento.md) · [Secreto centinela →](./secreto-centinela.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Dato cuya divulgación permite o facilita una acción no autorizada.
-
-Definición de trabajo de [SE-031 — Variables de entorno, configuración y secretos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md): Valor cuya divulgación da acceso o daña a alguien: contraseñas, tokens, claves.
-- En [SE-462 — Secretos, configuración y separación de ambientes](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md): Valor cuyo conocimiento concede una capacidad, como una contraseña, una clave de API o un token.
+Un **secreto** es un dato cuya divulgación permite o facilita una acción no autorizada ([SE-031](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md)). [SE-219](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md) lo concreta como un valor cuya divulgación da acceso o daña a alguien: contraseñas, tokens, claves; [SE-462](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md), como un valor cuyo conocimiento concede una capacidad. No es lo mismo que un dato personal ni que un dato privado: lo define lo que permite hacer a quien lo posee.
 
 ## Por qué importa
 
-En [SE-401 — Redes, identidad y secretos en cloud](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md), el tema «Secretos» importa porque una credencial en claro hace inútil cualquier otra barrera.
-
-En [SE-031 — Variables de entorno, configuración y secretos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md), el tema «Secreto» importa porque exige ciclo de vida y redacción
-
-En [SE-219 — Configuración, flags, archivos y precedencia](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md), el tema «Secretos» importa porque un secreto en un argumento es visible a otros procesos.
+Un secreto se usa para demostrar identidad y se vuelve una vulnerabilidad cuando se copia al lugar equivocado: el repositorio, un registro, una imagen, un mensaje de chat ([SE-401](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md)). La mayoría de los incidentes con secretos no son criptográficos: son de manejo. Cambia dónde se guardan, quién los ve y cuánto tiempo valen.
 
 ## Cómo funciona
 
-Según [SE-401 — Redes, identidad y secretos en cloud](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md), en la sección «Secretos»:
+[SE-401](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md), con la guía de OWASP, propone:
 
-Un secreto, como una clave o un token, se usa para demostrar identidad y se vuelve una vulnerabilidad cuando se copia al lugar equivocado: el repositorio, un registro, una imagen, un mensaje de chat. OWASP recomienda centralizarlos en un almacén con control de acceso y auditoría, rotarlos, no incluirlos en el código y preferir credenciales de vida corta emitidas a cada servicio. La razón es la contención: un secreto en un solo lugar y con caducidad corta limita cuánto tiempo y a quién sirve si se filtra.
+- **centralizarlos** en un almacén con control de acceso y auditoría;
+- **rotarlos** (cambiarlos periódicamente y tras sospecha);
+- **no incluirlos en el código**;
+- **preferir credenciales de vida corta** emitidas a cada servicio.
+
+La razón es la contención: un secreto en un solo lugar y con caducidad corta limita cuánto tiempo y a quién sirve si se filtra. [SE-462](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md) añade una regla útil: un secreto sin dueño y sin fecha de caducidad es un incidente esperando. En configuración ([SE-219](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)), los secretos no deben pasar por argumentos de línea de comandos (visibles en la lista de procesos) ni por registros.
+
+Una causa frecuente de persistencia: el historial de Git conserva lo que se borró del último *commit*, de modo que quitar el secreto del archivo no lo elimina.
 
 ## Ejemplo
 
-Ejemplo de [SE-401 — Redes, identidad y secretos en cloud](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md) (sección «Ejemplo profesional»):
+```bash
+# mal: el secreto queda en el historial del shell y en la lista de procesos
+herramienta --token abc123
+# mejor: leer de un almacén o de una variable de entorno inyectada y de vida corta
+herramienta --token-desde-env APP_TOKEN
+```
 
-El equipo de la plataforma dibuja el grafo de flujos permitidos a partir de las reglas reales, no de su diagrama, calcula los saltos a la base de datos y al almacén de secretos y encuentra que el monitoreo abre dos caminos de tres saltos. Quita la regla del monitoreo hacia la aplicación y la sustituye por una lectura de métricas que la aplicación publica.
+Una vez filtrado, el procedimiento de [SE-031](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) y [SE-462](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md): revocar y rotar primero, evaluar la exposición después y recién entonces limpiar.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una clave aparece en el repositorio** — causa: secreto copiado a un script. Corrección: mover al almacén, rotar la clave y activar el análisis en cada confirmación. ([SE-401](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md))
-- **Se borró un secreto del último commit y se da por resuelto** — causa: se ignoraron copias e historial. Corrección: revocar/rotar primero y evaluar exposición. ([SE-031](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md))
-- **Un secreto sigue vivo tras borrarlo del archivo** — causa: el historial lo conserva. Corrección: rotarlo; buscar en el historial. ([SE-462](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md))
+- **Una clave aparece en el repositorio.** Causa: secreto copiado a un script; corrección: mover al almacén, rotar la clave y activar el análisis en cada confirmación ([SE-401](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md)).
+- **Se borró del último *commit* y se da por resuelto.** Causa: se ignoraron copias e historial; corrección: revocar o rotar primero y evaluar exposición ([SE-031](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md)).
+- **Secreto vivo tras borrarlo del archivo.** Causa: el historial lo conserva; corrección: rotarlo y buscar en el historial ([SE-462](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La razón es la contención: un secreto en un solo lugar y con caducidad corta limita cuánto tiempo y a quién sirve si se filtra. ([SE-401](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-401-redes-identidad-y-secretos-en-cloud/README.md))
-- Una regla útil: un secreto sin dueño y sin fecha de caducidad es un incidente esperando. ([SE-462](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-462-secretos-configuracion-y-separacion-de-ambientes/README.md))
+Un almacén de secretos reduce el riesgo, no lo elimina: quien tiene acceso al almacén es otro punto de confianza. Las credenciales de vida corta dependen de que la plataforma las soporte. Y un valor público (un identificador, una clave pública) no es un secreto: tratarlo como tal añade fricción sin protección.
 
 ## Relación con otros conceptos
 

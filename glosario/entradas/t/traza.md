@@ -2,57 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Traversal de rutas](./traversal-de-rutas.md) · [Traza enriquecida →](./traza-enriquecida.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Registro ordenado de cada acción, su resultado y el estado del harness en ese paso.
+Una **traza** es el registro ordenado del recorrido de algo por un sistema. El programa la usa con matices según el contexto:
 
-Definición de trabajo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md): Registro estructurado de los tramos de una solicitud.
-- En [SE-326 — Vistas lógica, runtime, datos y despliegue](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md): Registro de los pasos de una petición a través de los componentes del sistema.
-- En [SE-382 — Observabilidad y seguridad de integraciones](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md): Recorrido de una petición o de un flujo por varios componentes, formado por tramos relacionados.
-- En [SE-496 — Trazas distribuidas y contexto](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md): Conjunto de spans que describen el recorrido de una petición por un sistema.
+- **De una petición distribuida** ([SE-382](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md), [SE-496](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md), [SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)): el recorrido de una petición o de un flujo por varios componentes, formado por tramos (*spans*) relacionados.
+- **De un agente** ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md)): el registro ordenado de cada acción, su resultado y el estado del *harness* en ese paso.
+- **De ejecución** ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md), [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)): la secuencia de eventos de un caso, que se compara con otra.
 
 ## Por qué importa
 
-En [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), el tema «Traza» importa porque sin ella, ninguna de las demás se puede diagnosticar.
-
-En [SE-597 — Evals y LLMOps de sistemas con LLM](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-597-evals-y-llmops-de-sistemas-con-llm/README.md), el tema «Traza» importa porque sin ella no se atribuye costo ni falla.
+La traza responde a «¿qué pasó, en qué orden y dónde se fue el tiempo o el error?». Sin ella, un fallo en un sistema distribuido o en un agente es una caja negra. En agentes, es lo que permite distinguir dos grupos de fallas con tratamientos opuestos ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md)): una falla del modelo (razona mal, inventa una función) se trata cambiando de modelo, dividiendo la tarea o dándole más información; una falla del entorno (no ve el resultado, no puede escribir, nadie verifica) se trata cambiando el entorno, y cambiar de modelo no la arregla.
 
 ## Cómo funciona
 
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
+Para unir tramos de procesos distintos, cada uno debe recibir y reenviar un **identificador de correlación** o un contexto de traza ([SE-382](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md)). Una traza es un conjunto de *spans* que describen el recorrido ([SE-496](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md)); calcular la **ruta crítica** (la cadena de tramos que determina la duración total) indica dónde optimizar. Si el contexto se pierde en un grupo de hilos o en una cola, aparecen trazas huérfanas. En arquitectura ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)), las trazas permiten verificar dependencias reales contra la vista lógica, que solo declara lo permitido.
 
-La consecuencia práctica es que existen dos grupos de fallas con tratamientos opuestos. Una falla del modelo (razona mal, inventa una función) se trata cambiando de modelo, dividiendo la tarea o dándole más información. Una falla del entorno (no ve el resultado, no puede escribir, nadie verifica) se trata cambiando el entorno, y cambiar de modelo no la arregla. La traza es lo que permite distinguirlas.
-
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
-
-El equipo adopta un asistente de código para el mantenimiento de *Avisos*. Durante dos semanas todo va bien; en la tercera, tres cambios llegan a revisión con las pruebas en rojo. La revisión encuentra que el asistente los dio por terminados. Tres hipótesis compiten: el modelo empeoró, el prompt cambió, el entorno cambió. La persona responsable revisa las trazas de los tres casos y encuentra que ninguno ejecutó las pruebas. Revisa el archivo de instrucciones: una reorganización había movido la línea de verificación a un archivo que el producto ya no cargaba. La corrección no toca el modelo: restaura la línea y añade una compuerta (`SE-583`) que rechaza la terminación sin pruebas en verde.
+En el harness de un agente ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md)), la traza guarda cada acción y su resultado; revisarla permite saber, por ejemplo, que tres cambios con pruebas en rojo no ejecutaron las pruebas porque la línea de verificación había quedado en un archivo que el producto ya no cargaba.
 
 ## Ejemplo
 
-Ejemplo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) (sección «Ejemplo mínimo»):
+```text
+span A  gateway    0–480 ms
+ └ span B  api       10–470
+    ├ span C  cola     20–60
+    └ span D  almacenamiento 70–460   <- ruta crítica
+```
 
-La tarea `T1`: `add(a, b)` devuelve `a - b`. El harness completo hace cuatro pasos: lee `calc.py`; aplica el reemplazo `a - b` por `a + b`; ejecuta las pruebas, que pasan; y el agente declara la tarea terminada. En la traza aparecen exactamente `read`, `write`, `run_tests` y la solicitud de cierre. Quitar la herramienta de escritura produce una traza de doce lecturas; quitar el contexto, otra de doce lecturas. Las dos trazas son iguales y los fallos distintos: por eso la traza necesita más que el nombre de la herramienta.
+Optimizar el tramo C no cambia la duración total; D sí.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El código tiene dependencias que nadie dibujó** — causa: la vista lógica declara lo permitido y no se verifica. Corrección: comparar con trazas o con el código en cada cambio. ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md))
-- **Hay trazas huérfanas de 3 segundos** — causa: contexto perdido en un grupo de hilos o en una cola. Corrección: copiar el contexto explícitamente y probar la frontera. ([SE-496](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md))
-- **Una traza está completa pero la mejora no llega** — causa: se optimizó un span fuera de la ruta crítica. Corrección: calcular la ruta crítica antes de elegir. ([SE-496](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md))
+- **Trazas huérfanas de 3 segundos.** Causa: contexto perdido en un grupo de hilos o una cola; corrección: copiar el contexto explícitamente y probar la frontera ([SE-496](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md)).
+- **Traza completa pero la mejora no llega.** Causa: se optimizó un span fuera de la ruta crítica; corrección: calcular la ruta crítica antes de elegir ([SE-496](../../../classes/part-41-observabilidad-sre-e-incidentes/se-496-trazas-distribuidas-y-contexto/README.md)).
+- **Dependencias que nadie dibujó.** Causa: la vista lógica no se verifica; corrección: comparar con trazas o con el código en cada cambio ([SE-326](../../../classes/part-27-arquitectura-de-software-y-dominio/se-326-vistas-logica-runtime-datos-y-despliegue/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Quitar la herramienta de escritura deja al agente leyendo en bucle, porque la política no tiene otra salida: el agente no «sabe» que no puede escribir hasta que lo intenta, y el harness que no lo registra deja una traza idéntica a la del contexto perdido. ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md))
-- Para unir tramos de procesos distintos hace falta que cada uno reciba y reenvíe un **identificador de correlación** o un contexto de traza. ([SE-382](../../../classes/part-31-integracion-eventos-y-mensajeria/se-382-observabilidad-y-seguridad-de-integraciones/README.md))
+Una traza completa cuesta almacenamiento y puede contener datos sensibles; se muestrea y se limpia. Sin una acción registrada, la traza no distingue contexto perdido de herramienta ausente: [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) advierte que un harness que no registra deja una traza idéntica en ambos casos. Y una traza muestra lo que ocurrió, no por qué: hay que contrastar hipótesis.
 
 ## Relación con otros conceptos
 

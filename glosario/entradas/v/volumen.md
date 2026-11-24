@@ -2,48 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Volatilidad](./volatilidad.md) · [Votación →](./votacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Número de filas de una carga o partición.
+**Volumen** tiene dos sentidos en el programa:
 
-Definición de trabajo de [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md).
+- **De datos** ([SE-365](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md)): el número de filas de una carga o de una partición; la primera comprobación de calidad es si llegaron las filas esperadas.
+- **De almacenamiento** ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)): una unidad lógica con un espacio de nombres y un sistema de archivos asociados.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md): Unidad lógica con espacio de nombres y sistema de archivos asociados.
+Esta entrada desarrolla el primero y menciona el segundo.
 
 ## Por qué importa
 
-En [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md), el tema «Volumen» importa porque detecta cargas parciales, duplicados y ausencias.
+Una carga parcial o una tabla vacía son fallos silenciosos: el pipeline termina sin error, la tabla existe, y los paneles muestran la mitad de los datos. Controlar el volumen es la defensa más barata contra esos fallos. [SE-365](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md) cuenta el caso: el lunes, el panel muestra la mitad de las entregas y las alertas de volumen no sonaron; revisar qué comprobaciones existían mostró que la tabla solo tenía validación de esquema.
 
 ## Cómo funciona
 
-Según [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md):
+[SE-365](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md) lista seis comprobaciones de calidad de datos, cada una con su propia pregunta: **volumen** (¿llegaron las filas esperadas?), **unicidad** (¿hay claves repetidas?), **nulos** (¿falta lo que debería estar?), **integridad referencial** (¿cada clave extranjera apunta a algo?), **frescura** (¿es reciente el dato más nuevo?) y **distribución** (¿se parecen los valores a lo habitual?).
 
-Volumen: ¿llegaron las filas esperadas? Unicidad: ¿hay claves repetidas? Nulos: ¿falta lo que debería estar? Integridad referencial: ¿cada clave extranjera apunta a algo? Frescura: ¿es reciente el dato más nuevo? Distribución: ¿se parecen los valores a lo habitual? En el laboratorio, una tabla de 5 000 pedidos recibió seis variantes defectuosas. La carga parcial falló el volumen; los duplicados fallaron volumen y unicidad; los nulos en el cliente, la comprobación de nulos; los clientes huérfanos, la integridad referencial; los datos atrasados, la frescura; los importes multiplicados por cien (un cambio de unidad) solo fallaron la distribución. La variante limpia no falló ninguna. Ninguna comprobación vio más de dos variantes: su ceguera es tan importante como su vista.
+En el laboratorio, una tabla de 5 000 pedidos recibió seis variantes defectuosas. La carga parcial falló el volumen; los duplicados, volumen y unicidad; los nulos en el cliente, la comprobación de nulos; los clientes huérfanos, la integridad referencial; los datos atrasados, la frescura; y los importes multiplicados por cien (un cambio de unidad) solo fallaron la distribución. La variante limpia no falló ninguna. Ninguna comprobación vio más de dos variantes: su ceguera es tan importante como su vista.
 
-Según [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md):
-
-El equipo de *Avisos* levanta una tabla con sus diez conjuntos de datos más consultados y, para cada uno, anota qué comprobaciones tiene. Encuentra que tres tienen solo validación de esquema. Prioriza por impacto: el hecho de lecturas recibe volumen, unicidad, nulos y frescura; el mart ejecutivo, distribución además de volumen. Define la política: unicidad y volumen detienen la publicación; la distribución publica con una marca. Fija una métrica del propio sistema: el porcentaje de alertas que terminaron en una acción (corregir, ajustar umbral, aceptar con anotación). A los dos meses, la métrica baja del 30 % al 12 % de acciones y el equipo recalibra la mediana por día de la semana en tres conjuntos antes de que alguien silencie el canal.
+El umbral de volumen se calibra contra lo habitual (por ejemplo, la mediana por día de la semana), no contra un número fijo.
 
 ## Ejemplo
 
-Ejemplo de [SE-365 — Calidad y observabilidad de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md) (sección «Ejemplo mínimo»):
+```sql
+SELECT COUNT(*) AS filas FROM lecturas WHERE dia = :dia;
+-- alerta si filas < 0.8 * mediana_mismo_dia_de_semana
+```
 
-Una comprobación de volumen con estacionalidad:
+El equipo de *Avisos* prioriza por impacto: el hecho de lecturas recibe volumen, unicidad, nulos y frescura; el mart ejecutivo, distribución además de volumen. Define que unicidad y volumen detienen la publicación y la distribución publica con una marca.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Solo validar el esquema.** Una tabla con el esquema correcto y la mitad de las filas pasa la validación.
+- **Un umbral fijo.** El volumen varía por día de la semana y por temporada; hay que recalibrarlo.
+- **Alertas que nadie atiende.** [SE-365](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md) propone una métrica del propio sistema: el porcentaje de alertas que terminaron en una acción; si baja, se recalibra antes de que alguien silencie el canal.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La carga parcial falló el volumen; los duplicados fallaron volumen y unicidad; los nulos en el cliente, la comprobación de nulos; los clientes huérfanos, la integridad referencial; los datos atrasados, la frescura; los importes multiplicados por cien (un cambio de unidad) solo fallaron la distribución. ([SE-365](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md))
-- **Fallo.** El lunes, el panel muestra la mitad de las entregas y las alertas de volumen no sonaron. ([SE-365](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-365-calidad-y-observabilidad-de-datos/README.md))
+El volumen detecta ausencia o exceso, no corrección de los valores: una tabla con el número exacto de filas puede tener todos los importes errados (eso lo ve la distribución). Los umbrales son del equipo y se ajustan con datos reales. Y en el sentido de almacenamiento ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)), un volumen es una unidad lógica de montaje: no tiene relación con el conteo de filas.
 
 ## Relación con otros conceptos
 

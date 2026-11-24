@@ -2,49 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Pila y disciplina lifo](./pila-y-disciplina-lifo.md) · [Pivote →](./pivote.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Conexión de salida de una etapa con entrada de otra.
-
-Definición de trabajo de [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-017 — CPU, instrucciones, registros y ciclos de ejecución](../../../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md): Solapamiento de etapas.
+Un **pipeline** (tubería) conecta la salida de una etapa con la entrada de la siguiente ([SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)). En arquitectura de procesadores, [SE-017](../../../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) lo usa como el solapamiento de etapas de ejecución de instrucciones. Los dos usos comparten la idea de etapas encadenadas que trabajan sobre un flujo; esta entrada trata el de línea de comandos y menciona el de estilos de arquitectura ([SE-339](../../../classes/part-28-estilos-arquitectonicos/se-339-pipes-and-filters-y-arquitecturas-de-flujo/README.md), véase *flujo*).
 
 ## Por qué importa
 
-En [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md), el tema «Pipeline» importa porque conecta productor y consumidor
+Permite componer herramientas pequeñas sin guardar resultados intermedios. Pero tiene una trampa frecuente: el estado final del pipeline depende del shell y de su configuración ([SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)). Un pipeline puede tener éxito aparente aunque una etapa intermedia haya fallado. La decisión que cambia es qué se toma como criterio de éxito de una cadena.
 
 ## Cómo funciona
 
-Según [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md):
+Cada etapa lee de su entrada estándar y escribe en su salida estándar; el shell conecta las etapas y las ejecuta a la vez. Un productor lento y un consumidor rápido se sincronizan por el buffer de la tubería.
 
-El estado final del pipeline depende del shell y su configuración. En Bash, `pipefail` modifica qué fallos se propagan; en PowerShell, el pipeline transporta objetos dentro del entorno PowerShell y texto al cruzar a procesos nativos. Por eso debe verificarse la semántica, no extrapolarla.
+Las diferencias entre shells son semánticas, no de sintaxis ([SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)):
 
-Según [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md):
+- En Bash, el código de salida de un pipeline es por defecto el de la última etapa; `pipefail` modifica qué fallos se propagan.
+- En PowerShell, el pipeline transporta **objetos** dentro del entorno PowerShell y **texto** al cruzar a procesos nativos.
 
-Un pipeline de exportación transforma miles de registros. La etapa inicial falla tras diez, pero la última herramienta termina correctamente con entrada parcial. La política de propagación detiene la entrega y conserva stderr correlacionado; éxito visual del último comando deja de ser el criterio.
+Por eso debe verificarse la semántica del shell en uso en lugar de extrapolarla.
 
 ## Ejemplo
 
-Ejemplo de [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md) (sección «Ejemplo profesional»):
+[SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md): un pipeline de exportación transforma miles de registros. La etapa inicial falla tras diez, pero la última herramienta termina correctamente con entrada parcial. La política de propagación detiene la entrega y conserva stderr correlacionado; el éxito visual del último comando deja de ser el criterio.
 
-Un pipeline de exportación transforma miles de registros. La etapa inicial falla tras diez, pero la última herramienta termina correctamente con entrada parcial. La política de propagación detiene la entrega y conserva stderr correlacionado; éxito visual del último comando deja de ser el criterio.
+```bash
+set -o pipefail
+exportar | transformar | cargar     # falla si cualquier etapa falla
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un pipeline grande se bloquea** — causa: no se consumen ambos flujos o se almacena todo. Corrección: procesar en streaming y drenar canales. ([SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md))
+- **Un pipeline grande se bloquea.** Causa: no se consumen ambos flujos o se almacena todo; corrección: procesar en streaming y drenar canales ([SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)).
+- **Usar el código del último comando como criterio.** Una etapa anterior puede haber fallado sin que se note.
+- **Suponer que Bash y PowerShell se comportan igual.** El primero mueve texto; el segundo, objetos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El estado final del pipeline depende del shell y su configuración. ([SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md))
+Un pipeline no sirve cuando las etapas necesitan resultados completos, no flujos (como en una canalización de CI, donde cada paso recibe artefactos). La composición por tuberías oculta el estado intermedio, lo que dificulta depurar. Y para procesos largos y críticos, una etapa que falle a mitad debe dejar un rastro recuperable, no solo un código de salida.
 
 ## Relación con otros conceptos
 

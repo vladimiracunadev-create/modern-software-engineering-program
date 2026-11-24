@@ -2,47 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Audiencia](./audiencia.md) · [Auto-actualización →](./auto-actualizacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Establecimiento de la identidad de quien hace una solicitud.
-
-Definición de trabajo de [SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-458 — Identidad, autenticación y sesiones](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md): Prueba de que quien llama controla la identidad que afirma, mediante algo que sabe, tiene o es.
-- En [SE-027 — Usuarios, grupos, permisos y elevación de privilegios](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md): Proceso de establecer una identidad.
+La **autenticación** es el proceso de establecer quién hace una solicitud: comprobar que quien llama controla la identidad que afirma. El programa la define así en [SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) («establecimiento de la identidad de quien hace una solicitud»), la precisa en [SE-458](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md) como la prueba de que quien llama controla esa identidad mediante algo que sabe, tiene o es, y en [SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) como el proceso de establecer una identidad en un sistema operativo. Es distinta de la autorización: autenticar responde «quién eres», no «qué puedes hacer».
 
 ## Por qué importa
 
-En [SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md), el tema «Autenticación» importa porque sin una verificación completa, un token falsificado o ajeno se acepta como si fuera válido.
+Toda decisión posterior de seguridad (permisos, auditoría, límites de uso) se apoya en la identidad que la autenticación establece. Si esa identidad es falsa o se acepta sin comprobar, el resto del control se aplica a la persona equivocada. Según [SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md), sin una verificación completa un token falsificado o ajeno se acepta como si fuera válido. Cambia una decisión profesional concreta: qué comprobaciones debe hacer el servidor sobre cada credencial y cuáles no puede delegar al cliente.
 
 ## Cómo funciona
 
-Según [SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md), en la sección «Autenticación»:
+Un patrón habitual es el token firmado: transporta un sujeto y unas afirmaciones, y el servidor lo verifica en varias comprobaciones ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)):
 
-Autenticar es establecer *quién* hace la solicitud. Un token firmado transporta un sujeto y unas afirmaciones, y su verificación exige varias comprobaciones: que el algoritmo sea el esperado (no el que declara la cabecera), que la firma coincida con la clave del emisor, que el emisor y la audiencia sean los de esta API, y que la hora actual esté entre `nbf` y `exp`. Cada comprobación omitida es un ataque: `alg: none` evita la firma, un token expirado se acepta para siempre, uno de otra audiencia funciona en esta API.
+- que el algoritmo sea el que el servidor espera, no el que declara la cabecera del propio token;
+- que la firma coincida con la clave del emisor;
+- que el emisor y la audiencia sean los de esta API;
+- que la hora actual esté entre `nbf` (no antes de) y `exp` (expiración).
+
+La causa de cada fallo es una comprobación omitida: `alg: none` evita la firma, un token expirado se acepta para siempre, uno emitido para otra audiencia funciona en esta API. En [SE-458](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md) la autenticación se mira como política con mediciones: los factores (saber, tener, ser), la sesión que sigue a la prueba y qué defensa pasa a ser decisiva cuando cambia un dato como la reutilización de contraseñas.
 
 ## Ejemplo
 
-Ejemplo de [SE-458 — Identidad, autenticación y sesiones](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md) (sección «Caso conductor»):
+Ilustración mínima, no código de una clase:
 
-La plataforma de entregas de tareas continúa como caso conductor de la [Parte 38](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/README.md). Esta clase deja el segundo artefacto: la política de autenticación y sesión con sus mediciones. `SE-459` preguntará qué puede hacer una persona ya autenticada y por qué un identificador adivinable no es un control. Cambia después un solo dato, la reutilización de contraseñas del 2 % al 10 %, y observa qué defensa pasa a ser decisiva.
+```python
+claims = decode(token, key, algorithms=["RS256"], audience="api-entregas",
+                issuer="https://idp.ejemplo")
+```
+
+Fijar `algorithms`, `audience` y `issuer` en la llamada cierra los tres ataques anteriores. En la plataforma de entregas de tareas que [SE-458](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md) usa como caso conductor, la política de autenticación y sesión es un artefacto que se mide, no una opinión.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)) son:
-
-- **Un token vencido sigue funcionando** — causa: el verificador no comprueba `exp`. Corrección: comprobar vigencia con un margen de reloj acotado.
-- **Un token de otra API funciona aquí** — causa: no se comprueba la audiencia. Corrección: exigir audiencia y emisor.
+- **Un token vencido sigue funcionando.** Causa: el verificador no comprueba `exp`; corrección: comprobar vigencia con un margen de reloj acotado ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)).
+- **Un token de otra API funciona aquí.** Causa: no se comprueba la audiencia; corrección: exigir audiencia y emisor ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)).
+- **Confundir autenticación con autorización.** Haber demostrado quién eres no dice qué puedes hacer; [SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md) trata esa segunda decisión por separado.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- En ambos casos el sistema funcionó como debía: el archivo existe, la identidad no tiene el permiso y la elevación exige una autenticación que ese contexto no ofrece. ([SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md))
+Autenticar bien no protege por sí solo: [SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) muestra casos donde el sistema funciona como debía (la identidad existe, no tiene el permiso, y la elevación exige una autenticación que ese contexto no ofrece). Una autenticación correcta tampoco impide el abuso por una persona legítima. Y las cifras de [SE-458](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-458-identidad-autenticacion-y-sesiones/README.md) son de un caso de estudio: otro sistema pide otras mediciones.
 
 ## Relación con otros conceptos
 

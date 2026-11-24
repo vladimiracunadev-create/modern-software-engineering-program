@@ -2,51 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Runbook](./runbook.md) · [Runtime & Systems Engineer →](./runtime-systems-engineer.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-El runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
-
-Definición de trabajo de [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md): Servicios que implementan ejecución de un lenguaje.
-- En [SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md): Servicios que sostienen un programa durante ejecución.
+El **runtime** (entorno de ejecución) es el conjunto de servicios que ejecutan o sostienen un programa durante su ejecución: memoria, carga de código, recolección de basura (*garbage collection*), bucle de eventos o biblioteca estándar ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)). [SE-021](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) lo define como los servicios que implementan la ejecución de un lenguaje y [SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) como los servicios que sostienen un programa durante la ejecución. No es el programa ni el sistema operativo: es la capa entre ambos.
 
 ## Por qué importa
 
-En [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md), el tema «Runtime» importa porque el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
-
-En [SE-021 — Runtimes, máquinas virtuales y recolección de basura](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md), el tema «Runtime» importa porque implementa servicios no escritos en cada programa
+Es una dependencia operacional distinta del paquete: dos máquinas con el mismo código pueden comportarse distinto por tener runtimes distintos. Muchas explicaciones erróneas del tipo «una línea equivale a una instrucción» o «`del` libera memoria» ignoran esta capa. Cambia qué se declara al publicar o desplegar: la versión del runtime y, si afecta, la implementación y la plataforma.
 
 ## Cómo funciona
 
-Según [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md), en la sección «Runtime»:
+El runtime media entre el código y la máquina. Entre otras funciones:
 
-El runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib. Es una dependencia operacional distinta del paquete. Versiones compatibles deben incluir implementación y plataforma cuando afectan ABI o comportamiento.
+- **memoria y referencias:** `del` elimina una referencia; el efecto depende de las referencias restantes, del runtime y del asignador, no de una liberación física inmediata ([SE-021](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md));
+- **carga:** resuelve e importa módulos; un SDK que importa un runtime pesado para una sola función penaliza el arranque de todos sus usuarios ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md));
+- **ejecución:** entre la línea de código y la instrucción de máquina hay compilador y runtime, con representaciones intermedias ([SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md)).
+
+[SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md) pide que las versiones compatibles incluyan implementación y plataforma cuando afectan a la interfaz binaria o al comportamiento. En la práctica, un paquete declara qué versiones del runtime soporta y se prueba en cada una.
 
 ## Ejemplo
 
-Ejemplo de [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md) (sección «Preguntas frecuentes»):
+[SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md): `import mi_sdk` tarda 300 ms y carga más de 100 módulos porque el `__init__` importa un runtime completo aunque se use una función. Corrección: importar de forma perezosa dentro de la función o dividir en extras. Ilustración:
 
-No hay un número correcto; hay un presupuesto que se mide. `json` cargó 24 módulos y `asyncio` 126. Si el SDK necesita un runtime pesado solo para una función, esa función debería importarlo de forma perezosa o vivir en un subpaquete opcional.
+```python
+def convertir(x):
+    import pesado          # se carga solo si se usa esta función
+    return pesado.convierte(x)
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **`import mi_sdk` tarda 300 ms y carga más de 100 módulos** — causa: el `__init__` importa un runtime completo aunque se use una función. Corrección: importar de forma perezosa dentro de la función o dividir en extras. ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md))
-- **`del` = liberación física** — causa: niveles confundidos. Corrección: habla de referencias y política del runtime. ([SE-021](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md))
-- **una línea equivale a una instrucción** — causa: se saltaron compilador y runtime. Corrección: traza representaciones intermedias. ([SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md))
+- **`del` equivale a liberación física.** Causa: niveles confundidos; corrección: hablar de referencias y política del runtime ([SE-021](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)).
+- **Una línea equivale a una instrucción.** Causa: se saltaron compilador y runtime; corrección: trazar representaciones intermedias ([SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md)).
+- **Un import pesado en el arranque** ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Si el SDK necesita un runtime pesado solo para una función, esa función debería importarlo de forma perezosa o vivir en un subpaquete opcional. ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md))
-- Elimina una referencia; el efecto depende de referencias restantes, runtime y asignador. ([SE-021](../../../classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md))
+El término se usa con matices (de lenguaje, de contenedores, de WebAssembly): conviene decir de cuál se habla. Las cifras de importación de [SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md) son de un intérprete y un sistema concretos. Y el comportamiento del runtime puede cambiar entre versiones menores: declararlo y probar en cada una evita sorpresas.
 
 ## Relación con otros conceptos
 

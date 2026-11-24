@@ -2,50 +2,49 @@
 
 [↑ Glosario](../../README.md) · [← Retirar del reparto](./retirar-del-reparto.md) · [Retorno →](./retorno.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Eliminación controlada de capacidad, dependencias y datos.
-
-Definición de trabajo de [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-017 — CPU, instrucciones, registros y ciclos de ejecución](../../../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md): Compromiso de resultados al estado arquitectónico.
+El **retiro** es la eliminación controlada de una capacidad, de sus dependencias y de sus datos ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)). Es la última etapa del ciclo de vida del software, no un apagado. [SE-017](../../../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) usa el término en arquitectura de procesadores con otro sentido, el compromiso de los resultados de una instrucción al estado arquitectónico; esa acepción es distinta y no se trata aquí.
 
 ## Por qué importa
 
-En [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md), el tema «Retiro» importa porque exportación, conservación y eliminación
+Un sistema que se apaga sin plan deja consumidores rotos, datos huérfanos, credenciales vivas y obligaciones sin cumplir. Pensar el retiro desde el diseño tiene un efecto inverso: [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) señala que una dificultad de retiro revela una decisión de diseño pendiente y devuelve a la concepción el criterio de no construir y la exportabilidad.
 
 ## Cómo funciona
 
-Según [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md):
+[SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) trata el ciclo de vida con bucles, no como cascada: la operación informa nuevos requisitos y el retiro reabre decisiones. El error típico es entender «retiro» como apagar infraestructura; omite consumidores y obligaciones. Un retiro completo:
 
-Confundir ciclo de vida con cascada produce dos errores. El primero es rechazar actividades necesarias —requisitos, validación o retiro— porque se asocian a una metodología. El segundo es tratarlas como handoffs irreversibles: “análisis terminó, ya no puede aprender”. Un ciclo profesional conserva bucles; la operación informa nuevos requisitos y una dificultad de retiro revela una decisión de diseño pendiente.
+- **inventaría** dependencias, datos, accesos y comunicación;
+- **avisa** a quienes dependen, con alternativa y plazo (véase *obsolescencia*);
+- **decide la conservación** de los datos (qué se exporta, qué se borra, qué se retiene por obligación);
+- **revoca** credenciales y accesos;
+- **deja evidencia de cierre**.
 
-Según [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md):
-
-Al cambiar proveedor de correo, producto define experiencia; ingeniería adapta contrato; seguridad revisa secretos; soporte comunica; operaciones observa; legal decide conservación. El retiro revoca credenciales antiguas.
+Cada función involucrada tiene su rol: en el cambio de proveedor de correo de [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md), producto define la experiencia, ingeniería adapta el contrato, seguridad revisa secretos, soporte comunica, operaciones observa y legal decide la conservación; el retiro revoca las credenciales antiguas.
 
 ## Ejemplo
 
-Ejemplo de [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) (sección «Ejemplo profesional»):
+Lista de cierre para retirar un servicio de avisos:
 
-Al cambiar proveedor de correo, producto define experiencia; ingeniería adapta contrato; seguridad revisa secretos; soporte comunica; operaciones observa; legal decide conservación. El retiro revoca credenciales antiguas.
+```text
+[ ] consumidores identificados y avisados (fecha de corte: 2026-06-30)
+[ ] datos exportados / eliminados según política de retención
+[ ] credenciales y secretos revocados
+[ ] registros DNS, colas y alertas eliminados
+[ ] documentación marcada como retirada, con enlace a la alternativa
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **el ciclo termina en despliegue** — causa: se definió entrega como final del producto. Corrección: añade operación, evolución, conservación y retiro con responsables. ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md))
-- **retiro equivale a apagar infraestructura** — causa: se omitieron consumidores y obligaciones. Corrección: inventaría dependencias, datos, accesos, comunicación y evidencia de cierre. ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md))
+- **El ciclo termina en despliegue.** Causa: se definió entrega como final del producto; corrección: añadir operación, evolución, conservación y retiro con responsables ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)).
+- **Retiro equivale a apagar infraestructura.** Causa: se omitieron consumidores y obligaciones; corrección: inventariar dependencias, datos, accesos, comunicación y evidencia de cierre ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)).
+- **Borrar datos sin decidir la conservación.** Puede incumplir una obligación o perder información necesaria.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Cómo leer la figura.** La fila central es la secuencia de momentos; las flechas rojas continuas son los bucles que impiden leerla como cascada: lo que se aprende al operar corrige requisitos, el mantenimiento reabre decisiones de diseño y pruebas, y el retiro devuelve a la concepción el criterio de no construir y la exportabilidad. ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md))
+En prototipos y software desechable, el retiro se reduce a borrar. Las obligaciones de conservación dependen de la jurisdicción y del dominio; la decisión corresponde a quien tiene autoridad, no al equipo técnico solo. Y retirar no es lo mismo que migrar: la migración mantiene la capacidad en otro lugar.
 
 ## Relación con otros conceptos
 

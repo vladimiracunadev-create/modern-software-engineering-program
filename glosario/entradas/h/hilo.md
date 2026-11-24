@@ -2,50 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← HIL](./hil.md) · [Hipervisor →](./hipervisor.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Secuencia planificable dentro de un proceso.
-
-Definición de trabajo de [SE-019 — Procesos, hilos, interrupciones y entrada/salida](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md): Flujo de ejecución planificable dentro de un proceso.
+Un **hilo** (*thread*) es una secuencia de ejecución planificable dentro de un proceso ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md), [SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)). Los hilos de un proceso comparten memoria y recursos, pero cada uno mantiene su pila y su estado de ejecución propios. Es la unidad que el planificador del sistema reparte entre los núcleos.
 
 ## Por qué importa
 
-En [SE-019 — Procesos, hilos, interrupciones y entrada/salida](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md), el tema «Hilo» importa porque comparte proceso y mantiene ejecución
+Permite hacer varias cosas dentro de un mismo programa sin copiar memoria, pero introduce el problema central de la programación concurrente: varios flujos tocando los mismos datos. La idea de que «más hilos son más velocidad» es un error clásico: [SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) recuerda que más hilos agregan *overhead* y no crean núcleos. La decisión que cambia es cuándo usar hilos, procesos o entrada/salida asíncrona.
 
 ## Cómo funciona
 
-Según [SE-019 — Procesos, hilos, interrupciones y entrada/salida](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md):
+Compartir memoria reduce copia y permite trabajo concurrente, pero introduce **carreras**, dependencia del orden y necesidad de sincronización ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)). Comparado con un proceso: un proceso tiene memoria virtual propia; un hilo comparte la del proceso. El sistema operativo interrumpe y cambia de hilo; cada cambio tiene costo. La causa de que muchos hilos no ayuden es que la CPU solo ejecuta tantos hilos a la vez como núcleos tiene, y el resto espera turno.
 
-Hilos de un proceso comparten memoria y recursos, pero mantienen pila y estado de ejecución propios. Compartir reduce copia y permite trabajo concurrente; introduce carreras, orden y necesidad de sincronización. Más hilos agregan overhead y no crean núcleos.
-
-Según [SE-019 — Procesos, hilos, interrupciones y entrada/salida](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md):
-
-Un servidor atiende muchas conexiones con I/O asíncrono para evitar un hilo bloqueado por conexión. Si el cuello es cálculo, se consideran procesos o trabajo vectorizado, siempre midiendo costos de coordinación.
+La alternativa depende de dónde está el cuello: si el programa espera entrada/salida (muchas conexiones), un servidor atiende con E/S asíncrona para evitar un hilo bloqueado por conexión; si el cuello es cálculo, se consideran procesos o trabajo vectorizado, siempre midiendo costos de coordinación ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-019 — Procesos, hilos, interrupciones y entrada/salida](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) (sección «Ejemplo mínimo»):
+```python
+n = 0
+def inc():
+    global n
+    for _ in range(100_000): n += 1     # lectura-modificación-escritura sin exclusión
 
-`time.sleep()` aumenta tiempo de pared casi sin aumentar CPU: el hilo espera. Un bucle numérico aumenta ambos y añadir hilos de CPython no garantiza paralelismo de bytecode.
+hilos = [threading.Thread(target=inc) for _ in range(4)]
+```
+
+El resultado puede ser menor que 400 000 porque las actualizaciones se pisan: es el contador compartido sin contrato que [SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) usa para mostrar una carrera.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **hilos duplican velocidad** — causa: concurrencia = paralelismo. Corrección: identifica carga, núcleos y runtime. ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md))
+- **«Los hilos duplican la velocidad».** Causa: concurrencia igualada a paralelismo; corrección: identificar carga, núcleos y runtime ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)).
+- **Compartir estado mutable sin sincronización.** Produce resultados distintos en cada ejecución.
+- **Confundir hilo con proceso.** El proceso aísla memoria; el hilo la comparte.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Más hilos agregan overhead y no crean núcleos. ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md))
-- Actualiza un contador compartido desde hilos sin contrato. ([SE-019](../../../classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md))
+Los hilos no ayudan cuando el cuello es un solo recurso secuencial, y en algunos runtimes un bloqueo global del intérprete limita el paralelismo de cálculo en hilos. La sincronización excesiva puede anular el beneficio. Y para aislar fallos o código no confiable, los hilos no sirven: un fallo en un hilo puede derribar el proceso entero.
 
 ## Relación con otros conceptos
 

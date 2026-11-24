@@ -2,46 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Primer éxito](./primer-exito.md) · [Primera respuesta / resolución →](./primera-respuesta-resolucion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
 
 ## Definición
 
-Se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error.
-
-Definición de trabajo de [SE-105 — Reproducción de errores y reducción de casos](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md): Primer evento donde caso sano y fallido dejan de coincidir.
-- En [SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md): Primer punto donde dos recorridos difieren.
+La **primera divergencia** es el primer punto donde un caso sano y uno afectado dejan de coincidir ([SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md), [SE-058](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)). [SE-105](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) precisa el método: se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error. Es una técnica de diagnóstico, no un tipo de fallo.
 
 ## Por qué importa
 
-En [SE-105 — Reproducción de errores y reducción de casos](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md), el tema «Primera divergencia» importa porque se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error.
+El último error visible suele ser consecuencia, no causa. Buscar desde el final lleva a arreglar síntomas; buscar desde el primer punto en que algo difiere reduce las hipótesis causales. [SE-105](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) lo resume: las diferencias posteriores pueden ser consecuencias y no deben optimizarse primero. Cambia el orden en que se investiga y qué se corrige.
 
 ## Cómo funciona
 
-Según [SE-105 — Reproducción de errores y reducción de casos](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md), en la sección «Primera divergencia»:
+El procedimiento ([SE-105](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md), [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)):
 
-Se comparan trazas sana y afectada desde el mismo inicio y se localiza el primer estado distinto, no el último error. Esa posición reduce hipótesis causales. Diferencias posteriores pueden ser consecuencias y no deben optimizarse primero.
+1. Obtener una traza del caso **sano** y otra del **afectado**, con el mismo inicio y condiciones comparables.
+2. Alinearlas paso a paso desde el principio.
+3. Señalar la **primera fase o estado** donde difieren.
+4. Formular hipótesis solo sobre ese punto y sus causas inmediatas.
+
+La causa de que funcione es la causalidad temporal: lo que ocurre antes de la divergencia es idéntico en ambos casos, así que no puede explicar la diferencia; lo que ocurre después puede ser un efecto en cascada. En el laboratorio de [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md), cada fila de la figura va de un escenario a su primera divergencia respecto del caso sano y a su resultado (correcto, fallido o recuperado). [SE-058](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md) la usa para comparar dos recorridos de un algoritmo.
 
 ## Ejemplo
 
-Ejemplo de [SE-105 — Reproducción de errores y reducción de casos](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) (sección «Caso conductor»):
+Traza sana: resolución DNS, conexión TCP, handshake TLS, petición, respuesta. Traza afectada: resolución DNS, conexión TCP, fallo del handshake TLS. La primera divergencia está en el handshake; el error final «no se pudo cargar la página» es solo el último eslabón. Ilustración:
 
-El entorno reproducible de diagnóstico parte de una inversión de empates en la biblioteca de estructuras y algoritmos, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+```python
+for i, (a, b) in enumerate(zip(traza_sana, traza_afectada)):
+    if a != b:
+        print("primera divergencia en el paso", i, a, b); break
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Informe con una lista de errores sin ordenar** — causa: no se identificó la primera divergencia. Corrección: comparar con el caso sano y señalar la primera fase que difiere. ([SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md))
+- **Informe con una lista de errores sin ordenar.** Causa: no se identificó la primera divergencia; corrección: comparar con el caso sano y señalar la primera fase que difiere ([SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)).
+- **Optimizar las diferencias posteriores** ([SE-105](../../../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md)).
+- **Comparar trazas con condiciones distintas.** La divergencia puede deberse a la entrada, no al fallo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Cómo leer la figura.** Cada fila va de un escenario a su primera divergencia respecto del caso sano y a su resultado (teal ok, coral failed, dorado recovered). ([SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md))
+Requiere un caso sano comparable: si no existe, hay que construirlo o usar una referencia. En sistemas no deterministas, dos trazas sanas ya pueden diferir, y hay que descartar esas diferencias antes. Y el laboratorio de [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) modela DNS, TLS y pérdida de forma determinista: demuestra el método, no el comportamiento de una red real.
 
 ## Relación con otros conceptos
 

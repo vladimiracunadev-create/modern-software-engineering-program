@@ -2,47 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Definición de terminado](./definicion-de-terminado.md) · [Degradación elegante →](./degradacion-elegante.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Paso controlado a un nivel con menos capacidad y más previsibilidad.
-
-Definición de trabajo de [SE-599 — Taller: elegir y degradar un patrón agéntico](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md): Resultado parcial explícito cuando una capacidad opcional falta.
+**Degradación** (en el sentido del programa, *degradación controlada*) es el paso deliberado a un nivel con menos capacidad y más previsibilidad ([SE-599](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md)) cuando algo falta o falla. [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) la usa en su versión mínima: un resultado parcial explícito cuando una capacidad opcional no está disponible. No es «el sistema empeora con el tiempo» ni un fallo: es una respuesta diseñada.
 
 ## Por qué importa
 
-En [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md), el tema «Degradación» importa porque convierte un fallo total en uno parcial
+Convierte la pregunta binaria «¿funciona?» en «¿qué parte del valor se conserva?» ([SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md)). Un sistema que solo conoce «todo o nada» cae entero cuando cae una dependencia secundaria. La decisión profesional que cambia es qué funciones son esenciales y cuáles pueden entregarse parciales, antiguas o ausentes, y quién lo decide: [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) subraya que son decisiones de producto, no solo técnicas.
 
 ## Cómo funciona
 
-Según [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
+Cuando una dependencia no responde, el sistema devuelve una respuesta **parcial o antigua** en lugar de fallar ([SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md)). Requiere tres condiciones:
 
-Cuando una dependencia no está, el sistema puede devolver una respuesta **parcial o antigua** en lugar de fallar. El experimento simula 2000 peticiones con una dependencia caída el 40 % del tiempo y una caché con un 70 % de aciertos. Sin degradación, el 60,0 % de las respuestas son útiles; con la caché como respaldo, el **87,5 %**. La degradación convierte la pregunta «¿funciona?» en «¿qué parte del valor se conserva?». Exige tres decisiones que son de producto, no solo técnicas:
+1. detectar el fallo rápido (límites de tiempo, rechazo cuando un grupo se llena);
+2. tener un respaldo (caché, datos del día anterior, funcionalidad reducida);
+3. **declarar** el estado degradado, para que el consumidor no confunda «desconocido» con «cero» ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)).
 
-Según [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
-
-**Corrección.** Se separa el grupo por dependencia, se limita y se rechaza rápido cuando se llena, se añade la degradación de reportes con datos del día anterior y se escribe la prueba que simula la lentitud.
+En [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md), el aislamiento por dependencia (mamparas) evita que la lentitud de una agote los recursos de las demás, y el rechazo rápido evita acumular peticiones. En [SE-599](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md), la degradación aparece como nivel previsible hacia el que un sistema con LLM retrocede cuando falla un componente.
 
 ## Ejemplo
 
-Caso medido en la sección «Degradación: devolver menos antes que nada» de [SE-321 — Resiliencia: bulkhead, sidecar, ambassador y degradación](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md):
-
-Cuando una dependencia no está, el sistema puede devolver una respuesta **parcial o antigua** en lugar de fallar. El experimento simula 2000 peticiones con una dependencia caída el 40 % del tiempo y una caché con un 70 % de aciertos. Sin degradación, el 60,0 % de las respuestas son útiles; con la caché como respaldo, el **87,5 %**. La degradación convierte la pregunta «¿funciona?» en «¿qué parte del valor se conserva?». Exige tres decisiones que son de producto, no solo técnicas:
+Experimento de [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md): 2000 peticiones con una dependencia caída el 40 % del tiempo. Sin degradación, el 60,0 % de las respuestas son útiles; con una caché de 70 % de aciertos como respaldo, el 87,5 %. Corrección aplicada: separar el grupo de recursos por dependencia, limitarlo, rechazar rápido, servir reportes con datos del día anterior y escribir la prueba que simula la lentitud.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Servir datos antiguos sin avisarlo.** El usuario toma decisiones con información obsoleta; la degradación debe ser visible.
+- **Degradar sin haber probado el camino degradado.** Solo se descubre que no funciona durante el incidente; [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) exige simular la lentitud en una prueba.
+- **Confundir degradación con reintento.** El reintento insiste; la degradación cambia de nivel de servicio.
+- **Tratar «desconocido» como cero** ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Sin degradación, el 60,0 % de las respuestas son útiles; con la caché como respaldo, el **87,5 %**. ([SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md))
+Las cifras de [SE-321](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-321-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) son de una simulación con parámetros del autor, no una predicción. No toda función admite versión parcial: una transferencia de dinero a medias es peor que un error. Y un respaldo caduco puede ser inaceptable cuando la frescura es el requisito.
 
 ## Relación con otros conceptos
 

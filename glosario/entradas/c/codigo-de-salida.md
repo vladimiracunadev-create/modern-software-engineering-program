@@ -2,50 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Código de estado](./codigo-de-estado.md) · [Código muerto →](./codigo-muerto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
-
-Definición de trabajo de [SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md): Valor discreto con significado documentado para el proceso padre.
-- En [SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md): Valor con el que un proceso comunica una categoría de resultado.
-- En [SE-072 — Proyecto: herramienta de línea de comandos probada](../../../classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada/README.md): Entero que comunica resultado al proceso llamador.
-- En [SE-220 — Códigos de salida, errores y diagnóstico](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md): Entero con que un proceso informa al padre cómo terminó; 0 es éxito por convención.
+El **código de salida** es el entero con que un proceso informa a su padre cómo terminó ([SE-220](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md)). Por convención, 0 es éxito; en [SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md) el cero es éxito contractual y los valores distintos de cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según una matriz publicada. [SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) lo presenta como el valor con el que un proceso comunica una categoría de resultado.
 
 ## Por qué importa
 
-En [SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md), el tema «Códigos de salida» importa porque cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
-
-En [SE-029 — Terminales, shells y composición de comandos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md), el tema «Código de salida» importa porque resume resultado para el padre
+Es la parte de una CLI que el sistema operativo y la integración continua interpretan sin leer una palabra ([SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md)). Un script que encadena comandos, un job de CI o un orquestador deciden continuar o abortar a partir de ese número. Si un programa devuelve 0 tras fallar, la automatización sigue con datos malos; si devuelve 1 por cualquier cosa, nadie distingue un uso incorrecto de un fallo de la dependencia.
 
 ## Cómo funciona
 
-Según [SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md), en la sección «Códigos de salida»:
+Al terminar, el proceso entrega un entero al padre ([SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md), [SE-029](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)). El intérprete de comandos lo expone y permite componerlo: continuar solo si el anterior tuvo éxito, o reaccionar según el valor. El diseño profesional ([SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md), [SE-220](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/README.md)) consiste en:
 
-Cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada. El código no transporta detalle completo; stderr o JSON estructurado lo complementan.
+- publicar una **tabla de códigos** (por ejemplo, uso inválido, datos rechazados, dependencia no disponible, error interno);
+- una prueba por cada valor;
+- reservar los detalles para otro canal: el código no transporta el detalle, que viaja por stderr o por JSON estructurado.
+
+Por eso la separación habitual es: stdout para el resultado, stderr para diagnóstico y el código para la categoría. [SE-072](../../../classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada/README.md) lo aplica en una herramienta de línea de comandos probada, y [SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md) lo usa como contrato de las compuertas de validación.
 
 ## Ejemplo
 
-Ejemplo de [SE-113 — CLI, flags, configuración y códigos de salida](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md) (sección «Preguntas frecuentes»):
+[SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md) prueba la CLI con `subprocess` y entradas explícitas: `capture_output=True`, entorno controlado y comparación del código de salida y de los bytes. Así se vieron la codificación y el CRLF; llamar a `main()` directamente no pasa por la tubería. Ilustración:
 
-Con `subprocess` y entradas explícitas: `capture_output=True`, entorno controlado y comparación de código de salida y bytes. Así se vieron la codificación y el CRLF; ejecutar la función `main()` directamente no pasa por la tubería.
+```python
+r = subprocess.run(["herramienta", "--help"], capture_output=True)
+assert r.returncode == 0
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un `--help` o un error de uso devuelve un código inesperado** — causa: no se documentaron los códigos de salida. Corrección: tabla de códigos en el README y una prueba por cada valor. ([SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md))
+- **`--help` o un error de uso devuelve un código inesperado.** Causa: los códigos no se documentaron; corrección: tabla en el README y una prueba por valor ([SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md)).
+- **Usar el código como mensaje.** Solo comunica una categoría; el detalle va por otro canal.
+- **Probar la función y no el proceso.** Llamar a `main()` no verifica el código real que ve el padre.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El código de salida es la parte de una CLI que el sistema operativo y la integración continua interpretan sin leer una palabra. ([SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md))
+Un entero comunica poco: distinguir causas finas exige salida estructurada. La convención 0/no cero es universal en los shells, pero el significado de cada valor no cero lo fija cada programa, y la tabla de [SE-113](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida/README.md) es contrato de esa herramienta, no un estándar general. Para servicios que no terminan, el estado se expresa por otros medios (sondas, métricas).
 
 ## Relación con otros conceptos
 

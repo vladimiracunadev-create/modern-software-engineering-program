@@ -2,48 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Dominancia](./dominancia.md) · [Dossier de arquitectura →](./dossier-de-arquitectura.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-Área de negocio con su propio lenguaje y equipo.
+**Dominio** es una palabra con dos sentidos que el programa usa en lugares distintos:
 
-Definición de trabajo de [SE-343 — Data mesh y propiedad de los datos](../../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/README.md).
+- **Dominio de un problema o de un predicado** ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md), [SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md), [SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)): el conjunto de valores sobre el que se afirma algo. Un `para todo` exige cubrir el dominio declarado; un `existe` se demuestra con un testigo.
+- **Dominio de negocio** ([SE-343](../../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/README.md)): un área del negocio con su propio lenguaje y su propio equipo.
+
+La relación entre ambos es el hilo común: fijar dónde vale una afirmación o dónde viven unas reglas.
 
 ## Por qué importa
 
-En [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md), el tema «dominio» importa porque ¿qué entradas y estados existen?
+En el primer sentido, declarar el dominio es lo que distingue una prueba de una anécdota: «falló en un cliente» no es «falla para todos», y pasar de lo uno a lo otro cambia el cuantificador sin evidencia ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)). En el segundo, el dominio es la unidad natural para dividir equipos y servicios ([SE-343](../../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/README.md)): un límite que sigue el lenguaje del negocio es más estable que uno que sigue la tecnología.
 
 ## Cómo funciona
 
-Según [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md):
-
-Un predicado depende de variables: `responde(host, prueba)`. `para todo` exige cubrir el dominio declarado; `existe` se demuestra con un testigo. Pasar de «falló en un cliente» a «falla para todos» cambia el cuantificador sin evidencia.
-
-Según [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md):
-
-Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
+- **Lógica** ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)): un predicado depende de variables, por ejemplo `responde(host, prueba)`. El dominio dice qué hosts y qué pruebas cuentan. Solo se puede cubrir enumerando cuando es finito: la clase advierte que su enfoque solo alcanza dominios finitos y enumerables.
+- **Pruebas** ([SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md), [SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)): enumerar un dominio pequeño completo da más garantía que unos cuantos ejemplos; buscar contraejemplos en un dominio acotado refuta un «es óptimo» afirmado tras tres casos.
+- **Diseño** ([SE-343](../../../classes/part-28-estilos-arquitectonicos/se-343-data-mesh-y-propiedad-de-los-datos/README.md)): cada dominio de negocio tiene vocabulario propio, y la separación en servicios se discute en términos de esos dominios.
 
 ## Ejemplo
 
-Ejemplo de [SE-052 — Invariantes, precondiciones y poscondiciones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md) (sección «Preguntas frecuentes»):
+[SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md): una prueba con ejemplos pasa y otra con otros falla porque la muestra no era representativa; la corrección es enumerar un dominio pequeño completo, por ejemplo todos los arreglos de longitud 0 a 4 con valores de 0 a 2. Ilustración:
 
-No. Es una comprobación exhaustiva de un dominio acotado: conclusiva para ese dominio y evidencia para el resto. La hipótesis de «lo pequeño representa lo grande» se declara y se revisa.
+```python
+from itertools import product
+for xs in (list(p) for n in range(5) for p in product(range(3), repeat=n)):
+    assert busca(xs) == referencia(xs)
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El bucle de búsqueda no termina en un borde** — causa: la variante no decrece. Corrección: ajustar la actualización y probar el dominio pequeño. ([SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md))
-- **La prueba pasa con ejemplos y falla con otros** — causa: muestra no representativa. Corrección: enumerar un dominio pequeño completo. ([SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md))
-- **«Es óptimo» tras probar tres casos** — causa: muestra pequeña. Corrección: buscar contraejemplos en un dominio acotado. ([SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md))
+- **El bucle de búsqueda no termina en un borde.** Causa: la variante no decrece; corrección: ajustar la actualización y probar el dominio pequeño ([SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md)).
+- **«Es óptimo» tras tres casos.** Causa: muestra pequeña; corrección: buscar contraejemplos en un dominio acotado ([SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)).
+- **Confundir los dos sentidos.** El dominio de un predicado no es un área de negocio.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** solo cubre dominios finitos y enumerables. ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md))
-- Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md))
+La enumeración exhaustiva no escala a dominios infinitos o enormes ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)); allí se necesitan demostraciones o muestreo con sus límites declarados. Al trasladar un razonamiento a otro dominio se conserva la estructura del argumento, no los nombres, y hay que identificar qué supuesto pertenecía al caso original. Y un dominio de negocio mal delimitado produce servicios que no coinciden con ningún equipo.
 
 ## Relación con otros conceptos
 

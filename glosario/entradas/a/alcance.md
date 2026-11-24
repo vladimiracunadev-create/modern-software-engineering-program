@@ -2,51 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Alarma rutinaria](./alarma-rutinaria.md) · [Alcance de la auditoría →](./alcance-de-la-auditoria.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Conjunto de usuarios, proyectos o sistema afectado.
+**Alcance** es la extensión dentro de la cual algo es válido o produce efecto. El programa usa la palabra con tres sentidos que conviene no mezclar:
 
-Definición de trabajo de [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-064 — Funciones, parámetros, retorno y alcance](../../../classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance/README.md): Región donde un nombre se resuelve.
-- En [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md): Hasta dónde llegan los efectos de una acción.
+- **Dominio de validez de un identificador o configuración** ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md), [SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md), [SE-064](../../../classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance/README.md)): el conjunto de usuarios, proyectos o sistema afectado, o la región donde un nombre se resuelve.
+- **Alcance de red** ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)): hasta dónde es válida una dirección. Una dirección MAC identifica una interfaz en su enlace, no una identidad global ni una ruta por Internet.
+- **Alcance de un efecto** ([SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md)): hasta dónde llegan las consecuencias de una acción.
 
 ## Por qué importa
 
-En [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md), el tema «alcance» importa porque ¿dónde es válido este identificador o estado?
+Casi todo error de «funcionaba aquí» es un error de alcance: un identificador se usó fuera de donde significa algo, una instalación global afectó a otro proyecto, una acción «local» tuvo consecuencias externas. Preguntar «¿dónde es válido esto?» antes de actuar cambia decisiones concretas: dónde instalar una dependencia, cómo acotar un dominio de difusión, o qué acciones puede ejecutar un agente sin pedir confirmación.
 
 ## Cómo funciona
 
-Según [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md):
+El mecanismo común es que un valor solo tiene significado respecto a un contexto que lo resuelve.
 
-Una interfaz transmite tramas dentro de un enlace. La dirección MAC identifica una interfaz en ese alcance, no una identidad global de la persona ni una ruta por Internet. Switches aprenden asociaciones entre direcciones y puertos; ese aprendizaje expira y puede cambiar al mover un equipo.
-
-Según [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md):
-
-El conjunto de interfaces que reciben una trama enviada a la dirección de difusión (por ejemplo, una consulta ARP). Un enrutador separa dominios; un conmutador no, salvo que use VLAN. Acotarlos limita el ruido y el alcance de ciertos ataques.
+- **Instalación** ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)): un paquete en alcance global lo resuelven todos los proyectos; una actualización puede romper otro. Aislar por proyecto y conservar manifiesto y bloqueo acota el alcance.
+- **Nombres** ([SE-064](../../../classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance/README.md)): una variable se resuelve en la región donde se define y en las que la contienen; fuera, no existe.
+- **Redes** ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)): los conmutadores aprenden asociaciones dirección-puerto con expiración; un enrutador separa dominios de difusión y un conmutador no (salvo VLAN). Acotarlos limita ruido y ciertos ataques.
+- **Efectos** ([SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md)): se clasifica una acción por su alcance (interno o externo al proyecto) y su reversibilidad.
 
 ## Ejemplo
 
-Ejemplo de [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md) (sección «Preguntas frecuentes»):
-
-El conjunto de interfaces que reciben una trama enviada a la dirección de difusión (por ejemplo, una consulta ARP). Un enrutador separa dominios; un conmutador no, salvo que use VLAN. Acotarlos limita el ruido y el alcance de ciertos ataques.
+[SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) ofrece una escala: borrar un archivo versionado es de alcance interno y reversible; borrar uno sin versionar, interno e irreversible; escribir en la carpeta personal sin copia, externo al proyecto e irreversible; enviar un mensaje o eliminar un recurso remoto, externo e irreversible. Cuanto mayor el alcance y menor la reversibilidad, más control exige la acción.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una actualización rompe otro proyecto** — causa: se usó alcance global sin control de resolución. Corrección: aislar por proyecto y conservar manifiesto/bloqueo. ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md))
+- **Una actualización rompe otro proyecto.** Causa: alcance global sin control de resolución; corrección: aislar por proyecto y conservar manifiesto y bloqueo ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)).
+- **Tomar la dirección MAC como identidad global.** Solo vale en su enlace ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)).
+- **Tratar sentidos distintos como uno solo.** Alcance de nombres, de red y de efectos no se intercambian.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La dirección MAC identifica una interfaz en ese alcance, no una identidad global de la persona ni una ruta por Internet. ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md))
-- Un borrado de un archivo versionado es de alcance interno y reversible; uno de un archivo sin versionar es interno e irreversible; escribir en la carpeta personal es externo al proyecto y, si no hay copia, irreversible; enviar un mensaje o eliminar un recurso remoto es externo e irreversible. ([SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md))
+La palabra no es un criterio único: en cada clase el sentido cambia, y hay que fijar de cuál se habla. Acotar el alcance reduce el daño posible pero no lo elimina; un alcance «interno» mal evaluado sigue siendo un riesgo. La escala de [SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) es una clasificación didáctica del programa, no una norma.
 
 ## Relación con otros conceptos
 

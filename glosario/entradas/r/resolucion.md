@@ -2,55 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Resiliencia demostrada](./resiliencia-demostrada.md) · [Resolución de un oráculo →](./resolucion-de-un-oraculo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-El resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema.
+**Resolución** designa en el programa un proceso de «llegar a una respuesta concreta» con tres sentidos:
 
-Definición de trabajo de [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md): Decisión registrada, con responsable, que elimina un defecto o acepta el riesgo.
-- En [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md): Proceso de recorrer componentes, montajes y enlaces.
+- **De dependencias** ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)): el resolvedor busca una asignación de versiones que satisfaga las restricciones, retrocede ante un conflicto y aplica reglas del ecosistema.
+- **De una ambigüedad o defecto** ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)): una decisión registrada, con responsable, que elimina el defecto o acepta el riesgo.
+- **De rutas** ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)): el proceso de recorrer componentes, montajes y enlaces hasta el objeto real.
 
 ## Por qué importa
 
-En [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md), el tema «Resolución» importa porque el resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema.
-
-En [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), el tema «Resolución» importa porque una pregunta sin responsable queda sin respuesta.
-
-En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md), el tema «Resolución» importa porque satisface restricciones de un grafo
+En dependencias, el resultado depende del orden de índices, versiones retiradas y plataforma: la misma lista puede resolver distinto. En requisitos, no resolver significa que la decisión la tomó el código. Cambia lo que se registra: la solución elegida y, en [SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), quién y por qué.
 
 ## Cómo funciona
 
-Según [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md), en la sección «Resolución»:
+**Dependencias** ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)): el resolvedor trata el problema como satisfacción de restricciones; puede existir más de una solución válida. Un manifiesto declara rangos; la resolución elige versiones concretas, que el archivo de bloqueo conserva para repetir la instalación ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)). Si hay conflicto, retrocede e intenta otra combinación.
 
-El resolvedor busca una asignación que satisfaga restricciones, retrocede ante conflicto y aplica reglas del ecosistema. Puede existir más de una solución válida. Orden de índices, versiones retiradas y plataforma condicionan el resultado.
+**Requisitos** ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)): encontrar el defecto es la mitad; la otra mitad es decidir quién lo resuelve. Una pregunta va a quien tiene autoridad (producto para un comportamiento, privacidad para una retención), con las alternativas, sus consecuencias y una fecha. Resolver puede significar reescribir, eliminar un requisito, separar casos o aceptar el riesgo. Registrar la respuesta en el expediente evita preguntar otra vez.
 
-Según [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), en la sección «Resolución»:
-
-Encontrar el defecto es la mitad: la otra mitad es decidir quién lo resuelve. Una pregunta debe ir a quien tiene autoridad (producto para un comportamiento, privacidad para una retención), con las alternativas y sus consecuencias, y con una fecha. Resolver puede significar reescribir, eliminar un requisito, separar casos o aceptar el riesgo; no resolver significa que la decisión la tomó el código. Registrar la respuesta en el expediente evita que se pregunte otra vez.
+**Rutas** ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)): resolver una ruta es seguir directorios, montajes y enlaces; dos rutas distintas pueden resolver al mismo objeto, y una resoluble puede estar prohibida por permisos.
 
 ## Ejemplo
 
-Ejemplo de [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) (sección «Ejemplo profesional»):
+```text
+requisito: lib-a>=1.0, lib-b>=2.0 ; lib-b 2.0 exige lib-a<1.5
+resolución: lib-a 1.4, lib-b 2.0  (única asignación compatible)
+```
 
-Una actualización global rompe dos proyectos. El equipo migra la herramienta a entornos por proyecto, fija resoluciones y prueba desinstalación. Documenta que quedan cachés y datos, en vez de afirmar una reversión perfecta.
+En requisitos: «el retraso de 30 minutos, ¿cuenta como tardío?» → decisión de producto, registrada con fecha y responsable.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un defecto reaparece tras un cambio** — causa: la resolución no se registró o se repitió el análisis. Corrección: guardar cada decisión con responsable y repetir las búsquedas tras cada cambio. ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md))
-- **Una actualización rompe otro proyecto** — causa: se usó alcance global sin control de resolución. Corrección: aislar por proyecto y conservar manifiesto/bloqueo. ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md))
+- **Un defecto reaparece tras un cambio.** Causa: la resolución no se registró o se repitió el análisis; corrección: guardar cada decisión con responsable y repetir las búsquedas tras cada cambio ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)).
+- **Una actualización rompe otro proyecto.** Causa: alcance global sin control de resolución; corrección: aislar por proyecto y conservar manifiesto y bloqueo ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)).
+- **Confundir resolver con descartar.** Aceptar el riesgo también es resolver, pero debe quedar escrito.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un archivo de bloqueo conserva resoluciones para reproducibilidad, pero no garantiza disponibilidad futura, ausencia de vulnerabilidades ni equivalencia entre plataformas. ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md))
+Un archivo de bloqueo conserva resoluciones para reproducibilidad, pero no garantiza disponibilidad futura, ausencia de vulnerabilidades ni equivalencia entre plataformas ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)). Y una resolución sin responsable ni fecha es una opinión: no cierra el defecto, solo lo oculta.
 
 ## Relación con otros conceptos
 

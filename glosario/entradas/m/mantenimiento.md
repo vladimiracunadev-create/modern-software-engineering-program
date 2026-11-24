@@ -2,46 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Maniobra inversa de Conway](./maniobra-inversa-de-conway.md) · [Mantenimiento adaptativo →](./mantenimiento-adaptativo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Corrección, adaptación o mejora posterior.
-
-Definición de trabajo de [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md).
+El **mantenimiento** es la corrección, adaptación o mejora posterior a la puesta en operación ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)). No es la fase final de un proceso en cascada: [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) insiste en que el mantenimiento reabre decisiones de diseño y pruebas, y que lo que se aprende al operar corrige requisitos. La palabra se aplica también a artefactos que envejecen, como los runbooks ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)).
 
 ## Por qué importa
 
-En [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md), el tema «Mantenimiento» importa porque un runbook sin revisar se vuelve falso.
-
-En [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md), el tema «Mantenimiento» importa porque compatibilidad y aprendizaje
-
-En [SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md), el tema «mantenimiento» importa porque ¿cómo se detecta una regresión?
+Gran parte de la vida y del costo de un sistema ocurre después del primer despliegue. Tratarlo como un apéndice lleva a diseños difíciles de cambiar y a documentación que miente. [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) presenta el ciclo de vida con bucles que impiden leerlo como cascada: operar enseña, el mantenimiento reabre diseño y pruebas, y el retiro devuelve a la concepción el criterio de no construir y la exportabilidad.
 
 ## Cómo funciona
 
-Según [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md), en la sección «Mantenimiento»:
+La causa de la necesidad de mantenimiento es que el entorno y los requisitos cambian aunque el código no. Se distinguen tres tipos en la definición del programa: **corrección** (arreglar defectos), **adaptación** (seguir siendo válido ante cambios del entorno) y **mejora** (nueva capacidad o calidad).
 
-Un runbook envejece cuando cambia el sistema: se renombra un servicio, cambia el comando de despliegue, se mueve la consola. Tres hábitos lo mantienen: **dueño** (cada runbook tiene un equipo responsable), **fecha de verificación** (la última vez que alguien lo ejecutó, no la última vez que se editó) y **ejercicio** (una prueba programada en un entorno seguro, en la que alguien ajeno al autor sigue el runbook). Cada incidente real se convierte en una revisión: si el runbook faltó, se corrige. La automatización de pasos seguros (comprobar el estado, recopilar datos) reduce errores humanos; la de pasos destructivos exige más cuidado porque amplifica un error de significado.
+[SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) aplica la idea a los runbooks: envejecen cuando cambia el sistema (se renombra un servicio, cambia el comando de despliegue, se mueve la consola). Tres hábitos los mantienen:
+
+- **dueño:** cada runbook tiene un equipo responsable;
+- **fecha de verificación:** la última vez que alguien lo *ejecutó*, no la última vez que se editó;
+- **ejercicio:** una prueba programada en un entorno seguro, en la que alguien ajeno al autor sigue el runbook.
+
+Cada incidente real se convierte en una revisión: si el runbook faltó, se corrige. Automatizar pasos seguros (comprobar el estado, recopilar datos) reduce errores humanos; automatizar pasos destructivos exige más cuidado porque amplifica un error de significado.
 
 ## Ejemplo
 
-Ejemplo de [SE-071 — Taller: transferir una solución entre lenguajes](../../../classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md) (sección «Ejemplo profesional»):
-
-El taller ejecuta el mismo archivo de casos en ambas implementaciones y compara JSON canónico. Un documento separa equivalencia funcional, diferencias de tipos, costo y experiencia de mantenimiento. No declara un lenguaje ganador universal.
+Un runbook dice «reinicia el servicio `entregas-api`»; seis meses después el servicio se renombró. La verificación periódica por alguien ajeno al autor detecta que el comando ya no existe antes de que haga falta en un incidente.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)) son:
-
-- **El runbook dice «revisa los servicios»** — causa: pasos sin comando ni salida esperada. Corrección: un paso por acción, con comando y resultado esperado.
-- **La guardia es siempre la misma persona** — causa: equipo pequeño o ausencias sin plan. Corrección: calcular la carga y ampliar la rotación o reducir el alcance.
+- **Runbook con «revisa los servicios».** Causa: pasos sin comando ni salida esperada; corrección: un paso por acción, con comando y resultado esperado ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)).
+- **La guardia es siempre la misma persona.** Causa: equipo pequeño o ausencias sin plan; corrección: calcular la carga y ampliar la rotación o reducir el alcance ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)).
+- **Dar por terminado el proyecto al entregar.** Ignora los bucles del ciclo de vida ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Cómo leer la figura.** La fila central es la secuencia de momentos; las flechas rojas continuas son los bucles que impiden leerla como cascada: lo que se aprende al operar corrige requisitos, el mantenimiento reabre decisiones de diseño y pruebas, y el retiro devuelve a la concepción el criterio de no construir y la exportabilidad. ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md))
+No todo cambio es mantenimiento: construir una capacidad nueva de gran tamaño es desarrollo. Un sistema sin dueño no puede mantenerse; [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) lo vincula a decidir también el retiro. Y los hábitos de [SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) son prácticas del curso para runbooks, no una norma sobre cualquier artefacto.
 
 ## Relación con otros conceptos
 

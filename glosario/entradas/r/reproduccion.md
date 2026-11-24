@@ -2,53 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Representación](./representacion.md) · [Reproducción determinista →](./reproduccion-determinista.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Reenvío de un mensaje legítimo capturado para que el receptor lo acepte de nuevo.
+**Reproducción** es una palabra con dos familias de sentidos que no deben mezclarse:
 
-Definición de trabajo de [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-289 — Software científico y reproducibilidad](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md): Que otra persona, con el mismo código y los mismos datos, obtenga un resultado equivalente dentro de una tolerancia declarada.
-- En [SE-058 — Resolución sistemática y registro de hipótesis](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md): Procedimiento que vuelve a producir un síntoma bajo condiciones declaradas.
-- En [SE-023 — Taller: observar un programa desde el código hasta la máquina](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md): Repetición documentada del método.
-- En [SE-035 — Taller: preparar y reparar un entorno reproducible](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md): Procedimiento capaz de volver a mostrar el comportamiento bajo condiciones declaradas.
+- **Volver a producir un resultado o un síntoma** ([SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md), [SE-058](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md), [SE-023](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md), [SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)): que otra persona, con el mismo código y los mismos datos, obtenga un resultado equivalente dentro de una tolerancia declarada ([SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md)); o el procedimiento que vuelve a mostrar el comportamiento bajo condiciones declaradas ([SE-035](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md), [SE-058](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md)).
+- **Ataque de reproducción** (*replay*, [SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)): el reenvío de un mensaje legítimo capturado para que el receptor lo acepte de nuevo.
 
 ## Por qué importa
 
-En [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md), el tema «Anti-reproducción» importa porque un mensaje firmado vale mientras no pueda reutilizarse.
+En el primer sentido, sin reproducción no hay diagnóstico ni ciencia: un fallo que no se puede provocar no se puede arreglar con confianza ni comprobar. En el segundo, un mensaje válido y firmado sigue siendo válido cuando lo reenvía un atacante, así que la firma no basta.
 
 ## Cómo funciona
 
-Según [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md):
+**Reproducir un resultado o un fallo:** se declaran las condiciones (versiones, entrada fija, estado inicial), un comando documentado y una verificación de invariantes antes de comparar ([SE-023](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md)). [SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md) distingue promesas hermanas: la **repetición** falla por estado oculto (una variable de entorno, un archivo sin versionar), la **reproducción** por diferencias numéricas o de dependencias y la **replicación** porque el efecto no existía o dependía de la muestra.
 
-Un mensaje firmado puede capturarse y enviarse de nuevo. Dos mecanismos lo evitan. Una **ventana de tiempo** acepta mensajes con marca reciente; exige relojes razonablemente sincronizados y deja una ventana en que la reproducción es posible. Un **contador monótono** exige que cada mensaje tenga un número mayor que el anterior; no depende del reloj, pero necesita memoria persistente: si el contador se reinicia con el dispositivo, un mensaje capturado vuelve a ser válido. La elección se documenta con el desfase que tolera y la memoria que exige.
-
-Según [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md):
-
-Compara con el esquema de flota: la extracción de una clave en la auditoría compromete a un nodo, no a 200, y el servidor puede revocarlo; los mensajes legítimos ya no se rechazan por el desfase del reloj y una reproducción falla por el contador. Una política es adecuada cuando cada ataque de la lista tiene una respuesta; es frágil cuando depende de un secreto que nadie debería poder extraer.
+**Ataque de reproducción** ([SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)): dos mecanismos lo evitan. Una **ventana de tiempo** acepta mensajes con marca reciente: exige relojes razonablemente sincronizados y deja una ventana en que la reproducción es posible. Un **contador monótono** exige que cada mensaje tenga un número mayor que el anterior: no depende del reloj, pero necesita memoria persistente; si el contador se reinicia con el dispositivo, un mensaje capturado vuelve a ser válido. La elección se documenta con el desfase que tolera y la memoria que exige.
 
 ## Ejemplo
 
-Ejemplo de [SE-272 — Identidad de dispositivo y gestión de claves](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md) (sección «Ejemplo profesional»):
+```python
+def aceptar(msg, ultimo_contador):
+    return msg.contador > ultimo_contador and verifica_firma(msg)   # reenviar el mismo mensaje falla
+```
 
-Compara con el esquema de flota: la extracción de una clave en la auditoría compromete a un nodo, no a 200, y el servidor puede revocarlo; los mensajes legítimos ya no se rechazan por el desfase del reloj y una reproducción falla por el contador. Una política es adecuada cuando cada ataque de la lista tiene una respuesta; es frágil cuando depende de un secreto que nadie debería poder extraer.
+En el modelo de [SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md), un contador que se reinicia sin memoria persistente acepta una reproducción en el 50,8 % de los casos.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un mensaje capturado se acepta días después** — causa: sin anti-reproducción o contador reiniciado. Corrección: contador persistente y ventana acotada. ([SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md))
+- **Un mensaje capturado se acepta días después.** Causa: sin anti-reproducción o contador reiniciado; corrección: contador persistente y ventana acotada ([SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)).
+- **Confundir repetición, reproducción y replicación** ([SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md)).
+- **«Se reproduce en mi máquina» sin condiciones declaradas.** No es una reproducción verificable.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un contador monótono que se reinicia sin memoria persistente acepta una reproducción en el **50,8 %** de los casos del modelo. ([SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md))
-- Son promesas distintas y cada una falla por razones distintas: la repetición falla por estado oculto (una variable de entorno, un archivo sin versionar), la reproducción por diferencias numéricas o de dependencias, la replicación porque el efecto no existía o dependía de la muestra. ([SE-289](../../../classes/part-24-software-especializado-y-dominios/se-289-software-cientifico-y-reproducibilidad/README.md))
+Las cifras de [SE-272](../../../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md) son de un modelo con parámetros del autor. Una reproducción exacta puede ser imposible en sistemas no deterministas; entonces se declara la tolerancia. Y la ventana de tiempo requiere relojes sincronizados: con relojes desviados, rechaza mensajes legítimos.
 
 ## Relación con otros conceptos
 

@@ -2,41 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Matriz de pruebas](./matriz-de-pruebas.md) · [Matriz defecto por prueba →](./matriz-defecto-por-prueba.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Plataformas, versiones y escenarios realmente probados.
-
-Definición de trabajo de [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-036 — Proyecto: kit de diagnóstico multiplataforma](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md): Tabla que separa plataformas objetivo de escenarios efectivamente probados.
+Una **matriz de soporte** es la tabla de plataformas, versiones y escenarios realmente probados ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)). [SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md) precisa lo esencial: separa las plataformas **objetivo** de los escenarios **efectivamente probados**. La diferencia es la información útil: una plataforma puede ser «objetivo» sin que nadie la haya probado, y entonces el soporte es una intención.
 
 ## Por qué importa
 
-En [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md), el tema «Matriz de soporte» importa porque separa objetivo de evidencia ejecutada
+«Compatible» sin evidencia es un adjetivo. Una matriz publicada dice a quien usa el producto qué puede esperar y dice al equipo dónde falta cobertura. [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) muestra el error contrario: llamar «compatible» a lo que solo inicia el shell, sin verificar las capacidades subyacentes. Cambia qué se promete y qué se prueba en integración continua.
 
 ## Cómo funciona
 
-[SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: consulta la clase para el mecanismo completo.
+La matriz cruza ejes que importan al producto: sistema operativo, versión, arquitectura, intérprete o runtime, y escenarios (instalación limpia, actualización, política corporativa restrictiva). Cada celda tiene un estado con su evidencia: probada y pasa, probada y falla, no probada. En el proyecto de kit de diagnóstico multiplataforma ([SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)), la matriz acompaña a los adaptadores: cada adaptador declara qué capacidades ofrece y la matriz registra en qué combinaciones se ejecutó la suite. La celda «no probada» es explícita: no se rellena por analogía.
+
+La causa de que sea útil es que la compatibilidad no se hereda: que algo funcione en Linux no dice nada de Windows, ni de una versión distinta del intérprete.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md):
+```text
+| Plataforma     | Intérprete | Instalación | Diagnóstico | Estado           |
+| Ubuntu 24.04   | 3.12       | probada     | probada     | soportada        |
+| Windows 11     | 3.12       | probada     | probada     | soportada        |
+| macOS 14       | 3.12       | no probada  | no probada  | objetivo, sin evidencia |
+```
 
-Una herramienta corporativa necesita inventariar versión en tres sistemas. Cada adaptador consulta una fuente estable, normaliza una versión y reporta `unavailable` cuando la política bloquea acceso. El tablero no confunde desconocido con versión cero.
+La fila de macOS dice la verdad: es objetivo, pero no hay evidencia, por lo que no se anuncia como soportada.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **“Compatible” significa que el shell inicia** — causa: no se verificaron capacidades subyacentes. Corrección: publicar y probar una matriz de soporte. ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md))
+- **«Compatible» significa que el shell inicia.** Causa: no se verificaron las capacidades subyacentes; corrección: publicar y probar una matriz de soporte ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)).
+- **Copiar la matriz de otro producto.** Cada producto depende de capacidades distintas.
+- **Matriz sin fecha ni versión.** Queda desactualizada y deja de ser una afirmación verificable.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)) son: No buscamos cubrir toda la sintaxis ni producir scripts idénticos. Aún falta decidir cómo ambos adaptadores reciben configuración sin convertir el entorno o los logs en un almacén de secretos; ese es el foco siguiente.
+Una matriz crece combinatoriamente: no se pueden probar todas las combinaciones, así que se escoge un subconjunto con criterio y se declara. Pasar en cada celda no prueba ausencia de defectos. Y [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) advierte que no busca cubrir toda la sintaxis ni producir scripts idénticos en cada shell: la matriz documenta lo probado, no lo que debería funcionar.
 
 ## Relación con otros conceptos
 

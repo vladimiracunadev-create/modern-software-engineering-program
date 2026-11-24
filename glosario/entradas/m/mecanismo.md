@@ -2,47 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← MCP](./mcp.md) · [Mecanismo de falla →](./mecanismo-de-falla.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
 
 ## Definición
 
-¿qué entrada produce qué transición?
-
-Es uno de los temas de [SE-037 — Modelos OSI y TCP/IP como herramientas de diagnóstico](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md), donde se enseña como «mecanismo».
+Un **mecanismo** es la explicación de *cómo* algo produce su efecto: qué entrada produce qué transición, paso a paso ([SE-037](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)). En el programa no es sinónimo de «técnica» ni de «herramienta»: es la cadena causal que se puede seguir, comprobar y trasladar a otro caso. Por eso las clases piden «el mecanismo» y no solo la receta.
 
 ## Por qué importa
 
-En [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md), el tema «mecanismo» importa porque ¿qué entrada produce qué transición?
+Quien conoce el mecanismo puede diagnosticar y adaptar; quien solo conoce los comandos repite pasos mecánicamente y falla cuando cambia el entorno. [SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md) lo formula como diferencia profesional: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación, y el equipo puede cambiar de herramienta sin perder el razonamiento. Eso es trazabilidad del razonamiento, no solo del código.
 
 ## Cómo funciona
 
-Según [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md):
+Entender un mecanismo implica nombrar:
 
-La diferencia profesional es la trazabilidad: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación. El equipo puede cambiar de herramienta sin perder el razonamiento.
+- **la entrada** (qué ocurre o se envía);
+- **la transición** (qué cambia de estado y dónde);
+- **la señal observable** (cómo se distingue que ocurrió);
+- **los supuestos** (qué hace falta para que valga: topología, dirección, política).
 
-Según [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md):
-
-Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
+Las clases de redes ([SE-037](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md) a [SE-045](../../../classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md)) lo practican: en cada tema se pide trasladar el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Se conserva la pregunta y el criterio de evidencia; cambian los supuestos de dirección, intermediación y política. Y se escribe qué observación seguiría siendo válida y cuál depende de la topología original. La causa de que esto funcione es que lo que se traslada es la estructura del argumento, no los nombres del caso original.
 
 ## Ejemplo
 
-Ejemplo de [SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md) (sección «Ejemplo profesional»):
+[SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md) describe un síntoma: «las transferencias grandes se cuelgan pero conectar funciona». El mecanismo: un tramo con MTU menor descarta paquetes con la marca DF (no fragmentar), y los avisos ICMP de «fragmentación necesaria» se filtran, de modo que el emisor nunca ajusta el tamaño. Corrección: probar el MTU de la ruta, permitir ese ICMP y ajustar el MSS. Ilustración:
 
-La diferencia profesional es la trazabilidad: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación. El equipo puede cambiar de herramienta sin perder el razonamiento.
+```bash
+ping -M do -s 1472 destino   # prueba un paquete de 1500 bytes sin fragmentar (Linux)
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)) son:
-
-- **«Las transferencias grandes se cuelgan pero conectar funciona»** — causa: un tramo con MTU menor descarta paquetes con DF y los avisos ICMP se filtran. Corrección: probar PMTU, permitir ICMP «fragmentación necesaria» y ajustar el MSS.
-- **Medir el rendimiento en loopback y extrapolarlo** — causa: el loopback no usa ningún medio. Corrección: medir sobre la interfaz y la ruta reales.
+- **Medir el rendimiento en loopback y extrapolarlo.** Causa: el loopback no usa ningún medio; corrección: medir sobre la interfaz y la ruta reales ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md)).
+- **Aprender comandos sin mecanismo.** Funciona hasta que el entorno cambia.
+- **Confundir mecanismo con causa raíz.** El mecanismo explica el camino; la causa raíz es dónde conviene intervenir.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md))
-- Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. ([SE-045](../../../classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md))
+Un mecanismo vale bajo sus supuestos: trasladarlo a otra topología exige revisarlos ([SE-038](../../../classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/README.md), [SE-045](../../../classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md)). Un mecanismo plausible no es un mecanismo comprobado: requiere una observación que lo respalde. Y hay fenómenos emergentes de sistemas grandes donde el mecanismo detallado no se conoce y se trabaja con regularidades medidas.
 
 ## Relación con otros conceptos
 

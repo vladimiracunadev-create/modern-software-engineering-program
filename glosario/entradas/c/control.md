@@ -2,51 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Contribución única](./contribucion-unica.md) · [Control aparente →](./control-aparente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Conjunto de reglas que decide si algo se publica.
+**Control** tiene en el programa tres sentidos que conviene separar:
 
-Definición de trabajo de [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md).
+- **Compuerta** ([SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md)): conjunto de reglas que decide si algo se publica (por ejemplo, un conjunto de datos).
+- **Medida de riesgo** ([SE-299](../../../classes/part-24-software-especializado-y-dominios/se-299-taller-comparar-riesgos-entre-dominios/README.md)): medida que reduce la probabilidad o el impacto de un riesgo.
+- **Referencia** ([SE-024](../../../classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md)): condición que se mantiene constante, o referencia contra la que se compara una medición.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-299 — Taller: comparar riesgos entre dominios](../../../classes/part-24-software-especializado-y-dominios/se-299-taller-comparar-riesgos-entre-dominios/README.md): Medida que reduce la probabilidad o el impacto de un riesgo.
-- En [SE-024 — Proyecto: informe reproducible de comportamiento y recursos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md): Condición mantenida o referencia.
+Un cuarto uso, el *control de flujo* de un programa ([SE-061](../../../classes/part-05-fundamentos-de-programacion/se-061-valores-expresiones-tipos-y-variables/README.md) a [SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)), es la forma en que condiciones, bucles y excepciones deciden qué se ejecuta.
 
 ## Por qué importa
 
-En [SE-062 — Control de flujo y decisiones](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md), el tema «control» importa porque ¿qué camino o repetición ocurre?
+Un control convierte una intención («los datos deben ser buenos») en una comprobación ejecutable que puede fallar. Sin él, la política es un deseo. Con él mal puesto, hay falsa seguridad: un control que no se revisa, que nadie ejecuta o que contrasta contra una lista desactualizada. [SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md) lo resume: un registro sin control es un wiki, y un control sin registro no sabe qué comparar.
 
 ## Cómo funciona
 
-Según [SE-065 — Errores, excepciones y resultados explícitos](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md):
-
-Cuando ausencia o rechazo es parte esperada del dominio, un resultado etiquetado evita usar excepciones como control ordinario. Python puede usar una estructura `{'ok': False, 'error': ...}` o tipos propios; Rust usa `Result<T,E>`. El contrato debe impedir estados ambiguos con valor y error simultáneos.
-
-Según [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md):
-
-Un registro por conjunto con campos obligatorios: `owner`, `layer`, `columns` (nombre y tipo), `pii` (columnas con datos personales), `retention_days`, `checks`, `inputs` y `max_age_days`. Se guarda como código junto al del pipeline, de modo que un cambio al registro pasa por la misma revisión que un cambio al código. Es la «lista de lo que debería ser» y el control la contrasta con «lo que es». Un registro sin control es un wiki; un control sin registro no sabe qué comparar.
+- **Como compuerta** ([SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md)): el registro de cada conjunto de datos (propietario, capa, columnas con tipo, columnas con datos personales, retención, comprobaciones, entradas, antigüedad máxima) se guarda como código junto al pipeline y pasa por la misma revisión. El control contrasta «lo que es» con «lo que debería ser» y bloquea la publicación si difieren.
+- **Como medida** ([SE-299](../../../classes/part-24-software-especializado-y-dominios/se-299-taller-comparar-riesgos-entre-dominios/README.md)): actúa sobre la causa (probabilidad) o la consecuencia (impacto) de un riesgo identificado.
+- **Como referencia** ([SE-024](../../../classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md)): una medición sin línea de control no permite saber si un cambio fue efecto de la intervención o del entorno.
+- **Como flujo** ([SE-062](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md), [SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)): los umbrales se prueban en ambos lados y, cuando la ausencia es parte esperada del dominio, un resultado etiquetado evita usar excepciones como control ordinario.
 
 ## Ejemplo
 
-Ejemplo de [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* convierte el proyecto en una práctica. Mantiene el registro de metadatos junto al código del pipeline y ejecuta el control en cada cambio y antes de cada publicación. Cada trimestre ejecuta las diez mutaciones como prueba del propio control: si un cambio de reglas deja de detectar alguna, la prueba falla y el cambio no entra. Un día añade una undécima mutación inspirada en un incidente real (un `JOIN` que duplicó filas) y ve que ninguna regla la detecta; añade entonces una regla de conciliación de filas contra la capa anterior y la matriz pasa a 11 de 11.
+[SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md) midió el costo de un `try` que no lanza: 15,5 ns frente a 36,8 ns de la línea de control en Windows (y 9,1 frente a 8,5 en Linux). Aquí «control» es la referencia que da sentido a la medición.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-062 — Control de flujo y decisiones](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)) son:
-
-- **clases mal asignadas justo en el límite** — causa: `<=` y `<` intercambiados, sin prueba de frontera. Corrección: probar ambos lados de cada umbral.
-- **`if budget:` responde igual con 0 y con `None`** — causa: verdad de Python mezcla ausencia y cero. Corrección: comparar con `is None` y con 0 por separado.
+- **Clases mal asignadas en el límite.** Causa: `<=` y `<` intercambiados, sin prueba de frontera; corrección: probar ambos lados de cada umbral ([SE-062](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)).
+- **`if budget:` responde igual con 0 y con `None`.** Causa: la verdad de Python mezcla ausencia y cero; corrección: comparar con `is None` y con 0 por separado ([SE-062](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)).
+- **Un control sin dueño.** Sin responsable, la compuerta se desactiva «temporalmente» y no vuelve.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Se intentó también medir el costo de un `try` que no lanza y el resultado es instructivo: 15.5 ns frente a 36.8 ns de la línea de control en Windows (y 9.1 frente a 8.5 en Linux). ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md))
+Un control reduce un riesgo, no lo elimina, y solo comprueba lo que su registro describe. Las cifras de [SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md) dependen del entorno medido. Y como el término cambia de significado según la clase, hay que fijar cuál se usa antes de discutir si «hay control».
 
 ## Relación con otros conceptos
 

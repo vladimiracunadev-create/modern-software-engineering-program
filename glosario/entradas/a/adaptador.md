@@ -2,54 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Adaptación de rango bajo](./adaptacion-de-rango-bajo.md) · [Adaptador de compatibilidad →](./adaptador-de-compatibilidad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Traducción entre una capacidad local y el modelo común.
+Un **adaptador** es la pieza que traduce entre una capacidad local y un modelo común: de un lado habla el idioma de una plataforma, tecnología o colaborador concreto, y del otro cumple el contrato que el resto del sistema espera. [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) lo define así para scripts portables. El programa lo usa con matices:
 
-Definición de trabajo de [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-036 — Proyecto: kit de diagnóstico multiplataforma](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md): Implementación de capacidades para una plataforma.
-- En [SE-263 — Taller: adaptar un producto a dos plataformas](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md): Implementación de un puerto para un entorno concreto: una plataforma, un servicio o una prueba.
-- En [SE-328 — Capas, hexagonal, clean y ports and adapters](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md): Implementación de un puerto con una tecnología concreta.
-- En [SE-304 — Patrones creacionales, estructurales y conductuales](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales/README.md): Patrón que traduce la interfaz de un colaborador a la que espera el cliente.
+- **Portabilidad** ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md), [SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md), [SE-263](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)): implementa las capacidades de una plataforma concreta tras un contrato común.
+- **Arquitectura** ([SE-328](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md)): implementación de un puerto con una tecnología concreta (puertos y adaptadores).
+- **Patrón estructural** ([SE-304](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales/README.md)): traduce la interfaz de un colaborador a la que espera el cliente.
 
 ## Por qué importa
 
-En [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md), el tema «Adaptador» importa porque traduce contrato a capacidades locales
+Sin adaptadores, las diferencias entre entornos se filtran por todo el código: cada lugar que necesita «el tipo de archivo» o «la versión instalada» conoce las rarezas de cada plataforma. Con ellos, esa diferencia vive en un solo sitio y el resto razona contra un contrato estable. Decide también dónde se prueba: el contrato se verifica una vez y cada adaptador se contrasta contra él.
 
 ## Cómo funciona
 
-Según [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md):
-
-Una guía portable define nombres y valores en un contrato externo —por ejemplo, un esquema JSON— y cada adaptador valida y transforma. No comparte fragmentos de sintaxis como si fueran lenguaje neutral.
-
-Según [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md):
-
-Una herramienta corporativa necesita inventariar versión en tres sistemas. Cada adaptador consulta una fuente estable, normaliza una versión y reporta `unavailable` cuando la política bloquea acceso. El tablero no confunde desconocido con versión cero.
+El mecanismo tiene tres partes. Primero, un **contrato externo** que fija nombres y valores (en [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md), por ejemplo un esquema JSON). Segundo, un adaptador por entorno que consulta una fuente estable, valida y **normaliza** hacia ese contrato. Tercero, un consumidor que solo ve el modelo común. La causa de que funcione es que la traducción no comparte sintaxis como si fuera un lenguaje neutral: Bash entrega líneas de texto y PowerShell entrega objetos, así que cada uno convierte lo suyo a la forma común y conserva la salida original solo como detalle diagnóstico. Cuando una capacidad no existe, el adaptador lo declara (`unavailable`) en lugar de inventar un valor.
 
 ## Ejemplo
 
-Ejemplo de [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) (sección «Ejemplo mínimo»):
+En [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md), ambos adaptadores producen `{exists, type}` para una ruta, y las pruebas comparan campos, no presentación. En una herramienta que inventaría versiones en tres sistemas, el tablero no confunde «desconocido» con «versión cero» porque el adaptador informa `unavailable` cuando una política bloquea el acceso. Ilustración mínima:
 
-Bash entrega líneas de texto desde una herramienta; PowerShell entrega objetos desde un cmdlet. Ambos adaptadores producen `{exists, type}` y mantienen la salida original solo como detalle diagnóstico. Las pruebas comparan campos, no presentación.
+```python
+class AdaptadorLinux:
+    def info(self, ruta): return {"exists": os.path.exists(ruta), "type": "file"}
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El kit de diagnóstico multiplataforma se convierte en un script de cien comandos** — causa: no existe modelo ni contrato. Corrección: separar capacidades, adaptadores y decisiones. ([SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md))
-- **Un adjunto no se guarda en una plataforma y sí en otra** — causa: reglas de nombres distintas. Corrección: sanear el nombre en el adaptador y probar en ambas. ([SE-263](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md))
-- **Las pruebas pasan y el sistema real falla** — causa: el doble se desvió del adaptador real. Corrección: escribir una suite de contrato ejecutada contra ambos. ([SE-328](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md))
+- **Kit multiplataforma convertido en un script de cien comandos.** Causa: no hay modelo ni contrato; corrección: separar capacidades, adaptadores y decisiones ([SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)).
+- **Un adjunto se guarda en una plataforma y no en otra.** Causa: reglas de nombres distintas; corrección: sanear el nombre en el adaptador y probar en ambas ([SE-263](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas/README.md)).
+- **Las pruebas pasan y el sistema real falla.** Causa: el doble se desvió del adaptador real; corrección: una suite de contrato ejecutada contra ambos ([SE-328](../../../classes/part-27-arquitectura-de-software-y-dominio/se-328-capas-hexagonal-clean-y-ports-and-adapters/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una guía portable define nombres y valores en un contrato externo —por ejemplo, un esquema JSON— y cada adaptador valida y transforma. ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md))
+Un adaptador sin contrato explícito solo mueve el desorden de sitio. Si solo existe un entorno y no se espera otro, la capa añade indirección sin beneficio. Tampoco elimina las diferencias reales: lo que una plataforma no puede hacer se declara, no se simula. Y el patrón estructural de [SE-304](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-304-patrones-creacionales-estructurales-y-conductuales/README.md) traduce una interfaz; no resuelve diferencias de semántica más profundas entre sistemas.
 
 ## Relación con otros conceptos
 

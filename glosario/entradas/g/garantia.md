@@ -2,46 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Gap](./gap.md) · [Garantías de entrega →](./garantias-de-entrega.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
 
 ## Definición
 
-Compromiso verificable sobre el comportamiento de una operación bajo condiciones y fallos declarados.
-
-Definición de trabajo de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md).
+Una **garantía** es un compromiso verificable sobre el comportamiento de una operación bajo condiciones y fallos declarados ([SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)). Una garantía bien escrita dice qué operación, bajo qué fallo y con qué límite. No es un adjetivo («confiable») ni una intención: es una afirmación que se puede comprobar y que puede cumplirse o violarse.
 
 ## Por qué importa
 
-En [SE-040 — TCP, UDP, QUIC y decisiones de transporte](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md), el tema «garantía» importa porque ¿qué promete el protocolo y qué no?
+Quien usa una operación decide en función de lo que cree garantizado. Si cree más de lo prometido, construye sobre arena; si la promesa es vaga, nadie puede probarla. Escribir garantías precisas cambia qué se comunica a otros equipos, qué se prueba y qué se asume.
 
 ## Cómo funciona
 
-Según [SE-040 — TCP, UDP, QUIC y decisiones de transporte](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md):
+Una garantía tiene tres partes: la **operación** (guardar una entrega), el **fallo** o condición declarados (caída del nodo, red particionada) y el **límite** (en cuánto tiempo, con qué orden, a quién).
 
-UDP preserva fronteras de datagrama y aporta comprobación mínima, pero no promete entrega, orden, unicidad ni control de congestión para la aplicación. Esa falta de garantías puede ser adecuada cuando importa la actualidad y perder una muestra es mejor que acumular retraso.
-
-Según [SE-040 — TCP, UDP, QUIC y decisiones de transporte](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md):
-
-Cuando la actualidad importa más que la entrega completa (voz, vídeo, telemetría de alta frecuencia) o cuando la aplicación necesita sus propias reglas de fiabilidad. Se asume entonces la responsabilidad de orden, duplicados, pérdida y control de congestión; en muchos casos QUIC ofrece esas garantías sobre UDP.
+En redes ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md)) se ve la ausencia de garantías como diseño: UDP preserva fronteras de datagrama y aporta comprobación mínima, pero no promete entrega, orden, unicidad ni control de congestión para la aplicación. Eso es adecuado cuando importa la actualidad y perder una muestra es mejor que acumular retraso (voz, vídeo, telemetría de alta frecuencia), o cuando la aplicación necesita sus propias reglas; quien lo elige asume orden, duplicados, pérdida y congestión, y QUIC ofrece esas garantías sobre UDP. En [SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md), la garantía de un sistema de entregas distingue estados («recibida» y «guardada») porque el acuse en el momento de encolar no garantiza persistencia.
 
 ## Ejemplo
 
-Ejemplo de [SE-040 — TCP, UDP, QUIC y decisiones de transporte](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md) (sección «Preguntas frecuentes»):
+[SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md): un estudiante tiene acuse pero no entrega porque el acuse se emitió al encolar sin distinguir estados. La garantía corregida: «recibida» significa encolada; «guardada» significa persistida con réplica. Ilustración:
 
-Cuando la actualidad importa más que la entrega completa (voz, vídeo, telemetría de alta frecuencia) o cuando la aplicación necesita sus propias reglas de fiabilidad. Se asume entonces la responsabilidad de orden, duplicados, pérdida y control de congestión; en muchos casos QUIC ofrece esas garantías sobre UDP.
+```text
+Garantía: tras responder "guardada", la entrega sobrevive a la caída de un nodo y es legible en ≤ 5 s.
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un estudiante tiene acuse y no entrega** — causa: acuse emitido al encolar sin distinguir estados. Corrección: estados «recibida» y «guardada» en la garantía. ([SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md))
+- **Acuse sin estados.** Causa: se emite el acuse al encolar sin distinguir qué se cumplió; corrección: estados «recibida» y «guardada» en la garantía ([SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)).
+- **Confundir política con garantía.** Round robin, menor carga o hashing son políticas de selección, no garantías de igualdad ([SE-044](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md)).
+- **Asumir garantías que el protocolo no da.** Esperar orden o entrega de UDP.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Round robin, menor carga o hashing son políticas de selección, no garantías de igualdad. ([SE-044](../../../classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn/README.md))
-- Una garantía bien escrita dice qué operación, bajo qué fallo y con qué límite: ([SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md))
+Una garantía solo vale bajo las condiciones declaradas: fuera de ellas no se promete nada. Garantías muy fuertes cuestan latencia o disponibilidad, así que no siempre conviene exigir la más fuerte. Y una garantía no verificada es una intención: debe tener una prueba o una observación que la sostenga.
 
 ## Relación con otros conceptos
 

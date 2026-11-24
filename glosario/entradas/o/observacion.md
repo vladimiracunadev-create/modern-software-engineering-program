@@ -2,48 +2,37 @@
 
 [↑ Glosario](../../README.md) · [← Observable y contrato de notificaciones](./observable-y-contrato-de-notificaciones.md) · [Observador →](./observador.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Resultado de una acción que el harness devuelve al contexto.
-
-Definición de trabajo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md).
+Una **observación** es el registro de qué ocurrió, obtenido mediante un método y acompañado de su fuente y su límite ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md), [SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md)). En el trabajo con agentes ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md)), la observación es el resultado de una acción que el *harness* devuelve al contexto del agente. Lo común: es un dato sobre el mundo, no una conclusión sobre él.
 
 ## Por qué importa
 
-En [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md), el tema «Observación» importa porque ¿qué ocurrió y cómo se midió?
-
-En [SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md), el tema «Observación» importa porque cada herramienta ve una frontera
+Separar observación de interpretación evita el error más frecuente del diagnóstico: presentar una métrica como si fuera una conclusión. [SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) pide registrar el dato, la inferencia que se hace de él y la alternativa rival por separado. En agentes, lo que el modelo «ve» tras una acción es la observación, y su calidad limita todo lo que viene después.
 
 ## Cómo funciona
 
-Según [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md):
-
-Una **observación** registra qué ocurrió mediante un método: “el p95 fue 480 ms en estas solicitudes, intervalo y entorno”. Una **inferencia** conecta observaciones con una conclusión: “la dependencia contribuyó a la demora”. Una **hipótesis** formula una explicación contrastable: “si la dependencia es la causa dominante, aislarla reducirá la cola”. Un **supuesto** es una condición aceptada provisionalmente, como considerar representativa la carga de prueba.
-
-Según [SE-013 — Arquitectura básica de un computador moderno](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md):
-
-`platform.machine()` informa una etiqueta de plataforma que el runtime expone; `sys.byteorder` informa el orden nativo que Python observa. No demuestran modelo exacto de CPU, tamaño de caché ni frecuencia efectiva. Virtualización, emulación y contenedores pueden interponer capas. Una observación correcta se acompaña de su fuente y límite.
+[SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) define: una observación «registra qué ocurrió mediante un método: *el p95 fue 480 ms en estas solicitudes, intervalo y entorno*». Lleva consigo el método, la muestra, el intervalo y el entorno. Eso la distingue de la inferencia («la dependencia contribuyó a la demora»), de la hipótesis y del supuesto. [SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) añade un criterio de calidad: una observación correcta se acompaña de su fuente y límite. `platform.machine()` informa una etiqueta de plataforma que el runtime expone y `sys.byteorder` el orden nativo que Python observa; ninguno demuestra el modelo exacto de CPU, el tamaño de caché ni la frecuencia efectiva, y la virtualización, la emulación y los contenedores pueden interponer capas. En [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), el *harness* ejecuta la acción y devuelve su salida como observación; el diseño decide qué se recorta, se resume o se marca como datos externos.
 
 ## Ejemplo
 
-Ejemplo de [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) (sección «Ejemplo mínimo»):
-
-«La API estuvo lenta» mezcla observación e interpretación. Mejor: p95 subió de 220 a 480 ms durante 15 minutos en región A; coincidió con despliegue X; faltan datos de dependencia Y.
+```text
+Observación: tras el despliegue 1.4.2, p95=480 ms (n=2000, entorno de preproducción, 10 min).
+Inferencia: la dependencia D contribuyó a la demora.
+Alternativa rival: el pico de matrícula coincidió con el despliegue.
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)) son:
-
-- **una métrica se presenta como conclusión** — causa: se omitieron inferencia y supuestos. Corrección: separa registro, interpretación y alternativa rival.
-- **benchmark sin configuración** — causa: se perdió trazabilidad. Corrección: fija datos, entorno, versiones, orden y múltiples corridas.
+- **Una métrica se presenta como conclusión.** Causa: se omitieron inferencia y supuestos; corrección: separar registro, interpretación y alternativa rival ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)).
+- **Benchmark sin configuración.** Causa: se perdió trazabilidad; corrección: fijar datos, entorno, versiones, orden y múltiples corridas ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)).
+- **Tomar una etiqueta de plataforma por una medición del hardware** ([SE-013](../../../classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una **inferencia** conecta observaciones con una conclusión: “la dependencia contribuyó a la demora”. ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md))
+Una observación vale para su método y su muestra: no se generaliza sin más. Observar puede alterar lo observado (instrumentar cambia el rendimiento). Y en agentes, una observación puede contener texto de terceros: no se trata como instrucción, sino como dato.
 
 ## Relación con otros conceptos
 

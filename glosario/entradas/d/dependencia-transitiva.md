@@ -2,45 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Dependencia sin soporte](./dependencia-sin-soporte.md) · [Dependencias de proyecto y herramientas →](./dependencias-de-proyecto-y-herramientas.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Paquete que un proyecto usa indirectamente a través de otro.
-
-Definición de trabajo de [SE-201 — Licencias de software y obligaciones básicas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-471 — Dependencias directas, transitivas y vendorización](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md): Pieza que otra dependencia necesita, directa o indirectamente.
-- En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md): Componente requerido a través de otra dependencia.
+Una **dependencia transitiva** es un paquete o componente que un proyecto usa indirectamente, a través de otra dependencia ([SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md), [SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)). [SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md) la formula como la pieza que otra dependencia necesita, directa o indirectamente. Si el proyecto declara `A` y `A` necesita `B`, entonces `B` es transitiva respecto del proyecto, aunque nadie la haya elegido.
 
 ## Por qué importa
 
-En [SE-201 — Licencias de software y obligaciones básicas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md), el tema «Dependencias transitivas» importa porque las obligaciones llegan por la cadena completa, no solo por lo que se declara.
+Un proyecto usa unas decenas de paquetes directos que arrastran cientos ([SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)). Lo que no se declara también se ejecuta, se licencia y se ataca. Por eso las decisiones de licencias, vulnerabilidades y reproducibilidad no pueden basarse solo en lo que el equipo escribió en su manifiesto: mirar solo las directas deja fuera casi todo.
 
 ## Cómo funciona
 
-Según [SE-201 — Licencias de software y obligaciones básicas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md), en la sección «Dependencias transitivas»:
+El gestor de paquetes resuelve el **grafo completo**: cada paquete declara rangos de versiones de sus dependencias y el resolvedor elige un conjunto compatible. Consecuencias que enseña el programa:
 
-Un proyecto usa unas decenas de paquetes directos que arrastran cientos. Cada uno tiene su licencia y las obligaciones se acumulan. Mirar solo las directas deja fuera casi todo. El inventario debe recorrer el grafo completo y registrar tres estados distintos: licencia reconocida y permitida, reconocida y no permitida, y no declarada o ilegible, que es un resultado que exige revisión y no una aprobación.
+- **Licencias** ([SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)): las obligaciones se acumulan. El inventario debe recorrer el grafo entero y registrar tres estados distintos: licencia reconocida y permitida, reconocida y no permitida, y no declarada o ilegible. Este último exige revisión; no es una aprobación.
+- **Cadena de suministro** ([SE-471](../../../classes/part-39-build-release-y-cadena-de-suministro/se-471-dependencias-directas-transitivas-y-vendorizacion/README.md)): una pieza comprometida o abandonada a cuatro niveles afecta igual que una directa, y el inventario de componentes (SBOM) existe para verlas.
+- **Reproducibilidad** ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)): sin un archivo de bloqueo (`lockfile`), la resolución puede elegir otras versiones transitivas mañana.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-201 — Licencias de software y obligaciones básicas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md):
+[SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md) analiza expresiones de licencia con sus operadores. Ilustración con npm:
 
-En la plataforma, el `LICENSE` declara la licencia del proyecto, cada archivo de código lleva su etiqueta y un trabajo de integración continua construye el inventario de dependencias directas y transitivas, evalúa sus expresiones con un analizador y falla ante una licencia no permitida; ante una no reconocida o ilegible, abre una revisión con una persona designada. Las decisiones sobre licencias no permitidas pasan a asesoría y se registran con responsable y fecha.
+```bash
+npm ls --all        # muestra el árbol completo, directas y transitivas
+npm ls left-pad     # ¿quién arrastra este paquete?
+```
+
+El equipo descubre que `left-pad` entra por un paquete de formato que usa una dependencia de segundo nivel.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-201 — Licencias de software y obligaciones básicas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)) son:
-
-- **Se rechazan dependencias válidas** — causa: comparación literal de texto. Corrección: analizar la expresión con sus operadores.
-- **Se aprueban dependencias que no se entendieron** — causa: los avisos no se tratan como pendientes. Corrección: hacer que lo no reconocido exija revisión.
+- **Rechazar dependencias válidas.** Causa: comparación literal de texto de la licencia; corrección: analizar la expresión con sus operadores ([SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)).
+- **Aprobar lo que no se entendió.** Causa: los avisos no se tratan como pendientes; corrección: que lo no reconocido exija revisión ([SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)).
+- **Fijar solo las directas.** Las versiones transitivas siguen moviéndose sin lockfile.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-201 — Licencias de software y obligaciones básicas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. La lista de identificadores, la política y la mezcla de licencias son del autor, el analizador cubre solo una parte de la gramática y no se interpretó ninguna licencia ni se auditó ningún proyecto; las decisiones con consecuencias jurídicas requieren asesoría.
+Las definiciones de [SE-201](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md) son operativas para la plataforma de entregas: no se interpretó ninguna licencia ni se auditó ningún proyecto, y las decisiones con consecuencia jurídica requieren asesoría. Un grafo completo muestra qué está, no si es seguro. Y en proyectos con dependencias copiadas al repositorio (vendoring) la distinción directa/transitiva se difumina.
 
 ## Relación con otros conceptos
 

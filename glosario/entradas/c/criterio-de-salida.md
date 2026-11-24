@@ -2,51 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Criterio de retroceso](./criterio-de-retroceso.md) · [Criterio delegado →](./criterio-delegado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Condición comprobable que debe cumplirse para dar un trabajo por terminado.
-
-Definición de trabajo de [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md): Condición verificable para avanzar.
-- En [SE-059 — Taller: descomponer un problema ambiguo](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo/README.md): Condición observable para cerrar una fase.
+Un **criterio de salida** es la condición comprobable que debe cumplirse para dar un trabajo por terminado o para avanzar a la etapa siguiente ([SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md)). Según el contexto: condición verificable para avanzar ([SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)) o condición observable para cerrar una fase ([SE-059](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo/README.md)). Lo esencial es que lo pueda verificar alguien distinto de quien hizo el trabajo.
 
 ## Por qué importa
 
-En [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md), el tema «Criterios de salida» importa porque sin criterios no hay forma de decir que está terminado.
+Sin criterio de salida, «terminado» es una sensación. El trabajo se declara completo por cansancio, por calendario o por completar actividades en vez de resultados. [SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) lo muestra en el aprendizaje profesional: el criterio no es «sentirme experto» sino una observación que una persona revisora puede verificar. En entrega continua ([SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md)), cada etapa tiene criterio de paso o de retroceso, y eso es lo que permite automatizar la decisión.
 
 ## Cómo funciona
 
-Según [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md):
+Un buen criterio es **observable, binario y externo**:
 
-El equipo de la API de entregas ensambla su camino. Cada versión pasa por la integración con ramas de menos de dos días, el grafo de trabajos con un camino crítico de 14 minutos, las compuertas ordenadas por razón de detección, el escaneo de secretos que siempre bloquea, la política sobre el plan de infraestructura, una preproducción con datos sintéticos, un canario del 5 % con criterio de retroceso automático y la observación de las métricas con intervalos. Los cambios de esquema siguen el cambio en paralelo: el equipo ensaya el retroceso cada mes en preproducción, con la versión anterior leyendo los datos que escribió la nueva, y la contracción es un cambio aparte, treinta días después, con aprobación de una segunda persona.
+- *observable:* se puede medir o inspeccionar, no depende de opinión;
+- *binario:* se cumple o no;
+- *externo:* lo verifica otra persona o un sistema, no solo el autor.
 
-Según [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md):
-
-El trabajo en curso limitado evita acumular diez cursos sin evidencia. Un experimento breve produce un artefacto revisable y una decisión: avanzar, repetir, dividir o cambiar estrategia. El criterio de salida no es “sentirme experto”, sino una observación que una persona revisora puede verificar.
+[SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) pide para cada experimento un artefacto, un criterio de salida y una revisión, y limita el trabajo en curso para no acumular diez cursos sin evidencia. En [SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md), el camino de entrega encadena criterios: ramas de menos de dos días, compuertas ordenadas por razón de detección, escaneo de secretos que siempre bloquea, canario del 5 % con criterio de retroceso automático y observación de métricas con intervalos. Cada paso responde a la pregunta «¿qué debe ser verdad para pasar?».
 
 ## Ejemplo
 
-Ejemplo de [SE-492 — Proyecto: camino a producción con rollback](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md) (sección «Ejemplo profesional»):
+[SE-492](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-492-proyecto-camino-a-produccion-con-rollback/README.md): un canario del 5 % tiene un criterio de retroceso automático; si la métrica cruza el umbral, la versión se retira sin pedir permiso. Ilustración de formulación débil frente a fuerte:
 
-El equipo de la API de entregas ensambla su camino. Cada versión pasa por la integración con ramas de menos de dos días, el grafo de trabajos con un camino crítico de 14 minutos, las compuertas ordenadas por razón de detección, el escaneo de secretos que siempre bloquea, la política sobre el plan de infraestructura, una preproducción con datos sintéticos, un canario del 5 % con criterio de retroceso automático y la observación de las métricas con intervalos.
+- Débil: «el módulo está casi listo».
+- Fuerte: «las 12 pruebas de aceptación pasan en CI y una segunda persona revisó el diff».
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **completar un curso es criterio de salida** — causa: consumo confundido con desempeño. Corrección: exige tarea, evidencia y revisión externa. ([SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md))
+- **«Completar un curso» como criterio de salida.** Causa: consumo confundido con desempeño; corrección: exigir tarea, evidencia y revisión externa ([SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)).
+- **Criterio que depende de una opinión.** No puede automatizarse ni discutirse.
+- **Confundir criterio de salida con criterio de aceptación.** El primero cierra una fase o etapa; el segundo valida un requisito concreto.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El criterio de salida no es “sentirme experto”, sino una observación que una persona revisora puede verificar. ([SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md))
-- **Corrección:** reduce el trabajo en curso a uno, dos o tres experimentos; ordena por dependencia (qué habilita qué) y por riesgo; y exige para cada uno un artefacto, un criterio de salida y una revisión. ([SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md))
+Un criterio verificable puede medir lo equivocado y dar falsa seguridad (cumplir el umbral sin cumplir el objetivo). En trabajo exploratorio, fijar un criterio demasiado temprano puede cerrar preguntas; entonces el criterio es una decisión (avanzar, repetir, dividir o cambiar estrategia, [SE-012](../../../classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)) más que un umbral. Y un criterio que nadie revisa es solo un texto.
 
 ## Relación con otros conceptos
 

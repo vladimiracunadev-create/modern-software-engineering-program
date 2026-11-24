@@ -2,44 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Tenant](./tenant.md) · [Terminación cooperativa →](./terminacion-cooperativa.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Propiedad de finalizar para toda entrada del dominio.
-
-Definición de trabajo de [SE-054 — Algoritmos, corrección y terminación](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md).
+La **terminación** es la propiedad de finalizar para toda entrada del dominio ([SE-054](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md)). Un algoritmo cuya ejecución puede no acabar para alguna entrada no termina, aunque casi siempre lo haga. En operación ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)), la palabra tiene un segundo sentido: cómo se detiene un proceso o un servicio, ordenada o forzosamente.
 
 ## Por qué importa
 
-En [SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md), el tema «Terminación» importa porque comunica solicitud y resultado
-
-En [SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md), el tema «Terminación» importa porque un cierre ordenado protege datos; uno forzado los pierde.
+Un programa que no termina consume recursos indefinidamente o bloquea a quien lo espera. Un timeout detiene una ejecución, pero no demuestra que el algoritmo termine para cualquier entrada ([SE-054](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md)). Importa distinguir ambas cosas: parar un proceso es una decisión operativa; demostrar que termina es una propiedad del algoritmo. Y en producción, la forma de terminar decide si se pierden datos.
 
 ## Cómo funciona
 
-Según [SE-054 — Algoritmos, corrección y terminación](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md), en la sección «Terminación»:
+**Del algoritmo** ([SE-054](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md)): se demuestra con una **variante**, una cantidad que toma valores en un orden bien fundado (por ejemplo, enteros no negativos) y disminuye estrictamente en cada iteración. Si `b` decrece en cada paso y no baja de 0, el bucle termina; su **corrección** viene de un invariante (una igualdad que se conserva) junto con esa terminación. `pendientes` puede servir como variante si ningún paso vuelve a insertar indefinidamente. En recorridos de grafos con ciclos, el conjunto de visitados garantiza que los nodos pendientes decrecen ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md)).
 
-Una variante toma valores en un orden bien fundado y disminuye en cada iteración. `pendientes` puede servir si ningún paso vuelve a insertar indefinidamente. Un timeout detiene una ejecución, pero no demuestra que el algoritmo termine para cualquier entrada.
+**Operativa** ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)): terminar un servicio puede ser ordenado (el proceso recibe una señal, vacía lo pendiente, escribe en un archivo temporal y renombra) o forzado (se corta sin limpieza). La terminación forzada puede dejar un archivo truncado; en Windows, `terminate()` equivale a una terminación forzada, por lo que se usa `CTRL_BREAK_EVENT` o un canal de cierre propio.
 
 ## Ejemplo
 
-Ejemplo de [SE-054 — Algoritmos, corrección y terminación](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md) (sección «Preguntas frecuentes»):
+```python
+def mcd(a, b):
+    while b:                    # variante: b decrece estrictamente y es >= 0
+        a, b = b, a % b         # invariante: mcd(a, b) no cambia
+    return a
+```
 
-Que, para toda entrada que cumpla la precondición, termina y devuelve un resultado que cumple la poscondición. La corrección parcial (si termina, es correcto) y la terminación se demuestran por separado.
+Como `a % b < b`, el valor de `b` baja en cada paso: termina para cualquier par de enteros no negativos.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un archivo queda truncado al detener el servicio** — causa: la terminación fue forzada o el manejador no vació. Corrección: cierre ordenado y escritura en archivo temporal. ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md))
-- **`terminate()` no limpia en Windows** — causa: equivale a terminación forzada. Corrección: `CTRL_BREAK_EVENT` o un canal de cierre propio. ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md))
+- **Un archivo queda truncado al detener el servicio.** Causa: terminación forzada o manejador que no vació; corrección: cierre ordenado y escritura en archivo temporal ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)).
+- **`terminate()` no limpia en Windows.** Causa: equivale a terminación forzada; corrección: `CTRL_BREAK_EVENT` o un canal de cierre propio ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)).
+- **Creer que un timeout prueba terminación.** Solo corta una ejecución concreta ([SE-054](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Su **corrección** viene de esa igualdad, y su **terminación**, de que `b` decrece estrictamente en cada paso y no baja de 0. ([SE-054](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion/README.md))
+La terminación no es decidible en general para programas arbitrarios (problema de la parada); se demuestra caso a caso con una variante. Para servicios que por diseño no terminan, la propiedad relevante es la de cada petición, no la del proceso. Y una demostración de terminación no acota el tiempo: un programa puede terminar tras un tiempo inaceptable.
 
 ## Relación con otros conceptos
 

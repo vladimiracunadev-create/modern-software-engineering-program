@@ -2,54 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Suite dinámica de fallas](./suite-dinamica-de-fallas.md) · [Suma de verificación →](./suma-de-verificacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Notificación que identifica quién pide, por ejemplo un repositorio y una rama.
+**Sujeto** es la identidad, o el objeto, a quien se refiere una afirmación de seguridad. El programa lo usa con tres sentidos relacionados:
 
-Definición de trabajo de [SE-484 — Credenciales efímeras y OIDC](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md).
+- **Identidad autenticada que realiza una solicitud** ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)): la parte de un token que dice *quién* actúa.
+- **Proceso y contexto de identidad que solicita una acción** ([SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)): quien intenta usar un recurso en un sistema operativo.
+- **Artefacto al que se refiere una atestación** ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)): el objeto sobre el que se afirma algo, identificado por su huella.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md): Identidad autenticada que realiza la solicitud.
-- En [SE-472 — SBOM, procedencia y atestaciones](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md): Artefacto al que se refiere una atestación, identificado por su huella.
-- En [SE-027 — Usuarios, grupos, permisos y elevación de privilegios](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md): Proceso y contexto de identidad que solicita una acción.
+En [SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md) se emplea para la afirmación de un token de identidad: repositorio, rama o entorno que pide una credencial.
 
 ## Por qué importa
 
-La clase donde se define, [SE-484 — Credenciales efímeras y OIDC](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md), existe con este propósito: la clase existe para que sustituyas la credencial que alguien copió en un secreto del repositorio por una identidad que la canalización demuestra en cada ejecución y que el proveedor cambia por una credencial de minutos.
+Toda decisión de acceso se toma sobre un sujeto. Si el sujeto se define de forma laxa (con prefijo o comodín), un tercero que coincida con el patrón obtiene acceso. Si el rol del sujeto se toma de datos que controla el cliente, el control es ilusorio. La decisión que cambia es de dónde se deriva el sujeto y con qué exactitud se compara.
 
 ## Cómo funciona
 
-Según [SE-484 — Credenciales efímeras y OIDC](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md):
+**En tokens** ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)): un token firmado transporta un sujeto y unas afirmaciones; su verificación exige comprobar el algoritmo, la firma, el emisor, la audiencia y la vigencia. El sujeto y el rol se derivan del token verificado, no de lo que el cliente declara.
 
-El esquema general, que GitHub Actions implementa sobre OpenID Connect, tiene cuatro pasos. El job, si tiene permiso para ello, pide al emisor de la plataforma de integración continua un **token de identidad**: un documento firmado que dice quién es (repositorio, rama, entorno, flujo de trabajo), quién lo emitió (`iss`), a quién va dirigido (`aud`), hasta cuándo vale (`exp`) y desde cuándo (`nbf`). El job presenta ese token al proveedor de la nube. El proveedor lo valida (firma con las claves públicas del emisor, vigencia, emisor y audiencia esperados) y comprueba la **regla de confianza** configurada en su lado: «acepto tokens cuyo sujeto sea exactamente este repositorio y esta rama». Si coincide, devuelve una credencial temporal con los permisos del rol asociado.
+**En identidad de integración continua** ([SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md)): el *job* pide a la plataforma un token de identidad (firmado, con repositorio, rama, entorno, emisor, audiencia y vigencia); la nube lo valida y comprueba una **regla de confianza** del tipo «acepto tokens cuyo sujeto sea exactamente este repositorio y esta rama». Si coincide, entrega una credencial temporal. Solo el sujeto exacto y la vida corta dejan fuera los casos ilegítimos y mantienen los legítimos.
 
-Según [SE-484 — Credenciales efímeras y OIDC](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md):
-
-El equipo de la API de entregas retira la clave de la nube del repositorio. El job de despliegue pide el permiso de identidad y ningún otro job lo tiene. En la nube crean un rol que solo puede publicar en un registro y actualizar un servicio, y una regla de confianza con emisor de la plataforma, audiencia propia del receptor, sujeto exacto del repositorio y del entorno de producción —que exige una aprobación humana— y vida máxima del token de quince minutos. Escriben diez pruebas con tokens manipulados (sujeto de otro repositorio, de una bifurcación, de una rama sin proteger, audiencia ajena, expirado) y exigen que todas sean rechazadas.
+**En atestaciones** ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)): el sujeto es el artefacto, identificado por su huella; así un SBOM o una declaración de procedencia queda vinculado al objeto exacto.
 
 ## Ejemplo
 
-Ejemplo de [SE-484 — Credenciales efímeras y OIDC](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento firma un token y muestra que alterar una sola notificación invalida la firma. Antes de ejecutarlo, predice si cambiar el sujeto sin volver a firmar deja el token aceptable.
+```text
+sujeto aceptado:   repo:universidad/api-entregas:environment:produccion
+sujeto rechazado:  repo:universidad/api-entregas-fork:ref:refs/heads/feature   (otro repositorio / rama sin proteger)
+regla:             igualdad exacta, no prefijo ni comodín; token con vida máxima de 15 minutos
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un repositorio ajeno obtiene credenciales** — causa: sujeto con prefijo o comodín. Corrección: sujeto exacto y pruebas con tokens manipulados. ([SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md))
-- **El rol llega en un encabezado del cliente** — causa: contexto tomado de datos controlados por el cliente. Corrección: derivar rol y sujeto del token verificado. ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md))
-- **Un SBOM válido describe otro artefacto** — causa: sin vínculo por huella. Corrección: sujeto identificado por la huella del artefacto. ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md))
+- **Un repositorio ajeno obtiene credenciales.** Causa: sujeto con prefijo o comodín; corrección: sujeto exacto y pruebas con tokens manipulados ([SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md)).
+- **El rol llega en un encabezado del cliente.** Causa: contexto tomado de datos controlados por el cliente; corrección: derivar rol y sujeto del token verificado ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md)).
+- **Un SBOM válido describe otro artefacto.** Causa: sin vínculo por huella; corrección: sujeto identificado por la huella del artefacto ([SE-472](../../../classes/part-39-build-release-y-cadena-de-suministro/se-472-sbom-procedencia-y-atestaciones/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Solo el sujeto exacto y la vida corta dejan fuera los doce y mantienen los legítimos. ([SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md))
-- Un token firmado transporta un sujeto y unas afirmaciones, y su verificación exige varias comprobaciones: que el algoritmo sea el esperado (no el que declara la cabecera), que la firma coincida con la clave del emisor, que el emisor y la audiencia sean los de esta API, y que la hora actual esté entre `nbf` y `exp`. ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md))
+El sentido de la palabra cambia con el contexto: no es lo mismo el sujeto de una solicitud que el de una atestación. La regla de confianza de [SE-484](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-484-credenciales-efimeras-y-oidc/README.md) protege si el emisor del token es de fiar; si la plataforma de integración continua está comprometida, un sujeto exacto no basta. Y un sujeto bien verificado solo responde «quién»: «qué puede hacer» es autorización.
 
 ## Relación con otros conceptos
 

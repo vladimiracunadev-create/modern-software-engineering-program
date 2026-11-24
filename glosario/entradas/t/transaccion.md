@@ -2,52 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Trampa de foco](./trampa-de-foco.md) · [Transacción única →](./transaccion-unica.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Conjunto de operaciones que se aplican enteras o no se aplican, y que se observan según el nivel de aislamiento.
-
-Definición de trabajo de [SE-351 — Transacciones, aislamiento y concurrencia](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-256 — Almacenamiento local y sincronización](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md): Grupo de escrituras que se confirman o se descartan juntas y que, en una base transaccional, deja siempre un estado completo.
-- En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md): Conjunto de cambios tratado como una unidad según garantías del gestor.
+Una **transacción** es un conjunto de operaciones que se aplican enteras o no se aplican, y que se observan según el nivel de aislamiento ([SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md)). [SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md) la formula como un grupo de escrituras que se confirman o se descartan juntas y que, en una base transaccional, deja siempre un estado completo; [SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) la usa para un conjunto de cambios tratado como unidad según las garantías del gestor (por ejemplo, de paquetes).
 
 ## Por qué importa
 
-En [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md), el tema «Transacción» importa porque evita cargas a medias.
+Sin transacciones, una falla a mitad de camino deja datos a medias: una transferencia cortada puede descontar de un lado y no acreditar del otro. La transacción delimita qué es «un cambio» para la base y permite razonar sobre el sistema en términos de antes y después. Cambia dónde se escriben los límites de una operación de negocio.
 
 ## Cómo funciona
 
-Según [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md):
+El modelo clásico (ACID) combina cuatro garantías: **atomicidad** (todo o nada), **consistencia** (se respetan las reglas), **aislamiento** (cómo se ven entre sí las transacciones concurrentes) y **durabilidad** (lo confirmado sobrevive). [SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md) destaca que el aislamiento tiene niveles: cuanto más débil, más anomalías observables. El mecanismo típico es un registro de escritura previa: la base anota los cambios antes de aplicarlos y, ante una caída, rehace o deshace según corresponda.
 
-Una operación es idempotente si aplicarla varias veces produce el mismo estado que aplicarla una. En datos, la prueba es operativa: ejecuta el trabajo, anota el resultado (filas y suma de control), ejecútalo otra vez con la misma entrada y compara. Si cambia, no es idempotente. Es una propiedad del trabajo completo y no de cada sentencia: un `INSERT` solo no lo es, y un `DELETE` de la partición seguido de un `INSERT` dentro de una transacción sí lo es.
+Costos concretos ([SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md)): una transacción por cada edición con sincronización completa a disco hace que guardar un borrador tarde segundos con muchas ediciones; la solución es agrupar escrituras y elegir un modo de sincronización explícito.
 
-Según [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md):
-
-El equipo de *Avisos* revisa su trabajo de lecturas diarias. Descubre que usa `date('now')` para decidir qué partición carga y que añade filas sin condición. Lo reescribe en tres cambios: recibe la fecha de la partición como parámetro, borra e inserta la partición dentro de una transacción y reprocesa los tres días anteriores en cada ejecución para recoger lecturas tardías. Añade una prueba que ejecuta el trabajo dos veces sobre una partición de ejemplo y compara filas y suma de control. Con esa base, el siguiente error de origen (un campo mal convertido durante cuatro días) se corrige con un backfill de cuatro particiones y los tres marts que dependen de ellas, y la corrección tarda una tarde en lugar de una semana de reconciliaciones manuales.
+Atomicidad no es idempotencia: [SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md) muestra que un `INSERT` solo no es idempotente, pero un `DELETE` de la partición seguido de un `INSERT` dentro de una transacción sí lo es; la propiedad es del trabajo completo, no de cada sentencia.
 
 ## Ejemplo
 
-Ejemplo de [SE-364 — Transformación y orquestación idempotente con backfills](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* revisa su trabajo de lecturas diarias. Descubre que usa `date('now')` para decidir qué partición carga y que añade filas sin condición. Lo reescribe en tres cambios: recibe la fecha de la partición como parámetro, borra e inserta la partición dentro de una transacción y reprocesa los tres días anteriores en cada ejecución para recoger lecturas tardías. Añade una prueba que ejecuta el trabajo dos veces sobre una partición de ejemplo y compara filas y suma de control.
+```sql
+BEGIN;
+UPDATE cupos SET libres = libres - 1 WHERE curso = 'SE-101' AND libres > 0;
+INSERT INTO matriculas(curso, estudiante) VALUES ('SE-101', 42);
+COMMIT;      -- o ROLLBACK si falla cualquiera de los dos pasos
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una transferencia cortada deja cupos perdidos** — causa: sentencias confirmadas por separado. Corrección: envolver los pasos en una transacción e idempotencia. ([SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md))
-- **Guardar un borrador tarda segundos con muchas ediciones** — causa: una transacción por edición con sincronización completa. Corrección: agrupar escrituras y elegir un modo de sincronización explícito. ([SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md))
+- **Una transferencia cortada deja cupos perdidos.** Causa: sentencias confirmadas por separado; corrección: envolver los pasos en una transacción e idempotencia ([SE-351](../../../classes/part-29-datos-persistencia-y-recuperacion/se-351-transacciones-aislamiento-y-concurrencia/README.md)).
+- **Guardar un borrador tarda segundos con muchas ediciones.** Causa: una transacción por edición con sincronización completa; corrección: agrupar escrituras y elegir un modo de sincronización explícito ([SE-256](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion/README.md)).
+- **Suponer transacciones entre servicios.** Una operación que cruza servicios deja de ser atómica; se necesita una saga.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Es una propiedad del trabajo completo y no de cada sentencia: un `INSERT` solo no lo es, y un `DELETE` de la partición seguido de un `INSERT` dentro de una transacción sí lo es. ([SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md))
-- En un lago sin transacciones de fila, reemplazar particiones suele ser la opción realista. ([SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md))
+En un lago de datos sin transacciones de fila, reemplazar particiones suele ser la opción realista ([SE-364](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-364-transformacion-y-orquestacion-idempotente-con-backfills/README.md)). Un aislamiento fuerte cuesta rendimiento y puede provocar esperas o reintentos; elegir el nivel es una decisión por operación. Y una transacción no protege efectos fuera de la base (correos enviados, llamadas externas): esos requieren compensación o idempotencia.
 
 ## Relación con otros conceptos
 

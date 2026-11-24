@@ -2,45 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Día de práctica](./dia-de-practica.md) · [Diagnóstico incorporado →](./diagnostico-incorporado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
 
 ## Definición
 
-Conclusión razonada de la causa de un comportamiento, con la reproducción que lo respalda.
-
-Definición de trabajo de [SE-568 — Greenfield, brownfield, bug fixing e idea assessment](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md).
+Un **diagnóstico** es la conclusión razonada de la causa de un comportamiento, con la reproducción que la respalda ([SE-568](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md)). No es el síntoma ni una lista de hipótesis: es una causa afirmada con evidencia y un caso que la demuestra. En las clases de redes ([SE-037](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md) a [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)) es también el método: recorrer capas, ordenar fases y ubicar la primera divergencia respecto del caso sano.
 
 ## Por qué importa
 
-En [SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md), el tema «diagnóstico» importa porque ¿qué prueba separa causas plausibles?
+Quien arregla el síntoma deja la causa viva: «el mismo error vuelve con otra entrada» ([SE-568](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md)). El diagnóstico decide si el arreglo es local o general, y es lo que permite escribir una prueba que fracasaba antes y pasa después. También separa lo que se observó de lo que se supuso.
 
 ## Cómo funciona
 
-Según [SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md):
+El método que enseña [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) es una cadena:
 
-**Cómo leer la figura.** Cada fila va de un escenario a su primera divergencia respecto del caso sano y a su resultado (teal ok, coral failed, dorado recovered). Los dos escenarios recuperados muestran que un reintento acotado cambia el resultado final pero deja huella en los eventos. **Dónde deja de valer:** en el laboratorio, DNS, validación del nombre TLS y pérdida son *modelos deterministas*; solo el tráfico HTTP es real y local. La suite demuestra el método de diagnóstico, no el comportamiento de una red real.
+1. **Reproducir** el comportamiento con un escenario declarado.
+2. **Comparar** con un caso sano y localizar la primera divergencia.
+3. **Formular** una causa y comprobar que predice el resultado en los otros escenarios.
+4. **Contrastar casos vecinos** para no arreglar solo el caso visto ([SE-568](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md)).
 
-Según [SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md):
-
-Es de verdad para lo que modela: el orden de fases, la política de reintentos y el diagnóstico. No lo es para el comportamiento de una red real. Declarar qué es real (HTTP local) y qué es modelo (DNS, TLS, pérdida) es parte de la honestidad del ejercicio.
+En el laboratorio de [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) cada fila va de un escenario a su primera divergencia y a su resultado (ok, fallido o recuperado). Los escenarios recuperados muestran que un reintento acotado cambia el resultado final pero deja huella en los eventos. Hay además una honestidad metodológica: se declara qué es real (el tráfico HTTP local) y qué es un modelo determinista (DNS, validación del nombre TLS y pérdida).
 
 ## Ejemplo
 
-Ejemplo de [SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) (sección «Preguntas frecuentes»):
-
-Es de verdad para lo que modela: el orden de fases, la política de reintentos y el diagnóstico. No lo es para el comportamiento de una red real. Declarar qué es real (HTTP local) y qué es modelo (DNS, TLS, pérdida) es parte de la honestidad del ejercicio.
+Un registro de eventos muestra: resolución de nombre correcta, conexión correcta, fallo en validación del certificado. La primera divergencia está en la fase de TLS, no en la red; reintentar sin cambiar el nombre solicitado no la corrige. El diagnóstico dice «el nombre del certificado no coincide con el host pedido» y la reproducción lo demuestra con ese host.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El mismo error vuelve con otra entrada** — causa: se arregló el síntoma. Corrección: exigir diagnóstico de la causa y casos vecinos. ([SE-568](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md))
+- **Arreglar el síntoma.** El error vuelve con otra entrada; corrección: exigir diagnóstico de la causa y casos vecinos ([SE-568](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-568-greenfield-brownfield-bug-fixing-e-idea-assessment/README.md)).
+- **Diagnosticar por coincidencia temporal.** Sin hipótesis ni predicción, solo hay correlación.
+- **Confundir diagnóstico con reproducción.** La reproducción es la evidencia; el diagnóstico es la conclusión que la usa.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La suite demuestra el método de diagnóstico, no el comportamiento de una red real. ([SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md))
+La suite de [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) demuestra el método, no el comportamiento de una red real: DNS, TLS y pérdida son modelos. Un diagnóstico es una afirmación revisable; en sistemas no deterministas puede no haber reproducción fiable y entonces se declara el grado de confianza.
 
 ## Relación con otros conceptos
 

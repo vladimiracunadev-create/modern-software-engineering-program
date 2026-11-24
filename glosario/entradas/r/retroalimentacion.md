@@ -2,51 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Retraso de replicación](./retraso-de-replicacion.md) · [Retroalimentación con uso real →](./retroalimentacion-con-uso-real.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Respuesta perceptible de un sistema a una acción de la persona.
+La **retroalimentación** (*feedback*) es información que vuelve a quien actuó, a tiempo para modificar su siguiente decisión ([SE-002](../../../classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md)). El programa la usa con tres matices:
 
-Definición de trabajo de [SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-002 — Historia de la crisis del software a la ingeniería continua](../../../classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md): Información que llega a tiempo para modificar una decisión.
-- En [SE-583 — Verificación, gates y menú único de validación](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md): Información que el agente recibe tras una acción.
+- **De una interfaz** ([SE-171](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md)): la respuesta perceptible de un sistema a una acción de la persona.
+- **De un agente** ([SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)): la información que el agente recibe tras una acción.
+- **De una persona** ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md)): la que recibe en mentoría o revisión, que mejora el desempeño solo si es oportuna y específica.
 
 ## Por qué importa
 
-En [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md), el tema «Retroalimentación» importa porque su efecto depende del objeto, el momento y el formato.
+Sin retroalimentación, no hay corrección. Un ciclo corto (probar, ver, ajustar) es lo que distingue el aprendizaje del repetir errores, tanto en personas como en sistemas. Cambia el diseño del trabajo: qué se mide, cuándo se avisa, y a quién.
 
 ## Cómo funciona
 
-Según [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md):
+**En desarrollo** ([SE-002](../../../classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md)): la ingeniería continua acorta el ciclo entre una decisión y su efecto observable (pruebas, integración continua, revisión); la información debe llegar a tiempo para cambiar la decisión.
 
-La **práctica deliberada** (Ericsson et al.) describe la mejora como resultado de tareas definidas con precisión, de dificultad ligeramente superior al nivel actual, con retroalimentación inmediata y oportunidad de repetir. Las tareas muy fáciles no producen aprendizaje y las muy difíciles producen fracaso sin información útil sobre qué corregir. La mentora decide la brecha: qué tan por encima del nivel actual está la tarea. En ingeniería de software una tarea que estira tiene límites claros (qué se entrega y cómo se sabe que está bien), es verificable por pruebas o por revisión, y deja un artefacto que la persona puede explicar. Asignar siempre tareas fáciles por protección es una forma de abandono; asignar siempre tareas difíciles por confianza es una forma de descuido.
+**En personas** ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md)): la práctica deliberada (Ericsson y colegas) describe la mejora como resultado de tareas precisas, de dificultad ligeramente superior al nivel actual, con retroalimentación inmediata y oportunidad de repetir. Los comentarios útiles tienen forma: «esta línea convierte fechas sin zona horaria; en la exportación de marzo causó dos filas erróneas; prueba `datetime.fromisoformat` con zona explícita» (línea, efecto, siguiente paso). El metaanálisis de Kluger y DeNisi mostró que la retroalimentación mejora el desempeño de media, pero que en más de un tercio de los casos lo empeora, sobre todo cuando atrae la atención hacia la persona (cómo se ve a sí misma) y no hacia la tarea (qué se hizo y cómo mejorarlo).
 
-Según [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. La mentora y la ingeniera nueva firman un acuerdo de seis meses con una meta («asumir la responsabilidad del módulo de exportación con revisión de otra persona»), una reunión cada dos semanas y tres tareas escalonadas: ajustar una regla de formato con pruebas existentes, escribir la prueba de caracterización de la exportación y diseñar el contrato de versiones con el equipo de calificaciones. La mentora revisa cada cambio el mismo día y escribe comentarios sobre el código con la forma «esta línea convierte fechas sin zona horaria; en la exportación de marzo causó dos filas erróneas; prueba `datetime.fromisoformat` con zona explícita».
+**En agentes** ([SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)): lo que el agente recibe tras cada acción determina qué hace después: un resultado claro de una compuerta permite corregir; uno ambiguo, no.
 
 ## Ejemplo
 
-Ejemplo de [SE-532 — Mentoría, feedback y crecimiento](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md) (sección «Ejemplo mínimo»):
+Revisión de código el mismo día, con línea, efecto y camino de mejora, frente a un comentario genérico («esto está mal») una semana después. Ilustración de retroalimentación de un agente:
 
-El fragmento mide qué fracción de errores se evita según cuándo llega la retroalimentación en un modelo sencillo de 60 días. Antes de ejecutarlo, predice cuál es mayor.
+```text
+pytest: 1 failed — test_exporta_fecha: esperado 2026-03-01T00:00+00:00, obtenido 2026-03-01T00:00
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La persona repite el mismo error** — causa: retroalimentación tardía o vaga. Corrección: dar el aviso en el mismo cambio, con línea y efecto. ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md))
-- **La retroalimentación se percibe como ataque** — causa: se dirige a la persona. Corrección: describir el comportamiento y su efecto. ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md))
+- **La persona repite el mismo error.** Causa: retroalimentación tardía o vaga; corrección: dar el aviso en el mismo cambio, con línea y efecto ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md)).
+- **Se percibe como ataque.** Causa: se dirige a la persona; corrección: describir el comportamiento y su efecto ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md)).
+- **Confundir cantidad con calidad.** Más comentarios no mejoran si no son específicos y accionables.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El metaanálisis de Kluger y DeNisi mostró que la retroalimentación mejora el desempeño de media, pero que en más de un tercio de los casos lo empeora, sobre todo cuando atrae la atención hacia la persona (cómo se ve a sí misma) y no hacia la tarea (qué se hizo y cómo mejorarlo). ([SE-532](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-532-mentoria-feedback-y-crecimiento/README.md))
+La retroalimentación no corrige un problema de diseño del trabajo: si la tarea es demasiado difícil, solo informa del fracaso. Un ciclo muy corto sin criterio de qué importa genera ruido. Y la evidencia citada (Kluger y DeNisi) indica que puede empeorar el desempeño: hay que diseñarla, no solo darla.
 
 ## Relación con otros conceptos
 

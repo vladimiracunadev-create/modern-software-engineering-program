@@ -2,48 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Metadato de versión](./metadato-de-version.md) · [Metadatos de documento →](./metadatos-de-documento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Propiedades del objeto distintas de su contenido principal.
-
-Definición de trabajo de [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md): Datos que describen otros datos (dueño, significado, sensibilidad, frescura).
+Los **metadatos** son las propiedades de un objeto distintas de su contenido principal ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)). [SE-367](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) los define como datos que describen otros datos: dueño, significado, sensibilidad y frescura. Son un mismo concepto en dos escalas: en un sistema de archivos describen cada archivo; en un pipeline de datos describen conjuntos y columnas.
 
 ## Por qué importa
 
-En [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md), el tema «Metadatos» importa porque describen tipo, tamaño, tiempos y acceso
+Sin metadatos, un dato no se puede gobernar: no se sabe quién es responsable, qué significa, si contiene información personal ni si está al día. Con ellos, se pueden automatizar controles y trazar el origen de un valor. En el sistema de archivos, los metadatos deciden si una operación sobre el archivo se permite o cómo se ordena.
 
 ## Cómo funciona
 
-Según [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md):
+**En archivos** ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)): el archivo que una aplicación percibe no es «un bloque del disco». El sistema de archivos relaciona nombres con objetos, organiza directorios y conserva metadatos como tipo, tamaño, marcas temporales y permisos. El núcleo traduce operaciones de alto nivel a la implementación montada y, finalmente, al dispositivo o servicio remoto.
 
-El archivo que una aplicación percibe no es simplemente “un bloque del disco”. El sistema de archivos relaciona nombres con objetos, organiza directorios y conserva metadatos como tipo, tamaño, marcas temporales y permisos. El kernel traduce operaciones de alto nivel a la implementación montada y, finalmente, al dispositivo o servicio remoto.
-
-Según [SE-367 — Linaje, catálogo y metadatos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md):
-
-El laboratorio tiene seis sentencias `CREATE TABLE ... AS SELECT` en el estilo del pipeline (alias explícitos, un `FROM`, un `JOIN` como máximo). El analizador separa la lista de selección, resuelve alias de tabla y registra, para cada columna de salida, las columnas de origen que aparecen en su expresión. Es un pequeño analizador de expresiones regulares: sirve para el estilo que reconoce y falla en silencio con otro. Un analizador real usa la gramática completa del dialecto y los metadatos del catálogo para expandir comodines.
+**En datos** ([SE-367](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md)): los metadatos del catálogo (dueño, capa, columnas con tipo, sensibilidad, antigüedad máxima) permiten construir el **linaje**, la relación entre columnas de entrada y de salida. El laboratorio de [SE-367](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md) usa un analizador de expresiones regulares sobre seis sentencias `CREATE TABLE ... AS SELECT` para registrar de qué columnas de origen sale cada columna: sirve para el estilo que reconoce y falla en silencio con otro. Un analizador real usa la gramática completa del dialecto y los metadatos del catálogo para expandir comodines.
 
 ## Ejemplo
 
-Caso medido en la sección «El costo de cruzar la frontera: metadatos y el montaje 9p» de [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md):
+Ilustración en Python sobre archivos:
 
-El tamaño de un archivo importa menos que el *número* de operaciones de metadatos. La misma prueba creó 2000 archivos de un byte y luego consultó `stat` de cada uno: en ext4 tardó 0,33 s y 0,007 s; en NTFS desde Windows, 1,32 s y 0,12 s; y en `/mnt/c` desde WSL2, 12,79 s y 4,89 s. Cada operación de metadatos que cruza de Linux a Windows pasa por el protocolo 9p y por el sistema de archivos de Windows: la consulta de metadatos fue unas 700 veces más lenta que en ext4.
+```python
+import os, time
+st = os.stat("informe.csv")
+print(st.st_size, time.ctime(st.st_mtime), oct(st.st_mode))
+```
+
+Aquí el tamaño, la fecha de modificación y los permisos son metadatos; el contenido del CSV no. En un catálogo de datos, el equivalente sería `owner: finanzas`, `pii: false`, `max_age_days: 1`.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son:
-
-- **El archivo se busca en lugares distintos** — causa: se confundió directorio del script con directorio de trabajo. Corrección: elegir una base explícita y mostrarla en diagnóstico.
-- **Una ruta portable se construye reemplazando `/`** — causa: se trataron rutas como cadenas. Corrección: usar la biblioteca de rutas y probar raíces, volúmenes y UNC.
+- **El archivo se busca en lugares distintos.** Causa: se confundió directorio del script con directorio de trabajo; corrección: elegir una base explícita y mostrarla en diagnóstico ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)).
+- **Ruta portable construida reemplazando `/`.** Causa: se trataron rutas como cadenas; corrección: biblioteca de rutas y pruebas con raíces, volúmenes y UNC ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)).
+- **Confiar en un analizador que falla en silencio.** Si el estilo no coincide, el linaje queda incompleto sin avisar ([SE-367](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-367-linaje-catalogo-y-metadatos/README.md)).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son: No cubrimos recuperación forense, sistemas distribuidos ni todas las garantías de cada sistema de archivos. Una ruta resoluble todavía puede estar prohibida. La próxima clase incorpora identidad, grupos, permisos y elevación para explicar esa decisión.
+[SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) no cubre recuperación forense ni sistemas distribuidos ni todas las garantías de cada sistema de archivos; una ruta resoluble todavía puede estar prohibida por permisos. Los metadatos pueden estar desactualizados o ser incorrectos: un campo «sensibilidad» sin proceso que lo mantenga es una promesa vacía. Y los metadatos también pueden filtrar información (autor, ubicación), de modo que a veces hay que eliminarlos.
 
 ## Relación con otros conceptos
 

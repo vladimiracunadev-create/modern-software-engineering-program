@@ -2,46 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Índices ordenados y consultas de rango](./indices-ordenados-y-consultas-de-rango.md) · [Inferencia de pertenencia →](./inferencia-de-pertenencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Conclusión derivada de observaciones y supuestos.
-
-Definición de trabajo de [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md): Explicación compatible con hechos, aún contrastable.
-- En [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md): Derivación de una conclusión desde premisas.
+Una **inferencia** es una conclusión derivada de observaciones y supuestos ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)). [SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) la usa como explicación compatible con los hechos pero aún contrastable; [SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md) como la derivación de una conclusión desde premisas. En los tres usos, la inferencia es un paso que *va más allá* de lo observado, y por eso puede equivocarse aunque la observación sea correcta.
 
 ## Por qué importa
 
-En [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md), el tema «Inferencia» importa porque ¿qué explicación conecta datos y conclusión?
+Gran parte de los errores de diagnóstico no vienen de medir mal sino de saltar de lo medido a la causa sin decirlo. [SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) pide separar cuatro cosas que suelen presentarse mezcladas: observación, inferencia, hipótesis y supuesto. Esa separación cambia lo que se firma: se afirma el dato, y se argumenta la conclusión.
 
 ## Cómo funciona
 
-Según [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md):
+[SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) define cada pieza:
 
-Una **observación** registra qué ocurrió mediante un método: “el p95 fue 480 ms en estas solicitudes, intervalo y entorno”. Una **inferencia** conecta observaciones con una conclusión: “la dependencia contribuyó a la demora”. Una **hipótesis** formula una explicación contrastable: “si la dependencia es la causa dominante, aislarla reducirá la cola”. Un **supuesto** es una condición aceptada provisionalmente, como considerar representativa la carga de prueba.
+- **Observación:** registra qué ocurrió con un método: «el p95 fue 480 ms en estas solicitudes, intervalo y entorno».
+- **Inferencia:** conecta observaciones con una conclusión: «la dependencia contribuyó a la demora».
+- **Hipótesis:** una explicación contrastable: «si la dependencia es la causa dominante, aislarla reducirá la cola».
+- **Supuesto:** una condición aceptada provisionalmente, como considerar representativa la carga de prueba.
+
+En lógica ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)), una inferencia es válida si la conclusión se sigue de las premisas; un `para todo` exige cubrir el dominio declarado y un `existe` se demuestra con un testigo. En registro y diagnóstico ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)), una inferencia es una explicación que se somete a una prueba que podría refutarla. La causa del error típico es que la inferencia hereda los supuestos de las observaciones: si la carga de prueba no era representativa, la conclusión tampoco lo es.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md):
+Observación: «tras desplegar, el p95 pasó de 300 a 480 ms». Inferencia: «el despliegue causó la demora». Alternativa rival: «coincidió con el pico de matrícula». Contraste: revertir el despliegue en un entorno equivalente y comprobar si el p95 baja. Ilustración:
 
-El benchmark de consulta se repite con datos fríos y calientes, mismos recursos y múltiples corridas. La mediana mejora, pero la cola empeora con alta concurrencia. La decisión cambia de «adoptar» a «probar bajo carga representativa».
+```text
+obs: p95 480ms (n=2000, entorno X) -> inf: dependencia D contribuye -> prueba: aislar D, esperar p95 < 350ms
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **una métrica se presenta como conclusión** — causa: se omitieron inferencia y supuestos. Corrección: separa registro, interpretación y alternativa rival. ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md))
+- **Una métrica se presenta como conclusión.** Causa: se omitieron inferencia y supuestos; corrección: separar registro, interpretación y alternativa rival ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)).
+- **Tomar la inferencia por hecho.** Un hecho se verifica observando; una inferencia se contrasta.
+- **Confundir correlación con causa** ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una **inferencia** conecta observaciones con una conclusión: “la dependencia contribuyó a la demora”. ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md))
+Una inferencia correcta formalmente puede ser falsa si las premisas lo son. En dominios infinitos, la verificación por enumeración no alcanza ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)). Y la separación observación/inferencia es una disciplina de comunicación del programa: no elimina la incertidumbre, solo la hace visible.
 
 ## Relación con otros conceptos
 

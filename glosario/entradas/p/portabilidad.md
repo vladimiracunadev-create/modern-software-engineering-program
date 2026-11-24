@@ -2,51 +2,48 @@
 
 [↑ Glosario](../../README.md) · [← Política metodológica](./politica-metodologica.md) · [Portafolio →](./portafolio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Capacidad de mover una carga entre entornos con un esfuerzo acotado y conocido.
-
-Definición de trabajo de [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md): Capacidad de ejecutar el mismo software en otro entorno con el mismo resultado.
-- En [SE-030 — PowerShell, Bash y portabilidad de scripts](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md): Grado de funcionamiento demostrado dentro de una matriz definida.
+La **portabilidad** es la capacidad de ejecutar el mismo software en otro entorno con el mismo resultado ([SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)). [SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md) la formula para cargas en la nube: poder mover una carga entre entornos con un esfuerzo acotado y conocido. [SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) la acota con una cláusula honesta: el grado de funcionamiento demostrado dentro de una matriz definida. La portabilidad es, entonces, algo que se demuestra, no una propiedad declarada.
 
 ## Por qué importa
 
-En [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md), el tema «Portabilidad y mínimo común» importa porque lo portable es lo que existe en todos; el resto liga al proveedor.
+Decide cuánto cuesta cambiar de entorno (sistema operativo, proveedor de nube) y cuánto riesgo hay de que el cambio altere el resultado. [SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md) advierte que se confunde con multi-cloud (usar más de un proveedor) y con híbrido (instalación propia más nube); comparten el discurso de «no depender de uno» pero son cosas distintas.
 
 ## Cómo funciona
 
-Según [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md):
+Las diferencias entre entornos vienen sobre todo de los **valores por defecto** ([SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)):
 
-Multi-cloud significa usar más de un proveedor de nube; híbrido, combinar una instalación propia con la nube; portabilidad, poder cambiar de entorno sin reescribir. Son cosas distintas y se confunden porque comparten el discurso de «no depender de uno». La guía de Google sobre patrones híbridos y multi-cloud organiza los motivos: aprovechar funciones distintas, cumplir una regulación de ubicación de datos, reducir una dependencia, repartir riesgo, aprovechar inversiones existentes. Cada motivo se evalúa con su propio cálculo, y confundirlos produce arquitecturas caras que no resuelven ninguno.
+- la codificación de texto cuando no se especifica;
+- el fin de línea y el separador de ruta;
+- si los nombres distinguen mayúsculas;
+- caracteres y nombres prohibidos y la longitud máxima de ruta;
+- qué ocurre al renombrar sobre un archivo existente o al borrar uno abierto;
+- el rango de fechas del reloj y el método de creación de procesos.
 
-Según [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md):
+Python esconde muchas diferencias y expone otras: las expuestas lanzan una excepción (`PermissionError`), las escondidas cambian el resultado. Por eso se escribe una matriz de soporte con lo realmente probado ([SE-030](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)) y se aíslan las diferencias en adaptadores.
 
-La **portabilidad** es la capacidad de ejecutar el mismo software en otro entorno con el mismo resultado. Los valores por defecto del entorno son la fuente habitual de diferencias: la codificación de texto cuando no se especifica, el fin de línea, el separador de ruta, si los nombres distinguen mayúsculas, los caracteres y nombres prohibidos en un archivo, la longitud máxima de una ruta, qué ocurre al renombrar sobre un archivo existente o al borrar un archivo abierto, el rango de fechas que admite el reloj, el método con que se crea un proceso. Python esconde muchas diferencias y expone otras; las expuestas lanzan una excepción (`PermissionError`) y las escondidas cambian el resultado.
+Para la nube ([SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)), la guía de Google sobre patrones híbridos y multi-cloud organiza motivos: aprovechar funciones distintas, cumplir una regulación de ubicación de datos, reducir una dependencia, repartir riesgo, aprovechar inversiones existentes. Cada motivo se evalúa con su propio cálculo.
 
 ## Ejemplo
 
-Ejemplo de [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md) (sección «Caso conductor»):
+```python
+open("datos.txt", "w", encoding="utf-8", newline="\n")   # fija lo que el entorno decidiría por defecto
+```
 
-La plataforma de entregas es el caso conductor de la [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md). Esta clase deja el noveno artefacto: la estrategia de portabilidad y su costo. `SE-406` pregunta cómo se ofrece todo esto a los equipos sin que cada uno lo reconstruya. Cambia un supuesto, por ejemplo la probabilidad de conmutación, y observa cuánto se mueve la disponibilidad.
+Sin `encoding` ni `newline`, el mismo programa escribe bytes distintos en Windows y Linux.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)) son:
-
-- **Dos proveedores y la misma caída anual** — causa: un componente compartido en serie. Corrección: dibujar las dependencias y eliminar o duplicar el común.
-- **La conmutación falla cuando se necesita** — causa: nunca se ensayó. Corrección: ensayar la conmutación con regularidad y medir su acierto.
+- **Dos proveedores y la misma caída anual.** Causa: un componente compartido en serie; corrección: dibujar las dependencias y eliminar o duplicar el común ([SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)).
+- **La conmutación falla cuando se necesita.** Causa: nunca se ensayó; corrección: ensayarla con regularidad y medir su acierto ([SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)).
+- **Declarar portable lo que solo se probó en un entorno.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Multi-cloud significa usar más de un proveedor de nube; híbrido, combinar una instalación propia con la nube; portabilidad, poder cambiar de entorno sin reescribir. ([SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md))
+La portabilidad total es una ilusión de costo alto: normalmente se persigue una portabilidad acotada y probada. Multi-cloud sin motivo concreto produce arquitecturas caras que no resuelven ningún problema ([SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)). Y portable no significa idéntico en rendimiento: el resultado funcional puede igualar mientras el desempeño difiere.
 
 ## Relación con otros conceptos
 

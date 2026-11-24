@@ -2,44 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Encadenado](./encadenado.md) · [Encapsulación como protección →](./encapsulacion-como-proteccion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 03](../../../classes/part-03-redes-internet-y-protocolos/README.md)
 
 ## Definición
 
-Ocultar una decisión detrás de una interfaz, de modo que cambiarla no obligue a cambiar a los clientes.
-
-Definición de trabajo de [SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-037 — Modelos OSI y TCP/IP como herramientas de diagnóstico](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md): Adición de información de control alrededor de datos de una capa superior.
+**Encapsular**, en diseño ([SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)), es esconder una decisión detrás de una interfaz de modo que cambiarla no obligue a cambiar a los clientes. Parnas lo formuló como ocultar la decisión que probablemente cambie. En redes, [SE-037](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md) usa la misma palabra con otro sentido: añadir información de control (cabeceras) alrededor de los datos de una capa superior. Son usos distintos; esta entrada trata el de diseño y señala el de redes al final.
 
 ## Por qué importa
 
-En [SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md), el tema «Encapsulación» importa porque lo que un módulo no expone no puede romperse desde fuera.
+Cada decisión visible es un compromiso con todos los clientes. Una representación expuesta se convierte en parte del contrato, y cambiarla obliga a tocar a todos. Encapsular reduce el número de lugares que hay que editar cuando algo cambia, que es la pregunta práctica con la que [SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md) mide el acoplamiento.
 
 ## Cómo funciona
 
-Según [SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md), en la sección «Encapsulación»:
+[SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md) distingue niveles de ocultación:
 
-Encapsular es esconder una decisión detrás de una interfaz, de modo que cambiar la decisión no obligue a cambiar a los clientes. Un campo público esconde nada; un getter esconde el nombre, pero no el significado (el cliente sigue multiplicando kilos); un método que responde la pregunta que el cliente realmente tiene (`costo_por_peso`) esconde la representación y la unidad. Parnas lo formuló como ocultar la decisión que probablemente cambie.
+- un **campo público** no esconde nada;
+- un *getter* esconde el nombre pero no el significado: el cliente sigue multiplicando kilos;
+- un método que responde la pregunta que el cliente realmente tiene (`costo_por_peso`) esconde la representación y la unidad.
+
+La causa de que funcione es que el cliente depende de una promesa («costo por peso») y no de un detalle («el peso se guarda en kilos como `float`»). La decisión escondida puede cambiar sin tocar a los clientes. La clase propone comprobarlo contra un cambio previsto y con medidas como LCOM4 para detectar clases que mezclan responsabilidades con distinto motivo de cambio.
 
 ## Ejemplo
 
-Ejemplo de [SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md) (sección «Preguntas frecuentes»):
+En [SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md), un cambio de unidad del peso toca decenas de archivos porque los clientes leen el dato y calculan por su cuenta. Con encapsulación:
 
-Esconde el nombre del campo, no su significado: los treinta clientes seguían multiplicando kilos. Es mejor que un campo público, y la encapsulación completa llega cuando el módulo responde la pregunta del cliente.
+```python
+class Precio:
+    def costo_por_peso(self, tarifa): return self._kilos * tarifa
+```
+
+La unidad queda dentro; un cambio a libras es local.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)) son:
-
-- **Cambiar una plantilla obliga a releer el cálculo del costo** — causa: una clase mezcla responsabilidades con distinto motivo de cambio. Corrección: separar por decisión y comprobar con LCOM4 y con el cambio previsto.
-- **Un cambio de unidad toca decenas de archivos** — causa: los clientes leen el dato y calculan por su cuenta. Corrección: exponer comportamiento en vez de datos.
+- **Cambiar una plantilla obliga a releer el cálculo del costo.** Causa: una clase mezcla responsabilidades con distinto motivo de cambio; corrección: separar por decisión y comprobar con LCOM4 y con el cambio previsto ([SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)).
+- **Un cambio de unidad toca decenas de archivos.** Causa: los clientes leen el dato y calculan por su cuenta; corrección: exponer comportamiento en vez de datos ([SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)).
+- **Creer que `private` más getters basta.** Esconde el nombre, no la decisión.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-301 — Cohesión, acoplamiento y encapsulación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md)) son: Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final. Se ejecutaron tres análisis con código de ejemplo y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún proyecto real ni se evaluó si las métricas predicen defectos; las clases, los treinta clientes y los grafos son construcciones del autor. La siguiente clase examina los principios que guían estas separaciones y dónde dejan de valer.
+Encapsular todo añade indirección sin beneficio: solo vale esconder lo que probablemente cambie. Las medidas de [SE-301](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-301-cohesion-acoplamiento-y-encapsulacion/README.md) se calcularon sobre código de ejemplo y datos sintéticos; no se midió ningún proyecto real ni se evaluó si predicen defectos. Y el sentido de [SE-037](../../../classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md) (cabeceras de protocolo) no es el principio de ocultación de información.
 
 ## Relación con otros conceptos
 

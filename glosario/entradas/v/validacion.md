@@ -2,48 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Utilización](../u/utilizacion.md) · [Validación del paquete →](./validacion-del-paquete.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Comprobación, con las personas que tienen la necesidad, de que lo especificado es lo que se necesita.
-
-Definición de trabajo de [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md): Utilidad en contexto.
+La **validación** es la comprobación, con las personas que tienen la necesidad, de que lo especificado es lo que se necesita ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)). [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) la resume como utilidad en contexto. Contrasta con la **verificación**: validar es preguntar si el requisito es el correcto; verificar es preguntar si el sistema cumple el requisito.
 
 ## Por qué importa
 
-En [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md), el tema «Validación» importa porque comprueba que lo especificado es lo que se necesita, no solo que está bien escrito.
-
-En [SE-031 — Variables de entorno, configuración y secretos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md), el tema «Validación» importa porque aplica tipo, rango y relaciones
+Boehm lo resume como construir lo *correcto* frente a construirlo *correctamente* ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)). Un requisito puede estar perfectamente escrito, perfectamente verificado y perfectamente equivocado. Sin validación, un equipo entrega con rigor algo que nadie necesita. Cambia con quién se habla y qué se muestra antes de construir.
 
 ## Cómo funciona
 
-Según [SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md), en la sección «Validación»:
+La validación ocurre **con las personas que tienen la necesidad**: revisión de requisitos, prototipos, ejemplos concretos y observación del trabajo real. La verificación ocurre **contra el texto**: pruebas e inspecciones. [SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md) pide un acta de validación que diga con quién se revisó, qué se mostró y qué se decidió, no solo «aprobado»; así se puede saber después si se validó con quien paga o con quien usa.
 
-Validar es preguntar si el requisito es el correcto; verificar es preguntar si el sistema cumple el requisito. Boehm los resume como construir lo correcto frente a construirlo correctamente. La validación ocurre con las personas que tienen la necesidad (revisión, prototipo, ejemplos concretos), mientras que la verificación ocurre contra el texto (pruebas, inspecciones). Un requisito puede estar perfectamente escrito, perfectamente verificado y perfectamente equivocado. Por eso un acta de validación debe decir con quién se revisó, qué se mostró y qué se decidió, no solo «aprobado».
+Una causa de fallo frecuente: solo se entrevistó a quien paga y el conocimiento tácito no se elicitó. La corrección es añadir observación del trabajo real y validar con la persona usuaria, no solo con el cliente. Otra: dos equipos discuten una frase durante una hora porque mezcla un requisito y una solución; se separan necesidad, requisito y supuesto y se registra el origen de cada uno.
 
 ## Ejemplo
 
-Ejemplo de [SE-031 — Variables de entorno, configuración y secretos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) (sección «Ejemplo mínimo»):
+```text
+Acta de validación — REQ-12 "avisar antes del vencimiento"
+Con: 3 docentes y 5 estudiantes | Se mostró: prototipo de avisos y 4 ejemplos reales
+Se decidió: aviso a 48 h y 12 h; sin aviso nocturno | Pendiente: canal para estudiantes sin correo institucional
+```
 
-El archivo declara `timeout=10`, el entorno `DIAGNOSTIC_KIT_TIMEOUT=0` y la CLI no lo cambia. La procedencia muestra entorno, pero la validación rechaza cero. La ejecución no sustituye silenciosamente otro valor ni inicia trabajo parcial.
+En contraste, `verificar` sería: la prueba automática confirma que se envía un aviso 48 h antes.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-145 — Elicitación, análisis, especificación y validación](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)) son:
-
-- **La especificación está completa y el sistema decepciona a quienes lo usan** — causa: solo se entrevistó a quien paga; el conocimiento tácito no se elicitó. Corrección: añadir observación del trabajo real y validar con la persona usuaria, no solo con el cliente.
-- **Dos equipos discuten una frase durante una hora** — causa: la frase mezcla un requisito y una solución, y los interesados entienden cosas distintas. Corrección: separar necesidad, requisito y supuesto, y registrar el origen de cada uno.
+- **La especificación está completa y el sistema decepciona.** Causa: solo se entrevistó a quien paga; corrección: observar el trabajo real y validar con la persona usuaria ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)).
+- **Dos equipos discuten una frase durante una hora.** Causa: la frase mezcla requisito y solución; corrección: separar necesidad, requisito y supuesto y registrar el origen ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)).
+- **Confundir validar con verificar.** Pasar todas las pruebas no valida nada sobre la necesidad.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Por eso un acta de validación debe decir con quién se revisó, qué se mostró y qué se decidió, no solo «aprobado». ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md))
+No toda validación es posible antes de construir: algunas necesidades solo aparecen al usar el producto ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md): la operación informa nuevos requisitos). Validar con una muestra pequeña o no representativa da falsa seguridad. Y la palabra tiene otro uso técnico, la validación de entradas (formato, tipo), que es verificación contra reglas y no la validación de necesidades.
 
 ## Relación con otros conceptos
 

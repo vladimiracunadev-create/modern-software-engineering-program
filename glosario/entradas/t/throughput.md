@@ -2,49 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Throttle](./throttle.md) · [Tiempo agotado ambiguo →](./tiempo-agotado-ambiguo.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Peticiones atendidas por unidad de tiempo.
-
-Definición de trabajo de [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md): Unidades completadas por tiempo.
-- En [SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md): Cantidad útil transferida por unidad de tiempo.
+El **throughput** (rendimiento, caudal) es la cantidad de trabajo completado por unidad de tiempo: peticiones atendidas por segundo ([SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md)), unidades completadas por tiempo ([SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)) o, en redes, la cantidad *útil* transferida por unidad de tiempo ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)). Es distinto de la **latencia** (cuánto tarda una unidad) y de la **utilización** (cuánto ocupa un recurso).
 
 ## Por qué importa
 
-La clase donde se define, [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md), existe con este propósito: la clase existe para que la decisión «¿usamos un acelerador?» se tome con una cuenta y no con una impresión.
+Es la medida de cuánta carga soporta un sistema, pero se optimiza a costa de otras: [SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) advierte que mejorar una de las tres medidas puede empeorar otra. Quien solo persigue throughput puede degradar la latencia que sienten las personas. Cambia lo que se declara como objetivo: una capacidad y una latencia máxima, no un número aislado.
 
 ## Cómo funciona
 
-Según [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md):
+[SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) fija el vocabulario: latencia mide cuánto tarda una unidad; throughput, cuántas se completan por tiempo; utilización, cuánto ocupa un recurso. La carga incluye tamaño, distribución, concurrencia, estado y criterio de corrección.
 
-Una llamada a un cálculo tiene un costo fijo (lanzar, sincronizar, mover datos) y uno variable por elemento. Agrupar varias peticiones en un lote reparte el costo fijo, y el throughput sube; pero cada petición espera a que el lote se llene y a que termine. En la CPU del laboratorio, una capa densa de 1024×1024 en 32 bits con lotes de 1, 16, 64 y 256 tuvo estas latencias por lote y rendimientos: lote 1, 0,27 ms y unas 3 700 peticiones por segundo; lote 16, 4,8 ms y 3 300 (sin ganancia aún); lote 64, 7,9 ms y 8 100; lote 256, 14,3 ms y 17 900.
+[SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md) muestra la causa de un compromiso clásico: una llamada a un cálculo tiene un costo fijo (lanzar, sincronizar, mover datos) y otro variable por elemento. Agrupar peticiones en un lote reparte el costo fijo y sube el throughput, pero cada petición espera a que el lote se llene y termine. En la CPU del laboratorio, una capa densa de 1024×1024 en 32 bits dio, por lote: lote 1, 0,27 ms y unas 3 700 peticiones por segundo; lote 16, 4,8 ms y 3 300; lote 64, 7,9 ms y 8 100; lote 256, 14,3 ms y 17 900. El throughput sube casi cinco veces mientras la latencia por lote se multiplica por más de cincuenta.
 
-Según [SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md):
-
-Latencia mide cuánto tarda una unidad; throughput, cuántas se completan por tiempo; utilización, cuánto ocupa un recurso. Mejorar una puede empeorar otra. La carga incluye tamaño, distribución, concurrencia, estado y criterio de corrección. Comparar versiones que producen resultados distintos no es benchmark.
+En redes ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)), el throughput es lo que realmente llega útil al destino, no el ancho de banda teórico del enlace.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md):
+```text
+demanda: 200 peticiones/s ; lote 256 -> llenar el lote tarda > 1 s
+=> el throughput del lote grande no se materializa y la latencia crece
+```
 
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Ilustración de cálculo: throughput = n / tiempo = 256 / 0,0143 s ≈ 17 900 peticiones/s en el experimento de lote 256.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Confundirlo con ancho de banda teórico.** El throughput es lo útil y efectivamente transferido ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)).
+- **Maximizar throughput sin mirar latencia.** El lote óptimo es el que cabe en el tiempo de espera que el objetivo de latencia permite ([SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md)).
+- **Comparar throughput de versiones que dan resultados distintos.** No es un benchmark válido ([SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con una demanda de 200 peticiones por segundo, llenar un lote de 256 tardaría más de un segundo: el lote óptimo es el que cabe en el tiempo que el objetivo de latencia permite esperar, no el que maximiza el throughput. ([SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md))
-- Throughput no es ancho de banda teórico, y RTT no es tiempo completo de una transacción. ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md))
+Con baja demanda el throughput alcanzable es irrelevante: manda la latencia. Las cifras de [SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md) son de una CPU y una capa concretas. Y el throughput máximo medido en un banco no se sostiene en producción si hay contención, colas o dependencias (véase *utilización* y *ley de Little*).
 
 ## Relación con otros conceptos
 

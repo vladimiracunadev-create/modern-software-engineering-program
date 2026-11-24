@@ -2,52 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Frontend/backend](./frontend-backend.md) · [Frontera de aislamiento →](./frontera-de-aislamiento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Punto donde cambian autoridad, semántica, rendimiento o propiedad.
+Una **frontera** es el punto donde cambian la autoridad, la semántica, el rendimiento o la propiedad ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)). El programa usa la palabra en tres lugares:
 
-Definición de trabajo de [SE-034 — Virtualización, WSL y aislamiento local](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md): Valor de entrada donde cambia la clase de comportamiento; allí la comparación (`<` o `<=`) decide.
+- **Frontera de análisis** ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)): declara qué elementos de un sistema se modelan con detalle y cuáles se tratan como entorno.
+- **Frontera de aislamiento** ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)): hasta dónde un proceso, contenedor o máquina separa lo que ve y comparte con el anfitrión.
+- **Valor de frontera** ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)): el valor de entrada donde cambia la clase de comportamiento; allí la comparación (`<` o `<=`) decide.
 
 ## Por qué importa
 
-En [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md), el tema «Frontera» importa porque decide qué se modela y quién responde
+Casi todo error serio vive en una frontera: donde dos autoridades se pasan un dato, donde un umbral cambia el comportamiento, donde se supone un aislamiento que no existe. Trazar la frontera correcta decide qué se analiza, qué se aísla y qué se prueba.
 
 ## Cómo funciona
 
-Según [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md):
-
-Una **frontera de análisis** declara qué elementos se modelan con detalle y cuáles se tratan como entorno. Es útil cuando permite explicar la capacidad sin volver el modelo inmanejable. Debe acompañarse de interfaces y supuestos, porque el entorno sigue condicionando el resultado. Externalizar pagos cambia quién opera el procesador; no externaliza el deber de informar un cobro incierto, reconciliarlo ni ofrecer reparación.
-
-Según [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md):
-
-Las necesarias para responder preguntas distintas, normalmente entre dos y cuatro. Una sola frontera obliga a mezclar preguntas incompatibles; ocho producen un mapa que nadie mantiene. Un criterio práctico: si dos fronteras darían las mismas respuestas y las mismas responsabilidades, sobra una.
+- **Análisis** ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)): se declara qué se modela con detalle y qué es entorno, y se acompaña de interfaces y supuestos, porque el entorno sigue condicionando el resultado. Externalizar pagos cambia quién opera el procesador; no externaliza el deber de informar un cobro incierto, reconciliarlo ni ofrecer reparación. Se necesitan las fronteras para responder preguntas distintas, normalmente entre dos y cuatro: una sola mezcla preguntas incompatibles; ocho producen un mapa que nadie mantiene.
+- **Aislamiento** ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)): se enumeran las fronteras y las capacidades efectivas; compartir núcleo, montajes y privilegios debilita la frontera.
+- **Valores** ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)): las clases de equivalencia terminan en fronteras, y los errores `<` contra `<=` solo aparecen probando justo en ellas y alrededor.
 
 ## Ejemplo
 
-Ejemplo de [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) (sección «Ejemplo mínimo»):
+[SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md): la regla «descuento si el pedido es ≥ 100» se prueba con 99, 100 y 101. Una cobertura del 100 % con casos típicos (50 y 500) no rompe si alguien cambia `>=` por `>`; una tabla de fronteras y la medida con mutantes sí lo detecta. Ilustración:
 
-Una calculadora tributaria contiene software. El sistema relevante incluye reglas, datos introducidos, navegador y persona que interpreta el resultado. Si el producto promete una declaración correcta, debe gestionar vigencia normativa y casos no cubiertos. El mismo código, con otra frontera, cambia de responsabilidad.
+```python
+assert descuento(99) == 0 and descuento(100) > 0 and descuento(101) > 0
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **la frontera coincide exactamente con el organigrama** — causa: se modeló autoridad formal, no causalidad. Corrección: sigue una solicitud real y mueve la frontera según la pregunta que necesitas responder. ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md))
-- **“Está aislado porque está en un contenedor”** — causa: se ignoraron kernel, montajes y privilegios compartidos. Corrección: enumerar fronteras y capacidades efectivas. ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md))
-- **La cobertura es 100 % y un cambio de operador no rompe ninguna prueba** — causa: casos típicos sin valores en las fronteras. Corrección: tabla de fronteras y medida con mutantes. ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md))
+- **La frontera coincide con el organigrama.** Causa: se modeló autoridad formal, no causalidad; corrección: seguir una solicitud real y mover la frontera según la pregunta ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)).
+- **«Está aislado porque está en un contenedor».** Causa: se ignoraron kernel, montajes y privilegios compartidos; corrección: enumerar fronteras y capacidades efectivas ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)).
+- **Cobertura del 100 % sin valores de frontera.** Causa: casos típicos únicamente; corrección: tabla de fronteras y medida con mutantes ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una frontera excesiva tiene el problema opuesto: incorpora toda la universidad, pierde responsables concretos y no permite verificar nada. ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md))
-- Los que cubran cada clase de comportamiento y cada frontera, no una cantidad fija. ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md))
+Una frontera excesiva tiene el problema opuesto: incorpora toda la universidad, pierde responsables concretos y no permite verificar nada ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)). Los casos de prueba deben cubrir cada clase de comportamiento y cada frontera, no una cantidad fija. Y los tres sentidos no son intercambiables: una frontera de análisis no aísla nada.
 
 ## Relación con otros conceptos
 

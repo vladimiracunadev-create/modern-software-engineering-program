@@ -2,49 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Explotación conocida](./explotacion-conocida.md) · [Expresión →](./expresion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Producto de la probabilidad y el impacto de un riesgo; su suma mide el retraso esperado, no su dispersión.
-
-Definición de trabajo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md): Riesgo ponderado por la parte de los cambios que cae en un componente.
-- En [SE-008 — Restricciones, riesgos y compromisos entre atributos](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md): Combinación razonada de probabilidad y consecuencia.
+La **exposición** a un riesgo es el producto de su probabilidad y su impacto ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), siguiendo a Boehm); [SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md) la presenta como la combinación razonada de probabilidad y consecuencia. [SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) la usa ponderada por la parte de los cambios que cae en un componente. [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) advierte que su suma mide el retraso esperado, no su dispersión.
 
 ## Por qué importa
 
-En [SE-611 — Taller: degradar y recuperar un modelo](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md), el tema «Exposición» importa porque convierte retraso en decisiones erróneas.
+Permite ordenar riesgos y decidir a cuáles dedicar esfuerzo: Boehm propuso ordenarlos por exposición y revisar la lista de los principales cada vez. El valor de la lista, dice [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), es la conversación que obliga, no el número. Cambia la decisión de dónde se invierte atención, pruebas o contingencia.
 
 ## Cómo funciona
 
-Según [SE-611 — Taller: degradar y recuperar un modelo](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md):
+Cada riesgo se describe con causa, evento y efecto, se estima con probabilidad e impacto y se acompaña de un disparador, una respuesta y un responsable ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)). La exposición es `probabilidad × impacto`. [SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) la aplica a pruebas: el riesgo de un componente se pondera por la fracción de cambios que lo tocan, de modo que un componente muy modificado con impacto moderado puede merecer más atención que uno raro de impacto alto. En [SE-611](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md) se calcula en horas y decisiones: 168 horas por 400 decisiones, más de 67 000 decisiones tomadas con la mitad del historial vacío, lo que da la magnitud de un incidente de datos.
 
-**Diagnóstico paso a paso.** (1) Se consulta el historial de configuración de la validación: se bajó el umbral y se desactivó en un cambio sin revisión. (2) Se comprueba que el PSI descarta los nulos antes de comparar. (3) Se calcula la exposición: 168 horas por 400 decisiones, más de 67 000 decisiones con la mitad del historial vacío. (4) Se confirma que el AUC con etiquetas habría alertado a las 53 horas.
-
-Según [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md):
-
-Un riesgo es un evento incierto que, si ocurre, afecta al proyecto. Se describe con una causa, un evento y un efecto («si el proveedor de identidad cambia su contrato, la integración se retrasa»), se estima con probabilidad e impacto, y se acompaña de un disparador (la señal de que se está materializando), una respuesta (reducir, evitar, aceptar, transferir) y un responsable. Boehm propuso ordenarlos por exposición, es decir, por el producto de probabilidad y pérdida, y revisar la lista de los principales cada vez. El valor de la lista es la conversación que obliga, no el número.
+Su límite estructural es que es un valor esperado: la media casi no se mueve cuando hay una cola de eventos grandes, por lo que la exposición esperada, sola, no avisa de la cola ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) (sección «Ejemplo mínimo»):
+Dos riesgos: A con probabilidad 0,5 e impacto de 2 días (exposición 1 día); B con probabilidad 0,1 e impacto de 20 días (exposición 2 días). Ilustración:
 
-El fragmento calcula la exposición esperada de tres riesgos y la probabilidad de que ninguno ocurra. Antes de ejecutarlo, predice si la probabilidad de que no ocurra ninguno es mayor o menor que 50 %.
+```python
+riesgos = {"A": (0.5, 2), "B": (0.1, 20)}
+orden = sorted(riesgos, key=lambda k: -riesgos[k][0] * riesgos[k][1])   # B, A
+```
+
+[SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) simula diez riesgos con y sin causa común y compara el percentil 85 con la exposición: con causa común, la exposición subestima el retraso.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Sumar exposiciones como si fueran independientes.** Las causas comunes hacen que se materialicen juntos.
+- **Tomar el número como predicción.** Ordena; no predice.
+- **Confundirla con el riesgo mismo.** La exposición es una cifra; el riesgo es una cadena causal con respuesta ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La media casi no se mueve, y por eso la exposición esperada, sola, no avisa de la cola. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
-- Simula los diez riesgos con y sin causa común y compara el percentil 85 con la exposición. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
+Las probabilidades e impactos son estimaciones. En seguridad funcional ([SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md), [SE-445](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-445-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md)), el producto de números puede no bastar: la gravedad se trata con normas propias. Y una exposición baja no autoriza a ignorar un riesgo cuyo impacto es inaceptable.
 
 ## Relación con otros conceptos
 

@@ -2,51 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Verificabilidad](./verificabilidad.md) · [Verificación de comportamiento →](./verificacion-de-comportamiento.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Comprobación de que la evidencia de un release es coherente con valores esperados fijados de antemano.
+La **verificación** es la comprobación de que el sistema, o un artefacto, cumple lo especificado. El programa lo precisa en varios niveles:
 
-Definición de trabajo de [SE-479 — Taller: verificar la procedencia de un release](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md).
+- **Conformidad con la especificación** ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)).
+- **Comprobación observable de que un paso dejó el sistema en el estado esperado** ([SE-211](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md)).
+- **Comprobación de que la evidencia de un release es coherente con valores esperados fijados de antemano** ([SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md)).
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-211 — Runbooks, playbooks y documentación operacional](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md): Comprobación observable de que un paso dejó el sistema en el estado esperado.
-- En [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md): Conformidad con especificación.
+Contrasta con la **validación** ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)): verificar es «¿lo hicimos bien?»; validar es «¿es lo correcto?».
 
 ## Por qué importa
 
-En [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md), el tema «Verificación» importa porque decide si «terminado» significa «pasó» o «lo dije».
+Sin verificación, un procedimiento «funciona» y nadie sabe si resolvió. En agentes, la diferencia es operativa: un asistente puede declarar terminado un trabajo sin comprobar nada ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md)). Cambia qué se considera «hecho»: no cuando se ejecutó el paso, sino cuando una comprobación observable lo confirma.
 
 ## Cómo funciona
 
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
+El principio de [SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md): la verificación compara contra **valores esperados fijados de antemano**; si el valor esperado se toma del propio objeto verificado, la verificación pasa siempre. [SE-211](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md) lo traduce a documentación: tras cada paso de un procedimiento se añade un comando de comprobación con la salida esperada.
 
-Böckeler resume la idea con una ecuación: un agente es el modelo más todo lo que lo rodea. La definición es deliberadamente amplia y ella misma propone acotarla al caso de los agentes de código: parte del harness ya viene incorporado en el producto (el mensaje de sistema, el mecanismo de recuperación de código), y el usuario construye un harness *exterior* con lo que el producto ofrece (instrucciones del repositorio, hooks, permisos, compuertas de verificación). En esta clase el harness es lo exterior más lo mínimo interior que el laboratorio necesita para ejecutarse.
-
-Según [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md):
-
-El equipo adopta un asistente de código para el mantenimiento de *Avisos*. Durante dos semanas todo va bien; en la tercera, tres cambios llegan a revisión con las pruebas en rojo. La revisión encuentra que el asistente los dio por terminados. Tres hipótesis compiten: el modelo empeoró, el prompt cambió, el entorno cambió. La persona responsable revisa las trazas de los tres casos y encuentra que ninguno ejecutó las pruebas. Revisa el archivo de instrucciones: una reorganización había movido la línea de verificación a un archivo que el producto ya no cargaba. La corrección no toca el modelo: restaura la línea y añade una compuerta (`SE-583`) que rechaza la terminación sin pruebas en verde.
+En el harness de un agente ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md)), la verificación es una de las decisiones que lo definen, junto con los permisos y la parada: lo que define al harness es qué decide, no qué biblioteca usa. Una configuración sin verificación resuelve tres tareas y declara terminadas las otras tres. La corrección del caso de [SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md): restaurar la línea de verificación y añadir una compuerta ([SE-583](../../../classes/part-48-harness-y-agentic-engineering/se-583-verificacion-gates-y-menu-unico-de-validacion/README.md)) que rechaza la terminación sin pruebas en verde.
 
 ## Ejemplo
 
-Ejemplo de [SE-577 — Anatomía de un harness: modelo, contexto, herramientas y bucles](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) (sección «Ejemplo profesional»):
+```bash
+./migrar.sh && psql -c "select count(*) from entregas" | grep -q 5231 || { echo "verificación fallida"; exit 1; }
+```
 
-El equipo adopta un asistente de código para el mantenimiento de *Avisos*. Durante dos semanas todo va bien; en la tercera, tres cambios llegan a revisión con las pruebas en rojo. La revisión encuentra que el asistente los dio por terminados. Tres hipótesis compiten: el modelo empeoró, el prompt cambió, el entorno cambió. La persona responsable revisa las trazas de los tres casos y encuentra que ninguno ejecutó las pruebas. Revisa el archivo de instrucciones: una reorganización había movido la línea de verificación a un archivo que el producto ya no cargaba.
+El número esperado (5 231) se fijó antes de ejecutar el paso; no se lee del resultado de la propia migración.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El procedimiento «funciona» y nadie sabe si resolvió** — causa: no hay verificación por paso. Corrección: añadir un comando de comprobación con la salida esperada. ([SE-211](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md))
+- **El procedimiento «funciona» y nadie sabe si resolvió.** Causa: no hay verificación por paso; corrección: añadir un comando de comprobación con la salida esperada ([SE-211](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md)).
+- **Verificación que pasa siempre.** Causa: valores esperados tomados del propio documento; corrección: fijarlos de antemano ([SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md)).
+- **Confundir verificar con validar.** Pasar pruebas no demuestra que se construyó lo necesario.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La configuración sin verificación resuelve tres y declara terminadas las otras tres. ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md))
-- Lo que define al harness es qué decide (permisos, parada, verificación), no qué biblioteca usa. ([SE-577](../../../classes/part-48-harness-y-agentic-engineering/se-577-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md))
+Verificar prueba conformidad con una especificación, no que la especificación sea correcta. Una verificación cubre lo que comprueba: un conjunto de pruebas en verde no implica ausencia de defectos. Y el uso de «verificación» en [SE-479](../../../classes/part-39-build-release-y-cadena-de-suministro/se-479-taller-verificar-la-procedencia-de-un-release/README.md) es el de la cadena de suministro de un release; en otros contextos el término cubre técnicas distintas (inspección, análisis estático, pruebas formales).
 
 ## Relación con otros conceptos
 

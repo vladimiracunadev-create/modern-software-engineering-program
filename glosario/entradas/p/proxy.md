@@ -2,47 +2,50 @@
 
 [↑ Glosario](../../README.md) · [← Proveniencia de datos](./proveniencia-de-datos.md) · [Proxy de inyección →](./proxy-de-inyeccion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Sustituto con la misma interfaz que controla el acceso al objeto real.
-
-Definición de trabajo de [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-280 — GPU y aceleradores: modelo de ejecución](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md): Medida sobre un sustituto accesible que muestra la forma de un efecto sin su magnitud.
+Un **proxy** es un sustituto con la misma interfaz que controla el acceso al objeto real ([SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md)). Es uno de los patrones estructurales: el cliente cree hablar con el objeto verdadero, pero el proxy decide si, cuándo y cómo el acceso llega. En [SE-280](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md) aparece otra acepción, la de un **proxy de medición**: una medida sobre un sustituto accesible que muestra la forma de un efecto sin su magnitud. Esta entrada trata el patrón.
 
 ## Por qué importa
 
-En [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md), el tema «Proxy» importa porque controla el acceso o difiere el costo
+Permite añadir control (carga diferida, permisos, acceso remoto) sin cambiar a los clientes. Y obliga a distinguirlo de patrones vecinos con los que comparte estructura. [SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md) insiste en que la estructura es la misma para varios y lo que los separa es la intención; confundirla produce una prueba equivocada.
 
 ## Cómo funciona
 
-Según [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md):
+Los cinco patrones de [SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md) comparten una estructura: un objeto que **contiene o envuelve** a otro. La intención diferencia:
 
-Los cinco patrones comparten una estructura: un objeto que **contiene o envuelve** a otro. Lo que los separa es la intención. Un **Adapter** cambia la interfaz de un objeto a la que el cliente espera. Una **Facade** ofrece una interfaz simple a un subsistema. Un **Proxy** controla el acceso a un objeto con su misma interfaz (perezoso, remoto, con permisos). Un **Composite** trata un grupo de objetos como uno solo. Un **Decorator** añade comportamiento conservando la interfaz. Distinguirlos importa porque cada intención tiene su propio modo de estropearse y su propia prueba.
+- **Adapter:** cambia la interfaz a la que el cliente espera.
+- **Facade:** ofrece una interfaz simple a un subsistema.
+- **Proxy:** controla el acceso a un objeto con *su misma* interfaz (perezoso, remoto, con permisos).
+- **Composite:** trata un grupo de objetos como uno solo.
+- **Decorator:** añade comportamiento conservando la interfaz.
 
-Según [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md):
-
-La intención. El Decorator añade comportamiento (registro, reintento); el Proxy controla el acceso (perezoso, permisos, remoto). Estructuralmente pueden ser idénticos, y un mismo objeto puede ser ambos.
+Proxy y Decorator pueden ser estructuralmente idénticos, y un mismo objeto puede ser ambos: el Decorator añade comportamiento (registro, reintento); el Proxy controla el acceso (perezoso, permisos, remoto). Cada intención tiene su propio modo de estropearse y su propia prueba: la del proxy perezoso es que el objeto real no se cree hasta el primer uso y que el resultado sea el mismo.
 
 ## Ejemplo
 
-Ejemplo de [SE-315 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md) (sección «Preguntas frecuentes»):
+```python
+class ImagenProxy:
+    def __init__(self, ruta): self._ruta, self._real = ruta, None
+    def mostrar(self):
+        if self._real is None:          # carga diferida
+            self._real = Imagen(self._ruta)
+        return self._real.mostrar()
+```
 
-La intención. El Decorator añade comportamiento (registro, reintento); el Proxy controla el acceso (perezoso, permisos, remoto). Estructuralmente pueden ser idénticos, y un mismo objeto puede ser ambos.
+Un proxy de permisos haría lo análogo comprobando la identidad antes de delegar.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Confundir proxy con Decorator.** La estructura es igual; lo que cambia es la intención ([SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md)).
+- **Proxy que cambia el resultado.** Si altera lo que devuelve, ya no es transparente para el cliente.
+- **Confundirlo con un servidor proxy de red.** Comparte el nombre y la idea de intermediario, pero [SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md) trata el patrón de objetos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El proxy es adecuado cuando la construcción es cara y el uso es raro; si casi todos los objetos se usan, el proxy solo suma una indirección. ([SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md))
+El proxy es adecuado cuando la construcción es cara y el uso es raro; si casi todos los objetos se usan, solo suma una indirección ([SE-315](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-315-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md)). Un proxy remoto oculta la red, pero no sus fallos: latencia y errores parciales siguen existiendo y el cliente debe contemplarlos. Y el proxy de medición de [SE-280](../../../classes/part-23-runtimes-y-plataformas-modernas/se-280-gpu-y-aceleradores-modelo-de-ejecucion/README.md) es otra cosa: un indicador accesible que sustituye a uno inaccesible.
 
 ## Relación con otros conceptos
 

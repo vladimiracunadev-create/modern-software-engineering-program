@@ -2,52 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Excedente del cliente](./excedente-del-cliente.md) · [Excepción registrada →](./excepcion-registrada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Cambio que no sigue la política, con dueño, razón y fecha.
+**Excepción** tiene dos sentidos que el programa mantiene separados:
 
-Definición de trabajo de [SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-065 — Errores, excepciones y resultados explícitos](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md): Objeto que señala interrupción anormal.
-- En [SE-414 — Planes, derechos de uso y banderas de funcionalidad](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md): Cambio de un derecho para un cliente, con vencimiento y autorización.
-- En [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md): Incumplimiento aceptado con dueño, razón y fecha de vencimiento.
+- **En el código** ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)): un objeto que señala una interrupción anormal del flujo.
+- **En gobernanza** ([SE-552](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md), [SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)): un cambio o incumplimiento que no sigue la política, aceptado con **dueño, razón y fecha de vencimiento**. [SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md) la usa para un cambio de un derecho a un cliente, con vencimiento y autorización.
 
 ## Por qué importa
 
-En [SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md), el tema «Excepciones» importa porque una política sin excepciones se incumple en silencio.
+En código, decide cómo se comunica un fallo: por una interrupción del flujo o por un resultado esperado. En gobernanza, decide si una política es real: sin excepciones registradas, la política se incumple en silencio; con excepciones sin dueño ni fecha, se convierten en la regla. [SE-552](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) lo resume: una política que nadie comprueba es una intención.
 
 ## Cómo funciona
 
-Según [SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md):
-
-El equipo escribe su política en una página. La clasificación la hace quien abre el cambio y la revisa quien lo aprueba. Para riesgo bajo exige TDD con el ciclo registrado en la descripción del pull request. Para riesgo medio añade un contrato de propiedades que corre en la integración continua. Para riesgo alto añade un modelo ejecutable escrito por una persona distinta de quien implementa. Para cambios ambiguos añade tres escenarios acordados con una docente antes de empezar. Para el asistente de redacción de avisos exige una puerta de evaluación con la variación de la línea base y tres salidas (publicar, retener, medir más). Las excepciones se registran con dueño y fecha.
-
-Según [SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md):
-
-Con comprobaciones mecánicas donde se pueda (el comprobador de forma de `SE-550`, el contrato en integración continua) y con una revisión periódica de las excepciones. Una política que nadie comprueba es una intención.
+- **Código** ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)): cuando ausencia o rechazo es parte esperada del dominio, un resultado etiquetado evita usar excepciones como control ordinario (por ejemplo, `{'ok': False, 'error': ...}` o `Result<T,E>` en Rust). Un resultado como `DNS_TIMEOUT` puede ser un dato normal del diagnóstico y no una excepción. Al traducir una excepción hay que conservar la causa con `raise ... from e`.
+- **Política** ([SE-552](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md)): las excepciones se registran con dueño y fecha, se revisan periódicamente y se comprueban mecánicamente donde se pueda (por ejemplo, el comprobador de forma o el contrato en integración continua).
+- **Derechos** ([SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md)): una excepción de un cliente (más cupo, una función habilitada) tiene vencimiento y autorización; sin ellos, el modelo de derechos se llena de casos sueltos.
 
 ## Ejemplo
 
-Ejemplo de [SE-552 — Proyecto: política metodológica de equipo con evidencia](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-552-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) (sección «Ejemplo profesional»):
+```python
+try:
+    resolver(nombre)
+except socket.gaierror as e:
+    raise ErrorDeDiagnostico("fallo de resolución") from e   # conserva la causa
+```
 
-El equipo escribe su política en una página. La clasificación la hace quien abre el cambio y la revisa quien lo aprueba. Para riesgo bajo exige TDD con el ciclo registrado en la descripción del pull request. Para riesgo medio añade un contrato de propiedades que corre en la integración continua. Para riesgo alto añade un modelo ejecutable escrito por una persona distinta de quien implementa. Para cambios ambiguos añade tres escenarios acordados con una docente antes de empezar. Para el asistente de redacción de avisos exige una puerta de evaluación con la variación de la línea base y tres salidas (publicar, retener, medir más).
+En gobernanza ([SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)): «incumplimiento aceptado: cifrado en reposo del bucket X, dueño: plataforma, razón: migración en curso, vence: 2026-06-30».
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **el mensaje final no menciona el fallo original** — causa: se tradujo la excepción sin `from`. Corrección: `raise … from e` para conservar la causa. ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md))
+- **El mensaje final no menciona el fallo original.** Causa: se tradujo la excepción sin `from`; corrección: `raise ... from e` ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)).
+- **Excepciones de política sin vencimiento.** Se vuelven permanentes y la política deja de ser cierta.
+- **Usar excepciones para el flujo ordinario.** Cuando el rechazo es esperado, un resultado etiquetado es más claro.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un resultado de dominio como `DNS_TIMEOUT` puede ser dato normal del diagnóstico y no una excepción. ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md))
-- Puede servir para una versión sencilla (funcionalidades activas por plan), pero los derechos tienen estado que cambia con la facturación, límites que dependen del consumo y excepciones con vencimiento y autoría: un modelo propio, ligado a tu base de clientes, suele ser más claro. ([SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md))
+No todo error de dominio es una excepción de código ([SE-065](../../../classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)). Un modelo de derechos con muchas excepciones indica que el modelo propio de la base de clientes sería más claro ([SE-414](../../../classes/part-34-saas-y-plataformas-de-producto/se-414-planes-derechos-de-uso-y-banderas-de-funcionalidad/README.md)). Y una excepción de política aprobada no reduce el riesgo: solo lo hace explícito y con dueño.
 
 ## Relación con otros conceptos
 

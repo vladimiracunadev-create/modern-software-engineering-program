@@ -2,51 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Batería hostil](./bateria-hostil.md) · [Benchmark versionado →](./benchmark-versionado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Medición repetible del tiempo o del consumo de un fragmento con una entrada y un protocolo declarados.
-
-Definición de trabajo de [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md): Experimento comparativo bajo protocolo.
-- En [SE-055 — Complejidad temporal y espacial](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial/README.md): Medición controlada de una implementación.
+Un **benchmark** es una medición repetible del tiempo o del consumo de un fragmento de código, con una entrada y un protocolo declarados ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)). [SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) lo presenta como un experimento comparativo bajo protocolo y [SE-055](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial/README.md) como la medición controlada de una implementación. La palabra no designa «un número»: designa el número junto con la descripción que lo hace interpretable.
 
 ## Por qué importa
 
-En [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md), el tema «Benchmarks mal planteados» importa porque medir una caché, una constante o una entrada irreal.
+Las decisiones de rendimiento (elegir una estructura de datos, aceptar o rechazar una optimización, fijar un timeout) se apoyan en cifras. Si la cifra mide otra cosa, la decisión es errónea y además parece fundada. [SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md) toma los tiempos medidos para decidir timeouts y reintentos, así que un benchmark defectuoso se propaga a esas decisiones.
 
 ## Cómo funciona
 
-Según [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md):
+Un benchmark puede medir lo que no se quería ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)). Las causas típicas:
 
-Un benchmark puede medir lo que no se quería. Si la función usa una caché (`functools.lru_cache`) y se llama una y otra vez con el mismo argumento, el benchmark mide una búsqueda en un diccionario y no el trabajo. Si la entrada es demasiado pequeña, domina el costo fijo de la llamada; si es demasiado regular, el procesador predice los saltos y la caché la favorece más que los datos reales. Si se mide dentro del mismo proceso una función que modifica un estado global, la segunda ejecución ya no parte del mismo estado. La regla es describir qué entrada, qué estado inicial y qué se descarta: un benchmark sin esa descripción es una cifra sin significado.
+- **Caché o resultado constante:** si la función usa `functools.lru_cache` y se llama con el mismo argumento, se mide una búsqueda en un diccionario y no el trabajo.
+- **Entrada demasiado pequeña:** domina el costo fijo de la llamada.
+- **Entrada demasiado regular:** el procesador predice los saltos y la caché la favorece más que a datos reales.
+- **Estado global modificado:** la segunda ejecución ya no parte del mismo estado.
 
-Según [SE-022 — Rendimiento, consumo energético y límites físicos](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md):
-
-Latencia mide cuánto tarda una unidad; throughput, cuántas se completan por tiempo; utilización, cuánto ocupa un recurso. Mejorar una puede empeorar otra. La carga incluye tamaño, distribución, concurrencia, estado y criterio de corrección. Comparar versiones que producen resultados distintos no es benchmark.
+La regla es describir qué entrada, qué estado inicial y qué se descarta. [SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) añade que hay que distinguir qué se mide: latencia (cuánto tarda una unidad), *throughput* (cuántas se completan por tiempo) y utilización (cuánto ocupa un recurso); mejorar una puede empeorar otra. La carga incluye tamaño, distribución, concurrencia, estado y criterio de corrección. [SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md) propone una prueba A/A (comparar una versión consigo misma) para ver cuánta falsa diferencia produce el protocolo.
 
 ## Ejemplo
 
-Ejemplo de [SE-437 — Perfiles, benchmarks y errores de medición](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md) (sección «Caso conductor»):
+En el caso conductor de [SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md) (ordenación de entregas de la API), el artefacto es un protocolo de benchmark con su prueba A/A; al cambiar el número de repeticiones, cambia la tasa de falsas diferencias. Ilustración mínima de un defecto:
 
-La ordenación de entregas de la API es el caso conductor de la [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md). Esta clase deja el quinto artefacto: un protocolo de benchmark con su prueba A/A. `SE-438` tomará los tiempos medidos para decidir timeouts y reintentos, que dependen de la cola de la distribución. Cambia después un solo dato, el número de repeticiones, y observa cómo cambia la tasa de falsas diferencias.
+```python
+@lru_cache
+def f(x): return sorted(range(x))
+timeit.timeit(lambda: f(10_000), number=1000)   # mide el diccionario
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un benchmark da un tiempo imposible** — causa: caché o resultado constante medido en lugar del trabajo. Corrección: variar la entrada y reiniciar la caché. ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md))
+- **Un tiempo imposible.** Causa: caché o resultado constante medido en lugar del trabajo; corrección: variar la entrada y reiniciar la caché ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)).
+- **Comparar versiones que dan resultados distintos.** No es un benchmark ([SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)): primero hay que verificar la corrección.
+- **Confundirlo con un perfil.** El perfil dice dónde se gasta el tiempo; el benchmark compara cuánto.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un benchmark puede medir lo que no se quería. ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md))
-- Comparar versiones que producen resultados distintos no es benchmark. ([SE-022](../../../classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md))
+Un benchmark vale para la entrada, el entorno y el protocolo declarados; no se extrapola sin más a producción. Un número sin descripción de entrada, estado inicial y descartes no tiene significado ([SE-437](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-437-perfiles-benchmarks-y-errores-de-medicion/README.md)). Y medir bien no decide por sí solo: el costo de una optimización en complejidad también cuenta.
 
 ## Relación con otros conceptos
 

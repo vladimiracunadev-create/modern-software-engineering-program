@@ -2,46 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Localización](./localizacion.md) · [Log →](./log.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos.
-
-Definición de trabajo de [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-032 — Instalación de software y gestores de paquetes del sistema](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md): Registro de resoluciones concretas para repetir una instalación.
+Un **lockfile** (archivo de bloqueo) es un registro de las resoluciones concretas de dependencias para poder repetir una instalación ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)). [SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md) precisa su contenido: registra la selección concreta y, según el formato, hashes, fuente, marcadores y grupos. Distingue el manifiesto, que declara rangos aceptables, del lock, que dice qué versiones exactas se eligieron.
 
 ## Por qué importa
 
-En [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md), el tema «Lockfile» importa porque un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos.
+Sin lock, la misma lista de dependencias puede resolver a versiones distintas mañana y producir un fallo que no estaba en tu código. Con lock, el equipo y la integración continua instalan lo mismo. Pero [SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md) y [SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) advierten un matiz: mejora la repetibilidad dentro de su alcance; no congela runtime, sistema operativo ni disponibilidad del índice. Cambia qué se versiona y qué se revisa.
 
 ## Cómo funciona
 
-Según [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md), en la sección «Lockfile»:
+El resolvedor lee el manifiesto (rangos), calcula un conjunto compatible, incluye las dependencias transitivas y escribe el resultado: nombre, versión, hashes del artefacto, fuente y, según el formato, marcadores de plataforma y grupos (principal, desarrollo). Al instalar desde el lock, el gestor no vuelve a resolver: usa lo registrado y puede verificar los hashes. Se actualiza **deliberadamente** (un comando explícito) y se revisa como cambio de código, porque un cambio en el lock es un cambio de lo que corre.
 
-Un lock registra selección concreta y, según formato, hashes, fuente, marcadores y grupos. Mejora repetibilidad dentro de su alcance; no congela runtime, sistema ni disponibilidad del índice. Se actualiza deliberadamente y se revisa como cambio de código.
+La causa de sus límites es que el lock describe artefactos, no entornos: se generó en una plataforma y un intérprete concretos. [SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md) muestra el caso «CI pasa y producción rompe con la misma lista».
 
 ## Ejemplo
 
-Ejemplo de [SE-111 — Resolución de dependencias y lockfiles](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md) (sección «Preguntas frecuentes»):
+Ilustración con pip-tools y con npm:
 
-Un `requirements.txt` con rangos describe lo que aceptas; un lockfile registra lo que se resolvió, incluidas las transitivas y, si quieres, los hashes. En el experimento, la misma orden instaló `coreX 3.0` o `3.1` según el estado del índice.
+```bash
+pip-compile --generate-hashes requirements.in      # genera requirements.txt con versiones y hashes
+npm ci                                              # instala exactamente lo que dice package-lock.json
+```
+
+Para una biblioteca que se publica, el lock del repositorio sirve para sus pruebas, pero no se transmite a quien la instale ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **CI pasa y producción rompe con la misma lista** — causa: el lockfile se generó en otra plataforma o versión de Python. Corrección: registrar plataforma e intérprete en el lock y probar en cada plataforma soportada. ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md))
-- **Un lockfile se presenta como garantía total** — causa: se ignoraron origen, runtime y plataforma. Corrección: documentar qué fija y qué permanece variable. ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md))
+- **CI pasa y producción rompe con la misma lista.** Causa: el lock se generó en otra plataforma o versión de Python; corrección: registrar plataforma e intérprete y probar en cada plataforma soportada ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)).
+- **Presentarlo como garantía total.** Causa: se ignoraron origen, runtime y plataforma; corrección: documentar qué fija y qué queda variable ([SE-032](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)).
+- **Editarlo a mano o regenerarlo sin revisión.** El cambio de versiones queda sin examinar.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Para el consumidor de la biblioteca, el lockfile no se hereda: lo decide la aplicación. ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md))
+Para el consumidor de una biblioteca, el lockfile no se hereda: lo decide la aplicación ([SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)). No protege si el índice retira un paquete, ni cubre el sistema operativo. Y fijar versiones no es actualizarlas: un lock viejo congela también las vulnerabilidades conocidas, por lo que requiere revisión periódica.
 
 ## Relación con otros conceptos
 

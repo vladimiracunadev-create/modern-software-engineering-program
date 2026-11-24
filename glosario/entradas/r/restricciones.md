@@ -2,56 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Restricción única](./restriccion-unica.md) · [Restricciones y explicación →](./restricciones-y-explicacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
-
-Definición de trabajo de [SE-325 — Drivers, restricciones y atributos de arquitectura](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md): Condiciones impuestas fuera del equipo que limitan el diseño y no se negocian como requisitos.
+Una **restricción** es una decisión ya tomada o una condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md)). [SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md) la precisa: una condición impuesta fuera del equipo que limita el diseño y no se negocia como requisito. [SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md) la sitúa dentro del alcance: una obligación legal, un límite físico, una fecha externa o una compatibilidad contractual.
 
 ## Por qué importa
 
-En [SE-325 — Drivers, restricciones y atributos de arquitectura](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md), el tema «Restricciones» importa porque reducen el espacio de alternativas antes de comparar.
-
-En [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md), el tema «Restricciones» importa porque limitan el espacio de diseño y no se negocian como un requisito.
-
-En [SE-008 — Restricciones, riesgos y compromisos entre atributos](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md), el tema «Restricción» importa porque elimina opciones inviables
+Es lo primero que se aplica al decidir: reduce el espacio de alternativas antes de ponderar. Mal identificada, produce los dos errores opuestos: tratar una preferencia como restricción («tiene que ser serverless») o una restricción real como preferencia («ya veremos lo de los datos»). El resultado es arquitectura rehecha a mitad de proyecto o incumplimientos tardíos.
 
 ## Cómo funciona
 
-Según [SE-325 — Drivers, restricciones y atributos de arquitectura](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md), en la sección «Restricciones»:
+[SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md) da ejemplos: «se despliega en la infraestructura de la universidad», «los datos de estudiantes no salen del país», «el equipo domina Python». Se distinguen de los requisitos porque su tratamiento es distinto ([SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md)): un requisito se prioriza y se negocia; una restricción se cumple, y su origen es una decisión externa que hay que registrar. La regla práctica de [SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md): anotar **quién** impuso la restricción, **desde cuándo** y **qué costaría levantarla**. Sin esa información es una opinión.
 
-Una **restricción** es una decisión que ya no está en discusión: «se despliega en la infraestructura de la universidad», «los datos de estudiantes no salen del país», «el equipo domina Python». Reduce el espacio de alternativas, y por eso es lo primero que se aplica. Dos errores típicos: tratar una preferencia como restricción («tiene que ser serverless») y tratar una restricción real como preferencia («ya veremos lo de los datos»). La regla práctica es anotar quién impuso la restricción, desde cuándo y qué costaría levantarla; una restricción sin esa información es una opinión.
-
-Según [SE-147 — Atributos de calidad y restricciones](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md), en la sección «Restricciones»:
-
-Una restricción es una condición impuesta que el equipo no puede cambiar: debe usarse el servidor de identidad de la universidad, los datos no salen de un país, el sistema corre en una versión de navegador. Se separan de los requisitos porque su tratamiento es otro: no se prioriza, se cumple, y su origen es una decisión externa que hay que registrar. Una restricción mal identificada es un requisito negociable que nadie negocia o, peor, un requisito que se negoció cuando no se podía.
+En el proceso de decisión, se aplican primero las restricciones y la dominancia (una alternativa peor en todo que otra), y se pondera solo lo que queda; ponderar sin descartar compara alternativas que una restricción ya excluía.
 
 ## Ejemplo
 
-Ejemplo de [SE-325 — Drivers, restricciones y atributos de arquitectura](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma abre `drivers.md` con cuatro drivers (el pico de entrega no debe perder archivos; el servicio se apoya en seis personas; las notas deben ser consistentes; el servicio debe estar disponible en periodo de entregas), tres restricciones (infraestructura de la universidad, datos en el país, Python como lenguaje) y cinco escenarios medibles.
+```text
+R-03  Los datos de estudiantes no salen del país.
+fuente: política de la universidad | desde: 2024-03 | costo de levantarla: aprobación del comité jurídico
+efecto: descarta el proveedor X (única región fuera del país)
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una restricción desaparece a mitad del proyecto** — causa: era una preferencia sin dueño. Corrección: registrar fuente, fecha y coste de levantarla. ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md))
-- **Se pondera sin descartar** — causa: se comparan alternativas que una restricción ya excluía. Corrección: aplicar primero restricciones y dominancia y ponderar solo lo que queda. ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md))
-- **Una restricción se discute como un requisito más** — causa: no se identificó su origen externo. Corrección: registrar origen, fecha y quién puede cambiarla. ([SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md))
+- **Una restricción desaparece a mitad del proyecto.** Causa: era una preferencia sin dueño; corrección: registrar fuente, fecha y coste de levantarla ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md)).
+- **Se pondera sin descartar.** Causa: se comparan alternativas que una restricción ya excluía; corrección: aplicar primero restricciones y dominancia ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md)).
+- **Se discute como un requisito más.** Causa: no se identificó su origen externo; corrección: registrar origen, fecha y quién puede cambiarla ([SE-147](../../../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una **restricción** es una decisión que ya no está en discusión: ([SE-325](../../../classes/part-27-arquitectura-de-software-y-dominio/se-325-drivers-restricciones-y-atributos-de-arquitectura/README.md))
-- Una **restricción** excluye opciones dentro del alcance: una obligación legal, un límite físico, una fecha externa o compatibilidad contractual. ([SE-008](../../../classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos/README.md))
+Una restricción no es eterna: su coste de levantarla puede ser aceptable si el beneficio es grande, y por eso hay que registrarlo. No toda limitación técnica es una restricción: la que se puede resolver con trabajo del equipo es un requisito de diseño. Y demasiadas restricciones sin revisar pueden dejar espacio de diseño vacío: entonces hay que renegociar alguna con su dueño.
 
 ## Relación con otros conceptos
 

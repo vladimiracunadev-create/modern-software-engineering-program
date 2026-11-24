@@ -2,46 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Estrangulamiento](./estrangulamiento.md) · [Estrategia de caché →](./estrategia-de-cache.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-Forma de descomponer una afirmación en subafirmaciones.
-
-Definición de trabajo de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md).
+**Estrategia** es, en las clases de razonamiento ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md) a [SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)), la forma de descomponer una afirmación o un problema en partes que se puedan resolver o demostrar; [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) la usa en casos de seguridad como **estrategia de argumento**: el modo en que una meta se divide en submetas que se demuestran con evidencia. No es «plan de negocio»: es un método de resolver o argumentar.
 
 ## Por qué importa
 
-En [SE-056 — Heurísticas, aproximación y límites computacionales](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md), el tema «estrategia» importa porque ¿qué pasos producen el resultado?
+Elegir mal la estrategia produce resultados plausibles y erróneos. [SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md) lo muestra con un caso claro: una estrategia codiciosa para dar cambio puede parecer óptima y no serlo. En un caso de seguridad ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)), la estrategia es lo que hace visible y desafiable el argumento: quien lee puede preguntar «¿y si falla el sensor?» y hallar qué rama responde.
 
 ## Cómo funciona
 
-Según [SE-056 — Heurísticas, aproximación y límites computacionales](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md):
-
-**Cómo leer la figura.** Cada barra son las monedas que usa una estrategia para devolver 6. Mira primero que la codiciosa, coral, usa 3 monedas y la óptima solo 2: un contraejemplo basta para refutar su optimalidad. **Dónde deja de valer:** la programación dinámica es óptima pero cuesta tiempo y memoria proporcionales al monto; en problemas mayores la ventaja de la heurística es real y hay que decidir si el exceso es tolerable.
-
-Según [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md):
-
-El caso responde tres preguntas: qué se afirma («el *Horno de curado* es aceptablemente seguro para curar muestras en un laboratorio con operadores formados, sobre una mesa, a menos de 250 °C»), por qué se cree (estrategia de argumento: se argumenta por cada peligro identificado, que tiene un control verificado) y con qué evidencia (resultados de pruebas, análisis, revisiones). Lo que lo distingue de un informe es que cada eslabón es visible y desafiable: quien lee puede preguntar «¿y si falla el sensor?» y encontrar qué rama responde. La notación gráfica más usada es la de estructuración de metas (GSN), con nodos de meta, estrategia, solución (evidencia), contexto, supuesto y justificación.
+- **Algoritmos** ([SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)): se compara una estrategia (codiciosa, programación dinámica) contra criterios. Para devolver 6 con ciertas monedas, la codiciosa usa 3 y la óptima solo 2: un contraejemplo basta para refutar la optimalidad. La programación dinámica es óptima pero cuesta tiempo y memoria proporcionales al monto.
+- **Casos de seguridad** ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)): el caso responde tres preguntas: qué se afirma, por qué se cree (la estrategia: argumentar por cada peligro identificado, que tiene un control verificado) y con qué evidencia (resultados de pruebas, análisis, revisiones). La notación GSN (estructuración de metas) tiene nodos de meta, estrategia, solución, contexto, supuesto y justificación.
+- **Descomposición de problemas** ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)): la estrategia declara el criterio de corte.
 
 ## Ejemplo
 
-Ejemplo de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) (sección «Preguntas frecuentes»):
+[SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md): con monedas {1, 3, 4} y objetivo 6, la estrategia codiciosa elige 4+1+1 (3 monedas); la óptima, 3+3 (2). Ilustración:
 
-No. GSN es una notación entre varias; lo que importa es la estructura (afirmación, estrategia, evidencia, supuestos) y que sea revisable. Un argumento en texto estructurado o en una tabla puede ser igual de bueno si se mantiene trazable.
+```python
+def codiciosa(monto, monedas):
+    out = []
+    for m in sorted(monedas, reverse=True):
+        while monto >= m: out.append(m); monto -= m
+    return out        # codiciosa(6, [1,3,4]) -> [4,1,1]
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-056 — Heurísticas, aproximación y límites computacionales](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)) son:
-
-- **«Es óptimo» tras probar tres casos** — causa: muestra pequeña. Corrección: buscar contraejemplos en un dominio acotado.
-- **Se reporta solo la media** — causa: se oculta el peor caso. Corrección: reportar media, peor y mejor observados.
+- **«Es óptimo» tras probar tres casos.** Causa: muestra pequeña; corrección: buscar contraejemplos en un dominio acotado ([SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)).
+- **Reportar solo la media.** Causa: se oculta el peor caso; corrección: reportar media, peor y mejor observados ([SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)).
+- **Confundir estrategia con evidencia.** En un caso de seguridad, la estrategia estructura el argumento; no lo prueba ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El caso responde tres preguntas: qué se afirma («el *Horno de curado* es aceptablemente seguro para curar muestras en un laboratorio con operadores formados, sobre una mesa, a menos de 250 °C»), por qué se cree (estrategia de argumento: se argumenta por cada peligro identificado, que tiene un control verificado) y con qué evidencia (resultados de pruebas, análisis, revisiones). ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md))
+La ventaja de una heurística es real en problemas grandes, y hay que decidir si el exceso sobre el óptimo es tolerable ([SE-056](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales/README.md)). En casos de seguridad, un argumento bien estructurado con evidencia débil no es confiable. La palabra, además, se usa en otros ámbitos (de producto, de pruebas) con sentidos distintos que esta entrada no cubre.
 
 ## Relación con otros conceptos
 

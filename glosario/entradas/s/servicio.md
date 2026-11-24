@@ -2,49 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Service worker](./service-worker.md) · [Servicio de apoyo →](./servicio-de-apoyo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Componente que se despliega y escala de forma independiente y se comunica por red.
+**Servicio** tiene dos sentidos en el programa:
 
-Definición de trabajo de [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md).
+- **Componente de arquitectura** ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)): un componente que se despliega y escala de forma independiente y se comunica por red.
+- **Proceso de larga duración** ([SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md), [SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)): un proceso gestionado por un supervisor y una política de ciclo de vida, que atiende peticiones o ejecuta trabajo sin un usuario interactivo (en Unix, *daemon*).
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-028 — Procesos, señales, servicios y tareas programadas](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md): Proceso gestionado por un supervisor y una política de ciclo de vida.
-- En [SE-222 — Daemons, servicios y ciclo de vida](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md): Proceso de larga duración que atiende peticiones o ejecuta trabajo sin un usuario interactivo.
+Comparten la idea de algo que está disponible para otros, pero operan en niveles distintos.
 
 ## Por qué importa
 
-En [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md), el tema «Servicios» importa porque despliegue y escalado independientes a cambio de red, consistencia y operación.
+Elegir servicios como unidad de despliegue cambia qué se gana y qué se paga. [SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md) lo pone en la misma tabla: se gana autonomía (un equipo publica sin coordinar, un componente pesado se escala sin escalar el resto) y se paga operación, latencia de red, fallos parciales y consistencia. Y para el proceso de larga duración, entender el ciclo de vida evita reinicios en bucle y despliegues que fallan.
 
 ## Cómo funciona
 
-Según [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md), en la sección «Servicios»:
+**Arquitectura** ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)): al separar servicios, una transacción que los cruza deja de ser atómica y se convierte en una saga con compensaciones. Fowler y Lewis describen esos costos junto a las ventajas. Para muchos sistemas el destino correcto es un monolito bien organizado: da orden y pruebas rápidas sin el costo de operar muchos servicios.
 
-Los **servicios** se despliegan y escalan por separado y se comunican por red. Lo que se gana es autonomía: un equipo puede publicar su servicio sin coordinar con otros, y un componente pesado se escala sin escalar el resto. Lo que se paga es operación (varios despliegues, versiones, monitoreo), latencia de red, fallos parciales y consistencia: una transacción que cruza servicios deja de ser atómica y se convierte en una saga con compensaciones. Fowler y Lewis describen esos costes junto a las ventajas; la decisión honesta los pone en la misma tabla.
+**Proceso** ([SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md), [SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)): un supervisor lo arranca, lo vigila y lo reinicia según una política. Una recuperación sana clasifica el fallo, aplica espera creciente y corta el bucle; si no, un servicio que cae al arrancar se reinicia sin límite. Tras un despliegue, el tráfico solo debe llegar cuando una sonda de preparación comprueba lo mismo que hará el cliente. En parada, el cierre ordenado (vaciar, escribir en archivo temporal y renombrar) evita archivos truncados.
 
 ## Ejemplo
 
-Ejemplo de [SE-327 — Monolito, modular monolith y servicios](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma mantiene el sistema como monolito modular y añade al CI un comprobador de fronteras que falla si un módulo importa algo que no sea la `api` de otro, y otro que prohíbe `importlib` y `__import__` con nombres de módulos internos. Mide que la operación «calificar» hace 14 llamadas entre `notas` y `entregas` y decide que, si algún día se separan, esas dos son una sola frontera mal puesta: primero deberían fusionarse o reducir las llamadas.
+```text
+saga "matricular":  reservar_cupo -> cobrar -> emitir_constancia
+si cobrar falla:    compensar -> liberar_cupo     (no hay transacción atómica entre servicios)
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Quedan datos a medias entre servicios** — causa: transacción entre servicios sin compensación. Corrección: diseñar y probar compensaciones o evitar la operación cruzada. ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md))
-- **El servicio reinicia sin límite** — causa: se sustituyó recuperación por repetición. Corrección: clasificar fallo, aplicar espera creciente y cortar el bucle. ([SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md))
-- **Fallan peticiones tras cada despliegue** — causa: se envía tráfico antes de que el servicio esté preparado. Corrección: sonda de preparación que prueba lo mismo que el cliente. ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md))
+- **Quedan datos a medias entre servicios.** Causa: transacción entre servicios sin compensación; corrección: diseñar y probar compensaciones o evitar la operación cruzada ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)).
+- **El servicio reinicia sin límite.** Causa: se sustituyó recuperación por repetición; corrección: clasificar fallo, aplicar espera creciente y cortar el bucle ([SE-028](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)).
+- **Fallan peticiones tras cada despliegue.** Causa: tráfico antes de que el servicio esté preparado; corrección: sonda de preparación que prueba lo mismo que el cliente ([SE-222](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Lo que se gana es autonomía: un equipo puede publicar su servicio sin coordinar con otros, y un componente pesado se escala sin escalar el resto. ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md))
-- Para muchos sistemas es el destino: da orden y pruebas rápidas sin el coste de operar muchos servicios. ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md))
+Separar en servicios no es mejor en sí: para equipos pequeños o dominios poco definidos suele costar más de lo que da ([SE-327](../../../classes/part-27-arquitectura-de-software-y-dominio/se-327-monolito-modular-monolith-y-servicios/README.md)). Y el sentido de arquitectura no implica el de proceso: un servicio de arquitectura puede ejecutarse en muchos procesos y un *daemon* no es necesariamente un servicio independiente de negocio.
 
 ## Relación con otros conceptos
 

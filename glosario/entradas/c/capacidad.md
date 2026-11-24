@@ -2,55 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Capa de cascada](./capa-de-cascada.md) · [Capacidad de mejora →](./capacidad-de-mejora.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Función del dispositivo que el sistema protege (ubicación, cámara, notificaciones, archivos) y que exige una autorización.
+**Capacidad** es una palabra con varios sentidos que el programa usa en clases distintas; ninguno es «cantidad máxima»:
 
-Definición de trabajo de [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-001 — Software, sistemas y productos: fronteras de la disciplina](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md): Resultado que un sistema produce bajo condiciones declaradas.
-- En [SE-025 — Windows, Linux, macOS y sus modelos operativos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md): Operación cuya disponibilidad puede comprobarse sin asumirla por nombre.
-- En [SE-277 — WebAssembly y WASI](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md): Referencia no falsificable a un recurso (por ejemplo, un descriptor de directorio) que permite operar sobre él.
-- En [SE-036 — Proyecto: kit de diagnóstico multiplataforma](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md): Operación comprobable que una plataforma ofrece al adaptador.
+- **Función del dispositivo protegida por el sistema** ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)): ubicación, cámara, notificaciones o archivos, que exigen una autorización. Es el sentido principal.
+- **Resultado que un sistema produce bajo condiciones declaradas** ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)): lo que el producto permite hacer, no la solución que lo implementa.
+- **Operación comprobable** ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md), [SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)): algo cuya disponibilidad se verifica en vez de suponerla por el nombre de la plataforma.
+- **Referencia no falsificable a un recurso** ([SE-277](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md)): por ejemplo un descriptor de directorio que permite operar solo sobre ese recurso.
 
 ## Por qué importa
 
-En [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md), el tema «Mínimo necesario» importa porque cada capacidad que se pide es una superficie de ataque y una carga de confianza.
+Cada capacidad que una aplicación pide es una superficie de ataque y una carga de confianza ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)). Pedir menos reduce lo que puede filtrarse, abusarse o exigirse en una revisión de tienda. En portabilidad ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)), comprobar capacidades en lugar de deducirlas por el nombre del sistema evita decisiones falsas; y en la definición de objetivos ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)), hablar de capacidades evita formular soluciones como necesidades.
 
 ## Cómo funciona
 
-Según [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md):
-
-Pedir menos reduce lo que puede filtrarse, abusarse o exigirse en una revisión de tienda. Si la función solo necesita saber que se entregó en la ciudad, la ubicación aproximada alcanza; si solo adjunta una imagen, el selector del sistema puede evitar pedir acceso a toda la galería. La pregunta es qué función falla sin la capacidad, no qué dato podría ser útil.
-
-Según [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md):
-
-El equipo del cliente escribe una tabla de capacidades con una fila por función: qué capacidad necesita, con qué precisión, cuándo la pide, qué hace si se deniega o revoca y cuánto tiempo guarda el dato. «Adjuntar foto» usa el selector del sistema o la cámara, y si se deniega, ofrece la galería. «Notificar vencimiento» usa notificaciones y, si se deniega, muestra un aviso dentro de la aplicación. «Registrar lugar de entrega» no existe: el equipo decidió que no lo necesitaba y no pidió ubicación. Cada fila tiene una prueba por estado del permiso.
+El criterio de [SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md) es preguntar qué función falla sin la capacidad, no qué dato podría ser útil. Si solo hace falta saber que se entregó en una ciudad, la ubicación aproximada basta; si solo se adjunta una imagen, el selector del sistema evita pedir acceso a toda la galería. El equipo escribe una tabla con una fila por función: capacidad necesaria, precisión, cuándo se pide, qué hace si se deniega o revoca y cuánto tiempo guarda el dato; cada fila tiene una prueba por estado del permiso. En [SE-277](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md), el modelo por capacidades (WASI) da a un módulo solo los descriptores que se le entregan: no hay autoridad ambiente. En [SE-036](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md), el adaptador declara qué operaciones ofrece la plataforma y la herramienta las comprueba.
 
 ## Ejemplo
 
-Ejemplo de [SE-257 — Permisos, sensores y capacidades del dispositivo](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md) (sección «Ejemplo profesional»):
-
-El equipo del cliente escribe una tabla de capacidades con una fila por función: qué capacidad necesita, con qué precisión, cuándo la pide, qué hace si se deniega o revoca y cuánto tiempo guarda el dato. «Adjuntar foto» usa el selector del sistema o la cámara, y si se deniega, ofrece la galería. «Notificar vencimiento» usa notificaciones y, si se deniega, muestra un aviso dentro de la aplicación. «Registrar lugar de entrega» no existe: el equipo decidió que no lo necesitaba y no pidió ubicación. Cada fila tiene una prueba por estado del permiso.
+[SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md): «Adjuntar foto» usa el selector del sistema o la cámara y, si se deniega, ofrece la galería; «Notificar vencimiento» usa notificaciones y, si se deniega, muestra un aviso en la aplicación; «Registrar lugar de entrega» no existe, porque el equipo decidió no pedir ubicación.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La revisión de la tienda rechaza el permiso solicitado** — causa: se pidió una capacidad que ninguna función usa. Corrección: eliminar capacidades sin función que las necesite. ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md))
-- **el objetivo dice “construir el portal”** — causa: se formuló una solución como necesidad. Corrección: reescribe capacidad, persona, condición de éxito y condición de fracaso. ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md))
-- **El primer intento exige administrador** — causa: se trató el privilegio como comodidad. Corrección: observar primero sin elevación y justificar cada capacidad adicional. ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md))
+- **La tienda rechaza el permiso solicitado.** Causa: se pidió una capacidad que ninguna función usa; corrección: eliminarla ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)).
+- **El objetivo dice «construir el portal».** Causa: una solución formulada como necesidad; corrección: reescribir capacidad, persona, condición de éxito y de fracaso ([SE-001](../../../classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md)).
+- **El primer intento exige administrador.** Causa: se trató el privilegio como comodidad; corrección: observar sin elevación y justificar cada capacidad adicional ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)).
+- **Confundir detección con autorización.** Una capacidad presente puede estar bloqueada por permisos o políticas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La pregunta es qué función falla sin la capacidad, no qué dato podría ser útil. ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md))
-- Porque la persona decide sin contexto, se piden capacidades que quizá nunca se usen y cada una añade superficie. ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md))
+Como la persona decide sin contexto, se conceden capacidades que quizá nunca se usen, y cada una añade superficie ([SE-257](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo/README.md)). Una tabla de capacidades solo vale si se mantiene al añadir funciones. El sentido de [SE-277](../../../classes/part-23-runtimes-y-plataformas-modernas/se-277-webassembly-y-wasi/README.md) no equivale al de permisos móviles: allí es una referencia que se pasa, aquí un permiso que se concede.
 
 ## Relación con otros conceptos
 

@@ -2,46 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Minificación](./minificacion.md) · [Minimización de datos →](./minimizacion-de-datos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Principio de recoger y conservar solo los datos necesarios para una finalidad declarada.
-
-Definición de trabajo de [SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-137 — Telemetría de producto y consentimiento](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md): Recoger solo los datos, el tiempo y la granularidad que una decisión necesita.
+La **minimización** (de datos) es el principio de recoger y conservar solo los datos necesarios para una finalidad declarada ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)). [SE-137](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md) lo aplica a la analítica de producto: recoger solo los datos, el tiempo y la granularidad que una decisión necesita. Depende de una **finalidad** escrita: sin ella no se puede decir qué es «necesario».
 
 ## Por qué importa
 
-En [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md), el tema «Minimización» importa porque selecciona y redacta antes de persistir
+El dato que no se recoge no se puede filtrar, no hay que protegerlo, borrarlo ni responder por él ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)). Reduce superficie de ataque, costo de cumplimiento y riesgo de uso indebido. Cambia una decisión de diseño de esquema: cada campo nuevo debe llegar con su razón.
 
 ## Cómo funciona
 
-Según [SE-358 — Privacidad, retención y ciclo de vida del dato](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md):
+[SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) parte de un **inventario** de datos personales: qué datos hay, para qué se recogen (finalidad), quién accede, cuánto tiempo se conservan y dónde viven: base, índices, cachés, respaldos, registros, exportaciones. Sobre ese inventario se pregunta si hace falta cada dato. La minimización opera en varias dimensiones:
 
-El primer paso es una lista de qué datos personales hay, para qué se recogen (la **finalidad**), quién accede, cuánto tiempo se conservan y en qué lugares viven: base, índices, cachés, respaldos, registros, exportaciones. La **minimización** pregunta si hace falta cada dato: el que no se recoge no se puede filtrar ni hay que borrarlo. En la plataforma, el correo es necesario para el acceso; la fecha de nacimiento completa quizá no, y un rango de edad podría bastar. Cada dato que se añade al esquema debería llegar con su finalidad escrita; el inventario es un artefacto vivo.
+- **qué** se recoge (¿fecha de nacimiento completa o un rango de edad?);
+- **cuánto tiempo** se conserva (retención);
+- **con qué granularidad** (agregado en lugar de evento individual, [SE-137](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md));
+- **dónde** se copia (cada copia es otro lugar que proteger).
+
+El inventario es un artefacto vivo: se actualiza cada vez que cambia el esquema. En la plataforma de entregas, el correo es necesario para el acceso; la fecha de nacimiento completa quizá no, y un rango de edad podría bastar.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md):
+Antes: `usuarios(id, correo, fecha_nacimiento, direccion, telefono)`. Tras preguntar por la finalidad de cada campo, queda `usuarios(id, correo, rango_edad)` porque dirección y teléfono no tienen finalidad. Ilustración de un registro de finalidad:
 
-Un servicio presenta latencia y errores coincidentes con presión de disco. El equipo compara operaciones con y sin presión y conserva una hipótesis rival de dependencia externa. La correlación orienta el experimento; no se publica como causalidad cerrada.
+```yaml
+correo: { finalidad: acceso, retencion_dias: 365, acceso: [auth] }
+rango_edad: { finalidad: segmentar avisos, retencion_dias: 180, acceso: [producto] }
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)) son:
-
-- **Hay mucho log pero no se relacionan eventos** — causa: faltan identificadores y estructura. Corrección: añadir eventos estables y correlación por operación.
-- **Se culpa al evento anterior** — causa: se confundió proximidad con causalidad. Corrección: formular alternativas y diseñar una prueba discriminante.
+- **Recoger «por si acaso».** Sin finalidad no hay forma de justificar el dato; el costo de guardarlo existe aunque no se use.
+- **Minimizar la tabla y olvidar las copias.** Cachés, respaldos, registros y exportaciones conservan el dato ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md)).
+- **Confundir minimización con anonimización.** Minimizar es recoger menos; anonimizar es transformar lo recogido.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **minimización** pregunta si hace falta cada dato: el que no se recoge no se puede filtrar ni hay que borrarlo. ([SE-358](../../../classes/part-29-datos-persistencia-y-recuperacion/se-358-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md))
+La minimización exige una finalidad concreta, y algunas obligaciones legales exigen conservar más de lo que el producto necesita; esas decisiones requieren asesoría. No es una regla «menos es siempre mejor»: recoger lo necesario para detectar abuso o auditar puede ser una finalidad legítima. Y reducir la granularidad puede impedir análisis posteriores: hay que decidirlo conscientemente.
 
 ## Relación con otros conceptos
 

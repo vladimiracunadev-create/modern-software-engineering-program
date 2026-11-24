@@ -2,49 +2,55 @@
 
 [↑ Glosario](../../README.md) · [← Observer](./observer.md) · [Ocurrió antes de →](./ocurrio-antes-de.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Aviso de que una funcionalidad se retirará, con alternativa y plazo.
+La **obsolescencia** se usa en el programa con dos significados relacionados:
 
-Definición de trabajo de [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md).
+- **Deprecación** ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md), *deprecation*): el aviso de que una funcionalidad se retirará, con alternativa y plazo.
+- **Obsolescencia general** ([SE-009](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)): pérdida de utilidad de un software por cambios técnicos u organizativos.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md): Pérdida de utilidad por cambios técnicos u organizativos.
+El primero es una acción deliberada del mantenedor; el segundo es un estado que se acumula si nadie decide.
 
 ## Por qué importa
 
-En [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md), el tema «Obsolescencia» importa porque convierte una ruptura en una transición.
+Una ruptura anunciada es una transición; una ruptura sorpresa es un incidente ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)). Planificar la obsolescencia evita acumular legado que nadie arregla y, a la vez, evita romper a quienes dependen del producto. [SE-009](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) observa que mantener todo indefinidamente tampoco es sostenible: aumenta costo, exposición y carga cognitiva.
 
 ## Cómo funciona
 
-Según [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md):
+**Como política** ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)): una funcionalidad se marca como pendiente de retiro con:
 
-Una ruptura anunciada es una transición; una ruptura sorpresa es un incidente. La **obsolescencia** (*deprecation*) marca una funcionalidad como pendiente de retiro, con un aviso visible en tiempo de ejecución, una versión en la que se avisa y otra en la que se retira, y la alternativa recomendada. Una política razonable fija una ventana mínima (por ejemplo, avisar durante al menos dos versiones menores o seis meses antes de retirar) y la publica. Además hay que decidir cuánto tiempo se mantienen las versiones antiguas con correcciones de seguridad: sin una fecha de fin de soporte, el ecosistema acumula versiones que nadie arregla.
+- un **aviso visible en tiempo de ejecución**;
+- una **versión en la que se avisa** y otra **en la que se retira**;
+- la **alternativa recomendada**;
+- una **ventana mínima** publicada (por ejemplo, al menos dos versiones menores o seis meses antes de retirar).
 
-Según [SE-009 — Sostenibilidad, inclusión y responsabilidad social](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md):
+Además hay que decidir cuánto tiempo se mantienen las versiones antiguas con correcciones de seguridad: sin fecha de fin de soporte, el ecosistema acumula versiones que nadie arregla.
 
-La sostenibilidad técnica considera que el software pueda entenderse, adaptarse y retirarse. Dependencias sin mantenimiento, formatos cerrados y conocimiento concentrado crean obsolescencia. Mantener todo indefinidamente tampoco es sostenible: aumenta costo, exposición y carga cognitiva. Políticas de versión, migración y retiro equilibran continuidad con reducción de legado.
+**Como proceso** ([SE-009](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md)): la sostenibilidad técnica considera que el software pueda entenderse, adaptarse y retirarse. Dependencias sin mantenimiento, formatos cerrados y conocimiento concentrado crean obsolescencia. Las políticas de versión, migración y retiro equilibran continuidad con reducción de legado.
 
 ## Ejemplo
 
-Ejemplo de [SE-474 — Versionado, compatibilidad y changelog](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md) (sección «Caso conductor»):
+Ilustración en Python de un aviso de deprecación visible:
 
-La API de entregas es el caso conductor de la [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md). Esta clase deja el sexto artefacto: una política de versionado, compatibilidad y obsolescencia con un registro de cambios. `SE-475` tratará cómo se expone un cambio a una parte de los usuarios antes de declararlo disponible para todos: banderas y entrega progresiva. Cambia después un solo dato, la proporción de cambios de comportamiento, y observa cuánto vale el comparador.
+```python
+import warnings
+def f_vieja():
+    warnings.warn("f_vieja se retira en 3.0; use f_nueva", DeprecationWarning, stacklevel=2)
+```
+
+Acompañada de una guía de migración y una entrada en el registro de cambios con formato fijo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los clientes no se enteran de una ruptura** — causa: registro de cambios genérico o sin aviso previo. Corrección: formato fijo, guía de migración y obsolescencia anunciada. ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md))
+- **Los clientes no se enteran de una ruptura.** Causa: registro de cambios genérico o sin aviso previo; corrección: formato fijo, guía de migración y obsolescencia anunciada ([SE-474](../../../classes/part-39-build-release-y-cadena-de-suministro/se-474-versionado-compatibilidad-y-changelog/README.md)).
+- **Retirar sin alternativa.** El aviso sin camino de migración transfiere el problema.
+- **Confundir obsolescencia con edad.** Un componente antiguo y estable no es obsoleto; uno sin mantenimiento sí puede serlo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Dependencias sin mantenimiento, formatos cerrados y conocimiento concentrado crean obsolescencia. ([SE-009](../../../classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md))
+Una ventana de «dos versiones o seis meses» es un ejemplo de política razonable, no una norma universal. En software interno con pocos consumidores, un aviso corto y una conversación bastan. Y la deprecación no sustituye al versionado semántico: cuando se retira, el cambio incompatible sigue requiriendo señalarse en la versión.
 
 ## Relación con otros conceptos
 

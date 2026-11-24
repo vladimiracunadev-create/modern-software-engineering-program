@@ -2,46 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Estrategias de despliegue](./estrategias-de-despliegue.md) · [Estructura del paquete →](./estructura-del-paquete.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-¿qué relaciones se conservan?
-
-Es uno de los temas de [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md), donde se enseña como «estructura».
+En el programa, **estructura** es lo que se conserva de un problema cuando se descartan los detalles que no importan: las relaciones entre sus partes. [SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md) lo plantea como pregunta («¿qué relaciones se conservan?») dentro del pensamiento computacional, y [SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md) la concreta en las **estructuras de datos**: la forma en que se organizan los elementos para responder bien a las consultas que importan. Una estructura se elige por las preguntas que debe contestar, no por familiaridad.
 
 ## Por qué importa
 
-En [SE-051 — Conjuntos, relaciones, funciones y grafos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md), el tema «estructura» importa porque ¿qué relaciones se conservan?
+Elegir la estructura es declarar las consultas del problema ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md)). Si hay que preguntar «¿esto ya fue visto?», la estructura correcta es un conjunto, no una lista; usar la equivocada convierte una consulta casi inmediata en un recorrido completo. Además, la estructura puede ser lo que garantiza que un algoritmo termine.
 
 ## Cómo funciona
 
-Según [SE-051 — Conjuntos, relaciones, funciones y grafos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md):
+[SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md) da el criterio de elección: la estructura que **preserve la operación que importa**.
 
-Un recorrido de un grafo con ciclo, sin precauciones, no termina. En el grafo A→{B,C}, B→D, C→D, D→A, el recorrido en anchura con un *conjunto de visitados* produce A, B, C, D y se detiene: cada nodo entra una sola vez. Esa estructura es el invariante que garantiza la terminación, y se puede enunciar como medida: la cantidad de nodos aún no visitados decrece estrictamente. Sin ella, el número de pasos no está acotado. Es el mismo razonamiento que se usará en la clase de algoritmos: terminar *se demuestra*, no se espera.
+- ¿«ya fue visto»? → un conjunto.
+- ¿asociar clave y valor? → un mapa.
+- ¿las relaciones entre elementos son el dato? → un grafo.
 
-Según [SE-051 — Conjuntos, relaciones, funciones y grafos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md):
-
-La que preserve la operación que importa. Si hay que preguntar «¿esto ya fue visto?», un conjunto; si hay que asociar clave y valor, un mapa; si las relaciones entre elementos son el dato, un grafo. Elegir la estructura es declarar las consultas que debe responder.
+Y muestra un segundo papel: en un recorrido de un grafo con ciclo, sin precauciones, el proceso no termina. En el grafo A→{B,C}, B→D, C→D, D→A, un recorrido en anchura con un conjunto de visitados produce A, B, C, D y se detiene: cada nodo entra una sola vez. Esa estructura es el invariante que garantiza la terminación, y se puede enunciar como una medida que decrece: la cantidad de nodos aún no visitados. La terminación se demuestra, no se espera.
 
 ## Ejemplo
 
-Ejemplo de [SE-051 — Conjuntos, relaciones, funciones y grafos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md) (sección «Preguntas frecuentes»):
+Ilustración con la misma consulta en dos estructuras:
 
-La que preserve la operación que importa. Si hay que preguntar «¿esto ya fue visto?», un conjunto; si hay que asociar clave y valor, un mapa; si las relaciones entre elementos son el dato, un grafo. Elegir la estructura es declarar las consultas que debe responder.
+```python
+vistos_lista = []            # "x in vistos_lista" recorre la lista: O(n)
+vistos_conjunto = set()      # "x in vistos_conjunto" es de costo promedio constante
+```
+
+En el recorrido del grafo anterior, sin `vistos` el ciclo D→A reinicia el recorrido indefinidamente.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se usa una lista donde se pregunta «¿ya está?»** — causa: estructura equivocada para la consulta. Corrección: cambiar a conjunto o mapa y medir. ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md))
+- **Una lista donde se pregunta «¿ya está?».** Causa: estructura equivocada para la consulta; corrección: cambiar a conjunto o mapa y medir ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md)).
+- **Recorrer un grafo sin conjunto de visitados.** El ciclo impide la terminación.
+- **Confundir estructura de datos con estructura del problema.** La primera es una elección de implementación; la segunda son las relaciones que el modelo preserva ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Esa estructura es el invariante que garantiza la terminación, y se puede enunciar como medida: la cantidad de nodos aún no visitados decrece estrictamente. ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md))
-- Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md))
+No hay estructura óptima en abstracto: depende del conjunto de consultas y del tamaño. Para colecciones pequeñas la diferencia puede ser irrelevante y la claridad pesa más. Y la elección debe medirse ([SE-051](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md) pide medir al cambiar), porque la constante oculta o la localidad de memoria pueden invertir la expectativa teórica.
 
 ## Relación con otros conceptos
 

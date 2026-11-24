@@ -2,50 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Grupo de control](./grupo-de-control.md) · [Guarda de versión →](./guarda-de-version.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-Límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
+Una **guarda** es, en producto ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)), un límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción. El programa usa la palabra con sentidos emparentados:
 
-Definición de trabajo de [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-062 — Control de flujo y decisiones](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md): Comprobación temprana que protege el camino principal.
-- En [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md): Métrica con umbral cuyo incumplimiento detiene o revierte el despliegue.
-- En [SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md): Condición para habilitar una transición.
+- **Guarda de métrica** ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), [SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)): métrica con umbral cuyo incumplimiento detiene o revierte un cambio o despliegue.
+- **Guarda de código** ([SE-062](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)): comprobación temprana que protege el camino principal.
+- **Guarda de transición** ([SE-057](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)): condición para habilitar una transición en un modelo de estados.
 
 ## Por qué importa
 
-En [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), el tema «Guardas» importa porque marcan lo que no puede empeorar; sin ellas, optimizar una cifra gasta lo que no se mide.
+Optimizar una sola métrica daña lo que no se mide: si la métrica norte sube y el producto empeora, faltan guardas ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)). Las guardas convierten «tener cuidado» en una regla ejecutable. El presupuesto de error del enfoque de fiabilidad es una guarda: fija cuánto riesgo se acepta para ir más rápido.
 
 ## Cómo funciona
 
-Según [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), en la sección «Guardas»:
-
-Una guarda es un límite de una métrica que no se debe empeorar al perseguir la métrica norte: tasa de quejas, tiempo de carga, tasa de errores, baja del servicio. Cada una tiene umbral, responsable y acción (detener el despliegue, revertir, convocar revisión). El presupuesto de error del enfoque de fiabilidad es una guarda: fija cuánto riesgo se acepta para ir más rápido. Sin umbral previo, la guarda es una opinión.
+Una guarda de métrica tiene tres piezas ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)): **umbral** (fijado antes de optimizar, sin él es una opinión), **responsable** (quién decide) y **acción** (detener el despliegue, revertir o convocar revisión). Ejemplos: tasa de quejas, tiempo de carga, tasa de errores, baja del servicio. En [SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md), la métrica con umbral detiene o revierte el despliegue de un modelo. Hay que cuidar la cantidad: con demasiadas, el equipo ignora las alarmas y aparecen comparaciones múltiples (falsas alarmas por azar). En código ([SE-062](../../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)), una cláusula de guarda sale temprano del camino principal ante una entrada inválida, de modo que el resto de la función asume lo ya comprobado. En modelos de estados ([SE-057](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)), una transición solo se habilita si su condición se cumple.
 
 ## Ejemplo
 
-Ejemplo de [SE-139 — North Star, guardrails y métricas contrarias](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md) (sección «Ejemplo mínimo»):
+[SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md) hace un experimento con un optimizador de recordatorios: sin guarda de bajas de notificación, el optimizador sube el envío hasta cruzar el umbral de quejas. Con guarda, el experimento se detiene. Ilustración:
 
-Predice el óptimo de un recordatorio que sube las entregas 5 puntos por aviso y las quejas con el cuadrado de los avisos, con una guarda de 3 % de quejas.
+```python
+def desplegar(m):
+    if m["bajas"] > 0.02: return revertir()    # guarda: umbral, acción y dueño documentados
+    return publicar()
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La métrica norte sube y el producto empeora** — causa: no hay guardas. Corrección: definir guardas con umbral antes de optimizar. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
-- **El equipo ignora las alarmas de las guardas** — causa: hay demasiadas y sin corrección. Corrección: reducir las guardas y corregir las comparaciones múltiples. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
-- **Una guarda se cruza y nadie actúa** — causa: no tiene responsable ni acción. Corrección: escribir quién decide y qué ocurre al cruzarla. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
+- **La métrica norte sube y el producto empeora.** Causa: no hay guardas; corrección: definirlas con umbral antes de optimizar ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)).
+- **El equipo ignora las alarmas.** Causa: hay demasiadas y sin corrección por comparaciones múltiples; corrección: reducirlas ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)).
+- **Una guarda se cruza y nadie actúa.** Causa: sin responsable ni acción; corrección: escribir quién decide y qué ocurre ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una guarda es un límite de una métrica que no se debe empeorar al perseguir la métrica norte: tasa de quejas, tiempo de carga, tasa de errores, baja del servicio. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
-- Traslada el experimento a otro dominio persistente (por ejemplo, un servicio de reparto): cambia los recordatorios por notificaciones de pedido y la queja por la baja de notificaciones; conserva el contrato de guardas y comprueba si el optimizador sin guarda vuelve a pasar el umbral. ([SE-139](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md))
+Una guarda protege lo que se midió: no detecta daños no medidos. Un umbral mal elegido bloquea cambios buenos o deja pasar malos. Y los tres sentidos no son intercambiables: una guarda de métrica opera sobre agregados y con retraso; una guarda de código, sobre una entrada concreta y de inmediato.
 
 ## Relación con otros conceptos
 

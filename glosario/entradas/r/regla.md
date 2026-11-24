@@ -2,47 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Registro estructurado](./registro-estructurado.md) · [Regla de confianza →](./regla-de-confianza.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-¿qué debe ser cierto?
-
-Es uno de los temas de [SE-049 — Descomposición, abstracción y reconocimiento de patrones](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md), donde se enseña como «regla».
+Una **regla** es, en las clases de razonamiento ([SE-049](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md), [SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)), una proposición condicional que dice qué debe ser cierto: «si P entonces Q». Es lo que permite derivar conclusiones desde premisas. La palabra aparece con otros sentidos cercanos (regla de un verificador, [SE-483](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-483-tests-seguridad-y-politicas-como-gates/README.md); regla de prioridad entre instrucciones, [SE-560](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-560-context-engineering-y-reduccion-de-ambiguedad/README.md)), pero el núcleo es la implicación y lo que se hace con ella.
 
 ## Por qué importa
 
-En [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md), el tema «regla» importa porque ¿qué debe ser cierto?
+Una regla mal usada produce conclusiones falsas con apariencia de rigor. [SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md) muestra la falacia más frecuente en un diagnóstico: de «si DNS falla, el nombre no resuelve» no se sigue «si el nombre no resuelve, DNS falla». El resolvedor local, una regla de red o un archivo `hosts` producen el mismo síntoma. Cambia cómo se razona: no se invierte una regla sin comprobar.
 
 ## Cómo funciona
 
-Según [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md):
+[SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md) presenta los dos patrones válidos y los dos errores frecuentes:
 
-Modus ponens aplica P y P→Q para obtener Q; modus tollens usa P→Q y no Q para obtener no P. Afirmar el consecuente y negar el antecedente son errores frecuentes. El modelo de decisión diagnóstica almacena premisas junto a fuente y momento, porque una regla válida con una premisa obsoleta produce una conclusión inútil.
+- **Modus ponens:** de P y P→Q se obtiene Q.
+- **Modus tollens:** de P→Q y no Q se obtiene no P.
+- **Error:** afirmar el consecuente (de Q concluir P).
+- **Error:** negar el antecedente (de no P concluir no Q).
 
-Según [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md):
-
-Las reglas del modelo de decisión diagnóstica no disparan acciones destructivas. Una conclusión incluye las premisas usadas, su vigencia y nivel de evidencia. Si falta una premisa, propone una prueba; si dos reglas concluyen estados incompatibles, eleva el conflicto en lugar de escoger silenciosamente.
+El modelo de decisión diagnóstica del curso almacena las premisas junto con su fuente y momento, porque una regla válida con una premisa obsoleta produce una conclusión inútil. Sus reglas no disparan acciones destructivas: una conclusión incluye las premisas usadas, su vigencia y su nivel de evidencia; si falta una premisa, propone una prueba; si dos reglas concluyen estados incompatibles, eleva el conflicto en lugar de escoger silenciosamente.
 
 ## Ejemplo
 
-Ejemplo de [SE-050 — Lógica proposicional, predicados e inferencia](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md) (sección «Ejemplo mínimo»):
+```python
+# Regla: si todas las pruebas del conjunto pasan, se puede publicar.
+pruebas = []
+publicable = all(p.paso for p in pruebas)    # True: verdad vacía, no se ejecutó nada
+```
 
-Antes de resolver, predice el resultado y la propiedad que debería conservarse. Después marca qué parte del resultado procede de la regla y cuál depende del ejemplo.
+La corrección de [SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md): comprobar que el conjunto no es vacío antes de afirmar.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una regla «todas pasan» se cumple sin ejecutar nada** — causa: verdad vacía sobre un conjunto vacío. Corrección: comprobar que el conjunto no es vacío antes de afirmar. ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md))
-- **Una prueba se debilita para que pase** — causa: se trata como obstáculo. Corrección: revisar la regla o el modelo. ([SE-060](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md))
-- **Se cambia el resultado esperado para que la prueba pase** — causa: se trata la prueba como obstáculo. Corrección: revisar la regla o el modelo, no el resultado. ([SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md))
+- **Una regla «todas pasan» se cumple sin ejecutar nada.** Causa: verdad vacía sobre un conjunto vacío; corrección: comprobar que el conjunto no es vacío ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)).
+- **Debilitar una prueba para que pase.** Causa: se trata como obstáculo; corrección: revisar la regla o el modelo ([SE-060](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md), [SE-052](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones/README.md)).
+- **Invertir una implicación.** Afirmar el consecuente sin más.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Es la falacia más frecuente en un diagnóstico: de «si DNS falla, el nombre no resuelve» no se sigue «si el nombre no resuelve, DNS falla»; el resolvedor local, una regla de red o un archivo `hosts` producen el mismo síntoma. ([SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md))
+La lógica proposicional de [SE-050](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md) cubre dominios finitos y enumerables; no sustituye medir. Una regla es tan buena como sus premisas y su vigencia. Y entre reglas del programa (de diagnóstico, de un verificador, de prioridad entre instrucciones), el nombre es común pero el mecanismo cambia: hay que fijar a cuál se refiere.
 
 ## Relación con otros conceptos
 

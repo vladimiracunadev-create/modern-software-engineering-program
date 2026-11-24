@@ -2,55 +2,37 @@
 
 [↑ Glosario](../../README.md) · [← Evento, productor y manejador](./evento-productor-y-manejador.md) · [Evidencia de cumplimiento →](./evidencia-de-cumplimiento.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Resultado concreto que sostiene una afirmación.
-
-Definición de trabajo de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-466 — Cumplimiento, evidencia y límites legales](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md): Resultado de una prueba o inspección con fecha, versión y huella que permite a otra persona verificar un control.
+**Evidencia** es un resultado concreto que sostiene una afirmación ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)). [SE-466](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) lo precisa para el cumplimiento: el resultado de una prueba o inspección con fecha, versión y huella que permite a otra persona verificar un control. No es una opinión ni un «confía en mí»: es algo que se puede mirar, repetir y atribuir a una versión.
 
 ## Por qué importa
 
-En [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md), el tema «Evidencia» importa porque debe ser concreta, versionada y suficiente.
-
-En [SE-348 — Proyecto: decisión arquitectónica defendida con ADR](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md), el tema «Evidencia» importa porque permite rehacer el cálculo.
-
-En [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md), el tema «Evidencia» importa porque una publicación sin evidencia no es auditable.
+Toda decisión de seguridad o de calidad es una afirmación («es aceptablemente seguro», «cumple») y sin evidencia es una creencia. La evidencia permite que alguien distinto del autor revise y desafíe. En sistemas críticos ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md)), es el eslabón que convierte un argumento en un caso defendible.
 
 ## Cómo funciona
 
-Según [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md):
-
-El caso responde tres preguntas: qué se afirma («el *Horno de curado* es aceptablemente seguro para curar muestras en un laboratorio con operadores formados, sobre una mesa, a menos de 250 °C»), por qué se cree (estrategia de argumento: se argumenta por cada peligro identificado, que tiene un control verificado) y con qué evidencia (resultados de pruebas, análisis, revisiones). Lo que lo distingue de un informe es que cada eslabón es visible y desafiable: quien lee puede preguntar «¿y si falla el sensor?» y encontrar qué rama responde. La notación gráfica más usada es la de estructuración de metas (GSN), con nodos de meta, estrategia, solución (evidencia), contexto, supuesto y justificación.
-
-Según [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md):
-
-El equipo entrega el caso de seguridad del horno al comité del laboratorio. Una persona del comité, formada en un laboratorio de química, lee la afirmación «la puerta abierta corta la potencia» y la evidencia: una prueba funcional con el horno vacío. Pregunta qué pasa si la puerta se abre con la carga a 240 °C y el aire caliente sale. El caso no responde: el contexto no menciona la carga térmica y la evidencia no la incluye. El equipo no estaba equivocado: el argumento no cubría un escenario real de uso, que el comité conocía y el equipo no. La respuesta fue añadir el escenario como supuesto de contexto con una prueba, y registrar que el comité había contribuido con ese desafío.
+En un caso de seguridad, [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) estructura tres preguntas: qué se afirma, por qué se cree (la estrategia de argumento) y con qué evidencia (resultados de pruebas, análisis, revisiones). Cada eslabón es visible y desafiable: quien lee puede preguntar «¿y si falla el sensor?» y hallar qué rama lo cubre. En la notación GSN, la evidencia es el nodo *solución*. [SE-466](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md) añade requisitos para que la evidencia sea utilizable: **fecha**, **versión** del objeto probado y **huella** del resultado, para que no se confunda con evidencia de otra versión. Y separa lo demostrable de lo que decide una persona competente: la evidencia técnica no equivale a conformidad.
 
 ## Ejemplo
 
-Ejemplo de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) (sección «Ejemplo mínimo»):
+[SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md): un comité lee la afirmación «la puerta abierta corta la potencia» y su evidencia, una prueba funcional con el horno vacío. Pregunta qué pasa con la carga a 240 °C. El caso no responde: el contexto no menciona la carga térmica y la evidencia no la incluye. El equipo no estaba equivocado; el argumento no cubría un escenario real. La respuesta fue añadir el escenario como supuesto de contexto con una prueba, y registrar la contribución del comité. Ilustración de un registro:
 
-La comprobación de un argumento como datos, con una evidencia retirada:
+```text
+prueba: puerta_abierta_corta_potencia | version: 1.4.2 | fecha: 2026-03-04 | huella: ver artefacto
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La evidencia es de hace seis meses** — causa: pruebas manuales y esporádicas. Corrección: automatizar y guardar resultado con fecha y huella por versión. ([SE-466](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md))
-- **Se declara «cumple» sin revisión** — causa: se confunde evidencia técnica con conformidad. Corrección: separar lo demostrable de lo que decide una persona competente. ([SE-466](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md))
+- **La evidencia es de hace seis meses.** Causa: pruebas manuales y esporádicas; corrección: automatizar y guardar resultado con fecha y huella por versión ([SE-466](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md)).
+- **Declarar «cumple» sin revisión.** Causa: se confunde evidencia técnica con conformidad; corrección: separar lo demostrable de lo que decide una persona competente ([SE-466](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-466-cumplimiento-evidencia-y-limites-legales/README.md)).
+- **Evidencia huérfana.** Resultados que no sostienen ninguna afirmación; [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) usa un comprobador que detecta afirmaciones sin desarrollar y evidencias huérfanas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El caso responde tres preguntas: qué se afirma («el *Horno de curado* es aceptablemente seguro para curar muestras en un laboratorio con operadores formados, sobre una mesa, a menos de 250 °C»), por qué se cree (estrategia de argumento: se argumenta por cada peligro identificado, que tiene un control verificado) y con qué evidencia (resultados de pruebas, análisis, revisiones). ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md))
-- Ejecuta un comprobador de afirmaciones sin desarrollar, evidencias huérfanas y únicas. ([SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md))
+La evidencia sostiene una afirmación acotada a un contexto y a una versión; no prueba lo que no cubre. Una gran cantidad de evidencia irrelevante no sustituye a la pertinente. Y el comprobador de [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) verifica la estructura del argumento, no la calidad de la evidencia ni si el caso es suficiente.
 
 ## Relación con otros conceptos
 

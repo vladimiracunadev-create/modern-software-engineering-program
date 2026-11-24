@@ -2,54 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Ambassador](./ambassador.md) · [Amenaza a validez →](./amenaza-a-validez.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 04](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md)
 
 ## Definición
 
-Propiedad de un texto que admite más de una lectura razonable con consecuencias distintas.
-
-Definición de trabajo de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md): Propiedad de un enunciado que admite al menos dos implementaciones compatibles con el texto que dan resultados distintos para una misma entrada.
-- En [SE-565 — De la intención a la especificación durable](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md): Decisión de comportamiento que el documento no resuelve y que, por tanto, toma quien implementa.
-- En [SE-059 — Taller: descomponer un problema ambiguo](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo/README.md): Pluralidad de interpretaciones posibles.
+La **ambigüedad** es la propiedad de un texto que admite más de una lectura razonable con consecuencias distintas ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)). [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) la vuelve verificable: un enunciado es ambiguo si admite al menos dos implementaciones compatibles con el texto que dan resultados distintos para la misma entrada. [SE-565](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md) la mira como decisión no resuelta: un comportamiento que el documento no fija y que, por tanto, decide quien implementa. En [SE-059](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo/README.md) es, más simplemente, la pluralidad de interpretaciones de un problema.
 
 ## Por qué importa
 
-En [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), el tema «Ambigüedad» importa porque una frase con dos lecturas se implementará de dos maneras.
-
-En [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md), el tema «Ambigüedad» importa porque una frase con varios puntos abiertos multiplica las lecturas: cuatro puntos binarios dan dieciséis comportamientos.
+Una frase con dos lecturas se implementa de dos maneras, y nadie lo nota porque cada persona lee una sola versión. El coste aparece tarde, en integración o producción. Y se multiplica: [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) observa que cuatro puntos abiertos binarios dan dieciséis comportamientos posibles. Con agentes de código ([SE-565](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md)) el efecto es mayor: el agente entrega algo que funciona y no es lo que se quería, porque resolvió por su cuenta las ambigüedades.
 
 ## Cómo funciona
 
-Según [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), en la sección «Ambigüedad»:
+[SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), siguiendo a Berry y colegas, distingue fuentes:
 
-Una frase es ambigua si admite más de una lectura razonable. Berry y colegas distinguen fuentes: léxica (una palabra con varios sentidos), sintáctica (agrupación de la frase), de alcance (qué abarca «todos» o «no»), referencial (a qué se refiere «lo» o «esto») y de elipsis. La ambigüedad estructural con «y» y «o» es la más fácil de contar y la más fácil de pasar por alto, porque cada persona lee una sola versión y no sabe que existe otra.
+- **léxica**: una palabra con varios sentidos;
+- **sintáctica**: cómo se agrupa la frase;
+- **de alcance**: qué abarca «todos» o «no»;
+- **referencial**: a qué se refiere «lo» o «esto»;
+- **de elipsis**: lo que se omite.
 
-Según [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md), en la sección «Ambigüedad»:
-
-Meyer describió varios defectos de las especificaciones en lenguaje natural; dos importan aquí. El **silencio** omite un caso («¿qué pasa si el retraso es de 30 minutos?») y la **ambigüedad** admite dos lecturas con el mismo texto («por día», ¿día natural o bloque de 24 horas?). La ambigüedad no es un defecto de redacción individual sino una propiedad del texto frente a sus lectores: lo que a una persona le parece obvio, otra lo resuelve distinto. Por eso se mide ejecutando: si dos implementaciones compatibles con la frase dan resultados distintos sobre una misma entrada, la frase es ambigua con prueba, no por opinión.
+La estructural con «y» y «o» es la más fácil de contar y de pasar por alto. [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) la distingue del **silencio** (omitir un caso). Su causa no es descuido individual sino que el texto se lee frente a lectores con supuestos distintos. Por eso se detecta ejecutando: se escriben las lecturas, se calculan los resultados y se compara. Se corrige añadiendo ejemplos, una forma semiformal o formal, o resolviendo la decisión por escrito ([SE-565](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) (sección «Ejemplo profesional»):
-
-Los identificadores, las fechas y los requisitos son ilustrativos. Compara con la ambigüedad que desaparece al añadir un ejemplo, la contradicción que solo aparece tras un cambio de `SE-153` y la celda abierta que resultó imposible por una regla de la interfaz. El inventario es apropiado cuando cada defecto tiene tipo, técnica y responsable; es peligroso cuando es una lista de observaciones sin dueño.
+«Máximo tres reintentos por día»: ¿día natural o ventana de 24 horas? Dos implementaciones compatibles dan resultados distintos con una misma secuencia de intentos; eso demuestra la ambigüedad sin discutir opiniones (ejemplo de [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) en esencia: «por día»). En [SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) el inventario de defectos sirve cuando cada uno tiene tipo, técnica y responsable.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El agente entrega algo que funciona y no es lo que se quería** — causa: ambigüedades sin resolver que el agente resolvió. Corrección: resolver las de mayor costo y declarar las que se delegan. ([SE-565](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md))
+- **Entrega que funciona pero no es lo pedido.** Causa: ambigüedades sin resolver que el agente resolvió; corrección: resolver las de mayor costo y declarar las que se delegan ([SE-565](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-565-de-la-intencion-a-la-especificacion-durable/README.md)).
+- **Confundirla con contradicción o incompletitud** ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)): la ambigüedad admite dos lecturas; la contradicción, dos reglas incompatibles; la incompletitud, un caso no cubierto.
+- **Creer que es un fallo de redacción personal.** Es propiedad del texto frente a sus lectores.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La ambigüedad estructural con «y» y «o» es la más fácil de contar y la más fácil de pasar por alto, porque cada persona lee una sola versión y no sabe que existe otra. ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md))
-- La ambigüedad no es un defecto de redacción individual sino una propiedad del texto frente a sus lectores: lo que a una persona le parece obvio, otra lo resuelve distinto. ([SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md))
+No toda indeterminación es un defecto: algunos puntos se delegan a propósito. No se elimina escribiendo más; se reduce con ejemplos y comprobaciones. La medición por implementaciones alternativas solo cubre las lecturas que alguien imaginó.
 
 ## Relación con otros conceptos
 

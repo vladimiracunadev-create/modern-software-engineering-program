@@ -2,50 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Espacio de interpretaciones](./espacio-de-interpretaciones.md) · [Espacio de usuario →](./espacio-de-usuario.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Mecanismo del núcleo que da a un conjunto de procesos una vista propia de un recurso global.
-
-Definición de trabajo de [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-282 — Contenedores, microVM y sandboxes](../../../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md): Vista restringida de un recurso del sistema (procesos, red, montajes, usuarios).
+Un **espacio de nombres** (*namespace*) del núcleo es el mecanismo que da a un conjunto de procesos una vista propia de un recurso global ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)): otros procesos, la red, los montajes o los usuarios ([SE-282](../../../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md)). Es una pieza del sistema operativo, no una carpeta ni un paquete de lenguaje. Otras disciplinas usan «espacio de nombres» para evitar colisiones de identificadores; aquí el sentido es de aislamiento de vista.
 
 ## Por qué importa
 
-En [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md), el tema «Espacio de nombres» importa porque vincula rutas con objetos
+Es lo que permite que un contenedor «crea» que es el único proceso de su máquina, que tiene su propia red y su propio sistema de archivos. Entender qué aísla y qué no cambia una decisión de seguridad: la vista restringida no es una frontera de hardware ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)).
 
 ## Cómo funciona
 
-Según [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md):
+Según [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md), un contenedor es un proceso, o un grupo de procesos, al que el núcleo muestra una vista restringida mediante espacios de nombres y al que limita los recursos mediante **grupos de control** (otro mecanismo, que decide cuánto se consume). [SE-282](../../../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md) ordena las fronteras por lo que comparten con el anfitrión:
 
-Un contenedor no es un objeto del núcleo: es un proceso, o un grupo de procesos, al que el núcleo muestra una vista restringida mediante espacios de nombres y al que limita los recursos mediante grupos de control. Las especificaciones de OCI fijan cómo se describe su configuración, su sistema de archivos y su ciclo de vida, lo que permite que distintos entornos de ejecución cumplan el mismo contrato. Como comparte núcleo con el anfitrión y con los demás contenedores, una vulnerabilidad del núcleo o una configuración que concede demasiados privilegios puede dejar a un proceso salir de su vista. Un contenedor es excelente para empaquetar y repetir un entorno, y es una frontera de seguridad más débil que una máquina virtual.
+- un **hilo** comparte todo el proceso;
+- un **proceso** comparte el núcleo pero tiene memoria virtual propia;
+- un **contenedor** es un proceso con espacios de nombres (lo que ve), grupos de control (cuánto consume) y filtros de llamadas de sistema; sigue compartiendo el núcleo;
+- un **núcleo de aplicación** como gVisor interpone un núcleo propio en espacio de usuario que reduce las llamadas que llegan al núcleo real.
 
-Según [SE-282 — Contenedores, microVM y sandboxes](../../../classes/part-23-runtimes-y-plataformas-modernas/se-282-contenedores-microvm-y-sandboxes/README.md):
-
-Las fronteras se ordenan por lo que comparten con el anfitrión. Un **hilo** comparte todo el proceso. Un **proceso** comparte el núcleo, pero tiene memoria virtual propia y puede restringirse con límites de CPU y memoria y un conjunto de llamadas de sistema permitidas. Un **contenedor** es un proceso con espacios de nombres (que limitan lo que ve: otros procesos, la red, los montajes, los usuarios), grupos de control (cuánto consume) y filtros de llamadas de sistema; comparte el núcleo. Un **núcleo de aplicación** como gVisor interpone en espacio de usuario un núcleo propio (el Sentry) que implementa las llamadas de sistema del contenedor y reduce las que llegan al núcleo real.
+La causa de la debilidad es que los espacios de nombres cambian lo que el proceso *ve*, no lo que el núcleo *ejecuta*.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md):
+En Linux, `unshare` crea un proceso con un espacio de nombres de procesos propio:
 
-Un actualizador escribe sobre el archivo final y se interrumpe, dejando JSON truncado. El equipo cambia a temporal en el mismo volumen, valida el contenido y reemplaza según la garantía documentada. Mantiene copia o recuperación porque atomicidad no equivale a persistencia ante toda falla.
+```bash
+sudo unshare --pid --fork --mount-proc ps aux
+```
+
+El `ps` dentro solo lista sus propios procesos, aunque el anfitrión ejecute miles. Es la vista, no un núcleo nuevo.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)) son:
-
-- **El archivo se busca en lugares distintos** — causa: se confundió directorio del script con directorio de trabajo. Corrección: elegir una base explícita y mostrarla en diagnóstico.
-- **Una ruta portable se construye reemplazando `/`** — causa: se trataron rutas como cadenas. Corrección: usar la biblioteca de rutas y probar raíces, volúmenes y UNC.
+- **Creer que equivale a una máquina virtual.** Comparte núcleo; una vulnerabilidad del núcleo atraviesa la vista ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)).
+- **Confundir vista con límite de consumo.** Sin grupos de control, un proceso aislado agota la memoria del anfitrión.
+- **Confundirlo con el directorio de trabajo o los alcances de nombres de un lenguaje.** Son conceptos de capas distintas ([SE-026](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) trata el directorio de trabajo).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un contenedor no es un objeto del núcleo: es un proceso, o un grupo de procesos, al que el núcleo muestra una vista restringida mediante espacios de nombres y al que limita los recursos mediante grupos de control. ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md))
+No protege contra código hostil: para eso [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) recomienda una máquina virtual o microVM. Su eficacia depende de la configuración (montajes, privilegios, capacidades concedidas). Y existen espacios de nombres solo en núcleos que los implementan (Linux); en otros sistemas el aislamiento se logra con mecanismos distintos.
 
 ## Relación con otros conceptos
 

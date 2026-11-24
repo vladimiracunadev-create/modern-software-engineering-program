@@ -2,50 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Operabilidad](./operabilidad.md) · [Operaciones idempotentes →](./operaciones-idempotentes.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Niveles de servicio y respuesta.
+**Operación** tiene dos sentidos en el programa que importa distinguir:
 
-Es uno de los temas de [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md), donde se enseña como «Operación».
+- **Fase del ciclo de vida** ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)): la etapa en la que el software sirve a quienes lo usan, con niveles de servicio y respuesta. Informa nuevos requisitos y no es el final del producto.
+- **Acción individual que un sistema ejecuta** ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md), [SE-048](../../../classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md)): una llamada, una escritura, un cobro; sobre todo cuando importa si puede repetirse sin daño.
 
 ## Por qué importa
 
-En [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md), el tema «Operación» importa porque niveles de servicio y respuesta
-
-En [SE-048 — Proyecto: servicio observable y tolerante a fallos de red](../../../classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md), el tema «operación» importa porque ¿cómo falla, se limita y se recupera?
+Tratar la entrega como final del producto deja a la operación, al soporte y a los usuarios con el trabajo invisible ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)). Y en el sentido de acción, repetir una operación tras un timeout puede duplicarla: el timeout no prueba que no se ejecutó ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md)). Cambia qué se diseña antes del despliegue (responsables, niveles de servicio, retiro) y qué contrato tiene cada acción (idempotencia).
 
 ## Cómo funciona
 
-Según [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md):
+**Fase** ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)): un ciclo profesional conserva bucles. Lo aprendido al operar corrige requisitos; una dificultad de retiro revela una decisión de diseño pendiente. Cambiar un proveedor de correo, por ejemplo, involucra a producto (experiencia), ingeniería (contrato), seguridad (secretos), soporte (comunicación), operaciones (observación) y legal (conservación), y el retiro revoca las credenciales antiguas.
 
-Confundir ciclo de vida con cascada produce dos errores. El primero es rechazar actividades necesarias —requisitos, validación o retiro— porque se asocian a una metodología. El segundo es tratarlas como handoffs irreversibles: “análisis terminó, ya no puede aprender”. Un ciclo profesional conserva bucles; la operación informa nuevos requisitos y una dificultad de retiro revela una decisión de diseño pendiente.
-
-Según [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md):
-
-Al cambiar proveedor de correo, producto define experiencia; ingeniería adapta contrato; seguridad revisa secretos; soporte comunica; operaciones observa; legal decide conservación. El retiro revoca credenciales antiguas.
+**Acción** ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md), [SE-048](../../../classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md)): ante un fallo, un cliente no sabe si la operación se ejecutó o no. Reintentar una operación que no es idempotente produce peticiones duplicadas. Por eso se exige idempotencia, claves de idempotencia o consulta previa del estado, y un plazo finito con una salida diagnóstica que indique la fase donde falló, sin repetir automáticamente.
 
 ## Ejemplo
 
-Ejemplo de [SE-003 — Ciclo de vida completo y responsabilidades profesionales](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) (sección «Ejemplo mínimo»):
+```text
+POST /cobros  (Idempotency-Key: 7f3a...)
+-> primera vez: cobra y guarda resultado
+-> reintento con la misma clave tras un timeout: devuelve el resultado guardado, no cobra otra vez
+```
 
-Un script depende de credencial personal y falla cuando la persona se va. El defecto nació en construcción, apareció en operación y se previene con identidad de servicio, rotación y propietario.
+Para la fase, [SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) pide añadir al ciclo operación, evolución, conservación y retiro con responsables.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **el ciclo termina en despliegue** — causa: se definió entrega como final del producto. Corrección: añade operación, evolución, conservación y retiro con responsables. ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md))
-- **Peticiones duplicadas tras un timeout** — causa: se reintentan operaciones no idempotentes. Corrección: claves de idempotencia o consulta previa del estado. ([SE-048](../../../classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md))
-- **Reintentar tras un timeout una operación que cobra** — causa: el timeout no prueba que no se ejecutó. Corrección: exigir idempotencia o clave de deduplicación. ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md))
+- **El ciclo termina en el despliegue.** Causa: se definió entrega como final del producto; corrección: añadir operación, evolución, conservación y retiro con responsables ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)).
+- **Peticiones duplicadas tras un timeout.** Causa: se reintentan operaciones no idempotentes; corrección: claves de idempotencia o consulta previa del estado ([SE-048](../../../classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md)).
+- **Reintentar un cobro.** El timeout no prueba que no se ejecutó ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Si el equipo usa “done” sin decir cuál, el trabajo restante queda invisible y suele caer sobre operación, soporte o usuarios. ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md))
-- Añade un deadline finito y una salida diagnóstica que indique fase, sin repetir automáticamente una operación no idempotente. ([SE-040](../../../classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte/README.md))
+Si el equipo dice «terminado» sin decir cuál criterio, el trabajo restante queda invisible y suele caer sobre operación, soporte o usuarios ([SE-003](../../../classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)). En software de un solo uso o desechable, la fase de operación es mínima. Y la idempotencia no se logra con reintentos automáticos: requiere un diseño explícito de la operación.
 
 ## Relación con otros conceptos
 

@@ -2,49 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Corrección total](./correccion-total.md) · [Correlación entre comprobaciones →](./correlacion-entre-comprobaciones.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Relación explícita entre señales de una operación.
-
-Definición de trabajo de [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-046 — Captura, medición y diagnóstico de tráfico](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md): Vínculo entre señales que podrían pertenecer al mismo evento.
+En el programa, **correlación** es la relación explícita entre señales de una operación ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)): lo que permite unir líneas de registro, métricas y trazas que pertenecen al mismo evento. [SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) la matiza como el vínculo entre señales que podrían pertenecer al mismo evento. Es distinta de la correlación estadística y, sobre todo, no es causalidad.
 
 ## Por qué importa
 
-En [SE-494 — Logs estructurados y correlación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md), el tema «Correlación» importa porque un identificador propagado une líneas de servicios distintos.
-
-En [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md), el tema «Correlación» importa porque relaciona señales de una operación
+Un sistema distribuido produce mucho registro, pero sin un identificador común nadie sabe qué líneas pertenecen a qué petición. El diagnóstico se vuelve adivinanza, y con dos ejecuciones simultáneas la ambigüedad es total ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)). Cambia la decisión de qué se registra: eventos estables con un identificador de operación, no frases libres.
 
 ## Cómo funciona
 
-Según [SE-494 — Logs estructurados y correlación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md), en la sección «Correlación»:
+Según [SE-494](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md), una petición de entrega atraviesa la pasarela, la API, la cola, un trabajador y el almacenamiento, y cada uno escribe sus líneas. Para unirlas, cada servicio debe:
 
-Una petición de entrega atraviesa la pasarela, la API, la cola, un trabajador y el almacenamiento, y cada uno escribe sus propias líneas. Para unirlas se necesita un identificador común que cada servicio **reciba** en la petición entrante, **incluya** en todas las líneas que escriba y **copie** a toda llamada saliente (cabecera HTTP, propiedad del mensaje en la cola). El estándar `traceparent` de W3C Trace Context fija un formato para esto y las bibliotecas de trazado lo hacen automáticamente en HTTP; en una cola o un grupo de hilos hay que hacerlo explícitamente, y es donde se rompe.
+1. **recibir** el identificador en la petición entrante;
+2. **incluirlo** en todas las líneas que escriba;
+3. **copiarlo** a toda llamada saliente (cabecera HTTP o propiedad del mensaje en la cola).
+
+El estándar `traceparent` de W3C Trace Context fija un formato para esto y las bibliotecas de trazado lo hacen solas en HTTP; en una cola o un grupo de hilos hay que hacerlo explícitamente, y es donde se rompe. Cuando falta el identificador, [SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) recuerda la trampa contraria: agrupar señales por coincidencia temporal y atribuirles causa.
 
 ## Ejemplo
 
-Ejemplo de [SE-494 — Logs estructurados y correlación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md) (sección «Ejemplo profesional»):
+Dos entregas simultáneas escriben «guardado» y «error de red». Sin identificador, no se sabe qué error corresponde a qué entrega. Con él:
 
-Supón, como caso hipotético de la plataforma y no como medición, que el equipo define el contrato de registros de la API de entregas: siete campos obligatorios (`ts`, `level`, `service`, `version`, `msg`, `request_id`, `trace_id`), un catálogo de mensajes (`entrega aceptada`, `entrega rechazada`, `almacenamiento lento`) y una prueba en la integración continua que ejecuta cada servicio, captura su salida y verifica que cada línea cumple el esquema. Cada frontera asíncrona (la cola y el grupo de hilos) tiene una prueba que envía un mensaje con un identificador y comprueba que el trabajador lo escribe.
+```json
+{"evento": "guardado", "operacion": "a1b2", "t": "12:00:01"}
+{"evento": "error_red", "operacion": "c3d4", "t": "12:00:01"}
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Hay mucho log pero no se relacionan eventos** — causa: faltan identificadores y estructura. Corrección: añadir eventos estables y correlación por operación. ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md))
-- **Atribuir causa por coincidencia temporal** — causa: la correlación no es causalidad. Corrección: plantear una hipótesis con predicción y una intervención. ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md))
+- **Mucho registro sin relacionar eventos.** Causa: faltan identificadores y estructura; corrección: eventos estables y correlación por operación ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)).
+- **Atribuir causa por coincidencia temporal.** Causa: la correlación no es causalidad; corrección: plantear una hipótesis con predicción y una intervención ([SE-046](../../../classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md)).
+- **Perder el identificador en el salto asíncrono.** Cola o pool de hilos que no lo propagan ([SE-494](../../../classes/part-41-observabilidad-sre-e-incidentes/se-494-logs-estructurados-y-correlacion/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La correlación aproxima relaciones; no demuestra causalidad por sí sola. ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md))
-- Emite eventos sin correlación para dos ejecuciones simultáneas y demuestra la ambigüedad. ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md))
+La correlación aproxima relaciones; no demuestra causalidad por sí sola ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)). Un identificador único une señales de una operación, pero no explica por qué falló. En sistemas sin red ni concurrencia, un registro secuencial basta. Y el estándar `traceparent` resuelve el formato, no la disciplina de propagarlo en cada salto.
 
 ## Relación con otros conceptos
 

@@ -2,52 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Inbox](./inbox.md) · [Incertidumbre residual →](./incertidumbre-residual.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Falta de conocimiento relevante.
-
-Definición de trabajo de [SE-059 — Taller: descomponer un problema ambiguo](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-047 — Taller: seguir una petición de extremo a extremo](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md): Parte relevante que la evidencia disponible no permite determinar.
+La **incertidumbre** es la falta de conocimiento relevante para una decisión ([SE-059](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo/README.md)). [SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) la precisa en diagnóstico: la parte relevante que la evidencia disponible no permite determinar. No es lo mismo que ignorancia total ni que error: es lo que queda sin saber después de usar lo que se sabe, y es parte de la decisión, no un defecto del informe.
 
 ## Por qué importa
 
-En [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md), el tema «Incertidumbre» importa porque ¿qué no sabemos y cuánto cambia la decisión?
-
-En [SE-604 — Evaluación, sesgos y validación de modelos](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos/README.md), el tema «Incertidumbre» importa porque una métrica sin intervalo no se puede comparar.
+Decidir sin reconocerla produce afirmaciones falsamente precisas; paralizarse por ella impide avanzar. [SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) lo plantea como criterio de ingeniería: reconocer la incertidumbre no es paralizarse, sino gobernar lo que todavía no se sabe, y la decisión incluye siempre señales de parada y revisión. Cambia qué se comunica (rangos en vez de cifras únicas) y cuánto se invierte en saber más.
 
 ## Cómo funciona
 
-Según [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md):
-
-La incertidumbre puede expresarse con rangos, escenarios, sensibilidad o confianza argumentada. Una cifra con decimales no es más honesta si el método no permite esa precisión. Conviene preguntar si cambiar un supuesto cambia la opción preferida. Si no la cambia, quizá investigar más no aporte valor; si invierte una decisión irreversible, la evidencia adicional puede ser esencial.
-
-Según [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md):
-
-Que, bajo ciertos supuestos del modelo, un resultado así sería poco probable si no hubiera efecto. No dice que el efecto sea grande, importante ni causal. Esta clase no es un curso de estadística: lo útil aquí es preguntar qué incertidumbre queda y si cambia la decisión.
+[SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) ofrece formas de expresarla: rangos, escenarios, sensibilidad o confianza argumentada. Una cifra con decimales no es más honesta si el método no permite esa precisión. La pregunta operativa es si cambiar un supuesto cambia la opción preferida (análisis de sensibilidad): si no la cambia, quizá investigar más no aporte valor; si invierte una decisión irreversible, la evidencia adicional puede ser esencial. Esa pregunta prioriza dónde reducir incertidumbre. [SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) distingue además la **observación** (qué ocurrió), la **inferencia** (qué se concluye) y la **hipótesis**, para no mezclar lo medido con lo supuesto. En diagnóstico ([SE-047](../../../classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md)) se declara qué parte la evidencia no determina, y en producción de ML ([SE-604](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-604-evaluacion-sesgos-y-validacion-de-modelos/README.md)) se trata como parte de lo que se monitorea.
 
 ## Ejemplo
 
-Ejemplo de [SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) (sección «Preguntas frecuentes»):
+Una estimación de «6 semanas» presentada sola oculta la incertidumbre. Mejor: «entre 5 y 9 semanas; la cola larga depende de si el proveedor cambia su contrato (disparador conocido)». Ilustración de sensibilidad:
 
-Que, bajo ciertos supuestos del modelo, un resultado así sería poco probable si no hubiera efecto. No dice que el efecto sea grande, importante ni causal. Esta clase no es un curso de estadística: lo útil aquí es preguntar qué incertidumbre queda y si cambia la decisión.
+```python
+for supuesto in (0.6, 0.8, 1.0):
+    print(supuesto, decidir(supuesto))   # si la opción no cambia, saber más vale poco
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-006 — Evidencia, incertidumbre y pensamiento crítico en ingeniería](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)) son:
-
-- **una métrica se presenta como conclusión** — causa: se omitieron inferencia y supuestos. Corrección: separa registro, interpretación y alternativa rival.
-- **benchmark sin configuración** — causa: se perdió trazabilidad. Corrección: fija datos, entorno, versiones, orden y múltiples corridas.
+- **Una métrica se presenta como conclusión.** Causa: se omitieron inferencia y supuestos; corrección: separar registro, interpretación y alternativa rival ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)).
+- **Benchmark sin configuración.** Causa: se perdió trazabilidad; corrección: fijar datos, entorno, versiones, orden y múltiples corridas ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)).
+- **Confundir significancia con importancia.** Un resultado poco probable sin efecto no dice que el efecto sea grande, importante ni causal ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La decisión incluye siempre señales de parada y revisión: reconocer incertidumbre no es paralizarse, sino gobernar lo que todavía no se sabe. ([SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md))
+[SE-006](../../../classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria/README.md) no es un curso de estadística: lo útil es preguntar qué incertidumbre queda y si cambia la decisión. Expresarla con rangos requiere un método que la sustente; un rango inventado es tan engañoso como una cifra falsa. Y algunas decisiones deben tomarse con la incertidumbre intacta: esperar más tiene su propio costo.
 
 ## Relación con otros conceptos
 

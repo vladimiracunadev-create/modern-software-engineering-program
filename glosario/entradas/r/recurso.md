@@ -2,53 +2,39 @@
 
 [↑ Glosario](../../README.md) · [← Recursión, evaluación y efectos](./recursion-evaluacion-y-efectos.md) · [Recurso huérfano →](./recurso-huerfano.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Cosa con identidad que el sistema nombra y sobre la que actúa mediante métodos.
-
-Definición de trabajo de [SE-242 — REST y semántica de recursos](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-571 — MCP, recursos, prompts, tools y confianza](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md): Dato que un servidor expone y que la aplicación decide cómo incorporar al contexto.
-- En [SE-042 — HTTP, semántica, caché y negociación](../../../classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion/README.md): Objetivo conceptual identificado por una URI.
+Un **recurso** es, en el diseño de APIs, algo con identidad que el sistema puede nombrar y sobre lo que puede actuar mediante métodos ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md)). [SE-042](../../../classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion/README.md) lo precisa como el objetivo conceptual identificado por una URI. En el trabajo con agentes ([SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md)) es un dato que un servidor expone y que la aplicación decide cómo incorporar al contexto. Es sustantivo, no acción.
 
 ## Por qué importa
 
-En [SE-023 — Taller: observar un programa desde el código hasta la máquina](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md), el tema «Recursos» importa porque asignación y archivos
+Modelar bien los recursos decide la forma de toda la API: qué URL existen, qué métodos tienen sentido, qué se puede cachear y cómo se evitan conflictos de edición. [SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md) lo muestra con dos fallos concretos: pérdidas silenciosas de cambios por escrituras ciegas y datos viejos servidos por la caché.
 
 ## Cómo funciona
 
-Según [SE-023 — Taller: observar un programa desde el código hasta la máquina](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md):
+En HTTP, la URL identifica al recurso, no a la acción ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md)). «Entrega» es un recurso; «subirEntrega» es una acción que pertenece al método (`POST` sobre la colección). Modelar acciones como recursos (`/entregas/42/apelaciones`) es legítimo cuando la acción crea algo con identidad propia que luego se consulta; ahí el sustantivo es la apelación.
 
-El criterio de reproducibilidad es práctico: otra persona, con solo el README, obtiene el mismo hash y una tendencia equivalente. Eso exige preparación (directorio, versiones, entrada fija), un comando documentado, capturas en archivos, una verificación de invariantes *antes* de comparar recursos y una limpieza acotada. La limpieza merece cuidado porque es la única operación destructiva del taller: un `cleanup.py` que recibe una ruta y borra sin comprobarla puede eliminar mucho más de lo previsto. La defensa es resolver la ruta y comprobar que está dentro del directorio de trabajo, y ofrecer siempre una vista previa:
-
-Según [SE-242 — REST y semántica de recursos](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md):
-
-Un recurso es algo con identidad que el sistema puede nombrar y sobre lo que puede actuar: la entrega 42, la colección de entregas de un curso, la nota de una entrega. La URL identifica al recurso, no a la acción. «Entrega» es un recurso; «subirEntrega» es una acción que pertenece al método (`POST` sobre la colección). Modelar acciones como recursos (`/entregas/42/apelaciones`) es legítimo cuando la acción crea algo con identidad propia que luego se consulta; ahí el sustantivo es la apelación.
+Un recurso editable por varias personas necesita control de concurrencia: el servidor entrega un validador (`ETag`) con cada representación y el cliente lo devuelve en `If-Match` al modificar; si el recurso cambió, el servidor responde `412` y el cliente relee. La caché también necesita validador e invalidación: sin ellos, sirve datos viejos tras editar. En [SE-571](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-571-mcp-recursos-prompts-tools-y-confianza/README.md), un recurso expuesto por un servidor no entra al contexto del modelo automáticamente: la aplicación decide si y cómo.
 
 ## Ejemplo
 
-Ejemplo de [SE-242 — REST y semántica de recursos](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md) (sección «Ejemplo profesional»):
-
-La plataforma define cinco recursos: la colección `/entregas`, la entrega, la nota, la apelación y el estado de un trabajo. Cada operación del panel se asigna a un método: listar y leer con GET (cacheable con revalidación), crear con POST y respuesta 201, editar con PUT y `If-Match` obligatorio, anular con DELETE y apelar con POST sobre `/entregas/{id}/apelaciones`. La colección pagina por clave (fecha y identificador). Compara este diseño con el original en tres casos: precarga de enlaces, dos docentes editando y cierre de plazo con cientos de entregas nuevas por minuto.
+```text
+GET  /entregas/42           -> 200, ETag: "v7"
+PUT  /entregas/42           If-Match: "v7"   -> 200 ("v8")
+PUT  /entregas/42           If-Match: "v7"   -> 412 Precondition Failed (otra persona editó antes)
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **variante produce otro resultado** — causa: invariante no comprobado. Corrección: verifica hash antes de comparar recursos. ([SE-023](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md))
-- **Un docente pierde su cambio sin error** — causa: PUT ciego sobre un recurso editable por varias personas. Corrección: ETag, If-Match y 412 con releer. ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md))
-- **La caché sirve datos viejos tras editar** — causa: respuesta cacheable sin validador ni invalidación. Corrección: ETag y revalidación; evitar TTL largos en recursos editables. ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md))
+- **Un docente pierde su cambio sin error.** Causa: `PUT` ciego sobre un recurso editable por varias personas; corrección: `ETag`, `If-Match` y `412` con releer ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md)).
+- **La caché sirve datos viejos tras editar.** Causa: respuesta cacheable sin validador ni invalidación; corrección: `ETag` y revalidación, evitando TTL largos en recursos editables ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md)).
+- **Verbos en las URL.** `/subirEntrega` mezcla acción y recurso.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El cuarto (verificar el hash) es una *compuerta*: si el invariante no se cumple, no se comparan recursos. ([SE-023](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md))
-- La URL identifica al recurso, no a la acción. ([SE-242](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md))
+No todo encaja como recurso: operaciones de procesamiento puro o comandos con muchos pasos a veces se modelan mejor como acciones o como un proceso con estado. En otros contextos, «recurso» designa CPU, memoria o conexiones (recursos de cómputo); esta entrada trata el sentido de identidad nombrada. Y en un taller, [SE-023](../../../classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) usa «recursos» para los archivos que se comparan tras verificar un invariante.
 
 ## Relación con otros conceptos
 

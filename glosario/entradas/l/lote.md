@@ -2,51 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Log](./log.md) · [Lote dinámico →](./lote-dinamico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Grupo de elementos que se mueven juntos por una etapa del flujo.
-
-Definición de trabajo de [SE-184 — Lean, teoría de colas y límites de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-606 — Servir modelos: latencia, lotes y GPU](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md): Conjunto de peticiones procesadas en una sola ejecución del modelo.
+Un **lote** (*batch*) es un grupo de elementos que se mueven juntos por una etapa de un flujo ([SE-184](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)). En inferencia de modelos, [SE-606](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-606-servir-modelos-latencia-lotes-y-gpu/README.md) lo precisa como el conjunto de peticiones procesadas en una sola ejecución del modelo. La idea común es agrupar para repartir un costo fijo entre varios elementos, a cambio de esperar.
 
 ## Por qué importa
 
-En [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md), el tema «Lote» importa porque amortiza el costo fijo de cada llamada a cambio de latencia.
-
-En [SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md), el tema «Lotes» importa porque agrupar reduce coste por elemento pero aumenta la unidad de pérdida.
+Es una de las palancas principales de rendimiento, y una de las más malinterpretadas. Agrupar sube el *throughput* (peticiones por segundo) pero aumenta la latencia de cada petición, que debe esperar a que el lote se llene y termine. En procesos ([SE-184](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)), el trabajo por lotes también explica esperas: más personas no aceleran lo que espera a que se complete un lote.
 
 ## Cómo funciona
 
-Según [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md):
+[SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md) descompone el costo de una llamada a un cálculo: un costo fijo (lanzar, sincronizar, mover datos) y uno variable por elemento. Agrupar reparte el costo fijo. En la CPU del laboratorio, una capa densa de 1024×1024 en 32 bits dio, por lote: lote 1, 0,27 ms y unas 3 700 peticiones por segundo; lote 16, 4,8 ms y 3 300 (sin ganancia aún); lote 64, 7,9 ms y 8 100; lote 256, 14,3 ms y 17 900. El throughput sube con el tamaño del lote, pero la latencia por lote sube también, y la espera por llenar el lote se suma.
 
-Una llamada a un cálculo tiene un costo fijo (lanzar, sincronizar, mover datos) y uno variable por elemento. Agrupar varias peticiones en un lote reparte el costo fijo, y el throughput sube; pero cada petición espera a que el lote se llene y a que termine. En la CPU del laboratorio, una capa densa de 1024×1024 en 32 bits con lotes de 1, 16, 64 y 256 tuvo estas latencias por lote y rendimientos: lote 1, 0,27 ms y unas 3 700 peticiones por segundo; lote 16, 4,8 ms y 3 300 (sin ganancia aún); lote 64, 7,9 ms y 8 100; lote 256, 14,3 ms y 17 900.
-
-Según [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md):
-
-**Diagnóstico paso a paso.** (1) Se mide la utilización de la unidad: promedio del 8 %, con picos cortos. (2) Se descompone el tiempo por petición: la transferencia domina porque cada petición mueve 40 registros pequeños. (3) El tamaño de lote en producción es 1, porque la política de agrupar no se configuró. (4) La latencia p99 incluye el arranque de unidades nuevas cuando la demanda sube. (5) Se corrige agrupando peticiones con un tiempo máximo de espera de 5 ms, compartiendo la unidad con la carga nocturna y manteniendo una unidad mínima caliente.
+El tamaño óptimo, por tanto, no es el que maximiza throughput sino el que cabe en el tiempo que el objetivo de latencia permite esperar. En la práctica se agrupa con un **tiempo máximo de espera**: se cierra el lote cuando se llena o vence el plazo, lo que ocurra antes.
 
 ## Ejemplo
 
-Ejemplo de [SE-223 — Schedulers, workers y trabajos por lotes](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/README.md) (sección «Ejemplo profesional»):
+[SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md), diagnóstico paso a paso: la utilización de la unidad promedia 8 %; el tamaño de lote en producción es 1 porque la política de agrupar no se configuró; la corrección agrupa peticiones con una espera máxima de 5 ms, comparte la unidad con la carga nocturna y mantiene una unidad mínima caliente. Ilustración:
 
-`notas servir` programa tres trabajos: la sincronización cada 60 s con política de **omitir si sigue activa** y un límite de 50 s por ejecución, la exportación nocturna con un candado de archivo para que solo una instancia la ejecute, y un lote de revisiones con tamaño 200. Las consultas a la base se reparten con ocho hilos y los informes con cuatro procesos, que arrancan una vez y se reutilizan. La cola permite tres intentos con espera de 1, 4 y 16 s; tras ellos el trabajo pasa a una carpeta `muertos/` con el motivo y se avisa si hay más de cinco.
+```python
+def cerrar_lote(cola, max_n=64, max_espera_ms=5):
+    return len(cola) >= max_n or cola.edad_ms() >= max_espera_ms
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se contratan personas y el plazo no mejora** — causa: la espera venía de lotes y variabilidad. Corrección: medir tamaños y lotes antes de añadir capacidad. ([SE-184](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md))
+- **Contratar personas y el plazo no mejora.** Causa: la espera venía de lotes y variabilidad; corrección: medir tamaños y lotes antes de añadir capacidad ([SE-184](../../../classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)).
+- **Maximizar throughput ignorando la latencia.** El lote de 256 es el más eficiente y también el más lento por petición.
+- **Confundir lote con paralelismo.** Es agrupar trabajo, no ejecutar a la vez en varios núcleos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con una demanda de 200 peticiones por segundo, llenar un lote de 256 tardaría más de un segundo: el lote óptimo es el que cabe en el tiempo que el objetivo de latencia permite esperar, no el que maximiza el throughput. ([SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md))
+Con una demanda de 200 peticiones por segundo, llenar un lote de 256 tardaría más de un segundo: allí el lote grande no es viable si el objetivo de latencia es menor ([SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md)). Las cifras de la clase corresponden a una CPU y una capa concretas y no se trasladan a otro hardware sin medir. Y en flujos, un paso que retiene todo el lote rompe la memoria acotada ([SE-339](../../../classes/part-28-estilos-arquitectonicos/se-339-pipes-and-filters-y-arquitecturas-de-flujo/README.md)).
 
 ## Relación con otros conceptos
 

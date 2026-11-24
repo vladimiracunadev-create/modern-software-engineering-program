@@ -2,57 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Retroalimentación específica](./retroalimentacion-especifica.md) · [Retroceso catastrófico →](./retroceso-catastrofico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Operación que restituye el sistema al estado previo a la inyección y cuyo tiempo se mide.
-
-Definición de trabajo de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md): Vuelta a una versión anterior ya validada.
-- En [SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md): Vuelta a la versión anterior tras detectar un defecto.
-- En [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md): Vuelta a la versión anterior tras detectar un problema.
-- En [SE-211 — Runbooks, playbooks y documentación operacional](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md): Conjunto de acciones que devuelve el sistema al estado anterior a un paso.
+El **retroceso** (*rollback*) es el conjunto de acciones que devuelve el sistema al estado anterior a un paso ([SE-211](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md)). Según la clase, es la vuelta a la versión anterior tras detectar un defecto ([SE-225](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md), [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)), a una versión anterior ya validada ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)) o la operación que restituye el sistema al estado previo a la inyección de una falla y cuyo tiempo se mide ([SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md)). Tiene un sentido distinto en algoritmos (*backtracking*, retroceder ante un conflicto, como hace el resolvedor de [SE-111](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)); esta entrada trata el retroceso operativo.
 
 ## Por qué importa
 
-En [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md), el tema «Reversión» importa porque abortar no sirve si no se sabe volver.
-
-En [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md), el tema «Rollback» importa porque limita el daño y debe estar ensayado.
-
-En [SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md), el tema «Reversión» importa porque sin versión anterior, una actualización mala es irreversible.
+Un cambio solo es seguro si se puede deshacer rápido. Cuánto tarda el retroceso acota el daño de un despliegue o de un experimento. Cambia lo que se exige antes de cambiar algo en producción: un camino de vuelta probado.
 
 ## Cómo funciona
 
-Según [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md):
+[SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) (ingeniería del caos) lo trata con precisión: abortar un experimento significa que algo deja de inyectar; si la falla es una regla de red, un proceso detenido o una configuración modificada, el retroceso es una operación que **puede fallar**: la regla no se elimina, el proceso no reinicia, la configuración vieja ya no existe. Por eso el retroceso:
 
-Abortar significa que algo deja de inyectar. Si la falla es una regla de red, un proceso detenido o una configuración modificada, la reversión es una operación que puede fallar: la regla no se elimina, el proceso no reinicia, la configuración vieja ya no existe. Por eso la reversión se **prueba antes**, se ejecuta con un solo comando, no depende del componente que se está dañando y se mide: ¿cuánto tarda en volver el indicador a su banda? En la API de entregas, una falla inyectada con un proxy se revierte quitando el tóxico; una caída de proceso, reiniciando el servicio; una pérdida de capacidad, devolviendo los hilos.
+- se **prueba antes**;
+- se ejecuta con **un solo comando**;
+- **no depende** del componente que se está dañando;
+- se **mide**: cuánto tarda en volver el indicador a su banda.
 
-Según [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md):
-
-Supón, como caso hipotético y no como medición, que el equipo escribe la especificación del experimento «almacenamiento con 20 % de errores»: radio de 2 % del tráfico durante 10 minutos, aborto si el grupo experimental falla más de 50 % en 10 s o si el servicio global baja de 99,5 % en 30 s, reversión «quitar la regla del proxy» probada la víspera con un tiempo de 4 s, responsable la guardia de la API, ventana de martes a jueves de 10:00 a 16:00 y nunca en una semana de cierre de plazo.
+En despliegues ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)), el *blue-green* mantiene dos entornos completos y el retroceso es redirigir el tráfico; pero el cambio expone a todas las personas a la vez y el costo es doble infraestructura. Otras estrategias (canario, bandera) trazan otros compromisos. En ML ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)), retroceder es volver a un modelo ya validado.
 
 ## Ejemplo
 
-Ejemplo de [SE-506 — Diseñar experimentos de fallo: alcance y radio de impacto](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md) (sección «Ejemplo profesional»):
+[SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md), como caso hipotético: la especificación del experimento «almacenamiento con 20 % de errores» define un radio de 2 % del tráfico durante 10 minutos, aborto si el grupo experimental falla más de 50 % en 10 s o si el servicio global baja de 99,5 % en 30 s, y reversión «quitar la regla del proxy», probada la víspera con un tiempo de 4 s.
 
-Supón, como caso hipotético y no como medición, que el equipo escribe la especificación del experimento «almacenamiento con 20 % de errores»: radio de 2 % del tráfico durante 10 minutos, aborto si el grupo experimental falla más de 50 % en 10 s o si el servicio global baja de 99,5 % en 30 s, reversión «quitar la regla del proxy» probada la víspera con un tiempo de 4 s, responsable la guardia de la API, ventana de martes a jueves de 10:00 a 16:00 y nunca en una semana de cierre de plazo.
+```bash
+./quitar_toxico.sh && ./verificar_indicador.sh --espera 10
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La falla no se detiene al abortar** — causa: reversión no probada o dependiente del componente dañado. Corrección: probar la reversión antes y ejecutarla desde fuera. ([SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md))
+- **La falla no se detiene al abortar.** Causa: reversión no probada o dependiente del componente dañado; corrección: probar la reversión antes y ejecutarla desde fuera ([SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md)).
+- **Suponer que siempre se puede retroceder.** Un cambio de esquema que borra columnas o una migración de datos pueden no ser reversibles.
+- **Confundir retroceso con retiro.** El retroceso vuelve a un estado anterior; el retiro elimina una capacidad.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Si la falla es una regla de red, un proceso detenido o una configuración modificada, la reversión es una operación que puede fallar: la regla no se elimina, el proceso no reinicia, la configuración vieja ya no existe. ([SE-506](../../../classes/part-42-ingenieria-del-caos/se-506-disenar-experimentos-de-fallo-alcance-y-radio-de-impacto/README.md))
-- **Blue-green** mantiene dos entornos completos; el tráfico se dirige a uno, y el otro recibe la versión nueva y se prueba sin usuarios; el cambio es instantáneo y el retroceso, volver a dirigir el tráfico, pero el cambio expone a todas las personas a la vez y el coste es doble infraestructura. ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md))
+El retroceso solo restituye lo que el cambio tocó: los efectos externos (mensajes enviados, cobros) no se deshacen. Los datos escritos por la versión nueva pueden ser ilegibles para la anterior; por eso se prefieren cambios compatibles hacia atrás. Y un retroceso que nunca se ensayó es una esperanza.
 
 ## Relación con otros conceptos
 

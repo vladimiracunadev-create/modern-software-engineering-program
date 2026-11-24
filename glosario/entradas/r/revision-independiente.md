@@ -2,51 +2,45 @@
 
 [↑ Glosario](../../README.md) · [← Revisión de la política](./revision-de-la-politica.md) · [Revisión por muestreo →](./revision-por-muestreo.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Evaluación sin autoría directa ni incentivo dominante.
-
-Definición de trabajo de [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-468 — Proyecto: producto con seguridad verificable](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md): Examen del paquete por una persona que no lo produjo.
-- En [SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md): Revisión por alguien que no desarrolló el sistema.
+La **revisión independiente** es una evaluación hecha sin autoría directa ni incentivo dominante ([SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)). [SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md) la concreta como el examen de un paquete por una persona que no lo produjo, y [SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md) como la revisión por alguien que no desarrolló el sistema. «Independiente» no significa desconocedora ni neutral: significa menos comprometida con la autoría.
 
 ## Por qué importa
 
-Su importancia se desarrolla en las clases enlazadas en «Dónde se enseña».
+Quien construye algo ve lo que quiso hacer, no necesariamente lo que hizo. Una persona externa halla fallos que el autor no ve y cuestiona supuestos que el autor da por obvios. A mayor impacto e irreversibilidad, más importante es separar incentivos ([SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)). Cambia quién puede aprobar un cambio, una evidencia de seguridad o un caso crítico.
 
 ## Cómo funciona
 
-Según [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md):
+[SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) establece las condiciones:
 
-La revisión independiente aporta una perspectiva menos comprometida con la autoría. No significa desconocimiento ni neutralidad absoluta. La persona revisora necesita contexto y autoridad para cuestionar. En equipos pequeños, si la misma persona propone y revisa, se limita el alcance, se buscan criterios automatizados o revisión externa y se registra la limitación. A mayor impacto e irreversibilidad, más importante es separar incentivos.
+- La persona revisora necesita **contexto** (para entender) y **autoridad** (para cuestionar y detener).
+- No significa desconocimiento ni neutralidad absoluta: aporta una perspectiva menos comprometida con la autoría.
+- En equipos pequeños, si la misma persona propone y revisa, se **limita el alcance**, se buscan criterios automatizados o revisión externa y se **registra la limitación**.
 
-Según [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md):
+En sistemas críticos ([SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md)), la revisión independiente de un caso de seguridad es parte de la práctica: la persona externa aporta escenarios de uso que el equipo desconoce (véase *evidencia*, donde un comité plantea qué ocurre con una carga térmica no considerada). En cumplimiento ([SE-468](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-468-proyecto-producto-con-seguridad-verificable/README.md)), el paquete de evidencia lo examina alguien que no lo produjo, para que «cumple» no sea la palabra del mismo equipo que lo declara.
 
-Las necesarias para cubrir competencia, autoridad y revisión independiente, no un número fijo. Más personas sin interfaz clara añaden espera. Es preferible pocas personas con papeles explícitos que un comité donde nadie acepta el riesgo.
+La cantidad de personas no es lo importante: se necesitan las necesarias para cubrir competencia, autoridad y revisión independiente, no un número fijo; más personas sin interfaz clara añaden espera.
 
 ## Ejemplo
 
-Ejemplo de [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md) (sección «Preguntas frecuentes»):
+Un equipo de tres personas despliega un cambio de permisos. La autora propone; una compañera de otro equipo, con acceso al contexto y autoridad para bloquear, revisa el diff y las pruebas. Registro:
 
-Las necesarias para cubrir competencia, autoridad y revisión independiente, no un número fijo. Más personas sin interfaz clara añaden espera. Es preferible pocas personas con papeles explícitos que un comité donde nadie acepta el riesgo.
+```text
+Cambio: ampliar rol "docente" | Autor: A | Revisión: B (otro equipo) | Decisión: aprobado con 1 observación resuelta
+```
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)) son:
-
-- **el mapa replica cargos** — causa: se modeló estructura, no decisiones. Corrección: parte de decisiones y asigna competencia, autoridad y operación.
-- **todos son “responsables”** — causa: se evitó declarar autoridad. Corrección: nombra quién acepta, detiene y escala cada decisión.
+- **Todos son «responsables».** Se evitó declarar autoridad; corrección: nombrar quién acepta, detiene y escala cada decisión ([SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)).
+- **Revisión sin autoridad.** La persona revisora puede opinar pero no detener, y la revisión es decorativa.
+- **Confundirla con una segunda firma automática.** Un clic de aprobación sin leer no es una revisión.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Las necesarias para cubrir competencia, autoridad y revisión independiente, no un número fijo. ([SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md))
+Para cambios de bajo impacto y fácilmente reversibles, una revisión independiente completa puede costar más de lo que protege; bastan criterios automatizados. En equipos muy pequeños puede no existir una persona independiente, y entonces el límite se declara. Y una revisión independiente no certifica ausencia de defectos: acota el sesgo de autoría, no el alcance de lo revisado.
 
 ## Relación con otros conceptos
 

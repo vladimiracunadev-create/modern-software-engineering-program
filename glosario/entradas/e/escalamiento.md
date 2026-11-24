@@ -2,47 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Escalado reactivo](./escalado-reactivo.md) · [Escalar →](./escalar.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 00](../../../classes/part-00-ingenieria-de-software-como-profesion/README.md)
 
 ## Definición
 
-Paso de una página al siguiente nivel de respuesta cuando el anterior no contesta a tiempo.
+**Escalamiento** (en el sentido de *escalada*, no de escalar capacidad) es llevar un asunto al nivel siguiente de respuesta o de autoridad cuando el actual no puede o no llega a resolverlo. El programa lo usa en dos contextos:
 
-Definición de trabajo de [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md).
+- **En guardia** ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)): el paso de una página al siguiente nivel de respuesta cuando el anterior no contesta a tiempo.
+- **En gestión** ([SE-529](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md), [SE-005](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)): llevar una decisión a quien tiene autoridad sobre ella, con el problema, las opciones y sus costos, como traslado explícito a autoridad capaz de decidir.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-529 — Liderazgo técnico sin autoridad formal](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md): Llevar una decisión a quien tiene autoridad sobre ella, con el problema, las opciones y sus costos.
-- En [SE-005 — Roles, especialidades y colaboración interdisciplinaria](../../../classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md): Traslado explícito a autoridad capaz de decidir.
+No debe confundirse con el escalamiento de capacidad (más recursos), que el programa trata como escalado.
 
 ## Por qué importa
 
-En [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md), el tema «Escalamiento» importa porque un nivel solo cubre un fallo; la causa común cubre varios.
+Un incidente sin dueño que responda se alarga: cada minuto sin reconocimiento es daño que continúa. Y en la gestión, una decisión atascada en quien no tiene autoridad no avanza. Escalar es una acción profesional que se diseña antes de necesitarla: quién, cuándo, con qué información.
 
 ## Cómo funciona
 
-Según [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md), en la sección «Escalamiento»:
-
-El **escalamiento** define qué ocurre si la persona de guardia no responde. Cada nivel tiene un tiempo máximo (cinco minutos es habitual para el reconocimiento) tras el cual la página pasa al siguiente: guardia primaria, secundaria, responsable. La probabilidad de que alguien conteste mejora de manera notable con niveles independientes: con 85 % de respuesta por nivel y fallos independientes, tres niveles atienden el 99,8 % de las páginas en 15 minutos, frente al 84,8 % de un solo nivel.
+- **Guardia** ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)): cada nivel tiene un tiempo máximo (cinco minutos es habitual para el reconocimiento) tras el cual la página pasa al siguiente: guardia primaria, secundaria, responsable. Cuenta la independencia de los niveles: con 85 % de respuesta por nivel y fallos independientes, tres niveles atienden el 99,8 % de las páginas en 15 minutos, frente al 84,8 % de un solo nivel. El cálculo es 1 − 0,15³ frente a 0,85 (tres niveles contra uno).
+- **Gestión** ([SE-529](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md)): se lleva la decisión con el problema, las opciones y sus costos, no solo una queja; quien tiene autoridad debe poder decidir sin reconstruir el contexto.
 
 ## Ejemplo
 
-Ejemplo de [SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) (sección «Ejemplo profesional»):
+Una alerta de pago caído llega a la guardia primaria a las 03:00; no hay reconocimiento en cinco minutos y pasa a la secundaria; en otros cinco, al responsable. Ilustración del cálculo:
 
-Supón, como caso hipotético de la plataforma y no como medición, que el equipo reescribe el runbook de `EntregasConsumoRapido` con el formato anterior, lo añade al repositorio junto al código del servicio y escribe un verificador que se ejecuta en la integración continua (campos, comandos con salida esperada, reversión de lo destructivo, fecha menor de 90 días y alerta existente en el catálogo). Cada trimestre una persona que no escribió el runbook lo ejecuta en el entorno de pruebas, con un despliegue defectuoso inyectado, y anota qué paso falló o confundió.
+```python
+p = 0.85
+uno, tres = p, 1 - (1 - p) ** 3   # 0.85 y 0.996
+```
+
+La clase da 99,8 % para tres niveles al incluir reintentos dentro de los 15 minutos; el cálculo mínimo anterior ilustra el principio de niveles independientes.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-499 — Runbooks, on-call y escalamiento](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)) son:
-
-- **El runbook dice «revisa los servicios»** — causa: pasos sin comando ni salida esperada. Corrección: un paso por acción, con comando y resultado esperado.
-- **La guardia es siempre la misma persona** — causa: equipo pequeño o ausencias sin plan. Corrección: calcular la carga y ampliar la rotación o reducir el alcance.
+- **Un runbook que dice «revisa los servicios».** Causa: pasos sin comando ni salida esperada; corrección: un paso por acción, con comando y resultado esperado ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)).
+- **La guardia es siempre la misma persona.** Causa: equipo pequeño o ausencias sin plan; corrección: calcular la carga y ampliar la rotación o reducir el alcance ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md)).
+- **Escalar sin opciones.** Trasladar un problema sin alternativas ni costos devuelve el trabajo de análisis al superior ([SE-529](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-529-liderazgo-tecnico-sin-autoridad-formal/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El **escalamiento** define qué ocurre si la persona de guardia no responde. ([SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md))
+Las cifras de [SE-499](../../../classes/part-41-observabilidad-sre-e-incidentes/se-499-runbooks-on-call-y-escalamiento/README.md) suponen fallos independientes: una causa común (por ejemplo, una caída de red que afecta a todos) invalida el cálculo. El escalamiento no corrige un diseño de alertas ruidoso. Y escalar demasiado pronto o por reflejo desgasta a los niveles superiores y reduce la confianza en las páginas.
 
 ## Relación con otros conceptos
 

@@ -2,48 +2,48 @@
 
 [↑ Glosario](../../README.md) · [← Estadísticas por grupo](./estadisticas-por-grupo.md) · [Estado actual →](./estado-actual.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Registro que relaciona cada recurso declarado con el objeto real y sus atributos.
+**Estado** es una palabra de dos sentidos en el programa:
 
-Definición de trabajo de [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md).
+- **Estado de infraestructura como código** ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)): el registro que relaciona cada recurso declarado con el objeto real que lo implementa y guarda sus atributos para poder compararlos (es el sentido de herramientas como Terraform u OpenTofu).
+- **Estado de un cómputo** ([SE-057](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)): un resumen de la historia relevante para el comportamiento futuro.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md): Resumen de historia relevante para comportamiento futuro.
+El primero es el principal de esta entrada; el segundo es la idea general de que un sistema se comporta según lo que «recuerda».
 
 ## Por qué importa
 
-En [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md), el tema «Estado» importa porque es la relación entre lo declarado y lo real y puede quedar obsoleta.
+Sin estado, una herramienta declarativa no sabría si un recurso ya existe o es nuevo ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)). El estado decide qué se crea, qué se cambia y qué se destruye; si es erróneo, la herramienta duplica, falla o borra. En el sentido general, entender qué parte de la historia importa permite reducir un sistema a lo necesario.
 
 ## Cómo funciona
 
-Según [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md), en la sección «Estado»:
+[SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) enumera tres consecuencias prácticas del estado de infraestructura:
 
-El estado de una herramienta como Terraform u OpenTofu relaciona cada recurso declarado con el objeto real que lo implementa y guarda sus atributos para poder compararlos. Sin él, la herramienta no sabría si un recurso ya existe o es nuevo. Tiene tres consecuencias prácticas. Es una fuente de verdad parcial que queda obsoleta si alguien cambia algo fuera de la herramienta. Puede contener datos sensibles, porque guarda los valores de los atributos, y debe tratarse como un secreto. Y es un archivo compartido, de modo que necesita un almacenamiento común y un bloqueo para que dos personas no lo escriban a la vez.
+1. Es una **fuente de verdad parcial**: queda obsoleta si alguien cambia algo fuera de la herramienta.
+2. Puede contener **datos sensibles**, porque guarda los valores de los atributos: se trata como un secreto.
+3. Es un **archivo compartido**: necesita almacenamiento común y bloqueo para que dos personas no lo escriban a la vez.
+
+Un plan que solo compara el código con el estado no ve el cambio hecho a mano; uno que antes refresca el estado con la realidad lo ve y propone revertirlo. [SE-057](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md) aplica la idea a un cómputo: el estado es lo mínimo que hay que recordar para decidir qué sigue.
 
 ## Ejemplo
 
-Ejemplo de [SE-402 — Infraestructura como código y estado](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md) (sección «Ejemplo mínimo»):
+Dos personas ejecutan `apply` a la vez sin bloqueo; una escritura del estado se pierde y el siguiente plan crea de nuevo un recurso que ya existe. Corrección de [SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md): almacén remoto con bloqueo y versión. Ilustración de configuración:
 
-El fragmento calcula el plan entre lo declarado, el estado y lo real. Antes de ejecutarlo, predice qué acciones propone con y sin refresco.
+```hcl
+backend "s3" { bucket = "estado-iac"  dynamodb_table = "bloqueo" }
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un recurso se crea dos veces o falla por duplicado** — causa: escritura del estado perdida. Corrección: almacén remoto con bloqueo y versión. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
-- **Nadie puede aplicar porque el estado está bloqueado** — causa: proceso muerto con el bloqueo tomado. Corrección: comprobar que nadie escribe y liberar con registro. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
-- **El estado aparece en un repositorio público** — causa: se trató como código y no como secreto. Corrección: almacén cifrado con acceso restringido y rotación de lo expuesto. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
+- **Un recurso se crea dos veces o falla por duplicado.** Causa: escritura de estado perdida; corrección: almacén remoto con bloqueo y versión ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)).
+- **Nadie puede aplicar.** Causa: proceso muerto con el bloqueo tomado; corrección: comprobar que nadie escribe y liberar con registro ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)).
+- **El estado aparece en un repositorio público.** Causa: se trató como código; corrección: almacén cifrado con acceso restringido y rotación de lo expuesto ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un plan que solo compara el código con el estado no la ve; uno que antes refresca el estado con la realidad la ve y propone revertirla. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
-- Sin estado la herramienta no sabe si un recurso es nuevo; sin comparación con la realidad, no sabe si el estado sigue siendo cierto. ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md))
+El estado no es la realidad: sin comparación con ella, no se sabe si sigue siendo cierto ([SE-402](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-402-infraestructura-como-codigo-y-estado/README.md)). Los comandos concretos dependen de la herramienta y su versión. En el sentido de [SE-057](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md), un buen resumen de historia puede ser engañosamente pequeño si omite algo que luego importa.
 
 ## Relación con otros conceptos
 

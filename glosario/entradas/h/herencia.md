@@ -2,44 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← Heisenbug y costo de pausa](./heisenbug-y-costo-de-pausa.md) · [Herencia de prioridad →](./herencia-de-prioridad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Mecanismo por el que una clase reutiliza la implementación y la interfaz de otra y puede sustituirla.
-
-Definición de trabajo de [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md).
+La **herencia** es el mecanismo por el que una clase reutiliza la implementación y la interfaz de otra y puede sustituirla ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)). Hace que la subclase *sea* su base. Es una forma de reutilización de código y de polimorfismo, no la única: la composición es la alternativa que el programa contrasta.
 
 ## Por qué importa
 
-En [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md), el tema «Herencia» importa porque reutiliza mucho a cambio de conocer los detalles de la base.
-
-En [SE-031 — Variables de entorno, configuración y secretos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md), el tema «Herencia» importa porque propaga entorno a procesos hijos
+Es la forma más corta de compartir código y, a cambio, la más intrusiva ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)): la subclase ve los métodos protegidos, el orden en que la base llama a sus propios métodos y los atributos. Eso acopla a la subclase con detalles internos de la base: cambia una decisión de diseño frecuente, la de «heredo o compongo».
 
 ## Cómo funciona
 
-Según [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md), en la sección «Herencia»:
+La subclase hereda atributos y métodos y puede sobrescribirlos. La causa de los problemas es que sobrescribir un método supone saber cómo lo usa la base. [SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) muestra el caso: una subclase de un contenedor cuenta elementos sobrescribiendo `agregar` y `agregar_todos`; con la base V1, `agregar_todos` llama internamente a `agregar`, así que cada elemento se cuenta dos veces. La herencia falla siempre con esa base, incluso con lotes de un solo elemento. Si la base cambia un detalle interno, la subclase se rompe sin que nadie la toque (clase base frágil).
 
-La herencia hace que una subclase **sea** su base y reutilice su implementación. Es la forma más corta de compartir código y, a cambio, la más intrusiva: la subclase ve los métodos protegidos, el orden en que la base llama a sus propios métodos y los atributos. Funciona bien cuando la relación es de verdad «es un» (sustituible, `SE-302`), la base está pensada para extenderse y las dos evolucionan juntas, por ejemplo dentro del mismo paquete y con las mismas personas.
+Funciona bien cuando se cumplen tres condiciones: la relación es de verdad «es un» (sustituible, [SE-302](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-302-solid-y-sus-limites/README.md)), la base está pensada para extenderse y ambas evolucionan juntas, por ejemplo dentro del mismo paquete y con las mismas personas.
 
 ## Ejemplo
 
-Ejemplo de [SE-303 — Composición, herencia y delegación](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) (sección «Ejemplo profesional»):
+```python
+class Contador(Lista):
+    def agregar(self, x): self.n += 1; super().agregar(x)
+    def agregar_todos(self, xs): self.n += len(xs); super().agregar_todos(xs)   # base llama a agregar: cuenta doble
+```
 
-El equipo decide opción por opción. `Fragil`, `Seguro`, `Urgente` y `Refrigerado` se vuelven decoradores de un `CalculadoraEnvio` con la interfaz `costo(envio)`, y el orden se fija por una regla escrita: primero los recargos fijos, después los porcentuales. Una prueba recorre los 24 órdenes y comprueba que solo el orden de la regla es válido. La colección contadora se reescribe por composición. Se deja la herencia para `EnvioInternacional(Envio)`, que sí es un «es un» sustituible, vive en el mismo paquete y comparte el contrato de `SE-302`.
+La alternativa de [SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md): componer y reenviar solo lo prometido, de modo que la clase envuelva a la lista y no dependa de sus llamadas internas.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un contador cuenta doble tras un cambio interno de la base** — causa: herencia que sobrescribe métodos que la base también usa. Corrección: componer y reenviar solo lo prometido. ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md))
-- **Cada nueva opción duplica las subclases** — causa: herencia por combinación. Corrección: componer con decoradores o con una lista de recargos. ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md))
+- **Un contador cuenta doble tras un cambio interno de la base.** Causa: herencia que sobrescribe métodos que la base también usa; corrección: componer y reenviar solo lo prometido ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)).
+- **Cada nueva opción duplica las subclases.** Causa: herencia por combinación; corrección: componer con decoradores o una lista de recargos ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md)).
+- **Heredar solo para reutilizar código.** Si no es «es un», la sustituibilidad falla.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con la base V1 la herencia falla siempre, incluso con lotes de un solo elemento, porque cada elemento se cuenta en `agregar_todos` y de nuevo en `agregar`. ([SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md))
+No conviene entre clases de módulos distintos que evolucionan por separado ni cuando la base no documenta cómo se extiende. En lenguajes con herencia múltiple, el orden de resolución añade complejidad. El ejemplo de [SE-303](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-303-composicion-herencia-y-delegacion/README.md) es una construcción didáctica, no una medición sobre proyectos reales.
 
 ## Relación con otros conceptos
 

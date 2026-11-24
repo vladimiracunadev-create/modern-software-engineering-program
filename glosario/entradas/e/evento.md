@@ -2,50 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Evasión](./evasion.md) · [Evento ancho →](./evento-ancho.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Mensaje que afirma un hecho ya ocurrido, inmutable y sin destinatario conocido.
-
-Definición de trabajo de [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-033 — Logs del sistema y diagnóstico de fallos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md): Observación estructurada con significado estable.
-- En [SE-057 — Modelado de estado, transiciones y eventos](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md): Hecho que puede activar una transición.
-- En [SE-163 — OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md): Mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
+Un **evento** es un mensaje que afirma un hecho ya ocurrido, inmutable y sin destinatario conocido ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)). Otras clases lo matizan: observación estructurada con significado estable ([SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)), hecho que puede activar una transición ([SE-057](../../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)) y mensaje que comunica que algo ocurrió sin esperar respuesta inmediata ([SE-163](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md)).
 
 ## Por qué importa
 
-En [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md), el tema «Evento» importa porque afirma un hecho pasado sin saber quién escuchará.
+Permite acoplar poco: el emisor no conoce a quienes reaccionan, así que se puede añadir un consumidor sin tocarlo ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)). La contrapartida es la que la clase señala: si no hay ningún oyente, nadie se entera. La decisión que cambia es qué se modela como evento (un hecho) y qué como comando (una orden).
 
 ## Cómo funciona
 
-Según [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md), en la sección «Evento»:
+Un evento se nombra en pasado («la entrega 4721 fue recibida»), no se modifica (no se puede «desrecibir»: se emite otro evento) y no ordena nada: lo que el receptor haga con él es decisión suya. [SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md) contrasta:
 
-Un **evento** afirma que algo ocurrió: «la entrega 4721 fue recibida». Se nombra en pasado, es inmutable (no se puede «desrecibir»: se emite otro evento) y no conoce a sus oyentes. Eso permite agregar un consumidor nuevo sin tocar al emisor, que es su gran ventaja, y también significa que, si no hay ningún oyente, nadie se entera. El evento no ordena nada: lo que el receptor haga con él es decisión suya. Confundirlo con un comando disfrazado («EntregaRecibida» que en realidad dispara el calificador y nadie más debe reaccionar) acopla al emisor con la lógica de otro y esconde una dependencia.
+- un **comando** espera un receptor y falla si no está;
+- un **evento** acepta cero o muchos oyentes.
+
+Disfrazar un comando de evento (una «EntregaRecibida» que en realidad dispara al calificador y nadie más debe reaccionar) acopla al emisor con la lógica de otro y esconde una dependencia. El contenido del evento es un diseño: si solo lleva un identificador, los consumidores llaman todos de vuelta; si lleva el estado completo, puede quedar viejo cuando la entidad cambie.
 
 ## Ejemplo
 
-Ejemplo de [SE-374 — Mensajes, eventos, comandos y documentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md) (sección «Ejemplo mínimo»):
+```json
+{"tipo": "EntregaRecibida", "id": 4721, "version": 3, "curso": "SE-101", "ts": "2026-03-04T10:15:00Z"}
+```
 
-El fragmento muestra un bus con un manejador y otro mensaje enviado sin manejador. Antes de ejecutarlo, predice qué ocurre con el comando y con el evento cuando no hay manejador.
+Incluir `version` permite que un consumidor compare con la vigente donde importe ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)). En [SE-033](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md), un evento de registro es una observación estructurada con significado estable, lo que habilita la correlación entre señales.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Nadie reacciona a un evento y no hay error** — causa: ningún oyente registrado y el bus descarta en silencio. Corrección: alarma por eventos sin consumidor donde importe. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
-- **Los consumidores llaman todos de vuelta** — causa: el evento solo lleva un identificador. Corrección: incluir el contenido mínimo que casi todos necesitan. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
-- **Los consumidores operan con datos viejos** — causa: el evento lleva el estado y la entidad cambió. Corrección: incluir una versión y comparar con la vigente donde importe. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
+- **Nadie reacciona y no hay error.** Causa: ningún oyente registrado y el bus descarta en silencio; corrección: alarma por eventos sin consumidor donde importe ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)).
+- **Los consumidores llaman todos de vuelta.** Causa: el evento solo lleva un identificador; corrección: incluir el contenido mínimo que casi todos necesitan ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)).
+- **Los consumidores operan con datos viejos.** Causa: el evento lleva el estado y la entidad cambió; corrección: incluir una versión y comparar con la vigente ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Se nombra en pasado, es inmutable (no se puede «desrecibir»: se emite otro evento) y no conoce a sus oyentes. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
-- Un comando espera uno y falla si no está; un evento acepta cero o muchos. ([SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md))
+Un evento no sirve cuando se necesita una respuesta inmediata o una garantía de que alguien actúe: ahí corresponde un comando. Una arquitectura basada en eventos hace más difícil seguir el flujo de punta a punta, y lo que [SE-374](../../../classes/part-31-integracion-eventos-y-mensajeria/se-374-mensajes-eventos-comandos-y-documentos/README.md) describe es el sentido del programa, no el de todos los marcos de mensajería (algunos llaman «evento» a cualquier notificación).
 
 ## Relación con otros conceptos
 

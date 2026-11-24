@@ -2,50 +2,47 @@
 
 [↑ Glosario](../../README.md) · [← Nonce](./nonce.md) · [Normalización por sintaxis →](./normalizacion-por-sintaxis.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 01](../../../classes/part-01-computadores-y-representacion-de-informacion/README.md)
 
 ## Definición
 
-Conversión a una forma Unicode definida.
+**Normalización** es la transformación de datos hacia una forma canónica ([SE-066](../../../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md)). El programa la usa con dos sentidos distintos:
 
-Definición de trabajo de [SE-015 — Texto, Unicode, codificaciones y mojibake](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md).
+- **Normalización de texto Unicode** ([SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md)): conversión a una forma definida (NFC, NFD…) para que cadenas que se ven iguales comparen iguales.
+- **Normalización de datos relacionales** ([SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md)): organización de los datos de modo que cada hecho se guarde en un único lugar.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md): Organización de los datos de modo que cada hecho se guarde en un único lugar.
-- En [SE-066 — Colecciones y transformación de datos](../../../classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md): Transformación hacia una forma canónica.
+Ambos persiguen una sola representación por cosa, pero operan en dominios distintos.
 
 ## Por qué importa
 
-En [SE-015 — Texto, Unicode, codificaciones y mojibake](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md), el tema «Normalización» importa porque compara secuencias equivalentes según forma
+Sin normalizar, dos representaciones del mismo valor se tratan como distintas: búsquedas que fallan, duplicados, actualizaciones inconsistentes. [SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) lo muestra con texto; [SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) con tablas, donde repetir un hecho en varios lugares permite que se contradigan.
 
 ## Cómo funciona
 
-Según [SE-015 — Texto, Unicode, codificaciones y mojibake](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md):
+**Texto** ([SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md)): `"José"` compuesto y `"José"` (la `e` más un acento combinante) son canónicamente equivalentes; tras NFC comparan iguales. Pero la normalización resuelve solo una parte: `ß` en mayúsculas es `SS`, con lo que `len` cambia; para comparar sin distinguir mayúsculas conviene `casefold()` y no `lower()`; algunos pliegues dependen del idioma (la «i» turca), y ninguna función universal los resuelve sin contexto.
 
-Comparar texto exige decidir qué se considera «igual». La normalización resuelve una parte: `"José"` compuesto y `"Jose\u0301"` descompuesto son canónicamente equivalentes y, tras NFC, comparan iguales. Pero otras diferencias no desaparecen: `ß` en mayúsculas es `SS`, de modo que `len` cambia, y para comparar sin distinguir mayúsculas conviene `casefold()` en lugar de `lower()`. Algunos pliegues dependen del idioma (la «i» turca), y ninguna función universal los resuelve sin conocer el contexto.
-
-Según [SE-015 — Texto, Unicode, codificaciones y mojibake](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md):
-
-Un segundo fallo controlado ataca la comparación. Crea dos cadenas que una persona ve idénticas, `"José"` y `"Jose\u0301"`, y úsalas como claves de un diccionario. **Síntoma:** el diccionario las trata como claves distintas y una búsqueda falla. **Causa:** puntos de código diferentes con la misma apariencia. **Corrección:** normaliza con NFC al entrar y compara con la misma forma; documenta qué campos se normalizan. Añade luego un par con la letra latina `a` y la cirílica `а` y comprueba que NFC no las unifica: ese segundo caso exige una política de repertorio permitido, no de normalización. Registra en `observations.md` qué problema resolvió cada técnica.
+**Datos** ([SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md)): se reorganizan las tablas para que cada hecho viva en un lugar: un dato de curso se guarda una vez y las entregas lo referencian, en lugar de repetirlo en cada fila.
 
 ## Ejemplo
 
-Ejemplo de [SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) (sección «Ejemplo profesional»):
+```python
+import unicodedata
+a, b = "José", "José"
+a == b                                     # False
+unicodedata.normalize("NFC", a) == unicodedata.normalize("NFC", b)   # True
+```
 
-En la plataforma, el modelo de entidades vive en un archivo estructurado junto al código (entidad, campos con tipo, referencias con cardinalidad). Un comprobador de integración continua verifica la consistencia estructural; un segundo extrae del código las clases con `ast` y compara nombres y tipos con el modelo, y falla con un mensaje que dice qué cambio de qué archivo causó la divergencia. Los diagramas para humanos se generan a partir de ese archivo, no al revés. Las decisiones de normalización se documentan por tabla (qué se repite, por qué y qué inconsistencia se acepta).
+[SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) corre ese fallo controlado: como claves de un diccionario, las dos cadenas se tratan como distintas y una búsqueda falla. Corrección: normalizar con NFC al entrar, comparar con la misma forma y documentar qué campos se normalizan.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **normalización universal** — causa: dominio no considerado. Corrección: elige forma y campos con criterio explícito. ([SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md))
+- **Normalización universal.** Causa: no considerar el dominio; corrección: elegir forma y campos con criterio explícito ([SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md)).
+- **Creer que NFC unifica caracteres parecidos.** No unifica la `a` latina (U+0061) con la `а` cirílica (U+0430): eso exige una política de repertorio permitido, no de normalización ([SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md)).
+- **Confundir los dos sentidos.** Normalizar texto no es normalizar tablas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La letra cirílica `а` (U+0430) y la latina `a` (U+0061) se ven igual y son distintas; un nombre de usuario o un dominio puede suplantar a otro sin que una persona lo note, y la normalización no los unifica. ([SE-015](../../../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md))
+La normalización de texto no impide la suplantación visual (un nombre de usuario o un dominio puede suplantar a otro sin que una persona lo note). Normalizar tablas al máximo puede costar rendimiento en consultas que unen muchas tablas; a veces se desnormaliza con criterio. Y normalizar es una decisión por campo: aplicarla a contraseñas, identificadores o datos que deben conservarse tal cual puede ser incorrecto.
 
 ## Relación con otros conceptos
 

@@ -2,49 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Contención](./contencion.md) · [Contenedor de desarrollo →](./contenedor-de-desarrollo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Proceso o grupo de procesos al que el núcleo muestra una vista restringida y limita los recursos, sin un núcleo propio.
-
-Definición de trabajo de [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-034 — Virtualización, WSL y aislamiento local](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md): Conjunto de procesos con vistas y límites que suele compartir kernel.
+Un **contenedor** es un proceso, o un grupo de procesos, al que el núcleo muestra una vista restringida y cuyos recursos limita, sin un núcleo propio ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)). [SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) lo describe como un conjunto de procesos con vistas y límites que suele compartir el kernel. No es un objeto del núcleo ni una máquina virtual ligera: es una combinación de funciones del sistema operativo.
 
 ## Por qué importa
 
-En [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md), el tema «Contenedores» importa porque son procesos del anfitrión con vista y recursos acotados; arrancan casi como un proceso.
-
-En [SE-034 — Virtualización, WSL y aislamiento local](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md), el tema «Contenedor» importa porque aísla procesos sobre kernel compartido
+Permite empaquetar y repetir un entorno (dependencias, configuración, binarios) y arrancarlo en cualquier anfitrión compatible. Pero el error costoso es tomarlo por una frontera de seguridad fuerte: [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) lo califica como una frontera más débil que una máquina virtual. La decisión que cambia es dónde ejecutar código propio y dónde código ajeno.
 
 ## Cómo funciona
 
-Según [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md), en la sección «Contenedores»:
+Dos mecanismos del núcleo ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)):
 
-Un contenedor no es un objeto del núcleo: es un proceso, o un grupo de procesos, al que el núcleo muestra una vista restringida mediante espacios de nombres y al que limita los recursos mediante grupos de control. Las especificaciones de OCI fijan cómo se describe su configuración, su sistema de archivos y su ciclo de vida, lo que permite que distintos entornos de ejecución cumplan el mismo contrato. Como comparte núcleo con el anfitrión y con los demás contenedores, una vulnerabilidad del núcleo o una configuración que concede demasiados privilegios puede dejar a un proceso salir de su vista. Un contenedor es excelente para empaquetar y repetir un entorno, y es una frontera de seguridad más débil que una máquina virtual.
+- **Espacios de nombres:** dan al proceso una vista propia de procesos, red, montajes o usuarios.
+- **Grupos de control (cgroups):** limitan recursos como memoria, procesos y CPU.
+
+Las especificaciones de OCI fijan cómo se describe su configuración, su sistema de archivos y su ciclo de vida, de modo que distintos entornos de ejecución cumplen el mismo contrato. Como el contenedor comparte núcleo con el anfitrión y los demás contenedores, una vulnerabilidad del núcleo o una configuración con demasiados privilegios puede permitir que un proceso salga de su vista. De ahí que el aislamiento sea una propiedad de la configuración efectiva (montajes, capacidades, usuario), no de la palabra «contenedor» ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) (sección «Ejemplo profesional»):
+Un contenedor sin límite de memoria que sufre una fuga consume el anfitrión: se aisló la vista, no el consumo. Ilustración:
 
-El equipo de la plataforma separa tres piezas con fronteras distintas. La aplicación web y el servicio de informes, del mismo equipo y con código revisado, corren como contenedores con límites de CPU y memoria y un sistema de archivos de solo lectura, en el mismo anfitrión. El corrector de entregas, que ejecuta código de estudiantes, corre cada ejecución en una unidad con su propio núcleo (una microVM o una máquina virtual efímera), sin red y con un tiempo máximo, y se destruye al terminar. La base de datos está en un servicio gestionado y no comparte anfitrión con ninguna de las anteriores.
+```bash
+docker run --memory=256m --pids-limit=100 imagen
+```
+
+Para ejecutar código ajeno, [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) recomienda una máquina virtual o microVM.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un contenedor agota la memoria del anfitrión** — causa: se aisló la vista y no se limitó el consumo. Corrección: fijar límite de memoria y de procesos. ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md))
-- **Se asume que un contenedor contiene código hostil** — causa: se confunde la vista restringida con una frontera de hardware. Corrección: usar una máquina virtual o microVM para código ajeno. ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md))
-- **“Está aislado porque está en un contenedor”** — causa: se ignoraron kernel, montajes y privilegios compartidos. Corrección: enumerar fronteras y capacidades efectivas. ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md))
+- **Un contenedor agota la memoria del anfitrión.** Causa: se aisló la vista y no el consumo; corrección: límites de memoria y procesos ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)).
+- **Suponer que contiene código hostil.** Causa: confundir vista restringida con frontera de hardware; corrección: VM o microVM ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md)).
+- **«Está aislado porque está en un contenedor».** Causa: se ignoraron kernel, montajes y privilegios compartidos; corrección: enumerar fronteras y capacidades efectivas ([SE-034](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un contenedor no es un objeto del núcleo: es un proceso, o un grupo de procesos, al que el núcleo muestra una vista restringida mediante espacios de nombres y al que limita los recursos mediante grupos de control. ([SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md))
+No sustituye a una VM cuando la amenaza es el propio código. No es portable entre núcleos distintos: un contenedor Linux necesita un núcleo Linux. Y una imagen empaqueta un entorno, no garantiza por sí sola reproducibilidad ni seguridad: ambas dependen de cómo se construya y se configure.
 
 ## Relación con otros conceptos
 

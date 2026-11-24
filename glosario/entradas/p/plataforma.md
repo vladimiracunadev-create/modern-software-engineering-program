@@ -2,46 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Plantillas y ast](./plantillas-y-ast.md) · [Plataforma como producto →](./plataforma-como-producto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
-
-Definición de trabajo de [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-025 — Windows, Linux, macOS y sus modelos operativos](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md): Combinación relevante de hardware, sistema, versión, políticas y capacidades; no solo un nombre comercial.
+Una **plataforma** combina capacidades, políticas, interfaces y operación para que otros construyan ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)). No es solo un conjunto de librerías ni una marca. En el contexto de ejecución, [SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) la define como la combinación relevante de hardware, sistema, versión, políticas y capacidades, no solo un nombre comercial. Son dos sentidos: plataforma como **producto interno o externo** para construir encima, y plataforma como **entorno de ejecución**.
 
 ## Por qué importa
 
-En [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md), el tema «Plataforma» importa porque una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
+Llamar «plataforma» a un conjunto de librerías sin responsables crea una expectativa que nadie cumple. Y tratar «Linux» como una plataforma uniforme esconde diferencias de kernel, distribución y espacio de usuario que cambian el comportamiento. Cambia qué se promete a quien construye encima y qué se prueba en cada entorno.
 
 ## Cómo funciona
 
-Según [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md), en la sección «Plataforma»:
+**Como producto** ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)): propiedad (*ownership*), SLO, autenticación, cuotas y soporte forman parte de su producto, junto con las capacidades. Una plataforma tiene una política de cambios y un responsable de operarla. Si no ofrece eso, es una biblioteca.
 
-Una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan. No es solo un conjunto de librerías ni una marca. Ownership, SLO, autenticación, cuotas y soporte forman parte de su producto.
+**Como entorno** ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)): se registran kernel, distribución, versión y herramientas relevantes por separado. [SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md) mide que las diferencias entre plataformas importan: un intérprete limpio parte con 25 módulos en Windows y 23 en Linux, y el costo de importar `asyncio` es 9,0 veces el de `json` en Windows y 4,9 en Linux; por eso se comparan razones y no milisegundos.
 
 ## Ejemplo
 
-Ejemplo de [SE-109 — Biblioteca, framework, runtime, plataforma y SDK](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md) (sección «Preguntas frecuentes»):
+Una «plataforma interna de datos» que ofrece pipelines, un catálogo, cuotas por equipo y un canal de soporte con SLO. Si en cambio publica solo un paquete de utilidades sin responsable ni SLO, es una biblioteca, y llamarla plataforma lleva a equipos a depender de algo sin garantías. Ilustración de ficha mínima:
 
-No, es otra dependencia con su propio ciclo de versiones. En este programa se midió con CPython 3.12.9 y 3.12.3; un consumidor con otro intérprete puede ver otros módulos cargados y otros tiempos. El contrato debe declarar versiones y plataformas soportadas.
+```yaml
+plataforma: datos
+responsable: equipo-datos
+slo: { disponibilidad: 99.5%, soporte: laborable }
+cuotas: { consultas_por_equipo: 10000/día }
+cambios: aviso de 2 versiones menores
+```
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El producto se anuncia como «plataforma» pero no tiene responsable ni SLO** — causa: se confundió conjunto de librerías con plataforma. Corrección: escribir propiedad, soporte, cuotas y política de cambios, o llamarlo biblioteca. ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md))
-- **“Linux” aparece como una sola plataforma uniforme** — causa: se confundió kernel con distribución y espacio de usuario. Corrección: registrar kernel, distribución, versión y herramientas relevantes por separado. ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md))
+- **Se anuncia «plataforma» sin responsable ni SLO.** Causa: se confundió conjunto de librerías con plataforma; corrección: escribir propiedad, soporte, cuotas y política de cambios, o llamarlo biblioteca ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)).
+- **«Linux» como plataforma uniforme.** Causa: se confundió kernel con distribución y espacio de usuario; corrección: registrar cada capa por separado ([SE-025](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)).
+- **Comparar milisegundos entre plataformas.** Los tiempos absolutos varían; las razones son más estables ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un intérprete limpio parte con 25 módulos en Windows y 23 en Linux, así que el costo de `asyncio` es 9,0 veces el de `json` en Windows y 4,9 en Linux: la diferencia entre plataformas es mayor que la diferencia entre algunos módulos, razón para comparar razones y no milisegundos. ([SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md))
+Las cifras de [SE-109](../../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md) son de un intérprete concreto en dos sistemas y no se trasladan a otros sin medir. No toda organización necesita una plataforma interna: el costo de mantenerla (soporte, SLO) solo se justifica si hay varios equipos consumidores. Y el sentido de entorno no equivale al de producto: una plataforma de ejecución no promete soporte a nadie.
 
 ## Relación con otros conceptos
 

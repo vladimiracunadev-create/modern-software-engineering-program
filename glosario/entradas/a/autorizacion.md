@@ -2,51 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Autoritativo](./autoritativo.md) · [Autorización a nivel de objeto →](./autorizacion-a-nivel-de-objeto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** A — Fundamentos de la profesión · **Primera aparición:** [Parte 02](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md)
 
 ## Definición
 
-Decisión sobre una acción solicitada por una identidad.
-
-Definición de trabajo de [SE-027 — Usuarios, grupos, permisos y elevación de privilegios](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-459 — Autorización, recursos y mínimo privilegio](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md): Decisión de si un sujeto autenticado puede realizar una acción sobre un recurso en un momento dado.
-- En [SE-245 — Autenticación, autorización y contexto](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md): Decisión de si un sujeto puede realizar una acción sobre un recurso.
+La **autorización** es la decisión sobre si una identidad ya autenticada puede realizar una acción sobre un recurso. [SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) la define como decisión sobre una acción solicitada por una identidad; [SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) y [SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md) la precisan: si un sujeto puede hacer una acción sobre un recurso, y [SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md) añade «en un momento dado». No es identificar a la persona (eso es la autenticación), sino evaluar acción sobre objeto bajo reglas.
 
 ## Por qué importa
 
-En [SE-027 — Usuarios, grupos, permisos y elevación de privilegios](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md), el tema «Autorización» importa porque evalúa acción sobre objeto bajo reglas
+Decide qué datos ve y qué cambios hace cada persona. Su fallo no produce errores visibles: produce una respuesta correcta para la persona equivocada. [SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md) recuerda que OWASP sitúa la autorización rota a nivel de objeto como el riesgo número uno de las API. La decisión profesional que cambia es dónde se comprueba (en el servidor, en cada petición) y qué se comprueba (la relación del sujeto con ese recurso concreto, no solo su rol).
 
 ## Cómo funciona
 
-Según [SE-027 — Usuarios, grupos, permisos y elevación de privilegios](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md):
+La sesión responde «quién es»; la autorización, «qué puede hacer sobre qué». Son decisiones separadas y la segunda se repite en cada petición, en el servidor, porque el cliente puede enviar cualquier identificador, rol o campo oculto. Saltzer y Schroeder lo llamaron **mediación completa**: cada acceso a cada objeto se comprueba, sin atajos por caché ni por «ya se comprobó en la pantalla anterior» ([SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md)). Ocultar un botón mejora la experiencia, no la seguridad.
 
-La autenticación vincula una sesión con una identidad. La autorización decide si esa identidad puede realizar una acción sobre un recurso. Conocer el nombre del usuario no basta: importan grupos, credenciales, token o contexto efectivo, propietario del objeto y política aplicable.
-
-Según [SE-459 — Autorización, recursos y mínimo privilegio](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md):
-
-La sesión responde «quién es». La autorización responde «qué puede hacer sobre qué». Son decisiones separadas y la segunda debe repetirse en cada petición, en el servidor, porque el cliente puede enviar lo que quiera: un identificador, un rol, un campo oculto. Saltzer y Schroeder lo llamaron **mediación completa**: cada acceso a cada objeto se comprueba, sin atajos por caché ni por «ya lo comprobamos en la pantalla anterior». Una comprobación en la interfaz (ocultar un botón) mejora la experiencia, no la seguridad. La regla práctica es un solo punto de decisión, invocado en cada acceso, cuya salida es denegar salvo que una regla permita (valor por defecto seguro).
+La regla práctica es un único punto de decisión, invocado en cada acceso, que deniega salvo que una regla permita. Cuando un endpoint recibe un identificador (`/entregas/4521`), el servidor busca el recurso y verifica que el sujeto tiene la relación requerida con *ese* recurso. En un sistema operativo ([SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)) la decisión depende de más que el nombre: grupos, credenciales, propietario del objeto y política aplicable.
 
 ## Ejemplo
 
-Caso medido en la sección «La autorización a nivel de objeto» de [SE-459 — Autorización, recursos y mínimo privilegio](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md):
+Ilustración mínima, no código de una clase:
 
-Cuando un endpoint recibe un identificador (`/entregas/4521`), el servidor debe buscar el recurso y comprobar que el sujeto tiene la relación requerida con *ese* recurso. OWASP lo sitúa como el riesgo número uno de las API: la omisión no produce un error, produce una respuesta correcta para la persona equivocada. Cambiar el identificador en la dirección es la prueba más simple del atacante y la que menos recursos exige.
+```python
+entrega = repo.obtener(id)
+if entrega is None or entrega.autor_id != sujeto.id:
+    raise Denegado()
+```
+
+En [SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md), un estudiante lee la entrega de otro porque el endpoint comprobaba el rol («estudiante») y no el dueño. Cambiar el número en la dirección es la prueba más simple del atacante y la que menos recursos exige.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se aplica acceso universal** — causa: se confunde disponibilidad con autorización. Corrección: definir quién necesita qué acción y limitar alcance. ([SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md))
-- **Un estudiante lee la entrega de otro** — causa: se comprueba el rol y no el dueño. Corrección: autorización por objeto en cada endpoint con identificador. ([SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md))
+- **Acceso universal.** Se confunde disponibilidad con autorización; corrección: definir quién necesita qué acción y limitar el alcance ([SE-027](../../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)).
+- **Comprobar el rol y no el dueño.** Un estudiante lee la entrega de otro; corrección: autorización por objeto en cada endpoint con identificador ([SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md)).
+- **Confiar en el cliente.** Ocultar la opción no impide enviar la petición.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La autorización rota a nivel de objeto es la omisión de la segunda: el servidor trae la fila por identificador y no comprueba si pertenece al sujeto. ([SE-245](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md))
+Una autorización correcta presupone una autenticación válida: si la identidad es falsa, la decisión se aplica a quien no corresponde. Las reglas deben revisarse con el tiempo, porque permisos concedidos se acumulan; [SE-459](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-459-autorizacion-recursos-y-minimo-privilegio/README.md) lo vincula al mínimo privilegio. Y una decisión bien tomada no impide el abuso por quien sí tiene permiso.
 
 ## Relación con otros conceptos
 

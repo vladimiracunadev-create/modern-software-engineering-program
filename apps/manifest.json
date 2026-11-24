@@ -3,11 +3,54 @@
   "tag": "v0.1.0",
   "date": "2026-11-24",
   "commit": "87b9c8c5",
+  "extended_commit": "6a8edba1",
+  "extended_on": "2026-11-24",
+  "note": "Publicado el 2026-11-24 con los activos de Windows, el APK universal y sus sumas; ampliado el mismo dia con Linux (x86_64 y aarch64) y macOS (arm64 y x86_64).",
   "assets": [
     {
       "name": "Ingenieria-Software-Moderna-0.1.0-android.apk",
       "bytes": 33770080,
       "sha256": "e7b83077cbe1bc2f21ec9bca3659c865d562b14a0ecc6815f90f2fbcb38298be"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-linux-aarch64.tar.gz",
+      "bytes": 40483505,
+      "sha256": "364d4baff501b74bf8e44ce0ba3cfcda4feb149c52f7f10b8ec98e022b12d4da"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-linux-amd64.deb",
+      "bytes": 27598974,
+      "sha256": "c1ccbf5ec1021d217dbb5de23261c6ca411d9619c0b3eecd11541ec5798fbf22"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-linux-arm64.deb",
+      "bytes": 26730860,
+      "sha256": "fa46ad9941f744b4889a90ff64011556bcacec9e35108f7cfdf8dfb5fe2247bf"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-linux-x86_64.tar.gz",
+      "bytes": 41327670,
+      "sha256": "a22d5b32c2ae818eb9a73fbf08dfd294d6e930eaf9fea787cb752553d47df5c0"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-macos-arm64.dmg",
+      "bytes": 98447106,
+      "sha256": "d2ba8389731c74dfce1d9f2c95d6eb6103896dac8654f13d17859c3281d55952"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-macos-arm64.zip",
+      "bytes": 37704622,
+      "sha256": "32a10fbeb5ba46afb41cc4a755f16c9e78eb07669f9fcf5e3ec2e454776bc4f9"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-macos-x86_64.dmg",
+      "bytes": 76986168,
+      "sha256": "af951e29c6ac2b29f86fb582dc7a96e37d3f2ac2913a0ecb4a5b46202aee9321"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-macos-x86_64.zip",
+      "bytes": 38436556,
+      "sha256": "f5925db00134a6bacee5f6058fb253da32db16d0bfd9d0256e85cfb6bee6c35f"
     },
     {
       "name": "Ingenieria-Software-Moderna-0.1.0-portable-windows-x64.zip",
@@ -33,6 +76,16 @@
       "name": "SHA256SUMS-android.txt",
       "bytes": 112,
       "sha256": "f5d70444d76bafb314ca876f14ba26249f84075ad7e9448f3f39771037be62b7"
+    },
+    {
+      "name": "SHA256SUMS-linux.txt",
+      "bytes": 473,
+      "sha256": "70962ce5a7df492caa86e8434dfd7810fe7e25fdaecf66373afc2cd19f13d49b"
+    },
+    {
+      "name": "SHA256SUMS-macos.txt",
+      "bytes": 466,
+      "sha256": "375e647d7b1d3979b0045bddd2cbda4ebc0ac88bec376124a26b881c7fce518f"
     },
     {
       "name": "SHA256SUMS-windows.txt",

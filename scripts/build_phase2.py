@@ -618,7 +618,7 @@ def apps_state() -> str:
         return "sin release de aplicaciones todavía; la construcción y la verificación están en `docs/APPS.md`"
     manifest = json.loads(path.read_text(encoding="utf-8"))
     kinds = [a["name"] for a in manifest["assets"] if not a["name"].startswith("SHA256SUMS")]
-    return (f"{len(kinds)} activos (instalador, MSI, portable y ejecutable de Windows; APK de Android) en el release "
+    return (f"{len(kinds)} activos (Windows: instalador, MSI, portable y ejecutable; Android: APK; Linux: tar.gz y deb x86_64 y aarch64; macOS: dmg y zip arm64 y x86_64) en el release "
             f"`{manifest['tag']}`, verificados abriéndolos y contando 612 clases, 32 casos y el glosario; "
             "sin firma de código ni clave de publicación; ver `docs/APPS.md`")
 

@@ -244,8 +244,8 @@ límites están en [`docs/PDF.md`](docs/PDF.md). No cambia los contadores ni el 
 
 ## Aplicaciones para Windows y Android
 
-El portal también se empaqueta para uso sin conexión: instalador, MSI, portable y ejecutable único de Windows, y APK de
-Android, construidos con [`scripts/build_apps.py`](scripts/build_apps.py), abiertos y contados con
+El portal también se empaqueta para uso sin conexión: instalador, MSI, portable y ejecutable único de Windows, APK de
+Android, tar.gz y deb de Linux y dmg y zip de macOS, construidos con [`scripts/build_apps.py`](scripts/build_apps.py), abiertos y contados con
 [`scripts/verify_apps.py`](scripts/verify_apps.py) y publicados como activos de un release con sumas SHA-256 por plataforma
 (no se guardan en git). Sin firma de código en Windows y con clave de depuración en Android; límites y verificación en
 [`docs/APPS.md`](docs/APPS.md). No cambia los contadores ni el alcance del currículo.

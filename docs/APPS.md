@@ -22,7 +22,7 @@ descrito en [`PDF.md`](PDF.md)).
 | todas | `SHA256SUMS-windows.txt`, `SHA256SUMS-android.txt`, `SHA256SUMS-linux.txt` y `SHA256SUMS-macos.txt` | Sumas SHA-256 por plataforma |
 
 > [!NOTE]
-> Los activos de Linux y macOS y los APK por ABI se añaden a `v0.1.0` después de su
+> Los activos de Linux y macOS y los APK por ABI se añadieron a `v0.1.0` después de su
 > publicación inicial del 2026-11-24 (que traía los cuatro activos de Windows, el APK
 > universal y sus sumas). Android: `scripts/build_apps.py android-configure` activa los ABI
 > splits de Gradle (`arm64-v8a`, `armeabi-v7a`, `x86_64`), pero la app es una WebView sin

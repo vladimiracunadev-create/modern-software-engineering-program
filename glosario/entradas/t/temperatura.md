@@ -2,49 +2,33 @@
 
 [↑ Glosario](../../README.md) · [← Telemetría](./telemetria.md) · [Template Method →](./template-method.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 46](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** H — Ingeniería de software nativa con IA · **Primera aparición:** [Parte 46](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/README.md)
 
 ## Definición
 
-Parámetro de muestreo que concentra o reparte la probabilidad entre las continuaciones posibles.
-
-Definición de trabajo de [SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md).
+La **temperatura** es el parámetro de muestreo de un modelo de lenguaje que concentra o reparte la probabilidad entre las continuaciones posibles ([SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md), existe con este propósito: la clase existe para que dejes de tratar a un modelo generativo como un oráculo o como un compañero con criterio, y lo trates como lo que es: un generador de texto que produce continuaciones plausibles a partir de una distribución de probabilidad, con habilidades útiles y con modos de fallo que no avisan.
+Un modelo recibe un contexto y calcula una distribución de probabilidad sobre el siguiente símbolo; se elige uno, se añade y se repite. De ahí [SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md) deduce: la salida no es una consulta a una base de hechos, es la continuación *probable* de un texto, y una continuación probable puede ser falsa. La temperatura decide cuánto se arriesga al elegir.
 
 ## Cómo funciona
 
-Según [SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md):
-
-Un modelo de lenguaje, en el nivel de abstracción que importa para trabajar con él, recibe una secuencia de símbolos (el contexto) y calcula una distribución de probabilidad sobre cuál puede ser el siguiente; se elige uno, se añade a la secuencia y se repite. De ese mecanismo se deducen consecuencias prácticas sin necesidad de conocer la arquitectura interna. La primera es que la salida no es una consulta a una base de hechos: es la continuación probable de un texto, y una continuación probable puede ser falsa. La segunda es que hay una decisión de muestreo entre «tomar siempre lo más probable» y «tomar al azar según la distribución», y ese control, la **temperatura**, desplaza el comportamiento entre repetir con firmeza lo más probable y explorar alternativas.
-
-Según [SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md):
-
-No. Obtienes la respuesta más probable según el modelo, que no es lo mismo que la correcta; y aun con temperatura cero algunos servicios devuelven variaciones por otras fuentes de no determinismo. La temperatura baja da repetibilidad, no corrección.
+Con temperatura baja, la distribución se concentra y se elige casi siempre lo más probable; con temperatura alta, se reparte y aparecen alternativas. Bajarla reduce la variación entre ejecuciones; con semilla fija, cuando la herramienta la admite, se reduce más. Aun así, en servicios cuya infraestructura introduce otras fuentes de variación, no desaparece del todo.
 
 ## Ejemplo
 
-Ejemplo de [SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento muestra qué ocurre al bajar la temperatura cuando la respuesta correcta no es la más probable. Antes de ejecutarlo, predice qué porcentaje de las veces acertará la mayoría de cinco a temperatura 0,2.
+Para extraer un campo estructurado se usa temperatura baja; para generar variantes de un texto, mayor. La respuesta de temperatura cero es la más probable según el modelo.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-553 — Capacidades y límites de los modelos generativos](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md)) son:
-
-- **Se acepta una respuesta porque «suena segura»** — causa: se confunde tono con calibración. Corrección: medir acierto por tramos con tareas del propio equipo.
-- **Se vota entre varias respuestas y se confirma un error** — causa: los errores están correlacionados. Corrección: añadir un comprobador externo (prueba, fuente).
-
-Según [SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md): Obtienes la respuesta más probable según el modelo, que no es lo mismo que la correcta; y aun con temperatura cero algunos servicios devuelven variaciones por otras fuentes de no determinismo.
+- **Creer que temperatura cero da la respuesta correcta.** [SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md): es la más probable, no la correcta; da repetibilidad, no corrección.
+- **Se acepta una respuesta porque «suena segura».** Tono no es calibración; medir acierto por tramos con tareas del equipo.
+- **Votar entre varias respuestas y confirmar un error.** Los errores están correlacionados; añadir un comprobador externo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La tercera es que dos ejecuciones con la misma entrada pueden diferir: la variación no es un fallo sino la manifestación del muestreo, y se puede reducir (temperatura baja, semilla fija cuando la herramienta la admite) sin que desaparezca del todo en servicios cuya infraestructura introduce otras fuentes de variación. ([SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md))
-- Obtienes la respuesta más probable según el modelo, que no es lo mismo que la correcta; y aun con temperatura cero algunos servicios devuelven variaciones por otras fuentes de no determinismo. ([SE-553](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-553-capacidades-y-limites-de-los-modelos-generativos/README.md))
+La temperatura no existe como control en todos los modelos o servicios. No sustituye a una verificación externa de lo que el modelo afirma.
 
 ## Relación con otros conceptos
 

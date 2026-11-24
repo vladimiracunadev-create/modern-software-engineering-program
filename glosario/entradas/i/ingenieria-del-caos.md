@@ -2,40 +2,33 @@
 
 [↑ Glosario](../../README.md) · [← Ingeniería continua](./ingenieria-continua.md) · [Inmutabilidad →](./inmutabilidad.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 42](../../../classes/part-42-ingenieria-del-caos/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 42](../../../classes/part-42-ingenieria-del-caos/README.md)
 
 ## Definición
 
-Disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas.
-
-Definición de trabajo de [SE-507 — Inyección de fallos de red, latencia y dependencias](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md).
+La **ingeniería del caos** es la disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas ([SE-507](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md), que toma la definición oficial del campo y subraya la palabra «confianza»).
 
 ## Por qué importa
 
-En [SE-507 — Inyección de fallos de red, latencia y dependencias](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md), el tema «Qué es ingeniería del caos» importa porque un experimento con hipótesis no es sabotaje ni prueba de carga.
+Un sistema declarado resiliente en un documento no es un sistema probado resiliente. Los experimentos sacan a la luz debilidades antes de que lo haga una caída real.
 
 ## Cómo funciona
 
-Según [SE-507 — Inyección de fallos de red, latencia y dependencias](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md):
-
-Conviene fijar el vocabulario antes de seguir. Una **falla** es un evento o condición que se aparta del funcionamiento normal (un proceso que cae, un disco que se detiene, una dependencia lenta). Una **debilidad sistémica** es una propiedad del sistema que convierte esa falla en un daño visible para las personas usuarias. Un **experimento** es una intervención controlada que busca refutar una afirmación sobre esa propiedad. La definición oficial pone el acento en la confianza: la ingeniería del caos es la disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas. No promete eliminar las fallas ni asegura que el sistema no caerá; reduce la distancia entre lo que se cree y lo que se sabe.
+[SE-507](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md) fija el vocabulario: una **falla** es un evento o condición que se aparta del funcionamiento normal (un proceso que cae, un disco que se detiene, una dependencia lenta); una **debilidad sistémica** es una propiedad que convierte esa falla en daño visible para las personas usuarias; un **experimento** es una intervención controlada que busca *refutar* una afirmación sobre esa propiedad. Esa afirmación es la hipótesis de estado estable, y el experimento se detiene con una condición de parada si el daño crece. Se inyectan fallas de red, latencia, dependencias y datos.
 
 ## Ejemplo
 
-Caso medido en la sección «Qué es y qué no es ingeniería del caos» de [SE-507 — Inyección de fallos de red, latencia y dependencias](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md):
-
-Hay tres confusiones frecuentes. La primera es creer que consiste en apagar cosas al azar: el azar es una técnica de selección de objetivos (la herramienta histórica de Netflix elegía instancias al azar), pero lo esencial es la hipótesis, la medición y el control del daño. Sin hipótesis es sabotaje con registro. La segunda es confundirla con una **prueba de carga**: la prueba de carga (`SE-435`) aumenta la demanda para encontrar el límite de capacidad; el experimento de caos introduce una condición adversa con la demanda normal, o con demanda realista, para ver si el comportamiento se mantiene.
+[SE-507](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md) ejecuta tres experimentos con tiempo virtual y semillas fijas sobre el cliente de la API de entregas, mostrando que los reintentos sin protección amplifican la carga y que el cortacircuitos la contiene.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-507 — Inyección de fallos de red, latencia y dependencias](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md)) son:
-
-- **Todo parece resiliente en el documento** — causa: se revisó la presencia de mecanismos, no su comportamiento. Corrección: inyectar la falla que cada mecanismo dice cubrir.
-- **El servicio no se recupera tras la falla** — causa: reintentos y cola mantienen la sobrecarga. Corrección: cortacircuitos, descarte de carga o pausa con azar.
+- **Todo parece resiliente en el documento.** Se revisó la presencia de mecanismos, no su comportamiento; inyectar la falla que cada mecanismo dice cubrir.
+- **El servicio no se recupera tras la falla.** Reintentos y cola mantienen la sobrecarga; cortacircuitos, descarte de carga o pausa con azar.
+- **Confundirlo con romper cosas al azar.** Es un experimento con hipótesis, radio acotado y parada.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-507 — Inyección de fallos de red, latencia y dependencias](../../../classes/part-42-ingenieria-del-caos/se-507-inyeccion-de-fallos-de-red-latencia-y-dependencias/README.md)) son: Las definiciones son operativas para el cliente de la API de entregas. No fijan sinónimos para términos con una historia más amplia y deben contrastarse con las fuentes enlazadas. Se ejecutaron tres experimentos con tiempo virtual y semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos. No se inyectó ninguna falla en un sistema real; la dependencia de 8 hilos, el tráfico de 90 peticiones por segundo, las cinco configuraciones y las seis fallas son construcciones del autor, y los umbrales de los cortacircuitos se eligieron para mostrar el fenómeno.
+Los experimentos de la clase no se inyectaron en un sistema real. Ejecutarlos en producción exige observabilidad, radio de impacto acotado y capacidad de abortar.
 
 ## Relación con otros conceptos
 

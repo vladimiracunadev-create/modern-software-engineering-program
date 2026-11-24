@@ -2,40 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Entrega al menos una vez / como máximo una vez](./entrega-al-menos-una-vez-como-maximo-una-vez.md) · [Entrelazamiento →](./entrelazamiento.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 40](../../../classes/part-40-ci-cd-iac-y-platform-engineering/README.md)
 
 ## Definición
 
-Capacidad de que todo cambio verificado pueda desplegarse a producción en cualquier momento por decisión humana.
-
-Definición de trabajo de [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md).
+La **entrega continua** (*continuous delivery*) es la capacidad de que todo cambio verificado pueda desplegarse a producción en cualquier momento, por decisión humana ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md), existe con este propósito: la clase existe para que distingas entregar de exponer y decidas con números cuánta gente ve una versión nueva antes de saber si funciona.
+Se confunde con dos cosas cercanas, y la confusión lleva a prometer lo que el proceso no hace. [SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md) separa tres decisiones: **entregar** (dejar cada cambio listo para producción), **desplegar** y **exponer** (quién usa la versión nueva y cuándo).
 
 ## Cómo funciona
 
-Según [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md):
-
-La **entrega continua** (continuous delivery) significa que cada cambio que pasa la canalización queda en un estado que podría desplegarse a producción: la decisión de hacerlo es humana y se puede tomar en cualquier momento. El **despliegue continuo** (continuous deployment) elimina esa decisión: todo cambio que pasa la canalización se despliega automáticamente. Una tercera decisión, la **exposición** (liberación, release), es quién usa la versión nueva y cuándo; puede separarse del despliegue con una bandera o con un porcentaje de tráfico. Las tres se confunden porque en equipos pequeños ocurren a la vez, pero son decisiones distintas con riesgos distintos: desplegar cambia el software que corre, exponer cambia lo que experimentan las personas. DORA mide la capacidad de liberar con seguridad en cualquier momento, no cuántas veces se hace.
+Cada cambio que pasa la canalización queda en un estado desplegable; la decisión de hacerlo es humana. El **despliegue continuo** (*continuous deployment*) elimina esa decisión: todo cambio que pasa se despliega automáticamente. La **exposición** (liberación, *release*) puede separarse del despliegue con una bandera o con un porcentaje de tráfico. Las tres se confunden porque en muchos equipos ocurren juntas. Para comprobar un despliegue gradual, un **canario** compara la versión nueva con la anterior; su veredicto solo vale con tráfico suficiente.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md):
-
-El equipo de la API de entregas fija su criterio de despliegue. Un canario del 5 % durante diez minutos, porque con el 1 % no podrían ver una degradación de un punto y sus picos de cierre de plazo no dejan margen para un error sutil; si la señal es buena amplían a 25 %, 50 % y 100 % con cinco minutos entre cada paso.
+Un equipo despliega cada cambio verificado a producción detrás de una bandera apagada (despliegue continuo), y una persona de producto decide cuándo activarla para el 5 % del tráfico (exposición). Si además la canalización exige una aprobación humana antes de producción, es entrega continua sin despliegue continuo.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)) son:
-
-- **El canario dice «sin errores» y producción falla** — causa: tráfico insuficiente para ver el cambio. Corrección: calcular la potencia y exigir tráfico mínimo.
-- **Se retiran versiones buenas** — causa: umbral laxo o tasa base inestable. Corrección: calcular la tasa de falsas alarmas y usar ventanas comparables.
+- **El canario dice «sin errores» y producción falla.** Tráfico insuficiente para ver el cambio; calcular la potencia y exigir un tráfico mínimo ([SE-485](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)).
+- **Se retiran versiones buenas.** Umbral laxo o tasa base inestable; calcular la tasa de falsas alarmas y usar ventanas comparables.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-485 — Entrega y despliegue continuos](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-485-entrega-y-despliegue-continuos/README.md)) son: Las definiciones son operativas para la canalización de la API de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos.
+La entrega continua exige pruebas automáticas confiables y desplegar sin dolor; sin eso, «siempre desplegable» es una promesa vacía. En entornos regulados puede haber aprobaciones que deban permanecer.
 
 ## Relación con otros conceptos
 

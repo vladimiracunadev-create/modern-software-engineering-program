@@ -2,46 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Garantías de entrega](./garantias-de-entrega.md) · [Gateway →](./gateway.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 ## Definición
 
-Punto de la integración continua que bloquea o avisa según un umbral.
-
-Definición de trabajo de [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md).
+Un **gate** (compuerta) es un punto de la integración continua que bloquea o avisa según un umbral ([SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md), existe con este propósito: el proyecto integra la parte en un artefacto: una estrategia de pruebas ejecutable para la plataforma de entregas, con riesgos y su reparto de horas, el nivel de prueba de cada clase de fallo, las pruebas que lo sostienen y su demostración, los criterios de bloqueo, las exclusiones con caducidad y los límites.
+Una estrategia de pruebas escrita en un documento que nadie ejecuta no protege nada. El gate es el lugar donde la estrategia se vuelve una decisión automática: si un umbral se supera, el cambio no avanza (bloquea) o alguien se entera (avisa).
 
 ## Cómo funciona
 
-Según [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md):
-
-El paquete es un archivo estructurado (JSON) con las decisiones: por componente, su probabilidad y su impacto estimados, su clase de fallo, el nivel de prueba que la ve, las horas asignadas, los nombres de las pruebas y la demostración que las respalda; una lista de gates con su umbral y su acción (bloquear o avisar); una lista de exclusiones con razón y caducidad; y los límites. La estructura obliga a que cada riesgo tenga pruebas, cada prueba un riesgo y cada exclusión una fecha, y permite que un programa lo valide.
-
-Según [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md):
-
-El equipo de la plataforma versiona `estrategia.json` en el repositorio y lo valida en la integración continua con el programa de `SE-432`. El paquete lista nueve componentes probados con horas asignadas por el reparto marginal con exposición (con un piso de 4 horas para impacto 9 o 10 que añadió el equipo tras discutir la autenticación), tres exclusiones con razón y caducidad a 75 días y dos gates: el rápido (diez minutos, bloquea con pruebas unitarias, de contrato y las de integración por interfaz) y el nocturno (90 minutos, avisa con extremo a extremo, carga ligera y una sesión de exploración trimestral). Cada prueba del paquete tiene una demostración rojo-verde de `SE-431`.
+[SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) propone un paquete estructurado (JSON) con las decisiones: por componente, probabilidad e impacto estimados, clase de fallo, nivel de prueba que la ve, horas asignadas y pruebas; una lista de gates con su umbral y su acción (bloquear o avisar); una lista de exclusiones con razón y caducidad; y los límites. La estructura obliga a que cada riesgo tenga pruebas, cada prueba un riesgo y cada exclusión una fecha, y permite que un programa lo valide en cada cambio.
 
 ## Ejemplo
 
-Ejemplo de [SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma versiona `estrategia.json` en el repositorio y lo valida en la integración continua con el programa de `SE-432`. El paquete lista nueve componentes probados con horas asignadas por el reparto marginal con exposición (con un piso de 4 horas para impacto 9 o 10 que añadió el equipo tras discutir la autenticación), tres exclusiones con razón y caducidad a 75 días y dos gates: el rápido (diez minutos, bloquea con pruebas unitarias, de contrato y las de integración por interfaz) y el nocturno (90 minutos, avisa con extremo a extremo, carga ligera y una sesión de exploración trimestral).
+[SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md): el equipo versiona `estrategia.json`. El paquete lista nueve componentes probados, tres exclusiones con caducidad a 75 días y dos gates: el **rápido** (diez minutos, bloquea con unitarias, de contrato y de integración por interfaz) y el **nocturno** (90 minutos, avisa con extremo a extremo y carga ligera).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-432 — Proyecto: estrategia ejecutable por riesgo](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md)) son:
-
-- **La estrategia es un documento que nadie ejecuta** — causa: no hay validador ni vínculo con la integración continua. Corrección: paquete estructurado y validado en cada cambio.
-- **Un riesgo alto queda sin horas o sin nivel que lo vea** — causa: falta de reglas de coherencia. Corrección: reglas de riesgo en el validador.
+- **La estrategia es un documento que nadie ejecuta.** No hay validador ni vínculo con la integración continua; paquete estructurado y validado en cada cambio.
+- **Un riesgo alto queda sin horas o sin nivel que lo vea.** Faltan reglas de coherencia en el validador.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El paquete contiene los nueve componentes probados (con nivel, horas y pruebas), la exclusión de la búsqueda con razón y caducidad a 75 días, dos gates (uno bloquea y otro avisa) y los límites. ([SE-432](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-432-proyecto-estrategia-ejecutable-por-riesgo/README.md))
+Un gate lento o inestable se esquiva; por eso conviene separar uno rápido que bloquea de otro lento que avisa. Un umbral mal puesto da falsas alarmas o falsa tranquilidad.
 
 ## Relación con otros conceptos
 

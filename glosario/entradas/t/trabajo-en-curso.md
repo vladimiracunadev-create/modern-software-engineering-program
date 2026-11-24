@@ -2,41 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Trabajo diferido](./trabajo-diferido.md) · [Trabajo venenoso →](./trabajo-venenoso.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** G — Operación, evolución y liderazgo · **Primera aparición:** [Parte 44](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/README.md)
 
 ## Definición
 
-Cantidad de elementos iniciados y no terminados.
-
-Definición de trabajo de [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md).
+El **trabajo en curso** (*work in progress*, WIP) es la cantidad de elementos iniciados y no terminados ([SE-533](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md), existe con este propósito: la clase existe para que conviertas una estimación en un compromiso que se pueda cumplir y defender.
+Explica por qué un equipo con muchas cosas abiertas termina todo más tarde. Reducir el tiempo de permanencia sin reducir el ritmo de entrega exige reducir el trabajo en curso.
 
 ## Cómo funciona
 
-Según [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md):
-
-Little demostró que, en un sistema estable, el trabajo promedio en curso es el ritmo de entrada por el tiempo promedio de permanencia. Quien quiere reducir el tiempo de permanencia sin reducir el ritmo debe reducir el trabajo en curso. Y Kingman describe cómo la espera de una cola de un servidor crece de forma brusca al aproximarse la utilización a uno: un equipo al 95 % no tiene elementos lentos por pereza sino por saturación. Por eso el compromiso incluye un límite de trabajo en curso y una reserva de capacidad.
+[SE-533](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md) aplica la ley de Little: en un sistema estable, el trabajo promedio en curso es el ritmo de entrada por el tiempo promedio de permanencia. Si el ritmo es fijo, bajar el tiempo exige bajar el WIP. Además, según Kingman, la espera de una cola de un servidor crece de forma brusca al aproximarse la utilización a uno: un equipo al 95 % no tiene elementos lentos por pereza sino por saturación. El compromiso incluye entonces un **límite de trabajo en curso** y una **reserva de capacidad**.
 
 ## Ejemplo
 
-Caso medido en la sección «Carga, trabajo en curso y compromiso» de [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md):
-
-Little demostró que, en un sistema estable, el trabajo promedio en curso es el ritmo de entrada por el tiempo promedio de permanencia. Quien quiere reducir el tiempo de permanencia sin reducir el ritmo debe reducir el trabajo en curso. Y Kingman describe cómo la espera de una cola de un servidor crece de forma brusca al aproximarse la utilización a uno: un equipo al 95 % no tiene elementos lentos por pereza sino por saturación. Por eso el compromiso incluye un límite de trabajo en curso y una reserva de capacidad.
+Un equipo con 20 elementos abiertos y que termina 4 por semana tarda en promedio 5 semanas por elemento (20 / 4). Al limitar el WIP a 8, el tiempo medio baja a 2 semanas sin cambiar el ritmo. (Ilustración de la ley de Little.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los elementos tardan cada vez más** — causa: equipo saturado. Corrección: limitar el trabajo en curso y reservar capacidad. ([SE-533](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md))
+**Los elementos tardan cada vez más.** Equipo saturado; limitar el trabajo en curso y reservar capacidad.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Quien quiere reducir el tiempo de permanencia sin reducir el ritmo debe reducir el trabajo en curso. ([SE-533](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md))
+La ley de Little supone un sistema estable. Limitar el WIP no sirve si se reabre trabajo que ya estaba cerrado; y una reserva de capacidad tiene costo aparente de «ociosidad» que debe explicarse.
 
 ## Relación con otros conceptos
 

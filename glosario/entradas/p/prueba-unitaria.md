@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Prueba que pasa de inmediato](./prueba-que-pasa-de-inmediato.md) · [Pseudolocalización →](./pseudolocalizacion.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 35](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/README.md)
 
 ## Definición
 
-Comprobación de una unidad pequeña cuyo resultado no depende de recursos que la prueba no controla.
-
-Definición de trabajo de [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md).
+Una **prueba unitaria** es la comprobación de una unidad pequeña cuyo resultado no depende de recursos que la prueba no controla ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)). Llama a la unidad (una función o una clase pequeña) con una entrada conocida y afirma algo sobre el resultado o el efecto visible.
 
 ## Por qué importa
 
-En [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md), el tema «Qué comprueba una prueba unitaria» importa porque distingue ejecutar una línea de afirmar un resultado.
+Es la prueba más barata y rápida, y la base de la pirámide, pero solo vale por lo que *protege*. [SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md) lo dice así: ejecutar una línea no es comprobarla; una prueba sin aserciones, o con una aserción que no puede fallar, «cubre» código sin protegerlo.
 
 ## Cómo funciona
 
-Según [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md):
-
-Una prueba unitaria llama a una unidad con una entrada conocida y afirma algo sobre el resultado o el efecto visible. La unidad suele ser una función o una clase pequeña; lo decisivo es que el resultado no dependa de nada que la prueba no controle. Ejecutar una línea no es comprobarla: una prueba sin aserciones, o con una aserción que no puede fallar, «cubre» código sin protegerlo. Cada prueba debe poder responder qué cambio del código la haría fallar, y si la respuesta es «ninguno», es ruido.
+Lo decisivo es que el resultado no dependa de nada que la prueba no controle: reloj, azar, red, orden de ejecución. Si depende, se inyecta (la hora, la semilla). Cada prueba debe poder responder qué cambio del código la haría fallar; si la respuesta es «ninguno», es ruido. Una forma de medir si una suite protege es el **análisis de mutantes**: cambiar un operador y ver si alguna prueba falla.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md):
+```python
+def test_aprueba_en_la_frontera():
+    assert aprobado(4.0) is True
+    assert aprobado(3.9) is False
+```
 
-El equipo de la plataforma separa la función de cierre en tres: `calcular_nota(bruta, horas)` (pura), `horas_tarde(plazo, ahora)` (aritmética de fechas) y `cerrar(entregas, ahora, guardar, avisar)`, que orquesta. La hora real se lee en un único punto, el controlador que llama a `cerrar`. Para cada regla por tramos, una tabla de casos lista el tramo, la frontera, el valor esperado y la razón de negocio («una entrega a las 24 horas exactas sigue en el primer tramo porque la política dice "hasta 24 horas"»).
+Los valores 4,0 y 3,9 están en la frontera; una prueba con solo 6,0 no detectaría un cambio de `>=` a `>`.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)) son:
-
-- **La cobertura es 100 % y un cambio de operador no rompe ninguna prueba** — causa: casos típicos sin valores en las fronteras. Corrección: tabla de fronteras y medida con mutantes.
-- **Una prueba falla de vez en cuando sin cambios en el código** — causa: depende del reloj, del azar o del orden. Corrección: inyectar la hora y la semilla; ver `SE-428` y `SE-430`.
+- **La cobertura es 100 % y un cambio de operador no rompe ninguna prueba.** Casos típicos sin valores de frontera; tabla de fronteras y medida con mutantes ([SE-422](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)).
+- **Una prueba falla de vez en cuando sin cambios en el código.** Depende del reloj, del azar o del orden; inyectar la hora y la semilla.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-422 — Pruebas unitarias y diseño testable](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-422-pruebas-unitarias-y-diseno-testable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con una función sintética en Windows y Ubuntu (WSL2) con salidas idénticas. Los mutantes son cambios mecánicos y no defectos humanos; el modelo de pausas de la prueba con reloj real es un supuesto. No se midió tiempo de ejecución ni se usó un marco de pruebas distinto de `assert`.
+No ve defectos de integración entre piezas (para eso, pruebas de integración y de contrato). Una suite muy acoplada a la implementación se rompe con cada refactor sin proteger comportamiento.
 
 ## Relación con otros conceptos
 

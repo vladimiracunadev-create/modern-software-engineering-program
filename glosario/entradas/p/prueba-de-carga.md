@@ -2,41 +2,31 @@
 
 [↑ Glosario](../../README.md) · [← Prueba de caracterización](./prueba-de-caracterizacion.md) · [Prueba de contrato →](./prueba-de-contrato.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md)
 
 ## Definición
 
-Ejecución con la carga esperada para comprobar el cumplimiento en régimen estable.
-
-Definición de trabajo de [SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md).
+Una **prueba de carga** aplica la carga esperada (o la prevista para un evento) durante el tiempo suficiente para que el sistema alcance su régimen estable, y comprueba que el escenario de calidad se cumple ([SE-435](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md)).
 
 ## Por qué importa
 
-La clase donde se define, [SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md), existe con este propósito: la clase existe para que elijas la forma de carga que responde a tu pregunta (cuánto aguanta en régimen, dónde se rompe, cómo se recupera de un pico, qué se degrada con las horas) y para que sepas qué hace trampa en una prueba: un generador que deja de enviar cuando el servidor se detiene, un arranque frío mezclado con el régimen estable o una duración demasiado corta para ver una fuga.
+Responde «¿cumple en el uso esperado?», pero no responde «¿qué pasa en un pico?» ni «¿qué pasa tras horas de uso?». Confundir los tipos de prueba lleva a declarar «aguanta» y caer en el cierre.
 
 ## Cómo funciona
 
-Según [SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md):
-
-Una **prueba de carga** aplica la carga esperada (o la prevista para un evento) durante el tiempo suficiente para que el sistema alcance su régimen estable, y comprueba que el escenario de calidad se cumple. En el simulador de la clase, cuatro servidores con 50 ms de servicio medio tienen una capacidad nominal de 80 solicitudes por segundo; a 60 solicitudes por segundo la utilización es del 75 %, y con llegadas aleatorias eso ya produce colas pasajeras: la mediana es de 57 ms, el p95 de 202 ms y el p99 de 285 ms. La carga estable responde «¿cumple en el uso esperado?» y no responde «¿hasta dónde?».
+En el simulador de [SE-435](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md), cuatro servidores con 50 ms de servicio medio tienen una capacidad nominal de 80 solicitudes por segundo. A 60 solicitudes por segundo la utilización es del 75 %, y con llegadas aleatorias eso ya produce colas pasajeras: mediana de 57 ms, p95 de 202 ms y p99 de 285 ms. Por eso se miden percentiles y no solo la media. Otras pruebas responden otras preguntas: la de **pico** el comportamiento ante una ráfaga; la de **resistencia** (*soak*) el desgaste en el tiempo.
 
 ## Ejemplo
 
-Ejemplo de [SE-435 — Carga, estrés, picos y endurance](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md) (sección «Caso conductor»):
-
-La API de entregas es el caso conductor de la [Parte 36](../../../classes/part-36-calidad-rendimiento-y-resiliencia/README.md). Esta clase deja el tercer artefacto: un plan de pruebas de carga con su generador y su criterio. `SE-436` explicará con teoría de colas por qué la latencia crece tanto cerca de la saturación y `SE-438` añadirá los reintentos que aquí no existen. Cambia después un solo parámetro, la utilización base, y observa cuánto cambia el tiempo de recuperación.
+En la misma clase, a 60 solicitudes por segundo se pierden unas tres conexiones en cinco minutos (6 % del pool); una prueba de carga de esa duración no lo vería, y el pool se agota a los 67 minutos tras 241 135 solicitudes. Solo una prueba de resistencia larga lo detecta.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La prueba «aguanta» y el sistema cae en el cierre** — causa: solo se hizo prueba de carga. Corrección: añadir prueba de pico y de resistencia. ([SE-435](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md))
+**La prueba «aguanta» y el sistema cae en el cierre.** Solo se hizo prueba de carga; añadir prueba de pico y de resistencia.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- A 60 solicitudes por segundo, en cinco minutos se pierden unas tres conexiones (el 6 % del pool), una prueba de carga de esa duración no lo vería, y el pool se agota a los 67 minutos tras 241 135 solicitudes. ([SE-435](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-435-carga-estres-picos-y-endurance/README.md))
+Las cifras son de un simulador. Una prueba de carga con datos o patrones de uso poco realistas da confianza falsa; el generador de carga también puede ser el cuello de botella.
 
 ## Relación con otros conceptos
 

@@ -2,44 +2,32 @@
 
 [↑ Glosario](../../README.md) · [← Entradas de frontera](./entradas-de-frontera.md) · [Entrega al menos una vez →](./entrega-al-menos-una-vez.md)
 
-> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** compuesta desde las clases · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
+> **Tipo:** concepto · **Nivel:** apoyo · **Profundidad:** desarrollada · **Familia:** F — Calidad, seguridad y entrega · **Primera aparición:** [Parte 39](../../../classes/part-39-build-release-y-cadena-de-suministro/README.md)
 
 ## Definición
 
-Una entrada del contexto puede convertirse en código.
-
-Es uno de los temas de [SE-478 — Riesgos de CI y dependencias comprometidas](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md), donde se enseña como «Entradas no confiables».
+En una canalización de integración continua, una **entrada no confiable** es un dato del contexto del evento que puede convertirse en código si el flujo lo interpreta mal ([SE-478](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md)): el título de una solicitud, el nombre de una rama, el cuerpo de un comentario.
 
 ## Por qué importa
 
-En [SE-478 — Riesgos de CI y dependencias comprometidas](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md), el tema «Entradas no confiables» importa porque una entrada del contexto puede convertirse en código.
-
-En [SE-491 — Taller: endurecer un pipeline vulnerable](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-491-taller-endurecer-un-pipeline-vulnerable/README.md), el tema «Entradas no confiables» importa porque el texto de una solicitud de integración es una entrada del atacante.
+Quien controla esos datos puede ser una persona externa. Si el flujo los interpola dentro de una orden, ejecutan lo que esa persona escribió, con los permisos del flujo.
 
 ## Cómo funciona
 
-Según [SE-478 — Riesgos de CI y dependencias comprometidas](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md):
-
-Traslada el análisis a otra plataforma de CI (GitLab, Jenkins, un sistema propio): cambia la sintaxis de permisos y de secretos y conserva el procedimiento de listar activos y entradas no confiables, fijar las dependencias del CI, minimizar el alcance, evaluar el escáner con mutaciones y preparar la respuesta. La transferencia está lograda cuando puedes decir cuál es en la nueva plataforma el equivalente a `pull_request_target` y qué runner conserva estado.
+[SE-478](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md) trata el análisis de seguridad de una canalización como un procedimiento: listar los **activos** (secretos, permisos) y las **entradas no confiables**, fijar las dependencias del CI, minimizar el alcance, evaluar el escáner con mutaciones y preparar la respuesta. Dos errores típicos: interpolar el contexto directamente en un paso `run`, y referenciar acciones por etiqueta movible.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-478 — Riesgos de CI y dependencias comprometidas](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md):
-
-El flujo de publicación de la API de entregas se reescribe con cuatro reglas. Todas las acciones se fijan a un SHA y un trabajo semanal propone las actualizaciones como solicitudes revisables. El permiso por defecto es vacío y cada trabajo declara el suyo: las pruebas leen el contenido, la publicación escribe solo la etiqueta del release.
+Un flujo hace `echo "${{ github.event.pull_request.title }}"` dentro de un `run`; un título con comillas y órdenes se ejecuta. La corrección es pasar el dato como variable de entorno y usarlo como variable, no como texto de la orden.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-478 — Riesgos de CI y dependencias comprometidas](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md)) son:
-
-- **Una acción cambia de comportamiento sin cambios en el repositorio** — causa: referencia por etiqueta. Corrección: fijar a un SHA y revisar las actualizaciones.
-- **Un título de solicitud ejecuta órdenes** — causa: interpolación del contexto en `run`. Corrección: pasar el dato como variable de entorno.
+- **Un título de solicitud ejecuta órdenes.** Interpolación del contexto en `run`; pasar el dato como variable de entorno.
+- **Una acción cambia de comportamiento sin cambios en el repositorio.** Referencia por etiqueta; fijar a un SHA y revisar las actualizaciones.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Traslada el análisis a otra plataforma de CI (GitLab, Jenkins, un sistema propio): cambia la sintaxis de permisos y de secretos y conserva el procedimiento de listar activos y entradas no confiables, fijar las dependencias del CI, minimizar el alcance, evaluar el escáner con mutaciones y preparar la respuesta. ([SE-478](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md))
+La sintaxis es de una plataforma concreta; en GitLab o Jenkins cambian permisos y secretos, pero se conserva el procedimiento. [SE-478](../../../classes/part-39-build-release-y-cadena-de-suministro/se-478-riesgos-de-ci-y-dependencias-comprometidas/README.md) pide poder decir cuál es en la nueva plataforma el equivalente a `pull_request_target` y qué runner conserva estado.
 
 ## Relación con otros conceptos
 

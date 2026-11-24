@@ -36,6 +36,18 @@ import tempfile
 import zipfile
 from pathlib import Path
 
+
+def safe_extract_zip(archive: "zipfile.ZipFile", destination: Path) -> None:
+    """Extrae un zip rechazando rutas absolutas o que salgan de ``destination`` (zip slip)."""
+    root = destination.resolve()
+    for member in archive.infolist():
+        target = (root / member.filename).resolve()
+        if root != target and root not in target.parents:
+            raise ValueError(f"ruta insegura dentro del zip: {member.filename}")
+    for member in archive.infolist():
+        archive.extract(member, root)
+
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 MIN_CLASS_BYTES = 5_000  # una clase publicada pesa decenas de kB; una vacía, unos cientos
@@ -168,7 +180,7 @@ def verify_zip(path: Path, ctx: dict, report: Report) -> None:
             if bad:
                 report.add(path.name, "integridad del zip", FAIL, bad)
                 return
-            archive.extractall(base)
+            safe_extract_zip(archive, base)
         report.add(path.name, "integridad del zip", PASS)
         site = find_site(base)
         if not site:
@@ -338,7 +350,7 @@ def verify_mac_zip(path: Path, ctx: dict, report: Report) -> None:
             if bad:
                 report.add(path.name, "integridad del zip", FAIL, bad)
                 return
-            archive.extractall(base)
+            safe_extract_zip(archive, base)
         site = find_site(base)
         if not site:
             report.add(path.name, "portal dentro del .app", FAIL, "no hay site/classes/SE-001.html")

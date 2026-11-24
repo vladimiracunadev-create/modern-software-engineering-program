@@ -1,0 +1,6 @@
+# Dependencias de la cadena de PDF (scripts/build_pdf.py, verify_pdf.py, publish_pdf.py).
+# Solo se necesitan para generar o verificar los PDF; el resto del repositorio no las usa.
+# PyMuPDF: marcadores, metadatos, números del índice y lectura/verificación de los PDF.
+# Markdown: guías de rol y glosario, que se publican como Markdown.
+PyMuPDF==1.27.2.3
+Markdown==3.10.2

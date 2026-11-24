@@ -1,0 +1,119 @@
+/* Hoja de estilo de impresión del libro (A4). Los encabezados y pies por parte y
+   clase se generan en scripts/build_pdf.py como reglas @page con nombre. */
+:root {
+  --ink: #142231; --muted: #5a6773; --navy: #102a43; --teal: #087f8c;
+  --teal-soft: #dff1ee; --coral: #d85845; --gold: #d9a441; --line: #cfd3d2; --link: #075d68;
+}
+@page { size: A4; margin: 22mm 18mm 22mm 18mm; }
+@page cover { margin: 0; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html { font-family: "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, "Liberation Sans", "DejaVu Sans", sans-serif; font-size: 10pt; line-height: 1.45; color: var(--ink); }
+body { margin: 0; orphans: 3; widows: 3; overflow-wrap: break-word; }
+a { color: var(--link); text-decoration: none; border-bottom: .4pt solid rgba(7,93,104,.45); }
+code, pre, kbd, samp { font-family: "Cascadia Mono", Consolas, "Liberation Mono", "DejaVu Sans Mono", Menlo, monospace; }
+
+/* ---- portada ---- */
+.cover { page: cover; break-after: page; height: 296.5mm; padding: 26mm 22mm 20mm; color: #fff; display: flex; flex-direction: column;
+  background: linear-gradient(135deg, #102a43 0%, #133852 58%, #0b5960 100%); position: relative; overflow: hidden; }
+.cover::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 9mm 9mm; }
+.cover > * { position: relative; }
+.cover .kicker { color: #ffad8f; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: 9.5pt; }
+.cover h1 { font-family: Georgia, "Times New Roman", serif; font-size: 40pt; line-height: 1.02; font-weight: 650; letter-spacing: -.02em; margin: 6mm 0 5mm; max-width: 150mm; }
+.cover .volume { font-family: Georgia, "Times New Roman", serif; font-size: 22pt; color: #8de0d5; margin: 14mm 0 3mm; line-height: 1.15; }
+.cover .vol-desc { color: #d8e6ec; font-size: 11.5pt; max-width: 135mm; }
+.cover .facts { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; border-top: .5pt solid rgba(255,255,255,.35); padding-top: 6mm; }
+.cover .facts strong { display: block; font-size: 20pt; color: #8de0d5; }
+.cover .facts span { color: #c9dbe2; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .08em; }
+.cover .edition { margin-top: 9mm; font-size: 8.8pt; color: #b9cfd8; line-height: 1.55; }
+.cover .edition code { color: #fff; font-size: 8.8pt; }
+
+/* ---- páginas preliminares ---- */
+.front { break-before: page; }
+.front h1 { font-family: Georgia, "Times New Roman", serif; font-size: 24pt; color: var(--navy); margin: 0 0 6mm; border-bottom: 2pt solid var(--coral); padding-bottom: 3mm; }
+.front h2 { font-size: 11pt; color: var(--navy); margin: 5mm 0 2mm; }
+.front p, .front li { font-size: 9.6pt; margin: 0 0 2mm; }
+.toc { font-size: 9pt; }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc .toc-stage { font-family: Georgia, serif; font-size: 13pt; color: var(--teal); margin: 6mm 0 1.5mm; break-after: avoid; border-bottom: .5pt solid var(--line); padding-bottom: 1mm; }
+.toc .toc-part { margin: 2.6mm 0 .8mm; font-weight: 700; font-size: 9.6pt; break-after: avoid; display: flex; gap: 2mm; align-items: baseline; }
+.toc .toc-part a { color: var(--navy); }
+.toc .toc-item { display: flex; gap: 2mm; align-items: baseline; padding-left: 5mm; line-height: 1.32; break-inside: avoid; }
+.toc a { border-bottom: 0; }
+.toc .lead { flex: 1 1 auto; border-bottom: .5pt dotted #9aa5ad; min-width: 6mm; transform: translateY(-1.2pt); }
+.toc .toc-id { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 12mm; font-size: 8.4pt; }
+.toc .pg { display: inline-block; min-width: 9mm; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+
+/* ---- aperturas de parte y clase ---- */
+.part { break-before: page; }
+.part-opener { margin: 0 0 7mm; padding: 14mm 10mm 9mm; border-radius: 3mm; color: #fff; background: linear-gradient(130deg, #102a43, #12535a); break-after: avoid; }
+.part-opener .eyebrow { margin: 0 0 2mm; color: #ffb195; text-transform: uppercase; letter-spacing: .14em; font-weight: 800; font-size: 8.5pt; }
+.part-opener h1 { font-family: Georgia, serif; font-size: 25pt; line-height: 1.08; margin: 0; font-weight: 650; }
+.part-opener .meta { margin: 3mm 0 0; color: #d9e6eb; font-size: 9.5pt; }
+.class { break-before: page; }
+.class-opener { margin: 0 0 5mm; padding: 6mm 7mm 5mm; border-left: 2.2mm solid var(--coral); background: #eef3f3; break-after: avoid; }
+.class-opener .eyebrow { margin: 0 0 1.5mm; color: var(--coral); text-transform: uppercase; letter-spacing: .14em; font-weight: 800; font-size: 8.5pt; }
+.class-opener h2 { font-family: Georgia, serif; font-size: 18pt; line-height: 1.15; margin: 0; color: var(--navy); font-weight: 650; }
+.class-opener .lead-in { margin: 2mm 0 0; color: var(--muted); font-size: 9.2pt; }
+.divider { break-before: page; height: 240mm; display: flex; flex-direction: column; justify-content: center; }
+.divider .eyebrow { color: var(--coral); text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: 9pt; }
+.divider h1 { font-family: Georgia, serif; font-size: 34pt; line-height: 1.05; color: var(--navy); margin: 3mm 0 4mm; }
+.divider p { max-width: 130mm; color: var(--muted); font-size: 11pt; }
+
+/* ---- cuerpo ---- */
+.body h2, .body h3, .body h4, .body h5 { break-after: avoid; line-height: 1.22; color: var(--navy); }
+.body h3 { font-family: Georgia, serif; font-size: 13.5pt; margin: 6mm 0 2mm; padding-top: 2.5mm; border-top: .5pt solid var(--line); }
+.body > h3:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.body h4 { font-size: 11pt; color: var(--teal); margin: 4.5mm 0 1.5mm; }
+.body h5, .body h6 { font-size: 10pt; margin: 3.5mm 0 1mm; }
+.body p { margin: 0 0 2.4mm; }
+.body ul, .body ol { margin: 0 0 3mm; padding-left: 6mm; }
+.body li { margin: .8mm 0; }
+.body hr { border: 0; border-top: .5pt solid var(--line); margin: 4mm 0; }
+.body blockquote { margin: 3mm 0; padding: 2mm 4mm; border-left: 1.2mm solid var(--teal); background: #f1f6f6; color: #2a3a48; break-inside: avoid; }
+.body blockquote p:last-child { margin-bottom: 0; }
+.body img { max-width: 100%; height: auto; }
+.body code { background: #e9eeee; padding: .1mm 1mm; border-radius: .8mm; font-size: 8.4pt; overflow-wrap: anywhere; }
+.body pre { background: #102a43; color: #e9f4f2; border-radius: 1.5mm; padding: 3mm 3.5mm; margin: 3mm 0; font-size: 7.8pt; line-height: 1.38; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; tab-size: 4; }
+.body pre.keep { break-inside: avoid; }
+.body pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+.body .notice, .body .callout, .body aside { margin: 3mm 0; padding: 2.5mm 4mm; border: .5pt solid var(--line); border-left: 1.4mm solid var(--gold); background: #fbf8ef; break-inside: avoid; border-radius: 1mm; }
+.body .callout { border-left-color: var(--coral); }
+.body .callout.note, .body .callout.tip { border-left-color: var(--teal); }
+.body .context-card { padding: 2mm 3mm; border: .5pt solid var(--line); background: #f6f9f9; margin: 0 0 2mm; break-inside: avoid; }
+.body .context-card span { display: block; font-size: 7.5pt; letter-spacing: .08em; text-transform: uppercase; color: var(--coral); font-weight: 800; }
+.body .table-wrap { margin: 3mm 0; }
+.body table { width: 100%; border-collapse: collapse; font-size: 8.3pt; line-height: 1.32; table-layout: auto; }
+.body th, .body td { border: .4pt solid #b9c4c4; padding: 1.2mm 1.8mm; text-align: left; vertical-align: top; overflow-wrap: break-word; }
+.body th { background: #e4eeee; color: var(--navy); }
+.body tbody tr:nth-child(even) td { background: #f8faf9; }
+.body tr { break-inside: avoid; }
+.body thead { display: table-header-group; }
+.body figure, .body .lesson-figure { margin: 4mm 0; padding: 2.5mm; border: .5pt solid #c3d6d3; border-radius: 1.5mm; background: #fff; break-inside: avoid; text-align: center; }
+.body figure img, .body .lesson-figure img { display: block; margin: 0 auto; max-width: 100%; max-height: 200mm; width: auto; height: auto; }
+.body figcaption { margin-top: 2mm; color: var(--muted); font-size: 8.3pt; line-height: 1.38; text-align: left; }
+.body .route { list-style: none; padding: 0; margin: 3mm 0; }
+.body .route li { display: block; padding: 0 0 2.4mm; break-inside: avoid; }
+.body .route-block { margin: 4mm 0 1.5mm; color: var(--coral); font-size: 8.2pt; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; break-after: avoid; }
+.body .route-number { display: inline-block; min-width: 7mm; padding: .5mm 1.6mm; margin-right: 2mm; border-radius: 1mm; background: var(--navy); color: #fff; font-weight: 800; font-size: 8pt; text-align: center; }
+.body .route-copy { display: inline; }
+.body .route-copy p { margin: .5mm 0 .5mm 11mm; color: var(--muted); }
+.body .route-evidence { display: block; margin: .5mm 0 0 11mm; padding: .6mm 2mm; background: var(--teal-soft); color: #075d65; font-size: 8pt; font-weight: 700; border-radius: .8mm; }
+.body .part-intro { margin: 0 0 4mm; padding: 3mm 4mm; border: .5pt solid var(--line); border-top: 1.4mm solid var(--coral); background: #fbf8ef; }
+.body .meta, .body .eyebrow { color: var(--muted); }
+.body details { margin: 2mm 0; }
+.body details > summary { font-weight: 700; }
+.body dl dt { font-weight: 700; margin-top: 2mm; }
+.body dl dd { margin: 0 0 1mm 5mm; }
+.body .glossary-entry { break-inside: avoid-page; }
+.vol-note { color: var(--muted); font-size: 8.5pt; }
+.fig-id { display: block; height: 0; line-height: 0; font-size: 1px; color: transparent; overflow: visible; user-select: none; }
+/* enlace al propio inicio: obliga al navegador a emitir el destino de cada unidad aunque nadie más la cite */
+.eyebrow a.self, .gl-term a.self, .gl-letter a.self { color: inherit; border-bottom: 0; text-decoration: none; }
+/* glosario: las entradas fluyen una tras otra; cada letra abre página */
+.gl-letter { break-before: page; }
+.gl-letter h2 { font-family: Georgia, serif; font-size: 44pt; color: var(--coral); margin: 0 0 4mm; border-bottom: 2pt solid var(--navy); }
+.gl-entry { margin: 0 0 6mm; padding-top: 3mm; border-top: .5pt solid var(--line); }
+.gl-entry .gl-term { font-family: Georgia, serif; font-size: 15pt; color: var(--navy); margin: 0 0 1.5mm; break-after: avoid; }
+.gl-entry .body h4 { font-size: 9.6pt; margin: 2.5mm 0 1mm; }
+.gl-entry .body p { font-size: 9.4pt; }
+.gl-id { display: block; height: 0; line-height: 0; font-size: 1px; color: transparent; overflow: visible; }

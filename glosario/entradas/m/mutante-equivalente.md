@@ -2,50 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Mutante del silencio](./mutante-del-silencio.md) · [Mutante superviviente →](./mutante-superviviente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Mutante cuyo comportamiento observable no difiere del original; no se puede matar.
-
-Definición de trabajo de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-426 — Mutación, fuzzing y generación de casos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md): Mutante de comportamiento observable igual al original.
-- En [SE-464 — Secure SDLC, abuso y pruebas negativas](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md): Variante de un programa que no cambia su comportamiento observable y que, por tanto, ninguna prueba puede detectar.
-- En [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md): Variante de una regla o de un programa que no cambia ninguna salida sobre el dominio considerado.
-- En [SE-265 — Hardware, firmware y software embebido](../../../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md): Variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
+Un **mutante equivalente** es una variante de un programa (o de una regla) producida por una mutación que no cambia ninguna salida observable sobre el dominio considerado, por lo que ninguna prueba puede distinguirla del original: no se puede «matar» ([SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md), [SE-426](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-426-mutacion-fuzzing-y-generacion-de-casos/README.md), [SE-464](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md), [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md), [SE-265](../../../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md)).
 
 ## Por qué importa
 
-En [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md), el tema «Mutantes equivalentes» importa porque un mutante que no cambia el comportamiento no se puede matar; perseguirlo cuesta tiempo sin valor.
+Corrige la lectura de una cifra de mutación. Si una suite deja sobrevivir algunos mutantes, no todos indican una prueba que falta: algunos son equivalentes y perseguirlos cuesta tiempo sin valor. [SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) lo resume: cualquier cifra de mutantes muertos debe calcularse sobre los **no equivalentes**. Sin esa distinción, se castiga a una suite buena o se persigue un 100 % imposible.
 
 ## Cómo funciona
 
-Según [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
+La prueba de mutación introduce defectos pequeños y deliberados (cambiar `>=` por `>`, quitar un rechazo) y cuenta cuántos detecta la suite. Un mutante sobrevive si ninguna prueba falla con él. Entonces hay dos posibilidades: la suite no tiene la prueba necesaria, o el mutante no cambia el comportamiento. En el segundo caso es equivalente. Decidir si un mutante es equivalente es, en general, un problema indecidible; en la práctica se revisa a mano.
 
-Hay una trampa conocida: los **mutantes equivalentes**. Cambiar `offset != 1` por `offset > 1` no altera el comportamiento cuando los únicos umbrales posibles son 72, 24 y 1; ningún oráculo puede matarlo porque no hay diferencia observable. Los dos equivalentes del laboratorio (M19 y M20) sobreviven a los cinco oráculos, y eso es lo correcto. Cualquier cifra de mutantes muertos debe calcularse sobre los no equivalentes.
+[SE-541](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) da el ejemplo de la clase: cambiar `offset != 1` por `offset > 1` no altera el comportamiento cuando los únicos umbrales posibles son 72, 24 y 1; ningún oráculo puede matarlo porque no hay diferencia observable. Los dos equivalentes del laboratorio (M19 y M20) sobreviven a los cinco oráculos, y eso es lo correcto.
 
-Según [SE-464 — Secure SDLC, abuso y pruebas negativas](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md):
-
-Una suite de seguridad debe poder fallar. La **mutación** lo comprueba introduciendo defectos pequeños y deliberados en el código (un `>=` por `>`, la comprobación de extensión sensible a mayúsculas, la eliminación de un rechazo) y contando cuántos detecta la suite. Los mutantes que sobreviven señalan pruebas que faltan o **mutantes equivalentes**, cambios que no alteran el comportamiento observable. Los equivalentes son frecuentes cuando hay defensa en profundidad: dos comprobaciones rechazan lo mismo, así que quitar una no cambia nada visible. La conclusión no es borrar la comprobación duplicada sino saber qué cubre cada capa. El proceso es el mismo de `SE-459`, aplicado al código de validación: ejemplos válidos, negativos típicos, bordes elegidos con criterio y, como último recurso, entradas aleatorias comparadas con una implementación de referencia.
+[SE-464](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md) añade una fuente frecuente en seguridad: la **defensa en profundidad**. Cuando dos comprobaciones rechazan lo mismo, quitar una no cambia nada visible, y el mutante resultante es equivalente. La conclusión no es borrar la comprobación redundante (la redundancia es intencional), sino anotar por qué el mutante sobrevive. Y [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) y [SE-265](../../../classes/part-22-embedded-iot-y-tiempo-real/se-265-hardware-firmware-y-software-embebido/README.md) usan la misma noción para reglas: una variante que no cambia ninguna salida sobre el dominio considerado.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-541 — Mapa de metodologías: qué decide cada una y cómo elegir](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-541-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md):
-
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+Una regla de plazos solo acepta desplazamientos de 72, 24 o 1 hora. El código `if offset != 1` se muta a `if offset > 1`. Con esos tres valores, ambas condiciones dan el mismo resultado en todo el dominio; ninguna prueba puede distinguirlas. De 20 mutantes, 2 son equivalentes y la suite mata los otros 18: la puntuación correcta es 18/18 (100 %), no 18/20 (90 %). (Escenario construido con los datos de la clase.)
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Contar equivalentes como fallos de la suite.**
+- **Escribir pruebas contorsionadas para «matar» un equivalente**, lo que fija detalles internos irrelevantes.
+- **Declarar equivalente un mutante que no lo es** solo porque es difícil de matar: hay que comprobarlo sobre el dominio.
+- **Confundir equivalente con superviviente**: todo equivalente sobrevive, pero no todo superviviente es equivalente.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Los mutantes que sobreviven señalan pruebas que faltan o **mutantes equivalentes**, cambios que no alteran el comportamiento observable. ([SE-464](../../../classes/part-38-seguridad-privacidad-y-cumplimiento/se-464-secure-sdlc-abuso-y-pruebas-negativas/README.md))
+La equivalencia depende del dominio considerado: un mutante equivalente hoy puede dejar de serlo si el dominio se amplía (por ejemplo, aparecen nuevos umbrales). Revisar equivalentes a mano no escala en bases de código grandes; las herramientas tienen heurísticas imperfectas. Si el dominio no está bien definido, no se puede afirmar equivalencia.
 
 ## Relación con otros conceptos
 

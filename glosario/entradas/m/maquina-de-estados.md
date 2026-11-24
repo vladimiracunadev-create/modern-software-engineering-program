@@ -2,47 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Mapping](./mapping.md) · [Máquina virtual →](./maquina-virtual.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
-
-Definición de trabajo de [SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-239 — Taller: construir un flujo web resiliente](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md): Modelo con un conjunto finito de estados, eventos y transiciones que describe cómo reacciona un sistema a su entorno.
+Una **máquina de estados** es un modelo con un conjunto finito de estados, un estado inicial y transiciones etiquetadas con eventos o acciones, que describe cómo reacciona un sistema a su entorno. [SE-161](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md) la presenta como técnica de especificación; [SE-239](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/README.md) la usa para el comportamiento de la interfaz; [SE-412](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md) la aplica al ciclo de vida de una suscripción (vigente, vencida, cancelada, etc.).
 
 ## Por qué importa
 
-En [SE-412 — Suscripciones, ciclos de facturación y dunning](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md), el tema «Máquina de estados» importa porque hace explícito qué puede ocurrir y qué decide el acceso.
+Hace explícito qué puede ocurrir y qué decide el acceso. Las reglas de negocio con tiempo suelen describirse con frases sueltas que dejan huecos («si el pago falla, se reintenta»), y los huecos aparecen como defectos. Dibujar estados y transiciones obliga a responder para cada estado qué evento puede ocurrir y a dónde lleva, y a declarar lo que no está permitido.
 
 ## Cómo funciona
 
-Según [SE-412 — Suscripciones, ciclos de facturación y dunning](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md):
+El modelo tiene cuatro elementos: **estados** (situaciones estables), **eventos** (lo que ocurre), **transiciones** (de qué estado, con qué evento, a qué estado, con qué acción) y un **estado inicial**. La propiedad útil es que el comportamiento queda enumerable: se puede comprobar que cada par (estado, evento) tiene una respuesta definida, que no hay estados inalcanzables y que no hay estados sin salida salvo los finales intencionales. Una matriz estado × evento es una forma de revisar la completitud; las celdas vacías son preguntas pendientes.
 
-La máquina de estados no decide los impuestos aplicables (que dependen de la jurisdicción del cliente y del producto), ni la regulación sobre cobros recurrentes y avisos previos, ni el reconocimiento contable del ingreso en planes anuales, ni la facturación electrónica que algunos países exigen. Son restricciones reales que se incorporan al modelo con asesoría especializada; un procesador de pagos o un servicio de facturación puede absorber parte de ellas, con su propio costo y dependencia.
-
-Según [SE-412 — Suscripciones, ciclos de facturación y dunning](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md):
-
-Toma una suscripción que tengas (streaming, nube, un servicio de software) y reconstruye su máquina de estados: qué ocurre si cancelas hoy, si el pago falla, si cambias de plan a mitad de ciclo. Anota lo que no pudiste responder sin probar. Eso es lo que el producto debería haber puesto por escrito.
+[SE-412](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md) sigue el ciclo de una suscripción con transiciones explícitas y el ciclo de facturación anclado, y propone un ejercicio de ingeniería inversa: tomar una suscripción real (streaming, nube) y reconstruir su máquina de estados respondiendo qué ocurre si se cancela hoy, si el pago falla o si se cambia de plan a mitad de ciclo; lo que no se pudo responder sin probar es lo que el producto debería haber puesto por escrito.
 
 ## Ejemplo
 
-Ejemplo de [SE-412 — Suscripciones, ciclos de facturación y dunning](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md) (sección «Ejemplo mínimo»):
-
-La máquina de estados con transiciones explícitas y el ciclo anclado:
+Una suscripción con estados `prueba`, `activa`, `en_mora`, `cancelada`. Transiciones: `prueba → activa` al pagar; `activa → en_mora` si el cobro falla; `en_mora → activa` si el reintento tiene éxito; `en_mora → cancelada` tras agotar reintentos; `activa → cancelada` si la persona cancela. La pregunta «¿qué ocurre si cancelo estando en mora?» expone una celda no definida: hay que decidir si cancela de inmediato o se debe lo adeudado. (Modelo ilustrativo; [SE-412](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md) desarrolla uno más completo.)
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Estados que son en realidad datos**: si el número de estados crece con cada valor posible de un campo, el modelo es inadecuado.
+- **Transiciones implícitas**: el código permite cambios que el modelo no declara.
+- **Confundir estado con evento**: «pago fallido» es un evento; «en mora», el estado resultante.
+- **Creer que el modelo cubre todo el dominio**: solo cubre el comportamiento que se modeló.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La máquina de estados no decide los impuestos aplicables (que dependen de la jurisdicción del cliente y del producto), ni la regulación sobre cobros recurrentes y avisos previos, ni el reconocimiento contable del ingreso en planes anuales, ni la facturación electrónica que algunos países exigen. ([SE-412](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md))
+[SE-412](../../../classes/part-34-saas-y-plataformas-de-producto/se-412-suscripciones-ciclos-de-facturacion-y-dunning/README.md) es explícita en lo que la máquina de estados no decide: los impuestos aplicables (dependen de la jurisdicción del cliente y del producto), la regulación sobre cobros recurrentes y avisos previos, el reconocimiento contable del ingreso en planes anuales y la facturación electrónica que algunos países exigen. Son restricciones reales que se incorporan con asesoría especializada; un procesador de pagos o un servicio de facturación puede absorber parte, con su propio costo y dependencia. Además, con muchos estados concurrentes el modelo se vuelve inmanejable y se descompone en máquinas jerárquicas o en varias máquinas coordinadas.
 
 ## Relación con otros conceptos
 

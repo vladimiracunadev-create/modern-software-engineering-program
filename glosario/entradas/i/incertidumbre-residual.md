@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Incertidumbre](./incertidumbre.md) · [Incidente →](./incidente.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Rango de valores de la tasa real que son compatibles con lo observado, expresado como intervalo de confianza o de credibilidad.
-
-Definición de trabajo de [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md).
+La **incertidumbre residual** es el rango de valores de la tasa real que son compatibles con lo observado, expresado como intervalo de confianza o de credibilidad ([SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)). Es lo que queda de duda después de hacer una prueba, por bien que se haya hecho.
 
 ## Por qué importa
 
-En [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md), el tema «Incertidumbre residual» importa porque toda prueba termina con un intervalo; ignorarlo convierte una estimación en un hecho.
+Toda prueba termina con un intervalo; ignorarlo convierte una estimación en un hecho. Cambia la decisión que se toma al leer el resultado: «8 % de clics» no es una demanda del 8 %, y quien decide con ese número sin su intervalo puede invertir donde no hay demanda o descartar donde sí la hay.
 
 ## Cómo funciona
 
-Según [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md), en la sección «Incertidumbre residual»:
+[SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md) da un ejemplo con números. Observar 8 % de clics en 20 personas es compatible con una tasa real entre 3 % y 30 %. Con 200 personas el rango se reduce a 5–13 %, y con 1.000 a 6,5–9,8 %. El ancho del intervalo baja con la raíz del tamaño de la muestra: cuadruplicar los datos reduce el intervalo a la mitad, de modo que reducir la duda es cada vez más caro.
 
-Observar 8 % de clics en 20 personas no dice que la demanda sea de 8 %: es compatible con entre 3 % y 30 %. Con 200 personas el rango se reduce a 5–13 % y con 1 000 a 6,5–9,8 %. El intervalo de Wilson funciona razonablemente con muestras pequeñas y valores cercanos a 0 o 1, donde el intervalo clásico falla. Se reporta junto a la tasa y se compara con el umbral de decisión declarado en el plan: si el intervalo lo atraviesa, el resultado es inconcluso, no favorable.
+La clase recomienda el **intervalo de Wilson**, que funciona razonablemente con muestras pequeñas y con tasas cercanas a 0 o 1, donde el intervalo clásico (el de la aproximación normal) falla y puede salirse de [0, 1] o quedar de ancho cero. El intervalo se reporta junto a la tasa y se compara con el **umbral de decisión declarado en el plan**: si el intervalo atraviesa el umbral, el resultado es **inconcluso**, no favorable. Esa regla evita decidir por el valor puntual.
+
+La incertidumbre residual se conecta con otras prácticas del mismo tema: fijar el tamaño y el calendario de análisis antes de empezar (mirar repetidamente y detenerse al primer resultado favorable infla los falsos positivos) y calcular el tamaño por rama para tener potencia suficiente.
 
 ## Ejemplo
 
-Caso medido en la sección «Incertidumbre residual» de [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md):
-
-Observar 8 % de clics en 20 personas no dice que la demanda sea de 8 %: es compatible con entre 3 % y 30 %. Con 200 personas el rango se reduce a 5–13 % y con 1 000 a 6,5–9,8 %. El intervalo de Wilson funciona razonablemente con muestras pequeñas y valores cercanos a 0 o 1, donde el intervalo clásico falla. Se reporta junto a la tasa y se compara con el umbral de decisión declarado en el plan: si el intervalo lo atraviesa, el resultado es inconcluso, no favorable.
+Una prueba de interés de la plataforma: 20 personas ven una oferta y 2 hacen clic (10 %). Con el umbral de decisión fijado en el 5 %, el intervalo de Wilson para 2 de 20 va aproximadamente de 3 % a 30 %: atraviesa el umbral, y el resultado es inconcluso. Con 1.000 personas y la misma tasa, el intervalo se estrecha hasta quedar claramente por encima del umbral y la decisión es defendible. (Cifras de ejemplo en la línea de las que usa [SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md); no son los mismos datos.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)) son:
-
-- **La prueba «ganadora» desaparece al repetirla** — causa: se detuvo al primer resultado significativo tras mirar muchas veces. Corrección: fijar el tamaño y el calendario de análisis o usar un método secuencial.
-- **El experimento dice «no hay diferencia» siempre** — causa: la muestra no tenía potencia para el efecto buscado. Corrección: calcular el tamaño por rama antes de empezar y cambiar de método si es inalcanzable.
+- **La prueba «ganadora» desaparece al repetirla**: se detuvo al primer resultado significativo tras mirar muchas veces; corrección: fijar tamaño y calendario o usar un método secuencial.
+- **«No hay diferencia» siempre**: la muestra no tenía potencia para el efecto buscado; corrección: calcular el tamaño por rama antes.
+- **Reportar solo el valor puntual.**
+- **Interpretar el intervalo de confianza como «hay 95 % de probabilidad de que el valor esté dentro»**: la lectura estricta es sobre el procedimiento; el intervalo de credibilidad bayesiano sí admite esa lectura bajo sus supuestos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones con tasas supuestas en Windows y Ubuntu (WSL2) con salidas idénticas. No se probó ningún prototipo con personas, no se midió efecto de novedad ni interferencia entre ramas. La siguiente clase usa lo aprendido para priorizar por valor, riesgo y aprendizaje.
+El intervalo solo cubre el error de muestreo, no los sesgos: una muestra no representativa o una medición mal definida producen un intervalo estrecho y equivocado. Supone observaciones independientes. Con datos agregados por persona o por sesión hay que cuidar qué unidad se cuenta. Para decisiones baratas y reversibles, esperar a un intervalo estrecho puede costar más que decidir con el valor puntual.
 
 ## Relación con otros conceptos
 

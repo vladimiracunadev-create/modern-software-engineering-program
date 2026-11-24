@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← K-anonimato](./k-anonimato.md) · [Kappa ponderado →](./kappa-ponderado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
 
 ## Definición
 
-Estadístico que mide el acuerdo entre dos evaluadores descontando el acuerdo esperado por azar.
-
-Definición de trabajo de [SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-517 — Mantenimiento correctivo, adaptativo y perfectivo](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md): Medida del acuerdo entre dos clasificadoras que descuenta el acuerdo esperado por azar.
-- En [SE-180 — Proyecto: prototipo accesible evaluado con usuarios](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md): Medida del acuerdo entre dos evaluadores corregida por el acuerdo esperado por azar.
+El **kappa de Cohen** (κ) es un estadístico que mide el acuerdo entre dos evaluadores que clasifican los mismos elementos, descontando el acuerdo que se esperaría por puro azar. El programa lo usa en [SE-180](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios/README.md) (clasificación de solicitudes de cambio), [SE-500](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md) (severidad de incidentes) y [SE-517](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md) (clasificación de cambios de mantenimiento).
 
 ## Por qué importa
 
-La clase donde se define, [SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md), existe con este propósito: la clase existe para que coordines una respuesta en la que participan varias personas: quién decide, quién opera, quién comunica y quién escribe; cómo se declara y se clasifica un incidente; cada cuánto se informa y a quién; y cómo se miden los tiempos sin engañarse con un promedio.
+El porcentaje de coincidencias crudo engaña: si el 90 % de los incidentes son de severidad baja, dos personas que pusieran «baja» siempre coincidirían el 90 % de las veces sin mirar nada. El kappa descuenta ese acuerdo de fondo y responde la pregunta útil: ¿el criterio de clasificación produce acuerdo por encima del azar? Cambia la decisión de si un criterio (por ejemplo, una escala de severidad) está lo bastante claro como para usarse.
 
 ## Cómo funciona
 
-Según [SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md):
+Se calcula como κ = (p₀ − pₑ) / (1 − pₑ), donde p₀ es la proporción observada de acuerdo y pₑ la proporción de acuerdo esperada por azar a partir de cómo reparte cada evaluador sus etiquetas. Un valor de 1 es acuerdo perfecto; 0, acuerdo igual al del azar; negativo, peor que el azar.
 
-Se genera un impacto latente (lognormal) para 400 incidentes y se asigna su severidad verdadera con tres umbrales. Tres personas perciben el impacto con un error multiplicativo (σ = 0,9, 0,35 y 0,15 en escala logarítmica según el criterio sea vago, numérico o numérico con un ejemplo por nivel) y clasifican. Se calcula el kappa de Cohen entre pares, el acuerdo con la severidad verdadera y los errores de dos o más niveles.
+[SE-500](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md) lo usa en una simulación: genera un impacto latente para 400 incidentes, asigna una severidad verdadera con tres umbrales y hace que tres personas perciban el impacto con un error multiplicativo (σ = 0,9, 0,35 y 0,15 en escala logarítmica según el criterio sea vago, numérico o numérico con un ejemplo por nivel). Calcula el kappa entre pares, el acuerdo con la severidad verdadera y los errores de dos o más niveles. El mecanismo que muestra: un criterio más preciso reduce el ruido de percepción y sube el kappa.
 
-Según [SE-517 — Mantenimiento correctivo, adaptativo y perfectivo](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md):
-
-«Ajustar el cálculo del promedio» puede ser una corrección (el cálculo está mal), una mejora (se quiere otro cálculo) o una adaptación (cambió la normativa). El texto no decide: decide la intención y el contexto. Un clasificador por palabras clave acierta lo que el vocabulario revela y falla en lo ambiguo, y dos personas razonables discrepan justo ahí. Esto no es un defecto del procedimiento sino información: las solicitudes en las que dos revisoras discrepan son las que necesitan una conversación con quien pidió el cambio, y una cartera con muchas solicitudes ambiguas dice que el equipo no sabe todavía qué le piden.
+[SE-517](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md) aporta la lectura de un kappa bajo: «ajustar el cálculo del promedio» puede ser corrección, mejora o adaptación, y el texto no decide, sino la intención y el contexto. El desacuerdo no es un defecto del procedimiento sino información: las solicitudes en las que dos revisoras discrepan son las que necesitan una conversación con quien pidió el cambio.
 
 ## Ejemplo
 
-Ejemplo de [SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula el kappa de Cohen de dos personas que clasifican diez incidentes. Antes de ejecutarlo, predice el resultado.
+Dos personas clasifican diez incidentes como leve o grave. Coinciden en 8 (p₀ = 0,8). Si cada una puso «leve» en 7 de 10, el acuerdo esperado por azar es 0,7 × 0,7 + 0,3 × 0,3 = 0,58. Entonces κ = (0,8 − 0,58) / (1 − 0,58) ≈ 0,52: un acuerdo moderado, bastante menos impresionante que el 80 % crudo. (Cálculo propio de ilustración; [SE-500](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md) propone un ejercicio similar con predicción previa.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-500 — Gestión de incidentes y comunicación](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md)) son:
-
-- **Veinte personas opinan y nadie decide** — causa: sin comandante ni roles. Corrección: asignar roles al declarar el incidente.
-- **Quien arregla contesta preguntas** — causa: sin comunicaciones y sin cadencia. Corrección: rol de comunicaciones y actualizaciones periódicas.
+- **Reportar solo el porcentaje de acuerdo.**
+- **Interpretar umbrales como reglas universales**: las escalas habituales de interpretación son convenciones, no leyes.
+- **Usarlo con más de dos evaluadores o categorías ordenadas sin adaptar**: hay variantes (kappa ponderado, kappa de Fleiss).
+- **Ignorar la prevalencia**: con categorías muy desbalanceadas el kappa puede ser bajo aun con alto acuerdo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El **kappa de Cohen** mide el acuerdo entre dos clasificadoras descontando el que habría por azar; un valor cercano a 0,7 se suele leer como acuerdo sustancial, pero el número agregado oculta que el acuerdo en las solicitudes ambiguas puede ser casi el del azar. ([SE-517](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-517-mantenimiento-correctivo-adaptativo-y-perfectivo/README.md))
+El kappa mide acuerdo, no corrección: dos personas pueden coincidir en un error. Depende de la distribución de las categorías, y con muestras pequeñas es inestable. En [SE-500](../../../classes/part-41-observabilidad-sre-e-incidentes/se-500-gestion-de-incidentes-y-comunicacion/README.md) los datos son simulados, de modo que muestran el mecanismo, no valores esperables en un equipo real. Para clasificaciones ordinales (severidad), un kappa ponderado respeta que «por dos niveles» es peor que «por uno».
 
 ## Relación con otros conceptos
 

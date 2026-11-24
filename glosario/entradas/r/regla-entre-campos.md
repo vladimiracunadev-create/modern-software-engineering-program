@@ -2,39 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Regla decidible](./regla-decidible.md) · [Regla mecanizable →](./regla-mecanizable.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Condición que relaciona el valor de dos o más campos y que un esquema de forma no expresa.
-
-Definición de trabajo de [SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md).
+Una **regla entre campos** es una condición que relaciona el valor de dos o más campos de un mismo documento, y que un esquema de forma no expresa ([SE-162](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md)). Ejemplos: `fin ≥ inicio`; una prórroga que no excede el tope de la tarea; una nota que coincide con su calificación.
 
 ## Por qué importa
 
-En [SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md), el tema «Reglas entre campos» importa porque un esquema no expresa relaciones entre campos; hay que comprobarlas aparte.
+Cada campo puede ser válido por sí solo y el conjunto, incoherente. Un esquema (como JSON Schema) valida tipos, rangos y formatos por campo, pero ninguna palabra clave estándar relaciona dos campos de forma general. Si nadie escribe estas reglas, los datos «válidos» pero absurdos entran al sistema y se detectan tarde. Cambia el diseño de la frontera de validación: además de la forma, hay una capa de reglas de coherencia.
 
 ## Cómo funciona
 
-Según [SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md), en la sección «Reglas entre campos»:
+[SE-162](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md) sitúa la validación en capas en la frontera del sistema. Primero, **longitud y tamaño** del documento (para rechazar entradas desmedidas antes de procesarlas). Segundo, **forma**, con el esquema versionado junto al código del productor y del consumidor. Tercero, las **reglas entre campos**, con funciones con nombre (`fin_no_anterior_a_inicio`, `prorroga_no_supera_tope`). Cada rechazo devuelve el campo, la regla y un código estable, sin repetir valores sensibles.
 
-La comprobación de que `fin ≥ inicio`, de que una prórroga no exceda el tope de la tarea o de que una nota coincida con su calificación pertenece a otro nivel: ninguna palabra clave estándar de validación relaciona dos campos de forma general. Las salidas son comprobarlas en código, expresarlas con una extensión del esquema o moverlas a una regla de negocio con nombre. Lo importante es que alguien las sea dueño: una regla entre campos ausente es una de las causas más habituales de datos «válidos» e incoherentes.
+Las salidas posibles para expresarlas son tres: comprobarlas en código, expresarlas con una extensión del esquema o moverlas a una regla de negocio con nombre. Lo importante, dice la clase, es que **alguien las sea dueño**: una regla entre campos ausente es una de las causas más habituales de datos válidos e incoherentes. El efecto práctico de darles nombre es que se pueden probar, versionar y reutilizar en el cliente y en el servidor.
+
+La clase añade una precaución sobre los patrones de texto (expresiones regulares) usados en la validación de forma: se revisan por cuantificadores anidados (riesgo de backtracking catastrófico) y se miden con una entrada hostil.
 
 ## Ejemplo
 
-Ejemplo de [SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, el esquema del documento de entrega vive en un archivo versionado junto al código del consumidor y del productor. La frontera valida primero la longitud y el tamaño del documento, después la forma con el esquema y por último las reglas entre campos con funciones con nombre (`fin_no_anterior_a_inicio`, `prorroga_no_supera_tope`). Cada rechazo devuelve el campo, la regla y un código estable, sin repetir valores sensibles. Los patrones se revisan por cuantificadores anidados y se miden con una entrada hostil en integración continua.
+Un documento de entrega: `{"inicio": "2026-05-10", "fin": "2026-05-01", "prorroga_horas": 120}`. El esquema acepta ambos campos de fecha (cada uno tiene formato válido) y el entero. Las reglas entre campos rechazan: `fin_no_anterior_a_inicio` falla (el fin es anterior al inicio), y `prorroga_no_supera_tope` falla si el tope de la tarea es de 72 horas. La respuesta indica el campo, la regla y un código estable. (Documento ilustrativo; las reglas son las de [SE-162](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los datos son válidos pero incoherentes** — causa: las reglas entre campos no están en ninguna capa. Corrección: escribir las reglas con nombre y aplicarlas en la frontera. ([SE-162](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md))
+- **Datos válidos pero incoherentes**: las reglas no están en ninguna capa; corrección: escribirlas con nombre y aplicarlas en la frontera.
+- **Duplicarlas en cliente y servidor con lógica distinta.**
+- **Poner la regla solo en la interfaz**: cualquier otro cliente la evade.
+- **Devolver el valor sensible en el mensaje de error.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-162 — Esquemas de datos y validación](../../../classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): conteos idénticos y tiempos distintos. No se usó una biblioteca de validación completa, las fechas se sortearon de forma independiente y no se midió ninguna integración real. La siguiente clase coloca este esquema dentro de contratos de interfaz y de eventos.
+Algunas reglas dependen de estado externo (el tope depende de otra tabla, un identificador existe o no) y no son verificables con el documento solo; son reglas de negocio con acceso a datos. Las extensiones de esquema no son portables entre herramientas. Una regla entre campos válida hoy puede cambiar con la política; por eso se nombra y se versiona.
 
 ## Relación con otros conceptos
 

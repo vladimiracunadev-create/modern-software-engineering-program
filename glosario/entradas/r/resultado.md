@@ -2,43 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Restricciones y marcadores](./restricciones-y-marcadores.md) · [Resultado explícito →](./resultado-explicito.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Cambio observable en una persona o una organización, con definición calculable y fuente de datos.
-
-Definición de trabajo de [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md).
+En métricas de producto, el **resultado** (*outcome*) es el cambio observable en quien usa el producto o en su organización, con definición calculable y fuente de datos ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md)): la persona logra su objetivo, el docente tarda menos, el centro reduce reclamos. Es el tercer escalón de la cadena producción → actividad → resultado.
 
 ## Por qué importa
 
-En [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), el tema «Resultado (outcome)» importa porque es el cambio en la persona o en la organización: la entrega llegó, el docente corrigió en menos tiempo.
+Es lo que de verdad importa y lo que más cuesta medir. Cambia a qué se le llama éxito: no a cuántas funciones se lanzaron ni a cuánta gente entró, sino a si algo mejoró para alguien. [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) lo contrasta con la producción: un equipo con alta producción y resultados nulos es posible, y también uno con poca producción y alto resultado.
 
 ## Cómo funciona
 
-Según [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), en la sección «Resultado»:
+El resultado se mide con **eventos de logro, tiempos y encuestas** con definición calculable (numerador, denominador, ventana, filtros). «La entrega llegó» es un evento de logro; «el docente corrigió en menos tiempo» es un tiempo comparado; «el centro redujo reclamos» es un conteo por periodo. La definición calculable es lo que evita que dos paneles den cifras distintas para «lo mismo».
 
-El resultado es el cambio observable en quien usa el producto o en su organización: la persona logra su objetivo, el docente tarda menos, el centro reduce reclamos. Se mide con eventos de logro, tiempos y encuestas con definición calculable, y se atribuye con cautela (`SE-138`). Es más difícil de medir y más difícil de falsear que la producción.
+Dos propiedades lo distinguen. Primero, es **más difícil de falsear** que la producción: cerrar más tickets se logra con fraccionarlos, pero hacer que más entregas lleguen requiere que el flujo funcione. Segundo, **se atribuye con cautela**: que el resultado mejore tras un cambio no prueba que el cambio lo causó, y [SE-138](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md) enseña los experimentos, los controles y la regresión a la media precisamente para eso.
+
+Aun así, el resultado no se persigue solo: se acompaña de una **métrica contraria** (algo que no debe empeorar mientras se mejora, como la calidad de lo entregado o el tiempo de respuesta), y la regla de la auditoría de métricas de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) es que ninguna métrica se convierte en meta sin su contraria y sin la pregunta «qué haría distinto si bajara».
 
 ## Ejemplo
 
-Ejemplo de [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, `metric-audit.md` tiene una fila por métrica con definición calculable (numerador, denominador, ventana, filtros), tipo (producción, actividad, resultado, vanidad), decisión que informa, métrica contraria y fecha de revisión. El contrato es que ninguna métrica se convierte en meta sin su métrica contraria y sin la pregunta «qué haría distinto si bajara». Esa estructura permite que otra persona detecte metas sin contrapeso.
+En la plataforma de entregas, **producción**: funciones lanzadas en el trimestre. **Actividad**: inicios de sesión de estudiantes. **Resultado**: proporción de entregas aceptadas antes del plazo, o minutos que tarda un docente en revisar un lote. Si se lanza un panel de seguimiento y el tiempo de revisión baja de 40 a 25 minutos por lote, hay un resultado asociado (con las cautelas de atribución). (Cifras ilustrativas.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La meta se cumple y nadie mejora** — causa: se premió la producción. Corrección: reemplazar o acompañar con un resultado y su métrica contraria. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
-- **Un equipo gana premios con malos resultados** — causa: se compararon producciones. Corrección: compararlos por resultado o por una métrica equilibrada. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
+- **La meta se cumple y nadie mejora**: se premió la producción; corrección: reemplazar o acompañar con un resultado y su contraria.
+- **Un equipo gana premios con malos resultados**: se compararon producciones.
+- **Confundir resultado con actividad**: en el experimento de equipos de [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), la actividad correlaciona 0,20 con el resultado.
+- **Atribuir causalidad sin diseño**: una mejora tras un cambio puede tener otras causas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un equipo con alta producción y resultados nulos es posible; uno con poca producción y alto resultado también. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
-- En el experimento de los equipos, la actividad correlaciona 0,20 con el resultado: informa algo, pero no lo suficiente para ser meta. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
+Los resultados suelen tardar en notarse y requieren instrumentación y a veces encuestas, lo que no siempre es viable. Para productos en fase muy temprana, con pocos usuarios, el resultado tiene mucha incertidumbre (intervalos anchos). Hay resultados que no se miden de forma directa y se aproximan con indicadores sustitutos; hay que declararlo. Y optimizar un solo resultado puede dañar otros, por eso la métrica contraria.
 
 ## Relación con otros conceptos
 

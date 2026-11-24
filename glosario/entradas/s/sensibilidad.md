@@ -2,57 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Señales, cancelación y atomicidad](./senales-cancelacion-y-atomicidad.md) · [Sensibilidad global →](./sensibilidad-global.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Cambio del resultado al variar un supuesto mientras los demás se mantienen.
-
-Definición de trabajo de [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-124 — Hipótesis, supuestos y preguntas críticas](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md): Medida de cuánto cambia el resultado de un modelo al variar un supuesto dentro de su rango, con los demás fijos.
-- En [SE-421 — Calidad por riesgo y propósito de las pruebas](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md): Cuánto cambia un resultado cuando cambian los supuestos que lo producen.
-- En [SE-281 — Rendimiento y costo en aceleradores](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md): Cuánto cambia el resultado al variar un supuesto.
+La **sensibilidad** es el cambio del resultado de un modelo al variar un supuesto mientras los demás se mantienen fijos ([SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), [SE-124](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md), [SE-281](../../../classes/part-23-runtimes-y-plataformas-modernas/se-281-rendimiento-y-costo-en-aceleradores/README.md)). [SE-421](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-421-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) la formula como cuánto cambia un resultado cuando cambian los supuestos que lo producen. En ML y estadística, «sensibilidad» también designa la tasa de verdaderos positivos (otra entrada del glosario); este texto trata el análisis de sensibilidad de modelos y decisiones.
 
 ## Por qué importa
 
-En [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), el tema «Sensibilidad» importa porque indica qué supuesto mueve más el plazo y merece vigilancia.
-
-En [SE-124 — Hipótesis, supuestos y preguntas críticas](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md), el tema «Sensibilidad» importa porque el supuesto que más mueve el resultado no suele ser el más cómodo de medir.
-
-En [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md), el tema «Sensibilidad» importa porque una decisión que cambia con una unidad en una puntuación no es robusta.
+Ordena los supuestos por cuánto duele que fallen. Un modelo de plazo, de viabilidad o de decisión descansa en supuestos inciertos; no todos importan igual. La sensibilidad indica cuáles merecen atención, vigilancia o una primera prueba, y cuáles se pueden dejar. [SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) añade un criterio de robustez: una decisión que cambia con una unidad en una puntuación no es robusta.
 
 ## Cómo funciona
 
-Según [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), en la sección «Sensibilidad»:
+El método de **una variable cada vez** ([SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)): se varía un supuesto dentro de un rango razonable, manteniendo los demás, y se compara el cambio del resultado (por ejemplo, el plazo). Se repite para cada supuesto y se ordenan por «oscilación». [SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md) precisa que el resultado **no dice cuál es más probable que falle, sino cuál duele más si falla**. Se vigilan primero los supuestos de **alta sensibilidad y baja credibilidad**: los que mueven mucho y de los que menos se sabe. La vigilancia se concreta en señales con umbral (por ejemplo, «si el rendimiento de las últimas cuatro semanas baja de cierto valor, se revisa el plan»).
 
-La sensibilidad ordena los supuestos por cuánto mueve el resultado una variación razonable de cada uno. Se varía un supuesto cada vez, manteniendo los demás, y se compara el cambio del plazo. El resultado no dice cuál es más probable que falle, sino cuál duele más si falla. Se vigilan primero los supuestos de alta sensibilidad y baja credibilidad: los que mueven mucho el plazo y de los que menos se sabe. La vigilancia se concreta en señales: «si el rendimiento de las últimas cuatro semanas baja de cuatro, se replanifica».
+En un embudo multiplicativo ([SE-124](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md)), el resultado es el producto de las tasas de cada paso; se varía cada tasa entre su mínimo y su máximo con las demás en su valor central, y la oscilación indica cuánto cambia el resultado final. El hallazgo habitual es que el supuesto que más mueve el resultado **no es el que el equipo mide por costumbre** (alcance, visitas) sino uno de comportamiento (interés, activación), que solo se aprende con prototipos y conversaciones.
 
-Según [SE-124 — Hipótesis, supuestos y preguntas críticas](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md), en la sección «Sensibilidad»:
-
-En un embudo multiplicativo el resultado es el producto de las tasas de cada paso. Variar cada tasa entre su mínimo y su máximo, manteniendo las demás en su valor central, da su «oscilación»: cuánto cambia el resultado final. El supuesto con mayor oscilación y mayor incertidumbre merece la primera prueba. A menudo no es el que el equipo mide por costumbre (alcance, visitas), sino uno de comportamiento (interés, activación) que solo se aprende con prototipos y conversaciones.
+Para decisiones con criterios ponderados ([SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md)), la sensibilidad se estudia sorteando pesos y contando con qué frecuencia gana cada opción: si la ganadora cambia con pequeños movimientos de pesos, la decisión no es robusta.
 
 ## Ejemplo
 
-Ejemplo de [SE-255 — Nativo, híbrido, web wrapper y cross-platform](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md) (sección «Ejemplo profesional»):
-
-El equipo del cliente documenta la elección en cuatro artefactos enlazados: la tabla de criterios con puntuaciones y su fuente, el análisis de sensibilidad (frecuencia con que gana cada opción al sortear pesos), un prototipo de la frontera más sensible (la que cruza más veces por segundo) con su medición, y la lista de capacidades que el cliente necesita y que cada opción ofrece, como disponibles, opcionales o ausentes. La decisión queda con una fecha, un responsable y el hallazgo que la reabriría, por ejemplo, que una capacidad requerida no exista en una plataforma elegida.
+Un embudo con cuatro pasos: alcance 50 %–70 %, interés 5 %–15 %, activación 30 %–60 %, pago 10 %–20 %. Con las demás tasas en el centro, el interés mueve el resultado final por un factor de 3 (de 5 % a 15 %); el alcance, por 1,4. El supuesto a probar primero es el interés, no el alcance. (Rangos ilustrativos en la línea de [SE-124](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se vigilan todos los supuestos y ninguno** — causa: sin ranking de sensibilidad. Corrección: vigilar los de alto efecto y baja credibilidad. ([SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md))
-- **El equipo mide el alcance durante semanas y no avanza** — causa: se contrastó el supuesto más cómodo, no el más sensible. Corrección: calcular la oscilación de cada supuesto y contrastar primero el de mayor sensibilidad e incertidumbre. ([SE-124](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md))
-- **La tabla de decisión elige la opción del autor de la tabla** — causa: los pesos se escogieron conociendo el ganador deseado. Corrección: fijar pesos antes de puntuar y mostrar la sensibilidad. ([SE-255](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-255-nativo-hibrido-web-wrapper-y-cross-platform/README.md))
+- **Medir lo cómodo y no lo sensible.**
+- **Variar todos los supuestos a la vez** y no saber cuál mueve el resultado.
+- **Confundir sensibilidad con probabilidad de fallo.**
+- **Ignorar la interacción entre supuestos**: con una variable cada vez no se ve.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La sensibilidad dice qué contrastar primero, no cuánto vale la idea. ([SE-124](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas/README.md))
+El análisis de una variable cada vez no capta interacciones; para eso existe la sensibilidad global (otra entrada). Depende de los rangos elegidos: rangos arbitrarios dan oscilaciones arbitrarias. Con un modelo mal especificado, la sensibilidad se calcula sobre algo que no refleja la realidad.
 
 ## Relación con otros conceptos
 

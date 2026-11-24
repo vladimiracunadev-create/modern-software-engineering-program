@@ -2,44 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Registro](./registro.md) · [Registro de cambios →](./registro-de-cambios.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Historial de acciones con quién, qué, cuándo y resultado, con protección frente a alteración.
-
-Definición de trabajo de [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md).
+Un **registro de auditoría** es un historial de acciones que responde quién hizo qué, sobre qué, cuándo y con qué resultado, protegido frente a la alteración ([SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md)). [SE-574](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md) lo exige también en sistemas con agentes de IA: sin él no se reconstruye lo ocurrido ni se puede responder por ello. No es un registro técnico de depuración (logs de errores), aunque pueda convivir con ellos.
 
 ## Por qué importa
 
-En [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md), el tema «Registros de auditoría» importa porque permiten reconstruir quién hizo qué y detectar manipulaciones.
-
-En [SE-574 — Seguridad agentic, prompt injection y auditoría](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md), el tema «Registro de auditoría» importa porque sin él no se reconstruye ni se responde.
+Es lo que permite reconstruir los hechos y detectar manipulaciones. Una auditoría, una investigación de incidente o una disputa necesitan evidencia de lo que ocurrió y de quién lo hizo. Si el registro puede alterarse sin dejar rastro, no sirve como evidencia. Cambia el diseño: no basta escribir líneas; hay que decidir su contenido, su integridad y su retención.
 
 ## Cómo funciona
 
-Según [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md), en la sección «Registros de auditoría»:
+[SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) distingue dos requisitos. El **contenido**: quién (identidad), qué (acción), sobre qué (objeto), cuándo (hora) y con qué resultado. Y la **integridad**: que no se pueda alterar o borrar sin que alguien lo note. Un mecanismo básico es la **cadena de hashes**: cada entrada incluye el hash de la anterior, de modo que modificar o eliminar una entrada intermedia rompe la cadena y se detecta.
 
-Un registro de auditoría responde quién hizo qué, sobre qué, cuándo y con qué resultado. Para que sirva como evidencia, además de contenido necesita integridad: que no se pueda alterar o borrar sin que alguien lo note. Una cadena de hashes (cada entrada incluye el hash de la anterior) detecta la modificación y la eliminación de una entrada intermedia; no detecta el truncado del final ni la reconstrucción completa por alguien con acceso de escritura. Esas se cubren con un ancla externa: un hash publicado o guardado fuera del alcance de quien escribe el registro.
+La clase precisa sus límites: la cadena de hashes **no detecta el truncado del final** (borrar las últimas entradas deja una cadena válida) ni la **reconstrucción completa** por alguien con acceso de escritura que recalcule todos los hashes. Esas amenazas se cubren con un **ancla externa**: publicar periódicamente el hash más reciente en un lugar que el atacante no controle, o enviarlo a un sistema de solo anexar. NIST SP 800-53 incluye controles de generación y protección de registros de auditoría, como marco de referencia.
+
+Hay una tensión con la privacidad: el registro debe permitir demostrar lo ocurrido sin guardar el contenido sensible. [SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) la ilustra con el borrado de datos: si una auditoría pide evidencia de que se borró algo y no hay, es porque no se diseñó cómo generarla; se define la evidencia junto con el requisito, sin guardar el contenido borrado. Y bajo retención legal el borrado no procede: la regla debe incluir las excepciones.
 
 ## Ejemplo
 
-Ejemplo de [SE-574 — Seguridad agentic, prompt injection y auditoría](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo de *Avisos* modela las amenazas de su agente que resume notas. Marca las capacidades: lee notas de docentes (contenido de terceros: N), accede a la base con datos de matrícula (D) y tiene una herramienta de envío de correos (E). Las tres coinciden. Rompe una: el resumen de notas pasa a un agente en cuarentena, sin base de datos ni correo, que devuelve un objeto con tres campos de valores acotados (tono, urgencia, un identificador de entrega); el agente con la base y el correo solo recibe ese objeto, nunca el texto de la nota.
+Cada entrada de un registro de la plataforma incluye: `{actor: "docente-17", acción: "conceder_prórroga", objeto: "entrega-342", hora: "…", resultado: "ok", hash_anterior: "…"}`. Si alguien edita la entrada 40, el `hash_anterior` de la 41 deja de coincidir; si borra las entradas 90–100 y reescribe el final, solo el ancla publicada ayer lo delata. (Estructura ilustrativa; [SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) desarrolla la técnica.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md)) son:
-
-- **Se borraron datos bajo retención legal** — causa: la regla ignoró una excepción. Corrección: incluir las excepciones en el requisito y en las pruebas.
-- **Una auditoría pide evidencia del borrado y no hay** — causa: no se diseñó cómo generarla. Corrección: definir la evidencia junto con el requisito, sin guardar contenido.
+- **Registrar sin integridad**: se puede editar sin que nadie lo note.
+- **Pensar que la cadena de hashes lo resuelve todo**: no ve el truncado ni la reconstrucción completa.
+- **Guardar contenido sensible en el registro** para «tener evidencia».
+- **No diseñar la evidencia del borrado** y fallar la auditoría.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- NIST SP 800-53 incluye entre sus controles la generación de registros de auditoría y la protección de su información; la clase aplica la idea sin sustituir el control completo. ([SE-574](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-574-seguridad-agentic-prompt-injection-y-auditoria/README.md))
+El registro prueba que algo se registró, no que sea verdad: si el sistema que escribe está comprometido, escribirá lo que el atacante quiera. Necesita retención acotada y control de acceso, porque también es un blanco. Para sistemas de bajo riesgo, un registro estructurado sin cadena de hashes puede bastar; el nivel de protección se calibra con el costo de una disputa.
 
 ## Relación con otros conceptos
 

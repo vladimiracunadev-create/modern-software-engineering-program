@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Valor predictivo positivo](./valor-predictivo-positivo.md) · [Valor presente neto →](./valor-presente-neto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Distribución del valor presente neto resultante de muestrear los rangos de los supuestos.
-
-Definición de trabajo de [SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md).
+El **valor presente con incertidumbre** es la distribución del valor presente neto (VPN) que resulta de muestrear los rangos de los supuestos de un caso de viabilidad ([SE-144](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md)). En lugar de un número obtenido con valores centrales, es una distribución de la que se informa la mediana, el intervalo del 5 al 95 por ciento y la probabilidad de que el valor sea positivo.
 
 ## Por qué importa
 
-En [SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md), el tema «Valor presente con incertidumbre» importa porque un punto cercano a cero con una cola amplia es un caso muy distinto de uno ancho y positivo.
+Un punto cercano a cero con una cola amplia es un caso muy distinto de uno ancho y positivo, y un solo número no lo distingue. Cambia la decisión de inversión: aprobar un proyecto por un VPN puntual positivo sin ver que el 40 % de los escenarios son negativos es comprar riesgo sin saberlo.
 
 ## Cómo funciona
 
-Según [SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md), en la sección «Valor presente con incertidumbre»:
+[SE-144](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md) define el valor presente a 36 meses como la suma de los **márgenes mensuales descontados menos el costo de construcción**. Cada supuesto (tamaño de los centros, costo de construcción, conversión, tasa de descuento) tiene un rango (mínimo, moda, máximo). Se muestrea muchas veces cada rango, se calcula el VPN de cada muestra y se obtiene una distribución. Con rangos, el resultado no es un número sino una **distribución**.
 
-El valor presente a 36 meses es la suma de los márgenes mensuales descontados menos el costo de construcción. Con rangos, no es un número sino una distribución. Lo que se informa es su mediana, el intervalo del 5 al 95 por ciento y la probabilidad de que sea positivo; el punto con valores centrales es un caso entre muchos, y a menudo no el más representativo.
+Lo que se informa es la **mediana**, el **intervalo del 5 al 95 por ciento** y la **probabilidad de VPN positivo**; el punto con valores centrales es un caso entre muchos y a menudo no el más representativo, porque las relaciones no lineales hacen que el valor con entradas centrales no coincida con el centro de la distribución.
+
+La clase añade el paso siguiente: calcular la **oscilación por supuesto** (sensibilidad) y medir primero el que más mueve el resultado. Un error típico: el equipo mide el costo de construcción, que es fácil de conocer, y no el tamaño de los centros, que es lo que más mueve el VPN. La corrección es ordenar los supuestos por oscilación y medir el primero.
 
 ## Ejemplo
 
-Caso medido en la sección «Valor presente con incertidumbre» de [SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md):
-
-El valor presente a 36 meses es la suma de los márgenes mensuales descontados menos el costo de construcción. Con rangos, no es un número sino una distribución. Lo que se informa es su mediana, el intervalo del 5 al 95 por ciento y la probabilidad de que sea positivo; el punto con valores centrales es un caso entre muchos, y a menudo no el más representativo.
+[SE-144](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md) describe un caso aprobado con un valor presente de 34 mil que luego falla: se informó solo el punto. Con la distribución, el informe habría dicho, por ejemplo (cifras ilustrativas): mediana 20 mil, intervalo del 5 al 95 por ciento de −60 a 110 mil, probabilidad de VPN positivo de 62 %. Con ese informe, la decisión pasa a ser «¿aceptamos un 38 % de probabilidad de pérdida a cambio de este potencial?», y no «es positivo».
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md)) son:
-
-- **El caso se aprueba con un valor presente de 34 mil y falla** — causa: se informó solo el punto. Corrección: informar el intervalo y la probabilidad de valor positivo.
-- **El equipo mide el costo de construcción y no el tamaño de los centros** — causa: no se calculó la oscilación por supuesto. Corrección: ordenar los supuestos por oscilación y medir el primero.
+- **Aprobar con un VPN puntual**: falla porque solo se informó el punto; corrección: informar intervalo y probabilidad de valor positivo.
+- **Medir lo fácil**: el costo de construcción y no el tamaño de los centros.
+- **Tratar los rangos como certezas**: los rangos son supuestos del autor.
+- **Muestrear supuestos independientes cuando están correlacionados**: subestima la cola.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna plataforma, mercado ni empresa real; los rangos, la forma del modelo, la independencia entre supuestos, el ruido de la señal del mes 6 y las dieciséis mutaciones son supuestos o elecciones del autor, de modo que la exactitud real del validador es desconocida.
+La distribución solo es tan buena como los rangos y la forma que se les da; [SE-144](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md) declara que los costos, la distribución y las tasas son supuestos del autor, de modo que muestran el método. No incorpora riesgos que no se modelaron. Con supuestos casi desconocidos, el resultado es amplio y debe leerse como una señal de qué investigar antes de decidir.
 
 ## Relación con otros conceptos
 

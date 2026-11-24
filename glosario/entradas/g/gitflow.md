@@ -2,40 +2,37 @@
 
 [↑ Glosario](../../README.md) · [← GIL](./gil.md) · [GitOps →](./gitops.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
-
-Definición de trabajo de [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md).
+**GitFlow** es un modelo de ramas con una rama de desarrollo y ramas de versión y de corrección, pensado para software con versiones que conviven ([SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)). Se opone a flujos más simples con una rama principal y ramas cortas, como el desarrollo basado en el tronco.
 
 ## Por qué importa
 
-En [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md), el tema «GitFlow» importa porque separa desarrollo, versión y corrección; sirve a versiones que conviven.
+Cambia el costo de integrar y de publicar. Elegirlo cuando no corresponde añade ramas, distancia entre ellas y trabajo de sincronización sin dar protección. [SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md) lo plantea como decisión de contexto: sirve a software distribuido que mantiene varias versiones vivas; para un servicio que se despliega continuamente, la rama de versión añade trabajo sin proteger nada.
 
 ## Cómo funciona
 
-Según [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md), en la sección «GitFlow»:
+El modelo mantiene líneas con papeles distintos: una rama de desarrollo donde se integra el trabajo; ramas de versión donde se estabiliza lo que va a publicarse; y ramas de corrección para arreglar versiones ya publicadas. Surgió para software con versiones distribuidas que conviven, donde publicar es costoso y se mantienen varias versiones a la vez.
 
-GitFlow mantiene una rama de desarrollo y ramas de versión y de corrección. Surgió para software con versiones distribuidas que conviven, donde publicar es costoso y se mantienen varias versiones. Su costo es la distancia entre ramas y los backports; su beneficio es separar lo que se estabiliza de lo que se desarrolla. Para un servicio que se despliega continuamente, la rama de versión añade trabajo sin aportar protección.
+Su **beneficio** es separar lo que se estabiliza de lo que se desarrolla: la rama de versión recibe solo correcciones mientras la de desarrollo sigue avanzando. Su **costo** es la distancia entre ramas y los *backports* (llevar una corrección de una rama a otras), que son una fuente constante de conflictos y de olvidos. El mecanismo de fondo es el mismo que [SE-195](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md) trata en fusiones: cuanto más viven las ramas, más divergen y más caro es reunirlas; [SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md) señala el síntoma de cada integración que exige un día de resolver conflictos, con causa en ramas que viven semanas y corrección en acortarlas e integrar a diario.
 
 ## Ejemplo
 
-Ejemplo de [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md) (sección «Ejemplo profesional»):
-
-Compara el caso normal con un componente distribuido como biblioteca que tiene tres versiones vivas: la práctica es apropiada cuando se usa una rama de versión por línea soportada y se acota su vida; es peligrosa cuando se mantiene GitFlow completo para un servicio que se despliega a diario, porque la rama de desarrollo añade distancia sin protección.
+[SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md) compara dos casos. Un componente distribuido como biblioteca con tres versiones vivas: una rama de versión por línea soportada, con vida acotada, es apropiada. Un servicio que se despliega a diario con GitFlow completo: es peligroso, porque la rama de desarrollo añade distancia sin protección; ahí basta con una rama principal y ramas cortas, y las banderas de funcionalidad separan despliegue de activación.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)) son:
-
-- **Cada integración exige un día de resolver conflictos** — causa: las ramas viven semanas. Corrección: dividir el trabajo, acortar ramas e integrar a diario.
-- **Main queda roto tras dos PR verdes** — causa: no se probó la combinación. Corrección: probar el resultado de la fusión o usar una cola de fusión.
+- **Aplicar GitFlow completo por moda** a un servicio de despliegue continuo.
+- **Ramas de larga vida** que acumulan conflictos.
+- **Main roto tras dos PR verdes**: no se probó la combinación; corrección: probar el resultado de la fusión o usar una cola de fusión.
+- **Olvidar los backports**: la corrección llega a una versión y no a otra.
+- **Confundir GitFlow con Git**: es una convención de uso, no una función de la herramienta.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. Las personas, la zona caliente y los solapamientos son supuestos del autor, los conflictos se miden sobre texto y no se midió el costo de resolverlos, ni productividad, ni ningún equipo. La siguiente clase pregunta cómo se ata cada cambio de este flujo a su motivo.
+No aplica bien a servicios con una sola versión en producción ni a equipos que integran a diario con pruebas automáticas fuertes. Es razonable cuando hay varias versiones soportadas a la vez (bibliotecas, software instalado, productos con contratos de soporte por versión). Incluso entonces se acota: ramas de versión por línea soportada y con vida limitada, no ramas permanentes por costumbre.
 
 ## Relación con otros conceptos
 

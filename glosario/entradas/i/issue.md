@@ -2,47 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← ISBN](./isbn.md) · [Iterable →](./iterable.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Problema que ya ocurrió y requiere acción, con responsable, fecha y criterio de cierre.
-
-Definición de trabajo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-198 — Issues, discusiones y trazabilidad del cambio](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md): Registro con identificador estable de un problema, una propuesta o una decisión pendiente.
+En el programa, un **issue** es un problema que ya ocurrió y requiere acción, con responsable, fecha y criterio de cierre ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)). [SE-198](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md) usa el mismo término en el sentido de la plataforma de colaboración: un registro con identificador estable de un problema, una propuesta o una decisión pendiente. Los dos sentidos convergen en que el issue es un registro con dueño; esta entrada desarrolla ambos y marca la diferencia con el riesgo.
 
 ## Por qué importa
 
-En [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), el tema «Issues» importa porque ya ocurrieron: necesitan responsable y fecha, no probabilidad.
+Distinguir un issue de un riesgo cambia cómo se gestiona. Un riesgo es algo que puede ocurrir y se gestiona con probabilidad y respuesta; un issue ya ocurrió y se gestiona con responsable, fecha y cierre. La confusión habitual es llamar «riesgo» a todo lo que preocupa y dejar los issues en una hoja sin dueño: nadie los cierra.
 
 ## Cómo funciona
 
-Según [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md), en la sección «Issues»:
+[SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) describe el issue como un problema presente (el entorno de pruebas se cayó, un contrato se rompió) que **no tiene probabilidad, solo impacto**. Necesita tres cosas: un responsable, una fecha y un criterio de cierre. La transición clave es la de **riesgo materializado → issue**: cuando un riesgo ocurre, pasa al registro de issues, y esa transición se anota, porque es la señal de que el disparador funcionó o de que no existía.
 
-Un issue es un problema que ya ocurrió y requiere acción: el entorno de pruebas se cayó, un contrato se rompió. No tiene probabilidad, solo impacto presente. Necesita un responsable, una fecha y un criterio de cierre. La confusión habitual es llamar «riesgo» a todo lo que preocupa y dejar los issues en una hoja sin dueño. Un riesgo materializado se convierte en issue, y esa transición debe registrarse: es la señal de que el disparador funcionó o de que no existía.
+El ejemplo de [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) reorganiza una hoja de 23 filas en cuatro registros: riesgos (seis, con causa, efecto, probabilidad, impacto, disparador, respuesta y responsable), supuestos (cinco, con quién los afirma, evidencia y fecha de validación), issues (cuatro, con responsable y fecha) y decisiones (siete, con contexto y disparador). Cada tipo tiene su propio ciclo.
+
+En la plataforma de colaboración ([SE-198](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md)), el issue es la unidad de seguimiento y se enlaza con el código: una palabra clave en el mensaje de la integración (por ejemplo «closes #12») cierra el issue automáticamente. Dos fallos con causa conocida: el issue no se cierra al integrar porque la sintaxis no es la reconocida o falta la palabra por cada número (corrección: repetir la palabra clave para cada número y usar la forma documentada); y el issue se cierra sin que el defecto desaparezca porque no hay una prueba que falle antes y pase después (corrección: añadir la prueba de regresión como criterio de cierre).
 
 ## Ejemplo
 
-Ejemplo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma de entregas reorganiza su hoja de 23 filas en cuatro registros. En riesgos quedan seis, cada uno con causa, efecto, probabilidad, impacto, disparador, respuesta y responsable; dos de ellos comparten causa (la salida de una persona clave) y se registran juntos para estimar la contingencia por percentil. En supuestos quedan cinco, con quién los afirma, evidencia y fecha de validación, ordenados por coste de fallar sobre coste de comprobar. Los cuatro issues tienen responsable y fecha. Las siete decisiones tomadas en el trimestre se registran con contexto y disparador de revisión.
+El equipo de la plataforma registra: «Issue 3: el entorno de pruebas no responde desde el martes. Responsable: infraestructura. Fecha: jueves. Cierre: la suite completa corre en el entorno». Antes era un riesgo («el entorno podría caerse»); al ocurrir pasa a issue y se anota que el disparador funcionó o no existía. (Redacción ilustrativa.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El issue no se cierra al integrar** — causa: la sintaxis no es la reconocida o falta la palabra por cada issue. Corrección: repetir la palabra clave para cada número y usar la forma documentada. ([SE-198](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md))
-- **El issue se cierra sin que el defecto desaparezca** — causa: no hay prueba que falle antes y pase después. Corrección: añadir la prueba de regresión como criterio de cierre. ([SE-198](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md))
+- **Llamar riesgo a todo**: los problemas presentes quedan sin dueño.
+- **Issues sin criterio de cierre**: se cierran por cansancio, no por verificación.
+- **Cerrar sin prueba de regresión**: el defecto puede volver.
+- **Confundir issue con tarea**: una tarea es trabajo planificado; un issue es un problema o decisión registrada.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un issue es un problema que ya ocurrió y requiere acción: el entorno de pruebas se cayó, un contrato se rompió. ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md))
-- Mezclar varios problemas en un issue impide cerrarlos por separado, y un issue sin criterio de cierre queda abierto para siempre. ([SE-198](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md))
+En muchos equipos la plataforma llama «issue» a cualquier ítem (también ideas, preguntas, tareas); el sentido estricto de [SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) conviene como disciplina de gestión pero no siempre coincide con el uso de la herramienta. Para trabajo de una sola persona y corta duración, un registro formal puede ser exceso.
 
 ## Relación con otros conceptos
 

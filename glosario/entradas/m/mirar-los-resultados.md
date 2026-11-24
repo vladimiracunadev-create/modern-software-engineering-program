@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Mirada repetida](./mirada-repetida.md) · [Misión →](./mision.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Decisión de cuándo analizar los datos de un experimento; si se hace repetidamente y se detiene al primer resultado favorable, el error real supera al nominal.
-
-Definición de trabajo de [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md).
+**Mirar los resultados** (en la literatura, *peeking*) es la decisión de cuándo analizar los datos de un experimento. Si se hace repetidamente y se detiene la prueba al primer resultado favorable, el error real supera al nominal ([SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)). El término alude al hábito, no a una técnica estadística.
 
 ## Por qué importa
 
-En [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md), el tema «Mirar los resultados» importa porque detener la prueba cuando el resultado parece bueno infla los falsos positivos.
+Es una de las causas más comunes de «ganadores» que no se reproducen. Un equipo que revisa el tablero cada día y detiene la prueba cuando aparece «significativo» cree que tiene un 5 % de falsos positivos y en realidad tiene bastante más. Cambia el plan de experimento: cuándo se mira, cuántas veces y bajo qué regla se detiene.
 
 ## Cómo funciona
 
-Según [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md), en la sección «Mirar los resultados»:
+Un p-valor está calibrado para un **único análisis planificado**: su garantía (probabilidad de falso positivo del 5 %, por ejemplo) vale si se calcula una vez, con tamaño fijado de antemano. Si se calcula cada día y se detiene al primer «significativo», se da al azar muchas oportunidades de cruzar el umbral, y la probabilidad de que alguna de las miradas lo cruce sea mucho mayor que 5 %. Es el mismo problema de comparaciones múltiples, repartido en el tiempo.
 
-Un p-valor está calibrado para un único análisis planificado. Si se calcula cada día y se detiene al primer «significativo», se da al azar muchas oportunidades de aparecer y la tasa de falsos positivos sube. Hay dos salidas: fijar de antemano el tamaño y mirar una sola vez, o usar métodos secuenciales diseñados para monitorear. Lo que no vale es mirar libremente y aplicar la prueba clásica. Registrar el calendario de análisis en el plan evita decidir sobre la marcha.
+[SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md) ofrece dos salidas: **fijar de antemano el tamaño y mirar una sola vez**, o usar **métodos secuenciales** diseñados para monitorear (con umbrales que se ajustan en cada mirada). Lo que no vale es mirar libremente y aplicar la prueba clásica. La disciplina se materializa en el plan del experimento: la hipótesis, la diferencia mínima relevante, el tamaño por rama y la potencia, el calendario de análisis (una mirada o un método secuencial declarado), la población, el criterio de asignación, el intervalo esperado y las decisiones asociadas a cada resultado posible. El plan se fecha antes de empezar y no se reescribe después de mirar los datos.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md):
-
-En la plataforma de entregas, el plan de experimento conserva la hipótesis, la diferencia mínima relevante, el tamaño por rama y la potencia, el calendario de análisis (una mirada o un método secuencial declarado), la población, el criterio de asignación, el intervalo esperado y las decisiones asociadas a cada resultado posible. El contrato es que el plan se fecha antes de empezar y no se reescribe después de mirar los datos.
+Un equipo prueba dos versiones de una pantalla de entrega y revisa el valor p cada mañana durante 20 días; el día 9 aparece 0,04 y detiene la prueba declarando ganadora a la variante B. Al repetirla, el efecto desaparece. Con 20 miradas sobre una diferencia que no existe, la probabilidad de ver al menos un valor p menor a 0,05 es mucho mayor que 5 %. La corrección: fijar el tamaño en el plan y analizar el día 20, o declarar un método secuencial. (Ilustración del mecanismo; las cifras son de ejemplo.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)) son:
-
-- **La prueba «ganadora» desaparece al repetirla** — causa: se detuvo al primer resultado significativo tras mirar muchas veces. Corrección: fijar el tamaño y el calendario de análisis o usar un método secuencial.
-- **El experimento dice «no hay diferencia» siempre** — causa: la muestra no tenía potencia para el efecto buscado. Corrección: calcular el tamaño por rama antes de empezar y cambiar de método si es inalcanzable.
+- **La prueba «ganadora» desaparece al repetirla**: se detuvo al primer resultado significativo tras mirar muchas veces.
+- **El experimento dice «no hay diferencia» siempre**: la muestra no tenía potencia; corrección: calcular el tamaño por rama antes y cambiar de método si es inalcanzable.
+- **Mirar «solo para vigilar»** y luego decidir con lo visto.
+- **Reescribir el plan después de ver los datos.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones con tasas supuestas en Windows y Ubuntu (WSL2) con salidas idénticas. No se probó ningún prototipo con personas, no se midió efecto de novedad ni interferencia entre ramas. La siguiente clase usa lo aprendido para priorizar por valor, riesgo y aprendizaje.
+Vigilar métricas de seguridad o de daño durante el experimento es legítimo y recomendable (reglas de parada por daño); lo que se evita es decidir la victoria por mirada repetida con una prueba no secuencial. Los métodos secuenciales pagan con algo más de muestra o con umbrales más estrictos. Para decisiones baratas y reversibles, el rigor puede relajarse siempre que el equipo lo haga con conocimiento del riesgo.
 
 ## Relación con otros conceptos
 

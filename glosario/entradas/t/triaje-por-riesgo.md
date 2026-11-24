@@ -2,42 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Triaje](./triaje.md) · [Triangulación →](./triangulacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
-
-Definición de trabajo de [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md).
+El **triaje por riesgo** es el orden de lectura de un cambio según el riesgo esperado de cada parte, y no según su orden de aparición ([SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md)). Es una técnica de revisión de código: la revisora decide por dónde empezar y cuánta atención dar a cada archivo en función de cuánto cuesta equivocarse en él.
 
 ## Por qué importa
 
-En [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md), el tema «Triaje por riesgo» importa porque reparte la atención donde es más probable un defecto de alto costo.
+Los archivos de un cambio no tienen el mismo riesgo: una migración de datos, la autenticación o la configuración son más caras de equivocar que la documentación. Una revisora que lee en el orden del diff gasta su atención en lo que viene primero y puede agotarla antes de llegar a lo crítico. Cambia el reparto de la atención donde es más probable un defecto de alto costo.
 
 ## Cómo funciona
 
-Según [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md), en la sección «Triaje por riesgo»:
+El triaje ordena la lectura por **riesgo esperado**: qué tocó cada archivo, cuánto cambió y cuánto cuesta equivocarse. Es una heurística con supuestos (qué tipos de archivo son riesgosos) que deben **declararse y revisarse con los defectos reales que se escapen**. La plantilla del pull request ayuda: pide qué cambia, por qué, cómo se probó y qué archivos merecen más atención.
 
-Los archivos de un PR no tienen el mismo riesgo: una migración de datos, la autenticación y la configuración son más caras de equivocar que la documentación. El triaje ordena la lectura por riesgo esperado y no por orden alfabético: qué tocó cada archivo, cuánto cambió y cuánto cuesta equivocarse. Es una heurística con supuestos (qué tipos son riesgosos) que deben declararse y revisarse con los defectos reales que se escapen.
+[SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) demuestra el efecto con una prueba: con un presupuesto de lectura del 30 % en el orden de aparición, la revisora no alcanza la migración; con triaje por riesgo, la lee primero. La razón es que la atención es un recurso finito y el orden decide en qué se gasta.
+
+El triaje se combina con automatización: un flujo de integración continua ejecuta formato, pruebas, análisis estático y búsqueda de secretos **antes** de asignar revisora, de modo que lo mecánico no ocupa atención humana. El archivo de propietarios (CODEOWNERS, [SE-199](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md)) añade como revisor obligatorio al equipo dueño de las migraciones cuando un PR toca `migraciones/`. La revisora abre primero los archivos de riesgo alto, lee la descripción y, tras las correcciones, usa `range-diff` para ver solo lo que cambió.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md):
-
-En la plataforma, la plantilla de PR pide qué cambia, por qué, cómo se probó y qué archivos merecen más atención. Un flujo de integración continua ejecuta formato, pruebas, análisis estático y búsqueda de secretos antes de asignar revisora. El CODEOWNERS, tema de `SE-199`, añade como revisor obligatorio al equipo dueño de las migraciones cuando un PR toca `migraciones/`. La revisora abre primero los archivos marcados como riesgo alto, lee la descripción y, tras las correcciones, usa `range-diff` para ver lo cambiado.
+Un PR toca cinco archivos: un cambio de texto en la documentación, una prueba, una migración que altera una columna de notas, la configuración del plazo y un comentario. Con triaje, el orden de lectura es migración, configuración, prueba, texto y comentario. Si el presupuesto de atención se acaba, lo que queda sin leer es lo de menor riesgo. (Ilustración construida con el criterio de [SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md)) son:
-
-- **Comentarios de estilo y defectos que se escapan** — causa: la lectura sigue el orden del diff. Corrección: ordenar por riesgo y automatizar el estilo.
-- **Hay que releer todo tras cada corrección** — causa: la rama se reescribió sin mostrar lo cambiado. Corrección: usar `range-diff` o commits de corrección.
+- **Comentarios de estilo mientras se escapan defectos**: la lectura sigue el orden del diff; corrección: ordenar por riesgo y automatizar el estilo.
+- **Releer todo tras cada corrección**: la rama se reescribió sin mostrar lo cambiado; corrección: `range-diff` o commits de corrección.
+- **Clasificar el riesgo por tamaño**: un cambio de una línea en autenticación puede ser más riesgoso que cien líneas de documentación.
+- **No actualizar los supuestos** tras defectos que se escapan.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Prueba:** reproduce la lectura con un presupuesto del 30 % en el orden de aparición: no alcanza la migración; con triaje por riesgo, la lee primero. ([SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md))
+El triaje depende de que los supuestos de riesgo sean razonables; si una categoría considerada inocua esconde defectos, la lectura se desvía. En cambios pequeños, el orden da igual. No sustituye la lectura completa cuando el cambio es crítico: ordena la atención, no la reduce por debajo de lo necesario.
 
 ## Relación con otros conceptos
 

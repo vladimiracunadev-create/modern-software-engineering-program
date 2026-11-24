@@ -2,40 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Preguntas críticas](./preguntas-criticas.md) · [Preguntas sobre el pasado →](./preguntas-sobre-el-pasado.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Pregunta que pide a la persona relatar episodios concretos y no opinar, predecir ni confirmar una idea del entrevistador.
-
-Definición de trabajo de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md).
+En el programa, las **preguntas de investigación** son las preguntas de una entrevista que piden a la persona relatar episodios concretos, y no opinar, predecir ni confirmar una idea del entrevistador ([SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)). No son las preguntas de investigación académicas (la pregunta que guía un estudio), sino el instrumento de campo del descubrimiento de producto.
 
 ## Por qué importa
 
-En [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md), el tema «Preguntas de investigación» importa porque la forma de la pregunta decide si la respuesta es un hecho o cortesía.
+La forma de la pregunta decide si la respuesta es un hecho o cortesía. Una persona amable dirá «sí, me parece útil» a casi cualquier idea. Si las preguntas son guiadas o hipotéticas, el equipo construye con una validación aparente. [SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md) lo muestra con un síntoma: los docentes dicen «sí» a todo y el panel no se usa.
 
 ## Cómo funciona
 
-Según [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md), en la sección «Preguntas de investigación»:
+[SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md) clasifica las preguntas por lo que producen:
 
-Las preguntas sobre el pasado («cuéntame la última vez que…») traen hechos; las guiadas («¿no crees que sería útil…?») traen acuerdos; las hipotéticas («¿lo usarías?») traen predicciones poco fiables; las cerradas («¿es difícil?») ahorran el relato. Una guía de investigación contiene pocas preguntas abiertas sobre episodios y una lista de sondeos. Revisarla con una regla léxica ayuda a detectar defectos obvios, pero la regla no ve el tono ni el contexto, y por eso una persona revisa.
+- **Sobre el pasado** («cuéntame la última vez que…»): traen hechos.
+- **Guiadas** («¿no crees que sería útil…?»): traen acuerdos.
+- **Hipotéticas** («¿lo usarías?»): traen predicciones poco fiables.
+- **Cerradas** («¿es difícil?»): ahorran el relato y esconden el contexto.
+
+La causa es de memoria y de cortesía: las personas recuerdan mejor lo que hicieron que lo que harían, y tienden a complacer a quien pregunta. Una buena guía de investigación contiene pocas preguntas abiertas sobre episodios y una lista de sondeos (¿qué pasó después?, ¿cómo lo resolviste?). Se revisa con una regla léxica que detecta defectos obvios (condicionales, «¿usarías…?»), pero la regla no ve el tono ni el contexto, por lo que una segunda persona revisa. La rúbrica de investigabilidad es la herramienta con la que la clase evalúa los enunciados y las preguntas.
+
+El archivo del taller conserva la petición original, su descomposición, el problema reformulado, la guía de preguntas con su clasificación y la rúbrica aplicada por dos personas; la petición original nunca se sobrescribe.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md):
-
-En la plataforma de entregas, el archivo del taller conserva la petición original textual, quién la hizo y cuándo, su descomposición (observación, inferencia, solución), el problema reformulado, la guía de preguntas con su clasificación, la rúbrica aplicada por dos personas y las peticiones del backlog con su necesidad asignada. El contrato es que la petición original no se sobrescribe y que el problema reformulado indica qué observación lo confirmaría.
+Pregunta hipotética: «¿Usarías un panel que muestre quién entregó?». Respuesta probable: «Claro». Reformulada sobre el pasado: «Cuéntame la última vez que necesitaste saber quién había entregado. ¿Qué hiciste?». La segunda trae el episodio real (abrir cada entrega una por una, preguntar por correo) y el costo que tuvo. (Ejemplo ilustrativo construido con la tipología de la clase.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son:
-
-- **Los docentes dicen «sí» a todo y el panel no se usa** — causa: las preguntas eran guiadas o hipotéticas. Corrección: preguntar por episodios pasados concretos y revisar la guía con una segunda persona.
-- **El backlog crece con peticiones que parecen distintas y resultan iguales** — causa: no se agruparon por necesidad. Corrección: agrupar por necesidad con criterio explícito y contar necesidades, no peticiones.
+- **«Sí» a todo**: preguntas guiadas o hipotéticas; corrección: preguntar por episodios pasados concretos y revisar la guía con una segunda persona.
+- **Un backlog con peticiones distintas que son la misma necesidad**: no se agrupó por necesidad.
+- **Sobreconfiar en una regla automática**: comprueba forma, no tono.
+- **Confundir lo que dicen con lo que hacen**: es el sesgo que estas preguntas evitan.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. Las etiquetas son de una sola persona, las reglas se afinaron con pocos ejemplos y las pruebas con casos nuevos son de seis y tres elementos. El proyecto final reúne todo en un brief respaldado por evidencia.
+Los episodios pasados dependen de la memoria y de que la persona tenga uno que contar; para productos sin precedente puede no haberlos. Una buena guía no garantiza una entrevista buena: influyen el tono y la escucha. Los experimentos de [SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md) usan peticiones y preguntas sintéticas; muestran el método, no su efecto en un equipo real.
 
 ## Relación con otros conceptos
 

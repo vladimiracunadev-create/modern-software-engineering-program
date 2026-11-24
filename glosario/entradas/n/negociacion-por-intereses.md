@@ -2,40 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Negación y mundo cerrado](./negacion-y-mundo-cerrado.md) · [Nibble →](./nibble.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Acuerdo que parte de las razones de cada posición y no de las posiciones mismas.
-
-Definición de trabajo de [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md).
+La **negociación por intereses** es un enfoque de acuerdo que parte de las razones de cada posición y no de las posiciones mismas ([SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md)). Una **posición** es lo que alguien pide («retener 730 días»); un **interés** es por qué lo pide («poder responder a una auditoría de dos años»). La distinción es la de la literatura de negociación basada en principios (Fisher y Ury), que el programa aplica a requisitos en conflicto.
 
 ## Por qué importa
 
-En [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md), el tema «Negociación por intereses» importa porque convierte posiciones incompatibles en objetivos que pueden coexistir.
+Convierte posiciones incompatibles en objetivos que pueden coexistir. Si dos áreas piden cosas opuestas y se negocia sobre las posiciones, lo único posible es repartir la diferencia: nadie queda satisfecho. Si se negocia sobre los intereses, a veces hay una solución nueva que cumple ambos. Cambia el modo de resolver un conflicto de requisitos: antes de escoger a quién dar la razón, se pregunta para qué lo necesita cada parte.
 
 ## Cómo funciona
 
-Según [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md), en la sección «Negociación por intereses»:
+El mecanismo es preguntar «¿para qué?» tras cada posición hasta llegar a la necesidad subyacente. [SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) lo ilustra con un conflicto de retención de datos: Auditoría pide retener 730 días; Privacidad pide no conservar datos personales más de 365. Las posiciones son incompatibles. Los intereses no: Auditoría necesita **demostrar el contenido** durante 730 días; Privacidad necesita **no tener datos personales** más de 365. Una copia anonimizada de los metadatos por 730 días satisface a ambos.
 
-Una posición es lo que alguien pide («retener 730 días»); un interés es por qué lo pide («poder responder a una auditoría de dos años»). Dos posiciones incompatibles pueden tener intereses compatibles: Auditoría necesita demostrar el contenido durante 730 días, Privacidad necesita no tener datos personales más de 365; una copia anonimizada de los metadatos por 730 días satisface a ambos. Negociar sobre intereses expande el conjunto de soluciones; negociar sobre posiciones solo reparte la diferencia.
+La causa de que funcione es estructural: una posición es una solución propuesta entre muchas posibles, y puede haber otra solución que sirva mejor a los intereses de todos. Negociar sobre intereses **expande el conjunto de soluciones**; negociar sobre posiciones solo lo reparte. Esta técnica se apoya en el análisis ([SE-145](../../../classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion/README.md)), que hace aparecer el conflicto con nombre y responsable, y se complementa con técnicas de priorización como MoSCoW cuando, aun después de entender los intereses, los recursos no alcanzan para todo.
 
 ## Ejemplo
 
-Caso medido en la sección «Negociación por intereses» de [SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md):
-
-Una posición es lo que alguien pide («retener 730 días»); un interés es por qué lo pide («poder responder a una auditoría de dos años»). Dos posiciones incompatibles pueden tener intereses compatibles: Auditoría necesita demostrar el contenido durante 730 días, Privacidad necesita no tener datos personales más de 365; una copia anonimizada de los metadatos por 730 días satisface a ambos. Negociar sobre intereses expande el conjunto de soluciones; negociar sobre posiciones solo reparte la diferencia.
+El ejemplo de [SE-150](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md): dos áreas, un dato, 730 días contra 365. La pregunta «¿para qué quieren conservarlo?» saca a la luz que lo que Auditoría necesita demostrar es el contenido de las operaciones, no los datos personales de cada persona; la solución es una copia anonimizada de los metadatos por 730 días y la eliminación de los datos personales a los 365. Ninguna parte cedió su interés; se cambió la solución.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md)) son:
-
-- **El plan aprobado no se puede construir** — causa: se ordenó por valor sin comprobar dependencias. Corrección: verificar el cierre del conjunto antes de aprobar.
-- **Casi todo es «Must»** — causa: no hay un límite a la categoría. Corrección: fijar un tope como fracción del esfuerzo y desempatar con una regla.
+- **Negociar posiciones y repartir la diferencia** (550 días, por ejemplo), lo que no cumple ninguna necesidad.
+- **Suponer los intereses sin preguntarlos**: son hipótesis hasta que la parte los confirma.
+- **Creer que siempre existe una solución ganadora para ambos**: a veces los intereses sí chocan.
+- **Confundirla con ceder**: ceder es renunciar a un interés; negociar por intereses busca cumplirlos.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-150 — Priorización, dependencias y negociación](../../../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midieron decisiones reales, los sesgos y los costos son supuestos del autor y las frecuencias de ciclos suponen preferencias equiprobables. La siguiente clase enlaza cada requisito con su origen, su criterio y su evidencia.
+No funciona cuando una de las partes oculta sus intereses o cuando los intereses son realmente incompatibles (recursos que solo uno puede tener); entonces hace falta una regla de decisión y alguien con autoridad que la aplique. Requiere tiempo y confianza para preguntar el porqué. En una obligación legal o contractual inamovible, la posición puede ser un interés en sí misma y no admite alternativa.
 
 ## Relación con otros conceptos
 

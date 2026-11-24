@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Proposición](./proposicion.md) · [Prorrateo →](./prorrateo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Promesa específica de un progreso que una persona logra en su trabajo con este producto y no con la alternativa actual.
-
-Definición de trabajo de [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md).
+Una **propuesta de valor** es una promesa específica de un progreso que una persona logra en su trabajo con este producto y no con la alternativa actual ([SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)). No es un eslogan ni una lista de funciones: nombra un trabajo concreto, la alternativa con que se compite y el progreso que la persona notaría.
 
 ## Por qué importa
 
-En [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), el tema «Propuesta de valor» importa porque la propuesta dice qué progreso se promete a qué trabajo; una lista de funciones deja la decisión sin criterio.
+Dice qué progreso se promete a qué trabajo, y eso da criterio para decidir qué construir. Una lista de funciones deja la decisión sin criterio: toda función suena razonable. Con una promesa clara, cada función se evalúa por si mueve algún resultado deseado.
 
 ## Cómo funciona
 
-Según [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), en la sección «Propuesta de valor»:
+[SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md) contrasta dos formulaciones. «Recuperación de borradores con historial» describe una **función**. «Cuando se acerca el plazo, comprobar en menos de diez segundos que mi trabajo está a salvo» describe un **progreso**. La segunda se redacta como «cuando… puedo… sin…» y permite medir si se cumple.
 
-Una propuesta de valor responde, para un trabajo concreto, qué logra mejor la persona y por qué lo notaría. «Recuperación de borradores con historial» describe una función; «cuando se acerca el plazo, comprobar en menos de diez segundos que mi trabajo está a salvo» describe un progreso. El lienzo de propuesta de valor organiza esta relación: trabajos, frustraciones y ganancias del cliente en un lado; aliviadores y creadores de ganancia del producto en el otro. Es una hipótesis estructurada, no un resultado: se completa con suposiciones hasta que se contrasta.
+El lienzo de propuesta de valor organiza la relación en dos lados: del cliente, sus trabajos, frustraciones y ganancias; del producto, sus aliviadores de frustraciones y creadores de ganancias. La clase subraya que es una **hipótesis estructurada, no un resultado**: se completa con suposiciones que luego se contrastan.
+
+En la plataforma de entregas, la propuesta conserva la promesa en una frase, el trabajo al que responde, la alternativa actual, los resultados deseados con su métrica, la fecha de la encuesta, el tamaño de la muestra y la estabilidad del ranking. La regla es que ninguna función entra al plan si no mueve al menos un resultado listado, y que cada resultado declara el indicador con el que se sabrá si mejoró y el tiempo que tarda en notarse. La estabilidad del ranking importa porque, con muestras pequeñas, el ruido reordena los primeros puestos; la clase simula esa estabilidad y propone ampliar la muestra antes de decidir.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md):
-
-En la plataforma de entregas, la propuesta conserva la promesa en una frase, el trabajo al que responde, la alternativa actual, los resultados deseados con su métrica, la fecha de la encuesta, el tamaño de la muestra y la estabilidad del ranking. El contrato es que ninguna función entra al plan si no mueve al menos un resultado listado y que cada resultado declara el indicador con el que se sabrá si mejoró y el tiempo que tarda en notarse.
+Función: «historial de versiones del borrador». Promesa: «cuando se acerca el plazo, comprobar en menos de diez segundos que mi trabajo está a salvo, sin abrir cada versión». Resultado deseado: tiempo de verificación; indicador: tiempo medido en una prueba con personas; plazo para notarse: el primer ciclo de entregas. Una función que no mueva ninguno de los resultados listados queda fuera del plan.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son:
-
-- **El plan lista nueve funciones y ninguna promesa** — causa: se describió la solución, no el progreso. Corrección: redactar la promesa como «cuando… puedo… sin…» y vincular cada función a un resultado.
-- **El orden de prioridades cambia en cada encuesta** — causa: la muestra es pequeña y el ruido reordena los primeros puestos. Corrección: reportar la estabilidad simulada o aumentar la muestra antes de decidir.
+- **Plan con nueve funciones y ninguna promesa**: se describió la solución, no el progreso; corrección: redactar la promesa como «cuando… puedo… sin…» y vincular cada función a un resultado.
+- **Prioridades que cambian en cada encuesta**: muestra pequeña; corrección: reportar la estabilidad simulada o ampliar la muestra.
+- **Confundirla con un eslogan de marketing**: el eslogan persuade; la propuesta se puede contrastar.
+- **Tratar el lienzo como validación**: ayuda a nombrar la hipótesis, no a probarla.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se encuestó a nadie, los parámetros son supuestos y el modelo de adopción no se contrastó con comportamiento real. La siguiente clase compara esta propuesta con las alternativas que las personas ya usan, incluida no hacer nada.
+Una propuesta clara no garantiza que alguien pague o use el producto: se valida con experimentos. En productos que sirven a varios trabajos muy distintos, una sola propuesta es insuficiente y hace falta una por segmento. Los datos de [SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md) son sintéticos, de modo que muestran el método y no el ranking real de ningún producto.
 
 ## Relación con otros conceptos
 

@@ -2,48 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Versión optimista](./version-optimista.md) · [Versionado del protocolo →](./versionado-del-protocolo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Cada versión debe ser coherente consigo misma y declarar qué pasa con los enlaces entre versiones.
-
-Es uno de los temas de [SE-216 — Proyecto: portal documental versionado](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado/README.md), donde se enseña como «Versionado».
+**Versionado** es la práctica de identificar y ordenar las versiones de un artefacto (un contrato, una API, un paquete, una página de documentación) para comunicar el alcance del cambio y gestionar la coexistencia entre versiones. El programa lo enseña en varios contextos: contratos de datos ([SE-366](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md)), portales de documentación ([SE-216](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado/README.md)) y paquetes con dependencias ([SE-225](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)). El hilo común: cada versión debe ser coherente consigo misma y declarar qué pasa con los enlaces y la compatibilidad entre versiones.
 
 ## Por qué importa
 
-En [SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md), el tema «Versionado» importa porque comunica el alcance del cambio.
-
-En [SE-216 — Proyecto: portal documental versionado](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado/README.md), el tema «Versionado» importa porque cada versión debe ser coherente consigo misma y declarar qué pasa con los enlaces entre versiones.
-
-En [SE-225 — Distribución de binarios y actualizaciones](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md), el tema «Versionado» importa porque ordenar mal las versiones instala una anterior.
+Comunica el alcance del cambio. Un número o una etiqueta de versión es una promesa para quien consume: si el cambio es compatible, puede actualizar con confianza; si no lo es, debe revisar. Un versionado mal hecho produce roturas inesperadas, y uno que ordena mal las versiones puede instalar una anterior ([SE-225](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)).
 
 ## Cómo funciona
 
-Según [SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md):
+El mecanismo tiene tres piezas. Primero, la **identidad**: cada versión tiene un identificador estable (una etiqueta, un número). Segundo, el **orden**: las versiones se pueden comparar. Aquí aparece un error típico que [SE-225](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md) señala: ordenar versiones como cadenas de texto pone «1.10» antes de «1.9»; hay que compararlas por componentes numéricos. Tercero, la **semántica**: qué comunica el cambio de número. El versionado semántico, por ejemplo, reserva el cambio de la versión mayor para los cambios incompatibles, el de la menor para añadidos compatibles y el del parche para correcciones.
 
-Un contrato declara cinco cosas. El esquema: campos, tipos y cuáles son obligatorios. La semántica: qué significa cada campo, con un ejemplo y la unidad. La calidad: las comprobaciones que el productor ofrece (unicidad de la clave, tasa máxima de nulos). El nivel de servicio: frescura y disponibilidad. Y la gobernanza: dueño, canal de contacto, política de cambios y retención. Es un archivo versionado junto al código del productor, no una página de una wiki, y su verificación se ejecuta en cada cambio.
+En un contrato de datos ([SE-366](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md)), la versión acompaña a cinco declaraciones: el esquema, la semántica de cada campo, la calidad ofrecida, el nivel de servicio y la gobernanza (dueño, canal de contacto, política de cambios y retención). El contrato es un archivo versionado junto al código del productor, no una página de una wiki, y su verificación se ejecuta en cada cambio.
 
-Según [SE-216 — Proyecto: portal documental versionado](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado/README.md):
-
-Traslada el proyecto a otro dominio (por ejemplo, el portal documental de un servicio de reparto): cambian las páginas y los valores a verificar, se conservan el versionado desde etiquetas, la política de retirada, el paquete determinista, la auditoría con límites declarados y los indicadores con dueño. La transferencia está lograda cuando puedes explicar qué parte del portal depende de la plataforma y cuál es estructura reutilizable.
+En un portal documental ([SE-216](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado/README.md)), el versionado se hace desde etiquetas del repositorio: cada versión de la documentación es coherente consigo misma (sus enlaces internos apuntan a su propia versión) y declara qué pasa con los enlaces entre versiones (redirecciones o avisos de retirada). La clase añade una política de retirada y propone trasladar la estructura a otro dominio para comprobar qué parte depende de la plataforma y qué parte es reutilizable.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md):
-
-*Escenario ilustrativo: las cifras y los resultados que aparecen en este ejemplo son supuestos de la narración, no mediciones.*
+El contrato de la API de entregas lleva la versión `2.3.0`. Un cambio que añade un campo opcional sube a `2.4.0`; uno que renombra un campo o elimina uno sube a `3.0.0` con aviso de retirada. Para decidir cuál de dos versiones es más reciente, se comparan sus componentes como números: `2.10.0` es posterior a `2.9.0`, aunque como texto sea anterior. (Ilustración de las reglas descritas.)
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Ordenar versiones como texto**: instala una anterior ([SE-225](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md)).
+- **Versiones incoherentes**: enlaces internos que apuntan a otra versión.
+- **Cambios incompatibles bajo un número menor**: rompen a los consumidores.
+- **Contratos en una wiki en vez de en el repositorio**, sin verificación.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Es un archivo versionado junto al código del productor, no una página de una wiki, y su verificación se ejecuta en cada cambio. ([SE-366](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md))
-- Traslada el proyecto a otro dominio (por ejemplo, el portal documental de un servicio de reparto): cambian las páginas y los valores a verificar, se conservan el versionado desde etiquetas, la política de retirada, el paquete determinista, la auditoría con límites declarados y los indicadores con dueño. ([SE-216](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado/README.md))
+El versionado comunica intención, no la garantiza: un número no impide que un cambio «compatible» rompa a un cliente estricto. Para artefactos que nadie más consume, un esquema formal es excesivo. Mantener muchas versiones vivas tiene un costo; la política de retirada es parte del versionado, no un añadido.
 
 ## Relación con otros conceptos
 

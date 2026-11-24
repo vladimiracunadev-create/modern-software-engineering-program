@@ -2,48 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Linaje](./linaje.md) · [Linealizabilidad →](./linealizabilidad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Versión acordada del conjunto de requisitos que sirve de referencia y solo cambia por un proceso controlado.
-
-Definición de trabajo de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-527 — Taller: estabilizar antes de modernizar](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md): Valores de las métricas de un sistema antes de un cambio, con su incertidumbre, contra los que se compara después.
-- En [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md): Comportamiento de la versión anterior, medido en paralelo, contra el que se compara el canario.
-- En [SE-601 — Ciclo de vida de ML y por qué falla en producción](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md): Regla o modelo simple con el que se compara.
+En ingeniería de requisitos ([SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)), una **línea base** es una versión acordada del conjunto de requisitos que sirve de referencia y solo cambia por un proceso controlado. El programa usa la palabra con otros matices cercanos: en [SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md), los valores de las métricas de un sistema antes de un cambio, con su incertidumbre, contra los que se compara después; en [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md), el comportamiento de la versión anterior, medido en paralelo, contra el que se compara el canario; en [SE-601](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md), una regla o modelo simple con el que se compara un modelo de ML. El hilo común es *lo contra lo que se compara*.
 
 ## Por qué importa
 
-En [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), el tema «Línea base» importa porque fija una versión acordada a la que referirse, comparar y volver.
+Hace posible responder preguntas que, sin referencia, no tienen respuesta: «¿esto está dentro del alcance?», «¿mejoró algo?», «¿cambió el comportamiento?». Sin línea base el alcance se mueve con cada edición, y una mejora se afirma sin saber de dónde se parte.
 
 ## Cómo funciona
 
-Según [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), en la sección «Línea base»:
+En el sentido de [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), la línea base es una versión del conjunto de requisitos que el equipo acordó; lo que se construye, se prueba y se entrega se mide contra ella. No significa que no pueda cambiar: significa que cambia **de forma controlada**, mediante una solicitud de cambio con análisis de impacto y decisión, y que siempre se sabe contra cuál versión se trabaja. Para ello necesita identidad estable (etiqueta, commit o hash normalizado). La clase propone una prueba de regresión que verifica el hash normalizado de la línea base y falla si cambia sin una solicitud registrada.
 
-Una línea base es una versión del conjunto de requisitos que el equipo acordó y que sirve de referencia: lo que se construye, se prueba y se entrega se mide contra ella. No significa que no pueda cambiar; significa que cambia de forma controlada y que siempre se sabe contra cuál versión se trabaja. Sin ella, «¿esto está dentro del alcance?» no tiene respuesta, porque el alcance se mueve con cada edición.
+En el sentido de medición ([SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md)), la línea base son las métricas **antes** del cambio, con su incertidumbre. Un error típico: afirmar una mejora con 20 cambios porque la línea base se midió sin incertidumbre; la corrección es declarar el intervalo y ampliar la muestra. En el sentido del canario ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)), la versión anterior se mide en paralelo, no en un momento anterior, para que las condiciones sean comparables. En ML ([SE-601](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md)), una línea base simple (por ejemplo, predecir la media) dice cuánto aporta realmente un modelo complejo.
 
 ## Ejemplo
 
-Ejemplo de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) (sección «Ejemplo profesional»):
-
-Una solicitud de cambio con su análisis y su decisión, sobre la línea base 1:
+[SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) muestra una solicitud de cambio con su análisis y decisión sobre la línea base 1: el cambio propone modificar un tope de penalización; el análisis recorre las dependencias y lista requisitos y pruebas afectados; la decisión lo aprueba y se crea la línea base 2 con nuevo hash normalizado. Hasta entonces, el trabajo se mide contra la 1.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Nadie sabe cuál era la versión acordada** — causa: no hay línea base identificada. Corrección: etiquetar cada versión acordada y registrar su hash normalizado. ([SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md))
-- **Se afirma una mejora con 20 cambios** — causa: línea base sin incertidumbre. Corrección: declarar el intervalo y ampliar la muestra. ([SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md))
+- **Nadie sabe cuál era la versión acordada**: no hay línea base identificada; corrección: etiquetar cada versión acordada y registrar su hash normalizado.
+- **Afirmar una mejora sin línea base con incertidumbre** ([SE-527](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-527-taller-estabilizar-antes-de-modernizar/README.md)).
+- **Confundirla con una congelación absoluta**: puede cambiar, pero de forma controlada.
+- **Comparar con una línea base tomada en otras condiciones.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Regresión:** añade una prueba que verifique el hash normalizado de la línea base y falle si cambia sin una solicitud registrada. ([SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md))
+Una línea base rígida frena la adaptación cuando el aprendizaje del proyecto es alto y el costo de cambiar es bajo: ahí conviene líneas base ligeras por iteración. Y una línea base mal elegida (una referencia demasiado débil en ML, por ejemplo) hace parecer buenos resultados mediocres.
 
 ## Relación con otros conceptos
 

@@ -2,43 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Span](./span.md) · [Spec-as-source →](./spec-as-source.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Uso de la especificación como documento vivo que se actualiza junto con el código.
-
-Definición de trabajo de [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md).
+**Spec-anchored** es el uso de la especificación como un documento vivo que se mantiene junto con el código a lo largo de la vida del sistema ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)). Es el segundo de tres niveles: spec-first (la especificación guía y se abandona), spec-anchored (se mantiene anclada al código) y spec-as-source (la especificación es la fuente de la que se genera el código).
 
 ## Por qué importa
 
-En [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), el tema «Spec-anchored» importa porque la especificación se mantiene viva con el código; exige un mecanismo que detecte la deriva.
+Hace que la especificación siga siendo una fuente fiable para consumidores y revisores. Cuando cambia el comportamiento, cambian ambos. Su coste es disciplina: sin un mecanismo que detecte la discrepancia, el anclaje es una promesa y la deriva aparece en el primer apuro ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md)). Cambia la decisión de qué artefactos merecen este nivel: los que otros consumen y cambian a menudo.
 
 ## Cómo funciona
 
-Según [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), en la sección «Spec-anchored»:
+El anclaje requiere un **mecanismo que haga fallar la integración continua cuando especificación y código discrepan**. [SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) menciona tres formas de comprobarlo, con distinta potencia: por firmas (nombres y tipos), por ejemplos y por pruebas contractuales. [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) lo describe en el contexto de desarrollo guiado por especificaciones: cada regla tiene un identificador que el código y las pruebas citan; los valores que la especificación declara (umbrales, límites) se comparan con los del código; un cambio en el código sin cambio en la especificación se señala. La especificación es una fuente que se revisa con cada cambio, como una prueba.
 
-En spec-anchored la especificación se mantiene con el código a lo largo de la vida del sistema: un cambio de comportamiento exige actualizar ambos. El valor es que el contrato sigue siendo una fuente fiable para consumidores y revisores; el coste, que exige un mecanismo que haga fallar la integración continua cuando discrepan. Sin ese mecanismo, el anclaje es una promesa: la deriva aparece en el primer apuro. La comprobación se puede hacer por firmas, por ejemplos o por pruebas contractuales, con distinta potencia y coste.
-
-Según [SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md), en la sección «Spec-anchored»:
-
-En el segundo nivel la especificación se **mantiene** y se **ancla** al código y a las pruebas con comprobaciones: cada regla tiene un identificador que el código y las pruebas citan; los valores que la especificación declara (umbrales, límites) se comparan con los del código; un cambio en el código sin cambio en la especificación se señala. La especificación es una fuente que se revisa con cada cambio, como una prueba. El costo es disciplina y herramientas: alguien debe escribir el comprobador y alguien debe atender sus alertas.
+El costo es disciplina y herramientas: alguien debe escribir el comprobador y alguien debe mantenerlo. En la plataforma de entregas ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md)), cada artefacto tiene un nivel declarado: el documento de arquitectura es spec-first (guía y se archiva); el contrato de la API es spec-anchored, con un comprobador en integración continua que compara las operaciones del código con el documento OpenAPI y falla con el nombre del parámetro que discrepa; los clientes se generan desde el documento (spec-as-source).
 
 ## Ejemplo
 
-Ejemplo de [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, cada artefacto tiene un nivel declarado. El documento de arquitectura es spec-first (guía y se archiva). El contrato de la API es spec-anchored: un comprobador en integración continua compara las operaciones del código con el documento OpenAPI y falla con el nombre del parámetro que discrepa. Los clientes se generan desde el documento (spec-as-source) con un generador que ordena toda su salida y marca la región generada; una comprobación regenera y compara huellas, y falla si hay diferencias con lo comprometido. Una nota por artefacto registra la señal que haría cambiar de nivel.
+El documento OpenAPI declara que `POST /entregas` acepta el parámetro `archivo` obligatorio. Un desarrollador renombra el parámetro a `adjunto` en el código sin tocar el documento. El comprobador de integración continua compara ambos y falla con el mensaje «parámetro `archivo` ausente en el código; `adjunto` ausente en la especificación». Hasta que alguien actualice uno, la integración no pasa. (Ilustración del mecanismo descrito en [SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La especificación dice una cosa y el código otra, y nadie lo sabe** — causa: spec-anchored sin comprobación mecánica. Corrección: comparar firmas o ejemplos en integración continua. ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md))
+- **La especificación dice una cosa y el código otra, y nadie lo sabe**: anclaje sin comprobación automática.
+- **Anclar todo**: el costo de mantener comprobadores para documentos que casi no cambian no se justifica.
+- **Confundirlo con spec-as-source**: aquí el código se escribe aparte y se compara; allí se genera.
+- **Comprobar solo la forma** y no el comportamiento.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. La deriva se midió solo en firmas, la probabilidad de deriva es un supuesto y no se usó ningún generador de producción ni un asistente de programación. La siguiente clase convierte las comprobaciones de firmas en especificaciones que se ejecutan.
+Para decisiones puntuales que se toman una vez (un documento de arquitectura), el anclaje es excesivo y es preferible spec-first con archivo. Si la comprobación es débil (solo firmas), la deriva de comportamiento pasa sin ser detectada. Y si el equipo no tiene capacidad de mantener el comprobador, el anclaje se rompe en silencio.
 
 ## Relación con otros conceptos
 

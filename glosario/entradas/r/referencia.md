@@ -2,53 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Refactorización](./refactorizacion.md) · [Referencia de API →](./referencia-de-api.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Descripción completa y neutral de los elementos de un producto, estructurada como el producto.
-
-Definición de trabajo de [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-193 — Modelo de objetos y áreas de Git](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md): Nombre (rama, etiqueta, HEAD) que apunta a un commit o a otra referencia.
-- En [SE-608 — Monitoreo, deriva y reentrenamiento](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md): Distribución con la que se compara, normalmente la de entrenamiento o la de un periodo sano.
+**Referencia** tiene tres sentidos en el programa. El principal ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), documentación) es una descripción completa y neutral de los elementos de un producto, estructurada como el producto. [SE-193](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md) (Git) la usa para un nombre (rama, etiqueta, HEAD) que apunta a un commit o a otra referencia. [SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md) (monitoreo de modelos) la usa para la distribución con la que se compara, normalmente la de entrenamiento o la de un periodo sano. Esta entrada desarrolla los dos primeros, que son los más usados, y señala el tercero.
 
 ## Por qué importa
 
-En [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), el tema «Referencia» importa porque describe la máquina con completitud y sin opinión; se consulta, no se lee.
-
-En [SE-193 — Modelo de objetos y áreas de Git](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md), el tema «Referencias» importa porque una rama o una etiqueta son nombres; mover un nombre no borra objetos, pero puede dejarlos inalcanzables.
+En documentación, distingue lo que se **consulta** de lo que se lee: la referencia describe la máquina con completitud y sin opinión. En Git, la distinción entre «existe» y «es alcanzable» es la base de toda la recuperación ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)): un objeto está a salvo mientras alguna referencia lo alcance.
 
 ## Cómo funciona
 
-Según [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), en la sección «Referencia»:
+**Referencia documental ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md)).** Describe la máquina: los parámetros, sus tipos, sus valores por defecto, los errores que puede devolver. Se consulta de forma puntual y por eso importa más que sea completa, uniforme y exacta que agradable. Su estructura imita la del producto, no la de las tareas. Es el único tipo de documentación cuya exactitud puede comprobarse casi por completo con herramientas, porque sus afirmaciones tienen una contraparte en el código: nombres, firmas, límites; por eso se genera de la configuración o del código. Una referencia con opiniones («recomendamos un tope del 50 %») mezcla tipos: la opinión va a una guía o a una explicación.
 
-La referencia describe la máquina: los parámetros, sus tipos, sus valores por defecto, los errores que puede devolver. Se consulta de forma puntual y por eso importa más que sea completa, uniforme y exacta que agradable; su estructura imita la del producto, no la de las tareas. Es el único tipo cuya exactitud puede comprobarse por completo con herramientas, porque sus afirmaciones tienen una contraparte en el código: nombres, firmas, límites. Una referencia con opiniones («recomendamos un tope del 50 %») mezcla tipos; la opinión va a una explicación o a una guía.
+**Referencia de Git ([SE-193](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md)).** Una rama, una etiqueta y HEAD son archivos pequeños con un identificador (o con el nombre de otra referencia). Mover una rama no borra objetos: solo cambia a qué commit se llega desde ese nombre. Un objeto queda a salvo mientras sea alcanzable desde alguna referencia o desde el registro de movimientos (reflog); si deja de serlo, es candidato a la poda.
 
-Según [SE-193 — Modelo de objetos y áreas de Git](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md), en la sección «Referencias»:
-
-Una rama, una etiqueta y HEAD son archivos pequeños con un identificador (o con el nombre de otra referencia). Mover una rama no borra objetos: solo cambia a qué commit se llega desde ese nombre. Un objeto queda a salvo mientras sea alcanzable desde alguna referencia o desde el registro de movimientos (reflog); si deja de serlo, es candidato a la poda. Esta distinción entre «existe» y «es alcanzable» es la base de toda la recuperación de `SE-194`.
+**Referencia de comparación ([SE-608](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-608-monitoreo-deriva-y-reentrenamiento/README.md)).** En monitoreo, la distribución de referencia (entrenamiento o un periodo sano) es contra la que se mide la deriva de los datos actuales.
 
 ## Ejemplo
 
-Ejemplo de [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md) (sección «Ejemplo profesional»):
-
-La plataforma separa la penalización en cuatro páginas con nombres propios: un tutorial («Tu primera entrega con retraso»), una guía («Cambiar el tope de penalización de un curso»), una referencia («Parámetros de penalización») y una explicación («Por qué la penalización es diaria y con tope»). Cada una enlaza a las otras tres en una línea al comienzo o al final. El tutorial y la guía se ejecutan en la integración continua; la referencia se genera de la configuración; la explicación se revisa cuando cambia la política. Una persona nueva empieza por el tutorial, una docente va directo a la guía y una auditora lee la explicación.
+La plataforma de entregas separa la penalización en cuatro páginas ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md)): tutorial, guía, explicación y una referencia, «Parámetros de penalización», que se genera de la configuración y lista cada parámetro con su tipo, valor por defecto y límites. En Git ([SE-193](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md)), tras `git reset --hard HEAD~1`, el commit descartado deja de ser alcanzable desde la rama, pero sigue existiendo en el reflog durante un tiempo, y con `git reflog` se localiza y se recupera con una nueva rama. (El segundo caso es un ejemplo estándar de Git.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La referencia dice «se recomienda» en varios parámetros** — causa: se mezcló opinión con descripción. Corrección: trasladar las recomendaciones a una guía o una explicación. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- **Hay explicación pero nadie la encuentra** — causa: no está enlazada desde ninguna página de acción. Corrección: enlazar la explicación desde el tutorial, la guía y la referencia. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
+- **Opinión en la referencia**: se mezcla descripción con recomendación.
+- **Referencia escrita a mano que diverge del código.**
+- **Creer que mover una rama borra commits**: solo cambia el puntero.
+- **Confundir los tres sentidos**: la referencia documental, la de Git y la de comparación no tienen relación técnica.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Hay componentes que solo necesitan referencia (una opción de configuración) y otros que piden explicación (una decisión de diseño). ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
+La referencia documental no sirve para aprender (necesita tutorial) ni para decidir (necesita explicación). Las referencias de Git no impiden la pérdida: un objeto no alcanzable se poda con el tiempo, y el reflog es local, de modo que no protege a otras personas ni a clones. Y una distribución de referencia de ML se vuelve obsoleta si el mundo cambia.
 
 ## Relación con otros conceptos
 

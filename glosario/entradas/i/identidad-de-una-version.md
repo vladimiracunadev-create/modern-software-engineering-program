@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Identidad de carga de trabajo](./identidad-de-carga-de-trabajo.md) · [Identidad federada →](./identidad-federada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Identificador estable (etiqueta, commit o hash) que permite saber de qué versión se habla.
-
-Definición de trabajo de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md).
+La **identidad de una versión** es un identificador estable (una etiqueta, un identificador de commit o un hash del contenido) que permite saber de qué versión se habla ([SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)). Es la propiedad que permite que dos personas, o una persona y una prueba, se refieran sin ambigüedad a la misma versión de una especificación o de un artefacto.
 
 ## Por qué importa
 
-En [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), el tema «Identidad de una versión» importa porque permite saber si dos personas hablan de la misma versión.
+Sin identidad estable, «la versión acordada» es una expresión que cada quien interpreta como quiere, y la pregunta «¿esto está dentro del alcance?» no tiene respuesta. Con ella, un cambio se evalúa contra una versión concreta y una discrepancia se resuelve comparando identificadores, no recuerdos. [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) la sitúa como parte del contrato de la línea base.
 
 ## Cómo funciona
 
-Según [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), en la sección «Identidad de una versión»:
+Hay tres formas de dar identidad, con compromisos distintos. Una **etiqueta** (`baseline-1`) es legible, pero depende de que nadie la mueva. Un **identificador de commit** es preciso e inmutable dentro del repositorio. Un **hash del contenido** identifica los bytes mismos, con independencia de dónde vivan.
 
-Para hablar de la misma versión hace falta una identidad estable: una etiqueta (`baseline-1`), un identificador de commit o un hash del contenido. Un hash del texto crudo cambia con cualquier byte (un espacio, un salto de línea), así que confunde formato con contenido. Un hash de un texto normalizado cambia solo cuando cambia lo que importa, a costa de que la normalización quede escrita: si normalizas mal, ocultas cambios reales. La identidad de la línea base es parte del contrato.
+El detalle técnico que [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) destaca es qué se hashea. Un hash del **texto crudo** cambia con cualquier byte: un espacio al final, un salto de línea distinto (los de Windows y Linux difieren), así que confunde formato con contenido y dispara falsos cambios. Un hash de un **texto normalizado** cambia solo cuando cambia lo que importa. El precio es que la normalización debe quedar escrita (qué se descarta: espacios, saltos de línea, mayúsculas) y que, si se normaliza mal, se ocultan cambios reales. Por eso la regla de normalización es parte de la identidad y se versiona.
+
+La consecuencia práctica se vuelve una prueba de regresión: una comprobación que calcula el hash normalizado de la línea base y falla si cambia sin una solicitud de cambio registrada.
 
 ## Ejemplo
 
-Caso medido en la sección «Identidad de una versión» de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md):
-
-Para hablar de la misma versión hace falta una identidad estable: una etiqueta (`baseline-1`), un identificador de commit o un hash del contenido. Un hash del texto crudo cambia con cualquier byte (un espacio, un salto de línea), así que confunde formato con contenido. Un hash de un texto normalizado cambia solo cuando cambia lo que importa, a costa de que la normalización quede escrita: si normalizas mal, ocultas cambios reales. La identidad de la línea base es parte del contrato.
+El equipo etiqueta la especificación acordada como `baseline-1` y registra su hash normalizado. Más tarde, un editor reformatea el archivo (cambia los saltos de línea y quita espacios). El hash crudo cambia y la alarma suena sin motivo; el hash normalizado no cambia y la comprobación pasa. Si alguien cambia «10 MB» por «25 MB», el hash normalizado sí cambia y la prueba exige una solicitud de cambio. (Ilustración del mecanismo de [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)) son:
-
-- **Nadie sabe cuál era la versión acordada** — causa: no hay línea base identificada. Corrección: etiquetar cada versión acordada y registrar su hash normalizado.
-- **Un cambio «pequeño» rompe media especificación** — causa: no se calculó el alcance. Corrección: recorrer las dependencias antes de aprobar y registrar el resultado.
+- **Nadie sabe cuál era la versión acordada**: no hay línea base identificada; corrección: etiquetar cada versión acordada y registrar su hash normalizado.
+- **Un cambio «pequeño» rompe media especificación**: no se calculó el alcance; corrección: recorrer las dependencias antes de aprobar.
+- **Usar el hash crudo** y alarmar por cambios de formato.
+- **Normalizar de más** y ocultar cambios reales (por ejemplo, ignorar diferencias de números).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos y una demostración con `git` en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizó ningún proyecto real, los grafos y las llegadas son sintéticos y la normalización es una de varias posibles. La siguiente clase busca los defectos que los cambios parciales introducen: ambigüedad, contradicción e incompletitud.
+La identidad dice cuál versión, no si es la correcta ni quién la aprobó; eso lo registran el proceso de cambio y la línea base. Un hash solo identifica contenido idéntico: dos versiones semánticamente equivalentes tendrán hashes distintos si difieren en lo normalizado. En documentos de vida muy corta, una etiqueta o la fecha pueden bastar.
 
 ## Relación con otros conceptos
 

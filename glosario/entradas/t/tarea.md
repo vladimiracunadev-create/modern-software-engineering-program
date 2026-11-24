@@ -2,50 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Tapado](./tapado.md) · [Tarea de regresión →](./tarea-de-regresion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
 
 ## Definición
 
-Acción con verbo y resultado observable que una audiencia quiere completar usando la documentación.
-
-Definición de trabajo de [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-169 — Diseño centrado en personas y tareas](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md): Objetivo de una persona con un resultado observable, independiente de la pantalla que se use para lograrlo.
-- En [SE-230 — JavaScript, DOM y eventos del navegador](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md): Unidad de trabajo que el bucle de eventos toma de una cola y ejecuta hasta vaciar la pila.
-- En [SE-566 — Constitución, specify, clarify, plan y tasks](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-566-constitucion-specify-clarify-plan-y-tasks/README.md): Unidad de trabajo ordenada, con dependencias, archivos afectados y, si procede, marca de ejecución en paralelo.
+**Tarea** es una palabra con varios sentidos en el programa. El principal ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), documentación) es una acción con verbo y resultado observable que una audiencia quiere completar usando la documentación. [SE-169](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md) (usabilidad) la define como el objetivo de una persona con un resultado observable, independiente de la pantalla que se use. [SE-230](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) (concurrencia) la usa para la unidad de trabajo que el bucle de eventos toma de una cola y ejecuta hasta vaciar la pila. [SE-566](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-566-constitucion-specify-clarify-plan-y-tasks/README.md) (desarrollo asistido por IA) la usa para una unidad de trabajo ordenada, con dependencias, archivos afectados y, si procede, marca de ejecución en paralelo. Esta entrada desarrolla sobre todo el sentido de personas ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), [SE-169](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)) y señala los técnicos.
 
 ## Por qué importa
 
-En [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), el tema «Tarea» importa porque es la unidad por la que alguien busca; si la página no responde a un verbo, no se encuentra.
+Una tarea es la unidad por la que la gente busca, aunque no la formule como título. Si una página no responde a un verbo, no se encuentra; si una interfaz se diseña por pantallas y no por tareas, se pierde el objetivo de la persona. Cambia cómo se organiza la documentación y cómo se evalúa la usabilidad: por tareas completadas, no por páginas escritas.
 
 ## Cómo funciona
 
-Según [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md), en la sección «Tarea»:
+Una tarea tiene **un verbo y un resultado observable**: «cambiar el plazo de una tarea y avisar a la clase». Se reconoce la página que responde a una tarea porque **termina cuando el resultado existe**; una página que describe «el módulo de calendario» no termina nunca. Las tareas además delimitan lo que no hay que escribir: si ninguna audiencia necesita saber cómo se implementa el redondeo para hacer su tarea, esa explicación pertenece a otra página.
 
-Una tarea tiene un verbo y un resultado observable: «cambiar el plazo de una tarea y avisar a la clase». Es la unidad por la que la gente busca, aunque no la formule como título. Una página que responde a una tarea puede reconocerse porque termina cuando el resultado existe; una página que describe «el módulo de calendario» no termina nunca. Las tareas también delimitan lo que no hay que escribir: si ninguna audiencia necesita saber cómo se implementa el redondeo para hacer su tarea, esa explicación pertenece a otra página, y quien la necesita la encontrará por su propia tarea (depurar, auditar). Un inventario de tareas por audiencia, aunque sea de quince filas, expone dos defectos que el índice de componentes oculta: tareas sin página y páginas sin tarea.
+En usabilidad ([SE-169](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md)), la tarea es independiente de la pantalla: «entregar el trabajo» puede hacerse desde el móvil o la web, y evaluar por tarea permite comparar diseños distintos con el mismo criterio de éxito.
+
+En los sentidos técnicos, la lógica es parecida: una tarea del bucle de eventos ([SE-230](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md)) es una unidad que se ejecuta hasta vaciar la pila; una tarea de un plan de IA ([SE-566](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-566-constitucion-specify-clarify-plan-y-tasks/README.md)) es una unidad ordenada con dependencias y archivos afectados, de modo que las independientes pueden ejecutarse en paralelo y las dependientes, en orden.
 
 ## Ejemplo
 
-Ejemplo de [SE-205 — Documentación orientada a tareas y audiencias](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md) (sección «Ejemplo profesional»):
-
-El portal documental de la plataforma de entregas tiene un inventario de tareas por audiencia en `audiencias.md`: estudiante (entender el descuento, pedir prórroga), docente (cambiar plazo, conceder prórroga, corregir una nota), secretaría (exportar el acta con la nota final), mantenimiento (depurar el cálculo, cambiar el tope). La regla vive en `politica/penalizacion.md`, versionada, con responsable y fecha de revisión. Las cuatro vistas enlazan esa fuente con una frase de contexto cada una. Cuando la política cambia el tope al 30 %, el cambio es un único commit en la fuente y una lista de verificación señala las cuatro vistas para revisar.
+El portal documental de la plataforma de entregas ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)) tiene un inventario de tareas por audiencia: estudiante (entender el descuento, pedir prórroga), docente (cambiar plazo, conceder prórroga, corregir una nota), secretaría (exportar el acta con la nota final) y mantenimiento (depurar el cálculo, cambiar el tope). «Conceder prórroga» es una tarea con verbo y resultado: tras la guía, la prórroga existe y la estudiante ve el nuevo plazo.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Nadie encuentra «cómo cambiar el plazo» aunque existe la página** — causa: el título usa el nombre del componente («Módulo de calendario») y no la tarea. Corrección: reescribir el título con verbo y resultado y añadirla al índice de tareas. ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md))
-- **Una página explica todo y nadie la termina** — causa: mezcla audiencias y tareas en un solo texto. Corrección: separar por audiencia o por tarea y enlazar lo común. ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md))
-- **La documentación «está completa» pero las preguntas siguen llegando por mensaje** — causa: se documentó lo que se sabía y no lo que se pregunta. Corrección: registrar las preguntas recibidas y convertir las repetidas en páginas por tarea. ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md))
+- **Páginas por módulo, no por tarea**: nadie encuentra lo que busca.
+- **Confundir tarea con función del producto**: la función es del producto; la tarea, de la persona.
+- **Definir la tarea por la pantalla**: se pierde el objetivo.
+- **Mezclar los sentidos**: tarea de documentación, de usabilidad, del bucle de eventos y de un plan de IA son conceptos distintos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una página que responde a una tarea puede reconocerse porque termina cuando el resultado existe; una página que describe «el módulo de calendario» no termina nunca. ([SE-205](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md))
-- La distinción importa porque dos diseños muy distintos pueden resolver la misma tarea (un formulario, un arrastre de archivo, un envío por correo) y porque una función puede existir sin servir a ninguna tarea. ([SE-169](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md))
+Para documentación de referencia (parámetros, firmas), la tarea no es el eje: se organiza como el producto. Una tarea mal acotada (demasiado grande) no «termina» y no se puede comprobar. En el sentido técnico de concurrencia, no hay relación con las tareas de los equipos ni de los tableros.
 
 ## Relación con otros conceptos
 

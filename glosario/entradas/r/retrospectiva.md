@@ -2,41 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Retroceso exponencial](./retroceso-exponencial.md) · [Retrospectiva basada en evidencia →](./retrospectiva-basada-en-evidencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
-
-Definición de trabajo de [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md).
+La **retrospectiva** es una reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)). Es la práctica con la que un equipo inspecciona su propio método. No debe confundirse con la retrospectiva basada en evidencia (una variante que el programa trata aparte) ni con el postmortem de un incidente, que examina un evento concreto.
 
 ## Por qué importa
 
-En [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md), el tema «Retrospectivas» importa porque son el lugar donde el equipo inspecciona su método y decide qué probar.
+Es el lugar donde el equipo decide qué probar para mejorar. Sin una pausa deliberada, los problemas de método se normalizan. El duodécimo principio del manifiesto ágil pide reflexionar a intervalos regulares sobre cómo ser más efectivos y ajustar el comportamiento. Cambia el uso de la reunión: no es un desahogo sino un mecanismo de mejora con seguimiento.
 
 ## Cómo funciona
 
-Según [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md), en la sección «Retrospectivas»:
+[SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) dice que su valor no está en el formato (hay muchos) sino en **tres propiedades**:
 
-Una retrospectiva es una pausa periódica para examinar cómo trabaja el equipo y acordar cambios. Su valor no está en el formato (hay muchos) sino en tres propiedades: parte de datos y hechos, no de impresiones; termina con pocos cambios concretos; y revisa los cambios anteriores antes de proponer otros. El duodécimo principio del manifiesto pide reflexionar a intervalos regulares sobre cómo ser más efectivos y ajustar el comportamiento. Lo que una retrospectiva produce se mide por los cambios que ocurren después, no por la calidad de la conversación.
+1. **Parte de datos y hechos**, no de impresiones: el tablero de flujo, las métricas y la hoja de acciones previas.
+2. **Termina con pocos cambios concretos**: uno o dos, no veinte.
+3. **Revisa los cambios anteriores** antes de proponer otros: se evalúa si funcionaron.
+
+La causa de cada propiedad es práctica. Sin datos, las impresiones recientes dominan. Con muchos cambios, ninguno se hace. Sin revisión de los previos, el equipo acumula intenciones sin saber si sirven. Y por eso la clase dice que lo que una retrospectiva produce se mide por **los cambios que ocurren después**, no por la calidad de la conversación.
+
+Un riesgo que [SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) señala es que solo salgan causas externas, por falta de seguridad para hablar de las internas; se corrige facilitando de forma que no se busque culpables.
 
 ## Ejemplo
 
-Ejemplo de [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma de entregas cambia su retrospectiva. Antes de la reunión, quien facilita prepara el tablero de `SE-189` y la hoja de acciones previas con su estado. La reunión dedica diez minutos a evaluar el cambio anterior con su señal, 20 a identificar qué parte del sistema produce el plazo largo (con la cola y la ley de Little como lentes), y 15 a elegir una acción, máximo dos.
+El equipo de la plataforma de entregas rediseña su retrospectiva ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)). Antes de la reunión, quien facilita prepara el tablero de la clase [SE-189](../../../classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) y la hoja de acciones previas con su estado. La reunión dedica diez minutos a evaluar el cambio anterior con su señal; 20 a identificar qué parte del sistema produce el plazo largo (con la cola y la ley de Little como lentes); y 15 a elegir una acción, máximo dos. Al final queda una acción con responsable, fecha y la señal con la que se evaluará.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **En la retrospectiva solo salen causas externas** — causa: falta de seguridad para hablar de las internas. Corrección: reconocer los reportes de error y facilitar de forma que no se busque culpables. ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md))
+- **Solo salen causas externas**: falta de seguridad para hablar de las internas; corrección: facilitar sin buscar culpables.
+- **Diez acciones y ninguna cumplida.**
+- **No revisar las acciones anteriores.**
+- **Confundir la retrospectiva con una reunión de estado.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Lo que una retrospectiva produce se mide por los cambios que ocurren después, no por la calidad de la conversación. ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md))
+No sustituye la medición continua ni la gestión de incidentes. Si el equipo no tiene capacidad de cambiar nada (las decisiones se toman fuera), la reunión se vuelve queja. Con equipos que cambian cada ciclo, la continuidad se pierde. Y una retrospectiva excelente no garantiza mejora si las acciones no se ejecutan.
 
 ## Relación con otros conceptos
 

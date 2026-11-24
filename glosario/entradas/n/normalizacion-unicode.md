@@ -2,44 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Normalización por sintaxis](./normalizacion-por-sintaxis.md) · [Normalizar →](./normalizar.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
 
 ## Definición
 
-Transformación de una cadena a una forma canónica para que secuencias equivalentes se comparen como iguales.
-
-Definición de trabajo de [SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-177 — Internacionalización, localización y formatos culturales](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md): Conversión de texto a una forma canónica para comparar cadenas equivalentes.
-- En [SE-221 — TUI, terminales y accesibilidad](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md): Conversión de un texto a una forma canónica (NFC o NFD) para poder compararlo.
-- En [SE-441 — Compatibilidad, portabilidad e interoperabilidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md): Conversión de un texto a una forma canónica (por ejemplo, NFC) para que secuencias equivalentes se comparen como iguales.
+La **normalización Unicode** transforma una cadena a una forma canónica para que secuencias equivalentes se comparen como iguales ([SE-233](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md), [SE-177](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md), [SE-221](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md), [SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md)). Unicode permite representar un mismo carácter visible de más de una manera: «é» puede ser un único carácter precompuesto o una «e» seguida de un acento combinante. Las dos se ven igual y no son iguales byte a byte.
 
 ## Por qué importa
 
-La clase donde se define, [SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md), existe con este propósito: la clase existe para que diseñes un formulario como un contrato entre una persona, el navegador y el servidor: qué se puede escribir, quién valida qué, cuándo se muestra un error y cómo se recupera lo escrito, de modo que «validar el correo» deje de significar una expresión regular copiada de internet.
+Sin normalizar, la misma palabra escrita por dos teclados o sistemas distintos es dos cadenas diferentes: la misma persona aparece duplicada, una búsqueda no encuentra lo que existe, una comparación de contraseñas o de identificadores falla de modo inconsistente. [SE-233](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md) lo cita como causa de que «la misma persona aparezca dos veces en el sistema»: nombres con acentos en formas Unicode distintas.
 
 ## Cómo funciona
 
-[SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md) usa este término dentro de otro tema, sin una sección propia. El contexto en que aparece: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final.
+Las formas canónicas más usadas, nombradas en [SE-221](../../../classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/README.md) y [SE-441](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-441-compatibilidad-portabilidad-e-interoperabilidad/README.md), son **NFC** (compone: prefiere el carácter precompuesto) y **NFD** (descompone: carácter base más marcas combinantes). Existen además las formas de compatibilidad (NFKC y NFKD), que también unifican variantes como ligaduras o anchuras. Se normaliza ambos lados antes de comparar: dos cadenas equivalentes dan los mismos bytes tras normalizarse a la misma forma.
+
+[SE-233](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md) aplica la idea a un formulario de entrega: los nombres se guardan **tal como se escriben** (lo que la persona escribió se respeta) y se comparan **normalizados y plegados** (normalización más plegado de mayúsculas). Y la longitud máxima se define en **grafemas** (lo que la persona percibe como un carácter) y se comprueba en bytes en el servidor, porque un grafema puede ocupar varios puntos de código y varios bytes. Separar lo que se guarda de lo que se compara evita perder información y a la vez evita duplicados.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md):
-
-El formulario de entrega usa `type="email"` y `autocomplete="email"`, valida en el cliente al salir del campo y de nuevo en cada cambio solo si ya hay un error mostrado, y el servidor aplica las mismas reglas con una prueba que compara ambas implementaciones con el corpus de la clase. Los nombres se guardan tal como se escriben y se comparan normalizados y plegados; la longitud máxima se define en grafemas y se comprueba en bytes en el servidor.
+El nombre «José» escrito desde un teclado que genera «é» precompuesto (U+00E9) y desde otro que genera «e» + U+0301 son visualmente idénticos. Comparados byte a byte, difieren; el sistema crea dos personas. Tras normalizar ambos a NFC, coinciden. En Python, `unicodedata.normalize("NFC", s)` hace esa conversión. (Ilustración con la biblioteca estándar; [SE-233](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md) describe el mismo principio.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md)) son:
-
-- **Una dirección con `+` o apóstrofo es rechazada** — causa: expresión más estricta que el estándar. Corrección: usar la del estándar con reglas de longitud y probar con un corpus.
-- **La misma persona aparece dos veces en el sistema** — causa: nombres con acentos en formas Unicode distintas. Corrección: normalizar y plegar para comparar; guardar el nombre tal como se escribió.
+- **La misma persona aparece dos veces**: nombres con acentos en formas distintas; corrección: normalizar y plegar para comparar, y guardar el nombre tal como se escribió.
+- **Normalizar antes de guardar y perder lo escrito**: algunas formas de compatibilidad alteran el texto.
+- **Medir la longitud en caracteres o bytes sin considerar grafemas.**
+- **Confundir normalización con plegado de mayúsculas o con eliminación de acentos**: son operaciones distintas.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-233 — Formularios, validación y experiencia de error](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md)) son: Las definiciones son operativas para esta clase y deben contrastarse con las especificaciones enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El corpus y sus etiquetas son del autor, los diez nombres son inventados y la simulación de escritura es mecánica: no se midió a ninguna persona ni se usó un navegador. La siguiente clase pregunta cómo se identifica cada pantalla del formulario con una dirección que sobreviva a una recarga y a un enlace compartido.
+La normalización no resuelve la confusión visual entre caracteres distintos de aspecto parecido (una «a» latina y una «а» cirílica son caracteres diferentes y seguirán diferenciándose), lo que importa en seguridad. No es apropiada para datos binarios ni para identificadores que deben compararse byte a byte. La forma elegida debe ser la misma en todo el sistema, o la comparación sigue siendo inconsistente.
 
 ## Relación con otros conceptos
 

@@ -2,48 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Regla de confianza](./regla-de-confianza.md) · [Regla de dependencia →](./regla-de-dependencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Procedimiento por el que un proyecto acepta o rechaza una propuesta.
-
-Definición de trabajo de [SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md): Criterio escrito que asigna un candidato a una carga.
+Una **regla de decisión** es el procedimiento por el cual un proyecto acepta o rechaza una propuesta ([SE-200](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md)). [SE-287](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) usa el término en un sentido emparentado: un criterio escrito que asigna un candidato a una carga (qué elementos van a qué lugar), que hace la elección revisable. En ambos, lo esencial es que la regla esté escrita antes de decidir.
 
 ## Por qué importa
 
-En [SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md), el tema «Reglas de decisión» importa porque cada regla tolera un tipo de error distinto y depende de quién está disponible.
-
-En [SE-287 — Taller: elegir y aislar un runtime para una carga no confiable](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md), el tema «Regla de decisión» importa porque hace la elección revisable.
+Cada regla tolera un tipo de error distinto, y la disponibilidad de las personas decide cuál es adecuada. Si no hay regla, las decisiones dependen de quién tiene más peso o de quién insiste más. Con una regla escrita, quien contribuye sabe qué esperar y la decisión puede revisarse. Cambia cómo se gobierna un proyecto: no solo qué se decide, sino cómo.
 
 ## Cómo funciona
 
-Según [SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md), en la sección «Reglas de decisión»:
+[SE-200](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md) enumera cuatro familias de reglas: un **líder con la última palabra**, **votación por mayoría**, **consenso con veto** y **consenso por falta de objeción en un plazo** (consenso perezoso). Cada una paga con un error diferente. La que acepta por silencio es rápida y deja pasar lo que nadie leyó (acepta propuestas dañinas). La que exige votos mínimos se bloquea si faltan votantes (rechaza propuestas buenas por falta de quórum). El líder único decide rápido y concentra el riesgo en una persona.
 
-Un proyecto decide cómo acepta cambios o propuestas: un líder con la última palabra, votación por mayoría, aprobación por consenso con veto, o consenso por falta de objeción en un plazo (consenso perezoso). Cada regla tolera errores distintos: la que acepta por silencio es rápida y deja pasar lo que nadie leyó; la que exige votos mínimos se bloquea si faltan votantes. La disponibilidad de las personas decide cuál es adecuada.
+La clase representa esto en una figura: cada grupo es una regla de decisión y sus barras muestran el porcentaje de propuestas dañinas aceptadas, de buenas rechazadas y el tiempo de decisión, en una simulación. Lo que enseña es el compromiso entre velocidad y protección, no una regla óptima.
+
+En la plataforma de entregas, la regla escrita en `CONTRIBUTING.md` es graduada: los cambios pequeños los aprueba una mantenedora; los que modifican una regla de negocio exigen dos aprobaciones y un plazo de 72 horas; los cambios de gobierno exigen consenso. La graduación asigna más exigencia donde el error cuesta más. Se acompaña con un indicador mensual de cuántas personas cubren la mitad de los commits, para planificar relevos (factor de camión), y con un tiempo objetivo de primera respuesta a contribuciones externas.
+
+En [SE-287](../../../classes/part-23-runtimes-y-plataformas-modernas/se-287-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md), la misma idea se aplica a asignar un candidato a una carga: un criterio escrito (por ejemplo, un umbral o un orden de preferencia) que otra persona puede reaplicar y discutir.
 
 ## Ejemplo
 
-Ejemplo de [SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md) (sección «Ejemplo profesional»):
-
-La plataforma publica `CONTRIBUTING.md` con el entorno, el formato de ramas, la plantilla de PR, el tiempo objetivo de primera respuesta y lo que no se acepta. Una regla de decisión escrita: los cambios pequeños los aprueba una mantenedora; los que modifican una regla de negocio exigen dos aprobaciones y un plazo de 72 horas; los cambios de gobierno exigen consenso. Un indicador mensual muestra cuántas personas cubren la mitad de los commits y qué rutas solo conoce una, para planificar relevos.
+Un cambio de texto en la documentación se aprueba con una sola revisora; una modificación de la fórmula de penalización necesita dos aprobaciones y esperar 72 horas, para que quien esté de vacaciones tenga ocasión de objetar. Si nadie objeta en el plazo, procede (consenso perezoso, solo en cambios de bajo riesgo). (Estructura tomada de [SE-200](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-200 — Contribución, gobernanza y comunidades abiertas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md)) son:
-
-- **Las contribuciones externas se quedan sin respuesta** — causa: no hay tiempo objetivo ni responsable. Corrección: fijar un tiempo de primera respuesta y rotar quien lo cumple.
-- **Los PR externos chocan al revisarse** — causa: la copia se quedó atrás. Corrección: pedir sincronización y ofrecer una guía para hacerla.
+- **Contribuciones externas sin respuesta**: no hay tiempo objetivo ni responsable; corrección: fijar un tiempo de primera respuesta y rotar quien lo cumple.
+- **Una sola regla para todo**: la misma exigencia para un cambio de texto y para el gobierno.
+- **No escribirla**: se improvisa y se percibe arbitraria.
+- **Confundir regla de decisión con regla de negocio**: la primera gobierna el proyecto; la segunda, el producto.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Cómo leer la figura.** Cada grupo es una regla de decisión y sus tres barras son el porcentaje de propuestas dañinas aceptadas (coral), buenas rechazadas (dorado) y sin decisión (gris). ([SE-200](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas/README.md))
+Una regla escrita no sustituye la confianza ni el liderazgo. En proyectos muy pequeños, con una o dos personas, el formalismo sobra. Las cifras de la simulación son ilustrativas de un modelo, no mediciones de proyectos reales.
 
 ## Relación con otros conceptos
 

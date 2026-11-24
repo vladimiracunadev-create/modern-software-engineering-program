@@ -2,46 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Spec-as-source](./spec-as-source.md) · [Spec-first, spec-anchored, spec-as-source →](./spec-first-spec-anchored-spec-as-source.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Uso de la especificación como guía previa a la implementación, sin mantenerla después.
-
-Definición de trabajo de [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md).
+**Spec-first** es el uso de la especificación como guía previa a la implementación, sin mantenerla después ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)). La especificación se escribe antes del código y dirige la construcción; cumple su función cuando el código existe. Es el primero de los tres niveles de uso de una especificación, junto con spec-anchored y spec-as-source.
 
 ## Por qué importa
 
-En [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), el tema «Spec-first» importa porque la especificación guía la implementación y puede quedar obsoleta apenas se escribe el código.
+Es el uso más extendido y el más barato, y por eso es el que más conviene entender bien. Cambia cuánto esfuerzo se pone en mantener una especificación: aquí ninguno, y se acepta que quede obsoleta. Su riesgo es que alguien la consulte meses después creyendo que describe el sistema.
 
 ## Cómo funciona
 
-Según [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), en la sección «Spec-first»:
+En spec-first la especificación es un instrumento de **planificación y diálogo**: ayuda a acordar qué construir, a descubrir ambigüedades antes de programar y a repartir el trabajo. [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) lo ubica en el desarrollo guiado por especificaciones: de la especificación salen un plan, tareas y la implementación, como describen herramientas del tipo Spec Kit. Lo que ocurre después es la pregunta que queda abierta: Böckeler anota que, en los ejemplos que encontró de una herramienta, la especificación se usa para una tarea o una historia y no se explica cómo mantenerla a lo largo de varias tareas.
 
-En el enfoque spec-first la especificación se escribe antes del código y guía la implementación, pero no se mantiene después: cumplió su función cuando el código existe. Es el uso más extendido y el más barato. Su riesgo es que la especificación se convierta en una fotografía de la intención inicial y alguien la consulte meses después creyendo que describe el sistema. Funciona bien para decisiones que se toman una vez y se revisan con pocas modificaciones, y mal para contratos que cambian a menudo.
+Por eso [SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) advierte que la especificación se convierte en una **fotografía de la intención inicial**. Funciona bien para decisiones que se toman una vez y se revisan con pocas modificaciones (un documento de arquitectura, que «guía y se archiva»), y mal para contratos que cambian a menudo, donde la discrepancia con el código crece sin que nada la señale. La salida no es abandonar spec-first, sino declarar el nivel de cada artefacto y, para los que lo necesiten, subir a spec-anchored.
 
-Según [SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md), en la sección «Spec-first»:
-
-En el primer nivel, la especificación se escribe antes y guía la construcción. Es la parte de SDD que más se practica y la que describen las herramientas como Spec Kit: de la especificación salen un plan, tareas y la implementación. Lo que ocurre después es la pregunta que queda abierta. Böckeler anota que, en los ejemplos que encontró de una herramienta, la especificación se usa para una tarea o una historia y no se explica cómo mantenerla a lo largo de varias tareas. En términos prácticos, spec-first sin más produce una especificación que envejece: valiosa el día uno y engañosa el día cien.
+En la plataforma de entregas, cada artefacto tiene un nivel declarado: el documento de arquitectura es spec-first; el contrato de la API es spec-anchored; los clientes generados son spec-as-source.
 
 ## Ejemplo
 
-Ejemplo de [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, cada artefacto tiene un nivel declarado. El documento de arquitectura es spec-first (guía y se archiva). El contrato de la API es spec-anchored: un comprobador en integración continua compara las operaciones del código con el documento OpenAPI y falla con el nombre del parámetro que discrepa. Los clientes se generan desde el documento (spec-as-source) con un generador que ordena toda su salida y marca la región generada; una comprobación regenera y compara huellas, y falla si hay diferencias con lo comprometido. Una nota por artefacto registra la señal que haría cambiar de nivel.
+Antes de construir el módulo de prórrogas, el equipo escribe una especificación de dos páginas con requisitos, ejemplos y casos límite; con ella acuerdan el alcance y reparten tareas. Cuando el módulo se termina, la especificación se archiva con la fecha y una nota «refleja la intención al inicio; el comportamiento vigente está en el código y en las pruebas». Quien la lea un año después sabe qué es. (Ilustración del uso descrito en [SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se cree que la especificación es fiable porque existe** — causa: spec-first usado como fuente de verdad. Corrección: declarar el nivel y fechar cada especificación. ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md))
+- **Creer que la especificación sigue describiendo el sistema** meses después: no se marcó su nivel ni su fecha.
+- **Aplicar spec-first a un contrato que cambia a menudo**: la especificación se desactualiza y los consumidores se confunden.
+- **Confundirlo con spec-driven development completo**: spec-first es solo el primer nivel.
+- **Descartar el valor de la especificación inicial** porque no se mantiene: sirvió para acordar.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- En el enfoque spec-first la especificación se escribe antes del código y guía la implementación, pero no se mantiene después: cumplió su función cuando el código existe. ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md))
-- En términos prácticos, spec-first sin más produce una especificación que envejece: valiosa el día uno y engañosa el día cien. ([SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md))
+No sirve como fuente de verdad para consumidores de una API o para auditoría posterior, donde la especificación debe reflejar el sistema vigente. En proyectos que cambian de dirección durante la construcción, una especificación previa muy detallada puede ser un lastre. Su declaración de nivel y fecha mitiga el riesgo de lectura errónea.
 
 ## Relación con otros conceptos
 

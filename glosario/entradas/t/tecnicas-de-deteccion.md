@@ -2,40 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Teclado y foco](./teclado-y-foco.md) · [Tecnología de apoyo →](./tecnologia-de-apoyo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Procedimientos para buscar un tipo de defecto, cada uno ciego a los demás.
-
-Definición de trabajo de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md).
+Las **técnicas de detección** (de defectos de especificación) son procedimientos para buscar un tipo de defecto, cada uno ciego a los demás ([SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)). El término agrupa la caja de herramientas de revisión de requisitos: no existe una técnica universal, sino una por tipo de defecto.
 
 ## Por qué importa
 
-En [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), el tema «Técnicas de detección» importa porque cada defecto se busca de forma distinta y ninguna técnica encuentra todos.
+Cada defecto se busca de forma distinta y ninguna técnica encuentra todos. Si un equipo revisa solo leyendo, encontrará lo que la lectura permite y declarará limpio un documento con contradicciones de orden tres. Cambia la planificación de una revisión: se escoge la técnica por el defecto que se quiere descartar y se declara cuáles quedaron sin cubrir.
 
 ## Cómo funciona
 
-Según [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md), en la sección «Técnicas de detección»:
+[SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md) empareja tipos de defecto con técnicas:
 
-Para la ambigüedad estructural, enumerar las lecturas y comparar sus resultados; para la léxica, un glosario y una lista de términos prohibidos sin criterio. Para la contradicción, convertir los requisitos en condiciones sobre variables y buscar un estado que los cumpla todos o, si no existe, los subconjuntos mínimos que lo impiden. Para la incompletitud, enumerar combinaciones de estado y evento o de condiciones. Cada técnica encuentra el defecto para el que fue diseñada; ninguna encuentra uno de otro tipo.
+- **Ambigüedad estructural** (una frase con varias lecturas): enumerar las lecturas y comparar sus resultados.
+- **Ambigüedad léxica** (una palabra vaga): un glosario y una lista de términos prohibidos sin criterio («rápido», «fácil»).
+- **Contradicción**: convertir los requisitos en condiciones sobre variables y buscar un estado que los cumpla todos; si no existe, hallar los subconjuntos mínimos que lo impiden.
+- **Incompletitud**: enumerar combinaciones de estado y evento, o de condiciones (tablas de decisión).
+
+La causa de que ninguna sirva para todo es que cada una opera sobre una representación distinta: la lectura detecta lo que se ve en el texto; la traducción a condiciones detecta lo que se ve en la lógica; la enumeración de combinaciones detecta lo que falta. Un defecto de un tipo es invisible para la técnica de otro.
+
+El resultado se organiza en un inventario del expediente con tipo de defecto, técnica de hallazgo y responsable. La clase advierte que el inventario es apropiado cuando cada defecto tiene tipo, técnica y responsable, y peligroso cuando es una lista de observaciones sin dueño.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md):
-
-Un inventario de defectos del expediente, con su tipo, su técnica de hallazgo y su responsable:
+Tres requisitos de plazos que se revisan de dos en dos pasan la inspección. Traducidos a condiciones sobre variables (hora de cierre, hora de entrega, estado de la tarea), un resolutor encuentra que no existe ninguna asignación que los cumpla todos: hay una contradicción de orden tres que ninguna revisión por pares podía ver. Con una frase como «el sistema responderá rápido», en cambio, la técnica útil es la léxica: una lista de términos vagos la marca para reescribirla con un número. (Ilustración del mecanismo de [SE-154](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)) son:
-
-- **Dos equipos implementan la misma frase de maneras distintas** — causa: la frase admite varias lecturas. Corrección: enumerar las lecturas y preguntar al autor, o reescribir con una plantilla estructurada.
-- **Los requisitos se revisaron de dos en dos y el módulo no se puede construir** — causa: hay una contradicción de orden tres o más. Corrección: buscar subconjuntos mínimos incompatibles sobre las condiciones.
+- **Dos equipos implementan la misma frase distinto**: la frase admite varias lecturas; corrección: enumerarlas y preguntar al autor, o reescribir con una plantilla estructurada.
+- **Requisitos revisados de dos en dos que no se pueden construir**: hay una contradicción de orden tres o más; corrección: buscar subconjuntos mínimos incompatibles.
+- **Aplicar una sola técnica y declarar el documento limpio.**
+- **Inventario sin dueño.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-154 — Ambigüedad, contradicción e incompletitud](../../../classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los requisitos, las variables y la tabla de estados son ejemplos del autor, la búsqueda exhaustiva no escala y la traducción a lógica es una interpretación no verificada. La siguiente clase aplica todo esto a un taller: reparar requisitos que no se pueden verificar.
+Las técnicas formales exigen que los requisitos se expresen como condiciones decidibles, lo que no siempre es posible ni rentable. Una técnica no sustituye la validación con las personas que usarán el sistema: detecta defectos del texto, no necesidades ausentes. Para un conjunto pequeño y de bajo riesgo, la lectura cuidadosa suele bastar.
 
 ## Relación con otros conceptos
 

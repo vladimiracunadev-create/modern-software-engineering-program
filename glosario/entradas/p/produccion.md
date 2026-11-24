@@ -2,42 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Proceso sin estado](./proceso-sin-estado.md) · [Producto →](./producto.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Lo que el equipo entrega, contable y controlable (tickets cerrados, funciones lanzadas).
-
-Definición de trabajo de [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md).
+En el vocabulario de métricas del programa, la **producción** (*output*) es lo que el equipo entrega, contable y controlable: líneas de código, versiones, tickets cerrados, funciones lanzadas ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md)). No es el entorno de producción donde corre el software (ese es otro concepto del glosario), sino el primer eslabón de la cadena producción → actividad → resultado.
 
 ## Por qué importa
 
-En [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), el tema «Producción (output)» importa porque es lo que el equipo entrega: funciones, tickets, versiones; se cuenta con facilidad y no dice si sirvió.
+Es lo más fácil de contar y por eso lo más fácil de convertir en meta. Cambia cómo se evalúa a un equipo: con producción se mide cuánto hizo; con resultado, qué cambió en la vida de quien usa el producto. [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) advierte que un equipo con alta producción y resultados nulos es posible, y que uno con poca producción y alto resultado también.
 
 ## Cómo funciona
 
-Según [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md), en la sección «Producción»:
+La producción tiene una virtud y un límite. La virtud: es **controlable por el equipo** y se cuenta sin ambigüedad (un ticket está cerrado o no). El límite: **no dice si lo producido sirvió**. Un ticket cerrado puede resolver un problema real o ser trabajo innecesario; una función lanzada puede ser ignorada.
 
-La producción es lo que el equipo entrega: líneas de código, versiones, tickets cerrados, funciones lanzadas. Tiene la virtud de ser controlable por el equipo y de contarse sin ambigüedad; su límite es que no dice si lo producido sirvió. Un equipo con alta producción y resultados nulos es posible; uno con poca producción y alto resultado también. Sirve para planificar capacidad, no para evaluar valor.
+Por eso sirve para **planificar capacidad** (cuánto puede entregar el equipo en un periodo) y no para evaluar valor. Cuando se convierte en meta se activa la ley de Goodhart: la gente optimiza la cifra. [SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) describe dos síntomas con su causa: la meta se cumple y nadie mejora (se premió la producción), y un equipo gana premios con malos resultados (se compararon producciones). La corrección es acompañar o reemplazar la producción con un resultado y su métrica contraria, y comparar equipos por resultado o por una métrica equilibrada.
+
+En la auditoría de métricas de la plataforma, cada métrica se clasifica en producción, actividad, resultado o vanidad, con la decisión que informa y su métrica contraria. Esa clasificación hace visible cuántas métricas del panel son solo producción.
 
 ## Ejemplo
 
-Ejemplo de [SE-135 — Resultados, outputs, actividad y vanity metrics](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, `metric-audit.md` tiene una fila por métrica con definición calculable (numerador, denominador, ventana, filtros), tipo (producción, actividad, resultado, vanidad), decisión que informa, métrica contraria y fecha de revisión. El contrato es que ninguna métrica se convierte en meta sin su métrica contraria y sin la pregunta «qué haría distinto si bajara». Esa estructura permite que otra persona detecte metas sin contrapeso.
+El equipo de la plataforma cierra 40 tickets en el trimestre y lanza 6 funciones: es producción. Si la meta fuera «cerrar más tickets», un equipo podría dividir un ticket en tres para triplicar la cifra. Si la meta es «porcentaje de entregas aceptadas a la primera», mejora solo si el trabajo hace que más estudiantes lo logren, y entonces la producción queda como un medio. (Ilustración construida sobre el escenario de la clase.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La meta se cumple y nadie mejora** — causa: se premió la producción. Corrección: reemplazar o acompañar con un resultado y su métrica contraria. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
-- **Un equipo gana premios con malos resultados** — causa: se compararon producciones. Corrección: compararlos por resultado o por una métrica equilibrada. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
+- **Premiar la producción**: la meta se cumple y nadie mejora.
+- **Comparar equipos por producción**: un equipo gana premios con malos resultados.
+- **Confundirla con el entorno de producción**: son sentidos distintos de la misma palabra.
+- **Descartarla del todo**: es útil para capacidad y para ver si el flujo de trabajo funciona.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un equipo con alta producción y resultados nulos es posible; uno con poca producción y alto resultado también. ([SE-135](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md))
+No sirve para medir valor ni calidad. En contextos donde el entregable es el objetivo (una obra por encargo con alcance fijo), la producción es en buena medida el resultado, y la distinción pierde fuerza. Aun así, una entrega contratada puede cumplirse a cabalidad y no resolver el problema de quien la pidió.
 
 ## Relación con otros conceptos
 

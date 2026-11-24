@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Validador de especificaciones](./validador-de-especificaciones.md) · [Validador de forma →](./validador-de-forma.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Programa que comprueba propiedades mecánicas de la especificación y falla con un mensaje identificable.
-
-Definición de trabajo de [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md).
+Un **validador de estructura** es un programa que comprueba propiedades mecánicas de una especificación y falla con un mensaje identificable ([SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)). Comprueba lo que una máquina puede decidir, sin entender el contenido.
 
 ## Por qué importa
 
-En [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md), el tema «Validador de estructura» importa porque detecta defectos mecánicos y barre lo repetitivo antes de la revisión humana.
+Detecta defectos mecánicos y barre lo repetitivo antes de la revisión humana, de modo que las personas lean lo que importa. Cambia la división del trabajo de revisión: la máquina garantiza que la especificación esté bien formada; las personas juzgan si es correcta.
 
 ## Cómo funciona
 
-Según [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md), en la sección «Validador de estructura»:
+El validador comprueba propiedades que se pueden decidir mecánicamente: **identificadores únicos**, **referencias que existen** (un requisito que cita otro inexistente), **campos obligatorios** (origen, criterio, dueño, prioridad), **valores de una escala**, **ausencia de ciclos** en las dependencias y **marcadores** como «por definir». Cada fallo se acompaña de un mensaje identificable (qué requisito, qué regla), para que se corrija sin buscar.
 
-Un validador comprueba lo que una máquina puede decidir: identificadores únicos, referencias que existen, campos obligatorios, valores de una escala, ausencia de ciclos, marcadores como «por definir». Su valor es liberar a las personas de lo mecánico para que lean lo que importa; su límite es que no entiende el contenido. Una especificación que pasa el validador no está bien: está bien formada. Las pruebas del validador, con defectos inyectados, son la forma de saber qué cubre.
+El límite está en la primera frase de la clase: no entiende el contenido. **Una especificación que pasa el validador no está bien: está bien formada.** Puede contener contradicciones, ambigüedades o requisitos equivocados con todos los campos llenos. Por eso [SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) propone medir qué cubre el validador con **mutaciones**: se inyectan defectos conocidos en una especificación base (la clase usa 16) y se cuenta cuántos detecta. Los que sobreviven revelan qué no ve, y eso se documenta y se completa con revisión humana. La clase lo conecta con el contenido de una especificación: el validador comprueba que estén los elementos, no que sean buenos.
+
+Los datos de [SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) son supuestos del autor (la especificación base, las 16 mutaciones, los costos y las probabilidades de detección), y la lista de palabras vagas es un ejemplo mínimo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md):
-
-El encabezado de la especificación entregada y el registro de revisión que la acompaña:
+Una especificación con 20 requisitos. El validador comprueba que cada uno tenga identificador único, origen, criterio de aceptación, dueño y prioridad; que las referencias de dependencia apunten a requisitos existentes; que no haya ciclos; y que ningún texto contenga «por definir». Si un requisito cita `REQ-31` y no existe, falla con «REQ-14: dependencia REQ-31 inexistente». Si dos requisitos son contradictorios pero bien formados, pasa. (Ilustración del tipo de comprobaciones de [SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)) son:
-
-- **La lectora tarda un día en entender qué falta** — causa: el expediente no responde sin su autor. Corrección: revisar el contenido contra la lista de elementos obligatorios.
-- **El validador pasa y la especificación tiene errores graves** — causa: solo comprueba estructura. Corrección: documentar su cobertura con mutaciones y completar con revisión humana.
+- **El validador pasa y hay errores graves**: solo comprueba estructura; corrección: documentar su cobertura con mutaciones y completar con revisión humana.
+- **Pensar que «verde» significa «correcta».**
+- **Mensajes de fallo ambiguos** que obligan a buscar.
+- **Confundirlo con un linter de estilo de prosa**: este comprueba la estructura formal, no la redacción.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. La especificación base, las 16 mutaciones, los costos y las probabilidades de detección son supuestos del autor, la lista de palabras vagas es un ejemplo mínimo y no participó ninguna revisora real. La [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md) toma este expediente y estudia cómo expresarlo con mayor formalidad: especificaciones, contratos y modelos.
+No detecta contradicciones, ambigüedades ni huecos de contenido (para eso hay técnicas de detección específicas). Requiere que la especificación tenga una estructura regular (formato legible por máquina). En especificaciones muy breves o informales, el costo de mantener el validador supera su beneficio.
 
 ## Relación con otros conceptos
 

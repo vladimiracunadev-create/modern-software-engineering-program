@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Histograma](./histograma.md) · [HMAC →](./hmac.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Unidad de valor pequeña, negociable y comprobable, expresada como tarjeta, conversación y confirmación.
-
-Definición de trabajo de [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md).
+Una **historia de usuario** es una unidad de valor pequeña, negociable y comprobable, expresada como tarjeta, conversación y confirmación ([SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)). La tarjeta es la frase corta «como… quiero… para…»; la conversación es el diálogo que provoca; la confirmación son los criterios que la cierran.
 
 ## Por qué importa
 
-En [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md), el tema «Historias de usuario» importa porque dividen el valor en incrementos pequeños que se negocian.
+Divide el valor en incrementos que se pueden negociar, estimar y probar. Cambia cómo se planifica: en lugar de especificar todo por adelantado, se trabaja con piezas pequeñas cuyo detalle se acuerda cuando toca construirlas. Lo importante, dice [SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md), no es la plantilla de la tarjeta sino la conversación que provoca.
 
 ## Cómo funciona
 
-Según [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md), en la sección «Historias de usuario»:
+El criterio de calidad más extendido es INVEST: independiente, negociable, valiosa, estimable, pequeña, comprobable. [SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) lo usa para decidir si algo es una historia. Una que no cumple «valiosa» (por ejemplo, «crear la tabla de borradores») es una tarea técnica: no tiene valor visible para quien la pidió. Una que no cumple «pequeña» es un épico que todavía no se cortó.
 
-Una historia es una unidad de valor lo bastante pequeña como para negociarse, estimarse y probarse. Su forma «como… quiero… para…» es una tarjeta; lo importante es la conversación que provoca y la confirmación (los criterios) que la cierra. INVEST resume qué se espera: independiente, negociable, valiosa, estimable, pequeña, comprobable. Una historia que no cumple «valiosa» (por ejemplo, «crear la tabla de borradores») es una tarea técnica; una que no cumple «pequeña» es un épico que todavía no se cortó.
+La causa de que funcione es que la tarjeta es deliberadamente incompleta: obliga a conversar, y esa conversación hace aparecer lo que un documento exhaustivo escondería. Se cierra con la confirmación: los criterios de aceptación, preferiblemente como ejemplos ([SE-149](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)). Y se corta en vertical (corte vertical), de modo que cada historia atraviese las capas y pueda mostrarse.
+
+[SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) distingue historias de otras formas de contar un requisito: casos de uso (con actor, escenario principal y extensiones) y job stories (centradas en la situación y la motivación, no en el rol). Las job stories son útiles cuando el rol no explica el comportamiento o cuando el mismo actor está en situaciones muy distintas; para un sistema con roles bien separados y permisos distintos, la historia de usuario sigue siendo clara. La decisión es de claridad, no de moda.
 
 ## Ejemplo
 
-Ejemplo de [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) (sección «Preguntas frecuentes»):
-
-No necesariamente. Son útiles cuando el rol no explica el comportamiento o cuando el actor es el mismo en situaciones muy distintas. Para un sistema con roles bien separados y permisos distintos, la historia de usuario sigue siendo clara. La decisión es de claridad, no de moda.
+En la plataforma de entregas: «Como estudiante, quiero subir mi entrega en PDF, para que quede registrada antes del plazo». La conversación aclara el tamaño máximo y qué ocurre tras el plazo; la confirmación se escribe como ejemplos: un PDF de 10 MB se acepta y uno de 10,1 MB se rechaza con un mensaje que indica el límite. (La historia es una ilustración; el límite viene de [SE-149](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son:
-
-- **Todas las historias empiezan con «Como usuario»** — causa: no se definió el catálogo de actores. Corrección: crear el catálogo con objetivo y contacto y exigir que cada historia nombre uno.
-- **El caso de uso solo describe el camino feliz** — causa: las extensiones se consideraron «detalles». Corrección: enumerar las alternativas por paso y decidir cuáles se prueban.
+- **Todas las historias empiezan con «Como usuario»**: no se definió el catálogo de actores; corrección: crear el catálogo con objetivo y contacto y exigir que cada historia nombre uno.
+- **El caso de uso solo describe el camino feliz**: las extensiones se consideraron detalles.
+- **Historias como tareas técnicas** sin valor visible.
+- **Tomar la tarjeta por la especificación**: la tarjeta recuerda una conversación; no la reemplaza.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo, no se comparó la comprensión de personas con cada forma de relato y las capacidades e historias son supuestos del autor. La siguiente clase añade a cada historia los ejemplos concretos que permiten aceptar o rechazar el trabajo.
+Las historias son poco adecuadas para requisitos transversales (rendimiento, seguridad) que no encajan en un incremento de usuario; esos se expresan como escenarios de calidad. Cuando hay obligaciones legales o contratos que exigen especificación detallada y trazable, las historias solas no bastan. [SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) declara que no se midió ningún equipo ni se comparó la comprensión de las personas con cada forma de relato.
 
 ## Relación con otros conceptos
 

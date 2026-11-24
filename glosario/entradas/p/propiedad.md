@@ -2,49 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Propagación de contexto](./propagacion-de-contexto.md) · [Propiedad de archivos →](./propiedad-de-archivos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Afirmación que debe cumplirse para toda entrada del dominio de una función.
-
-Definición de trabajo de [SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-166 — Especificaciones ejecutables y pruebas contractuales](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md): Afirmación que debe cumplirse para todas las entradas de un tipo y que se comprueba con entradas generadas.
-- En [SE-316 — GoF conductuales: Strategy, Observer, Command, State y Template Method](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-316-gof-conductuales-strategy-observer-command-state-y-template-method/README.md): Afirmación que debe cumplirse para toda entrada de una clase, comprobada con muchas entradas generadas.
+En pruebas, una **propiedad** es una afirmación que debe cumplirse para toda entrada del dominio de una función, y que se comprueba con muchas entradas generadas ([SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md), [SE-166](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md), [SE-316](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-316-gof-conductuales-strategy-observer-command-state-y-template-method/README.md)). Es la base de las pruebas basadas en propiedades (*property-based testing*). No debe confundirse con la «propiedad de archivos» (ownership, quién es responsable de qué) ni con una propiedad de un objeto o una clase.
 
 ## Por qué importa
 
-En [SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md), el tema «Propiedades» importa porque dicen qué debe cumplirse sin enumerar casos.
+Dice qué debe cumplirse sin enumerar casos. Una prueba de ejemplos comprueba lo que alguien pensó; una propiedad cubre una región entera del dominio y encuentra entradas en las que nadie pensó. Cambia cómo se diseñan las pruebas: en lugar de «para 3 y 4 devuelve 7», se afirma «la suma de las cantidades repartidas es `n`».
 
 ## Cómo funciona
 
-Según [SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md), en la sección «Propiedades»:
+[SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) da ejemplos de propiedades: la suma de las cantidades repartidas es `n`; normalizar dos veces da lo mismo que normalizar una (idempotencia); invertir una lista dos veces devuelve la original. Un generador produce entradas (por ejemplo, 200 casos aleatorios) y el marco comprueba la propiedad en cada una. Se escribe **sin repetir la implementación**: «el resultado es lo que calcula la función» no comprueba nada.
 
-Una propiedad es una afirmación que debe cumplirse para toda entrada del dominio: la suma de las cantidades repartidas es `n`; normalizar dos veces da lo mismo que normalizar una; invertir una lista dos veces devuelve la original. Se escribe sin repetir la implementación (la propiedad «el resultado es lo que calcula la función» no comprueba nada). Hay familias útiles: invariantes que se conservan, idempotencia, relaciones entre entradas (si se añade un elemento, el resultado cambia así), comparación con un modelo más simple y propiedades metamórficas. Una propiedad débil se cumple casi siempre y casi no protege.
+La clase enumera familias útiles de propiedades: invariantes que se conservan, idempotencia, relaciones entre entradas (si se añade un elemento, el resultado cambia así), comparación con un modelo más simple y propiedades metamórficas. Dos mecanismos hacen utilizable el método. El **generador** debe llegar a las fronteras (listas vacías, valores límite, combinaciones), con sesgo hacia ellas; si no, la propiedad pasa y el defecto sigue ahí. Y la **reducción** (*shrinking*): ante un contraejemplo de 22 elementos, el marco lo reduce a su forma mínima antes de analizarlo, porque un contraejemplo enorme no se entiende ([SE-166](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md)).
 
 ## Ejemplo
 
-Ejemplo de [SE-425 — Pruebas basadas en propiedades y modelos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) (sección «Ejemplo mínimo»):
+[SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md) incluye un fragmento que comprueba tres propiedades de una función de reparto con 200 casos aleatorios y pide predecir si pasa la versión que olvida el resto. Una propiedad ilustrativa:
 
-El fragmento comprueba tres propiedades de una función de reparto con 200 casos aleatorios. Antes de ejecutarlo, predice si pasa la versión que olvida el resto.
+```python
+@given(st.integers(0, 1000), st.integers(1, 10))
+def test_reparto_suma_n(n, k):
+    assert sum(repartir(n, k)) == n
+```
+
+Si `repartir` pierde el resto de la división, el marco encuentra un contraejemplo pequeño como `n=1, k=2` tras reducir. (Código ilustrativo con la biblioteca Hypothesis; la clase usa su propio fragmento.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La propiedad pasa y la función tiene un defecto conocido** — causa: generador que no llega a la frontera. Corrección: sesgo hacia vacío, límites y combinaciones. ([SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md))
-- **La propiedad repite la implementación** — causa: se calcula el resultado esperado con la misma fórmula. Corrección: usar invariantes o un modelo distinto. ([SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md))
-- **El contraejemplo de una propiedad tiene 22 elementos y no se entiende** — causa: no hay reducción. Corrección: reducir el contraejemplo a su forma mínima antes de analizarlo. ([SE-166](../../../classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales/README.md))
+- **La propiedad pasa y la función tiene un defecto conocido**: el generador no llega a la frontera; corrección: sesgo hacia vacío, límites y combinaciones.
+- **La propiedad repite la implementación**: se calcula el esperado con la misma fórmula; corrección: invariantes o un modelo distinto.
+- **Contraejemplo ilegible**: no hay reducción.
+- **Creer que reemplaza las pruebas de ejemplos**: se complementan; los ejemplos documentan y fijan casos concretos.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Se escribe sin repetir la implementación (la propiedad «el resultado es lo que calcula la función» no comprueba nada). ([SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md))
-- Los ejemplos documentan decisiones de negocio y fijan casos conocidos; las propiedades exploran lo que no se escribió. ([SE-425](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-425-pruebas-basadas-en-propiedades-y-modelos/README.md))
+No toda función tiene propiedades fáciles de enunciar; a veces solo se conoce el resultado esperado para casos concretos. Con generadores mal diseñados da una falsa sensación de cobertura. Las propiedades pasan con 200 casos y pueden fallar con el 201: son pruebas probabilísticas, no demostraciones. Las operaciones lentas o con efectos externos encarecen la ejecución de cientos de casos.
 
 ## Relación con otros conceptos
 

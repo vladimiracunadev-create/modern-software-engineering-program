@@ -303,8 +303,8 @@ Además de las partes, los roles y los casos, el programa ofrece una superficie 
 2743 conceptos (625 troncales y 2118 de apoyo). No son clases ni roles y no cambian el
 número de clases: cada entrada define el término, explica por qué importa y cómo funciona, advierte de errores y límites, lo
 relaciona con otros conceptos y enlaza las clases y los casos donde se enseña. Se consulta cuando una clase usa un término que no
-dominas y se usa para volver a la clase que lo desarrolla. De los 2743 conceptos, 40 tienen una entrada
-desarrollada a mano y 2703 se componen, con atribución, a partir de lo que las clases ya enseñan;
+dominas y se usa para volver a la clase que lo desarrolla. De los 2743 conceptos, 135 tienen una entrada
+desarrollada a mano y 2608 se componen, con atribución, a partir de lo que las clases ya enseñan;
 el estado de cada entrada figura en su cabecera.
 
 - 🔎 [**Buscar un término en el portal**](https://vladimiracunadev-create.github.io/modern-software-engineering-program/glosario/index.html), con búsqueda por término y por sigla.

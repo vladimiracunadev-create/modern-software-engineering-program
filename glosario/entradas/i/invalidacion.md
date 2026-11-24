@@ -2,42 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Introspección](./introspeccion.md) · [Invariante →](./invariante.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Eliminación o actualización de una entrada de la caché cuando cambia el dato de origen.
-
-Definición de trabajo de [SE-356 — Cachés y consistencia entre capas](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md).
+La **invalidación** (de la caché) es la eliminación o actualización de una entrada de la caché cuando cambia el dato de origen ([SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md)). Es la política que mantiene fresca la caché al escribir, en contraste con esperar a que las entradas expiren por su TTL.
 
 ## Por qué importa
 
-En [SE-356 — Cachés y consistencia entre capas](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md), el tema «Invalidación» importa porque borrar la clave elimina el valor viejo solo si la orden llega siempre.
+Una caché mejora la latencia y descarga al origen, pero guarda copias que pueden quedar viejas. La decisión que cambia es cuánta obsolescencia tolera cada dato: donde el costo de un valor viejo es alto, se invalida al escribir; donde es bajo, un TTL basta. Elegir mal da o usuarios que ven datos incorrectos con la tasa de aciertos alta, o una caché que casi no ayuda.
 
 ## Cómo funciona
 
-Según [SE-356 — Cachés y consistencia entre capas](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md), en la sección «Invalidación»:
+[SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md) explica por qué invalidar al escribir mantiene la caché fresca sin renunciar a los aciertos, y por qué es difícil por tres razones:
 
-Invalidar al escribir mantiene la caché fresca sin renunciar a los aciertos, y por eso se prefiere donde el costo de un valor viejo es alto. Es difícil por tres razones: la escritura puede cambiar datos que alimentan muchas claves (un cambio en un curso afecta a las listas de todos sus estudiantes), la orden de invalidación puede perderse o llegar tarde en un sistema distribuido, y la propia invalidación compite con las lecturas que rellenan. Por eso se combina con un TTL de respaldo: la invalidación da frescura en el caso normal y el TTL acota el daño cuando falla.
+1. **Una escritura puede afectar a muchas claves**: un cambio en un curso afecta a las listas de todos sus estudiantes; hay que saber cuáles invalidar.
+2. **La orden de invalidación puede perderse o llegar tarde** en un sistema distribuido.
+3. **La invalidación compite con las lecturas que rellenan**: un lector lento puede escribir en la caché un valor viejo después de la invalidación.
+
+Los remedios son dos. Para la carrera con el relleno, guardar cada valor con **versión** y no pisar una mayor. Para la orden perdida, combinar la invalidación con un **TTL de respaldo**: la invalidación da frescura en el caso normal y el TTL acota el daño cuando falla. La clase resume la elección: cada política compra frescura con aciertos, o con una promesa sobre la invalidación; la figura no dice cuál usar.
+
+La invalidación masiva (de muchas claves a la vez) puede provocar una estampida: todas se rellenan a la vez desde la base.
 
 ## Ejemplo
 
-Ejemplo de [SE-356 — Cachés y consistencia entre capas](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma asigna una política por dato. El resumen del estudiante usa cache-aside con invalidación al escribir, TTL de respaldo de 60 s con variación de ±20 % y recarga única; cada entrada guarda la versión de la fila de origen para que un relleno tardío no pise una versión nueva. El catálogo de cursos, que cambia unas pocas veces al día, usa un TTL de 6 horas sin invalidación, con una acción administrativa que lo vacía. El saldo de cupos no se cachea: el costo de un valor viejo es una reserva de más.
+Un curso cambia su nombre. Se invalida la entrada del curso, pero también las listas de estudiantes que lo incluyen. Un lector que había empezado a leer antes de la escritura termina después de la invalidación y rellena la caché con el nombre viejo. Si cada valor lleva versión, el relleno de la versión vieja se descarta; si además hay TTL, el daño tiene fin aunque falle algo. Ejemplo de [SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un valor sigue viejo tras una invalidación** — causa: relleno tardío de un lector lento. Corrección: guardar con versión y no pisar una mayor. ([SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md))
-- **La tasa de aciertos es alta y los usuarios se quejan** — causa: TTL largo sin invalidación. Corrección: acotar el TTL por tolerancia e invalidar donde importe. ([SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md))
+- **Un valor sigue viejo tras una invalidación**: relleno tardío de un lector lento; se corrige guardando con versión y sin pisar una mayor.
+- **La tasa de aciertos es alta y los usuarios se quejan**: TTL largo sin invalidación; se corrige acotando el TTL según la tolerancia e invalidando donde importe.
+- **Invalidar solo la clave obvia**: las claves derivadas quedan viejas.
+- **Confiar solo en la invalidación**: sin TTL, un fallo deja el valor viejo para siempre.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La figura no dice qué política usar, sino que cada una compra frescura con aciertos o con una promesa sobre la invalidación. ([SE-356](../../../classes/part-29-datos-persistencia-y-recuperacion/se-356-caches-y-consistencia-entre-capas/README.md))
+Para datos que cambian poco, o donde un valor viejo es tolerable por minutos, un TTL simple es más barato y robusto que una invalidación activa. La invalidación exige conocer qué claves dependen de qué dato, un acoplamiento que crece con el sistema. Y en sistemas distribuidos no garantiza frescura absoluta: reduce la ventana de obsolescencia, no la elimina.
 
 ## Relación con otros conceptos
 

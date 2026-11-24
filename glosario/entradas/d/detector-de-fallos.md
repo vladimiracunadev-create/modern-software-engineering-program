@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Detección de secretos](./deteccion-de-secretos.md) · [Detector estructural →](./detector-estructural.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
 
 ## Definición
 
-Componente que sospecha que un nodo ha fallado según los latidos que recibe, y que puede equivocarse.
-
-Definición de trabajo de [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md).
+Un **detector de fallos** es el componente que sospecha que un nodo ha fallado a partir de los latidos que recibe, y que puede equivocarse ([SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md)). La palabra clave es «sospecha»: en una red asincrónica no hay forma de distinguir un nodo caído de uno lento, así que el detector emite una opinión, no un hecho.
 
 ## Por qué importa
 
-En [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md), el tema «Detectores de fallos» importa porque todo tiempo límite elige entre rapidez y falsas alarmas.
+Casi todo mecanismo de recuperación (elegir un nuevo líder, reasignar trabajo, conmutar a otra réplica) arranca con la frase «ese nodo ha fallado». Si el detector se equivoca, el sistema reacciona a un fallo que no existe o tarda en reaccionar a uno real. La decisión que cambia es cómo se fija el tiempo límite y qué se exige a los algoritmos que dependen de él: tolerar sospechas erróneas, no confiar en ellas.
 
 ## Cómo funciona
 
-Según [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md), en la sección «Detectores de fallos»:
+El mecanismo de [SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) es simple. Con un tiempo límite de *T*, un nodo se sospecha si pasa *T* sin recibir latido. Ahí aparece un compromiso inevitable: un *T* corto detecta rápido y se equivoca a menudo con nodos sanos pero lentos; un *T* largo casi no se equivoca y tarda en detectar el fallo real. Ningún valor da las dos cosas.
 
-Un **detector de fallos** decide si un nodo ha fallado a partir de los latidos que recibe. Con un tiempo límite de *T*, el nodo se sospecha si pasa *T* sin latido. Un *T* corto detecta rápido y se equivoca a menudo con nodos sanos pero lentos; un *T* largo casi no se equivoca y tarda en detectar el fallo real. Ningún valor da las dos cosas, y de ahí la formalización de Chandra y Toueg: los detectores son *no fiables* y los algoritmos que los usan deben tolerar sospechas erróneas. El tiempo límite correcto sale de la distribución del retardo de la red (su cola, no su mediana) y del coste de una falsa alarma frente al de una detección tardía.
+De ahí la formalización de Chandra y Toueg que cita la clase: los detectores son **no fiables**, y los algoritmos que los usan deben tolerar sospechas erróneas. El tiempo límite adecuado sale de la distribución del retardo de la red (su cola, no su mediana) y del costo de una falsa alarma frente al de una detección tardía. Una falsa alarma puede provocar, por ejemplo, un cambio de líder innecesario; una detección tardía deja al sistema sirviendo con un nodo caído.
+
+La clase ilustra con simulaciones: retardos con distribución lognormal y un detector por latidos, midiendo falsas sospechas y tiempo de detección según *T*. La consecuencia práctica es la misma que en el tiempo agotado ambiguo: sospechar no equivale a saber, y la operación puede haberse ejecutado aunque el nodo parezca caído.
 
 ## Ejemplo
 
-Ejemplo de [SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) (sección «Ejemplo profesional»):
-
-El equipo de entregas escribe su modelo de fallos en media página: los servicios pueden pararse y recuperarse, los mensajes pueden perderse o retrasarse, no hay nodos bizantinos y el sistema es parcialmente síncrono con una cota de red razonable pero no garantizada. De ahí salen tres decisiones. El registro de una entrega lleva una clave de idempotencia generada por el cliente (`SE-392`), de modo que reintentar es seguro. Solo reintenta la capa más cercana al usuario, con un máximo de dos reintentos, retroceso exponencial con jitter completo y un presupuesto del 10 % por servicio.
+Un servicio envía latidos cada segundo. Con *T* = 2 s detecta una caída real en unos 2 s, pero un pico de latencia de la red marca como caído a un nodo sano varias veces al día. Con *T* = 30 s, casi no hay falsas alarmas, pero una caída real tarda medio minuto en notarse. Quien elige *T* decide cuál de los dos costos prefiere. Ilustración basada en la simulación de [SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md)) son:
-
-- **Registros duplicados tras una lentitud** — causa: reintento de una operación ya ejecutada. Corrección: clave de idempotencia o consulta del estado.
-- **El servicio de abajo cae cuando el de arriba se recupera** — causa: reintentos multiplicados por varias capas. Corrección: reintentar en una sola capa con presupuesto.
+- **Registros duplicados tras una lentitud**: se reintenta una operación ya ejecutada; se corrige con clave de idempotencia o consulta del estado.
+- **El servicio de abajo cae cuando el de arriba se recupera**: reintentos multiplicados por varias capas; se corrige reintentando en una sola capa con presupuesto.
+- **Tratar la sospecha como certeza**: actuar como si el nodo estuviera muerto cuando solo está lento.
+- **Fijar *T* con la mediana del retardo**: lo que importa es la cola.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-389 — Fallos parciales y modelos de red](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con semillas fijas en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna red, servicio ni tiempo de respuesta reales: las probabilidades, la distribución lognormal y los parámetros de los reintentos son construcciones del autor, y no se evaluaron detectores adaptativos. La siguiente clase usa estas incertidumbres para preguntar qué garantías se pueden mantener cuando la red se parte.
+[SE-389](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-389-fallos-parciales-y-modelos-de-red/README.md) declara que no se midió ninguna red ni servicio real: las probabilidades, la distribución lognormal y los parámetros de reintentos son construcciones del autor, y no se evaluaron detectores adaptativos. Un detector por latidos con *T* fijo es el caso más simple; los adaptativos ajustan *T* según lo observado, y su análisis queda fuera de la clase. En un sistema de un solo nodo o con conexión fiable y local, el problema desaparece.
 
 ## Relación con otros conceptos
 

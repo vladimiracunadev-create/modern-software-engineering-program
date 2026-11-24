@@ -2,52 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Objetivo de nivel de servicio](./objetivo-de-nivel-de-servicio.md) · [Objetivo de seguridad →](./objetivo-de-seguridad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
-
-Definición de trabajo de [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-576 — Proyecto final: producto operable construido desde SPEC](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec/README.md): Cantidad máxima de trabajo reciente que se acepta perder tras una restauración.
-- En [SE-357 — Backups, restauración y pruebas de recuperación](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md): Cantidad máxima de datos, medida en tiempo, que la institución acepta perder.
-- En [SE-440 — Disponibilidad, durabilidad y recuperación](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md): Cantidad máxima de datos recientes que se acepta perder, expresada como tiempo.
+El **objetivo de punto de recuperación** (RPO, por *recovery point objective*) es la cantidad máxima de datos recientes que se acepta perder tras una falla o una restauración, expresada como un intervalo de tiempo (o, en algunos casos, como número de escrituras) ([SE-393](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md), [SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md), [SE-440](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-440-disponibilidad-durabilidad-y-recuperacion/README.md)). [SE-576](../../../classes/part-47-spec-agentes-y-ciclo-de-vida-agentic/se-576-proyecto-final-producto-operable-construido-desde-spec/README.md) lo usa en el contexto de agentes: la cantidad máxima de trabajo reciente que se acepta perder tras una restauración.
 
 ## Por qué importa
 
-La clase donde se define, [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md), existe con este propósito: la clase existe para que decidas, con números, cómo repartir el trabajo y los datos de un servicio entre varias máquinas: qué política de balanceo mantiene bajo el percentil 99 cuando los trabajos son de tamaños muy distintos, cuántas escrituras confirmadas puedes perder al conmutar según cuántas réplicas esperes, y qué clave de reparto conviene a las consultas de la plataforma sin crear un fragmento caliente.
+«No perder datos» no es un objetivo: es un deseo. El RPO convierte la tolerancia en un número que condiciona el diseño y su costo. Un RPO de un día se cumple con una copia diaria; uno de segundos exige replicación continua. La decisión que cambia es qué mecanismo de protección se elige y cuánto se paga por él, dato por dato.
 
 ## Cómo funciona
 
-Según [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md):
+[SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md) deduce la estrategia del RPO: un RPO de un día se cumple con una copia diaria; uno de 15 minutos exige archivar el registro de cambios; uno de segundos exige replicación, que **no sustituye al respaldo** (una réplica replica también los errores).
 
-Una réplica asíncrona recibe los cambios después de que el primario confirma; si el primario cae antes de enviar los últimos, esos cambios, ya confirmados a las personas, se pierden al conmutar. El **objetivo de punto de recuperación** (RPO) es cuánto se acepta perder; con replicación asíncrona es el retraso de la réplica. La replicación **síncrona** espera la confirmación de la réplica antes de responder: RPO cero, a cambio de latencia (el tiempo de ida y vuelta) y de disponibilidad (si la réplica cae, el primario espera o degrada). La **semisíncrona** exige confirmar con al menos una réplica y mantiene las demás asíncronas. Elegir es dato por dato: lo que no puede perderse, síncrono; lo reconstruible, asíncrono.
-
-Según [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md):
-
-El equipo del servicio de entregas cambia el balanceador de turnos a «dos opciones al azar» con una métrica de conexiones activas, y fija la cola máxima por servidor para rechazar rápido antes de que la espera crezca (`SE-396`). La base de entregas usa replicación semisíncrona hacia una réplica en el mismo centro de datos, con RPO cero, y asíncrona hacia otra región, con un RPO declarado de 30 segundos; los acuses de recibo solo se emiten tras la confirmación semisíncrona. Para los archivos y metadatos de entregas elige reparto por hash del identificador de entrega, porque la consulta principal es por entrega; para los informes por fecha mantiene una tabla aparte con reparto por rango y un fragmento más pequeño al final.
+[SE-393](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md) desarrolla la parte de replicación. Una réplica asíncrona recibe los cambios después de que el primario confirma; si el primario cae antes de enviar los últimos, esos cambios, ya confirmados a las personas, se pierden al conmutar. Con replicación asíncrona, el RPO es el retraso de la réplica. La replicación **síncrona** espera la confirmación de la réplica antes de responder: RPO cero, a cambio de latencia (el tiempo de ida y vuelta) y de disponibilidad (si la réplica cae, el primario espera o degrada). La **semisíncrona** exige confirmar con al menos una réplica y mantiene las demás asíncronas. Elegir es dato por dato: lo que no puede perderse, síncrono; lo reconstruible, asíncrono.
 
 ## Ejemplo
 
-Ejemplo de [SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md) (sección «Ejemplo profesional»):
-
-El equipo del servicio de entregas cambia el balanceador de turnos a «dos opciones al azar» con una métrica de conexiones activas, y fija la cola máxima por servidor para rechazar rápido antes de que la espera crezca (`SE-396`). La base de entregas usa replicación semisíncrona hacia una réplica en el mismo centro de datos, con RPO cero, y asíncrona hacia otra región, con un RPO declarado de 30 segundos; los acuses de recibo solo se emiten tras la confirmación semisíncrona.
+El servicio de entregas de [SE-393](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md) usa replicación semisíncrona hacia una réplica del mismo centro de datos (RPO cero) y asíncrona hacia otra región, con un RPO declarado de 30 segundos. Los acuses de recibo se emiten solo tras la confirmación semisíncrona, de modo que ninguna entrega con acuse se pierde en una conmutación local. El de 30 segundos es el precio aceptado para la región remota.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-393 — Replicación, sharding y balanceo](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-393-replicacion-sharding-y-balanceo/README.md)) son:
-
-- **Algunos servidores saturados y otros ociosos** — causa: balanceo por turnos con tamaños de cola pesada. Corrección: dos opciones al azar o menos conexiones.
-- **Estudiantes con acuse y sin registro tras una conmutación** — causa: replicación asíncrona con acuse previo. Corrección: confirmar con una réplica antes del acuse.
+- **Estudiantes con acuse y sin registro tras una conmutación**: replicación asíncrona con acuse previo; se corrige confirmando con una réplica antes del acuse.
+- **Confundirlo con RTO**: el RPO mide cuántos datos se pierden; el RTO, cuánto tarda la recuperación.
+- **Creer que la réplica reemplaza el respaldo**: replica también los borrados y la corrupción.
+- **Declarar un RPO sin medir el retraso real** de la réplica.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- De ellos se deduce la estrategia: un RPO de un día se cumple con una copia diaria; uno de 15 minutos exige archivar el registro de cambios; uno de segundos exige replicación, que no sustituye al respaldo. ([SE-357](../../../classes/part-29-datos-persistencia-y-recuperacion/se-357-backups-restauracion-y-pruebas-de-recuperacion/README.md))
+Un RPO es un compromiso que se debe comprobar: una copia que nunca se restauró es una hipótesis (de ahí la prueba de restauración). RPO cero tiene un costo de latencia y disponibilidad que no siempre se justifica, y los datos reconstruibles no lo necesitan. El valor numérico depende del negocio; las cifras de los ejemplos (30 segundos, 15 minutos, un día) son de las clases, no valores recomendados.
 
 ## Relación con otros conceptos
 

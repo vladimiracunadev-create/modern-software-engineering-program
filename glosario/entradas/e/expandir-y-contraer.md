@@ -2,52 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Éxito y no éxito](./exito-y-no-exito.md) · [Expandir, migrar y contraer →](./expandir-migrar-y-contraer.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md)
 
 ## Definición
 
-Patrón que divide un cambio incompatible en fases compatibles: añadir lo nuevo, migrar a los clientes y quitar lo viejo.
-
-Definición de trabajo de [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-523 — Migraciones de datos sin interrupción](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md): Patrón que añade la estructura nueva, migra consumidores y datos, y retira la antigua en pasos compatibles.
-- En [SE-366 — Contratos de datos y evolución de esquemas](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md): Añadir lo nuevo, migrar y quitar lo viejo en pasos.
-- En [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md): Patrón de cambio de datos en tres fases en el que ambas versiones coexisten.
-- En [SE-380 — Compatibilidad de esquemas y registros](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md): Estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
+**Expandir y contraer** (también llamado cambio paralelo) es el patrón que divide un cambio incompatible en fases compatibles: añadir lo nuevo, migrar a los clientes y quitar lo viejo ([SE-354](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md)). El programa lo usa en varios contextos con el mismo núcleo: esquemas de base de datos ([SE-354](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md), [SE-523](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md)), datos analíticos ([SE-366](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-366-contratos-de-datos-y-evolucion-de-esquemas/README.md)), interfaces entre sistemas ([SE-380](../../../classes/part-31-integracion-eventos-y-mensajeria/se-380-compatibilidad-de-esquemas-y-registros/README.md)) y releases ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)), donde ambas versiones coexisten durante el cambio.
 
 ## Por qué importa
 
-En [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md), el tema «Expandir y contraer» importa porque divide un cambio incompatible en pasos compatibles.
+Un cambio incompatible hecho en un solo paso exige que todas las piezas cambien a la vez, y eso no ocurre en un sistema con varias instancias, versiones desplegadas y clientes. La decisión que cambia es cómo se renombra o reestructura algo compartido: en varios pasos pequeños, cada uno reversible, en lugar de uno solo irreversible.
 
 ## Cómo funciona
 
-Según [SE-354 — Migraciones compatibles y evolución de esquema](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md), en la sección «Expandir y contraer»:
+[SE-354](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md) lo explica con un renombrado de columna. Tres fases:
 
-El patrón de cambio en paralelo divide un cambio incompatible en tres fases compatibles. **Expandir:** se añade la columna nueva, se rellena y se mantiene sincronizada con la vieja con una escritura doble (por la aplicación o por un disparador); ambas versiones funcionan. **Migrar:** se despliegan las instancias nuevas, que leen y escriben lo nuevo. **Contraer:** cuando ya no corre ninguna versión vieja, se quita la columna vieja y los disparadores. Cada fase se puede desplegar y revertir por separado, y el tiempo entre ellas lo fija la última instancia vieja, no el calendario.
+1. **Expandir**: se añade la columna nueva, se rellena y se mantiene sincronizada con la vieja mediante una escritura doble (por la aplicación o por un disparador). Ambas versiones funcionan.
+2. **Migrar**: se despliegan las instancias nuevas, que leen y escriben lo nuevo.
+3. **Contraer**: cuando ya no corre ninguna versión vieja, se quita la columna vieja y los disparadores.
 
-Según [SE-523 — Migraciones de datos sin interrupción](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md), en la sección «Expandir y contraer»:
+La clave, según [SE-523](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-523-migraciones-de-datos-sin-interrupcion/README.md), es que en cada paso existen versiones de la aplicación válidas tanto con el esquema en ese estado como con el estado anterior; esto permite desplegar y revertir el código **sin tocar los datos**. Cada fase se despliega y se revierte por separado, y el tiempo entre ellas lo fija la última instancia vieja, no el calendario.
 
-El patrón de **cambio paralelo** descompone un cambio incompatible en tres movimientos. En **expandir** se añade la estructura nueva junto a la antigua sin retirar nada: una columna nueva, nula, que ninguna versión de la aplicación necesita todavía. En **migrar** se llevan los consumidores y los datos a la nueva: la aplicación empieza a escribir en ambas, se rellena lo histórico, se verifica y se cambia la lectura. En **contraer** se retira lo antiguo cuando nadie lo usa. La clave es que en cada paso existen versiones de la aplicación válidas con el esquema en ese estado y con el estado anterior, lo que permite desplegar y revertir el código sin tocar los datos.
+La ventaja se ve contando fallos: renombrar en un solo paso deja en rojo a una versión en cada fase, mientras que expandir y contraer solo deja en rojo a la versión 2 antes del cambio y a la 1 tras quitar la columna vieja, es decir, en los extremos que se evitan por orden de despliegue.
 
 ## Ejemplo
 
-Ejemplo de [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la API de entregas despliega cada versión en cuatro fases: 1 % durante diez minutos, 5 % durante veinte, 25 % durante treinta y 100 % con la versión anterior conservada una hora. Las métricas son la tasa de error y el percentil 99 de la latencia, comparadas en paralelo con la versión anterior; el umbral es z = 4 con un mínimo de 2 000 solicitudes por fase, una barandilla automática que revierte si el error absoluto del canario supera el 5 % y la regla de que cualquier persona de guardia puede abortar.
+Para renombrar `nota` a `calificacion`: se añade `calificacion`, se rellena desde `nota` y se mantiene sincronizada; se despliega la aplicación que lee y escribe `calificacion`; cuando la última instancia vieja se apaga y no quedan lecturas de `nota`, se elimina `nota`. Si algo falla en cualquier fase, se revierte el código y los datos siguen legibles. Ejemplo de [SE-354](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Tras revertir hay datos ilegibles** — causa: migración destructiva con el despliegue. Corrección: expandir y contraer en despliegues separados. ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md))
+- **Tras revertir hay datos ilegibles**: migración destructiva con el despliegue; se corrige expandiendo y contrayendo en despliegues separados ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md)).
+- **Contraer antes de tiempo**: se quita lo viejo mientras alguien aún lo usa.
+- **Olvidar contraer**: la estructura vieja y la doble escritura se quedan para siempre.
+- **Creer que sirve solo para bases de datos**: es un patrón de compatibilidad general.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Mira primero que renombrar en un solo paso deja en rojo a una versión en cada fase, mientras que expandir y contraer solo deja en rojo a la versión 2 antes del cambio y a la 1 tras quitar la columna vieja. ([SE-354](../../../classes/part-29-datos-persistencia-y-recuperacion/se-354-migraciones-compatibles-y-evolucion-de-esquema/README.md))
+Tiene un costo: más pasos, más despliegues, escritura doble y un periodo en que conviven dos estructuras; para un cambio compatible o en un sistema que se puede detener y actualizar entero, es excesivo. Exige disciplina para completar la fase final. Y no resuelve cambios de significado sin cambio de forma (cambio semántico), que requieren además coordinación con los consumidores.
 
 ## Relación con otros conceptos
 

@@ -2,51 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Límite de trabajo en curso](./limite-de-trabajo-en-curso.md) · [Límites de lenguajes declarativos →](./limites-de-lenguajes-declarativos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Afirmación explícita de lo que ni el modelo ni el validador cubren.
-
-Definición de trabajo de [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md): Afirmación explícita de lo que un artefacto no demuestra.
-- En [SE-540 — Proyecto: dossier profesional defendible](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md): Lista de lo que no se midió, no se probó o se supuso, escrita en el propio dossier.
+Un **límite declarado** es la afirmación explícita de lo que un artefacto no cubre o no demuestra: lo que ni el modelo ni el validador ven ([SE-336](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md)), lo que un paquete no probó ([SE-360](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md)) o la lista de lo que no se midió, no se probó o se supuso, escrita en el propio dossier ([SE-540](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md)). Es la parte honesta de un documento técnico.
 
 ## Por qué importa
 
-En [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md), el tema «Límites declarados» importa porque separa lo comprobado de lo supuesto.
+Un dossier o paquete sin límites parece más sólido, pero solo es más opaco: quien lo lee no sabe qué comprobar antes de confiar. La decisión que cambia es qué se entrega junto con el resultado: además de lo que se afirma, lo que no se afirma. [SE-360](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md) lo dice con claridad: un paquete sin límites declarados no es más seguro, solo más opaco.
 
 ## Cómo funciona
 
-Según [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md), en la sección «Límites declarados»:
+[SE-336](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md) agrupa los límites en tres:
 
-Un dossier defendible dice también qué no cubre. Tres grupos: lo que el **validador** no ve (el sentido de los umbrales, funciones de aptitud triviales, contradicciones entre ADR); lo que el **modelo** no ve (degradación parcial, reintentos, colas reales, seguridad, correlaciones de fallos); y lo que **nadie ha medido** (latencias reales, disponibilidades reales, carga real). Cada límite lleva un responsable y una señal para dejar de ser un supuesto (una prueba de carga, un mes de telemetría). Declarar el límite no debilita el dossier: es lo que permite que otra persona lo cuestione con precisión.
+1. **Lo que el validador no ve**: el sentido de los umbrales, funciones de aptitud triviales, contradicciones entre ADR.
+2. **Lo que el modelo no ve**: degradación parcial, reintentos, colas reales, seguridad, correlaciones de fallos.
+3. **Lo que nadie ha medido**: latencias reales, disponibilidades reales, carga real.
 
-Según [SE-360 — Proyecto: capa de datos recuperable](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md), en la sección «Límites declarados»:
+Cada límite lleva un **responsable** y una **señal para dejar de ser un supuesto** (una prueba de carga, un mes de telemetría). Eso lo vuelve un compromiso verificable, no una disculpa genérica.
 
-`LIMITES.md` es la parte más importante del paquete: dice qué no se probó (un motor distinto, el tiempo de restauración con el volumen real, el cifrado, el proveedor), qué se supuso (los plazos de retención, los volúmenes, la popularidad de las claves) y qué ningún validador ve (las cuatro familias de mutación de sentido). Una lista así permite a quien opera el paquete decidir qué comprobar antes de confiar y a quien lo revisa saber qué exigir. Un paquete sin límites declarados no es más seguro, solo más opaco.
+[SE-360](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md) lo concreta en un archivo, `LIMITES.md`, que declara qué no se probó (un motor distinto, el tiempo de restauración con el volumen real, el cifrado, el proveedor), qué se supuso (plazos de retención, volúmenes, popularidad de las claves) y qué ningún validador ve (las cuatro familias de mutación de sentido). Una lista así permite a quien opera el paquete decidir qué comprobar antes de confiar y a quien lo revisa saber qué exigir. [SE-540](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-540-proyecto-dossier-profesional-defendible/README.md) lo lleva al nivel de gestión: la lista de lo que no se midió ni se probó va en el propio dossier.
 
 ## Ejemplo
 
-Ejemplo de [SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md) (sección «Caso conductor»):
-
-La plataforma de entregas y corrección de tareas cierra aquí su recorrido por la [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md). El proyecto deja el duodécimo artefacto: un dossier de arquitectura ejecutable, con decisiones registradas, simulación de operación, impacto de revertir y límites declarados. La [Parte 29](../../../classes/part-29-datos-persistencia-y-recuperacion/README.md) lleva esas decisiones a los datos: modelado, persistencia, consistencia y recuperación. Cambia después una sola decisión, el objetivo de disponibilidad, y observa qué ADR y qué funciones de aptitud deben tocarse.
+Un paquete de recuperación de datos incluye una prueba de restauración con una base pequeña. Su `LIMITES.md` dice: no se probó el tiempo de restauración con el volumen real; se supuso un plazo de retención de 30 días; el validador no ve mutaciones que cambian el sentido de un umbral. Para cada uno, un responsable y la señal que lo cerraría (por ejemplo, una restauración con datos del tamaño real). Basado en la estructura de [SE-360](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-336 — Proyecto: arquitectura defendible y verificable](../../../classes/part-27-arquitectura-de-software-y-dominio/se-336-proyecto-arquitectura-defendible-y-verificable/README.md)) son:
-
-- **El comité pregunta por una caída y no hay respuesta** — causa: documento sin escenarios ni modelo. Corrección: escenarios medibles y un modelo que los evalúa.
-- **Los diagramas se contradicen** — causa: vistas mantenidas a mano. Corrección: generarlas desde un modelo único y validarlas.
+- **El comité pregunta por una caída y no hay respuesta**: documento sin escenarios ni modelo; se corrige con escenarios medibles y un modelo que los evalúa.
+- **Los diagramas se contradicen**: vistas mantenidas a mano; se corrige generándolas desde un modelo único.
+- **Declarar límites genéricos** («puede haber errores»): no dicen qué comprobar.
+- **Creer que declarar límites debilita el trabajo**: es lo que permite cuestionarlo con precisión.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un paquete sin límites declarados no es más seguro, solo más opaco. ([SE-360](../../../classes/part-29-datos-persistencia-y-recuperacion/se-360-proyecto-capa-de-datos-recuperable/README.md))
+Declarar un límite no lo resuelve: lo hace visible. Una lista de límites sin responsable ni señal de cierre se vuelve un descargo de responsabilidad. Y no hace falta para entregables triviales y desechables; su valor crece con el costo de equivocarse al confiar en el artefacto.
 
 ## Relación con otros conceptos
 

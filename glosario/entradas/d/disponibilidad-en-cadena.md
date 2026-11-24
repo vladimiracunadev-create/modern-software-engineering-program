@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Disponibilidad compuesta](./disponibilidad-compuesta.md) · [Disposición →](./disposicion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Probabilidad de que una operación termine bien cuando necesita que varias dependencias respondan; con fallos independientes es el producto de las de cada una.
-
-Definición de trabajo de [SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md).
+La **disponibilidad en cadena** es la probabilidad de que una operación termine bien cuando necesita que varias dependencias respondan; con fallos independientes, es el producto de las de cada una ([SE-373](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md)). Es el modelo más simple de por qué una cadena de eslabones muy fiables es menos fiable que cada eslabón.
 
 ## Por qué importa
 
-En [SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md), el tema «Disponibilidad en cadena» importa porque cada dependencia síncrona multiplica una probabilidad de fallo.
+Cada dependencia síncrona que se añade a la ruta crítica de una petición tiene un precio de disponibilidad, aunque el código sea correcto. La decisión que cambia es qué dependencias se permiten en el camino síncrono: la pregunta útil es cuáles son necesarias para responder **ahora**, y cuáles pueden salir de la ruta o degradarse.
 
 ## Cómo funciona
 
-Según [SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md), en la sección «Disponibilidad en cadena»:
+Si una petición necesita que *k* dependencias respondan y cada una falla con probabilidad *p* de forma independiente, la probabilidad de éxito es (1 − p)^k. Con *p* = 1 % y cinco dependencias, el éxito baja a 95,1 %. La causa es que la petición solo tiene éxito si **todas** las dependencias acompañan a la vez; los fallos de distintas dependencias se acumulan en vez de promediarse.
 
-Si una petición necesita que k dependencias respondan y cada una falla con probabilidad p de forma independiente, la probabilidad de éxito es (1−p)^k. Con p = 1 % y cinco dependencias el éxito baja a 95,1 %: una cadena de eslabones muy fiables es menos fiable que cada eslabón. La independencia es una hipótesis optimista; fallos correlacionados (un mismo despliegue, una misma red) empeoran el resultado. Lo útil del modelo es la dirección: cada dependencia síncrona añadida a la ruta crítica tiene un precio de disponibilidad, aunque el código sea correcto. Por eso conviene preguntar cuáles de esas dependencias son necesarias para responder **ahora**.
+[SE-373](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md) marca dos matices. Primero, la independencia es una hipótesis optimista: fallos correlacionados (un mismo despliegue, una misma red) empeoran el resultado. Segundo, lo útil del modelo es la dirección, no el número exacto: más eslabones síncronos, menos disponibilidad.
+
+La clase lo conecta con las medidas de arquitectura: sacar una dependencia de la ruta crítica (por ejemplo, por mensajería asíncrona) o degradar su respuesta elimina un eslabón de la cadena. Y con una advertencia sobre los reintentos: reintentar en varias capas multiplica la carga sobre el servicio enfermo e impide su recuperación; se corrige reintentando en una capa, con retroceso, aleatoriedad y presupuesto.
 
 ## Ejemplo
 
-Caso medido en la sección «Disponibilidad en cadena» de [SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md):
-
-Si una petición necesita que k dependencias respondan y cada una falla con probabilidad p de forma independiente, la probabilidad de éxito es (1−p)^k. Con p = 1 % y cinco dependencias el éxito baja a 95,1 %: una cadena de eslabones muy fiables es menos fiable que cada eslabón. La independencia es una hipótesis optimista; fallos correlacionados (un mismo despliegue, una misma red) empeoran el resultado. Lo útil del modelo es la dirección: cada dependencia síncrona añadida a la ruta crítica tiene un precio de disponibilidad, aunque el código sea correcto.
+La entrega de un trabajo depende, en la ruta síncrona, de cinco servicios, cada uno con 99 % de éxito: 0,99⁵ ≈ 95,1 %. Los estudiantes ven errores aunque el calificador funciona, porque la entrega depende además de un servicio secundario en la misma ruta. Sacar ese servicio de la ruta crítica o degradar su respuesta devuelve la disponibilidad a la del resto. Escenario y cifra de [SE-373](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md)) son:
-
-- **Los estudiantes ven errores aunque el calificador funciona** — causa: la entrega depende de un servicio secundario en la ruta síncrona. Corrección: sacar la dependencia de la ruta crítica o degradar su respuesta.
-- **El servicio enfermo no se recupera** — causa: reintentos en varias capas multiplican la carga. Corrección: reintentar en una capa, con retroceso, aleatoriedad y presupuesto.
+- **Los estudiantes ven errores aunque el calificador funciona**: la entrega depende de un servicio secundario en la ruta síncrona; se corrige sacando la dependencia o degradando su respuesta.
+- **El servicio enfermo no se recupera**: reintentos en varias capas multiplican la carga.
+- **Promediar en lugar de multiplicar**: la disponibilidad de la cadena no es la media de los eslabones.
+- **Asumir independencia sin comprobarla**.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-373 — Integración síncrona y asíncrona](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó red, servidor, corredor de mensajes ni medición de latencia: las tasas de fallo, la llegada constante, la caída de 600 s y el presupuesto de reintentos son construcciones del autor, y los resultados no se extrapolan a otros sistemas ni a cargas de producción.
+[SE-373](../../../classes/part-31-integracion-eventos-y-mensajeria/se-373-integracion-sincrona-y-asincrona/README.md) indica que sus experimentos usan datos sintéticos, sin red, servidor, corredor de mensajes ni medición de latencia: las tasas de fallo, la llegada constante, la caída de 600 s y el presupuesto de reintentos son construcciones del autor, y los resultados no se extrapolan a otros sistemas. El modelo no aplica a dependencias opcionales o en paralelo (ahí corresponde la disponibilidad compuesta con redundancia), ni a operaciones cuyo éxito parcial es aceptable.
 
 ## Relación con otros conceptos
 

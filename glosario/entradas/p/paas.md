@@ -2,41 +2,41 @@
 
 [↑ Glosario](../../README.md) · [← P95](./p95.md) · [Package URL →](./package-url.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Servicio que entrega un entorno de ejecución gestionado donde el cliente despliega código sin operar el sistema operativo.
-
-Definición de trabajo de [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md).
+**PaaS** (plataforma como servicio) es el servicio que entrega un entorno de ejecución gestionado donde el cliente despliega su propio código sin operar el sistema operativo ni los servidores ([SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md)). La plataforma ofrece lenguajes, bibliotecas y servicios soportados por el proveedor.
 
 ## Por qué importa
 
-En [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md), el tema «PaaS» importa porque entrega además el entorno de ejecución; el código, los datos y la identidad siguen siendo tuyos.
+Entre alquilar máquinas (IaaS) y usar una aplicación ya hecha (SaaS) está el modelo en que el equipo escribe y despliega código, pero otro opera lo que hay debajo. La decisión que cambia es qué trabajo operativo se abandona y qué control se cede a cambio: se gana seguridad y velocidad, se pierde control sobre las versiones.
 
 ## Cómo funciona
 
-Según [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md), en la sección «PaaS»:
+En PaaS, el consumidor despliega su código y el proveedor se ocupa del entorno de ejecución, con sus versiones y parches. [SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md) señala el trueque con precisión:
 
-En PaaS el consumidor despliega su propio código en una plataforma que ofrece lenguajes, bibliotecas y servicios soportados por el proveedor, sin gestionar el sistema operativo ni los servidores. El entorno de ejecución, con sus versiones y parches, pasa a ser del proveedor. Lo que se gana es que desaparece una familia de vulnerabilidades del lado del cliente; lo que se pierde es el control de la versión: el proveedor retira un tiempo de ejecución en una fecha que no eliges. La dependencia no es solo técnica sino de calendario, y por eso el contrato de versiones es parte del diseño.
+- **Lo que se gana**: desaparece una familia de vulnerabilidades del lado del cliente, la de mantener al día el sistema operativo y el tiempo de ejecución.
+- **Lo que se pierde**: el control de la versión. El proveedor retira un tiempo de ejecución en una fecha que no eliges.
+
+Por eso la dependencia no es solo técnica sino de **calendario**, y el contrato de versiones es parte del diseño. Si el proveedor retira una versión y el equipo no sigue el calendario, el tiempo de ejecución deja de recibir parches y nadie se entera. La corrección que da la clase es suscribirse a los avisos del proveedor y planificar el cambio de versión.
+
+En el reparto de responsabilidades, PaaS está entre IaaS (el cliente parchea el sistema operativo) y SaaS (el proveedor opera también la aplicación). Sigue siendo del cliente el código, sus dependencias y la configuración del servicio; un depósito o un panel quedan abiertos tras migrar si se asume que el proveedor configura lo que solo el cliente puede decidir.
 
 ## Ejemplo
 
-Ejemplo de [SE-397 — IaaS, PaaS, SaaS y responsabilidad compartida](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma de entregas decide dónde alojar tres piezas: el servidor de la aplicación web, la base de datos y el servicio de correo de avisos a estudiantes. Para el servidor elige PaaS para no operar el sistema operativo; para la base de datos elige un servicio gestionado, y registra que las copias, el cifrado y los usuarios siguen siendo suyos aunque el motor y los parches no lo sean; para el correo elige SaaS y anota que debe configurar la autenticación del dominio remitente y decidir cuánto tiempo guardar los mensajes.
+Un equipo despliega una aplicación en un servicio PaaS con un tiempo de ejecución de cierta versión. Elimina la tarea de parchear servidores. Un año después el proveedor anuncia el retiro de esa versión; el equipo, suscrito a los avisos, planifica la actualización con meses de margen. Otro equipo, sin suscripción, descubre al retirarse la versión que su servicio ya no recibe parches. Ejemplo ilustrativo de lo que describe [SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Un tiempo de ejecución deja de recibir parches y nadie se entera** — causa: PaaS: el proveedor retira la versión y el equipo no sigue el calendario. Corrección: suscribirse a los avisos del proveedor y planificar el cambio de versión. ([SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md))
+- **Un tiempo de ejecución deja de recibir parches y nadie se entera**: el proveedor retira la versión y el equipo no sigue el calendario; se corrige suscribiéndose a los avisos y planificando el cambio de versión.
+- **Creer que el proveedor se hace cargo de todo**: el código y su configuración siguen siendo del cliente.
+- **Confundirlo con IaaS o SaaS**: el límite lo marca quién opera el sistema operativo y quién la aplicación.
+- **Ignorar el costo de salida** de usar servicios propios de la plataforma.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- En PaaS el consumidor despliega su propio código en una plataforma que ofrece lenguajes, bibliotecas y servicios soportados por el proveedor, sin gestionar el sistema operativo ni los servidores. ([SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md))
+PaaS limita lo que se puede instalar y configurar: si la aplicación necesita un sistema operativo, un componente de red o una versión que la plataforma no ofrece, IaaS es la opción. [SE-397](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-397-iaas-paas-saas-y-responsabilidad-compartida/README.md) también advierte que su modelo de exposición usa supuestos del autor y que el efecto real depende de cuánto tarda cada proveedor y de cuántos ajustes mantiene el cliente.
 
 ## Relación con otros conceptos
 

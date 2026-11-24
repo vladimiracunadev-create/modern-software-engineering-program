@@ -2,46 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Escalar](./escalar.md) · [Escalera de herramientas →](./escalera-de-herramientas.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
 
 ## Definición
 
-Secuencia ordenada de estados de menor servicio que adopta un sistema ante un fallo, cada uno con su límite declarado.
-
-Definición de trabajo de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-599 — Taller: elegir y degradar un patrón agéntico](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md): Secuencia ordenada de niveles de servicio.
+Una **escalera de degradación** es la secuencia ordenada de estados de menor servicio que adopta un sistema ante un fallo, cada uno con su límite declarado ([SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)). [SE-599](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md) la usa en el sentido más amplio de secuencia ordenada de niveles de servicio, aplicada a sistemas con modelos de lenguaje.
 
 ## Por qué importa
 
-En [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md), el tema «Escalera de degradación» importa porque cambia un fallo visible por un estado declarado.
-
-En [SE-599 — Taller: elegir y degradar un patrón agéntico](../../../classes/part-49-patrones-agenticos-y-sistemas-con-llm/se-599-taller-elegir-y-degradar-un-patron-agentico/README.md), el tema «Escalera de degradación» importa porque define a qué se baja y en qué orden.
+Cuando una dependencia cae, entre «todo funciona» y «error 500» hay peldaños intermedios. Sin escalera, el sistema salta del servicio completo al fallo. La decisión que cambia es que la degradación se diseña de antemano, con límites y mensajes honestos, en vez de improvisarse durante el incidente. Y es una decisión de producto, no un interruptor técnico.
 
 ## Cómo funciona
 
-Según [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md), en la sección «Escalera de degradación»:
+[SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md) describe tres peldaños:
 
-Cuando una dependencia cae, hay peldaños entre «todo funciona» y «error 500». Un primer peldaño es **servir lecturas obsoletas** de una caché, con una antigüedad máxima declarada y una etiqueta visible. Un segundo es **encolar las escrituras** localmente y reenviarlas al volver la dependencia, con un tamaño máximo de cola y una promesa honesta («tu entrega está recibida y se confirmará en unos minutos»). El último es **rechazar** con un mensaje claro. Cada peldaño cambia un fallo visible por un estado que hay que declarar, vigilar y limitar, y decidir cuál usar es una decisión de producto, no un interruptor técnico: aceptar una entrega que aún no está en la base es una promesa que hay que poder cumplir.
+1. **Servir lecturas obsoletas** de una caché, con una antigüedad máxima declarada y una etiqueta visible.
+2. **Encolar las escrituras** localmente y reenviarlas al volver la dependencia, con un tamaño máximo de cola y una promesa honesta («tu entrega está recibida y se confirmará en unos minutos»).
+3. **Rechazar** con un mensaje claro.
+
+Cada peldaño cambia un fallo visible por un estado que hay que **declarar, vigilar y limitar**. Por eso cada nivel lleva su límite: cuánto tiempo, cuántos elementos, qué se promete. Sin límite, un nivel degradado se convierte en un fallo silencioso: la cola crece sin tope o la caché sirve datos arbitrariamente viejos.
+
+La parte delicada es la promesa. Aceptar una entrega que aún no está en la base obliga a poder cumplirla. Por eso la clase distingue estados de garantía («recibida» y «guardada»): un acuse emitido al encolar sin distinguir estados genera estudiantes con acuse y sin entrega.
 
 ## Ejemplo
 
-Caso medido en la sección «Escalera de degradación» de [SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md):
-
-Cuando una dependencia cae, hay peldaños entre «todo funciona» y «error 500». Un primer peldaño es **servir lecturas obsoletas** de una caché, con una antigüedad máxima declarada y una etiqueta visible. Un segundo es **encolar las escrituras** localmente y reenviarlas al volver la dependencia, con un tamaño máximo de cola y una promesa honesta («tu entrega está recibida y se confirmará en unos minutos»). El último es **rechazar** con un mensaje claro.
+La base de entregas cae durante 60 s. Peldaño 1: la lista de entregas se sirve desde caché con una etiqueta «datos de hace 90 s». Peldaño 2: las nuevas entregas se encolan hasta un máximo de elementos y se responde «recibida». Si la cola se llena, peldaño 3: se rechaza con un mensaje claro. Escenario sintético de [SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md) (la caída de 60 s es una construcción del autor).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son:
-
-- **El servicio tarda más que el plazo sin que nadie falle** — causa: tiempos límite que se suman por capa. Corrección: presupuesto de tiempo comprobado con una prueba.
-- **Un estudiante tiene acuse y no entrega** — causa: acuse emitido al encolar sin distinguir estados. Corrección: estados «recibida» y «guardada» en la garantía.
+- **El servicio tarda más que el plazo sin que nadie falle**: tiempos límite que se suman por capa; se corrige con un presupuesto de tiempo comprobado con una prueba.
+- **Un estudiante tiene acuse y no entrega**: acuse emitido al encolar sin distinguir estados.
+- **Degradar sin declarar el límite**: el nivel intermedio se vuelve indefinido.
+- **Tratarla como detalle técnico**: aceptar trabajo bajo degradación es una promesa de producto.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-396 — Proyecto: servicio distribuido con degradación](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos deterministas en Windows y Ubuntu (WSL2) con resultados idénticos. No se desplegó ningún servicio ni se midió una carga real: la caída de 60 s, la sobrecarga del 50 %, la proporción 30/70, la capacidad constante y las mutaciones del paquete son construcciones del autor, y el validador se escribió conociendo las mutaciones.
+[SE-396](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-396-proyecto-servicio-distribuido-con-degradacion/README.md) indica que sus experimentos son deterministas, sin servicio desplegado ni carga real: la caída de 60 s, la sobrecarga del 50 %, la proporción 30/70 y las mutaciones del paquete son construcciones del autor, y el validador se escribió conociendo las mutaciones. La escalera exige que la degradación sea aceptable para el negocio; donde no lo es (por ejemplo, ciertos datos que no pueden estar obsoletos), el único peldaño válido es rechazar.
 
 ## Relación con otros conceptos
 

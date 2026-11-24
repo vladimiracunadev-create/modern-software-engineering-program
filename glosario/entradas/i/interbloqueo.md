@@ -2,42 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Intensidad aritmética](./intensidad-aritmetica.md) · [Intercalación →](./intercalacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 32](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/README.md)
 
 ## Definición
 
-Situación en que un grupo de tareas espera cada una un recurso que retiene otra del grupo.
-
-Definición de trabajo de [SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md).
+Un **interbloqueo** (*deadlock*) es la situación en que un grupo de tareas espera cada una un recurso que retiene otra del grupo, de modo que ninguna puede avanzar ([SE-386](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md)). Detiene al grupo entero sin producir un error: el sistema simplemente deja de responder.
 
 ## Por qué importa
 
-En [SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md), el tema «Interbloqueo» importa porque un cerrojo mal ordenado detiene el servicio sin dejar error.
+Es uno de los fallos de concurrencia más difíciles de diagnosticar, porque no hay excepción ni registro; solo silencio. Y suele aparecer solo bajo carga, cuando varias tareas coinciden en el orden desafortunado. La decisión que cambia es cómo se toman los cerrojos: con una regla global que impide el ciclo por construcción, no confiando en que no coincidan.
 
 ## Cómo funciona
 
-Según [SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md), en la sección «Interbloqueo»:
+[SE-386](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md) recoge el resultado de Coffman y colaboradores: un interbloqueo requiere cuatro condiciones a la vez:
 
-Un **interbloqueo** (*deadlock*) detiene a un grupo de tareas que se esperan unas a otras. Coffman y colaboradores identificaron cuatro condiciones necesarias: exclusión mutua, retención y espera (se retiene un recurso mientras se pide otro), ausencia de expropiación y espera circular. Basta eliminar una para que no ocurra. La más práctica de eliminar es la espera circular imponiendo un **orden global de adquisición**: todos los cerrojos se toman siempre en el mismo orden (por ejemplo, por identificador creciente). Un tiempo límite al adquirir no previene el interbloqueo: lo convierte en un error que hay que manejar, liberando lo tomado y reintentando con otro orden.
+1. **Exclusión mutua**: el recurso no se comparte.
+2. **Retención y espera**: se retiene un recurso mientras se pide otro.
+3. **Ausencia de expropiación**: nadie puede quitar el recurso a quien lo tiene.
+4. **Espera circular**: existe un ciclo de tareas, cada una esperando a la siguiente.
+
+Basta eliminar **una** para que no ocurra. La más práctica de eliminar es la espera circular, imponiendo un **orden global de adquisición**: todos los cerrojos se toman siempre en el mismo orden (por ejemplo, por identificador creciente). Si la tarea A toma primero el recurso 1 y luego el 2, y la B hace lo mismo en el mismo orden, no puede formarse el ciclo en el que A espera al 2 reteniendo el 1 mientras B espera al 1 reteniendo el 2.
+
+La clase aclara un error de método: un tiempo límite al adquirir **no previene** el interbloqueo; lo convierte en un error que hay que manejar, liberando lo tomado y reintentando con otro orden. Es una mitigación, no una prevención.
 
 ## Ejemplo
 
-Ejemplo de [SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md) (sección «Preguntas frecuentes»):
-
-Evita el bloqueo eterno, no el interbloqueo: ambos hilos fallan o uno falla y el otro sigue, según una carrera de temporización. Hay que decidir qué hacer al fallar: liberar lo tomado, registrar y reintentar con orden fijo.
+Dos transferencias entre cuentas A y B: una toma el cerrojo de A y pide el de B; la otra toma el de B y pide el de A. Quedan esperándose para siempre. Con un orden global (siempre primero la cuenta de menor identificador), ambas piden primero A y luego B, y una espera a la otra pero termina. Ejemplo ilustrativo del mecanismo de [SE-386](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-386 — Memoria compartida, locks y condiciones de carrera](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md)) son:
-
-- **Contadores que a veces están un poco bajos** — causa: leer-sumar-escribir sin sincronizar. Corrección: operación atómica o sección crítica.
-- **El servicio se congela y no hay error** — causa: espera circular entre cerrojos. Corrección: orden global de adquisición.
+- **El servicio se congela y no hay error**: espera circular entre cerrojos; se corrige con orden global de adquisición.
+- **Contadores que a veces están un poco bajos**: leer-sumar-escribir sin sincronizar; se corrige con una operación atómica o una sección crítica. Es una carrera de datos, no un interbloqueo.
+- **Creer que un tiempo límite lo previene**: solo lo vuelve visible.
+- **Confundirlo con contención**: una tarea que espera mucho no está interbloqueada si el recurso eventualmente se libera.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un tiempo límite al adquirir no previene el interbloqueo: lo convierte en un error que hay que manejar, liberando lo tomado y reintentando con otro orden. ([SE-386](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-386-memoria-compartida-locks-y-condiciones-de-carrera/README.md))
+El orden global exige que todos los puntos de adquisición lo respeten; un solo acceso fuera de orden reabre el riesgo, y en código que adquiere recursos dinámicos (de los que no se conoce el orden de antemano) puede ser difícil de aplicar. Con un solo recurso, o sin retención y espera, no hay interbloqueo posible. En sistemas distribuidos, el equivalente aparece entre servicios, y ahí se detecta con tiempos límite y observabilidad, no con orden de cerrojos.
 
 ## Relación con otros conceptos
 

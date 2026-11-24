@@ -2,49 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Escalera de herramientas](./escalera-de-herramientas.md) · [Escáner previo al envío →](./escaner-previo-al-envio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
 
 ## Definición
 
-Despliegue de un cambio a una fracción pequeña y limitada del tráfico.
-
-Definición de trabajo de [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md): Despliegue de una versión nueva a una fracción pequeña del tráfico para compararla con la anterior.
-- En [SE-346 — Evolución y migración entre estilos](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md): Fracción creciente del tráfico dirigida al sistema nuevo.
+Un **escalón de tráfico** es un despliegue de un cambio a una fracción pequeña y limitada del tráfico ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md)). El programa lo usa con matices: [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md) lo describe como el despliegue de una versión nueva a una fracción pequeña del tráfico para compararla con la anterior (el *canary*); [SE-346](../../../classes/part-28-estilos-arquitectonicos/se-346-evolucion-y-migracion-entre-estilos/README.md) como la fracción creciente del tráfico dirigida a un sistema nuevo durante una migración.
 
 ## Por qué importa
 
-En [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md), el tema «Canary» importa porque expone poco tráfico con criterios de parada.
+Desplegar a todo el tráfico de golpe convierte cualquier defecto en un incidente completo. Un escalón limita el radio del daño y, a la vez, genera evidencia: se compara la versión nueva con la vigente en condiciones reales. La decisión que cambia es que el avance se decide con datos del escalón, no con la confianza de quien lo desarrolló.
 
 ## Cómo funciona
 
-Según [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md):
+La idea común es servir el cambio a una fracción y comparar una métrica con la de la versión vigente. En [SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md) (ML en producción), un *canary* sirve el candidato a una fracción del tráfico y compara una métrica de error con la del modelo vigente. Con etiquetas que tardan siete días, solo se puede medir el error de las decisiones ya etiquetadas, y la potencia depende de cuántas decisiones del segmento afectado hay en la fracción.
 
-Un canary sirve el candidato a una fracción del tráfico y compara una métrica de error con la del modelo vigente. Con etiquetas que tardan siete días, solo se puede medir el error de las decisiones ya etiquetadas, y la potencia depende de cuántas decisiones del segmento afectado hay en la fracción.
-
-Según [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md):
-
-El equipo de *Avisos-ML* escribe el plan de despliegue del candidato. Etapa 1, sombra durante 24 horas: se vigila el desacuerdo y la tasa de marcados en cuatro segmentos definidos de antemano (dispositivo y franja horaria); la regla es pausar si algún segmento se aparta más de 10 puntos. La sombra de la primera noche pausa el plan: en el segmento móvil y nocturno el candidato marca al 4 % frente al 59 % del vigente. El equipo revisa los datos de entrenamiento y encuentra la anomalía de etiquetado, reentrena con el segmento corregido y repite la sombra. Etapa 2, canary del 5 % durante cinco días con guardas de latencia, errores y marcados por segmento, y la métrica con etiquetas cuando llegan.
+El plan de la clase es por etapas. Etapa 1: **sombra** durante 24 horas (el candidato recibe tráfico pero no sirve decisiones), vigilando desacuerdo y tasa de marcados en cuatro segmentos definidos de antemano; regla: pausar si algún segmento se aparta más de 10 puntos. En el ejemplo, la primera noche pausa el plan: en el segmento móvil y nocturno el candidato marca al 4 % frente al 59 % del vigente; el equipo encuentra una anomalía de etiquetado, reentrena y repite. Etapa 2: canary del 5 % durante cinco días con guardas de latencia, errores y marcados por segmento. La sombra no sirve decisiones; el canary las sirve a una fracción.
 
 ## Ejemplo
 
-Ejemplo de [SE-607 — Despliegue seguro de modelos: shadow, canary y rollback](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md) (sección «Ejemplo mínimo»):
-
-La guarda de un canary sobre la tasa de marcados en cinco líneas:
+El equipo de *Avisos-ML* pasa por sombra de 24 h y canary del 5 % durante cinco días, con la regla de pausar si un segmento se aparta más de 10 puntos. La sombra detecta una discrepancia en un segmento que el promedio global habría ocultado, y el despliegue se pausa antes de afectar a nadie. Caso de [SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Un canary demasiado pequeño**: [SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md) advierte que un canary del 1 % por prudencia no tiene potencia para ver una regresión de un segmento minoritario en una semana; ofrece una sensación de seguridad.
+- **Mirar solo la métrica global**: un segmento minoritario puede estar roto sin mover el promedio.
+- **Confundir sombra con canary**: la sombra no sirve decisiones.
+- **No definir antes el criterio de retroceso**.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un canary del 1 % por prudencia es demasiado pequeño para ver una regresión de un segmento minoritario en una semana: ofrece una sensación de seguridad que no tiene potencia. ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md))
-- La sombra no sirve decisiones; el canary las sirve a una fracción. ([SE-607](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-607-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md))
+El escalón solo detecta lo que su tamaño y duración le permiten ver: la potencia estadística depende de cuántas observaciones del caso relevante entran en la fracción. No aplica cuando el cambio no se puede servir de forma parcial (una migración de esquema irreversible) o cuando el tráfico es tan pequeño que la fracción no produce evidencia. Y no sustituye las pruebas previas al despliegue.
 
 ## Relación con otros conceptos
 

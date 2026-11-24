@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Gravedad](./gravedad.md) · [Green Software Engineer →](./green-software-engineer.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Tendencia de las aplicaciones a ubicarse donde están los datos, por el costo y el tiempo de moverlos.
-
-Definición de trabajo de [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md).
+La **gravedad de los datos** es la tendencia de las aplicaciones a ubicarse donde están los datos, por el costo y el tiempo de moverlos ([SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)). Mover código es barato; mover datos no. Cuanto más pesan los datos, más condicionan dónde vive todo lo demás.
 
 ## Por qué importa
 
-En [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md), el tema «Gravedad de los datos» importa porque los datos tardan y cuestan al moverse.
+Las decisiones de proveedor, de nube o de regiones se toman a menudo pensando en el cómputo, y los datos se mueven después. La gravedad hace que esa secuencia sea cara: salir de un proveedor, o ejecutar en otro, depende más del volumen de datos que del código. La decisión que cambia es cuándo se decide la portabilidad: al diseñar, no el día que se quiere salir.
 
 ## Cómo funciona
 
-Según [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md), en la sección «Gravedad de los datos»:
+[SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md) identifica tres componentes del costo de mover datos:
 
-Mover código es barato; mover datos no. Tardan según el tamaño y el ancho de banda, cuestan según la tarifa de salida y siguen atrayendo a las aplicaciones que los usan, porque ejecutar lejos de ellos añade latencia y más tráfico de salida. A esto se llama gravedad de los datos: cuanto más pesan, más condicionan dónde vive todo lo demás. Por eso la portabilidad de los datos se decide al diseñar, con formatos abiertos y exportaciones periódicas, y no el día que se quiere salir.
+- **Tiempo**: tarda según el tamaño y el ancho de banda.
+- **Dinero**: cuesta según la tarifa de salida del proveedor.
+- **Atracción**: siguen atrayendo a las aplicaciones que los usan, porque ejecutar lejos de ellos añade latencia y más tráfico de salida.
+
+El tercer componente es el que da nombre a la metáfora: una aplicación lejos de los datos paga latencia en cada consulta y tráfico de salida en cada transferencia; esa presión empuja a poner la aplicación junto a los datos, y entonces más aplicaciones se acercan, y los datos pesan aún más. La consecuencia práctica es una forma de dependencia (un acoplamiento al proveedor) que no aparece en el código, sino en el volumen.
+
+La respuesta que enseña la clase es de diseño: formatos abiertos y exportaciones periódicas, de modo que la portabilidad de los datos exista antes de necesitarla. Eso mantiene abierta la opción de moverlos y limita el poder de negociación del proveedor, aunque no elimina el costo de transferencia.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md):
-
-El equipo de la plataforma escribe el motivo antes de la solución: reducir el tiempo sin servicio de la recepción de entregas durante el cierre, no cumplir una regulación ni evitar un proveedor. Calcula que un segundo proveedor con conmutación del 90 % y un DNS compartido de 99,95 % no mejora lo suficiente para justificar su costo, y opta por una región adicional dentro del mismo proveedor, una cola que acepta entregas aunque el procesamiento esté caído y una exportación semanal de los datos en un formato abierto.
+Una plataforma guarda el histórico de entregas en un servicio de un proveedor. Al querer ejecutar un análisis en otro proveedor, calcula el tiempo de transferencia según el ancho de banda y la tarifa de salida, y comprueba que la copia tarda días y cuesta más que el cómputo del análisis. Una exportación periódica en formato abierto habría permitido hacerlo con menos fricción. Razonamiento ilustrativo según [SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md), con cifras de proveedores ficticios.
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)) son:
-
-- **Dos proveedores y la misma caída anual** — causa: un componente compartido en serie. Corrección: dibujar las dependencias y eliminar o duplicar el común.
-- **La conmutación falla cuando se necesita** — causa: nunca se ensayó. Corrección: ensayar la conmutación con regularidad y medir su acierto.
+- **Asumir portabilidad porque el código es portable**: los datos no lo son al mismo ritmo.
+- **Decidir la nube sin estimar volumen y tarifa de salida**.
+- **Confundirla con el acoplamiento del código al proveedor**: es un efecto distinto, que se mide en terabytes y euros.
+- **Posponer la exportación**: el costo de mover sube con el volumen.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-405 — Multi-cloud, híbrido y portabilidad real](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada guía usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los proveedores son ficticios y no se midió ningún enlace ni proveedor real: la disponibilidad, la independencia de fallos, las probabilidades de oferta y el precio de salida son supuestos del autor. La siguiente clase mira cómo se ofrece todo esto a los equipos sin que cada uno lo reconstruya: plataformas internas y caminos dorados.
+[SE-405](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-405-multi-cloud-hibrido-y-portabilidad-real/README.md) indica que sus proveedores son ficticios y que la disponibilidad, la independencia de fallos y el precio de salida son supuestos del autor; no hay medición de enlaces reales. Con volúmenes pequeños, mover los datos es barato y la gravedad es despreciable. Y la gravedad es una tendencia, no una ley: se puede reducir con replicación, formatos abiertos y arquitecturas pensadas para ejecutar cerca de los datos.
 
 ## Relación con otros conceptos
 

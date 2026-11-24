@@ -2,40 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Invariante de migración](./invariante-de-migracion.md) · [Invariantes alrededor de transiciones →](./invariantes-alrededor-de-transiciones.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 31](../../../classes/part-31-integracion-eventos-y-mensajeria/README.md)
 
 ## Definición
 
-Propiedad que debe cumplirse sin importar las fallas, como que cada entrega tenga exactamente una calificación.
-
-Definición de trabajo de [SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md).
+Una **invariante del flujo** es una propiedad que debe cumplirse sin importar las fallas, por ejemplo que cada entrega tenga exactamente una calificación ([SE-384](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md)). Es la afirmación contra la cual se comprueba un flujo de integración: sin ella, «el flujo funciona» no es algo que se pueda verificar.
 
 ## Por qué importa
 
-En [SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md), el tema «Invariantes del flujo» importa porque definen qué significa «correcto» antes de provocar fallas.
+Un flujo basado en mensajes puede perder, duplicar, retrasar o reordenar. Si no se dice qué se espera pase lo que pase, cualquier resultado parece aceptable y los fallos aparecen en producción. La decisión que cambia es el orden del trabajo: primero se escribe lo que debe ser cierto, después se diseña y se prueba que lo sea.
 
 ## Cómo funciona
 
-Según [SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md), en la sección «Invariantes del flujo»:
+[SE-384](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md) enumera cinco invariantes del flujo de la plataforma de entregas:
 
-Antes de probar hay que decir qué se espera. Las invariantes del flujo de la plataforma son cinco: **cada entrega recibida tiene exactamente una calificación** (ni cero ni dos), **cada calificación publicada produce como mucho un aviso** y eventualmente uno, **un mensaje que no se puede procesar no detiene a los demás**, **el estado final de una entrega no depende del orden de llegada de sus mensajes** y **todo mensaje fallido es visible y recuperable**. Cada invariante conecta con una clase: la primera con el outbox, la segunda con la inbox y la política del notificador, la tercera con la cola de fallidos, la cuarta con la guarda de versión y la quinta con la observabilidad. Sin invariantes escritas, «el flujo funciona» no es una afirmación comprobable.
+1. **Cada entrega recibida tiene exactamente una calificación** (ni cero ni dos).
+2. **Cada calificación publicada produce como mucho un aviso**, y eventualmente uno.
+3. **Un mensaje que no se puede procesar no detiene a los demás.**
+4. **El estado final de una entrega no depende del orden de llegada de sus mensajes.**
+5. **Todo mensaje fallido es visible y recuperable.**
+
+Cada una conecta con un mecanismo de las clases: la primera con el outbox, la segunda con la inbox y la política del notificador, la tercera con la cola de mensajes fallidos, la cuarta con la guarda de versión y la quinta con la observabilidad. Esa correspondencia es lo que las hace útiles: cada invariante señala qué mecanismo la sostiene y qué prueba la demostraría.
+
+La comprobación se hace con **inyección de fallas**: se provocan caídas, duplicados, retrasos y mensajes inválidos y se mira si las cinco siguen cumpliéndose. Una invariante que se viola con una falla concreta indica qué mecanismo falta.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md):
-
-El equipo de la plataforma cierra el proyecto con cuatro entregables. **`PAQUETE-INTEGRACION.md`:** nueve secciones; los contratos de `EntregaRecibida` y `CalificacionPublicada` con su sobre; la clave de idempotencia `(entrega, intento)`; cinco intentos con esperas de 1, 5, 30, 120 y 600 s con aleatoriedad completa (horizonte máximo 756 s); la cola `entregas_fallidas` con alarma y dueño; reglas de evolución compatibles hacia atrás y hacia adelante; outbox e inbox con clave única; señales de profundidad, edad, procesados y errores; firma con marca de tiempo y registros con lista de permitidos.
+Se inyecta una caída del consumidor a mitad de un lote y reentregas duplicadas. Se comprueba entonces la invariante 1 contando, por cada entrega, cuántas calificaciones hay: debe ser exactamente una. Si aparece una segunda, falta idempotencia en el consumidor. Si hay cero, falta el outbox o la recuperación. Procedimiento de [SE-384](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md)) son:
-
-- **Duplicados minutos después del original** — causa: ventana de deduplicación menor que el horizonte de reintentos. Corrección: ventana mayor que el horizonte máximo, con la aleatoriedad incluida.
-- **Un solo mensaje detiene el flujo** — causa: no hay cola de mensajes fallidos. Corrección: desviar tras N intentos con alarma y dueño.
+- **Duplicados minutos después del original**: ventana de deduplicación menor que el horizonte de reintentos; se corrige con una ventana mayor que el horizonte máximo, con la aleatoriedad incluida.
+- **Un solo mensaje detiene el flujo**: no hay cola de mensajes fallidos; se corrige desviando tras N intentos con alarma y dueño.
+- **Escribir invariantes vagas** («que funcione bien») que no se pueden comprobar.
+- **Confundirlas con aserciones de una prueba unitaria**: se comprueban sobre el flujo completo bajo fallas.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-384 — Proyecto: flujo integrado tolerante a reintentos](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún corredor, red, concurrencia ni medición de tiempo de reloj: el paquete es un texto sintético, el validador se ajustó con los mismos casos que lo evalúan, las fallas inyectadas y sus tasas son del autor y todos los mensajes fallan a la vez en el cálculo de la tormenta.
+[SE-384](../../../classes/part-31-integracion-eventos-y-mensajeria/se-384-proyecto-flujo-integrado-tolerante-a-reintentos/README.md) aclara que sus experimentos usan datos sintéticos, sin corredor, red ni concurrencia: el paquete es un texto sintético, el validador se ajustó con los mismos casos que lo evalúan, y las fallas inyectadas y sus tasas son del autor. Las cinco invariantes son las de ese flujo; otro sistema tendrá otras. Una invariante comprobada bajo las fallas que se probaron no garantiza las que no se probaron.
 
 ## Relación con otros conceptos
 

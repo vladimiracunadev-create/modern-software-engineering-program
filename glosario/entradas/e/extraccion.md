@@ -2,49 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Extensión](./extension.md) · [Extractor →](./extractor.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 30](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/README.md)
 
 ## Definición
 
-Copia del comportamiento de un modelo mediante consultas.
+En el sentido principal del programa ([SE-609](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md)), la **extracción** es la copia del comportamiento de un modelo mediante consultas: un atacante hace muchas preguntas y usa las respuestas para entrenar su propia réplica. El término tiene otros sentidos en el programa, que conviene no confundir:
 
-Definición de trabajo de [SE-609 — Seguridad y robustez de sistemas de ML](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md).
+- En [SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md) (ingeniería de datos): el paso de un proceso de datos en que se decide qué filas entran y cuáles se omiten.
+- En [SE-487](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md) (CI/CD): un modelo de despliegue en que el agente que despliega lee el repositorio desde dentro del entorno, en lugar de recibir órdenes desde fuera.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-487 — GitOps y reconciliación](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md): Modelo en el que el agente que despliega lee el repositorio desde dentro del entorno, en lugar de recibir órdenes desde fuera.
+Esta entrada desarrolla el primero y resume los otros dos.
 
 ## Por qué importa
 
-En [SE-609 — Seguridad y robustez de sistemas de ML](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md), el tema «Extracción» importa porque las respuestas permiten copiar el modelo.
-
-En [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md), el tema «Extracción» importa porque una copia periódica y un registro de cambios ven cosas distintas.
+Un modelo expuesto por una interfaz es un activo que se puede copiar sin acceso a su código ni a sus datos: basta con consultarlo. La decisión que cambia es qué se expone y a qué ritmo: la interfaz del modelo es parte de su superficie de ataque, y limitarla es una defensa de seguridad, no solo de capacidad.
 
 ## Cómo funciona
 
-Según [SE-609 — Seguridad y robustez de sistemas de ML](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md):
+[SE-609](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md) incluye la extracción en el modelo de amenazas del equipo de *Avisos-ML*. Activos: el modelo, los datos de comportamiento de estudiantes, las etiquetas, el registro y la interfaz; para cada uno, un atacante y una prueba. Frente a la extracción, la defensa elegida es doble: limitar a 1 000 consultas por cuenta y por día, y devolver una clasificación en lugar de la probabilidad. La razón es de información: cada respuesta es una pista sobre la frontera de decisión del modelo; cuantas menos respuestas y menos informativas, más cuesta reconstruirlo. Una probabilidad revela más que una etiqueta.
 
-El equipo de *Avisos-ML* escribe su modelo de amenazas. Activos: el modelo, los datos de comportamiento de estudiantes, las etiquetas, el registro y la interfaz. Para cada uno, un atacante y una prueba. Evasión: se mide la fracción de marcados que evaden con las tres características autodeclaradas y se decide aceptar el riesgo, documentado, porque el costo es un recordatorio no enviado; se retira la tasa de lectura declarada del modelo y se reemplaza por una medida del sistema. Extracción: se limita a 1 000 consultas por cuenta y por día y se devuelve una clasificación en lugar de la probabilidad. Envenenamiento: los datos de proveedores externos pasan por una revisión de procedencia y una prueba de disparadores sobre un conjunto de combinaciones raras.
+En [SE-361](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md), la extracción de datos es uno de tres puntos donde una columna cambia de sentido sin cambiar de nombre (junto con la transformación y el consumo): qué filas entran y cuáles se omiten define lo que el dato significa aguas abajo. La defensa es escribir la definición junto con la columna y comprobarla.
 
-Según [SE-361 — Del dato operacional al analítico](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-361-del-dato-operacional-al-analitico/README.md):
-
-Una columna `status = 'delivered'` puede significar «el mensajero marcó entregado» en la base operacional y «el cliente confirmó» en el informe de ventas. Las columnas conservan nombre y tipo mientras cambian de sentido. Hay tres puntos donde ocurre: la extracción (qué filas entran, cuáles se omiten), la transformación (cómo se redondea, qué zona horaria se aplica, qué se descarta) y el consumo (cuál es la definición de «activo»). La defensa es escribir la definición junto con la columna, con un ejemplo, y comprobarla; las clases siguientes dan las herramientas (`SE-365`, `SE-366`).
+En [SE-487](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md), la extracción en CI/CD tiene una ventaja de seguridad concreta: la canalización de integración no necesita credenciales del clúster (basta con que publique un artefacto y actualice un manifiesto), de modo que comprometer la integración no entrega el control de producción.
 
 ## Ejemplo
 
-Ejemplo de [SE-609 — Seguridad y robustez de sistemas de ML](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos-ML* escribe su modelo de amenazas. Activos: el modelo, los datos de comportamiento de estudiantes, las etiquetas, el registro y la interfaz. Para cada uno, un atacante y una prueba. Evasión: se mide la fracción de marcados que evaden con las tres características autodeclaradas y se decide aceptar el riesgo, documentado, porque el costo es un recordatorio no enviado; se retira la tasa de lectura declarada del modelo y se reemplaza por una medida del sistema. Extracción: se limita a 1 000 consultas por cuenta y por día y se devuelve una clasificación en lugar de la probabilidad.
+El modelo de marcados de *Avisos-ML* se expone con una interfaz que devuelve una probabilidad. Un atacante la consulta decenas de miles de veces y entrena una copia. La mitigación del equipo: tope de 1 000 consultas por cuenta y por día, y respuesta en forma de clasificación. No impide del todo la copia, pero la encarece.
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Confundirla con la evasión o el envenenamiento**: la evasión engaña a un modelo existente; el envenenamiento corrompe sus datos; la extracción lo copia.
+- **Devolver siempre la probabilidad por comodidad**: entrega más información de la necesaria.
+- **Mezclar sentidos**: la extracción de un proceso de datos no tiene relación con el robo de un modelo.
+- **Tratar el límite de consultas como defensa completa**: las cuentas múltiples pueden eludirlo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La diferencia de seguridad es concreta: en extracción la canalización de integración no necesita credenciales del clúster (basta con que publique un artefacto y actualice un manifiesto), de modo que comprometer la integración no entrega el control de producción, y el agente solo necesita leer el repositorio. ([SE-487](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-487-gitops-y-reconciliacion/README.md))
+Las medidas de [SE-609](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-609-seguridad-y-robustez-de-sistemas-de-ml/README.md) forman parte de un modelo de amenazas del ejemplo, con aceptación documentada de ciertos riesgos; no son una garantía contra la copia. Si el modelo no está expuesto fuera de la organización, o su valor no justifica el costo de protegerlo, la extracción puede no ser un riesgo prioritario.
 
 ## Relación con otros conceptos
 

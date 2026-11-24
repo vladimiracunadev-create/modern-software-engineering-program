@@ -2,54 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Instancia por petición](./instancia-por-peticion.md) · [Instante →](./instante.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 27](../../../classes/part-27-arquitectura-de-software-y-dominio/README.md)
 
 ## Definición
 
-Copia de una salida contra la que se compara exactamente en cada ejecución.
+Una **instantánea** es, en el sentido principal del programa ([SE-424](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md)), una copia de una salida contra la que se compara exactamente en cada ejecución (*snapshot testing*). El término tiene otros sentidos en el programa, con el núcleo común de «copia de un estado en un momento»:
 
-Definición de trabajo de [SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md).
+- En [SE-330](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md): copia del estado de un agregado en un punto de la historia, que evita reaplicar todos los eventos anteriores.
+- En [SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md): copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
+- En [SE-547](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-547-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md) y [SE-582](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md): respuesta completa guardada para comparar, o copia/commit que permite restaurar un estado.
 
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-330 — Event-driven, CQRS y event sourcing](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md): Copia del estado en un punto de la historia que evita reaplicar todos los eventos anteriores.
-- En [SE-547 — Diseño por contrato y pruebas de contrato como oráculo](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-547-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md): Copia guardada de una respuesta completa que se compara con la actual.
-- En [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md): Copia o commit que permite restaurar un estado.
-- En [SE-378 — CDC, ETL, ELT y sincronización](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md): Copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
+Esta entrada desarrolla el de pruebas y resume los demás.
 
 ## Por qué importa
 
-En [SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md), el tema «Instantánea frente a aserción semántica» importa porque una comparación exacta genera ruido que se aprueba sin leer.
+Una instantánea promete detectar cualquier cambio sin escribir aserciones una por una. Esa promesa es también su riesgo: detecta todo y no distingue lo que importa de lo que no. La decisión que cambia es qué se afirma en una prueba de salida: lo que percibe el usuario (aserción semántica) o la salida entera.
 
 ## Cómo funciona
 
-Según [SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md):
+En [SE-424](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md), la instantánea guarda la salida (por ejemplo, el HTML) y la prueba falla ante cualquier diferencia. Un espacio, el orden de los atributos o una fecha nueva rompen la prueba igual que un botón que desaparece. Cuando la mayoría de las diferencias son ruido, el equipo aprende a aprobarlas sin leerlas, y la instantánea deja de proteger: la protección depende de la atención humana, y la atención se agota.
 
-Una instantánea guarda la salida (por ejemplo el HTML) y falla ante cualquier diferencia. Detecta todo cambio y no distingue uno que importa de uno que no: un espacio, el orden de los atributos o una fecha nueva rompen la prueba igual que un botón que desaparece. Cuando la mayoría de las diferencias son ruido, el equipo aprende a aprobarlas sin leerlas, y la instantánea deja de proteger. Una aserción semántica afirma lo que el usuario percibe (el título, la nota de la entrega, la presencia del botón) y es insensible al resto; su costo es que solo ve lo que se le pidió mirar.
+La alternativa es la **aserción semántica**: afirma lo que el usuario percibe (el título, la nota de la entrega, la presencia del botón) y es insensible al resto. Su costo es que solo ve lo que se le pidió mirar. La clase propone medir la **inestabilidad** de cada recorrido (con qué frecuencia cambia sin que importe) para decidir cuál usar.
 
-Según [SE-424 — End-to-end, aceptación y recorridos críticos](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md):
-
-Traslada el análisis a otra aplicación (por ejemplo, una tienda de entradas): construye un registro de uso, elige recorridos con dos métricas, calcula la inestabilidad de cada uno y compara una instantánea con una aserción semántica. La transferencia está lograda cuando puedes explicar por qué un recorrido se acortó o se bajó de nivel, no cuando la lista se parece.
+En arquitectura ([SE-330](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)), la instantánea de un agregado evita reconstruirlo desde todos sus eventos: sin ellas, reconstruir tarda cada vez más a medida que la historia crece. En integración ([SE-378](../../../classes/part-31-integracion-eventos-y-mensajeria/se-378-cdc-etl-elt-y-sincronizacion/README.md)), una instantánea consistente es el punto de partida de un flujo de cambios: se copia el estado y luego se aplican los cambios posteriores.
 
 ## Ejemplo
 
-Ejemplo de [SE-582 — Sandboxes, reversibilidad y control de daño](../../../classes/part-48-harness-y-agentic-engineering/se-582-sandboxes-reversibilidad-y-control-de-dano/README.md) (sección «Preguntas frecuentes»):
-
-Son el riesgo principal. O se copian explícitamente en la instantánea, o se montan en solo lectura, o se mantienen fuera del alcance del agente.
+Una página de entrega incluye la fecha actual. Una instantánea del HTML falla cada día aunque nada importante cambió. El equipo aprueba las diferencias sin leerlas y un día deja pasar un botón que desapareció. Con una aserción semántica («el botón Entregar existe y el título es X») la prueba solo falla cuando algo relevante cambia. Contraste de [SE-424](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Las instantáneas se aprueban sin leerlas** — causa: casi todas las diferencias son ruido. Corrección: aserciones semánticas y una instantánea solo para salidas pequeñas. ([SE-424](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md))
-- **Reconstruir un agregado tarda cada vez más** — causa: historia creciente sin instantáneas. Corrección: instantáneas periódicas o un agregado más pequeño. ([SE-330](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md))
+- **Las instantáneas se aprueban sin leerlas**: casi todas las diferencias son ruido; se corrige con aserciones semánticas y una instantánea solo para salidas pequeñas.
+- **Reconstruir un agregado tarda cada vez más**: historia creciente sin instantáneas; se corrige con instantáneas periódicas o un agregado más pequeño ([SE-330](../../../classes/part-27-arquitectura-de-software-y-dominio/se-330-event-driven-cqrs-y-event-sourcing/README.md)).
+- **Mezclar sentidos**: una instantánea de pruebas no es una copia de seguridad.
+- **Tomar una instantánea no consistente** como punto de partida de un flujo.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Cuando la mayoría de las diferencias son ruido, el equipo aprende a aprobarlas sin leerlas, y la instantánea deja de proteger. ([SE-424](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md))
-- Traslada el análisis a otra aplicación (por ejemplo, una tienda de entradas): construye un registro de uso, elige recorridos con dos métricas, calcula la inestabilidad de cada uno y compara una instantánea con una aserción semántica. ([SE-424](../../../classes/part-35-estrategia-y-tecnicas-de-prueba/se-424-end-to-end-aceptacion-y-recorridos-criticos/README.md))
+La instantánea de pruebas sirve para salidas pequeñas y estables; para salidas grandes o con partes variables genera ruido. No sustituye comprobar el comportamiento. La instantánea de estado necesita que la copia sea consistente con un instante confirmado, o el flujo posterior parte de un estado inexistente.
 
 ## Relación con otros conceptos
 

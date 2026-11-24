@@ -2,50 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← MAD](./mad.md) · [Maldición del optimizador →](./maldicion-del-optimizador.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 25](../../../classes/part-25-diseno-patrones-y-refactorizacion/README.md)
 
 ## Definición
 
-Registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
-
-Definición de trabajo de [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md): Registro de la salida del código actual para un conjunto fijo de entradas, contra el cual se compara el código nuevo.
-- En [SE-519 — Pruebas de caracterización y seams](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md): Conjunto de entradas con las salidas registradas del código actual, usado como expectativa.
+Un **maestro dorado** (*golden master*) es el registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento ([SE-311](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)). [SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) y [SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md) lo usan en el mismo sentido: la salida del código actual para un conjunto fijo de entradas, contra la cual se compara el código nuevo.
 
 ## Por qué importa
 
-En [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md), el tema «Maestro dorado» importa porque convierte el comportamiento actual en un oráculo sin necesitar una especificación.
-
-En [SE-323 — Taller: refactorizar con patrones y medir su costo](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md), el tema «Maestro dorado» importa porque es la red de seguridad de un refactor sin pruebas finas
+Refactorizar código sin pruebas finas exige saber si el comportamiento cambió, pero definir primero qué es correcto puede ser costoso o imposible. La decisión que cambia es qué se toma como referencia: no «lo correcto», sino «lo que el código hace hoy». Con eso, cualquier diferencia es un cambio de comportamiento que hay que explicar.
 
 ## Cómo funciona
 
-Según [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md), en la sección «Maestro dorado»:
+[SE-311](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md) es explícito con lo que el maestro **no** afirma: no dice que las salidas sean correctas; dice que son lo que el código hace hoy. Eso le da su uso: como oráculo de un refactor. Se ejecuta el código actual con un conjunto grande de entradas, se guardan las salidas, y tras cada paso del refactor se vuelve a ejecutar y se compara. Una diferencia no es necesariamente un error, pero sí un cambio que alguien debe aprobar o corregir.
 
-Un maestro dorado (golden master) es un registro de las salidas del programa actual para un conjunto grande de entradas. No afirma que esas salidas sean correctas: afirma que son lo que el código hace hoy. Sirve como oráculo para un refactor, porque cualquier diferencia es un cambio de comportamiento que hay que explicar. Su calidad depende de las entradas: deben cubrir los caminos y los bordes, incluidas las entradas «raras» que los clientes reales envían.
+Su calidad depende de las entradas: deben cubrir los caminos y los bordes, incluidas las entradas «raras» que los clientes reales envían. Un maestro con entradas limpias deja pasar cambios que rompen a los canales antiguos. Por eso [SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md) lo combina con medición de cobertura y de mutantes, y con normalizar la variación (fechas, identificadores aleatorios) para que no genere diferencias falsas. El procedimiento completo de esa clase: crear una costura, registrar un maestro dorado, medir cobertura y mutantes, normalizar la variación y decidir qué hacer con cada comportamiento sospechoso.
+
+Una práctica de disciplina: comparar tras cada paso y hacer un commit por paso, de modo que si el comportamiento cambia se sabe qué paso lo cambió.
 
 ## Ejemplo
 
-Ejemplo de [SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento registra un maestro dorado de una función y detecta un cambio. Antes de ejecutarlo, predice cuántas entradas difieren.
+Una función de tarifas heredada no tiene pruebas. Se ejecuta con miles de combinaciones de entrada reales y se guardan los resultados. Se refactoriza en pasos pequeños; tras cada uno se compara con el maestro. En un paso aparece una diferencia en un caso de un canal antiguo: se detecta antes de desplegar. Procedimiento de [SE-311](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md) y [SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-311 — Taller: refactorizar sin alterar comportamiento](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-311-taller-refactorizar-sin-alterar-comportamiento/README.md)) son:
-
-- **El refactor pasa las pruebas y rompe a un cliente** — causa: el maestro no incluye entradas de canales antiguos. Corrección: añadir las entradas reales (valores no booleanos, formatos viejos).
-- **No se sabe qué paso cambió el comportamiento** — causa: se hicieron varios pasos antes de comparar. Corrección: comparar tras cada paso y hacer un commit por paso.
+- **El refactor pasa las pruebas y rompe a un cliente**: el maestro no incluye entradas de canales antiguos; se añaden las entradas reales (valores no booleanos, formatos viejos).
+- **No se sabe qué paso cambió el comportamiento**: se hicieron varios pasos antes de comparar; se compara tras cada paso con un commit por paso.
+- **Tomarlo como especificación**: registra lo que hace, incluidos sus defectos.
+- **No normalizar la variación**: las fechas y los aleatorios producen diferencias falsas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El maestro dorado es útil cuando la función **no tiene** pruebas finas y se quiere refactorizar sin definir primero qué es correcto; las pruebas unitarias documentan la intención. ([SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md))
-- Traslada el análisis a otro dominio (por ejemplo, una función que calcula el precio de una reserva con descuentos): cambia la función y las dependencias y conserva el procedimiento de crear una costura, registrar un maestro dorado, medir cobertura y mutantes, normalizar la variación y decidir qué hacer con cada comportamiento sospechoso. ([SE-519](../../../classes/part-43-mantenimiento-y-modernizacion-legacy/se-519-pruebas-de-caracterizacion-y-seams/README.md))
+[SE-323](../../../classes/part-26-patrones-de-diseno-empresariales-y-de-resiliencia/se-323-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) lo limita: es útil cuando la función **no tiene** pruebas finas y se quiere refactorizar sin definir primero qué es correcto; las pruebas unitarias documentan la intención, y donde existen son preferibles. El maestro fija también los defectos actuales, así que no sirve para corregir comportamiento. Y solo ve lo que las entradas cubren: sin buena cobertura, da una falsa confianza.
 
 ## Relación con otros conceptos
 

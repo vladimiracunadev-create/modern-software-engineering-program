@@ -2,52 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Green Software Engineer](./green-software-engineer.md) · [Guarda →](./guarda.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Parte del tráfico que no recibe la falla y se mide a la vez que el grupo experimental.
+Un **grupo de control** es la parte del tráfico (o de la población) que no recibe la intervención y se mide a la vez que el grupo experimental, para tener un punto de comparación ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)). El programa usa el término con matices:
 
-Definición de trabajo de [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md): Grupo comparable que recibe el mismo tráfico sin la falla.
-- En [SE-601 — Ciclo de vida de ML y por qué falla en producción](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md): Parte de la población a la que no se le aplica la decisión, para medir su efecto.
-- En [SE-398 — Máquinas virtuales, contenedores y aislamiento](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md): Mecanismo del núcleo que reparte y limita el consumo de recursos de un conjunto de procesos.
+- En [SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) y [SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md) (ingeniería del caos): grupo comparable que recibe el mismo tráfico sin la falla.
+- En [SE-601](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md) (ML en producción): parte de la población a la que no se aplica la decisión, para medir su efecto.
+- En [SE-398](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-398-maquinas-virtuales-contenedores-y-aislamiento/README.md) (plataforma): *cgroup*, un mecanismo del núcleo que reparte y limita el consumo de recursos de un conjunto de procesos. Es un homónimo técnico sin relación con el diseño experimental.
 
 ## Por qué importa
 
-En [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md), el tema «Grupo de control» importa porque la comparación en la misma ejecución absorbe las variaciones comunes.
+Sin un grupo de control, una diferencia observada puede deberse a la intervención o a cualquier otra cosa que cambió en ese momento: la hora, el cierre de un plazo, un pico de tráfico. La decisión que cambia es cómo se concluye de un experimento: comparando contra un control contemporáneo, no contra una memoria de cómo era antes.
 
 ## Cómo funciona
 
-Según [SE-505 — Principios de la ingeniería del caos: estado estable e hipótesis](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md):
+[SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md) presenta el método de la ingeniería del caos en cuatro pasos: definir el estado estable como una salida medible que indica comportamiento normal; formular la hipótesis de que continuará en un grupo de control y en uno experimental; introducir variables que reflejen eventos reales; e intentar refutar la hipótesis buscando una diferencia entre ambos grupos. La falla solo se aplica al experimental; el control recibe el mismo tráfico sin falla.
 
-Un diseño **declara** resiliencia cuando dice que hay tiempos de espera, reintentos y cortacircuitos; una resiliencia **demostrada** es el comportamiento observado cuando alguien provocó la falla. La definición oficial describe la ingeniería del caos como la disciplina de experimentar sobre un sistema para ganar confianza en su capacidad de resistir condiciones turbulentas, y su método tiene cuatro pasos: definir el estado estable como una salida medible que indica comportamiento normal; formular la hipótesis de que continuará en un grupo de control y en uno experimental; introducir variables que reflejen eventos reales; e intentar refutar la hipótesis buscando una diferencia entre ambos grupos. Esta clase desarrolla los dos primeros pasos, que son los que casi nadie escribe;
+[SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md) muestra la arquitectura: un enrutador envía casi todo el tráfico a la flota normal y dos porciones pequeñas (de ejemplo, 2 %) a los grupos de control y experimental; un comparador mide a ambos, y un interruptor detiene el experimento si el experimental se degrada más que un límite. La razón del grupo contemporáneo es estadística: absorbe las variaciones comunes (hora, cierre de plazo) que una línea base de otra hora no absorbe. Por eso es la forma de medir sobre tráfico real.
 
-Según [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md):
-
-**Cómo leer la figura.** El tráfico real entra por un enrutador que envía casi todo a la flota normal y dos porciones pequeñas a los grupos de control y experimental; la falla solo se aplica al experimental; el comparador mide a ambos y el interruptor detiene el experimento si el experimental se degrada más que un límite. **Dónde deja de valer:** el dibujo es un esquema de ejemplo con proporciones ilustrativas (2 %) y no el diseño de ninguna plataforma real; su valor es mostrar el papel de cada pieza. La comparación con un control contemporáneo absorbe las variaciones comunes (hora, cierre de plazo) que una línea base de otra hora no absorbe, y por eso es la forma de medir sobre tráfico real.
+En [SE-601](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md), el control es la parte de la población a la que no se aplica la decisión de un modelo, y permite medir su efecto real.
 
 ## Ejemplo
 
-Ejemplo de [SE-601 — Ciclo de vida de ML y por qué falla en producción](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-601-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* revisa su sistema antes de ampliar el modelo a otra universidad. Dibuja el mapa de diez eslabones y asigna dueños: datos (equipo de plataforma), etiquetas (producto), características y entrenamiento (datos), registro y despliegue (ingeniería de plataforma), servicio y monitoreo (operaciones). Marca tres eslabones sin dueño claro: las etiquetas, el reentrenamiento y la decisión de retirar el modelo. Mide la regla con el mismo conjunto de evaluación y descubre que el modelo mejora al AUC en 0,096. Decide mantener el modelo, pero reservar un 5 % de los estudiantes sin recordatorio para medir el efecto y para reentrenar.
+Se inyecta latencia en el 2 % del tráfico (experimental) mientras otro 2 % (control) sigue sin falla. Si ambos suben su tasa de errores por un pico de entregas, la diferencia entre ellos sigue siendo cero; si solo sube la del experimental, la falla es la causa. Diseño de [SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md).
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El estado estable cambia con el día** — causa: línea base de un día excepcional. Corrección: medir en días comparables y preferir el grupo de control. ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md))
-- **Una divergencia pequeña no se ve** — causa: comparación con una línea base de otra hora. Corrección: grupo de control contemporáneo. ([SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md))
+- **El estado estable cambia con el día**: línea base de un día excepcional; se corrige midiendo en días comparables y prefiriendo el grupo de control ([SE-505](../../../classes/part-42-ingenieria-del-caos/se-505-principios-de-la-ingenieria-del-caos-estado-estable-e-hipotesis/README.md)).
+- **Una divergencia pequeña no se ve**: comparación con una línea base de otra hora; se corrige con un grupo de control contemporáneo ([SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md)).
+- **Control y experimental no comparables**: si los grupos se reparten con un sesgo, la comparación no vale.
+- **Confundirlo con el cgroup del núcleo**: homónimo sin relación.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Cómo leer la figura.** El tráfico real entra por un enrutador que envía casi todo a la flota normal y dos porciones pequeñas a los grupos de control y experimental; la falla solo se aplica al experimental; el comparador mide a ambos y el interruptor detiene el experimento si el experimental se degrada más que un límite. ([SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md))
+[SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md) advierte que el dibujo es un esquema de ejemplo con proporciones ilustrativas, no el diseño de una plataforma real. Con muy poco tráfico, los grupos pequeños no tienen potencia para detectar diferencias. Y en algunos sistemas no se puede reservar una parte de la población sin la decisión (por ejemplo, por razones éticas o legales), lo que limita el diseño con control.
 
 ## Relación con otros conceptos
 

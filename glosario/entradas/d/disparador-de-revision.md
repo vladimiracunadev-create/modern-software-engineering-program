@@ -2,47 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Disparador](./disparador.md) · [Dispersión →](./dispersion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 28](../../../classes/part-28-estilos-arquitectonicos/README.md)
 
 ## Definición
 
-Condición medible (métrica, umbral y duración) que reabre la decisión.
-
-Definición de trabajo de [SE-348 — Proyecto: decisión arquitectónica defendida con ADR](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md): Condición (un cambio, un incidente) que obliga a revisar el paquete.
+Un **disparador de revisión** es una condición medible (métrica, umbral y duración) que reabre una decisión ([SE-348](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md)). [SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md) lo usa en un sentido vecino: la condición (un cambio, un incidente) que obliga a revisar el paquete de evidencia de un sistema crítico. En ambos casos responde a la pregunta «¿qué tendría que pasar para que esta decisión deje de valer?».
 
 ## Por qué importa
 
-En [SE-348 — Proyecto: decisión arquitectónica defendida con ADR](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md), el tema «Disparador de revisión» importa porque hace que la decisión caduque.
+Una decisión de arquitectura se toma con la información de un momento. Sin disparador, solo se revisa cuando alguien se acuerda o cuando ya hay un problema. La decisión que cambia es tratar una decisión como válida hasta que una señal concreta diga lo contrario, y dejar esa señal escrita junto con la decisión, no en la memoria de alguien.
 
 ## Cómo funciona
 
-Según [SE-348 — Proyecto: decisión arquitectónica defendida con ADR](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md):
+En [SE-348](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md), el disparador es una de las siete secciones que debe tener un registro de decisión (contexto, decisión, alternativas consideradas, consecuencias, reversibilidad, disparador de revisión y evidencia). La clase define once criterios que un analizador puede comprobar; cuatro son propiedades de contenido, y una de ellas exige un disparador con un número. Aplicados a tres registros de ejemplo: el ADR-A (monolito modular con extracción del módulo de avisos si el p99 supera 200 ms) cumple 11 de 11; el ADR-B («Usar microservicios… porque son la mejor práctica») cumple 3 de 11 y no tiene ninguna alternativa, consecuencia negativa, número, reversibilidad, disparador ni evidencia.
 
-Se definieron once criterios que un analizador puede comprobar: siete secciones presentes (contexto, decisión, alternativas consideradas, consecuencias, reversibilidad, disparador de revisión y evidencia) y cuatro propiedades de contenido (al menos dos alternativas, cada una con su motivo de descarte; al menos una consecuencia negativa declarada; algún criterio medible, es decir, un número con su unidad; y un disparador de revisión con un número). Se aplicaron a tres registros de ejemplo. El ADR-A (monolito modular con extracción del módulo de avisos si el p99 supera 200 ms) cumplió 11 de 11. El ADR-B («Usar microservicios… porque son la mejor práctica») cumplió 3 de 11: tiene contexto, decisión y consecuencias, pero ninguna alternativa, ninguna consecuencia negativa, ningún número, reversibilidad, disparador ni evidencia.
+El mecanismo que lo hace útil es que **vuelve comprobable** la revisión: una métrica con umbral y duración se puede vigilar con una alerta, de modo que reabrir la decisión es un evento, no una iniciativa.
 
-Según [SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md):
-
-El paquete se actualiza con cada cambio de requisitos, diseño, entorno o uso, y con cada incidente. La integración continua ejecuta el comprobador y falla si hay huecos nuevos o evidencia obsoleta sin una decisión registrada. Los disparadores de revisión están escritos (un cambio de proveedor del sensor, una actualización de una biblioteca, un incidente). Un paquete que se hizo una vez para una auditoría es el equivalente del archivo de riesgos que nunca se actualizó (`SE-449`).
+[SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md) lo extiende a sistemas críticos: el paquete se actualiza con cada cambio de requisitos, diseño, entorno o uso, y con cada incidente; la integración continua ejecuta el comprobador y falla si hay huecos nuevos o evidencia obsoleta sin una decisión registrada. Los disparadores están escritos (un cambio de proveedor del sensor, una actualización de una biblioteca, un incidente).
 
 ## Ejemplo
 
-Ejemplo de [SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md) (sección «Preguntas frecuentes»):
-
-Con cada cambio de requisitos, diseño, entorno o uso, con cada incidente y cuando vence un disparador de revisión. La integración continua comprueba huecos y obsolescencia en cada cambio.
+Una decisión elige un monolito modular, y su disparador dice: «si el p99 del módulo de avisos supera 200 ms durante siete días, se estudia su extracción». Cuando la métrica cruza el umbral por ese tiempo, se reabre la decisión con los datos a la vista. Es el caso del ADR-A de [SE-348](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md).
 
 ## Errores y confusiones comunes
 
-Las clases no registran errores específicos de este término.
+- **Disparador sin número**: «si crece mucho» no es comprobable.
+- **Registro de decisión sin disparador**: la decisión se vuelve permanente por inercia.
+- **Escribirlo y no vigilarlo**: sin alerta ni revisión, la condición no dispara nada.
+- **Un paquete de evidencia hecho una vez para una auditoría**: equivale al archivo de riesgos que nunca se actualizó ([SE-449](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-449-dispositivos-medicos-iec-62304/README.md)).
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Con cada cambio de requisitos, diseño, entorno o uso, con cada incidente y cuando vence un disparador de revisión. ([SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md))
+El disparador reabre la decisión, no la cambia: alguien debe evaluar si la condición realmente invalida lo decidido. Un umbral mal elegido genera falsas revisiones o revisiones tardías. Los once criterios y los tres registros de [SE-348](../../../classes/part-28-estilos-arquitectonicos/se-348-proyecto-decision-arquitectonica-defendida-con-adr/README.md) son un ejercicio didáctico, no una norma. Para decisiones triviales y baratas de revertir, escribir un disparador es más costoso que la decisión.
 
 ## Relación con otros conceptos
 

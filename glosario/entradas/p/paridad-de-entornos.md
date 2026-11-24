@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Paridad](./paridad.md) · [Paridad demográfica →](./paridad-demografica.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** E — Diseño, arquitectura, datos e integración · **Primera aparición:** [Parte 33](../../../classes/part-33-cloud-plataforma-e-infraestructura/README.md)
 
 ## Definición
 
-Grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
-
-Definición de trabajo de [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md).
+La **paridad de entornos** es el grado en que los entornos (desarrollo, preproducción, producción) coinciden en forma, versiones y configuración que afecta al comportamiento ([SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)). La idea viene de la metodología de las doce factores. No es identidad: el tamaño, los datos y los secretos son distintos y deben serlo.
 
 ## Por qué importa
 
-En [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md), el tema «Paridad de entornos» importa porque un entorno que no se parece a producción no predice su comportamiento.
+Un entorno de preproducción que ya no se parece a producción da una falsa seguridad: pasa pruebas que producción no pasaría. La decisión que cambia es qué se mantiene igual a propósito y qué se deja diferir: se invierte en que lo que afecta al comportamiento coincida, para que lo que se prueba sea lo que se despliega.
 
 ## Cómo funciona
 
-Según [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md), en la sección «Paridad de entornos»:
+La metodología de las doce factores identifica tres brechas que la paridad intenta cerrar, y [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) las recoge:
 
-La metodología de las doce factores sostiene que los entornos deben parecerse en lo posible para evitar las brechas de tiempo (código que tarda semanas en llegar a producción), de personal (quien escribe no despliega) y de herramientas (una base distinta en desarrollo). Un entorno de preproducción que ya no se parece a producción da una falsa seguridad: pasa pruebas que producción no pasaría. La paridad no es identidad: el tamaño, los datos y los secretos son distintos y deben serlo; lo que debe coincidir es la forma, las versiones y la configuración que afecta al comportamiento.
+- **De tiempo**: el código tarda semanas en llegar a producción.
+- **De personal**: quien escribe el código no lo despliega.
+- **De herramientas**: se usa una base distinta en desarrollo que en producción.
+
+El criterio práctico es distinguir qué debe coincidir y qué no. Debe coincidir **la forma, las versiones y la configuración que afecta al comportamiento**. No debe coincidir el tamaño (preproducción puede ser más pequeña), los datos (no se copian datos reales de personas sin motivo) ni los secretos (cada entorno tiene los suyos).
+
+Los síntomas que da la clase muestran por qué importa y cómo se pierde. «Preproducción pasa y producción falla» ocurre cuando las configuraciones divergieron; la corrección es promoción periódica (llevar los cambios de configuración por la misma ruta a todos los entornos) y comparación semanal. «Un script de desarrollo afecta producción» ocurre cuando la frontera entre entornos es una convención (misma cuenta, prefijos en los nombres); se corrige con una cuenta por entorno con políticas heredadas. Ambas ideas se conectan con el radio de explosión y la separación de funciones.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md):
-
-El equipo de la plataforma crea tres cuentas, una por entorno, administradas desde una organización que fija políticas comunes: ningún usuario puede desactivar el registro, y los depósitos de producción deniegan el borrado masivo. Los cambios llegan a preproducción por promoción automática tras las pruebas y a producción solo con la aprobación de una persona que no escribió el cambio. Un proceso compara cada semana las 72 claves compartidas entre preproducción y producción y abre una incidencia con cada diferencia.
+Preproducción usa una versión menor de la base y una configuración de caché distinta de producción. Una consulta que pasa las pruebas allí falla en producción porque la versión de producción optimiza distinto. La comparación semanal de configuración habría mostrado la divergencia. Ejemplo ilustrativo del patrón de [SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md).
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son:
-
-- **Un script de desarrollo afecta producción** — causa: misma cuenta y prefijos como frontera. Corrección: una cuenta por entorno con políticas heredadas.
-- **Preproducción pasa y producción falla** — causa: configuraciones que divergieron. Corrección: promoción periódica y comparación semanal.
+- **Un script de desarrollo afecta producción**: misma cuenta y prefijos como frontera; se corrige con una cuenta por entorno.
+- **Preproducción pasa y producción falla**: configuraciones que divergieron; se corrige con promoción periódica y comparación semanal.
+- **Confundir paridad con copia exacta**: los datos y los secretos deben ser distintos.
+- **Mantenerla solo la primera vez**: la divergencia se acumula sin comprobación.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-403 — Entornos, cuentas y separación de responsabilidades](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md)) son: Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada norma usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna organización ni estructura real: los 24 recursos, el 5 % de acciones comodín, la frecuencia de edición manual, los 12 permisos y los 6 pares son supuestos del autor. La siguiente clase mira cuánta capacidad necesita cada entorno y cuánto cuesta: escalado, capacidad y costos.
+[SE-403](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-403-entornos-cuentas-y-separacion-de-responsabilidades/README.md) precisa que sus experimentos son sintéticos: los 24 recursos, el 5 % de acciones comodín, la frecuencia de edición manual, los 12 permisos y los 6 pares son supuestos del autor, y no se evaluó ninguna organización real. La paridad completa puede ser demasiado cara (replicar la capacidad de producción); se elige qué diferencias se aceptan y se documentan. Y no sustituye observar producción: algunas fallas solo ocurren con carga y datos reales.
 
 ## Relación con otros conceptos
 

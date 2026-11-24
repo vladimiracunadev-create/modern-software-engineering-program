@@ -5,6 +5,13 @@
 > numeración vigente cuando se escribió (antes del 2026-11-23). Los enlaces apuntan a la clase migrada. Para
 > traducir un identificador, consulta [`ID-MIGRATION.md`](docs/ID-MIGRATION.md) ([ADR-007](docs/adr/ADR-007-pedagogical-renumbering-and-new-parts.md)).
 
+## 2026-11-23 — Glosario: conceptos troncales y centrales de las familias F, G y H desarrollados
+
+- 31 conceptos troncales de las familias F (calidad, seguridad y entrega), G (operación, evolución y liderazgo) y H (ingeniería con IA) pasan de texto compuesto a entrada escrita a mano en `glosario/curado/`, y 52 conceptos de apoyo de las mismas familias, elegidos por centralidad (clases que los citan y enlaces entrantes);
+- cada entrada explica el mecanismo y la causa, trae un ejemplo, errores comunes y límites, y declara qué sentido usa el programa cuando el término tiene varios (por ejemplo defensa por profundidad, etiqueta, sonda o valor esperado);
+- el criterio de selección de los conceptos de apoyo queda documentado en `glosario/GUIDE.md`;
+- los conteos de entradas desarrolladas los calcula el generador; no se afirma revisión humana.
+
 ## 2026-11-23 — Ocho casos de éxito nuevos: Slack, Shopify, Instagram, Discord, Cloudflare, Dropbox, YouTube y Pix
 
 - casos nuevos en `casos/exito/` (de 8 a 16 de éxito), cada uno con su `scripts/figures_case_<slug>.py` (21 a 26 figuras que no repiten tablas), fuentes públicas verificadas y las etiquetas documentado, inferido y no se sabe: Slack (10-K y blog de ingeniería), Shopify (10-K y blog), Instagram (10-K de Facebook de 2012 y de Meta, prensa fechada y Engineering at Meta), Discord (blog; empresa privada sin cifras financieras), Cloudflare (10-K, prospecto y análisis de sus tres caídas), Dropbox (prospecto y 10-K) y YouTube (10-K de Alphabet y de Google, comunicado de 2006 y trabajos de Google Research), y Pix (informes y manuales del Banco Central do Brasil); YouTube y Pix quedan más acotados y lo declaran

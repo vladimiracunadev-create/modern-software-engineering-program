@@ -242,6 +242,14 @@ generados con [`scripts/build_pdf.py`](scripts/build_pdf.py), comprobados con [`
 publicados como activos de un release con sus sumas SHA-256 (no se guardan en git). La tabla vigente, la reproducción y los
 límites están en [`docs/PDF.md`](docs/PDF.md). No cambia los contadores ni el alcance del currículo.
 
+## Aplicaciones para Windows y Android
+
+El portal también se empaqueta para uso sin conexión: instalador, MSI, portable y ejecutable único de Windows, y APK de
+Android, construidos con [`scripts/build_apps.py`](scripts/build_apps.py), abiertos y contados con
+[`scripts/verify_apps.py`](scripts/verify_apps.py) y publicados como activos de un release con sumas SHA-256 por plataforma
+(no se guardan en git). Sin firma de código en Windows y con clave de depuración en Android; límites y verificación en
+[`docs/APPS.md`](docs/APPS.md). No cambia los contadores ni el alcance del currículo.
+
 ## Criterio de término del programa
 
 El programa no está terminado porque existan 612 posiciones o cualquier otra cifra. Está

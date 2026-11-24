@@ -611,6 +611,18 @@ def pdf_state() -> str:
             f"publicados como activos del release `{manifest['tag']}`, con sumas en `pdf/SHA256SUMS`; ver `docs/PDF.md`")
 
 
+def apps_state() -> str:
+    """Fila de STATUS sobre las apps, derivada de apps/manifest.json (los binarios viven en un release, no en git)."""
+    path = ROOT / "apps" / "manifest.json"
+    if not path.exists():
+        return "sin release de aplicaciones todavía; la construcción y la verificación están en `docs/APPS.md`"
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    kinds = [a["name"] for a in manifest["assets"] if not a["name"].startswith("SHA256SUMS")]
+    return (f"{len(kinds)} activos (instalador, MSI, portable y ejecutable de Windows; APK de Android) en el release "
+            f"`{manifest['tag']}`, verificados abriéndolos y contando 612 clases, 32 casos y el glosario; "
+            "sin firma de código ni clave de publicación; ver `docs/APPS.md`")
+
+
 def status_document(program: dict) -> str:
     glossary = build_glossary.summary()
     phase3 = program.get("phase_3_target", {"classes": 0})
@@ -658,6 +670,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Casos de estudio | {len(CASES)} casos ({count_of('exito')} de éxito y {count_of('fallo')} de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Glosario | {glossary['total']} conceptos ({glossary['troncal']} troncales y {glossary['apoyo']} de apoyo; el avance de las entradas desarrolladas a mano figura en `glosario/README.md`) con entrada propia en `glosario/` y en `site/glosario/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | PDF | {pdf_state()} |
+| Aplicaciones | {apps_state()} |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 

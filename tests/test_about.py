@@ -47,6 +47,7 @@ class AboutTest(unittest.TestCase):
         concepts = re.search(r"(\d+) conceptos", inventory).group(1)
         self.assertIn(f"glosario de {concepts} conceptos", text)
         self.assertIn("PDF", text)
+        self.assertIn("Windows/Android", text)
 
     def test_names_the_parts_still_in_preparation(self) -> None:
         catalog = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))

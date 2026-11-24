@@ -11,6 +11,7 @@ Uso::
     python scripts/build_apps.py android-prepare      # copia site/ a apps/android/www
     python scripts/build_apps.py android-collect      # renombra el APK compilado con Gradle
     python scripts/build_apps.py sums windows|android # SHA256SUMS-<plataforma>.txt
+    python scripts/build_apps.py manifest --dir D --commit C --date YYYY-MM-DD  # apps/manifest.json
 
 ``windows`` necesita Python con ``pyinstaller`` y ``pillow``; los instaladores, Inno Setup 6 y
 ``wix``. Cada paso termina con código distinto de 0 si no produce el fichero esperado. Abrir el
@@ -20,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -174,6 +176,23 @@ def write_sums(platform: str) -> Path:
     return target
 
 
+def write_manifest(directory: Path, commit: str, date: str) -> Path:
+    """Registra en git (sin binarios) qué activos tiene el release: nombre, tamaño y SHA-256."""
+    v = version()
+    assets = []
+    for path in sorted(directory.iterdir(), key=lambda p: p.name):
+        if path.suffix in (".exe", ".zip", ".msi", ".apk") or path.name.startswith("SHA256SUMS-"):
+            assets.append({"name": path.name, "bytes": path.stat().st_size, "sha256": sha256(path)})
+    if not assets:
+        raise SystemExit(f"no hay activos en {directory}")
+    manifest = {"version": v, "tag": f"v{v}", "date": date, "commit": commit, "assets": assets}
+    target = APP_DIR / "manifest.json"
+    target.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "
+", encoding="utf-8", newline="
+")
+    return target
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     sub = parser.add_subparsers(dest="command", required=True)
@@ -183,8 +202,14 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("android-collect")
     sums = sub.add_parser("sums")
     sums.add_argument("platform", choices=["windows", "android"])
+    man = sub.add_parser("manifest")
+    man.add_argument("--dir", type=Path, default=DIST)
+    man.add_argument("--commit", required=True)
+    man.add_argument("--date", required=True)
     args = parser.parse_args(argv)
-    if args.command == "windows":
+    if args.command == "manifest":
+        print(write_manifest(args.dir, args.commit, args.date))
+    elif args.command == "windows":
         for path in build_windows(args.installers):
             print(f"{path.name}  {path.stat().st_size} bytes")
     elif args.command == "android-prepare":

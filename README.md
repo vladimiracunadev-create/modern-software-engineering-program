@@ -1331,7 +1331,7 @@ fronteras y transiciones.
 
 ## 📦 Formatos disponibles
 
-Hay tres superficies oficiales:
+Hay cuatro superficies oficiales:
 
 - documentación navegable directamente en GitHub;
 - portal estático completo en GitHub Pages, con clases, partes, guías de rol, casos de estudio y glosario;
@@ -1348,9 +1348,18 @@ Edición del 2026-11-24 (commit `e6575e51`, release [`pdf-2026-11-24-e6575e51`](
 - 🏛️ [Casos de estudio](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_casos-de-estudio.pdf) (960 págs · 27.7 MB) · 📖 [Glosario](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_glosario.pdf) (3.938 págs · 63.6 MB) · 🧭 [Guías de rol](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_guias-de-rol.pdf) (453 págs · 17.8 MB).
 <!-- pdf-downloads:end -->
 
-No se anuncian como disponibles aplicación Android, seguimiento personal, certificación ni paquetes
-instalables. Los PDF no se guardan en git (por su tamaño) y no sustituyen al portal: son una vista offline
-del contenido publicado, sin revisión editorial humana independiente adicional.
+<!-- apps-downloads:start -->
+- **Aplicaciones sin conexión para Windows y Android**, que empaquetan el portal completo
+  (612 clases, 32 casos y glosario) y se comprueban abriéndolas y contando su contenido con
+  [`scripts/verify_apps.py`](scripts/verify_apps.py): instalador, MSI, portable y ejecutable único
+  de Windows, y APK de Android, con sumas SHA-256 por plataforma. Descarga, instalación, verificación y
+  límites en [`docs/APPS.md`](docs/APPS.md); pendiente de publicar el primer release.
+<!-- apps-downloads:end -->
+
+No se anuncian como disponibles seguimiento personal ni certificación. Los PDF y las aplicaciones no se
+guardan en git (por su tamaño) y no sustituyen al portal: son una vista offline del contenido publicado,
+sin revisión editorial humana independiente adicional. Las aplicaciones de Windows no llevan firma de
+código y el APK se firma con la clave de depuración, no con una de publicación.
 
 ## ✅ Calidad y CI
 

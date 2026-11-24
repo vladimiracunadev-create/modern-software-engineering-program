@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Costo de operar y mantener](./costo-de-operar-y-mantener.md) · [Costo de reversión →](./costo-de-reversion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Valor de la mejor alternativa a la que se renuncia al elegir una opción.
-
-Definición de trabajo de [SE-134 — Costos de construcción, operación y oportunidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md).
+El **costo de oportunidad** es el valor de la mejor alternativa a la que se renuncia al elegir una opción ([SE-134](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md)). No aparece en ninguna factura: no es un gasto sino lo que se deja de ganar. Cada opción elegida es una opción no elegida, y su costo es lo mejor de lo descartado.
 
 ## Por qué importa
 
-En [SE-134 — Costos de construcción, operación y oportunidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md), el tema «Costo de oportunidad» importa porque cada opción elegida es una opción no elegida; su valor es lo mejor a lo que se renunció.
+Hace visible lo que una evaluación de costos suele ocultar. Un proyecto con valor presente positivo puede ser una mala decisión si la alternativa vale más: las personas que construyen la primera versión no construyen otra cosa, y el capital invertido no rinde en otro uso. Cambia el criterio de aprobación: no basta que el proyecto gane dinero; debe ganar más que lo que se deja de hacer.
 
 ## Cómo funciona
 
-Según [SE-134 — Costos de construcción, operación y oportunidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md), en la sección «Costo de oportunidad»:
+[SE-134](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) sitúa el concepto junto al costo de construir. Para usarlo se **nombra la alternativa descartada** y se la **estima**, aunque sea con un rango. El método es comparar: se calcula el valor de la mejor alternativa realista (otro proyecto, otra inversión, o simplemente mantener la capacidad libre) y se compara con el de la opción elegida. La diferencia es el valor neto frente a la alternativa.
 
-No aparece en ninguna factura. Es el valor de la mejor alternativa a la que se renuncia: las personas que construyen la v1 no construyen otra cosa, y el capital invertido no rinde en otro uso. Se hace visible nombrando la alternativa descartada y estimándola, aunque sea con un rango. Un proyecto con valor presente positivo puede ser mala decisión si la alternativa vale más.
+Hay una regla de higiene importante: el costo de oportunidad solo importa para recursos **escasos**. Si el equipo tiene capacidad ociosa, hacer algo no cuesta oportunidad; si cada persona está asignada a algo de valor, cada decisión de asignar a alguien a un proyecto deja sin hacer otro. Por eso un portafolio de proyectos se evalúa como conjunto: el criterio relevante es qué hacer con una capacidad limitada.
+
+El costo de oportunidad se conecta con el costo de construir (el costo visible) y con el costo de propiedad (el de seguir): los tres son partes de una decisión completa. También con el coste del retraso: un trabajo que espera deja de generar valor y esa pérdida es un costo de oportunidad por unidad de tiempo.
 
 ## Ejemplo
 
-Caso medido en la sección «Costo de oportunidad» de [SE-134 — Costos de construcción, operación y oportunidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md):
-
-No aparece en ninguna factura. Es el valor de la mejor alternativa a la que se renuncia: las personas que construyen la v1 no construyen otra cosa, y el capital invertido no rinde en otro uso. Se hace visible nombrando la alternativa descartada y estimándola, aunque sea con un rango. Un proyecto con valor presente positivo puede ser mala decisión si la alternativa vale más.
+Un equipo de cuatro personas puede construir (A) un panel de seguimiento con valor presente estimado de 80 en un rango de 40 a 120, o (B) la recuperación de borradores con valor de 100 en un rango de 60 a 140. Elegir A no cuesta solo su inversión: cuesta también 100 de lo que B habría aportado. Si A vale 80 y B 100, A tiene valor presente positivo pero un costo de oportunidad mayor que su beneficio. (Cifras ilustrativas de unidades de valor.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-134 — Costos de construcción, operación y oportunidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md)) son:
-
-- **El presupuesto alcanza para construir y no para seguir** — causa: se aprobó solo la construcción. Corrección: aprobar un costo de propiedad a cinco años con intervalo.
-- **El plan «de 100 días» se retrasa casi siempre** — causa: se sumaron medianas. Corrección: prometer el percentil 80 del plan y declarar la correlación supuesta.
+- **Aprobar por valor presente positivo sin mirar alternativas.**
+- **Presupuesto que alcanza para construir y no para seguir**: se aprobó solo la construcción; corrección: aprobar un costo de propiedad a cinco años con intervalo.
+- **Contar el costo de oportunidad con capacidad ociosa.**
+- **Confundirlo con costo hundido**: el hundido ya se gastó; la oportunidad es lo que se deja de ganar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-134 — Costos de construcción, operación y oportunidad](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió el costo de ninguna plataforma real; los rangos, la lognormal, la correlación única y la tasa de descuento son supuestos del autor, y el modelo omite desmantelamiento, cambios de alcance y costo de capital propio. La siguiente clase pregunta qué distingue un resultado de una actividad.
+Estimar la mejor alternativa es difícil y tiene incertidumbre; se hace con rangos. Con una sola opción realista, el concepto aporta poco. No sustituye el análisis de riesgo: una alternativa más valiosa pero más arriesgada puede no ser mejor.
 
 ## Relación con otros conceptos
 

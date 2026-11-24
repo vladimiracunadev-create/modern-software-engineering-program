@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Análisis confirmatorio y exploratorio](./analisis-confirmatorio-y-exploratorio.md) · [Análisis de impacto →](./analisis-de-impacto.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Determinación de los elementos que un cambio obliga a revisar, a partir de las dependencias y los enlaces.
-
-Definición de trabajo de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md).
+El **análisis de alcance** determina los elementos que un cambio obliga a revisar, a partir de las dependencias y los enlaces entre artefactos ([SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)). No debe confundirse con definir el «alcance del proyecto» (qué entra y qué no): aquí el alcance es el conjunto de lo afectado por un cambio concreto. Es muy cercano al análisis de impacto, que [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md) y [SE-168](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md) formulan con el mismo mecanismo.
 
 ## Por qué importa
 
-En [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), el tema «Análisis de alcance» importa porque estima el costo y el riesgo de un cambio antes de aprobarlo.
+Estima el costo y el riesgo de un cambio antes de aprobarlo. Un cambio aparentemente pequeño en una especificación puede obligar a tocar media especificación; saberlo antes permite decidir con información. Sin análisis, el síntoma que [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) describe es un cambio «pequeño» que rompe media especificación porque nadie calculó el alcance.
 
 ## Cómo funciona
 
-Según [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), en la sección «Análisis de alcance»:
+El alcance de un cambio es el conjunto de elementos que habría que revisar: los **requisitos que dependen del modificado**, los **criterios y pruebas enlazados**, los módulos, la documentación y las obligaciones. Con el grafo de enlaces de [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md) se obtiene **recorriendo las dependencias hacia quienes dependen del cambiado**: se parte del elemento que cambia y se sigue cada arista hacia sus consumidores, de forma transitiva.
 
-El alcance de un cambio es el conjunto de elementos que habría que revisar: requisitos que dependen del modificado, criterios y pruebas enlazados, módulos, documentación y obligaciones. Con el grafo de `SE-151` se obtiene recorriendo las dependencias hacia quienes dependen del cambiado. Un cambio con alcance cero es un ajuste local; uno con muchos dependientes transitivos es una decisión de arquitectura de los requisitos y merece más cuidado.
+El tamaño del resultado informa la decisión. Un cambio con alcance cero es un ajuste local. Uno con muchos dependientes transitivos es una decisión de arquitectura de los requisitos y merece más cuidado: revisión específica, aviso a los dueños de lo afectado y, a menudo, una solicitud de cambio formal contra la línea base. [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) pide registrar el resultado en la solicitud de cambio, de modo que quien decide vea el alcance y quien revisa sepa qué mirar.
+
+El análisis es tan bueno como el grafo: si faltan enlaces, el alcance se subestima; si se enlazó todo con todo, se sobrestima. Por eso va de la mano de una granularidad de enlaces que responda a las preguntas reales.
 
 ## Ejemplo
 
-Caso medido en la sección «Análisis de alcance» de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md):
-
-El alcance de un cambio es el conjunto de elementos que habría que revisar: requisitos que dependen del modificado, criterios y pruebas enlazados, módulos, documentación y obligaciones. Con el grafo de `SE-151` se obtiene recorriendo las dependencias hacia quienes dependen del cambiado. Un cambio con alcance cero es un ajuste local; uno con muchos dependientes transitivos es una decisión de arquitectura de los requisitos y merece más cuidado.
+Cambiar el tope de penalización por entrega tardía. Recorriendo las dependencias: las pruebas de frontera de esa regla, el módulo de cálculo de la nota, las vistas que muestran el descuento al estudiante, al docente y a secretaría, y el texto de la política publicada. Esa lista es el alcance; con ella se estima el trabajo y se avisa a quienes mantienen cada pieza. Si el cambio solo toca un texto de ayuda sin dependientes, el alcance es cero. (Ilustración sobre el escenario de la plataforma.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)) son:
-
-- **Nadie sabe cuál era la versión acordada** — causa: no hay línea base identificada. Corrección: etiquetar cada versión acordada y registrar su hash normalizado.
-- **Un cambio «pequeño» rompe media especificación** — causa: no se calculó el alcance. Corrección: recorrer las dependencias antes de aprobar y registrar el resultado.
+- **Un cambio «pequeño» rompe media especificación**: no se calculó el alcance; corrección: recorrer las dependencias antes de aprobar y registrar el resultado.
+- **Nadie sabe cuál era la versión acordada**: sin línea base no hay contra qué calcular el cambio.
+- **Confundirlo con «alcance del proyecto».**
+- **Tratar la lista como lo que hay que modificar**: es lo que hay que revisar.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos y una demostración con `git` en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizó ningún proyecto real, los grafos y las llegadas son sintéticos y la normalización es una de varias posibles. La siguiente clase busca los defectos que los cambios parciales introducen: ambigüedad, contradicción e incompletitud.
+Solo ve dependencias enlazadas; las implícitas (datos compartidos, configuración) quedan fuera. El resultado es una cota superior, no una predicción. En un sistema pequeño con pocos artefactos, la revisión directa suele bastar.
 
 ## Relación con otros conceptos
 

@@ -2,42 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Capacidad](./capacidad.md) · [Capacidad opcional →](./capacidad-opcional.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
-
-Definición de trabajo de [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md).
+La **capacidad de mejora** es el tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)). Es un presupuesto, como la capacidad de entrega, pero aplicado a mejorar el proceso en lugar de producir producto.
 
 ## Por qué importa
 
-En [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md), el tema «Capacidad de mejora» importa porque limita cuántas acciones se terminan; acordar más solo acumula pendientes.
+Limita cuántas acciones de mejora se terminan, sin importar cuántas se acuerden. Mejorar el proceso compite con entregar producto: cada hora dedicada a una cosa no se dedica a la otra. Cambia lo que se hace en una retrospectiva: acordar menos acciones, pero terminarlas, en lugar de producir una lista larga que nadie cumple.
 
 ## Cómo funciona
 
-Según [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md), en la sección «Capacidad de mejora»:
+[SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) lo muestra con una cuenta simple: un equipo con **dos días de capacidad de mejora por sprint** termina, como máximo, unas ocho o nueve acciones de costo medio de dos días y medio en un trimestre (12 sprints × 2 días = 24 días; 24 / 2,5 ≈ 9,6 acciones, y menos si hay interrupciones), **sin importar cuántas acuerde**. Acordar más no acelera: crea un inventario de pendientes.
 
-Mejorar el proceso compite con entregar producto. Un equipo con dos días de capacidad de mejora por sprint termina como máximo unas ocho o nueve acciones de costo medio de dos días y medio en un trimestre, sin importar cuántas acuerde. Acordar más no acelera: crea un inventario de pendientes que erosiona la credibilidad de la retrospectiva («para qué proponer si no se hace»). La política sana es acordar tan pocas acciones como la capacidad permita terminar, y declarar el trabajo de mejora en el tablero, con el mismo límite de trabajo en curso que lo demás.
+Ese inventario tiene un costo propio: erosiona la credibilidad de la retrospectiva («¿para qué proponer si no se hace?»). La gente deja de proponer o de creer que algo cambiará. La política sana es **acordar tan pocas acciones como la capacidad permita terminar**, y declarar la capacidad. Es la misma lógica de un límite de trabajo en curso: una cola sin límite crece sin avanzar.
+
+La clase propone un fragmento de código que calcula cuántas acciones caben, y pide predecir cuántas acciones de 2,5 días de costo medio se terminan en 12 sprints con 2 días por sprint. La capacidad se complementa con un criterio de **evaluación**: cada acción se evalúa con una señal y un plazo fijado de antemano según el tamaño del efecto esperado; declarar fracaso a las dos semanas, con muestra insuficiente, es otro error que [SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) señala.
 
 ## Ejemplo
 
-Ejemplo de [SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula cuántas acciones caben en la capacidad de mejora. Antes de ejecutarlo, predice cuántas acciones de 2,5 días de costo medio se terminan en 12 sprints con 2 días por sprint.
+El equipo de la plataforma tiene 2 días de capacidad de mejora por sprint. En una retrospectiva surgen diez ideas. Con la cuenta anterior, caben unas nueve acciones en todo el trimestre; si el equipo acuerda las diez en un solo sprint, ocho quedarán pendientes tres meses. En cambio, acuerda una o dos, las termina y evalúa antes de añadir. (Cuenta ilustrativa basada en las cifras de [SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-190 — Retrospectivas y mejora del sistema de trabajo](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md)) son:
-
-- **Las acciones pendientes crecen cada sprint** — causa: se acuerdan más de las que caben. Corrección: limitar a la capacidad y evaluar antes de agregar.
-- **Se declara fracaso a las dos semanas** — causa: muestra insuficiente para detectar la mejora. Corrección: fijar de antemano el plazo de evaluación según el tamaño del efecto.
+- **Las acciones pendientes crecen cada sprint**: se acuerdan más de las que caben; corrección: limitar a la capacidad y evaluar antes de agregar.
+- **Declarar fracaso a las dos semanas**: muestra insuficiente; corrección: fijar de antemano el plazo de evaluación.
+- **No reservar tiempo**: la mejora «si sobra tiempo» nunca ocurre.
+- **Confundirla con la capacidad de entrega.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un equipo con dos días de capacidad de mejora por sprint termina como máximo unas ocho o nueve acciones de costo medio de dos días y medio en un trimestre, sin importar cuántas acuerde. ([SE-190](../../../classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md))
+La cuenta supone costos medios estables y capacidad constante; en la práctica ambos varían. No dice qué mejoras valen la pena, solo cuántas caben. En un equipo con deuda urgente, la capacidad puede ampliarse temporalmente, pero entonces debe declararse y acotarse.
 
 ## Relación con otros conceptos
 

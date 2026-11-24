@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Alternativa textual](./alternativa-textual.md) · [Alto riesgo →](./alto-riesgo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Todo lo que una persona usa o hace hoy para cumplir el trabajo, con o sin producto especializado, incluido no actuar.
-
-Definición de trabajo de [SE-126 — Segmentación, mercado y alternativas existentes](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md).
+Las **alternativas existentes** son todo lo que una persona usa o hace hoy para cumplir el trabajo que el producto quiere resolver, con o sin producto especializado, incluido no actuar ([SE-126](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md)). Es el concepto que el programa usa en lugar de «competidores»: la competencia real no se limita a productos parecidos.
 
 ## Por qué importa
 
-En [SE-126 — Segmentación, mercado y alternativas existentes](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md), el tema «Alternativas existentes» importa porque la competencia real incluye soluciones caseras, herramientas genéricas y no hacer nada.
+Cambia contra qué se compite y qué hueco se ataca. Un equipo que solo mira a productos similares ignora que su rival más fuerte puede ser una hoja de cálculo o el correo, y que muchas personas, sencillamente, aguantan. Si no se mapean las alternativas, no se sabe cuánto mejor debe ser el producto para que alguien cambie de hábito.
 
 ## Cómo funciona
 
-Según [SE-126 — Segmentación, mercado y alternativas existentes](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md), en la sección «Alternativas existentes»:
+[SE-126](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md) ilustra con el trabajo «comprobar que mi entrega llegó». Sus alternativas son el correo, una hoja de cálculo, un mensaje a un compañero, una captura de pantalla o confiar. Ninguna se anuncia como competidora y todas compiten. El método tiene tres pasos: listar las alternativas que las personas realmente usan (se aprende de entrevistas sobre episodios pasados, no de una lista de productos); mapear qué trabajos cubre cada una y en qué **contextos falla**; y buscar el hueco, es decir, la costura que el producto debe resolver.
 
-Ante el trabajo «comprobar que mi entrega llegó», las alternativas son el correo, una hoja de cálculo, un mensaje a un compañero, hacer una captura de pantalla o confiar. Ninguna se anuncia como competidora, y todas compiten. Cada una cubre ciertos trabajos y deja otros. Mapear qué cubre cada alternativa, y en qué contextos falla, revela dónde hay hueco y qué costura debe resolver el producto. «No hacer nada» entra en la lista con cobertura cero y con un coste: lo que hoy se pierde por no actuar.
+«No hacer nada» entra en la lista con cobertura cero y con un costo: lo que la persona pierde o soporta al no actuar. Es la alternativa más frecuente y la más difícil de superar, porque cambiar de hábito cuesta esfuerzo y el producto debe compensarlo. Cada alternativa tiene un costo de cambio que forma parte de la propuesta de valor: el progreso prometido debe notarse más que el esfuerzo de abandonar lo conocido.
+
+En el mapa de segmentos de la plataforma, cada segmento conserva sus alternativas con los trabajos que cubren, junto con el criterio de definición, los contextos, el tamaño como rango y el canal de acceso.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-126 — Segmentación, mercado y alternativas existentes](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md):
-
-En la plataforma de entregas, el mapa conserva por segmento: criterio de definición, trabajos, contextos, resultados insatisfechos, tamaño como rango con método y supuestos, canal de acceso y alternativas con los trabajos que cubren. El contrato es que ningún segmento se declare sin decir cómo se reconocería a una persona de él y que ninguna cifra de mercado se publique sin su rango.
+Segmento: docentes que revisan desde el móvil. Trabajo: ver quién entregó. Alternativas: abrir cada entrega una por una (cubre el trabajo, pero lento y con mala conexión), pedir un reenvío por correo (cubre parte, depende de terceros), una hoja que las estudiantes rellenan (cubre, pero se desactualiza). El hueco: una vista de una pantalla que cargue rápido con conexión débil. (Ilustración construida con el método de [SE-126](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-126 — Segmentación, mercado y alternativas existentes](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md)) son:
-
-- **Los «segmentos» cambian cuando se vuelve a ejecutar el análisis** — causa: el agrupamiento es inestable o depende de la semilla. Corrección: medir estabilidad entre semillas y submuestras y no usar el agrupamiento si es bajo.
-- **Los segmentos son estables pero nadie los reconoce** — causa: estabilidad sobre ruido o variables sin significado de negocio. Corrección: comparar con ruido y exigir que los grupos difieran en comportamiento o necesidad.
+- **Listar solo productos competidores.**
+- **Olvidar «no hacer nada»** y sus costos.
+- **Suponer que la alternativa es mala** porque es casera: si se usa, cubre algo.
+- **Mapear sin contextos**: una alternativa funciona en un contexto y falla en otro.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-126 — Segmentación, mercado y alternativas existentes](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se segmentó ningún mercado real, los rangos son supuestos y el agrupamiento se hizo en dos dimensiones. La siguiente clase convierte el segmento y la hipótesis más sensible en prototipos y experimentos que reduzcan la incertidumbre.
+El mapa depende de la calidad de las entrevistas; con pocas personas, es una hipótesis. En mercados nuevos, sin hábito previo, las alternativas pueden ser difusas. Y conocer las alternativas no dice por sí solo si el hueco es suficientemente grande: eso requiere tamaño de oportunidad.
 
 ## Relación con otros conceptos
 

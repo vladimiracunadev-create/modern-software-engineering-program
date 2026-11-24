@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Command](./command.md) · [Commit colgante →](./commit-colgante.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Commit que hace una cosa, deja el repositorio en un estado comprobable y puede revertirse sin arrastrar otra.
-
-Definición de trabajo de [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md).
+Un **commit atómico** hace una sola cosa, deja el repositorio en un estado comprobable (compila y pasa las pruebas) y puede revertirse sin arrastrar otra cosa ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)). No se mide en líneas: un renombre de cuarenta archivos puede ser atómico y una corrección de tres líneas que además cambia un formato no lo es.
 
 ## Por qué importa
 
-En [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md), el tema «Commits atómicos» importa porque un commit que mezcla cambios obliga a leer todo para entender uno.
+Un commit que mezcla cambios obliga a leer todo para entender uno. Con commits atómicos, cada paso de la historia cuenta una cosa, se revisa sin ruido, se revierte sin daño colateral y se localiza con una bisección. Cambia cómo se organiza el trabajo antes de publicarlo: se ordena y divide la historia para que sea legible.
 
 ## Cómo funciona
 
-Según [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md), en la sección «Commits atómicos»:
+[SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md) da tres criterios prácticos de uso: el commit debe poder **revertirse sin arrastrar otra cosa**, **revisarse sin leer lo ajeno** y **localizarse con una bisección**. Para eso se cumplen dos condiciones: una intención única (describible en una frase de resumen) y un estado consistente (compila y pasa las pruebas), de modo que cada punto de la historia sea comprobable.
 
-Un commit atómico hace una cosa, deja el repositorio en un estado que compila y pasa las pruebas y se puede describir en una frase. La atomicidad no es una cuestión de líneas: un renombre de cuarenta archivos puede ser atómico y una corrección de tres líneas que además cambia un formato no lo es. El criterio práctico es el uso: debe poder revertirse sin arrastrar otra cosa, revisarse sin leer lo ajeno y localizarse con una bisección.
+En la práctica se consigue dividiendo antes de publicar: `git add -p` permite elegir trozos de un archivo para cada commit, de manera que una refactorización, una corrección y un cambio de formato terminen en commits distintos. En la plataforma, cada cambio a `penal.py` va en un commit con una frase de resumen, un cuerpo que explica la regla de negocio afectada y un pie con el issue.
+
+La atomicidad es lo que hace funcionar la bisección: si el commit culpable mezcla varias intenciones, aunque se localice hay que leer cientos de líneas; y si un commit intermedio no compila, la bisección no puede señalar un solo cambio. De ahí la exigencia de que cada commit de una rama compile. La atomicidad también es la base de las comprobaciones de forma de un paquete ([SE-204](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-204-proyecto-contribucion-revisable-de-extremo-a-extremo/README.md)), que acotan archivos y líneas por commit como heurística de que hace una sola cosa.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md):
-
-En la plataforma, cada cambio a `penal.py` va en un commit con una frase de resumen, un cuerpo que explica la regla de negocio afectada y un pie con el issue. Una prueba corta (`pytest -q tests/test_penal.py`) se ejecuta con `git bisect run` cuando una nota sale mal. El equipo exige que cada commit de una rama compile, de modo que la bisección no deba omitir puntos.
+Un cambio mezcla (a) corregir el redondeo de la nota, (b) renombrar una variable y (c) reformatear el archivo. En un solo commit, revertir la corrección arrastra el renombre y el formato. En tres commits atómicos («fix: redondear al alza en el empate», «refactor: renombrar nota_base», «style: formatear penal.py»), cada uno se revisa, se revierte y se bisecta de forma independiente. (Ejemplo ilustrativo construido con el criterio de [SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)) son:
-
-- **La bisección no señala un solo commit** — causa: hay un commit que no compila junto al defecto. Corrección: reordenar la rama para que cada paso compile y repetir.
-- **Hay que leer cientos de líneas tras la bisección** — causa: el commit culpable mezcla varias intenciones. Corrección: dividir los commits con `git add -p` antes de publicarlos.
+- **La bisección no señala un solo commit**: hay un commit que no compila; corrección: reordenar la rama para que cada paso compile.
+- **Hay que leer cientos de líneas tras bisecar**: el culpable mezcla intenciones; corrección: dividir con `git add -p`.
+- **Confundir atómico con pequeño**: lo que cuenta es la intención única.
+- **Commit «WIP»** que se publica tal cual.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con repositorios temporales en Windows y Ubuntu (WSL2) con resultados idénticos. La prueba de bisección fue determinista, el remoto no tenía protección, las historias son de 64 cambios de dos líneas y no se midió a ninguna persona leyendo ni un repositorio real. La siguiente clase pregunta qué pasa cuando varias personas hacen commits a la vez en ramas distintas y cómo se integran.
+Reordenar la historia tiene un costo y solo es seguro sobre ramas propias no publicadas. En un prototipo desechable la atomicidad rinde poco. El criterio último es el uso: si el commit se puede revertir, revisar y localizar sin ayuda, es suficientemente atómico.
 
 ## Relación con otros conceptos
 

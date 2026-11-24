@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Conflicto de texto](./conflicto-de-texto.md) · [Conflicto textual →](./conflicto-textual.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
-
-Definición de trabajo de [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-584 — Multiagente y coordinación dentro del harness](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md): Cambios compatibles para la fusión e incompatibles para el programa.
-- En [SE-481 — Integración continua y feedback temprano](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md): Combinación de dos cambios que no choca en el texto y rompe una suposición compartida.
+Un **conflicto semántico** es una incompatibilidad entre dos cambios que se fusionan sin marcas de texto ([SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)). [SE-584](../../../classes/part-48-harness-y-agentic-engineering/se-584-multiagente-y-coordinacion-dentro-del-harness/README.md) lo dice como cambios compatibles para la fusión e incompatibles para el programa; [SE-481](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md) como la combinación de dos cambios que no choca en el texto y rompe una suposición compartida. Se opone al conflicto textual, que Git detecta y señala con marcas.
 
 ## Por qué importa
 
-En [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md), el tema «Conflictos semánticos» importa porque un cambio puede combinarse sin marcas y romper el sistema.
+Un cambio puede combinarse sin avisos y romper el sistema. Git compara texto, no significado; si ambos cambios tocan zonas distintas, la fusión es limpia aunque el resultado sea incorrecto. Cambia dónde se pone la defensa: no basta que cada rama pase sus pruebas; hay que probar la combinación.
 
 ## Cómo funciona
 
-Según [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md), en la sección «Conflictos semánticos»:
+[SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md) da el ejemplo clásico: uno cambia la firma de una función y otro añade una llamada con la firma vieja. Git no ve esto porque no entiende el programa. La clase lo reproduce con Git real: una rama invirtió el orden de los parámetros de `penalizar(nota, horas)` y actualizó `informe.py`; otra, partiendo de la versión anterior, añadió `panel.py` con la llamada de orden antiguo. La segunda fusión terminó con **código de salida 0** (sin conflicto de texto) y `panel.py` imprimió **42** en lugar de **60**.
 
-Dos cambios pueden fusionarse sin conflicto de texto y ser incompatibles: uno cambia la firma de una función y otro añade una llamada con la firma vieja. Git no ve esto porque no entiende el programa. La defensa es probar el resultado de la combinación antes de aceptar, no solo cada rama por separado: integración continua sobre el tronco y, con volumen alto, una cola de fusión que prueba cada cambio sobre el estado actual.
+La defensa es **probar el resultado de la combinación** antes de aceptar, no solo cada rama por separado: integración continua sobre el tronco y, con volumen alto, una **cola de fusión** que prueba cada cambio sobre el estado actual del tronco. Para estimar la frecuencia, la clase simula 500 PR con una proporción de solapamiento y una probabilidad de incompatibilidad, y presenta un mapa de calor: cuántas veces `main` queda roto crece con ambas proporciones. Ambas son supuestos del autor, pero el caso real prueba que el fenómeno existe.
 
-Según [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md), en la sección «Conflicto semántico»:
-
-En Git real, una rama invirtió el orden de los parámetros de `penalizar(nota, horas)` y actualizó `informe.py`; otra, desde la versión anterior, añadió `panel.py` con la llamada de orden antiguo. La segunda fusión terminó con **código de salida 0** (sin conflicto de texto) y `panel.py` imprimió **42** en lugar de **60**. Para estimar la frecuencia, se simularon 500 PR con una proporción de solapamiento y una probabilidad de incompatibilidad dada: con un 10 % de solapamiento, main se rompió 0,9 veces con una incompatibilidad del 2 %, 2,4 con el 5 % y 5,1 con el 10 %; con un 30 % de solapamiento, 3,0, 7,0 y 14,8 veces (media de 20 semillas).
-
-**Cómo leer la figura.** Es un mapa de calor: cada fila es una proporción de PR que tocan lo mismo que otro abierto, cada columna una probabilidad de incompatibilidad y el color de cada recuadro, las veces que main queda roto. Mira primero la esquina oscura, con 30 % de solapamiento y 10 % de incompatibilidad, y cómo el color crece en ambos sentidos. **Dónde deja de valer:** ambas proporciones son supuestos del autor; el caso real prueba que ocurre, no con qué frecuencia, y en un proyecto el solapamiento se mide con los PR abiertos al mismo tiempo, que depende de cuánto tardan en integrarse.
+La causa de fondo es que los cambios comparten **suposiciones implícitas** (una firma, un formato, un orden) que ningún archivo concreto declara. Cuanto más cambios simultáneos toquen lo mismo, más probable es el choque. Las ramas largas y las equipos grandes lo agravan.
 
 ## Ejemplo
 
-Caso medido en la sección «Conflicto semántico» de [SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md):
-
-En Git real, una rama invirtió el orden de los parámetros de `penalizar(nota, horas)` y actualizó `informe.py`; otra, desde la versión anterior, añadió `panel.py` con la llamada de orden antiguo. La segunda fusión terminó con **código de salida 0** (sin conflicto de texto) y `panel.py` imprimió **42** en lugar de **60**.
+Rama A: `penalizar(nota, horas)` pasa a `penalizar(horas, nota)` y se actualiza `informe.py`. Rama B, creada antes: añade `panel.py` que llama `penalizar(nota, horas)`. Ambas pasan sus pruebas por separado y la fusión no marca conflicto, pero el panel calcula con los argumentos invertidos. Solo las pruebas sobre la combinación (o una cola de fusión) lo detectan. (Caso de [SE-197](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)) son:
-
-- **Cada integración exige un día de resolver conflictos** — causa: las ramas viven semanas. Corrección: dividir el trabajo, acortar ramas e integrar a diario.
-- **Main queda roto tras dos PR verdes** — causa: no se probó la combinación. Corrección: probar el resultado de la fusión o usar una cola de fusión.
+- **Main queda roto tras dos PR verdes**: no se probó la combinación; corrección: probar el resultado de la fusión o usar una cola.
+- **Creer que «sin conflicto» significa «correcto».**
+- **Confundirlo con un conflicto textual**: este sí lo detecta Git.
+- **Ramas largas** que acumulan suposiciones divergentes.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-197 — Trunk-based, GitFlow y estrategias híbridas](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. Las personas, la zona caliente y los solapamientos son supuestos del autor, los conflictos se miden sobre texto y no se midió el costo de resolverlos, ni productividad, ni ningún equipo. La siguiente clase pregunta cómo se ata cada cambio de este flujo a su motivo.
+Las pruebas solo detectan lo que cubren; un conflicto semántico en una zona sin pruebas pasa. En equipos pequeños con pocas ramas simultáneas ocurre menos. Las proporciones de la simulación son del autor y no describen equipos reales.
 
 ## Relación con otros conceptos
 

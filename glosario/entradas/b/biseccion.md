@@ -2,47 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Bind mount](./bind-mount.md) · [Bit →](./bit.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Búsqueda binaria en el historial entre un commit bueno y uno malo para localizar el que introdujo un cambio.
-
-Definición de trabajo de [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-481 — Integración continua y feedback temprano](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md): Búsqueda binaria del primer cambio defectuoso dividiendo repetidamente un conjunto de cambios.
+La **bisección** es una búsqueda binaria en el historial entre un commit bueno y uno malo para localizar el cambio que introdujo un defecto ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)). [SE-481](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md) la generaliza: búsqueda binaria del primer cambio defectuoso dividiendo repetidamente un conjunto de cambios, algo que se aplica también a lotes de cambios integrados en una canalización. En Git la implementa `git bisect`.
 
 ## Por qué importa
 
-En [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md), el tema «Bisección» importa porque convierte un historial en una búsqueda con coste logarítmico si cada punto es comprobable.
+Convierte un historial en una búsqueda de coste logarítmico, siempre que cada punto sea comprobable. Sin bisección, encontrar cuándo se rompió algo exige leer commits uno a uno; con ella, mil commits se resuelven en unas diez pruebas. Cambia cómo se escriben los commits: si la historia se va a bisecar, cada commit debe poder probarse.
 
 ## Cómo funciona
 
-Según [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md), en la sección «Bisección»:
+Dado un commit bueno y uno malo, se prueba el del medio y se descarta la mitad según el resultado; se repite. Con N commits necesita unas log₂ N ejecuciones: 64 commits en 6 pasos y mil en 10 ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)). `git bisect run` automatiza el proceso con un programa que devuelve éxito o fallo, de modo que la búsqueda se hace sin intervención.
 
-`git bisect` hace una búsqueda binaria sobre el historial: dado un commit bueno y uno malo, prueba el del medio y descarta la mitad. Con N commits necesita unas log₂ N ejecuciones, de modo que 64 commits se resuelven en 6 y mil en 10. Funciona si cada punto se puede probar: un commit que no compila no es ni bueno ni malo y se omite (código 125 en `bisect run`), y si el defecto está junto a commits omitidos Git solo puede señalar un conjunto de candidatos.
+La técnica requiere dos condiciones. Primero, un **criterio de prueba determinista**: una comprobación corta (por ejemplo, un test concreto) que distinga bueno de malo. Segundo, que **cada punto sea comprobable**: un commit que no compila no es ni bueno ni malo y se omite (código 125 en `bisect run`). Si el defecto está junto a commits omitidos, Git solo puede señalar un conjunto de candidatos. De ahí la regla de la plataforma: cada commit de una rama debe compilar, para que la bisección no deba omitir puntos.
+
+Un segundo requisito es que el commit culpable sea legible. Si mezcla varias intenciones, aunque la bisección lo señale hay que leer cientos de líneas; por eso los commits atómicos y `git add -p` para dividirlos antes de publicar. En [SE-481](../../../classes/part-40-ci-cd-iac-y-platform-engineering/se-481-integracion-continua-y-feedback-temprano/README.md) el mismo principio se aplica a lotes: si una canalización integra varios cambios juntos y falla, se bisecan los lotes para aislar el culpable.
 
 ## Ejemplo
 
-Ejemplo de [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, cada cambio a `penal.py` va en un commit con una frase de resumen, un cuerpo que explica la regla de negocio afectada y un pie con el issue. Una prueba corta (`pytest -q tests/test_penal.py`) se ejecuta con `git bisect run` cuando una nota sale mal. El equipo exige que cada commit de una rama compile, de modo que la bisección no deba omitir puntos.
+En la plataforma, una nota sale mal tras una semana de cambios en `penal.py`. Se marca el commit de hace una semana como bueno y la punta como mala, y se ejecuta `git bisect run pytest -q tests/test_penal.py`. Tras unas seis ejecuciones sobre 64 commits, Git señala el commit que cambió el redondeo. Como ese commit hacía una sola cosa y traía una frase de resumen y el issue, se entiende de inmediato. (Ejemplo derivado de [SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La bisección no señala un solo commit** — causa: hay un commit que no compila junto al defecto. Corrección: reordenar la rama para que cada paso compile y repetir. ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md))
-- **Hay que leer cientos de líneas tras la bisección** — causa: el commit culpable mezcla varias intenciones. Corrección: dividir los commits con `git add -p` antes de publicarlos. ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md))
+- **La bisección no señala un solo commit**: hay un commit que no compila junto al defecto; corrección: reordenar la rama para que cada paso compile y repetir.
+- **Hay que leer cientos de líneas tras bisecar**: el commit culpable mezcla intenciones; corrección: dividir con `git add -p`.
+- **Usarla con un defecto intermitente**: la prueba no es determinista y la búsqueda se desvía.
+- **Marcar mal el commit «bueno».**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El criterio práctico es el uso: debe poder revertirse sin arrastrar otra cosa, revisarse sin leer lo ajeno y localizarse con una bisección. ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md))
-- La transferencia está lograda cuando puedes explicar qué parte de la bisección dependía de poder probar cada punto, no cuando los comandos se parecen. ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md))
+No sirve si no hay una prueba automatizable ni un punto bueno conocido, ni con historiales donde el defecto se introduce y corrige varias veces. Para defectos que dependen de la combinación de dos cambios, señala uno de ellos y puede engañar. La transferencia está lograda cuando se sabe qué dependía de poder probar cada punto, no solo de recordar los comandos.
 
 ## Relación con otros conceptos
 

@@ -2,42 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Dependencia directa y transitiva](./dependencia-directa-y-transitiva.md) · [Dependencia funcional →](./dependencia-funcional.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Dependencia cuya fecha y calidad controla alguien ajeno al equipo.
-
-Definición de trabajo de [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md).
+Una **dependencia externa** es una dependencia cuya fecha y calidad controla alguien ajeno al equipo ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)): la entrega de otro equipo, una aprobación, un proveedor. Se opone a la dependencia interna, que el equipo puede reordenar o acelerar.
 
 ## Por qué importa
 
-En [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), el tema «Dependencias externas» importa porque cada una añade una probabilidad de espera; con varias, esperar es lo normal.
+Cada dependencia externa añade una probabilidad de espera, y con varias, esperar es lo normal. Un plan que supone que todas llegan a tiempo es optimista por construcción. Cambia cómo se planifica: la espera se trata como el caso habitual y se diseña el trabajo para seguir avanzando mientras llega.
 
 ## Cómo funciona
 
-Según [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), en la sección «Dependencias externas»:
+[SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) da la cuenta: la probabilidad de que **todas** las dependencias lleguen a tiempo es el **producto** de las individuales. Con diez dependencias de 90 % de fiabilidad cada una, la probabilidad conjunta es 0,9¹⁰ ≈ 35 %. Por eso un plan con muchas dependencias externas casi siempre se retrasa en alguna.
 
-Una dependencia externa es un elemento que no controlas: la entrega de otro equipo, una aprobación, un proveedor. Cada una tiene su propia probabilidad de llegar tarde y un retraso cuando lo hace. La probabilidad de que todas lleguen a tiempo es el producto de las individuales; con diez dependencias de 90 % de fiabilidad, es 35 %. El plan debe tratar la espera como el caso normal: pedir fechas de aviso, tener trabajo útil que hacer mientras se espera y reducir el número de dependencias en el camino crítico.
+Dos prácticas lo mitigan. Primero, **pedir una fecha de aviso** a cada proveedor (cuándo sabrán si llegan tarde) y acordar una alternativa o un doble; la clase pide acordar con cada proveedor una fecha de aviso. Segundo, **tener trabajo útil que hacer mientras se espera**, dividiendo el trabajo para que avance sin la dependencia, con un contrato de interfaz acordado de antemano o un doble.
+
+En el análisis de la red, las dependencias externas que están en el **camino crítico** son las que más importan: un retraso allí retrasa la entrega. En el ejemplo de [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), el equipo de la plataforma dibuja la red de la entrega con 15 elementos propios y cuatro dependencias externas; calcula el camino crítico (10 días con medianas) y lo contrasta con la simulación, que da una media cercana a 14 y un percentil 85 cercano a 16: comunica «entre 12 y 16 días». De las cuatro externas, dos están en el camino crítico, y para cada una acuerdan una fecha de aviso.
 
 ## Ejemplo
 
-Ejemplo de [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) (sección «Ejemplo profesional»):
-
-El equipo de la plataforma de entregas dibuja la red de la entrega: 15 elementos propios y cuatro dependencias externas. Calcula el camino crítico (10 días con medianas) y lo contrasta con la simulación que, como en la red de ancho 3 de la clase, da una media cercana a 14 y un percentil 85 cercano a 16: comunica «entre 12 y 16 días». De las cuatro dependencias externas, dos están en el camino crítico; para cada una acuerdan una fecha de aviso y una alternativa (un doble para identidad hasta que llegue la real; un interruptor para notificaciones).
+Un plan necesita la API de calificaciones de secretaría, una aprobación legal y la nueva versión de una biblioteca. Con 90 %, 80 % y 95 % de probabilidad de llegar a tiempo, la probabilidad conjunta es 0,9 × 0,8 × 0,95 ≈ 68 %. Si además dos están en el camino crítico, el plazo prometido debe incluir ese riesgo. (Cifras ilustrativas con el cálculo de [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)) son:
-
-- **El plan cumple todas las fechas parciales y falla la final** — causa: se sumaron fechas de caminos paralelos. Corrección: simular la red y comunicar un rango.
-- **Siempre hay una dependencia «casi lista» que llega tarde** — causa: no se pidió fecha de aviso ni alternativa. Corrección: acordar con cada proveedor una fecha de aviso y un doble.
+- **El plan cumple las fechas parciales y falla la final**: se sumaron fechas de caminos paralelos; corrección: simular la red y comunicar un rango.
+- **Siempre hay una dependencia «casi lista» que llega tarde**: no se pidió fecha de aviso ni alternativa; corrección: acordar fecha de aviso y un doble.
+- **Suponer independencia entre dependencias** cuando comparten un proveedor.
+- **No tener trabajo alternativo mientras se espera.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una dependencia externa es un elemento que no controlas: la entrega de otro equipo, una aprobación, un proveedor. ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md))
+La cuenta supone independencia entre dependencias; si dos dependen del mismo proveedor, el riesgo se correlaciona. Las probabilidades individuales son estimaciones. Las dependencias externas contractuales (con penalizaciones) se gestionan de otro modo que las informales.
 
 ## Relación con otros conceptos
 

@@ -2,39 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Coste de una consulta](./coste-de-una-consulta.md) · [Coste hundido y compromiso →](./coste-hundido-y-compromiso.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Pérdida económica o de beneficio por unidad de tiempo en que un trabajo no está disponible; sirve para ordenar trabajos de distinta duración.
-
-Definición de trabajo de [SE-128 — Priorización por valor, riesgo y aprendizaje](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md).
+El **coste del retraso** (*cost of delay*) es la pérdida económica o de beneficio por unidad de tiempo en que un trabajo no está disponible; sirve para ordenar trabajos de distinta duración ([SE-128](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md)). Se expresa en valor por semana, por ejemplo, no como un total.
 
 ## Por qué importa
 
-En [SE-128 — Priorización por valor, riesgo y aprendizaje](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md), el tema «Coste del retraso» importa porque cuando el trabajo se secuencia, importa cuánto cuesta cada semana de espera y cuánto dura cada trabajo.
+Cambia cómo se ordena una cola de trabajo. Ordenar solo por «lo más valioso primero» parece razonable y no minimiza la pérdida total. [SE-128](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md) lo muestra: un trabajo muy valioso pero largo retrasa a todos los demás. Cuando el trabajo se secuencia, importan dos cosas a la vez: cuánto cuesta cada semana de espera y cuánto dura cada trabajo.
 
 ## Cómo funciona
 
-Según [SE-128 — Priorización por valor, riesgo y aprendizaje](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md), en la sección «Coste del retraso»:
+Si cuatro trabajos se hacen uno tras otro, cada semana que espera uno acumula su coste de retraso. El coste total depende del orden: un trabajo corto con coste de retraso alto conviene antes que uno largo con valor algo mayor, porque libera su valor pronto y retrasa poco a los demás. La regla que lo formaliza es **«trabajo más corto ponderado primero»** (WSJF, *weighted shortest job first*): ordenar por coste de retraso dividido entre duración. En el caso simple de trabajos independientes y sin dependencias, esta regla **minimiza el coste total**, resultado clásico de la teoría de planificación.
 
-Si cuatro trabajos se hacen uno tras otro, cada semana que espera uno acumula su coste de retraso. Ordenar por mayor valor no minimiza el total: un trabajo muy valioso pero largo retrasa a todos los demás. La regla de «trabajo más corto ponderado primero» (WSJF) ordena por coste de retraso dividido entre duración y, en el caso simple de trabajos independientes y sin dependencias, minimiza el coste total. Los costes de retraso reales son difíciles de estimar y las dependencias entre trabajos rompen la regla, de modo que sirve como criterio, no como algoritmo infalible.
+[SE-128](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md) insiste en dos cautelas. Primera, los costes de retraso reales son **difíciles de estimar** (hay que estimar el valor perdido por semana, que cambia con el tiempo y con la competencia), por lo que se trabajan como rangos y se evalúa si el orden resiste a perturbaciones. El registro de priorización de la plataforma guarda por ítem la regla aplicada, los valores de entrada con su fuente y fecha, quién los estimó, la puntuación base, la probabilidad de quedar entre los tres primeros bajo perturbación y el estado (construir, probar, esperar, descartar). Segunda, el orden se recalcula cuando se resuelve un experimento y ningún ítem sube sin que cambie una entrada o su fuente.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-128 — Priorización por valor, riesgo y aprendizaje](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md):
-
-En la plataforma de entregas, el registro de priorización conserva por cada ítem: identificador, regla aplicada, valores de entrada con su fuente y fecha, quién los estimó, puntuación base, probabilidad de top 3 bajo perturbación y estado (construir, probar, esperar, descartar). El contrato es que ningún ítem sube de puesto sin que cambie una entrada o su fuente, y que el orden se recalcula cuando se resuelve un experimento.
+Tres trabajos con (coste de retraso por semana, duración): A (10, 4 semanas), B (6, 1 semana), C (3, 1 semana). WSJF: A=2,5; B=6; C=3 → orden B, C, A. Coste total de espera: B espera 0, C espera 1 semana (3), A espera 2 semanas (20): 23. El orden «mayor valor primero» (A, B, C) da: B espera 4 (24) y C espera 5 (15): 39. (Aritmética ilustrativa del principio de [SE-128](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El equipo hace primero lo más valioso y todo lo demás se retrasa** — causa: no se consideró la duración ni el coste del retraso. Corrección: comparar con WSJF sobre las permutaciones relevantes y elegir el orden de menor coste total. ([SE-128](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md))
+- **Hacer primero lo más valioso y retrasar todo lo demás**: no se consideró la duración ni el coste del retraso; corrección: comparar con WSJF sobre las permutaciones relevantes y elegir el orden de menor coste total.
+- **Tratar una estimación como un hecho.**
+- **Ignorar las dependencias**: la regla supone trabajos independientes.
+- **Confundir coste del retraso con costo de oportunidad**: el primero es por unidad de tiempo de espera; el segundo, el valor de lo que se descarta.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-128 — Priorización por valor, riesgo y aprendizaje](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se priorizó un backlog real, la perturbación es independiente y el modelo de aprender antes usa parámetros ilustrativos. La siguiente clase revisa qué aprendizaje es éticamente aceptable y cómo proteger a quienes participan.
+WSJF solo es óptimo con trabajos independientes y costes de retraso constantes en el tiempo. Con fechas límite duras (un cumplimiento regulatorio), el coste cambia bruscamente y hay que modelarlo. Cuando las estimaciones son muy inciertas, una regla simple con rangos y pruebas de sensibilidad es más honesta que una puntuación precisa.
 
 ## Relación con otros conceptos
 

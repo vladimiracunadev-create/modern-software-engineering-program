@@ -2,50 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Coalescencia](./coalescencia.md) · [Cobertura combinatoria →](./cobertura-combinatoria.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Mutaciones detectadas sobre mutaciones inyectadas.
-
-Definición de trabajo de [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md): Fracción de los defectos reales que el revisor marca.
-- En [SE-185 — Estimación por tamaño, rango y evidencia histórica](../../../classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/README.md): Fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
+**Cobertura** designa en el programa una fracción de lo que se debía detectar o cubrir que realmente se detectó o cubrió. Tiene tres sentidos en esta serie: en [SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md) (pruebas de mutación y reglas), las mutaciones detectadas sobre las mutaciones inyectadas; en [SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) (revisión asistida por IA), la fracción de los defectos reales que el revisor marca (en inglés *recall*); en [SE-185](../../../classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/README.md) (estimación), la fracción de veces que un intervalo contiene el resultado real: un intervalo está calibrado si su cobertura es la anunciada. No es la cobertura de código (líneas o ramas ejecutadas).
 
 ## Por qué importa
 
-En [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md), el tema «Cobertura» importa porque dice qué familia ve cada regla.
+Dice cuánto de lo que importa se está viendo. Una suite o un revisor con mucha precisión y poca cobertura es fiable cuando habla, pero calla casi siempre. Cambia cómo se interpreta una alarma o una ausencia de alarma: la ausencia solo tranquiliza si la cobertura es alta.
 
 ## Cómo funciona
 
-Según [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md):
+[SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) lo explica con el compromiso entre precisión y cobertura. Un revisor automático emite una puntuación de sospecha por cambio y un umbral decide cuáles se marcan. La **precisión** es la fracción de lo marcado que era un defecto real; la **cobertura** (recall), la fracción de los defectos reales que se marcaron. **Subir el umbral sube la precisión y baja la cobertura**; bajarlo hace lo contrario. No existe un umbral correcto en abstracto: depende del costo de una falsa alarma (tiempo de lectura) frente al de un defecto que pasa.
 
-Un revisor automático emite una puntuación de sospecha por cambio y un umbral decide cuáles se marcan. Dos cantidades describen el resultado. La **precisión** es la fracción de lo marcado que era un defecto real; la **cobertura** (o recall), la fracción de los defectos reales que se marcaron. Subir el umbral sube la precisión y baja la cobertura; bajarlo hace lo contrario. No existe un umbral correcto en abstracto: depende del costo de una alarma falsa (tiempo de lectura y desgaste de la atención) frente al costo de un defecto omitido (un incidente en producción). Hay un efecto añadido: cuando la precisión cae, las personas aprenden a ignorar las alarmas, y entonces la cobertura efectiva del proceso se hunde por debajo de la del revisor.
+El ejemplo de la clase fija el umbral en 0,60 tras medir, en doscientos cambios etiquetados del año anterior, 58 % de precisión y 72 % de cobertura; la persona que revisa lee primero las alarmas y después el diff completo, y la aprobación nombra a quien responde. Eso muestra por qué la cobertura debe medirse: el 28 % restante son defectos que el revisor no marca y que la lectura humana debe encontrar.
 
-Según [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones define un procedimiento para los cambios asistidos. El revisor automático se fija con umbral 0,60 tras medir, en doscientos cambios etiquetados del año anterior, 58 % de precisión y 72 % de cobertura; la persona que revisa lee primero las alarmas y después el diff completo, y la aprobación nombra a quien responde. Para una refactorización de la agrupación por curso, el equipo exige una comparación diferencial con 5 000 entradas generadas con fronteras (cursos repetidos, nota 0,0, lista de un elemento, más de cinco notas por curso) y la ejecución de las pruebas de caracterización; el diff debe ser menor de 40 líneas y no incluir cambios de estilo.
+En el sentido de intervalos ([SE-185](../../../classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/README.md)), la cobertura se comprueba con retrospectiva: si el intervalo del 85 % contiene el resultado real el 85 % de las veces, está calibrado; si cubre el 60 %, el intervalo es demasiado estrecho. En el sentido de mutación ([SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md)), la cobertura dice qué familias de defectos ve cada regla.
 
 ## Ejemplo
 
-Ejemplo de [SE-559 — Revisión, refactorización y explicación asistidas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones define un procedimiento para los cambios asistidos. El revisor automático se fija con umbral 0,60 tras medir, en doscientos cambios etiquetados del año anterior, 58 % de precisión y 72 % de cobertura; la persona que revisa lee primero las alarmas y después el diff completo, y la aprobación nombra a quien responde.
+De cien defectos reales en una muestra de cambios, el revisor marca 72: cobertura del 72 %. De 124 cambios que marca, 72 eran defectos y 52 falsas alarmas: precisión del 58 %. Con el mismo revisor, bajar el umbral podría subir la cobertura al 85 % a cambio de 40 alarmas falsas más. (Cifras de [SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) completadas con una aritmética ilustrativa.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Se pierden defectos que el revisor sí podía marcar** — causa: umbral alto sin medir la cobertura. Corrección: elegir el umbral con costos explícitos. ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md))
+- **Confundir cobertura con precisión**: una dice cuántos defectos se encontraron; la otra, cuántas alarmas eran reales.
+- **Confundirla con cobertura de código**: ejecutar una línea no es detectar un defecto.
+- **Medir con datos que el revisor ya vio.**
+- **Hablar de cobertura sin decir de qué población.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una persona que ha visto cientos de alarmas inútiles tiende a ignorar el revisor, y entonces el umbral bajo ya no da cobertura. ([SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md))
+La cobertura depende de la muestra de defectos etiquetados, que puede no ser representativa. Los datos de [SE-559](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-559-revision-refactorizacion-y-explicacion-asistidas/README.md) son un escenario hipotético, construido para la clase. Una cobertura alta no sustituye la revisión humana en los cambios críticos.
 
 ## Relación con otros conceptos
 

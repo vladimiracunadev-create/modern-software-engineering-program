@@ -2,49 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Compromiso](./compromiso.md) · [Compromiso probabilístico →](./compromiso-probabilistico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Acuerdo de pagar por una cantidad de capacidad durante un periodo, se use o no.
-
-Definición de trabajo de [SE-140 — FinOps de producto y costo por resultado](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md): Acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
+Un **compromiso de capacidad** es un acuerdo de pagar por una cantidad de capacidad durante un periodo, se use o no ([SE-140](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md)). [SE-404](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md) lo formula como el acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor. En la nube corresponde a las instancias o planes reservados y a los compromisos de gasto.
 
 ## Por qué importa
 
-En [SE-140 — FinOps de producto y costo por resultado](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md), el tema «Compromiso de capacidad» importa porque comprometer ahorra con demanda estable y cuesta con demanda que cae.
-
-En [SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md), el tema «Compromiso de capacidad» importa porque una base reservada abarata lo constante.
+Cambia el costo de la parte estable de la demanda y expone a un riesgo si la demanda cae. Comprometer ahorra si la demanda se mantiene por encima de lo comprometido; cuesta si baja, porque se paga igual. Es una decisión de costos con incertidumbre, no una oferta que convenga aceptar por defecto.
 
 ## Cómo funciona
 
-Según [SE-140 — FinOps de producto y costo por resultado](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md), en la sección «Compromiso de capacidad»:
+El proveedor cobra menos por unidad a cambio de certeza: sabe que cierta cantidad se pagará. [SE-140](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md) lo describe como **una opción vendida al proveedor**: el cliente cede flexibilidad y obtiene un precio menor. Ahorra si la demanda se mantiene por encima de lo comprometido y cuesta si cae.
 
-Comprometer una cantidad de capacidad por un periodo da un precio unitario menor y se paga haya o no uso. Es una opción vendida al proveedor: ahorra si la demanda se mantiene por encima de lo comprometido y cuesta si cae. El nivel óptimo está cerca de la demanda esperada, y el riesgo se mide con el percentil alto del costo y con escenarios de caída persistente.
+El nivel que conviene comprometer está **cerca de la demanda esperada**; [SE-404](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md) afina: cerca de la **mediana** de la demanda, no del promedio ni del máximo, y precisa la lógica de asimetría: comprometer de más cuesta más que no comprometer, porque lo comprometido se paga siempre, mientras que lo que queda bajo demanda solo se paga si se usa. Se compromete la parte de la demanda que casi siempre está presente (la base) y el resto se deja bajo demanda. FinOps incluye esta optimización de tarifas como una de sus prácticas.
 
-Según [SE-404 — Escalado, capacidad y costos](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md), en la sección «Compromiso de capacidad»:
+El riesgo se mide, no se intuye: con el **percentil alto del costo** y con **escenarios de caída persistente** de la demanda. Si el compromiso es por tres años y la demanda cae a la mitad en el segundo, el ahorro unitario puede ser menor que el costo de la capacidad ociosa.
 
-Los proveedores ofrecen un precio menor por unidad si te comprometes a pagar una cantidad durante un plazo. Pagas lo comprometido lo uses o no, así que conviene comprometer la parte de la demanda que casi siempre está presente y dejar el resto bajo demanda. El nivel óptimo está cerca de la mediana de la demanda, no del promedio ni del máximo: comprometer de más cuesta más que no comprometer. FinOps incluye esta optimización de tarifas como práctica, y la acompaña de una advertencia: el patrón debe repetirse durante todo el plazo.
+Se complementa con el costo por resultado y la atribución del gasto: un compromiso compartido entre equipos exige una regla de reparto, y cada centro no debe pagar más que su costo solo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-140 — FinOps de producto y costo por resultado](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md):
-
-En la plataforma, `unit-cost.md` registra cada rubro de gasto con su tipo (fijo o variable), su atribución (producto, equipo o centro), la regla de reparto de lo compartido y el resultado al que se divide. El contrato es que todo gasto sin atribución figura en una lista con responsable y fecha, y que ninguna regla de reparto se adopta sin comprobar que ningún centro paga más que su costo solo. Esa estructura permite que un centro que reclama pueda ver cómo se calculó su cuota.
+Con cifras ilustrativas: la demanda diaria de cómputo fluctúa entre 40 y 100 unidades con mediana 60. El proveedor ofrece 30 % de descuento por comprometer. Comprometer 60 (la mediana) cubre la base casi siempre y el resto se paga bajo demanda; comprometer 100 (el máximo) paga 40 unidades ociosas la mayor parte del tiempo y puede costar más que no comprometer. Si la demanda cae a 45 de forma persistente, incluso el compromiso de 60 deja capacidad ociosa. (Valores de ejemplo para mostrar la lógica de [SE-140](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md) y [SE-404](../../../classes/part-33-cloud-plataforma-e-infraestructura/se-404-escalado-capacidad-y-costos/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El compromiso de capacidad cuesta más que no comprometer** — causa: la demanda cayó por debajo de lo comprometido. Corrección: comprometer por debajo del mínimo esperado y revisar cada trimestre. ([SE-140](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md))
+- **Comprometer el máximo** o el promedio en vez de la base estable.
+- **No simular una caída persistente**: el ahorro se convierte en pérdida.
+- **Olvidar que se paga se use o no.**
+- **Confundirlo con un descuento por volumen**: aquí hay plazo y obligación de pago.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-140 — FinOps de producto y costo por resultado](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ninguna factura ni precio real; la estructura de costos, la tasa de reintentos y la trayectoria de demanda son supuestos del autor en unidades ficticias. La siguiente clase pasa de cuánto cuesta cada iniciativa a cómo elegir un conjunto de ellas.
+Con demanda muy variable o incierta, no hay base estable que comprometer. Si la arquitectura puede cambiar de proveedor o de tipo de recurso, el compromiso limita esa libertad. Para proyectos de vida corta el plazo del compromiso puede superar la vida del proyecto.
 
 ## Relación con otros conceptos
 

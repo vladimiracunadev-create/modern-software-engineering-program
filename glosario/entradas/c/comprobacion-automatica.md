@@ -2,42 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Comprensión](./comprension.md) · [Comprobación de calidad →](./comprobacion-de-calidad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Verificación ejecutada por una máquina antes o durante la revisión humana.
-
-Definición de trabajo de [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md).
+Una **comprobación automática** es una verificación ejecutada por una máquina antes o durante la revisión humana ([SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md)). Incluye compilación, pruebas, análisis estático, formato, licencias y búsqueda de secretos. Se distingue de la revisión humana, que juzga el sentido del cambio.
 
 ## Por qué importa
 
-En [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md), el tema «Comprobaciones automáticas» importa porque liberan a la persona de lo que una máquina comprueba y dejan para ella el sentido.
+Libera a la persona de lo que una máquina comprueba y deja para ella el sentido: ¿es esta la regla correcta?, ¿se probó el caso límite? Una revisora que gasta su atención en señalar un espacio de más tiene menos para detectar una regla mal aplicada. Cambia el orden del proceso: las comprobaciones se ejecutan **antes** de pedir revisión humana.
 
 ## Cómo funciona
 
-Según [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md), en la sección «Comprobaciones automáticas»:
+El flujo de integración continua ejecuta las comprobaciones sobre cada cambio y devuelve un resultado objetivo. [SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) las ubica antes de la asignación de revisora: formato, pruebas, análisis estático y búsqueda de secretos. Si alguna falla, el autor corrige sin consumir tiempo ajeno.
 
-Compilación, pruebas, análisis estático, formato, licencias y secretos son comprobaciones que no necesitan a una persona. Deben ejecutarse antes de pedir una revisión humana, de modo que la lectura se dedique al sentido (¿es esta la regla correcta?, ¿se probó el caso límite?). Una comprobación automática detecta forma y no intención, y por eso no sustituye la lectura de los archivos de mayor riesgo.
+Su virtud es la repetibilidad: la máquina aplica la misma regla a todos los cambios, sin cansarse ni preferencias. Su límite es el que la clase destaca: **detecta forma y no intención**. Una comprobación puede asegurar que el código compila, que el formato es el acordado o que no hay secretos, pero no sabe si la regla de negocio está bien, si faltan casos o si la prueba verifica algo. Por eso no sustituye la lectura de los archivos de mayor riesgo.
+
+Las comprobaciones se combinan con el triaje por riesgo (qué leer primero) y con las comprobaciones de forma de un paquete (mensajes convencionales, commits atómicos, tamaño del PR): lo mecánico se automatiza; lo que exige juicio queda para la persona. Una comprobación que nadie hace cumplir se degrada en pocas semanas, por eso se ejecutan como requisito de integración y no como recomendación.
+
+En la plataforma de entregas, el CODEOWNERS añade como revisor obligatorio al equipo dueño de las migraciones cuando un PR toca `migraciones/`; es una comprobación automática de que la revisión correcta ocurre.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md):
-
-En la plataforma, la plantilla de PR pide qué cambia, por qué, cómo se probó y qué archivos merecen más atención. Un flujo de integración continua ejecuta formato, pruebas, análisis estático y búsqueda de secretos antes de asignar revisora. El CODEOWNERS, tema de `SE-199`, añade como revisor obligatorio al equipo dueño de las migraciones cuando un PR toca `migraciones/`. La revisora abre primero los archivos marcados como riesgo alto, lee la descripción y, tras las correcciones, usa `range-diff` para ver lo cambiado.
+Un PR cambia la fórmula de penalización. Las comprobaciones automáticas pasan: compila, las pruebas existentes pasan, el análisis estático no encuentra alertas y no hay secretos. Pero la regla de negocio nueva redondea mal en el empate y ninguna prueba cubre ese caso: lo detecta la revisora al leer el cambio, no la máquina. (Ilustración del límite que enseña [SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-196 — Pull requests y revisión basada en riesgo](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md)) son:
-
-- **Comentarios de estilo y defectos que se escapan** — causa: la lectura sigue el orden del diff. Corrección: ordenar por riesgo y automatizar el estilo.
-- **Hay que releer todo tras cada corrección** — causa: la rama se reescribió sin mostrar lo cambiado. Corrección: usar `range-diff` o commits de corrección.
+- **Comentarios de estilo y defectos que se escapan**: se revisa a mano lo que una máquina haría; corrección: automatizar el estilo.
+- **Creer que verde significa correcto.**
+- **Comprobaciones lentas o inestables** que la gente aprende a ignorar.
+- **Ejecutarlas después de la revisión**: la persona revisa un cambio que luego debe cambiar.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una comprobación automática detecta forma y no intención, y por eso no sustituye la lectura de los archivos de mayor riesgo. ([SE-196](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md))
+No detectan lo que no se escribió como regla ni la intención del cambio. En proyectos muy pequeños, mantenerlas cuesta más que el beneficio. Un conjunto de comprobaciones muy amplio puede dar falsa confianza si las pruebas son débiles.
 
 ## Relación con otros conceptos
 

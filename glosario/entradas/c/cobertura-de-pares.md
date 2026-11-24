@@ -2,52 +2,36 @@
 
 [↑ Glosario](../../README.md) · [← Cobertura de parejas](./cobertura-de-parejas.md) · [Cobertura de un nivel →](./cobertura-de-un-nivel.md)
 
-> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** métrica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Conjunto de combinaciones que incluye todos los pares de valores de dos factores.
-
-Definición de trabajo de [SE-176 — Responsive, adaptativo y preferencias del usuario](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md): Suite en la que cada combinación de valores de cada par de factores aparece al menos una vez.
-- En [SE-240 — Proyecto: aplicación web accesible y offline](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md): Propiedad de una suite en la que cada par de valores de dos factores aparece en al menos un caso.
-- En [SE-298 — Low-code, no-code y automatización visual](../../../classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual/README.md): Propiedad de un conjunto de pruebas en que cada pareja de factores aparece en todas sus combinaciones de valores.
+La **cobertura de pares** (*pairwise*) es la propiedad de un conjunto de pruebas en el que cada combinación de valores de cada par de factores aparece al menos una vez ([SE-176](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md), [SE-158](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md), [SE-240](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md), [SE-298](../../../classes/part-24-software-especializado-y-dominios/se-298-low-code-no-code-y-automatizacion-visual/README.md)). Es el caso t = 2 de la cobertura combinatoria. Es una métrica de una suite, no de código.
 
 ## Por qué importa
 
-La clase donde se define, [SE-176 — Responsive, adaptativo y preferencias del usuario](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md), existe con este propósito: la clase existe para que adaptes la interfaz a anchos de pantalla, preferencias del usuario y conexiones distintas con un plan de pruebas que cubra las combinaciones que importan, y para que midas qué fallos deja cada estrategia.
+Reduce el número de casos sin renunciar a casi nada de lo que importa. El producto completo de factores crece de forma multiplicativa; una tabla de ejemplos con 243 filas nadie la lee ni la ejecuta. Con pares se mantiene una suite pequeña que encuentra la mayoría de los defectos que dependen de una o dos condiciones.
 
 ## Cómo funciona
 
-Según [SE-176 — Responsive, adaptativo y preferencias del usuario](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md):
+Dados varios factores con sus valores, se construye un conjunto de filas tal que, para cualquier par de factores, todas las combinaciones de sus valores aparezcan en alguna fila. Un algoritmo voraz elige filas que cubran el mayor número de pares aún no cubiertos. [SE-176](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md) da un caso: cinco preferencias binarias de la interfaz (movimiento reducido, esquema oscuro, contraste más alto, colores forzados y zoom del 200 %) dan 32 combinaciones; los 40 pares (10 pares de factores × 4 valores) se cubren con solo 6 filas.
 
-Cinco preferencias binarias (movimiento reducido, esquema oscuro, contraste más alto, colores forzados y zoom del 200 %) dan 32 combinaciones. Un algoritmo voraz de cobertura de pares cubre los 40 pares (10 pares de preferencias × 4 valores) con 6 filas. Se inyectaron 60 defectos que se disparan con una, dos o tres preferencias a la vez (20, 28 y 12): las 32 combinaciones encuentran los 60, las 6 filas de pares 55 y 6 filas al azar, 50,4 de media en 200 sorteos. Los 5 que se escapan a los pares son defectos de tres preferencias.
-
-Según [SE-176 — Responsive, adaptativo y preferencias del usuario](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md):
-
-No siempre: 32 es asumible, 2^10 no. La cobertura de pares es un acuerdo económico que encuentra casi todo lo de uno o dos factores y deja lo de tres sin cubrir; decide según el riesgo del proceso.
+La clase mide qué pierde la reducción con una inyección de defectos: 60 defectos que se disparan con una, dos o tres preferencias a la vez (20, 28 y 12). Las 32 combinaciones encuentran los 60; las 6 filas de pares, 55; y 6 filas al azar, 50,4 de media en 200 sorteos. Los 5 defectos que los pares no encuentran son los que exigen tres factores a la vez. La conclusión: la cobertura de pares es un acuerdo económico que encuentra casi todo lo de uno o dos factores y deja lo de tres sin cubrir, y decide según el riesgo del proceso. Además, supera al azar con el mismo número de filas.
 
 ## Ejemplo
 
-Ejemplo de [SE-176 — Responsive, adaptativo y preferencias del usuario](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md) (sección «Preguntas frecuentes»):
-
-No siempre: 32 es asumible, 2^10 no. La cobertura de pares es un acuerdo económico que encuentra casi todo lo de uno o dos factores y deja lo de tres sin cubrir; decide según el riesgo del proceso.
+Con las cinco preferencias de [SE-176](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md), 6 filas bastan para cubrir todos los pares: en alguna fila aparece «esquema oscuro + zoom 200 %», en otra «contraste alto + colores forzados», etc. Si hay un defecto que solo aparece cuando están activas las tres a la vez (esquema oscuro, zoom y colores forzados), puede escapar; para esas combinaciones de riesgo se añaden casos a mano.
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La tabla de ejemplos tiene 243 filas y nadie la lee** — causa: producto completo de todos los factores. Corrección: reducir con cobertura de pares y añadir a mano las combinaciones de riesgo. ([SE-158](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md))
-- **La suite reducida pasa y una interacción real falla** — causa: cobertura de pares sin los casos de tres factores sospechosos. Corrección: añadir casos manuales y declarar la cobertura de triples. ([SE-240](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/README.md))
+- **Tabla de ejemplos de 243 filas que nadie lee**: producto completo de factores; corrección: reducir con cobertura de pares y añadir a mano las combinaciones de riesgo ([SE-158](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)).
+- **La suite reducida pasa y una interacción real falla**: la interacción involucra tres factores o más.
+- **Combinar valores inválidos** sin declarar restricciones.
+- **Creer que pares garantiza todo.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La cobertura de pares es un acuerdo económico que encuentra casi todo lo de uno o dos factores y deja lo de tres sin cubrir; decide según el riesgo del proceso. ([SE-176](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md))
+No cubre interacciones de tres o más factores, y los defectos de 3 factores del experimento (12 de 60) muestran que existen. 32 combinaciones se pueden probar enteras; 2¹⁰ no: la decisión depende del número de factores y del riesgo. Los defectos de la simulación son inyectados por el autor, de modo que las proporciones ilustran el mecanismo.
 
 ## Relación con otros conceptos
 

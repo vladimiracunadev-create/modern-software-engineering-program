@@ -2,42 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Contexto delimitado](./contexto-delimitado.md) · [Contingencia →](./contingencia.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Conjunto de condiciones físicas, sociales y técnicas en que ocurre un trabajo y que alteran su probabilidad de éxito.
-
-Definición de trabajo de [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md).
+En descubrimiento de producto, los **contextos** son el conjunto de condiciones físicas, sociales y técnicas en que ocurre un trabajo y que alteran su probabilidad de éxito ([SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md)). No son los «contextos delimitados» del diseño dirigido por el dominio, que son otro concepto; aquí se trata de la situación en que una persona intenta hacer algo.
 
 ## Por qué importa
 
-En [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md), el tema «Contextos» importa porque el mismo trabajo se cumple o fracasa según dispositivo, conexión, tiempo, ayuda disponible y consecuencias de equivocarse.
+El mismo trabajo se cumple o fracasa según dispositivo, conexión, tiempo, ayuda disponible y consecuencias de equivocarse. Un producto que funciona en el contexto del equipo de desarrollo puede fallar en el de quien lo usa. Cambia cómo se evalúa una mejora: una afirmación de que algo mejoró debe decir para qué contextos.
 
 ## Cómo funciona
 
-Según [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md), en la sección «Contextos»:
+[SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md) ejemplifica el contexto como lo que **no está en la pantalla**: una conexión que se corta, un teléfono compartido, la ayuda de un familiar, una fecha límite que cae un domingo, un lector de pantalla. Dos personas con el mismo trabajo y contextos distintos pueden necesitar productos distintos. Por eso la descripción de un trabajo se acompaña de una lista corta de contextos que cambian el resultado.
 
-El contexto incluye lo que no está en la pantalla: una conexión que se corta, un teléfono compartido, la ayuda de un familiar, una fecha límite que cae un domingo, un lector de pantalla. Dos personas con el mismo trabajo y contextos distintos pueden necesitar productos distintos. Por eso la descripción de un trabajo se acompaña de una lista corta de contextos que cambian el resultado, y cada afirmación sobre una mejora se acompaña de la pregunta «¿en qué contexto?». Un contexto raro puede ser el único donde el producto falla, y un promedio global lo oculta.
+La consecuencia metodológica es la **desagregación**. Si se decide con una métrica agregada, y las composiciones de contextos son distintas en cada opción, la opción «ganadora» puede empeorar la experiencia de un grupo específico. La corrección es desagregar por los contextos declarados y comparar con la misma mezcla (estandarizar) antes de decidir. [SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md) incluye un ejercicio con versión, comando y salida registrados, donde se añade un tercer contexto para comprobar si la inversión se mantiene: depende de cuántos intentos aporta cada plan a cada contexto, no solo de las tasas. Es el mismo mecanismo de la paradoja de Simpson.
+
+Esto afecta también a las personas-ficha: una «persona» de producto no puede ser el promedio de nadie; debe ser un caso concreto con un contexto reconocible, construido a partir de observaciones, y declarada como ilustración, no como estadística. Su función es comunicar un contexto concreto, no representar estadísticamente.
 
 ## Ejemplo
 
-Ejemplo de [SE-122 — Usuarios, actores, trabajos y contextos](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md) (sección «Ejemplo mínimo»):
-
-Registra versión, comando y salida. Si añades un tercer contexto, comprueba si la inversión persiste: depende de cuántos intentos aporta cada plan a cada contexto, no solo de las tasas.
+Trabajo: «confirmar que mi entrega llegó». Contexto A: escritorio con buena conexión; contexto B: móvil con conexión inestable. Una mejora que acelera la confirmación un 20 % en promedio puede mejorar A un 30 % y empeorar B un 5 %. Con el agregado se declara éxito; desagregado por contexto, se ve el daño a B. (Cifras ilustrativas del razonamiento de [SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La opción «ganadora» empeora la experiencia de un grupo específico** — causa: se decidió con la métrica agregada y composiciones distintas por opción. Corrección: desagregar por los contextos declarados y comparar con la misma mezcla (estandarizar) antes de decidir. ([SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md))
+- **La opción «ganadora» empeora a un grupo**: se decidió con la métrica agregada; corrección: desagregar y estandarizar la mezcla.
+- **Describir el trabajo sin contextos.**
+- **Persona-ficha como promedio.**
+- **Confundir contexto con segmento**: el contexto describe la situación; el segmento, a un grupo de personas.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Por eso una «persona» de producto no puede ser el promedio de nadie: debe ser un caso concreto con un contexto reconocible, construido a partir de observaciones, y debe declararse como ilustración, no como estadística. ([SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md))
-- No, pero su función es comunicar un contexto concreto, no representar estadísticamente. ([SE-122](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md))
+No se pueden enumerar todos los contextos posibles: se eligen los que cambian el resultado según evidencia. Con pocas observaciones, la lista de contextos es hipótesis. Y desagregar demasiado deja grupos tan pequeños que sus cifras no son fiables.
 
 ## Relación con otros conceptos
 

@@ -2,44 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Decisión con rangos](./decision-con-rangos.md) · [Decisión declarada →](./decision-declarada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Juicio explícito, con criterios de salida comprobables y defectos conocidos, sobre si se puede construir sobre la especificación.
-
-Definición de trabajo de [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-550 — ODD: desarrollo orgánico y su contraste con SDD](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md): Push, pull request o merge, separados de la implementación.
+La **decisión de entrega** es el juicio explícito, con criterios de salida comprobables y defectos conocidos, sobre si se puede construir sobre una especificación ([SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)). [SE-550](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md) usa el mismo término de otro modo, en el contexto de IA agéntica: la acción de empujar, abrir un pull request o fusionar, que se separa de la implementación y se decide aparte.
 
 ## Por qué importa
 
-En [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md), el tema «Decisión de entrega» importa porque define cuándo la especificación es lo bastante buena para construir sobre ella.
+Entregar una especificación es una decisión con riesgo, no un hito de calendario. Si se entrega por la fecha, quien construye hereda defectos sin saberlo. Con una decisión explícita, queda dicho qué se sabe que falta y quién responde. Cambia el momento de la responsabilidad: el equipo que especifica declara el estado real de su trabajo.
 
 ## Cómo funciona
 
-Según [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md), en la sección «Decisión de entrega»:
+[SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) pide criterios de salida **comprobables**:
 
-Entregar una especificación es una decisión con riesgo, no un hito de calendario. Los criterios de salida deben ser comprobables: el validador no produce errores, las mutaciones no detectadas están documentadas, las dos revisiones se hicieron con criterios distintos, los defectos abiertos tienen responsable y el defecto estimado restante es conocido con su incertidumbre. Lo que se entrega incluye lo que se sabe que falta.
+- el validador de estructura no produce errores;
+- las mutaciones que el validador no detecta están documentadas;
+- se hicieron dos revisiones con criterios distintos;
+- los defectos abiertos tienen responsable;
+- el defecto estimado restante es conocido, con su incertidumbre.
+
+La frase de la clase es que lo que se entrega **incluye lo que se sabe que falta**. Una especificación entregada no es «completa»; es suficiente para construir con el riesgo declarado. El expediente que acompaña a la entrega es el registro de revisión: encabezado, resultados de las comprobaciones, defectos abiertos y la decisión con responsable y fecha. La estimación de defectos restantes se apoya en la detección de defectos con técnicas distintas, y en lo que se sabe de la cobertura del validador (medida con mutaciones).
+
+En el sentido de [SE-550](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-550-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md), la decisión de entrega en desarrollo con agentes es la misma idea de separar el juicio del hacer: el agente puede implementar, pero empujar, abrir un PR o fusionar son acciones que se deciden aparte, con una persona responsable y criterios de salida.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md):
-
-El encabezado de la especificación entregada y el registro de revisión que la acompaña:
+El encabezado de una especificación entregada dice: «Versión 1.0. Validador: 0 errores. Mutaciones no detectadas: 3 (documentadas). Revisiones: 2 (una de contenido, una de consistencia). Defectos abiertos: 4 (con responsable). Estimación de defectos restantes: entre 2 y 7. Decisión: construir. Responsable: producto. Fecha: …». Quien construye sabe qué riesgo hereda. (Estructura ilustrativa derivada de los criterios de [SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)) son:
-
-- **La lectora tarda un día en entender qué falta** — causa: el expediente no responde sin su autor. Corrección: revisar el contenido contra la lista de elementos obligatorios.
-- **El validador pasa y la especificación tiene errores graves** — causa: solo comprueba estructura. Corrección: documentar su cobertura con mutaciones y completar con revisión humana.
+- **La lectora tarda un día en entender qué falta**: el expediente no responde sin su autor; corrección: revisar contra la lista de elementos obligatorios.
+- **El validador pasa y hay errores graves**: solo comprueba estructura.
+- **Decidir por el calendario.**
+- **Entregar sin defectos abiertos declarados**: «sin defectos» casi nunca es verdad.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-156 — Proyecto: especificación de requisitos revisable](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. La especificación base, las 16 mutaciones, los costos y las probabilidades de detección son supuestos del autor, la lista de palabras vagas es un ejemplo mínimo y no participó ninguna revisora real. La [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md) toma este expediente y estudia cómo expresarlo con mayor formalidad: especificaciones, contratos y modelos.
+Los criterios de salida y las estimaciones de defectos de [SE-156](../../../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) son supuestos del autor. Para especificaciones pequeñas o exploratorias, el expediente completo es excesivo. Una decisión explícita no elimina el riesgo; lo hace visible y asignado.
 
 ## Relación con otros conceptos
 

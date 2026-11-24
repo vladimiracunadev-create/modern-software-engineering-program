@@ -512,7 +512,7 @@ def validate_portal() -> None:
 def validate_workflows(strict: bool) -> None:
     workflows = sorted((ROOT / ".github/workflows").glob("*.yml"))
     names = {workflow.name for workflow in workflows}
-    expected = {"validate.yml", "pages.yml", "security.yml"}
+    expected = {"validate.yml", "pages.yml", "security.yml", "apps.yml"}
     if names != expected:
         raise AssertionError(f"Expected workflow set {sorted(expected)}, found {sorted(names)}")
     for workflow in workflows:
@@ -544,7 +544,11 @@ def validate_workflows(strict: bool) -> None:
 
 def validate_package_policy() -> None:
     forbidden = ("package-lock.json", "yarn.lock", "bun.lock", "bun.lockb")
-    found = [path.name for path in ROOT.rglob("*") if path.is_file() and path.name in forbidden]
+    # apps/android/package-lock.json es la excepción: fija el árbol npm del APK (npm ci); ver docs/APPS.md
+    allowed = {ROOT / "apps" / "android" / "package-lock.json"}
+    found = [path.name for path in ROOT.rglob("*")
+             if path.is_file() and path.name in forbidden and path not in allowed
+             and "node_modules" not in path.parts]
     if found:
         raise AssertionError(f"Unsupported package-manager files: {found}")
 

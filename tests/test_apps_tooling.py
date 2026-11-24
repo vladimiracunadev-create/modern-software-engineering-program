@@ -110,7 +110,7 @@ class VerifierTests(unittest.TestCase):
                 archive.writestr("AndroidManifest.xml", "<manifest/>")
                 archive.writestr("classes.dex", "dex")
             report = va.Report()
-            va.verify_apk(apk, {"expect": expectation(), "hashes": {}, "digest": ""}, report)
+            va.verify_apk(apk, {"expect": expectation(), "hashes": {}, "hashes_android": {}, "digest": ""}, report)
             self.assertTrue(report.failed)
             self.assertTrue(any("APK vacío" in r["detail"] for r in report.rows))
 

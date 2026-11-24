@@ -68,8 +68,10 @@ def expected_counts() -> dict:
     }
 
 
-def site_hashes() -> dict[str, str]:
-    return {p.relative_to(SITE).as_posix(): sha256_file(p) for p in sorted(SITE.rglob("*")) if p.is_file()}
+def site_hashes(ignore_dotfiles: bool = False) -> dict[str, str]:
+    """SHA-256 de cada fichero de site/. Android no empaqueta ficheros que empiezan por punto (``.nojekyll``)."""
+    return {p.relative_to(SITE).as_posix(): sha256_file(p) for p in sorted(SITE.rglob("*"))
+            if p.is_file() and not (ignore_dotfiles and p.name.startswith("."))}
 
 
 def find_site(base: Path) -> Path | None:
@@ -248,7 +250,7 @@ def verify_apk(path: Path, ctx: dict, report: Report) -> None:
         if not (site / "classes" / "SE-001.html").is_file():
             report.add(path.name, "portal dentro del APK", FAIL, "assets/public/classes/SE-001.html no existe (APK vacío)")
             return
-        problems = check_tree(site, ctx["expect"], ctx["hashes"], exact=False)
+        problems = check_tree(site, ctx["expect"], ctx["hashes_android"], exact=False)
         report.add(path.name, "612 clases, 32 casos, glosario y huella de site/", FAIL if problems else PASS, "; ".join(problems))
 
 
@@ -286,7 +288,8 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     main_module = load_main()
     digest, _ = main_module.tree_digest(SITE)
-    ctx = {"expect": expected_counts(), "hashes": site_hashes(), "digest": digest}
+    ctx = {"expect": expected_counts(), "hashes": site_hashes(),
+           "hashes_android": site_hashes(ignore_dotfiles=True), "digest": digest}
     report = Report()
     if len(ctx["expect"]["classes"]) != 612:
         report.add("repositorio", "clases en content/", FAIL, f"{len(ctx['expect']['classes'])}, se esperaban 612")

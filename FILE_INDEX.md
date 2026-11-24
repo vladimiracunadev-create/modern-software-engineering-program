@@ -13,7 +13,7 @@
 | Licencia de contenido | `LICENSE-CONTENT.md` | CC BY-NC-SA 4.0 |
 | Avisos e inventarios de propiedad intelectual | `NOTICE`, `*_LICENSES.md`, `THIRD_PARTY_NOTICES.md`, `TRADEMARKS.md` | 5 documentos |
 | Auditoría e historia de licencias | `LICENSING_AUDIT.md`, `docs/LICENSING_HISTORY.md` | 2 documentos |
-| Arquitectura de automatización | `docs/WORKFLOW-ARCHITECTURE.md` | 3 workflows |
+| Arquitectura de automatización | `docs/WORKFLOW-ARCHITECTURE.md` | 4 workflows |
 | Validador de licencias | `scripts/validate_licensing.py` | 1 |
 | Índices de parte | `classes/part-*/README.md` | 51 |
 | Materiales de clase | `classes/part-*/se-*/README.md` | 612 |

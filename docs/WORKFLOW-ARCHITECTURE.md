@@ -30,6 +30,7 @@ flowchart LR
 | [`validate.yml`](../.github/workflows/validate.yml) | push a `main`, pull request y ejecución manual | salidas generadas al día, contratos de las clases desarrolladas, pruebas, Markdown estructural, enlaces, UTF-8, portabilidad y políticas | que el contenido sea pedagógicamente profundo sólo porque compila |
 | [`security.yml`](../.github/workflows/security.yml) | push a `main`, pull request, lunes semanal y ejecución manual | árbol sin secretos detectados, scripts sin hallazgos Bandit medios/altos y sistema de licencias coherente | pentest, ausencia total de vulnerabilidades ni revisión jurídica |
 | [`pages.yml`](../.github/workflows/pages.yml) | cambios en fuentes publicables de `main` y ejecución manual | sitio regenerable, una página HTML por portada, parte y clase (586), enlaces válidos, artefacto y despliegue | disponibilidad permanente de GitHub Pages ni certificación del contenido |
+| [`apps.yml`](../.github/workflows/apps.yml) | ejecución manual y etiquetas `v*` que cambian `apps/` o sus scripts | las cuatro entregas de Windows y el APK de Android compilados desde `site/`, abiertos con `scripts/verify_apps.py` (612 clases, 32 casos, glosario y huella del portal) y con sus sumas SHA-256; los artefactos quedan en la ejecución, **no se publican solos** | que el instalador esté firmado, que el APK sirva para Google Play ni que la app funcione en todos los equipos y versiones de Android |
 
 ## Profundidad de `Validate`
 
@@ -96,7 +97,7 @@ están fijados por SHA; sólo el job de despliegue recibe `pages: write` e
 | Escaneo de secretos | `security.yml` / Gitleaks | Incorporado con versión fijada y verificación de checksum |
 | SAST Python | `security.yml` / Bandit | Incorporado con la misma versión y umbral medio/alto |
 | Release de PDF | `scripts/publish_pdf.py` (manual, no es un workflow) | Los PDF se generan y verifican en local con `build_pdf.py` y `verify_pdf.py` y se publican como activos de un release; ver [`PDF.md`](PDF.md). CI no los construye: requieren un navegador y ~1 h |
-| Release Android y web empaquetada | no existe equivalente | Excluido: el README declara que esos productos aún no existen |
+| Release de aplicaciones Windows y Android | `apps.yml`, `scripts/build_apps.py` y `scripts/verify_apps.py` | Incorporado con el mismo enfoque (Tkinter + PyInstaller, Inno Setup, WiX y Capacitor), sin firma de código ni clave de publicación; el release lo crea una persona con `gh release create`. Ver [`APPS.md`](APPS.md) |
 
 ## Ejecución local
 

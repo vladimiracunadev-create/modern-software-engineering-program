@@ -146,7 +146,8 @@ def android_prepare() -> int:
     www = ANDROID / "www"
     if www.exists():
         shutil.rmtree(www)
-    shutil.copytree(SITE, www)
+    # .nojekyll solo sirve a GitHub Pages, y Android descarta de todos modos los ficheros que empiezan por punto
+    shutil.copytree(SITE, www, ignore=shutil.ignore_patterns(".*"))
     count = sum(1 for p in www.rglob("*") if p.is_file())
     print(f"apps/android/www: {count} ficheros")
     return count

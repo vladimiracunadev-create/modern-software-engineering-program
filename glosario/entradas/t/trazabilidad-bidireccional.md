@@ -2,44 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Trazabilidad](./trazabilidad.md) · [Trazas comparables →](./trazas-comparables.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Capacidad de seguir un elemento hacia su origen y hacia su implementación y verificación.
-
-Definición de trabajo de [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md): Vínculos de peligros a requisitos a pruebas y de vuelta.
+La **trazabilidad bidireccional** es la capacidad de seguir un elemento hacia su origen y hacia su implementación y verificación ([SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md)). [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) la formula para sistemas con peligros: vínculos de peligros a requisitos a pruebas y de vuelta.
 
 ## Por qué importa
 
-En [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md), el tema «Trazabilidad bidireccional» importa porque permite saber por qué existe algo y qué cubre cada prueba.
+Permite saber por qué existe algo y qué cubre cada prueba. Una sola dirección deja puntos ciegos: sin la trazabilidad hacia atrás, hay trabajo que nadie pidió; sin la de adelante, hay promesas que nadie comprueba. Cambia lo que una auditoría o una revisión puede responder.
 
 ## Cómo funciona
 
-Según [SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md), en la sección «Trazabilidad bidireccional»:
+**Hacia atrás**, la trazabilidad responde «¿de dónde viene este requisito?»: necesidad, entrevista, norma. Detecta **requisitos sin origen** (trabajo que nadie pidió). **Hacia adelante** responde «¿qué lo implementa y cómo se verifica?»: diseño, código, prueba. Detecta **requisitos sin evidencia** (promesas que nadie comprueba). Ambas direcciones son necesarias.
 
-Hacia atrás, la trazabilidad responde «¿de dónde viene este requisito?»: necesidad, entrevista, norma. Hacia adelante, «¿qué lo implementa y cómo se verifica?»: diseño, código, prueba. Ambas direcciones son necesarias: la primera detecta requisitos sin origen (trabajo que nadie pidió); la segunda, requisitos sin evidencia (promesas que nadie comprueba). Gotel y Finkelstein muestran que el problema no es solo tener los enlaces sino mantenerlos cuando las personas y los documentos cambian.
+[SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) la cuantifica con un ejemplo: con 30 requisitos y 45 pruebas generados con semilla 47, **9 requisitos quedan sin ninguna prueba y 2 pruebas sin requisito**. Son hallazgos antes de que cualquier regulador los pregunte: los 9 son promesas sin comprobar, y las 2 son pruebas huérfanas, que quizá prueban algo que ya no se necesita. La clase añade que una trazabilidad que solo se construye al final suele fallar; la que se mantiene durante el desarrollo, con política de cambio, funciona.
+
+Para que no se vuelva una matriz muerta, [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md) propone poner una **etiqueta** en cada artefacto y verificar al integrar que los enlaces existen en ambas direcciones. Con una granularidad adecuada de enlaces (requisito–prueba–módulo, no línea de código), la matriz responde preguntas reales. Y se distingue el enlace de la evidencia: que la prueba esté enlazada no prueba que verifique el requisito.
+
+En el sentido de [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md), el recorrido incluye los **peligros**: de un peligro identificado se llega a los requisitos que lo mitigan y a las pruebas que lo verifican, y a la inversa, de una prueba se sube al requisito y al peligro que cubre.
 
 ## Ejemplo
 
-Caso medido en la sección «Trazabilidad: bidireccional y con política de cambio» de [SE-450 — Casos de seguridad y trazabilidad](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md):
-
-La trazabilidad hacia adelante responde «¿qué prueba verifica este requisito?» y hacia atrás «¿de qué requisito o peligro viene esta prueba?». Con 30 requisitos y 45 pruebas generados con semilla 47, 9 requisitos quedan sin ninguna prueba y 2 pruebas sin requisito: son hallazgos antes de que cualquier regulador los pregunte. Una trazabilidad que solo se construye al final suele fallar; una que se mantiene junto al código, con un comprobador en la integración continua, cuesta menos. La cobertura de enlaces mide que hay un enlace, no que la prueba compruebe el requisito: eso lo decide la revisión.
+Hacia adelante: REQ-12 («un PDF de 10 MB se acepta y uno de 10,1 MB se rechaza») → TST-31, TST-32. Hacia atrás: TST-33 → REQ-15 → entrevista E-04 con docentes. Un verificador al integrar lista: «REQ-19 sin prueba», «TST-40 sin requisito». Esos dos son los hallazgos que la trazabilidad bidireccional exige corregir. (Ilustración con la lógica de [SE-151](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md) y [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md)) son:
-
-- **Una auditoría tarda un día en encontrar una prueba** — causa: la matriz está en un documento que nadie actualiza. Corrección: poner la etiqueta en la prueba y verificarla al integrar.
-- **Casi todo cambio «afecta» a casi todo** — causa: se enlazó todo con todo. Corrección: reducir los enlaces a los que responden preguntas concretas.
+- **Auditoría que tarda un día en encontrar una prueba**: matriz en un documento que nadie actualiza.
+- **Casi todo cambio «afecta» a casi todo**: se enlazó todo con todo.
+- **Mantener una sola dirección.**
+- **Tomar el enlace por evidencia.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-151 — Trazabilidad desde necesidad hasta evidencia](../../../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizó ningún repositorio real, las tasas de deterioro son hipótesis y la traza cubre un módulo de juguete. La siguiente clase cruza la matriz con obligaciones externas: datos personales, seguridad y regulación.
+Mantener la trazabilidad cuesta; en proyectos pequeños o de bajo riesgo una versión ligera basta. Los números de [SE-450](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-450-casos-de-seguridad-y-trazabilidad/README.md) son de una simulación con semilla fija y muestran el tipo de hallazgo, no una tasa real.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Reformulación](./reformulacion.md) · [Refresco incremental →](./refresco-incremental.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Enunciado de actor, intención, obstáculo y consecuencia que no nombra la solución y se puede confirmar o refutar con observaciones.
-
-Definición de trabajo de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md).
+**Reformular como problema** es pasar de una petición a un enunciado de actor, intención, obstáculo y consecuencia que no nombra la solución y que se puede confirmar o refutar con observaciones ([SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)). Es el paso que sigue a descomponer la petición y a agrupar por necesidad.
 
 ## Por qué importa
 
-En [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md), el tema «Reformular como problema» importa porque el problema reformulado admite varias soluciones y puede contrastarse con observaciones.
+El problema reformulado admite varias soluciones y puede contrastarse con observaciones. Una petición como «necesito un panel» fija una solución y esconde el problema; reformularla abre alternativas y permite comprobar si el problema existe. Cambia la conversación con quien pide: de discutir la solución a acordar el problema.
 
 ## Cómo funciona
 
-Según [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md), en la sección «Reformular como problema»:
+[SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md) da el ejemplo: de «necesito un panel» se pasa a «los docentes tardan 40 minutos por entrega en saber quiénes no han entregado porque deben abrir cada archivo por separado, y por eso avisan tarde». El enunciado **mantiene el actor** (los docentes), **expresa el obstáculo** (abrir cada archivo por separado) y **la consecuencia** (avisan tarde), y **deja abiertas varias soluciones**: un panel, un correo automático, una lista exportable.
 
-La reformulación pasa de «necesito un panel» a «los docentes tardan 40 minutos por entrega en saber quiénes no han entregado porque deben abrir cada archivo por separado, y por eso avisan tarde». Mantiene el actor, expresa el obstáculo y la consecuencia y deja abiertas varias soluciones (un panel, un correo automático, una lista exportable). Se contrasta pidiendo a dos o tres docentes que cuenten la última vez que lo hicieron. Si no coinciden con el enunciado, el enunciado era una hipótesis, y se reescribe.
+El enunciado se **contrasta** pidiendo a dos o tres docentes que cuenten el último episodio y comprobando si el tiempo y el obstáculo aparecen. Para decidir si un enunciado está bien formado, se aplica la **rúbrica de investigabilidad**: actor reconocible, obstáculo observable, consecuencia y ausencia de solución embebida. Un script puede comprobar la forma, pero una segunda persona debe confirmar que el problema es real: un enunciado puede pasar el linter y no reconocerse como real.
+
+Dos reglas del archivo de trabajo: la **petición original no se sobrescribe**, y el problema reformulado indica **qué observación lo confirmaría**. Así queda claro qué dato haría cambiar de idea. La reformulación se relaciona con las necesidades («necesito… para…»), pero es más específica: incluye el obstáculo y la consecuencia observados.
 
 ## Ejemplo
 
-Caso medido en la sección «Reformular como problema» de [SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md):
-
-La reformulación pasa de «necesito un panel» a «los docentes tardan 40 minutos por entrega en saber quiénes no han entregado porque deben abrir cada archivo por separado, y por eso avisan tarde». Mantiene el actor, expresa el obstáculo y la consecuencia y deja abiertas varias soluciones (un panel, un correo automático, una lista exportable). Se contrasta pidiendo a dos o tres docentes que cuenten la última vez que lo hicieron. Si no coinciden con el enunciado, el enunciado era una hipótesis, y se reescribe.
+Petición: «Necesito un panel para ver quién no entregó». Problema reformulado: «Los docentes tardan unos 40 minutos por lote en saber quiénes no han entregado, porque abren cada archivo por separado, y por eso reclaman tarde». Observación que lo confirmaría: tiempos medidos o relatados por dos o tres docentes sobre su último lote. Soluciones abiertas: panel, correo automático, lista exportable. (Caso de [SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son:
-
-- **Los docentes dicen «sí» a todo y el panel no se usa** — causa: las preguntas eran guiadas o hipotéticas. Corrección: preguntar por episodios pasados concretos y revisar la guía con una segunda persona.
-- **El backlog crece con peticiones que parecen distintas y resultan iguales** — causa: no se agruparon por necesidad. Corrección: agrupar por necesidad con criterio explícito y contar necesidades, no peticiones.
+- **«Sí» a todo y el panel no se usa**: preguntas guiadas o hipotéticas; corrección: preguntar por episodios pasados.
+- **Backlog con peticiones distintas que son iguales**: no se agruparon por necesidad.
+- **Enunciado con solución disfrazada** («falta un botón…»).
+- **No indicar qué observación lo confirmaría.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-131 — Taller: convertir una petición en un problema investigable](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con peticiones, preguntas y enunciados sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. Las etiquetas son de una sola persona, las reglas se afinaron con pocos ejemplos y las pruebas con casos nuevos son de seis y tres elementos. El proyecto final reúne todo en un brief respaldado por evidencia.
+Un buen enunciado no prueba que el problema merezca resolverse; eso depende de su tamaño. Los experimentos de [SE-131](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md) usan peticiones sintéticas y una sola persona etiquetó, de modo que el método es ilustrativo. Para peticiones triviales y reversibles, el rodeo no se justifica.
 
 ## Relación con otros conceptos
 

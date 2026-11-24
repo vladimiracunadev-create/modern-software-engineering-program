@@ -2,44 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Túnel](./tunel.md) · [ULP →](../u/ulp.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 17](../../../classes/part-17-documentacion-y-conocimiento-tecnico/README.md)
 
 ## Definición
 
-Página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
-
-Definición de trabajo de [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md).
+Un **tutorial** es, en [SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), una página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar. Es uno de los cuatro tipos de documentación (tutorial, guía práctica, referencia, explicación) y el orientado al aprendizaje.
 
 ## Por qué importa
 
-En [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), el tema «Tutorial» importa porque lleva a quien aprende a un éxito garantizado; no debe explicar ni ramificar.
+Lleva a quien aprende a un éxito garantizado; no debe explicar ni ramificar. Su propósito es dar confianza a una persona principiante: si falla o se llena de opciones, la persona cree que el error es suyo. Cambia cómo se escribe: no es un resumen del sistema sino una lección con un camino único.
 
 ## Cómo funciona
 
-Según [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md), en la sección «Tutorial»:
+Un tutorial es **una lección**: quien lo escribe asume la responsabilidad de que quien lo sigue **llegue a un resultado y gane confianza**. De ahí sus reglas. Los pasos son **pocos, concretos y verificables**; cada uno **muestra lo que se debe ver** («verás un mensaje de confirmación»). **Nada ramifica**: «si usas otra versión, haz esto» pertenece a otra página. **No explica por qué** las cosas son así; a lo sumo dice «ahora verás» y da una frase de contexto, y enlaza a una explicación para quien quiera saber más.
 
-Un tutorial es una lección: quien la escribe asume la responsabilidad de que quien la sigue llegue a un resultado y gane confianza. Por eso los pasos son pocos, concretos y verificables, cada uno muestra lo que se debe ver, y nada ramifica: «si usas otra versión, haz esto» pertenece a otra página. No explica por qué las cosas son así; a lo sumo dice «ahora verás» y da una frase de contexto que lo enlaza a la explicación. Un tutorial se rompe en silencio cuando el entorno cambia y deja a quien aprende creyendo que el error es suyo, de modo que el tutorial es el tipo que más gana si se ejecuta en cada cambio.
+En la plataforma, el tutorial «Tu primera entrega con retraso» lleva a una persona nueva a hacer una entrega tardía y ver el descuento aplicado. Se distingue de la guía práctica, que supone competencia previa y admite bifurcaciones.
+
+El riesgo que [SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md) destaca: **un tutorial se rompe en silencio cuando el entorno cambia** y deja a quien aprende creyendo que el error es suyo. Por eso es el tipo que **más gana si se ejecuta en cada cambio**: un script ejecuta los pasos contra la biblioteca o el sistema y reporta cuáles pasan. El fragmento de la clase ejecuta los pasos de un tutorial y pide predecir qué pasos fallan si se renombra `entregar` a `enviar`. Tres fallos y sus correcciones: notas avanzadas a mitad de los pasos (se mueven a una explicación con un enlace de una línea), tutorial que funciona en la máquina de quien lo escribió y no en otra (depende de un estado previo no declarado: se ejecuta desde un entorno limpio en integración continua) y explicación que nadie encuentra (se enlaza desde el tutorial, la guía y la referencia).
 
 ## Ejemplo
 
-Ejemplo de [SE-206 — Tutoriales, how-to, referencia y explicación](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento ejecuta los pasos de un tutorial contra una biblioteca y reporta cuáles pasan. Antes de ejecutarlo, predice qué pasos fallan si renombras `entregar` a `enviar`.
+Paso 3 del tutorial: «Ejecuta `entregar --archivo mi-tarea.pdf --tarde`. Verás: `Entrega recibida. Descuento: 10 %`». Si tras renombrar el comando a `enviar` el paso falla, la integración continua lo detecta y el tutorial se corrige antes de que alguien lo siga. (Ejemplo ilustrativo del mecanismo de [SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El tutorial tiene una sección «Notas avanzadas» a mitad de los pasos** — causa: se mezcló explicación con guía de aprendizaje. Corrección: mover las notas a una explicación y dejar un enlace de una línea. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- **El tutorial funciona en la máquina de quien lo escribió y no en otra** — causa: depende de un estado previo no declarado. Corrección: ejecutarlo desde un entorno limpio en la integración continua. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- **Hay explicación pero nadie la encuentra** — causa: no está enlazada desde ninguna página de acción. Corrección: enlazar la explicación desde el tutorial, la guía y la referencia. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
+- **Mezclar explicación con aprendizaje** («Notas avanzadas» a mitad).
+- **Depender de un estado previo no declarado.**
+- **Ramificar** según versiones o preferencias.
+- **No ejecutarlo nunca**: se rompe en silencio.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un tutorial se rompe en silencio cuando el entorno cambia y deja a quien aprende creyendo que el error es suyo, de modo que el tutorial es el tipo que más gana si se ejecuta en cada cambio. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
-- **un tutorial que deja de funcionar sin que nadie lo sepa**. ([SE-206](../../../classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion/README.md))
+No sirve a quien ya sabe y busca resolver una tarea (necesita una guía práctica) ni a quien quiere entender las razones (necesita una explicación). Un tutorial largo pierde a quien aprende; se divide en lecciones. Su mantenimiento tiene costo, que se reduce al automatizar su ejecución.
 
 ## Relación con otros conceptos
 

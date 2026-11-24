@@ -2,44 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Promoción](./promocion.md) · [Propagación →](./propagacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Distribución del resultado obtenida repitiendo muchas veces un modelo del proceso con datos extraídos de la historia.
-
-Definición de trabajo de [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-533 — Estimación organizacional y compromisos](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md): Estimación de la distribución de plazos remuestreando un historial de entrega.
+El **pronóstico por simulación** es la distribución del resultado obtenida repitiendo muchas veces un modelo del proceso con datos extraídos de la historia ([SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)). [SE-533](../../../classes/part-44-gestion-liderazgo-y-practica-profesional/se-533-estimacion-organizacional-y-compromisos/README.md) lo formula como la estimación de la distribución de plazos remuestreando un historial de entrega. Es el enfoque de «Monte Carlo» aplicado a la pregunta «¿cuándo termina?».
 
 ## Por qué importa
 
-En [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), el tema «Pronóstico por simulación» importa porque convierte la historia en una distribución de fechas sin suponer una fórmula.
+Convierte la historia en una distribución de fechas sin suponer una fórmula. En lugar de una fecha única, se obtiene «el 85 % de las veces termina en 12 semanas o menos», que es una promesa con confianza. Cambia cómo se comunica un plazo: como rango con probabilidad, no como número exacto.
 
 ## Cómo funciona
 
-Según [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md), en la sección «Pronóstico por simulación»:
+[SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md) describe el procedimiento. Se toma la **historia de rendimiento semanal** (por ejemplo, ocho semanas con media 5,8 elementos terminados), se parte de un **desglose del trabajo pendiente** (62 elementos) y se **simula el futuro**: se eligen al azar semanas de esa historia, con reposición, hasta completar el trabajo pendiente, y se anota cuántas semanas tomó. Se repite miles de veces. El resultado es una **distribución de semanas hasta terminar**, de la que se leen **percentiles**.
 
-Para «cuándo termina» se toma la historia de rendimiento semanal, se simula el futuro eligiendo al azar semanas de esa historia hasta completar el trabajo pendiente y se repite muchas veces. El resultado es una distribución de semanas hasta terminar de la que se leen percentiles. Es la aplicación directa del remuestreo de Efron: no supone una forma para el rendimiento, solo que el futuro se parece al pasado observado. Esas dos suposiciones —que el pasado representa el futuro y que las semanas son intercambiables— son las que hay que declarar y vigilar.
+Es la aplicación directa del **remuestreo** de Efron: no supone una forma para el rendimiento (normal, por ejemplo), solo que el futuro se parece a la historia observada. Su utilidad es que respeta la variabilidad real: semanas buenas y malas, sin necesidad de ajustar una distribución.
+
+Dos fuentes de error, con su corrección. El percentil 85 que se cumple solo dos de cada tres veces ocurre porque el alcance se modeló fijo y la historia es corta; se corrige **incluyendo el crecimiento esperado del alcance** (en el ejemplo, entre 0 y 15 %, estimado con las últimas dos entregas) y **ensanchando el intervalo**. Y el margen de cada tarea que se consume mientras el plazo igual se pierde por expansión del trabajo; se corrige con un colchón compartido y vigilando su consumo. La calibración de la simulación se comprueba por retrospectiva: si el percentil 85 se cumple el 85 % de las veces. Con menos de unas doce semanas de historia conviene ensanchar el intervalo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md):
-
-El equipo de la plataforma de entregas arma su plan con el procedimiento del taller. Toma ocho semanas de rendimiento (media 5,8), un desglose de 62 elementos y un crecimiento de alcance estimado en 0 a 15 % con las últimas dos entregas.
+Historia: 4, 6, 5, 7, 6, 5, 8, 5 elementos por semana. Pendiente: 62 elementos. En cada simulación se sortean semanas de esa lista hasta sumar 62; tras 10.000 simulaciones, el percentil 50 de semanas es 11 y el percentil 85 es 13. Con crecimiento de alcance de 0 a 15 %, el percentil 85 sube a unas 15. Se comunica «entre 11 y 15 semanas, con 85 % de confianza». (Simulación ilustrativa con el método de [SE-191](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md); las cifras son de ejemplo.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)) son:
-
-- **El percentil 85 se cumple dos de cada tres veces** — causa: alcance fijo en el modelo y poca historia. Corrección: incluir el crecimiento esperado y ensanchar el intervalo.
-- **El margen de cada tarea se consume y el plazo igual se pierde** — causa: expansión del trabajo. Corrección: compartir el colchón y vigilar su consumo.
+- **El percentil 85 se cumple dos de cada tres veces**: alcance fijo y poca historia.
+- **El margen de cada tarea se consume y el plazo se pierde**: expansión del trabajo.
+- **Usar la media** como pronóstico único.
+- **Remuestrear una historia no representativa** (con cambios de equipo).
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-191 — Taller: planificar bajo incertidumbre explícita](../../../classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se pronosticó ningún proyecto real ni se observó expansión del trabajo: el rendimiento gamma, las tareas lognormales, la regla de expansión del 90 % y los valores base del plan son construcciones del autor. La siguiente clase convierte este plan en un proyecto adaptativo con reglas de replanificación y barreras.
+Supone que el futuro se parece al pasado; si el equipo, el producto o el proceso cambian, la historia deja de valer. Con muy poca historia, la distribución es poco fiable. No sustituye la gestión del alcance ni las dependencias externas, que el modelo simple no incluye.
 
 ## Relación con otros conceptos
 

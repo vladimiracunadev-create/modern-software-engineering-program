@@ -2,46 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Spec-anchored](./spec-anchored.md) · [Spec-first →](./spec-first.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Uso de la especificación como único artefacto editable del que se genera el código.
-
-Definición de trabajo de [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md).
+**Spec-as-source** es el uso de la especificación como único artefacto editable del que se genera el código ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)). Es el tercer nivel de uso de una especificación, después de spec-first (guía y se archiva) y spec-anchored (se mantiene anclada al código).
 
 ## Por qué importa
 
-En [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), el tema «Spec-as-source» importa porque la especificación es lo que se edita; el código se genera y no se toca a mano.
+La especificación es lo que se edita; el código se genera y no se toca a mano. La deriva entre especificación y código desaparece por construcción, y cambiar un contrato es editar un archivo. Cambia dónde se trabaja: se edita la fuente y se regenera.
 
 ## Cómo funciona
 
-Según [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md), en la sección «Spec-as-source»:
+En spec-as-source el humano **no toca el código generado**. Se edita la especificación y se regenera; editar el código a mano está desaconsejado y se marca con un comentario («GENERADO; no editar»). [SE-548](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) menciona a Tessl como la herramienta que, según Böckeler, explora este nivel, con una correspondencia de uno a uno entre un archivo de especificación y un archivo de código.
 
-En spec-as-source la especificación es lo único que se edita y el código se genera a partir de ella; el humano no toca el código generado. El beneficio es que la deriva desaparece por construcción y que cambiar un contrato es editar un archivo. Los costes son reales: hay que confiar en el generador (y revisar lo que produce), la especificación debe ser lo bastante expresiva para cubrir el comportamiento, y todo lo que no se pueda expresar vive fuera. Cuando la especificación no alcanza, alguien edita lo generado, y entonces la regeneración destruye ese trabajo.
+Los **costes** son reales, según [SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md): hay que **confiar en el generador** (y revisar lo que produce), la especificación debe ser **lo bastante expresiva** para cubrir el comportamiento deseado (si no lo es, la gente edita el código y rompe el modelo) y, con modelos generativos, la regeneración puede no ser determinista. De ahí que la generación determinista sea una condición: un generador que ordena toda su salida y **marca la región generada**, más una comprobación que regenera y compara huellas, y falla si hay diferencias.
 
-Según [SE-548 — SDD: spec-first, spec-anchored y spec-as-source](../../../classes/part-45-metodologias-de-desarrollo-de-tdd-a-odd/se-548-sdd-spec-first-spec-anchored-y-spec-as-source/README.md), en la sección «Spec-as-source»:
-
-En el tercer nivel la especificación es la fuente y el código se **genera**. Se edita la especificación y se regenera; editar el código a mano está desaconsejado y se marca con un comentario («GENERADO; no editar»). Böckeler describe a Tessl como la herramienta que explora este nivel, con una correspondencia de uno a uno entre un archivo de especificación y un archivo de código, y la califica de beta en el momento del análisis. La ventaja es que la deriva desaparece por construcción; el costo es que lo que la especificación no puede expresar no se puede construir, y que el generador es ahora una pieza que hay que confiar.
+La práctica en la plataforma de entregas: los clientes de la API se generan desde el documento OpenAPI (spec-as-source), con un generador determinista, mientras el contrato mismo es spec-anchored y el documento de arquitectura es spec-first. Cada artefacto declara su nivel. Un fallo previsto: la regeneración borra trabajo manual porque se editó dentro de lo generado; se corrige delimitando la región generada y moviendo lo manual fuera.
 
 ## Ejemplo
 
-Ejemplo de [SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, cada artefacto tiene un nivel declarado. El documento de arquitectura es spec-first (guía y se archiva). El contrato de la API es spec-anchored: un comprobador en integración continua compara las operaciones del código con el documento OpenAPI y falla con el nombre del parámetro que discrepa. Los clientes se generan desde el documento (spec-as-source) con un generador que ordena toda su salida y marca la región generada; una comprobación regenera y compara huellas, y falla si hay diferencias con lo comprometido. Una nota por artefacto registra la señal que haría cambiar de nivel.
+El equipo edita `entregas.openapi.yaml` para añadir el campo opcional `comentario`. Ejecuta el generador: el cliente en TypeScript y el servidor de esqueleto se regeneran, con los archivos marcados «GENERADO; no editar». Una comprobación en CI regenera de nuevo y compara huellas con lo comprometido; si alguien editó a mano un archivo generado, la comparación falla. (Ilustración del flujo descrito en [SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-165 — Spec-first, spec-anchored y spec-as-source](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md)) son:
-
-- **La especificación dice una cosa y el código otra, y nadie lo sabe** — causa: spec-anchored sin comprobación mecánica. Corrección: comparar firmas o ejemplos en integración continua.
-- **La regeneración borra trabajo manual** — causa: ediciones dentro de lo generado. Corrección: delimitar la región generada y mover lo manual fuera.
+- **Editar a mano el código generado**: se pierde en la próxima regeneración.
+- **La regeneración borra trabajo manual**: ediciones dentro de lo generado.
+- **Generador no determinista** que produce diffs ruidosos.
+- **Confundirlo con spec-anchored**: allí el código se escribe aparte y se compara.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- En spec-as-source la especificación es lo único que se edita y el código se genera a partir de ella; el humano no toca el código generado. ([SE-165](../../../classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md))
+Solo sirve donde la especificación puede expresar todo lo necesario; la lógica compleja suele escribirse a mano en código no generado. Con generadores de IA, el resultado puede variar y exige revisión. El costo de montar el generador solo se justifica para artefactos que cambian a menudo y se repiten (clientes, esqueletos).
 
 ## Relación con otros conceptos
 

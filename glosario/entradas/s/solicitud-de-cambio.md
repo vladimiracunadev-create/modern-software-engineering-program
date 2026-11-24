@@ -2,40 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Solape](./solape.md) · [Solicitud de cobertura →](./solicitud-de-cobertura.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Propuesta registrada de modificar la línea base, con motivo, alcance y decisión.
-
-Definición de trabajo de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md).
+Una **solicitud de cambio** es la propuesta registrada de modificar la línea base, con motivo, alcance y decisión ([SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)). Convierte una modificación en un objeto con autor, motivo y alcance.
 
 ## Por qué importa
 
-En [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), el tema «Solicitud de cambio» importa porque convierte una modificación en un objeto con autor, motivo y alcance.
+Evita cambios silenciosos, obliga a nombrar el motivo y deja un historial que explica por qué el sistema es como es. Sin solicitudes, la línea base se edita sin que nadie lo sepa, y la pregunta «¿esto está dentro de lo acordado?» deja de tener respuesta. Cambia cómo se gestiona la especificación: los cambios pasan por un registro, no por conversaciones sueltas.
 
 ## Cómo funciona
 
-Según [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md), en la sección «Solicitud de cambio»:
+[SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) enumera el contenido: **qué cambia**, **quién lo pide**, **por qué**, **qué elementos alcanza** y **qué decisión se tomó**. El **alcance** se obtiene con el análisis de alcance: recorriendo las dependencias desde el elemento modificado para listar los requisitos, criterios, pruebas y documentos afectados. La decisión (aceptar, rechazar, aplazar) tiene un responsable y una fecha.
 
-Una solicitud de cambio es la propuesta de modificar la línea base: qué cambia, quién lo pide, por qué, qué elementos alcanza y qué decisión se tomó. Registrarla sirve a tres cosas: evita cambios silenciosos, obliga a nombrar el motivo y deja un historial que explica por qué el sistema es como es. Un cambio urgente puede saltarse la espera, pero no el registro.
+Registrarla sirve a tres cosas, dice la clase: **evita cambios silenciosos**, **obliga a nombrar el motivo** y **deja un historial**. Un cambio urgente puede saltarse la espera, pero **no el registro**: se registra después, lo antes posible. Esto conserva el principio sin convertirlo en burocracia que paralice.
+
+La solicitud opera sobre una línea base con identidad estable (etiqueta y hash normalizado). Al aprobarse, se crea una nueva línea base con su propia identidad. Una prueba de regresión puede verificar el hash normalizado de la línea base y fallar si cambia sin una solicitud registrada, de modo que el proceso se hace cumplir. Dos síntomas que previene: nadie sabe cuál era la versión acordada (no hay línea base identificada) y un cambio «pequeño» rompe media especificación (no se calculó el alcance).
+
+[SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) muestra una solicitud de cambio con su análisis y su decisión sobre la línea base 1: propone un cambio, lista lo que alcanza, y registra la decisión.
 
 ## Ejemplo
 
-Ejemplo de [SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) (sección «Ejemplo profesional»):
-
-Una solicitud de cambio con su análisis y su decisión, sobre la línea base 1:
+SC-014. Qué cambia: el tope de penalización pasa del 50 % al 30 %. Quién: coordinación académica. Por qué: reclamos por descuentos excesivos. Alcance: regla BR-07, requisito REQ-12, pruebas de frontera TST-31 a TST-34, texto de política publicado. Decisión: aceptada el 4 de marzo, responsable: producto. Resultado: línea base 2. (Solicitud ilustrativa en el formato de [SE-153](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)) son:
-
-- **Nadie sabe cuál era la versión acordada** — causa: no hay línea base identificada. Corrección: etiquetar cada versión acordada y registrar su hash normalizado.
-- **Un cambio «pequeño» rompe media especificación** — causa: no se calculó el alcance. Corrección: recorrer las dependencias antes de aprobar y registrar el resultado.
+- **Nadie sabe cuál era la versión acordada**: no hay línea base identificada.
+- **Un cambio «pequeño» rompe media especificación**: no se calculó el alcance.
+- **Registrar solo los cambios grandes.**
+- **Saltarse el registro por urgencia.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-153 — Gestión de cambios y líneas base](../../../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos y una demostración con `git` en Windows y Ubuntu (WSL2) con resultados idénticos. No se analizó ningún proyecto real, los grafos y las llegadas son sintéticos y la normalización es una de varias posibles. La siguiente clase busca los defectos que los cambios parciales introducen: ambigüedad, contradicción e incompletitud.
+En un proyecto exploratorio con requisitos que cambian a diario, una solicitud formal por cada cambio frena el aprendizaje; se usa una línea base ligera por iteración. El registro no garantiza que el cambio sea bueno, solo que sea visible y atribuible.
 
 ## Relación con otros conceptos
 

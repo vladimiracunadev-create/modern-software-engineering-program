@@ -2,39 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Resultado explícito](./resultado-explicito.md) · [Resumen con pérdida →](./resumen-con-perdida.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Enunciado de lo que la persona quiere lograr, con dirección de mejora, métrica, objeto y contexto, independiente de cómo se logre.
-
-Definición de trabajo de [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md).
+Un **resultado deseado** es el enunciado de lo que la persona quiere lograr, con dirección de mejora, métrica, objeto y contexto, independiente de cómo se logre ([SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)). Es la forma en que la propuesta de valor se vuelve medible: describe el progreso buscado sin nombrar la solución.
 
 ## Por qué importa
 
-En [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), el tema «Resultados deseados» importa porque un resultado deseado medible permite saber si hubo progreso sin depender de la solución.
+Un resultado deseado medible permite saber si hubo progreso sin depender de la solución. Cambia cómo se evalúan ideas y funciones: en lugar de preguntar «¿tenemos la función?», se pregunta «¿mejoró el resultado?». Varias soluciones distintas pueden compararse contra el mismo resultado.
 
 ## Cómo funciona
 
-Según [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), en la sección «Resultados deseados»:
+[SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md) da la estructura de cuatro partes: una **dirección** (minimizar, aumentar), una **métrica** (tiempo, probabilidad, número de), un **objeto** y un **contexto**. Ejemplo de la clase: «minimizar la probabilidad de perder el trabajo cuando se corta la conexión a pocas horas del plazo». Dirección: minimizar; métrica: probabilidad; objeto: perder el trabajo; contexto: corte de conexión cerca del plazo. Es medible sin decir si la solución es guardado automático, historial o recibo.
 
-Un resultado deseado tiene una dirección (minimizar, aumentar), una métrica (tiempo, probabilidad, número de), un objeto y un contexto: «minimizar la probabilidad de perder el trabajo cuando se corta la conexión a pocas horas del plazo». Es medible sin nombrar la solución, de modo que varias soluciones pueden compararse con él. La lista típica de un trabajo reúne decenas de resultados; quien diseña no puede construir para todos, por eso se califican por importancia y satisfacción. Un resultado mal redactado («tener una buena experiencia») no se puede medir ni comparar.
+La lista típica de un trabajo reúne **decenas de resultados** posibles; no todos importan igual. Se valoran con una encuesta que pregunta cuán importante es cada uno y cuán satisfecho está quien responde con lo que usa hoy, y se priorizan los **importantes y mal atendidos**. La clase señala que con muestras pequeñas el ranking puede cambiar entre encuestas por ruido; por eso se reporta la **estabilidad del ranking**.
+
+La regla de la plataforma: ninguna función entra al plan si no mueve al menos un resultado listado, y cada resultado declara el indicador con el que se sabrá si mejoró y el tiempo que tarda en notarse. Un fallo previsto: los resultados nombran la solución («tener un botón de guardado») porque se redactaron desde el producto y no desde el trabajo; se reescriben con dirección, métrica, objeto y contexto.
 
 ## Ejemplo
 
-Ejemplo de [SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma de entregas, la propuesta conserva la promesa en una frase, el trabajo al que responde, la alternativa actual, los resultados deseados con su métrica, la fecha de la encuesta, el tamaño de la muestra y la estabilidad del ranking. El contrato es que ninguna función entra al plan si no mueve al menos un resultado listado y que cada resultado declara el indicador con el que se sabrá si mejoró y el tiempo que tarda en notarse.
+Resultado: «Minimizar el tiempo que tarda un docente en saber quiénes no han entregado, al revisar un lote desde el móvil». Indicador: minutos desde que abre el lote hasta tener la lista, medido en una prueba con docentes. Plazo para notarse: el primer ciclo de revisión tras el cambio. Una función (panel, lista exportable) se evalúa por cuánto reduce ese tiempo. (Ejemplo ilustrativo en el formato de [SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Los resultados deseados nombran la solución** — causa: se redactaron desde el producto y no desde el trabajo. Corrección: reescribir con dirección, métrica, objeto y contexto sin mencionar la solución. ([SE-125](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md))
+- **Resultados que nombran la solución.**
+- **Resultados sin métrica** («mejorar la experiencia»).
+- **Priorizar con una encuesta pequeña sin estabilidad.**
+- **Confundir resultado deseado con requisito**: el resultado es la meta del trabajo; el requisito, una decisión del equipo.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-125 — Propuesta de valor y resultados deseados](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se encuestó a nadie, los parámetros son supuestos y el modelo de adopción no se contrastó con comportamiento real. La siguiente clase compara esta propuesta con las alternativas que las personas ya usan, incluida no hacer nada.
+La encuesta de la clase usa datos sintéticos; muestra el método, no un ranking real. Los resultados descritos desde la persona pueden entrar en tensión (más rapidez, menos errores), y entonces son compromisos entre atributos. En productos para tareas muy simples, enumerar decenas de resultados es desproporcionado.
 
 ## Relación con otros conceptos
 

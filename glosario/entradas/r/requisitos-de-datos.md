@@ -2,40 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← Requisito negativo](./requisito-negativo.md) · [Requisitos universales y negativos →](./requisitos-universales-y-negativos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Condiciones sobre qué datos se guardan, por cuánto tiempo, quién accede, cómo se borran y qué excepciones existen.
-
-Definición de trabajo de [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md).
+Los **requisitos de datos** son las condiciones sobre qué datos se guardan, por cuánto tiempo, quién accede, cómo se borran y qué excepciones existen ([SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md)). Forman parte de los requisitos de un sistema y suelen venir de obligaciones externas (privacidad, retención legal).
 
 ## Por qué importa
 
-En [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md), el tema «Requisitos de datos» importa porque fijan qué se conserva, cuánto y con qué excepciones.
+Fijan qué se conserva, cuánto y con qué excepciones. Una regla de retención aparentemente simple («borrar a los 365 días») oculta decisiones de política que, si no se explicitan, se toman por defecto en el código. Cambia el contenido de un requisito de datos: no basta con la frase de retención; hay que responder un conjunto de preguntas.
 
 ## Cómo funciona
 
-Según [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md), en la sección «Requisitos de datos»:
+[SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) propone que, para cada categoría de datos, un requisito completo responda:
 
-Para cada categoría de datos, un requisito completo responde: qué se guarda, con qué finalidad, por cuánto tiempo, quién accede, cómo se borra, qué excepciones hay (retención legal, litigio) y cómo se demuestra el borrado. La regla de retención del experimento parece una línea; en realidad contiene decisiones de política (365 o 730 días según el tipo), de semántica («más de» o «al menos»), de calendario (qué es un año) y de excepción (retención legal). Cada una puede fallar por separado.
+- **qué se guarda**;
+- **con qué finalidad**;
+- **por cuánto tiempo**;
+- **quién accede**;
+- **cómo se borra**;
+- **qué excepciones hay** (retención legal, litigio);
+- **cómo se demuestra el borrado**.
+
+La regla de retención del experimento de la clase **parece una línea y contiene decisiones**: de política (365 o 730 días según el tipo de dato), de semántica («más de» 365 días o «al menos» 365, desde qué fecha se cuenta) y de excepciones (qué ocurre con un registro sujeto a retención legal). Cada una debe tener respuesta y responsable.
+
+La prueba del requisito incluye **frontera** (un registro de 365 días y uno de 366) y **excepción** (un registro con marca de retención no se borra). Dos fallos con causa conocida: se borraron datos bajo retención legal porque la regla ignoró una excepción (se incluyen las excepciones en el requisito y en las pruebas), y una auditoría pide evidencia del borrado y no hay porque no se diseñó cómo generarla (se define la evidencia junto con el requisito, **sin guardar contenido**: el recuento de registros borrados por día, no los registros). Los conflictos entre obligaciones (una exige conservar más y otra menos) se resuelven con negociación por intereses, por ejemplo con una copia anonimizada de los metadatos.
 
 ## Ejemplo
 
-Caso medido en la sección «Requisitos de datos» de [SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md):
-
-Para cada categoría de datos, un requisito completo responde: qué se guarda, con qué finalidad, por cuánto tiempo, quién accede, cómo se borra, qué excepciones hay (retención legal, litigio) y cómo se demuestra el borrado. La regla de retención del experimento parece una línea; en realidad contiene decisiones de política (365 o 730 días según el tipo), de semántica («más de» o «al menos»), de calendario (qué es un año) y de excepción (retención legal). Cada una puede fallar por separado.
+Categoría «borradores de entrega». Se guarda: texto y archivos adjuntos; finalidad: permitir recuperar el trabajo; plazo: 90 días desde la última edición; acceso: la estudiante y soporte con registro; borrado: tarea diaria que elimina contenido y conserva solo el identificador; excepción: marca de retención por reclamo abierto; evidencia: recuento diario de registros borrados. (Requisito ilustrativo con las preguntas de [SE-152](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md)) son:
-
-- **Se borraron datos bajo retención legal** — causa: la regla ignoró una excepción. Corrección: incluir las excepciones en el requisito y en las pruebas.
-- **Una auditoría pide evidencia del borrado y no hay** — causa: no se diseñó cómo generarla. Corrección: definir la evidencia junto con el requisito, sin guardar contenido.
+- **Se borraron datos bajo retención legal**: se ignoró una excepción.
+- **Auditoría sin evidencia del borrado.**
+- **Una sola línea de retención para todo.**
+- **Guardar contenido para demostrar su borrado.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-152 — Requisitos regulatorios, de datos y seguridad](../../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se interpretó ninguna norma para un caso real, no es asesoría legal, el diagrama y las retenciones son ejemplos del autor y la cadena de hashes no incluye claves ni sellado de tiempo. La siguiente clase protege el conjunto de requisitos con líneas base y control de cambios.
+Los plazos y excepciones los define quien interpreta la obligación (ver obligaciones externas), no el equipo técnico. El requisito no resuelve cómo borrar de respaldos y réplicas, que debe tratarse aparte. Para datos no personales y sin obligación, una política de retención sencilla puede bastar.
 
 ## Relación con otros conceptos
 

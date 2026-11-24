@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Recuperabilidad](./recuperabilidad.md) · [Recurrencias y umbral práctico →](./recurrencias-y-umbral-practico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 16](../../../classes/part-16-git-colaboracion-y-codigo-abierto/README.md)
 
 ## Definición
 
-Búsqueda que devuelve fragmentos de un índice relevantes para una consulta.
-
-Definición de trabajo de [SE-555 — Contexto, archivos, memoria y recuperación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-611 — Taller: degradar y recuperar un modelo](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md): Vuelta a un estado sano verificado con la métrica.
+**Recuperación** tiene cuatro sentidos en el programa. En [SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md) (IA asistida) es la búsqueda que devuelve fragmentos de un índice relevantes para una consulta. En [SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md) (Git) es traer de vuelta lo que parece perdido. En [SE-480](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md) (releases) es el conjunto de simulacros de pérdida de una versión publicada (retroceso, y otros). En [SE-611](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md) (ML) es la vuelta a un estado sano verificado con la métrica. Esta entrada desarrolla sobre todo el sentido de Git y de release, y señala los otros.
 
 ## Por qué importa
 
-En [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md), el tema «Recuperación» importa porque distingue lo que sigue en la base de lo que se perdió y qué comando lo trae de vuelta.
-
-En [SE-480 — Proyecto: release firmado y recuperable](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md), el tema «Recuperación» importa porque lo que no se ensaya no se sabe que funciona.
+Lo que no se ensaya no se sabe que funciona ([SE-480](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md)). Y recuperar es posible solo dentro de una frontera: saber qué sigue en la base y qué se perdió determina qué comando sirve. Cambia la política de respaldo y de publicación: se decide de antemano qué se puede recuperar y se practica.
 
 ## Cómo funciona
 
-Según [SE-194 — Commits atómicos, historial y recuperación](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md), en la sección «Recuperación»:
+**Git ([SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)).** Git solo puede recuperar lo que entró en su base de objetos. Un commit que dejó de ser alcanzable sigue ahí hasta que el **reflog** expira y se poda; se encuentra con `git reflog`. Un archivo agregado al índice crea un blob que `git fsck --lost-found` puede hallar. En cambio, un cambio que **nunca se agregó** y un archivo sin rastrear **no tienen copia**. La política de recuperación empieza por esa frontera: lo que se quiere poder recuperar debe entrar en la base (commit o al menos `git add`). La distinción de fondo es entre «existe» y «es alcanzable».
 
-Git solo puede recuperar lo que entró en su base de objetos. Un commit que dejó de ser alcanzable sigue ahí hasta que el reflog expira y se poda, y se encuentra con `git reflog`. Un archivo agregado al índice crea un blob que `git fsck --lost-found` puede hallar. Un cambio que nunca se agregó y un archivo sin rastrear no tienen copia. La política de recuperación empieza por esa frontera: lo confirmado se recupera, lo agregado a veces, lo demás no.
+**Release ([SE-480](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md)).** Cuatro simulacros examinan cuatro formas de perder algo. El **retroceso** es la más frecuente: la versión nueva tiene un defecto y se quiere la anterior. El verificador, para evitar que un atacante sirva versiones viejas, rechaza una secuencia menor; por tanto el retroceso **no es reinstalar el bundle antiguo**, sino publicar el contenido anterior como una versión nueva (por ejemplo, 1.4.2 con una secuencia mayor que la defectuosa). Los otros simulacros cubren la pérdida de claves y de otros elementos del canal.
 
-Según [SE-480 — Proyecto: release firmado y recuperable](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md), en la sección «Recuperación»:
-
-Los cuatro simulacros examinan cuatro formas de perder algo. El **retroceso** es la más frecuente: la versión nueva tiene un defecto y se quiere la anterior. El verificador, para evitar que un atacante sirva versiones viejas, rechaza una secuencia menor; por tanto el retroceso no es reinstalar el bundle antiguo, sino publicar el contenido anterior como una versión nueva (aquí, 1.4.2 con secuencia 16) que supera la memoria del cliente. La **pérdida del repositorio** se resuelve porque el build es reproducible: la fuente reconstruye la misma huella y el manifiesto firmado sigue siendo válido. La **rotación** funciona si la declaración de la clave nueva se firmó con la vigente antes de necesitarla.
+**Recuperación (retrieval) en IA ([SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md)).** El sistema recupera fragmentos de un índice (por ejemplo con BM25 y fragmentos de 200 palabras con filtro de versión vigente) para dárselos como contexto a un asistente. **ML ([SE-611](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-611-taller-degradar-y-recuperar-un-modelo/README.md)).** La recuperación es volver a un modelo o estado sano y comprobarlo con la métrica.
 
 ## Ejemplo
 
-Ejemplo de [SE-555 — Contexto, archivos, memoria y recuperación](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md) (sección «Ejemplo profesional»):
-
-Escenario hipotético, construido para la clase y sin datos reales. El equipo diseña el contexto para tres tareas. Para «explicar la regla de redondeo» no recupera nada: aporta la función entera y la sección de decisiones fechada, y exige que la respuesta cite líneas. Para «¿qué decidimos sobre las notas ausentes?» recupera por BM25 con fragmentos de 200 palabras y filtro de versión vigente; la respuesta debe incluir la fecha de la decisión. Para «convenciones de estilo» usa un archivo versionado con dueño, no la memoria de la herramienta. Fija una caducidad de 30 días para las notas guardadas por el asistente y una revisión mensual del archivo de convenciones.
+Tras un `git reset --hard HEAD~3`, tres commits dejan de estar en la rama. `git reflog` los lista; se crea una rama en el commit deseado y vuelve el trabajo. En cambio, un archivo nuevo que nunca se añadió con `git add` y se borró con `git clean` no tiene copia en Git. (Comportamiento estándar de Git, tal como lo describe [SE-194](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La recuperación acierta en pruebas y falla en uso** — causa: las pruebas usan consultas con clave única. Corrección: probar con paráfrasis y preguntas reales. ([SE-555](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-555-contexto-archivos-memoria-y-recuperacion/README.md))
+- **Creer que Git guarda todo**: solo lo que entró en su base de objetos.
+- **Reinstalar el paquete antiguo para retroceder**: el verificador lo rechaza; hay que publicar el contenido anterior como versión nueva.
+- **No ensayar la recuperación.**
+- **Confundir los cuatro sentidos.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- La **pérdida de la clave privada sin rotación previa** no tiene solución automática: los clientes con la clave antigua fijada rechazan toda versión nueva, y la recuperación exige distribuir una clave nueva por un canal que los clientes ya acepten, con una acción humana. ([SE-480](../../../classes/part-39-build-release-y-cadena-de-suministro/se-480-proyecto-release-firmado-y-recuperable/README.md))
+El reflog es local y expira; no protege a otras personas ni a clones. Un procedimiento de recuperación solo vale si se ensayó. En ML, la vuelta a un estado sano exige que haya una versión anterior verificada y una métrica clara para decidir.
 
 ## Relación con otros conceptos
 

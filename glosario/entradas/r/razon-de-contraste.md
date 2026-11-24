@@ -2,52 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Razón de cambio](./razon-de-cambio.md) · [ReAct →](./react.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
 
 ## Definición
 
-Cociente (L1 + 0,05)/(L2 + 0,05) entre las luminancias relativas del color más claro y del más oscuro.
-
-Definición de trabajo de [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-173 — Accesibilidad perceptible, operable y comprensible](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md): Cociente (L1 + 0,05) / (L2 + 0,05) entre las luminancias relativas del color claro y del oscuro.
-- En [SE-229 — Plataforma web, HTML semántico y CSS](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md): Cociente `(L1 + 0,05) / (L2 + 0,05)` entre las luminancias relativas del color claro y del oscuro.
-- En [SE-175 — Diseño visual, tipografía, color y contraste](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md): Cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
+La **razón de contraste** es el cociente (L1 + 0,05) / (L2 + 0,05) entre las luminancias relativas del color más claro (L1) y del más oscuro (L2) ([SE-173](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md), [SE-175](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md), [SE-229](../../../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md), [SE-442](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md)). Mide cuánto se distinguen dos colores, típicamente texto y fondo, y va de 1:1 (idénticos) a 21:1 (negro sobre blanco).
 
 ## Por qué importa
 
-La clase donde se define, [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md), existe con este propósito: la clase existe para que conviertas «que se sienta bien» en presupuestos que un equipo puede vigilar: cuánto puede pesar una página, cuánto puede tardar en mostrar lo importante, qué contraste mínimo deben tener los textos, y para que sepas qué parte de la experiencia de una persona captura cada medida y cuál se escapa.
+Convierte «que se lea bien» en un número que se puede exigir y vigilar. Elegir colores a ojo falla a menudo: lo que parece legible para quien diseña no lo es con baja visión, con sol en la pantalla o en una impresión en gris. Cambia la decisión de diseño: se calcula y se comprueba, y el umbral pasa a ser parte del presupuesto de accesibilidad.
 
 ## Cómo funciona
 
-Según [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md):
+La **luminancia relativa** L de un color se calcula a partir de sus componentes rojo, verde y azul linealizados y ponderados según la sensibilidad del ojo: el verde pesa mucho más que el azul. Con L1 la del color más claro y L2 la del más oscuro, la razón es (L1 + 0,05) / (L2 + 0,05); el 0,05 modela la luz ambiente y evita la división por cero con negro.
 
-Un **presupuesto** es un límite medible sobre una magnitud que importa: peso de la página en bytes, número de solicitudes, tiempo hasta el contenido principal, tiempo de bloqueo del hilo, razón de contraste. Tiene un dueño (alguien responde por él), un umbral con una razón, una medición automática y una acción al superarlo. El peso es una buena variable de partida porque es determinista y fácil de comprobar, pero es solo un indicador indirecto: la misma cantidad de bytes puede cargarse rápido o lento según qué sea (una imagen grande retrasa menos que el mismo peso en JavaScript que hay que ejecutar). Por eso un presupuesto de bytes se complementa con uno de tiempo medido en un perfil de dispositivo y red declarado, y con el seguimiento de campo.
+[SE-173](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md) recoge los **mínimos**: **4,5:1** para texto normal y **3:1** para texto grande y componentes de interfaz (bordes de campos, iconos). Son los criterios de las pautas de accesibilidad web. [SE-173](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md) añade una regla complementaria: el **color no puede ser la única señal** de un estado; un error indicado solo en rojo no se distingue para personas con daltonismo ni en una impresión en gris, de modo que se acompaña con texto o un icono.
 
-Según [SE-173 — Accesibilidad perceptible, operable y comprensible](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md):
-
-La razón de contraste es (L1 + 0,05) / (L2 + 0,05) con L la luminancia relativa del color más claro y del más oscuro. El mínimo es 4,5:1 para texto normal y 3:1 para texto grande y componentes de interfaz. El color no puede ser la única señal de un estado: un error solo en rojo no se distingue para personas con daltonismo ni en una impresión en gris. Elegir colores sin calcular falla a menudo: en un sorteo de pares de colores aleatorios, solo una pequeña fracción alcanza 4,5:1.
+[SE-442](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md) incluye la razón de contraste entre los **presupuestos** de una página: un límite medible con dueño, un umbral con una razón, una medición automática y una acción al superarlo. A diferencia del peso o del tiempo de carga, el contraste es determinista y se comprueba en integración continua sobre la hoja de estilos. El presupuesto captura una parte de la experiencia (la legibilidad del color) y deja fuera otras (tamaño de letra, espaciado, foco), que requieren otras medidas.
 
 ## Ejemplo
 
-Ejemplo de [SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula la razón de contraste entre texto negro y fondo blanco. Antes de ejecutarlo, predice si supera 4,5 a 1.
+Texto gris medio sobre fondo blanco: si la luminancia del gris es L2 = 0,2 y la del blanco L1 = 1, la razón es (1 + 0,05) / (0,2 + 0,05) = 4,2: no alcanza el 4,5:1 para texto normal, aunque «se vea bien» en un monitor nuevo. Oscurecer el gris hasta L2 = 0,18 da 4,57 y cumple. (Cálculo propio con la fórmula de [SE-173](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md); las luminancias son de ejemplo.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-442 — Calidad de experiencia y presupuestos](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md)) son:
-
-- **El laboratorio dice rápido y las personas se quejan** — causa: medición con el mejor dispositivo. Corrección: perfiles de dispositivo y red modestos y datos de campo.
-- **El presupuesto avisa cuando ya es tarde** — causa: solo umbral absoluto. Corrección: añadir compuerta de tendencia.
+- **Elegir colores sin calcular.**
+- **Usar solo el color para señalar un estado.**
+- **Aplicar el umbral de texto normal a texto grande o al revés.**
+- **Medir contraste sobre imágenes o degradados** con un único valor.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Un **presupuesto** es un límite medible sobre una magnitud que importa: peso de la página en bytes, número de solicitudes, tiempo hasta el contenido principal, tiempo de bloqueo del hilo, razón de contraste. ([SE-442](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-442-calidad-de-experiencia-y-presupuestos/README.md))
+La razón es una aproximación de la percepción: no capta toda la legibilidad (tipografía, tamaño, espaciado) ni condiciones como el modo oscuro. Cumplir el mínimo no certifica accesibilidad: es una condición necesaria. En logotipos y elementos decorativos las pautas no exigen un contraste mínimo.
 
 ## Relación con otros conceptos
 

@@ -2,40 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Tipo de programa](./tipo-de-programa.md) · [Tipos y flujo →](./tipos-y-flujo.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Clasificación de la evidencia según su origen (dijo, hizo, comprometió, registro), con una ponderación explícita y revisable.
-
-Definición de trabajo de [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md).
+Los **tipos de evidencia** son una clasificación de la evidencia según su origen (dijo, hizo, comprometió, registro), con una ponderación explícita y revisable ([SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md)). Se usan al escribir un brief de producto para declarar cuánto pesa cada tipo de respaldo.
 
 ## Por qué importa
 
-En [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md), el tema «Tipos de evidencia» importa porque lo que alguien hizo o comprometió pesa distinto de lo que dijo; el brief debe declarar el peso.
+Lo que alguien hizo o comprometió pesa distinto de lo que dijo, y el brief debe declarar el peso. Sin esa clasificación, diez frases entusiastas pueden parecer más sólidas que dos personas que entregaron un borrador real. Cambia cómo se leen las entrevistas y los datos: no todo respaldo vale lo mismo.
 
 ## Cómo funciona
 
-Según [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md), en la sección «Tipos de evidencia»:
+[SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md) ordena los tipos por fiabilidad:
 
-Lo que una persona dice es el tipo más barato y el menos fiable; lo que hace (copia su texto a un documento aparte) es más fiable; lo que compromete (reserva tiempo, entrega un borrador real) lo es más; un registro (42 tickets) cuenta frecuencia pero no motivos. Al ponderar, el orden de opciones puede cambiar: por eso el peso es una decisión del brief, no un detalle interno, y se muestra la conclusión bajo varias ponderaciones. Una opción que gana solo con un peso es frágil.
+- **Dijo**: lo que una persona afirma. Es el tipo **más barato y el menos fiable**.
+- **Hizo**: lo que la persona hace (por ejemplo, copia su texto a un documento aparte para no perderlo). Es más fiable, porque es comportamiento observado.
+- **Comprometió**: lo que la persona se compromete a hacer o entrega (reserva tiempo, entrega un borrador real). Es **el más fiable** de los tres, porque implica un costo.
+- **Registro**: datos de uso o de tickets (42 tickets). Cuenta **frecuencia pero no motivos**.
+
+Al **ponderar**, el orden de las opciones puede cambiar: si una opción acumula muchas frases y otra pocos compromisos, el peso decide cuál sube. Por eso el peso es **una decisión del brief, no un detalle interno**, y se muestra la comparación con distintos pesos, de modo que quien decide vea si la conclusión resiste al cambio.
+
+El mecanismo se conecta con la evidencia trazable: cada afirmación del brief declara sus evidencias y su tipo, y el validador comprueba que el identificador exista y que haya al menos dos personas o un registro; que la evidencia diga lo que la afirmación dice lo comprueba una persona. Y con el experimento de demanda, que busca evidencia de tipo «hizo» y «comprometió» a bajo costo.
 
 ## Ejemplo
 
-Caso medido en la sección «Tipos de evidencia» de [SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md):
-
-Lo que una persona dice es el tipo más barato y el menos fiable; lo que hace (copia su texto a un documento aparte) es más fiable; lo que compromete (reserva tiempo, entrega un borrador real) lo es más; un registro (42 tickets) cuenta frecuencia pero no motivos. Al ponderar, el orden de opciones puede cambiar: por eso el peso es una decisión del brief, no un detalle interno, y se muestra la conclusión bajo varias ponderaciones. Una opción que gana solo con un peso es frágil.
+Afirmación: «los docentes necesitan ver quién no entregó». Evidencia: cinco docentes lo dijeron (dijo); dos copian a mano la lista de entregas a una hoja (hizo); una docente pidió acceso anticipado y reservó una hora para probarlo (comprometió); 42 tickets mensuales piden la lista (registro). La opinión de cinco pesa menos que el compromiso de una; el brief declara los pesos y muestra qué pasa si cambian. (Ilustración de la clasificación de [SE-132](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md)) son:
-
-- **El brief pasa el validador pero una cifra no coincide con la evidencia** — causa: el validador solo comprueba estructura. Corrección: añadir una comparación de cifras con la fuente y una lectura humana antes de decidir.
-- **La decisión no tiene responsable ni fecha** — causa: se redactó como recomendación general. Corrección: exigir responsable y fecha en el formato y rechazar briefs sin ellos.
+- **Contar frases como si fueran compromisos.**
+- **El brief pasa el validador pero una cifra no coincide con la evidencia**: el validador solo comprueba estructura.
+- **Decisión sin responsable ni fecha.**
+- **Pesos fijados después de ver el resultado.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-132 — Proyecto: product brief respaldado por evidencia](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos y un validador con evidencias y participantes sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. El validador solo comprueba estructura, las doce mutaciones no representan todos los defectos posibles y las ponderaciones y rangos son supuestos del autor. La [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) termina aquí; la [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) somete el brief a modelos de negocio, costos de construcción y operación, y métricas de producto.
+La ordenación es una guía, no una ley: un registro bien medido puede ser más fiable que un compromiso aislado. Los pesos son una decisión y deben revisarse. Con muy poca evidencia, ponderar da una falsa precisión.
 
 ## Relación con otros conceptos
 

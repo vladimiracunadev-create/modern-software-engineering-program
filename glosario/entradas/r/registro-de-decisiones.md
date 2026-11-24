@@ -2,48 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Registro de cambios archivado](./registro-de-cambios-archivado.md) · [Registro de esquemas →](./registro-de-esquemas.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Documento breve con contexto, opciones, decisión, responsable, fecha y condición de revisión.
-
-Definición de trabajo de [SE-187 — Riesgos, supuestos, issues y decisiones](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-586 — AI-DLC, gobierno y vibe coding frente a agentic engineering](../../../classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md): Historial de quién aprobó qué, con qué evidencia.
+Un **registro de decisiones** es un documento breve con contexto, opciones, decisión, responsable, fecha y condición de revisión ([SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md)). En arquitectura se llama ADR (registro de decisión de arquitectura) ([SE-333](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md)). [SE-586](../../../classes/part-48-harness-y-agentic-engineering/se-586-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md) y [SE-610](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md) lo usan como historial de quién aprobó qué, con qué evidencia, y [SE-557](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas/README.md) como la conservación de por qué se eligió una opción y qué se descartó.
 
 ## Por qué importa
 
-En [SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md), el tema «Registro de decisiones» importa porque conserva el porqué cuando las personas cambian.
-
-En [SE-610 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md), el tema «Registro de decisiones» importa porque debe poder demostrar que no se alteró.
-
-En [SE-557 — Prototipado, scaffolding y exploración de alternativas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas/README.md), el tema «Registro de decisiones» importa porque conserva por qué se eligió y qué se descartó
+Conserva el porqué cuando las personas cambian. Sin registro, nadie recuerda por qué se decidió algo y se reinventan o se deshacen decisiones sin conocer las razones. Cambia la gestión del conocimiento: la decisión y su contexto viven junto al código, no en la memoria de quien participó.
 
 ## Cómo funciona
 
-Según [SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md), en la sección «Registro de decisiones»:
+[SE-333](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md) describe el ADR: un documento corto sobre una **decisión significativa**, con **título, estado** (propuesta, aceptada, reemplazada), **fecha, contexto, decisión, alternativas consideradas y consecuencias**. Se guarda **junto al código**, se numera y **no se edita para borrar el pasado**: si la decisión cambia, un ADR nuevo reemplaza al anterior y este queda con el estado «reemplazada». Así la historia de las decisiones es consultable.
 
-Un **ADR** (registro de decisión de arquitectura) es un documento corto sobre una decisión significativa: título, estado (propuesta, aceptada, reemplazada), fecha, contexto, decisión, alternativas consideradas y consecuencias. Se guarda junto al código, se numera y no se edita para borrar el pasado: si la decisión cambia, un ADR nuevo reemplaza al anterior y el anterior queda con el estado «reemplazada». Su valor aparece cuando alguien pregunta por qué: la respuesta está escrita, con las fuerzas que había en ese momento. Registrar todo es ruido; registrar lo costoso de revertir es memoria.
+[SE-187](../../../classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones/README.md) sitúa el registro de decisiones junto a otros tres registros de gestión: riesgos, supuestos e issues. En el ejemplo, una hoja de 23 filas se reorganiza en cuatro registros, con siete decisiones tomadas en el trimestre registradas con contexto y disparador de revisión. La **condición de revisión** es parte de la decisión: qué cambio de circunstancias la reabriría.
+
+[SE-610](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-610-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md) añade un requisito de integridad: el registro debe poder demostrar que **no se alteró**, por ejemplo con firmas o huellas encadenadas, lo que conecta con los registros de auditoría. [SE-557](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas/README.md) lo usa para exploraciones con asistentes de IA: el registro conserva qué opciones se evaluaron, con qué datos y por qué se eligió una. Y un fallo con corrección conocida: el ganador de una matriz de decisión cambia al mover un peso porque la matriz no discrimina; se calcula la sensibilidad y se sostiene la decisión con un escenario, registrando ambos.
 
 ## Ejemplo
 
-Ejemplo de [SE-557 — Prototipado, scaffolding y exploración de alternativas](../../../classes/part-46-desarrollo-de-software-asistido-por-ia/se-557-prototipado-scaffolding-y-exploracion-de-alternativas/README.md) (sección «Caso conductor»):
-
-El módulo de calificaciones es el caso conductor. Esta clase deja el quinto artefacto: la exploración con su registro de decisión. `SE-558` preguntará qué ocurre cuando lo que se genera son pruebas, documentación y migraciones, y `SE-563` comparará flujos con mediciones. Cambia después un solo dato, el ruido del evaluador, y observa a partir de qué valor más alternativas dejan de compensar.
+ADR-007. Título: «Penalización diaria con tope». Estado: aceptada. Fecha: 2026-03-04. Contexto: reclamos por descuentos arbitrarios. Opciones: penalización fija, diaria con tope, sin penalización. Decisión: diaria con tope del 50 %. Responsable: coordinación académica. Consecuencias: reglas más complejas de explicar. Revisar si: los reclamos no bajan en dos periodos. (Registro ilustrativo en el formato de [SE-333](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md)) son:
-
-- **Nadie recuerda por qué se decidió algo** — causa: no hay registro de la decisión. Corrección: escribir un ADR con contexto, alternativas y consecuencias.
-- **El ganador de la matriz cambia al mover un peso** — causa: la matriz no discrimina. Corrección: calcular la sensibilidad y sostener la decisión con un escenario.
+- **Nadie recuerda por qué se decidió algo**: no hay registro; corrección: escribir un ADR con contexto, alternativas y consecuencias.
+- **Editar el ADR para «corregir» el pasado.**
+- **Registrar la decisión sin las alternativas descartadas.**
+- **Decisiones sin responsable ni condición de revisión.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-333 — Trade-offs, ADR y evaluación de alternativas](../../../classes/part-27-arquitectura-de-software-y-dominio/se-333-trade-offs-adr-y-evaluacion-de-alternativas/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna arquitectura real: los puntajes, los ADR, sus defectos y el modelo de espera son construcciones del autor. La siguiente clase mira a las personas y a los equipos que toman y ejecutan estas decisiones.
+No toda decisión merece registro: solo las significativas o de difícil reversión. Un registro sin lectores se pudre; se enlaza desde el código afectado. Las decisiones triviales y reversibles no justifican el costo de documentarlas.
 
 ## Relación con otros conceptos
 

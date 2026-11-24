@@ -14,24 +14,24 @@ Edición generada el **2026-11-24** desde el commit `e6575e51` (release [`pdf-20
 
 | Volumen | Contenido | Páginas | Tamaño | SHA-256 | Descarga |
 | --- | --- | ---: | ---: | --- | --- |
-| **Libro completo** | 51 partes · 612 clases · 47 guías de rol · 32 casos · glosario | 13.029 | 185.0 MB | `53468b686ae570ab…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_libro-completo.pdf) |
-| **Etapa A · Fundamentos de la profesión** | 5 partes · 60 clases | 631 | 17.5 MB | `50af9e748755d347…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-a-fundamentos.pdf) |
-| **Etapa B · Programación y construcción** | 5 partes · 60 clases | 669 | 19.5 MB | `d239fa92d7645c53…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-b-programacion.pdf) |
-| **Etapa C · Producto. requisitos y especificación** | 8 partes · 96 clases | 1.180 | 34.3 MB | `6fcbaaaca5ca3712…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-c-producto.pdf) |
-| **Etapa D · Superficies y formas de software** | 7 partes · 84 clases | 1.077 | 31.8 MB | `4030ad88bb80320b…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-d-superficies.pdf) |
-| **Etapa E · Diseño. arquitectura. datos e integración** | 10 partes · 120 clases | 1.582 | 51.4 MB | `d1d8a7c17f43a79a…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-e-arquitectura.pdf) |
-| **Etapa F · Calidad. seguridad y entrega** | 6 partes · 72 clases | 964 | 27.0 MB | `b40b81c8bb6ddb59…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-f-calidad-entrega.pdf) |
-| **Etapa G · Operación. evolución y liderazgo** | 4 partes · 48 clases | 660 | 17.2 MB | `e8049164be95d63f…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-g-operacion-liderazgo.pdf) |
-| **Etapa H · Ingeniería de software nativa con IA** | 6 partes · 72 clases | 941 | 24.8 MB | `f17a37fed699b395…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_etapa-h-ia.pdf) |
-| **Casos de estudio** | 32 casos | 960 | 27.7 MB | `bbc8a298e1bf75b4…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_casos-de-estudio.pdf) |
-| **Glosario** | glosario | 3.938 | 63.6 MB | `da820bb205872bea…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_glosario.pdf) |
-| **Guías de rol** | 47 guías de rol | 453 | 17.8 MB | `d86b42d81bed2909…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/latest/download/ingenieria-software-moderna_guias-de-rol.pdf) |
+| **Libro completo** | 51 partes · 612 clases · 47 guías de rol · 32 casos · glosario | 13.029 | 185.0 MB | `53468b686ae570ab…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_libro-completo.pdf) |
+| **Etapa A · Fundamentos de la profesión** | 5 partes · 60 clases | 631 | 17.5 MB | `50af9e748755d347…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-a-fundamentos.pdf) |
+| **Etapa B · Programación y construcción** | 5 partes · 60 clases | 669 | 19.5 MB | `d239fa92d7645c53…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-b-programacion.pdf) |
+| **Etapa C · Producto. requisitos y especificación** | 8 partes · 96 clases | 1.180 | 34.3 MB | `6fcbaaaca5ca3712…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-c-producto.pdf) |
+| **Etapa D · Superficies y formas de software** | 7 partes · 84 clases | 1.077 | 31.8 MB | `4030ad88bb80320b…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-d-superficies.pdf) |
+| **Etapa E · Diseño. arquitectura. datos e integración** | 10 partes · 120 clases | 1.582 | 51.4 MB | `d1d8a7c17f43a79a…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-e-arquitectura.pdf) |
+| **Etapa F · Calidad. seguridad y entrega** | 6 partes · 72 clases | 964 | 27.0 MB | `b40b81c8bb6ddb59…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-f-calidad-entrega.pdf) |
+| **Etapa G · Operación. evolución y liderazgo** | 4 partes · 48 clases | 660 | 17.2 MB | `e8049164be95d63f…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-g-operacion-liderazgo.pdf) |
+| **Etapa H · Ingeniería de software nativa con IA** | 6 partes · 72 clases | 941 | 24.8 MB | `f17a37fed699b395…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_etapa-h-ia.pdf) |
+| **Casos de estudio** | 32 casos | 960 | 27.7 MB | `bbc8a298e1bf75b4…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_casos-de-estudio.pdf) |
+| **Glosario** | glosario | 3.938 | 63.6 MB | `da820bb205872bea…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_glosario.pdf) |
+| **Guías de rol** | 47 guías de rol | 453 | 17.8 MB | `d86b42d81bed2909…` | [PDF](https://github.com/vladimiracunadev-create/modern-software-engineering-program/releases/download/pdf-2026-11-24-e6575e51/ingenieria-software-moderna_guias-de-rol.pdf) |
 
 Sumas SHA-256 completas: [`pdf/SHA256SUMS`](../pdf/SHA256SUMS) y [`pdf/manifest.json`](../pdf/manifest.json).
 <!-- pdf-volumes:end -->
 
-Los enlaces `releases/latest/download/…` apuntan siempre a la edición más reciente; la
-edición exacta de cada fila está en la página del release enlazada arriba.
+Cada enlace apunta a la edición indicada arriba (por etiqueta, no a «la última»): así no se rompe cuando se publican otros
+releases del repositorio, como el de las aplicaciones. La página del release lista todos los activos.
 
 ### Qué contiene cada volumen
 

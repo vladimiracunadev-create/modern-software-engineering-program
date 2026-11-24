@@ -79,7 +79,7 @@ def table(manifest: dict) -> str:
         if c["glossary_pages"]:
             parts.append("glosario")
         rows.append(f"| **{entry['title']}** | {' · '.join(parts)} | {entry['pages']:,} | {human(entry['bytes'])} | "
-                    f"`{entry['sha256'][:16]}…` | [PDF]({download_url(tag, entry['file'], True)}) |".replace(",", "."))
+                    f"`{entry['sha256'][:16]}…` | [PDF]({download_url(tag, entry['file'])}) |".replace(",", "."))
     return "\n".join(rows)
 
 
@@ -106,7 +106,7 @@ def update_readme(manifest: dict) -> None:
 
     def link(slug: str, label: str) -> str:
         e = by_slug[slug]
-        return f"[{label}]({download_url(tag, e['file'], True)}) ({e['pages']:,} págs · {human(e['bytes'])})".replace(",", ".")
+        return f"[{label}]({download_url(tag, e['file'])}) ({e['pages']:,} págs · {human(e['bytes'])})".replace(",", ".")
 
     stages = [s for s in by_slug if s.startswith("etapa-")]
     lines = [

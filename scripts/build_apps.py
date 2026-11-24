@@ -187,9 +187,7 @@ def write_manifest(directory: Path, commit: str, date: str) -> Path:
         raise SystemExit(f"no hay activos en {directory}")
     manifest = {"version": v, "tag": f"v{v}", "date": date, "commit": commit, "assets": assets}
     target = APP_DIR / "manifest.json"
-    target.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "
-", encoding="utf-8", newline="
-")
+    target.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     return target
 
 

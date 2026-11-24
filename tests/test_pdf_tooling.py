@@ -1,6 +1,7 @@
 """Pruebas de la cadena de PDF que no necesitan navegador ni los binarios (docs/PDF.md)."""
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import sys
@@ -13,6 +14,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import build_pdf as bp  # noqa: E402
 import publish_pdf as pp  # noqa: E402
 import verify_pdf as vp  # noqa: E402
+
+
+NEEDS_MARKDOWN = unittest.skipUnless(importlib.util.find_spec("markdown"), "requiere pdf/requirements.txt (Markdown)")
 
 
 class LinkResolutionTests(unittest.TestCase):
@@ -54,6 +58,7 @@ class LinkResolutionTests(unittest.TestCase):
         self.assertEqual(2, out.count("<a "), out)  # el nuevo y el que ya existía
         self.assertIn("<code>SE-003</code>", out)
 
+    @NEEDS_MARKDOWN
     def test_markdown_layout_tables_and_missing_blank_lines(self) -> None:
         title, body = bp.markdown_to_html("# T\n\nTexto\n### Sub\n- uno\n- dos\n")
         self.assertEqual("T", title)
@@ -61,6 +66,7 @@ class LinkResolutionTests(unittest.TestCase):
         self.assertIn("<li>uno</li>", body)
 
 
+@NEEDS_MARKDOWN
 class VolumeStructureTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

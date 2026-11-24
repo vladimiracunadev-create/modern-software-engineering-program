@@ -2,40 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Preguntas de investigación](./preguntas-de-investigacion.md) · [Prerelease y metadata →](./prerelease-y-metadata.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Pregunta que pide a la persona describir algo que hizo en una situación concreta, en lugar de opinar, predecir o confirmar una idea del entrevistador.
-
-Definición de trabajo de [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md).
+Una **pregunta sobre el pasado** es la que pide a la persona describir algo que hizo en una situación concreta, en lugar de opinar, predecir o confirmar una idea del entrevistador ([SE-123](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)). Es el tipo de pregunta recomendado en entrevistas de descubrimiento.
 
 ## Por qué importa
 
-En [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md), el tema «Preguntas sobre el pasado» importa porque las preguntas sobre hechos pasados dan datos; las hipotéticas y guiadas dan cortesía.
+Las preguntas sobre hechos pasados dan datos; las hipotéticas y guiadas dan cortesía. Las personas recuerdan mejor lo que hicieron que lo que harían, y tienden a complacer a quien pregunta. Cambia la fiabilidad de lo que se aprende en una entrevista.
 
 ## Cómo funciona
 
-Según [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md), en la sección «Preguntas sobre el pasado»:
+[SE-123](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md) contrasta formulaciones. «¿Pagarías por un recordatorio?» invita a una respuesta **amable y barata**: decir que sí cuesta nada. «Cuéntame la última vez que se te pasó un plazo y qué hiciste» pide un **hecho verificable en la memoria**: la persona describe una situación real, con detalles que se pueden sondear.
 
-«¿Pagarías por un recordatorio?» invita a una respuesta amable y barata; «cuéntame la última vez que se te pasó un plazo y qué hiciste» pide un hecho verificable en la memoria. Las preguntas guiadas («¿no crees que sería mejor…?») instalan la respuesta, las hipotéticas piden predecir un comportamiento futuro que casi nadie predice bien y las cerradas ahorran el relato. Una guía de entrevista contiene pocas preguntas abiertas sobre episodios concretos, con sondeos («¿y entonces?»). Los errores no se corrigen después: se evitan antes y se registran cuando ocurren.
+Las otras formas: las preguntas **guiadas** («¿no crees que sería mejor…?») instalan la respuesta; las **hipotéticas** piden predecir un comportamiento futuro que casi nadie predice bien; las **cerradas** («¿es difícil?») ahorran el relato y esconden el contexto. Una guía de entrevista bien hecha contiene pocas preguntas abiertas sobre episodios pasados y una lista de sondeos («¿y entonces qué hiciste?», «¿qué pasó después?», «¿qué otras cosas probaste?»).
+
+La causa de la diferencia es doble: la memoria episódica es más fiable que la predicción, y la cortesía opera sobre opiniones, no sobre hechos. Por eso cuando las respuestas suenan todas iguales y amables, es señal de preguntas hipotéticas o guiadas; la corrección es preguntar por episodios pasados concretos.
+
+La entrevista conserva un registro: participante (código, no nombre), fecha, quién entrevistó, la guía usada, el motivo de selección, la transcripción o notas literales y los códigos asignados. El informe solo puede citar fragmentos que existan y declara cuántas personas respaldan cada afirmación. Y una advertencia sobre la ausencia: que nadie mencione un tema en una muestra pequeña no prueba que el tema no importe; se calcula la probabilidad de no oírlo.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md):
-
-En la plataforma de entregas, el registro de una entrevista conserva participante (código, no nombre), fecha, quién entrevistó, la guía usada, el motivo de selección, la transcripción o notas literales y los códigos asignados con quién los asignó. El contrato es que el informe solo puede citar fragmentos que existan en el registro, y que cada afirmación declare cuántas personas la respaldan.
+Hipotética: «¿Usarías un panel de pendientes?». Sobre el pasado: «Cuéntame la última vez que necesitaste saber quién no había entregado. ¿Qué hiciste primero? ¿Cuánto tardaste? ¿Qué te molestó?». La segunda revela un episodio con tiempos y costos (por ejemplo, 40 minutos abriendo entregas una a una), que se contrasta con otras entrevistas. (Ejemplo ilustrativo construido con la distinción de [SE-123](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son:
-
-- **El informe afirma que «nadie mencionó X, así que X no importa»** — causa: se interpretó la ausencia en una muestra pequeña como ausencia en la población. Corrección: calcular la probabilidad de no oír el tema y declararla en el informe.
-- **Las respuestas suenan todas iguales y amables** — causa: preguntas hipotéticas o guiadas que invitan a la cortesía. Corrección: preguntar por episodios pasados concretos y sondear con «¿y entonces qué hiciste?».
+- **Respuestas amables y uniformes**: preguntas hipotéticas o guiadas.
+- **«Nadie mencionó X, así que X no importa»**: ausencia en muestra pequeña.
+- **Preguntar «por qué» de forma acusatoria.**
+- **Aceptar generalidades** («siempre», «nunca») sin pedir un episodio.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se entrevistó a nadie, las prevalencias son supuestos y las codificadoras son simuladas. La siguiente clase convierte las citas verificadas en hipótesis y preguntas críticas que puedan refutarse.
+Requiere que la persona haya vivido el episodio; para productos sin precedente, hay que preguntar por situaciones cercanas. La memoria también falla y se complementa con observación o datos de uso. Y las preguntas sobre el pasado no estiman prevalencia.
 
 ## Relación con otros conceptos
 

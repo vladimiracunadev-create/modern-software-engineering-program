@@ -2,42 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Modelo iterativo](./modelo-iterativo.md) · [Modelo sintáctico y semántico →](./modelo-sintactico-y-semantico.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Organización del trabajo en fases con alcance, coste y plazo comprometidos al inicio, y retroalimentación concentrada hacia el final.
-
-Definición de trabajo de [SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md).
+El **modelo predictivo** organiza el trabajo en fases (analizar, diseñar, construir, probar, entregar) con alcance, coste y plazo comprometidos al inicio, y retroalimentación concentrada hacia el final ([SE-181](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md)). También se le llama en cascada o plan-driven. No es un sinónimo de «malo» ni de «obsoleto».
 
 ## Por qué importa
 
-En [SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md), el tema «Modelo predictivo» importa porque compromete alcance, coste y plazo al inicio; es eficiente cuando lo desconocido es poco.
+Es eficiente cuando lo desconocido es poco. Comprometer alcance, coste y plazo desde el inicio facilita la coordinación, los contratos y la planificación de dependencias. Cambia la decisión de cómo organizar un proyecto: no se elige un modelo por moda sino por la cantidad de incertidumbre del trabajo.
 
 ## Cómo funciona
 
-Según [SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md), en la sección «Modelo predictivo»:
+En un modelo predictivo se analiza, diseña, construye, prueba y entrega en fases, con el alcance fijado al inicio. Su **fuerza es la coordinación**: todos saben qué se hará y las dependencias se resuelven en el papel (proveedores, fechas, contratos). Su **debilidad** está en el momento en que se descubre un malentendido: ocurre cuando alguien usa lo construido, y entonces todo lo hecho sobre ese malentendido se rehace. El costo de rehacer crece con lo construido encima, de modo que descubrirlo al final es lo más caro.
 
-En un modelo predictivo se analiza, diseña, construye, prueba y entrega en fases con alcance fijado al inicio. Su fuerza es la coordinación: todos saben qué se hará y las dependencias se resuelven en el papel. Su debilidad es el momento en que se descubre un malentendido, que ocurre cuando alguien usa lo construido, y entonces todo lo hecho sobre ese malentendido se rehace. El modelo no es ingenuo ni obsoleto: funciona bien donde los requisitos son estables y la validación es temprana por otras vías, por ejemplo cuando se reconstruye un sistema cuyo comportamiento ya se conoce. Falla cuando el desconocimiento es el problema, no la ejecución.
+[SE-181](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md) subraya que el modelo **no es ingenuo ni obsoleto**: funciona donde el trabajo es conocido, los requisitos estables, las interfaces con terceros están acordadas y cambiar es caro. Por eso en la plataforma de entregas la integración con el sistema de calificaciones de secretaría, con fecha fija y proveedor externo, se planifica de forma predictiva con un contrato de interfaz acordado de antemano, mientras que la experiencia de entrega (alta incertidumbre) se construye en ciclos.
+
+La clase lo contrasta con los otros dos modelos con un análisis de costos: lo que enseña no es el número sino la **forma** del costo. En el predictivo, el costo de un error de requisito crece con el avance; en el iterativo, se paga una sobrecarga por ciclo a cambio de errores más baratos. La decisión depende de cuánto desconocido hay.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md):
-
-El equipo de la plataforma de entregas divide el lanzamiento en tres bloques. La integración con el sistema de calificaciones de la secretaría tiene fecha fija y proveedor externo: se planifica de forma predictiva, con un contrato de interfaz acordado de antemano. La experiencia de entrega y recuperación del borrador tiene alta incertidumbre sobre lo que las estudiantes necesitan: se construye en ciclos de dos semanas con revisión de las usuarias.
+Un contrato de interfaz con un proveedor de calificaciones: formatos, campos, plazos y pruebas de aceptación acordados al inicio, con fecha de entrega fija. Se analiza, se diseña la interfaz, se construye y se prueba contra el entorno del proveedor, y se entrega en la fecha. Cambiar el formato a mitad de camino sería caro, y por eso el contrato lo fija. (Ilustración del caso de [SE-181](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-181 — Modelos predictivos, iterativos e incrementales](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md)) son:
-
-- **El proyecto «ágil» no libera nada utilizable hasta el último mes** — causa: se iteró sin entregar incrementos. Corrección: definir qué puede usar una persona al final de cada ciclo y liberarlo.
-- **Los ciclos tienen tanta ceremonia que no queda tiempo para construir** — causa: sobrecoste por ciclo no medido. Corrección: medir las horas por ciclo y ajustar el intervalo hasta el mínimo.
+- **Usarlo cuando hay mucha incertidumbre**: el malentendido se descubre tarde.
+- **Considerarlo anticuado por definición.**
+- **Comprometer alcance, coste y plazo sin margen para riesgos.**
+- **Confundir predictivo con planificar**: todo modelo planifica; difiere cuánto se compromete y cuándo se revisa.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Lo que enseña no es el número sino la forma: el coste del modelo predictivo crece linealmente con la volatilidad y el del iterativo apenas. ([SE-181](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md))
+No aplica bien a productos nuevos con usuarios que no saben qué necesitan, ni a entornos donde los requisitos cambian durante el desarrollo. Los números del análisis de costos de [SE-181](../../../classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales/README.md) son supuestos del autor. En la práctica casi todos los proyectos mezclan modelos según la parte del trabajo.
 
 ## Relación con otros conceptos
 

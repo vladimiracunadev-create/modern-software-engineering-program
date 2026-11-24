@@ -2,39 +2,44 @@
 
 [↑ Glosario](../../README.md) · [← Granularidad de los enlaces](./granularidad-de-los-enlaces.md) · [Gravedad →](./gravedad.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
-
-Definición de trabajo de [SE-163 — OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md).
+**GraphQL** es un lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe ([SE-163](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md)). El servidor expone un esquema tipado y un único punto de entrada; el cliente escribe una consulta que selecciona campos y relaciones, y recibe exactamente esa forma.
 
 ## Por qué importa
 
-En [SE-163 — OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md), el tema «GraphQL» importa porque deja al cliente elegir campos y desplaza al servidor el control del coste.
+Reduce el sobreenvío de datos y los viajes de ida y vuelta, y **traslada al servidor el control del coste**. Cambia una decisión de diseño de API: en lugar de que el servidor decida qué devuelve cada ruta, el cliente decide qué pide, y el servidor debe protegerse de consultas caras.
 
 ## Cómo funciona
 
-Según [SE-163 — OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md), en la sección «GraphQL»:
+GraphQL expone un **sistema de tipos** y un único endpoint. El cliente escribe una consulta como esta (ilustración):
 
-GraphQL expone un sistema de tipos y un único punto de entrada; el cliente escribe una consulta que elige campos y relaciones. Esto reduce el sobreenvío de datos y los viajes de ida y vuelta, y traslada responsabilidad al servidor: una consulta anidada puede costar miles de llamadas. La especificación no fija límites de profundidad ni de coste, de modo que las guías de seguridad recomiendan imponerlos. El contrato no es solo el esquema de tipos sino también las reglas de coste que el servidor aplica.
+```graphql
+{ entrega(id: 12) { estado estudiante { nombre } archivos { nombre tamano } } }
+```
+
+y obtiene un resultado con esa forma. Frente a una API de rutas fijas, donde obtener lo mismo exige varias llamadas o recibir campos sobrantes, la ventaja es que cada cliente pide lo que necesita.
+
+El costo está del lado del servidor. [SE-163](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md) advierte que una consulta anidada puede costar miles de llamadas: si se pide cada estudiante con sus entregas, cada entrega con sus archivos y cada archivo con sus versiones, la cantidad de lecturas multiplica con cada nivel. **La especificación no fija límites de profundidad ni de coste**, de modo que las guías de seguridad recomiendan imponerlos: profundidad máxima, coste máximo por consulta y paginación. Sin ellos, una consulta pequeña puede tardar segundos o servir como vector de denegación de servicio.
+
+El contrato (el esquema) se describe y se versiona como en otros contratos de API, y se comprueba con pruebas contractuales, como el documento OpenAPI de una API REST. A diferencia de REST, la evolución suele hacerse añadiendo campos y marcando los viejos como obsoletos, en lugar de numerar versiones.
 
 ## Ejemplo
 
-Ejemplo de [SE-163 — OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md) (sección «Ejemplo profesional»):
-
-En la plataforma, el documento OpenAPI de la API de entregas y el documento AsyncAPI de los eventos viven en el repositorio, versionados con el código. Un linter de integración continua verifica la forma (identificadores únicos, parámetros, respuestas de error). Una prueba contractual (`SE-166`) comprueba que el servicio responda lo que el documento promete, incluida la respuesta 201 de `crearEntrega`. El documento de eventos declara la semántica de entrega («al menos una vez», sin orden global) y exige identificador y versión en cada mensaje; los consumidores son idempotentes por diseño. La política de GraphQL, donde se use, fija profundidad máxima y coste máximo.
+Una consulta que pide `estudiantes { entregas { archivos { versiones { ... } } } }` en un curso de 200 estudiantes con cinco entregas, tres archivos y cuatro versiones cada uno implica del orden de 200 × 5 × 3 × 4 = 12.000 lecturas de versiones. Con un límite de profundidad de tres niveles o un coste máximo, el servidor la rechaza y el cliente debe paginar. (Cálculo ilustrativo.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Una consulta GraphQL pequeña tarda segundos** — causa: no hay límite de profundidad ni de coste. Corrección: fijar profundidad máxima, coste máximo y paginación. ([SE-163](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md))
+- **Una consulta pequeña tarda segundos**: no hay límite de profundidad ni de coste; corrección: fijar profundidad máxima, coste máximo y paginación ([SE-163](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md)).
+- **Creer que GraphQL es «más rápido» por defecto.**
+- **Exponer el esquema completo sin control de autorización por campo.**
+- **Confundirlo con una base de datos**: es una capa de consulta sobre cualquier fuente.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-163 — OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún linter real ni un servidor GraphQL o un broker, la medición de resolvedores es un cálculo y las tasas de duplicado y reordenamiento son supuestos. La siguiente clase pregunta cómo cambia un contrato sin romper a quien ya lo usa.
+Para APIs simples con pocos clientes y respuestas fijas, REST con OpenAPI es más sencillo y se cachea mejor con HTTP estándar. GraphQL complica el caché, la autorización fina y el control de coste. Los límites recomendados son una decisión de cada servicio, no una propiedad del lenguaje.
 
 ## Relación con otros conceptos
 

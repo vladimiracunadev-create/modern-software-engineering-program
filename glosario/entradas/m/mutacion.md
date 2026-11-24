@@ -2,53 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Mutabilidad](./mutabilidad.md) · [Mutante del silencio →](./mutante-del-silencio.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Cambio malo inyectado deliberadamente para probar el control.
-
-Definición de trabajo de [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md): Copia del árbol con un defecto conocido que se usa para evaluar un validador.
-- En [SE-516 — Proyecto: programa de caos de un servicio con evidencia y remediación](../../../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md): Cambio deliberado de un defecto en una especificación válida para medir qué detecta el validador.
-- En [SE-144 — Proyecto: caso de viabilidad técnico-económica](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md): Copia del caso con un defecto conocido que se usa para evaluar el validador.
-- En [SE-244 — Validación, errores y contratos consistentes](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md): Cambio deliberado de una respuesta para comprobar si una comprobación lo detecta.
+Una **mutación** es un cambio malo inyectado deliberadamente para probar un control ([SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md)). El programa usa el término con el mismo núcleo en varios contextos: copia de un árbol de métricas con un defecto conocido para evaluar un validador ([SE-143](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md)), cambio deliberado de un defecto en una especificación válida para medir qué detecta el validador ([SE-516](../../../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md), [SE-144](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md)), cambio deliberado de una respuesta para comprobar si una comprobación lo detecta ([SE-244](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md)). Es la unidad de la prueba de mutación.
 
 ## Por qué importa
 
-En [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md), el tema «Mutaciones» importa porque prueban el control con defectos conocidos.
+Un control que nunca ha fallado no se sabe si funciona. Un validador que siempre da verde puede estar ciego. La mutación lo comprueba introduciendo defectos conocidos y viendo si el control los detecta. Cambia la confianza que se puede tener: de «el validador pasa» a «el validador detecta estos N tipos de defecto».
 
 ## Cómo funciona
 
-Según [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md):
+[SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md) prueba un control como se prueba un detector: **con incidentes sembrados**. Las diez mutaciones del proyecto de la clase son defectos concretos sobre un registro de metadatos de datos: quitar el dueño; añadir una columna al mart sin actualizar el contrato; exponer una columna de correo en el mart (actualizando el contrato, para que otra regla no la vea); declarar una retención de 10 días sin purga; quitar todas las comprobaciones de un conjunto; hacer que el mart lea de la capa cruda sin pasar por la capa intermedia; entre otras. Para cada mutación, se ejecuta el control y se anota si la detecta.
 
-Un control se prueba como un detector de `SE-365`: con incidentes sembrados. Las diez mutaciones del proyecto son: quitar el dueño; añadir una columna al mart sin actualizar el contrato; exponer una columna de correo en el mart (actualizando el contrato, para que R2 no la vea); declarar una retención de 10 días sin purga; quitar todas las comprobaciones de un conjunto; hacer que el mart lea de la capa cruda sin declararlo; cambiar el tipo declarado de una columna; cargar datos con tres días de atraso; dejar sin declarar la retención de un conjunto; y cambiar el ingreso de `SUM` a `MAX`.
+El resultado es una **tabla de cobertura**: qué defectos ve el control y cuáles no. Las mutaciones no detectadas señalan huecos del control o mutantes equivalentes (que no cambian nada observable). En la práctica, el equipo de la clase ejecuta las diez mutaciones cada trimestre como prueba del propio control: si un cambio de reglas deja de detectar alguna, la prueba falla y el cambio no entra. Cuando ocurre un incidente real que el control no vio, se añade una mutación inspirada en él.
 
-Según [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md):
-
-El equipo de *Avisos* convierte el proyecto en una práctica. Mantiene el registro de metadatos junto al código del pipeline y ejecuta el control en cada cambio y antes de cada publicación. Cada trimestre ejecuta las diez mutaciones como prueba del propio control: si un cambio de reglas deja de detectar alguna, la prueba falla y el cambio no entra. Un día añade una undécima mutación inspirada en un incidente real (un `JOIN` que duplicó filas) y ve que ninguna regla la detecta; añade entonces una regla de conciliación de filas contra la capa anterior y la matriz pasa a 11 de 11.
+El mismo mecanismo sirve para validadores de especificaciones ([SE-516](../../../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md), [SE-144](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica/README.md): 16 mutaciones sobre una especificación base) y de árboles de métricas ([SE-143](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md)). En todos los casos la mutación es **un cambio pequeño, conocido y malo**, y la medida es cuántos detecta el control.
 
 ## Ejemplo
 
-Ejemplo de [SE-372 — Proyecto: plataforma de datos mínima gobernada](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md) (sección «Ejemplo profesional»):
-
-El equipo de *Avisos* convierte el proyecto en una práctica. Mantiene el registro de metadatos junto al código del pipeline y ejecuta el control en cada cambio y antes de cada publicación. Cada trimestre ejecuta las diez mutaciones como prueba del propio control: si un cambio de reglas deja de detectar alguna, la prueba falla y el cambio no entra. Un día añade una undécima mutación inspirada en un incidente real (un `JOIN` que duplicó filas) y ve que ninguna regla la detecta; añade entonces una regla de conciliación de filas contra la capa anterior y la matriz pasa a 11 de 11.
+Una especificación base válida se copia 16 veces; en cada copia se introduce un defecto distinto (un requisito sin dueño, una referencia a un requisito inexistente, un ciclo de dependencias, etc.). El validador se ejecuta sobre cada copia: detecta 13 de 16. Los 3 que no detecta son huecos documentados que se cubren con revisión humana. (Escenario construido con el método de [SE-516](../../../classes/part-42-ingenieria-del-caos/se-516-proyecto-programa-de-caos-de-un-servicio-con-evidencia-y-remediacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **El validador pasa y el comportamiento es erróneo** — causa: una prueba vacía o débil. Corrección: añadir una mutación o una lectura humana de las pruebas. ([SE-204](../../../classes/part-16-git-colaboracion-y-codigo-abierto/se-204-proyecto-contribucion-revisable-de-extremo-a-extremo/README.md))
+- **Creer que un validador verde significa especificación sana**: solo comprueba lo que sabe comprobar.
+- **Elegir mutaciones fáciles** que el control detecta de sobra.
+- **Contar equivalentes como fallos del control.**
+- **No ejecutarlas de forma periódica**: el control se degrada con los cambios.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- De las diez mutaciones, nueve dispararon exactamente una regla: el dueño quitado, R1; la columna sin contrato, R2; el correo en el mart, R4; la retención de 10 días sin purga, R5; las comprobaciones quitadas, R3; el mart que lee de la capa cruda, R6; el tipo cambiado, R2; los datos atrasados, R7; la retención sin declarar, R5. ([SE-372](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-372-proyecto-plataforma-de-datos-minima-gobernada/README.md))
-- Traslada el experimento a otro de los dominios persistentes (por ejemplo, un formulario de pago ficticio): cambia los campos y conserva el procedimiento de mirar el validador con cargas límite y medir la deriva con mutaciones. ([SE-244](../../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md))
+Las mutaciones las elige el autor, de modo que la cobertura medida es sobre ese conjunto, no sobre todos los defectos posibles. Su valor depende de que representen defectos reales. No reemplazan la revisión humana ni las pruebas con datos reales.
 
 ## Relación con otros conceptos
 

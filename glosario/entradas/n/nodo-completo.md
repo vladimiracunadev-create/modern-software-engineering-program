@@ -2,40 +2,46 @@
 
 [↑ Glosario](../../README.md) · [← No-code](./no-code.md) · [Noindex →](./noindex.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 11](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/README.md)
 
 ## Definición
 
-Nodo con nombre, fórmula o fuente, responsable nombrado, decisión que informa y, en la raíz, métrica contraria.
-
-Definición de trabajo de [SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md).
+Un **nodo completo** de un árbol de métricas es un nodo con nombre, fórmula o fuente, responsable nombrado, decisión que informa y, en la raíz, métrica contraria ([SE-143](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md)). Es la unidad de un árbol de métricas, que descompone una métrica raíz (por ejemplo, ingresos o entregas aceptadas) en factores y hojas medibles.
 
 ## Por qué importa
 
-En [SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md), el tema «Nodos completos» importa porque un nodo sin responsable, fuente o decisión es una métrica sin dueño ni uso.
+Un nodo sin responsable, fuente o decisión es una métrica sin dueño ni uso. Un árbol con nodos incompletos se ve bien en un diagrama y no sirve para actuar: nadie sabe de dónde sale cada cifra ni qué se hace con ella. Cambia la disciplina de construir y mantener un árbol: cada nodo se añade con todos sus campos o no se añade.
 
 ## Cómo funciona
 
-Según [SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md), en la sección «Nodos completos»:
+[SE-143](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) enumera los campos de cada nodo:
 
-Cada nodo lleva: nombre, fórmula (si no es hoja) o fuente (si lo es), responsable nombrado, decisión que informa y, en la raíz, una métrica contraria. Una hoja con fuente pero sin decisión no se usa; una con decisión pero sin fuente no se puede calcular. El campo «responsable» debe ser una persona o un rol con nombre, no «el equipo».
+- **nombre**;
+- **fórmula** (si el nodo no es hoja, cómo se calcula a partir de sus hijos) o **fuente** (si es hoja, de dónde viene el dato);
+- **responsable nombrado**, una persona o un rol con nombre, **no «el equipo»**;
+- **decisión que informa**, qué se hace distinto si el valor cambia;
+- en la raíz, una **métrica contraria** que vigila el daño posible de optimizarla.
+
+La razón de cada campo es la ausencia que evita. Una hoja con fuente pero sin decisión **no se usa**; una con decisión pero sin fuente **no se puede calcular**. Sin responsable, nadie atiende cuando el valor se desvía. Sin fórmula, la raíz no se puede recuperar de las hojas.
+
+El árbol de la plataforma vive en un archivo con una fila por nodo, un validador y dieciséis mutaciones que miden qué detecta. El contrato es que **ningún nodo se añade sin los cinco campos** y que cada cambio de fórmula conserva la raíz exacta. Dos fallos con causa conocida: el árbol con dos raíces (se mezclaron métricas de dos objetivos; se elige una raíz y se mueve la otra a una guarda) y la raíz que no se recupera de las hojas (la fórmula suma donde debía multiplicar; se valida la aritmética con los valores declarados).
+
+El validador comprueba la completitud de forma mecánica; que la decisión sea relevante o que el responsable sea adecuado lo juzga una persona.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md):
-
-En la plataforma, `metric-tree.md` contiene el árbol completo con una fila por nodo (nombre, fórmula o fuente, responsable, decisión, contraria), el validador, las dieciséis mutaciones con su resultado, la tabla de descomposición y el orden de hojas. El contrato es que ningún nodo se añade sin los cinco campos y que cada cambio de fórmula conserva la raíz exacta. Esa estructura permite que otra persona recalcule la raíz con otros valores y vea qué cambia.
+Raíz: «entregas aceptadas a tiempo por semana» = «estudiantes activos» × «entregas por estudiante» × «tasa de aceptación a tiempo». Nodo hoja «tasa de aceptación a tiempo»: fuente, tabla de entregas; responsable, la coordinadora de producto; decisión que informa, si se revisa el flujo de validación; sin métrica contraria porque no es la raíz. La raíz lleva como contraria la tasa de reclamos. (Árbol ilustrativo en el estilo de [SE-143](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md)) son:
-
-- **El árbol tiene dos raíces** — causa: se mezclaron métricas de dos objetivos. Corrección: elegir una raíz y mover la otra a una guarda.
-- **La raíz no se recupera de las hojas** — causa: la fórmula suma donde debía multiplicar. Corrección: validar aritmética con los valores declarados.
+- **Árbol con dos raíces**: se mezclaron objetivos.
+- **Raíz que no se recupera de las hojas**: error de aritmética (suma en lugar de producto).
+- **Responsable «el equipo».**
+- **Hojas con fuente pero sin decisión**: métricas decorativas.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-143 — Taller: diseñar un árbol de métricas](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md)) son: Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. El validador se evaluó con dieciséis mutaciones elegidas por el autor y tres árboles nuevos, por lo que su exactitud real es desconocida; los costos de mejora y los baselines son supuestos. La siguiente clase integra el árbol en un caso de viabilidad técnico-económica.
+Un árbol completo no garantiza que las métricas sean las correctas ni que el responsable actúe. El validador de [SE-143](../../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) se evaluó con dieciséis mutaciones elegidas por el autor, de modo que su exactitud real es desconocida. Para métricas efímeras de un experimento, la formalidad completa puede ser excesiva.
 
 ## Relación con otros conceptos
 

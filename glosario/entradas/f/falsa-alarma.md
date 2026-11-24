@@ -2,51 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Fallo, enlaces y supervisión](./fallo-enlaces-y-supervision.md) · [Falsa denegación →](./falsa-denegacion.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Activación de un disparador sin que el plan haya dejado de valer.
-
-Definición de trabajo de [SE-192 — Proyecto: plan adaptativo con evidencia y guardrails](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-332 — Fitness functions y arquitectura evolutiva](../../../classes/part-27-arquitectura-de-software-y-dominio/se-332-fitness-functions-y-arquitectura-evolutiva/README.md): Aviso de la función cuando la propiedad se cumple.
-- En [SE-578 — Instrucciones de repositorio y cumplimiento determinista](../../../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md): Bloqueo de un cambio que no infringe la regla.
-- En [SE-512 — Caos continuo: automatización en CI/CD y en producción](../../../classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md): Fallo de la suite sobre una configuración sana.
-- En [SE-306 — Code smells y diagnóstico contextual](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-306-code-smells-y-diagnostico-contextual/README.md): Código señalado por una regla que, mirado en su contexto, no es un problema.
+Una **falsa alarma** es la activación de un aviso, regla o disparador cuando el problema que debía detectar no existe. El programa la usa con un núcleo común y matices por clase: en [SE-192](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md), la activación de un disparador sin que el plan haya dejado de valer; en [SE-332](../../../classes/part-27-arquitectura-de-software-y-dominio/se-332-fitness-functions-y-arquitectura-evolutiva/README.md), el aviso de una función cuando la propiedad se cumple; en [SE-578](../../../classes/part-48-harness-y-agentic-engineering/se-578-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md), el bloqueo de un cambio que no infringe la regla; en [SE-512](../../../classes/part-42-ingenieria-del-caos/se-512-caos-continuo-automatizacion-en-ci-cd-y-en-produccion/README.md), el fallo de una suite sobre una configuración sana; en [SE-306](../../../classes/part-25-diseno-patrones-y-refactorizacion/se-306-code-smells-y-diagnostico-contextual/README.md), el código que una regla señala y que, mirado en su contexto, no es un problema; en [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md), la reversión de un canario sin defecto real.
 
 ## Por qué importa
 
-En [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md), el tema «Decisión estadística» importa porque con ruido, el umbral decide las falsas alarmas.
+Cada falsa alarma cuesta atención y credibilidad. Una regla que alarma casi siempre acaba ignorada, y entonces la alarma verdadera pasa desapercibida. Cambia el diseño de umbrales y ventanas: no se trata solo de detectar, sino de detectar sin alarmar de más.
 
 ## Cómo funciona
 
-Según [SE-476 — Canary, blue-green y rollback](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md), en la sección «Falsas alarmas»:
+La causa estructural es el compromiso entre dos errores. [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md) lo explica con el canario: el umbral fija el equilibrio entre ambos; **bajo, y se revierte sin defecto (falsa alarma); alto, y tarda más en declararse un defecto real**. Con ruido, el umbral decide cuántas falsas alarmas se producen.
 
-Sin ningún defecto (error del 0,5 % en ambas versiones), se evalúa la prueba cada segundo durante 30 minutos con un canario del 5 % y se cuenta cuántos de 200 episodios terminan en reversión, según el umbral z.
+La cuenta que sorprende es la de **evaluaciones repetidas**. En [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md), sin ningún defecto (error del 0,5 % en ambas versiones), se evalúa la prueba cada segundo durante 30 minutos con un canario del 5 % y se cuenta cuántos de 200 episodios terminan en reversión según el umbral. Con un umbral del 5 % para una sola decisión, se revierte el 47 % de los episodios, porque se evalúa 1.800 veces. Las evaluaciones consecutivas están correlacionadas (no son 1.800 pruebas independientes), pero el efecto es grande. Es el mismo problema de mirar los resultados repetidamente.
 
-**Cómo leer la figura.** Cada barra es el porcentaje de episodios sin defecto que acaban en una reversión innecesaria. Un umbral del 5 % para una sola decisión revierte el 47 % de los episodios porque se evalúa 1 800 veces. **Dónde deja de valer:** las evaluaciones consecutivas están correlacionadas, de modo que no son 1 800 pruebas independientes; aun así, el efecto es grande. Subir el umbral baja las falsas alarmas y alarga la detección del defecto real: la figura siguiente muestra a qué precio. Existen pruebas secuenciales diseñadas para este uso, que no se evaluaron aquí.
+[SE-192](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md) lo aplica a los disparadores: si cada semana hay una probabilidad independiente de 5 % de activarse sin motivo, en 20 semanas la probabilidad de al menos una falsa alarma es 1 − 0,95²⁰ ≈ 64 %. Las defensas son las mismas: exigir **avisos seguidos** (ventana), ampliar la ventana, subir el umbral y **medir las falsas alarmas** para ajustarlas.
 
 ## Ejemplo
 
-Ejemplo de [SE-192 — Proyecto: plan adaptativo con evidencia y guardrails](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md) (sección «Ejemplo mínimo»):
-
-El fragmento calcula la probabilidad de al menos una falsa alarma en un proyecto si cada semana hay una probabilidad independiente de 5 %. Antes de ejecutarlo, predice si la probabilidad en 20 semanas es mayor o menor que 50 %.
+Un canario del 5 % se evalúa cada segundo con un umbral del 5 % por decisión. Aunque las dos versiones sean idénticas, al cabo de 30 minutos casi la mitad de los episodios termina en reversión. Con un umbral más estricto y la exigencia de varias evaluaciones consecutivas, las reversiones innecesarias caen a una fracción pequeña, a costa de tardar más en detectar un defecto real. (Resultado de [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md), expresado con las cifras de la clase.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Nadie reacciona a la alarma de replanificación** — causa: regla sin ventana que alarma casi siempre. Corrección: exigir avisos seguidos, ampliar la ventana y medir las falsas alarmas. ([SE-192](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md))
+- **Nadie reacciona a la alarma de replanificación**: regla sin ventana que alarma casi siempre; corrección: exigir avisos seguidos, ampliar la ventana y medir falsas alarmas.
+- **Tratar cada falsa alarma como un fallo del equipo** en lugar de un parámetro de la regla.
+- **Evaluar sin corregir por múltiples miradas.**
+- **Confundirla con un falso positivo estadístico**: es el mismo concepto aplicado a una regla operativa.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- El umbral fija el equilibrio entre dos errores: bajo, y se revierte sin defecto (falsa alarma); alto, y tarda más en declararse un defecto real o no se declara uno pequeño. ([SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md))
-- Los disparadores se acuerdan al planificar, no cuando ya hay presión, y se revisan con las falsas alarmas que produjeron. ([SE-192](../../../classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md))
+Eliminar las falsas alarmas del todo exige dejar pasar defectos reales. El nivel aceptable depende del costo de actuar sin necesidad frente al de no actuar a tiempo. Las cifras de [SE-476](../../../classes/part-39-build-release-y-cadena-de-suministro/se-476-canary-blue-green-y-rollback/README.md) son de una simulación con supuestos del autor.
 
 ## Relación con otros conceptos
 

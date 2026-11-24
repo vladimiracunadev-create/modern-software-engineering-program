@@ -2,53 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Manejador](./manejador.md) · [Manifiesto de aplicación web →](./manifiesto-de-aplicacion-web.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Lista de resúmenes de los archivos de evidencia en el momento de una revisión.
-
-Definición de trabajo de [SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-612 — Proyecto: sistema de ML operable con evidencia](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-612-proyecto-sistema-de-ml-operable-con-evidencia/README.md): Archivo con las huellas, la semilla, las versiones y las métricas de un modelo.
-- En [SE-168 — Proyecto: paquete de especificaciones trazables](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md): Lista de artefactos con su identificador y su huella que permite verificar el paquete.
-- En [SE-444 — Proyecto: informe reproducible de calidad](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md): Archivo estructurado que describe la pregunta, el plan, el entorno, los datos, los resultados, el veredicto y los límites de un informe.
-- En [SE-300 — Proyecto: diseño profundo de un dominio elegido](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md): Lista de los ficheros de un paquete con la huella de cada uno.
+En el programa, un **manifiesto** es una lista de elementos con su identificador y su huella, que permite verificar un conjunto. Tiene varios usos según la clase: en [SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md), la lista de resúmenes de los archivos de evidencia en el momento de una revisión; en [SE-168](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md) y [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md), la lista de artefactos o ficheros de un paquete con la huella de cada uno; en [SE-368](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md), la lista de archivos de una versión de una tabla de lakehouse; en [SE-612](../../../classes/part-50-machine-learning-en-produccion-y-mlops/se-612-proyecto-sistema-de-ml-operable-con-evidencia/README.md), el archivo con las huellas, la semilla, las versiones y las métricas de un modelo; en [SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md), el archivo estructurado que describe la pregunta, el plan, el entorno, los datos, los resultados, el veredicto y los límites de un informe. No es el manifiesto de una aplicación web ni el manifiesto ágil.
 
 ## Por qué importa
 
-En [SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md), el tema «Manifiesto» importa porque lecturas consistentes durante cambios.
+Hace detectable un cambio que las demás comprobaciones no ven. Un manifiesto fija qué había en el conjunto en un momento dado; comparándolo después se descubre qué cambió. Cambia la confianza en un paquete o una versión: se verifica en lugar de suponer.
 
 ## Cómo funciona
 
-Según [SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md):
+El mecanismo es una lista de pares (elemento, huella), donde la huella es un resumen criptográfico (por ejemplo SHA-256) del contenido. Si el contenido cambia, la huella cambia. Dos usos ilustran su valor.
 
-Una tabla de un lakehouse no es una carpeta de archivos: es la lista de archivos de una versión, guardada en un manifiesto. Una escritura (insertar, compactar, borrar) añade archivos nuevos y publica una versión nueva del manifiesto con un único renombrado atómico. Un lector que abrió la versión 1 sigue viendo sus 10 archivos mientras la compactación prepara el único archivo de la versión 2; un lector nuevo ve la versión 2. Los archivos viejos se borran más tarde, cuando nadie los lee. Es la misma idea de publicar con una operación atómica de `SE-364`, aplicada a la tabla entera, y da además viaje en el tiempo (leer una versión anterior) mientras no se limpien sus archivos.
+**Evidencia ([SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md)).** Las comprobaciones de contenido no ven un cambio que mantenga todas las referencias válidas. Si se edita el texto de un requisito (REQ-02 pasa de «la puerta abierta» a «abierta o entreabierta»), todas las pruebas siguen enlazadas y pasan, y el paquete sigue «en verde», pero la prueba verificó un requisito anterior. La defensa mínima es un manifiesto con el SHA-256 de cada archivo de evidencia en el momento de la revisión: al comparar, el archivo editado aparece con otra huella y la revisión debe repetirse.
 
-Según [SE-456 — Proyecto: paquete de aseguramiento de un controlador](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md):
+**Datos ([SE-368](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md)).** Una tabla de un lakehouse no es una carpeta de archivos sino la lista de archivos de una versión, guardada en un manifiesto. Una escritura añade archivos nuevos y publica una **nueva versión del manifiesto** con un único renombrado atómico. Un lector que abrió la versión 1 sigue viendo sus archivos mientras una compactación prepara la versión 2; un lector nuevo ve la 2. Así se logran lecturas consistentes durante los cambios.
 
-Las comprobaciones de contenido no ven un cambio que mantenga todas las referencias válidas. Si se edita el texto de REQ-02 («la puerta abierta» pasa a «abierta o entreabierta»), todas las pruebas siguen enlazadas y pasan, y el paquete sigue «en verde», pero la prueba verificó un requisito anterior. La defensa mínima es un **manifiesto**: un archivo con el resumen SHA-256 de cada archivo de evidencia en el momento en que una persona lo revisó. Una comparación posterior marca los archivos que ya no coinciden. En el laboratorio, tras editar REQ-02, las comprobaciones de contenido siguen mostrando los mismos tres huecos y el manifiesto marca `requisitos.json` como distinto. El manifiesto no dice si la prueba sigue valiendo; dice que alguien debe decidirlo.
+En los paquetes de [SE-168](../../../classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables/README.md) y [SE-300](../../../classes/part-24-software-especializado-y-dominios/se-300-proyecto-diseno-profundo-de-un-dominio-elegido/README.md), el manifiesto permite verificar la integridad de lo recibido antes de usarlo.
 
 ## Ejemplo
 
-Ejemplo de [SE-368 — Warehouse, lake, lakehouse y formatos columnares](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md) (sección «Caso conductor»):
-
-*Avisos* guarda la tabla de lecturas en un formato columnar, ordenada por fecha y compactada, con un manifiesto de versiones. `SE-369` trata lo que esos archivos contienen sobre personas y durante cuánto tiempo pueden conservarse.
+Un paquete de evidencia tiene tres archivos. Su manifiesto registra `requisitos.md: 9f2c…`, `pruebas.md: 41ab…` y `resultados.json: c07d…`. Tras la revisión, alguien edita `requisitos.md`. Al verificar, la huella de ese archivo difiere y la revisión se declara obsoleta, aunque todos los enlaces sigan válidos. (Ilustración del mecanismo de [SE-456](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-456-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md); las huellas son ficticias.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **Otra persona no puede reproducir el informe** — causa: falta el entorno, el comando o las semillas. Corrección: manifiesto con entorno, comando y semillas, y ejecución en un sistema limpio. ([SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md))
+- **Creer que «en verde» implica que lo revisado es lo vigente.**
+- **Manifiesto sin verificar** nunca.
+- **Almacenar el manifiesto junto al contenido sin protegerlo**: quien altera el contenido altera también la lista.
+- **Confundir manifiesto con índice**: el índice dice dónde está; el manifiesto, qué contenido tiene.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Una tabla de un lakehouse no es una carpeta de archivos: es la lista de archivos de una versión, guardada en un manifiesto. ([SE-368](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-368-warehouse-lake-lakehouse-y-formatos-columnares/README.md))
-- El manifiesto no sustituye al informe en prosa: lo hace comprobable. ([SE-444](../../../classes/part-36-calidad-rendimiento-y-resiliencia/se-444-proyecto-informe-reproducible-de-calidad/README.md))
+Un manifiesto prueba integridad, no corrección. Protege contra cambios si la propia lista está protegida (firmada o guardada aparte). Para conjuntos que cambian constantemente, mantenerlo a mano es impracticable y se genera automáticamente.
 
 ## Relación con otros conceptos
 

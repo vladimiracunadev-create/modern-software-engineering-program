@@ -2,46 +2,53 @@
 
 [↑ Glosario](../../README.md) · [← GitOps](./gitops.md) · [Glosario →](./glosario.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Forma de escribir un ejemplo como contexto, acción y resultado observable.
-
-Definición de trabajo de [SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md).
+**Given-When-Then** (Dado–Cuando–Entonces) es una forma de escribir un ejemplo como contexto, acción y resultado observable ([SE-149](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md), [SE-158](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md)). Es la estructura de los escenarios del lenguaje Gherkin y de la especificación por ejemplos.
 
 ## Por qué importa
 
-En [SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md), el tema «Given-When-Then» importa porque estructura el ejemplo en contexto, acción y resultado y permite automatizarlo.
-
-En [SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md), el tema «Given-When-Then» importa porque la estructura separa contexto, acción y resultado observable y hace que el escenario sea revisable por personas no técnicas.
+Estructura el ejemplo y permite automatizarlo. Un escenario escrito así lo puede leer una persona no técnica y ejecutar una herramienta. Cambia cómo se redactan los criterios de aceptación: de frases generales a escenarios concretos con un resultado verificable.
 
 ## Cómo funciona
 
-Según [SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md), en la sección «Given-When-Then»:
+La forma separa tres partes:
 
-La forma Dado–Cuando–Entonces separa el contexto (dado una estudiante con sesión válida y un archivo de 10,1 MB), la acción (cuando intenta entregarlo) y el resultado observable (entonces ve el mensaje del límite y la entrega no se guarda). Gherkin la hace ejecutable. Su riesgo es la verbosidad: escenarios que describen la interfaz clic por clic en lugar del comportamiento se rompen con cada cambio visual y no aportan información.
+- **Dado** (el contexto): lo que ya era verdad, por ejemplo «una estudiante con sesión válida y un archivo de 10,1 MB».
+- **Cuando** (la acción): lo que ocurre, «intenta entregarlo».
+- **Entonces** (el resultado observable): lo que debe observarse, «ve el mensaje del límite y la entrega no se guarda».
 
-Según [SE-158 — Specification by Example y BDD](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md), en la sección «Given-When-Then»:
+[SE-158](../../../classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd/README.md) subraya que la utilidad **no es sintáctica**: obliga a separar lo que ya era verdad de lo que ocurre y de lo que debe observarse. Un escenario con dos acciones o con una verificación en el contexto suele indicar que son dos escenarios. Los pasos se redactan en el **lenguaje del dominio** («la entrega llega 30 horas tarde»), no en el de la interfaz.
 
-La estructura de Gherkin ordena un escenario en contexto (`Dado`), acción (`Cuando`) y resultado observable (`Entonces`). La utilidad no es sintáctica: obliga a separar lo que ya era verdad de lo que ocurre y de lo que debe observarse. Un escenario con dos acciones o con una verificación en el contexto suele indicar que son dos escenarios. Los pasos se redactan en el lenguaje del dominio («la entrega llega 30 horas tarde») y se emparejan con código mediante expresiones; esa separación permite que cambie la implementación sin tocar el texto.
+Gherkin lo hace ejecutable: cada paso se vincula con código que prepara el contexto, ejecuta la acción y comprueba el resultado. Su riesgo, dice [SE-149](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md), es la **verbosidad**: escenarios que describen la interfaz clic por clic en lugar del comportamiento se rompen con cada cambio visual y nadie los mantiene. La corrección es escribir el comportamiento de negocio y dejar el detalle de interfaz para la implementación de los pasos.
+
+Los escenarios sirven de criterios de aceptación y de fuente de casos de prueba. Los que se eligen deben incluir los **valores de frontera** (10 MB y 10,1 MB), no solo el camino típico.
 
 ## Ejemplo
 
-Caso medido en la sección «Given-When-Then» de [SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md):
+```gherkin
+Escenario: Archivo por encima del límite
+  Dado una estudiante con sesión válida
+  Y un archivo PDF de 10,1 MB
+  Cuando intenta entregarlo
+  Entonces ve un mensaje que indica el límite de 10 MB
+  Y la entrega no se guarda
+```
 
-La forma Dado–Cuando–Entonces separa el contexto (dado una estudiante con sesión válida y un archivo de 10,1 MB), la acción (cuando intenta entregarlo) y el resultado observable (entonces ve el mensaje del límite y la entrega no se guarda). Gherkin la hace ejecutable. Su riesgo es la verbosidad: escenarios que describen la interfaz clic por clic en lugar del comportamiento se rompen con cada cambio visual y no aportan información.
+Un escenario gemelo con un archivo de exactamente 10 MB y resultado «la entrega se guarda» fija la frontera. (Escenario ilustrativo basado en el ejemplo de [SE-149](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)) son:
-
-- **Las pruebas pasan y el cliente rechaza la entrega** — causa: el criterio solo cubría ejemplos felices. Corrección: añadir ejemplos en las fronteras y en las clases no válidas.
-- **Dos personas aplican la regla de redondeo de forma distinta** — causa: no hay ejemplo en el empate. Corrección: añadir el ejemplo y registrar quién decidió la regla.
+- **Las pruebas pasan y el cliente rechaza la entrega**: el criterio solo cubría ejemplos felices; corrección: añadir ejemplos en las fronteras y en clases no válidas.
+- **Describir la interfaz clic por clic.**
+- **Varias acciones en un escenario.**
+- **Confundir la forma con el valor**: escribirlo en Gherkin no mejora un ejemplo mal elegido.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-149 — Criterios de aceptación y ejemplos](../../../classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Los mutantes, las fallas sembradas y las notas son supuestos del autor, la suite de pares se obtuvo con un algoritmo voraz propio y no se probó ningún sistema real. La siguiente clase ordena el conjunto de historias teniendo en cuenta sus dependencias y las negociaciones entre interesados.
+Para reglas con muchas combinaciones, una tabla de decisión es más compacta que decenas de escenarios. El mantenimiento de las definiciones de pasos es un costo real. Si nadie de negocio lee los escenarios, parte de su valor se pierde, y entonces puede bastar con pruebas automáticas normales.
 
 ## Relación con otros conceptos
 

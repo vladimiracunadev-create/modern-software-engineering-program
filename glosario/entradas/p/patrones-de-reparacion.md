@@ -2,40 +2,43 @@
 
 [↑ Glosario](../../README.md) · [← Patrón oscuro](./patron-oscuro.md) · [Pause →](./pause.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Movimientos repetibles para volver verificable una frase: cuantificar, acotar, condicionar y separar.
-
-Definición de trabajo de [SE-155 — Taller: reparar requisitos no verificables](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md).
+Los **patrones de reparación** son movimientos repetibles para volver verificable una frase de un requisito: cuantificar, acotar, condicionar y separar ([SE-155](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md)). Se aplican a requisitos con defectos de ambigüedad, vaguedad o compromiso múltiple.
 
 ## Por qué importa
 
-En [SE-155 — Taller: reparar requisitos no verificables](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md), el tema «Patrones de reparación» importa porque ofrecen movimientos repetibles para convertir adjetivos en criterios.
+Ofrecen movimientos repetibles para convertir adjetivos en criterios. «Rápido», «fácil» o «seguro» no se pueden probar; reparar la frase con uno o más movimientos la vuelve medible. Cambia la forma de revisar una especificación: no solo se señala el defecto, se propone un procedimiento para repararlo.
 
 ## Cómo funciona
 
-Según [SE-155 — Taller: reparar requisitos no verificables](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md), en la sección «Patrones de reparación»:
+[SE-155](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md) describe **cuatro movimientos recurrentes**:
 
-Hay cuatro movimientos recurrentes. Cuantificar: sustituir un adjetivo por un número con unidad («rápido» por «p95 ≤ 1 500 ms»). Acotar: decir bajo qué carga o entorno («con 200 usuarios concurrentes»). Condicionar: separar el estímulo de la respuesta («cuando la sesión expira…»). Separar: dividir una frase con varios compromisos en requisitos singulares. Estos movimientos no inventan el valor: lo toman de una necesidad, una norma o una medición previa. Un número sin origen es una decisión que nadie tomó.
+- **Cuantificar**: sustituir un adjetivo por un número con unidad («rápido» por «p95 ≤ 1.500 ms»).
+- **Acotar**: decir bajo qué carga o entorno («con 200 usuarios concurrentes»).
+- **Condicionar**: separar el estímulo de la respuesta («cuando la sesión expira…»).
+- **Separar**: dividir una frase con varios compromisos en requisitos singulares («guardará y cifrará y avisará» son tres).
+
+Aplicados juntos, «el sistema responderá rápido» pasa a «con 200 usuarios concurrentes, el 95 % de las peticiones de listado responde en 1.500 ms o menos». Los movimientos **no inventan el valor**: lo toman de una necesidad o una medición. Por eso, un número sin origen es un defecto nuevo. La corrección es registrar la necesidad o la medición de la que proviene y, si falta, marcarlo como **hipótesis**.
+
+La reparación se acompaña de un **procedimiento de verificación** que dice cómo se comprobará, y de la decisión sobre lo que **no** se repara (qué se deja deliberadamente informal y por qué). Otro riesgo que la clase señala: la prueba pasa y las personas siguen quejándose porque la reparación mide un proxy de lo que importa; se valida con personas el umbral y se revisa si el proxy refleja la necesidad.
 
 ## Ejemplo
 
-Caso medido en la sección «Patrones de reparación» de [SE-155 — Taller: reparar requisitos no verificables](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md):
-
-Hay cuatro movimientos recurrentes. Cuantificar: sustituir un adjetivo por un número con unidad («rápido» por «p95 ≤ 1 500 ms»). Acotar: decir bajo qué carga o entorno («con 200 usuarios concurrentes»). Condicionar: separar el estímulo de la respuesta («cuando la sesión expira…»). Separar: dividir una frase con varios compromisos en requisitos singulares. Estos movimientos no inventan el valor: lo toman de una necesidad, una norma o una medición previa. Un número sin origen es una decisión que nadie tomó.
+Requisito original: «La subida de archivos debe ser rápida y segura». Separar: dos requisitos. Cuantificar y acotar el primero: «con conexión de 10 Mbit/s, un PDF de 10 MB se sube en menos de 12 s en el 95 % de los intentos». Condicionar el segundo: «cuando el archivo tiene una extensión no permitida, el sistema lo rechaza con un mensaje que indica las extensiones aceptadas». Cada uno se puede probar. (Reparación ilustrativa con los movimientos de [SE-155](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-155 — Taller: reparar requisitos no verificables](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md)) son:
-
-- **Se repara una frase con una cifra y nadie sabe de dónde salió** — causa: el número no tiene origen. Corrección: registrar la necesidad o la medición de la que proviene y marcarlo como hipótesis si falta.
-- **La prueba pasa y las personas siguen quejándose** — causa: la reparación mide un proxy de lo que importa. Corrección: validar con personas el umbral y revisar si el proxy refleja la necesidad.
+- **Cifra sin origen**: nadie sabe de dónde salió; corrección: registrar la necesidad o la medición, o marcarla como hipótesis.
+- **La prueba pasa y la gente se queja**: el proxy no refleja la necesidad.
+- **Reparar solo la forma**: añadir un número arbitrario para parecer preciso.
+- **Aplicar un solo movimiento** donde hacen falta varios.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-155 — Taller: reparar requisitos no verificables](../../../classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): el cálculo y la regla con salidas idénticas y la medición de latencia con tiempos propios de cada sistema. Las frases, las reparaciones y las etiquetas son del autor, la regla se ajustó viendo los diez primeros enunciados, el servidor es trivial y no se probó con personas.
+No todo requisito debe cuantificarse: algunos se verifican con inspección o con una prueba con personas y un umbral. Un número impuesto sin respaldo da una falsa precisión. La reparación depende de saber qué importa; si no se conoce la necesidad, primero se investiga.
 
 ## Relación con otros conceptos
 

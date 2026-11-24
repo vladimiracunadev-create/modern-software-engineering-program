@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Job](./job.md) · [Journal y rollback →](./journal-y-rollback.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Relato que parte de una situación, una motivación y un resultado esperado, sin depender de un rol.
-
-Definición de trabajo de [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md).
+Una **job story** es un relato que parte de una situación, una motivación y un resultado esperado, sin depender de un rol ([SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)). Es una alternativa a la historia de usuario cuando el rol no explica el comportamiento.
 
 ## Por qué importa
 
-En [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md), el tema «Job stories» importa porque parten de la situación y no del rol; útiles cuando el rol no explica el comportamiento.
+El mismo rol se comporta de formas muy distintas según la situación, y esa situación es lo que determina la necesidad. Una job story obliga a nombrar el desencadenante, la motivación y el resultado, en lugar de describir a un tipo de usuario. Cambia el punto de partida del requisito: la situación en lugar de la persona.
 
 ## Cómo funciona
 
-Según [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md), en la sección «Job stories»:
+La plantilla es «**Cuando** [situación], **quiero** [motivación], **para** [resultado esperado]». [SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) da el ejemplo: «Cuando mi sesión expira mientras escribo, quiero recuperar lo que escribí para no repetir el trabajo». No dice «como estudiante»: el rol es irrelevante, porque lo mismo le ocurre a un docente que redacta un comentario.
 
-Una job story reemplaza el rol por la situación: «Cuando mi sesión expira mientras escribo, quiero recuperar lo que escribí para no repetir el trabajo». Es útil cuando el rol no explica el comportamiento (la misma estudiante se comporta distinto desde el móvil en el bus que desde un escritorio) y obliga a nombrar el desencadenante, la motivación y el resultado esperado. No sustituye al caso de uso: no dice qué pasa paso a paso ni cubre las variantes.
+Es útil en dos casos. Cuando el **rol no explica el comportamiento**: la misma estudiante se comporta distinto desde el móvil en el bus que desde un escritorio. Y cuando el **actor es el mismo en situaciones muy distintas**. Se relaciona con los trabajos por hacer (jobs to be done), de donde toma la idea de que la gente «contrata» un producto para progresar en una situación.
+
+[SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) aclara sus límites: **no sustituye al caso de uso**, que dice quién interactúa con qué, paso a paso, con alternativas. Las tres formas del requisito conductor (caso de uso, historia de usuario y job story) responden a preguntas distintas: el caso de uso, qué pasos y qué alternativas; la historia, qué valor y para quién; la job story, en qué situación y por qué. Y no hay moda que seguir: para un sistema con roles bien separados y permisos distintos, la historia de usuario sigue siendo clara. La decisión es de claridad.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md):
-
-El requisito conductor se cuenta con las tres formas, cada una para una pregunta distinta:
+Historia de usuario: «Como estudiante quiero recuperar mi borrador para no perder mi trabajo». Job story: «Cuando mi sesión expira mientras escribo la entrega desde el móvil, quiero recuperar lo que escribí para no repetir el trabajo». La segunda incluye la situación (expiración, móvil) que orienta el diseño: guardado automático local y recuperación al volver a entrar. (Ejemplo derivado del de [SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son:
-
-- **Todas las historias empiezan con «Como usuario»** — causa: no se definió el catálogo de actores. Corrección: crear el catálogo con objetivo y contacto y exigir que cada historia nombre uno.
-- **El caso de uso solo describe el camino feliz** — causa: las extensiones se consideraron «detalles». Corrección: enumerar las alternativas por paso y decidir cuáles se prueban.
+- **Todas las historias empiezan con «Como usuario»**: no se definió el catálogo de actores; corrección: crear el catálogo con objetivo y contacto.
+- **El caso de uso solo describe el camino feliz.**
+- **Usar job stories como disfraz** de la misma historia con otro formato.
+- **Omitir la motivación o el resultado.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-148 — Casos de uso, historias y job stories](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo, no se comparó la comprensión de personas con cada forma de relato y las capacidades e historias son supuestos del autor. La siguiente clase añade a cada historia los ejemplos concretos que permiten aceptar o rechazar el trabajo.
+Cuando los permisos y funciones dependen del rol (administrar, calificar), el rol sí importa y la historia de usuario es más clara. [SE-148](../../../classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories/README.md) declara que no comparó la comprensión de las personas con cada forma de relato. Las job stories no incluyen criterios de aceptación; hay que añadirlos con ejemplos.
 
 ## Relación con otros conceptos
 

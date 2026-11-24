@@ -2,45 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Exploración frente a producto](./exploracion-frente-a-producto.md) · [Explotación conocida →](./explotacion-conocida.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Crecimiento del número de estados globales con el número de componentes concurrentes.
-
-Definición de trabajo de [SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md): Crecimiento exponencial del espacio de estados con el tamaño del modelo.
+La **explosión de estados** es el crecimiento del número de estados globales de un sistema con el número de componentes concurrentes ([SE-161](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md)). [SE-453](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md) la precisa como el crecimiento exponencial del espacio de estados con el tamaño del modelo. Es el principal obstáculo práctico de la verificación de modelos.
 
 ## Por qué importa
 
-En [SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md), el tema «Explosión de estados» importa porque la concurrencia multiplica estados; sin una reducción, la verificación se vuelve inviable.
-
-En [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md), el tema «Explosión de estados» importa porque limita lo que se verifica.
+El costo de verificar crece con el espacio de estados, y este crece de forma exponencial. Con unos pocos componentes la verificación puede tardar horas o no terminar. Cambia cómo se modela: hay que decidir qué se abstrae, qué se acota y qué se reduce, o la herramienta no llega a ningún resultado.
 
 ## Cómo funciona
 
-Según [SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md), en la sección «Explosión de estados»:
+Cada componente concurrente añade su propio estado, y los estados globales son el **producto** de los locales. [SE-161](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md) ejemplifica con N estudiantes que envían a la vez, con tres estados locales cada uno: el espacio tiene 3ᴺ combinaciones. [SE-453](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md) lo mide en un laboratorio: n procesos independientes de cuatro pasos tienen 4ⁿ estados: **16 con 2, 1.024 con 5 y 16.384 con 7**. Cada proceso añadido multiplica por cuatro.
 
-Cada componente concurrente añade su propio estado y los estados globales son el producto. Con N estudiantes que envían a la vez y tres estados locales cada uno, el espacio crece exponencialmente. Las defensas son abstraer (modelar solo lo que importa), acotar (probar con N pequeño) y reducir por simetría (tratar como idénticos los estudiantes intercambiables). La reducción por simetría solo es válida si la intercambiabilidad es real: si una cola atiende por prioridad individual, ordenar el estado destruye diferencias que importan.
+Tres defensas, según [SE-161](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md):
+
+- **Abstraer**: modelar solo lo que importa para la propiedad, descartando detalles irrelevantes.
+- **Acotar**: probar con N pequeño (dos o tres procesos), con la hipótesis de que un defecto de coordinación suele manifestarse con pocos participantes.
+- **Reducir por simetría**: tratar como idénticos los componentes intercambiables (los estudiantes son equivalentes entre sí), de modo que estados que difieren solo en el orden de los nombres se cuentan una vez. La reducción por simetría solo es válida si la intercambiabilidad es real; si los componentes se distinguen (uno es administrador), la reducción puede ocultar defectos.
+
+La razón de que funcione es que la propiedad suele depender de una estructura pequeña del sistema; el resto del espacio es redundante respecto de ella. El riesgo es que la abstracción elimine justo lo que causaba el defecto.
 
 ## Ejemplo
 
-Caso medido en la sección «La explosión de estados» de [SE-453 — Verificación formal y model checking: TLA+, SPARK y Alloy](../../../classes/part-37-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-453-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md):
-
-El costo de la verificación crece con el espacio de estados, y este crece de forma exponencial con el número de componentes. En el laboratorio, n procesos independientes de cuatro pasos tienen 4ⁿ estados: 16 con 2, 1 024 con 5 y 16 384 con 7.
+Tres estudiantes que envían entregas en paralelo, cada uno con estados «sin enviar», «enviando» y «enviado»: 3³ = 27 estados globales. Con diez estudiantes, 3¹⁰ = 59.049. Con simetría (los estudiantes son intercambiables), basta contar cuántos hay en cada estado: la combinación (2 sin enviar, 1 enviando, 0 enviado) representa a todas las asignaciones equivalentes, y el espacio se reduce a unas decenas de configuraciones. (Cálculo propio para ilustrar la defensa de [SE-161](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md).)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La verificación tarda horas con pocos componentes** — causa: explosión de estados sin reducción. Corrección: abstraer detalles, acotar N y aplicar simetría solo a componentes intercambiables. ([SE-161](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md))
+- **La verificación tarda horas con pocos componentes**: explosión sin reducción; corrección: abstraer detalles, acotar N y aplicar simetría solo a componentes intercambiables.
+- **Reducir por simetría componentes que no lo son.**
+- **Abstraer lo que causa el defecto.**
+- **Confundirla con la complejidad de un algoritmo**: aquí crece el número de configuraciones del sistema.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-161 — Máquinas de estado y model checking introductorio](../../../classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): estados e intercalados idénticos, tiempos y resultados con hilos reales variables. No se usó TLA+ ni SPIN, el modelo es una abstracción de cinco estados y no se verificó ningún código real. La siguiente clase pregunta cómo se valida lo que viaja entre esas entidades.
+Las defensas aceptan perder garantía: lo verificado con N pequeño no prueba N grande. En modelos muy secuenciales con pocos componentes, el problema no aparece. Algunas técnicas (verificación simbólica, ejecución parcial del espacio) amplían lo verificable, pero no eliminan el crecimiento exponencial en general.
 
 ## Relación con otros conceptos
 

@@ -2,48 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Operación](./operacion.md) · [Operadores como álgebra de flujos →](./operadores-como-algebra-de-flujos.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 14](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md)
 
 ## Definición
 
-Operación cuyo efecto en el estado es el mismo al aplicarla una vez o varias.
-
-Definición de trabajo de [SE-171 — Interacción, affordances y retroalimentación](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md).
+Una **operación idempotente** es aquella cuyo efecto en el estado es el mismo al aplicarla una vez o varias ([SE-171](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md), [SE-260](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md), [SE-392](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md)). «Fijar la nota del estudiante 17 en 6,0» es idempotente; «sumar 0,5 a la nota» no. En HTTP, `PUT` y `DELETE` se definen como idempotentes porque describen un estado destino.
 
 ## Por qué importa
 
-En [SE-260 — Offline-first y resolución de conflictos](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md), el tema «Operaciones idempotentes» importa porque una operación que se puede aplicar dos veces sin cambiar el resultado permite reintentar sin miedo.
-
-En [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md), el tema «Operaciones idempotentes» importa porque una repetición inofensiva evita coordinar.
+Permite reintentar sin miedo. Cuando la red falla, el cliente no sabe si el servidor recibió la operación; reintentar es la única opción, y solo es segura si aplicar la operación dos veces equivale a aplicarla una. Una repetición inofensiva además evita coordinar: no hace falta un protocolo para saber si ya se hizo.
 
 ## Cómo funciona
 
-Según [SE-260 — Offline-first y resolución de conflictos](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md), en la sección «Operaciones idempotentes»:
+[SE-260](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md) explica que el cliente, ante un error de red, no distingue entre «la petición no llegó» y «llegó y se perdió la respuesta». Reintentar sin idempotencia puede aplicar el efecto dos veces. RFC 9110 define la idempotencia de los métodos HTTP como propiedad **del efecto**, no de la forma de la petición: `PUT` lo es, `POST` no por defecto.
 
-Cuando la red falla, el cliente no sabe si el servidor recibió la operación. Reintentar es la única opción, y solo es segura si aplicar la misma operación dos veces equivale a aplicarla una. Se logra con un identificador único por operación que el servidor recuerda. RFC 9110 define la idempotencia de los métodos HTTP como propiedad del efecto, no de la forma de la petición: `PUT` lo es, `POST` no por defecto.
+Hay dos caminos para lograrla. **Cambiar qué se envía**: en lugar de «incrementa el contador» (no idempotente), se envía «la entrega 42 fue recibida» (idempotente: registrar el hecho dos veces deja el mismo estado), o «fija la nota en 6,0» en lugar de «suma 0,5». **Añadir un identificador único por operación** que el servidor recuerda: una clave de idempotencia permite que operaciones no idempotentes por naturaleza (crear, cobrar) se reintenten con seguridad. Del lado del receptor de mensajes, el equivalente es el consumidor idempotente.
 
-Según [SE-392 — Idempotencia y procesamiento distribuido](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md), en la sección «Operaciones idempotentes»:
-
-Una operación es **idempotente** si repetirla produce el mismo estado que ejecutarla una vez. «Fijar la nota del estudiante 17 en 6,0» lo es; «sumar 0,5 a la nota» no. Los métodos PUT y DELETE de HTTP se definen como idempotentes porque describen un estado destino. Convertir una operación no idempotente en idempotente suele consistir en cambiar *qué* se envía: no «incrementa el contador» sino «la entrega 8 301 del curso 12 existe», de modo que contar entregas distintas da lo mismo aunque el mensaje llegue tres veces. Cuando eso no es posible, se añade una clave que permite reconocer la repetición.
+[SE-171](../../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md) y [SE-260](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md) sitúan esto en el contexto de un cliente que sincroniza con conflictos: la política de conflicto por dato (último escritor, conservar ambas versiones, fusionar operaciones) interactúa con la idempotencia. Un fallo que aparece sin ella: un comentario añadido sin conexión desaparece porque se copió el estado de la última réplica en llegar; fusionar operaciones, no estados, lo evita.
 
 ## Ejemplo
 
-Ejemplo de [SE-260 — Offline-first y resolución de conflictos](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md) (sección «Caso conductor»):
-
-El cliente de entregas de la [Parte 21](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) deja aquí su política de conflicto por dato y su regla de operaciones idempotentes. `SE-261` mide el coste en recursos de sincronizar, `SE-262` firma y valida lo que viaja, y `SE-264` integra el protocolo en el proyecto. Cambia después una sola decisión, el título pasa de último escritor a conservar ambas versiones, y revisa qué pantallas y qué pruebas cambian.
+El cliente envía `PUT /entregas/42/nota {valor: 6.0}`. La respuesta se pierde y reintenta. El servidor aplica «nota = 6,0» dos veces: el estado es el mismo. Con `POST /entregas/42/ajustes {suma: 0.5}`, el mismo reintento daría 7,0 en lugar de 6,5; la corrección es o cambiar el mensaje a «nota = 6,5» o enviar con una clave de idempotencia. (Ilustración del principio de [SE-260](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md) y [SE-392](../../../classes/part-32-concurrencia-y-sistemas-distribuidos/se-392-idempotencia-y-procesamiento-distribuido/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-260 — Offline-first y resolución de conflictos](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md)) son:
-
-- **Un comentario añadido sin conexión desaparece** — causa: se copió el estado de la última réplica en llegar. Corrección: fusionar operaciones y usar una estructura que conserve altas.
-- **Un contador cuenta la mitad de los cambios** — causa: se sincroniza el valor con «el último gana». Corrección: contador por réplica o recalcular del registro de operaciones.
+- **Creer que reintentar es siempre seguro.**
+- **Confundir idempotente con «sin efectos»**: tiene efecto, una vez.
+- **Asumir que `POST` es idempotente.**
+- **Idempotente respecto del estado, no de la respuesta**: el segundo `DELETE` puede devolver otro código sin cambiar el estado.
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- **Dónde deja de valer:** la operación «sumar uno» es la más sensible a la duplicación; una operación idempotente por naturaleza (asignar un valor) no lo sería. ([SE-260](../../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md))
+No todas las operaciones se pueden reformular como idempotentes (enviar un correo, cobrar); ahí se usan claves de idempotencia y deduplicación. La idempotencia no resuelve el orden ni la concurrencia: dos operaciones idempotentes distintas pueden interferir entre sí.
 
 ## Relación con otros conceptos
 

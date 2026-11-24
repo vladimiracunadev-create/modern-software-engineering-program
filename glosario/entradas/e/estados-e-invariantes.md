@@ -2,40 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Estado válido](./estado-valido.md) · [Estampida →](./estampida.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 12](../../../classes/part-12-ingenieria-de-requisitos/README.md)
 
 ## Definición
 
-Situaciones por las que pasa una entidad y propiedades que deben cumplirse en todas.
-
-Definición de trabajo de [SE-146 — Requisitos funcionales y reglas de negocio](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md).
+Los **estados** son las situaciones por las que pasa una entidad (por ejemplo, una entrega: borrador, enviada, en revisión, calificada), y los **invariantes** son las propiedades que deben cumplirse en todas ellas ([SE-146](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md)). La pareja es una herramienta de requisitos: el ciclo de vida de la entidad se modela con estados y lo que nunca debe romperse se escribe como invariante.
 
 ## Por qué importa
 
-En [SE-146 — Requisitos funcionales y reglas de negocio](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md), el tema «Estados e invariantes» importa porque lo que siempre debe ser cierto (una entrega enviada no se edita) se verifica en cada transición.
+Lo que siempre debe ser cierto se verifica en cada transición. Sin invariantes explícitos, las reglas viven repartidas en el código y cada ruta de cambio las respeta o no. Cambia el modo de especificar: en lugar de repetir la misma regla en cada operación, se escribe una vez como invariante y se comprueba siempre.
 
 ## Cómo funciona
 
-Según [SE-146 — Requisitos funcionales y reglas de negocio](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md), en la sección «Estados e invariantes»:
+[SE-146](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md) ilustra con una entrega que pasa por borrador, enviada, en revisión y calificada. Ciertas propiedades deben cumplirse **siempre**: una entrega calificada no se modifica sin reabrirse; una entrega enviada tiene fecha de envío. Un **invariante** es una regla que **no depende de la transición que ocurra**: se escribe una vez y se comprueba en cada una (en la frontera de cada operación que cambia el estado).
 
-Una entrega pasa por estados (borrador, enviada, en revisión, calificada) y ciertas propiedades deben cumplirse siempre: una entrega calificada no se modifica sin reabrirse, una entrega enviada tiene fecha de envío. Un invariante es una regla que no depende de la transición que ocurra; se escribe una vez y se comprueba en cada una. Descubrir que algo debería ser un invariante es parte del análisis: aparece cuando alguien dice «eso nunca debería pasar» y nadie sabe dónde se garantiza.
+La utilidad analítica es doble. Primero, los estados delimitan qué operaciones son válidas en cada situación: «editar» no está permitido en «calificada». Segundo, **descubrir que algo debería ser un invariante** es parte del análisis de requisitos: aparece cuando alguien pregunta «¿puede pasar que…?» y la respuesta es «nunca». Escribirlo evita que cada operación tenga que recordarlo.
+
+Los estados se representan con una máquina de estados (transiciones entre ellos) y, para verificar, los invariantes se comprueban sobre todos los estados alcanzables. Un invariante que falla lejos de donde se corrompió el estado indica que se comprueba tarde: la corrección es comprobarlo en la frontera de cada operación pública, al menos en pruebas.
+
+La política de entregas tardías de la plataforma se registra como regla con identificador, texto, responsable y fecha, separada del requisito que la aplica, de modo que la regla vive en un solo punto.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-146 — Requisitos funcionales y reglas de negocio](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md):
-
-La política de entregas tardías se registra como regla con identificador, texto, responsable y fecha, separada del requisito que la aplica:
+Estados de una entrega: borrador → enviada → en revisión → calificada. Invariantes: (1) toda entrega enviada tiene fecha de envío; (2) una entrega calificada tiene nota entre 0 y 100; (3) una entrega calificada no se modifica sin reabrirse. La operación «editar texto» se rechaza si el estado es «calificada»; la operación «calificar» comprueba que el resultado respete (2) antes de confirmar. (Ejemplo derivado de [SE-146](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-146 — Requisitos funcionales y reglas de negocio](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md)) son:
-
-- **Dos módulos calculan una nota distinta para la misma entrega** — causa: la regla vive duplicada en el código y cada copia evolucionó por su lado. Corrección: extraer la regla a un único punto con identificador y responsable.
-- **El comité de política pregunta «¿qué pasa si…?» y nadie lo sabe** — causa: se redactaron solo los casos felices. Corrección: enumerar combinaciones y asignar a cada una una acción o una decisión pendiente.
+- **Dos módulos calculan notas distintas**: la regla vive duplicada; corrección: único punto con identificador y responsable.
+- **El comité pregunta «¿qué pasa si…?» y nadie lo sabe**: solo se redactaron casos felices; corrección: enumerar combinaciones y asignar acción o decisión pendiente.
+- **Confundir estado con dato**: no todo valor de un campo es un estado.
+- **Invariantes comprobados solo al final.**
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-146 — Requisitos funcionales y reglas de negocio](../../../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con reglas y fechas sintéticas en Windows y Ubuntu (WSL2) con resultados idénticos. No se consultó ningún reglamento real, los mutantes y las reglas son del autor y las fechas de cambio de hora corresponden a la base de zonas instalada. La siguiente clase pregunta qué calidad debe tener lo que la regla produce: cuán rápido, cuán disponible, cuán seguro.
+El modelo de estados cubre el comportamiento modelado; si falta un estado, falta una regla. Con muchos estados y componentes concurrentes, el espacio se multiplica (explosión de estados). Algunos invariantes dependen de más de una entidad o de tiempo, y son más difíciles de comprobar localmente.
 
 ## Relación con otros conceptos
 

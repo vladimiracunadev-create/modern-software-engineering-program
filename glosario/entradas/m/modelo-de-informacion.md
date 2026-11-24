@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Modelo de fallos](./modelo-de-fallos.md) · [Modelo de ingreso →](./modelo-de-ingreso.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Descripción de los datos almacenados, sus claves, unicidades y restricciones.
-
-Definición de trabajo de [SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md).
+Un **modelo de información** es la descripción de los datos almacenados, sus claves, unicidades y restricciones ([SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md)). Dice qué entidades existen, qué campos tiene cada una, cómo se relacionan y qué debe cumplirse siempre. No es el diseño de pantallas ni el de componentes: es la forma de lo que se guarda.
 
 ## Por qué importa
 
-En [SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md), el tema «Modelos de información» importa porque muestran qué se guarda y con qué restricciones; deciden dónde puede aparecer una inconsistencia.
+Muestra qué se guarda y con qué restricciones, y por eso decide **dónde puede aparecer una inconsistencia**. Dos lugares que guardan el mismo hecho pueden divergir; una restricción ausente permite datos que no deberían existir. Cambia el diseño de almacenamiento y de validación: el modelo es la fuente de las reglas de integridad.
 
 ## Cómo funciona
 
-Según [SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md), en la sección «Modelos de información»:
+El modelo declara qué datos se almacenan, cuáles son **claves**, qué es **único** y qué **restricciones** se cumplen. [SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) desarrolla la **normalización** de Codd: organizar los datos para que cada hecho se guarde en un solo lugar (el nombre de un curso no se repite en cada entrega). Su efecto es eliminar una clase de inconsistencia (dos nombres para el mismo curso, una actualización que olvida una copia); su costo es leer con uniones. Desnormalizar, es decir, duplicar a propósito para leer más rápido, es una decisión que se toma con conocimiento del riesgo y con un mecanismo que mantenga las copias coherentes.
 
-Un modelo de información declara qué datos se almacenan, cuáles son claves, qué es único y qué restricciones se cumplen. La **normalización** de Codd organiza los datos para que cada hecho se guarde en un solo lugar: el nombre de un curso no se repite en cada entrega. Su efecto es eliminar una clase de inconsistencia (dos nombres para el mismo curso); su coste es leer con uniones. La decisión de desnormalizar es legítima cuando la lectura domina y la escritura es controlada, pero debe tomarse sabiendo qué inconsistencia se acepta.
+En la plataforma de entregas, el modelo de entidades vive en un **archivo estructurado junto al código** (entidad, campos con tipo, referencias con cardinalidad). Se verifica de dos maneras: un comprobador de integración continua revisa la consistencia estructural (referencias a entidades existentes, claves definidas), y un segundo extrae del código las clases (con `ast`) y compara nombres y tipos con el modelo, fallando con un mensaje que dice qué cambio de qué archivo causó la divergencia. Los diagramas se generan del archivo, no se dibujan a mano.
+
+La clase advierte un límite: el comprobador estructural puede dar verde con la **relación invertida**, porque la semántica (si un curso tiene muchas entregas o al revés) no es comprobable estructuralmente. Hace falta revisión por una persona con el dominio y ejemplos de datos que contradigan la relación.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md):
-
-En la plataforma, el modelo de entidades vive en un archivo estructurado junto al código (entidad, campos con tipo, referencias con cardinalidad). Un comprobador de integración continua verifica la consistencia estructural; un segundo extrae del código las clases con `ast` y compara nombres y tipos con el modelo, y falla con un mensaje que dice qué cambio de qué archivo causó la divergencia. Los diagramas para humanos se generan a partir de ese archivo, no al revés.
+Entidades: `Curso(id, nombre)`, `Entrega(id, curso_id, estudiante_id, enviada_en)`. Restricciones: `Curso.id` es clave; `Entrega.curso_id` referencia a `Curso`; `(estudiante_id, curso_id, tarea_id)` es único. Si el nombre del curso se copiara en `Entrega`, un cambio de nombre exigiría actualizar miles de filas y podría dejar versiones distintas; con la clave foránea, el nombre vive en un solo lugar. (Ilustración del principio de [SE-160](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md)) son:
-
-- **El diagrama no coincide con la base en producción** — causa: se dibujó una vez y no se comprueba. Corrección: generar el diagrama desde un archivo que se compara con el código o la base.
-- **El comprobador estructural da verde y la relación está invertida** — causa: la semántica no es comprobable estructuralmente. Corrección: revisión por una persona con el dominio y ejemplos de datos que contradigan la relación.
+- **El diagrama no coincide con la base en producción**: se dibujó una vez y no se comprueba; corrección: generarlo de un archivo que se compara con el código o la base.
+- **Verde estructural con relación invertida**: la semántica no se comprueba estructuralmente.
+- **Desnormalizar sin mecanismo de coherencia.**
+- **Confundirlo con el modelo de datos físico**: el de información es el nivel conceptual.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-160 — Modelos estructurales, conductuales y de información](../../../classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió el coste de lectura con uniones, no se usó una herramienta de modelado ni se comparó con un sistema real, y las mutaciones son construcciones del autor. La siguiente clase toma la entidad `Entrega` y pregunta cómo se explora todo su comportamiento posible.
+La normalización completa no siempre conviene en sistemas de lectura intensiva ni en almacenes analíticos. El modelo describe el estado, no el comportamiento. Y un modelo perfecto no protege de datos mal ingresados: hacen falta validaciones en la frontera.
 
 ## Relación con otros conceptos
 

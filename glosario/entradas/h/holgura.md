@@ -2,50 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← HMAC](./hmac.md) · [Hook →](./hook.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 15](../../../classes/part-15-procesos-planificacion-y-estimacion/README.md)
 
 ## Definición
 
-Capacidad no usada que permite absorber un aumento de carga.
-
-Definición de trabajo de [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md).
-
-El programa usa el término con matices según la clase; el sentido principal es el anterior y los demás lo precisan:
-
-- En [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md): Tiempo que un elemento puede retrasarse sin retrasar la entrega.
-- En [SE-370 — Costos y operación de plataformas de datos](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md): Tiempo que una tarea puede retrasarse sin retrasar la entrega.
+La **holgura** tiene en el programa dos sentidos relacionados. En planificación ([SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md), [SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md)) es el tiempo que un elemento o tarea puede retrasarse sin retrasar la entrega. En capacidad y resiliencia ([SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md)) es la capacidad no usada que permite absorber un aumento de carga. Ambos comparten la idea de margen disponible antes de que algo se degrade.
 
 ## Por qué importa
 
-En [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md), el tema «Holgura y evacuación de regiones» importa porque perder una región traslada su carga a las demás.
+La holgura dice dónde un retraso o un exceso de carga se absorbe y dónde no. En un plan, indica qué elementos pueden esperar sin consecuencias. En una infraestructura, indica si perder una región o recibir un pico traslada el problema a las demás.
 
 ## Cómo funciona
 
-Según [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md):
+**En planificación.** Dada una red de dependencias con duraciones, el camino crítico es la cadena más larga; los elementos fuera de él tienen holgura. [SE-186](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) da un ejemplo mínimo: el camino crítico es B → C → D (3 + 2 + 1 = 6 días) y A tiene 1 día de holgura; si A se alarga a 4 días, A pasa a ser parte del camino crítico y la duración sube. La holgura de un elemento es la diferencia entre el camino crítico y el camino más largo que lo atraviesa. En un flujo de datos ([SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md)), las tareas que no están en el camino crítico pueden tardar más sin retrasar la entrega.
 
-Un experimento **difuso** reparte la falla sobre toda la capacidad: 5 % de las peticiones recibe una lentitud extra, y el aumento de consumo lo absorbe la holgura normal. Es útil para comprobar la corrección lógica de una alternativa y no para ver el comportamiento del sistema bajo falla a escala. Un experimento **concentrado** dirige una porción pequeña del tráfico a un grupo (un clúster de pocas instancias) y le aplica la falla a **todas** sus peticiones: el grupo cruza los umbrales críticos (hilos agotados, CPU de una alternativa costosa, cortacircuitos que se abren) mientras el resto del sistema no se entera.
+**En capacidad.** [SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md) la usa para el análisis de pérdida de regiones: cuando una región falla, su carga se traslada a las demás. Un experimento **difuso** reparte la falla sobre toda la capacidad (por ejemplo, 5 % de las peticiones recibe una lentitud extra) y el aumento de consumo lo absorbe la holgura normal; sirve para comprobar la lógica de una alternativa, no el comportamiento a escala. La evacuación completa de una región exige que las demás tengan holgura suficiente: con R regiones a utilización u, perder una eleva la utilización de las restantes a u·R/(R−1). Si el resultado supera la capacidad, la evacuación colapsa a las demás.
 
-Según [SE-515 — Taller: ejecutar un experimento de caos acotado con criterio de aborto](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md):
-
-Traslada el análisis a otro servicio (un buscador, una pasarela de pagos): calcula su holgura entre regiones, decide si un experimento concentrado es posible con su número de instancias y escribe las precondiciones. La transferencia está lograda cuando puedes decir qué precondición no cumplirías hoy y cuál es el siguiente paso para cumplirla, no cuando el plan está firmado.
+La causa del colapso es calcular la holgura con la capacidad **nominal** y no la real; la corrección es calcular `u·R/(R−1)` y probarlo con tráfico antes. [SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md) pide además escribir las precondiciones de un experimento concentrado y comprobar cuáles no se cumplirían hoy.
 
 ## Ejemplo
 
-Ejemplo de [SE-186 — Planificación de entregas y gestión de dependencias](../../../classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md) (sección «Ejemplo mínimo»):
-
-El camino crítico es B → C → D (3 + 2 + 1 = 6 días); A tiene 1 día de holgura. Registra versión, comando y salida; después alarga A a 4 días y predice el nuevo camino crítico.
+Tres regiones a una utilización del 60 %. Al perder una, las dos restantes asumen su carga: 0,6 × 3 / 2 = 0,9, es decir 90 % de utilización; queda poca holgura para picos. Con cuatro regiones al 60 %, el resultado es 0,6 × 4 / 3 = 80 %. (Cálculo con la fórmula de [SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md); los valores son de ejemplo.)
 
 ## Errores y confusiones comunes
 
-Errores que las clases asocian con este término (síntoma → causa → corrección):
-
-- **La evacuación de una región colapsa a las demás** — causa: holgura calculada con la capacidad nominal y no la real. Corrección: calcular `u·R/(R−1)` y probarlo con tráfico antes. ([SE-515](../../../classes/part-42-ingenieria-del-caos/se-515-taller-ejecutar-un-experimento-de-caos-acotado-con-criterio-de-aborto/README.md))
+- **La evacuación de una región colapsa a las demás**: holgura calculada con capacidad nominal; corrección: `u·R/(R−1)` y prueba con tráfico.
+- **Confundir holgura con desperdicio**: es un margen que protege.
+- **Asumir que un elemento con holgura puede alargarse sin límite.**
+- **No recalcular tras cambios en la red.**
 
 ## Límites y cuándo no aplica
 
-Lo que las clases dicen sobre dónde deja de valer este término:
-
-- Las otras tareas (`ingest_customers`, `dim_customer`, `mart_daily`) tienen holgura: pueden tardar más sin retrasar la entrega. ([SE-370](../../../classes/part-30-ingenieria-de-datos-y-plataformas-de-datos/se-370-costos-y-operacion-de-plataformas-de-datos/README.md))
+La holgura de planificación supone duraciones fijas; con duraciones inciertas, elementos con holgura pueden volverse críticos. La de capacidad depende de que la carga se redistribuya de forma pareja, lo que no siempre ocurre. Operar sin holgura abarata, pero reduce la tolerancia a fallos.
 
 ## Relación con otros conceptos
 

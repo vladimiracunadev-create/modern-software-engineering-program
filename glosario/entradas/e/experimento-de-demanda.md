@@ -2,40 +2,42 @@
 
 [↑ Glosario](../../README.md) · [← Experimento de aprendizaje](./experimento-de-aprendizaje.md) · [Experimento difuso →](./experimento-difuso.md)
 
-> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** práctica o técnica · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Prueba que registra una acción costosa para la persona (hacer clic, registrarse, pagar, comprometer tiempo) como señal de interés.
-
-Definición de trabajo de [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md).
+Un **experimento de demanda** es una prueba que registra una acción costosa para la persona (hacer clic, registrarse, pagar, comprometer tiempo) como señal de interés ([SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)). Se opone a preguntar si alguien lo usaría: observa comportamiento, no opinión.
 
 ## Por qué importa
 
-En [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md), el tema «Experimento de demanda» importa porque observar lo que la gente hace con un compromiso pequeño cuesta menos que construir y mide más que preguntar.
+Observar lo que la gente hace con un compromiso pequeño cuesta menos que construir y mide más que preguntar. Las personas dicen que sí con facilidad; actuar cuesta algo. Cambia la decisión de cuándo construir: antes de invertir en una función completa se comprueba si alguien da un paso concreto hacia ella.
 
 ## Cómo funciona
 
-Según [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md), en la sección «Experimento de demanda»:
+[SE-127](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md) describe tres formas con grado creciente de compromiso del equipo:
 
-Una puerta falsa muestra la oferta y mide cuántas personas hacen clic para pedirla; un mago de Oz entrega el servicio a mano a unas pocas; un concierge lo hace con acompañamiento total. Todas observan comportamiento y no opinión, y todas deben ser honestas con la persona (nadie debe creer que recibió algo que no existe sin una explicación posterior). El compromiso exigido importa: un clic cuesta casi nada; entregar un borrador real o reservar una cita cuesta algo, y por eso dice más.
+- una **puerta falsa**: se muestra la oferta y se mide cuántas personas hacen clic para pedirla;
+- un **mago de Oz**: el servicio se entrega a mano a unas pocas personas, como si fuera automático;
+- un **concierge**: se hace con acompañamiento total, para aprender cómo se hace.
+
+Todas observan comportamiento y no opinión, y **todas deben ser honestas con la persona**: nadie debe creer que recibió algo que no existe sin una explicación posterior. El **compromiso exigido** importa: un clic cuesta casi nada y una señal así es débil; entregar un borrador, registrarse con un correo o pagar es una señal más fuerte. Cuanto más cuesta la acción, más informa, pero menos gente la hace.
+
+La lectura exige el plan previo: la hipótesis, la diferencia mínima relevante, el tamaño por rama y la potencia, el calendario de análisis (una mirada o un método secuencial declarado), la población, el criterio de asignación, el intervalo esperado y las decisiones asociadas a cada resultado posible. El plan se fecha antes de empezar y no se reescribe tras mirar los datos. Y el resultado se interpreta con su incertidumbre: 8 % de clics en 20 personas es compatible con entre 3 % y 30 %, y si el intervalo atraviesa el umbral de decisión el resultado es inconcluso.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md):
-
-En la plataforma de entregas, el plan de experimento conserva la hipótesis, la diferencia mínima relevante, el tamaño por rama y la potencia, el calendario de análisis (una mirada o un método secuencial declarado), la población, el criterio de asignación, el intervalo esperado y las decisiones asociadas a cada resultado posible. El contrato es que el plan se fecha antes de empezar y no se reescribe después de mirar los datos.
+Una puerta falsa muestra «Recuperación de borradores con historial» a 500 estudiantes con un botón «Activar». Hacen clic 40 (8 %) y se les muestra un mensaje honesto («aún no está disponible; te avisaremos»). Con un umbral de decisión del 5 %, el intervalo para 40/500 está por encima del umbral y se justifica el siguiente paso. Un mago de Oz con diez docentes, donde el equipo restaura borradores a mano, mide si la usan una segunda vez. (Ilustración del método; cifras de ejemplo.)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)) son:
-
-- **La prueba «ganadora» desaparece al repetirla** — causa: se detuvo al primer resultado significativo tras mirar muchas veces. Corrección: fijar el tamaño y el calendario de análisis o usar un método secuencial.
-- **El experimento dice «no hay diferencia» siempre** — causa: la muestra no tenía potencia para el efecto buscado. Corrección: calcular el tamaño por rama antes de empezar y cambiar de método si es inalcanzable.
+- **La prueba «ganadora» desaparece al repetirla**: se detuvo al primer resultado significativo tras mirar muchas veces; corrección: fijar tamaño y calendario.
+- **«No hay diferencia» siempre**: muestra sin potencia.
+- **Engañar a la persona**: debe haber explicación posterior.
+- **Tomar un clic por demanda** sin considerar el costo de la acción.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-127 — Prototipos, experimentos y reducción de incertidumbre](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres cálculos y simulaciones con tasas supuestas en Windows y Ubuntu (WSL2) con salidas idénticas. No se probó ningún prototipo con personas, no se midió efecto de novedad ni interferencia entre ramas. La siguiente clase usa lo aprendido para priorizar por valor, riesgo y aprendizaje.
+Mide interés inicial, no valor sostenido ni disposición a pagar a largo plazo. Con poblaciones pequeñas, el intervalo es ancho. No es adecuado cuando hacerlo erosionaría la confianza (productos sensibles) o cuando la expectativa creada no puede cumplirse.
 
 ## Relación con otros conceptos
 

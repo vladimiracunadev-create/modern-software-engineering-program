@@ -2,40 +2,40 @@
 
 [↑ Glosario](../../README.md) · [← Especificación del experimento](./especificacion-del-experimento.md) · [Especificación informal →](./especificacion-informal.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 13](../../../classes/part-13-especificaciones-contratos-y-modelos/README.md)
 
 ## Definición
 
-Descripción en una notación con semántica definida, ejecutable o comprobable por una herramienta, en un dominio acotado o con una demostración.
-
-Definición de trabajo de [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md).
+Una **especificación formal** es una descripción en una notación con semántica definida, ejecutable o comprobable por una herramienta, en un dominio acotado o con una demostración ([SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md)). Es el nivel más riguroso de una escala que empieza en la especificación informal (prosa) y pasa por la semiformal (estructura comprobable).
 
 ## Por qué importa
 
-En [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md), el tema «Especificación formal» importa porque un predicado sin ambigüedad se comprueba mecánicamente en un dominio acotado, a cambio de esfuerzo y de leerse con dificultad.
+Un predicado sin ambigüedad se comprueba mecánicamente, a cambio de esfuerzo y de leerse con dificultad. Cambia lo que se puede afirmar de una implementación: no «cumple, según las pruebas que escribimos» sino «coincide con la referencia en todo el dominio acotado». Para reglas de alto riesgo es la diferencia entre un acuerdo aparente y una comprobación.
 
 ## Cómo funciona
 
-Según [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md), en la sección «Especificación formal»:
+[SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) ejemplifica con la penalización de la plataforma de entregas: `nota_final(n, h) = redondear(n · (1 − min(0,10 · ⌈h/24⌉, 0,50)))` para `h > 0`. Esta fórmula **no admite lecturas**: fija el redondeo, el tope (50 %), la unidad de retraso (bloques de 24 horas, redondeando hacia arriba) y el cálculo del número de días.
 
-Un predicado como `nota_final(n, h) = redondear(n · (1 − min(0,10 · ⌈h/24⌉, 0,50)))` para `h > 0` no admite lecturas: fija el redondeo, el tope y el cálculo del número de días. Su valor es que se ejecuta: el predicado se transforma en una función de referencia con la que comparar cualquier implementación en todo un dominio acotado. El coste es doble: escribirlo exige acordar antes todos los puntos abiertos, y leerlo exige formación. Hall recuerda que formal no es sinónimo de correcto: la especificación puede describir con exactitud algo que nadie quería.
+Su valor principal es que **se ejecuta**: el predicado se transforma en una **función de referencia** con la que comparar cualquier implementación en todo un dominio acotado (por ejemplo, todas las notas de 0 a 100 en saltos de uno y todos los retrasos de 1 a 200 horas). La comparación exhaustiva encuentra diferencias que ninguna prueba de ejemplos habría buscado.
+
+El coste es **doble**: escribirlo exige acordar antes todos los puntos abiertos (qué es un día, cómo se redondea, cuál es el tope), y leerlo exige formación; quien decide la política puede no entender la fórmula. Por eso la plataforma publica la regla en tres artefactos coordinados: prosa en la política académica (una frase con los cuatro términos definidos), tabla de decisión en el documento de diseño y predicado en una función de referencia con sus pruebas.
+
+La clase aclara dos límites: la especificación formal da la referencia contra la que se prueba, pero **hay que ejecutar esa comparación**; y **no protege de especificar lo que nadie quería**: el predicado es exacto y podría ser el equivocado.
 
 ## Ejemplo
 
-Ejemplo de [SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) (sección «Preguntas frecuentes»):
-
-No: la especificación formal da la referencia contra la que se prueba y permite comprobar todo un dominio acotado, pero hay que ejecutar esa comparación contra la implementación. Y no protege de especificar lo que nadie quería: el predicado de la clase es exacto y podría ser el equivocado.
+Con la función de referencia anterior, un equipo compara su implementación de producción para h de 1 a 200 y n de 0 a 100: 20.100 casos. La comparación revela que la implementación redondea hacia abajo con 24 h exactas (cuenta un día menos), una diferencia que las pruebas de ejemplos típicos no cubrían. (Ilustración construida sobre el predicado de [SE-157](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md)) son:
-
-- **Dos sistemas dan notas distintas para la misma entrega y ambos «cumplen» la política** — causa: la frase admite varias lecturas y nadie ejecutó ninguna. Corrección: enumerar las lecturas, elegir una, y escribirla como predicado y como ejemplos de frontera.
-- **Los ejemplos de la política son todos del camino típico y los defectos aparecen en el límite** — causa: se eligió el ejemplo más natural y no el que más separa lecturas. Corrección: añadir ejemplos en múltiplos de 24 horas, en el tope y en nota 0.
+- **Creer que formal implica correcta**: el predicado puede ser exacto y equivocado.
+- **No ejecutar la comparación.**
+- **Formalizar todo**: el costo no se justifica para reglas simples o de bajo riesgo.
+- **Dos sistemas dan notas distintas y ambos «cumplen»**: sin predicado, la política admite varias lecturas.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-157 — Especificación informal, semiformal y formal](../../../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia académica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos de enumeración. No se midió a ningún equipo ni persona: las dieciséis lecturas y el defecto de frontera son construcciones del autor. La siguiente clase pregunta cómo los ejemplos con significado se convierten en la especificación que todos revisan.
+Solo comprueba el dominio acotado que se ejecuta; fuera de él no hay garantía salvo una demostración. Exige capacidades específicas del equipo y tiempo. Para requisitos de interfaz o de experiencia de usuario, una notación formal rinde poco.
 
 ## Relación con otros conceptos
 

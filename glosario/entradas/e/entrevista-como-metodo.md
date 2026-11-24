@@ -2,40 +2,38 @@
 
 [↑ Glosario](../../README.md) · [← Entrelazamiento](./entrelazamiento.md) · [Entrevista estructurada →](./entrevista-estructurada.md)
 
-> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** compuesta desde las clases · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
+> **Tipo:** concepto · **Nivel:** troncal · **Profundidad:** desarrollada · **Familia:** C — Producto, requisitos y especificación · **Primera aparición:** [Parte 10](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/README.md)
 
 ## Definición
 
-Conversación estructurada con una persona para obtener descripciones de su experiencia, que se registran y analizan como evidencia situada.
-
-Definición de trabajo de [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md).
+La **entrevista como método** es una conversación estructurada con una persona para obtener descripciones de su experiencia, que se registran y analizan como evidencia situada ([SE-123](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)). «Situada» significa que vale para esa persona, en ese momento y contexto, y no para una población.
 
 ## Por qué importa
 
-En [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md), el tema «Entrevista como método» importa porque una entrevista produce evidencia situada y declarada, no una medición representativa.
+Una entrevista produce evidencia declarada y situada, no una medición representativa. Cambia qué se le pide y qué se le atribuye: la entrevista es excelente para descubrir problemas, vocabulario y razones, y mala para estimar cuánta gente comparte una experiencia. Confundir ambas cosas lleva a conclusiones con apariencia estadística sin fundamento.
 
 ## Cómo funciona
 
-Según [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md), en la sección «Entrevista como método»:
+La entrevista recoge **lo que una persona recuerda y decide contar a otra en un momento concreto**. Lo que dice depende de quién pregunta, cómo y para qué; por eso se registra la guía de preguntas, el contexto y también lo que **no** se preguntó. El registro de la plataforma de entregas conserva: participante (un código, no el nombre), fecha, quién entrevistó, la guía usada, el motivo de selección, la transcripción o notas literales y los códigos asignados con quién los asignó.
 
-La entrevista recoge lo que una persona recuerda y decide contar a otra en un momento concreto. Es excelente para descubrir problemas, vocabulario y razones, y mala para estimar cuánta gente comparte una experiencia. Lo que dice depende de quién pregunta, cómo y para qué; por eso se registra la guía de preguntas, el contexto y lo que no se preguntó. Tratar un conjunto de entrevistas como encuesta (porcentajes, representatividad) mezcla métodos con garantías distintas. Un informe honesto separa lo que se escuchó de lo que se infiere.
+El contrato de uso: el informe solo puede citar fragmentos que existan en el registro, y cada afirmación declara cuántas personas la respaldan. Tratar un conjunto de entrevistas como encuesta (porcentajes, representatividad) es el error principal. Una consecuencia concreta es la lectura de las ausencias: con una muestra pequeña, que nadie mencione un tema no prueba que el tema no importe. [SE-123](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md) propone calcular la probabilidad de **no oír** un tema aunque lo viva una fracción apreciable de la población: si el 20 % de las personas lo vive y se entrevista a 8, la probabilidad de no oírlo es 0,8⁸ ≈ 17 %.
+
+Otro factor es la **forma de las preguntas**: las preguntas hipotéticas o guiadas invitan a la cortesía, y las respuestas suenan todas iguales y amables. Se corrige preguntando por episodios pasados concretos y sondeando con «¿y entonces qué hiciste?». La entrevista se complementa con observación y con datos de uso.
 
 ## Ejemplo
 
-Contexto concreto en el que aparece el término, de la sección «Ejemplo profesional» de [SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md):
-
-En la plataforma de entregas, el registro de una entrevista conserva participante (código, no nombre), fecha, quién entrevistó, la guía usada, el motivo de selección, la transcripción o notas literales y los códigos asignados con quién los asignó. El contrato es que el informe solo puede citar fragmentos que existan en el registro, y que cada afirmación declare cuántas personas la respaldan.
+Se entrevista a ocho docentes sobre cómo revisan entregas. Seis mencionan que abren cada entrega una a una; dos, que usan una hoja propia. El informe puede decir «seis de ocho entrevistados describen revisar entrega por entrega», pero no «el 75 % de los docentes». Y si nadie mencionó la accesibilidad, no puede concluir que no importa. (Ilustración del uso correcto de la entrevista según [SE-123](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md).)
 
 ## Errores y confusiones comunes
 
-Ningún error de las clases nombra este término; estos son los errores frecuentes del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son:
-
-- **El informe afirma que «nadie mencionó X, así que X no importa»** — causa: se interpretó la ausencia en una muestra pequeña como ausencia en la población. Corrección: calcular la probabilidad de no oír el tema y declararla en el informe.
-- **Las respuestas suenan todas iguales y amables** — causa: preguntas hipotéticas o guiadas que invitan a la cortesía. Corrección: preguntar por episodios pasados concretos y sondear con «¿y entonces qué hiciste?».
+- **«Nadie mencionó X, así que X no importa»**: se interpretó la ausencia en muestra pequeña como ausencia en la población; corrección: calcular la probabilidad de no oír el tema.
+- **Respuestas amables y uniformes**: preguntas hipotéticas o guiadas.
+- **Citar fragmentos que no existen en el registro.**
+- **Presentar porcentajes** de una muestra no representativa.
 
 ## Límites y cuándo no aplica
 
-Ninguna clase fija un límite propio para este término; estos son los límites del tema donde se enseña ([SE-123 — Investigación, entrevistas y evidencia cualitativa](../../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa/README.md)) son: Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final. Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se entrevistó a nadie, las prevalencias son supuestos y las codificadoras son simuladas. La siguiente clase convierte las citas verificadas en hipótesis y preguntas críticas que puedan refutarse.
+No estima prevalencia ni mide comportamiento real; lo que la gente dice que hace puede diferir de lo que hace. Con muestras muy pequeñas, los hallazgos son pistas. Para cuantificar se complementa con encuestas bien diseñadas o con datos de uso.
 
 ## Relación con otros conceptos
 

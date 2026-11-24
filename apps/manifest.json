@@ -5,8 +5,23 @@
   "commit": "87b9c8c5",
   "extended_commit": "6a8edba1",
   "extended_on": "2026-11-24",
-  "note": "Publicado el 2026-11-24 con los activos de Windows, el APK universal y sus sumas; ampliado el mismo dia con Linux (x86_64 y aarch64) y macOS (arm64 y x86_64).",
+  "note": "Publicado el 2026-11-24 con los activos de Windows, el APK universal y sus sumas; ampliado el mismo dia con Linux (x86_64 y aarch64) y macOS (arm64 y x86_64). Despues se anadieron los APK por ABI (identicos entre si) y SHA256SUMS-android-abi.txt.",
   "assets": [
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-android-arm64-v8a.apk",
+      "bytes": 33770080,
+      "sha256": "3f277a8f750a1114ca978f86294960169a1307e73854120b34add222bbf8a451"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-android-armeabi-v7a.apk",
+      "bytes": 33770080,
+      "sha256": "3f277a8f750a1114ca978f86294960169a1307e73854120b34add222bbf8a451"
+    },
+    {
+      "name": "Ingenieria-Software-Moderna-0.1.0-android-x86_64.apk",
+      "bytes": 33770080,
+      "sha256": "3f277a8f750a1114ca978f86294960169a1307e73854120b34add222bbf8a451"
+    },
     {
       "name": "Ingenieria-Software-Moderna-0.1.0-android.apk",
       "bytes": 33770080,
@@ -71,6 +86,11 @@
       "name": "Ingenieria-Software-Moderna-0.1.0-windows-x64.msi",
       "bytes": 23310067,
       "sha256": "6f4af3766c8b5557d559390f6d6fc51aa63450d37673ac1498f31a5273a037a4"
+    },
+    {
+      "name": "SHA256SUMS-android-abi.txt",
+      "bytes": 365,
+      "sha256": "d56d700598c3b7481582895e797cc4cb26e4590dde62d334ab25431306f2265d"
     },
     {
       "name": "SHA256SUMS-android.txt",

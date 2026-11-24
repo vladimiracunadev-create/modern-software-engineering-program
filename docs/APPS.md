@@ -23,11 +23,22 @@ descrito en [`PDF.md`](PDF.md)).
 
 > [!NOTE]
 > Los activos de Linux y macOS y los APK por ABI se añadieron a `v0.1.0` después de su
-> publicación inicial del 2026-11-24 (que traía los cuatro activos de Windows, el APK
-> universal y sus sumas). Android: `scripts/build_apps.py android-configure` activa los ABI
-> splits de Gradle (`arm64-v8a`, `armeabi-v7a`, `x86_64`), pero la app es una WebView sin
-> código nativo, así que los APK por ABI salen **byte a byte idénticos** al universal y no
-> se publican duplicados: el APK universal sirve en todos los móviles y emuladores.
+> publicación inicial del 2026-11-24 (cuatro activos de Windows, el APK universal y sus sumas).
+
+### Qué APK de Android elegir
+
+| Dispositivo | APK |
+| --- | --- |
+| Casi todos los móviles y tabletas actuales (ARM de 64 bits) | `...-android-arm64-v8a.apk` |
+| Móviles ARM de 32 bits antiguos | `...-android-armeabi-v7a.apk` |
+| Emuladores y Chromebooks (x86_64) | `...-android-x86_64.apk` |
+| No sé cuál es el mío | `...-android.apk` (universal) |
+
+`scripts/build_apps.py android-configure` activa los ABI splits de Gradle (`arm64-v8a`,
+`armeabi-v7a`, `x86_64`). La app es una WebView sin código nativo, así que **los tres APK por
+ABI salen byte a byte idénticos entre sí** (misma suma SHA-256, `SHA256SUMS-android-abi.txt`) y
+funcionan igual que el universal en cualquier arquitectura: la distinción es de nombre y
+elección, no de contenido. Si algún día se añade código nativo, cada APK llevará solo su ABI.
 
 ## Requisitos mínimos
 
